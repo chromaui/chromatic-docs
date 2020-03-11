@@ -1,0 +1,68 @@
+span.tooltip-trigger { display: inline-block; }
+
+// The qtip-content inside the trigger is what's copied into the global
+// tooltip that's put on top of everything. We aren't supposed to see it.
+.tooltip-trigger .qtip-content {
+  display: none;
+}
+
+.tooltip {
+  padding: 0 1rem;
+  border: none;
+  background: none;
+
+  .qtip-content {
+    padding: 0;
+    background-color: fade(@color-lightest, 0%);
+    .background-image(
+      linear-gradient(top, fade(#f8f8fe, 95%) 0%, fade(#fafafa, 95%) 100%)
+    );
+    border-color: #f8f8fe;
+    border-width: 0;
+    border-radius: 3px;
+    box-shadow: rgba(0,0,0,.15) 0 1px 3px 0;
+    color: @color-darkest;
+
+    .tooltip-inner-content {
+      .font-s1;
+      border-radius: 3px; // needs to be replicated here for masking purposes
+      overflow: hidden;
+    }
+
+    // Default tooltip style
+    .message {
+      display: inline-block;
+      padding: 1rem 1rem;
+      text-align: center;
+
+      &.left {
+        text-align: left;
+      }
+
+      p { margin: 0; }
+      p + p { margin:.75em 0 0; }
+
+      .link {
+        .subheading-caps(center);
+        .type-bold;
+        display: block;
+        margin-top: .666em;
+        text-align: center;
+
+        &:hover { text-decoration: none; }
+      }
+    }
+
+
+    // global/list.less shim
+    .list {
+      width: 180px;
+
+      &.wide {
+        width: auto;
+      }
+
+      & + .list { margin-top: .5rem; }
+    }
+  }
+}

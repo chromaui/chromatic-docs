@@ -1,0 +1,73 @@
+a,
+.link {
+  .transition( all 250ms ease-out );
+  display: inline-block;
+  text-decoration: none;
+  transform: translate3d(0, 0, 0);
+
+  &:hover {
+    cursor: pointer;
+    transform: translate3d(0, -1px, 0);
+  }
+
+  &:active {
+    transform: translate3d(0, 0, 0);
+  }
+
+  &:focus {
+    outline: none;
+  } //hides outline in FF
+
+  &:link,
+  &:visited {
+    color: @color-darker;
+  }
+}
+
+.link {
+  &.primary {
+    .link(@color-primary);
+  }
+  &.secondary {
+    .link(@color-secondary);
+  }
+  &.tertiary {
+    .link(@color-dark);
+  }
+
+  //When a link is on a dark background
+  &.inverse {
+    color: @color-lightest;
+    &:link,
+    &:visited {
+      color: @color-lightest;
+    }
+    &:hover {
+      color: @color-light;
+    }
+    &:active {
+      color: @color-medium;
+    }
+  }
+
+  &.inverse-alt {
+    color: fade(@color-lightest, 70%);
+    &:link,
+    &:visited {
+      color: fade(@color-lightest, 70%);
+    }
+    &:hover {
+      color: fade(@color-lightest, 100%);
+    }
+    &:active {
+      color: @color-medium;
+    }
+  }
+
+  > [class*="icon-"] {
+    font-size: 80%;
+    display: inline-block;
+    margin-right: 0.25em;
+    vertical-align: baseline;
+  }
+}

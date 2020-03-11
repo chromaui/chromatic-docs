@@ -1,0 +1,78 @@
+.nav-wrapper {
+  .page-margins;
+  padding-top: 12px;
+  @media (min-width: @breakpoint) { padding-top: 36px; }
+}
+
+.nav {
+  height: 3rem;
+  position: relative;
+  text-align: center;
+  z-index: 3;
+
+  .logotype-wrapper {
+    svg {
+      height: 22px;
+      width: auto;
+      margin-top: 14px;
+      @media (min-width: @breakpoint) {
+        height: 26px;
+        margin-top: 10px;
+      }
+
+      display: block;
+
+      transition: all 150ms ease-out;
+      transform: translate3d(0, 0, 0);
+      &:hover {
+        transform: translate3d(0, -1px, 0);
+      }
+      &:active {
+        transform: translate3d(0, 0, 0);
+      }
+    }
+  }
+
+
+  .nav-group {
+    .position(absolute, 0, auto, auto, 0);
+    z-index: 1;
+
+    &.right {
+      left: auto;
+      right: 0;
+    }
+  }
+
+  .nav-item {
+    cursor: pointer;
+    display: inline-block;
+    line-height: 3rem;
+    height: 3rem;
+    vertical-align: top;
+    position: relative;
+
+    & + .nav-item {
+      margin-left: 0.75rem;
+      @media screen and (min-width: @breakpoint) {
+        margin-left: 1.875rem;
+      }
+    }
+
+    &.show-mobile + .nav-item {
+      @media screen and (min-width: @breakpoint) {
+        margin-left: 0;
+      }
+    }
+
+    .link {
+      .font-s2;
+      .type-extrabold;
+      line-height: 1;
+    }
+
+    .btn {
+      margin-top: 4px;
+    }
+  }
+}
