@@ -6,7 +6,7 @@ description: This guide will help you get Chromatic visual testing setup in your
 
 # Get started
 
-Welcome to Chromatic, the visual testing tool for Storybook made by Storybook maintainers. This quick guide shows you how to get the most out of Chromatic.
+Welcome to Chromatic 2.0, the toolchain for Storybook made by Storybook maintainers. This quick guide shows you how to get the most out of Chromatic.
 
 Chromatic supports every view layer Storybook supports out of the box. React, Angular, Vue, and many more.
 
