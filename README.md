@@ -2,9 +2,11 @@
 
 [![Netlify Status](https://api.netlify.com/api/v1/badges/3e1d4d54-1349-4c8a-b214-788ae7aac3a4/deploy-status)](https://app.netlify.com/sites/chromatic2-docs/deploys)
 
-Available at [chromatic2-docs.netlify.com](chromatic2-docs.netlify.com) and via Netlify's build previews on branches/PRs.
+Available at [docs.chromatic.com](docs.chromatic.com) and via Netlify's build previews on branches/PRs.
 
 To configure, access the Netlify [dashboard](https://app.netlify.com/sites/chromatic2-docs/overview).
+
+The `master` branch is deployed to .com . To avoid confusion pre 1.0, this is the 1.0 documentation.
 
 ## Install jekyll
 
