@@ -1,29 +1,53 @@
 <div class="sidebar-nav">
   <ul class="docs-list">
-    <div class="title">Test</div>
+    <div class="title">Search</div>
     <li>
-      <a href="/" class='{% if page.title == "Get started" %}active {% endif %}link'>Get started</a>
-    </li>
-    <li>
-      <a href="/test" class='{% if page.title == "Run tests" %}active {% endif %}link'>Run tests</a>
-    </li>
-    <li>
-      <a href="/builds" class='{% if page.title == "Update baselines" %}active {% endif %}link'
-        >Update baselines</a
-      >
-    </li>
-    <li>
-      <a href="/setup_ci" class='{% if page.title == "Setup CI & PRs" %}active {% endif %}link'
-        >Setup CI & PRs</a
-      >
+      <input class="searchInput" />
     </li>
   </ul>
 
   <ul class="docs-list">
-    <div class="title">Review</div>
+    <div class="title">Get Started</div>
     <li>
-      <a href="/ui-review" class='{% if page.title == "UI Review" %}active {% endif %}link'
-        >UI Review</a
+      <a
+        href="/"
+        class='{% if page.title == "Overview" %}active {% endif %}link'
+        >Overview</a
+      >
+    </li>
+    <li>
+      <a
+        href="/setup"
+        class='{% if page.title == "Setup" %}active {% endif %}link'
+        >Setup</a
+      >
+    </li>
+    <li>
+      <a
+        href="/test"
+        class='{% if page.title == "Test" %}active {% endif %}link'
+        >Test</a
+      >
+    </li>
+    <li>
+      <a
+        href="/review"
+        class='{% if page.title == "Review" %}active {% endif %}link'
+        >Review</a
+      >
+    </li>
+    <li>
+      <a
+        href="/document"
+        class='{% if page.title == "Document" %}active {% endif %}link'
+        >Document</a
+      >
+    </li>
+    <li>
+      <a
+        href="/setup_ci"
+        class='{% if page.title == "Setup CI & PRs" %}active {% endif %}link'
+        >Merge (CI & PRs)</a
       >
     </li>
   </ul>
@@ -31,12 +55,33 @@
   <ul class="docs-list">
     <div class="title">Reference</div>
     <li>
-      <a href="/library" class='{% if page.title == "Component library" %}active {% endif %}link'>
-        Component library</a
+      <a
+        href="/access"
+        class='{% if page.title == "Access control" %}active {% endif %}link'
+      >
+        Access control</a
       >
     </li>
     <li>
-      <a href="/browsers" class='{% if page.title == "Browsers" %}active {% endif %}link'>
+      <a
+        href="/snapshots"
+        class='{% if page.title == "Snapshots" %}active {% endif %}link'
+      >
+        Snapshots</a
+      >
+    </li>
+    <li>
+      <a
+        href="/viewports"
+        class='{% if page.title == "Viewports" %}active {% endif %}link'
+        >Viewports</a
+      >
+    </li>
+    <li>
+      <a
+        href="/browsers"
+        class='{% if page.title == "Browsers" %}active {% endif %}link'
+      >
         Browsers</a
       >
     </li>
@@ -45,28 +90,22 @@
         href="/branching-and-baselines"
         class='{% if page.title == "Branches and baselines" %}active {% endif %}link'
       >
-        Branches & baselines</a
+        Branches & Baselines</a
       >
     </li>
     <li>
       <a
         href="/ignoring-elements"
         class='{% if page.title == "Ignore stories and elements" %}active {% endif %}link'
-        >Ignore</a
+        >Ignore Elements</a
       >
     </li>
     <li>
-      <a href="/viewports" class='{% if page.title == "Viewports" %}active {% endif %}link'
-        >Viewports</a
-      >
-    </li>
-    <li>
-      <a href="/animations" class='{% if page.title == "Animations" %}active {% endif %}link'
+      <a
+        href="/animations"
+        class='{% if page.title == "Animations" %}active {% endif %}link'
         >Animations</a
       >
-    </li>
-    <li>
-      <a href="/focus" class='{% if page.title == "Focus" %}active {% endif %}link'>Focus</a>
     </li>
     <li>
       <a
@@ -76,20 +115,24 @@
       >
     </li>
     <li>
-      <a href="/delay" class='{% if page.title == "Delay" %}active {% endif %}link'>Delay</a>
-    </li>
-    <li>
-      <a href="/access" class='{% if page.title == "Access control" %}active {% endif %}link'>
-        Access control</a
+      <a
+        href="/delay"
+        class='{% if page.title == "Delay" %}active {% endif %}link'
+        >Delay</a
       >
     </li>
     <li>
-      <a href="/threshold" class='{% if page.title == "Threshold" %}active {% endif %}link'>
-        Threshold</a
+      <a
+        href="/threshold"
+        class='{% if page.title == "Threshold" %}active {% endif %}link'
+      >
+        Threshold for Changes</a
       >
     </li>
     <li>
-      <a href="/monorepos" class='{% if page.title == "Monorepos" %}active {% endif %}link'
+      <a
+        href="/monorepos"
+        class='{% if page.title == "Monorepos" %}active {% endif %}link'
         >Monorepos</a
       >
     </li>
@@ -118,8 +161,8 @@
   </ul>
   <a
     class="btn outline small round show-desktop"
-    href="mailto:support@hichroma.com?Subject=Support%20needed"
+    href="mailto:support@chromatic.com?Subject=Support%20needed"
     target="_blank"
-    >support@hichroma</a
+    >support@chromatic</a
   >
 </div>

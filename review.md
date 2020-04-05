@@ -1,26 +1,36 @@
 ---
 layout: default
-title: UI Review
+title: Review
 description: Learn how to review changes for your component library
 ---
 
-# UI Review
+# Review
 
 UI tests protect your project from accidental regressions. However, before you're ready to ship, you'll want to invite developers, designers, PMs, and stakeholders to help review the changes to make sure they're correct. This closes the feedback loop between disciplines and helps you find the answer to "does this look right?".
 
 Chromatic's UI review workflow pinpoints the exact visual changes introduced by a PR. It gives you the ability to assign reviewers and in turn those reviewers can comment and ask for tweaks on changes which aren't quite right. Chromatic compiles a 'UI checklist' which must be completed before a feature is ready to merge. Think of it like a code review for your UI.
 
+## Collaboration
+
+Invite other developers, designers, PMs, and stakeholders to help review changes. This closes the feedback loop between disciplines and helps you find the answer to "does this look right?".
+
+If you've linked your project to GitHub, Bitbucket, or GitLab, your team can start accessing and reviewing right away. If your project is unlinked, use the project invite code to add collaborators. [Learn more](/access)
+
 ## Assign Reviewers
 
 Find the PR you'd like reviewed, either by navigating to the 'PRs' link in the sidebar or following the 'UI Review' link from the PR status checks in your Git provider. Use the Assign Reviewers link on the PR Activity screen to choose reviewers from the project's collaborators. Reviewers will be emailed a link to the PR screen to begin their review.
 
-<img src="/img/assign-reviewers.gif" alt="Assign Reviewers" width="300px"/>
+<img src="/img/assign-reviewers.gif" alt="Assign Reviewers" width="300px" class="center"/>
+
+<div class="aside">
+<p><b>Note:</b> We'll prompt you to install our Github App (or webhooks for other providers) on the PRs page. This is necessary in order for Chromatic to be able to list PRs and get their details.</p>
+</div>
 
 ## Review UI Changes
 
 The PR screen includes a 'UI Changes' tab showing a side-by-side view of all visual changes introduced by the code in the PR. You can toggle between viewing a highlighted diff or simply showing the component before/after this PR would be applied.
 
-![UI Changes](/img/ui-changes.png)
+![UI Changes](/img/ui-changes.png){: .center }
 
 #### Discussions
 
@@ -77,11 +87,8 @@ Yes. Go to the manage page for your project where you can disable UI Review. Chr
 
 ---
 
-## You're all set up!
+## Next: Learn about documenting reusable components
 
-🎊 You're all setup with Chromatic. Testing and review are essential to maintaining high quality UIs, but there's always more to learn. Checkout how to get the most out UI components with handy Storybook guides written by our team. Don't hesitate to ask us questions via [email](mailto:support@hichroma.com?Subject=Question) or our in-app chat.
+📚Now that you've seen how to review UI changes with teammates before shipping, learn about how Chromatic helps you distribute high quality, versioned and interactive component documentation.
 
-- [Visual Testing Handbook](https://www.chromaticqa.com/book/visual-testing-handbook) a free 31-page walkthrough for visual testing with Storybook
-- [The Delightful Storybook Workflow](https://blog.hichroma.com/the-delightful-storybook-workflow-b322b76fd07) Learn how productive teams get the most out of Storybook. Featuring devs from Squarespace, Discovery Network, Major League Soccer, Apollo GraphQL, Storybook, and Chroma.
-- [UI Component Playbook](https://blog.hichroma.com/ui-component-playbook-fd3022d00590) a 5-step guide to designing and engineering frontends with components
-- [Visual Test-Driven Development](https://blog.hichroma.com/visual-test-driven-development-aec1c98bed87) - how visual testing helps your team build robust UIs faster.
+<a class="btn primary round" href="/document">Read next chapter</a>

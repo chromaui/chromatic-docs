@@ -1,55 +1,103 @@
 ---
 layout: default
-title: Run tests
-description: Learn how to run Chromatic tests and setup CI
+title: Test
+description: Learn how to run Chromatic UI Tests
 ---
 
-# Run tests
+# Test
 
-Tests can be run via the command line manually or in CI automatically.
+Visual testing ensures components dont change by accident. It’s still up to you to decide if changes are intentional. Chromatic automates visual testing by detecting UI changes betweeen commits.
 
-![Test components](img/workflow-component-test.png)
+If a change is intentional you need to update the baseline so future tests will be compared to the _latest version_ of the story. And if a change is unintentional it needs to be fixed.
+
+![Review visual diffs](img/workflow-component-review.png)
 
 ---
 
-## Run your first test to establish baselines
+## Detecting changes
 
-Before we begin, make sure you have an `<app-code>` by logging to [Chromatic](https://www.chromaticqa.com/start) and creating a project.
+1. Chromatic renders your stories in real browsers in the cloud. It takes a screenshot of each story, cropping it down to it's smallest bounding region. We call this a [Snapshot](snapshots).
+2. The latest snapshots are compared to their baselines (i.e the last accepted snapshot) pixel-by-pixel. Chromatic's algorithm is built to avoid false positives by applying algorithms that ignore small random changes due to anti-aliasing and browser's non-determinism.
+3. Chromatic shows you a diff of the changed pixels along with a diff of the DOM changes. _Note: It is only the visual diff that triggers changes, the DOM diff is purely informational._
 
-Your first test will setup visual testing for your Storybook. Run the following command in your project directory.
+## Establishing baselines
 
-```bash
-./node_modules/.bin/chromatic --app-code=<your-app-code>
-```
+The first Chromatic build in a project (or branch without an ancestor) will use the visual snapshots it takes to establish [baselines](/branching-and-baselines) for every story.
+
+Subsequent builds will compare snapshots against these baselines. As changes are accepted for particular stories, they'll become the new baselines for future builds.
+
+## Reviewing builds
+
+<video autoPlay muted playsInline controls width="560px" class="center">
+  <source src="/img/website-workflow-review-merge-optimized.mp4" type="video/mp4" />
+</video>
+
+Each build new snapshots of your components are created and compared to the baselines. If there are visual changes the build will be marked "unreviewed".
+
+Visual changes will need to be reviewed for the build to be "passed" or "failed". You can review changes 1-by-1 or in batches.
+
+- ✅**Accept change**: This updates the story baseline. When a snapshot is accepted, it won’t need to be re-accepted until it changes, even through git branches, and merges.
+
+- ❌**Deny change**: This badges the change as "denied" indicating a regression and immediately fails the build. You can deny multiple changes per build.
+
+![Snapshot review](img/snapshot-review.png)
+
+If you accept all the changes, the build will be marked "passed", and future builds of the same components will pass.
+
+If you deny any of the changes, the build will be "failed" and you will need to make code changes (and thus start a new build) to get the build to pass.
+
+#### Feature branches
+
+Chromatic automatically changes the baseline snapshots that it uses for each build depending on your branch. This means you can update UI components on multiple feature branches in parallel without conflicts. Read more about the details [here](/branching-and-baselines).
+
+#### Live View for reproductions
+
+Along with pixel and DOM diffs, Chromatic renders the actual stories as they are in your Storybook 'live'. This makes reviewing the look and feel even more true-to-life and means you can right-click->inspect to track down the root cause for subtle bugs. Click to the component screen and enable **Live View** to access the fully interactive and clickable version of the story.
+
+<video autoPlay muted playsInline controls width="560px" class="center">
+  <source src="/img/feature-component-inspect-optimized.mp4" type="video/mp4" />
+</video>
+
+#### Component errors
+
+When a story fails to render it will be badged with "Component Error". You will not be able to "pass" a build that has component errors. Fix story errors in Storybook and run tests again.
+
+#### Keyboard shortcuts
+
+Review more efficiently from your natural hand position on the keyboard.
+![Keyboard shortcuts](img/keyboard-shortcuts.png)
 
 <div class="aside">
-Chromatic uses the `build-storybook` script from your `package.json` by default. You may need to update that script if you changed the `storybook` script (for example if you added a static directory with `-s`).
-
-Otherwise you may need to add <a href="#available-options">options</a> to our test command.
-
+Protip: Pressing 1 multiple times switches between the baseline and new snapshot in the 1up view.
 </div>
 
-After the first test completes, you'll have new test [baselines](/branching-and-baselines) for each story on this branch. In other words, screenshots of the last know good state. Any future changes to your stories will be compared to the baselines.
+## Merge
 
-![Setup Success](img/setup-success.png)
+![Build passed](img/build-passed.png)
 
-## Run tests to check for UI changes
+When your build is marked "passed" (all changes accepted), you can now merge visual changes with confidence knowing that your UI is bug free.
 
-Visual testing relies on comparing images of the new rendered UI code to the baseline images. If a UI change is caught you get notified.
+#### CI/CD
 
-Let's demo how that works. In your project, make a change to the UI and save it (you can always undo later).
+Chromatic will return an exit code 0 on the CLI which can be used in CI/CD systems to indicate success and unblock deployment. The CLI behavior can be tweaked with additional [options](<(https://github.com/chromaui/chromatic-cli)>).
 
-Then use the same test command you ran earlier. Add [options](#available-options) as needed.
+#### Git integrations
 
-```bash
-./node_modules/.bin/chromatic --app-code=<your-app-code>
-```
+Chromatic will approve PR status checks for linked Git repositories.
 
-Follow the link to the Chromatic app where you'll see the changes.
+Read more about how to integrate Chromatic into your [CI & Git workflow](/setup_ci).
 
-![Build changes](img/build-unreviewed.png)
+<div class="aside">
+If you're not ready to use Chromatic's UI testing features, they can be disabled from your project's manage page. Once disabled, Chromatic will no longer update your PR status checks.
+</div>
 
-There are changes – perhaps even some you didn't expect! The component hierarchy enables small changes to snowball into major regressions. Visual testing with Chromatic helps you catch these changes in development –as they happen– instead of during QA or production (5-10x more costly).
+---
+
+## Next: Learn about UI Review
+
+💬Now that you're set to catch bugs, learn about how to invite other teammates into Chromatic's UI Review workflow to make sure that what gets shipped checks out with all stakeholders.
+
+<a class="btn primary round" href="/review">Read next chapter</a>
 
 ---
 
@@ -73,78 +121,38 @@ It's essential that your components and stories render in a **consistent** fashi
 
 ---
 
-## Create an npm script for future test builds
+## Troubleshooting
 
-The `chromatic` command will also give you the option of adding an npm script to your `package.json` so you can run future builds with `npm run chromatic`. If you want to add it manually, it should look something like:
+#### Reviewing tests disabled on build screen
 
-```json
-{
-  "scripts": {
-    "chromatic": "chromatic"
-  }
-}
-```
+If a build isn't the newest build on a branch, we disable reviewing the build; as any future builds will base themselves on the _newest_ build, making approvals to this build pointless.
 
-The above script command will pick up your app code by reading the `CHROMATIC_APP_CODE` environment variable. After adding the above, ensure you set `CHROMATIC_APP_CODE` when you run builds---such as in your CI config.
+Note that in the case that there is a descendent build of this build on _a different branch_ (for instance if the commit for this build was merged into that different branch), we do allow reviewing of this build. Future builds on this branch _will_ use approved changes from the build; however future builds on the different branch will not---for this reason it is best to review builds before merging them.
 
-If you allowed `chromatic` to add the above line, it will also have written the environment variable to your `package.json`. Depending on your level of trust of your code hosting provider, you should consider removing the environment variable and setting via your CI config.
+#### "Didn't find any commits in this git repository in the last 100 builds."
 
----
+This means that across the last 100 unique commits across all builds in your app, we didn't find a single one that exists in the repository you ran this build against. Commits can go missing if you rebase or perform squash-merges, however, if all of the previous 100 builds' commits are missing, it is likely something has gone wrong.
 
-## Next: Update baselines
+If you've reached this situation and can't work out why, please <a href="mailto:support@hichroma.com">let us know</a>.
 
-📸You know how to trigger tests! Now catch bugs and update baselines by [reviewing test results](/builds).
+#### "Failed to find common ancestors with most recent builds within 1000 commits"
 
-<a class="btn primary round" href="/builds">Read next chapter</a>
+This means that although we found recent builds that _were_ in your git repository history (see above), we couldn't find any _common_ history between your checked out build and those builds within 1000 commits.
 
----
+Unless you are doing something unusual with your git repository, this is extremely unlikely. Either way, please <a href="mailto:support@hichroma.com">let us know</a>.
 
-### Available options
+#### "Build X is based on a commit without ancestor builds."
 
-If you have customized the way your Storybook runs, you may need to pass additional options to the test command.
+When we create a build, we search your git history for a recent Chromatic build based on a commit that is an ancestor (i.e. a commit that is in the direct history of this commit). Unless this is the very first build, if we do not find one, we will show you this message.
 
-| Option                   | Use case                                                                                                                                                                       |
-| ------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| `--app-code`             | The unique code for your app -- note you can just pass this via the `CHROMATIC_APP_CODE` environment variable.                                                                 |
-| `--build-script-name`    | The npm script that builds your Storybook we should take snapshots against (defaults to `build-storybook`). Use this if your Storybook build script is named differently.      |
-| `--storybook-build-dir`  | If you have already built your Storybook, provide the path to the built Storybook.                                                                                             |
-| `--script-name`          | The npm script that starts your Storybook we should take snapshots against (defaults to `storybook`). Use this flag if you want to avoid building your storybook.              |
-| `--storybook-port`       | The port that Storybook serves on (autodetected by `--script-name`, override with this if that fails)                                                                          |
-| `--do-not-start`         | Use this if your Storybook is already running (for instance your Storybook is running in a different terminal already).                                                        |
-| `--exec`                 | Alternatively, start your Storybook with an arbitrary command. If you use this option, pass `--storybook-port` to configure the port Storybook runs on.                        |
-| `--auto-accept-changes`  | If there are any changes to the build, automatically accept them. This is useful in some branching situations. See more in the [**branching docs**](/branching-and-baselines). |
-| `--exit-zero-on-changes` | If all snapshots render but there are visual changes, exit with a 0 exit code, rather than the usual 1.                                                                        |
-| `--preserve-missing`     | Treat missing stories as unchanged rather than deleted.                                                                                                                        |
-| `--no-interactive`       | Don't ask interactive questions about your setup.                                                                                                                              |
-| `--debug`                | Output extra debugging information.                                                                                                                                            |
-| `CI=true`                | Tell Chromatic that you're running in CI. This will hide the "Setup CI / Automation" messages in the UI. Add _before_ the test command like so: `CI=true yarn chromatic...`    |
+This is typically unusual, because in order to run Chromatic on a commit, chances are the commit that added Chromatic to your app is an ancestor!
 
----
+However, this situation can arise due to the following:
 
-### Troubleshooting
+1. You switched branches and re-ran Chromatic, without checking-in the code changes that installed Chromatic. In this case you can safely ignore this message.
 
-#### Test build failures
+2. You rewrote history in merging the Chromatic installation code (e.g. using GitHub's "Squash and Merge" or "Rebase and Merge" buttons). Please <a href="mailto:support@hichroma.com">let us know</a> if this is the case.
 
-A build will _fail_ if any of the snapshots fail to render (i.e. in rendering the latest version of the component, the snapshot throws a JavaScript exception). You'll need to fix the code for errored components before we can pass the build.
+3. You are using a shallow clone of your repository when running Chromatic. Chromatic needs access to your full git history in order to find baselines (or at least the history until the previous Chromatic build, which depends on how often you push code/run builds). <a href="/branching-and-baselines">Learn more</a>
 
-#### Errored builds
-
-Chromatic builds and runs Storybook flawlessly _most of the time_, but we're not perfect (we wish). Sometimes builds don't run due to the rare infrastructure hiccup. If this happens, try to re-run the build. Rest assured, we keep track of errors and continue to work to improve the service every day.
-
-#### Timed out
-
-Chromatic takes snapshots very quickly. However, if we lose the connection to your server (for instance if you stop your server mid-build, or your internet connection goes down), builds can time out. Simply restart the build---perhaps with a more stable connection.
-
-#### Failed to evaluate your stories when running tests
-
-To make a list of Chromatic specs from your Storybook stories, we evaluate your story code from a node script, using JSDOM to simulate a browser environment. We don't render your stories but just gather a list of them by including your story files. You may need to avoid calling various browser-only constructs at the top-level or mock them out. Pass `--debug` to the script command to get extra info if it fails.
-
-#### No Storybook specs found
-
-To get a list of specs from your stories, we evaluate your Storybook with [JSDOM](https://github.com/tmpvar/jsdom). This is a slightly different environment to a normal browser and can sometimes have problems. We will try to output errors if we see them; using the `--debug` flag to `chromatic` may help if we didn't catch any errors.
-
-#### Image size too large
-
-We have a 25 million pixel size limit for image snapshots. This ensures fast and reliable performance for every build.
-
-If your stories are larger than this, perhaps something has gone wrong? Let us know if you need this limit increased by chat or [email](mailto:support@hichroma.com?Subject=Image Size Limit).
+4. Something else happened---perhaps a bug at our end? Please <a href="mailto:support@hichroma.com">let us know</a> if this is the case.

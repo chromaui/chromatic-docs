@@ -6,7 +6,7 @@ description: Learn how to setup Chromatic in your continuous integration tool
 
 # Setup CI and PR badging
 
-Configure CI to automate Chromatic testing whenever you push code. Badge your PRs to get notified whenever there are visual changes.
+Configure CI to publish your storybook and run Chromatic's automation whenever you push code. Badge your PRs to get notified about test and review results.
 
 ![Chromatic CI workflow](img/workflow-approve.png)
 
@@ -26,16 +26,16 @@ Integration with popular CI tools is painless. Just run `npm run chromatic` as p
 - run:
     command: npm test # run your unit tests
 - run:
-    command: npm run chromatic # run your visual tests
+    command: npm run chromatic # publish storybook and run visual tests
 ```
 
 If any of those steps fails, your CI build will fail.
 
 ### Command exit code
 
-If you are using pull request statuses to prompt you to review visual changes, you may not want your CI job to fail if snapshots render without errors (but with changes). To achieve this, pass the flag `--exit-zero-on-changes` to the `chromatic` command, and your CI job will continue in such cases.
+If you are using pull request statuses to as required checks before merging, you may not want your CI job to fail if test snapshots render without errors (but with changes). To achieve this, pass the flag `--exit-zero-on-changes` to the `chromatic` command, and your CI job will continue in such cases.
 
-### Re-run failed builds after reviewing
+### Re-run failed builds after reviewing test results
 
 Builds that contain visual changes need to be [reviewed](/builds)--if you are not using `--exit-zero-on-changes` they will fail. Once you accept all the changes, re-run the build using your CI tool and the `chromatic` job will pass.
 
@@ -75,6 +75,25 @@ As that merge commit does not actually persist in the history of your git reposi
 
 ### Configuring specific CI services
 
+#### GitHub Actions
+
+If you're using Github, it's easy to integrate Chromatic with our Github Action: https://github.com/chromaui/action
+
+You can add it to a workflow like so:
+
+```
+- uses: chromaui/action@v1
+  with:
+    token: ${{ secrets.GITHUB_TOKEN }}
+    appCode: ${{ secrets.CHROMATIC_APP_CODE }}
+```
+
+You'll need to configure secrets in the settings tab at `https://github.com/{YOUR_ORGANSATION}/{YOUR_REPOSITORY}/settings/secrets`
+
+GitHub actions can run based on any github event, but we recommend to run the workflow containing the chromatic step on `push` event. The action will work on `pull-request` events too, although [it comes with some caveats](https://docs.chromaticqa.com/setup_ci#pull-request-builds). All other events will not.
+
+For external PRs (PRs from forks of your repo) to receive the chromatic appCode, you'll have to make the appCode public by placing it in your `package.json`. Alternatively, you could disable Chromatic on external PRs or duplicate external PRs inside your repository.
+
 #### Travis
 
 Travis offers two type of builds for commits on pull requests: so called `pr` and `push` builds. It only makes sense to run Chromatic once per PR, so we suggest disabling Chromatic on `pr` builds for internal PRs (i.e. PRs that aren't from forks). You should make sure that you have `push` builds turned on, and add the following code:
@@ -93,25 +112,6 @@ For external PRs (PRs from forks of your repo), the above code will ensure Chrom
 
 <p>Chromatic does work with Travis <code>pr</code> builds however!</p>
 </div>
-
-#### GitHub Actions
-
-We have built a GitHub action for you to use: https://github.com/chromaui/action
-
-You can add it to a workflow like so:
-
-```
-- uses: chromaui/action@v1
-  with:
-    token: ${{ secrets.GITHUB_TOKEN }}
-    appCode: ${{ secrets.CHROMATIC_APP_CODE }}
-```
-
-You'll need to configure secrets in the settings tab at `https://github.com/{YOUR_ORGANSATION}/{YOUR_REPOSITORY}/settings/secrets`
-
-GitHub actions can run based on any github event, but we recommend to run the workflow containing the chromatic step on `push` event. The action will work on `pull-request` events too, although [it comes with some caveats](https://docs.chromaticqa.com/setup_ci#pull-request-builds). All other events will not.
-
-For external PRs (PRs from forks of your repo) to receive the chromatic appCode, you'll have to make the appCode public by placing it in your `package.json`. Alternatively, you could disable Chromatic on external PRs or duplicate external PRs inside your repository.
 
 #### Hiding the persistent CI messages
 
@@ -145,8 +145,12 @@ Since Chromatic runs on CI, you can write a custom CI script to add statuses in 
 
 ---
 
-## Next: Learn about UI Review
+## You're all set up!
 
-💬Now that you've set up CI, learn about how to invite other teammates into Chromatic's UI Review workflow to make sure that what gets shipped checks out with all stakeholders.
+🎊 You're all setup with Chromatic. Testing and review are essential to maintaining high quality UIs, but there's always more to learn. Checkout how to get the most out UI components with handy Storybook guides written by our team. Don't hesitate to ask us questions via [email](mailto:support@hichroma.com?Subject=Question) or our in-app chat.
 
-<a class="btn primary round" href="/ui-review">Read next chapter</a>
+- [Visual Testing Handbook](https://www.chromaticqa.com/book/visual-testing-handbook) a free 31-page walkthrough for visual testing with Storybook
+- [Design Systems for Developers](https://www.learnstorybook.com/design-systems-for-developers/) tools and best practices for building a Design System written for developers (rather than designers).
+- [The Delightful Storybook Workflow](https://blog.hichroma.com/the-delightful-storybook-workflow-b322b76fd07) Learn how productive teams get the most out of Storybook. Featuring devs from Squarespace, Discovery Network, Major League Soccer, Apollo GraphQL, Storybook, and Chromatic.
+- [UI Component Playbook](https://blog.hichroma.com/ui-component-playbook-fd3022d00590) a 5-step guide to designing and engineering frontends with components
+- [Visual Test-Driven Development](https://blog.hichroma.com/visual-test-driven-development-aec1c98bed87) how visual testing helps your team build robust UIs faster.

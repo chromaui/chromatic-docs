@@ -6,13 +6,13 @@ description: Learn how to set up Storybook in your app to write snapshot specifi
 
 # Storybook and Chromatic tutorial
 
-This tutorial is a quick overview that walks you through installing Storybook and integrating Chromatic visual tests. It's intended for folks who haven't yet used Storybook.
+This tutorial is a quick overview that walks you through installing Storybook and integrating Chromatic. It's intended for folks who haven't yet used Storybook.
 
 If you're already using Storybook, then great!---skip to the [get started](/) guide. If you'd prefer to learn Storybook in a free 10-chapter tutorial take a look at [Learn Storybook](https://www.learnstorybook.com/).
 
 #### How Chromatic works (in brief)
 
-Chromatic takes image snapshots of various configurations of your components. These configurations, or inputs to your components, are the specification of how the test should operate. We rely on Storybook "stories" to provide these configurations.
+Chromatic tests takes image snapshots of various configurations of your components. These configurations, or inputs to your components, are the specification of how the test should operate. We rely on Storybook "stories" to provide these configurations. Chromatic's review feature also utilizes snapshots to narrow down the changes reviewers have to see. Chromatic publishes a secure, versioned storybook to the cloud.
 
 ---
 
@@ -88,7 +88,14 @@ export default {
 };
 
 export const Loading = () => <Histogram loading />;
-export const FullData = () => <Histogram series={[{ x: 1, y: 1 }, { x: 2, y: 2 }]} />;
+export const FullData = () => (
+  <Histogram
+    series={[
+      { x: 1, y: 1 },
+      { x: 2, y: 2 },
+    ]}
+  />
+);
 ```
 
 This will create two stories for the Histogram, and you can browse to your Storybook (which you ran earlier with `npm run storybook`) to view the implementation (obviously adjust the component and props above to be relevant to your app).

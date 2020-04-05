@@ -6,7 +6,7 @@ description: Learn how to Chromatic loads resources and waits to screenshot.
 
 # Resource Loading
 
-If your story uses resources (such as images or fonts), Chromatic needs to wait for those resources to fully load before taking the screenshot.
+If your story uses resources (such as images or fonts), Chromatic needs to wait for those resources to fully load before creating a snapshot.
 
 If the images fail to load in time, Chromatic will retry several times, finally taking a screenshot anyway (if the resources continue to fail), but display a warning telling you what's happened.
 
@@ -22,7 +22,7 @@ Our browsers can only pick up network activity that happens immediately as your 
 
 You can add a [delay](/delay) to avoid screenshotting until after the async rendering happening (if you know how long that will take), but typically it is difficult to reliably set a time that network resources will load within.
 
-We are investigating ways to add first-class support to Storybook and then Chromatic for asynchronous rendering. Let us know if you need this feature by chat or [email](mailto:support@hichroma.com?Subject=Asynchronous Rendering).
+We are investigating ways to add first-class support to Storybook and then Chromatic for asynchronous rendering. Let us know if you need this feature by chat or [email](mailto:support@chromatic.com?Subject=Asynchronous Rendering).
 
 ## Browser differences
 

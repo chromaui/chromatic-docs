@@ -16,11 +16,11 @@ Baselines are intelligently choosen based on your git history in the way you wou
 
 ## Baselines
 
-Chromatic compares snapshots to a baseline: the last known “good” state of the story.
+Chromatic tests compare snapshots to a baseline: the last known “good” state of the story.
 
-Each story has its own baseline that is tracked independently each branch. When you approve a snapshot you also update the baseline for that story, for the purposes of the branch it is one. When you merge that branch into another (for instance back into `master`), the baseline comes with it.
+Each story has its own baseline that is tracked independently on each branch. When you approve a snapshot you also update the baseline for that story, for the purposes of the branch it is one. When you merge that branch into another (for instance back into `master`), the baseline comes with it.
 
-The way the baseline calculation works is involved. See the section [below](#calculating-baselines) for more information.
+The way the baseline calculation works is nuanced. See the section [below](#calculating-baselines) for more information.
 
 ---
 
@@ -54,13 +54,13 @@ For this reason, we _always_ include approvals from the latest build on the curr
 
 As stated above, Chromatic maintains an individual baseline for each _story_, at each _viewport_, for each _commit_. That means as you make changes to your components, either by committing new code, merging other branches or otherwise, your baselines will follow your stories.
 
-The only way that baselines change is when your or someone in your team approves a change. Usually what this means is that the baselines are simply what you’d expect as you work through a feature.
+The only way that baselines change is when you or someone in your team approves a change. Usually what this means is that the baselines are simply what you’d expect as you work through a feature.
 
 However, sometimes the choice of baseline can be confusing. Let’s dig in a little further on how it works.
 
 ### Calculating the ancestor build(s)
 
-In Chromatic, a build consists of a set of snapshots, each of which is a screenshot of a single story at a single viewport.
+In Chromatic, a build contains of a set of snapshots, each of which is a screenshot of a single story at a single viewport.
 
 > If you are using multiple browsers, there may be more than one screenshot within a single snapshot, however as baselines are calcuated above the level of the browser (all browsers share the same approval), we can ignore multiple browsers when thinking about baselines.
 
@@ -122,7 +122,7 @@ y - Build N+1
 z - Build N+2
 ```
 
-Suppose than in commit y, we changed the color of our submit buttons to be orange rather than green. However, we realised this was a mistake and denied the change. Then in commit z we changed the colour back to green.
+Suppose then in commit y, we changed the color of our submit buttons to be orange rather than green. However, we realised this was a mistake and denied the change. Then in commit z we changed the colour back to green.
 Then in Build N+2, we should compare the “new” green buttons to the original green buttons (from Build N). If they are back to the way they were before, the build should pass without you needing to intervene. If the green color is a different shade, Chromatic should show you a diff and you can decide if that’s what you wanted.
 
 #### Multiple ancestor builds
