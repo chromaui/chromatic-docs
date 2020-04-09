@@ -112,6 +112,7 @@ Grab the app code from [www.chromaticqa.com](https://www.chromaticqa.com) and vi
 
 ## Resources
 
+- [Learn Storybook](https://learnstorybook.com) Step by step guides on learning Storybook and component development best practices
 - [Visual Testing Handbook](https://www.chromaticqa.com/book/visual-testing-handbook) a free 31-page walkthrough for visual testing with Storybook
 - [How Storybook fits into your workflow](https://blog.hichroma.com/component-driven-development-ce1109d56c8e)
 - [Storybook docs](https://storybook.js.org/basics/introduction/)
