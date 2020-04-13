@@ -54,7 +54,7 @@ export const SecondStoryName = () => <MyComponent with="other-props" />;
 
 ---
 
-### FAQ
+## Frequently asked questions
 
 #### What viewports can I choose?
 
@@ -66,11 +66,15 @@ As we take a full screenshot of the component (even if it flows off the screen),
 
 #### Why is my content being cut off vertically?
 
-Make sure there are no elements which are inadvertantly cutting off content through the use of overflow or height styles.
+Make sure there are no elements inadvertantly cutting off content through the use of overflow or height styles.
 
 For elements that have relative height styles based on the size of the viewport (such as `height: 100vh`), all content nested under that element will show up in a screenshot unless either `overflow: hidden` or `overflow: scroll` is used to hide what is outside of that element (and therefore outside of the viewport).
 
 When Chromatic takes a screenshot for an element that has a viewport-relative height as well as styling to hide/scroll the overflow, a default viewport height of `900px` will be used.
+
+#### How do I capture content inside scrollable divs?
+
+Scrollable divs constrain the height of their children. Change the height of the scrollable div to ensure all content fits. It's not possible for Chromatic to infer how tall scrollable divs are intended to be.
 
 #### What if I have a modal component that doesn't have a width or height?
 

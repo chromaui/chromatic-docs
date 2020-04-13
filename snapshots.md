@@ -28,7 +28,7 @@ The Canvas and Docs tabs represent the actual rendered story plus it's documenta
 
 ![Story Page](img/xxx-page.png)
 
-## Focus
+## Focus states
 
 Chromatic renders your story in the state that Storybook renders it in. This means if you focus an element as part of the rendering of the story, the element will be in a focused state.
 
@@ -47,3 +47,7 @@ Chromatic will compare snapshots to the last build with snapshots, so if snapsho
 #### What happens if I disable testing and/or review?
 
 As long as either the testing or review features are enabled, Chromatic will continue taking snapshots. With both disabled, Chromatic will stop taking snapshots and all other features of the platform (such as publishing) will continue without limits.
+
+#### Do I use more snapshots when both UI Tests and UI Review are enabled?
+
+No. Snapshots taken for one workflow are reused for the other. You don't get charged twice.
