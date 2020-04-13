@@ -14,7 +14,7 @@ Snapshots represent a rendering of a story and drive Chromatic's test and review
 
 A snapshot is an image of a story plus some metadata captured by a browser within Chromatic's cloud infrastructure.
 
-For every story in your storybook: Chromatic will load the story, wait for it to render, take a screenshot and crop it to the correct bounding region. Snapshots are stored in the cloud and used to determine UI changes between builds.
+For every story in your Storybook: Chromatic will load the story, wait for it to render, take a screenshot and crop it to the correct bounding region. Snapshots are stored in the cloud and used to determine UI changes between builds.
 
 ### Multiple viewports and browsers
 
@@ -24,7 +24,7 @@ Since UI usually renders differently across viewports and browsers, Chromatic mu
 
 Chromatic's component screen allows you to select between the 'Canvas', 'Snapshot' and 'Docs'. Under the Snapshot tab you'll find the image captured by Chromatic's cloud browser -- this is exactly what the browser 'saw' at the time that it rendered the story.
 
-The Canvas and Docs tabs represent the actual rendered story plus it's documentation, exactly as you'd see it within Storybook. We call this 'live view' and it's a convenient place to check the interactive behavior of the story and even use the browser to inspect styling. Click the expand icon in the top right to open the story directly within your published storybook.
+The Canvas and Docs tabs represent the actual rendered story plus it's documentation, exactly as you'd see it within Storybook. We call this 'live view' and it's a convenient place to check the interactive behavior of the story and even use the browser to inspect styling. Click the expand icon in the top right to open the story directly within your published Storybook.
 
 ![Story Page](img/xxx-page.png)
 

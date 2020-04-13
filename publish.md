@@ -6,9 +6,9 @@ description: Learn how to publish Storybook and setup CI
 
 # Publish
 
-Chromatic's CLI tool is used to build and publish storybooks to the cloud. It reports the result of running UI Tests (if enabled) which can be used to block builds in CI when tests fail.
+Chromatic's CLI tool is used to build and publish Storybooks to the cloud. It reports the result of running UI Tests (if enabled) which can be used to block builds in CI when tests fail.
 
-Chromatic must be integrated into your CI environment to ensure your storybook is published for every commit. During setup we recommend running `chromatic` on the command line to make sure everything is configured correctly.
+Chromatic must be integrated into your CI environment to ensure your Storybook is published for every commit. During setup we recommend running `chromatic` on the command line to make sure everything is configured correctly.
 
 ## Installation
 
@@ -33,7 +33,7 @@ Once you've installed the `storybook-chromatic` package and have an `<app-code>`
 ```
 
 <div class="aside">
-Chromatic uses the `build-storybook` script from your `package.json` by default but you can specify a different name (see <a href="#available-options">options</a>). You may need to update the `build-storybook` script if you customized your `storybook` script (for example if you added a static directory with `-s`). Whilst it's possible for Chromatic to run against a development Storybook, we strongly recommend you use a built storybook. 
+Chromatic uses the `build-storybook` script from your `package.json` by default but you can specify a different name (see <a href="#available-options">options</a>). You may need to update the `build-storybook` script if you customized your `storybook` script (for example if you added a static directory with `-s`). Whilst it's possible for Chromatic to run against a development Storybook, we strongly recommend you use a built Storybook. 
 </div>
 
 If everything worked, you'll see some informational output followed by
@@ -46,11 +46,11 @@ View it online at https://www.chromatic.com/build?appId=59c5a73849dd100364e1d57&
 
 What this did:
 
-1. Ran `storybook-build` and published the resulting static storybook to Chromatic resulting in a new 'Build'.
-2. Updated the Build with local Git history so that Chromatic can associate Git commits with published storybooks.
+1. Ran `storybook-build` and published the resulting static Storybook to Chromatic resulting in a new 'Build'.
+2. Updated the Build with local Git history so that Chromatic can associate Git commits with published Storybooks.
 3. A 'Snapshot' was created for every Story by rendering it and capturing the output on Chromatic's cloud infrastrcture.
 4. The Snapshots were used to run UI Tests and create visual comparisons to power UI Review.
-5. Pull Requests that are affected by the commit were updated with links to the published storybook and UI Review along with UI Test results.
+5. Pull Requests that are affected by the commit were updated with links to the published Storybook and UI Review along with UI Test results.
 
 ---
 
@@ -112,7 +112,7 @@ It's essential that your components and stories render in a **consistent** fashi
 - **Skip stories**: Some stories may render unpredictably intentionally. If this is the case you may want to [ignore the story](ignoring-elements) from testing and move on.
 
 <div class="aside">
-  If you want to utilize the above techniques to ensure consistency for Chromatic's tests, but you still want the random element for your live storybook, you can use the <code>isChromatic()</code> function (exported from <code>storybook-chromatic/isChromatic</code>) to check.
+  If you want to utilize the above techniques to ensure consistency for Chromatic's tests, but you still want the random element for your live Storybook, you can use the <code>isChromatic()</code> function (exported from <code>storybook-chromatic/isChromatic</code>) to check.
 </div>
 
 ---
@@ -152,7 +152,7 @@ If you have customized the way your Storybook runs, you may need to pass additio
 | `--app-code`             | The unique code for your app -- note you can just pass this via the `CHROMATIC_APP_CODE` environment variable.                                                                 |
 | `--build-script-name`    | The npm script that builds your Storybook we should take snapshots against (defaults to `build-storybook`). Use this if your Storybook build script is named differently.      |
 | `--storybook-build-dir`  | If you have already built your Storybook, provide the path to the built Storybook.                                                                                             |
-| `--script-name`          | The npm script that starts your Storybook we should take snapshots against (defaults to `storybook`). Use this flag if you want to avoid building your storybook.              |
+| `--script-name`          | The npm script that starts your Storybook we should take snapshots against (defaults to `storybook`). Use this flag if you want to avoid building your Storybook.              |
 | `--storybook-port`       | The port that Storybook serves on (autodetected by `--script-name`, override with this if that fails)                                                                          |
 | `--do-not-start`         | Use this if your Storybook is already running (for instance your Storybook is running in a different terminal already).                                                        |
 | `--exec`                 | Alternatively, start your Storybook with an arbitrary command. If you use this option, pass `--storybook-port` to configure the port Storybook runs on.                        |

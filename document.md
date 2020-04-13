@@ -6,7 +6,7 @@ description: Learn how Chromatic helps document components.
 
 # Document
 
-In addition to publishing your storybook on every push, Chromatic generates a component library from your Storybook automatically. Every time you push code each component is recorded so you can browse variations of any component across branches and builds. Right from the comfort of your web browser; no `git checkout` or `npm install` required.
+In addition to publishing your Storybook on every push, Chromatic generates a component library from your Storybook automatically. Every time you push code each component is recorded so you can browse variations of any component across branches and builds. Right from the comfort of your web browser; no `git checkout` or `npm install` required.
 
 ---
 
@@ -41,9 +41,9 @@ Each component and its stories are securely indexed each commit and branch. The 
 - Get feedback faster by sharing a link to the component with your team
 - Compare components historically to check if they look correct
 
-## Direct access to your storybook
+## Direct access to your Storybook
 
-Every time you publish to Chromatic, your storybook is made available on our CDN authenticated according to Chromatic's [access control](/access).
+Every time you publish to Chromatic, your Storybook is made available on our CDN authenticated according to Chromatic's [access control](/access).
 
 ![Direct Storybook](img/xxx-page.png)
 

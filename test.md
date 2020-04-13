@@ -116,7 +116,7 @@ It's essential that your components and stories render in a **consistent** fashi
 - **Skip stories**: Some stories may render unpredictably intentionally. If this is the case you may want to [ignore the story](ignoring-elements) from testing and move on.
 
 <div class="aside">
-  If you want to utilize the above techniques to ensure consistency for Chromatic's tests, but you still want the random element for your live storybook, you can use the <code>isChromatic()</code> function (exported from <code>storybook-chromatic/isChromatic</code>) to check.
+  If you want to utilize the above techniques to ensure consistency for Chromatic's tests, but you still want the random element for your live Storybook, you can use the <code>isChromatic()</code> function (exported from <code>storybook-chromatic/isChromatic</code>) to check.
 </div>
 
 ---

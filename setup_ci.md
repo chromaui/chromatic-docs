@@ -6,7 +6,7 @@ description: Learn how to setup Chromatic in your continuous integration tool
 
 # Setup CI and PR badging
 
-Configure CI to publish your storybook and run Chromatic's automation whenever you push code. Badge your PRs to get notified about test and review results.
+Configure CI to publish your Storybook and run Chromatic's automation whenever you push code. Badge your PRs to get notified about test and review results.
 
 ![Chromatic CI workflow](img/workflow-approve.png)
 
@@ -26,7 +26,7 @@ Integration with popular CI tools is painless. Just run `npm run chromatic` as p
 - run:
     command: npm test # run your unit tests
 - run:
-    command: npm run chromatic # publish storybook and run visual tests
+    command: npm run chromatic # publish Storybook and run visual tests
 ```
 
 If any of those steps fails, your CI build will fail.

@@ -12,7 +12,7 @@ If you're already using Storybook, then great!---skip to the [get started](/) gu
 
 #### How Chromatic works (in brief)
 
-Chromatic tests takes image snapshots of various configurations of your components. These configurations, or inputs to your components, are the specification of how the test should operate. We rely on Storybook "stories" to provide these configurations. Chromatic's review feature also utilizes snapshots to narrow down the changes reviewers have to see. Chromatic publishes a secure, versioned storybook to the cloud.
+Chromatic tests takes image snapshots of various configurations of your components. These configurations, or inputs to your components, are the specification of how the test should operate. We rely on Storybook "stories" to provide these configurations. Chromatic's review feature also utilizes snapshots to narrow down the changes reviewers have to see. Chromatic publishes a secure, versioned Storybook to the cloud.
 
 ---
 
