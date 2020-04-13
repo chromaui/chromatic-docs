@@ -57,13 +57,13 @@ Chances are you will not need to configure Storybook further, but if your compon
 We recommend a few changes to the default `.storybook/config.js` that controls the way your Storybook loads:
 
 ```javascript
-import { configure } from '@storybook/react';
+import { configure } from "@storybook/react";
 
 // 2. If you have a global CSS file, import it here:
-import '../src/index.css';
+import "../src/index.css";
 
 // 3. Load a X.story.js file for each of your components/X.js:
-configure(require.context('../src/components', true, /\.story\.js$/), module);
+configure(require.context("../src/components", true, /\.story\.js$/), module);
 ```
 
 You can also remove the default stories created at `.storybook/stories`.
@@ -77,10 +77,10 @@ Let's suppose you want to test a component named `Histogram`, that lives at `src
 Simply create a file called `src/components/Histogram.story.js` and write the following:
 
 ```js
-import React from 'react';
-import { storiesOf } from '@storybook/react';
+import React from "react";
+import { storiesOf } from "@storybook/react";
 
-import Histogram from './Histogram';
+import Histogram from "./Histogram";
 
 export default {
   component: Histogram,
@@ -106,15 +106,15 @@ When you are satisfied that your stories are sensible, you can start up your fir
 ./node_modules/.bin/chromatic --app-code=<your-app-code>
 ```
 
-Grab the app code from [www.chromaticqa.com](https://www.chromaticqa.com) and view the resultant build there to ensure the stories are snapshotted correctly. Read more about [running tests](/test).
+Grab the app code from [www.chromatic.com](https://www.chromatic.com) and view the resultant build there to ensure the stories are snapshotted correctly. Read more about [running tests](/test).
 
 ---
 
 ## Resources
 
 - [Learn Storybook](https://learnstorybook.com) Step by step guides on learning Storybook and component development best practices
-- [Visual Testing Handbook](https://www.chromaticqa.com/book/visual-testing-handbook) a free 31-page walkthrough for visual testing with Storybook
+- [Visual Testing Handbook](https://www.learnstorybook.com/visual-testing-handbook/) a free 31-page walkthrough for visual testing with Storybook
 - [How Storybook fits into your workflow](https://blog.hichroma.com/component-driven-development-ce1109d56c8e)
 - [Storybook docs](https://storybook.js.org/basics/introduction/)
 - [Component explorers](https://blog.hichroma.com/the-crucial-tool-for-modern-frontend-engineers-fb849b06187a) are the essential tool for component development
-- [Visual testing tools](https://www.chromaticqa.com/choose/visual-testing)
+- [Visual testing tools](https://www.chromatic.com/choose/visual-testing)

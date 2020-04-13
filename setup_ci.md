@@ -90,7 +90,7 @@ You can add it to a workflow like so:
 
 You'll need to configure secrets in the settings tab at `https://github.com/{YOUR_ORGANSATION}/{YOUR_REPOSITORY}/settings/secrets`
 
-GitHub actions can run based on any github event, but we recommend to run the workflow containing the chromatic step on `push` event. The action will work on `pull-request` events too, although [it comes with some caveats](https://docs.chromaticqa.com/setup_ci#pull-request-builds). All other events will not.
+GitHub actions can run based on any github event, but we recommend to run the workflow containing the chromatic step on `push` event. The action will work on `pull-request` events too, although [it comes with some caveats](https://docs.chromatic.com/setup_ci#pull-request-builds). All other events will not.
 
 For external PRs (PRs from forks of your repo) to receive the chromatic appCode, you'll have to make the appCode public by placing it in your `package.json`. Alternatively, you could disable Chromatic on external PRs or duplicate external PRs inside your repository.
 
@@ -149,7 +149,7 @@ Since Chromatic runs on CI, you can write a custom CI script to add statuses in 
 
 🎊 You're all setup with Chromatic. Testing and review are essential to maintaining high quality UIs, but there's always more to learn. Checkout how to get the most out UI components with handy Storybook guides written by our team. Don't hesitate to ask us questions via [email](mailto:support@hichroma.com?Subject=Question) or our in-app chat.
 
-- [Visual Testing Handbook](https://www.chromaticqa.com/book/visual-testing-handbook) a free 31-page walkthrough for visual testing with Storybook
+- [Visual Testing Handbook](https://www.learnstorybook.com/visual-testing-handbook/) a free 31-page walkthrough for visual testing with Storybook
 - [Design Systems for Developers](https://www.learnstorybook.com/design-systems-for-developers/) tools and best practices for building a Design System written for developers (rather than designers).
 - [The Delightful Storybook Workflow](https://blog.hichroma.com/the-delightful-storybook-workflow-b322b76fd07) Learn how productive teams get the most out of Storybook. Featuring devs from Squarespace, Discovery Network, Major League Soccer, Apollo GraphQL, Storybook, and Chromatic.
 - [UI Component Playbook](https://blog.hichroma.com/ui-component-playbook-fd3022d00590) a 5-step guide to designing and engineering frontends with components

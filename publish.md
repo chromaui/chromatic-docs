@@ -58,7 +58,7 @@ What this did:
 
 ## Run your first test to establish baselines
 
-Before beginning, make sure you have an `<app-code>` by logging to [Chromatic](https://www.chromaticqa.com/start) and creating a project.
+Before beginning, make sure you have an `<app-code>` by logging to [Chromatic](https://www.chromatic.com/start) and creating a project.
 
 Your first test will setup visual testing for your Storybook. Run the following command in your project directory.
 
