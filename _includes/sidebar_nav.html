@@ -1,13 +1,11 @@
 <div class="sidebar-nav">
-  <ul class="docs-list">
-    <div class="title">Search</div>
-    <li>
-      <input class="searchInput" />
-    </li>
-  </ul>
-
-  <ul class="docs-list">
-    <div class="title">Get Started</div>
+  <div class="input-symbol small round">
+    <input class="searchInput secondary" placeholder="Search docs" />
+    <span class="icon-search"></span>
+  </div>
+  
+  <div class="title">Get Started</div>
+  <ul class="docs-list table-of-contents">
     <li>
       <a
         href="/"
@@ -19,7 +17,7 @@
       <a
         href="/setup"
         class="{% if page.title == "Setup" %}active {% endif %}link"
-        >Setup publish</a
+        >Setup and publish</a
       >
     </li>
     <li>
@@ -52,8 +50,8 @@
     </li>
   </ul>
 
-  <ul class="docs-list">
-    <div class="title">Configuration</div>
+<div class="title">Configuration</div>
+  <ul class="docs-list">  
     <li>
       <a
         href="/viewports"
@@ -116,8 +114,8 @@
     </li>
   </ul>
 
-  <ul class="docs-list">
-    <div class="title">Reference</div>
+  <div class="title">Reference</div>
+  <ul class="docs-list"> 
     <li>
       <a
         href="/snapshots"
@@ -189,3 +187,4 @@
     >support@chromatic</a
   >
 </div>
+

@@ -3,9 +3,9 @@
   position: relative;
   overflow: auto;
   @media screen and (min-width: @breakpoint) {
-	  padding-top: 4rem;
+    padding-top: 4rem;
     padding-bottom: 3rem;
-	}
+  }
 
   .main {
     float: left;
@@ -13,7 +13,7 @@
     overflow: hidden;
     margin-bottom: 3rem;
     @media screen and (min-width: @breakpoint) {
-      width: ~"calc(100% - 200px)";
+      width: ~"calc(100% - 240px)";
     }
   }
 
@@ -21,16 +21,19 @@
     @media screen and (max-width: (@breakpoint  - 1px)) {
       width: 100%;
     }
-    width: 200px;
+    width: 240px;
+    padding-right: 20px;
     float: left;
   }
 }
 
-
-
 .sidebar-nav {
   @media screen and (max-width: (@breakpoint - 1px)) {
-    margin: 1rem 0 .5rem;
+    margin: 1rem 0 0.5rem;
+  }
+
+  .input-symbol {
+    margin: 0 0 2rem;
   }
 
   .title {
@@ -38,10 +41,12 @@
     .font-s1;
     .type-extrabold;
     line-height: 1rem;
-    color: @color-medium;
+    color: @color-mediumdark;
 
-    margin-bottom: .5rem;
-    @media screen and (min-width: @breakpoint) { margin-bottom: 1rem; }
+    margin-bottom: 0.5rem;
+    @media screen and (min-width: @breakpoint) {
+      margin-bottom: 0.75rem;
+    }
   }
 
   .docs-list {
@@ -67,5 +72,91 @@
         .link(@color-primary);
       }
     }
+
+    &.table-of-contents {
+      position: relative;
+
+      @media screen and (min-width: @breakpoint) {
+        margin: 0 0 2rem 24px;
+
+        &:after {
+          position: absolute;
+          top: 12px;
+          right: auto;
+          bottom: 12px;
+          left: -20px;
+          width: auto;
+          height: auto;
+          border-left: 1px solid rgba(0, 0, 0, 0.1);
+          content: "";
+          z-index: 0;
+        }
+      }
+
+      li {
+        a {
+          display: inline-block;
+          padding: 8px 0;
+          line-height: 1.5;
+          position: relative;
+          z-index: 1;
+
+          @media screen and (min-width: @breakpoint) {
+            &:after {
+              position: absolute;
+              top: 15px;
+              right: auto;
+              bottom: auto;
+              left: -23px;
+              width: auto;
+              height: auto;
+              background: @color-medium;
+              box-shadow: white 0 0 0 4px;
+              height: 8px;
+              width: 8px;
+              border-radius: 1em;
+              text-decoration: none !important;
+              content: "";
+            }
+            &.active:after {
+              background: @color-primary;
+            }
+          }
+        }
+      }
+    }
   }
 }
+
+// /* Main dropdown wrapper */
+// .algolia-autocomplete .ds-dropdown-menu {
+//   width: 500px;
+// }
+
+// /* Main category (eg. Getting Started) */
+// .algolia-autocomplete .algolia-docsearch-suggestion--category-header {
+//   color: darkgray;
+//   border: 1px solid gray;
+// }
+
+// /* Category (eg. Downloads) */
+// .algolia-autocomplete .algolia-docsearch-suggestion--subcategory-column {
+//   color: gray;
+// }
+
+// /* Title (eg. Bootstrap CDN) */
+// .algolia-autocomplete .algolia-docsearch-suggestion--title {
+//   font-weight: bold;
+//   color: black;
+// }
+
+// /* Description description (eg. Bootstrap currently works...) */
+// .algolia-autocomplete .algolia-docsearch-suggestion--text {
+//   font-size: 0.8rem;
+//   color: gray;
+// }
+
+// /* Highlighted text */
+// .algolia-autocomplete .algolia-docsearch-suggestion--highlight {
+//   color: blue;
+// }
