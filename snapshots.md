@@ -10,7 +10,7 @@ Snapshots represent a rendering of a story and drive Chromatic's test and review
 
 ---
 
-## What are snapahots?
+## What are snapshots?
 
 A snapshot is an image of a story plus some metadata captured by a browser within Chromatic's cloud infrastructure.
 

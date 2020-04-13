@@ -10,33 +10,33 @@ description: Chromatic is a cloud based toolchain built around Storybook to help
 
 ## What is Chromatic?
 
-Chromatic is a cloud based toolchain built around [Storybook](https://storybook.js.org) by the Storybook maintainers to help teams develop robust UI components faster, together. Once your storybook is published to Chromatic you can share it securely with colleagues for feedback, we'll run UI tests to find visual regressions, and we'll automatically detect what changed between commits so your team can review UI changes before they ship.
+Chromatic is a cloud-based toolchain for [Storybook](https://storybook.js.org) that helps teams ship UI components faster. It's made by the team behind Storybook. Here's how it works.
 
-#### Publish
+#### Publish Storybook
 
-Publish Storybook to Chromatic automatically on every commit by integrating Chromatic into your CI workflow and Git hosting provider.
+Publish your Storybook to a secure CDN when you push code. Chromatic provides a shared workspace for teams to comment and review UI work together. It integrates with your existing CI workflow and Git hosting provider.
 
-#### Test
+#### UI Tests
 
-Chromatic gives frontend engineers a fast, automated, low effort, cross browser, pixel-perfect regression test suite using the stories contained in their Storybook as test cases. [Learn more](test)
+Test for visual regressions in components. Chromatic turns your stories into test baselines. Each story is rendered in Chrome, Firefox, and Internet Explorer 11 simultaneously then compared to a screenshot of the "last known good state" to detect bugs. [Learn more »](test)
 
-#### Review
+#### UI Review
 
-Chromatic determines the set of visual changes occurring on any given feature branch and provides a rich, collaborative review process for all stakeholders -- think of it like code review for your UI. [Learn more](review)
+Review a visual changeset for components each pull request. Chromatic compares the new and updated components on a given feature branch versus a target branch to generate a UI changeset. Review changes with tech leads, designers, and product managers. Think of it like code review, but for UI. [Learn more »](review)
 
-#### Document
+#### Index and version
 
-Chromatic maintains a shared, versionened, secure source of truth for components built in Storybook fully integrated with your Git provider of choice. Storybook can read components from Chromatic’s fast+secure CDN to provide app developers with rich, in-place documentation for their reusable components. [Learn more](document)
+Maintain a documented, versioned, and searchable library for your components. Chromatic helps teammates discover your work to reuse. Reference Chromatic's library inside your local Storybook or on our website. [Learn more »](document)
 
-#### Merge
+#### Powered by continuous integration
 
-When regression tests pass and reviews are approved in Chromatic, UI components are ready to merge and ship to production.
+Automate your component library with CI and version control. Chromatic includes three PR/MR checks: "Storybook Publish", "UI Tests", and "UI Review". This makes it easy to require certain workflows and gauge implementation progress.
 
 ## Why Storybook?
 
-[Storybook](http://storybook.js.org) is an open source tool built for developing UI components in isolation and creating living, interactive component documentation. Storybook makes it trivial to reproduce hard to reach component states and ensuring those states are documented in code. Teams that have adopted Storybook benefit from automation (such as Chromatic) that is able to read component states from Storybook's standardized and open CSF format.
+[Storybook](http://storybook.js.org) is an open source tool built for developing UI components in isolation and creating living, interactive component documentation. Storybook makes it trivial to reproduce hard to reach component states and ensuring those states are documented in code. When you adopt Storybook you also unlock automation for UI components and libraries via Chromatic.
 
-For those new to Storybook and isolated component development, we maintain rich guides at [learnstorybook.com](https://learnstorybook.com) for both app developers and Design System maintainers.
+New to Storybook? Read our peer-reviewed guides for professional developers at [LearnStorybook.com](https://learnstorybook.com).
 
 ---
 
