@@ -32,11 +32,14 @@ Maintain a documented, versioned, and searchable library for your components. Ch
 
 Automate your component library with CI and version control. Chromatic includes three PR/MR checks: "Storybook Publish", "UI Tests", and "UI Review". This makes it easy to require certain workflows and gauge implementation progress.
 
-## Why Storybook?
+<details>
+<summary><h3>Why use Storybook?</h3></summary>
 
 [Storybook](http://storybook.js.org) is an open source tool built for developing UI components in isolation and creating living, interactive component documentation. Storybook makes it trivial to reproduce hard to reach component states and ensuring those states are documented in code. When you adopt Storybook you also unlock automation for UI components and libraries via Chromatic.
 
 New to Storybook? Read our peer-reviewed guides for professional developers at [LearnStorybook.com](https://learnstorybook.com).
+
+</details>
 
 ---
 
