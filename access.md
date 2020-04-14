@@ -4,7 +4,7 @@ title: Access control
 description: Learn how to control who has access to your Chromatic project
 ---
 
-# Access control for projects and accounts
+# Access control
 
 Learn how to manage access to your Chromatic account and projects.
 
@@ -46,8 +46,11 @@ Users that have used the invitation link will get full write access to the proje
 
 ---
 
-### Troubleshooting
+### Frequently asked questions
 
-#### Your teammates can't access a project
+<details>
+<summary>Why can't my teammates access a project?</summary>
 
 Check that your teammates are listed as collaborators in that repository. If they aren't listed, please add them and try accessing the Chromatic project again (you may have to re-login). Chromatic syncs permissions at the account _and_ repo level.
+
+</details>

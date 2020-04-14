@@ -42,6 +42,6 @@ New to Storybook? Read our peer-reviewed guides for professional developers at [
 
 ## Next: Setup Chromatic
 
-🎉Setup Chromatic to publish your Storybook (< 2 mins).
+🎉Setup Chromatic to publish your Storybook in less than 2 minutes.
 
 <a class="btn primary round" href="/setup">Read next chapter</a>
