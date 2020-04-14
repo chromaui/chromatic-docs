@@ -16,9 +16,14 @@ baseurl: "" # the subpath of your site, e.g. /blog
 url: "https://docs.chromatic.com" # the base hostname & protocol for your site
 
 # Build settings
-markdown: kramdown
-kramdown:
-  syntax_highlighter: rouge
+markdown: CommonMarkGhPages
+commonmark:
+  options: ["SMART", "FOOTNOTES"]
+  # https://github.com/gjtorikian/commonmarker#extensions
+  extensions: ["strikethrough", "autolink", "table", "tagfilter"]
+# kramdown:
+#   syntax_highlighter: rouge
+#   parse_block_html: true
 
 # Sites
 url_blog: https://blog.hichroma.com
