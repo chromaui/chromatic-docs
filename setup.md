@@ -4,17 +4,15 @@ title: Setup
 description: Learn how to setup Chromatic and publish Storybook
 ---
 
-# Setup
+# Publish Storybook
 
-Chromatic's CLI tool is used to build and publish Storybooks to the cloud which are then access via the [web interface](https://www.chromatic.com/start). The CLI tool also returns an exit code based on the result of running UI tests (if enabled) which can be used to block builds in CI when tests fail.
+The Chromatic CLI builds then publishes Storybook to a secure workspace in the cloud. That allows your team to access all your stories at [chromatic.com](https://www.chromatic.com/start).
 
 ## Signup
 
-Before publishing, you'll need to obtain an `<app-code>` by logging in to [Chromatic](https://www.chromatic.com/start) and creating a project. The `<app-code>` is a unique token used by the CLI tool and generated for each Storybook that you'll be publishing.
+Before publishing, generate a unique `<app-code>` for your Storybook by logging in to [Chromatic](https://www.chromatic.com/start) and creating a project.
 
-Chromatic supports oAuth login via all major Git providers (Github, Gitlab, Bitbucket). Chromatic will mirror permissions from your Git provider meaning that if you link a project to a Git repository, only the people who have access to that repository will have access to the project in Chromatic. It's also possible to create an 'Unlinked' project and manage the list of collaborators manually.
-
-Enterprise plans come with support for Single Sign On (SSO) and on-prem Git hosting from all supported providers. Read more about Chromatic's access control on our [reference page](access).
+Login via oAuth from Github, Gitlab, or Bitbucket. If you require SSO or have on-premises Git hosting learn more about access control [here](access).
 
 ## Installation
 
@@ -24,7 +22,7 @@ Install the [storybook-chromatic](https://github.com/chromaui/chromatic-cli) pac
 # Yarn
 yarn add storybook-chromatic
 
-# Npm
+# npm
 npm install --save-dev storybook-chromatic
 ```
 
@@ -40,9 +38,9 @@ The `chromatic` command will also give you the option of adding an npm script to
 
 The above script command will pick up your app code by reading the `CHROMATIC_APP_CODE` environment variable. After adding the above, ensure you set `CHROMATIC_APP_CODE` when you run builds---such as in your CI config.
 
-If you allowed `chromatic` to add the above line, it will also have written the environment variable to your `package.json`. Depending on your level of trust of your code hosting provider, you should consider removing the environment variable and setting via your CI config.
+If you allowed `chromatic` to add the above line, it will also have written the environment variable to your `package.json`. This environment variable can also be set via your CI config for extra privacy.
 
-## Running
+## Run Chromatic
 
 Once you've installed the `storybook-chromatic` package and have an `<app-code>`, run the following command in your project directory.
 
@@ -51,10 +49,10 @@ Once you've installed the `storybook-chromatic` package and have an `<app-code>`
 ```
 
 <div class="aside">
-Chromatic uses the `build-storybook` script from your `package.json` by default but you can specify a different name (see <a href="#available-options">options</a>). You may need to update the `build-storybook` script if you customized your `storybook` script (for example if you added a static directory with `-s`). Whilst it's possible for Chromatic to run against a development Storybook, we strongly recommend you use a built Storybook. 
+Chromatic uses the <code>build-storybook</code> script from your <code>package.json</code> by default but you can specify a different name (see <a href="#available-options">options</a>). You may need to update the <code>build-storybook</code> script if you customized your <code>storybook</code> script (for example if you added a static directory with <code>-s</code>). Whilst it's possible for Chromatic to run against a development Storybook, we strongly recommend you use a built Storybook. 
 </div>
 
-If everything worked, you'll see some informational output followed by
+When complete, you'll see the build status followed by a link to the published Storybook:
 
 ```bash
 Build 1 published.
@@ -62,22 +60,25 @@ Build 1 published.
 View it online at https://www.chromatic.com/build?appId=59c5a73849dd100364e1d57&number=1.
 ```
 
-What this did:
+**Here's what the command does:**
 
-1. Ran `storybook-build` and published the output static Storybook to Chromatic resulting in a new 'Build'.
-2. Updated the Build with local Git history so that Chromatic can associate Git commits with published Storybooks.
-3. A 'Snapshot' was created for every Story by rendering it and capturing the output on Chromatic's cloud infrastrcture.
-4. The Snapshots were used to run UI Tests and create visual comparisons to power UI Review.
-5. Pull Requests that are affected by the commit were updated with links to the published Storybook and UI Review along with UI Test results.
+1. Runs `storybook-build` and outputs a static Storybook
+2. Publishes the static Storybook to Chromatic as a 'build'.
+3. Updates the build with local Git history to associate Git commits with published Storybooks.
+4. Renders every story in a cloud browser and takes a "[snapshot](snapshots)".
+5. Check for visual differences between snapshots to identify bugs (UI Tests) or highlight updates (UI Review).
+6. Updates relevant pull requests with links to the published Storybook, UI Tests results, and the UI Review workspace.
 
 ![Build Page](img/xxx-page.png)
 
-Each time you run the `chromatic` command, we'll create a corresponding artifact within Chromatic's web interface and show details on the Build screen. Here, you can:
+Every time you run the `chromatic` command you get a corresponding build in Chromatic's web app. The build screen gives you an overview of your Storybook for that commit.
 
-- Confirm your build worked and directly access the Storybook that Chromatic indexed.
-- Review UI test results and see which browsers are enabled for UI tests.
-- Browse the components that are included in the Storybook and access your library.
-- If the Storybook commit is part of a PR, access Chromatic's UI Review page.
+- Confirm your build was successful
+- Analyze components and stories
+- Navigate to the published Storybook
+- View UI test results for enabled browsers
+- Browse the components in the Storybook for the build.
+- Link to associated pull/merge request in Chromatic for UI Review.
 
 ## Configure CI
 

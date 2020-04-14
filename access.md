@@ -8,7 +8,19 @@ description: Learn how to control who has access to your Chromatic project
 
 Learn how to manage access to your Chromatic account and projects.
 
----
+## Authentication
+
+Login via OAuth from GitHub, Gitlab, or Bitbucket. Chromatic supports the public cloud versions of these services via our self-serve plans.
+
+Enterprise plans come with support for Single Sign On (SSO) and on-premises Git hosting from all supported providers.
+
+## Accounts
+
+Chromatic mirrors access permissions at the "team" level to make permissions management quick and easy. Share access with your GitHub organization, Bitbucket group, or GitLab team by adding that account to Chromatic via the menu.
+
+Permissions also carry over at the repository level. For example, if a person does not have access to repository in your code host they will also not have access to it in Chromatic.
+
+![Account menu](img/account-menu.png){: .center }
 
 ## Projects
 
@@ -31,16 +43,6 @@ Note that public repositories on GitHub/GitLab/Bitbucket give read access to all
 To grant access to a unlinked project that you've created, either link it to a third-party repository, or use the invitation URL accessible on the "Manage" page.
 
 Users that have used the invitation link will get full write access to the project.
-
----
-
-## Accounts
-
-Chromatic mirrors access permissions at the "team" level to make permissions management quick and easy. Share access with your GitHub organization, Bitbucket group, or GitLab team by adding that account to Chromatic via the menu.
-
-Permissions also carry over at the repository level. For example, if a person does not have access to repository in your code host they will also not have access to it in Chromatic.
-
-![Account menu](img/account-menu.png){: .center }
 
 ---
 

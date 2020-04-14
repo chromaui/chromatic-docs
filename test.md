@@ -4,9 +4,9 @@ title: Test
 description: Learn how to run Chromatic UI Tests
 ---
 
-# Test
+# UI Tests
 
-Visual testing ensures components dont change by accident. It’s still up to you to decide if changes are intentional. Chromatic automates visual testing by detecting UI changes betweeen commits.
+Chromatic visually tests the appearance and layout of components every commit. This ensures they don't change by accident. But it’s still up to you to decide if changes are intentional.
 
 If a change is intentional you need to update the baseline so future tests will be compared to the _latest version_ of the story. And if a change is unintentional it needs to be fixed.
 
@@ -14,9 +14,9 @@ If a change is intentional you need to update the baseline so future tests will 
 
 ---
 
-## Detecting changes
+## How it works
 
-1. Chromatic renders your stories in real browsers in the cloud. It takes a screenshot of each story, cropping it down to it's smallest bounding region. We call this a [Snapshot](snapshots).
+1. Chromatic renders your stories in real browsers in the cloud. It takes a screenshot of each story, cropping it down to it's smallest bounding region. We call this a [snapshot](snapshots).
 2. The latest snapshots are compared to their baselines (i.e the last accepted snapshot) pixel-by-pixel. Chromatic's algorithm is built to avoid false positives by applying algorithms that ignore small random changes due to anti-aliasing and browser's non-determinism.
 3. Chromatic shows you a diff of the changed pixels along with a diff of the DOM changes. _Note: It is only the visual diff that triggers changes, the DOM diff is purely informational._
 

@@ -22,7 +22,7 @@ Test for visual regressions in components. Chromatic turns your stories into tes
 
 #### UI Review
 
-Review a visual changeset for components each pull request. Chromatic compares the new and updated components on a given feature branch versus a target branch to generate a UI changeset. Review changes with tech leads, designers, and product managers. Think of it like code review, but for UI. [Learn more »](review)
+Review a visual changeset of components each pull request. Chromatic compares the new and updated components on a given feature branch versus a target branch to generate a UI changeset. Review changes with tech leads, designers, and product managers. Think of it like code review, but for UI. [Learn more »](review)
 
 #### Index and version
 
