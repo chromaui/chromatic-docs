@@ -17,7 +17,7 @@
   }
 
   h2:not(:first-child) {
-    margin-top: 2rem;
+    margin-top: 3rem;
   }
 
   hr {
@@ -47,7 +47,7 @@
 
   h4 {
     .font-s3;
-    .type-extrabold;
+    .type-bold;
     margin: 2rem 0 0.25rem;
   }
 
@@ -72,7 +72,7 @@
 
   p a,
   li a {
-    .link(@color-primary);
+    .link(darken(@color-primary, 20%));
     .type-normal;
   }
 
@@ -142,9 +142,21 @@
     list-style-type: disc;
   }
 
+  div[class*="language-"] {
+    margin: 2em 0;
+
+    & + .aside {
+      margin-top: -2rem;
+      border-top-left-radius: 0;
+      border-top-right-radius: 0;
+      border-top: 1px solid rgba(0, 0, 0, 0.1);
+    }
+  }
+
   .highlight {
     .font-s2;
     overflow-x: auto;
+    margin: 0;
 
     table {
       width: 100%;
@@ -245,7 +257,7 @@
 
   .aside {
     .font-s2;
-    background: @color-neutral;
+    background: @color-bg;
     color: @color-dark;
     border-radius: 4px;
     padding: 1em;
@@ -258,5 +270,24 @@
 
   video {
     max-width: 100%;
+  }
+
+  details {
+    margin: 1.5em 0;
+  }
+
+  details > summary {
+    display: inline-block;
+    cursor: pointer;
+    .link(darken(@color-primary, 20%));
+  }
+
+  details[open] > summary {
+    margin-bottom: 1em;
+  }
+
+  details > summary::-webkit-details-marker {
+    height: 10px;
+    width: 10px;
   }
 }
