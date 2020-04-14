@@ -17,7 +17,7 @@
   }
 
   h2:not(:first-child) {
-    margin-top: 3rem;
+    margin-top: 2.5rem;
   }
 
   hr {
@@ -143,10 +143,10 @@
   }
 
   div[class*="language-"] {
-    margin: 2em 0;
+    margin: 1.5em 0;
 
     & + .aside {
-      margin-top: -2rem;
+      margin-top: -1.5rem;
       border-top-left-radius: 0;
       border-top-right-radius: 0;
       border-top: 1px solid rgba(0, 0, 0, 0.1);
@@ -274,6 +274,17 @@
 
   details {
     margin: 1.5em 0;
+
+    h1,
+    h2,
+    h3,
+    h4 {
+      display: inline;
+    }
+
+    &:not([open]) + details {
+      margin-top: -1em;
+    }
   }
 
   details > summary {

@@ -12,8 +12,6 @@ Baselines are intelligently choosen based on your git history in the way you wou
 
 ![Baselines](/img/baselines.jpg)
 
----
-
 ## Baselines
 
 Chromatic tests compare snapshots to a baseline: the last known “good” state of the story.
@@ -21,8 +19,6 @@ Chromatic tests compare snapshots to a baseline: the last known “good” state
 Each story has its own baseline that is tracked independently on each branch. When you approve a snapshot you also update the baseline for that story, for the purposes of the branch it is one. When you merge that branch into another (for instance back into `master`), the baseline comes with it.
 
 The way the baseline calculation works is nuanced. See the section [below](#calculating-baselines) for more information.
-
----
 
 ## Branches
 

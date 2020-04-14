@@ -6,8 +6,7 @@ description: Learn how Chromatic pauses animations and how to control the behavi
 
 # Animations
 
-As it is difficult to precisely set the time that a snapshot is taken, Chromatic makes
-an effort to pause all video and disable animation. Chromatic does this for CSS animations and transitions, as well as SVG animations and video.
+Chromatic proactively pauses CSS animations/transitions, SVG animations, and videos to prevent false positives. We do this because multiple variables outside of our control make it impossible to guarantee consistent animation painting down to the millisecond.
 
 ## CSS animations
 
@@ -16,7 +15,7 @@ Chromatic will pause CSS animations and reset them to their beginning state.
 Some animations are used to "animate in" visible elements. To specify that Chromatic should pause the animation at the end, use the `pauseAnimationAtEnd` story parameter:
 
 ```js
-import MyComponent from './MyComponent';
+import MyComponent from "./MyComponent";
 
 export default {
   component: MyComponent,
@@ -35,19 +34,19 @@ You can use Storybook's parameter inheritance if you want to set the behaviour f
 
 ```js
 // In .storybook/config.js
-import { addParameters } from '@storybook/react';
+import { addParameters } from "@storybook/react";
 
 // This will apply the behaviour to all stories in your Storybook
 addParameters({ chromatic: { pauseAnimationAtEnd: true } });
 ```
 
-## JS animations
+## JavaScript animations
 
-Chromatic cannot disable JavaScript driven animations, so we advise disabling such animations manually for Chromatic builds. One way to do that is using `isChromatic`:
+Chromatic cannot disable JavaScript driven animations, so we advise disabling such animations manually for Chromatic builds. One way to do that is using [`isChromatic()`](isChromatic):
 
 ```js
 // In .storybook/config.js
-import isChromatic from 'storybook-chromatic/isChromatic';
+import isChromatic from "storybook-chromatic/isChromatic";
 
 if (isChromatic()) {
   // The exact method to do this will depend on your animation techniques.
@@ -59,4 +58,4 @@ if (isChromatic()) {
 
 If you cannot disable animations (for example if disabling JS animations is difficult), you can use a [delay](/delay) to allow the animation to complete before taking the snapshot.
 
-Alternatively, use an [ignore region](/ignoring-elements) to stop Chromatic from considering such parts of your component.
+Alternatively, [ignore an element](/ignoring-elements) to omit a visible area of your component when comparing snapshots.

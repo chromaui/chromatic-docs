@@ -8,15 +8,13 @@ description: What is a Snapshot in Chromatic
 
 Snapshots represent a rendering of a story and drive Chromatic's test and review functionality.
 
----
-
 ## What are snapshots?
 
 A snapshot is an image of a story plus some metadata captured by a browser within Chromatic's cloud infrastructure.
 
 For every story in your Storybook: Chromatic will load the story, wait for it to render, take a screenshot and crop it to the correct bounding region. Snapshots are stored in the cloud and used to determine UI changes between builds.
 
-### Multiple viewports and browsers
+## Multiple viewports and browsers
 
 Since UI usually renders differently across viewports and browsers, Chromatic must take a separate snapshot for every combination of viewport and browser that you've configured.
 
@@ -36,18 +34,26 @@ However, Chromatic will hide the caret (flashing cursor) as otherwise it will ca
 
 ---
 
-### FAQ
+### Frequently asked questions
 
-#### What happens when I run out of snapshots on the free plan?
-
+<details>
+<summary>What happens when I run out of snapshots on the free plan?</summary>
 Free plans come with 5000 snapshots per month. Once free snapshots are exhausted, testing & review will become paused until the next month at which time Chromatic will again begin taking snapshots and functionality will automatically resume. Upgrading to a paid plan will immediately unpause testing & review.
 
 Chromatic will compare snapshots to the last build with snapshots, so if snapshots were paused you may be surprised to find new comparisons made against baselines which appear out of date.
 
-#### What happens if I disable testing and/or review?
+</details>
+
+<details>
+<summary>What happens if I disable UI Tests and/or UI Review?</summary>
 
 As long as either the testing or review features are enabled, Chromatic will continue taking snapshots. With both disabled, Chromatic will stop taking snapshots and all other features of the platform (such as publishing) will continue without limits.
 
-#### Do I use more snapshots when both UI Tests and UI Review are enabled?
+</details>
+
+<details>
+<summary>Do I use more snapshots when both UI Tests and UI Review are enabled?</summary>
 
 No. Snapshots taken for one workflow are reused for the other. You don't get charged twice.
+
+</details>

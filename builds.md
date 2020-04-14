@@ -71,7 +71,7 @@ Protip: Pressing 1 multiple times switches between the baseline and new snapshot
 
 ![Build passed](img/build-passed.png)
 
-When your build is "passed" (all changes accepted) Chromatic will return an exit code for you to [script workflow behavior](/setup_ci). You can now merge visual changes with confidence knowing that your UI will look exactly as intended.
+When your build is "passed" (all changes accepted) Chromatic will return an exit code for you to [script workflow behavior](/ci). You can now merge visual changes with confidence knowing that your UI will look exactly as intended.
 
 ---
 
@@ -79,7 +79,7 @@ When your build is "passed" (all changes accepted) Chromatic will return an exit
 
 🔄Now that you know how testing and review works, let's see how to integrate Chromatic into your workflow. You'll learn how to get notified of changes in your PR and automate testing with CI.
 
-<a class="btn primary round" href="/setup_ci">Read next chapter</a>
+<a class="btn primary round" href="/ci">Read next chapter</a>
 
 ---
 

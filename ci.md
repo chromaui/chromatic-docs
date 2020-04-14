@@ -1,10 +1,10 @@
 ---
 layout: default
-title: Setup CI & PRs
-description: Learn how to setup Chromatic in your continuous integration tool
+title: Automate with CI
+description: Learn how to configure Chromatic with your continuous integration service
 ---
 
-# Setup CI and PR badging
+# Automate with CI
 
 Configure CI to publish your Storybook and run Chromatic's automation whenever you push code. Badge your PRs to get notified about test and review results.
 
@@ -90,7 +90,7 @@ You can add it to a workflow like so:
 
 You'll need to configure secrets in the settings tab at `https://github.com/{YOUR_ORGANSATION}/{YOUR_REPOSITORY}/settings/secrets`
 
-GitHub actions can run based on any github event, but we recommend to run the workflow containing the chromatic step on `push` event. The action will work on `pull-request` events too, although [it comes with some caveats](https://docs.chromatic.com/setup_ci#pull-request-builds). All other events will not.
+GitHub actions can run based on any github event, but we recommend to run the workflow containing the chromatic step on `push` event. The action will work on `pull-request` events too, although [it comes with some caveats](https://docs.chromatic.com/ci#pull-request-builds). All other events will not.
 
 For external PRs (PRs from forks of your repo) to receive the chromatic appCode, you'll have to make the appCode public by placing it in your `package.json`. Alternatively, you could disable Chromatic on external PRs or duplicate external PRs inside your repository.
 
@@ -123,7 +123,7 @@ If this is happening to you, prepend `CI=true` to your test command like so `CI=
 
 GitHub's squash/rebase merge functionality creates new commits that have no association to branch being merged, so it is difficult for Chromatic to know that changes accepted on that branch should now be baselines on `master`.
 
-To resolve this situation we suggest you maintain a clean `master` branch and use `--auto-accept-changes` as [mentioned here](/setup_ci#maintain-a-clean-master-branch)
+To resolve this situation we suggest you maintain a clean `master` branch and use `--auto-accept-changes` as [mentioned here](/ci#maintain-a-clean-master-branch)
 
 ---
 
@@ -137,7 +137,7 @@ If there are errors or changes need to be reviewed, this will be indicated in th
 
 ![PR services](/img/pr-badges.png)
 
-Depending on your policy, you may not want to block the rest of your CI script on the acceptance of visual changes, and simply rely on the above status, in which case you would write `npm run chromatic || true` in your CI build to ensure that CI completes. Learn more about [setting up CI](/setup_ci).
+Depending on your policy, you may not want to block the rest of your CI script on the acceptance of visual changes, and simply rely on the above status, in which case you would write `npm run chromatic || true` in your CI build to ensure that CI completes. Learn more about [setting up CI](/ci).
 
 #### PR statuses for other services
 

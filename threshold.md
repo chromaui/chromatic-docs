@@ -8,8 +8,6 @@ description: Learn how to fine tune the amount of visual change between snapshot
 
 The `diffThreshold` parameter allows you to fine tune the threshold for visual change between snapshots before they're flagged by Chromatic. A value of 0 means that pixels must have the exact same color value to be treated the same (which is unlikely when things like images and fonts are rendered by the browser) and 1 means pixels can have any color values.
 
----
-
 ## Setting the threshold
 
 Chromatic's out-of-the-box threshold was battle-tested to be ideal for most cases. But sometimes you need assurance to the sub-pixel. And other times you want to skip visual noise.
@@ -17,7 +15,7 @@ Chromatic's out-of-the-box threshold was battle-tested to be ideal for most case
 Configure the `diffThreshold` with a Storybook parameter like so:
 
 ```js
-import MyComponent from './MyComponent';
+import MyComponent from "./MyComponent";
 
 export default {
   component: MyComponent,

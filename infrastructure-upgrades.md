@@ -1,6 +1,6 @@
 ---
 layout: default
-title: Infrastructure Upgrades
+title: Infrastructure upgrades
 description: Learn how Chromatic handles browser rendering changes to be minimally disruptive
 ---
 

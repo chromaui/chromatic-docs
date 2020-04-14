@@ -8,7 +8,7 @@ description: Learn how to capture hover and focus states
 
 CSS includes pseudo-classes that allow precise styling of different element states. Here are a few techniques for capturing them in Chromatic.
 
-### Trigger CSS states via props
+## Trigger CSS states via props
 
 For interactive states, we recommend separating state from the component to achieve a "pure" stateless component and a stateful one. Then you can write stories against the stateless one in exactly the configurations you are after. This is useful for development too, we've found you can toggle between stories without even needing to interact with the component.
 
@@ -46,7 +46,7 @@ export const ActiveState = () => (
 );
 ```
 
-### CSS class name
+## CSS class name
 
 Add a CSS class name that mirrors the `:hover`, `:active`, or `:focus` state.
 
@@ -83,6 +83,6 @@ export const ActiveState = () => (
 
 You can also extend this technique using a JS wrapper that [automates adding a class](https://github.com/Workday/canvas-kit/pull/377/files).
 
-### In the future
+## In the future
 
 We're considering ways to allow this kind of interaction via Chromatic and may add a thin layer for this in the future.

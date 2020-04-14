@@ -8,9 +8,7 @@ description: Enable visual testing with multiple browsers
 
 UIs might look perfect in one browser but be broken in another. Chromatic helps you extend your test coverage to Chrome, Firefox, and IE11 in one click.
 
----
-
-## Enabling new browsers
+## Enable new browsers
 
 Go to the "Manage" screen and click to enable another browser. Chrome is enabled by default.
 
@@ -36,7 +34,7 @@ Congratulations you enabled a new browser! From now on our Capture Cloud will sp
 
 ---
 
-## Review test changes in multiple browsers
+## Verify UI changes across browsers
 
 When Chromatic tests detect a visual change to a story in any enabled browser you'll get notified. For instance, if you have a `TooltipMessage:default` story that is tested in Chrome and Firefox, you'll be notified when changes happen in either Chrome or Firefox.
 
@@ -48,11 +46,12 @@ You can see changes for the browser's snapshot in the review workflow.
 
 Once you accept changes to the story, its baselines are updated. Each story has one baseline for Chrome, it can also have baselines for Firefox and IE11.
 
-Note: If you test responsiveness with the viewport parameters, baselines are associated with each viewport, and those can have a Chrome, Firefox, or IE11 baseline.
+<div class="aside">If you test responsiveness with the viewport parameters, baselines are associated with each viewport, and those can have a Chrome, Firefox, or IE11 baseline.</div>
 
 ---
 
-### FAQ
+<details>
+<summary><h3 id="frequently-asked-questions">Frequently asked questions</h3></summary>
 
 #### Does enabling more browsers add time to my tests?
 
@@ -83,3 +82,5 @@ No. At the moment, Chrome is fixed as the browser used for UI review.
 #### Can I disable visual testing in Chrome?
 
 All plans use Chrome by default because it offers the greatest test coverage for most people. It cannot be disabled.
+
+</details>

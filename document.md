@@ -57,14 +57,16 @@ When you're linking to a library or component on Chromatic, it can be useful to 
 
 🔄Now that you've learnt about Chromatic's features, let's see how to integrate Chromatic into your workflow. You'll learn how to get notified of changes in your PR and automate testing with CI.
 
-<a class="btn primary round" href="/setup_ci">Read next chapter</a>
+<a class="btn primary round" href="/ci">Read next chapter</a>
 
 ---
 
 ### Troubleshooting
 
-#### Live view fails to load
+<details><summary>Canvas tab fails to load</summary>
 
 If your stories make use of non-HTTPS content (for instance images), the iframe we deliver live view will fail to load, as modern browsers do not allow mixed content (HTTP content hosted within HTTPS pages).
 
 To fix this, simply ensure all resources used by your stories are hosted via HTTPS.
+
+</details>

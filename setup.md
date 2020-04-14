@@ -8,7 +8,9 @@ description: Learn how to setup Chromatic and publish Storybook
 
 The Chromatic CLI builds then publishes Storybook to a secure workspace in the cloud. That allows your team to access all your stories at [chromatic.com](https://www.chromatic.com/start).
 
-## Signup
+XXX add image of Storybook --> Chromatic
+
+## Sign up
 
 Before publishing, generate a unique `<app-code>` for your Storybook by logging in to [Chromatic](https://www.chromatic.com/start) and creating a project. Login via OAuth from GitHub, GitLab, or Bitbucket. If you require SSO or have on-premises Git hosting learn more about access control [here](access#authentication).
 
@@ -72,11 +74,13 @@ Success! Every time you run the `chromatic` command you get a corresponding buil
 
 ![Build Page](img/xxx-page.png)
 
-## Configure continuous integration
+## Get the PR check
 
-During setup, we recommend running `chromatic` on the command line (as shown above) to make sure the configuration is correct. To complete setup, run [Chromatic with CI](ci) to publish Storybook when you push code and get a PR check.
+Chromatic posts a "Publish Storybook" status check in pull/merge requests that links to the latest published Storybook. This gives teams secure, convenient access to the browse components and stories. Get the PR check by [automating Chromatic with CI](ci).
 
-XXX include PR publish check ![PR Status Checks](https://via.placeholder.com/300x150.png?text=PR Status Checks){: .center }
+XXX include PR publish check
+
+<div class="aside">During setup we recommend running <code>chromatic</code> on the command line to make sure the configuration is correct. Run Chromatic in CI for production use.</div>
 
 ---
 
@@ -88,7 +92,8 @@ XXX include PR publish check ![PR Status Checks](https://via.placeholder.com/300
 
 ---
 
-### Command options
+<details>
+<summary><h3 id="command-options">Command options</h3></summary>
 
 If you have customized the way your Storybook runs, you may need to pass additional options to the `chromatic` command. Learn more in the [package documentation](https://github.com/chromaui/chromatic-cli#main-options).
 
@@ -104,30 +109,50 @@ If you have customized the way your Storybook runs, you may need to pass additio
 | `--debug`                | Output extra debugging information.                                                                                                                                            |
 | `CI=true`                | Tell Chromatic that you're running in CI. This will hide the "Setup CI / Automation" messages in the UI. Add _before_ the test command like so: `CI=true yarn chromatic...`    |
 
+</details>
+
 ### Troubleshooting
 
-#### Build failures
+<details>
+<summary>Build failures</summary>
 
 A build will _fail_ if any of the snapshots fail to render (i.e. in rendering the latest version of the component, the snapshot throws a JavaScript exception). You'll need to fix the code for errored components before we can pass the build.
 
-#### Errored builds
+</details>
+
+<details>
+<summary>Errored builds</summary>
 
 Chromatic builds and runs Storybook flawlessly _most of the time_, but we're not perfect (we wish). Sometimes builds don't run due to rare infrastructure issues. If this happens, try to re-run the build in your CI provider. We keep track of these errors to improve the service.
 
-#### Timed out
+</details>
+
+<details>
+<summary>Timed out</summary>
 
 Chromatic takes snapshots very quickly. However, if we lose the connection to your server (for instance if you stop your server mid-build, or your internet connection goes down), builds can time out. Check your connection and try restarting the build.
 
-#### Failed to evaluate your stories
+</details>
+
+<details>
+<summary>Failed to evaluate your stories</summary>
 
 We use [JSDOM](https://github.com/tmpvar/jsdom) to evaluate your stories in a simulated browser environment. JSDOM doesn't support every browser-specific construct or API. Our package provides shims for [common constructs](https://github.com/chromaui/chromatic-cli/blob/19751d87d950a2aecefb522e57c9a13c8c34fe54/bin/lib/jsdom-shims.js), but you may need mock them out yourself for extra coverage. Pass `--debug` to the script command to get extra info if it fails.
 
-#### No Storybook specs found
+</details>
+
+<details>
+<summary>No Storybook specs found</summary>
 
 To get a list of stories, we evaluate your Storybook with [JSDOM](https://github.com/tmpvar/jsdom). This is a slightly different environment to a normal browser and can sometimes have problems. We will try to output errors if we see them; using the `--debug` flag to `chromatic` may help if we didn't catch any errors.
 
-#### Image size too large
+</details>
+
+<details>
+<summary>Image size too large</summary>
 
 We have a 25 million pixel size limit for image snapshots. This ensures fast and reliable performance for every build.
 
 If your stories are larger than this, perhaps something has gone wrong? Let us know if you need this limit increased by chat or [email](mailto:support@hichroma.com).
+
+</details>

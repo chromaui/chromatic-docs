@@ -8,7 +8,7 @@ description: Learn how to control what executes in the Chromatic environment
 
 `isChromatic()` gives you full control over what code is executed in the Chromatic environment. Use it in your Storybook to omit/include behavior that will be captured in Chromatic's snapshots.
 
-### Use in .storybook/config.js
+## Use in .storybook/config.js
 
 This is useful when you want to change behavior of all stories when rendered in Chromatic.
 
@@ -26,7 +26,7 @@ if (isChromatic()) {
 LazyLoad.disabled = isChromatic();
 ```
 
-### Use in \*.stories.js
+## Use in \*.stories.js
 
 This is useful when you want to change behavior of one component's stories when rendered in Chromatic.
 

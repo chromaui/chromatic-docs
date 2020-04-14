@@ -1,10 +1,10 @@
 ---
 layout: default
-title: Overview
+title: Introduction
 description: Chromatic is a cloud based toolchain built around Storybook to help teams develop robust UI components faster, together.
 ---
 
-# Overview
+# Introduction
 
 ![Chromatic Overview](img/overview.png){: .center }
 
