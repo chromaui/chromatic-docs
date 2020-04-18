@@ -4,7 +4,7 @@ title: Introduction
 description: Chromatic is a cloud based toolchain built around Storybook to help teams develop robust UI components faster, together.
 ---
 
-# Introduction
+# Introduction to Chromatic
 
 ![Chromatic Overview](img/overview.png){: .center }
 
@@ -43,8 +43,8 @@ New to Storybook? Read our peer-reviewed guides for professional developers at [
 
 ---
 
-## Next: Setup Chromatic
+## Next: Setup and publish
 
-🎉Setup Chromatic to publish your Storybook in less than 2 minutes.
+⬆️Setup Chromatic to publish your Storybook. It takes less than 2 minutes.
 
 <a class="btn primary round" href="/setup">Read next chapter</a>

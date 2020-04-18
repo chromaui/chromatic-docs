@@ -24,7 +24,7 @@ Chromatic's component screen allows you to select between the 'Canvas', 'Snapsho
 
 The Canvas and Docs tabs represent the actual rendered story plus it's documentation, exactly as you'd see it within Storybook. We call this 'live view' and it's a convenient place to check the interactive behavior of the story and even use the browser to inspect styling. Click the expand icon in the top right to open the story directly within your published Storybook.
 
-![Story Page](img/xxx-page.png)
+![Component screen](/img/component.png)
 
 ## Focus states
 

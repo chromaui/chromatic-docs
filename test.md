@@ -6,29 +6,25 @@ description: Learn how to run Chromatic UI Tests
 
 # UI Tests
 
-Visual tests capture an image of every UI component in a consistent browser environment. New screenshots are automatically compared to previously accepted baseline screenshots. When there are visual differences, you get notified.
+Visual tests capture an image [snapshot](snapshot) of every story in a cloud browser environment. Whenever you push code, Chromatic generates a new set of snapshots and compares them against [baselines](branching-and-baselines). If there are visual changes, you get notified via a PR check and email.
 
-![Review visual diffs](img/workflow-component-review.png)
-
----
+![UI test](img/workflow-uitest.png)
 
 ## Enable
 
-Instructions on how to enable
+Enable visual tests for your project on the manage screen. All snapshots are taken in Chrome by default. This is also where you expand test coverage to additional browsers.
+
+![Enable UI Tests](img/uitests-for-docs.png)
 
 ## Establish baselines
 
-The first Chromatic build in a project (or branch without an ancestor) will use the visual snapshots it takes to establish [baselines](/branching-and-baselines) for every story.
-
-Subsequent builds will compare snapshots against these baselines. As changes are accepted for particular stories, they'll become the new baselines for future builds.
-
-XXX image for "nice, you setup visual tests"
+Establish baselines by running a Chromatic build in a new project or on a branch without an ancestor. This captures a snapshot of each story in a cloud browser and sets it as the baseline. Subsequent builds will generate new snapshots that are compared against existing baselines to detect UI changes.
 
 ## View UI changes
 
-Each build Chromatic captures new snapshots of your stories to compare to the test baselines. If there are UI changes, the build will be marked "unreviewed" and the changes will be listed in the "Tests" table.
+Each build Chromatic compares new snapshots to existing baselines. If there are UI changes, view them on the build page in the web app. The build will be marked "unreviewed" and the changes will be listed in the "Tests" table.
 
-XXX image of Build Screen with tests table
+![Build with unreviewed tests](img/build-test-unreviewed.png)
 
 <details>
 <summary>What about component errors?</summary>
@@ -45,7 +41,7 @@ Chromatic detects UI changes but it's still up to you to verify if changes are i
 
 - ❌**Deny change**: This marks the change as "denied" indicating a regression and immediately fails the build. You can deny multiple changes per build.
 
-![Snapshot review](img/snapshot-review.png)
+![Snapshot that's unreviewed](img/snapshot-unreviewed.png)
 
 <div class="aside">Tip: Speed up accept/deny using <a href="#keyboard-shortcuts">keyboard shortcuts</a> and batch actions.</div>
 
@@ -74,16 +70,15 @@ If you deny any of the changes, the build will "fail" and you will need to make 
 
 When your build is "passed" (all changes accepted), you're ready to merge visual changes with confidence knowing that your UI is bug free. Chromatic will update the PR check for "UI Tests" to reflect the build status.
 
-![Build passed](img/build-passed.png)
+![Build with reviewed tests](img/build-test-reviewed.png)
 
 ## PR check for "UI Tests"
 
-Chromatic will approve PR status checks for linked Git repositories.
+Chromatic adds a 'UI Tests' check within the status checks for your pull/merge requests. The badge shows errors or changes that need to be reviewed.
 
-#### Continuous integration
+![PR for UI Tests](/img/prbadge-test.png)
 
-Chromatic will return an exit code 0 on the CLI which can be used in CI/CD systems to indicate success and unblock deployment. The CLI behavior can be tweaked with additional [options](<(https://github.com/chromaui/chromatic-cli)>).
-Read more about how to integrate Chromatic into your [CI & Git workflow](/ci).
+<div class="aside">CI setup: Chromatic will return an exit code 0 on the CLI which can be used in CI/CD systems to indicate success and unblock deployment. <a href="ci">Learn about CI.</a></div>
 
 ---
 

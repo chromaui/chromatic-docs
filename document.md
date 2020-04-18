@@ -8,44 +8,36 @@ description: Learn how Chromatic helps document components.
 
 In addition to publishing your Storybook on every push, Chromatic generates a component library from your Storybook automatically. Every time you push code each component is recorded so you can browse variations of any component across branches and builds. Right from the comfort of your web browser; no `git checkout` or `npm install` required.
 
----
+![Document](img/workflow-document.png)
 
-## Library
+## Browse library
 
 The library screen visualizes the latest components on a branch-by-branch basis. Browse existing components to reuse or reference. Use the branch picker to find branch-specific components.
 
-<video autoPlay muted playsInline controls width="560px" class="center">
-  <source src="/img/feature-library-component-workflow-optimized.mp4" type="video/mp4" />
-</video>
-
-**How this helps you**
+![Component library](/img/library.png)
 
 - Get a quick overview of your library in a glance
 - Identify changes by comparing historical commits and branches
 - Share the library with teammates
 - Browse existing components for re-use
 
-## Component
+## Demo components
 
 Each component and its stories are securely indexed each commit and branch. The component screen is your window into the metadata and variations of the component Chromatic has on file. You'll find image snapshots of each story each commit.
 
-<video autoPlay muted playsInline controls width="560px" class="center">
-  <source src="/img/feature-component-inspect-optimized.mp4" type="video/mp4" />
-</video>
-
-**What you can do**
+![Component screen](/img/component.png)
 
 - Visual review components without needing to switch branches, pull code, or Git.
-- Easy reproductions by toggling Live View to interact with the real component code
+- Easy reproductions by toggling the "Canvas" tab to interact with the real component code
 - Leave comments alongside a component
 - Get feedback faster by sharing a link to the component with your team
 - Compare components historically to check if they look correct
 
 ## Direct access to your Storybook
 
-Every time you publish to Chromatic, your Storybook is made available on our CDN authenticated according to Chromatic's [access control](/access).
+Your Storybook is published on our secure CDN. Collaborators with [access rights](access) will also get access by logging in.
 
-![Direct Storybook](img/xxx-page.png)
+![Direct Storybook](img/published-storybook.png)
 
 ## Link to branches
 

@@ -6,21 +6,29 @@ description: Learn how to review changes for your component library
 
 # UI Review
 
-UI tests protect your project from accidental regressions. However, before you're ready to ship, you'll want to invite developers, designers, PMs, and stakeholders to help review the changes to make sure they're correct. This closes the feedback loop between disciplines and helps you find the answer to "does this look right?".
+UI tests protect you from accidental regressions. But, before you ship, you'll want to invite developers, designers, and PMs to review the UI to make sure it's correct. This closes the feedback loop between disciplines and helps you answer "does this look right?".
 
-Chromatic's UI review workflow pinpoints the exact visual changes introduced by a PR. It gives you the ability to assign reviewers and in turn those reviewers can comment and ask for tweaks on changes which aren't quite right. Chromatic compiles a 'UI checklist' which must be completed before a feature is ready to merge. Think of it like a code review for your UI.
+UI Review pinpoints the exact visual changes introduced by a PR. You assign reviewers who can comment and request tweaks on changes that aren't quite right.
 
-XXX Add image for review
+Chromatic compiles a "[UI checklist](#ui-checklist)" which must be completed before a PR is ready to merge. Think of it like a code review for your UI.
+
+![UI Review](img/workflow-uireview.png)
 
 ## Enable
 
-Instructions on how to enable
+Enable UI Review for your project on the manage screen. Then go to the PRs/MRs tab in the web app sidebar. You'll be prompted to install the GitHub app or webhooks for GitLab/Bitbucket.
+
+![Enable UI Review](img/uireview-for-docs.png)
+
+<div class="aside">
+<p><b>Note:</b> You must <a href="/ci">setup CI</a> so that Chromatic is able to run builds for each commit on the PR branch.</p>
+</div>
 
 ## Invite teammates
 
 Invite other developers, designers, PMs, and stakeholders to help review changes. This closes the feedback loop between disciplines and helps you find the answer to "does this look right?".
 
-If you've linked your project to GitHub, Bitbucket, or GitLab, your team can start accessing and reviewing right away. If your project is unlinked, use the project invite code to add collaborators. [Learn more](/access)
+If you've linked your project to GitHub, Bitbucket, or GitLab, your team can start accessing and reviewing right away. If your project is unlinked, use the project invite code to add collaborators. [Learn more about access control »](/access)
 
 ## Assign reviewers
 
@@ -28,15 +36,11 @@ Find the PR you'd like reviewed, either by navigating to the 'PRs' link in the s
 
 <img src="/img/assign-reviewers.gif" alt="Assign Reviewers" width="300px" class="center"/>
 
-<div class="aside">
-<p><b>Note:</b> We'll prompt you to install our Github App (or webhooks for other providers) on the PRs page. This is necessary in order for Chromatic to be able to list PRs and get their details.</p>
-</div>
-
 ## Review UI Changes
 
 The PR screen includes a 'UI Changes' tab showing a side-by-side view of all visual changes introduced by the code in the PR. You can toggle between viewing a highlighted diff or simply showing the component before/after this PR would be applied.
 
-![UI Changes](/img/ui-changes.png){: .center }
+![UI changes tab](/img/prscreen-changes.png)
 
 #### Discussions
 
@@ -52,18 +56,14 @@ Chromatic builds a list of tasks that need to be completed before a PR is consid
 
 In order to complete the checklist, the following must be completed:
 
-1. All outstanding discussions must be resolved. This can be done by clicking 'Resolve' on the comments UI.
+1. All outstanding discussions must be resolved. This can be done by clicking 'Resolve' on the comments.
 2. All reviewers must have approved their review. They can do so by clicking 'Approve' button in the top right of the activity tab.
 
-#### PR check for "UI Review"
+## PR check for "UI Review"
 
 Chromatic will include a 'UI Review' badge within the status checks for each PR on your Git provider. The badge will show a summary of the state of the UI Checklist. Every PR for which Chromatic detects UI changes will initially start in the unreviewed state, ensuring that every impactful change has been noticed and considered before hitting production.
 
-![UI Review Status Check](/img/ui-review-status-check.png)
-
-<div class="aside">
-Before you can begin using UI Review, you must <a href="/ci">setup CI</a> so that Chromatic is able to run builds for each commit on the PR branch. If you're using GitHub, you must also add our GitHub App so that Chromatic has permission to access a list of your PRs (if you're using GitLab or Bitbucket, this will be a webhook). We will guide you through the setup on the PRs screen.
-</div>
+![PR for UI Review](/img/prbadge-review.png)
 
 ---
 
@@ -87,8 +87,7 @@ Review is usually performed by designers, PMs, customers, and other stakeholders
 </details>
 
 <details>
-<summary>How is UI review different from testing?</summary>
-When should I ask for UI Review?
+<summary>When should I ask for UI Review?</summary>
 
 You can initiate a UI review at any time. However, we recommend doing it later in the development cycle, once baselines have been approved and UI Tests are green.
 

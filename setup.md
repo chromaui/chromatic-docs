@@ -8,13 +8,13 @@ description: Learn how to setup Chromatic and publish Storybook
 
 The Chromatic CLI builds then publishes Storybook to a secure workspace in the cloud. That allows your team to access all your stories at [chromatic.com](https://www.chromatic.com/start).
 
-XXX add image of Storybook --> Chromatic
+![Publish Storybook](/img/workflow-publish.png)
 
 ## Sign up
 
 Before publishing, generate a unique `<app-code>` for your Storybook by logging in to [Chromatic](https://www.chromatic.com/start) and creating a project. Login via OAuth from GitHub, GitLab, or Bitbucket. If you require SSO or have on-premises Git hosting learn more about access control [here](access#authentication).
 
-XXX add image of setup screen with app code here
+![Setup project](/img/setup.png)
 
 ## Install
 
@@ -72,17 +72,15 @@ View it online at https://www.chromatic.com/build?appId=...&number=1.
 
 Success! Every time you run the `chromatic` command you get a corresponding build in Chromatic's web app. You can now browse components, view [**UI Tests**](test) results (if enabled), and navigate to associated PR/MRs for [**UI Review**](review).
 
-![Build Page](img/xxx-page.png)
+![Build for publish](img/build-publish-only.png)
 
 ## Get the PR check
 
-Chromatic posts a "Publish Storybook" status check in pull/merge requests that links to the latest published Storybook. This gives teams secure, convenient access to the browse components and stories. Get the PR check by [automating Chromatic with CI](ci).
+Chromatic posts a "Publish Storybook" status check in pull/merge requests that links to the latest published Storybook. This gives teams secure, convenient access to browse components and stories. Get the PR check by [automating Chromatic with CI](ci).
 
-XXX include PR publish check
+![PR badge for publish](img/prbadge-publish.png)
 
 <div class="aside">During setup we recommend running <code>chromatic</code> on the command line to make sure the configuration is correct. Run Chromatic in CI for production use.</div>
-
----
 
 ## Next: Catch UI bugs
 
