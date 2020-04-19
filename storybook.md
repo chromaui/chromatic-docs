@@ -12,17 +12,17 @@ If you're already using Storybook, then great!---skip to the [get started](/) gu
 
 #### How Chromatic works (in brief)
 
-Chromatic tests takes image snapshots of various configurations of your components. These configurations, or inputs to your components, are the specification of how the test should operate. We rely on Storybook "stories" to provide these configurations. Chromatic's review feature also utilizes snapshots to narrow down the changes reviewers have to see. Chromatic publishes a secure, versioned Storybook to the cloud.
+Chromatic publishes your Storybook versions to a secure CDN, runs visual regression tests and enables workflows for reviewing and documenting UI. Along the way, Chromatic takes image snapshots of various configurations of your components. These configurations, or inputs to your components, are the specification of how visual tests should look. We rely on Storybook "stories" to provide these configurations. Chromatic's review feature also utilizes snapshots to narrow down the changes reviewers have to see.
 
 ---
 
 ## What is Storybook?
 
-Storybook is the leading [component explorer](https://blog.hichroma.com/the-crucial-tool-for-modern-frontend-engineers-fb849b06187a) for React, Angular, and Vue. It provides a dedicated UI that helps you visualize, interact, and develop your component states (called "stories" in Storybook) even as you create them. When embedded in your development workflow, it's a timesaving tool for developing apps from the ground up in a [component-driven](https://blog.hichroma.com/component-driven-development-ce1109d56c8e) fashion.
+Storybook is the leading [component explorer](https://blog.hichroma.com/the-crucial-tool-for-modern-frontend-engineers-fb849b06187a) for React, Angular, and Vue. It provides a dedicated UI that helps you visualize, interact, and develop your component states (called "stories" in Storybook) even as you create them. When embedded in your development workflow, it's a timesaving tool for developing apps from the ground up in a [component-driven](https://blog.hichroma.com/component-driven-development-ce1109d56c8e) fashion. Storybook is an essential tool for developers building Component Libraries for Design System (read our [guide](https://www.learnstorybook.com/design-systems-for-developers/)).
 
 ![Storybook](img/storybook-relationship.jpg)
 
-For visual testing, Storybook helps you create visual test specifications as stories. Chromatic syncs with your stories to automate visual testing. If you change a story, your Chromatic test will also change. When a change is detected in Chromatic, we notify you, and direct you to the Storybook story that needs to be reviewed.
+For visual testing, Storybook helps you create visual test specifications as stories. Chromatic syncs with your stories to automate visual testing. If you change a story, your Chromatic test will also change. When a change is detected in Chromatic, we notify you, and direct you to the Storybook story that needs to be reviewed. For UI review, Chromatic shows you the visual differences in stories that are introduced by PRs.
 
 ---
 
@@ -57,13 +57,13 @@ Chances are you will not need to configure Storybook further, but if your compon
 We recommend a few changes to the default `.storybook/config.js` that controls the way your Storybook loads:
 
 ```javascript
-import { configure } from "@storybook/react";
+import { configure } from '@storybook/react';
 
 // 2. If you have a global CSS file, import it here:
-import "../src/index.css";
+import '../src/index.css';
 
 // 3. Load a X.story.js file for each of your components/X.js:
-configure(require.context("../src/components", true, /\.story\.js$/), module);
+configure(require.context('../src/components', true, /\.story\.js$/), module);
 ```
 
 You can also remove the default stories created at `.storybook/stories`.
@@ -77,10 +77,10 @@ Let's suppose you want to test a component named `Histogram`, that lives at `src
 Simply create a file called `src/components/Histogram.story.js` and write the following:
 
 ```js
-import React from "react";
-import { storiesOf } from "@storybook/react";
+import React from 'react';
+import { storiesOf } from '@storybook/react';
 
-import Histogram from "./Histogram";
+import Histogram from './Histogram';
 
 export default {
   component: Histogram,
@@ -103,10 +103,10 @@ This will create two stories for the Histogram, and you can browse to your Story
 When you are satisfied that your stories are sensible, you can start up your first Chromatic build and set the baselines for these stories with:
 
 ```bash
-./node_modules/.bin/chromatic --app-code=<your-app-code>
+./node_modules/.bin/chromatic --project-token=<your-project-token>
 ```
 
-Grab the app code from [www.chromatic.com](https://www.chromatic.com) and view the resultant build there to ensure the stories are snapshotted correctly. Read more about [running tests](/test).
+Grab the project token from [www.chromatic.com](https://www.chromatic.com) and view the resultant build there to ensure the stories are snapshotted correctly. Read more about [running tests](/test).
 
 ---
 
