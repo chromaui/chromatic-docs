@@ -20,9 +20,9 @@ Enable visual tests for your project on the manage screen. All snapshots are tak
 
 Once visual tests are enabled, you can establish baselines by [running a Chromatic build](setup#run-chromatic) in a new project or on a branch without an ancestor. This captures a snapshot of each story in a cloud browser and sets it as the baseline. Subsequent builds will generate new snapshots that are compared against existing baselines to detect UI changes.
 
-## View UI changes
+## Changes between baselines
 
-Each build Chromatic compares new snapshots to existing baselines. If there are UI changes, view them on the build page in the web app. The build will be marked "unreviewed" and the changes will be listed in the "Tests" table.
+Each build Chromatic compares new snapshots to existing baselines from previous builds. The list of changess are shown on the build page in the web app. The build will be marked "unreviewed" and the changes will be listed in the "Tests" table.
 
 ![Build with unreviewed tests](img/build-test-unreviewed.png)
 
@@ -33,7 +33,7 @@ When a story fails to render it will be badged with "Component Error". You will 
 
 </details>
 
-## Accept or deny UI changes
+## Verify UI changes
 
 Chromatic detects UI changes but it's still up to you to verify if changes are intentional. For intentional changes, you need to update the baseline so future tests will be compared to the _latest baseline_ for the story. If a change is unintentional it needs to be fixed.
 
@@ -60,6 +60,15 @@ Sometimes you need a closer look to determine why a snapshot is rendering as it 
 <video autoPlay muted playsInline controls width="560px" class="center">
   <source src="/img/feature-component-inspect-optimized.mp4" type="video/mp4" />
 </video>
+</details>
+
+<details>
+<summary>How are changes on builds different from those listed on the PR Screen 'UI Changes' tab?</summary>
+
+UI tests (shown on the build screen) detect changes between builds, specifically, between the last accepted baseline and the latest build. This is useful for detecting defects during the development process and when merging to master to ship.
+
+In contrast, the PR screen simply shows changes between the latest commit on the PR branch and the 'merge base'. Think of it like the list of UI changes created by the code in the PR.
+
 </details>
 
 ## Merge

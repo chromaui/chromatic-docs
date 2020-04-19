@@ -13,7 +13,7 @@ UI components can respond to device width. Chromatic makes it easy to visual tes
 To set a viewport, specify one or more screen _widths_ to the `chromatic.viewports` parameter:
 
 ```js
-import MyComponent from "./MyComponent";
+import MyComponent from './MyComponent';
 
 export default {
   component: MyComponent,
@@ -70,7 +70,13 @@ Make sure there are no elements inadvertantly cutting off content through the us
 
 For elements that have relative height styles based on the size of the viewport (such as `height: 100vh`), all content nested under that element will show up in a screenshot unless either `overflow: hidden` or `overflow: scroll` is used to hide what is outside of that element (and therefore outside of the viewport).
 
-When Chromatic takes a screenshot for an element that has a viewport-relative height as well as styling to hide/scroll the overflow, a default viewport height of `900px` will be used.
+When Chromatic takes a screenshot for an element that has a viewport-relative height as well as styling to hide/scroll the overflow, a default viewport height of `900px` will be used. This default is only used when we can't detect a "natural" height for the outermost DOM element (root ancestor), for instance, in the case of scrollable divs.
+
+To set the height, you can add a decorator for stories that wraps them in a container with a fixed height:
+
+```
+decorators: [storyFn => <div style="height: '1000px'">{storyFn()}</div>]
+```
 
 </details>
 
@@ -108,7 +114,7 @@ export const StoryWithDimensions = () => <MyComponent/>
 We don't recommend this in most cases because each viewport is treated independently and snapshots must be approved as such. But if you really want to assign viewports for an entire Storybook use `addParameters()` in your `.storybook/config.js`:
 
 ```js
-import { configure, addParameters } from "@storybook/react"; // <- substitute react with your app layer
+import { configure, addParameters } from '@storybook/react'; // <- substitute react with your app layer
 
 // Be careful doing this!
 addParameters({
