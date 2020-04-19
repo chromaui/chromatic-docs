@@ -152,7 +152,7 @@ GitHub, Bitbucket, or GitLab projects that are [linked to a repository](/access)
 
 How tools work together affects your development speed. Learn the recommended Chromatic workflow that automates away the manual work for UI developers.
 
-<a class="btn primary round" href="/document">Read next chapter</a>
+<a class="btn primary round" href="/workflow">Read next chapter</a>
 
 ---
 
