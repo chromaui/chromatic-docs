@@ -14,6 +14,16 @@ Login via OAuth from GitHub, GitLab, or Bitbucket. Chromatic supports the public
 
 Enterprise plans come with support for Single Sign On (SSO) and on-premises Git hosting from all supported providers.
 
+### OAuth Scopes
+
+Depending on your Git provider, Chromatic will request a set of OAuth scopes when you first login. Chromatic uses these permissions to enumerate your list of repos, set PR statuses and retrieve users for assignment to review. Chromatic will never read/write source code.
+
+| Git Provider | Scopes                                                   |
+| ------------ | -------------------------------------------------------- |
+| GitHub       | `['user:email', 'read:user', 'read:org', 'repo:status']` |
+| GitLab       | `['api']`                                                |
+| Bitbucket    | `['account', 'repository', 'pullrequest', 'webhook']`    |
+
 ## Accounts
 
 Chromatic mirrors access permissions at the "team" level to make permissions management quick and easy. Share access with your GitHub organization, Bitbucket group, or GitLab team by adding that account to Chromatic via the menu.
