@@ -6,7 +6,7 @@ description: Learn how to run Chromatic UI Tests
 
 # UI Tests
 
-Visual tests capture an image [snapshot](snapshot) of every story in a cloud browser environment. Whenever you push code, Chromatic generates a new set of snapshots and compares them against [baselines](branching-and-baselines). If there are visual changes, you get notified via a PR check and email.
+Visual tests capture an image [snapshot](snapshot) of every story in a cloud browser environment. Whenever you push code, Chromatic generates a new set of snapshots and compares them against [baselines](branching-and-baselines). If there are visual changes, you verify if they're intentional.
 
 ![UI test](img/workflow-uitest.png)
 
@@ -18,7 +18,7 @@ Enable visual tests for your project on the manage screen. All snapshots are tak
 
 ## Establish baselines
 
-Establish baselines by running a Chromatic build in a new project or on a branch without an ancestor. This captures a snapshot of each story in a cloud browser and sets it as the baseline. Subsequent builds will generate new snapshots that are compared against existing baselines to detect UI changes.
+Once visual tests are enabled, you can establish baselines by [running a Chromatic build](setup#run-chromatic) in a new project or on a branch without an ancestor. This captures a snapshot of each story in a cloud browser and sets it as the baseline. Subsequent builds will generate new snapshots that are compared against existing baselines to detect UI changes.
 
 ## View UI changes
 
@@ -27,7 +27,7 @@ Each build Chromatic compares new snapshots to existing baselines. If there are 
 ![Build with unreviewed tests](img/build-test-unreviewed.png)
 
 <details>
-<summary>What about component errors?</summary>
+<summary id="component-errors">What about component errors?</summary>
 
 When a story fails to render it will be badged with "Component Error". You will not be able to "pass" a build that has component errors. Fix story errors in Storybook and run tests again.
 
@@ -64,7 +64,7 @@ Sometimes you need a closer look to determine why a snapshot is rendering as it 
 
 ## Merge
 
-If you accept all the changes, the build will "pass", and future builds whose stories have the same appearance will pass.
+If you accept all the changes, the build will "pass". Future builds whose stories have the same appearance will pass.
 
 If you deny any of the changes, the build will "fail" and you will need to make code changes (and thus start a new build) to get the build to pass.
 

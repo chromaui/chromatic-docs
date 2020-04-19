@@ -149,7 +149,7 @@ If you have customized the way your Storybook runs, you may need to pass additio
 
 | Option                   | Use case                                                                                                                                                                       |
 | ------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| `--app-code`             | The unique code for your app -- note you can just pass this via the `CHROMATIC_APP_CODE` environment variable.                                                                 |
+| `--app-code`             | The unique code for your app -- note you can pass this via the `CHROMATIC_APP_CODE` environment variable.                                                                      |
 | `--build-script-name`    | The npm script that builds your Storybook we should take snapshots against (defaults to `build-storybook`). Use this if your Storybook build script is named differently.      |
 | `--storybook-build-dir`  | If you have already built your Storybook, provide the path to the built Storybook.                                                                                             |
 | `--script-name`          | The npm script that starts your Storybook we should take snapshots against (defaults to `storybook`). Use this flag if you want to avoid building your Storybook.              |
@@ -181,7 +181,7 @@ Chromatic takes snapshots very quickly. However, if we lose the connection to yo
 
 #### Failed to evaluate your stories when running tests
 
-To make a list of Chromatic specs from your Storybook stories, we evaluate your story code from a node script, using JSDOM to simulate a browser environment. We don't render your stories but just gather a list of them by including your story files. You may need to avoid calling various browser-only constructs at the top-level or mock them out. Pass `--debug` to the script command to get extra info if it fails.
+To make a list of Chromatic specs from your Storybook stories, we evaluate your story code from a node script, using JSDOM to simulate a browser environment. We don't render your stories but gather a list of them by including your story files. You may need to avoid calling various browser-only constructs at the top-level or mock them out. Pass `--debug` to the script command to get extra info if it fails.
 
 #### No Storybook specs found
 

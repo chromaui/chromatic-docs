@@ -50,7 +50,7 @@ For this reason, we _always_ include approvals from the latest build on the curr
 
 As stated above, Chromatic maintains an individual baseline for each _story_, at each _viewport_, for each _commit_. That means as you make changes to your components, either by committing new code, merging other branches or otherwise, your baselines will follow your stories.
 
-The only way that baselines change is when you or someone in your team approves a change. Usually what this means is that the baselines are simply what you’d expect as you work through a feature.
+The only way that baselines change is when you or someone in your team approves a change. Usually what this means is that the baselines are what you’d expect as you work through a feature.
 
 However, sometimes the choice of baseline can be confusing. Let’s dig in a little further on how it works.
 
@@ -62,7 +62,7 @@ In Chromatic, a build contains of a set of snapshots, each of which is a screens
 
 When you create a new build for a new commit, Chromatic will calculate a baseline for each snapshot in the build (unless the snapshot is for a new story). The first step to do that is to calculate the ancestor(s) for the build itself.
 
-The ancestor build is conceptually very simple -- it is the most recent ancestor (commit) in the git history that has had Chromatic run against it. In the simplest case it is just the previous commit:
+The ancestor build is the most recent ancestor (commit) in the git history that has had Chromatic run against it. Often, it is the previous commit:
 
 ```
 x - Build N
@@ -100,7 +100,7 @@ You can see the ancestor builds listed on the build page:
 
 Once we’ve got the ancestor builds for a build, the algorithm to calculate the baseline for any given snapshot goes like this:
 
-If there is just one ancestor build, find if there is a snapshot for the same story & viewport combination.
+If there is one ancestor build, find if there is a snapshot for the same story & viewport combination.
 
 If there is, check the status of that snapshot:
 
@@ -123,7 +123,7 @@ Then in Build N+2, we should compare the “new” green buttons to the original
 
 #### Multiple ancestor builds
 
-In the case that there are multiple ancestor builds, the algorithm to calculate the baseline is more or less the same, we simply (potentially) end up with more than one baseline snapshot to use. To break ties, we simply assume that the most recently approved snapshot is the one you want to compare to.
+In the case that there are multiple ancestor builds, the algorithm to calculate the baseline is more or less the same. We can (potentially) end up with more than one baseline snapshot to use. To break ties, we assume that the most recently approved snapshot is the one you want to compare to.
 
 ### Visualizing baseline snapshots
 

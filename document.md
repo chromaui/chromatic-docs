@@ -41,7 +41,7 @@ Your Storybook is published on our secure CDN. Collaborators with [access rights
 
 ## Link to branches
 
-When you're linking to a library or component on Chromatic, it can be useful to link to the latest version on a `branch` rather than a specific build. To do so, simply add the `branch=foo` query parameter the the url, for example `https://www.chromatic.com/library?appId=59c59bd0183bd100364e1d57&branch=master`.
+When you're linking to a library or component on Chromatic, it can be useful to link to the latest version on a `branch` rather than a specific build. To do so, add the `branch=foo` query parameter the the url, for example `https://www.chromatic.com/library?appId=59c59bd0183bd100364e1d57&branch=master`.
 
 ---
 
@@ -59,6 +59,6 @@ When you're linking to a library or component on Chromatic, it can be useful to 
 
 If your stories make use of non-HTTPS content (for instance images), the iframe we deliver live view will fail to load, as modern browsers do not allow mixed content (HTTP content hosted within HTTPS pages).
 
-To fix this, simply ensure all resources used by your stories are hosted via HTTPS.
+To fix this, ensure all resources used by your stories are hosted via HTTPS.
 
 </details>

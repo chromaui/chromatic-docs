@@ -10,7 +10,7 @@ UI components can respond to device width. Chromatic makes it easy to visual tes
 
 ## Viewports for a story
 
-To set a viewport, simply specify one or more screen _widths_ to the `chromatic.viewports` parameter:
+To set a viewport, specify one or more screen _widths_ to the `chromatic.viewports` parameter:
 
 ```js
 import MyComponent from "./MyComponent";

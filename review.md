@@ -6,7 +6,7 @@ description: Learn how to review changes for your component library
 
 # UI Review
 
-UI tests protect you from accidental regressions. But, before you ship, you'll want to invite developers, designers, and PMs to review the UI to make sure it's correct. This closes the feedback loop between disciplines and helps you answer "does this look right?".
+UI tests protect you from accidental regressions. But, before you ship, you'll want to invite developers, designers, and PMs to review the UI to make sure it's correct.
 
 UI Review pinpoints the exact visual changes introduced by a PR. You assign reviewers who can comment and request tweaks on changes that aren't quite right.
 
@@ -38,7 +38,9 @@ Find the PR you'd like reviewed, either by navigating to the 'PRs' link in the s
 
 ## Review UI Changes
 
-The PR screen includes a 'UI Changes' tab showing a side-by-side view of all visual changes introduced by the code in the PR. You can toggle between viewing a highlighted diff or simply showing the component before/after this PR would be applied.
+The PR screen includes a 'UI Changes' tab showing a side-by-side view of all visual changes introduced by the code in the PR.
+
+Each change, you'll see the component story before and after the PR is applied. To hint at what UI changed, toggle the highlighted diff (in neon green) on and off.
 
 ![UI changes tab](/img/prscreen-changes.png)
 
@@ -82,7 +84,7 @@ Chromatic will include a 'UI Review' badge within the status checks for each PR 
 
 Testing is done primarily by developers, most often iteratively during development. The focus is on preventing UI regressions (bugs) and maintaining a clean set of baselines to test against.
 
-Review is usually performed by designers, PMs, customers, and other stakeholders. The focus is not on finding bugs (this should have already happened through testing) but rather to find cases where the implementation is not quite as was intented by the design or specifications. The modern development process moves quickly and often developers are filling in gaps according to their best guess. UI review is an opportunity for developers to sync with other teammates to get a final OK before shipping with confidence.
+Review is usually performed by designers, PMs, customers, and other stakeholders. The focus is not on finding bugs (this should have already happened through testing) but rather to find cases where the implementation is not quite as was intented by the design or specifications. The modern development process moves quickly and often developers are filling in gaps according to their best guess. UI review is an opportunity for developers to sync with other teammates to get a final OK before shipping.
 
 </details>
 
@@ -96,7 +98,7 @@ You can initiate a UI review at any time. However, we recommend doing it later i
 <details>
 <summary>What commits does Chromatic use to calculate UI changes?</summary>
 
-Just like GitHub, Chromatic compares between the latest commit on the PR branch and the 'merge base' commit, that is the commit that is the shared ancestor between the PR branch and the branch it was created from. It is important that Chromatic has run a build on both commits outlined above. If you've just enabled CI and have existing PRs that you would like to review, ensure Chromatic has run in CI for both branches of that PR.
+Similar to GitHub code review, Chromatic compares between the latest commit on the PR branch and the 'merge base' commit, that is the commit that is the shared ancestor between the PR branch and the branch it was created from. It is important that Chromatic has run a build on both commits outlined above. If you've recently enabled CI and have existing PRs that you would like to review, ensure Chromatic has run in CI for both branches of that PR.
 
 The process might look something like:
 

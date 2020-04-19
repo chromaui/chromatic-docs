@@ -106,7 +106,7 @@ For Jenkins' GitHub PR plugin, choose the [`ghprbPullId` specifier](https://gith
 
 If you are using pull request statuses to as required checks before merging, you may not want your CI job to fail if test snapshots render without errors (but with changes). To achieve this, pass the flag `--exit-zero-on-changes` to the `chromatic` command, and your CI job will continue in such cases.
 
-XXX why does this differ from the above? Depending on your policy, you may not want to block the rest of your CI script on the acceptance of visual changes, and simply rely on the above status, in which case you would write `npm run chromatic || true` in your CI build to ensure that CI completes.
+XXX why does this differ from the above? Depending on your policy, you may not want to block the rest of your CI script on the acceptance of visual changes, and instead rely on the above status. You can write `npm run chromatic || true` in your CI build to ensure that CI completes.
 
 #### Re-run failed builds after verifying UI test results
 

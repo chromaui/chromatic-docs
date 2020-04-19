@@ -76,11 +76,11 @@ Success! Every time you run the `chromatic` command you get a corresponding buil
 
 ## Get the PR check
 
-Chromatic posts a "Publish Storybook" status check in pull/merge requests that links to the latest published Storybook. This gives teams secure, convenient access to browse components and stories. Get the PR check by [automating Chromatic with CI](ci).
+Chromatic posts a "Storybook Publish" status check in your pull/merge request that links to the latest published Storybook. This gives teams secure, convenient access to browse components and stories. Get the PR check by [automating Chromatic with CI](ci).
 
 ![PR badge for publish](img/prbadge-publish.png)
 
-<div class="aside">During setup we recommend running <code>chromatic</code> on the command line to make sure the configuration is correct. Run Chromatic in CI for production use.</div>
+<div class="aside">During setup we recommend running <code>chromatic</code> on the command line to make sure the configuration is correct. For production use run Chromatic in CI.</div>
 
 ## Next: Catch UI bugs
 
@@ -97,7 +97,7 @@ If you have customized the way your Storybook runs, you may need to pass additio
 
 | Option                   | Use case                                                                                                                                                                       |
 | ------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| `--app-code`             | The unique code for your app -- note you can just pass this via the `CHROMATIC_APP_CODE` environment variable.                                                                 |
+| `--app-code`             | The unique code for your app -- note you can pass this via the `CHROMATIC_APP_CODE` environment variable.                                                                      |
 | `--build-script-name`    | The npm script that builds your Storybook we should take snapshots against (defaults to `build-storybook`). Use this if your Storybook build script is named differently.      |
 | `--storybook-build-dir`  | If you have already built your Storybook, provide the path to the built Storybook.                                                                                             |
 | `--auto-accept-changes`  | If there are any changes to the build, automatically accept them. This is useful in some branching situations. See more in the [**branching docs**](/branching-and-baselines). |
