@@ -28,7 +28,7 @@ Integrate with popular CI tools like you would any other job. Run `npm run chrom
 Here's how we recommend configuring Chromatic for popular CI services.
 
 <details>
-<summary id="github-actions"><h4>GitHub Actions</h4></summary>
+<summary><h4 class="no-anchor">GitHub Actions</h4></summary>
 
 Chromatic has a [GitHub Action](https://github.com/chromaui/action). Add it to a workflow like so:
 
@@ -48,7 +48,7 @@ For external PRs (PRs from forks of your repo) to receive the Chromatic appCode,
 </details>
 
 <details>
-<summary id="circleci"><h4>CircleCI</h4></summary>
+<summary><h4 class="no-anchor">CircleCI</h4></summary>
 
 In your `.circleci/config.yml` add the Chromatic command to you steps.
 
@@ -70,7 +70,7 @@ For more workflow inspiriation, checkout this [Chromatic CircleCI Orb](https://c
 </details>
 
 <details>
-<summary id="travis"><h4>Travis CI</h4></summary>
+<summary><h4 class="no-anchor">Travis CI</h4></summary>
 
 Travis offers two type of builds for commits on pull requests: so called `pr` and `push` builds. It only makes sense to run Chromatic once per PR, so we suggest disabling Chromatic on `pr` builds for internal PRs (i.e. PRs that aren't from forks). You should make sure that you have `push` builds turned on, and add the following code to your `.travis.yml`:
 
@@ -89,11 +89,15 @@ For external PRs (PRs from forks of your repo), the above code will ensure Chrom
 </details>
 
 <details>
-<summary id="jenkins"><h4>Jenkins</h4></summary>
+<summary><h4 class="no-anchor">Jenkins</h4></summary>
 
-Instructions for Jenkins
+Add the following command to the `steps` section of your `Jenkinsfile`:
 
-For Jenkins' GitHub PR plugin, choose the [`ghprbPullId` specifier](https://github.com/jenkinsci/ghprb-plugin/blob/master/README.md).
+```
+sh 'npm run chromatic'
+```
+
+If you're using Jenkins' [GitHub PR plugin](https://github.com/jenkinsci/ghprb-plugin/blob/master/README.md), choose the `ghprbPullId` specifier for the `refspec`, and ensure you've set the Branch Specifier to `${ghprbActualCommit}`.
 
 </details>
 
