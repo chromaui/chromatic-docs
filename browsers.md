@@ -50,36 +50,45 @@ Once you accept changes to the story, its baselines are updated. Each story has 
 
 ---
 
-<details>
-<summary><h3 id="frequently-asked-questions">Frequently asked questions</h3></summary>
+### Frequently asked questions
 
-#### Does enabling more browsers add time to my tests?
+<details><summary>Does enabling more browsers add time to my tests?</summary>
 
 Yes it can. We do our best to provide the fastest test speeds but there are limits to browser performance (IE11) even when scaled across hundreds and thousands of machines.
 
-#### How do browsers affect my snapshot count?
+</details>
+
+<details><summary>How do browsers affect my snapshot count?</summary>
 
 Each browser adds another snapshot for each of your stories. For example, if you have a story that is tested in Chrome and IE11 that counts as two snapshots.
 
 If you also test your story with different viewports, those count as snapshots as well. For example, you want to test a story at `320px`, `1280px`, `Chrome`, and `IE11`. This would count as 4 snapshots.
 
-#### What about every other browser and version?
+</details>
+
+<details><summary>What about every other browser and version?</summary>
 
 Chromatic covers the major rendering engines (Blink, Gecko and Trident) at all viewports. This eliminates almost all browser regressions your users are likely to see with minimal effort, configuration, or additional time to your workflow.
 
 Supporting more browser/device combinations ends up having diminishing returns that adds noise to the visual review process.
 
-#### Does Chromatic tell me when snapshots are different between browsers?
+</details>
+
+<details><summary>Does Chromatic tell me when snapshots are different between browsers?</summary>
 
 This has significant trade offs. Teams that try to verify consistency between browsers end up encountering false positives due to inherent browser/device/OS differences like anti-aliasing and font rendering. Or they require workarounds like loosening diff thresholds which result in false negatives.
 
 Chromatic does not programmatically compare snapshots from different browsers against each other. Instead, we compare the snapshots for each browser against the baseline for that browser.
 
-#### Can I select which browser generates comparisons for UI review?
+</details>
+
+<details><summary>Can I select which browser generates comparisons for UI review?</summary>
 
 No. At the moment, Chrome is fixed as the browser used for UI review.
 
-#### Can I disable visual testing in Chrome?
+</details>
+
+<details><summary>Can I disable visual testing in Chrome?</summary>
 
 All plans use Chrome by default because it offers the greatest test coverage for most people. It cannot be disabled.
 
