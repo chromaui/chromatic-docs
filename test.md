@@ -20,9 +20,9 @@ Enable visual tests for your project on the manage screen. All snapshots are tak
 
 Once visual tests are enabled, you can establish baselines by [running a Chromatic build](setup#run-chromatic) in a new project or on a branch without an ancestor. This captures a snapshot of each story in a cloud browser and sets it as the baseline. Subsequent builds will generate new snapshots that are compared against existing baselines to detect UI changes.
 
-## Changes between baselines
+## View changes between baselines
 
-Each build Chromatic compares new snapshots to existing baselines from previous builds. The list of changess are shown on the build page in the web app. The build will be marked "unreviewed" and the changes will be listed in the "Tests" table.
+Each build Chromatic compares new snapshots to existing baselines from previous builds. The list of changes are shown on the build page in the web app. The build will be marked "unreviewed" and the changes will be listed in the "Tests" table.
 
 ![Build with unreviewed tests](img/build-test-unreviewed.png)
 

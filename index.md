@@ -6,7 +6,7 @@ description: Chromatic is a cloud based toolchain built around Storybook to help
 
 # Introduction to Chromatic
 
-![Chromatic Overview](img/overview.png){: .center }
+![Chromatic Overview](img/overview.png)
 
 ## What is Chromatic?
 
