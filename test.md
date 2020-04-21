@@ -129,6 +129,13 @@ If you want to utilize the above techniques to ensure consistency for Chromatic'
 ### Troubleshooting
 
 <details>
+<summary>Build failed because of component errors</summary>
+
+A build will _fail_ if any of the snapshots fail to render (i.e. in rendering the latest version of the component, the snapshot throws a JavaScript exception). You'll need to fix the code for errored components before we can pass the build.
+
+</details>
+
+<details>
 <summary>Reviewing tests disabled on build screen</summary>
 
 If a build isn't the newest build on a branch, we disable reviewing the build; as any future builds will base themselves on the _newest_ build, making approvals to this build pointless.

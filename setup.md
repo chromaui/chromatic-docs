@@ -112,37 +112,41 @@ If you have customized the way your Storybook runs, you may need to pass additio
 ### Troubleshooting
 
 <details>
-<summary>Build failures</summary>
+<summary>Command error <code>git log -n 1</code></summary>
 
-A build will _fail_ if any of the snapshots fail to render (i.e. in rendering the latest version of the component, the snapshot throws a JavaScript exception). You'll need to fix the code for errored components before we can pass the build.
+This error often appears when `git` is not available in your CI environment. Chromatic uses `git` to associate commits to pull/merge requests and set baselines. We require that an executable git is available (on the `$PATH` ) of the `chromatic` script.
+
+**Common cases:**
+
+- Docker containers: Git may not be installed on certain Docker containers. You'll need to make the image includes Git.
+- Heroku CI: Git history isn't available by default. You'll have to give Heroku auth access to your repo so that it can clone it before running CI. This can be unideal. Some customers end up using other CI providers to run Chromatic like GitHub Actions (free) or CircleCI.
+- Google Cloud CI: The `.git` folder is ignored by default. Based on [their documentation](https://github.com/GoogleCloudPlatform/cloud-builders/issues/236#issuecomment-374629200) you can try `.gcloudignore`. However, some customers have run into trouble with this solution and instead opted to use other CI providers to run Chromatic like GitHub Actions (free) or CircleCI.
+- You don't use Git: Enable Git version control in your project and try Chromatic again.
+
+**Debug yourself:**
+
+- Try running the command manually `git log -n 1 --format="%H,%ct,%ce,%cn"` and check if there are errors
 
 </details>
 
 <details>
 <summary>Errored builds</summary>
 
-Chromatic builds and runs Storybook flawlessly _most of the time_, but we're not perfect (we wish). Sometimes builds don't run due to rare infrastructure issues. If this happens, try to re-run the build in your CI provider. We keep track of these errors to improve the service.
+Chromatic builds and runs Storybook flawlessly _most of the time_, but we're not perfect (we wish). Sometimes builds don't run due to rare infrastructure issues. If this happens, try to re-run the build via your CI provider. We keep track of these errors to improve the service.
 
 </details>
 
 <details>
-<summary>Timed out</summary>
+<summary>Timed out builds</summary>
 
 Chromatic takes snapshots very quickly. However, if we lose the connection to your server (for instance if you stop your server mid-build, or your internet connection goes down), builds can time out. Check your connection and try restarting the build.
 
 </details>
 
 <details>
-<summary>Failed to evaluate your stories</summary>
+<summary>Failed to evaluate your stories (no stories found)</summary>
 
 We use [JSDOM](https://github.com/tmpvar/jsdom) to evaluate your stories in a simulated browser environment. JSDOM doesn't support every browser-specific construct or API. Our package provides shims for [common constructs](https://github.com/chromaui/chromatic-cli/blob/19751d87d950a2aecefb522e57c9a13c8c34fe54/bin/lib/jsdom-shims.js), but you may need mock them out yourself for extra coverage. Pass `--debug` to the script command to get extra info if it fails.
-
-</details>
-
-<details>
-<summary>No Storybook specs found</summary>
-
-To get a list of stories, we evaluate your Storybook with [JSDOM](https://github.com/tmpvar/jsdom). This is a slightly different environment to a normal browser and can sometimes have problems. We will try to output errors if we see them; using the `--debug` flag to `chromatic` may help if we didn't catch any errors.
 
 </details>
 
