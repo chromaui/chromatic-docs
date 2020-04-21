@@ -12,7 +12,7 @@ The Chromatic CLI builds then publishes Storybook to a secure workspace in the c
 
 ## Sign up
 
-Before publishing, generate a unique `<app-code>` for your Storybook by logging in to [Chromatic](https://www.chromatic.com/start) and creating a project. Login via OAuth from GitHub, GitLab, or Bitbucket. If you require SSO or have on-premises Git hosting learn more about access control [here](access#authentication).
+Before publishing, generate a unique `<project-token>` for your Storybook by logging in to [Chromatic](https://www.chromatic.com/start) and creating a project. Login via OAuth from GitHub, GitLab, or Bitbucket. If you require SSO or have on-premises Git hosting learn more about access control [here](access#authentication).
 
 ![Setup project](/img/setup.png)
 
@@ -42,7 +42,7 @@ The `chromatic` command will also give you the option of adding an npm script to
 }
 ```
 
-The above script command will pick up your app code by reading the `CHROMATIC_APP_CODE` environment variable. After adding the above, ensure you set `CHROMATIC_APP_CODE` when you run builds---such as in your CI config.
+The above script command will pick up your app code by reading the `CHROMATIC_PROJECT_TOKEN` environment variable. After adding the above, ensure you set `CHROMATIC_PROJECT_TOKEN` when you run builds---such as in your CI config.
 
 If you allowed `chromatic` to add the above line, it will also have written the environment variable to your `package.json`. This environment variable can also be set via your CI config for extra privacy.
 
@@ -50,10 +50,10 @@ If you allowed `chromatic` to add the above line, it will also have written the 
 
 ## Run Chromatic
 
-Once you've installed the `storybook-chromatic` package and have an `<app-code>`, run the following command in your project directory.
+Once you've installed the `storybook-chromatic` package and have an `<project-token>`, run the following command in your project directory.
 
 ```bash
-./node_modules/.bin/chromatic --app-code=<your-app-code>
+./node_modules/.bin/chromatic --project-token=<your-project-token>
 ```
 
 <div class="aside">
@@ -97,7 +97,7 @@ If you have customized the way your Storybook runs, you may need to pass additio
 
 | Option                   | Use case                                                                                                                                                                       |
 | ------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| `--app-code`             | The unique code for your app -- note you can pass this via the `CHROMATIC_APP_CODE` environment variable.                                                                      |
+| `--project-token`        | The unique code for your project -- note you can pass this via the `CHROMATIC_PROJECT_TOKEN` environment variable.                                                             |
 | `--build-script-name`    | The npm script that builds your Storybook we should take snapshots against (defaults to `build-storybook`). Use this if your Storybook build script is named differently.      |
 | `--storybook-build-dir`  | If you have already built your Storybook, provide the path to the built Storybook.                                                                                             |
 | `--auto-accept-changes`  | If there are any changes to the build, automatically accept them. This is useful in some branching situations. See more in the [**branching docs**](/branching-and-baselines). |

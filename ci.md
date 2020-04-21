@@ -12,7 +12,7 @@ Configure CI to publish your Storybook and run Chromatic's automation whenever y
 
 ## Configure CI
 
-Before we begin, make sure you set the `CHROMATIC_APP_CODE` environment variable when you run CI builds in your CI service's configuration.
+Before we begin, make sure you set the `CHROMATIC_PROJECT_TOKEN` environment variable when you run CI builds in your CI service's configuration.
 
 Integrate with popular CI tools like you would any other job. Run `npm run chromatic` to publish your Storybook. If [UI Test](test) or [Review](review) are enabled, it will return a non-zero exit code when there are changes. For example:
 
@@ -36,14 +36,14 @@ Chromatic has a [GitHub Action](https://github.com/chromaui/action). Add it to a
 - uses: chromaui/action@v1
   with:
     token: ${{ secrets.GITHUB_TOKEN }}
-    appCode: ${{ secrets.CHROMATIC_APP_CODE }}
+    projectToken: ${{ secrets.CHROMATIC_PROJECT_TOKEN }}
 ```
 
 You'll need to configure secrets in the settings tab at `https://github.com/{YOUR_ORGANSATION}/{YOUR_REPOSITORY}/settings/secrets`
 
 GitHub Actions can run based on any GitHub event, but we recommend to run the workflow containing the Chromatic step on `push` event. The action will work on `pull-request` events too, although [it comes with some caveats](https://docs.chromatic.com/ci#pull-request-builds). All other events will not work.
 
-For external PRs (PRs from forks of your repo) to receive the Chromatic appCode, you'll have to make the appCode public by placing it in your `package.json`. Alternatively, you could disable Chromatic on external PRs or duplicate external PRs inside your repository.
+For external PRs (PRs from forks of your repo) to receive the Chromatic projectToken, you'll have to make the projectToken public by placing it in your `package.json`. Alternatively, you could disable Chromatic on external PRs or duplicate external PRs inside your repository.
 
 </details>
 
@@ -62,7 +62,7 @@ jobs:
       - checkout
       - run: npm install
       - run: npm test
-      - run: npm chromatic -a <app-code> --exit-zero-on-changes
+      - run: npm chromatic -a <project-token> --exit-zero-on-changes
 ```
 
 For more workflow inspiriation, checkout this [Chromatic CircleCI Orb](https://circleci.com/orbs/registry/orb/wave/chromatic) that was made by a customer.
