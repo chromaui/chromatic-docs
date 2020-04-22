@@ -14,7 +14,7 @@ Configure CI to publish your Storybook and run Chromatic's automation whenever y
 
 Before we begin, make sure you set the `CHROMATIC_PROJECT_TOKEN` environment variable when you run CI builds in your CI service's configuration.
 
-Integrate with popular CI tools like you would any other job. Run `npm run chromatic` to publish your Storybook. If [UI Test](test) or [Review](review) are enabled, it will return a non-zero exit code when there are changes. For example:
+Integrate with popular CI tools like you would any other job. Run `npm run chromatic` to publish your Storybook. If [UI Test](test) or [UI Review](review) are enabled, it will return a non-zero exit code when there are changes. For example:
 
 ```yml
 - run:
@@ -103,6 +103,8 @@ If you're using Jenkins' [GitHub PR plugin](https://github.com/jenkinsci/ghprb-p
 
 ## UI Test and UI Review
 
+[UI Tests](tests) and [UI Review](review) rely on [branch and baseline](branching-and-baselines) detection to keep track of [snapshots](snapshots). We recommend this CI configuration.
+
 #### Command exit code for "required" checks
 
 If you are using pull request statuses to as required checks before merging, you may not want your CI job to fail if test snapshots render without errors (but with changes). To achieve this, pass the flag `--exit-zero-on-changes` to the `chromatic` command, and your CI job will continue in such cases.
@@ -111,7 +113,7 @@ XXX why does this differ from the above? Depending on your policy, you may not w
 
 #### Re-run failed builds after verifying UI test results
 
-Builds that contain visual changes need to be [reviewed](/builds)--if you are not using `--exit-zero-on-changes` they will fail. Once you accept all the changes, re-run the build using your CI tool and the `chromatic` job will pass.
+Builds that contain visual changes need to be [verified](/test#verify-ui-changes). They will fail if you are not using `--exit-zero-on-changes`. Once you accept all the changes, re-run the build using your CI tool and the `chromatic` job will pass.
 
 If you deny any change, you will need to make the necessary code changes to fix the test (and thus start a new CI build) to get Chromatic to pass again.
 
@@ -121,23 +123,24 @@ A clean `master` branch is a development **best practice** and **highly recommen
 
 If the builds are a result of direct commits to `master`, you will need to accept changes to keep master clean. If they're merged from `feature-branches`, you will need to make sure those branches are passing _before_ you merge into `master`.
 
-**Note:** If you use GitHub's squash/rebase merge functionality, add the `--auto-accept-changes` flag to `chromatic`. This means you won't need to re-review snapshots on `master` if you're already accepted them elsewhere. For example:
+<details>
+<summary><h4 class="no-anchor">GitHub squash/rebase merge and the "master" branch</h4></summary>
+
+GitHub's squash/rebase merge functionality creates new commits that have no association to the branch being merged. That means Chromatic will not know which changes accepted on that branch should be baselines on `master`. What's more, you'll have to re-review snapshots on `master` even if you already accepted them elsewhere.
+
+To resolve this, we recommend you maintain a clean `master` branch and use `--auto-accept-changes` as [mentioned here](/ci#maintain-a-clean-master-branch). For example:
 
 ```bash
 if [ "${CIRCLE_BRANCH}" != "master" ];
 then
   yarn chromatic
 else
-  # We know any changes that make it to master *must* have been approved
+  # We know any changes that make it to master *must* have been accepted
   yarn chromatic --auto-accept-changes
 fi
 ```
 
-#### GitHub's squash/rebase merge
-
-GitHub's squash/rebase merge functionality creates new commits that have no association to branch being merged, so it is difficult for Chromatic to know that changes accepted on that branch should now be baselines on `master`.
-
-To resolve this situation we suggest you maintain a clean `master` branch and use `--auto-accept-changes` as [mentioned here](/ci#maintain-a-clean-master-branch)
+</details>
 
 ## Pull request checks
 

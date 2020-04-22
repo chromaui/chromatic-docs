@@ -18,15 +18,17 @@ Before publishing, generate a unique `<project-token>` for your Storybook by log
 
 ## Install
 
-Install the [storybook-chromatic](https://github.com/chromaui/chromatic-cli) package from Npm. Storybook 3.4 and above is required.
+Install the [**chromatic**](https://github.com/chromaui/chromatic-cli) package from npm.
 
 ```bash
 # Yarn
-yarn add storybook-chromatic
+yarn add chromatic
 
 # npm
-npm install --save-dev storybook-chromatic
+npm install --save-dev chromatic
 ```
+
+<div class="aside">Storybook 3.4 and above is required.</div>
 
 <details>
 
@@ -50,7 +52,7 @@ If you allowed `chromatic` to add the above line, it will also have written the 
 
 ## Run Chromatic
 
-Once you've installed the `storybook-chromatic` package and have an `<project-token>`, run the following command in your project directory.
+Once you installed the `chromatic` package and have an `<project-token>`, run the following command in your project directory.
 
 ```bash
 ./node_modules/.bin/chromatic --project-token=<your-project-token>
@@ -70,7 +72,7 @@ View it online at https://www.chromatic.com/build?appId=...&number=1.
 
 ## View published Storybook
 
-Success! Every time you run the `chromatic` command you get a corresponding build in Chromatic's web app. You can now browse components, view [**UI Tests**](test) results (if enabled), and navigate to associated PR/MRs for [**UI Review**](review).
+You published Storybook online! Every time you run the `chromatic` command you get a corresponding build in Chromatic's web app. You can now browse components, view [**UI Tests**](test) results (if enabled), and navigate to associated PR/MRs for [**UI Review**](review).
 
 ![Build for publish](img/build-publish-only.png)
 
@@ -91,7 +93,7 @@ Chromatic posts a "Storybook Publish" status check in your pull/merge request th
 ---
 
 <details>
-<summary><h3 id="command-options">Command options</h3></summary>
+<summary><h3 class="no-anchor">Command options</h3></summary>
 
 If you have customized the way your Storybook runs, you may need to pass additional options to the `chromatic` command. Learn more in the [package documentation](https://github.com/chromaui/chromatic-cli#main-options).
 
