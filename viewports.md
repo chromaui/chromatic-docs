@@ -60,7 +60,7 @@ A viewport can be any whole number between 320 and 1800 pixels.
 
 <details><summary>Can I control the height of the browser?</summary>
 
-As we take a full screenshot of the component (even if it flows off the screen), it typically doesn't make any difference what height the browser has when taking screenshots. If this isn't the case for you application, please <a href="mailto:support@hichroma.com">let us know</a>.
+As we take a full screenshot of the component (even if it flows off the screen), it typically doesn't make any difference what height the browser has when taking screenshots. If this isn't the case for you application, please <a href="mailto:support@chromatic.com">let us know</a>.
 
 </details>
 

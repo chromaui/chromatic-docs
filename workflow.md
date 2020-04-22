@@ -38,7 +38,7 @@ When the UI is production-ready, document it so future developers don't have to 
 
 ## Conclusion
 
-You're ready to get the most out of Chromatic. As Chromatic customers, you'll be supported by from the team behind Storybook. Don't hesitate to ask questions via our in-app chat or [email](mailto:support@hichroma.com?Subject=Question). Continue learning about UI component best practices by reading our in-depth guides and articles.
+You're ready to get the most out of Chromatic. As Chromatic customers, you'll be supported by from the team behind Storybook. Don't hesitate to ask questions via our in-app chat or [email](mailto:support@chromatic.com?Subject=Question). Continue learning about UI component best practices by reading our in-depth guides and articles.
 
 - [Intro to Storybook](https://www.learnstorybook.com/intro-to-storybook/) is the essential guide to learning Storybook.
 - [Design Systems for Developers](https://www.learnstorybook.com/design-systems-for-developers/) shares how to build production infrastructure for design systems.
