@@ -41,9 +41,11 @@ Chromatic generates a permalink for the latest uploaded Storybook on a given bra
 
 ![Direct Storybook](img/published-storybook.png)
 
-## Link to branches
+## Link to specific branches
 
-When you're linking to a library or component on Chromatic, it can be useful to link to the latest version on a `branch` rather than a specific build. To do so, add the `branch=foo` query parameter the the url, for example `https://www.chromatic.com/library?appId=59c59bd0183bd100364e1d57&branch=master`.
+When you're linking to a library or component on Chromatic, it can be useful to link to the latest version on a `branch` rather than a specific build. To do so, add the `branch=foo` query parameter the the url.
+
+**Example**: `https://www.chromatic.com/library?appId=...&branch=master`.
 
 ---
 

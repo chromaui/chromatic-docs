@@ -14,23 +14,27 @@ A snapshot is an image of a story plus some metadata captured by a browser withi
 
 For every story in your Storybook: Chromatic will load the story, wait for it to render, take a screenshot and crop it to the correct bounding region. Snapshots are stored in the cloud and used to determine UI changes between builds.
 
-## Multiple viewports and browsers
+#### Snapshots for multiple viewports and browsers
 
 Since UI usually renders differently across viewports and browsers, Chromatic must take a separate snapshot for every combination of viewport and browser that you've configured.
 
-## Snapshot vs Canvas/Docs
+## Snapshot vs Canvas vs Docs
 
 Chromatic's component screen allows you to select between the 'Canvas', 'Snapshot' and 'Docs'. Under the Snapshot tab you'll find the image captured by Chromatic's cloud browser -- this is exactly what the browser 'saw' at the time that it rendered the story.
 
-The Canvas and Docs tabs represent the actual rendered story plus it's documentation, exactly as you'd see it within Storybook. We call this 'live view' and it's a convenient place to check the interactive behavior of the story and even use the browser to inspect styling. Click the expand icon in the top right to open the story directly within your published Storybook.
+The Canvas and Docs tabs represent the actual rendered story plus it's documentation, exactly as you'd see it within Storybook. It's a convenient place to check the interactive behavior and use browser devtools to inspect styling.
 
 ![Component screen](/img/component.png)
 
-## Focus states
+<div class="aside">Tip: Click the expand icon in the top right to open the story in your published Storybook.</div>
 
-Chromatic renders your story in the state that Storybook renders it in. This means if you focus an element as part of the rendering of the story, the element will be in a focused state.
+## Focus and hover states
 
-However, Chromatic will hide the caret (flashing cursor) as otherwise it will cause intermittent changes to your stories requiring approval.
+Chromatic renders your story in the state that Storybook renders it in. This means if you focus or hover an element as part of the rendering of the story, the element will be in a focused state. Learn about how to [capture these states with Chromatic](hoverfocus).
+
+#### Cursors for inputs and textareas
+
+Chromatic hides the caret, a flashing cursor, to prevent intermittent changes to your stories that require verification (false negatives).
 
 ---
 

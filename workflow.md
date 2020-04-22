@@ -6,25 +6,25 @@ description: Learn the Chromatic workflow
 
 # Chromatic workflow
 
-How to get the most out of Chromatic. Chromatic gives you a lot of tools. Here's how to use all of them together.
+Chromatic automates building and maintaining a UI component library. That means you can do more with less manual work. Let's go over the recommended workflow so you can take full advantage of our tools.
 
-Chapter 8 illustrates the end-to-end design system workflow we created in this guide. We’ll see how UI changes ripple outward from the design system.
+### 1. Build in Storybook
 
-How frontend tools work together has a significant impact on the ultimate value design and development teams can realize. When done well, it should be seamless to develop and reuse UI components.
-
-This chapter showcases the five-step workflow by introducing a new component AvatarList.
-
-### 1. Publish Storybook
+### 2. Publish on Chromatic
 
 This is useful when you want to change behavior of all stories when rendered in Chromatic.
 
-### 2. UI Tests by yourself
+### 3. UI Tests to catch bugs
 
-### 3. UI Review with stakeholders
+### 4. UI Review to get team sign off
 
-### 4.
+### 5. Document to reuse later
 
-🎊 You're all setup with Chromatic. Testing and review are essential to maintaining high quality UIs, but there's always more to learn. Checkout how to get the most out UI components with handy Storybook guides written by our team. Don't hesitate to ask us questions via [email](mailto:support@hichroma.com?Subject=Question) or our in-app chat.
+### 6. Merge with confidence
+
+## Learn more
+
+🎊 Congratulations! You're setup with Chromatic. . Checkout how to get the most out UI components with handy Storybook guides written by our team. Don't hesitate to ask us questions via [email](mailto:support@hichroma.com?Subject=Question) or our in-app chat.
 
 - [Visual Testing Handbook](https://www.learnstorybook.com/visual-testing-handbook/) a free 31-page walkthrough for visual testing with Storybook
 - [Design Systems for Developers](https://www.learnstorybook.com/design-systems-for-developers/) tools and best practices for building a Design System written for developers (rather than designers).

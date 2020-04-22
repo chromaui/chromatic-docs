@@ -6,10 +6,7 @@ description: Learn how you can tell Chromatic to ignore changes for certain elem
 
 # Ignore stories and elements
 
-Sometimes a component's UI changes every render or contains
-content like video/animation that is impossible to test consistently. This triggers visual changes every time you test even though nothing in the component code has changed.
-
-It's easy to tell Chromatic to ignore stories or DOM elements when looking for changes.
+Sometimes a component's appearance changes every render or contains content like video and [animation](animations) that is impossible to test consistently. This will trigger visual changes even when the component code hasn't changed. Ignore stories or DOM elements to tell Chromatic to skip them when looking for changes.
 
 ![Ignore elements](img/ignore.jpg)
 

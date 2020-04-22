@@ -6,7 +6,7 @@ description: Learn how to run Chromatic UI Tests
 
 # UI Tests
 
-Visual tests capture an image [snapshot](snapshot) of every story in a cloud browser environment. Whenever you push code, Chromatic generates a new set of snapshots and compares them against [baselines](branching-and-baselines). If there are visual changes, you verify if they're intentional.
+UI tests capture an visual [snapshot](snapshots) of every story in a cloud browser environment. Whenever you push code, Chromatic generates a new set of snapshots and compares them against [baselines](branching-and-baselines). If there are visual changes, you verify if they're intentional.
 
 ![UI test](img/workflow-uitest.png)
 
@@ -27,7 +27,7 @@ Each build Chromatic compares new snapshots to existing baselines from previous 
 ![Build with unreviewed tests](img/build-test-unreviewed.png)
 
 <details>
-<summary id="component-errors">What about component errors?</summary>
+<summary class="no-anchor">What about component errors?</summary>
 
 When a story fails to render it will be badged with "Component Error". You will not be able to "pass" a build that has component errors. Fix story errors in Storybook and run tests again.
 
@@ -100,7 +100,7 @@ Chromatic adds a 'UI Tests' check within the status checks for your pull/merge r
 ---
 
 <details>
-<summary><h3 id="keyboard-shortcuts">Keyboard shortcuts</h3></summary>
+<summary><h3 class="no-anchor">Keyboard shortcuts</h3></summary>
 
 Verify UI changes faster using keyboard shortcuts. Protip: Pressing 1 multiple times switches between the baseline and new snapshot in the 1up view.
 ![Keyboard shortcuts](img/keyboard-shortcuts.png)
@@ -108,7 +108,7 @@ Verify UI changes faster using keyboard shortcuts. Protip: Pressing 1 multiple t
 </details>
 
 <details>
-<summary><h3 id="false-positives">False positives</h3></summary>
+<summary><h3 class="no-anchor">False positives</h3></summary>
 
 It's essential that your components and stories render in a **consistent** fashion between tests to prevent false positives. Some reasons your stories might not render consistently and ways you can avoid this include:
 

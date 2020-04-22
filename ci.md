@@ -151,7 +151,7 @@ GitHub, Bitbucket, or GitLab projects that are [linked to a repository](/access)
 
 ## Next: See the recommended Chromatic workflow
 
-How tools work together affects your development speed. Learn the recommended Chromatic workflow that automates away the manual work for UI developers.
+How tools work together affects your development speed. Learn the recommended Chromatic workflow.
 
 <a class="btn primary round" href="/workflow">Read next chapter</a>
 
