@@ -6,8 +6,6 @@ description: Chromatic sponsors open source component libraries
 
 # Open source sponsorships
 
-Do you have an open source component library or design system? Great news! Chromatic sponsors open source component libraries with free usage.
+Chromatic sponsors open source component libraries and design systems with free usage. As open source maintainers ourselves, we know how tough it can be to get professional tools that'll help your project grow.
 
-Chromatic fully supports the open source workflow. It mirrors repository permissions for maintainers while allowing read-only access to viewers.
-
-See if your project qualifies by writing to us via the in-app chat.
+Chromatic supports the open source workflow out of the box. We mirrors repository permissions for maintainers while allowing read-only access to viewers. See if your project qualifies by writing to us via in-app chat (you may have to [login](https://www.chromatic.com/start) first).
