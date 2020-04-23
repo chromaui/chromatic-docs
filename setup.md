@@ -157,6 +157,6 @@ We use [JSDOM](https://github.com/tmpvar/jsdom) to evaluate your stories in a si
 
 We have a 25 million pixel size limit for image snapshots. This ensures fast and reliable performance for every build.
 
-If your stories are larger than this, perhaps something has gone wrong? Let us know if you need this limit increased by chat or [email](mailto:support@hichroma.com).
+If your stories are larger than this, perhaps something has gone wrong? Let us know if you need this limit increased by chat or [email](mailto:support@chromatic.com).
 
 </details>

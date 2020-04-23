@@ -149,7 +149,7 @@ Note that in the case that there is a descendent build of this build on _a diffe
 
 This means that across the last 100 unique commits across all builds in your app, we didn't find a single one that exists in the repository you ran this build against. Commits can go missing if you rebase or perform squash-merges, however, if all of the previous 100 builds' commits are missing, it is likely something has gone wrong.
 
-If you've reached this situation and can't work out why, please <a href="mailto:support@hichroma.com">let us know</a>.
+If you've reached this situation and can't work out why, please <a href="mailto:support@chromatic.com">let us know</a>.
 
 </details>
 
@@ -158,7 +158,7 @@ If you've reached this situation and can't work out why, please <a href="mailto:
 
 This means that although we found recent builds that _were_ in your git repository history (see above), we couldn't find any _common_ history between your checked out build and those builds within 1000 commits.
 
-Unless you are doing something unusual with your git repository, this is extremely unlikely. Either way, please <a href="mailto:support@hichroma.com">let us know</a>.
+Unless you are doing something unusual with your git repository, this is extremely unlikely. Either way, please <a href="mailto:support@chromatic.com">let us know</a>.
 
 </details>
 
@@ -173,9 +173,9 @@ However, this situation can arise due to the following:
 
 1. You switched branches and re-ran Chromatic, without checking-in the code changes that installed Chromatic. In this case you can safely ignore this message.
 
-2. You rewrote history in merging the Chromatic installation code (e.g. using GitHub's "Squash and Merge" or "Rebase and Merge" buttons). Please <a href="mailto:support@hichroma.com">let us know</a> if this is the case.
+2. You rewrote history in merging the Chromatic installation code (e.g. using GitHub's "Squash and Merge" or "Rebase and Merge" buttons). Please <a href="mailto:support@chromatic.com">let us know</a> if this is the case.
 
 3. You are using a shallow clone of your repository when running Chromatic. Chromatic needs access to your full git history in order to find baselines (or at least the history until the previous Chromatic build, which depends on how often you push code/run builds). <a href="/branching-and-baselines">Learn more</a>
 
-4. Something else happened---perhaps a bug at our end? Please <a href="mailto:support@hichroma.com">let us know</a> if this is the case.
+4. Something else happened---perhaps a bug at our end? Please <a href="mailto:support@chromatic.com">let us know</a> if this is the case.
 </details>
