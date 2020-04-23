@@ -8,9 +8,7 @@ description: Learn how to review changes for your component library
 
 UI tests protect you from accidental regressions. But, before you ship, you'll want to invite developers, designers, and PMs to review the UI to make sure it's correct.
 
-UI Review pinpoints the exact visual changes introduced by a PR. You assign reviewers who can comment and request tweaks on changes that aren't quite right.
-
-Chromatic compiles a "[UI checklist](#ui-checklist)" which must be completed before a PR is ready to merge. Think of it like a code review for your UI.
+UI Review pinpoints the exact visual changes introduced by a PR. You assign reviewers who can comment and request tweaks on changes that aren't quite right. Think of it like a code review for your UI.
 
 ![UI Review](img/workflow-uireview.png)
 
@@ -24,25 +22,31 @@ Enable UI Review for your project on the manage screen. Then go to the PRs/MRs t
 <p><b>Note:</b> You must <a href="/ci">setup CI</a> so that Chromatic is able to run builds for each commit on the PR branch.</p>
 </div>
 
-## Invite teammates
+## Find your pull request
+
+Navigate to the PRs link in the sidebar to find your pull/merge request. You'll land on the Activity tab which shows a timeline of [builds](setup#view-published-storybook), active discussions, and review status. This showcases what needs to be done before you're ready to merge.
+
+![Activity tab](/img/prscreen-activity.png)
+
+#### Invite teammates
 
 Invite other developers, designers, PMs, and stakeholders to help review changes. This closes the feedback loop between disciplines and helps you find the answer to "does this look right?".
 
-If you've linked your project to GitHub, Bitbucket, or GitLab, your team can start accessing and reviewing right away. If your project is unlinked, use the project invite code to add collaborators. [Learn more about access control »](/access)
+If you [linked your project](/access) to GitHub, Bitbucket, or GitLab, your project permissions are synced so collaborators can sign in to review immediately. If your [project is unlinked](/access), use the project invite code to add collaborators.
 
-## Assign reviewers
+#### Assign reviewers
 
-Find the PR you'd like reviewed, either by navigating to the 'PRs' link in the sidebar or following the 'UI Review' link from the PR status checks in your Git provider. Use the Assign Reviewers link on the PR Activity screen to choose reviewers from the project's collaborators. Reviewers will be emailed a link to the PR screen to begin their review.
+Use the Assign Reviewers link on the PR Activity screen to choose reviewers from the project's collaborators. Reviewers will be emailed a link to the PR screen to begin their review.
 
 <img src="/img/assign-reviewers.gif" alt="Assign Reviewers" width="300px" class="center"/>
 
 ## Review UI Changes
 
-The PR screen includes a 'UI Changes' tab showing a side-by-side view of all visual changes introduced by the code in the PR.
-
-Each change, you'll see the component story before and after the PR is applied. To hint at what UI changed, toggle the highlighted diff (in neon green) on and off.
+The PR screen includes a Changes tab showing a side-by-side view of all visual changes introduced by the code in the PR. It compares UI on the source branch to the base branch. Each change, you'll see the component story before and after the PR is applied.
 
 ![UI changes tab](/img/prscreen-changes.png)
+
+<div class="aside">To hint at what UI changed, toggle the highlighted diff (in neon green) on and off.</div>
 
 #### Discussions
 
@@ -52,18 +56,17 @@ Reviewers can request updates to the implementation via the comment box beneath 
 
 ## UI Checklist
 
-Chromatic builds a list of tasks that need to be completed before a PR is considered safe to merge from a UI review perspective. This is the UI checklist and is shown at the bottom of the activity tab of the PR screen. Once all items are completed the status light will turn green and the PR is ready to merge.
+At the bottom of the PR screen's [activity tab](review#find-your-pull-request) there's a list of tasks which must be completed before UI is ready to merge. If UI changes are found, the PR will enter the **🟡Pending** state. When changes are approved and checklist items are complete the PR will be **🟢Passed**.
 
-![UI Checklist](/img/ui-checklist.png)
+1. UI changes must be approved &rarr; Assign reviewers or approve yourself.
+2. Outstanding discussions must be resolved &rarr; Click 'Resolve' on discussions.
+3. All assigned reviewers must approve &rarr; Click 'Approve' in the PR screen tab bar.
 
-In order to complete the checklist, the following must be completed:
-
-1. All outstanding discussions must be resolved. This can be done by clicking 'Resolve' on the comments.
-2. All reviewers must have approved their review. They can do so by clicking 'Approve' button in the top right of the activity tab.
+![UI Checklist](/img/prscreen-ui-checklist.png)
 
 ## PR check for "UI Review"
 
-Chromatic will include a 'UI Review' badge within the status checks for each PR on your Git provider. The badge will show a summary of the state of the UI Checklist. Every PR for which Chromatic detects UI changes will initially start in the unreviewed state, ensuring that every impactful change has been noticed and considered before hitting production.
+You'll get a 'UI Review' status check for each PR that shows the state of the UI Checklist. Require the check in [GitHub](https://help.github.com/en/github/administering-a-repository/enabling-required-status-checks), [GitLab](https://docs.gitlab.com/ee/api/commits.html#post-the-build-status-to-a-commit), or [Bitbucket](https://confluence.atlassian.com/bitbucket/suggest-or-require-checks-before-a-merge-856691474.html) to ensure that impactful changes are considered by the team before merging.
 
 ![PR for UI Review](/img/prbadge-review.png)
 
@@ -71,7 +74,7 @@ Chromatic will include a 'UI Review' badge within the status checks for each PR 
 
 ## Next: Learn about documenting reusable components
 
-📚Now that you've seen how to review UI changes with teammates before shipping, learn about how Chromatic helps you distribute high quality, versioned and interactive component documentation.
+Now that you've seen how to review UI changes with teammates before merging, learn about how Chromatic helps you distribute high quality, versioned and interactive component documentation.
 
 <a class="btn primary round" href="/document">Read next chapter</a>
 

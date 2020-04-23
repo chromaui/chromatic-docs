@@ -6,7 +6,7 @@ description: Learn how Chromatic helps document components.
 
 # Document
 
-In addition to publishing your Storybook on every push, Chromatic generates a component library from your Storybook automatically. Every time you push code each component is recorded so you can browse variations of any component across branches and builds. Right from the comfort of your web browser; no `git checkout` or `npm install` required.
+Chromatic indexes and versions your components in a searchable library. You can browse components and stories across branches and past builds from the web app. That helps teams discover existing work to reuse and reference "prior art".
 
 ![Document](img/workflow-document.png)
 
@@ -14,24 +14,21 @@ In addition to publishing your Storybook on every push, Chromatic generates a co
 
 The library screen visualizes the latest components on a branch-by-branch basis. Browse existing components to reuse or reference. Use the branch picker to find branch-specific components.
 
-![Component library](/img/library.png)
-
-- Get a quick overview of your library in a glance
 - Identify changes by comparing historical commits and branches
 - Share the library with teammates
 - Browse existing components for re-use
 
+![Component library](/img/library.png)
+
 ## Demo components
 
-Each component and its stories are securely indexed each commit and branch. The component screen is your window into the metadata and variations of the component Chromatic has on file. You'll find image snapshots of each story each commit.
+Components and their stories are securely indexed each commit and branch. Use the component screen to demo components without needing to switch branches, pull code, or Git. It's your window into the metadata and variations of the component. You can also share a link to this screen to get feedback.
+
+- **Canvas**: Interact with the real component code to reproduce behavior
+- **Snapshot**: Verify the image [snapshots](snapshots) used for cross-browser [UI Tests](test)
+- **Docs**: Browse API and usage documentation created by [Storybook Docs](https://github.com/storybookjs/storybook/tree/next/addons/docs).
 
 ![Component screen](/img/component.png)
-
-- Visual review components without needing to switch branches, pull code, or Git.
-- Easy reproductions by toggling the "Canvas" tab to interact with the real component code
-- Leave comments alongside a component
-- Get feedback faster by sharing a link to the component with your team
-- Compare components historically to check if they look correct
 
 ## Direct access to your Storybook
 
@@ -51,7 +48,7 @@ When you're linking to a library or component on Chromatic, it can be useful to 
 
 ## Next: Setup the workflow
 
-🔄Now that you've learnt about Chromatic's features, let's see how to integrate Chromatic into your workflow. You'll learn how to get notified of changes in your PR and automate testing with CI.
+Now that you learned how UI components are documented in Chromatic, let's see how to integrate Chromatic into your continuous integration pipeline and get PR status checks.
 
 <a class="btn primary round" href="/ci">Read next chapter</a>
 

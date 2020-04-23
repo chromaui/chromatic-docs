@@ -6,31 +6,31 @@ description: Chromatic is a cloud based toolchain built around Storybook to help
 
 # Introduction to Chromatic
 
-![Chromatic Overview](img/overview.png)
+![Chromatic Overview](img/storybook-chromatic-overview.png)
 
 ## What is Chromatic?
 
-Chromatic is a cloud-based toolchain for [Storybook](https://storybook.js.org) that helps teams ship UI components faster. It's made by the team behind Storybook. Here's how it works.
+Chromatic is a cloud-based toolchain for [Storybook](https://storybook.js.org) that helps teams ship UI components faster. It's made by the [team](https://www.chromatic.com/company/about) behind Storybook. Here are the key features:
 
-#### Publish Storybook
+#### ⬆️ Publish Storybook
 
 Publish your Storybook to a secure CDN when you push code. Chromatic provides a shared workspace for teams to comment and review UI work together. It integrates with your existing CI workflow and Git hosting provider.
 
-#### UI Tests
+#### ✅ UI Tests
 
-Test for visual regressions in components. Chromatic turns your stories into test baselines. Each story is rendered in Chrome, Firefox, and Internet Explorer 11 simultaneously then compared to a screenshot of the "last known good state" to detect bugs. [Learn more »](test)
+Test for visual regressions in components. Chromatic turns your stories into test baselines. Each story is rendered in Chrome, Firefox, and Internet Explorer 11 simultaneously then compared to a screenshot of the "last known good state" to detect bugs.
 
-#### UI Review
+#### 💬 UI Review
 
-Review a visual changeset of components each pull request. Chromatic compares the new and updated components on a given feature branch versus a target branch to generate a UI changeset. Review changes with tech leads, designers, and product managers. Think of it like code review, but for UI. [Learn more »](review)
+Review a visual changeset of components each pull request. Chromatic compares the new and updated components on a given feature branch versus a target branch to generate a UI changeset. Review changes with tech leads, designers, and product managers. Think of it like code review, but for UI.
 
-#### Index and version
+#### 📚 Document
 
-Maintain a documented, versioned, and searchable library for your components. Chromatic helps teammates discover your work to reuse. Reference Chromatic's library inside your local Storybook or on our website. [Learn more »](document)
+Maintain a documented, versioned, and searchable library for your components. Chromatic helps teammates discover your work to reuse. Reference Chromatic's library inside your local Storybook or on the website.
 
-#### Powered by continuous integration
+#### 🚥 Powered by continuous integration
 
-Automate your component library with CI and version control. Chromatic includes three PR/MR checks: "Storybook Publish", "UI Tests", and "UI Review". This makes it easy to require certain workflows and gauge implementation progress.
+Automate your component library with CI and version control. Chromatic includes three PR checks: "Storybook Publish", "UI Tests", and "UI Review". This helps you gauge UI work in progress.
 
 <details>
 <summary><h4 class="no-anchor">Why use Storybook?</h4></summary>
@@ -45,6 +45,6 @@ New to Storybook? Read our peer-reviewed guides for professional developers at [
 
 ## Next: Setup and publish
 
-⬆️Setup Chromatic to publish your Storybook. It takes less than 2 minutes.
+Setup Chromatic to publish your Storybook. It takes less than 2 minutes.
 
 <a class="btn primary round" href="/setup">Read next chapter</a>

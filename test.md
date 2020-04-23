@@ -83,7 +83,7 @@ When your build is "passed" (all changes accepted), you're ready to merge visual
 
 ## PR check for "UI Tests"
 
-Chromatic adds a 'UI Tests' check within the status checks for your pull/merge requests. The badge shows errors or changes that need to be reviewed.
+Chromatic adds a 'UI Tests' check within the status checks for your pull/merge requests. The badge shows errors or changes that need to be reviewed. Require the check in [GitHub](https://help.github.com/en/github/administering-a-repository/enabling-required-status-checks), [GitLab](https://docs.gitlab.com/ee/api/commits.html#post-the-build-status-to-a-commit), or [Bitbucket](https://confluence.atlassian.com/bitbucket/suggest-or-require-checks-before-a-merge-856691474.html) to prevent accidental UI bugs from being merged.
 
 ![PR for UI Tests](/img/prbadge-test.png)
 
@@ -93,7 +93,7 @@ Chromatic adds a 'UI Tests' check within the status checks for your pull/merge r
 
 ## Next: Learn about UI Review
 
-💬Now that you're set to catch bugs, learn about how to invite other teammates into Chromatic's UI Review workflow to make sure that what gets shipped checks out with all stakeholders.
+Now that you can catch bugs automatically, learn about how to invite stakeholders into Chromatic's UI Review workflow to get the team sign off before merging.
 
 <a class="btn primary round" href="/review">Read next chapter</a>
 
