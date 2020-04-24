@@ -17,7 +17,7 @@ Go to the "Manage" screen and click to enable another browser. Chrome is enabled
 On the next test run, Chromatic will create baselines for the newly enabled browser. Previously accepted stories in Chrome will be auto-accepted as baselines in the new browser. You'll want to make sure your builds pass before enabling a new browser.
 
 <video autoPlay muted playsInline loop width="560px" class="center">
-  <source src="/img/browser-buildscreen-multiple-browsers-inprogress.mp4" type="video/mp4" />
+  <source src="img/browser-buildscreen-multiple-browsers-inprogress.mp4" type="video/mp4" />
 </video>
 
 The new browser's snapshots will be marked as "New" on the Build page and you will now be able to view it during review.
@@ -27,7 +27,7 @@ The new browser's snapshots will be marked as "New" on the Build page and you wi
 Your team can also see how a story renders in a given browser across different builds and branches on the component screen.
 
 <video autoPlay muted playsInline loop width="560px" class="center">
-  <source src="/img/browser-componentscreen-toggle-snapshots.mp4" type="video/mp4" />
+  <source src="img/browser-componentscreen-toggle-snapshots.mp4" type="video/mp4" />
 </video>
 
 Congratulations you enabled a new browser! From now on our Capture Cloud will spin up as many Chrome, Firefox, or IE11 machines as you need to test your Storybook in the least amount of time.

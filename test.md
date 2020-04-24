@@ -48,7 +48,7 @@ Chromatic detects UI changes but it's still up to you to verify if changes are i
 <details>
 <summary>What about baselines in other branches?</summary>
 
-Chromatic automatically changes the baseline snapshots that it uses for each build depending on your branch. Each branch has a separate set of baselines. This means you can update UI components on multiple feature branches in parallel without conflicts. [Learn more »](/branching-and-baselines)
+Chromatic automatically changes the baseline snapshots that it uses for each build depending on your branch. Each branch has a separate set of baselines. This means you can update UI components on multiple feature branches in parallel without conflicts. [Learn more »](branching-and-baselines)
 
 </details>
 
@@ -58,7 +58,7 @@ Chromatic automatically changes the baseline snapshots that it uses for each bui
 Sometimes you need a closer look to determine why a snapshot is rendering as it does. Along with pixel and DOM diffs, Chromatic displays the interactive stories just as they appear in Storybook. Click on the snapshot image to go to the component screen. Then click on the "Canvas" tab to view the fully interactive story.
 
 <video autoPlay muted playsInline controls width="560px" class="center">
-  <source src="/img/feature-component-inspect-optimized.mp4" type="video/mp4" />
+  <source src="img/feature-component-inspect-optimized.mp4" type="video/mp4" />
 </video>
 </details>
 
@@ -77,7 +77,9 @@ If you accept all the changes, the build will "pass". Future builds whose storie
 
 If you deny any of the changes, the build will "fail" and you will need to make code changes (and thus start a new build) to get the build to pass.
 
-When your build is "passed" (all changes accepted), you're ready to merge visual changes with confidence knowing that your UI is bug free. Chromatic will update the PR check for "UI Tests" to reflect the build status.
+When your build is "passed" (all changes accepted), you're ready to merge visual changes with confidence knowing that your UI is bug free. Chromatic will update the PR check for "UI Tests" to reflect the build status. W
+
+After you merge your code, Chromatic will also apply accepted baselines to stories on the target branch ensuring you'll only ever need to accept baselines a single time.
 
 ![Build with reviewed tests](img/build-test-reviewed.png)
 
@@ -85,7 +87,7 @@ When your build is "passed" (all changes accepted), you're ready to merge visual
 
 Chromatic adds a 'UI Tests' check within the status checks for your pull/merge requests. The badge shows errors or changes that need to be reviewed. Require the check in [GitHub](https://help.github.com/en/github/administering-a-repository/enabling-required-status-checks), [GitLab](https://docs.gitlab.com/ee/api/commits.html#post-the-build-status-to-a-commit), or [Bitbucket](https://confluence.atlassian.com/bitbucket/suggest-or-require-checks-before-a-merge-856691474.html) to prevent accidental UI bugs from being merged.
 
-![PR for UI Tests](/img/prbadge-test.png)
+![PR for UI Tests](img/prbadge-test.png)
 
 <div class="aside">CI setup: Chromatic will return an exit code 0 on the CLI which can be used in CI/CD systems to indicate success and unblock deployment. <a href="ci">Learn about CI.</a></div>
 
@@ -95,7 +97,7 @@ Chromatic adds a 'UI Tests' check within the status checks for your pull/merge r
 
 Now that you can catch bugs automatically, learn about how to invite stakeholders into Chromatic's UI Review workflow to get the team sign off before merging.
 
-<a class="btn primary round" href="/review">Read next chapter</a>
+<a class="btn primary round" href="review">Read next chapter</a>
 
 ---
 
@@ -116,11 +118,13 @@ It's essential that your components and stories render in a **consistent** fashi
 
 - **Use of the current date/time**: Dates and times are a testers bane! To get consistency in components or tests that use the current time, you can use a tool to also "seed" the time, like [timemachine](https://github.com/schickling/timemachine) for the `Date` object.
 
-- **Animations and video**: Chromatic will attempt to pause all animations and video. However, you may need to [configure](/animations) Chromatic's exact behaviour.
+- **Animations and video**: Chromatic will attempt to pause all animations and video. However, you may need to [configure](animations) Chromatic's exact behaviour.
 
-- **Unpredictable resource hosts**: Resources that load from unpredictable or flaky sources may not load in time (15s) to capture. Workaround this by serving resources as [static files in Storybook](https://storybook.js.org/configurations/serving-static-files/) or using a [placeholder service](https://placeholder.com/). Learn more about how we [load resources](/resource-loading).
+- **Unpredictable resource hosts**: Resources that load from unpredictable or flaky sources may not load in time (15s) to capture. Workaround this by serving resources as [static files in Storybook](https://storybook.js.org/configurations/serving-static-files/) or using a [placeholder service](https://placeholder.com/). Learn more about how we [load resources](resource-loading).
 
 - **Skip stories**: Some stories may render unpredictably intentionally. If this is the case you may want to [ignore the story](ignoring-elements) from testing and move on.
+
+- **Introduce a delay**: As a last resort, you can try adding a [delay](delay). This will delay Chromatic's snapshot for a specified amount of time. The trouble with this technique whilst it may make the problem less common, it may not eliminate it completely.
 
 If you want to utilize the above techniques to ensure consistency for Chromatic's tests, but you still want random elements for your local Storybook, you can use `isChromatic()` exported from [our package](isChromatic) to check for the Chromatic environment.
 
@@ -175,7 +179,7 @@ However, this situation can arise due to the following:
 
 2. You rewrote history in merging the Chromatic installation code (e.g. using GitHub's "Squash and Merge" or "Rebase and Merge" buttons). Please <a href="mailto:support@chromatic.com">let us know</a> if this is the case.
 
-3. You are using a shallow clone of your repository when running Chromatic. Chromatic needs access to your full git history in order to find baselines (or at least the history until the previous Chromatic build, which depends on how often you push code/run builds). <a href="/branching-and-baselines">Learn more</a>
+3. You are using a shallow clone of your repository when running Chromatic. Chromatic needs access to your full git history in order to find baselines (or at least the history until the previous Chromatic build, which depends on how often you push code/run builds). <a href="branching-and-baselines">Learn more</a>
 
 4. Something else happened---perhaps a bug at our end? Please <a href="mailto:support@chromatic.com">let us know</a> if this is the case.
 </details>

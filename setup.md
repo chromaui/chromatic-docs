@@ -8,13 +8,13 @@ description: Learn how to setup Chromatic and publish Storybook
 
 The Chromatic CLI builds then publishes Storybook to a secure workspace in the cloud. That allows your team to access all your stories at [chromatic.com](https://www.chromatic.com/start).
 
-![Publish Storybook](/img/workflow-publish.png)
+![Publish Storybook](img/workflow-publish.png)
 
 ## Sign up
 
 Before publishing, generate a unique `<project-token>` for your Storybook by logging in to [Chromatic](https://www.chromatic.com/start) and creating a project. Login via OAuth from GitHub, GitLab, or Bitbucket. If you require SSO or have on-premises Git hosting learn more about access control [here](access#authentication).
 
-![Setup project](/img/setup.png)
+![Setup project](img/setup.png)
 
 ## Install
 
@@ -44,7 +44,7 @@ The `chromatic` command will also give you the option of adding an npm script to
 }
 ```
 
-The above script command will pick up your app code by reading the `CHROMATIC_PROJECT_TOKEN` environment variable. After adding the above, ensure you set `CHROMATIC_PROJECT_TOKEN` when you run builds---such as in your CI config.
+The above script command will pick up your project token by reading the `CHROMATIC_PROJECT_TOKEN` environment variable. After adding the above, ensure you set `CHROMATIC_PROJECT_TOKEN` when you run builds---such as in your CI config.
 
 If you allowed `chromatic` to add the above line, it will also have written the environment variable to your `package.json`. This environment variable can also be set via your CI config for extra privacy.
 
@@ -90,7 +90,7 @@ Chromatic posts a "Storybook Publish" status check in your pull/merge request th
 
 📸 Now that you published Storybook, let's see how to automate [UI tests](test) to catch bugs.
 
-<a class="btn primary round" href="/test">Read next chapter</a>
+<a class="btn primary round" href="test">Read next chapter</a>
 
 ---
 
@@ -99,17 +99,17 @@ Chromatic posts a "Storybook Publish" status check in your pull/merge request th
 
 If you have customized the way your Storybook runs, you may need to pass additional options to the `chromatic` command. Learn more in the [package documentation](https://github.com/chromaui/chromatic-cli#main-options).
 
-| Option                   | Use case                                                                                                                                                                       |
-| ------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| `--project-token`        | The unique code for your project -- note you can pass this via the `CHROMATIC_PROJECT_TOKEN` environment variable.                                                             |
-| `--build-script-name`    | The npm script that builds your Storybook we should take snapshots against (defaults to `build-storybook`). Use this if your Storybook build script is named differently.      |
-| `--storybook-build-dir`  | If you have already built your Storybook, provide the path to the built Storybook.                                                                                             |
-| `--auto-accept-changes`  | If there are any changes to the build, automatically accept them. This is useful in some branching situations. See more in the [**branching docs**](/branching-and-baselines). |
-| `--exit-zero-on-changes` | If all snapshots render but there are visual changes, exit with a 0 exit code, rather than the usual 1.                                                                        |
-| `--preserve-missing`     | Treat missing stories as unchanged rather than deleted.                                                                                                                        |
-| `--no-interactive`       | Don't ask interactive questions about your setup.                                                                                                                              |
-| `--debug`                | Output extra debugging information.                                                                                                                                            |
-| `CI=true`                | Tell Chromatic that you're running in CI. This will hide the "Setup CI / Automation" messages in the UI. Add _before_ the test command like so: `CI=true yarn chromatic...`    |
+| Option                   | Use case                                                                                                                                                                      |
+| ------------------------ | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `--project-token`        | The unique code for your project -- note you can pass this via the `CHROMATIC_PROJECT_TOKEN` environment variable.                                                            |
+| `--build-script-name`    | The npm script that builds your Storybook we should take snapshots against (defaults to `build-storybook`). Use this if your Storybook build script is named differently.     |
+| `--storybook-build-dir`  | If you have already built your Storybook, provide the path to the built Storybook.                                                                                            |
+| `--auto-accept-changes`  | If there are any changes to the build, automatically accept them. This is useful in some branching situations. See more in the [**branching docs**](branching-and-baselines). |
+| `--exit-zero-on-changes` | If all snapshots render but there are visual changes, exit with a 0 exit code, rather than the usual 1.                                                                       |
+| `--preserve-missing`     | Treat missing stories as unchanged rather than deleted.                                                                                                                       |
+| `--no-interactive`       | Don't ask interactive questions about your setup.                                                                                                                             |
+| `--debug`                | Output extra debugging information.                                                                                                                                           |
+| `CI=true`                | Tell Chromatic that you're running in CI. This will hide the "Setup CI / Automation" messages in the UI. Add _before_ the test command like so: `CI=true yarn chromatic...`   |
 
 </details>
 

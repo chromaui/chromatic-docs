@@ -10,7 +10,7 @@ A common pattern in modern web development is monorepos -- having a single repos
 
 ## Running Chromatic from a subproject
 
-Chromatic doesn't assume anything about how you run the CLI, so there is no reason that you cannot run it from inside a sub-project. Ensure you pass the correct app code and it will work fine.
+Chromatic doesn't assume anything about how you run the CLI, so there is no reason that you cannot run it from inside a sub-project. Ensure you pass the correct project token and it will work fine.
 
 ## Running Chromatic for more than one subproject's Storybook
 
@@ -24,7 +24,7 @@ For example, you could write in your `.storybook/main.js`:
 
 ```js
 module.exports = {
-  stories: ["../project-1/**/*.stories.js", "../project-2/**/*.stories.js"],
+  stories: ['../project-1/**/*.stories.js', '../project-2/**/*.stories.js'],
 };
 ```
 
@@ -38,7 +38,7 @@ You can currently only have a single project linked to a given repository. That 
 
 However, you can still create a second project in Chromatic, linked to a dummy repository created in your organization/team for this purpose. If you mirror the repository membership from the "real" repository to the dummy repository, access to the Chromatic project will work fine.
 
-You would then use the app code of the second project to run the second `chromatic` test command in the second subproject. The big downside of this approach is the lack of a Pull (Merge) Request status based on the result of the second test run. You can however wait for and use the exit code of the `chromatic` CLI run (don't use the `--exit-zero-on-changes` flag in this case!)
+You would then use the token of the second project to run the second `chromatic` test command in the second subproject. The big downside of this approach is the lack of a Pull (Merge) Request status based on the result of the second test run. You can however wait for and use the exit code of the `chromatic` CLI run (don't use the `--exit-zero-on-changes` flag in this case!)
 
 ---
 

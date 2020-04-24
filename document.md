@@ -18,7 +18,7 @@ The library screen visualizes the latest components on a branch-by-branch basis.
 - Share the library with teammates
 - Browse existing components for re-use
 
-![Component library](/img/library.png)
+![Component library](img/library.png)
 
 ## Demo components
 
@@ -28,7 +28,7 @@ Components and their stories are securely indexed each commit and branch. Use th
 - **Snapshot**: Verify the image [snapshots](snapshots) used for cross-browser [UI Tests](test)
 - **Docs**: Browse API and usage documentation created by [Storybook Docs](https://github.com/storybookjs/storybook/tree/next/addons/docs).
 
-![Component screen](/img/component.png)
+![Component screen](img/component.png)
 
 ## Direct access to your Storybook
 
@@ -50,7 +50,7 @@ When you're linking to a library or component on Chromatic, it can be useful to 
 
 Now that you learned how UI components are documented in Chromatic, let's see how to integrate Chromatic into your continuous integration pipeline and get PR status checks.
 
-<a class="btn primary round" href="/ci">Read next chapter</a>
+<a class="btn primary round" href="ci">Read next chapter</a>
 
 ---
 
