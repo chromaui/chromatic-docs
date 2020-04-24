@@ -65,6 +65,48 @@ No. Snapshots taken for one workflow are reused for the other. You don't get cha
 ### Troubleshooting
 
 <details>
+<summary>Where are my images and fonts?</summary>
+
+Make sure your resource hosts are reliably fast. When possible serve resources staticly via Storybook or use a dedicated service. Learn more about [resource loading in Chromatic](resource-loading).
+
+If your resources are behind a firewall, whitelist our domain so we can load your resources.
+
+</details>
+
+<details>
+<summary>Why isn’t my modal or dialog captured? </summary>
+
+If you use an “animateIn” effect set [delay](delay) to ensure we snapshot when the animation completes.
+
+If your component infers its dimensions from the layout of the surrounding DOM elements (e.g., it's a modal that uses `position:fixed`), you'll need to set the height of that component's stories using a decorator.
+
+```js
+import MyComponent from './MyComponent'
+
+export default {
+  component: MyComponent,
+  decorators: [
+    storyFn => (
+      {% raw %}<div style={{ width: '1200px', height: '800px' }}>{% endraw %}
+        This is a decorator for modals and such {storyFn()}
+      </div>
+    ),
+  ],
+}
+
+export const StoryWithDimensions = () => <MyComponent/>
+```
+
+</details>
+
+<details>
+<summary>Where's my "position: fixed" component?</summary>
+
+Fixed position elements may depend on viewport size but not have dimensions themselves. Wrap your component in an element whose height and width are defined.
+
+</details>
+
+<details>
 <summary>My stories won't load due to cross-origin request errors</summary>
 
 Most likely you are calling into `window.parent` somewhere in your code. As we serve your Storybook preview iframe inside our www.chromatic.com domain this leads to a x-origin error as your code doesn't have access to our frame (with good reason!). Generally speaking it is a good idea to wrap calls like that in a `try { } catch` in case the code is running in a context where that's not possible (e.g Chromatic).

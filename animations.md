@@ -46,7 +46,7 @@ Chromatic cannot disable JavaScript driven animations, so we advise disabling su
 
 ```js
 // In .storybook/config.js
-import isChromatic from "storybook-chromatic/isChromatic";
+import isChromatic from "chromatic/isChromatic";
 
 if (isChromatic()) {
   // The exact method to do this will depend on your animation techniques.

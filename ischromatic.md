@@ -14,7 +14,7 @@ This is useful when you want to change behavior of all stories when rendered in 
 
 ```js
 // In .storybook/config.js
-import isChromatic from "storybook-chromatic/isChromatic";
+import isChromatic from "chromatic/isChromatic";
 
 // Disable animation
 if (isChromatic()) {
@@ -33,7 +33,7 @@ This is useful when you want to change behavior of one component's stories when 
 ```js
 // In component.stories.js
 import MyComponent from "./MyComponent";
-import isChromatic from "storybook-chromatic/isChromatic";
+import isChromatic from "chromatic/isChromatic";
 
 export default {
   component: MyComponent,

@@ -84,6 +84,8 @@ Chromatic posts a "Storybook Publish" status check in your pull/merge request th
 
 <div class="aside">During setup we recommend running <code>chromatic</code> on the command line to make sure the configuration is correct. For production use run Chromatic in CI.</div>
 
+---
+
 ## Next: Catch UI bugs
 
 📸 Now that you published Storybook, let's see how to automate [UI tests](test) to catch bugs.

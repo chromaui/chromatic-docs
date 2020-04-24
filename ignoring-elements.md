@@ -8,6 +8,15 @@ description: Learn how you can tell Chromatic to ignore changes for certain elem
 
 Sometimes a component's appearance changes every render or contains content like video and [animation](animations) that is impossible to test consistently. This will trigger visual changes even when the component code hasn't changed. Ignore stories or DOM elements to tell Chromatic to skip them when looking for changes.
 
+<details>
+<summary>How does it work?</summary>
+
+Chromatic uses the rendered visual output at the pixel level to determine whether components' have changed.
+Setting the `.chromatic-ignore` class instructs the diffing algorithm to ignore the
+pixels within the bounding rectangle of ignored elements. It's important to ensure the calculated bounding rectangle fully covers the changing content.
+
+</details>
+
 ![Ignore elements](img/ignore.jpg)
 
 ## Ignore stories
@@ -77,12 +86,3 @@ export default function MyComponent() {
   );
 }
 ```
-
-<details>
-<summary>How does it work?</summary>
-
-Chromatic uses the rendered visual output at the pixel level to determine whether components' have changed.
-Setting the `.chromatic-ignore` class instructs the diffing algorithm to ignore the
-pixels within the bounding rectangle of ignored elements. It's important to ensure the calculated bounding rectangle fully covers the changing content.
-
-</details>

@@ -46,7 +46,7 @@ When you're linking to a library or component on Chromatic, it can be useful to 
 
 ---
 
-## Next: Setup the workflow
+## Next: Automate with CI
 
 Now that you learned how UI components are documented in Chromatic, let's see how to integrate Chromatic into your continuous integration pipeline and get PR status checks.
 
