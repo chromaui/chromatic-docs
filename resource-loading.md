@@ -1,10 +1,10 @@
 ---
 layout: default
-title: Resource Loading
+title: Resource loading
 description: Learn how to Chromatic loads resources and waits to screenshot.
 ---
 
-# Resource Loading
+# Resource loading
 
 If your story uses resources (such as images or fonts), Chromatic needs to wait for those resources to fully load before creating a snapshot.
 

@@ -1,160 +1,184 @@
 <div class="sidebar-nav">
-  <ul class="docs-list">
-    <div class="title">Search</div>
-    <li>
-      <input class="searchInput" />
-    </li>
-  </ul>
-
-  <ul class="docs-list">
-    <div class="title">Get Started</div>
+  <div class="input-symbol small round">
+    <input class="searchInput secondary" placeholder="Search docs" />
+    <span class="icon-search"></span>
+  </div>
+  
+  <div class="title">Get Started</div>
+  <ul class="docs-list table-of-contents">
     <li>
       <a
         href="/"
-        class='{% if page.title == "Overview" %}active {% endif %}link'
-        >Overview</a
+        class="{% if page.title == "Introduction" %}active {% endif %}link"
+        >Introduction</a
       >
     </li>
     <li>
       <a
         href="/setup"
-        class='{% if page.title == "Setup" %}active {% endif %}link'
-        >Setup</a
+        class="{% if page.title == "Setup" %}active {% endif %}link"
+        >Setup and publish</a
       >
     </li>
     <li>
       <a
         href="/test"
-        class='{% if page.title == "Test" %}active {% endif %}link'
-        >Test</a
+        class="{% if page.title == "Test" %}active {% endif %}link"
+        >UI Tests</a
       >
     </li>
     <li>
       <a
         href="/review"
-        class='{% if page.title == "Review" %}active {% endif %}link'
-        >Review</a
+        class="{% if page.title == "Review" %}active {% endif %}link"
+        >UI Review</a
       >
     </li>
     <li>
       <a
         href="/document"
-        class='{% if page.title == "Document" %}active {% endif %}link'
+        class="{% if page.title == "Document" %}active {% endif %}link"
         >Document</a
       >
     </li>
     <li>
       <a
-        href="/setup_ci"
-        class='{% if page.title == "Setup CI & PRs" %}active {% endif %}link'
-        >Merge (CI & PRs)</a
+        href="/ci"
+        class="{% if page.title == "Automate with CI" %}active {% endif %}link"
+        >Automate with CI</a
       >
+    </li>
+    <li>
+      <a href="/workflow" class="{% if page.title == "Workflow" %}active {% endif %}link">Workflow</a>
     </li>
   </ul>
 
-  <ul class="docs-list">
-    <div class="title">Reference</div>
-    <li>
-      <a
-        href="/access"
-        class='{% if page.title == "Access control" %}active {% endif %}link'
-      >
-        Access control</a
-      >
-    </li>
-    <li>
-      <a
-        href="/snapshots"
-        class='{% if page.title == "Snapshots" %}active {% endif %}link'
-      >
-        Snapshots</a
-      >
-    </li>
+<div class="title">Configuration</div>
+  <ul class="docs-list">  
     <li>
       <a
         href="/viewports"
-        class='{% if page.title == "Viewports" %}active {% endif %}link'
+        class="{% if page.title == "Viewports" %}active {% endif %}link"
         >Viewports</a
       >
     </li>
     <li>
       <a
         href="/browsers"
-        class='{% if page.title == "Browsers" %}active {% endif %}link'
+        class="{% if page.title == "Browsers" %}active {% endif %}link"
       >
         Browsers</a
       >
     </li>
     <li>
       <a
-        href="/branching-and-baselines"
-        class='{% if page.title == "Branches and baselines" %}active {% endif %}link'
-      >
-        Branches & Baselines</a
-      >
-    </li>
-    <li>
-      <a
         href="/ignoring-elements"
-        class='{% if page.title == "Ignore stories and elements" %}active {% endif %}link'
-        >Ignore Elements</a
+        class="{% if page.title == "Ignore stories and elements" %}active {% endif %}link"
+        >Ignore elements</a
       >
     </li>
     <li>
       <a
         href="/animations"
-        class='{% if page.title == "Animations" %}active {% endif %}link'
+        class="{% if page.title == "Animations" %}active {% endif %}link"
         >Animations</a
       >
     </li>
     <li>
       <a
-        href="/resource-loading"
-        class='{% if page.title == "Resource Loading" %}active {% endif %}link'
-        >Resource Loading</a
-      >
-    </li>
-    <li>
-      <a
         href="/delay"
-        class='{% if page.title == "Delay" %}active {% endif %}link'
+        class="{% if page.title == "Delay" %}active {% endif %}link"
         >Delay</a
       >
     </li>
     <li>
       <a
         href="/threshold"
-        class='{% if page.title == "Threshold" %}active {% endif %}link'
+        class="{% if page.title == "Threshold" %}active {% endif %}link"
       >
-        Threshold for Changes</a
+        Threshold for changes</a
       >
     </li>
     <li>
       <a
+        href="/hoverfocus"
+        class="{% if page.title == "Hover and focus states" %}active {% endif %}link"
+      >
+        Hover and focus</a
+      >
+    </li>
+    <li>
+      <a
+        href="/ischromatic"
+        class="{% if page.title == "isChromatic" %}active {% endif %}link"
+      >
+        isChromatic()</a
+      >
+    </li>
+  </ul>
+
+  <div class="title">Reference</div>
+  <ul class="docs-list"> 
+    <li>
+      <a
+        href="/snapshots"
+        class="{% if page.title == "Snapshots" %}active {% endif %}link"
+      >
+        Snapshots</a
+      >
+    </li>
+    <li>
+      <a
+        href="/access"
+        class="{% if page.title == "Access control" %}active {% endif %}link"
+      >
+        Access control</a
+      >
+    </li>
+
+    <li>
+      <a
+        href="/branching-and-baselines"
+        class="{% if page.title == "Branches and baselines" %}active {% endif %}link"
+      >
+        Branches & baselines</a
+      >
+    </li>
+
+    <li>
+      <a
+        href="/resource-loading"
+        class="{% if page.title == "Resource loading" %}active {% endif %}link"
+        >Resource loading</a
+      >
+    </li>
+
+    <li>
+      <a
         href="/monorepos"
-        class='{% if page.title == "Monorepos" %}active {% endif %}link'
+        class="{% if page.title == "Monorepos" %}active {% endif %}link"
         >Monorepos</a
       >
     </li>
     <li>
       <a
         href="/infrastructure-upgrades"
-        class='{% if page.title == "Infrastructure Upgrades" %}active {% endif %}link'
+        class="{% if page.title == "Infrastructure upgrades" %}active {% endif %}link"
       >
-        Infrastructure Upgrades</a
+        Infrastructure upgrades</a
       >
     </li>
     <li>
       <a
         href="/storybook"
-        class='{% if page.title == "Storybook and Chromatic tutorial" %}active {% endif %}link'
+        class="{% if page.title == "Storybook and Chromatic tutorial" %}active {% endif %}link"
         >Storybook</a
       >
     </li>
     <li>
       <a
         href="/open-source"
-        class='{% if page.title == "Open source sponsorships" %}active {% endif %}link'
+        class="{% if page.title == "Open source sponsorships" %}active {% endif %}link"
         >Open source plan</a
       >
     </li>
@@ -166,3 +190,4 @@
     >support@chromatic</a
   >
 </div>
+

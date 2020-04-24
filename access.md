@@ -4,11 +4,42 @@ title: Access control
 description: Learn how to control who has access to your Chromatic project
 ---
 
-# Access control for projects and accounts
+# Access control
 
 Learn how to manage access to your Chromatic account and projects.
 
----
+## Authentication
+
+Login via OAuth from GitHub, GitLab, or Bitbucket. Chromatic supports the public cloud versions of these services via our [self-serve plans](https://www.chromatic.com/pricing).
+
+Enterprise plans come with support for Single Sign On (SSO) and on-premises Git hosting from all supported providers.
+
+### OAuth Scopes
+
+Depending on your Git provider, Chromatic will request a set of OAuth scopes when you first login. Chromatic uses these permissions to enumerate your list of repos, set PR statuses and retrieve users for assignment to review. Chromatic will never read/write source code.
+
+| Git provider                                                                                                                 | Scopes                                                   |
+| ---------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------- |
+| [GitHub](https://developer.github.com/apps/building-oauth-apps/understanding-scopes-for-oauth-apps/#available-scopes)        | `['user:email', 'read:user', 'read:org', 'repo:status']` |
+| [GitLab](https://docs.gitlab.com/ee/user/profile/personal_access_tokens.html#limiting-scopes-of-a-personal-access-token)     | `['api']`                                                |
+| [Bitbucket](https://confluence.atlassian.com/bitbucket/oauth-on-bitbucket-cloud-238027431.html#OAuthonBitbucketCloud-Scopes) | `['account', 'repository', 'pullrequest', 'webhook']`    |
+
+#### GitHub App permissions
+
+Chromatic's GitHub App enables [UI Review](review) for pull requests. We need additional permissions to access pull request information and add PR checks.
+
+- ✅ Read access to metadata
+- ✅ Read and write access to checks and pull requests
+- ✅ Read access to organization members (for collaborators)
+- 🔒 We do not request access to your code.
+
+## Accounts
+
+Chromatic mirrors access permissions at the "team" level to make permissions management quick and easy. Share access with your GitHub organization, Bitbucket group, or GitLab team by adding that account to Chromatic via the menu.
+
+Permissions also carry over at the repository level. For example, if a person does not have access to repository in your code host they will also not have access to it in Chromatic.
+
+![Account menu](img/account-menu.png)
 
 ## Projects
 
@@ -34,18 +65,11 @@ Users that have used the invitation link will get full write access to the proje
 
 ---
 
-## Accounts
+### Frequently asked questions
 
-Chromatic mirrors access permissions at the "team" level to make permissions management quick and easy. Share access with your GitHub organization, Bitbucket group, or GitLab team by adding that account to Chromatic via the menu.
-
-Permissions also carry over at the repository level. For example, if a person does not have access to repository in your code host they will also not have access to it in Chromatic.
-
-![Account menu](img/account-menu.png){: .center }
-
----
-
-### Troubleshooting
-
-#### Your teammates can't access a project
+<details>
+<summary>Why can't my teammates access a project?</summary>
 
 Check that your teammates are listed as collaborators in that repository. If they aren't listed, please add them and try accessing the Chromatic project again (you may have to re-login). Chromatic syncs permissions at the account _and_ repo level.
+
+</details>

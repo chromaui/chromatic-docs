@@ -1,32 +1,38 @@
 ---
 layout: default
 title: Setup
-description: Learn how to setup Chromatic and publish storybooks
+description: Learn how to setup Chromatic and publish Storybook
 ---
 
-# Setup
+# Setup and publish Storybook
 
-Chromatic's CLI tool is used to build and publish storybooks to the cloud which are then access via the [web interface](https://www.chromatic.com/start). The CLI tool also returns an exit code based on the result of running UI tests (if enabled) which can be used to block builds in CI when tests fail.
+The Chromatic CLI builds then publishes Storybook to a secure workspace in the cloud. That allows your team to access all your stories at [chromatic.com](https://www.chromatic.com/start).
 
-## Signup
+![Publish Storybook](/img/workflow-publish.png)
 
-Before publishing, you'll need to obtain an `<app-code>` by logging in to [Chromatic](https://www.chromatic.com/start) and creating a project. The `<app-code>` is a unique token used by the CLI tool and generated for each Storybook that you'll be publishing.
+## Sign up
 
-Chromatic supports oAuth login via all major Git providers (Github, Gitlab, Bitbucket). Chromatic will mirror permissions from your Git provider meaning that if you link a project to a Git repository, only the people who have access to that repository will have access to the project in Chromatic. It's also possible to create an 'Unlinked' project and manage the list of collaborators manually.
+Before publishing, generate a unique `<project-token>` for your Storybook by logging in to [Chromatic](https://www.chromatic.com/start) and creating a project. Login via OAuth from GitHub, GitLab, or Bitbucket. If you require SSO or have on-premises Git hosting learn more about access control [here](access#authentication).
 
-Enterprise plans come with support for Single Sign On (SSO) and on-prem Git hosting from all supported providers. Read more about Chromatic's access control on our [reference page](access).
+![Setup project](/img/setup.png)
 
-## Installation
+## Install
 
-Install the [storybook-chromatic](https://github.com/chromaui/chromatic-cli) package from Npm. Storybook 3.4 and above is required.
+Install the [**chromatic**](https://github.com/chromaui/chromatic-cli) package from npm.
 
 ```bash
 # Yarn
-yarn add storybook-chromatic
+yarn add chromatic
 
-# Npm
-npm install --save-dev storybook-chromatic
+# npm
+npm install --save-dev chromatic
 ```
+
+<div class="aside">Storybook 3.4 and above is required.</div>
+
+<details>
+
+<summary>Learn how to add <code>chromatic</code> to your package.json</summary>
 
 The `chromatic` command will also give you the option of adding an npm script to your `package.json` so you can run future builds with `npm run chromatic/yarn chromatic`. If you want to add it manually, it should look something like:
 
@@ -38,74 +44,62 @@ The `chromatic` command will also give you the option of adding an npm script to
 }
 ```
 
-The above script command will pick up your app code by reading the `CHROMATIC_APP_CODE` environment variable. After adding the above, ensure you set `CHROMATIC_APP_CODE` when you run builds---such as in your CI config.
+The above script command will pick up your app code by reading the `CHROMATIC_PROJECT_TOKEN` environment variable. After adding the above, ensure you set `CHROMATIC_PROJECT_TOKEN` when you run builds---such as in your CI config.
 
-If you allowed `chromatic` to add the above line, it will also have written the environment variable to your `package.json`. Depending on your level of trust of your code hosting provider, you should consider removing the environment variable and setting via your CI config.
+If you allowed `chromatic` to add the above line, it will also have written the environment variable to your `package.json`. This environment variable can also be set via your CI config for extra privacy.
 
-## Running
+</details>
 
-Once you've installed the `storybook-chromatic` package and have an `<app-code>`, run the following command in your project directory.
+## Run Chromatic
+
+Once you installed the `chromatic` package and have an `<project-token>`, run the following command in your project directory.
 
 ```bash
-./node_modules/.bin/chromatic --app-code=<your-app-code>
+./node_modules/.bin/chromatic --project-token=<your-project-token>
 ```
 
 <div class="aside">
-Chromatic uses the `build-storybook` script from your `package.json` by default but you can specify a different name (see <a href="#available-options">options</a>). You may need to update the `build-storybook` script if you customized your `storybook` script (for example if you added a static directory with `-s`). Whilst it's possible for Chromatic to run against a development Storybook, we strongly recommend you use a built storybook. 
+We use the <code>build-storybook</code> script from your <code>package.json</code> by default. If you customized your <code>storybook</code> script (for example, adding a static directory with <code>-s</code>), specify them using our <a href="#command-options">options</a>.
 </div>
 
-If everything worked, you'll see some informational output followed by
+When complete, you'll see the build status and a link to the published Storybook:
 
 ```bash
 Build 1 published.
 
-View it online at https://www.chromatic.com/build?appId=59c5a73849dd100364e1d57&number=1.
+View it online at https://www.chromatic.com/build?appId=...&number=1.
 ```
 
-What this did:
+## View published Storybook
 
-1. Ran `storybook-build` and published the output static storybook to Chromatic resulting in a new 'Build'.
-2. Updated the Build with local Git history so that Chromatic can associate Git commits with published storybooks.
-3. A 'Snapshot' was created for every Story by rendering it and capturing the output on Chromatic's cloud infrastrcture.
-4. The Snapshots were used to run UI Tests and create visual comparisons to power UI Review.
-5. Pull Requests that are affected by the commit were updated with links to the published storybook and UI Review along with UI Test results.
+You published Storybook online! Every time you run the `chromatic` command you get a corresponding build in Chromatic's web app. You can now browse components, view [**UI Tests**](test) results (if enabled), and navigate to associated PR/MRs for [**UI Review**](review).
 
-![Build Page](img/xxx-page.png)
+![Build for publish](img/build-publish-only.png)
 
-Each time you run the `chromatic` command, we'll create a corresponding artifact within Chromatic's web interface and show details on the Build screen. Here, you can:
+## Get the PR check
 
-- Confirm your build worked and directly access the storybook that Chromatic indexed.
-- Review UI test results and see which browsers are enabled for UI tests.
-- Browse the components that are included in the storybook and access your library.
-- If the storybook commit is part of a PR, access Chromatic's UI Review page.
+Chromatic posts a "Storybook Publish" status check in your pull/merge request that links to the latest published Storybook. This gives teams secure, convenient access to browse components and stories. Get the PR check by [automating Chromatic with CI](ci).
 
-## Configure CI
+![PR badge for publish](img/prbadge-publish.png)
 
-During setup we recommend running `chromatic` on the command line (as shown above) to make sure everything is configured correctly. In order to complete setup, Chromatic must be integrated into your CI environment to ensure your storybook is published every time you push and we can detect UI changes between commits.
-
-We support all major CI providers. If you're using Github and don't yet have CI, we've built a [Github Action](https://github.com/chromaui/action) that makes it trivial to run Chromatic on every push. Read our [XXX CI reference page](ci) for help on setting up CI.
-
-![PR Status Checks](https://via.placeholder.com/300x150.png?text=PR Status Checks){: .center }
-
-When running inside CI, Chromatic will update pull request status checks for every push. You'll get links to your published storybook for the latest commit on the branch, UI test results (optional) and UI review approvals (optional).
-
----
+<div class="aside">During setup we recommend running <code>chromatic</code> on the command line to make sure the configuration is correct. For production use run Chromatic in CI.</div>
 
 ## Next: Catch UI bugs
 
-📸 Now that you're publishing your storybook, learn about Chromatic's visual regression [testing](test).
+📸 Now that you published Storybook, let's see how to automate [UI tests](test) to catch bugs.
 
 <a class="btn primary round" href="/test">Read next chapter</a>
 
 ---
 
-### Available options
+<details>
+<summary><h3 class="no-anchor">Command options</h3></summary>
 
-If you have customized the way your Storybook runs, you may need to pass additional options to the `chromatic` command.
+If you have customized the way your Storybook runs, you may need to pass additional options to the `chromatic` command. Learn more in the [package documentation](https://github.com/chromaui/chromatic-cli#main-options).
 
 | Option                   | Use case                                                                                                                                                                       |
 | ------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| `--app-code`             | The unique code for your app -- note you can just pass this via the `CHROMATIC_APP_CODE` environment variable.                                                                 |
+| `--project-token`        | The unique code for your project -- note you can pass this via the `CHROMATIC_PROJECT_TOKEN` environment variable.                                                             |
 | `--build-script-name`    | The npm script that builds your Storybook we should take snapshots against (defaults to `build-storybook`). Use this if your Storybook build script is named differently.      |
 | `--storybook-build-dir`  | If you have already built your Storybook, provide the path to the built Storybook.                                                                                             |
 | `--auto-accept-changes`  | If there are any changes to the build, automatically accept them. This is useful in some branching situations. See more in the [**branching docs**](/branching-and-baselines). |
@@ -115,34 +109,54 @@ If you have customized the way your Storybook runs, you may need to pass additio
 | `--debug`                | Output extra debugging information.                                                                                                                                            |
 | `CI=true`                | Tell Chromatic that you're running in CI. This will hide the "Setup CI / Automation" messages in the UI. Add _before_ the test command like so: `CI=true yarn chromatic...`    |
 
-Additional options and more documentation are available in the `storybook-chromatic` package [documentation](https://github.com/chromaui/chromatic-cli).
+</details>
 
----
+### Troubleshooting
 
-## Troubleshooting
+<details>
+<summary>Command error <code>git log -n 1</code></summary>
 
-#### Test build failures
+This error often appears when `git` is not available in your CI environment. Chromatic uses `git` to associate commits to pull/merge requests and set baselines. We require that an executable git is available (on the `$PATH` ) of the `chromatic` script.
 
-A build will _fail_ if any of the snapshots fail to render (i.e. in rendering the latest version of the component, the snapshot throws a JavaScript exception). You'll need to fix the code for errored components before we can pass the build.
+**Common cases:**
 
-#### Errored builds
+- Docker containers: Git may not be installed on certain Docker containers. You'll need to make the image includes Git.
+- Heroku CI: Git history isn't available by default. You'll have to give Heroku auth access to your repo so that it can clone it before running CI. This can be unideal. Some customers end up using other CI providers to run Chromatic like GitHub Actions (free) or CircleCI.
+- Google Cloud CI: The `.git` folder is ignored by default. Based on [their documentation](https://github.com/GoogleCloudPlatform/cloud-builders/issues/236#issuecomment-374629200) you can try `.gcloudignore`. However, some customers have run into trouble with this solution and instead opted to use other CI providers to run Chromatic like GitHub Actions (free) or CircleCI.
+- You don't use Git: Enable Git version control in your project and try Chromatic again.
 
-Chromatic builds and runs Storybook flawlessly _most of the time_, but we're not perfect (we wish). Sometimes builds don't run due to rare infrastructure issues. If this happens, try to re-run the build. Rest assured, we keep track of errors and continue to work to improve the service every day.
+**Debug yourself:**
 
-#### Timed out
+- Try running the command manually `git log -n 1 --format="%H,%ct,%ce,%cn"` and check if there are errors
 
-Chromatic takes snapshots very quickly. However, if we lose the connection to your server (for instance if you stop your server mid-build, or your internet connection goes down), builds can time out. Simply restart the build---perhaps with a more stable connection.
+</details>
 
-#### Failed to evaluate your stories
+<details>
+<summary>Errored builds</summary>
 
-To make a list of Chromatic specs from your Storybook stories, we evaluate your story code from a node script, using JSDOM to simulate a browser environment. We don't render your stories but just gather a list of them by including your story files. You may need to avoid calling various browser-only constructs at the top-level or mock them out. Pass `--debug` to the script command to get extra info if it fails.
+Chromatic builds and runs Storybook flawlessly _most of the time_, but we're not perfect (we wish). Sometimes builds don't run due to rare infrastructure issues. If this happens, try to re-run the build via your CI provider. We keep track of these errors to improve the service.
 
-#### No Storybook specs found
+</details>
 
-To get a list of stories, we evaluate your Storybook with [JSDOM](https://github.com/tmpvar/jsdom). This is a slightly different environment to a normal browser and can sometimes have problems. We will try to output errors if we see them; using the `--debug` flag to `chromatic` may help if we didn't catch any errors.
+<details>
+<summary>Timed out builds</summary>
 
-#### Image size too large
+Chromatic takes snapshots very quickly. However, if we lose the connection to your server (for instance if you stop your server mid-build, or your internet connection goes down), builds can time out. Check your connection and try restarting the build.
+
+</details>
+
+<details>
+<summary>Failed to evaluate your stories (no stories found)</summary>
+
+We use [JSDOM](https://github.com/tmpvar/jsdom) to evaluate your stories in a simulated browser environment. JSDOM doesn't support every browser-specific construct or API. Our package provides shims for [common constructs](https://github.com/chromaui/chromatic-cli/blob/19751d87d950a2aecefb522e57c9a13c8c34fe54/bin/lib/jsdom-shims.js), but you may need mock them out yourself for extra coverage. Pass `--debug` to the script command to get extra info if it fails.
+
+</details>
+
+<details>
+<summary>Image size too large</summary>
 
 We have a 25 million pixel size limit for image snapshots. This ensures fast and reliable performance for every build.
 
-If your stories are larger than this, perhaps something has gone wrong? Let us know if you need this limit increased by chat or [email](mailto:support@hichroma.com?Subject=Image Size Limit).
+If your stories are larger than this, perhaps something has gone wrong? Let us know if you need this limit increased by chat or [email](mailto:support@chromatic.com).
+
+</details>

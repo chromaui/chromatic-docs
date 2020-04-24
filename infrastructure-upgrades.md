@@ -1,6 +1,6 @@
 ---
 layout: default
-title: Infrastructure Upgrades
+title: Infrastructure upgrades
 description: Learn how Chromatic handles browser rendering changes to be minimally disruptive
 ---
 
@@ -15,11 +15,11 @@ Typically such changes happen transparently without you noticing or needing to d
 
 When you run your first build on a branch after the Capture Cloud is upgraded, you may find a subset of your stories have been flagged as changed but auto-accepted.
 
-This is due to those stories rendering sufficiently differently to trip our regular diffing threshold, but still similar enough that we think it is likely they are simply due to the Capture Cloud's upgrade.
+This is due to those stories rendering sufficiently differently to trip our regular diffing threshold, but still similar enough that we think it is likely they are due to the Capture Cloud's upgrade.
 It's a good idea to take a look through such auto-accepted changes to make sure no real changes have been flagged in this way.
 
 Some changes that are sufficiently different may be left marked "pending" and require review.
-These stories may have changed due to your code changes as usual or may just require sign-off from you that the rendering differences are not a regression.
+These stories may have changed due to your code changes as usual or may require sign-off from you that the rendering differences are not a regression.
 
 ## Bring acceptance over from branches
 

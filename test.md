@@ -4,104 +4,111 @@ title: Test
 description: Learn how to run Chromatic UI Tests
 ---
 
-# Test
+# UI Tests
 
-Visual testing ensures components dont change by accident. It’s still up to you to decide if changes are intentional. Chromatic automates visual testing by detecting UI changes betweeen commits.
+UI tests capture an visual [snapshot](snapshots) of every story in a cloud browser environment. Whenever you push code, Chromatic generates a new set of snapshots and compares them against [baselines](branching-and-baselines). If there are visual changes, you verify if they're intentional.
 
-If a change is intentional you need to update the baseline so future tests will be compared to the _latest version_ of the story. And if a change is unintentional it needs to be fixed.
+![UI test](img/workflow-uitest.png)
 
-![Review visual diffs](img/workflow-component-review.png)
+## Enable
 
----
+Enable visual tests for your project on the manage screen. All snapshots are taken in Chrome by default. This is also where you expand test coverage to additional browsers.
 
-## Detecting changes
+![Enable UI Tests](img/uitests-for-docs.png)
 
-1. Chromatic renders your stories in real browsers in the cloud. It takes a screenshot of each story, cropping it down to it's smallest bounding region. We call this a [Snapshot](snapshots).
-2. The latest snapshots are compared to their baselines (i.e the last accepted snapshot) pixel-by-pixel. Chromatic's algorithm is built to avoid false positives by applying algorithms that ignore small random changes due to anti-aliasing and browser's non-determinism.
-3. Chromatic shows you a diff of the changed pixels along with a diff of the DOM changes. _Note: It is only the visual diff that triggers changes, the DOM diff is purely informational._
+## Establish baselines
 
-## Establishing baselines
+Once visual tests are enabled, you can establish baselines by [running a Chromatic build](setup#run-chromatic) in a new project or on a branch without an ancestor. This captures a snapshot of each story in a cloud browser and sets it as the baseline. Subsequent builds will generate new snapshots that are compared against existing baselines to detect UI changes.
 
-The first Chromatic build in a project (or branch without an ancestor) will use the visual snapshots it takes to establish [baselines](/branching-and-baselines) for every story.
+## View changes between baselines
 
-Subsequent builds will compare snapshots against these baselines. As changes are accepted for particular stories, they'll become the new baselines for future builds.
+Each build Chromatic compares new snapshots to existing baselines from previous builds. The list of changes are shown on the build page in the web app. The build will be marked "unreviewed" and the changes will be listed in the "Tests" table.
 
-## Reviewing builds
+![Build with unreviewed tests](img/build-test-unreviewed.png)
 
-<video autoPlay muted playsInline controls width="560px" class="center">
-  <source src="/img/website-workflow-review-merge-optimized.mp4" type="video/mp4" />
-</video>
+<details>
+<summary class="no-anchor">What about component errors?</summary>
 
-Each build new snapshots of your components are created and compared to the baselines. If there are visual changes the build will be marked "unreviewed".
+When a story fails to render it will be badged with "Component Error". You will not be able to "pass" a build that has component errors. Fix story errors in Storybook and run tests again.
 
-Visual changes will need to be reviewed for the build to be "passed" or "failed". You can review changes 1-by-1 or in batches.
+</details>
 
-- ✅**Accept change**: This updates the story baseline. When a snapshot is accepted, it won’t need to be re-accepted until it changes, even through git branches, and merges.
+## Verify UI changes
 
-- ❌**Deny change**: This badges the change as "denied" indicating a regression and immediately fails the build. You can deny multiple changes per build.
+Chromatic detects UI changes but it's still up to you to verify if changes are intentional. For intentional changes, you need to update the baseline so future tests will be compared to the _latest baseline_ for the story. If a change is unintentional it needs to be fixed.
 
-![Snapshot review](img/snapshot-review.png)
+- ✅**Accept change**: This updates the story baseline. When a snapshot is accepted it won’t need to be re-accepted until it changes, even through git branches or merges.
 
-If you accept all the changes, the build will be marked "passed", and future builds of the same components will pass.
+- ❌**Deny change**: This marks the change as "denied" indicating a regression and immediately fails the build. You can deny multiple changes per build.
 
-If you deny any of the changes, the build will be "failed" and you will need to make code changes (and thus start a new build) to get the build to pass.
+![Snapshot that's unreviewed](img/snapshot-unreviewed.png)
 
-#### Feature branches
+<div class="aside">Tip: Speed up accept/deny using <a href="#keyboard-shortcuts">keyboard shortcuts</a> and batch actions.</div>
 
-Chromatic automatically changes the baseline snapshots that it uses for each build depending on your branch. This means you can update UI components on multiple feature branches in parallel without conflicts. Read more about the details [here](/branching-and-baselines).
+<details>
+<summary>What about baselines in other branches?</summary>
 
-#### Live View for reproductions
+Chromatic automatically changes the baseline snapshots that it uses for each build depending on your branch. Each branch has a separate set of baselines. This means you can update UI components on multiple feature branches in parallel without conflicts. [Learn more »](/branching-and-baselines)
 
-Along with pixel and DOM diffs, Chromatic renders the actual stories as they are in your Storybook 'live'. This makes reviewing the look and feel even more true-to-life and means you can right-click->inspect to track down the root cause for subtle bugs. Click to the component screen and enable **Live View** to access the fully interactive and clickable version of the story.
+</details>
+
+<details>
+<summary>How do I reproduce the snapshot?</summary>
+
+Sometimes you need a closer look to determine why a snapshot is rendering as it does. Along with pixel and DOM diffs, Chromatic displays the interactive stories just as they appear in Storybook. Click on the snapshot image to go to the component screen. Then click on the "Canvas" tab to view the fully interactive story.
 
 <video autoPlay muted playsInline controls width="560px" class="center">
   <source src="/img/feature-component-inspect-optimized.mp4" type="video/mp4" />
 </video>
+</details>
 
-#### Component errors
+<details>
+<summary>How are changes on builds different from those listed on the PR Screen 'UI Changes' tab?</summary>
 
-When a story fails to render it will be badged with "Component Error". You will not be able to "pass" a build that has component errors. Fix story errors in Storybook and run tests again.
+UI tests (shown on the build screen) detect changes between builds, specifically, between the last accepted baseline and the latest build. This is useful for detecting defects during the development process and when merging to master to ship.
 
-#### Keyboard shortcuts
+In contrast, the PR screen simply shows changes between the latest commit on the PR branch and the 'merge base'. Think of it like the list of UI changes created by the code in the PR.
 
-Review more efficiently from your natural hand position on the keyboard.
-![Keyboard shortcuts](img/keyboard-shortcuts.png)
-
-<div class="aside">
-Protip: Pressing 1 multiple times switches between the baseline and new snapshot in the 1up view.
-</div>
+</details>
 
 ## Merge
 
-![Build passed](img/build-passed.png)
+If you accept all the changes, the build will "pass". Future builds whose stories have the same appearance will pass.
 
-When your build is marked "passed" (all changes accepted), you can now merge visual changes with confidence knowing that your UI is bug free.
+If you deny any of the changes, the build will "fail" and you will need to make code changes (and thus start a new build) to get the build to pass.
 
-#### CI/CD
+When your build is "passed" (all changes accepted), you're ready to merge visual changes with confidence knowing that your UI is bug free. Chromatic will update the PR check for "UI Tests" to reflect the build status.
 
-Chromatic will return an exit code 0 on the CLI which can be used in CI/CD systems to indicate success and unblock deployment. The CLI behavior can be tweaked with additional [options](<(https://github.com/chromaui/chromatic-cli)>).
+![Build with reviewed tests](img/build-test-reviewed.png)
 
-#### Git integrations
+## PR check for "UI Tests"
 
-Chromatic will approve PR status checks for linked Git repositories.
+Chromatic adds a 'UI Tests' check within the status checks for your pull/merge requests. The badge shows errors or changes that need to be reviewed. Require the check in [GitHub](https://help.github.com/en/github/administering-a-repository/enabling-required-status-checks), [GitLab](https://docs.gitlab.com/ee/api/commits.html#post-the-build-status-to-a-commit), or [Bitbucket](https://confluence.atlassian.com/bitbucket/suggest-or-require-checks-before-a-merge-856691474.html) to prevent accidental UI bugs from being merged.
 
-Read more about how to integrate Chromatic into your [CI & Git workflow](/setup_ci).
+![PR for UI Tests](/img/prbadge-test.png)
 
-<div class="aside">
-If you're not ready to use Chromatic's UI testing features, they can be disabled from your project's manage page. Once disabled, Chromatic will no longer update your PR status checks.
-</div>
+<div class="aside">CI setup: Chromatic will return an exit code 0 on the CLI which can be used in CI/CD systems to indicate success and unblock deployment. <a href="ci">Learn about CI.</a></div>
 
 ---
 
 ## Next: Learn about UI Review
 
-💬Now that you're set to catch bugs, learn about how to invite other teammates into Chromatic's UI Review workflow to make sure that what gets shipped checks out with all stakeholders.
+Now that you can catch bugs automatically, learn about how to invite stakeholders into Chromatic's UI Review workflow to get the team sign off before merging.
 
 <a class="btn primary round" href="/review">Read next chapter</a>
 
 ---
 
-## Ensure test consistency to prevent false positives
+<details>
+<summary><h3 class="no-anchor">Keyboard shortcuts</h3></summary>
+
+Verify UI changes faster using keyboard shortcuts. Protip: Pressing 1 multiple times switches between the baseline and new snapshot in the 1up view.
+![Keyboard shortcuts](img/keyboard-shortcuts.png)
+
+</details>
+
+<details>
+<summary><h3 class="no-anchor">False positives</h3></summary>
 
 It's essential that your components and stories render in a **consistent** fashion between tests to prevent false positives. Some reasons your stories might not render consistently and ways you can avoid this include:
 
@@ -115,33 +122,48 @@ It's essential that your components and stories render in a **consistent** fashi
 
 - **Skip stories**: Some stories may render unpredictably intentionally. If this is the case you may want to [ignore the story](ignoring-elements) from testing and move on.
 
-<div class="aside">
-  If you want to utilize the above techniques to ensure consistency for Chromatic's tests, but you still want the random element for your live storybook, you can use the <code>isChromatic()</code> function (exported from <code>storybook-chromatic/isChromatic</code>) to check.
-</div>
+If you want to utilize the above techniques to ensure consistency for Chromatic's tests, but you still want random elements for your local Storybook, you can use `isChromatic()` exported from [our package](isChromatic) to check for the Chromatic environment.
 
----
+</details>
 
-## Troubleshooting
+### Troubleshooting
 
-#### Reviewing tests disabled on build screen
+<details>
+<summary>Build failed because of component errors</summary>
+
+A build will _fail_ if any of the snapshots fail to render (i.e. in rendering the latest version of the component, the snapshot throws a JavaScript exception). You'll need to fix the code for errored components before we can pass the build.
+
+</details>
+
+<details>
+<summary>Reviewing tests disabled on build screen</summary>
 
 If a build isn't the newest build on a branch, we disable reviewing the build; as any future builds will base themselves on the _newest_ build, making approvals to this build pointless.
 
 Note that in the case that there is a descendent build of this build on _a different branch_ (for instance if the commit for this build was merged into that different branch), we do allow reviewing of this build. Future builds on this branch _will_ use approved changes from the build; however future builds on the different branch will not---for this reason it is best to review builds before merging them.
 
-#### "Didn't find any commits in this git repository in the last 100 builds."
+</details>
+
+<details>
+<summary>"Didn't find any commits in this git repository in the last 100 builds."</summary>
 
 This means that across the last 100 unique commits across all builds in your app, we didn't find a single one that exists in the repository you ran this build against. Commits can go missing if you rebase or perform squash-merges, however, if all of the previous 100 builds' commits are missing, it is likely something has gone wrong.
 
-If you've reached this situation and can't work out why, please <a href="mailto:support@hichroma.com">let us know</a>.
+If you've reached this situation and can't work out why, please <a href="mailto:support@chromatic.com">let us know</a>.
 
-#### "Failed to find common ancestors with most recent builds within 1000 commits"
+</details>
+
+<details>
+<summary>"Failed to find common ancestors with most recent builds within 1000 commits"</summary>
 
 This means that although we found recent builds that _were_ in your git repository history (see above), we couldn't find any _common_ history between your checked out build and those builds within 1000 commits.
 
-Unless you are doing something unusual with your git repository, this is extremely unlikely. Either way, please <a href="mailto:support@hichroma.com">let us know</a>.
+Unless you are doing something unusual with your git repository, this is extremely unlikely. Either way, please <a href="mailto:support@chromatic.com">let us know</a>.
 
-#### "Build X is based on a commit without ancestor builds."
+</details>
+
+<details>
+<summary>"Build X is based on a commit without ancestor builds."</summary>
 
 When we create a build, we search your git history for a recent Chromatic build based on a commit that is an ancestor (i.e. a commit that is in the direct history of this commit). Unless this is the very first build, if we do not find one, we will show you this message.
 
@@ -151,8 +173,9 @@ However, this situation can arise due to the following:
 
 1. You switched branches and re-ran Chromatic, without checking-in the code changes that installed Chromatic. In this case you can safely ignore this message.
 
-2. You rewrote history in merging the Chromatic installation code (e.g. using GitHub's "Squash and Merge" or "Rebase and Merge" buttons). Please <a href="mailto:support@hichroma.com">let us know</a> if this is the case.
+2. You rewrote history in merging the Chromatic installation code (e.g. using GitHub's "Squash and Merge" or "Rebase and Merge" buttons). Please <a href="mailto:support@chromatic.com">let us know</a> if this is the case.
 
 3. You are using a shallow clone of your repository when running Chromatic. Chromatic needs access to your full git history in order to find baselines (or at least the history until the previous Chromatic build, which depends on how often you push code/run builds). <a href="/branching-and-baselines">Learn more</a>
 
-4. Something else happened---perhaps a bug at our end? Please <a href="mailto:support@hichroma.com">let us know</a> if this is the case.
+4. Something else happened---perhaps a bug at our end? Please <a href="mailto:support@chromatic.com">let us know</a> if this is the case.
+</details>

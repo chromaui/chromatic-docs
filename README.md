@@ -57,10 +57,6 @@ Edit `sidebar_nav.html` to change the sidebar.
 
 ### Images
 
-Images should be centered using the `center` css class, like:
-
-`![Foo Image](img/foo.png){: .center }` or by adding a `class="center"` to html elements.
-
 ### Search
 
 Algolia's Docsearch is integrated with the project. Every 24 hours it will crawl docs.chromatic.com and update it's index. The search input box is wired up to this index. You don't need to do anything special, whatever is pushed to docs.chromatic.com will be automatically indexed.
