@@ -6,7 +6,7 @@ description: Learn the Chromatic workflow
 
 # Chromatic workflow
 
-Chromatic automates maintaining a UI component library so you can develop more features with less manual work. Here's the recommended workflow that takes full advantage of everything we have to offer.
+Chromatic automates UI development so you can build more features faster with less manual work. Here's the recommended workflow that takes full advantage of everything we have to offer.
 
 ![Chromatic workflow](img/chromatic-workflow.png)
 
@@ -16,7 +16,7 @@ Build UI components in isolation with Storybook. Use [Component-Driven Developme
 
 ### 2. Publish on Chromatic
 
-Publish Storybook to a secure workspace (CDN) that's accessible to your entire team. That keeps everyone in sync with the latest UI implementation. No fussing with dependencies, `git`, or local dev environments.
+Publish Storybook to Chromatic's secure workspace (CDN) that's accessible to your entire team. That keeps everyone in sync with the latest UI implementation. No fussing with dependencies, `git`, or local dev environments.
 
 ### 3. UI Test to catch bugs
 

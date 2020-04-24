@@ -58,7 +58,7 @@ Chromatic automatically changes the baseline snapshots that it uses for each bui
 Sometimes you need a closer look to determine why a snapshot is rendering as it does. Along with pixel and DOM diffs, Chromatic displays the interactive stories just as they appear in Storybook. Click on the snapshot image to go to the component screen. Then click on the "Canvas" tab to view the fully interactive story.
 
 <video autoPlay muted playsInline controls width="560px" class="center">
-  <source src=img/feature-component-inspect-optimized.mp4" type="video/mp4" />
+  <source src="img/feature-component-inspect-optimized.mp4" type="video/mp4" />
 </video>
 </details>
 
@@ -121,6 +121,8 @@ It's essential that your components and stories render in a **consistent** fashi
 - **Unpredictable resource hosts**: Resources that load from unpredictable or flaky sources may not load in time (15s) to capture. Workaround this by serving resources as [static files in Storybook](https://storybook.js.org/configurations/serving-static-files/) or using a [placeholder service](https://placeholder.com/). Learn more about how we [load resources](resource-loading).
 
 - **Skip stories**: Some stories may render unpredictably intentionally. If this is the case you may want to [ignore the story](ignoring-elements) from testing and move on.
+
+- **Introduce a delay**: As a last resort, you can try adding a [delay](delay). This will delay Chromatic's snapshot for a specified amount of time. The trouble with this technique whilst it may make the problem less common, it may not eliminate it completely.
 
 If you want to utilize the above techniques to ensure consistency for Chromatic's tests, but you still want random elements for your local Storybook, you can use `isChromatic()` exported from [our package](isChromatic) to check for the Chromatic environment.
 

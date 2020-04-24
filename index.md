@@ -14,15 +14,15 @@ Chromatic is a cloud-based toolchain for [Storybook](https://storybook.js.org) t
 
 #### ⬆️ Publish Storybook
 
-Publish your Storybook to a secure CDN when you push code. Chromatic provides a shared workspace for teams to comment and review UI work together. It integrates with your existing CI workflow and Git hosting provider.
+Publish your Storybook to our secure CDN when you push code. Chromatic provides a shared workspace for teams to comment and review UI work together. It integrates with your existing CI workflow and Git hosting provider.
 
 #### ✅ UI Tests
 
-Test for visual regressions in components. Chromatic turns your stories into test baselines. Each story is rendered in Chrome, Firefox, and Internet Explorer 11 simultaneously then compared to a screenshot of the "last known good state" to detect bugs.
+Test for visual regressions in components. Chromatic turns your stories into test baselines. Each story is rendered in Chrome, Firefox, and Internet Explorer 11 simultaneously, then compared to a screenshot of the "last known good state" to detect bugs.
 
 #### 💬 UI Review
 
-Review a visual changeset of components each pull request. Chromatic compares the new and updated components on a given feature branch versus a target branch to generate a UI changeset. Review changes with tech leads, designers, and product managers. Think of it like code review, but for UI.
+Review a visual changeset of components affected by each pull request. Chromatic compares the new and updated components on a given feature branch versus a target branch to generate a UI changeset. Review changes with tech leads, designers, and product managers. Think of it like code review, but for UI.
 
 #### 📚 Document
 
