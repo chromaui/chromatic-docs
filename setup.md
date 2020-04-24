@@ -44,7 +44,7 @@ The `chromatic` command will also give you the option of adding an npm script to
 }
 ```
 
-The above script command will pick up your app code by reading the `CHROMATIC_PROJECT_TOKEN` environment variable. After adding the above, ensure you set `CHROMATIC_PROJECT_TOKEN` when you run builds---such as in your CI config.
+The above script command will pick up your project token by reading the `CHROMATIC_PROJECT_TOKEN` environment variable. After adding the above, ensure you set `CHROMATIC_PROJECT_TOKEN` when you run builds---such as in your CI config.
 
 If you allowed `chromatic` to add the above line, it will also have written the environment variable to your `package.json`. This environment variable can also be set via your CI config for extra privacy.
 
