@@ -4,7 +4,7 @@ title: Workflow
 description: Learn the Chromatic workflow
 ---
 
-# Chromatic workflow
+# How to use Chromatic
 
 Chromatic automates UI development so you can build more features faster with less manual work. Here's the recommended workflow that takes full advantage of everything we have to offer.
 

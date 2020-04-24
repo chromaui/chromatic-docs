@@ -6,21 +6,21 @@ description: What is a Snapshot in Chromatic
 
 # Snapshots
 
-Snapshots represent a rendering of a story and drive Chromatic's test and review functionality.
+Snapshots represent a rendering of a story and power Chromatic's [test](test) and [review](review) features.
 
 ## What are snapshots?
 
 A snapshot is an image of a story plus some metadata captured by a browser within Chromatic's cloud infrastructure.
 
-For every story in your Storybook: Chromatic will load the story, wait for it to render, take a screenshot and crop it to the correct bounding region. Snapshots are stored in the cloud and used to determine UI changes between builds.
+For every story in your Storybook: Chromatic will load the story, wait for it to render, take a screenshot and crop it to the correct bounding region. Snapshots are stored in the cloud and used to determine UI changes between builds or branches.
 
 #### Snapshots for multiple viewports and browsers
 
-Since UI usually renders differently across viewports and browsers, Chromatic must take a separate snapshot for every combination of viewport and browser that you've configured.
+Chromatic takes a separate snapshot for every combination of viewport and browser that you've configured.Responsive UI can render differently across viewports and browsers.
 
 ## Snapshot vs Canvas vs Docs
 
-Chromatic's component screen allows you to select between the 'Canvas', 'Snapshot' and 'Docs'. Under the Snapshot tab you'll find the image captured by Chromatic's cloud browser -- this is exactly what the browser 'saw' at the time that it rendered the story.
+The component screen allows you to select between the 'Canvas', 'Snapshot' and 'Docs'. Under the Snapshot tab you'll find the image captured by Chromatic's cloud browser -- this is exactly what the browser 'saw' at the time that it rendered the story.
 
 The Canvas and Docs tabs represent the actual rendered story plus it's documentation, exactly as you'd see it within Storybook. It's a convenient place to check the interactive behavior and use browser devtools to inspect styling.
 
