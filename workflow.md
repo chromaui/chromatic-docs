@@ -4,7 +4,7 @@ title: Workflow
 description: Learn the Chromatic workflow
 ---
 
-# Chromatic workflow
+# How to use Chromatic
 
 Chromatic automates maintaining a UI component library so you can develop more features with less manual work. Here's the recommended workflow that takes full advantage of everything we have to offer.
 
