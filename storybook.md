@@ -8,7 +8,7 @@ description: Learn how to set up Storybook in your app to write snapshot specifi
 
 This tutorial is a quick overview that walks you through installing Storybook and integrating Chromatic. It's intended for folks who haven't yet used Storybook.
 
-If you're already using Storybook, then great!---skip to the [get started](/) guide. If you'd prefer to learn Storybook in a free 10-chapter tutorial take a look at [Learn Storybook](https://www.learnstorybook.com/).
+If you're already using Storybook, then great!---skip to the [get started](/docs/) guide. If you'd prefer to learn Storybook in a free 10-chapter tutorial take a look at [Learn Storybook](https://www.learnstorybook.com/).
 
 #### How Chromatic works (in brief)
 
@@ -106,7 +106,7 @@ When you are satisfied that your stories are sensible, you can start up your fir
 ./node_modules/.bin/chromatic --project-token=<your-project-token>
 ```
 
-Grab the project token from [www.chromatic.com](https://www.chromatic.com) and view the resultant build there to ensure the stories are snapshotted correctly. Read more about [running tests](/test).
+Grab the project token from [www.chromatic.com](https://www.chromatic.com) and view the resultant build there to ensure the stories are snapshotted correctly. Read more about [running tests](test).
 
 ---
 

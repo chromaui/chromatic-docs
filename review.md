@@ -19,32 +19,32 @@ Enable UI Review for your project on the manage screen. Then go to the PRs/MRs t
 ![Enable UI Review](img/uireview-for-docs.png)
 
 <div class="aside">
-<p><b>Note:</b> You must <a href="/ci">setup CI</a> so that Chromatic is able to run builds for each commit on the PR branch.</p>
+<p><b>Note:</b> You must <a href="ci">setup CI</a> so that Chromatic is able to run builds for each commit on the PR branch.</p>
 </div>
 
 ## Find your pull request
 
 Navigate to the PRs link in the sidebar to find your pull/merge request. You'll land on the Activity tab which shows a timeline of [builds](setup#view-published-storybook), active discussions, and review status. This showcases what needs to be done before you're ready to merge.
 
-![Activity tab](/img/prscreen-activity.png)
+![Activity tab](img/prscreen-activity.png)
 
 #### Invite teammates
 
 Invite other developers, designers, PMs, and stakeholders to help review changes. This closes the feedback loop between disciplines and helps you find the answer to "does this look right?".
 
-If you [linked your project](/access) to GitHub, Bitbucket, or GitLab, your project permissions are synced so collaborators can sign in to review immediately. If your [project is unlinked](/access), use the project invite code to add collaborators.
+If you [linked your project](access) to GitHub, Bitbucket, or GitLab, your project permissions are synced so collaborators can sign in to review immediately. If your [project is unlinked](access), use the project invite code to add collaborators.
 
 #### Assign reviewers
 
 Use the Assign Reviewers link on the PR Activity screen to choose reviewers from the project's collaborators. Reviewers will be emailed a link to the PR screen to begin their review.
 
-<img src="/img/assign-reviewers.gif" alt="Assign Reviewers" width="300px" class="center"/>
+<img src="img/assign-reviewers.gif" alt="Assign Reviewers" width="300px" class="center"/>
 
 ## Review UI Changes
 
 The PR screen includes a Changes tab showing a side-by-side view of all visual changes introduced by the code in the PR. It compares UI on the source branch to the base branch. Each change, you'll see the component story before and after the PR is applied.
 
-![UI changes tab](/img/prscreen-changes.png)
+![UI changes tab](img/prscreen-changes.png)
 
 <div class="aside">To hint at what UI changed, toggle the highlighted diff (in neon green) on and off.</div>
 
@@ -52,7 +52,7 @@ The PR screen includes a Changes tab showing a side-by-side view of all visual c
 
 Reviewers can request updates to the implementation via the comment box beneath each change. Discussions are threaded and attached to the specific story represented by the change.
 
-![UI Changes Comments](/img/ui-changes-comments.png)
+![UI Changes Comments](img/ui-changes-comments.png)
 
 ## UI Checklist
 
@@ -62,13 +62,13 @@ At the bottom of the PR screen's [activity tab](review#find-your-pull-request) t
 2. Outstanding discussions must be resolved &rarr; Click 'Resolve' on discussions.
 3. All assigned reviewers must approve &rarr; Click 'Approve' in the PR screen tab bar.
 
-![UI Checklist](/img/prscreen-ui-checklist.png)
+![UI Checklist](img/prscreen-ui-checklist.png)
 
 ## PR check for "UI Review"
 
 You'll get a 'UI Review' status check for each PR that shows the state of the UI Checklist. Require the check in [GitHub](https://help.github.com/en/github/administering-a-repository/enabling-required-status-checks), [GitLab](https://docs.gitlab.com/ee/api/commits.html#post-the-build-status-to-a-commit), or [Bitbucket](https://confluence.atlassian.com/bitbucket/suggest-or-require-checks-before-a-merge-856691474.html) to ensure that impactful changes are considered by the team before merging.
 
-![PR for UI Review](/img/prbadge-review.png)
+![PR for UI Review](img/prbadge-review.png)
 
 ---
 
@@ -76,7 +76,7 @@ You'll get a 'UI Review' status check for each PR that shows the state of the UI
 
 Now that you've seen how to review UI changes with teammates before merging, learn about how Chromatic helps you distribute high quality, versioned and interactive component documentation.
 
-<a class="btn primary round" href="/document">Read next chapter</a>
+<a class="btn primary round" href="document">Read next chapter</a>
 
 ---
 

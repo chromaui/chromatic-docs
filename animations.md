@@ -15,7 +15,7 @@ Chromatic will pause CSS animations and reset them to their beginning state.
 Some animations are used to "animate in" visible elements. To specify that Chromatic should pause the animation at the end, use the `pauseAnimationAtEnd` story parameter:
 
 ```js
-import MyComponent from "./MyComponent";
+import MyComponent from './MyComponent';
 
 export default {
   component: MyComponent,
@@ -34,7 +34,7 @@ You can use Storybook's parameter inheritance if you want to set the behaviour f
 
 ```js
 // In .storybook/config.js
-import { addParameters } from "@storybook/react";
+import { addParameters } from '@storybook/react';
 
 // This will apply the behaviour to all stories in your Storybook
 addParameters({ chromatic: { pauseAnimationAtEnd: true } });
@@ -46,7 +46,7 @@ Chromatic cannot disable JavaScript driven animations, so we advise disabling su
 
 ```js
 // In .storybook/config.js
-import isChromatic from "chromatic/isChromatic";
+import isChromatic from 'chromatic/isChromatic';
 
 if (isChromatic()) {
   // The exact method to do this will depend on your animation techniques.
@@ -56,6 +56,6 @@ if (isChromatic()) {
 
 ## Animations that cannot be disabled
 
-If you cannot disable animations (for example if disabling JS animations is difficult), you can use a [delay](/delay) to allow the animation to complete before taking the snapshot.
+If you cannot disable animations (for example if disabling JS animations is difficult), you can use a [delay](delay) to allow the animation to complete before taking the snapshot.
 
-Alternatively, [ignore an element](/ignoring-elements) to omit a visible area of your component when comparing snapshots.
+Alternatively, [ignore an element](ignoring-elements) to omit a visible area of your component when comparing snapshots.

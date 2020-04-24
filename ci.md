@@ -113,7 +113,7 @@ XXX why does this differ from the above? Depending on your policy, you may not w
 
 #### Re-run failed builds after verifying UI test results
 
-Builds that contain visual changes need to be [verified](/test#verify-ui-changes). They will fail if you are not using `--exit-zero-on-changes`. Once you accept all the changes, re-run the build using your CI tool and the `chromatic` job will pass.
+Builds that contain visual changes need to be [verified](test#verify-ui-changes). They will fail if you are not using `--exit-zero-on-changes`. Once you accept all the changes, re-run the build using your CI tool and the `chromatic` job will pass.
 
 If you deny any change, you will need to make the necessary code changes to fix the test (and thus start a new CI build) to get Chromatic to pass again.
 
@@ -128,7 +128,7 @@ If the builds are a result of direct commits to `master`, you will need to accep
 
 GitHub's squash/rebase merge functionality creates new commits that have no association to the branch being merged. That means Chromatic will not know which changes accepted on that branch should be baselines on `master`. What's more, you'll have to re-review snapshots on `master` even if you already accepted them elsewhere.
 
-To resolve this, we recommend you maintain a clean `master` branch and use `--auto-accept-changes` as [mentioned here](/ci#maintain-a-clean-master-branch). For example:
+To resolve this, we recommend you maintain a clean `master` branch and use `--auto-accept-changes` as [mentioned here](ci#maintain-a-clean-master-branch). For example:
 
 ```bash
 if [ "${CIRCLE_BRANCH}" != "master" ];
@@ -146,11 +146,11 @@ fi
 
 When a build runs it will automatically add a PR status check to the current pull request indicating the state of the build. By default, you'll see Storybook Publish. If you enabled UI Tests or UI Review you'll also see their respective checks.
 
-GitHub, Bitbucket, or GitLab projects that are [linked to a repository](/access) get this feature out of the box. If you use other version control services to host your code, you can write a custom CI script to add a check for Chromatic (via your CI provider).
+GitHub, Bitbucket, or GitLab projects that are [linked to a repository](access) get this feature out of the box. If you use other version control services to host your code, you can write a custom CI script to add a check for Chromatic (via your CI provider).
 
 Require checks in [GitHub](https://help.github.com/en/github/administering-a-repository/enabling-required-status-checks), [GitLab](https://docs.gitlab.com/ee/api/commits.html#post-the-build-status-to-a-commit), or [Bitbucket](https://confluence.atlassian.com/bitbucket/suggest-or-require-checks-before-a-merge-856691474.html) to ensure they are completed before merging.
 
-![PR badges](/img/prbadges.png)
+![PR badges](img/prbadges.png)
 
 ---
 
@@ -158,7 +158,7 @@ Require checks in [GitHub](https://help.github.com/en/github/administering-a-rep
 
 How tools work together affects your development speed. Learn the recommended Chromatic workflow.
 
-<a class="btn primary round" href="/workflow">Read next chapter</a>
+<a class="btn primary round" href="workflow">Read next chapter</a>
 
 ---
 
@@ -184,6 +184,6 @@ Merge commits don't persist in the history of your git repository, that can caus
 
 Chromatic detects CI test runs for most services. But it's not possible for every system, which results in users seeing persistent "Setup CI / Automation" messages in the UI.
 
-If this is happening to you, prepend `CI=true` to your test command like so `CI=true yarn chromatic...` to hide the "Setup CI" messages in Chromatic. [Learn more](/test#available-options)
+If this is happening to you, prepend `CI=true` to your test command like so `CI=true yarn chromatic...` to hide the "Setup CI" messages in Chromatic. [Learn more](test#available-options)
 
 </details>

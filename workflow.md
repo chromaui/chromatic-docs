@@ -8,7 +8,7 @@ description: Learn the Chromatic workflow
 
 Chromatic automates maintaining a UI component library so you can develop more features with less manual work. Here's the recommended workflow that takes full advantage of everything we have to offer.
 
-![Chromatic workflow](/img/chromatic-workflow.png)
+![Chromatic workflow](img/chromatic-workflow.png)
 
 ### 1. Build in Storybook
 

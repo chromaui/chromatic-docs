@@ -8,7 +8,7 @@ description: Learn how Chromatic uses git information to tie your builds togethe
 
 Chromatic relies on baselines for [UI Tests](test) and [UI Review](review). We rely on Git to track baselines. That means once a snapshot is accepted as a baseline, it won’t need to be re-accepted until it changes, even through git branching and merging.
 
-![Baselines](/img/baselines.jpg)
+![Baselines](img/baselines.jpg)
 
 ## Baselines
 
