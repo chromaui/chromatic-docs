@@ -179,3 +179,12 @@ However, this situation can arise due to the following:
 
 4. Something else happened---perhaps a bug at our end? Please <a href="mailto:support@chromatic.com">let us know</a> if this is the case.
 </details>
+
+<details>
+<summary>Image size too large</summary>
+
+We have a 25 million pixel size limit for image snapshots. This ensures fast and reliable performance for every build.
+
+If your stories are larger than this, perhaps something has gone wrong? Let us know if you need this limit increased by chat or [email](mailto:support@chromatic.com).
+
+</details>

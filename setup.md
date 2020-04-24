@@ -153,12 +153,3 @@ Chromatic takes snapshots very quickly. However, if we lose the connection to yo
 We use [JSDOM](https://github.com/tmpvar/jsdom) to evaluate your stories in a simulated browser environment. JSDOM doesn't support every browser-specific construct or API. Our package provides shims for [common constructs](https://github.com/chromaui/chromatic-cli/blob/19751d87d950a2aecefb522e57c9a13c8c34fe54/bin/lib/jsdom-shims.js), but you may need mock them out yourself for extra coverage. Pass `--debug` to the script command to get extra info if it fails.
 
 </details>
-
-<details>
-<summary>Image size too large</summary>
-
-We have a 25 million pixel size limit for image snapshots. This ensures fast and reliable performance for every build.
-
-If your stories are larger than this, perhaps something has gone wrong? Let us know if you need this limit increased by chat or [email](mailto:support@chromatic.com).
-
-</details>
