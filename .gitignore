@@ -1,5 +1,5 @@
 .DS_Store
 _site
-_netlify_site
+_site_deploy/docs
 .jekyll-cache
 node_modules

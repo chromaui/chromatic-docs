@@ -17,7 +17,8 @@
   },
   "scripts": {
     "start": "jekyll server -l",
-    "netlify-build": "jekyll build; rm -rf _netlify_site; mkdir _netlify_site; mv _site _netlify_site/docs",
+    "build": "jekyll build",
+    "build-deploy": "yarn build; rm -rf _site_deploy/docs; mv _site _site_deploy/docs",
     "test": "jest --watch --env=jsdom",
     "grunt": "grunt"
   },
