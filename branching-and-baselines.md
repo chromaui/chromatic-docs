@@ -12,7 +12,7 @@ Chromatic relies on baselines for [UI Tests](test) and [UI Review](review). We r
 
 ## Baselines
 
-Chromatic's UI Tests compare snapshots to a baseline: the last known “good” state of the story. Each story has its own baseline that is tracked independently on each branch.
+Chromatic's [UI Tests](test) compare snapshots to a baseline: the last known “good” state of the story. Each story has its own baseline that is tracked independently on each branch.
 
 When you accept a snapshot you also update the baseline for that story on that branch. When you merge that branch into another (for instance back into `master`), the baseline comes with it. [Learn how we calculate baselines »](#how-baselines-are-calculated)
 
