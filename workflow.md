@@ -46,7 +46,7 @@ You finished setting up Chromatic. We look forward to the incredible UIs you'll 
 
 - [Intro to Storybook](https://www.learnstorybook.com/intro-to-storybook/) is the essential guide to learning Storybook.
 - [Design Systems for Developers](https://www.learnstorybook.com/design-systems-for-developers/) shares how to build production infrastructure for design systems.
-- [Visual Testing Handbook](https://www.learnstorybook.com/visual-testing-handbook/) details how to visual testing with Storybook.
+- [Visual Testing Handbook](https://www.learnstorybook.com/visual-testing-handbook/) details how professional frontend teams visual test with Storybook.
 - [Component-Driven Development](https://blog.hichroma.com/component-driven-development-ce1109d56c8e) is a "bottoms up" process for building modular UIs starting from components and ending with screens.
 - [UI Component Playbook](https://blog.hichroma.com/ui-component-playbook-fd3022d00590) is a 5-step overview of designing and engineering frontends with components
 

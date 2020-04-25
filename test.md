@@ -6,7 +6,7 @@ description: Learn how to run Chromatic UI Tests
 
 # UI Tests
 
-UI tests capture an visual [snapshot](snapshots) of every story in a cloud browser environment. Whenever you push code, Chromatic generates a new set of snapshots and compares them against [baselines](branching-and-baselines). If there are visual changes, you verify if they're intentional.
+UI tests capture a visual [snapshot](snapshots) of every story in a cloud browser environment. Whenever you push code, Chromatic generates a new set of snapshots and compares them against [baselines](branching-and-baselines#baselines). If there are visual changes, you verify if they're intentional.
 
 ![UI test](img/workflow-uitest.png)
 
@@ -95,7 +95,7 @@ Chromatic adds a 'UI Tests' check within the status checks for your pull/merge r
 
 ## Next: Learn about UI Review
 
-Now that you can catch bugs automatically, learn about how to invite stakeholders into Chromatic's UI Review workflow to get the team sign off before merging.
+Now that you can catch bugs during development, learn about how to invite stakeholders into Chromatic's UI Review workflow to get the team sign off before merging.
 
 <a class="btn primary round" href="review">Read next chapter</a>
 
@@ -153,7 +153,7 @@ Note that in the case that there is a descendent build of this build on _a diffe
 
 This means that across the last 100 unique commits across all builds in your app, we didn't find a single one that exists in the repository you ran this build against. Commits can go missing if you rebase or perform squash-merges, however, if all of the previous 100 builds' commits are missing, it is likely something has gone wrong.
 
-If you've reached this situation and can't work out why, please <a href="mailto:support@chromatic.com">let us know</a>.
+If you've reached this situation and can't work out why, please [let us know](mailto:support@chromatic.com).
 
 </details>
 
@@ -162,7 +162,7 @@ If you've reached this situation and can't work out why, please <a href="mailto:
 
 This means that although we found recent builds that _were_ in your git repository history (see above), we couldn't find any _common_ history between your checked out build and those builds within 1000 commits.
 
-Unless you are doing something unusual with your git repository, this is extremely unlikely. Either way, please <a href="mailto:support@chromatic.com">let us know</a>.
+Unless you are doing something unusual with your git repository, this is extremely unlikely. Either way, please [let us know](mailto:support@chromatic.com).
 
 </details>
 
@@ -177,11 +177,11 @@ However, this situation can arise due to the following:
 
 1. You switched branches and re-ran Chromatic, without checking-in the code changes that installed Chromatic. In this case you can safely ignore this message.
 
-2. You rewrote history in merging the Chromatic installation code (e.g. using GitHub's "Squash and Merge" or "Rebase and Merge" buttons). Please <a href="mailto:support@chromatic.com">let us know</a> if this is the case.
+2. You rewrote history in merging the Chromatic installation code (e.g. using GitHub's "Squash and Merge" or "Rebase and Merge" buttons). [Learn how to resolve](ci#github-squash-rebase-merge-and-the-master-branch)
 
-3. You are using a shallow clone of your repository when running Chromatic. Chromatic needs access to your full git history in order to find baselines (or at least the history until the previous Chromatic build, which depends on how often you push code/run builds). <a href="branching-and-baselines">Learn more</a>
+3. You are using a shallow clone of your repository when running Chromatic. Chromatic needs access to your full git history in order to find baselines (or at least the history until the previous Chromatic build, which depends on how often you push code/run builds). [Learn about how we use Git for baselines »](branching-and-baselines)
 
-4. Something else happened---perhaps a bug at our end? Please <a href="mailto:support@chromatic.com">let us know</a> if this is the case.
+4. Something else happened---perhaps a bug at our end? Please [let us know](mailto:support@chromatic.com) if this is the case.
 </details>
 
 <details>
@@ -190,5 +190,12 @@ However, this situation can arise due to the following:
 We have a 25 million pixel size limit for image snapshots. This ensures fast and reliable performance for every build.
 
 If your stories are larger than this, perhaps something has gone wrong? Let us know if you need this limit increased by chat or [email](mailto:support@chromatic.com).
+
+</details>
+
+<details>
+<summary>Can I disable UI Tests if I prefer not to use them?</summary>
+
+Yes. Go to the manage page for your project where you can disable UI Tests. Chromatic will no longer add status checks to your PRs for UI Tests once it is disabled.
 
 </details>
