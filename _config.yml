@@ -36,3 +36,6 @@ exclude:
   - _posts
   - gruntfile.js
   - npm-debug.log
+
+plugins:
+  - jekyll-sitemap

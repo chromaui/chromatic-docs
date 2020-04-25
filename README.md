@@ -12,6 +12,8 @@ Available at [docs.chromatic.com](docs.chromatic.com) and via Netlify's build pr
 
 To configure, access the Netlify [dashboard](https://app.netlify.com/sites/chromatic2-docs/overview).
 
+The `master` branch is deployed to .com . To avoid confusion pre 1.0, this is the 1.0 documentation.
+
 ## Installing jekyll for local development
 
 1. Install jekyll with `bundle install`
