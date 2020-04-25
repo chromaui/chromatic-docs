@@ -163,10 +163,9 @@ If at any time you would like to unsubscribe from receiving future emails, you c
 
 If there are any questions regarding this privacy policy, you may contact us using the information below.
 
-Chroma Software, Inc
-2612a 8th St  
-Berkeley, CA 94710  
-USA  
+548 Market St #26384
+San Francisco CA 94104
+United States
 support@chromatic.com
 
-Last Edited on 2017-12-07
+Last Edited on 2020-04-25
