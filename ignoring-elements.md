@@ -6,18 +6,22 @@ description: Learn how you can tell Chromatic to ignore changes for certain elem
 
 # Ignore stories and elements
 
-Sometimes a component's UI changes every render or contains
-content like video/animation that is impossible to test consistently. This triggers visual changes every time you test even though nothing in the component code has changed.
+Sometimes a component's appearance changes every render or contains content like video and [animation](animations) that is impossible to test consistently. This will trigger visual changes even when the component code hasn't changed. Ignore stories or DOM elements to tell Chromatic to skip them when looking for changes.
 
-It's easy to tell Chromatic to ignore stories or DOM elements when looking for changes.
+<details>
+<summary>How does it work?</summary>
+
+Chromatic uses the rendered visual output at the pixel level to determine whether components' have changed.
+Setting the `.chromatic-ignore` class or `[data-chromatic="ignore"]` attribute instructs the diffing algorithm to ignore the
+pixels within the bounding rectangle of ignored elements. It's important to ensure the calculated bounding rectangle fully covers the changing content.
+
+</details>
 
 ![Ignore elements](img/ignore.jpg)
 
----
-
 ## Ignore stories
 
-You can omit stories from Chromatic testing using the `disable` story parameter:
+You can omit stories entirely from Chromatic testing using the `disable` story parameter:
 
 ```js
 import MyComponent from './MyComponent';
@@ -56,11 +60,9 @@ export default {
 export const StoryName = () => <MyComponent />;
 ```
 
----
-
 ## Ignore DOM elements
 
-Add the `.chromatic-ignore` CSS class to elements in your component you want
+Add the `.chromatic-ignore` CSS class or `[data-chromatic="ignore"]` attribute to elements in your component you want
 Chromatic to ignore.
 
 ```js
@@ -84,9 +86,3 @@ export default function MyComponent() {
   );
 }
 ```
-
-#### How does it work?
-
-Chromatic uses the rendered visual output at the pixel level to determine whether components' have changed.
-Setting the `.chromatic-ignore` class instructs the diffing algorithm to ignore the
-pixels within the bounding rectangle of ignored elements. It's important to ensure the calculated bounding rectangle fully covers the changing content.

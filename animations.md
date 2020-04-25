@@ -6,8 +6,7 @@ description: Learn how Chromatic pauses animations and how to control the behavi
 
 # Animations
 
-As it is difficult to precisely set the time that a snapshot is taken, Chromatic makes
-an effort to pause all video and disable animation. Chromatic does this for CSS animations and transitions, as well as SVG animations and video.
+Chromatic proactively pauses CSS animations/transitions, SVG animations, and videos to prevent false positives. We do this because multiple variables outside of our control make it impossible to guarantee consistent animation painting down to the millisecond.
 
 ## CSS animations
 
@@ -41,13 +40,13 @@ import { addParameters } from '@storybook/react';
 addParameters({ chromatic: { pauseAnimationAtEnd: true } });
 ```
 
-## JS animations
+## JavaScript animations
 
-Chromatic cannot disable JavaScript driven animations, so we advise disabling such animations manually for Chromatic builds. One way to do that is using `isChromatic`:
+Chromatic cannot disable JavaScript driven animations, so we advise disabling such animations manually for Chromatic builds. One way to do that is using [`isChromatic()`](isChromatic):
 
 ```js
 // In .storybook/config.js
-import isChromatic from 'storybook-chromatic/isChromatic';
+import isChromatic from 'chromatic/isChromatic';
 
 if (isChromatic()) {
   // The exact method to do this will depend on your animation techniques.
@@ -57,6 +56,6 @@ if (isChromatic()) {
 
 ## Animations that cannot be disabled
 
-If you cannot disable animations (for example if disabling JS animations is difficult), you can use a [delay](/delay) to allow the animation to complete before taking the snapshot.
+If you cannot disable animations (for example if disabling JS animations is difficult), you can use a [delay](delay) to allow the animation to complete before taking the snapshot.
 
-Alternatively, use an [ignore region](/ignoring-elements) to stop Chromatic from considering such parts of your component.
+Alternatively, [ignore an element](ignoring-elements) to omit a visible area of your component when comparing snapshots.

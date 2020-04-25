@@ -17,3 +17,20 @@
 <script>
   (function(){var w=window;var ic=w.Intercom;if(typeof ic==="function"){ic('reattach_activator');ic('update',intercomSettings);}else{var d=document;var i=function(){i.c(arguments)};i.q=[];i.c=function(args){i.q.push(args)};w.Intercom=i;function l(){var s=d.createElement('script');s.type='text/javascript';s.async=true;s.src='https://widget.intercom.io/widget/zj7sn9j1';var x=d.getElementsByTagName('script')[0];x.parentNode.insertBefore(s,x);}if(w.attachEvent){w.attachEvent('onload',l);}else{w.addEventListener('load',l,false);}}})()
 </script>
+<!-- Algolia Docsearch -->
+<script src="https://cdn.jsdelivr.net/npm/docsearch.js@2/dist/cdn/docsearch.min.js"></script>
+<script>
+  docsearch({
+    // This index is for docs.chromatic.com
+    apiKey: '611545f9599e60fcb0496dfba4ee9d36',
+    indexName: 'chromatic',
+    inputSelector: '.searchInput',
+    // Set debug to true if you want to inspect the dropdown
+    debug: true,
+  });
+</script>
+<!-- Adds on-hover anchors to headings: see https://www.bryanbraun.com/anchorjs/ -->
+<script src="https://cdn.jsdelivr.net/npm/anchor-js/anchor.min.js"></script>
+<script>
+  anchors.add('h2:not(.no-anchor), h3:not(.no-anchor), h4:not(.no-anchor), h5:not(.no-anchor), h6:not(.no-anchor), summary:not(.no-anchor)');
+</script>

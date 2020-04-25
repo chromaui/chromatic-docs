@@ -6,20 +6,21 @@ module.exports = function(grunt) {
           compress: true,
           yuicompress: true,
           optimization: 2,
+          javascriptEnabled: true
         },
         files: {
           // target.css file: source.less file
-          'style.css': 'style.less',
-        },
-      },
+          'style.css': 'style.less'
+        }
+      }
     },
     watch: {
       styles: {
         // Which files to watch (all .less files recursively in the less directory)
         files: ['css/**/*.less', 'css/*.less', 'style.less'],
-        tasks: ['less'],
-      },
-    },
+        tasks: ['less']
+      }
+    }
   });
 
   grunt.loadNpmTasks('grunt-contrib-less');

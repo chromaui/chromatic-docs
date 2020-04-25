@@ -1,45 +1,50 @@
 ---
 layout: default
-title: Get started
-description: This guide will help you get Chromatic visual testing setup in your Storybook.
+title: Introduction
+description: Chromatic is a cloud based toolchain built around Storybook to help teams develop robust UI components faster, together.
 ---
 
-# Get started
+# Introduction to Chromatic
 
-Welcome to Chromatic, the visual testing tool for Storybook made by Storybook maintainers. This quick guide shows you how to get the most out of Chromatic.
+![Chromatic Overview](img/storybook-chromatic-overview.png)
 
-Chromatic supports every view layer Storybook supports out of the box. React, Angular, Vue, and many more.
+## What is Chromatic?
 
-![Workflow](img/component-build-workflow.png)
+Chromatic is a cloud-based toolchain for [Storybook](https://storybook.js.org) that helps teams ship UI components faster. It's made by the [team](https://www.chromatic.com/company/about) behind Storybook. Here are the key features:
+
+#### ⬆️ Publish Storybook
+
+Publish your Storybook to our secure CDN when you push code. Chromatic provides a shared workspace for teams to comment and review UI work together. It integrates with your existing CI workflow and Git hosting provider.
+
+#### ✅ UI Tests
+
+Test for visual regressions in components. Chromatic turns your stories into test baselines. Each story is rendered in Chrome, Firefox, and Internet Explorer 11 simultaneously, then compared to a screenshot of the "last known good state" to detect bugs.
+
+#### 💬 UI Review
+
+Review a visual changeset of components affected by each pull request. Chromatic compares the new and updated components on a given feature branch versus a target branch to generate a UI changeset. Review changes with tech leads, designers, and product managers. Think of it like code review, but for UI.
+
+#### 📚 Document
+
+Maintain a documented, versioned, and searchable library for your components. Chromatic helps teammates discover your work to reuse. Reference Chromatic's library inside your local Storybook or on the website.
+
+#### 🚥 Powered by continuous integration
+
+Automate your component library with CI and version control. Chromatic includes three PR checks: "Storybook Publish", "UI Tests", and "UI Review". This helps you gauge UI work in progress.
+
+<details>
+<summary><h4 class="no-anchor">Why use Storybook?</h4></summary>
+
+[Storybook](http://storybook.js.org) is an open source tool built for developing UI components in isolation and creating living, interactive component documentation. Storybook makes it trivial to reproduce hard to reach component states and ensuring those states are documented in code. When you adopt Storybook you also unlock automation for UI components and libraries via Chromatic.
+
+New to Storybook? Read our peer-reviewed guides for professional developers at [LearnStorybook.com](https://learnstorybook.com).
+
+</details>
 
 ---
 
-## Overview
+## Next: Setup and publish
 
-Chromatic is a Storybook addon that automatically turns your stories into visual test specifications.
+Setup Chromatic to publish your Storybook. It takes less than 2 minutes.
 
-The addon uploads your Storybook bundle to our **Capture Cloud** infrastructure where your tests run in parallel in a consistent browser environment.
-
-**Diff Detector** renders the UI of each story and takes a visual snapshot. Snapshots are compared to "[baselines](branching-and-baselines)" –the last known good state of stories. If there are visual changes we notify you in a PR, email, or via CI.
-
-You then review changes using **Merge Manager**, a web interface that helps identify bugs and update baselines. Tests pass when there are no changes or all changes are accepted.
-
-![Chromatic Overview](img/chromatic-architecture.jpg)
-
----
-
-## Installation
-
-Install the `storybook-chromatic` package from NPM. Storybook 3.4 and above is required. In case you're not already using Storybook, read about [how to install it](storybook) and begin creating Stories for Chromatic to test (takes < 5 mins).
-
-```
-npm install --save-dev storybook-chromatic
-```
-
----
-
-## Next: Run your first test
-
-🎉That was easy. Now you're ready to run your first Chromatic test.
-
-<a class="btn primary round" href="/test">Read next chapter</a>
+<a class="btn primary round" href="setup">Read next chapter</a>

@@ -6,18 +6,23 @@ description: Learn how to make Chromatic wait before capturing a snapshot
 
 # Delay snapshots
 
-Components sometimes trigger custom interactions on render. For example, JavaScript-driven animations that cannot [otherwise be disabled](test#ensure-test-consistency-to-prevent-false-positives) or third-party functionality outside of your control.
+Components sometimes trigger custom interactions on render. For example, JavaScript-driven [animations](animations#javascript-animations) that cannot [otherwise be disabled](test#false-positives) or third-party functionality outside of your control.
 
 You can delay capture for a fixed time to allow your story to get into the intended state. Using delay requires Storybook 4.0 or later.
 
----
+<details>
+<summary>How long can I set delay?</summary>
+
+The maximum time for snapshot capture is 15s. Your story should finish loading resources and be ready to capture in 15s.
+
+</details>
 
 ## Delay a story
 
 Use story-level delay to ensure a minimum amount of time (in milliseconds) has passed before Chromatic takes a screenshot.
 
 ```js
-import MyComponent from './MyComponent';
+import MyComponent from "./MyComponent";
 
 export default {
   component: MyComponent,
@@ -34,14 +39,12 @@ StoryName.story = {
 
 This technique is intended for interactions and animations that end after a certain period of time (e.g., "animate in"). If your animation is continuous and you cannot disable it, you may need to use an [ignore region](ignoring-elements) to stop Chromatic from considering such parts of your component.
 
----
-
 ## Delay all stories of a component
 
 Chromatic uses Storybook’s built in parameter API to make it straightforward to set delay on a group of stories:
 
 ```js
-import MyComponent from './MyComponent';
+import MyComponent from "./MyComponent";
 
 export default {
   component: MyComponent,
@@ -53,11 +56,3 @@ export default {
 export const StoryName = () => <MyComponent with="props" />;
 export const SecondStoryName = () => <MyComponent with="other-props" />;
 ```
-
----
-
-### Troubleshooting
-
-#### How long can I set delay?
-
-The maximum time for snapshot capture is 15s. Your story should finish loading resources and be ready to capture in 15s.
