@@ -77,6 +77,7 @@ DEPENDENCIES
   jekyll
   jekyll-commonmark-ghpages
   jekyll-redirect-from
+  jekyll-sitemap
 
 BUNDLED WITH
    1.17.2
