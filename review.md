@@ -74,7 +74,7 @@ You'll get a 'UI Review' status check for each PR that shows the state of the UI
 
 ## Next: Learn about documenting reusable components
 
-Now that you've seen how to review UI changes with teammates before merging, learn about how Chromatic helps you distribute high quality, versioned and interactive component documentation.
+Now that you've seen how to review UI changes with teammates before merging, learn how Chromatic makes is simple to share versioned and interactive component docs.
 
 <a class="btn primary round" href="document">Read next chapter</a>
 
