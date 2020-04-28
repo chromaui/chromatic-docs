@@ -1,22 +1,20 @@
 # Chromatic docs
 
-The `master` branch is deployed to .com (to avoid confusion pre 1.0, this will stay the 1.0 documentation until we launch 2.0)
-
-Until then, work is happening on this branch: https://github.com/chromaui/chromatic-docs/tree/two-point-oh
+The `master` branch is automatically deployed to https://www.chromatic.com/docs/
 
 ## Deployment
 
 [![Netlify Status](https://api.netlify.com/api/v1/badges/3e1d4d54-1349-4c8a-b214-788ae7aac3a4/deploy-status)](https://app.netlify.com/sites/chromatic2-docs/deploys)
 
-Available at [docs.chromatic.com](docs.chromatic.com) and via Netlify's build previews on branches/PRs.
+Available at [docs.chromatic.com](docs.chromatic.com) and via Netlify's build previews on branches/PRs. The 'website' proxies this to https://www.chromatic.com/docs/
 
 To configure, access the Netlify [dashboard](https://app.netlify.com/sites/chromatic2-docs/overview).
 
-The `master` branch is deployed to .com . To avoid confusion pre 1.0, this is the 1.0 documentation.
+Deploy previews are set up for PRs.
 
 ## Installing jekyll for local development
 
-1. Install jekyll with `bundle install`
+1. Install gems with `bundle install`
 
 ### Troubleshooting install
 
@@ -38,8 +36,8 @@ export PATH=$HOME/gems/bin:$PATH
 
 ## Running the site
 
-2. Go to the /docs directory
-3. Run `yarn start`
+1. Run `yarn start`
+2. Navigate to http://localhost:4000/docs/
 
 ## Styling
 
@@ -48,6 +46,8 @@ export PATH=$HOME/gems/bin:$PATH
 3. Commit the compiled `style.css`
 
 ## Editing Content
+
+Try to follow the conventions present.
 
 ### Pages
 
@@ -58,6 +58,8 @@ Edit the `.md` files in the root of the repo or copy them to add new pages.
 Edit `sidebar_nav.html` to change the sidebar.
 
 ### Images
+
+Add the `center` css class to center images horizontally if they aren't full screen.
 
 ### Search
 
