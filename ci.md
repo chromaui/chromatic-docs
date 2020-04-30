@@ -41,7 +41,7 @@ Chromatic has a [GitHub Action](https://github.com/chromaui/action). Add it to a
 
 You'll need to configure secrets in the settings tab at `https://github.com/{YOUR_ORGANSATION}/{YOUR_REPOSITORY}/settings/secrets`
 
-GitHub Actions can run based on any GitHub event, but we recommend to run the workflow containing the Chromatic step on `push` event. The action will work on `pull-request` events too, although [it comes with some caveats](https://docs.chromatic.com/ci#pull-request-builds). All other events will not work.
+GitHub Actions can run based on any GitHub event, but we recommend to run the workflow containing the Chromatic step on `push` event. The action will work on `pull-request` events too, although [it comes with some caveats](ci#pull-request-builds). All other events will not work.
 
 For external PRs (PRs from forks of your repo) to receive the Chromatic projectToken, you'll have to make the projectToken public by placing it in your `package.json`. Alternatively, you could disable Chromatic on external PRs or duplicate external PRs inside your repository.
 
