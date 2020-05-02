@@ -10,4 +10,4 @@ Chromatic sponsors open source component libraries and design systems with free 
 
 Chromatic supports the open source workflow out of the box. We mirror repository permissions for maintainers while allowing read-only access to viewers.
 
-See if your project qualifies – **write to us via in-app chat** (you may have to [login](https://www.chromatic.com/start) first).
+See if your project qualifies – <a class="intercom-opensource-qualification-bot"><b>write to us via in-app chat</b></a>.
