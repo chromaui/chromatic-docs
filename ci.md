@@ -33,10 +33,13 @@ Here's how we recommend configuring Chromatic for popular CI services.
 Chromatic has a [GitHub Action](https://github.com/chromaui/action). Add it to a workflow like so:
 
 ```yml
+- uses: actions/checkout@v2
+  with:
+    fetch-depth: 0 # Required to retrieve git history
 - uses: chromaui/action@v1
   with:
-    token: ${{ secrets.GITHUB_TOKEN }}
-    projectToken: ${{ secrets.CHROMATIC_PROJECT_TOKEN }}
+    token: {% raw %}${{ secrets.GITHUB_TOKEN }}{% endraw %}
+    projectToken: {% raw %}${{ secrets.CHROMATIC_PROJECT_TOKEN }}{% endraw %}
 ```
 
 You'll need to configure secrets in the settings tab at `https://github.com/{YOUR_ORGANSATION}/{YOUR_REPOSITORY}/settings/secrets`
@@ -44,6 +47,8 @@ You'll need to configure secrets in the settings tab at `https://github.com/{YOU
 GitHub Actions can run based on any GitHub event, but we recommend to run the workflow containing the Chromatic step on `push` event. The action will work on `pull-request` events too, although [it comes with some caveats](ci#pull-request-builds). All other events will not work.
 
 For external PRs (PRs from forks of your repo) to receive the Chromatic projectToken, you'll have to make the projectToken public by placing it in your `package.json`. Alternatively, you could disable Chromatic on external PRs or duplicate external PRs inside your repository.
+
+In [`actions/checkout@v2`](https://github.com/actions/checkout#usage), there's no git history. Chromatic needs the git history in order to find the base build for baseline association. Add `fetch-depth: 0`.
 
 </details>
 
