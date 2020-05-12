@@ -18,7 +18,7 @@ Before publishing, generate a unique `<project-token>` for your Storybook by log
 
 ## Install
 
-Install the [**chromatic**](https://github.com/chromaui/chromatic-cli) package from npm.
+Install the [**chromatic**](https://www.npmjs.com/package/chromatic) package from npm.
 
 ```bash
 # Yarn
