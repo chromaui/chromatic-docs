@@ -6,10 +6,13 @@ description: Learn about the Chromatic CLI options
 
 # Chromatic CLI
 
-The CLI builds then publishes Storybook. If you've customized the way your Storybook runs, you may need to pass additional options to the `chromatic` command.
+The CLI builds then publishes Storybook. Run `chromatic` in your project directory.
 
-- [Source on GitHub](https://github.com/chromaui/chromatic-cli#main-options)
-- [Package on NPM](https://www.npmjs.com/package/chromatic)
+```bash
+./node_modules/.bin/chromatic --project-token=<your-project-token>
+```
+
+If you customized the way your Storybook runs, you may need to pass additional options.
 
 | Main options      | Use case                                                                                                           |
 | ----------------- | ------------------------------------------------------------------------------------------------------------------ |
@@ -34,8 +37,11 @@ The CLI builds then publishes Storybook. If you've customized the way your Story
 | -------------------------- | ------------------------------------------------------------------------------------------- |
 | `--debug`                  | Output more debugging information.                                                          |
 | `--only <component:story>` | Only run a single story or a glob-style subset of stories for debugging purposes.           |
-| `--skip`                   | Skip chromatic tests (mark as passing)                                                      |
+| `--skip`                   | Skip Chromatic tests (mark as passing)                                                      |
 | `--list`                   | List available stories for debugging purposes                                               |
 | `--ci`                     | Tell Chromatic that you're running in CI, non-interactively. Alternatively, pass `CI=true`. |
 
 Are you using an older package? [View deprecated options »](https://github.com/chromaui/chromatic-cli/#storybook-options)
+
+- [Source on GitHub](https://github.com/chromaui/chromatic-cli#main-options)
+- [Package on NPM](https://www.npmjs.com/package/chromatic)
