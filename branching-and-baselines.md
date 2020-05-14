@@ -6,7 +6,21 @@ description: Learn how Chromatic uses git information to tie your builds togethe
 
 # Branches and baselines
 
-Chromatic relies on baselines for [UI Tests](test) and [UI Review](review). We rely on Git to track baselines. That means once a snapshot is accepted as a baseline, it won’t need to be re-accepted until it changes, even through git branching and merging.
+Chromatic uses your git history to decide how to check stories for changes for both [UI Tests](test) and [UI Review](review). The way it works is intended to get out of your way and do what you expect. However, there can be situations where things get confusing; this document describes in detail the way Chromatic does it.
+
+### UI Review: comparing branches
+
+For [UI Review](review), Chromatic's aim is to show you "what will change on the base branch when you merge this PR?".
+
+As such, Chromatic will compare each story on the head branch with the way the story looked on the base branch when you branched off. This is similar to what systems like GitHub do when showing you the code changes in a PR.
+
+Technically, to achieve that, we need to find the "merge-base build" to compare with. The method to do so is [explained below](#how-the-merge-base-is-calculated).
+
+### UI Tests: tracking baselines
+
+For [UI Tests](test), we aim to keep an up to date "baseline" for each story (at a given viewport) that lives alongside the git history. One way to think about it is as if we checked in a snapshot file into your repository every time you accept a change (we don't but we aim to behave as if we did).
+
+That means once a snapshot is accepted as a baseline, it won’t need to be re-accepted until it changes, even through git branching and merging. The mechanism to achieve this is explained below.
 
 ![Baselines](img/baselines.jpg)
 
@@ -126,3 +140,43 @@ The next snapshot, marked “Identical to build...”, was determined to be a ba
 The next listed snapshot, marked “Accepted by Tom Coleman”, was the original version of that snapshot, at the point it changed and was accepted by Tom as the previous baseline.
 
 The next listed snapshot was the previous time this component changed, from the perspective of this commit, etc.
+
+
+## How the merge base is calculated
+
+To find the merge base build in Chromatic, it needs to track back from the current latest build on the PR until it finds a build that was on the base branch. Chromatic tracks back via the [ancestor builds](#calculating-the-ancestor-builds) of each build, which corresponds to the git commit history (keep in mind you may not have run a build for every single commit!).
+
+Typically this leads to a situation like so:
+
+```
+x - y - z [base]
+  \
+    w - p - q [head]
+```
+
+Starting with the build corresponding to commit `q`, Chromatic walks back the commit and build history, through `p` and `w` until it reaches `x`. This the "merge base" build (and also commit, which would be output from `git merge-base base head`).
+
+Chromatic will now compare the stories from `q` to the corresponding stories in `x` to generate the UI changes for the PR.
+
+If the head branch has been more recently updated from the base branch, the merge base can be a more recent commit than the point we branched off:
+
+```
+x - y - z [base]
+  \       \
+    w - p - q [head]
+```
+
+In this case the merge base starting at `q` will be `z`. It makes sense to use `z` as the point of comparison, otherwise (if we compared `q` to `x` as before) we would see a set of changes in for the PR that were created by `x` and `z`, which would be confusing.
+
+One thing to note is that if the merge base is quite old, the left hand side of the comparison may be quite old versions of your components. To work around this, merging (or rebasing) the base branch into the feature branch will resolve the issue, as demonstrated above.
+
+### Patch builds
+
+If Chromatic searches for a merge base and doesn't find one, it will prompt you to create a "patch build". This situation typically comes about when you are first installing Chromatic and you don't have build for older, historical builds (like the commit `x` in the picture above.
+
+The Chromatic has a special option `--patch-build=$head...$base` which is intended for this purpose. What this does is:
+
+1. Figure out what the merge base commit between head and base is in your git repo.
+2. Check out that commit and update dependencies
+3. Run a Chromatic build for that commit, flagging to the server that is is a special "patch" build (so it doesn't affect [UI Tests](tests) baselines).
+4. Put your repository back as it was before.
