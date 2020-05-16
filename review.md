@@ -8,7 +8,7 @@ description: Learn how to review changes for your component library
 
 UI tests protect you from accidental regressions. But, before you ship, you'll want to invite developers, designers, and PMs to review the UI to make sure it's correct.
 
-UI Review pinpoints the exact visual changes introduced by a PR. You assign reviewers who can comment and request tweaks on changes that aren't quite right. Think of it like a code review for your UI.
+UI Review creates a changeset of the exact visual changes introduced by a PR. You assign reviewers who can comment and request tweaks on changes that aren't quite right. Think of it like a code review for your UI.
 
 ![UI Review](img/workflow-uireview.png)
 
@@ -40,11 +40,11 @@ Use the Assign Reviewers link on the PR Activity screen to choose reviewers from
 
 <img src="img/assign-reviewers.gif" alt="Assign Reviewers" width="300px" class="center"/>
 
-## Review UI Changes
+## Review changeset
 
-The PR screen includes a Changes tab showing a side-by-side view of all visual changes introduced by the code in the PR. It compares UI on the source branch to the base branch. Each change, you'll see the component story before and after the PR is applied.
+The PR screen includes a Changeset tab showing a side-by-side view of all visual changes introduced in the PR. It compares UI on the head branch to the base branch. Each change, you'll see the component story before and after the PR is applied.
 
-![UI changes tab](img/prscreen-changes.png)
+![Changeset tab](img/prscreen-changes.png)
 
 <div class="aside">To hint at what UI changed, toggle the highlighted diff (in neon green) on and off.</div>
 
@@ -52,13 +52,13 @@ The PR screen includes a Changes tab showing a side-by-side view of all visual c
 
 Reviewers can request updates to the implementation via the comment box beneath each change. Discussions are threaded and attached to the specific story represented by the change.
 
-![UI Changes Comments](img/ui-changes-comments.png)
+![Changeset Comments](img/ui-changes-comments.png)
 
-## UI Checklist
+## UI checklist
 
-At the bottom of the PR screen's [activity tab](review#find-your-pull-request) there's a list of tasks which must be completed before UI is ready to merge. If UI changes are found, the PR will enter the **🟡Pending** state. When changes are approved and checklist items are complete the PR will be **🟢Passed**.
+At the bottom of the PR screen's [activity tab](review#find-your-pull-request) there's a list of tasks which must be completed before UI is ready to merge. If changes are found, the PR will enter the **🟡Pending** state. When changes are approved and checklist items are complete the PR will be **🟢Passed**.
 
-1. UI changes must be approved &rarr; Assign reviewers or approve yourself.
+1. Changeset must be approved &rarr; Assign reviewers or approve yourself.
 2. Outstanding discussions must be resolved &rarr; Click 'Resolve' on discussions.
 3. All assigned reviewers must approve &rarr; Click 'Approve' in the PR screen tab bar.
 
@@ -74,7 +74,7 @@ You'll get a 'UI Review' status check for each PR that shows the state of the UI
 
 ## Next: Learn about documenting reusable components
 
-Now that you've seen how to review UI changes with teammates before merging, learn how Chromatic makes is simple to share versioned and interactive component docs.
+Now that you've seen how to review the UI changeset before merging, learn how Chromatic makes is simple to share versioned and interactive component docs.
 
 <a class="btn primary round" href="document">Read next chapter</a>
 
