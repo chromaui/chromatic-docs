@@ -10,7 +10,7 @@ Chromatic uses your git history to decide how to check stories for changes for b
 
 ### UI Review: comparing branches
 
-For [UI Review](review), Chromatic's aim is to show you "what will change on the base branch when you merge this PR?".
+For [UI Review](review), Chromatic's aim is to show you what will change on the base branch when you merge this PR.
 
 As such, Chromatic will compare each story on the head branch with the way the story looked on the base branch when you branched off. This is similar to what systems like GitHub do when showing you the code changes in a PR.
 
@@ -18,7 +18,7 @@ Technically, to achieve that, we need to find the "merge-base build" to compare 
 
 ### UI Tests: tracking baselines
 
-For [UI Tests](test), we aim to keep an up to date "baseline" for each story (at a given viewport) that lives alongside the git history. One way to think about it is as if we checked in a snapshot file into your repository every time you accept a change (we don't but we aim to behave as if we did).
+For [UI Tests](test), we aim to keep an up to date "baseline" for each story (at a given viewport) that lives alongside the git history. One way to think about it is as if we checked in a snapshot file into your repository every time you accept a change (we don't do this but we aim to behave as if we did).
 
 That means once a snapshot is accepted as a baseline, it won’t need to be re-accepted until it changes, even through git branching and merging. The mechanism to achieve this is explained below.
 
@@ -172,9 +172,9 @@ One thing to note is that if the merge base is quite old, the left hand side of 
 
 ### Patch builds
 
-If Chromatic searches for a merge base and doesn't find one, it will prompt you to create a "patch build". This situation typically comes about when you are first installing Chromatic and you don't have build for older, historical builds (like the commit `x` in the picture above.
+If Chromatic searches for a merge base and doesn't find one, it will prompt you to create a "patch build". This situation typically comes about when you are first installing Chromatic and you don't have build for older, historical builds (like the commit `x` in the picture above).
 
-The Chromatic has a special option `--patch-build=$head...$base` which is intended for this purpose. What this does is:
+The Chromatic CLI has a special option `--patch-build=$head...$base` which is intended for this purpose. What this does is:
 
 1. Figure out what the merge base commit between head and base is in your git repo.
 2. Check out that commit and update dependencies
