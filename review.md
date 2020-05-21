@@ -12,6 +12,10 @@ UI Review pinpoints the exact visual changes introduced by a PR. You assign revi
 
 ![UI Review](img/workflow-uireview.png)
 
+<div class="aside">
+<p><b>Note:</b> You must have a <a href="access#linked-projects">linked project</a> to utilize UI Review features so that Chromatic can sync PR data.</p>
+</div>
+
 ## Enable
 
 Enable UI Review for your project on the manage screen. Then go to the PRs/MRs tab in the web app sidebar. You'll be prompted to install the GitHub app or webhooks for GitLab/Bitbucket.
