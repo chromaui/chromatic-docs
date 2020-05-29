@@ -63,11 +63,11 @@ Sometimes you need a closer look to determine why a snapshot is rendering as it 
 </details>
 
 <details>
-<summary>How are changes on builds different from those listed on the PR Screen 'UI Changes' tab?</summary>
+<summary>How are changes on builds different from those listed on the PR Screen 'Changeset' tab?</summary>
 
 UI tests (shown on the build screen) detect changes between builds, specifically, between the last accepted baseline and the latest build. This is useful for detecting defects during the development process and when merging to master to ship.
 
-In contrast, the PR screen simply shows changes between the latest commit on the PR branch and the 'merge base'. Think of it like the list of UI changes created by the code in the PR.
+In contrast, the PR screen shows the changeset between the latest commit on the PR branch (head) and the 'merge base' (base). Think of it like code review, but for UI.
 
 </details>
 
