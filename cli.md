@@ -47,6 +47,8 @@ If you customized the way your Storybook runs, you may need to pass additional o
 | `--only <component:story>` | Only run a single story or a glob-style subset of stories.                                                          |
 | `--skip [branch]`          | Skip Chromatic tests, but mark the commit as passing. This is only for `<branch>` if specified. Globs are supported |
 |                            | via [picomatch].                                                                                                    |
+| `--report [filepath]`      | Write build results to a JUnit XML file. Defaults to `chromatic-build-{buildNumber}.xml`. `{buildNumber}` will be   |
+|                            | replaced with the build number.                                                                                     |
 
 Are you using an older package? [View deprecated options »](https://github.com/chromaui/chromatic-cli/#storybook-options)
 
