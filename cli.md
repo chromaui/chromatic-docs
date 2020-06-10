@@ -44,7 +44,7 @@ If you customized the way your Storybook runs, you may need to pass additional o
 | `--debug`                  | Output more debugging information.                                                                                  |
 | `--ci`                     | Tell Chromatic that you're running in CI, non-interactively. Alternatively, pass `CI=true`.                         |
 | `--list`                   | List available stories. Note this requires running a build.                                                         |
-| `--only <component:story>` | Only run a single story or a glob-style subset of stories.                                                          |
+| `--only <component:story>` | Only run a single story or a subset of stories. Globs are supported on either side via [picomatch].                 |
 | `--skip [branch]`          | Skip Chromatic tests, but mark the commit as passing. This is only for `<branch>` if specified. Globs are supported |
 |                            | via [picomatch].                                                                                                    |
 | `--report [filepath]`      | Write build results to a JUnit XML file. Defaults to `chromatic-build-{buildNumber}.xml`. `{buildNumber}` will be   |
