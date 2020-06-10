@@ -55,4 +55,4 @@ Are you using an older package? [View deprecated options »](https://github.com/
 - [Source on GitHub](https://github.com/chromaui/chromatic-cli#main-options)
 - [Package on NPM](https://www.npmjs.com/package/chromatic)
 
-[picomatch]: https://www.npmjs.com/package/picomatch
+[picomatch]: https://www.npmjs.com/package/picomatch#globbing-features

@@ -114,7 +114,7 @@ If you're using Jenkins' [GitHub PR plugin](https://github.com/jenkinsci/ghprb-p
 
 If you are using pull request statuses to as required checks before merging, you may not want your CI job to fail if test snapshots render without errors (but with changes). To achieve this, pass the flag `--exit-zero-on-changes` to the `chromatic` command, and your CI job will continue in such cases.
 
-Note that with the above flag your CI job will still stop and fail if your Storybook contains stories that error. If you'd prefer Chromatic *never* to block your CI job, you can use `npm run chromatic || true`.
+Note that with the above flag your CI job will still stop and fail if your Storybook contains stories that error. If you'd prefer Chromatic _never_ to block your CI job, you can use `npm run chromatic || true`.
 
 #### Re-run failed builds after verifying UI test results
 
@@ -146,6 +146,26 @@ fi
 ```
 
 </details>
+
+#### Skipping builds for certain branches
+
+Sometimes you might want to skip running a build for a certain branch, but still have Chromatic mark the latest commit on that branch as "passed". Otherwise pull requests could be blocked due to required checks that remain pending. To avoid this issue, you can run `chromatic` with the `--skip` flag. This flag accepts a branch name or glob pattern.
+
+One particular use case for this feature is skipping builds for branches created by a bot such as `dependabot`. Although technically these changes might trigger UI changes that Chromatic would detect, you might not find it worthwhile to run it for every single dependency update. Instead you could rely on Chromatic running against the master or develop branch.
+
+To skip builds for `dependabot` branches, use the following:
+
+```
+chromatic --skip 'dependabot/**'
+```
+
+To apply this to multiple branches, use an "extended glob". See [picomatch] for details.
+
+```
+chromatic --skip '@(renovate/**|dependabot/**)'
+```
+
+[picomatch]: https://www.npmjs.com/package/picomatch#globbing-features
 
 ## Pull request checks
 

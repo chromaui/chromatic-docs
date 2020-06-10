@@ -22,13 +22,13 @@ Install the [**chromatic**](https://www.npmjs.com/package/chromatic) package fro
 
 ```bash
 # Yarn
-yarn add chromatic
+yarn add --dev chromatic
 
 # npm
 npm install --save-dev chromatic
 ```
 
-<div class="aside">Storybook 3.4 and above is required.</div>
+<div class="aside">Storybook 3.4 or later is required.</div>
 
 <details>
 
@@ -52,10 +52,10 @@ If you allowed `chromatic` to add the above line, it will also have written the 
 
 ## Run Chromatic
 
-Once you installed the `chromatic` package and have an `<project-token>`, run the following command in your project directory.
+Once you installed the `chromatic` package and have a `<project-token>`, run the following command in your project directory.
 
 ```bash
-./node_modules/.bin/chromatic --project-token=<your-project-token>
+npx chromatic --project-token <your-project-token>
 ```
 
 <div class="aside">
