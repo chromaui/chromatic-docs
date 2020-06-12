@@ -6,7 +6,7 @@ description: Learn about the Chromatic CLI options
 
 # Chromatic CLI
 
-The CLI builds then publishes Storybook. Run `chromatic` in your project directory.
+The [CLI](https://www.npmjs.com/package/chromatic) builds then publishes Storybook. Run `chromatic` in your project directory.
 
 ```bash
 ./node_modules/.bin/chromatic --project-token=<your-project-token>
