@@ -6,7 +6,7 @@ description: Learn about the Chromatic CLI options
 
 # Chromatic CLI
 
-The CLI builds then publishes Storybook. Run `chromatic` in your project directory.
+The [CLI](https://www.npmjs.com/package/chromatic) builds then publishes Storybook. Run `chromatic` in your project directory.
 
 ```bash
 ./node_modules/.bin/chromatic --project-token=<your-project-token>
@@ -45,3 +45,28 @@ Are you using an older package? [View deprecated options »](https://github.com/
 
 - [Source on GitHub](https://github.com/chromaui/chromatic-cli#main-options)
 - [Package on NPM](https://www.npmjs.com/package/chromatic)
+
+### Troubleshooting
+
+<details>
+<summary>Uploading Storybook via the tunnel (deprecated)</summary>
+
+We changed the way that Chromatic CLI builds and uploads Storybook over time. Before we begin, make sure you're using the latest [**chromatic**](https://www.npmjs.com/package/chromatic) package.
+
+#### Tunnel method (deprecated)
+
+The original version of [**storybook-chromatic**](https://www.npmjs.com/package/storybook-chromatic) (deprecated) used a tunnelling mechanism in order to capture screenshots of your stories and create a hosted version of your Storybook. The CLI package would create a HTTPS tunnel between your CI server (running Storybook in development mode) and our capture cloud.
+
+This technique worked well, but it relied on a stable network connection between your CI server and our tunnel's server while building. In some cases, this connection could be less than perfect for reasons outside of anyones control. This could lead to miscaptured stories when resources failed to load.
+
+#### Build and upload method
+
+As of `^2.0.0`, Chromatic CLI defaults to building a static Storybook then uploading it to our servers before starting the capture process. It relies on the Storybook command `build-storybook`.
+
+In practice, this method is more predictable, reliable, and faster for creating builds. It also means you can pass the `--exit-once-uploaded` flag (as of `^3.4.0`) and not have to keep your CI server running while Chromatic is capturing.
+
+We'll continue to support the tunnel, however it is officially deprecated. We urge you to switch to uploaded builds.
+
+To start using uploaded builds, ensure you are on the latest version of [**chromatic**](https://www.npmjs.com/package/chromatic) and that you are not using the `-s` / `--script-name` flag in your "chromatic" script. If you use a custom npm script name to build Storybook, you'll need to pass the `-b` / `--build-script-name` flag to the Chromatic CLI.
+
+</details>
