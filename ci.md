@@ -70,6 +70,7 @@ jobs:
       - run: npm chromatic -a <project-token> --exit-zero-on-changes
 ```
 
+If you run jobs on external PRs, view [CircleCI docs](https://circleci.com/blog/triggering-trusted-ci-jobs-on-untrusted-forks/) for a configuration guide.
 For more workflow inspiriation, checkout this [Chromatic CircleCI Orb](https://circleci.com/orbs/registry/orb/wave/chromatic) that was made by a customer.
 
 </details>
@@ -144,6 +145,15 @@ else
   yarn chromatic --auto-accept-changes
 fi
 ```
+
+</details>
+
+<details>
+<summary><h4 class="no-anchor">Run Chromatic on external forks of open source projects</h4></summary>
+
+You can enable PR checks for external forks by sharing your `project-token` where you configured the Chromatic command (often in `package.json` or your CI config).
+
+There are tradeoffs. Sharing `project-token`'s allows _contributors_ and others to run Chromatic. They'll be able to use your snapshots. They will not be able to get access to your account, settings, or accept baselines. This can be an acceptable tradeoff for open source projects who value community contributions.
 
 </details>
 
