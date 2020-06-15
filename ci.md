@@ -114,7 +114,7 @@ If you're using Jenkins' [GitHub PR plugin](https://github.com/jenkinsci/ghprb-p
 
 If you are using pull request statuses to as required checks before merging, you may not want your CI job to fail if test snapshots render without errors (but with changes). To achieve this, pass the flag `--exit-zero-on-changes` to the `chromatic` command, and your CI job will continue in such cases.
 
-Note that with the above flag your CI job will still stop and fail if your Storybook contains stories that error. If you'd prefer Chromatic _never_ to block your CI job, you can use `npm run chromatic || true`.
+When using `--exit-zero-on-changes` your CI job will still stop and fail if your Storybook contains stories that error. If you'd prefer Chromatic _never_ to block your CI job, you can use `npm run chromatic || true`.
 
 #### Re-run failed builds after verifying UI test results
 
