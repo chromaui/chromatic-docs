@@ -151,7 +151,7 @@ fi
 
 Sometimes you might want to skip running a build for a certain branch, but still have Chromatic mark the latest commit on that branch as "passed". Otherwise pull requests could be blocked due to required checks that remain pending. To avoid this issue, you can run `chromatic` with the `--skip` flag. This flag accepts a branch name or glob pattern.
 
-One particular use case for this feature is skipping builds for branches created by a bot such as `dependabot`. Although technically these changes might trigger UI changes that Chromatic would detect, you might not find it worthwhile to run it for every single dependency update. Instead you could rely on Chromatic running against the master or develop branch.
+One use case for this feature is skipping builds for branches created by a bot. For instance, Dependabot automatically updates a projects dependencies. Although some dependencies can result in UI changes, you might not find it worthwhile to run Chromatic for every single dependency update. Instead, you could rely on Chromatic running against the `master` or `develop` branch.
 
 To skip builds for `dependabot` branches, use the following:
 
