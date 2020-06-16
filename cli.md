@@ -8,6 +8,8 @@ description: Learn about the Chromatic CLI options
 
 The [CLI](https://www.npmjs.com/package/chromatic) builds and publishes your Storybook. Run `chromatic` in your project directory.
 
+> This package was previously named `storybook-chromatic`. See [migrating to the new package](#migrating-to-the-new-cli-package) for details.
+
 ## Quick Start
 
 ```sh
@@ -122,7 +124,7 @@ To start using uploaded builds, ensure you are on the latest version of [**chrom
 
 ## Usage in a GitHub Action
 
-There are examples here: [/.github/workflows](/.github/workflows).
+There are examples here: https://github.com/chromaui/chromatic-cli
 
 Do not run this based on a github pull_request event. If you do, the commit and branch will get reported wrong, use [https://github.com/chromaui/action](https://github.com/chromaui/action) instead.
 
