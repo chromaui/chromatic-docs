@@ -6,9 +6,13 @@ description: Learn about the Chromatic CLI options
 
 # Chromatic CLI
 
-The [CLI](https://www.npmjs.com/package/chromatic) builds and publishes your Storybook. Run `chromatic` in your project directory.
+The [Chromatic CLI](https://www.npmjs.com/package/chromatic) builds and publishes your Storybook. Run `chromatic` in your project directory.
 
-> This package was previously named `storybook-chromatic`. See [migrating to the new package](#migrating-to-the-new-cli-package) for details.
+<video autoPlay muted playsInline loop width="560px" style="margin-bottom: 1em">
+  <source src="img/chromatic-cli-optimized.mp4" type="video/mp4" />
+</video>
+
+<div class="aside">This package was previously named <code>storybook-chromatic</code>. See <a href="#migrating-to-the-new-cli-package">migrating to the new package</a> for details.</div>
 
 ## Quick Start
 
@@ -45,7 +49,7 @@ Get your project token from the Chromatic website during onboarding or on your p
 This option can also be configured by setting the `CHROMATIC_PROJECT_TOKEN` environment variable.
 Environment variables are also read from a `.env` file, if present.
 
-> Note: `--project-token` was previously known as `--app-code`. If you encounter an error referring to this, you should upgrade to the latest version of the Chromatic CLI. See [Migrating to the new CLI package](#migrating-to-the-new-cli-package).
+<div class="aside">Note: <code>--project-token</code> was previously known as <code>--app-code</code>. If you encounter an error referring to this, you should upgrade to the latest version of the Chromatic CLI. See <a href="#migrating-to-the-new-cli-package">migrating to the new package</a>.</div>
 
 ### Storybook options
 
