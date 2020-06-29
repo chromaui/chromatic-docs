@@ -12,7 +12,9 @@ If you're already using Storybook, then great!---skip to the [get started](/docs
 
 #### How Chromatic works (in brief)
 
-Chromatic publishes your Storybook versions to a secure CDN, runs visual regression tests and enables workflows for reviewing and documenting UI. Along the way, Chromatic takes image snapshots of various configurations of your components. These configurations, or inputs to your components, are the specification of how visual tests should look. We rely on Storybook "stories" to provide these configurations. Chromatic's review feature also utilizes snapshots to narrow down the changes reviewers have to see.
+Chromatic publishes your Storybook to a secure CDN every commit. It uses your Storybook's stories for visual regression testing and UI review.
+
+An image snapshot is taken of each story every commit. Chromatic compares these snapshots to previous versions to identify bugs for [UI Tests](test). And it compares snapshots _between branches_ to generate a changeset for [UI Review](review) (similar to code review).
 
 ---
 
