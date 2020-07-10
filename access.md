@@ -12,7 +12,9 @@ Learn how to manage access to your Chromatic account and projects.
 
 Login via OAuth from GitHub, GitLab, or Bitbucket. Chromatic supports the public cloud versions of these services via our [self-serve plans](https://www.chromatic.com/pricing).
 
-Enterprise plans come with support for Single Sign On (SSO) and on-premises Git hosting from all supported providers.
+If you use the on-premise or enterprise versions of GitHub, GitLab, or Bitbucket, we can support you via our [enterprise plan](https://www.chromatic.com/pricing). The enterprise plan also offers single sign-on (SSO) and service-level agreements (SLA). We recommend trialing Chromatic first by following these [instructions](setup#demo-chromatic-unlinked).
+
+If you use other services like Azure DevOps, AWS, etc, you won't be able to sign in via OAuth. But you can still use Chromatic as a CI-only job using the intructions [here](setup#demo-chromatic-unlinked).
 
 ### OAuth Scopes
 
