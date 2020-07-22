@@ -36,7 +36,7 @@ The above can behave differently if your page loads resources (such as JS files)
 
 ## Loading custom fonts
 
-Browser can decide to render HTML in multiple passes, when custom fonts are used. They do this to speed up the time-to-first-meaningful-paint.
+Browsers can decide to render HTML in multiple passes when custom fonts are used. They do this to speed up the time-to-first-meaningful-paint.
 Unfortunately this can cause your story to render without the custom font, or worse: render inconsistently; making you approve the changes caused by the font rendering differences again and again.
 
 You could choose to disable custom fonts in chromatic or you could enforce that the fonts are always prior to rendering the story.
