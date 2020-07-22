@@ -37,13 +37,12 @@ The above can behave differently if your page loads resources (such as JS files)
 ## Loading custom fonts
 
 Browsers can decide to render HTML in multiple passes when custom fonts are used. They do this to speed up the time-to-first-meaningful-paint.
-Unfortunately, this behavior can cause your story to render without the custom font. Or worse, render inconsistently. That triggers font rendering changes that you have to accept again and again.
 
-We recommend that you ensure fonts are always loaded prior to rendering the story. As a last resort, you can also disable custom fonts when running in Chromatic.
+Unfortunately, this behavior can cause your story to render without the custom font. Or worse, render inconsistently. That triggers font rendering changes that you have to accept again and again. Here are ways to prevent that.
 
 #### Solution A: Preload fonts
 
-Preload fonts in Storybook by specifying them in `./storybook/preview-head.html`.
+We recommend that you ensure fonts are always loaded prior to rendering the story. Preload fonts in Storybook by specifying them in `./storybook/preview-head.html`.
 
 ```js
 // ./storybook/preview-head.html
@@ -63,7 +62,7 @@ If you’re loading fonts from an external CDN service (like Google Fonts or Ado
 
 #### Solution B: Check fonts have loaded in a decorator
 
-This solution uses the browsers font load API and the [`isChromatic()`](ischromatic) helper function to verify that fonts load when in the Chromatic environment.
+This alternate solution uses the browsers font load API and the [`isChromatic()`](ischromatic) helper function to verify that fonts load when in the Chromatic environment.
 
 ```js
 // preview.js
@@ -82,3 +81,7 @@ if (isChromatic() && document.fonts) {
   });
 }
 ```
+
+#### Solution C: Don't load fonts
+
+As a last resort, you can also disable custom fonts by setting `font-display: optional` in your CSS when running in Chromatic.
