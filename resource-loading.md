@@ -39,7 +39,7 @@ The above can behave differently if your page loads resources (such as JS files)
 Browsers can decide to render HTML in multiple passes when custom fonts are used. They do this to speed up the time-to-first-meaningful-paint.
 Unfortunately, this behavior can cause your story to render without the custom font. Or worse, render inconsistently. That triggers font rendering changes that you have to accept again and again.
 
-You could choose to disable custom fonts in chromatic or you could enforce that the fonts are always prior to rendering the story.
+We recommend that you ensure fonts are always loaded prior to rendering the story. As a last resort, you can also disable custom fonts when running in Chromatic.
 
 ### Solution A: using preload instructions
 
