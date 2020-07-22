@@ -41,27 +41,41 @@ Unfortunately, this behavior can cause your story to render without the custom f
 
 We recommend that you ensure fonts are always loaded prior to rendering the story. As a last resort, you can also disable custom fonts when running in Chromatic.
 
-### Solution A: using preload instructions
+#### Solution A: Preload fonts
 
-```html
-<link rel="preload" href="path/to/font.woff2" as="font" type="font/woff2" crossorigin="anonymous">
+Preload fonts in Storybook by specifying them in `./storybook/preview-head.html`.
+
+```js
+// ./storybook/preview-head.html
+
+<link
+  rel="preload"
+  href="path/to/font.woff2"
+  as="font"
+  type="font/woff2"
+  crossorigin="anonymous"
+/>
 ```
 
-> If you’re loading fonts from an external CDN service (like Google Fonts or Adobe Fonts), be careful that the font files you’re preloading match the fonts called for in your CSS.
+<div class="aside">
+If you’re loading fonts from an external CDN service (like Google Fonts or Adobe Fonts), be careful that the font files you’re preloading match the fonts called for in your CSS.
+</div>
 
-### Solution B: using font load api in a decorator
+#### Solution B: Check fonts have loaded in a decorator
+
+This solution uses the browsers font load API and the [`isChromatic()`](ischromatic) helper function to verify that fonts load when in the Chromatic environment.
 
 ```js
 // preview.js
 import isChromatic from "chromatic/isChromatic";
 
 if (isChromatic() && document.fonts) {
-  addDecorator(story => {
+  addDecorator((story) => {
     const [isLoadingFonts, setIsLoadingFonts] = useState(true);
     useEffect(() => {
-      Promise.all([
-        document.fonts.load('400 1em Font Name'),
-      ]).then(() => setIsLoadingFonts(false));
+      Promise.all([document.fonts.load("400 1em Font Name")]).then(() =>
+        setIsLoadingFonts(false)
+      );
     }, []);
 
     return isLoadingFonts ? null : story();
