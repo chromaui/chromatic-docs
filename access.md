@@ -33,7 +33,7 @@ Chromatic's GitHub App enables [UI Review](review) for pull requests. We need ad
 - ✅ Read access to metadata
 - ✅ Read and write access to checks and pull requests
 - ✅ Read access to organization members (for collaborators)
-- 🔒 We do not request access to your code.
+- 🔒 We do not request access to your code
 
 ## Accounts
 
@@ -54,16 +54,16 @@ In Chromatic there two types of projects:
 
 When you link a project to an online repository (on the "Manage" page, or when creating it), we synchronize access to the project with the permissions on the relevant service. There are two levels of access:
 
-- Read access: users can view snapshots and builds, but cannot review
-- Write access: users can review snapshots and manage other aspects of the project.
+- Viewer: users can view snapshots and builds, but cannot review
+- Reviewer: users can review snapshots and manage other aspects of the project.
 
-Note that public repositories on GitHub/GitLab/Bitbucket give read access to all users, but a user must be granted write access by a maintainer. Private access maintain read/write access according to the service's permission rules.
+Note that public repositories on GitHub/GitLab/Bitbucket give viewer access to all users. A user must be granted explicit contributor access by a maintainer to become a reviewer in Chromatic. For private repositories, anyone who has access to the repositiory in GitHub/GitLab/Bitbucket will have reviewer access in Chromatic.
 
 ### Unlinked Projects
 
 To grant access to a unlinked project that you've created, either link it to a third-party repository, or use the invitation URL accessible on the "Manage" page.
 
-Users that have used the invitation link will get full write access to the project.
+Users that have used the invitation link will get reviewer access to the project.
 
 ---
 
