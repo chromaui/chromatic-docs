@@ -70,6 +70,7 @@ jobs:
       - run: npm chromatic -a <project-token> --exit-zero-on-changes
 ```
 
+If you run jobs on external PRs, view [CircleCI docs](https://circleci.com/blog/triggering-trusted-ci-jobs-on-untrusted-forks/) for a configuration guide.
 For more workflow inspiriation, checkout this [Chromatic CircleCI Orb](https://circleci.com/orbs/registry/orb/wave/chromatic) that was made by a customer.
 
 </details>
@@ -114,7 +115,7 @@ If you're using Jenkins' [GitHub PR plugin](https://github.com/jenkinsci/ghprb-p
 
 If you are using pull request statuses to as required checks before merging, you may not want your CI job to fail if test snapshots render without errors (but with changes). To achieve this, pass the flag `--exit-zero-on-changes` to the `chromatic` command, and your CI job will continue in such cases.
 
-Note that with the above flag your CI job will still stop and fail if your Storybook contains stories that error. If you'd prefer Chromatic _never_ to block your CI job, you can use `npm run chromatic || true`.
+When using `--exit-zero-on-changes` your CI job will still stop and fail if your Storybook contains stories that error. If you'd prefer Chromatic _never_ to block your CI job, you can use `npm run chromatic || true`.
 
 #### Re-run failed builds after verifying UI test results
 
@@ -147,11 +148,20 @@ fi
 
 </details>
 
+<details>
+<summary><h4 class="no-anchor">Run Chromatic on external forks of open source projects</h4></summary>
+
+You can enable PR checks for external forks by sharing your `project-token` where you configured the Chromatic command (often in `package.json` or your CI config).
+
+There are tradeoffs. Sharing `project-token`'s allows _contributors_ and others to run Chromatic. They'll be able to use your snapshots. They will not be able to get access to your account, settings, or accept baselines. This can be an acceptable tradeoff for open source projects who value community contributions.
+
+</details>
+
 #### Skipping builds for certain branches
 
 Sometimes you might want to skip running a build for a certain branch, but still have Chromatic mark the latest commit on that branch as "passed". Otherwise pull requests could be blocked due to required checks that remain pending. To avoid this issue, you can run `chromatic` with the `--skip` flag. This flag accepts a branch name or glob pattern.
 
-One particular use case for this feature is skipping builds for branches created by a bot such as `dependabot`. Although technically these changes might trigger UI changes that Chromatic would detect, you might not find it worthwhile to run it for every single dependency update. Instead you could rely on Chromatic running against the master or develop branch.
+One use case for this feature is skipping builds for branches created by a bot. For instance, Dependabot automatically updates a projects dependencies. Although some dependencies can result in UI changes, you might not find it worthwhile to run Chromatic for every single dependency update. Instead, you could rely on Chromatic running against the `master` or `develop` branch.
 
 To skip builds for `dependabot` branches, use the following:
 

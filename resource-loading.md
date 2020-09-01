@@ -8,7 +8,7 @@ description: Learn how to Chromatic loads resources and waits to screenshot.
 
 Chromatic waits for resources like images and fonts to load before capturing a snapshot. When resources fail to load it leads to unintended UI changes.
 
-The maximumn time to capture a snapshot is 15 seconds. If the resources fail to load in the allotted time, Chromatic will retry. After several retries, the snapshot will be captured anyway and a warning message will be displayed.
+The maximum time to capture a snapshot is 15 seconds. If the resources fail to load in the allotted time, Chromatic will retry. After several retries, the snapshot will be captured anyway and a warning message will be displayed.
 
 ## Avoid external resources
 
@@ -18,7 +18,7 @@ We recommend adding [resources to your Storybook](https://storybook.js.org/confi
 
 ## Asynchronous rendering
 
-Our browsers monitor network activity that occurs while your story renders. If your story renders after a delay (i.e. asyncronously), there is no way for us to tell what happened. Thus, we can't reliably wait for subsequent resources to be loaded asynchronously.
+Our browsers monitor network activity that occurs while your story renders. If your story renders after a delay (i.e. asynchronously), there is no way for us to tell what happened. Thus, we can't reliably wait for subsequent resources to be loaded asynchronously.
 
 If you know how long async rendering takes, you can add a [delay](delay) to avoid snapshotting until after that happens. But it can be difficult to reliably set a time that network resources will load within so you may have to add/subtract seconds to the delay.
 
@@ -33,3 +33,55 @@ Chrome gives us full access to network APIs. That means we can confirm when reso
 Firefox and Internet Explorer have built in APIs to tell when assets are loaded. In practice, these APIs are less nuanced than Chrome which may affect your snapshots. In Firefox and IE11, we browse to a Storybook URL that renders your story, then wait for the browser ["load" event](https://developer.mozilla.org/en-US/docs/Web/API/Window/load_event) in addition to our own heuristics to determine when the story finishes rendering.
 
 The above can behave differently if your page loads resources (such as JS files) via techniques that aren't picked up by the load event (such as AJAX / background requests).
+
+## Loading custom fonts
+
+Browsers can decide to render HTML in multiple passes when custom fonts are used. They do this to speed up the time-to-first-meaningful-paint.
+
+Unfortunately, this behavior can cause your story to render without the custom font. Or worse, render inconsistently. That triggers font rendering changes that you have to accept again and again. Here are ways to prevent that.
+
+#### Solution A: Preload fonts
+
+We recommend that you ensure fonts are always loaded prior to rendering the story. Preload fonts in Storybook by specifying them in `./storybook/preview-head.html`.
+
+```js
+// ./storybook/preview-head.html
+
+<link
+  rel="preload"
+  href="path/to/font.woff2"
+  as="font"
+  type="font/woff2"
+  crossorigin="anonymous"
+/>
+```
+
+<div class="aside">
+If you’re loading fonts from an external CDN service (like Google Fonts or Adobe Fonts), be careful that the font files you’re preloading match the fonts called for in your CSS.
+</div>
+
+#### Solution B: Check fonts have loaded in a decorator
+
+This alternate solution uses the browsers font load API and the [`isChromatic()`](ischromatic) helper function to verify that fonts load when in the Chromatic environment.
+
+```js
+// preview.js
+import isChromatic from "chromatic/isChromatic";
+
+if (isChromatic() && document.fonts) {
+  addDecorator((story) => {
+    const [isLoadingFonts, setIsLoadingFonts] = useState(true);
+    useEffect(() => {
+      Promise.all([document.fonts.load("400 1em Font Name")]).then(() =>
+        setIsLoadingFonts(false)
+      );
+    }, []);
+
+    return isLoadingFonts ? null : story();
+  });
+}
+```
+
+#### Solution C: Don't load fonts
+
+As a last resort, you can also disable custom fonts by setting `font-display: optional` in your CSS when running in Chromatic.

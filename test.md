@@ -73,13 +73,13 @@ In contrast, the PR screen shows the changeset between the latest commit on the 
 
 ## Merge
 
-If you accept all the changes, the build will "pass". Future builds whose stories have the same appearance will pass.
+If you accept all the changes, the build will **🟢Pass**. Future builds whose stories have the same appearance will pass.
 
-If you deny any of the changes, the build will "fail" and you will need to make code changes (and thus start a new build) to get the build to pass.
+If you deny any of the changes, the build will **🔴Fail**. You will need to make code changes (and thus start a new build) to get the build to pass.
 
-When your build is "passed" (all changes accepted), you're ready to merge visual changes with confidence knowing that your UI is bug free. Chromatic will update the PR check for "UI Tests" to reflect the build status. W
+When your build is passed (all changes accepted), you're ready to merge visual changes with confidence knowing that your UI is bug free. Chromatic will update the PR check for "UI Tests" to reflect the build status.
 
-After you merge your code, Chromatic will also apply accepted baselines to stories on the target branch ensuring you'll only ever need to accept baselines a single time.
+After you merge your code, Chromatic will also apply accepted baselines to stories on the target branch. That means you'll only need to accept baselines a single time.
 
 ![Build with reviewed tests](img/build-test-reviewed.png)
 

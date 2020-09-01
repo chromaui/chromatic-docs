@@ -8,7 +8,7 @@ description: Learn how to review changes for your component library
 
 UI tests protect you from accidental regressions. But, before you ship, you'll want to invite developers, designers, and PMs to review the UI to make sure it's correct.
 
-UI Review creates a changeset of the exact visual changes introduced by a PR. You assign reviewers who can comment and request tweaks on changes that aren't quite right. Think of it like a code review for your UI.
+UI Review creates a changeset of the exact visual changes introduced by a PR. You assign reviewers who can comment and request tweaks on changes that aren't quite right. Think of it like a code review, but for your UI.
 
 ![UI Review](img/workflow-uireview.png)
 
