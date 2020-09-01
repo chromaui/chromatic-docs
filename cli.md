@@ -58,6 +58,7 @@ Environment variables are also read from a `.env` file, if present.
 | CLI flag                          |                                                                                                                                                                                      |
 | --------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
 | `--build-script-name <name>`      | The npm script that builds your Storybook we should take snapshots against. Use this if your Storybook build script is named differently. Defaults to `build-storybook`. Alias: `-b` |
+| `--output-dir <dirname>`          | Relative path to target directory for building your Storybook, in case you want to preserve it. Otherwise a temporary directory is used if possible. Alias: `-o`                     |
 | `--storybook-build-dir <dirname>` | If you have already built your Storybook, provide the path to the static build directory. Alias: `-d`                                                                                |
 
 ### Chromatic options
@@ -71,7 +72,6 @@ These options control how Chromatic behaves with regards to your stories and wha
 | `--exit-once-uploaded [branch]`           | Exit with `0` once the built version has been published to Chromatic. Only for `[branch]`, if specified. Globs are supported via [picomatch].                                         |
 | `--exit-zero-on-changes [branch]`         | If all snapshots render but there are visual changes, exit with code `0` rather than the usual exit code `1`. Only for `[branch]`, if specified. Globs are supported via [picomatch]. |
 | `--ignore-last-build-on-branch <branch>`  | Do not use the last build on this branch as a baseline if it is no longer in history (i.e. branch was rebased). Globs are supported via [picomatch].                                  |
-| `--only <storypath>`                      | Only run a single story or a subset of stories. Story paths typically look like `Path/To/Story`. Globs are supported via [picomatch]. This option implies `--preserve-missing`.       |
 | `--patch-build <headbranch...basebranch>` | Create a patch build to fix a missing PR comparison.                                                                                                                                  |
 | `--preserve-missing`                      | Treat missing stories as unchanged rather than deleted when comparing to the baseline.                                                                                                |
 | `--skip [branch]`                         | Skip Chromatic tests, but mark the commit as passing. Avoids blocking PRs due to required merge checks. Only for `[branch]`, if specified. Globs are supported via [picomatch].       |
@@ -82,11 +82,12 @@ These options may help you debug problems or enable integration with other tools
 
 | CLI flag                    |                                                                                                                                                          |
 | --------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `--ci`                      | Mark this build as a CI build. Alternatively, set the `CI` environment variable (present in most CI systems). This option implies `--no-interactive`.    |
+| `--no-interactive`          | Don't ask interactive questions about your setup and don't overwrite output. `true` in non-TTY environments.                                             |
 | `--debug`                   | Output verbose debugging information. This option implies `--no-interactive`.                                                                            |
-| `--junit-report [filepath]` | Write build results to a JUnit XML file. Defaults to `chromatic-build-{buildNumber}.xml`. `{buildNumber}` will be replaced with the actual build number. |
+| `--ci`                      | Mark this build as a CI build. Alternatively, set the `CI` environment variable (present in most CI systems). This option implies `--no-interactive`.    |
 | `--list`                    | List available stories. This requires running a full build.                                                                                              |
-| `--no-interactive`          | Don't ask interactive questions about your setup and don't overwrite output. Always `true` in non-TTY environments.                                      |
+| `--only <storypath>`        | Only run a single story or a subset of stories. Story paths typically look like `Path/To/Story`. Globs are supported via [picomatch].                    |
+| `--junit-report [filepath]` | Write build results to a JUnit XML file. Defaults to `chromatic-build-{buildNumber}.xml`. `{buildNumber}` will be replaced with the actual build number. |
 
 ### Deprecated options
 
@@ -94,9 +95,9 @@ These options are still supported, but might be removed in a future version. Avo
 
 | CLI flag                  |                                                                                                                                              |
 | ------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------- |
+| `--script-name [name]`    | The npm script that starts your Storybook. Defaults to `storybook`. Alias: `-s`                                                              |
+| `--exec <command>`        | Alternatively, a shell command that starts your Storybook. Alias: `-e`                                                                       |
 | `--do-not-start`          | Don't attempt to start or build Storybook. Use this if your Storybook is already running, for example when part of a larger app. Alias: `-S` |
-| `--exec <command>`        | Start your Storybook by executing a shell command. Alias: `-e`                                                                               |
-| `--script-name [name]`    | Start your Storybook by running an npm script. Defaults to `storybook`. Alias: `-s`                                                          |
 | `--storybook-port <port>` | What port is your Storybook running on. Auto detected from the npm script when using `--script-name`. Alias: `-p`                            |
 | `--storybook-https`       | Enable if Storybook is running on HTTPS (locally). Auto detected from the npm script when using `--script-name`.                             |
 | `--storybook-cert <path>` | Use with `--storybook-https`. Auto detected from the npm script when using `--script-name`.                                                  |
