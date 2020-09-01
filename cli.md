@@ -58,6 +58,7 @@ Environment variables are also read from a `.env` file, if present.
 | CLI flag                          |                                                                                                                                                                                      |
 | --------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
 | `--build-script-name <name>`      | The npm script that builds your Storybook we should take snapshots against. Use this if your Storybook build script is named differently. Defaults to `build-storybook`. Alias: `-b` |
+| `--output-dir <dirname>`          | Relative path to target directory for building your Storybook, in case you want to preserve it. Otherwise a temporary directory is used if possible. Alias: `-o`                     |
 | `--storybook-build-dir <dirname>` | If you have already built your Storybook, provide the path to the static build directory. Alias: `-d`                                                                                |
 
 ### Chromatic options
@@ -68,13 +69,12 @@ These options control how Chromatic behaves with regards to your stories and wha
 | ----------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | `--allow-console-errors`                  | Continue running Chromatic even if there are errors logged to console in your Storybook.                                                                                              |
 | `--auto-accept-changes [branch]`          | If there are any changes to the build, automatically accept them. Only for `[branch]`, if specified. Globs are supported via [picomatch].                                             |
-| `--only <storypath>`                      | Only run a single story or a subset of stories. Story paths typically look like `Path/To/Story`. Globs are supported via [picomatch]. This option implies `--preserve-missing`.       |
-| `--patch-build <headbranch...basebranch>` | Create a patch build to fix a missing PR comparison.                                                                                                                                  |
 | `--exit-once-uploaded [branch]`           | Exit with `0` once the built version has been published to Chromatic. Only for `[branch]`, if specified. Globs are supported via [picomatch].                                         |
 | `--exit-zero-on-changes [branch]`         | If all snapshots render but there are visual changes, exit with code `0` rather than the usual exit code `1`. Only for `[branch]`, if specified. Globs are supported via [picomatch]. |
 | `--ignore-last-build-on-branch <branch>`  | Do not use the last build on this branch as a baseline if it is no longer in history (i.e. branch was rebased). Globs are supported via [picomatch].                                  |
-| `--skip [branch]`                         | Skip Chromatic tests, but mark the commit as passing. Avoids blocking PRs due to required merge checks. Only for `[branch]`, if specified. Globs are supported via [picomatch].       |
+| `--patch-build <headbranch...basebranch>` | Create a patch build to fix a missing PR comparison.                                                                                                                                  |
 | `--preserve-missing`                      | Treat missing stories as unchanged rather than deleted when comparing to the baseline.                                                                                                |
+| `--skip [branch]`                         | Skip Chromatic tests, but mark the commit as passing. Avoids blocking PRs due to required merge checks. Only for `[branch]`, if specified. Globs are supported via [picomatch].       |
 
 ### Debug options
 
