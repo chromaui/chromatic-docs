@@ -90,7 +90,7 @@ npx chromatic --project-token <your-project-token>
 ```
 
 <div class="aside">
-We use the <code>build-storybook</code> script from your <code>package.json</code> by default. If you customized your <code>storybook</code> script (for example, adding a static directory with <code>-s</code>), specify them using our <a href="cli">options</a>.
+We use the <code>build-storybook</code> script from your <code>package.json</code> by default. If you have customized the <code>storybook</code> script (for example, adding a static directory with <code>-s</code>), check that you've done the same for <script>build-storybook</script>.
 </div>
 
 When complete, you'll see the build status and a link to the published Storybook:
