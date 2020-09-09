@@ -17,7 +17,7 @@ Post a message in a designated Slack channel when a build's [status changes](#st
 3. Set the icon to the custom icon below.
 4. Copy the webhook URL. It's formatted like this `https://hooks.slack.com/services/...`
 5. Go to your [Chromatic project](https://www.chromatic.com/start) and click the manage tab in the sidebar. Scroll down to "Integrations".
-6. Click the "Add webhook" button in the Slack section then paste the webhook from step 3 into the input.
+6. Click the "Add webhook" button in the Slack section then paste the webhook from step 4 into the input.
 7. 🎉 You'll now receive notifications in your Slack channel.
 
 The custom icon:
