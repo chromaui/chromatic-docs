@@ -132,7 +132,9 @@ If the builds are a result of direct commits to `master`, you will need to accep
 <details>
 <summary><h4 class="no-anchor">GitHub squash/rebase merge and the "master" branch</h4></summary>
 
-GitHub's squash/rebase merge functionality creates new commits that have no association to the branch being merged. That means Chromatic will not know which changes accepted on that branch should be baselines on `master`. What's more, you'll have to re-review snapshots on `master` even if you already accepted them elsewhere.
+GitHub's squash/rebase merge functionality creates new commits that have no association to the branch being merged. If you've enabled our GitHub application in the [UI Review](review) workflow, then we will automatically detect this situation and bring baselines over (see [Branching and Baselines](branching-and-baselines#squash-and-rebase-merging) for more details).
+
+Otherwise, Chromatic will not know which changes accepted on that branch should be baselines on `master`. What's more, you'll have to re-review snapshots on `master` even if you already accepted them elsewhere.
 
 To resolve this, we recommend you maintain a clean `master` branch and use `--auto-accept-changes` as [mentioned here](ci#maintain-a-clean-master-branch). For example:
 

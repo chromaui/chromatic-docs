@@ -48,6 +48,18 @@ If you rebase a branch (say updating to branch off the latest commit off `master
 
 For this reason, we _always_ include accepted baselines from the latest build on the current branch, regardless of git history. You can bypass this with the `--ignore-last-build-on-branch=<branch-name>` flag of `chromatic`.
 
+#### Squash and rebase-merging
+
+Chromatic detects squash and rebase merges. Your baselines are preserved between branches, even when squashing or rebasing wipes the Git history.
+
+If you use the "squash" or "rebase" merge feature on Pull Requests, then a commit is created on your base branch that is not a descendant of the commits for the PR. See the diagram below.
+
+![Squash and rebase merges remove Git history](img/squash-merge.png)
+
+This means Chromatic has no way to tell, using Git, that baselines accepted during the PR should "come over" to to main branch. Instead, we use Git provider APIs to detect this situaton. When running the squash/rebase merge commit we'll use the accepted baselines of the _most recent_ commit on the head branch of the PR.
+
+If you are using GitHub, you need to enable our GitHub App (on the [Pull Requests](review) screen) for this feature to work. Bitbucket and GitLab will work out of the box.
+
 ## How baselines are calculated
 
 As stated above, Chromatic maintains an individual baseline for each _story_, at each _viewport_, for each _commit_. That means as you make changes to your components, either by committing new code, merging other branches or otherwise, your baselines will follow your stories.
@@ -140,7 +152,6 @@ The next snapshot, marked “Identical to build...”, was determined to be a ba
 The next listed snapshot, marked “Accepted by Tom Coleman”, was the original version of that snapshot, at the point it changed and was accepted by Tom as the previous baseline.
 
 The next listed snapshot was the previous time this component changed, from the perspective of this commit, etc.
-
 
 ## How the merge base is calculated
 
