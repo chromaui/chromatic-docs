@@ -129,7 +129,7 @@ Grab the project token from [www.chromatic.com](https://www.chromatic.com) and v
 
 - [Learn Storybook](https://learnstorybook.com) Step by step guides on learning Storybook and component development best practices
 - [Visual Testing Handbook](https://www.learnstorybook.com/visual-testing-handbook/) a free 31-page walkthrough for visual testing with Storybook
-- [How Storybook fits into your workflow](https://blog.hichroma.com/component-driven-development-ce1109d56c8e)
+- [How Storybook fits into your workflow](https://www.componentdriven.org/)
 - [Storybook docs](https://storybook.js.org/docs/react/get-started/introduction)
 - [Component explorers](https://blog.hichroma.com/the-crucial-tool-for-modern-frontend-engineers-fb849b06187a) are the essential tool for component development
 - [Visual testing tools](https://www.chromatic.com/choose/visual-testing)

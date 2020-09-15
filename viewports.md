@@ -135,7 +135,7 @@ StoryWithDimensions.args = {};
 
 <details><summary>How do I assign viewports to my entire Storybook?</summary>
 
-We don't recommend this in most cases because each viewport is treated independently and snapshots must be approved as such. But if you really want to assign viewports for an entire Storybook use <a href="https://storybook.js.org/docs/react/writing-stories/parameters#global-parameters">`parameters`</a> in your [`.storybook/preview.js`](https://storybook.js.org/docs/react/configure/overview#configure-story-rendering):
+We don't recommend this in most cases because each viewport is treated independently and snapshots must be approved as such. But if you really want to assign viewports for an entire Storybook use [`parameters`](https://storybook.js.org/docs/react/writing-stories/parameters#global-parameters) in your [`.storybook/preview.js`](https://storybook.js.org/docs/react/configure/overview#configure-story-rendering):
 
 ```js
 // .storybook/preview.js
