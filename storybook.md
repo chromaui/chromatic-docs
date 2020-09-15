@@ -113,7 +113,7 @@ FullData.args = {
 };
 ```
 
-This will create two stories for the Histogram, and you can browse to your Storybook (which you ran earlier with `npm run storybook`) to view the implementation (obviously adjust the component and props above to be relevant to your app).
+This will create two stories for the Histogram. Browse to Storybook which you ran earlier with `npm run storybook` to view the implementation. This pseudo-code is for demo purposes, you'll need to adjust the component and props above to be relevant to your app.
 
 When you are satisfied that your stories are sensible, you can start up your first Chromatic build and set the baselines for these stories with:
 
