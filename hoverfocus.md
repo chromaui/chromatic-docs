@@ -15,7 +15,7 @@ For interactive states, we recommend separating state from the component to achi
 ```js
 // MyComponent.js
 
-export function MyComponent({ isHovered, isActive,label }) {
+export function MyComponent({ isHovered, isActive, label }) {
   return (
     <Button isHovered={isHovered} isActive={isActive}>
       {label}
