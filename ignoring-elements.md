@@ -21,43 +21,59 @@ pixels within the bounding rectangle of ignored elements. It's important to ensu
 
 ## Ignore stories
 
-You can omit stories entirely from Chromatic testing using the `disable` story parameter:
+You can omit stories entirely from Chromatic testing using the `disable` [story parameter](https://storybook.js.org/docs/react/writing-stories/parameters#story-parameters):
 
 ```js
+// MyComponent.stories.js
+
 import MyComponent from './MyComponent';
 
 export default {
   component: MyComponent,
 };
 
-export const StoryName = () => <MyComponent />;
+const Template = (args) => <MyComponent {...args} />;
 
-StoryName.story = {
-  parameters: {
-    chromatic: { disable: true },
-  },
+export const StoryName = Template.bind({});
+StoryName.parameters = {
+  // disables Chromatic on a story level
+  chromatic: { disable: true },
 };
 ```
 
-You can use Storybook's parameter inheritance to whitelist stories if you want to implement Chromatic incrementally:
+
+If you want to adopt Chromatic incrementally, you can use Storybook's parameter inheritance to whitelist stories.
+
+In your [`.storybook/preview.js`](https://storybook.js.org/docs/react/configure/overview#configure-story-rendering) add the `disable` option in the [parameters](https://storybook.js.org/docs/react/writing-stories/parameters#global-parameters):
 
 ```js
-// In .storybook/config.js
-import { addParameters } from '@storybook/react'; // <- or your app layer
+// .storybook/preview.js
 
-addParameters({ chromatic: { disable: true } });
+export const parameters = {
+  // disables Chromatic on a global level
+  chromatic: { disable: true },
+};
+```
 
-// In the components you'd like to enable Chromatic for
+In the component's stories you'd like to enable Chromatic:
+
+```js
+// MyComponent.stories.js
+
 import MyComponent from './MyComponent';
 
 export default {
   component: MyComponent,
+  // enables Chromatic for the component
   parameters: {
     chromatic: { disable: false },
   },
 };
 
-export const StoryName = () => <MyComponent />;
+const Template = (args) => <MyComponent {...args} />; 
+
+export const StoryName = Template.bind({});
+StoryName.args = {};
 ```
 
 ## Ignore DOM elements
@@ -66,6 +82,8 @@ Add the `.chromatic-ignore` CSS class or `[data-chromatic="ignore"]` attribute t
 Chromatic to ignore.
 
 ```js
+// MyComponent.js
+
 import React from 'react';
 
 export default function MyComponent() {

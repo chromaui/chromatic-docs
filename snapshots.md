@@ -81,6 +81,8 @@ If you use an “animateIn” effect set [delay](delay) to ensure we snapshot wh
 If your component infers its dimensions from the layout of the surrounding DOM elements (e.g., it's a modal that uses `position:fixed`), you'll need to set the height of that component's stories using a decorator.
 
 ```js
+// MyComponent.stories.js
+
 import MyComponent from './MyComponent'
 
 export default {

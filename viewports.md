@@ -10,42 +10,61 @@ UI components can respond to device width. Chromatic makes it easy to visual tes
 
 ## Viewports for a story
 
-To set a viewport, specify one or more screen _widths_ to the `chromatic.viewports` parameter:
+To set a viewport, specify one or more screen _widths_ to the `chromatic.viewports` [parameter](https://storybook.js.org/docs/react/writing-stories/parameters#story-parameters):
 
 ```js
+// MyComponent.stories.js
+
 import MyComponent from './MyComponent';
 
 export default {
   component: MyComponent,
 };
 
-export const StoryName = () => <MyComponent with="props" />;
+const Template = (args) => <MyComponent {...args} />;
 
-StoryName.story = {
-  parameters: {
-    chromatic: { viewports: [320, 1200] },
-  },
+export const StoryName = Template.bind({});
+StoryName.args={
+  with: 'props'
 };
+StoryName.parameters = {
+  // Set the viewports in Chromatic at a story level.
+  chromatic: { viewports: [320, 1200] },
+};
+
 ```
 
 When Chromatic captures your story, it will create _two_ snapshots on your build, with the browser set at each viewports. These viewports will be treated separately, with independent baselines and distinct approvals.
 
 ## Viewports for all stories of a component
 
-Thanks to Storybook's built in parameter API, you can also target viewport at a group of stories or even your entire Storybook. To apply a set of viewports to all a component's stories, use:
+Thanks to Storybook's built in [parameter](https://storybook.js.org/docs/react/writing-stories/parameters#component-parameters) API, you can also target viewport at a group of stories or even your entire Storybook. To apply a set of viewports to all component's stories, use:
 
 ```js
+// MyComponent.stories.js
+
 import MyComponent from './MyComponent';
 
 export default {
   component: MyComponent,
   parameters: {
+    // Set the viewports in Chromatic at a component level.
     chromatic: { viewports: [320, 1200] },
   },
 }
 
-export const StoryName = () => <MyComponent with="props" />);
-export const SecondStoryName = () => <MyComponent with="other-props" />;
+const Template = (args) => <MyComponent {...args} />;
+
+export const StoryName = Template.bind({});
+StoryName.args = {
+  with: 'props'
+};
+
+export const SecondStoryName = (args) = Template.bind({});
+SecondStoryName.args = {
+  with: 'other-props'
+};
+
 ```
 
 ---
@@ -66,7 +85,7 @@ As we take a full screenshot of the component (even if it flows off the screen),
 
 <details><summary>Why is my content being cut off vertically?</summary>
 
-Make sure there are no elements inadvertantly cutting off content through the use of overflow or height styles.
+Make sure there are no elements inadvertently cutting off content through the use of overflow or height styles.
 
 For elements that have relative height styles based on the size of the viewport (such as `height: 100vh`), all content nested under that element will show up in a screenshot unless either `overflow: hidden` or `overflow: scroll` is used to hide what is outside of that element (and therefore outside of the viewport).
 
@@ -74,7 +93,7 @@ When Chromatic takes a screenshot for an element that has a viewport-relative he
 
 To set the height, you can add a decorator for stories that wraps them in a container with a fixed height:
 
-```
+```js
 decorators: [storyFn => <div style="height: '1000px'">{storyFn()}</div>]
 ```
 
@@ -88,9 +107,11 @@ Scrollable divs constrain the height of their children. Change the height of the
 
 <details><summary>What if I have a modal component that doesn't have a width or height?</summary>
 
-If your component infers its dimensions from the layout of the surrounding DOM elements (e.g., it's a modal that uses `position:fixed`), you can set the height of that component's stories using a decorator.
+If your component infers its dimensions from the layout of the surrounding DOM elements (e.g., it's a modal that uses `position:fixed`), you can set the height of that component's stories using a <a href="https://storybook.js.org/docs/react/writing-stories/decorators#component-decorators">decorator</a>.
 
 ```js
+// MyComponent.stories.js
+
 import MyComponent from './MyComponent'
 
 export default {
@@ -104,22 +125,25 @@ export default {
   ],
 }
 
-export const StoryWithDimensions = () => <MyComponent/>
+const Template = (args) => <MyComponent/>;
+
+export const StoryWithDimensions = Template.bind({});
+StoryWithDimensions.args = {};
 ```
 
 </details>
 
 <details><summary>How do I assign viewports to my entire Storybook?</summary>
 
-We don't recommend this in most cases because each viewport is treated independently and snapshots must be approved as such. But if you really want to assign viewports for an entire Storybook use `addParameters()` in your `.storybook/config.js`:
+We don't recommend this in most cases because each viewport is treated independently and snapshots must be approved as such. But if you really want to assign viewports for an entire Storybook use [`parameters`](https://storybook.js.org/docs/react/writing-stories/parameters#global-parameters) in your [`.storybook/preview.js`](https://storybook.js.org/docs/react/configure/overview#configure-story-rendering):
 
 ```js
-import { configure, addParameters } from '@storybook/react'; // <- substitute react with your app layer
+// .storybook/preview.js
 
-// Be careful doing this!
-addParameters({
+export const parameters={
+    // Set the viewports in Chromatic globally.
   chromatic: { viewports: [320, 1200] },
-});
+}
 ```
 
 </details>

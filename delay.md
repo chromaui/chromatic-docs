@@ -19,21 +19,26 @@ The maximum time for snapshot capture is 15s. Your story should finish loading r
 
 ## Delay a story
 
-Use story-level delay to ensure a minimum amount of time (in milliseconds) has passed before Chromatic takes a screenshot.
+Use [story-level](https://storybook.js.org/docs/react/writing-stories/parameters#story-parameters) delay to ensure a minimum amount of time (in milliseconds) has passed before Chromatic takes a screenshot.
 
 ```js
+// MyComponent.js
+
 import MyComponent from "./MyComponent";
 
 export default {
   component: MyComponent,
 };
 
-export const StoryName = () => <MyComponent with="props" />;
+const Template = (args) => <MyComponent {...args} />;
 
-StoryName.story = {
-  parameters: {
-    chromatic: { delay: 300 },
-  },
+export const StoryName = Template.bind({});
+StoryName.args = {
+  with: 'props',
+};
+StoryName.parameters = {
+  // Sets the delay for a specific story.
+  chromatic: { delay: 300 },
 };
 ```
 
@@ -41,18 +46,30 @@ This technique is intended for interactions and animations that end after a cert
 
 ## Delay all stories of a component
 
-Chromatic uses Storybook’s built in parameter API to make it straightforward to set delay on a group of stories:
+Chromatic uses Storybook’s built in [parameter](https://storybook.js.org/docs/react/writing-stories/parameters#component-parameters) API to make it straightforward to set delay on a group of stories:
 
 ```js
+// MyComponent.js
+
 import MyComponent from "./MyComponent";
 
 export default {
   component: MyComponent,
   parameters: {
+    // Sets a delay for the component's stories
     chromatic: { delay: 300 },
   },
 };
 
-export const StoryName = () => <MyComponent with="props" />;
-export const SecondStoryName = () => <MyComponent with="other-props" />;
+const Template = (args) => <MyComponent {...args} />;
+
+export const StoryName = Template.bind({});
+StoryName.args = {
+  with: 'props'
+};
+
+export const SecondStoryName = Template.bind({});
+SecondStoryName.args = {
+  with: 'other-props'
+};
 ```

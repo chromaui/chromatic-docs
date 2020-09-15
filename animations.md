@@ -12,32 +12,36 @@ Chromatic proactively pauses CSS animations/transitions, SVG animations, and vid
 
 Chromatic will pause CSS animations and reset them to their beginning state.
 
-Some animations are used to "animate in" visible elements. To specify that Chromatic should pause the animation at the end, use the `pauseAnimationAtEnd` story parameter:
+Some animations are used to "animate in" visible elements. To specify that Chromatic should pause the animation at the end, use the `pauseAnimationAtEnd` [story parameter](https://storybook.js.org/docs/react/writing-stories/parameters#story-parameters):
 
 ```js
+// MyComponent.stories.js
+
 import MyComponent from './MyComponent';
 
 export default {
   component: MyComponent,
 };
 
-export const StoryName = () => <MyComponent />;
+const Template = (args) => <MyComponent {...args} />;
 
-StoryName.story = {
-  parameters: {
-    chromatic: { pauseAnimationAtEnd: true },
-  },
+export const StoryName = Template.bind({});
+StoryName.parameters = {
+  // Notifies Chromatic to pause the animations when they finish for the specific story.
+  chromatic: { pauseAnimationAtEnd: true },
 };
+
 ```
 
-You can use Storybook's parameter inheritance if you want to set the behaviour for your entire app:
+You can use Storybook's [parameter](https://storybook.js.org/docs/react/writing-stories/parameters#global-parameters) inheritance if you want to set the behavior for your entire app:
 
 ```js
-// In .storybook/config.js
-import { addParameters } from '@storybook/react';
+// .storybook/preview.js
 
-// This will apply the behaviour to all stories in your Storybook
-addParameters({ chromatic: { pauseAnimationAtEnd: true } });
+export const parameters = {
+  // Notifies Chromatic to pause the animations when they finish at a global level.
+  chromatic: { pauseAnimationAtEnd: true }
+};
 ```
 
 ## JavaScript animations
@@ -45,7 +49,7 @@ addParameters({ chromatic: { pauseAnimationAtEnd: true } });
 Chromatic cannot disable JavaScript driven animations, so we advise disabling such animations manually for Chromatic builds. One way to do that is using [`isChromatic()`](isChromatic):
 
 ```js
-// In .storybook/config.js
+// .storybook/preview.js
 import isChromatic from 'chromatic/isChromatic';
 
 if (isChromatic()) {

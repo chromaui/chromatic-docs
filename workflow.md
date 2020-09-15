@@ -12,7 +12,7 @@ Chromatic automates UI development so you can build more features, faster, and w
 
 ### 1. Build in Storybook
 
-Build UI components in isolation with Storybook. Use [Component-Driven Development](https://blog.hichroma.com/component-driven-development-ce1109d56c8e), a process for building UIs from the "bottom up" starting with components and ending with screens.
+Build UI components in isolation with Storybook. Use [Component-Driven Development](https://www.componentdriven.org/), a process for building UIs from the "bottom up" starting with components and ending with screens.
 
 ### 2. Publish on Chromatic
 
@@ -30,7 +30,7 @@ Now that the UI has no obvious flaws, bring in designers, PMs, and other stakeho
 
 When the UI is production-ready, document it so future developers don't have to rebuild the same thing. This is automatic with Chromatic. Every component is documented, versioned, and searchable in the cloud.
 
-<div class="aside">Tip: Use <a href="https://github.com/storybookjs/storybook/tree/next/addons/docs" target="_blank">Storybook Docs</a> to auto-generate minimum viable docs which can be further customized as your needs grow.</div>
+<div class="aside">Tip: Use <a href="https://storybook.js.org/docs/react/writing-docs/introduction" target="_blank">Storybook Docs</a> to auto-generate minimum viable docs which can be further customized as your needs grow.</div>
 
 ### 🚀 Merge with confidence
 
@@ -47,7 +47,7 @@ You finished setting up Chromatic. We look forward to the incredible UIs you'll 
 - [Intro to Storybook](https://www.learnstorybook.com/intro-to-storybook/) is the essential guide to learning Storybook.
 - [Design Systems for Developers](https://www.learnstorybook.com/design-systems-for-developers/) shares how to build production infrastructure for design systems.
 - [Visual Testing Handbook](https://www.learnstorybook.com/visual-testing-handbook/) details how professional frontend teams visual test with Storybook.
-- [Component-Driven Development](https://blog.hichroma.com/component-driven-development-ce1109d56c8e) is a "bottoms up" process for building modular UIs starting from components and ending with screens.
+- [Component-Driven Development](https://www.componentdriven.org/) is a "bottoms up" process for building modular UIs starting from components and ending with screens.
 - [UI Component Playbook](https://blog.hichroma.com/ui-component-playbook-fd3022d00590) is a 5-step overview of designing and engineering frontends with components
 
 #### How to get support
