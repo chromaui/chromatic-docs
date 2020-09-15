@@ -84,7 +84,7 @@ import '../src/index.css';
 
 Let's suppose you want to test a component named `Histogram`, that lives at `src/components/Histogram.js`.
 
-Simply create a file called `src/components/Histogram.stories.js` and write the following:
+Create a file called `src/components/Histogram.stories.js` and write the following:
 
 ```js
 // src/components/Histogram.stories.js
