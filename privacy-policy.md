@@ -102,6 +102,80 @@ Our Privacy Policy link includes the word 'Privacy' and can easily be found on t
 
 ---
 
+## California Consumer Privacy Act (CCPA)
+
+The CCPA gives consumers more control over the personal information that businesses collect about them. It provides certain data privacy rights to California residents, seeks to protect those rights by imposing new obligations on companies doing business in California, and grants the California Attorney General broad authority to implement related regulations.
+
+#### Rights Afforded to California Residents
+
+The CCPA secures the following rights for California consumers:
+
+1. The right to know what consumer personal information is collected by businesses and how businesses use such information.
+2. The right to know whether the personal information is sold or disclosed, and to whom such information is sold or disclosed.
+3. The right to say no to the sale of their personal information.
+4. The right to access their personal information.
+5. The right to equal service and price, even if they exercise their privacy rights under the CCPA.
+
+#### Information We Collect
+
+When a user orders or registers on our website, as appropriate, they will be asked to provide various information including name, email address, and credit card information. Additionally, information is also sourced from third-party vendors with which an individual user may have affiliations (ex. GitHub). In particular, Chromatic has collected the following categories of personal information from consumers within the last twelve (12) months.
+
+- A. Identifiers: A real name, alias, postal address, unique personal identifier, online identifier, Internet Protocol address, email address, account name, Social Security number, driver's license number, passport number, or other similar identifiers.
+- B. Personal information categories listed in the California Customer Records statute (Cal. Civ. Code § 1798.80(e)): A name, signature, Social Security number, physical characteristics or description, address, telephone number, passport number, driver's license or state identification card number, insurance policy number, education, employment, employment history, bank account number, credit card number, debit card number, or any other financial information, medical information, or health insurance information.
+- D. Commercial information: Products or services purchased, obtained, or considered, or other purchasing or consuming histories or tendencies.
+- F. Internet or other similar network activity: Browsing history, search history, information on a consumer's interaction with a website, application, or advertisement.
+- G. Geolocation data: Physical location or movements.
+- I. Professional or employment-related information: Current or past job history or performance evaluations.
+
+#### Use of Information Collected
+
+We may use the information we collect from you when you register, make a purchase, sign up for our newsletter, respond to a survey or marketing communication, surf the website, or use certain other site features for the following business and commercial purposes:
+
+- To personalize your experience and to allow us to deliver the type of content and product offerings in which you are most interested.
+- To improve our website in order to better serve you.
+- To allow us to better service you in responding to your customer service requests.
+- To quickly process your transactions.
+- To send periodic emails regarding your order or other products and services.
+- To follow up with them after correspondence (live chat, email or phone inquiries)
+- To audit user interactions.
+- To maintain the quality and safety of our services.
+- To detect security incidents and protect against malicious, deceptive, fraudulent, or illegal activity.
+- For internal research and product improvement.
+- For debugging to identify and repair errors that impair our services.
+
+#### Third Party Disclosure
+
+We do not sell or trade your Personally Identifiable Information. We do not include or offer third-party products or services on our website.
+
+For business purpose or commercial purpose, as defined in the CCPA, we might disclose your Personally Identifiable Information to the following categories:
+
+- Service providers
+- Government regulators
+- Our legal advisors and parties involved in a legal process
+- Third parties to whom you or your agents authorize us to disclose your Personal Information in regards to products or services we provide you
+
+We may employ third parties to help us provide and/or improve the services. These third parties may have limited access to your Personally Identifiable Information solely for the purpose of helping us to provide and/or improve the services and they will be subject to contractual restrictions prohibiting them from using the information about our users for any other purpose.
+
+We may disclose your Personal Identifiable Information to third parties without your consent if we have reason to believe that disclosing this information is necessary to identify, contact or bring legal action against someone who may be causing injury to or interference with (either intentionally or unintentionally) our rights or property, other users of the services, or anyone else (including the rights or property of anyone else) that could be harmed by such activities.
+
+We may disclose Personal Identifiable Information when we believe in good faith that such disclosure is required by and in accordance with the law.
+
+We may also disclose your Personal Identifiable Information in connection with a corporate re-organization, a merger with another entity, or a sale of all or a substantial portion of our assets or stock, provided that the information disclosed continues to be used for the purposes permitted by this Privacy Policy by the entity acquiring the information.
+
+#### Access and Erasure Requests
+
+To access the information that has been collected on you or to have your personal information erased, please email support@chromatic.com or complete <a href="/intercom" onclick="event.preventDefault();openIntercom();">this form</a>.
+
+#### Verification
+
+In order to protect your personal information from unauthorized access or deletion, we may require you to verify your login credentials before you can submit a request to know or delete personal information. If you do not have an account with us, or if we suspect fraudulent or malicious activity, we may ask you to provide additional personal information for verification. If we cannot verify your identity, we will not provide or delete your personal information.
+
+#### Authorized Agents
+
+You may submit a request to know or a request to delete your personal information through an authorized agent. If you do so, the agent must present signed written permission to act on your behalf and you may also be required to independently verify your identity with us.
+
+--
+
 ## How does our site handle Do Not Track signals?
 
 We honor Do Not Track signals and Do Not Track, plant cookies, or use advertising when a Do Not Track (DNT) browser mechanism is in place.
