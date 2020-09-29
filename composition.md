@@ -12,7 +12,7 @@ Now we're going to give you a quick overview on how you can combine multiple Sto
 
 ## Compose published Storybooks 
 
-At any time you can add a reference to any published Storybook in Chromatic and embed it into your own.
+At any time you can add a reference to any Storybook published with Chromatic and embed it into your own.
 
 To do so, you'll need to change the [`storybook/main.js`](https://storybook.js.org/docs/react/configure/overview#configure-story-rendering) file and add the `ref` key with some additional configuration, Similar to the example below:
 
