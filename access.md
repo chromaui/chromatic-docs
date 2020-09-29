@@ -14,7 +14,7 @@ Login via OAuth from GitHub, GitLab, or Bitbucket. Chromatic supports the public
 
 If you use the on-premise or enterprise versions of GitHub, GitLab, or Bitbucket, we can support you via our [enterprise plan](https://www.chromatic.com/pricing). The enterprise plan also offers single sign-on (SSO) and service-level agreements (SLA). We recommend trialing Chromatic first by following these [instructions](setup#demo-chromatic-unlinked).
 
-If you use other services like Azure DevOps, AWS, etc, you won't be able to sign in via OAuth. But you can still use Chromatic as a CI-only job using the intructions [here](setup#demo-chromatic-unlinked).
+If you use other services like Azure DevOps, AWS, etc, you won't be able to sign in via OAuth. But you can still use Chromatic as a CI-only job using the instructions [here](setup#demo-chromatic-unlinked).
 
 ### OAuth Scopes
 
@@ -57,7 +57,7 @@ When you link a project to an online repository (on the "Manage" page, or when c
 - Viewer: users can view snapshots and builds, but cannot review
 - Reviewer: users can review snapshots and manage other aspects of the project.
 
-Note that public repositories on GitHub/GitLab/Bitbucket give viewer access to all users. A user must be granted explicit contributor access by a maintainer to become a reviewer in Chromatic. For private repositories, anyone who has access to the repositiory in GitHub/GitLab/Bitbucket will have reviewer access in Chromatic.
+Note that public repositories on GitHub/GitLab/Bitbucket give viewer access to all users. A user must be granted explicit contributor access by a maintainer to become a reviewer in Chromatic. For private repositories, anyone who has access to the repository in GitHub/GitLab/Bitbucket will have reviewer access in Chromatic.
 
 ### Unlinked Projects
 
@@ -65,7 +65,13 @@ To grant access to a unlinked project that you've created, either link it to a t
 
 Users that have used the invitation link will get reviewer access to the project.
 
+<div class="aside">
+ We're actively working in improving on how access control is implemented in Chromatic. Keep checking in for updates.
+</div>
+
 ---
+
+
 
 ### Frequently asked questions
 

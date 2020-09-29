@@ -67,7 +67,7 @@ No. Snapshots taken for one workflow are reused for the other. You don't get cha
 <details>
 <summary>Where are my images and fonts?</summary>
 
-Make sure your resource hosts are reliably fast. When possible serve resources staticly via Storybook or use a dedicated service. Learn more about [resource loading in Chromatic](resource-loading).
+Make sure your resource hosts are reliably fast. When possible serve resources statically via Storybook or use a dedicated service. Learn more about [resource loading in Chromatic](resource-loading).
 
 If your resources are behind a firewall, whitelist our domain so we can load your resources.
 
