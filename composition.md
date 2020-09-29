@@ -33,7 +33,7 @@ module.exports = {
 
 Now the published Storybook will be available for consumption, as if you were working on it locally.
 
-It's worth mentioning that for the time being access to any deployed Storybooks through composition will abide to the same set of rules documented [here](access). 
+It's worth mentioning that access to any deployed Storybooks through composition will abide to the same set of rules documented [here](access). 
 
 ![Multiple Storybooks combined through composition](img/reference-external-storybooks-composition.jpg)
 
