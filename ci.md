@@ -71,7 +71,7 @@ jobs:
 ```
 
 If you run jobs on external PRs, view [CircleCI docs](https://circleci.com/blog/triggering-trusted-ci-jobs-on-untrusted-forks/) for a configuration guide.
-For more workflow inspirations, checkout this [Chromatic CircleCI Orb](https://circleci.com/orbs/registry/orb/wave/chromatic) that was made by a customer.
+For more workflow inspiration, checkout this [Chromatic CircleCI Orb](https://circleci.com/orbs/registry/orb/wave/chromatic) that was made by a customer.
 
 </details>
 
