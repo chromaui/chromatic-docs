@@ -6,9 +6,7 @@ description: Learn to combine Storybooks through composition
 
 # Storybook composition
 
-We've already seen how easily we can configure [Chromatic with Storybook](storybook) and [publish](document#direct-access-to-your-storybook) it into a secure CDN. 
-
-Now we're going to give you a quick overview on how you can combine multiple Storybooks though composition. This is helpful when working with big projects that might spread around multiple repositories or use different tech stacks.
+When you use Chromatic in your project, you'll get your Storybook deployed into a secure CDN and you can use the deployed url and share it with your team members to get instant feedback, but you can also use it and combine with other Storybooks. We're going to give you a quick overview on how you can do this, how you can combine Storybooks through composition.
 
 ## Compose published Storybooks 
 
