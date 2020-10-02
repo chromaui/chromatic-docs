@@ -10,7 +10,7 @@ Chromatic publishes your Storybook to a secure CDN. That means you can combine p
 
 ## Compose published Storybooks 
 
-At any time you can add a reference to any Storybook published with Chromatic and embed it into your own.
+Chromatic generates a permalink for published Storybooks. Reference this permalink when combining Storybooks.
 
 To do so, you'll need to change the [`storybook/main.js`](https://storybook.js.org/docs/react/configure/overview#configure-story-rendering) file and add the `ref` key with some additional configuration, Similar to the example below:
 
