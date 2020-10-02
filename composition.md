@@ -41,7 +41,6 @@ Access to published Storybooks through Composition will abide by the same set of
 
 Design system and component library authors can automatically compose their Storybook inside their consumer’s Storybooks. Add a `storybook` property in the `package.json`.
 
-You can add a `storybook` property in the `package.json` file with additional information. Similar to the example below:
 
 ```json
 {
