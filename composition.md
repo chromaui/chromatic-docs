@@ -50,7 +50,7 @@ You can add a `storybook` property in the `package.json` file with additional in
   }
 }
 ```
-
+When Storybook starts, it scans for external Storybooks referenced by your packages and loads them into the UI. 
 Looking in more detail at the example url:
 
  - **main** -- relates to the branch currently used.
