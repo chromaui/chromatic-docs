@@ -29,7 +29,7 @@ module.exports = {
 };
 ```
 
-Now the published Storybook will be available for consumption, as if you were working on it locally.
+When your local Storybook starts, it will auto detect the `refs` and compose the published Storybook from Chromatic. You'll see both sets of stories side-by-side.
 
 It's worth mentioning that access to any deployed Storybooks through composition will abide to the same set of rules documented [here](access). 
 
