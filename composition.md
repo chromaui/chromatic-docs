@@ -10,7 +10,7 @@ Chromatic publishes your Storybook to a secure CDN. That means you can combine p
 
 ## Compose published Storybooks
 
-Chromatic generates a [permalink](permalink) for published Storybooks to use with Composition that includes:
+Chromatic generates a [permalink](permalinks) for published Storybooks to use with Composition that includes:
 
 - Versioned endpoints, URLs that resolve to different published Storybooks depending on a version=x.y.z query parameter (where x.y.z is the released version of the package).
 - Support for /stories.json
