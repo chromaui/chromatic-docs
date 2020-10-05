@@ -42,7 +42,7 @@ When your local Storybook starts, it will auto detect the `refs` and compose you
 
 ### Compose Storybook by branch or commit
 
-Depending on your use case, you may want to compose Storybook using a [permalink](permalink) to a branch or a commit.
+Depending on your use case, you may want to compose Storybook using a [permalink](permalinks) to a branch or a commit.
 
 #### Branch: `https://<branch>--<appid>.chromatic.com`
 
