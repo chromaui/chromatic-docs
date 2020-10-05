@@ -1,7 +1,7 @@
 ---
 layout: default
 title: Animations
-description: Learn how Chromatic pauses animations and how to control the behaviour
+description: Learn how Chromatic pauses animations and how to control the behavior
 ---
 
 # Animations

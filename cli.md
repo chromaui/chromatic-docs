@@ -114,7 +114,7 @@ We changed the way that Chromatic CLI builds and uploads Storybook over time. Be
 
 The original version of [**storybook-chromatic**](https://www.npmjs.com/package/storybook-chromatic) (deprecated) used a tunnelling mechanism in order to capture screenshots of your stories and create a hosted version of your Storybook. The CLI package would create a HTTPS tunnel between your CI server (running Storybook in development mode) and our capture cloud.
 
-This technique worked well, but it relied on a stable network connection between your CI server and our tunnel's server while building. In some cases, this connection could be less than perfect for reasons outside of anyones control. This could lead to miscaptured stories when resources failed to load.
+This technique worked well, but it relied on a stable network connection between your CI server and our tunnel's server while building. In some cases, this connection could be less than perfect for reasons outside of anyone's control. This could lead to miscaptured stories when resources failed to load.
 
 #### Build and publish method
 

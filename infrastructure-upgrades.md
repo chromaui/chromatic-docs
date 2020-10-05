@@ -23,7 +23,7 @@ Changes that that have noticeable differences are marked "pending" and require r
 
 Chromatic tracks baselines independently for reach branch. When infrastructure upgrades happen, you might have to verify changes on several branches. That's annoying.
 
-The easiest way to avoid repetive reviews is to do a thorough review on a trunk branch (say `master`), and then re-merge (or rebase) the reviewed commit into your feature branches.
+The easiest way to avoid repetitive reviews is to do a thorough review on a trunk branch (say `master`), and then re-merge (or rebase) the reviewed commit into your feature branches.
 
 As an example:
 

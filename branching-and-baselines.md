@@ -56,7 +56,7 @@ If you use the "squash" or "rebase" merge feature on Pull Requests, then a commi
 
 ![Squash and rebase merges remove Git history](img/squash-merge.png)
 
-This means Chromatic has no way to tell, using Git, that baselines accepted during the PR should "come over" to to main branch. Instead, we use Git provider APIs to detect this situaton. When running the squash/rebase merge commit we'll use the accepted baselines of the _most recent_ commit on the head branch of the PR.
+This means Chromatic has no way to tell, using Git, that baselines accepted during the PR should "come over" to to main branch. Instead, we use Git provider APIs to detect this situation. When running the squash/rebase merge commit we'll use the accepted baselines of the _most recent_ commit on the head branch of the PR.
 
 If you are using GitHub, you need to enable our GitHub App (on the [Pull Requests](review) screen) for this feature to work. Bitbucket and GitLab will work out of the box.
 
@@ -72,7 +72,7 @@ However, sometimes the choice of baseline can be confusing. Let’s dig in a lit
 
 In Chromatic, a build contains of a set of snapshots, each of which is a screenshot of a single story at a single viewport.
 
-> If you are using multiple browsers, there may be more than one screenshot within a single snapshot, however as baselines are calcuated above the level of the browser (all browsers share the same acceptance/denial), we can ignore multiple browsers when thinking about baselines.
+> If you are using multiple browsers, there may be more than one screenshot within a single snapshot, however as baselines are calculated above the level of the browser (all browsers share the same acceptance/denial), we can ignore multiple browsers when thinking about baselines.
 
 When you create a new build for a new commit, Chromatic will calculate a baseline for each snapshot in the build (unless the snapshot is for a new story). The first step to do that is to calculate the ancestor(s) for the build itself.
 
@@ -132,7 +132,7 @@ y - Build N+1
 z - Build N+2
 ```
 
-Suppose then in commit y, we changed the color of our submit buttons to be orange rather than green. However, we realised this was a mistake and denied the change. Then in commit z we changed the colour back to green.
+Suppose then in commit y, we changed the color of our submit buttons to be orange rather than green. However, we realized this was a mistake and denied the change. Then in commit z we changed the colour back to green.
 Then in Build N+2, we should compare the “new” green buttons to the original green buttons (from Build N). If they are back to the way they were before, the build should pass without you needing to intervene. If the green color is a different shade, Chromatic should show you a diff and you can decide if that’s what you wanted.
 
 #### Multiple ancestor builds
