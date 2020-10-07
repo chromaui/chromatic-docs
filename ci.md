@@ -67,7 +67,7 @@ jobs:
       - checkout
       - run: npm install
       - run: npm test
-      - run: npm chromatic -a <project-token> --exit-zero-on-changes
+      - run: npm run chromatic
 ```
 
 If you run jobs on external PRs, view [CircleCI docs](https://circleci.com/blog/triggering-trusted-ci-jobs-on-untrusted-forks/) for a configuration guide.
