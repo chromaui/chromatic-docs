@@ -55,7 +55,7 @@ In [`actions/checkout@v2`](https://github.com/actions/checkout#usage), there's n
 <details>
 <summary><h4 class="no-anchor">CircleCI</h4></summary>
 
-In your `.circleci/config.yml` add the Chromatic command to you steps.
+In your `.circleci/config.yml` add the Chromatic command to your steps.
 
 ```yml
 version: 2
@@ -105,6 +105,29 @@ sh 'npm run chromatic'
 
 If you're using Jenkins' [GitHub PR plugin](https://github.com/jenkinsci/ghprb-plugin/blob/master/README.md), choose the `ghprbPullId` specifier for the `refspec`, and ensure you've set the Branch Specifier to `${ghprbActualCommit}`.
 
+</details>
+
+<details>
+<summary><h4 class="no-anchor">Bitbucket Pipelines</h4></summary>
+
+In your `bitbucket-pipelines.yml` add the Chromatic command to the step of your choice.
+
+```yml
+image: node:10.15.0
+
+pipelines:
+  default:
+    - step:
+        name: Build and test
+        script:
+          - npm install
+          - npm test
+          - npm chromatic --project-token <project-token> --exit-zero-on-changes
+
+# ... your existing setup
+```
+
+The default pipeline runs on every push to the repository. You can also define a branch specific pipeline or a pull-requests pipeline that only runs on pull requests initiated from within your repo. Checkout the [Bitbucket Pipelines docs](https://support.atlassian.com/bitbucket-cloud/docs/configure-bitbucket-pipelinesyml/) for a configuration guide.
 </details>
 
 ## UI Test and UI Review
