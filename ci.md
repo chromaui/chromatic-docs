@@ -12,7 +12,13 @@ Configure CI to publish your Storybook and run Chromatic's automation whenever y
 
 ## Configure CI
 
-Before we begin, make sure you set the `CHROMATIC_PROJECT_TOKEN` environment variable when you run CI builds in your CI service's configuration.
+Before we begin, make sure you set the `CHROMATIC_PROJECT_TOKEN` environment variable when you run CI builds in your CI service's configuration. And add a chromatic script to your `package.json`.
+
+```json
+"scripts": {
+  "chromatic": "chromatic --project-token CHROMATIC_PROJECT_TOKEN --exit-zero-on-changes"
+}
+```
 
 Integrate with popular CI tools like you would any other job. Run `npm run chromatic` to publish your Storybook. If [UI Test](test) or [UI Review](review) are enabled, it will return a non-zero exit code when there are changes. For example:
 
@@ -122,7 +128,7 @@ pipelines:
         script:
           - npm install
           - npm test
-          - npm chromatic --project-token <project-token> --exit-zero-on-changes
+          - npm run chromatic
 
 # ... your existing setup
 ```
@@ -136,7 +142,7 @@ The default pipeline runs on every push to the repository. You can also define a
 
 #### Command exit code for "required" checks
 
-If you are using pull request statuses to as required checks before merging, you may not want your CI job to fail if test snapshots render without errors (but with changes). To achieve this, pass the flag `--exit-zero-on-changes` to the `chromatic` command, and your CI job will continue in such cases.
+If you are using pull request statuses as required checks before merging, you may not want your CI job to fail if test snapshots render without errors (but with changes). To achieve this, pass the flag `--exit-zero-on-changes` to the `chromatic` command, and your CI job will continue in such cases.
 
 When using `--exit-zero-on-changes` your CI job will still stop and fail if your Storybook contains stories that error. If you'd prefer Chromatic _never_ to block your CI job, you can use `npm run chromatic || true`.
 
