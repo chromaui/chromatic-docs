@@ -39,9 +39,18 @@ Chromatic's GitHub App enables [UI Review](review) for pull requests. We need ad
 
 Chromatic mirrors access permissions at the "team" level to make permissions management quick and easy. Share access with your GitHub organization, Bitbucket group, or GitLab team by adding that account to Chromatic via the menu.
 
-Permissions also carry over at the repository level. For example, if a person does not have access to repository in your code host they will also not have access to it in Chromatic.
-
 ![Account menu](img/account-menu.png)
+
+### Collaborator permissions
+
+Permissions carry over at the repository level for collaborators. For example, if a person does not have access to repository in your Git provider they will also not have access to it in Chromatic.
+To [verify UI tests](test#verify-ui-changes) and [review pull requests](review#review-changeset) collaborators must have `write` access to the repo.
+
+| Permission level       | What collaborators can do                                           |
+| ---------------------- | ------------------------------------------------------------------- |
+| Organization: `member` | View / change account settings, view / add projects                 |
+| Repo: `read`           | View project                                                        |
+| Repo: `write`          | View and manage project, accept/deny UI tests, review pull requests |
 
 ## Projects
 
@@ -70,8 +79,6 @@ Users that have used the invitation link will get reviewer access to the project
 </div>
 
 ---
-
-
 
 ### Frequently asked questions
 
