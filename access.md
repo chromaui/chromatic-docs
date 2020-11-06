@@ -46,12 +46,11 @@ Chromatic mirrors access permissions at the "team" level to make permissions man
 Permissions carry over at the repository level for collaborators. For example, if a person does not have access to repository in your Git provider they will also not have access to it in Chromatic.
 To [verify UI tests](test#verify-ui-changes) and [review pull requests](review#review-changeset) collaborators must have `write` access to the repo.
 
-| Permission level      | What collaborators can do                                             |
-| --------------------- | --------------------------------------------------------------------- |
-| Organization: `read`  | View all organization projects                                        |
-| Organization: `write` | View all organization projects, add projects, change account settings |
-| Repo: `read`          | View project                                                          |
-| Repo: `write`         | View and manage project, accept/deny UI tests, review pull requests   |
+| Permission level       | What collaborators can do                                           |
+| ---------------------- | ------------------------------------------------------------------- |
+| Organization: `member` | View / change account settings, view / add projects                 |
+| Repo: `read`           | View project                                                        |
+| Repo: `write`          | View and manage project, accept/deny UI tests, review pull requests |
 
 ## Projects
 
