@@ -33,108 +33,11 @@ Integrate with popular CI tools like you would any other job. Run `npm run chrom
 
 Here's how we recommend configuring Chromatic for popular CI services.
 
-<details>
-<summary><h4 class="no-anchor">GitHub Actions</h4></summary>
-
-Chromatic has a [GitHub Action](https://github.com/chromaui/action). Add it to a workflow like so:
-
-```yml
-- uses: actions/checkout@v2
-  with:
-    fetch-depth: 0 # Required to retrieve git history
-- uses: chromaui/action@v1
-  with:
-    token: {% raw %}${{ secrets.GITHUB_TOKEN }}{% endraw %}
-    projectToken: {% raw %}${{ secrets.CHROMATIC_PROJECT_TOKEN }}{% endraw %}
-```
-
-You'll need to configure secrets in the settings tab at `https://github.com/{YOUR_ORGANSATION}/{YOUR_REPOSITORY}/settings/secrets`
-
-GitHub Actions can run based on any GitHub event, but we recommend to run the workflow containing the Chromatic step on `push` event. The action will work on `pull-request` events too, although [it comes with some caveats](ci#pull-request-builds). All other events will not work.
-
-For external PRs (PRs from forks of your repo) to receive the Chromatic projectToken, you'll have to make the projectToken public by placing it in your `package.json`. Alternatively, you could disable Chromatic on external PRs or duplicate external PRs inside your repository.
-
-In [`actions/checkout@v2`](https://github.com/actions/checkout#usage), there's no git history. Chromatic needs the git history in order to find the base build for baseline association. Add `fetch-depth: 0`.
-
-</details>
-
-<details>
-<summary><h4 class="no-anchor">CircleCI</h4></summary>
-
-In your `.circleci/config.yml` add the Chromatic command to your steps.
-
-```yml
-version: 2
-jobs:
-  build:
-    # ... your existing setup
-
-    steps:
-      - checkout
-      - run: npm install
-      - run: npm test
-      - run: npm run chromatic
-```
-
-If you run jobs on external PRs, view [CircleCI docs](https://circleci.com/blog/triggering-trusted-ci-jobs-on-untrusted-forks/) for a configuration guide.
-For more workflow inspiration, checkout this [Chromatic CircleCI Orb](https://circleci.com/orbs/registry/orb/wave/chromatic) that was made by a customer.
-
-</details>
-
-<details>
-<summary><h4 class="no-anchor">Travis CI</h4></summary>
-
-Travis offers two type of builds for commits on pull requests: so called `pr` and `push` builds. It only makes sense to run Chromatic once per PR, so we suggest disabling Chromatic on `pr` builds for internal PRs (i.e. PRs that aren't from forks). You should make sure that you have `push` builds turned on, and add the following code to your `.travis.yml`:
-
-```bash
-- if [[ $TRAVIS_EVENT_TYPE != 'pull_request' ||  $TRAVIS_PULL_REQUEST_SLUG != $TRAVIS_REPO_SLUG ]]; then npm run chromatic; fi
-```
-
-For external PRs (PRs from forks of your repo), the above code will ensure Chromatic does run on the `pr` build, because Travis does not trigger `push` builds in such cases.
-
-<div class="aside">
-<p><b>Note:</b> We recommend running Chromatic on <code>push</code> builds as <code>pr</code> builds can't always run and fall out of the normal git ancestry. For instance, if you change the base branch of a PR, you may find that you need to re-approve changes as some history may be lost.</p>
-
-<p>Chromatic does work with Travis <code>pr</code> builds however!</p>
-</div>
-
-</details>
-
-<details>
-<summary><h4 class="no-anchor">Jenkins</h4></summary>
-
-Add the following command to the `steps` section of your `Jenkinsfile`:
-
-```
-sh 'npm run chromatic'
-```
-
-If you're using Jenkins' [GitHub PR plugin](https://github.com/jenkinsci/ghprb-plugin/blob/master/README.md), choose the `ghprbPullId` specifier for the `refspec`, and ensure you've set the Branch Specifier to `${ghprbActualCommit}`.
-
-</details>
-
-<details>
-<summary><h4 class="no-anchor">Bitbucket Pipelines</h4></summary>
-
-In your `bitbucket-pipelines.yml` add the Chromatic command to the step of your choice.
-
-```yml
-image: node:10.15.0
-
-pipelines:
-  default:
-    - step:
-        name: Build and test
-        script:
-          - npm install
-          - npm test
-          - npm run chromatic
-
-# ... your existing setup
-```
-
-The default pipeline runs on every push to the repository. You can also define a branch specific pipeline or a pull-requests pipeline that only runs on pull requests initiated from within your repo. Checkout the [Bitbucket Pipelines docs](https://support.atlassian.com/bitbucket-cloud/docs/configure-bitbucket-pipelinesyml/) for a configuration guide.
-</details>
+- [GitHub Actions](github-actions)
+- [CircleCI](circleci)
+- [Travis CI](travisci)
+- [Jenkins](jenkins)
+- [Bitbucket Pipelines](bitbucket-pipelines)
 
 ## UI Test and UI Review
 
@@ -229,21 +132,6 @@ How tools work together affects your development speed. Learn the recommended Ch
 ---
 
 ### Frequently asked questions
-
-<details>
-  <summary id="pull-request-builds">Should I run Chromatic on "<code>push</code>" or "<code>pr</code>/<code>merge</code>" commits in my CI?</summary>
-
-Several CI systems offer the option of running build on either the commit that was pushed to a branch for a PR, or on a "merge" commit between that branch and the base branch (typically `master`).
-
-Merge commits don't persist in the history of your git repository, that can cause Chromatic's baselines to be lost in certain situations. We advise not running Chromatic tests on merge commits and instead running them on the regular "push" commits. How to do this differs depending on your CI provider:
-
-- For Travis, ensure you run Chromatic on `push` builds. Read more [below](#travis).
-
-- For GitHub Actions, choose the [`push` event](https://help.github.com/en/articles/events-that-trigger-workflows#webhook-events).
-
-- For Jenkins' GitHub PR plugin, choose the [`ghprbPullId` specifier](https://github.com/jenkinsci/ghprb-plugin/blob/master/README.md).
-
-</details>
 
 <details>
 <summary>Hide the CI messages in the web app</summary>
