@@ -1,15 +1,12 @@
 ---
 layout: default
-title: Travis
+title: Automate Chromatic with Travis CI
 description: Learn how to configure Chromatic with Travis CI
 ---
-
 
 # Automate Chromatic with Travis CI
 
 Chromatic's automation can be included as part of your Travis CI job with relative ease.
-
-With a small change to your current implementation you'll get your Storybook published and visual testing up and running.
 
 ## Initial configuration
 
@@ -65,10 +62,10 @@ jobs:
 For extra security you'll need to configure your own environment variables.
 
 <div class="aside">
-See the official Travis CI <a href="https://docs.travis-ci.com/user/environment-variables/">documentation</a> for more context.
+See the official Travis CI <a href="https://docs.travis-ci.com/user/environment-variables/"> environment variables documentation</a> for more context.
 </div>
 
-### Branch protection
+### Run Chromatic on specific branches
 
 If you need to customize your workflow to run on specific branches, you can do so. Change your `travis.yml` to the following:
 
@@ -86,9 +83,9 @@ before_script:
 
 cache: yarn
 
-# Whitelists the branches
+
 branches:
-  only: main
+  only: main # 👈  filters the execution to run only on the main branch
 
 jobs:
   include:
@@ -98,6 +95,10 @@ jobs:
    - name: 'Chromatic Deployment'
      script: yarn chromatic --project-token=${CHROMATIC_PROJECT_TOKEN}
 ```
+
+<div class="aside">
+For more information on conditional builds, see the official Travis CI <a href="https://docs.travis-ci.com/user/conditional-builds-stages-jobs/">documentation</a>
+</div>
 
 ### Recommended configuration for build events
 

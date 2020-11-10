@@ -6,9 +6,7 @@ description: Learn how to configure Chromatic with BitBucket Pipelines
 
 # Automate Chromatic with BitBucket Pipelines
 
-Chromatic's visual regression testing can be included as part of your BitBucket pipeline workflow with relative ease.
-
-With a small change to your current implementation you'll get your Storybook published and visual testing up and running.
+Chromatic’s automation can be included as part of your BitBucket pipeline workflow with relative ease.
 
 ## Initial configuration
 
@@ -57,13 +55,12 @@ pipelines:
 For extra security you'll need to configure your own environment variables.
 
 <div class="aside">
-See the official BitBucket <a href="https://support.atlassian.com/bitbucket-cloud/docs/variables-and-secrets/">documentation</a> for more context.
+See the official BitBucket <a href="https://support.atlassian.com/bitbucket-cloud/docs/variables-and-secrets/">environment variables documentation</a> for more context.
 </div>
 
-### Branch protection
+### Run Chromatic on specific branches
 
-If you need to customize your pipeline to run only on specific branches, you can do so. Change your `bitbucket-pipelines.yml` to the following:
-
+If you need to customize your workflow to run Chromatic on specific branches, adjust your pipeline like so:
 
 ```yml
 # bitbucket-pipelines.yml
@@ -83,8 +80,7 @@ pipelines:
           - yarn test
           - yarn chromatic --project-token=$CHROMATIC_PROJECT_TOKEN
   branches:
-    # the example branch will display the message in the console as instead of running Chromatic.
-    example:
+    example:  # 👈  The example branch will display the message in the console as instead of running Chromatic.
       - step:
          script:
            - echo "Skipping Chromatic deployment"

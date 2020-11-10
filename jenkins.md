@@ -6,9 +6,7 @@ description: Learn how to configure Chromatic with Jenkins
 
 # Automate Chromatic with Jenkins
 
-Chromatic's visual regression testing can be included as part of your Jenkins pipeline relative ease.
-
-With a small change to your current implementation you'll get your Storybook published and visual testing up and running.
+Chromatic’s automation can be included as part of your Jenkins pipeline with relative ease.
 
 ## Initial configuration
 
@@ -73,12 +71,12 @@ pipeline {
 For extra security you'll need to configure your own environment variables.
 
 <div class="aside">
-See the official Jenkins <a href="https://www.jenkins.io/doc/book/pipeline/jenkinsfile/#using-environment-variables">documentation</a> for more context.
+See the official Jenkins <a href="https://www.jenkins.io/doc/book/pipeline/jenkinsfile/#using-environment-variables"> environment variables documentation</a> for more context.
 </div>
 
-### Branch protection
+### Run Chromatic on specific branches
 
-If you need to customize your pipeline to run on specific branches, you can do so. Change your `Jenkinsfile` to the following:
+If you need to customize your workflow to run Chromatic on specific branches, adjust your `Jenkinsfile` like so:
 
 ```groovy
 pipeline {
@@ -95,7 +93,7 @@ pipeline {
 
     stage('Chromatic Deployment') {
       when {
-        branch 'example'
+        branch 'example' /* 👈  filters the execution to run only on the main branch */
       }
       environment {
         CHROMATIC_PROJECT_TOKEN = '84svyadsh4w'

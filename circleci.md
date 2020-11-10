@@ -8,8 +8,6 @@ description: Learn how to configure Chromatic with CircleCI
 
 Chromatic's automation can be included as part of your CircleCI job with relative ease.
 
-With a small change to your current implementation you'll get your Storybook published and visual testing up and running.
-
 ## Initial configuration
 
 Assuming you have a similar configuration in your `.circleci/config.yml`:
@@ -109,18 +107,18 @@ workflows:
     jobs:
       - build
       - test
-      - chromatic-deployment # Runs the Chromatic job implemented above
+      - chromatic-deployment # 👈  Runs the Chromatic job implemented above
 ```
 
 For extra security you'll need to configure your own environment variables. 
 
 <div class="aside">
-See the official CircleCI <a href="https://circleci.com/docs/2.0/env-vars/">documentation</a> for more context.
+See the official CircleCI <a href="https://circleci.com/docs/2.0/env-vars/">environment variables documentation</a> for more context.
 </div>
 
-### Branch protection
+### Run Chromatic on specific branches
 
-If you need to customize your workflow to run only on specific branches, you can do so. Change your workflow to the following:
+If you need to customize your workflow to run Chromatic on specific branches, adjust your workflow like so:
 
 ```yml
 # .circleci/config.yml
@@ -165,12 +163,12 @@ workflows:
       - chromatic-deployment:
           requires:
             - build
-          filters: # filter the execution to run only on the main branch
+          filters: # 👈  filters the execution to run only on the main branch
             branches:
               only: main
 ```
-Now Chromatic will only run in the `main` branch.
 
+Now Chromatic will only run in the `main` branch.
 
 <div class="aside">
 For more information on conditional job execution, see the official CircleCI <a href="https://circleci.com/docs/2.0/configuration-reference/#filters">documentation</a>.
