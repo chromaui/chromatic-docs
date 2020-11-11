@@ -25,11 +25,11 @@ jobs:
      script: yarn chromatic --project-token=${CHROMATIC_PROJECT_TOKEN}
 ```
 
-For extra security you'll need to configure your own environment variables.
-
 <div class="aside">
-See the official Travis CI <a href="https://docs.travis-ci.com/user/environment-variables/"> environment variables documentation</a> for more context.
+Read the official Travis CI <a href="https://docs.travis-ci.com/user/environment-variables/"> environment variables documentation</a>.
 </div>
+
+For extra security you'll need to configure your own environment variables.
 
 ### Run Chromatic on specific branches
 
@@ -52,7 +52,7 @@ jobs:
 ```
 
 <div class="aside">
-For more information on conditional builds, see the official Travis CI <a href="https://docs.travis-ci.com/user/conditional-builds-stages-jobs/">documentation</a>
+Read the official Travis CI <a href="https://docs.travis-ci.com/user/conditional-builds-stages-jobs/"> conditional build documentation</a>.
 </div>
 
 ### Recommended configuration for build events
@@ -88,7 +88,21 @@ For external pull requests (i.e forked repositories), the above code will ensure
 
 #### Command exit code for "required" checks
 
-If you are using pull request statuses as required checks before merging, you may not want your Travis build to fail if test snapshots render without errors (but with changes). To achieve this, pass the flag `--exit-zero-on-changes` to the `chromatic` command, and your CI job will continue in such cases.
+If you are using pull request statuses as required checks before merging, you may not want your Travis build to fail if test snapshots render without errors (but with changes). To achieve this, pass the flag `--exit-zero-on-changes` to the `chromatic` command, and your CI job will continue in such cases. For example:
+
+```yml
+# travis.yml
+
+# Other configuration here
+
+jobs:
+  include:
+   # Any other jobs implemented in the workflow
+   # 👇 Adds Chromatic as a job
+   - name: 'Chromatic Deployment'
+     # 👇 --exit-zero-on-changes flag to prevent the workflow from failing
+     script: yarn chromatic --project-token=${CHROMATIC_PROJECT_TOKEN} --exit-zero-on-changes
+```
 
 When using `--exit-zero-on-changes` your build will still stop and fail if your Storybook contains stories that error. If you'd prefer Chromatic _never_ to block the build, you can use `yarn chromatic || true`.
 
@@ -104,8 +118,8 @@ A clean `master` branch is a development **best practice** and **highly recommen
 
 If the builds are a result of direct commits to `master`, you will need to accept changes to keep master clean. If they're merged from `feature-branches`, you will need to make sure those branches are passing _before_ you merge into `master`.
 
-<details>
-<summary><h4 class="no-anchor">Squash/rebase merge and the "master" branch</h4></summary>
+#### Squash/rebase merge and the "master" branch
+
 
 We use GitHub, GitLab, and Bitbucket APIs respectively to detect squashing and rebasing so your baselines match your expectations no matter your Git workflow  (see [Branching and Baselines](branching-and-baselines#squash-and-rebase-merging) for more details).
 
@@ -127,20 +141,16 @@ jobs:
      # 👇 Checks if the current branch is master and runs Chromatic with the auto-accept-changes flag
    - name: 'Deploy to Chromatic and auto accept changes'
      if: branch = master
-     script: yarn chromatic --project-token=${CHROMATIC_PROJECT_TOKEN}  --auto-accept-changes
+     script: yarn chromatic --project-token=${CHROMATIC_PROJECT_TOKEN} --auto-accept-changes
 
 ```
 
-</details>
+#### Run Chromatic on external forks of open source projects
 
-<details>
-<summary><h4 class="no-anchor">Run Chromatic on external forks of open source projects</h4></summary>
 
 You can enable PR checks for external forks by sharing your `project-token` where you configured the Chromatic command (often in `package.json` or your CI config).
 
 There are tradeoffs. Sharing `project-token`'s allows _contributors_ and others to run Chromatic. They'll be able to use your snapshots. They will not be able to get access to your account, settings, or accept baselines. This can be an acceptable tradeoff for open source projects who value community contributions.
-
-</details>
 
 #### Skipping builds for certain branches
 
