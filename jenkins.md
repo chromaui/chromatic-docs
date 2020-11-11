@@ -113,7 +113,7 @@ A clean `master` branch is a development **best practice** and **highly recommen
 If the builds are a result of direct commits to `master`, you will need to accept changes to keep master clean. If they're merged from `feature-branches`, you will need to make sure those branches are passing _before_ you merge into `master`.
 
 <details>
-<summary><h4 class="no-anchor">GitHub squash/rebase merge and the "master" branch</h4></summary>
+<summary><h4 class="no-anchor">Squash/rebase merge and the "master" branch</h4></summary>
 
 We use GitHub, GitLab, and Bitbucket APIs respectively to detect squashing and rebasing so your baselines match your expectations no matter your Git workflow (see [Branching and Baselines](branching-and-baselines#squash-and-rebase-merging) for more details).
 
