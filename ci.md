@@ -38,6 +38,7 @@ Here's how we recommend configuring Chromatic for popular CI services.
 - [Travis CI](travisci)
 - [Jenkins](jenkins)
 - [Bitbucket Pipelines](bitbucket-pipelines)
+- [Other CI providers](custom-ci-provider)
 
 
 ## Pull request checks
