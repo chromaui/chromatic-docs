@@ -35,11 +35,11 @@ pipeline {
 }
 ```
 
-For extra security you'll need to configure your own environment variables.
-
 <div class="aside">
-See the official Jenkins <a href="https://www.jenkins.io/doc/book/pipeline/jenkinsfile/#using-environment-variables"> environment variables documentation</a> for more context.
+Read the official Jenkins <a href="https://www.jenkins.io/doc/book/pipeline/jenkinsfile/#using-environment-variables"> environment variables documentation</a>.
 </div>
+
+For extra security you'll need to configure your own environment variables.
 
 ### Run Chromatic on specific branches
 
@@ -71,11 +71,12 @@ pipeline {
 }
 ```
 
+<div class="aside">
+Read the official Jenkins <a href="https://www.jenkins.io/doc/book/pipeline/syntax/"> conditional pipeline documentation</a>.
+</div>
+
 Now your pipeline will only run Chromatic in the `example` branch.
 
-<div class="aside">
-For more information on conditional pipeline execution, see the official Jenkins <a href="https://www.jenkins.io/doc/book/pipeline/syntax/"> documentation</a>.
-</div>
 
 ### Recommended configuration for build events
 
@@ -83,7 +84,7 @@ Jenkins like CI systems offer the option of running builds for various types of 
 
 These specific types of commits (merge) don't persist in the history of your repository. That can cause Chromatic's baselines to be lost in certain situations.
 
-If you're using the Jenkins [GitHub pr plugin](https://github.com/jenkinsci/ghprb-plugin/blob/master/README.md), our recommendation for your pipeline is the following:
+If you're using the Jenkins [GitHub Pull Request plugin](https://github.com/jenkinsci/ghprb-plugin/blob/master/README.md), our recommendation for your pipeline is the following:
 
 - Choose the `ghprbPullId` specifier for the `refspec`
 - Ensure the Branch Specifier is set to `${ghprbActualCommit}`
@@ -96,13 +97,36 @@ If you're using other Jenkins plugins in your pipeline, refer to this [documenta
 
 #### Command exit code for "required" checks
 
-If you are using pull request statuses as required checks before merging, you may not want your pipeline to fail if test snapshots render without errors (but with changes). To achieve this, pass the flag `--exit-zero-on-changes` to the `chromatic` command, and your pipeline will continue in such cases.
+If you are using pull request statuses as required checks before merging, you may not want your pipeline to fail if test snapshots render without errors (but with changes). To achieve this, pass the flag `--exit-zero-on-changes` to the `chromatic` command, and your pipeline will continue in such cases. For example:
+
+```groovy
+/* JenkinsFile */
+
+pipeline {
+  /* Other pipeline configuration here. */
+
+  stages {
+    /* Other stages implemented in the pipeline */
+
+    /* 👇 Adds Chromatic as a stage in the pipeline */
+    stage('Chromatic Deployment') {
+      environment {
+        CHROMATIC_PROJECT_TOKEN = 'Chromatic project token'
+      }
+      steps {
+        /* 👇 --exit-zero-on-change flag to prevent the pipeline from failing */
+         sh "yarn chromatic --project-token=${CHROMATIC_PROJECT_TOKEN} --exit-zero-on-changes"
+      }
+    }
+  }
+}
+```
 
 When using `--exit-zero-on-changes` your pipeline will still stop and fail if your Storybook contains stories that error. If you'd prefer Chromatic _never_ to block your pipeline, you can use `yarn chromatic || true`.
 
 #### Re-run failed builds after verifying UI test results
 
-Builds that contain visual changes need to be [verified](test#verify-ui-changes). They will fail if you are not using `--exit-zero-on-changes`. Once you accept all the changes, re-run the build and the `chromatic` job will pass.
+Builds that contain visual changes need to be [verified](test#verify-ui-changes). They will fail if you are not using `--exit-zero-on-changes`. Once you accept all the changes, re-run the build and the `Chromatic Deployment` job will pass.
 
 If you deny any change, you will need to make the necessary code changes to fix the test (and thus start a new build) to get Chromatic to pass again.
 
@@ -112,8 +136,8 @@ A clean `master` branch is a development **best practice** and **highly recommen
 
 If the builds are a result of direct commits to `master`, you will need to accept changes to keep master clean. If they're merged from `feature-branches`, you will need to make sure those branches are passing _before_ you merge into `master`.
 
-<details>
-<summary><h4 class="no-anchor">Squash/rebase merge and the "master" branch</h4></summary>
+#### Squash/rebase merge and the "master" branch
+
 
 We use GitHub, GitLab, and Bitbucket APIs respectively to detect squashing and rebasing so your baselines match your expectations no matter your Git workflow (see [Branching and Baselines](branching-and-baselines#squash-and-rebase-merging) for more details).
 
@@ -158,19 +182,14 @@ pipeline {
     }
   }
 }
-
 ```
 
-</details>
-
-<details>
-<summary><h4 class="no-anchor">Run Chromatic on external forks of open source projects</h4></summary>
+#### Run Chromatic on external forks of open source projects
 
 You can enable PR checks for external forks by sharing your `project-token` where you configured the Chromatic command (often in `package.json` or your CI config).
 
 There are tradeoffs. Sharing `project-token`'s allows _contributors_ and others to run Chromatic. They'll be able to use your snapshots. They will not be able to get access to your account, settings, or accept baselines. This can be an acceptable tradeoff for open source projects who value community contributions.
 
-</details>
 
 #### Skipping builds for certain branches
 
