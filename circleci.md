@@ -42,11 +42,12 @@ workflows:
       - chromatic-deployment # 👈  Runs the Chromatic job implemented above
 ```
 
+<div class="aside">
+Read the official CircleCI <a href="https://circleci.com/docs/2.0/env-vars/">environment variables documentation</a>.
+</div>
+
 For extra security you'll need to configure your own environment variables. 
 
-<div class="aside">
-See the official CircleCI <a href="https://circleci.com/docs/2.0/env-vars/">environment variables documentation</a> for more context.
-</div>
 
 ### Run Chromatic on specific branches
 
@@ -70,15 +71,15 @@ workflows:
               only: main
 ```
 
-Now Chromatic will only run in the `main` branch.
-
 <div class="aside">
-For more information on conditional job execution, see the official CircleCI <a href="https://circleci.com/docs/2.0/configuration-reference/#filters">documentation</a>.
+Read the official CircleCI <a href="https://circleci.com/docs/2.0/configuration-reference/#filters">conditional job execution documentation</a>.
 </div>
+
+Now Chromatic will only run in the `main` branch.
 
 ### External Pull Requests
 
-See this [documentation](https://circleci.com/blog/triggering-trusted-ci-jobs-on-untrusted-forks/) for workflows related to pull requests from forked repositories.
+See this [CircleCI documentation](https://circleci.com/blog/triggering-trusted-ci-jobs-on-untrusted-forks/) for workflows related to pull requests from forked repositories.
 
 ### Advanced configuration
 
@@ -93,7 +94,26 @@ In there you'll find various scenarios that you can use depending on  your needs
 
 #### Command exit code for "required" checks
 
-If you are using pull request statuses as required checks before merging, you may not want your Circle CI job to fail if test snapshots render without errors (but with changes). To achieve this, pass the flag `--exit-zero-on-changes` to the `chromatic` command, and your job will continue in such cases.
+If you are using pull request statuses as required checks before merging, you may not want your Circle CI job to fail if test snapshots render without errors (but with changes). To achieve this, pass the flag `--exit-zero-on-changes` to the `chromatic` command, and your job will continue in such cases. For example:
+
+```yml
+# .circleci/config.yml
+
+# Other configuration here
+
+jobs:
+  # Other jobs implemented in the workflow here
+  # 👇 Adds Chromatic as a job
+  chromatic-deployment: 
+    # Other configuration here
+    steps:
+      # Other steps required for the job
+      # 👇  --exit-zero-on-changes flag to prevent the workflow from failing
+      - run: yarn chromatic --project-token=${CHROMATIC_PROJECT_TOKEN} --exit-zero-on-changes
+
+# Workflows here
+
+```
 
 When using `--exit-zero-on-changes` your job will still stop and fail if your Storybook contains stories that error. If you'd prefer Chromatic _never_ to block your job, you can use `yarn chromatic || true`.
 
@@ -109,8 +129,7 @@ A clean `master` branch is a development **best practice** and **highly recommen
 
 If the builds are a result of direct commits to `master`, you will need to accept changes to keep master clean. If they're merged from `feature-branches`, you will need to make sure those branches are passing _before_ you merge into `master`.
 
-<details>
-<summary><h4 class="no-anchor">Squash/rebase merge and the "master" branch</h4></summary>
+#### Squash/rebase merge and the "master" branch
 
 We use GitHub, GitLab, and Bitbucket APIs respectively to detect squashing and rebasing so your baselines match your expectations no matter your Git workflow  (see [Branching and Baselines](branching-and-baselines#squash-and-rebase-merging) for more details).
 
@@ -126,23 +145,18 @@ And update your Circle CI workflow to maintain a clean `master` branch. For exam
 # 👇 Checks if the current branch is not the master and runs Chromatic
 if [ "${CIRCLE_BRANCH}" != "master" ];
 then
-  yarn chromatic
+  yarn chromatic --project-token=CHROMATIC_PROJECT_TOKEN
 else
   # 👇 Checks if the current branch is master and runs Chromatic with the auto-accept-changes flag
-  yarn chromatic --auto-accept-changes
+  yarn chromatic --project-token=CHROMATIC_PROJECT_TOKEN --auto-accept-changes
 fi
 ```
 
-</details>
-
-<details>
-<summary><h4 class="no-anchor">Run Chromatic on external forks of open source projects</h4></summary>
+#### Run Chromatic on external forks of open source projects
 
 You can enable PR checks for external forks by sharing your `project-token` where you configured the Chromatic command (often in `package.json` or your CI config).
 
 There are tradeoffs. Sharing `project-token`'s allows _contributors_ and others to run Chromatic. They'll be able to use your snapshots. They will not be able to get access to your account, settings, or accept baselines. This can be an acceptable tradeoff for open source projects who value community contributions.
-
-</details>
 
 #### Skipping builds for certain branches
 
