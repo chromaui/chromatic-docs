@@ -42,12 +42,9 @@ jobs:
 
 For extra security, you'll need to configure secrets. 
 
-In a new browser window, navigate to your GitHub repository. Click the **settings** tab, followed by **Secrets** and then **New secret**
+In a new browser window, navigate to your GitHub repository. Click the **Settings** tab, followed by **Secrets** and then **New secret**
 
-
-<video autoPlay muted playsInline loop width="800px" class="center">
-  <source src="img/secrets-workflow-optimized.mp4" type="video/mp4" />
-</video>
+![GitHub Secrets workflow](img/secrets-workflow-optimized.png)
 
 Fill in the form with the necessary information, as detailed below, replace `Value` with your own Chromatic project token
 
@@ -57,7 +54,7 @@ Fill in the form with the necessary information, as detailed below, replace `Val
 Finish by clicking the **Add secret** button.
 
 <div class="aside">
-See the official <a href="https://docs.github.com/en/free-pro-team@latest/actions/reference/encrypted-secrets">GitHub secrets documentation</a> for more context.
+Read the official <a href="https://docs.github.com/en/free-pro-team@latest/actions/reference/encrypted-secrets">GitHub secrets documentation</a>.
 </div>
 
 ### Forked repositories
@@ -125,7 +122,7 @@ jobs:
 ```
 
 <div class="aside">
- See the official <a href="https://github.com/actions/checkout">GitHub Actions documentation</a> for more context.
+ Read the official <a href="https://github.com/actions/checkout">GitHub Actions documentation</a>.
 </div>
 
 ### Run Chromatic on specific branches
@@ -141,7 +138,7 @@ If you need to customize your workflow to run Chromatic on specific branches, ad
 on:
   push:
     branches-ignore: 
-      - 'example' ## 👈  Excludes the example branch
+      - 'example' # 👈  Excludes the example branch
 
 # what the action will do
 jobs:
@@ -149,7 +146,7 @@ jobs:
 ```
 
 <div class="aside">
-See the official <a href="https://docs.github.com/en/free-pro-team@latest/actions/reference/workflow-syntax-for-github-actions#example-ignoring-branches-and-tags">GitHub branch workflow documentation</a> for more context.
+Read the official <a href="https://docs.github.com/en/free-pro-team@latest/actions/reference/workflow-syntax-for-github-actions#example-ignoring-branches-and-tags">GitHub branch workflow documentation</a>.
 </div>
 
 Now Chromatic will run for any branch except `example`.
@@ -171,13 +168,33 @@ These specific types of commits (merge) don't persist in the history of your rep
 
 #### Command exit code for "required" checks
 
-If you are using pull request statuses as required checks before merging, you may not want your workflow step to fail if test snapshots render without errors (but with changes). To achieve this, pass the option `exit-zero-on-changes` to the `with` clause, and your workflow will continue in such cases.
+If you are using pull request statuses as required checks before merging, you may not want your workflow step to fail if test snapshots render without errors (but with changes). To achieve this, pass the option `exit-zero-on-changes` to the `with` clause, and your workflow will continue in such cases. For example:
+
+```yml
+# .github/workflows/chromatic.yml
+
+# Other necessary configuration
+
+jobs:
+  chromatic-deployment:
+    steps:
+        # 👇 Adds Chromatic as a step in the workflow
+      - name: Deploy to Chromatic
+        uses: chromaui/action@v1
+        # options required to the GitHub chromatic action
+        with:
+          # Chromatic project token, refer to the manage page to obtain it.
+          token: {% raw %}${{ secrets.GITHUB_TOKEN }}{% endraw %}
+          projectToken: {% raw %}${{ secrets.CHROMATIC_PROJECT_TOKEN }}{% endraw %}
+          exitZeroOnChanges: true # 👈  exitZeroOnChanges option to prevent the workflow from failing
+```
 
 When using `exit-zero-on-changes` your workflow will still stop and fail if your Storybook contains stories that error.
 
 #### Re-run failed builds after verifying UI test results
 
 Builds that contain visual changes need to be [verified](test#verify-ui-changes). They will fail if you are not using the `exit-zero-on-changes` option. Once you accept all the changes, re-run the workflow and the `chromatic-deployment` job will pass.
+
 
 If you deny any change, you will need to make the necessary code changes to fix the test (and thus start a new run) to get Chromatic to pass again.
 
@@ -187,8 +204,7 @@ A clean `master` branch is a development **best practice** and **highly recommen
 
 If the builds are a result of direct commits to `master`, you will need to accept changes to keep master clean. If they're merged from `feature-branches`, you will need to make sure those branches are passing _before_ you merge into `master`.
 
-<details>
-<summary><h4 class="no-anchor">GitHub squash/rebase merge and the "master" branch</h4></summary>
+#### GitHub squash/rebase merge and the "master" branch
 
 GitHub's squash/rebase merge functionality creates new commits that have no association to the branch being merged. If you've enabled our GitHub application in the [UI Review](review) workflow, then we will automatically detect this situation and bring baselines over (see [Branching and Baselines](branching-and-baselines#squash-and-rebase-merging) for more details).
 
@@ -228,16 +244,11 @@ jobs:
 
 ```
 
-</details>
-
-<details>
-<summary><h4 class="no-anchor">Run Chromatic on external forks of open source projects</h4></summary>
+#### Run Chromatic on external forks of open source projects
 
 You can enable PR checks for external forks by sharing your `project-token` where you configured the Chromatic command (often in `package.json` or your CI config).
 
 There are tradeoffs. Sharing `project-token`'s allows _contributors_ and others to run Chromatic. They'll be able to use your snapshots. They will not be able to get access to your account, settings, or accept baselines. This can be an acceptable tradeoff for open source projects who value community contributions.
-
-</details>
 
 #### Skipping builds for certain branches
 
