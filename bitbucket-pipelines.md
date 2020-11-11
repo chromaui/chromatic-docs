@@ -30,12 +30,11 @@ pipelines:
           # 👇 Runs Chromatic
           - yarn chromatic --project-token=$CHROMATIC_PROJECT_TOKEN
 ```
+<div class="aside">
+Read the official BitBucket <a href="https://support.atlassian.com/bitbucket-cloud/docs/variables-and-secrets/">environment variables documentation</a>.
+</div>
 
 For extra security you'll need to configure your own environment variables.
-
-<div class="aside">
-See the official BitBucket <a href="https://support.atlassian.com/bitbucket-cloud/docs/variables-and-secrets/">environment variables documentation</a> for more context.
-</div>
 
 ### Run Chromatic on specific branches
 
@@ -56,11 +55,11 @@ pipelines:
            - yarn chromatic --project-token=$CHROMATIC_PROJECT_TOKEN
 ```
 
-Now your pipeline will run Chromatic in the `main` branch and the example `branch` will show a message.
-
 <div class="aside">
-For more information on conditional pipeline execution, see the official BitBucket <a href="https://support.atlassian.com/bitbucket-cloud/docs/configure-bitbucket-pipelinesyml/">documentation</a>.
+Read the official BitBucket <a href="">conditional pipeline documentation</a>.
 </div>
+
+Now your pipeline will run Chromatic in the `main` branch and the example `branch` will show a message.
 
 ## UI Test and UI Review
 
@@ -68,13 +67,31 @@ For more information on conditional pipeline execution, see the official BitBuck
 
 #### Command exit code for "required" checks
 
-If you are using pull request statuses as required checks before merging, you may not want your pipeline to fail if test snapshots render without errors (but with changes). To achieve this, pass the flag `--exit-zero-on-changes` to the `chromatic` command, and your step will continue in such cases.
+If you are using pull request statuses as required checks before merging, you may not want your pipeline to fail if test snapshots render without errors (but with changes). To achieve this, pass the flag `--exit-zero-on-changes` to the `chromatic` command, and your step will continue in such cases. For example:
+
+```yml
+# bitbucket-pipelines.yml
+
+# A sample pipeline implementation
+pipelines:
+  default:
+    # Any other steps implemented in the pipeline
+
+    # 👇 Adds Chromatic as a step in the pipeline
+    - step:
+        name: 'Chromatic deployment'
+        # Other configuration required for the steps
+        script:
+          - yarn install
+          # 👇 --exit-zero-on-changes flag to prevent the pipeline from failing
+          - yarn chromatic --project-token=$CHROMATIC_PROJECT_TOKEN --exit-zero-on-changes
+```
 
 When using `--exit-zero-on-changes` your pipeline execution still stop and fail if your Storybook contains stories that error. If you'd prefer Chromatic _never_ to block your pipeline, you can use `yarn chromatic || true`.
 
 #### Re-run failed builds after verifying UI test results
 
-Builds that contain visual changes need to be [verified](test#verify-ui-changes). They will fail if you are not using `--exit-zero-on-changes`. Once you accept all the changes, re-run the build using your CI tool and the `chromatic` job will pass.
+Builds that contain visual changes need to be [verified](test#verify-ui-changes). They will fail if you are not using `--exit-zero-on-changes`. Once you accept all the changes, re-run the pipeline and the `Chromatic deployment` step will pass.
 
 If you deny any change, you will need to make the necessary code changes to fix the test (and thus start a new build) to get Chromatic to pass again.
 
@@ -84,8 +101,8 @@ A clean `master` branch is a development **best practice** and **highly recommen
 
 If the builds are a result of direct commits to `master`, you will need to accept changes to keep master clean. If they're merged from `feature-branches`, you will need to make sure those branches are passing _before_ you merge into `master`.
 
-<details>
-<summary><h4 class="no-anchor">BitBucket squash/rebase merge and the "master" branch</h4></summary>
+
+#### BitBucket squash/rebase merge and the "master" branch
 
 BitBucket's squash/rebase merge functionality creates new commits that have no association to the branch being merged. If you are already using this option, then we will automatically detect this situation and bring baselines over (see [Branching and Baselines](branching-and-baselines#squash-and-rebase-merging) for more details).
 
@@ -94,8 +111,12 @@ Otherwise, Chromatic would not know which changes accepted on that branch should
 And update your BitBucket pipeline to maintain a clean `master` branch. For example:
 
 ```yml
+# bitbucket-pipelines.yml
+
+# A sample pipeline implementation
 pipelines:
   default:
+    #👇 Checks if the current branch is master and runs Chromatic with the autoAcceptChanges flag
     - step:
         name: 'Deploy to Chromatic and auto accept changes'
         caches:
@@ -103,6 +124,7 @@ pipelines:
         script:
           - yarn chromatic --project-token=${CHROMATIC_PROJECT_TOKEN}  --auto-accept-changes
   pull-requests:
+    # 👇 Checks if the current branch is not the master and runs Chromatic
     your-branch:
       - step:
           name: 'Deploy to Chromatic'
@@ -111,16 +133,11 @@ pipelines:
 
 ```
 
-</details>
-
-<details>
-<summary><h4 class="no-anchor">Run Chromatic on external forks of open source projects</h4></summary>
+#### Run Chromatic on external forks of open source projects
 
 You can enable PR checks for external forks by sharing your `project-token` where you configured the Chromatic command (often in `package.json` or your CI config).
 
 There are tradeoffs. Sharing `project-token`'s allows _contributors_ and others to run Chromatic. They'll be able to use your snapshots. They will not be able to get access to your account, settings, or accept baselines. This can be an acceptable tradeoff for open source projects who value community contributions.
-
-</details>
 
 #### Skipping builds for certain branches
 
