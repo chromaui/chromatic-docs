@@ -59,7 +59,7 @@ Read the official <a href="https://docs.github.com/en/free-pro-team@latest/actio
 
 ### Forked repositories
 
-Secrets work at a repository level. Forked repositories will not have access to them. If you want to run Chromatic on cross-repository (forked) PRs, you'll need to make the `projectToken` public in your `package.json` as part of a script:
+Secrets work at a repository level. Forked repositories will not have access to them. If you want to run Chromatic on cross-repository (forked) PRs, you'll need to make the `project-token` public in your `package.json` as part of a script:
 
 ```json
 {
