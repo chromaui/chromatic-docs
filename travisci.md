@@ -82,13 +82,13 @@ jobs:
 For external pull requests (i.e forked repositories), the above code will ensure Chromatic runs with the `pr` build event, because Travis will not trigger `push` events for these cases.
 
 
-## UI Test and UI Review
+### UI Test and UI Review
 
 [UI Tests](test) and [UI Review](review) rely on [branch and baseline](branching-and-baselines) detection to keep track of [snapshots](snapshots). We recommend the following configuration.
 
 #### Command exit code for "required" checks
 
-If you are using pull request statuses as required checks before merging, you may not want your Travis build to fail if test snapshots render without errors (but with changes). To achieve this, pass the flag `--exit-zero-on-changes` to the `chromatic` command, and your CI job will continue in such cases. For example:
+If you are using pull request statuses as required checks before merging, you may not want your Travis build to fail if test snapshots render without errors (but with changes). To achieve this, pass the flag `--exit-zero-on-changes` to the `chromatic` command, and your job will continue in such cases. For example:
 
 ```yml
 # travis.yml
@@ -103,6 +103,10 @@ jobs:
      # 👇 --exit-zero-on-changes flag to prevent the workflow from failing
      script: yarn chromatic --project-token=${CHROMATIC_PROJECT_TOKEN} --exit-zero-on-changes
 ```
+
+<div class="aside">
+Read our <a href="/docs/cli#chromatic-options"> CLI documentation</a>.
+</div>
 
 When using `--exit-zero-on-changes` your build will still stop and fail if your Storybook contains stories that error. If you'd prefer Chromatic _never_ to block the build, you can use `yarn chromatic || true`.
 
@@ -120,12 +124,9 @@ If the builds are a result of direct commits to `master`, you will need to accep
 
 #### Squash/rebase merge and the "master" branch
 
+We use GitHub, GitLab, and Bitbucket APIs respectively to detect squashing and rebasing so your baselines match your expectations no matter your Git workflow (see [Branching and Baselines](branching-and-baselines#squash-and-rebase-merging) for more details).
 
-We use GitHub, GitLab, and Bitbucket APIs respectively to detect squashing and rebasing so your baselines match your expectations no matter your Git workflow  (see [Branching and Baselines](branching-and-baselines#squash-and-rebase-merging) for more details).
-
-Otherwise, Chromatic would not know which changes accepted on that branch should be baselines on `master`. What's more, you would have to re-review snapshots on `master` even if you already accepted them elsewhere.
-
-And update your Travis CI workflow to maintain a clean `master` branch. For example:
+If you’re using this functionality but notice the incoming changes were not accepted as baselines in Chromatic, then you'll need to adjust the workflow and include a new Chromatic job with the `--auto-accept-changes` flag. For example:
 
 ```yml
 # travis.yml
@@ -139,16 +140,21 @@ jobs:
      if: branch != master 
      script: yarn chromatic --project-token=${CHROMATIC_PROJECT_TOKEN}
      # 👇 Checks if the current branch is master and runs Chromatic with the auto-accept-changes flag
-   - name: 'Deploy to Chromatic and auto accept changes'
+   - name: 'Deploy to Chromatic and auto accepts changes'
      if: branch = master
      script: yarn chromatic --project-token=${CHROMATIC_PROJECT_TOKEN} --auto-accept-changes
-
 ```
+
+<div class="aside">
+Read our <a href="/docs/cli#chromatic-options"> CLI documentation</a>.
+</div>
+
+Including the `--auto-accept-changes` flag ensures all incoming changes will be accepted as baselines. Additionally you'll maintain a clean `master` branch.
 
 #### Run Chromatic on external forks of open source projects
 
 
-You can enable PR checks for external forks by sharing your `project-token` where you configured the Chromatic command (often in `package.json` or your CI config).
+You can enable PR checks for external forks by sharing your `project-token` where you configured the Chromatic command (often in `package.json` or in the job).
 
 There are tradeoffs. Sharing `project-token`'s allows _contributors_ and others to run Chromatic. They'll be able to use your snapshots. They will not be able to get access to your account, settings, or accept baselines. This can be an acceptable tradeoff for open source projects who value community contributions.
 
@@ -163,6 +169,10 @@ To skip builds for `dependabot` branches, use the following:
 ```
 chromatic --skip 'dependabot/**'
 ```
+
+<div class="aside">
+Read our <a href="/docs/cli#chromatic-options"> CLI documentation</a>.
+</div>
 
 To apply this to multiple branches, use an "extended glob". See [picomatch] for details.
 

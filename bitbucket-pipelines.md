@@ -61,7 +61,7 @@ Read the official BitBucket <a href="">conditional pipeline documentation</a>.
 
 Now your pipeline will run Chromatic in the `main` branch and the example `branch` will show a message.
 
-## UI Test and UI Review
+### UI Test and UI Review
 
 [UI Tests](test) and [UI Review](review) rely on [branch and baseline](branching-and-baselines) detection to keep track of [snapshots](snapshots). We recommend the following configuration.
 
@@ -87,6 +87,10 @@ pipelines:
           - yarn chromatic --project-token=$CHROMATIC_PROJECT_TOKEN --exit-zero-on-changes
 ```
 
+<div class="aside">
+Read our <a href="/docs/cli#chromatic-options"> CLI documentation</a>.
+</div>
+
 When using `--exit-zero-on-changes` your pipeline execution still stop and fail if your Storybook contains stories that error. If you'd prefer Chromatic _never_ to block your pipeline, you can use `yarn chromatic || true`.
 
 #### Re-run failed builds after verifying UI test results
@@ -106,9 +110,7 @@ If the builds are a result of direct commits to `master`, you will need to accep
 
 BitBucket's squash/rebase merge functionality creates new commits that have no association to the branch being merged. If you are already using this option, then we will automatically detect this situation and bring baselines over (see [Branching and Baselines](branching-and-baselines#squash-and-rebase-merging) for more details).
 
-Otherwise, Chromatic would not know which changes accepted on that branch should be baselines on `master`. What's more, you would have to re-review snapshots on `master` even if you already accepted them elsewhere.
-
-And update your BitBucket pipeline to maintain a clean `master` branch. For example:
+If you’re using this functionality but notice the incoming changes were not accepted as baselines in Chromatic, then you'll need to adjust the pipeline and include the `--auto-accept-changes` flag. For example:
 
 ```yml
 # bitbucket-pipelines.yml
@@ -116,13 +118,13 @@ And update your BitBucket pipeline to maintain a clean `master` branch. For exam
 # A sample pipeline implementation
 pipelines:
   default:
-    #👇 Checks if the current branch is master and runs Chromatic with the autoAcceptChanges flag
+    #👇 Checks if the current branch is master and runs Chromatic with the --auto-accept-changes flag
     - step:
         name: 'Deploy to Chromatic and auto accept changes'
         caches:
           - node
         script:
-          - yarn chromatic --project-token=${CHROMATIC_PROJECT_TOKEN}  --auto-accept-changes
+          - yarn chromatic --project-token=${CHROMATIC_PROJECT_TOKEN} --auto-accept-changes
   pull-requests:
     # 👇 Checks if the current branch is not the master and runs Chromatic
     your-branch:
@@ -133,9 +135,15 @@ pipelines:
 
 ```
 
+<div class="aside">
+Read our <a href="/docs/cli#chromatic-options"> CLI documentation</a>.
+</div>
+
+Including the `--auto-accept-changes` flag ensures all incoming changes will be accepted as baselines. Additionally you'll maintain a clean `master` branch.
+
 #### Run Chromatic on external forks of open source projects
 
-You can enable PR checks for external forks by sharing your `project-token` where you configured the Chromatic command (often in `package.json` or your CI config).
+You can enable PR checks for external forks by sharing your `project-token` where you configured the Chromatic command (often in `package.json` or in the pipeline step).
 
 There are tradeoffs. Sharing `project-token`'s allows _contributors_ and others to run Chromatic. They'll be able to use your snapshots. They will not be able to get access to your account, settings, or accept baselines. This can be an acceptable tradeoff for open source projects who value community contributions.
 
@@ -150,6 +158,10 @@ To skip builds for `renovate` branches, use the following:
 ```
 chromatic --skip 'renovate/**'
 ```
+
+<div class="aside">
+Read our <a href="/docs/cli#chromatic-options"> CLI documentation</a>.
+</div>
 
 To apply this to multiple branches, use an "extended glob". See [picomatch] for details.
 

@@ -88,7 +88,7 @@ For a more complex workflow configuration, checkout this [Chromatic CircleCI Orb
 In there you'll find various scenarios that you can use depending on  your needs.
 
 
-## UI Test and UI Review
+### UI Test and UI Review
 
 [UI Tests](test) and [UI Review](review) rely on [branch and baseline](branching-and-baselines) detection to keep track of [snapshots](snapshots). We recommend the following configuration.
 
@@ -115,6 +115,10 @@ jobs:
 
 ```
 
+<div class="aside">
+Read our <a href="/docs/cli#chromatic-options"> CLI documentation</a>.
+</div>
+
 When using `--exit-zero-on-changes` your job will still stop and fail if your Storybook contains stories that error. If you'd prefer Chromatic _never_ to block your job, you can use `yarn chromatic || true`.
 
 #### Re-run failed builds after verifying UI test results
@@ -133,9 +137,7 @@ If the builds are a result of direct commits to `master`, you will need to accep
 
 We use GitHub, GitLab, and Bitbucket APIs respectively to detect squashing and rebasing so your baselines match your expectations no matter your Git workflow  (see [Branching and Baselines](branching-and-baselines#squash-and-rebase-merging) for more details).
 
-Otherwise, Chromatic would not know which changes accepted on that branch should be baselines on `master`. What's more, you would have to re-review snapshots on `master` even if you already accepted them elsewhere.
-
-And update your Circle CI workflow to maintain a clean `master` branch. For example:
+If you’re using this functionality but notice the incoming changes were not accepted as baselines in Chromatic, then you'll need to adjust the `chromatic` command and include the `--auto-accept-changes` flag. For example:
 
 ```bash
 # .circleci/config.yml
@@ -152,9 +154,15 @@ else
 fi
 ```
 
+<div class="aside">
+Read our <a href="/docs/cli#chromatic-options"> CLI documentation</a>.
+</div>
+
+Including the `--auto-accept-changes` flag ensures all incoming changes will be accepted as baselines. Additionally you'll maintain a clean `master` branch.
+
 #### Run Chromatic on external forks of open source projects
 
-You can enable PR checks for external forks by sharing your `project-token` where you configured the Chromatic command (often in `package.json` or your CI config).
+You can enable PR checks for external forks by sharing your `project-token` where you configured the Chromatic command (often in `package.json` or in the job).
 
 There are tradeoffs. Sharing `project-token`'s allows _contributors_ and others to run Chromatic. They'll be able to use your snapshots. They will not be able to get access to your account, settings, or accept baselines. This can be an acceptable tradeoff for open source projects who value community contributions.
 
@@ -169,6 +177,10 @@ To skip builds for `dependabot` branches, use the following:
 ```
 chromatic --skip 'dependabot/**'
 ```
+
+<div class="aside">
+Read our <a href="/docs/cli#chromatic-options"> CLI documentation</a>.
+</div>
 
 To apply this to multiple branches, use an "extended glob". See [picomatch] for details.
 
