@@ -8,7 +8,7 @@ description: Learn how to configure Chromatic with a custom provider
 
 Chromatic automation can be included as part of any CI provider with relative ease. We're here for you. Contact us through our in-app chat for further assistance.
 
-## Initial configuration
+### Setup
 
 To integrate Chromatic with your existing CI provider, you'll need to add the following:
 
@@ -16,11 +16,11 @@ To integrate Chromatic with your existing CI provider, you'll need to add the fo
 # your-workflow
 
 - run:
-    command: npm install # install dependencies
+    command: npm install # Installs dependencies
 - run:
-    command: npm test # run your unit tests
+    command: npm test # Run your unit tests
 - run:
-    # 👇 publish Storybook and run visual tests
+    #👇Publish Storybook and run visual tests in Chromatic
     command: npm run chromatic --project-token=CHROMATIC_PROJECT_TOKEN
 ```
 
@@ -42,8 +42,8 @@ If you are using pull request statuses as required checks before merging, you ma
 # Your custom CI implementation 
 
 - run:
-    # 👇 --exit-zero-on-changes flag to prevent the workflow from failing
-    command: npm run chromatic --project-token=CHROMATIC_PROJECT_TOKEN # 👈 publish Storybook and run visual tests
+    #👇Flag to prevent the workflow from failing
+    command: npm run chromatic --project-token=CHROMATIC_PROJECT_TOKEN # 👈  publish Storybook and run visual tests
 ```
 
 <div class="aside">
@@ -71,15 +71,15 @@ We use GitHub, GitLab, and Bitbucket APIs respectively to detect squashing and r
 If you’re using this functionality but notice the incoming changes were not accepted as baselines in Chromatic, then you'll need to adjust the `chromatic` command and include the `--auto-accept-changes` flag. For example:
 
 ```yml
-# .circleci/config.yml
 # your-workflow
 
 # Your custom CI implementation 
 
 - run:
-    # 👇 Checks if the current branch is not the master and runs Chromatic
+    #👇Checks if the current branch is not the master and runs Chromatic
     if: branch != master
       command: npm run chromatic --project-token=CHROMATIC_PROJECT_TOKEN 
+    #👇Checks if the current branch is master and accepts all changes in Chromatic
     else:
       command: npm run chromatic --project-token=${CHROMATIC_PROJECT_TOKEN} --auto-accept-changes 
 ```

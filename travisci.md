@@ -8,19 +8,20 @@ description: Learn how to configure Chromatic with Travis CI
 
 Chromatic's automation can be included as part of your Travis CI job with relative ease.
 
-## Initial configuration
+### Setup
 
 To integrate Chromatic with your existing workflow, you’ll need to add the following:
 
 ```yml
-#travis.yml
+# travis.yml
 
-# Other configuration here
+# Other required configuration
 
 jobs:
   include:
-    # Any other jobs implemented in the workflow
-    # 👇 Adds Chromatic as a job
+     # Other jobs
+
+     #👇Adds Chromatic as a job
    - name: 'Chromatic Deployment'
      script: yarn chromatic --project-token=${CHROMATIC_PROJECT_TOKEN}
 ```
@@ -38,15 +39,16 @@ If you need to customize your workflow to run on specific branches, you can do s
 ```yml
 # travis.yml
 
-# Other configuration here
+# Other required configuration
 
 branches:
-  only: main # 👈  filters the execution to run only on the main branch
+  only: main # 👈 Filters the execution to run only on the main branch
 
 jobs:
   include:
-     # Any other jobs implemented in the workflow
-     # 👇 Adds Chromatic as a job
+     # Other jobs
+
+     #👇Adds Chromatic as a job
    - name: 'Chromatic Deployment'
      script: yarn chromatic --project-token=${CHROMATIC_PROJECT_TOKEN}
 ```
@@ -68,14 +70,16 @@ Once these conditions are met, add the following code to your `.travis.yml`:
 ```yml
 # travis.yml
 
-# Other configuration here
+# Other required configuration
 
 jobs:
   include:
-   # Any other jobs implemented in the workflow
-   # 👇 Adds Chromatic as a job
+     # Other jobs
+
+     #👇Adds Chromatic as a job
    - name: 'Chromatic Deployment'
-     if: (type = push OR head_repo != repo ) # 👈  verifies the build event type or if it's a forked repository
+     #👇Verifies the build event type or a if it's a forked repository
+     if: (type = push OR head_repo != repo )
      script: yarn chromatic --project-token=${CHROMATIC_PROJECT_TOKEN}
 ```
 
@@ -93,14 +97,15 @@ If you are using pull request statuses as required checks before merging, you ma
 ```yml
 # travis.yml
 
-# Other configuration here
+# Other required configuration
 
 jobs:
   include:
-   # Any other jobs implemented in the workflow
-   # 👇 Adds Chromatic as a job
+     # Other jobs
+
+     #👇Adds Chromatic as a job
    - name: 'Chromatic Deployment'
-     # 👇 --exit-zero-on-changes flag to prevent the workflow from failing
+     #👇Runs Chromatic with the flag to prevent workflow failure
      script: yarn chromatic --project-token=${CHROMATIC_PROJECT_TOKEN} --exit-zero-on-changes
 ```
 
@@ -135,11 +140,11 @@ If you’re using this functionality but notice the incoming changes were not ac
 
 jobs:
   include:
-      # 👇 Checks if the current branch is not the master and runs Chromatic
+     #👇Checks if the branch is not the master and runs Chromatic
    - name: 'Deploy to Chromatic'
      if: branch != master 
      script: yarn chromatic --project-token=${CHROMATIC_PROJECT_TOKEN}
-     # 👇 Checks if the current branch is master and runs Chromatic with the auto-accept-changes flag
+     #👇Checks if the branch is master and runs Chromatic with the flag to accept all changes
    - name: 'Deploy to Chromatic and auto accepts changes'
      if: branch = master
      script: yarn chromatic --project-token=${CHROMATIC_PROJECT_TOKEN} --auto-accept-changes

@@ -8,7 +8,7 @@ description: Learn how to configure Chromatic with Jenkins
 
 Chromatic’s automation can be included as part of your Jenkins pipeline with relative ease.
 
-## Initial configuration
+### Setup
 
 To integrate Chromatic with your existing [multistage pipeline](https://www.jenkins.io/doc/tutorials/build-a-multibranch-pipeline-project/), you'll need to add the following:
 
@@ -16,18 +16,18 @@ To integrate Chromatic with your existing [multistage pipeline](https://www.jenk
 /* JenkinsFile */
 
 pipeline {
-  /* Other pipeline configuration here. */
+  /* Other pipeline configuration. */
 
   stages {
-    /* Other stages implemented in the pipeline */
+    /* Other pipeline stages */
 
-    /* 👇 Adds Chromatic as a stage in the pipeline */
+    /*👇Adds Chromatic as a stage */
     stage('Chromatic Deployment') {
       environment {
         CHROMATIC_PROJECT_TOKEN = 'Chromatic project token'
       }
       steps {
-        /* 👇 Runs the Chromatic CLI */
+         /*👇Runs the Chromatic CLI */
          sh "yarn chromatic --project-token=${CHROMATIC_PROJECT_TOKEN}"
       }
     }
@@ -49,21 +49,21 @@ If you need to customize your workflow to run Chromatic on specific branches, ad
 /* JenkinsFile */
 
 pipeline {
-  /* Other pipeline configuration here. */
+  /* Other pipeline configuration. */
 
   stages {
-    /* Other stages implemented in the pipeline */
+    /* Other pipeline stages */
     
-    /* 👇 Adds Chromatic as a stage in the pipeline */
+    /*👇Adds Chromatic as a stage */
     stage('Chromatic Deployment') {
       when {
-        branch 'example' /* 👈  filters the execution to run only on the main branch */
+        branch 'example' /* 👈 Filters the execution to run only on the main branch */
       }
       environment {
         CHROMATIC_PROJECT_TOKEN = 'Chromatic project token'
       }
       steps {
-        /* 👇 Runs the Chromatic CLI */
+         /*👇Runs the Chromatic CLI */
          sh "yarn chromatic --project-token=${CHROMATIC_PROJECT_TOKEN}" 
       }
     }
@@ -103,18 +103,18 @@ If you are using pull request statuses as required checks before merging, you ma
 /* JenkinsFile */
 
 pipeline {
-  /* Other pipeline configuration here. */
+  /* Other pipeline configuration. */
 
   stages {
-    /* Other stages implemented in the pipeline */
+    /* Other pipeline stages */
 
-    /* 👇 Adds Chromatic as a stage in the pipeline */
+    /*👇Adds Chromatic as a stage in the pipeline */
     stage('Chromatic Deployment') {
       environment {
         CHROMATIC_PROJECT_TOKEN = 'Chromatic project token'
       }
       steps {
-        /* 👇 --exit-zero-on-change flag to prevent the pipeline from failing */
+         /*👇Runs Chromatic with the flag to prevent stage failure */
          sh "yarn chromatic --project-token=${CHROMATIC_PROJECT_TOKEN} --exit-zero-on-changes"
       }
     }
@@ -151,12 +151,12 @@ If you’re using this functionality but notice the incoming changes were not ac
 /* JenkinsFile */
 
 pipeline {
-  /* Other pipeline configuration here. */
+  /* Other pipeline configuration. */
 
   stages {
-    /* Other stages implemented in the pipeline */
+    /* Other pipeline stages */
     
-    /* 👇 Checks if the current branch is not the master and runs Chromatic */
+    /*👇Checks if the current branch is not the master and runs Chromatic */
     stage('Deploy to Chromatic') {
       when { 
         not { 
@@ -170,7 +170,7 @@ pipeline {
          sh "yarn chromatic --project-token=${CHROMATIC_PROJECT_TOKEN}" 
       }
     }
-     /* 👇 Checks if the current branch is master and runs Chromatic with the auto-accept-changes flag */
+    /*👇Checks if the current branch is master and runs Chromatic with the flag to accept all changes */
     stage('Deploy to Chromatic and auto accept changes') {
       when { 
          branch 'master'

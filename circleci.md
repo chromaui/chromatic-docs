@@ -8,18 +8,19 @@ description: Learn how to configure Chromatic with CircleCI
 
 Chromatic's automation can be included as part of your CircleCI job with relative ease.
 
-## Initial configuration
+### Setup
 
 To integrate Chromatic with your existing workflow, you'll need to add the following:
 
 ```yml
 # .circleci/config.yml
 
-# Other configuration here
+# Other required configuration
 
 jobs:
-  # Other jobs implemented in the workflow here
-  # 👇 Adds Chromatic as a job
+  # Other jobs
+
+  #👇Adds Chromatic as a job
   chromatic-deployment: 
     docker:
       - image: circleci/node:12
@@ -31,15 +32,15 @@ jobs:
             - v1-dependencies-{% raw %}{{ checksum "package.json" }}{% endraw %}
             - v1-dependencies-
       - run: yarn install
-        # Runs the Chromatic cli package
+        #👇Runs the Chromatic CLI
       - run: yarn chromatic --project-token=${CHROMATIC_PROJECT_TOKEN}
 
 
 workflows:
-   # 👇 Adds Chromatic to the workflow
+  #👇Adds Chromatic to the workflow
   chromatic-deploy:
     jobs:
-      - chromatic-deployment # 👈  Runs the Chromatic job implemented above
+      - chromatic-deployment # 👈 Runs the Chromatic job implemented above
 ```
 
 <div class="aside">
@@ -56,17 +57,17 @@ If you need to customize your workflow to run Chromatic on specific branches, ad
 ```yml
 # .circleci/config.yml
 
-# Other configuration here
+# Other required configuration
 
 jobs:
 # Other jobs implemented in the workflow here
 
 workflows:
-  # 👇 Adds Chromatic to the workflow
+  #👇Adds Chromatic to the workflow
   chromatic-deploy:
     jobs:
       - chromatic-deployment:
-          filters: # 👈  filters the execution to run only on the main branch
+          filters: # 👈 Filters the execution to run only on the main branch
             branches:
               only: main
 ```
@@ -99,16 +100,18 @@ If you are using pull request statuses as required checks before merging, you ma
 ```yml
 # .circleci/config.yml
 
-# Other configuration here
+# Other required configuration
 
 jobs:
-  # Other jobs implemented in the workflow here
-  # 👇 Adds Chromatic as a job
+  # Other jobs
+
+  #👇Adds Chromatic as a job
   chromatic-deployment: 
-    # Other configuration here
+    # Other configuration
     steps:
-      # Other steps required for the job
-      # 👇  --exit-zero-on-changes flag to prevent the workflow from failing
+      # Other job steps
+
+        #👇Runs Chromatic with the flag to prevent workflow failure
       - run: yarn chromatic --project-token=${CHROMATIC_PROJECT_TOKEN} --exit-zero-on-changes
 
 # Workflows here
@@ -142,14 +145,14 @@ If you’re using this functionality but notice the incoming changes were not ac
 ```bash
 # .circleci/config.yml
 
-# Other configuration and job here
+# Other required configuration
 
-# 👇 Checks if the current branch is not the master and runs Chromatic
+#👇Checks if the current branch is not the master and runs Chromatic
 if [ "${CIRCLE_BRANCH}" != "master" ];
 then
   yarn chromatic --project-token=CHROMATIC_PROJECT_TOKEN
 else
-  # 👇 Checks if the current branch is master and runs Chromatic with the auto-accept-changes flag
+  #👇Checks if the current branch is master and runs Chromatic with the flag to accept all changes
   yarn chromatic --project-token=CHROMATIC_PROJECT_TOKEN --auto-accept-changes
 fi
 ```

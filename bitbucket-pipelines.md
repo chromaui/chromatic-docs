@@ -8,7 +8,7 @@ description: Learn how to configure Chromatic with BitBucket Pipelines
 
 Chromatic’s automation can be included as part of your BitBucket pipeline workflow with relative ease.
 
-## Initial configuration
+### Setup
 
 To integrate Chromatic with your existing pipeline, you'll need to add the following:
 
@@ -18,16 +18,16 @@ To integrate Chromatic with your existing pipeline, you'll need to add the follo
 # A sample pipeline implementation
 pipelines:
   default:
-    # Any other steps implemented in the pipeline
+    # Other steps in the pipeline
 
-    # 👇 Adds Chromatic as a step in the pipeline
+      #👇Adds Chromatic as a step
     - step:
         name: 'Chromatic deployment'
         caches:
           - node
         script:
           - yarn install
-          # 👇 Runs Chromatic
+            #👇Runs Chromatic
           - yarn chromatic --project-token=$CHROMATIC_PROJECT_TOKEN
 ```
 <div class="aside">
@@ -46,10 +46,11 @@ If you need to customize your workflow to run Chromatic on specific branches, ad
 # A sample pipeline implementation
 pipelines:
   default:
-    # Any other steps implemented in the pipeline
+  # Other steps in the pipeline
 
   branches:
-    master:  # 👈 The example branch will display the message in the console as instead of running Chromatic.
+    #👇The example branch will display the message in the console instead of running Chromatic.
+    master:
       - step:
          script:
            - yarn chromatic --project-token=$CHROMATIC_PROJECT_TOKEN
@@ -75,15 +76,15 @@ If you are using pull request statuses as required checks before merging, you ma
 # A sample pipeline implementation
 pipelines:
   default:
-    # Any other steps implemented in the pipeline
+    # Other steps in the pipeline
 
-    # 👇 Adds Chromatic as a step in the pipeline
+      #👇Adds Chromatic as a step in the pipeline
     - step:
         name: 'Chromatic deployment'
-        # Other configuration required for the steps
+        # Other pipeline configuration
         script:
           - yarn install
-          # 👇 --exit-zero-on-changes flag to prevent the pipeline from failing
+            #👇Runs Chromatic with the flag to prevent pipeline failure 
           - yarn chromatic --project-token=$CHROMATIC_PROJECT_TOKEN --exit-zero-on-changes
 ```
 
@@ -118,7 +119,7 @@ If you’re using this functionality but notice the incoming changes were not ac
 # A sample pipeline implementation
 pipelines:
   default:
-    #👇 Checks if the current branch is master and runs Chromatic with the --auto-accept-changes flag
+      #👇Checks if the branch is master and runs Chromatic with the flag to accept all changes.
     - step:
         name: 'Deploy to Chromatic and auto accept changes'
         caches:
@@ -126,7 +127,7 @@ pipelines:
         script:
           - yarn chromatic --project-token=${CHROMATIC_PROJECT_TOKEN} --auto-accept-changes
   pull-requests:
-    # 👇 Checks if the current branch is not the master and runs Chromatic
+    #👇Checks if the branch is not master and runs Chromatic
     your-branch:
       - step:
           name: 'Deploy to Chromatic'
@@ -155,7 +156,7 @@ One use case for this feature is skipping builds for branches created by a bot. 
 
 To skip builds for `renovate` branches, use the following:
 
-```
+```bash
 chromatic --skip 'renovate/**'
 ```
 
@@ -165,7 +166,7 @@ Read our <a href="/docs/cli#chromatic-options"> CLI documentation</a>.
 
 To apply this to multiple branches, use an "extended glob". See [picomatch] for details.
 
-```
+```bash
 chromatic --skip '@(renovate/**|your-custom-branch/**)'
 ```
 

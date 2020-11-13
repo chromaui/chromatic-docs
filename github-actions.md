@@ -8,35 +8,35 @@ description: Learn how to configure Chromatic with GitHub Actions
 
 Chromatic has a [GitHub Action](https://github.com/chromaui/action) to help you automate your visual regression tests and publish Storybook. 
 
-## Initial configuration
+### Setup
 
 In your `.github/workflows` directory, create a new file called `chromatic.yml` and add the following:
 
 ```yml
 # .github/workflows/chromatic.yml
 
-# name of our workflow
+# Workflow name
 name: 'Chromatic Deployment'
 
-# the event that will trigger the action
+# Event for the workflow
 on: push
 
-# list of jobs executed
+# List of jobs
 jobs:
   chromatic-deployment:
     # Operating System
     runs-on: ubuntu-latest
-    # steps that the action will go through
+    # Job steps
     steps:
       - name: Install dependencies
         run: yarn
-        # 👇 Adds Chromatic as a step in the workflow
+        #👇Adds Chromatic as a step in the workflow
       - name: Deploy to Chromatic
         uses: chromaui/action@v1
-        # options required to the GitHub chromatic action
+        # Chromatic GitHub Action options
         with:
-          # Chromatic project token, refer to the manage page to obtain it.
           token: {% raw %}${{ secrets.GITHUB_TOKEN }}{% endraw %}
+          #👇Chromatic project token, refer to the manage page to obtain it.
           projectToken: {% raw %}${{ secrets.CHROMATIC_PROJECT_TOKEN }}{% endraw %}
 ```
 
@@ -104,19 +104,19 @@ You'll need to make the following change to your workflow:
 jobs:
   chromatic-deployment:
     steps:
-        # 👇 version 2 of the action
+        #👇Version 2 of the action
       - name: Checkout repository
         uses: actions/checkout@v2
         with:
-          fetch-depth: 0 # 👈  Required to retrieve git history
+          fetch-depth: 0 # 👈 Required to retrieve git history
       - name: Install dependencies
         run: yarn
-        # 👇 Adds Chromatic as a step in the workflow
+        #👇Adds Chromatic as a step in the workflow
       - name: Deploy to Chromatic
         uses: chromaui/action@v1
-        # options required to the GitHub chromatic action
+        # Options required to the GitHub Chromatic Action
         with:
-          # Chromatic project token, refer to the manage page to obtain it.
+          #👇Chromatic projectToken, refer to the manage page to obtain it.
           projectToken: {% raw %}${{ secrets.GITHUB_TOKEN }}{% endraw %}
           token: {% raw %}${{ secrets.CHROMATIC_PROJECT_TOKEN }}{% endraw %}
 ```
@@ -134,15 +134,14 @@ If you need to customize your workflow to run Chromatic on specific branches, ad
 
 # Other necessary configuration
 
-# 👇 Workflow event to be triggered when workflow executes
+#👇Workflow event to trigger execution
 on:
   push:
     branches-ignore: 
-      - 'example' # 👈  Excludes the example branch
+      - 'example' # 👈 Excludes the example branch
 
-# what the action will do
 jobs:
-  # The list of jobs and steps associated
+# The list of jobs and steps
 ```
 
 <div class="aside">
@@ -178,15 +177,15 @@ If you are using pull request statuses as required checks before merging, you ma
 jobs:
   chromatic-deployment:
     steps:
-        # 👇 Adds Chromatic as a step in the workflow
+        #👇Adds Chromatic as a step in the workflow
       - name: Deploy to Chromatic
         uses: chromaui/action@v1
-        # options required to the GitHub chromatic action
+        # Options required to the GitHub chromatic action
         with:
-          # Chromatic project token, refer to the manage page to obtain it.
           token: {% raw %}${{ secrets.GITHUB_TOKEN }}{% endraw %}
+          #👇Chromatic projectToken, refer to the manage page to obtain it.
           projectToken: {% raw %}${{ secrets.CHROMATIC_PROJECT_TOKEN }}{% endraw %}
-          exitZeroOnChanges: true # 👈  exitZeroOnChanges option to prevent the workflow from failing
+          exitZeroOnChanges: true # 👈 Option to prevent the workflow from failing
 ```
 
 <div class="aside">
@@ -222,27 +221,27 @@ If you’re using this functionality but notice the incoming changes were not ac
 jobs:
   chromatic-deployment:
     steps:
-        # Other steps implemented in the GitHub Action
+        # Other steps
       
-        # 👇 Checks if the current branch is not the master and runs Chromatic
+        #👇Checks if the branch is not master and runs Chromatic
       - name: Deploy to Chromatic
         if: github.ref != 'refs/heads/master' 
         uses: chromaui/action@v1
-        # options required to the GitHub chromatic action
+        # Required options for the Chromatic GitHub Action
         with:
-          # Chromatic project token, refer to the manage page to obtain it.
           token: {% raw %}${{ secrets.GITHUB_TOKEN }}{% endraw %}
+          #👇Chromatic projectToken, refer to the manage page to obtain it.
           projectToken: {% raw %}${{ secrets.CHROMATIC_PROJECT_TOKEN }}{% endraw %}
-        # 👇 Checks if the current branch is master and runs Chromatic with the autoAcceptChanges option
+        #👇Checks if the branch is master and accepts all changes in Chromatic
       - name: Deploy to Chromatic and auto accept changes
         if: github.ref == 'refs/heads/master' 
         uses: chromaui/action@v1
-        # options required to the GitHub chromatic action
+        # Required options for the Chromatic GitHub Action
         with:
-          autoAcceptChanges: true
-           # Chromatic project token, refer to the manage page to obtain it.
           token: {% raw %}${{ secrets.GITHUB_TOKEN }}{% endraw %}
+          #👇Chromatic project token, refer to the manage page to obtain it.
           projectToken: {% raw %}${{ secrets.CHROMATIC_PROJECT_TOKEN }}{% endraw %}
+          autoAcceptChanges: true # 👈 Option to accept all changes
 
 ```
 
