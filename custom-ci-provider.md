@@ -24,6 +24,10 @@ To integrate Chromatic with your existing CI provider, you'll need to add the fo
     command: npm run chromatic --project-token=CHROMATIC_PROJECT_TOKEN
 ```
 
+<div class="aside">
+For extra security, add Chromatic's <code>project-token</code> as an environment variable. See your provider's documentation for reference.
+</div>
+
 ### Run Chromatic on specific branches
 
 Depending on the CI provider you're using, running Chromatic from a specific branch will not be a issue. Refer to your CI documentation for further details.

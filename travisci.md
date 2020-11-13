@@ -27,10 +27,8 @@ jobs:
 ```
 
 <div class="aside">
-Read the official Travis CI <a href="https://docs.travis-ci.com/user/environment-variables/"> environment variables documentation</a>.
+For extra security, add Chromatic's <code>project-token</code> as an environment variable. See the official Travis CI <a href="https://docs.travis-ci.com/user/environment-variables/"> environment variables documentation</a>.
 </div>
-
-For extra security you'll need to configure your own environment variables.
 
 ### Run Chromatic on specific branches
 

@@ -31,10 +31,8 @@ pipelines:
           - yarn chromatic --project-token=$CHROMATIC_PROJECT_TOKEN
 ```
 <div class="aside">
-Read the official BitBucket <a href="https://support.atlassian.com/bitbucket-cloud/docs/variables-and-secrets/">environment variables documentation</a>.
+For extra security, add Chromatic's <code>project-token</code> as an environment variable. See the official BitBucket <a href="https://support.atlassian.com/bitbucket-cloud/docs/variables-and-secrets/">environment variables documentation</a>.
 </div>
-
-For extra security you'll need to configure your own environment variables.
 
 ### Run Chromatic on specific branches
 

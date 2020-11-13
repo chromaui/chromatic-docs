@@ -44,10 +44,8 @@ workflows:
 ```
 
 <div class="aside">
-Read the official CircleCI <a href="https://circleci.com/docs/2.0/env-vars/">environment variables documentation</a>.
+For extra security, add Chromatic's <code>project-token</code> as an environment variable. See the official CircleCI <a href="https://circleci.com/docs/2.0/env-vars/">environment variables documentation</a>.
 </div>
-
-For extra security you'll need to configure your own environment variables. 
 
 
 ### Run Chromatic on specific branches

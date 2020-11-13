@@ -34,12 +34,9 @@ pipeline {
   }
 }
 ```
-
 <div class="aside">
-Read the official Jenkins <a href="https://www.jenkins.io/doc/book/pipeline/jenkinsfile/#using-environment-variables"> environment variables documentation</a>.
+For extra security, add Chromatic's <code>project-token</code> as an environment variable. See the official official Jenkins <a href="https://www.jenkins.io/doc/book/pipeline/jenkinsfile/#using-environment-variables"> environment variables documentation</a>.
 </div>
-
-For extra security you'll need to configure your own environment variables.
 
 ### Run Chromatic on specific branches
 
