@@ -156,7 +156,7 @@ pipeline {
   stages {
     /* Other pipeline stages */
     
-    /*👇Checks if the current branch is not the master and runs Chromatic */
+    /*👇Checks if the current branch is not master and runs Chromatic */
     stage('Deploy to Chromatic') {
       when { 
         not { 

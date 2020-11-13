@@ -140,7 +140,7 @@ If you’re using this functionality but notice the incoming changes were not ac
 
 jobs:
   include:
-     #👇Checks if the branch is not the master and runs Chromatic
+     #👇Checks if the branch is not master and runs Chromatic
    - name: 'Deploy to Chromatic'
      if: branch != master 
      script: yarn chromatic --project-token=${CHROMATIC_PROJECT_TOKEN}

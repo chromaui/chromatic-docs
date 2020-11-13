@@ -60,7 +60,7 @@ If you need to customize your workflow to run Chromatic on specific branches, ad
 # Other required configuration
 
 jobs:
-# Other jobs implemented in the workflow here
+# Other jobs implemented in the workflow
 
 workflows:
   #👇Adds Chromatic to the workflow

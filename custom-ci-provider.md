@@ -42,8 +42,8 @@ If you are using pull request statuses as required checks before merging, you ma
 # Your custom CI implementation 
 
 - run:
-    #👇Flag to prevent the workflow from failing
-    command: npm run chromatic --project-token=CHROMATIC_PROJECT_TOKEN # 👈  publish Storybook and run visual tests
+    #👇Runs Chromatic with the flag to prevent stage failure
+    command: npm run chromatic --project-token=CHROMATIC_PROJECT_TOKEN
 ```
 
 <div class="aside">
@@ -76,7 +76,7 @@ If you’re using this functionality but notice the incoming changes were not ac
 # Your custom CI implementation 
 
 - run:
-    #👇Checks if the current branch is not the master and runs Chromatic
+    #👇Checks if the current branch is not master and runs Chromatic
     if: branch != master
       command: npm run chromatic --project-token=CHROMATIC_PROJECT_TOKEN 
     #👇Checks if the current branch is master and accepts all changes in Chromatic
