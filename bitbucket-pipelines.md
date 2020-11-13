@@ -20,14 +20,14 @@ pipelines:
   default:
     # Other steps in the pipeline
 
-      #👇Adds Chromatic as a step
+      # 👇 Adds Chromatic as a step
     - step:
         name: 'Chromatic deployment'
         caches:
           - node
         script:
           - yarn install
-            #👇Runs Chromatic
+            # 👇 Runs Chromatic
           - yarn chromatic --project-token=$CHROMATIC_PROJECT_TOKEN
 ```
 <div class="aside">
@@ -49,7 +49,7 @@ pipelines:
   # Other steps in the pipeline
 
   branches:
-    #👇The example branch will display the message in the console instead of running Chromatic.
+    # 👇 The example branch will display the message in the console instead of running Chromatic.
     master:
       - step:
          script:
@@ -78,13 +78,13 @@ pipelines:
   default:
     # Other steps in the pipeline
 
-      #👇Adds Chromatic as a step in the pipeline
+      # 👇 Adds Chromatic as a step in the pipeline
     - step:
         name: 'Chromatic deployment'
         # Other pipeline configuration
         script:
           - yarn install
-            #👇Runs Chromatic with the flag to prevent pipeline failure 
+            # 👇 Runs Chromatic with the flag to prevent pipeline failure 
           - yarn chromatic --project-token=$CHROMATIC_PROJECT_TOKEN --exit-zero-on-changes
 ```
 
@@ -119,7 +119,7 @@ If you’re using this functionality but notice the incoming changes were not ac
 # A sample pipeline implementation
 pipelines:
   default:
-      #👇Checks if the branch is master and runs Chromatic with the flag to accept all changes.
+      # 👇 Checks if the branch is master and runs Chromatic with the flag to accept all changes.
     - step:
         name: 'Deploy to Chromatic and auto accept changes'
         caches:
@@ -127,7 +127,7 @@ pipelines:
         script:
           - yarn chromatic --project-token=${CHROMATIC_PROJECT_TOKEN} --auto-accept-changes
   pull-requests:
-    #👇Checks if the branch is not master and runs Chromatic
+    # 👇 Checks if the branch is not master and runs Chromatic
     your-branch:
       - step:
           name: 'Deploy to Chromatic'

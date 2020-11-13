@@ -21,7 +21,7 @@ jobs:
   include:
      # Other jobs
 
-     #👇Adds Chromatic as a job
+     # 👇 Adds Chromatic as a job
    - name: 'Chromatic Deployment'
      script: yarn chromatic --project-token=${CHROMATIC_PROJECT_TOKEN}
 ```
@@ -48,7 +48,7 @@ jobs:
   include:
      # Other jobs
 
-     #👇Adds Chromatic as a job
+     # 👇 Adds Chromatic as a job
    - name: 'Chromatic Deployment'
      script: yarn chromatic --project-token=${CHROMATIC_PROJECT_TOKEN}
 ```
@@ -76,9 +76,9 @@ jobs:
   include:
      # Other jobs
 
-     #👇Adds Chromatic as a job
+     # 👇 Adds Chromatic as a job
    - name: 'Chromatic Deployment'
-     #👇Verifies the build event type or a if it's a forked repository
+     # 👇 Verifies the build event type or a if it's a forked repository
      if: (type = push OR head_repo != repo )
      script: yarn chromatic --project-token=${CHROMATIC_PROJECT_TOKEN}
 ```
@@ -103,9 +103,9 @@ jobs:
   include:
      # Other jobs
 
-     #👇Adds Chromatic as a job
+     # 👇 Adds Chromatic as a job
    - name: 'Chromatic Deployment'
-     #👇Runs Chromatic with the flag to prevent workflow failure
+     # 👇 Runs Chromatic with the flag to prevent workflow failure
      script: yarn chromatic --project-token=${CHROMATIC_PROJECT_TOKEN} --exit-zero-on-changes
 ```
 
@@ -140,11 +140,11 @@ If you’re using this functionality but notice the incoming changes were not ac
 
 jobs:
   include:
-     #👇Checks if the branch is not master and runs Chromatic
+     # 👇 Checks if the branch is not master and runs Chromatic
    - name: 'Deploy to Chromatic'
      if: branch != master 
      script: yarn chromatic --project-token=${CHROMATIC_PROJECT_TOKEN}
-     #👇Checks if the branch is master and runs Chromatic with the flag to accept all changes
+     # 👇 Checks if the branch is master and runs Chromatic with the flag to accept all changes
    - name: 'Deploy to Chromatic and auto accepts changes'
      if: branch = master
      script: yarn chromatic --project-token=${CHROMATIC_PROJECT_TOKEN} --auto-accept-changes

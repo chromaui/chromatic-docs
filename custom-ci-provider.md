@@ -20,7 +20,7 @@ To integrate Chromatic with your existing CI provider, you'll need to add the fo
 - run:
     command: npm test # Run your unit tests
 - run:
-    #👇Publish Storybook and run visual tests in Chromatic
+    # 👇 Publish Storybook and run visual tests in Chromatic
     command: npm run chromatic --project-token=CHROMATIC_PROJECT_TOKEN
 ```
 
@@ -42,7 +42,7 @@ If you are using pull request statuses as required checks before merging, you ma
 # Your custom CI implementation 
 
 - run:
-    #👇Runs Chromatic with the flag to prevent stage failure
+    # 👇 Runs Chromatic with the flag to prevent stage failure
     command: npm run chromatic --project-token=CHROMATIC_PROJECT_TOKEN
 ```
 
@@ -76,10 +76,10 @@ If you’re using this functionality but notice the incoming changes were not ac
 # Your custom CI implementation 
 
 - run:
-    #👇Checks if the current branch is not master and runs Chromatic
+    # 👇 Checks if the current branch is not master and runs Chromatic
     if: branch != master
       command: npm run chromatic --project-token=CHROMATIC_PROJECT_TOKEN 
-    #👇Checks if the current branch is master and accepts all changes in Chromatic
+    # 👇 Checks if the current branch is master and accepts all changes in Chromatic
     else:
       command: npm run chromatic --project-token=${CHROMATIC_PROJECT_TOKEN} --auto-accept-changes 
 ```

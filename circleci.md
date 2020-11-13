@@ -20,7 +20,7 @@ To integrate Chromatic with your existing workflow, you'll need to add the follo
 jobs:
   # Other jobs
 
-  #👇Adds Chromatic as a job
+  # 👇 Adds Chromatic as a job
   chromatic-deployment: 
     docker:
       - image: circleci/node:12
@@ -32,12 +32,12 @@ jobs:
             - v1-dependencies-{% raw %}{{ checksum "package.json" }}{% endraw %}
             - v1-dependencies-
       - run: yarn install
-        #👇Runs the Chromatic CLI
+        # 👇 Runs the Chromatic CLI
       - run: yarn chromatic --project-token=${CHROMATIC_PROJECT_TOKEN}
 
 
 workflows:
-  #👇Adds Chromatic to the workflow
+  # 👇 Adds Chromatic to the workflow
   chromatic-deploy:
     jobs:
       - chromatic-deployment # 👈 Runs the Chromatic job implemented above
@@ -63,7 +63,7 @@ jobs:
 # Other jobs implemented in the workflow
 
 workflows:
-  #👇Adds Chromatic to the workflow
+  # 👇 Adds Chromatic to the workflow
   chromatic-deploy:
     jobs:
       - chromatic-deployment:
@@ -105,13 +105,13 @@ If you are using pull request statuses as required checks before merging, you ma
 jobs:
   # Other jobs
 
-  #👇Adds Chromatic as a job
+  # 👇 Adds Chromatic as a job
   chromatic-deployment: 
     # Other configuration
     steps:
       # Other job steps
 
-        #👇Runs Chromatic with the flag to prevent workflow failure
+        # 👇 Runs Chromatic with the flag to prevent workflow failure
       - run: yarn chromatic --project-token=${CHROMATIC_PROJECT_TOKEN} --exit-zero-on-changes
 
 # Workflows here
@@ -147,12 +147,12 @@ If you’re using this functionality but notice the incoming changes were not ac
 
 # Other required configuration
 
-#👇Checks if the current branch is not the master and runs Chromatic
+# 👇 Checks if the current branch is not the master and runs Chromatic
 if [ "${CIRCLE_BRANCH}" != "master" ];
 then
   yarn chromatic --project-token=CHROMATIC_PROJECT_TOKEN
 else
-  #👇Checks if the current branch is master and runs Chromatic with the flag to accept all changes
+  # 👇 Checks if the current branch is master and runs Chromatic with the flag to accept all changes
   yarn chromatic --project-token=CHROMATIC_PROJECT_TOKEN --auto-accept-changes
 fi
 ```

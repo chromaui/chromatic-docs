@@ -21,13 +21,13 @@ pipeline {
   stages {
     /* Other pipeline stages */
 
-    /*👇Adds Chromatic as a stage */
+    /* 👇 Adds Chromatic as a stage */
     stage('Chromatic Deployment') {
       environment {
         CHROMATIC_PROJECT_TOKEN = 'Chromatic project token'
       }
       steps {
-         /*👇Runs the Chromatic CLI */
+         /* 👇 Runs the Chromatic CLI */
          sh "yarn chromatic --project-token=${CHROMATIC_PROJECT_TOKEN}"
       }
     }
@@ -54,7 +54,7 @@ pipeline {
   stages {
     /* Other pipeline stages */
     
-    /*👇Adds Chromatic as a stage */
+    /* 👇 Adds Chromatic as a stage */
     stage('Chromatic Deployment') {
       when {
         branch 'example' /* 👈 Filters the execution to run only on the main branch */
@@ -63,7 +63,7 @@ pipeline {
         CHROMATIC_PROJECT_TOKEN = 'Chromatic project token'
       }
       steps {
-         /*👇Runs the Chromatic CLI */
+         /* 👇 Runs the Chromatic CLI */
          sh "yarn chromatic --project-token=${CHROMATIC_PROJECT_TOKEN}" 
       }
     }
@@ -108,13 +108,13 @@ pipeline {
   stages {
     /* Other pipeline stages */
 
-    /*👇Adds Chromatic as a stage in the pipeline */
+    /* 👇 Adds Chromatic as a stage in the pipeline */
     stage('Chromatic Deployment') {
       environment {
         CHROMATIC_PROJECT_TOKEN = 'Chromatic project token'
       }
       steps {
-         /*👇Runs Chromatic with the flag to prevent stage failure */
+         /* 👇 Runs Chromatic with the flag to prevent stage failure */
          sh "yarn chromatic --project-token=${CHROMATIC_PROJECT_TOKEN} --exit-zero-on-changes"
       }
     }
@@ -156,7 +156,7 @@ pipeline {
   stages {
     /* Other pipeline stages */
     
-    /*👇Checks if the current branch is not master and runs Chromatic */
+    /* 👇 Checks if the current branch is not master and runs Chromatic */
     stage('Deploy to Chromatic') {
       when { 
         not { 
@@ -170,7 +170,7 @@ pipeline {
          sh "yarn chromatic --project-token=${CHROMATIC_PROJECT_TOKEN}" 
       }
     }
-    /*👇Checks if the current branch is master and runs Chromatic with the flag to accept all changes */
+    /* 👇 Checks if the current branch is master and runs Chromatic with the flag to accept all changes */
     stage('Deploy to Chromatic and auto accept changes') {
       when { 
          branch 'master'
