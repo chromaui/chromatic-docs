@@ -34,7 +34,7 @@ Components and their stories are securely indexed each commit and branch. Use th
 
 Your Storybook is published on our secure CDN. Collaborators with [access rights](access) will also get access by logging in.
 
-Chromatic generates a [permalink](permalink) for the latest uploaded Storybook on a given branch. That makes it easy to share with your teammates or link to from docs. `https://<branch>--<appid>.chromatic.com`
+Chromatic generates a [permalink](permalinks) for the latest uploaded Storybook on a given branch. That makes it easy to share with your teammates or link to from docs. `https://<branch>--<appid>.chromatic.com`
 
 ![Direct Storybook](img/published-storybook.png)
 
