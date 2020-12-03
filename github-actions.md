@@ -117,9 +117,9 @@ jobs:
         uses: chromaui/action@v1
         # Options required to the GitHub Chromatic Action
         with:
+          token: {% raw %}${{ secrets.GITHUB_TOKEN }}{% endraw %}
           # 👇 Chromatic projectToken, refer to the manage page to obtain it.
-          projectToken: {% raw %}${{ secrets.GITHUB_TOKEN }}{% endraw %}
-          token: {% raw %}${{ secrets.CHROMATIC_PROJECT_TOKEN }}{% endraw %}
+          projectToken: {% raw %}${{ secrets.CHROMATIC_PROJECT_TOKEN }}{% endraw %}
 ```
 
 <div class="aside">
