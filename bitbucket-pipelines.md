@@ -22,7 +22,7 @@ pipelines:
 
       # 👇 Adds Chromatic as a step
     - step:
-        name: 'Chromatic deployment'
+        name: 'Publish to Chromatic'
         caches:
           - node
         script:
@@ -78,7 +78,7 @@ pipelines:
 
       # 👇 Adds Chromatic as a step in the pipeline
     - step:
-        name: 'Chromatic deployment'
+        name: 'Publish to Chromatic'
         # Other pipeline configuration
         script:
           - yarn install
@@ -94,7 +94,7 @@ When using `--exit-zero-on-changes` your pipeline execution still stop and fail 
 
 #### Re-run failed builds after verifying UI test results
 
-Builds that contain visual changes need to be [verified](test#verify-ui-changes). They will fail if you are not using `--exit-zero-on-changes`. Once you accept all the changes, re-run the pipeline and the `Chromatic deployment` step will pass.
+Builds that contain visual changes need to be [verified](test#verify-ui-changes). They will fail if you are not using `--exit-zero-on-changes`. Once you accept all the changes, re-run the pipeline and the `Publish to Chromatic` step will pass.
 
 If you deny any change, you will need to make the necessary code changes to fix the test (and thus start a new build) to get Chromatic to pass again.
 
@@ -119,7 +119,7 @@ pipelines:
   default:
       # 👇 Checks if the branch is master and runs Chromatic with the flag to accept all changes.
     - step:
-        name: 'Deploy to Chromatic and auto accept changes'
+        name: 'Publish to Chromatic and auto accept changes'
         caches:
           - node
         script:
@@ -128,7 +128,7 @@ pipelines:
     # 👇 Checks if the branch is not master and runs Chromatic
     your-branch:
       - step:
-          name: 'Deploy to Chromatic'
+          name: 'Publish to Chromatic'
           script:
             - yarn chromatic --project-token=$CHROMATIC_PROJECT_TOKEN
 

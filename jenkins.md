@@ -22,7 +22,7 @@ pipeline {
     /* Other pipeline stages */
 
     /* 👇 Adds Chromatic as a stage */
-    stage('Chromatic Deployment') {
+    stage('Publish to Chromatic') {
       environment {
         CHROMATIC_PROJECT_TOKEN = 'Chromatic project token'
       }
@@ -52,7 +52,7 @@ pipeline {
     /* Other pipeline stages */
     
     /* 👇 Adds Chromatic as a stage */
-    stage('Chromatic Deployment') {
+    stage('Publish to Chromatic') {
       when {
         branch 'example' /* 👈 Filters the execution to run only on the main branch */
       }
@@ -106,7 +106,7 @@ pipeline {
     /* Other pipeline stages */
 
     /* 👇 Adds Chromatic as a stage in the pipeline */
-    stage('Chromatic Deployment') {
+    stage('Publish to Chromatic') {
       environment {
         CHROMATIC_PROJECT_TOKEN = 'Chromatic project token'
       }
@@ -127,7 +127,7 @@ When using `--exit-zero-on-changes` your pipeline will still stop and fail if yo
 
 #### Re-run failed builds after verifying UI test results
 
-Builds that contain visual changes need to be [verified](test#verify-ui-changes). They will fail if you are not using `--exit-zero-on-changes`. Once you accept all the changes, re-run the build and the `Chromatic Deployment` job will pass.
+Builds that contain visual changes need to be [verified](test#verify-ui-changes). They will fail if you are not using `--exit-zero-on-changes`. Once you accept all the changes, re-run the build and the `Publish to Chromatic` pipeline stage will pass.
 
 If you deny any change, you will need to make the necessary code changes to fix the test (and thus start a new build) to get Chromatic to pass again.
 
@@ -154,7 +154,7 @@ pipeline {
     /* Other pipeline stages */
     
     /* 👇 Checks if the current branch is not master and runs Chromatic */
-    stage('Deploy to Chromatic') {
+    stage('Publish to Chromatic') {
       when { 
         not { 
           branch 'master' 
@@ -168,7 +168,7 @@ pipeline {
       }
     }
     /* 👇 Checks if the current branch is master and runs Chromatic with the flag to accept all changes */
-    stage('Deploy to Chromatic and auto accept changes') {
+    stage('Publish to Chromatic and auto accept changes') {
       when { 
          branch 'master'
       }
