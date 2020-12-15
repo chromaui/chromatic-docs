@@ -22,7 +22,7 @@ jobs:
      # Other jobs
 
      # 👇 Adds Chromatic as a job
-   - name: 'Chromatic Deployment'
+   - name: 'Publish to Chromatic'
      script: yarn chromatic --project-token=${CHROMATIC_PROJECT_TOKEN}
 ```
 
@@ -47,7 +47,7 @@ jobs:
      # Other jobs
 
      # 👇 Adds Chromatic as a job
-   - name: 'Chromatic Deployment'
+   - name: 'Publish to Chromatic'
      script: yarn chromatic --project-token=${CHROMATIC_PROJECT_TOKEN}
 ```
 
@@ -75,7 +75,7 @@ jobs:
      # Other jobs
 
      # 👇 Adds Chromatic as a job
-   - name: 'Chromatic Deployment'
+   - name: 'Publish to Chromatic'
      # 👇 Verifies the build event type or a if it's a forked repository
      if: (type = push OR head_repo != repo )
      script: yarn chromatic --project-token=${CHROMATIC_PROJECT_TOKEN}
@@ -102,7 +102,7 @@ jobs:
      # Other jobs
 
      # 👇 Adds Chromatic as a job
-   - name: 'Chromatic Deployment'
+   - name: 'Publish to Chromatic'
      # 👇 Runs Chromatic with the flag to prevent workflow failure
      script: yarn chromatic --project-token=${CHROMATIC_PROJECT_TOKEN} --exit-zero-on-changes
 ```
@@ -115,7 +115,7 @@ When using `--exit-zero-on-changes` your build will still stop and fail if your 
 
 #### Re-run failed builds after verifying UI test results
 
-Builds that contain visual changes need to be [verified](test#verify-ui-changes). They will fail if you are not using `--exit-zero-on-changes`. Once you accept all the changes, re-run the build and the `Chromatic Deployment` job will pass.
+Builds that contain visual changes need to be [verified](test#verify-ui-changes). They will fail if you are not using `--exit-zero-on-changes`. Once you accept all the changes, re-run the build and the `Publish to Chromatic` job will pass.
 
 If you deny any change, you will need to make the necessary code changes to fix the test (and thus start a new build) to get Chromatic to pass again.
 
@@ -139,11 +139,11 @@ If you’re using this functionality but notice the incoming changes were not ac
 jobs:
   include:
      # 👇 Checks if the branch is not master and runs Chromatic
-   - name: 'Deploy to Chromatic'
+   - name: 'Publish to Chromatic'
      if: branch != master 
      script: yarn chromatic --project-token=${CHROMATIC_PROJECT_TOKEN}
      # 👇 Checks if the branch is master and runs Chromatic with the flag to accept all changes
-   - name: 'Deploy to Chromatic and auto accepts changes'
+   - name: 'Publish to Chromatic and auto accepts changes'
      if: branch = master
      script: yarn chromatic --project-token=${CHROMATIC_PROJECT_TOKEN} --auto-accept-changes
 ```

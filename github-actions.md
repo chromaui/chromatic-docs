@@ -16,7 +16,7 @@ In your `.github/workflows` directory, create a new file called `chromatic.yml` 
 # .github/workflows/chromatic.yml
 
 # Workflow name
-name: 'Chromatic Deployment'
+name: 'Chromatic'
 
 # Event for the workflow
 on: push
@@ -32,7 +32,7 @@ jobs:
       - name: Install dependencies
         run: yarn
         # 👇 Adds Chromatic as a step in the workflow
-      - name: Deploy to Chromatic
+      - name: Publish to Chromatic
         uses: chromaui/action@v1
         # Chromatic GitHub Action options
         with:
@@ -113,7 +113,7 @@ jobs:
       - name: Install dependencies
         run: yarn
         # 👇 Adds Chromatic as a step in the workflow
-      - name: Deploy to Chromatic
+      - name: Publish to Chromatic
         uses: chromaui/action@v1
         # Options required to the GitHub Chromatic Action
         with:
@@ -179,7 +179,7 @@ jobs:
   chromatic-deployment:
     steps:
         # 👇 Adds Chromatic as a step in the workflow
-      - name: Deploy to Chromatic
+      - name: Publish to Chromatic
         uses: chromaui/action@v1
         # Options required to the GitHub chromatic action
         with:
@@ -225,7 +225,7 @@ jobs:
         # Other steps
       
         # 👇 Checks if the branch is not master and runs Chromatic
-      - name: Deploy to Chromatic
+      - name: Publish to Chromatic
         if: github.ref != 'refs/heads/master' 
         uses: chromaui/action@v1
         # Required options for the Chromatic GitHub Action
@@ -234,7 +234,7 @@ jobs:
           # 👇 Chromatic projectToken, refer to the manage page to obtain it.
           projectToken: {% raw %}${{ secrets.CHROMATIC_PROJECT_TOKEN }}{% endraw %}
         # 👇 Checks if the branch is master and accepts all changes in Chromatic
-      - name: Deploy to Chromatic and auto accept changes
+      - name: Publish to Chromatic and auto accept changes
         if: github.ref == 'refs/heads/master' 
         uses: chromaui/action@v1
         # Required options for the Chromatic GitHub Action
