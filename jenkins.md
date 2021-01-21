@@ -189,6 +189,38 @@ Read our <a href="/docs/cli#chromatic-options"> CLI documentation</a>.
 
 Including the `--auto-accept-changes` flag ensures all incoming changes will be accepted as baselines. Additionally you'll maintain a clean `master` branch.
 
+If you want to test the changes introduced by the rebased branch, you can adjust your workflow and include a new step with the `ignore-last-build-on-branch` flag. For example:
+
+```groovy
+/* JenkinsFile */
+
+pipeline {
+  /* Other pipeline configuration. */
+
+  stages {
+    /* Other pipeline stages */
+
+    /* 👇 Adds Chromatic as a stage in the pipeline */
+    stage('Publish to Chromatic') {
+      environment {
+        CHROMATIC_PROJECT_TOKEN = 'Chromatic project token'
+      }
+      steps {
+         /* 👇 Option to skip the last build on target branch */
+         sh "yarn chromatic --project-token=${CHROMATIC_PROJECT_TOKEN} --ignore-last-build-on-branch=my-branch"
+      }
+    }
+  }
+}
+```
+
+<div class="aside">
+Read our <a href="/docs/cli#chromatic-options"> CLI documentation</a>.
+</div>
+
+Including the `--ignore-last-build-on-branch` flag ensures the latest build for the specific branch is not used as a baseline.
+
+
 #### Run Chromatic on external forks of open source projects
 
 You can enable PR checks for external forks by sharing your `project-token` where you configured the Chromatic command (often in `package.json` or in the pipeline stage).

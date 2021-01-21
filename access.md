@@ -52,6 +52,10 @@ To [verify UI tests](test#verify-ui-changes) and [review pull requests](review#r
 | Repo: `read`           | View project                                                        |
 | Repo: `write`          | View and manage project, accept/deny UI tests, review pull requests |
 
+<div class="aside">
+If your project is hosted in Bitbucket, ensure that you and your team members have the <code>contributor</code> role.
+</div>
+
 ## Projects
 
 In Chromatic there two types of projects:
@@ -86,5 +90,20 @@ Users that have used the invitation link will get reviewer access to the project
 <summary>Why can't my teammates access a project?</summary>
 
 Check that your teammates are listed as collaborators in that repository. If they aren't listed, please add them and try accessing the Chromatic project again (you may have to re-login). Chromatic syncs permissions at the account _and_ repo level.
+
+</details>
+
+<details>
+<summary>How can i remove a collaborator from my project?</summary>
+
+If the project is linked to a online repository, once you remove the collaborator from the repository, your collaborator's list will be automatically updated in Chromatic. 
+
+For unlinked project, contact us via our in-app chat.
+
+</details>
+<details>
+<summary>Why can't i update my email account in Chromatic?</summary>
+
+Chromatic retrieves the email address associated to your account from your Git provider. Check your provider's account settings page on how to change your email.
 
 </details>

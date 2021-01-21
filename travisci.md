@@ -154,6 +154,29 @@ Read our <a href="/docs/cli#chromatic-options"> CLI documentation</a>.
 
 Including the `--auto-accept-changes` flag ensures all incoming changes will be accepted as baselines. Additionally you'll maintain a clean `master` branch.
 
+If you want to test the changes introduced by the rebased branch, you can adjust your workflow and include a new step with the `ignore-last-build-on-branch` flag. For example:
+
+```yml
+# travis.yml
+
+# Other required configuration
+
+jobs:
+  include:
+     # Other jobs
+
+     # 👇 Adds Chromatic as a job
+   - name: 'Publish to Chromatic'
+     # 👇 Option to skip the last build on target branch
+     script: yarn chromatic --project-token=${CHROMATIC_PROJECT_TOKEN} --ignore-last-build-on-branch=my-branch
+```
+
+<div class="aside">
+Read our <a href="/docs/cli#chromatic-options"> CLI documentation</a>.
+</div>
+
+Including the `--ignore-last-build-on-branch` flag ensures the latest build for the specific branch is not used as a baseline.
+
 #### Run Chromatic on external forks of open source projects
 
 

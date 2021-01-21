@@ -81,15 +81,15 @@ Or you could disable Chromatic on pull requests from forked repositories.
 Chromatic's GitHub Action includes additional options to customize your workflow. The table below lists what's currently available:
 
 
-| Option                 | Description                                                                              | Type                  | Example value                              |
-| ---------------------- | ---------------------------------------------------------------------------------------- | ----------------------| -------------------------------------------|
-| **buildScriptName**    | The script that builds your Storybook                                                    | *String*              | <code>build-storybook</code>               |
-| **storybookBuildDir**  | Provide a directory with your built Storybook.                                           | *String*              | <code>storybook-static</code>              |
-| **allowConsoleErrors** | Do not exit when runtime errors occur in Storybook                                       | *N/A*                 | <code>N/A</code>                           |
-| **autoAcceptChanges**  | Automatically accepts all changes in Chromatic                                           | *String* or *Boolean* | <code>my-branch</code> or <code>true</code>|
-| **exitZeroOnChanges**  | Positive exit of action even when there are changes detected                             | *String* or *Boolean* | <code>my-branch</code> or <code>true</code>|
-| **exitOnceUploaded**   | Exit with status 0 (OK) once the build has been sent to Chromatic                        | *String* or *Boolean* | <code>my-branch</code> or <code>true</code>|
-
+| Option                    | Description                                                       | Type                  | Example value                              | Default value                 |
+| --------------------------| ------------------------------------------------------------------| ----------------------| -------------------------------------------|-------------------------------|
+| **buildScriptName**       | The script that builds your Storybook                             | *String*              | <code>build-storybook</code>               |<code>build-storybook</code>   |
+| **storybookBuildDir**     | Provide a directory with your built Storybook.                    | *String*              | <code>storybook-static</code>              |<code>storybook-static</code>  |
+| **allowConsoleErrors**    | Do not exit when runtime errors occur in Storybook                | *Boolean*             | <code>True</code>                          |<code>false</code>             |
+| **autoAcceptChanges**     | Automatically accepts all changes in Chromatic                    | *String* or *Boolean* | <code>my-branch</code> or <code>true</code>|<code>false</code>             |
+| **exitZeroOnChanges**     | Positive exit of action even when there are changes detected      | *String* or *Boolean* | <code>my-branch</code> or <code>true</code>|<code>true</code>              |
+| **exitOnceUploaded**      | Exit with status 0 (OK) once the build has been sent to Chromatic | *String* or *Boolean* | <code>my-branch</code> or <code>true</code>|<code>false</code>             |
+|**ignoreLastBuildOnBranch**| Ignores latest build on target branch as a baseline if branch is no longer present in history (i.e. branch was rebased). Multiple branches allowed through [picomatch] | *String*|<code>my-branch</code>|N/A|
 
 ### Support for `actions/checkout@v2` 
 
@@ -251,6 +251,33 @@ Read about the <a href="#available-options">available options</a>.
 </div>
 
 Including the `autoAcceptChanges` option ensures all incoming changes will be accepted as baselines. Additionally you'll maintain a clean `master` branch.
+
+If you want to test the changes introduced by the rebased branch, you can adjust your workflow and include a new step with the `ignoreLastBuildOnBranch` option. For example:
+
+```yml
+# .github/workflows/chromatic.yml
+
+# Other necessary configuration
+
+jobs:
+  chromatic-deployment:
+    steps:
+        # 👇 Adds Chromatic as a step in the workflow
+      - name: Publish to Chromatic
+        uses: chromaui/action@v1
+        # Options required to the GitHub chromatic action
+        with:
+          token: {% raw %}${{ secrets.GITHUB_TOKEN }}{% endraw %}
+          # 👇 Chromatic projectToken, refer to the manage page to obtain it.
+          projectToken: {% raw %}${{ secrets.CHROMATIC_PROJECT_TOKEN }}{% endraw %}
+          ignoreLastBuildOnBranch: 'my-branch' # 👈 Option to skip the last build on target branch
+```
+
+<div class="aside">
+Read about the <a href="#available-options">available options</a>.
+</div>
+
+Including the `ignoreLastBuildOnBranch` option ensures the latest build for the specific branch is not used as a baseline.
 
 #### Run Chromatic on external forks of open source projects
 
