@@ -104,6 +104,6 @@ For unlinked projects, contact us via our in-app chat.
 <details>
 <summary>Why can't I update my email account in Chromatic?</summary>
 
-Chromatic retrieves the email address associated to your account from your Git provider. Check your provider's account settings page on how to change your email.
+Chromatic retrieves the email addresses associated with your account from your Git provider. Check your provider's account settings page on how to add or change your email(s).
 
 </details>
