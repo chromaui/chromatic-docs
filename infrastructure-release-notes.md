@@ -1,7 +1,7 @@
 ---
 layout: default
 title: Capture Stack release notes
-description: Chromatic's Capture Stack release notes
+description: Chromatic's browser infrastructure release notes
 ---
 
 # Chromatic Capture Cloud release notes
