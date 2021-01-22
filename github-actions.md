@@ -250,7 +250,7 @@ jobs:
 Read about the <a href="#available-options">available options</a>.
 </div>
 
-Including the `autoAcceptChanges` option ensures all incoming changes will be accepted as baselines. Additionally you'll maintain a clean `master` branch.
+Including the `autoAcceptChanges` option ensures all incoming changes will be accepted as baselines. Additionally, you'll maintain a clean `master` branch.
 
 If you want to test the changes introduced by the rebased branch, you can adjust your workflow and include a new step with the `ignoreLastBuildOnBranch` option. For example:
 
