@@ -1,6 +1,6 @@
 ---
 layout: default
-title: Capture Stack release notes
+title: Infrastructure release notes
 description: Chromatic's browser infrastructure release notes
 ---
 
