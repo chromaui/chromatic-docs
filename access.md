@@ -98,7 +98,7 @@ Check that your teammates are listed as collaborators in that repository. If the
 
 If the project is linked to a online repository, once you remove the collaborator from the repository, your collaborator's list will be automatically updated in Chromatic. 
 
-For unlinked project, contact us via our in-app chat.
+For unlinked projects, contact us via our in-app chat.
 
 </details>
 <details>
