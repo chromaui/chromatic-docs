@@ -94,7 +94,7 @@ Check that your teammates are listed as collaborators in that repository. If the
 </details>
 
 <details>
-<summary>How can i remove a collaborator from my project?</summary>
+<summary>How can I remove a collaborator from my project?</summary>
 
 If the project is linked to a online repository, once you remove the collaborator from the repository, your collaborator's list will be automatically updated in Chromatic. 
 
