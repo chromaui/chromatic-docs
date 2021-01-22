@@ -39,7 +39,7 @@ Future builds will use the upgrade build's auto-accepted baselines as the source
 ![Auto-accept changes](img/infrastructure-upgrades-auto-accept.png)
 
 
-### Infrastructure upgrades release notes
+### Release notes for infrastructure upgrades
 
 See the Capture Cloud release notes to get the latest infrastructure changes.
 
@@ -47,6 +47,5 @@ See the Capture Cloud release notes to get the latest infrastructure changes.
 |:--------------------------------------------------------------------:|-----------------------------------------------------|
 | [Version 2](infrastructure-release-notes#version-2)                  | General availability                                |
 | [Version 1](infrastructure-release-notes#version-1)                  | Outdated ([opt in for upgrade](#opt-in-to-upgrade)) |
-
 
 
