@@ -41,11 +41,10 @@ Future builds will use the upgrade build's auto-accepted baselines as the source
 
 ### Release notes for infrastructure upgrades
 
-See the Capture Cloud release notes to get the latest infrastructure changes.
+Read about the infrastructure changes in the release notes.
 
 | Capture Stack version                                                |Status                                               | 
 |:--------------------------------------------------------------------:|-----------------------------------------------------|
 | [Version 2](infrastructure-release-notes#version-2)                  | General availability                                |
 | [Version 1](infrastructure-release-notes#version-1)                  | Outdated ([opt in for upgrade](#opt-in-to-upgrade)) |
-
 
