@@ -46,7 +46,14 @@ When you merge two branches together, Chromatic can sometimes have two (or more)
 
 If you rebase a branch (say updating to branch off the latest commit off `master`), then you create a new commit that isn't a git descendent of the previous (pre-rebase) commit on that branch. Conceptually, that might mean that Chromatic should throw away any approvals that were made for builds on the branch, however this is probably not what you want.
 
-For this reason, we _always_ include accepted baselines from the latest build on the current branch, regardless of git history. You can bypass this with the `--ignore-last-build-on-branch=<branch-name>` flag of `chromatic`.
+For this reason, we _always_ include accepted baselines from the latest build on the current branch, regardless of git history. You can bypass this with the `--ignore-last-build-on-branch=<branch-name>` flag of `chromatic`. For example:
+
+```bash
+chromatic --ignore-last-build-on-branch=example-branch
+```
+<div class="aside">
+Read our CI <a href="/docs/ci"> documentation</a>. 
+</div>
 
 #### Squash and rebase-merging
 

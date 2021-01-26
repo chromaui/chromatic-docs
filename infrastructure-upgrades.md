@@ -37,3 +37,14 @@ Visual differences between old and new infrastructure are auto-accepted. Since t
 Future builds will use the upgrade build's auto-accepted baselines as the source of truth.
 
 ![Auto-accept changes](img/infrastructure-upgrades-auto-accept.png)
+
+
+### Release notes for infrastructure upgrades
+
+Read about the infrastructure changes in the release notes.
+
+| Capture Stack version                                                |Status                                               | 
+|:--------------------------------------------------------------------:|-----------------------------------------------------|
+| [Version 2](infrastructure-release-notes#version-2)                  | General availability                                |
+| [Version 1](infrastructure-release-notes#version-1)                  | Outdated ([opt in for upgrade](#opt-in-to-upgrade)) |
+

@@ -159,7 +159,31 @@ fi
 Read our <a href="/docs/cli#chromatic-options"> CLI documentation</a>.
 </div>
 
-Including the `--auto-accept-changes` flag ensures all incoming changes will be accepted as baselines. Additionally you'll maintain a clean `master` branch.
+Including the `--auto-accept-changes` flag ensures all incoming changes will be accepted as baselines. Additionally, you'll maintain a clean `master` branch.
+
+If you want to test the changes introduced by the rebased branch, you can adjust your workflow and include a new step with the `ignore-last-build-on-branch` flag. For example:
+
+```yml
+# .circleci/config.yml
+
+# Other required configuration
+
+jobs:
+  # Other jobs
+
+  # 👇 Adds Chromatic as a job
+  chromatic-deployment: 
+    # Other configuration
+    steps:
+      # Other job steps
+
+      # 👇 Option to skip the last build on target branch
+      - run: yarn chromatic --project-token=${CHROMATIC_PROJECT_TOKEN} --ignore-last-build-on-branch=my-branch
+
+# Workflows here
+
+```
+Including the `--ignore-last-build-on-branch` flag ensures the latest build for the specific branch is not used as a baseline.
 
 #### Run Chromatic on external forks of open source projects
 
