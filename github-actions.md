@@ -89,7 +89,7 @@ Chromatic's GitHub Action includes additional options to customize your workflow
 | **autoAcceptChanges**     | Automatically accepts all changes in Chromatic                    | *String* or *Boolean* | <code>my-branch</code> or <code>true</code>|<code>false</code>             |
 | **exitZeroOnChanges**     | Positive exit of action even when there are changes detected      | *String* or *Boolean* | <code>my-branch</code> or <code>true</code>|<code>true</code>              |
 | **exitOnceUploaded**      | Exit with status 0 (OK) once the build has been sent to Chromatic | *String* or *Boolean* | <code>my-branch</code> or <code>true</code>|<code>false</code>             |
-|**ignoreLastBuildOnBranch**| Ignores latest build on target branch as a baseline if branch is no longer present in history (i.e. branch was rebased). Multiple branches allowed through [picomatch] | *String*|<code>my-branch</code>|N/A|
+|**ignoreLastBuildOnBranch**| Ignores latest build on current branch as a baseline if that build is no longer present in git history (i.e. branch was rebased). Multiple branches allowed through [picomatch] | *String*|<code>my-branch</code>|N/A|
 
 ### Support for `actions/checkout@v2` 
 
