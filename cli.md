@@ -80,14 +80,14 @@ These options control how Chromatic behaves with regards to your stories and wha
 
 These options may help you debug problems or enable integration with other tools.
 
-| CLI flag                    |                                                                                                                                                          |
-| --------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `--no-interactive`          | Don't ask interactive questions about your setup and don't overwrite output. `true` in non-TTY environments.                                             |
-| `--debug`                   | Output verbose debugging information. This option implies `--no-interactive`.                                                                            |
-| `--ci`                      | Mark this build as a CI build. Alternatively, set the `CI` environment variable (present in most CI systems). This option implies `--no-interactive`.    |
-| `--list`                    | List available stories. This requires running a full build.                                                                                              |
-| `--only <storypath>`        | Only run a single story or a subset of stories. Story paths typically look like `Path/To/Story`. Globs are supported via [picomatch].                    |
-| `--junit-report [filepath]` | Write build results to a JUnit XML file. Defaults to `chromatic-build-{buildNumber}.xml`. `{buildNumber}` will be replaced with the actual build number. |
+| CLI flag                    |                                                                                                                                                                                                    |
+| --------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `--no-interactive`          | Don't ask interactive questions about your setup and don't overwrite output. `true` in non-TTY environments.                                                                                       |
+| `--debug`                   | Output verbose debugging information. This option implies `--no-interactive`.                                                                                                                      |
+| `--ci`                      | Mark this build as a CI build. Alternatively, set the `CI` environment variable (present in most CI systems). This option implies `--no-interactive`.                                              |
+| `--list`                    | List available stories. This requires running a full build.                                                                                                                                        |
+| `--only <storypath>`        | Only run a single story or a subset of stories. Use the `title` from the story's default export as the story path. This typically looks like `Path/To/Story`. Globs are supported via [picomatch]. |
+| `--junit-report [filepath]` | Write build results to a JUnit XML file. Defaults to `chromatic-build-{buildNumber}.xml`. `{buildNumber}` will be replaced with the actual build number.                                           |
 
 ### Deprecated options
 
@@ -156,7 +156,6 @@ yarn add --dev chromatic
 - [Package on npm](https://www.npmjs.com/package/chromatic)
 
 [picomatch]: https://www.npmjs.com/package/picomatch#globbing-features
-
 
 ---
 
