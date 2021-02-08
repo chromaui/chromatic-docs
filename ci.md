@@ -60,14 +60,3 @@ How tools work together affects your development speed. Learn the recommended Ch
 <a class="btn primary round" href="workflow">Read next chapter</a>
 
 ---
-
-### Frequently asked questions
-
-<details>
-<summary>Hide the CI messages in the web app</summary>
-
-Chromatic detects CI test runs for most services. But it's not possible for every system, which results in users seeing persistent "Setup CI / Automation" messages in the UI.
-
-If this is happening to you, prepend `CI=true` to your test command like so `CI=true yarn chromatic...` to hide the "Setup CI" messages in Chromatic. [Learn more](test#available-options)
-
-</details>

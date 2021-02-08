@@ -33,7 +33,7 @@ MyComponent.defaultProps = {
 Then write a story that triggers the props.
 
 ```js
-// MyComponent.stories.js
+// MyComponent.stories.js | MyComponent.stories.ts
 
 import MyComponent from "./MyComponent";
 
@@ -76,7 +76,8 @@ MyComponent.active {
 Then write a story that utilizes the class name.
 
 ```js
-// In MyComponent.stories.js
+// MyComponent.stories.js | MyComponent.stories.ts
+
 import MyComponent from "./MyComponent";
 
 export default {

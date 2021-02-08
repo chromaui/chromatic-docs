@@ -87,7 +87,7 @@ Let's suppose you want to test a component named `Histogram`, that lives at `src
 Create a file called `src/components/Histogram.stories.js` and write the following:
 
 ```js
-// src/components/Histogram.stories.js
+// src/components/Histogram.stories.js | src/components/Histogram.stories.ts
 
 import React from 'react';
 import Histogram from './Histogram';

@@ -32,7 +32,7 @@ LazyLoad.disabled = isChromatic();
 This is useful when you want to change behavior of one component's stories when rendered in Chromatic.
 
 ```js
-// MyComponent.stories.js
+// MyComponent.stories.js | MyComponent.stories.ts
 
 import MyComponent from "./MyComponent";
 import isChromatic from "chromatic/isChromatic";
