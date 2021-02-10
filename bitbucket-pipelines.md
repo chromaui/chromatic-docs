@@ -55,7 +55,7 @@ pipelines:
 ```
 
 <div class="aside">
-Read the official BitBucket <a href="">conditional pipeline documentation</a>.
+Read the official BitBucket <a href="https://support.atlassian.com/bitbucket-cloud/docs/configure-bitbucket-pipelinesyml/">conditional pipeline documentation</a>.
 </div>
 
 Now your pipeline will only run Chromatic in the `main` branch.
