@@ -15,7 +15,7 @@ Chromatic will pause CSS animations and reset them to their beginning state.
 Some animations are used to "animate in" visible elements. To specify that Chromatic should pause the animation at the end, use the `pauseAnimationAtEnd` [story parameter](https://storybook.js.org/docs/react/writing-stories/parameters#story-parameters):
 
 ```js
-// MyComponent.stories.js
+// MyComponent.stories.js | MyComponent.stories.ts
 
 import MyComponent from './MyComponent';
 

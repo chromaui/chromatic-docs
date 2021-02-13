@@ -24,7 +24,7 @@ pixels within the bounding rectangle of ignored elements. It's important to ensu
 You can omit stories entirely from Chromatic testing using the `disable` [story parameter](https://storybook.js.org/docs/react/writing-stories/parameters#story-parameters):
 
 ```js
-// MyComponent.stories.js
+// MyComponent.stories.js | MyComponent.stories.ts
 
 import MyComponent from './MyComponent';
 
@@ -58,7 +58,7 @@ export const parameters = {
 In the component's stories you'd like to enable Chromatic:
 
 ```js
-// MyComponent.stories.js
+// MyComponent.stories.js | MyComponent.stories.ts
 
 import MyComponent from './MyComponent';
 

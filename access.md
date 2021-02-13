@@ -83,27 +83,3 @@ Users that have used the invitation link will get reviewer access to the project
 </div>
 
 ---
-
-### Frequently asked questions
-
-<details>
-<summary>Why can't my teammates access a project?</summary>
-
-Check that your teammates are listed as collaborators in that repository. If they aren't listed, please add them and try accessing the Chromatic project again (you may have to re-login). Chromatic syncs permissions at the account _and_ repo level.
-
-</details>
-
-<details>
-<summary>How can I remove a collaborator from my project?</summary>
-
-If the project is linked to a online repository, once you remove the collaborator from the repository, your collaborator's list will be automatically updated in Chromatic. 
-
-For unlinked projects, contact us via our in-app chat.
-
-</details>
-<details>
-<summary>Why can't I update my email account in Chromatic?</summary>
-
-Chromatic retrieves the email addresses associated with your account from your Git provider. Check your provider's account settings page on how to add or change your email(s).
-
-</details>

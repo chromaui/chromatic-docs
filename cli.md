@@ -159,12 +159,3 @@ yarn add --dev chromatic
 
 ---
 
-### Frequently asked questions
-
-<details>
-<summary> I see `Chromatic: Failed to publish. Reason: self signed certificate in certificate chain` when running Chromatic's CLI in my machine.
-</summary>
-
-This isn't a Chromatic CLI issue. Check if your machine is using special security or network settings before running the CLI.
-
-</details>
