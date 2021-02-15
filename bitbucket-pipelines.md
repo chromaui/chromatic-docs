@@ -193,7 +193,7 @@ pipelines:
 
 Including the `git` command prior to running Chromatic prevents unwanted build errors when Chromatic retrieves the information from your BitBucket repo.
 
-And you'll be able to to see the full UI changeset for PRs and perform Chromatic UI Reviews normally.
+You'll now be able to to see the UI changeset for PRs and perform [UI Review](review) as normal.
 
 
 #### Run Chromatic on external forks of open source projects
