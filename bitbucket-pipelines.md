@@ -191,7 +191,7 @@ pipelines:
             - yarn chromatic --project-token=$CHROMATIC_PROJECT_TOKEN --patch-build=$your-branch...master
 ```
 
-Including the `git` command prior to running Chromatic, prevents unwanted build errors when Chromatic retrieves the information from your BitBucket repo.
+Including the `git` command prior to running Chromatic prevents unwanted build errors when Chromatic retrieves the information from your BitBucket repo.
 
 And you'll be able to to see the full UI changeset for PRs and perform Chromatic UI Reviews normally.
 
