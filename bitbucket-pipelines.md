@@ -191,13 +191,15 @@ pipelines:
             - yarn chromatic --project-token=$CHROMATIC_PROJECT_TOKEN --patch-build=$your-branch...master
 ```
 
-<div class="aside">
-See the following <a href="https://community.atlassian.com/t5/Bitbucket-Pipelines-questions/pipeline-doesnt-recognize-origin-master/qaq-p/968614">BitBucket issue</a> for context.
-</div>
-
 Including the `git` command prior to running Chromatic prevents unwanted build errors when Chromatic retrieves the information from your BitBucket repo.
 
-You'll now be able to to see the UI changeset for PRs and perform [UI Review](review) as normal.
+This is based on how BitBucket's pipeline infrastructure handles cloning and branching. By default when the pipeline runs it will not do a full repository clone. Instead it will only fetch the current branch and omit all other existing ones.
+
+Now you'll be able to to see the UI changeset for PRs and perform [UI Review](review) as normal.
+
+<div class="aside">
+See the following <a href="https://community.atlassian.com/t5/Bitbucket-Pipelines-questions/pipeline-doesnt-recognize-origin-master/qaq-p/968614">BitBucket issue</a> for a detailed explanation.
+</div>
 
 
 #### Run Chromatic on external forks of open source projects
