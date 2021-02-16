@@ -192,7 +192,7 @@ pipelines:
 ```
 
 <div class="aside">
-See the following <a href="https://community.atlassian.com/t5/Bitbucket-Pipelines-questions/pipeline-doesnt-recognize-origin-master/qaq-p/968614">BitBucket's issue</a> for context.
+See the following <a href="https://community.atlassian.com/t5/Bitbucket-Pipelines-questions/pipeline-doesnt-recognize-origin-master/qaq-p/968614">BitBucket issue</a> for context.
 </div>
 
 Including the `git` command prior to running Chromatic prevents unwanted build errors when Chromatic retrieves the information from your BitBucket repo.
