@@ -48,17 +48,17 @@ pipelines:
 
   branches:
     # 👇 The example branch will display the message in the console instead of running Chromatic.
-    master:
+    main:
       - step:
          script:
            - yarn chromatic --project-token=$CHROMATIC_PROJECT_TOKEN
 ```
 
 <div class="aside">
-Read the official BitBucket <a href="">conditional pipeline documentation</a>.
+Read the official BitBucket <a href="https://support.atlassian.com/bitbucket-cloud/docs/configure-bitbucket-pipelinesyml/">conditional pipeline documentation</a>.
 </div>
 
-Now your pipeline will run Chromatic in the `main` branch and the example `branch` will show a message.
+Now your pipeline will only run Chromatic in the `main` branch.
 
 ### UI Test and UI Review
 
