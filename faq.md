@@ -6,21 +6,66 @@ description: Frequently asked questions about Chromatic
 
 ## Frequently Asked Questions
 
-Here are some answers to frequently asked questions. If you have a question not covered in our documentation, contact us via our <a href="/intercom" onclick="event.preventDefault();openIntercom();"><b>in-app chat</b></a>.
+Here are some answers to frequently asked questions. If you have a question not covered in our documentation, contact us via our <a class=".intercom-concierge-bot"><b>in-app chat</b></a>.
 
 ## Table of Contents
 
 - [Accounts](#accounts)
 - [Billing](#billing)
-- [General information](#general-information)
+- [CLI](#cli)
+- [Chromatic](#chromatic)
+- [Chromatic](#Chromatic)
 - [Git providers](#git-providers)
 - [Snapshots](#snapshots)
 - [UI Testing and review](#ui-testing-and-review)
 - [Security](#security)
 
-### General information
+### Accounts
 
-Frequently asked questions mainly related to Chromatic common usage.
+<details>
+<summary>How can I remove a collaborator from my project?</summary>
+
+If the project is linked to a online repository, once you remove the collaborator from the repository, your collaborator's list will be automatically updated in Chromatic. For unlinked projects, contact us via our <a class=".intercom-concierge-bot"><b>in-app chat</b></a>.
+
+</details>
+
+<details>
+<summary>Why can't I update my email account in Chromatic?</summary>
+
+Chromatic retrieves the email addresses associated with your account from your Git provider. Check your provider's account settings page on how to add or change your email(s).
+
+</details>
+
+<details>
+<summary>Why can't my teammates access a project?</summary>
+
+Check that your teammates are listed as collaborators in that repository. 
+
+If they aren't listed, please add them and try accessing the Chromatic project again (you may have to re-login). Chromatic syncs permissions at the account _and_ repo level. Learn [more](access).
+
+</details>
+
+---
+
+### Billing
+
+<details>
+<summary>How do I access my invoices?</summary>
+
+You can browse all invoices past and present in the `Billing` screen. Learn how to access your invoices in this [article](article-view-invoice).
+
+</details>
+
+<details>
+<summary>How do I change my billing address?</summary>
+
+Your billing address can be modified in the `Billing` screen . Learn how to change it in this [article](article-change-billing-address).
+
+</details>
+
+---
+
+### Chromatic
 
 <details>
 <summary>Can I hide the CI messages in the web app?</summary>
@@ -96,13 +141,6 @@ We do our best to interpret your Storybook script in package.json, but you might
 </details>
 
 <details>
-<summary>Why do I see <code>Failed to publish. Reason: self signed certificate in certificate chain</code> when running the CLI?</summary>
-
-This isn't a Chromatic CLI issue. Check if your machine is using special security or network settings before running the CLI.
-
-</details>
-
-<details>
 <summary>Why is my Storybook failing to load in Chromatic?</summary>
 
 If your stories make use of non-HTTPS content (for instance images), the iframe we deliver live view will fail to load, as modern browsers do not allow mixed content (HTTP content hosted within HTTPS pages).
@@ -163,58 +201,18 @@ Most likely you are calling into `window.parent` somewhere in your code. As we s
 
 ---
 
-### Accounts
-
-Frequently asked questions related to Chromatic account management.
+### CLI
 
 <details>
-<summary>How can I remove a collaborator from my project?</summary>
+<summary>Why do I see <code>Failed to publish. Reason: self signed certificate in certificate chain</code> when running the CLI?</summary>
 
-If the project is linked to a online repository, once you remove the collaborator from the repository, your collaborator's list will be automatically updated in Chromatic. For unlinked projects, contact us via our <a href="/intercom" onclick="event.preventDefault();openIntercom();"><b>in-app chat</b></a>.
-
-</details>
-
-<details>
-<summary>Why can't I update my email account in Chromatic?</summary>
-
-Chromatic retrieves the email addresses associated with your account from your Git provider. Check your provider's account settings page on how to add or change your email(s).
-
-</details>
-
-<details>
-<summary>Why can't my teammates access a project?</summary>
-
-Check that your teammates are listed as collaborators in that repository. 
-
-If they aren't listed, please add them and try accessing the Chromatic project again (you may have to re-login). Chromatic syncs permissions at the account _and_ repo level. Learn [more](access).
-
-</details>
-
----
-
-### Billing
-
-Frequently asked questions related to Chromatic billing.
-
-<details>
-<summary>How do I access my invoices?</summary>
-
-You can browse all invoices past and present in the `Billing` screen. Learn how to access your invoices in this [article](article-view-invoice).
-
-</details>
-
-<details>
-<summary>How do I change my billing address?</summary>
-
-Your billing address can be modified in the `Billing` screen . Learn how to change it in this [article](article-change-billing-address).
+This isn't a Chromatic CLI issue. Check if your machine is using special security or network settings before running the CLI.
 
 </details>
 
 ---
 
 ### Git providers
-
-Frequently asked questions related to Chromatic usage with Git providers.
 
 <details>
 <summary>Why do I get a <code>Command error git log -n 1</code> with Chromatic?</summary>
@@ -237,7 +235,7 @@ Try running the command manually `git log -n 1 --format="%H,%ct,%ce,%cn"` and ch
 
 This means that across the last X unique commits across all builds in your app, we didn't find a single one that exists in the repository you ran this build against. Commits can go missing if you rebase or perform squash-merges, however, if all of the previous X builds' commits are missing, it is likely something has gone wrong.
 
-If you've reached this situation and can't work out why, please contact us through our <a href="/intercom" onclick="event.preventDefault();openIntercom();"><b>in-app chat</b></a> or [email](mailto:support@chromatic.com).
+If you've reached this situation and can't work out why, please contact us through our <a  class=".intercom-concierge-bot"><b>in-app chat</b></a> or [email](mailto:support@chromatic.com).
 
 </details>
 
@@ -246,7 +244,7 @@ If you've reached this situation and can't work out why, please contact us throu
 
 This means that although we found recent builds that _were_ in your git repository history (see above), we couldn't find any _common_ history between your checked out build and those builds within X commits.
 
-Unless you are doing something unusual with your git repository, this is extremely unlikely. Either way, please contact us through our <a href="/intercom" onclick="event.preventDefault();openIntercom();"><b>in-app chat</b></a> or [email](mailto:support@chromatic.com).
+Unless you are doing something unusual with your git repository, this is extremely unlikely. Either way, please contact us through our <a class=".intercom-concierge-bot"><b>in-app chat</b></a> or [email](mailto:support@chromatic.com).
 
 </details>
 
@@ -272,8 +270,6 @@ However, this situation can arise due to the following:
 ---
 
 ### Snapshots
-
-Frequently asked questions related to Chromatic's snapshots.
 
 <details>
 <summary>Does Chromatic takes snapshots when the code changes?</summary>
@@ -302,7 +298,7 @@ Free plans come with 5000 snapshots per month. Once free snapshots are exhausted
 
 We have a 25 million pixel size limit for image snapshots. This ensures fast and reliable performance for every build. 
 
-If your stories are larger than this, perhaps something has gone wrong? Let us know if you need this limit increased via our <a href="/intercom" onclick="event.preventDefault();openIntercom();"><b>in-app chat</b></a> or [email](mailto:support@chromatic.com).
+If your stories are larger than this, perhaps something has gone wrong? Let us know if you need this limit increased via our <a class=".intercom-concierge-bot"><b>in-app chat</b></a> or [email](mailto:support@chromatic.com).
 
 </details>
 
@@ -352,8 +348,6 @@ export default {
 
 ### UI Testing and Review
 
-Frequently asked questions related to Chromatic's UI testing and review process.
-
 <details>
 <summary>Can I disable UI Tests if I prefer not to use them?</summary>
 
@@ -385,7 +379,7 @@ No. At the moment, Chrome is fixed as the browser used for UI review.
 <details>
 <summary>Can I control the height of the browser?</summary>
 
-As we take a full screenshot of the component (even if it flows off the screen), it typically doesn't make any difference what height the browser has when taking screenshots. If this isn't the case for you application, please contact us through <a href="/intercom" onclick="event.preventDefault();openIntercom();"><b>in-app chat</b></a> or [email](mailto:support@chromatic.com).
+As we take a full screenshot of the component (even if it flows off the screen), it typically doesn't make any difference what height the browser has when taking screenshots. If this isn't the case for you application, please contact us through <a  class=".intercom-concierge-bot"><b>in-app chat</b></a> or [email](mailto:support@chromatic.com).
 
 </details>
 
@@ -540,8 +534,6 @@ export const StoryWithDimensions = () => <MyComponent/>
 ---
 
 ### Security
-
-Frequently asked questions related to Chromatic's Security policies.
 
 <details>
 <summary>Does Chromatic have a security policy and where can I see it?</summary>

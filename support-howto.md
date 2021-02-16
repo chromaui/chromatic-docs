@@ -6,11 +6,11 @@ description: Chromatic's support guidelines
 
 # How can we help you with today?
 
-Welcome! To get the quickest help, use our <a href="/intercom" onclick="event.preventDefault();openIntercom();"><b>in-app chat</b></a> and answer each question as best as possible so that our team can help you better. 
+Welcome! To get the quickest help, use our <a class=".intercom-concierge-bot"><b>in-app chat</b></a> and answer each question as best as possible so that our team can help you better. 
 
 Once you go through the questions, a member of our team will get in touch with you and walk you through how to solve your issue.
 
-For fastest response include when possible:
+For fastest response time include when possible:
 
 1. Chromatic version 
 1. Any logs you deem relevant

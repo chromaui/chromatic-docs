@@ -38,3 +38,8 @@ Chromatic hides the caret, a flashing cursor, to prevent intermittent changes to
 
 ---
 
+---
+
+## Resources
+
+- [How to view snapshot count](article-view-snapshot-count)
