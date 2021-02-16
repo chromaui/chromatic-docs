@@ -34,11 +34,11 @@ Integrate with popular CI tools like you would any other job. Run `npm run chrom
 Here's how we recommend configuring Chromatic for popular CI services.
 
 - [GitHub Actions](github-actions)
-- [GitLab](gitlab)
+- [GitLab Pipelines](gitlab)
+- [Bitbucket Pipelines](bitbucket-pipelines)
 - [CircleCI](circleci)
 - [Travis CI](travisci)
 - [Jenkins](jenkins)
-- [Bitbucket Pipelines](bitbucket-pipelines)
 - [Other CI providers](custom-ci-provider)
 
 
