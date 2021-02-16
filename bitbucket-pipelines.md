@@ -169,7 +169,7 @@ Including the `--ignore-last-build-on-branch` flag ensures the latest build for 
 
 #### BitBucket pipelines and patch builds
 
-If you're creating a patch build in Chromatic to fix a missing pull request comparison, you'll need to adjust your existing pipeline to the following:
+If you're creating a [patch build](branching-and-baselines#patch-builds) in Chromatic to fix a missing pull request comparison, you'll need to adjust your existing pipeline to the following:
 
 ```yml
 # bitbucket-pipelines.yml
@@ -190,6 +190,10 @@ pipelines:
               # 👇 Option to update the build based on the changes obtained
             - yarn chromatic --project-token=$CHROMATIC_PROJECT_TOKEN --patch-build=$your-branch...master
 ```
+
+<div class="aside">
+See the following <a href="https://community.atlassian.com/t5/Bitbucket-Pipelines-questions/pipeline-doesnt-recognize-origin-master/qaq-p/968614">BitBucket's issue</a> for context.
+</div>
 
 Including the `git` command prior to running Chromatic prevents unwanted build errors when Chromatic retrieves the information from your BitBucket repo.
 
