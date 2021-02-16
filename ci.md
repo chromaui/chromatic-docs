@@ -35,6 +35,7 @@ Here's how we recommend configuring Chromatic for popular CI services.
 
 
 - [GitHub Actions](github-actions)
+- [GitLab Pipelines](gitlab)
 - [Bitbucket Pipelines](bitbucket-pipelines)
 - [CircleCI](circleci)
 - [Travis CI](travisci)
