@@ -4,9 +4,9 @@ title: FAQ
 description: Frequently asked questions about Chromatic
 ---
 
-## Frequently Asked Questions
+# Frequently Asked Questions
 
-Here are some answers to frequently asked questions. If you have a question not covered in our documentation, contact us via our <a class=".intercom-concierge-bot"><b>in-app chat</b></a>.
+Here are some answers to frequently asked questions. If you have a question not covered in our documentation, contact us via our <a class="intercom-concierge-bot"><b>in-app chat</b></a>.
 
 ## Table of Contents
 
@@ -25,7 +25,7 @@ Here are some answers to frequently asked questions. If you have a question not 
 <details>
 <summary>How can I remove a collaborator from my project?</summary>
 
-If the project is linked to a online repository, once you remove the collaborator from the repository, your collaborator's list will be automatically updated in Chromatic. For unlinked projects, contact us via our <a class=".intercom-concierge-bot"><b>in-app chat</b></a>.
+If the project is linked to a online repository, once you remove the collaborator from the repository, your collaborator's list will be automatically updated in Chromatic. For unlinked projects, contact us via our <a class="intercom-concierge-bot"><b>in-app chat</b></a>.
 
 </details>
 
@@ -39,7 +39,7 @@ Chromatic retrieves the email addresses associated with your account from your G
 <details>
 <summary>Why can't my teammates access a project?</summary>
 
-Check that your teammates are listed as collaborators in that repository. 
+Check that your teammates are listed as collaborators in that repository.
 
 If they aren't listed, please add them and try accessing the Chromatic project again (you may have to re-login). Chromatic syncs permissions at the account _and_ repo level. Learn [more](access).
 
@@ -117,7 +117,7 @@ Chromatic is a faster, simpler, and cost effective alternative to Applitools tha
 <details>
 <summary>How does Chromatic fit into my E2E strategy?</summary>
 
-Visual testing with screenshots is a perfect complement to other testing methodologies such as E2E tests. They tend to be a lot easier to maintain and less brittle than the equivalent E2E test. 
+Visual testing with screenshots is a perfect complement to other testing methodologies such as E2E tests. They tend to be a lot easier to maintain and less brittle than the equivalent E2E test.
 
 Chromatic focusses on testing components in their various states. This makes it easier to pinpoint regressions down to the basic UI building block of modern view layers. To best use our tool you'd mock out the variations of components statically in Storybook. Our customers get the most value from:
 
@@ -182,13 +182,13 @@ A build will _fail_ if any of the snapshots fail to render (i.e. in rendering th
 <details>
 <summary>Why is my build failing with the message <code>Cannot run a build with no stories. Please add some stories</code>?</summary>
 
-This happens if certain stories were disabled via the [`chromatic: { disable: true }`](ignoring-elements#ignore-stories) option at a higher level. 
+This happens if certain stories were disabled via the [`chromatic: { disable: true }`](ignoring-elements#ignore-stories) option at a higher level.
 
 To solve this you can:
 
 1. Remove the top-level [`chromatic: { disable: true }`](ignoring-elements#ignore-stories) option
 1. Enable snapshots for specific stories
-3. Run `yarn storybook-build` locally and fix the issues in your stories
+1. Run `yarn storybook-build` locally and fix the issues in your stories
 
 </details>
 
@@ -235,7 +235,7 @@ Try running the command manually `git log -n 1 --format="%H,%ct,%ce,%cn"` and ch
 
 This means that across the last X unique commits across all builds in your app, we didn't find a single one that exists in the repository you ran this build against. Commits can go missing if you rebase or perform squash-merges, however, if all of the previous X builds' commits are missing, it is likely something has gone wrong.
 
-If you've reached this situation and can't work out why, please contact us through our <a  class=".intercom-concierge-bot"><b>in-app chat</b></a> or [email](mailto:support@chromatic.com).
+If you've reached this situation and can't work out why, please contact us through our <a  class="intercom-concierge-bot"><b>in-app chat</b></a> or [email](mailto:support@chromatic.com).
 
 </details>
 
@@ -244,7 +244,7 @@ If you've reached this situation and can't work out why, please contact us throu
 
 This means that although we found recent builds that _were_ in your git repository history (see above), we couldn't find any _common_ history between your checked out build and those builds within X commits.
 
-Unless you are doing something unusual with your git repository, this is extremely unlikely. Either way, please contact us through our <a class=".intercom-concierge-bot"><b>in-app chat</b></a> or [email](mailto:support@chromatic.com).
+Unless you are doing something unusual with your git repository, this is extremely unlikely. Either way, please contact us through our <a class="intercom-concierge-bot"><b>in-app chat</b></a> or [email](mailto:support@chromatic.com).
 
 </details>
 
@@ -295,10 +295,9 @@ Free plans come with 5000 snapshots per month. Once free snapshots are exhausted
 <details>
 <summary>What is the limit for image snapshots?</summary>
 
+We have a 25 million pixel size limit for image snapshots. This ensures fast and reliable performance for every build.
 
-We have a 25 million pixel size limit for image snapshots. This ensures fast and reliable performance for every build. 
-
-If your stories are larger than this, perhaps something has gone wrong? Let us know if you need this limit increased via our <a class=".intercom-concierge-bot"><b>in-app chat</b></a> or [email](mailto:support@chromatic.com).
+If your stories are larger than this, perhaps something has gone wrong? Let us know if you need this limit increased via our <a class="intercom-concierge-bot"><b>in-app chat</b></a> or [email](mailto:support@chromatic.com).
 
 </details>
 
@@ -308,6 +307,7 @@ If your stories are larger than this, perhaps something has gone wrong? Let us k
 Each browser adds another snapshot for each of your stories. For example, if you have a story that is tested in Chrome and IE11 that counts as two snapshots.
 
 If you also test your story with different viewports, those count as snapshots as well. For example, you want to test a story at `320px`, `1280px`, `Chrome`, and `IE11`. This would count as 4 snapshots.
+
 </details>
 
 <details>
@@ -379,7 +379,7 @@ No. At the moment, Chrome is fixed as the browser used for UI review.
 <details>
 <summary>Can I control the height of the browser?</summary>
 
-As we take a full screenshot of the component (even if it flows off the screen), it typically doesn't make any difference what height the browser has when taking screenshots. If this isn't the case for you application, please contact us through <a  class=".intercom-concierge-bot"><b>in-app chat</b></a> or [email](mailto:support@chromatic.com).
+As we take a full screenshot of the component (even if it flows off the screen), it typically doesn't make any difference what height the browser has when taking screenshots. If this isn't the case for you application, please contact us through <a  class="intercom-concierge-bot"><b>in-app chat</b></a> or [email](mailto:support@chromatic.com).
 
 </details>
 
@@ -407,10 +407,10 @@ We don't recommend this in most cases because each viewport is treated independe
 ```js
 // .storybook/preview.js
 
-export const parameters={
-    // Set the viewports in Chromatic globally.
+export const parameters = {
+  // Set the viewports in Chromatic globally.
   chromatic: { viewports: [320, 1200] },
-}
+};
 ```
 
 </details>
@@ -529,6 +529,7 @@ export default {
 
 export const StoryWithDimensions = () => <MyComponent/>
 ```
+
 </details>
 
 ---
@@ -539,12 +540,5 @@ export const StoryWithDimensions = () => <MyComponent/>
 <summary>Does Chromatic have a security policy and where can I see it?</summary>
 
 We do have a security policy in place. You can read it [here](security). If you have further inquiries contact us through our in app chat or [email](mailto:security@chromatic.com).
+
 </details>
-
-
-
-
-
-
-
-
