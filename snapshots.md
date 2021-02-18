@@ -16,7 +16,7 @@ For every story in your Storybook: Chromatic will load the story, wait for it to
 
 #### Snapshots for multiple viewports and browsers
 
-Chromatic takes a separate snapshot for every combination of viewport and browser that you've configured.Responsive UI can render differently across viewports and browsers.
+Chromatic takes a separate snapshot for every combination of viewport and browser that you've configured. Responsive UI can render differently across viewports and browsers.
 
 ## Snapshot vs Canvas vs Docs
 
@@ -35,11 +35,3 @@ Chromatic renders your story in the state that Storybook renders it in. This mea
 #### Cursors for inputs and textareas
 
 Chromatic hides the caret, a flashing cursor, to prevent intermittent changes to your stories that require verification (false negatives).
-
----
-
----
-
-## Resources
-
-- [How to view snapshot count](article-view-snapshot-count)
