@@ -131,3 +131,57 @@ Chromatic posts a "Storybook Publish" status check in your pull/merge request th
 If you have customized the way your Storybook runs, you may need to pass additional options to the `chromatic` command. Learn more in the [package documentation](https://github.com/chromaui/chromatic-cli#main-options).
 
 </details>
+
+### Troubleshooting
+
+<details>
+<summary>Chromatic doesn't work with my custom Storybook script</code></summary>
+
+We do our best to interpret your Storybook script in package.json, but you might need to pass additional options to the `chromatic` command. [Check out all the options »](cli)
+
+</details>
+
+<details>
+<summary>Command error <code>git log -n 1</code></summary>
+
+This error often appears when `git` is not available in your CI environment. Chromatic uses `git` to associate commits to pull/merge requests and set baselines. We require that an executable git is available (on the `$PATH` ) of the `chromatic` script.
+
+**Common cases:**
+
+- Docker containers: Git may not be installed on certain Docker containers. You'll need to make the image includes Git.
+- Heroku CI: Git history isn't available by default. You'll have to give Heroku auth access to your repo so that it can clone it before running CI. This can be unideal. Some customers end up using other CI providers to run Chromatic like GitHub Actions (free) or CircleCI.
+- Google Cloud CI: The `.git` folder is ignored by default. Based on [their documentation](https://github.com/GoogleCloudPlatform/cloud-builders/issues/236#issuecomment-374629200) you can try `.gcloudignore`. However, some customers have run into trouble with this solution and instead opted to use other CI providers to run Chromatic like GitHub Actions (free) or CircleCI.
+- You don't use Git: Enable Git version control in your project and try Chromatic again.
+
+**Debug yourself:**
+
+- Try running the command manually `git log -n 1 --format="%H,%ct,%ce,%cn"` and check if there are errors
+
+</details>
+
+<details>
+<summary>Why do I get errored builds randomly?</summary>
+
+Chromatic builds and runs Storybook flawlessly _most of the time_, but we're not perfect (we wish). Sometimes builds don't run due to rare infrastructure issues. If this happens, try to re-run the build via your CI provider. We keep track of these errors to improve the service.
+
+</details>
+
+<details>
+<summary>Why do my builds timeout</summary>
+
+Chromatic takes snapshots very quickly. However, if we lose the connection to your server (for instance if you stop your server mid-build, or your internet connection goes down), builds can time out. Check your connection and try restarting the build.
+
+</details>
+
+<details>
+<summary>Why is my build failing with the message <code>Cannot run a build with no stories</code>?</summary>
+
+This happens if certain stories were disabled via the [`chromatic: { disable: true }`](ignoring-elements#ignore-stories) option at a higher level.
+
+To solve this you can:
+
+1. Remove the top-level [`chromatic: { disable: true }`](ignoring-elements#ignore-stories) option
+1. Enable snapshots for specific stories
+1. Run `yarn storybook-build` locally and fix the issues in your stories
+
+</details>

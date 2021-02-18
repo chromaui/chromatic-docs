@@ -40,7 +40,6 @@ Here's how we recommend configuring Chromatic for popular CI services.
 - [Bitbucket Pipelines](bitbucket-pipelines)
 - [Other CI providers](custom-ci-provider)
 
-
 ## Pull request checks
 
 When a build runs it will automatically add a PR status check to the current pull request indicating the state of the build. By default, you'll see Storybook Publish. If you enabled UI Tests or UI Review you'll also see their respective checks.
@@ -60,3 +59,14 @@ How tools work together affects your development speed. Learn the recommended Ch
 <a class="btn primary round" href="workflow">Read next chapter</a>
 
 ---
+
+### Frequently asked questions
+
+<details>
+<summary>Can I hide the CI messages in the web app?</summary>
+
+Chromatic detects CI test runs for most services. But it's not possible for every system, which results in users seeing persistent "Setup CI / Automation" messages in the UI.
+
+If this is happening to you, prepend `CI=true` to your test command like so `CI=true yarn chromatic...` to hide the "Setup CI" messages in Chromatic. [Learn more](test).
+
+</details>

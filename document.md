@@ -53,3 +53,14 @@ Now that you learned how UI components are documented in Chromatic, let's see ho
 <a class="btn primary round" href="ci">Read next chapter</a>
 
 ---
+
+### Troubleshooting
+
+<details>
+<summary>Why is my Storybook failing to load in Chromatic's Canvas tab?</summary>
+
+If your stories make use of non-HTTPS content (for instance images), the iframe we deliver live view will fail to load, as modern browsers do not allow mixed content (HTTP content hosted within HTTPS pages).
+
+To fix this, ensure all resources used by your stories are hosted via HTTPS.
+
+</details>

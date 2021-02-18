@@ -83,3 +83,32 @@ Now that you've seen how to review the UI changeset before merging, learn how Ch
 <a class="btn primary round" href="document">Read next chapter</a>
 
 ---
+
+### Frequently asked questions
+
+<details>
+<summary>When should I ask for UI Review?</summary>
+
+You can initiate a UI review at any time. However, we recommend doing it later in the development cycle, once baselines have been approved and UI Tests are green. Learn more about [UI review](review).
+
+</details>
+
+<details>
+<summary>Can I disable UI Review if I'd prefer not to use it?</summary>
+
+You can initiate a UI review at any time. However, we recommend doing it later in the development cycle, once baselines have been approved and UI Tests are green.
+
+</details>
+
+<details>
+<summary>What commits does Chromatic use to calculate the UI changeset?</summary>
+
+Similar to [GitHub code review](https://github.com/features/code-review/), Chromatic compares between the latest commit on the PR branch and the 'merge base' commit, that is the commit that is the shared ancestor between the PR branch and the branch it was created from. It is important that Chromatic has run a build on both commits outlined above. If you've recently enabled CI and have existing PRs that you would like to review, ensure Chromatic has run in CI for both branches of that PR.
+
+The process might look something like:
+
+1. Create a new PR to `master` adding Chromatic to CI
+1. Merge that PR when everything works well.
+1. Update your existing feature PR(s) w/ the latest from `master` (either merge or rebase from master).
+
+</details>

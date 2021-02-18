@@ -49,3 +49,14 @@ Once you accept changes to the story, its baselines are updated. Each story has 
 <div class="aside">If you test responsiveness with the viewport parameters, baselines are associated with each viewport, and those can have a Chrome, Firefox, or IE11 baseline.</div>
 
 ---
+
+### Frequently asked questions
+
+<details>
+<summary>Does Chromatic tell me when snapshots are different between browsers?</summary>
+
+This has significant trade offs. Teams that try to verify consistency between browsers end up encountering false positives due to inherent browser/device/OS differences like anti-aliasing and font rendering. Or they require workarounds like loosening diff thresholds which result in false negatives.
+
+Chromatic does not programmatically compare snapshots from different browsers against each other. Instead, we compare the snapshots for each browser against the baseline for that browser.
+
+</details>
