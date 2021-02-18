@@ -79,7 +79,7 @@ A viewport can be any whole number between 320 and 1800 pixels.
 
 <details><summary>Can I control the height of the viewport?</summary>
 
-We take a full screenshot of the component even if it flows off the screen. It typically doesn't make a difference what height the browser is when taking screenshots. If this isn't the case for your application, please contact us via <a class="intercom-concierge-bot">in-app chat</a>
+We take a full screenshot of the component even if it flows off the screen. It typically doesn't make a difference what height the browser is when taking screenshots. If this isn't the case for your application, please contact us via in-app chat
 
 </details>
 

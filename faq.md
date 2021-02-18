@@ -6,7 +6,7 @@ description: Frequently asked questions about Chromatic
 
 # Frequently asked questions
 
-If you have a question not covered in our documentation, contact us via our <a class="intercom-concierge-bot">in-app chat</a>.
+If you have a question not covered in our documentation, contact us via our in-app chat.
 
 ## Comparison with other tools
 

@@ -32,7 +32,7 @@ Find the current months usage in the Plan section of the Billing page.
 
 ### Overages
 
-If you exceed the number of snapshots in your plan you’ll be billed for extra snapshots at the end of the month. Consider upgrading to a enterprise plan for more snapshots. Contact us via <a class="intercom-concierge-bot">in-app chat</a> or <a href="mailto:support@chromatic.com?Subject=Custom%20plan">email</a>
+If you exceed the number of snapshots in your plan you’ll be billed for extra snapshots at the end of the month. Consider upgrading to a enterprise plan for more snapshots. Contact us via in-app chat or <a href="mailto:support@chromatic.com?Subject=Custom%20plan">email</a>
 to learn more.
 
 ## Change plans
@@ -57,6 +57,6 @@ Go to the Payment section on the Billing page to change the billing email associ
 
 If you aren’t happy with Chromatic we’ll refund your money. We want customers to ship consistent UIs, save time, and build bulletproof component libraries.
 
-If it’s not working out for you, contact us via our <a class="intercom-concierge-bot">in-app chat</a> or [email](mailto:support@chromatic.com) to get a refund for your current months usage.
+If it’s not working out for you, contact us via our in-app chat or [email](mailto:support@chromatic.com) to get a refund for your current months usage.
 
 Subsequent refunds will be credited to your account for use in future invoices.
