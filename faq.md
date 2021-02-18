@@ -15,15 +15,15 @@ If you have a question not covered in our documentation, contact us via our <a c
 
 Chromatic complements your existing End-to-End tests (Selenium or Cypress).
 
-**Get tests for free**
+#### Get tests for free
 
 You already write stories as a natural part of building UIs. Chromatic transforms those stories into tests. That gives you expansive yet accurate UI coverage without having to write new tests.
 
-**No test flake**
+#### No test flake
 
 E2E tests are intended to QA the “happy path”, but are time-consuming to create and brittle to maintain. They tend to be flaky because they rely on the application being in a certain state before running the tests. The tests also have to run in a specific order. Chromatic tests against the static Storybook build. That prevents false positives and negatives.
 
-**Much faster**
+#### Much faster
 
 Chromatic runs all tests in parallel at no extra cost or configuration. We optimize for the fastest test time by evaluating only the rendered UI. This focus allows Chromatic to run thousands of UI tests in less than a minute. Selenium/Cypress tests can take half an hour or more for an app of meaningful complexity. That said, we recommend you use various testing strategies (visual, unit, E2E) for comprehensive app coverage.
 
@@ -183,6 +183,15 @@ const Template = (args) => <MyComponent/>;
 export const StoryWithDimensions = Template.bind({});
 StoryWithDimensions.args = {};
 ```
+
+</details>
+
+<details>
+<summary>Do you support taking snapshots of a component with multiple themes?</summary>
+
+We recommend you render stories multiple times, one for each theme. Here's [a code snippet](https://github.com/storybookjs/storybook/blob/next/examples/official-storybook/preview.js#L90-L141) of how to configure Storybook to show the same story in multiple themes. This is how the snapshots will [appear in Chromatic](https://www.chromatic.com/library?appId=5a375b97f4b14f0020b0cda3&branch=next).
+
+If you'd only like to see multiple themes side-by-side in Chromatic and not in your local Storybook, use [isChromatic()](isChromatic).
 
 </details>
 
