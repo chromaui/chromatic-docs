@@ -22,7 +22,7 @@ The maximum time for snapshot capture is 15s. Your story should finish loading r
 Use [story-level](https://storybook.js.org/docs/react/writing-stories/parameters#story-parameters) delay to ensure a minimum amount of time (in milliseconds) has passed before Chromatic takes a screenshot.
 
 ```js
-// MyComponent.js
+// MyComponent.stories.js | MyComponent.stories.ts
 
 import MyComponent from "./MyComponent";
 
@@ -49,7 +49,7 @@ This technique is intended for interactions and animations that end after a cert
 Chromatic uses Storybook’s built in [parameter](https://storybook.js.org/docs/react/writing-stories/parameters#component-parameters) API to make it straightforward to set delay on a group of stories:
 
 ```js
-// MyComponent.js
+// MyComponent.stories.js | MyComponent.stories.ts
 
 import MyComponent from "./MyComponent";
 

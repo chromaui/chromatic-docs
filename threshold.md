@@ -15,7 +15,7 @@ Chromatic's default threshold is `.063` which balances high visual accuracy with
 Configure the `diffThreshold` with a Storybook [parameter](https://storybook.js.org/docs/react/writing-stories/parameters#story-parameters) like so:
 
 ```js
-// MyComponent.js
+// MyComponent.stories.js | MyComponent.stories.ts
 
 import MyComponent from './MyComponent';
 

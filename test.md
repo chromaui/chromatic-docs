@@ -135,41 +135,41 @@ If you want to utilize the above techniques to ensure consistency for Chromatic'
 ### Troubleshooting
 
 <details>
-<summary>Build failed because of component errors</summary>
+<summary>Why are my builds failing because of component errors?</summary>
 
 A build will _fail_ if any of the snapshots fail to render (i.e. in rendering the latest version of the component, the snapshot throws a JavaScript exception). You'll need to fix the code for errored components before we can pass the build.
 
 </details>
 
 <details>
-<summary>Reviewing tests disabled on build screen</summary>
+<summary>Why is review disabled in my build screen?</summary>
 
 If a build isn't the newest build on a branch, we disable reviewing the build; as any future builds will base themselves on the _newest_ build, making approvals to this build pointless.
 
-Note that in the case that there is a descendent build of this build on _a different branch_ (for instance if the commit for this build was merged into that different branch), we do allow reviewing of this build. Future builds on this branch _will_ use approved changes from the build; however future builds on the different branch will not---for this reason it is best to review builds before merging them.
+Note that in the case that there is a descendent build of this build on _a different branch_ (for instance if the commit for this build was merged into that different branch), we do allow reviewing of this build. Future builds on this branch _will_ use approved changes from the build; however future builds on the different branch will notfor this reason it is best to review builds before merging them.
 
 </details>
 
 <details>
-<summary>"Didn't find any commits in this git repository in the last 100 builds."</summary>
+<summary>Why do I see <code>Didn't find any commits in this git repository in the last X builds</code>?</summary>
 
-This means that across the last 100 unique commits across all builds in your app, we didn't find a single one that exists in the repository you ran this build against. Commits can go missing if you rebase or perform squash-merges, however, if all of the previous 100 builds' commits are missing, it is likely something has gone wrong.
+This means that across the last X unique commits across all builds in your app, we didn't find a single one that exists in the repository you ran this build against. Commits can go missing if you rebase or perform squash-merges, however, if all of the previous X builds' commits are missing, it is likely something has gone wrong.
 
-If you've reached this situation and can't work out why, please [let us know](mailto:support@chromatic.com).
-
-</details>
-
-<details>
-<summary>"Failed to find common ancestors with most recent builds within 1000 commits"</summary>
-
-This means that although we found recent builds that _were_ in your git repository history (see above), we couldn't find any _common_ history between your checked out build and those builds within 1000 commits.
-
-Unless you are doing something unusual with your git repository, this is extremely unlikely. Either way, please [let us know](mailto:support@chromatic.com).
+If you've reached this situation and can't work out why, please contact us through our <a  class="intercom-concierge-bot">in-app chat</a> or [email](mailto:support@chromatic.com).
 
 </details>
 
 <details>
-<summary>"Build X is based on a commit without ancestor builds."</summary>
+<summary>Why do I see <code>Failed to find common ancestors with most recent builds within X commits</code>?</summary>
+
+This means that although we found recent builds that _were_ in your git repository history (see above), we couldn't find any _common_ history between your checked out build and those builds within X commits.
+
+Unless you are doing something unusual with your git repository, this is extremely unlikely. Either way, please contact us through our <a class="intercom-concierge-bot">in-app chat</a> or [email](mailto:support@chromatic.com).
+
+</details>
+
+<details>
+<summary>Why do I see <code>Build X is based on a commit without ancestor builds</code>? </summary>
 
 When we create a build, we search your git history for a recent Chromatic build based on a commit that is an ancestor (i.e. a commit that is in the direct history of this commit). Unless this is the very first build, if we do not find one, we will show you this message.
 
@@ -179,19 +179,20 @@ However, this situation can arise due to the following:
 
 1. You switched branches and re-ran Chromatic, without checking-in the code changes that installed Chromatic. In this case you can safely ignore this message.
 
-2. You rewrote history in merging the Chromatic installation code (e.g. using GitHub's "Squash and Merge" or "Rebase and Merge" buttons). [Learn how to resolve](ci#github-squash-rebase-merge-and-the-master-branch)
+1. You rewrote history in merging the Chromatic installation code (e.g. using GitHub's "Squash and Merge" or "Rebase and Merge" buttons). [Learn how to resolve](ci#github-squash-rebase-merge-and-the-master-branch)
 
-3. You are using a shallow clone of your repository when running Chromatic. Chromatic needs access to your full git history in order to find baselines (or at least the history until the previous Chromatic build, which depends on how often you push code/run builds). [Learn about how we use Git for baselines »](branching-and-baselines)
+1. You are using a shallow clone of your repository when running Chromatic. Chromatic needs access to your full git history in order to find baselines (or at least the history until the previous Chromatic build, which depends on how often you push code/run builds). [Learn about how we use Git for baselines »](branching-and-baselines)
 
-4. Something else happened---perhaps a bug at our end? Please [let us know](mailto:support@chromatic.com) if this is the case.
+1. Something else happenedperhaps a bug at our end? Please contact us through our in app chat if this is the case.
+
 </details>
 
 <details>
-<summary>Image size too large</summary>
+<summary>Why am I seeing an error for large images?</summary>
 
 We have a 25 million pixel size limit for image snapshots. This ensures fast and reliable performance for every build.
 
-If your stories are larger than this, perhaps something has gone wrong? Let us know if you need this limit increased by chat or [email](mailto:support@chromatic.com).
+If your stories are larger than this, perhaps something has gone wrong? Let us know if you need this limit increased via our <a class="intercom-concierge-bot">in-app chat</a> or [email](mailto:support@chromatic.com).
 
 </details>
 

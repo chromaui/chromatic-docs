@@ -196,10 +196,7 @@
         >Open source plan</a
       >
     </li>
-    <li>
-      <a href="security" class="{% if page.title == "Security" %}active {% endif %}link">
-        Security</a>
-    </li>
+    
   </ul>
   <div class="title">CI</div>
   <ul class="docs-list"> 
@@ -264,11 +261,33 @@
       >
     </li>
   </ul>
-  <a
-    class="btn outline small round show-desktop"
-    href="mailto:support@chromatic.com?Subject=Support%20needed"
-    target="_blank"
-    >support@chromatic</a
+  <div class="title">Account</div>
+  <ul class="docs-list">
+    <li>
+      <a href="support" class="{% if page.title == "Support" %}active {% endif %}link">Support</a>
+    </li>
+    
+    <li>
+      <a href="billing" class="{% if page.title == "Billing" %}active {% endif %}link">Billing & invoices</a>
+    </li>
+
+    <li>
+      <a href="faq" class="{% if page.title == "FAQ" %}active {% endif %}link">FAQ</a>
+    </li>
+
+    <li>
+      <a href="security" class="{% if page.title == "Security" %}active {% endif %}link">
+        Security</a>
+    </li>
+
+    <li>
+      <a href="privacy-policy" class="{% if page.title == "Privacy policy" %}active {% endif %}link">
+        Privacy policy</a>
+    </li>
+
+  </ul>
+  <button
+    class="btn outline small round show-desktop intercom-concierge-bot">Get support</button
   >
 </div>
 

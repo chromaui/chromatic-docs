@@ -52,4 +52,4 @@ You finished setting up Chromatic. We look forward to the incredible UIs you'll 
 
 #### How to get support
 
-You're supported by the team behind Storybook. For the quickest response, [login](https://www.chromatic.com/start) and use the in-app chat. Email us at [support@chromatic.com](mailto:support@chromatic.com?Subject=Question).
+You're supported by the team behind Storybook. For the quickest response, [login](https://www.chromatic.com/start) and use the <a class="intercom-concierge-bot">in-app chat</a> or <a href="mailto:support@chromatic.com?Subject=Question">email</a>.

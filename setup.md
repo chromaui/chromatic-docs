@@ -160,22 +160,28 @@ This error often appears when `git` is not available in your CI environment. Chr
 </details>
 
 <details>
-<summary>Errored builds</summary>
+<summary>Why do I get errored builds randomly?</summary>
 
 Chromatic builds and runs Storybook flawlessly _most of the time_, but we're not perfect (we wish). Sometimes builds don't run due to rare infrastructure issues. If this happens, try to re-run the build via your CI provider. We keep track of these errors to improve the service.
 
 </details>
 
 <details>
-<summary>Timed out builds</summary>
+<summary>Why do my builds timeout</summary>
 
 Chromatic takes snapshots very quickly. However, if we lose the connection to your server (for instance if you stop your server mid-build, or your internet connection goes down), builds can time out. Check your connection and try restarting the build.
 
 </details>
 
 <details>
-<summary>Failed to evaluate your stories (no stories found)</summary>
+<summary>Why is my build failing with the message <code>Cannot run a build with no stories</code>?</summary>
 
-We use [JSDOM](https://github.com/tmpvar/jsdom) to evaluate your stories in a simulated browser environment. JSDOM doesn't support every browser-specific construct or API. Our package provides shims for [common constructs](https://github.com/chromaui/chromatic-cli/blob/19751d87d950a2aecefb522e57c9a13c8c34fe54/bin/lib/jsdom-shims.js), but you may need mock them out yourself for extra coverage. Pass `--debug` to the script command to get extra info if it fails.
+This happens if certain stories were disabled via the [`chromatic: { disable: true }`](ignoring-elements#ignore-stories) option at a higher level.
+
+To solve this you can:
+
+1. Remove the top-level [`chromatic: { disable: true }`](ignoring-elements#ignore-stories) option
+1. Enable snapshots for specific stories
+1. Run `yarn storybook-build` locally and fix the issues in your stories
 
 </details>
