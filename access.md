@@ -41,7 +41,9 @@ Chromatic mirrors access permissions at the "team" level to make permissions man
 
 ![Account menu](img/account-menu.png)
 
-### Collaborator permissions
+### Collaborators
+
+#### Permissions
 
 Permissions carry over at the repository level for collaborators. For example, if a person does not have access to repository in your Git provider they will also not have access to it in Chromatic.
 To [verify UI tests](test#verify-ui-changes) and [review pull requests](review#review-changeset) collaborators must have `write` access to the repo.
@@ -55,6 +57,27 @@ To [verify UI tests](test#verify-ui-changes) and [review pull requests](review#r
 <div class="aside">
 If your project is hosted in Bitbucket, ensure that you and your team members have the <code>contributor</code> role.
 </div>
+
+#### Add collaborators
+
+Chromatic syncs permissions with your Git provider for linked projects. You can add a collaborator by sharing access with them in your Git provider.
+
+For unlinked projects, share the invite link with your collaborator. When they login they will automatically be added to your project.
+
+#### Remove collaborators
+
+If the project is linked to a online repository, once you remove the collaborator from the repository, your collaborator's list will be automatically updated in Chromatic.
+
+For unlinked projects, contact us via our <a class="intercom-concierge-bot">in-app chat</a>.
+
+<details>
+<summary>Why can't my teammates access a project?</summary>
+
+Chromatic syncs permissions at the account _and_ repo level. Check that your teammates are listed as collaborators in your GitHub, GitLab, or Bitbucket repository.
+
+If they aren't listed, please add them and try accessing the Chromatic project again (you may have to re-login). Learn more about[access control](access).
+
+</details>
 
 ## Projects
 
@@ -81,5 +104,3 @@ Users that have used the invitation link will get reviewer access to the project
 <div class="aside">
  We're actively working in improving on how access control is implemented in Chromatic. Keep checking in for updates.
 </div>
-
----
