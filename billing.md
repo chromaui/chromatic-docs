@@ -4,38 +4,59 @@ title: Billing
 description: Chromatic billing information
 ---
 
-# How does Chromatic handles billing and invoices?
+# Billing and invoices
 
-When you sign up to a paid plan you're required to include a valid credit card number and a valid email for invoicing. At the end of the month Chromatic will place a charge associated to the subscribed plan.
+Chromatic bills subscribers on a monthly basis. At the beginning of each month you're charged for your plan. If there are overages, you'll be charged at the end of the month.
 
-The values associated to your invoice are account wide and not project wide. As a policy Chromatic will not bill its customers per projects hosted in the platform.
+## Snapshots
 
-With each charge is an detailed invoice with the amount owed and snapshot usage for the current month.
+Chromatic charges based on [snapshots](snapshots) and browser coverage respectively. Snapshots power [UI Tests](tests) and [UI Review](review). They are only taken when you enable “UI Review” or “UI Tests” for your project.
 
-## Overages
-
-Depending on the size or number of projects associated to your subscription it's likely that you might run into a situation where you exceed the allotted number of snapshots for your plan. If you need additional snapshots, contact us through our <a class="intercom-concierge-bot"><b>in-app chat</b></a> or [email](mailto:support@chromatic.com) for an additional follow up.
-
-These bonus snapshots will only be applied to the current month. The following month the snapshot amount will revert back to the default.
+Everytime you run a build, we take one snapshot for each story. If you have 50 stories, Chromatic will take 50 snapshots. In addition, testing multiple viewports and browsers are also considered snapshots.
 
 <div class="aside">
 
-If you find yourself going over the snapshot number associated to your subscribed plan, we recommend updating to a custom plan tailored to your needs. Contact us through our <a class="intercom-concierge-bot"><b>in-app chat</b></a> or <a href="mailto:support@chromatic.com?Subject=Custom%20plan">email</a>
-for more information.
+If you use our free [Publish Storybook](setup) service only you will not be billed for snapshots.
 
 </div>
 
-## Refund policy
+### How we count snapshots
 
-If you're already a customer, contact us through our <a class="intercom-concierge-bot"><b>in-app chat</b></a> or [email](mailto:support@chromatic.com) and ask for a refund for the current month usage.
+Snapshots are counted at the account level. If your account has multiple projects we sum the number of snapshots used by each project to get your total usage. Chromatic doesn't breakdown billing per project.
 
-If you're a new customer willing to try Chromatic's paid plans at no-risk, we include a 30 day refund policy.
+### View current months usage
 
-#### Multiple refunds
+Find the current months usage in the Plan section of the Billing page.
 
-Chromatic will not perform multiple refunds specific to one account. Subsequent refunds will be turned into account credits which can be applied to future invoices.
+![Chromatic monthly snapshots used](img/article-view-snapshots-billing-screen.png)
 
-## Resources
+### Overages
 
-- [Browse invoices](article-view-invoice)
-- [Change billing email](article-change-billing-address)
+If you exceed the number of snapshots in your plan you’ll be billed for extra snapshots at the end of the month. Consider upgrading to a enterprise plan for more snapshots. Contact us via <a class="intercom-concierge-bot">in-app chat</a> or <a href="mailto:support@chromatic.com?Subject=Custom%20plan">email</a>
+to learn more.
+
+## Change plans
+
+Change your plan in account settings. All changes are prorated to the day. That means you can change your plan at any time in the month without getting charged unneccessarily for unused snapshots.
+
+## Invoices
+
+Invoices are generated each month on your account's Billing page. Click to see a PDF of the amount owed and a breakdown of snapshot usage.
+
+![Chromatic invoice statement](img/articles-chromatic-invoice-view-statements.png)
+
+### Email invoices to your billing or finance manager
+
+By default, Chromatic sets the account's billing email to the email address of the person who signed up to the plan. We send all billing and account related emails to this address.
+
+Go to the Payment section on the Billing page to change the billing email associated with your account. Click "Change email".
+
+![Chromatic billing](img/articles-chromatic-change-billing-email-billscreen.png)
+
+### Refunds
+
+If you aren’t happy with Chromatic we’ll refund your money. We want customers to ship consistent UIs, save time, and build bulletproof component libraries.
+
+If it’s not working out for you, contact us via our <a class="intercom-concierge-bot">in-app chat</a> or [email](mailto:support@chromatic.com) to get a refund for your current months usage.
+
+Subsequent refunds will be credited to your account for use in future invoices.
