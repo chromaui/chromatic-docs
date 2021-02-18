@@ -164,7 +164,7 @@ If you've reached this situation and can't work out why, please contact us throu
 
 This means that although we found recent builds that _were_ in your git repository history (see above), we couldn't find any _common_ history between your checked out build and those builds within X commits.
 
-Unless you are doing something unusual with your git repository, this is extremely unlikely. Either way, please contact us through our <a class="intercom-concierge-bot">in-app chat</a> or [email](mailto:support@chromatic.com).
+Unless you are doing something unusual with your git repository, this is extremely unlikely. Either way, please contact us through our in-app chat or [email](mailto:support@chromatic.com).
 
 </details>
 
@@ -192,7 +192,7 @@ However, this situation can arise due to the following:
 
 We have a 25 million pixel size limit for image snapshots. This ensures fast and reliable performance for every build.
 
-If your stories are larger than this, perhaps something has gone wrong? Let us know if you need this limit increased via our <a class="intercom-concierge-bot">in-app chat</a> or [email](mailto:support@chromatic.com).
+If your stories are larger than this, perhaps something has gone wrong? Let us know if you need this limit increased via our in-app chat or [email](mailto:support@chromatic.com).
 
 </details>
 

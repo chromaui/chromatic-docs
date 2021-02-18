@@ -68,7 +68,7 @@ For unlinked projects, share the invite link with your collaborator. When they l
 
 If the project is linked to a online repository, once you remove the collaborator from the repository, your collaborator's list will be automatically updated in Chromatic.
 
-For unlinked projects, contact us via our <a class="intercom-concierge-bot">in-app chat</a>.
+For unlinked projects, contact us via our in-app chat.
 
 <details>
 <summary>Why can't my teammates access a project?</summary>
