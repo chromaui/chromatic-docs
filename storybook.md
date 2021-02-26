@@ -8,7 +8,7 @@ description: Learn how to set up Storybook in your app to write snapshot specifi
 
 This tutorial is a quick overview that walks you through installing Storybook and integrating Chromatic. It's intended for folks who haven't yet used Storybook.
 
-If you're already using Storybook, then great!---skip to the [get started](/docs/) guide. If you'd prefer to learn Storybook in a free 11-chapter tutorial take a look at [Learn Storybook](https://www.learnstorybook.com/intro-to-storybook/).
+If you're already using Storybook, then great!---skip to the [get started](/docs/) guide. If you'd prefer to learn Storybook in a free 11-chapter tutorial take a look at the [Intro to Storybook tutorial](https://storybook.js.org/tutorials/intro-to-storybook/).
 
 #### How Chromatic works (in brief)
 
@@ -20,7 +20,7 @@ An image snapshot is taken of each story every commit. Chromatic compares these 
 
 ## What is Storybook?
 
-Storybook is the leading [component explorer](https://blog.hichroma.com/the-crucial-tool-for-modern-frontend-engineers-fb849b06187a) for React, Angular, and Vue. It provides a dedicated UI that helps you visualize, interact, and develop your component states (called "stories" in Storybook) even as you create them. When embedded in your development workflow, it's a timesaving tool for developing apps from the ground up in a [component-driven](https://www.componentdriven.org/) fashion. Storybook is an essential tool for developers building Component Libraries for Design System (read our [guide](https://www.learnstorybook.com/design-systems-for-developers/)).
+Storybook is the leading [component explorer](https://blog.hichroma.com/the-crucial-tool-for-modern-frontend-engineers-fb849b06187a) for React, Angular, and Vue. It provides a dedicated UI that helps you visualize, interact, and develop your component states (called "stories" in Storybook) even as you create them. When embedded in your development workflow, it's a timesaving tool for developing apps from the ground up in a [component-driven](https://www.componentdriven.org/) fashion. Storybook is an essential tool for developers building Component Libraries for Design System (read our [guide](https://storybook.js.org/tutorials/design-systems-for-developers/)).
 
 ![Storybook](img/storybook-relationship.jpg)
 
@@ -127,8 +127,8 @@ Grab the project token from [www.chromatic.com](https://www.chromatic.com) and v
 
 ## Resources
 
-- [Learn Storybook](https://learnstorybook.com) Step by step guides on learning Storybook and component development best practices
-- [Visual Testing Handbook](https://www.learnstorybook.com/visual-testing-handbook/) a free 31-page walkthrough for visual testing with Storybook
+- [Storybook tutorials](https://storybook.js.org/tutorials/) Step by step guides on learning Storybook and component development best practices
+- [Visual Testing Handbook](https://storybook.js.org/tutorials/visual-testing-handbook/) a free 31-page walkthrough for visual testing with Storybook
 - [Component Driven UIs](https://www.componentdriven.org/) How modularity is transforming design and frontend development
 - [How Storybook fits into your workflow](https://www.componentdriven.org/)
 - [Storybook docs](https://storybook.js.org/docs/react/get-started/introduction)
