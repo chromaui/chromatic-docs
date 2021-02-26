@@ -17,7 +17,7 @@ To integrate Chromatic with your existing pipeline, you'll need to add the follo
 
 #👇Event to trigger pipeline execution
 trigger:
-- master
+- main
 
 #👇Environment variables created for Chromatic
 variables:
@@ -75,7 +75,7 @@ If you need to customize your workflow to run Chromatic on specific branches, ad
 trigger:
   branches:
     include:
-    - master # 👈 Filters the execution to run only on the master branch
+    - main # 👈 Filters the execution to run only on the main branch
     exclude:
     - example
 
@@ -83,7 +83,7 @@ trigger:
 pr:
   branches:
     include:
-    - master # 👈 Filters the execution to run only on the pull requests for the master branch
+    - main # 👈 Filters the execution to run only on the pull requests for the main branch
     exclude:
     - example
 
@@ -95,7 +95,7 @@ pr:
 Read the official Azure <a href="https://docs.microsoft.com/en-us/azure/devops/pipelines/build/triggers?view=azure-devops">conditional pipeline documentation</a>.
 </div>
 
-Now your pipeline will only run Chromatic in the `master` branch.
+Now your pipeline will only run Chromatic in the `main` branch.
 
 ### UI Test and UI Review
 
@@ -141,14 +141,14 @@ Builds that contain visual changes need to be [verified](test#verify-ui-changes)
 
 If you deny any change, you will need to make the necessary code changes to fix the test (and thus start a new build) to get Chromatic to pass again.
 
-#### Maintain a clean "master" branch
+#### Maintain a clean "main" branch
 
-A clean `master` branch is a development **best practice** and **highly recommended** for Chromatic. In practice, this means ensuring that test builds in your `master` branch are passing.
+A clean `main` branch is a development **best practice** and **highly recommended** for Chromatic. In practice, this means ensuring that test builds in your `main` branch are passing.
 
-If the builds are a result of direct commits to `master`, you will need to accept changes to keep master clean. If they're merged from `feature-branches`, you will need to make sure those branches are passing _before_ you merge into `master`.
+If the builds are a result of direct commits to `main`, you will need to accept changes to keep the main branch clean. If they're merged from `feature-branches`, you will need to make sure those branches are passing _before_ you merge into `main`.
 
 
-#### Azure squash/rebase merge and the "master" branch
+#### Azure squash/rebase merge and the "main" branch
 
 Azure's squash/rebase merge functionality creates new commits that have no association to the branch being merged. If you are already using this option, then we will automatically detect this situation and bring baselines over (see [Branching and Baselines](branching-and-baselines#squash-and-rebase-merging) for more details).
 
@@ -170,13 +170,13 @@ stages:
     steps:
       # Other steps in the pipeline
 
-      #👇Checks if the branch is master and runs Chromatic with the flag to accept all changes.
+      #👇Checks if the branch is main and runs Chromatic with the flag to accept all changes.
     - task: CmdLine@2
       displayName: Publish to Chromatic and auto accept changes
-      condition: and(succeeded(), eq(variables['build.sourceBranch'], 'refs/heads/master'))
+      condition: and(succeeded(), eq(variables['build.sourceBranch'], 'refs/heads/main'))
       inputs:
         script: npx chromatic --project-token=${CHROMATIC_PROJECT_TOKEN} --auto-accept-changes
-      #👇 Checks if the branch is not master and runs Chromatic
+      #👇 Checks if the branch is not main and runs Chromatic
     - task: CmdLine@2
       displayName: Publish to Chromatic
       condition: eq(variables['Build.Reason'], 'PullRequest')
@@ -188,7 +188,7 @@ stages:
 Read our <a href="/docs/cli#chromatic-options"> CLI documentation</a>.
 </div>
 
-Including the `--auto-accept-changes` flag ensures all incoming changes will be accepted as baselines. Additionally, you'll maintain a clean `master` branch.
+Including the `--auto-accept-changes` flag ensures all incoming changes will be accepted as baselines. Additionally, you'll maintain a clean `main` branch.
 
 If you want to test the changes introduced by the rebased branch, you can adjust your workflow and include a new step with the `ignore-last-build-on-branch` flag. For example:
 
@@ -231,7 +231,7 @@ There are tradeoffs. Sharing `project-token`'s allows _contributors_ and others 
 
 Sometimes you might want to skip running a build for a certain branch, but still have Chromatic mark the latest commit on that branch as "passed". Otherwise pull requests could be blocked due to required checks that remain pending. To avoid this issue, you can run `chromatic` with the `--skip` flag. This flag accepts a branch name or glob pattern.
 
-One use case for this feature is skipping builds for branches created by a bot. For instance, Renovate automatically updates a projects dependencies. Although some dependencies can result in UI changes, you might not find it worthwhile to run Chromatic for every single dependency update. Instead, you could rely on Chromatic running against the `master` or `develop` branch.
+One use case for this feature is skipping builds for branches created by a bot. For instance, Renovate automatically updates a projects dependencies. Although some dependencies can result in UI changes, you might not find it worthwhile to run Chromatic for every single dependency update. Instead, you could rely on Chromatic running against the `main` or `develop` branch.
 
 To skip builds for `renovate` branches, use the following:
 

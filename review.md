@@ -107,8 +107,8 @@ Similar to [GitHub code review](https://github.com/features/code-review/), Chrom
 
 The process might look something like:
 
-1. Create a new PR to `master` adding Chromatic to CI
+1. Create a new PR to `main` adding Chromatic to CI
 1. Merge that PR when everything works well.
-1. Update your existing feature PR(s) w/ the latest from `master` (either merge or rebase from master).
+1. Update your existing feature PR(s) w/ the latest from `main` (either merge or rebase from main).
 
 </details>
