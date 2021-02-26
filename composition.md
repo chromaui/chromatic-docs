@@ -48,7 +48,7 @@ Depending on your use case, you may want to compose Storybook using a [permalink
 
 #### Branch: `https://<branch>--<appid>.chromatic.com`
 
-If you want your local Storybook to compose the latest Storybook on `master`, use the branch permalink. This is useful for folks who work on multiple Storybooks simultaneously.
+If you want your local Storybook to compose the latest Storybook on `main`, use the branch permalink. This is useful for folks who work on multiple Storybooks simultaneously.
 
 - Building a component library in React and Vue at the same time
 - Monorepos with multiple inter-connected Storybook projects

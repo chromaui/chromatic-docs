@@ -28,7 +28,7 @@ That means once a snapshot is accepted as a baseline, it won’t need to be re-a
 
 Chromatic's [UI Tests](test) compare snapshots to a baseline: the last known “good” state of the story. Each story has its own baseline that is tracked independently on each branch.
 
-When you accept a snapshot you also update the baseline for that story on that branch. When you merge that branch into another (for instance back into `master`), the baseline comes with it. [Learn how we calculate baselines »](#how-baselines-are-calculated)
+When you accept a snapshot you also update the baseline for that story on that branch. When you merge that branch into another (for instance back into `main`), the baseline comes with it. [Learn how we calculate baselines »](#how-baselines-are-calculated)
 
 ## Branches
 
@@ -44,7 +44,7 @@ When you merge two branches together, Chromatic can sometimes have two (or more)
 
 #### Rebasing
 
-If you rebase a branch (say updating to branch off the latest commit off `master`), then you create a new commit that isn't a git descendent of the previous (pre-rebase) commit on that branch. Conceptually, that might mean that Chromatic should throw away any approvals that were made for builds on the branch, however this is probably not what you want.
+If you rebase a branch (say updating to branch off the latest commit off `main`), then you create a new commit that isn't a git descendent of the previous (pre-rebase) commit on that branch. Conceptually, that might mean that Chromatic should throw away any approvals that were made for builds on the branch, however this is probably not what you want.
 
 For this reason, we _always_ include accepted baselines from the latest build on the current branch, regardless of git history. You can bypass this with the `--ignore-last-build-on-branch=<branch-name>` flag of `chromatic`. For example:
 

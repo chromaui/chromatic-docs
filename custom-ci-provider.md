@@ -62,13 +62,13 @@ Builds that contain visual changes need to be [verified](test#verify-ui-changes)
 
 If you deny any change, you will need to make the necessary code changes to fix the test (and thus start a new build) to get Chromatic to pass again.
 
-#### Maintain a clean "master" branch
+#### Maintain a clean "main" branch
 
-A clean `master` branch is a development **best practice** and **highly recommended** for Chromatic. In practice, this means ensuring that test builds in your `master` branch are passing.
+A clean `main` branch is a development **best practice** and **highly recommended** for Chromatic. In practice, this means ensuring that test builds in your `main` branch are passing.
 
-If the builds are a result of direct commits to `master`, you will need to accept changes to keep master clean. If they're merged from `feature-branches`, you will need to make sure those branches are passing _before_ you merge into `master`.
+If the builds are a result of direct commits to `main`, you will need to accept changes to keep the main branch clean. If they're merged from `feature-branches`, you will need to make sure those branches are passing _before_ you merge into `main`.
 
-#### Squash/rebase merge and the "master" branch
+#### Squash/rebase merge and the "main" branch
 
 We use GitHub, GitLab, and Bitbucket APIs respectively to detect squashing and rebasing so your baselines match your expectations no matter your Git workflow  (see [Branching and Baselines](branching-and-baselines#squash-and-rebase-merging) for more details).
 
@@ -80,10 +80,10 @@ If you’re using this functionality but notice the incoming changes were not ac
 # Your custom CI implementation 
 
 - run:
-    # 👇 Checks if the current branch is not master and runs Chromatic
-    if: branch != master
+    # 👇 Checks if the current branch is not main and runs Chromatic
+    if: branch != main
       command: npm run chromatic --project-token=CHROMATIC_PROJECT_TOKEN 
-    # 👇 Checks if the current branch is master and accepts all changes in Chromatic
+    # 👇 Checks if the current branch is main and accepts all changes in Chromatic
     else:
       command: npm run chromatic --project-token=${CHROMATIC_PROJECT_TOKEN} --auto-accept-changes 
 ```
@@ -92,7 +92,7 @@ If you’re using this functionality but notice the incoming changes were not ac
 Read our official <a href="/docs/cli#chromatic-options">CLI documentation</a>.
 </div>
 
-Including the `--auto-accept-changes` flag ensures all incoming changes will be accepted as baselines. Additionally you'll maintain a clean `master` branch.
+Including the `--auto-accept-changes` flag ensures all incoming changes will be accepted as baselines. Additionally you'll maintain a clean `main` branch.
 
 #### Run Chromatic on external forks of open source projects
 
@@ -104,7 +104,7 @@ There are tradeoffs. Sharing `project-token`'s allows _contributors_ and others 
 
 Sometimes you might want to skip running a build for a certain branch, but still have Chromatic mark the latest commit on that branch as "passed". Otherwise pull requests could be blocked due to required checks that remain pending. To avoid this issue, you can run `chromatic` with the `--skip` flag. This flag accepts a branch name or glob pattern.
 
-One use case for this feature is skipping builds for branches created by a bot. For instance, Dependabot automatically updates a projects dependencies. Although some dependencies can result in UI changes, you might not find it worthwhile to run Chromatic for every single dependency update. Instead, you could rely on Chromatic running against the `master` or `develop` branch.
+One use case for this feature is skipping builds for branches created by a bot. For instance, Dependabot automatically updates a projects dependencies. Although some dependencies can result in UI changes, you might not find it worthwhile to run Chromatic for every single dependency update. Instead, you could rely on Chromatic running against the `main` or `develop` branch.
 
 To skip builds for `dependabot` branches, use the following:
 

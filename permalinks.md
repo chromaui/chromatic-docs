@@ -18,7 +18,7 @@ Before we begin, find your project's unique app id. Go to the permalink section 
 
 ## Build your own permalink
 
-Build your own permalinks to get more flexibility. For example, link to the `master` branch of Storybook in your external documentation site. Or link to a specific Storybook version (via commit) for [Composition](composition).
+Build your own permalinks to get more flexibility. For example, link to the `main` branch of Storybook in your external documentation site. Or link to a specific Storybook version (via commit) for [Composition](composition).
 
 | Permalink   | Format                                        |
 | ----------- | --------------------------------------------- |

@@ -18,7 +18,7 @@ You can only have one linked project in Chromatic for any given repository, so i
 
 ### Combine multiple projects into a single Storybook
 
-A common approach that works well for many teams is to combine multiple subproject's Storybooks into a single master Storybook. When you run Chromatic on the master Storybook you test all stories in a singe Chromatic project.
+A common approach that works well for many teams is to combine multiple subproject's Storybooks into a single Storybook. When you run Chromatic on the principal Storybook you test all stories in a singe Chromatic project.
 
 For example, you could write in your `.storybook/main.js`:
 

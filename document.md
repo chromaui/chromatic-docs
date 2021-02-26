@@ -42,7 +42,7 @@ Chromatic generates a [permalink](permalinks) for the latest uploaded Storybook 
 
 When you're linking to a library or component on Chromatic, it can be useful to link to the latest version on a `branch` rather than a specific build. To do so, add the `branch=foo` query parameter the the url.
 
-**Example**: `https://www.chromatic.com/library?appId=...&branch=master`.
+**Example**: `https://www.chromatic.com/library?appId=...&branch=main`.
 
 ---
 
