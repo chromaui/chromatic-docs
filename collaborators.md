@@ -45,6 +45,8 @@ Project collaborators can view and manage the project based on their [role](#rol
 
 You can add or remove a collaborator by adjusting their access in your Git repository. The permission changes in your upstream repository are mirrored downstream in Chromatic.
 
+Manually override the mirrored permissions by adjusting collaborator [roles](#roles) or [inviting external collaborators](#external-collaborators) on an ad hoc basis.
+
 ![Project manage page collaborators](img/collaborators-project-git.png)
 
 If you signed up via email and password, Chromatic won't have a Git repo to sync with. You'll need to manage project collaborators manually via external collaborators below.
@@ -70,15 +72,17 @@ Each project has a unique set of roles that are managed by the project owner. Fo
 | Reviewer            | Can leave comments, review tests, and approve PRs they're assigned to. Cannot assign others or self-approve.   |
 | Viewer              | Read-only access to the project.                                                                               |
 
+#### Project ownership
+
+Projects must have at least one owner. The `owner` role is automatically assigned to the first user in a Chromatic project.
+
+Transfer ownership by assigning another collaborator as an owner and then reassigning yourself another role.
+
 #### View your role
 
 Go to your project's Manage page to view your role and it's capabilities.
 
 ![Project manage page your role](img/collaborators-role.png)
-
-#### Transfer project ownership
-
-Projects must have at least one owner. Transfer ownership by assigning another collaborator as an owner and then reassigning yourself another role.
 
 #### Roles for open source projects
 
