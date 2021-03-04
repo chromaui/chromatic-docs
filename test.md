@@ -142,6 +142,13 @@ A build will _fail_ if any of the snapshots fail to render (i.e. in rendering th
 </details>
 
 <details>
+<summary>Why are my builds failing when i use MDX?</summary>
+
+This is not a Chromatic issue, but a known issue that the Storybook maintainers are aware and working towards fixing as soon as possible. If you're extending your own documentation with [DocsPage](https://storybook.js.org/docs/react/writing-docs/docs-page) the issue will not present itself.
+
+</details>
+
+<details>
 <summary>Why is review disabled in my build screen?</summary>
 
 If a build isn't the newest build on a branch, we disable reviewing the build; as any future builds will base themselves on the _newest_ build, making approvals to this build pointless.

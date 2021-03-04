@@ -60,3 +60,10 @@ This has significant trade offs. Teams that try to verify consistency between br
 Chromatic does not programmatically compare snapshots from different browsers against each other. Instead, we compare the snapshots for each browser against the baseline for that browser.
 
 </details>
+
+<details>
+<summary>Why can't i see any snapshots when i use IE11?</summary>
+
+This could be related to usage of MDX based stories. This is a recent issue that we're aware and working towards fixing as soon as possible. All other story formats should not be impacted in any way.
+
+</details>

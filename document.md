@@ -63,4 +63,12 @@ If your stories make use of non-HTTPS content (for instance images), the iframe 
 
 To fix this, ensure all resources used by your stories are hosted via HTTPS.
 
+
+</details>
+
+<details>
+<summary>Why are my MDX stories and documentation failing to load in Chromatic?</summary>
+
+This a know issue that the Storybook maintainers are aware and working towards fixing as soon as possible. If you're extending your own documentation with [DocsPage](https://storybook.js.org/docs/react/writing-docs/docs-page) the issue will not present itself.
+
 </details>
