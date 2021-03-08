@@ -280,8 +280,10 @@ As long as either the testing or review features are enabled, Chromatic will con
 ## Your account
 
 <details>
-<summary>How do I update my email account in Chromatic?</summary>
+<summary>How do I change my email and password?</summary>
 
-Chromatic retrieves the email addresses associated with your account from your Git provider. Check your provider's account settings page on how to add or change your email(s).
+If you signed up via OAuth, Chromatic will retrieve the email addresses associated with your account from your Git provider. Check your provider's account settings page on how to add or change your email(s).
+
+If you signed up via email, go to the Profile page to change your email address and password. Get there by signing in and clicking on your avatar in the header.
 
 </details>

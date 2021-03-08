@@ -12,7 +12,7 @@ The Chromatic CLI builds then publishes Storybook to a secure workspace in the c
 
 ## Sign up
 
-Before publishing, generate a unique `<project-token>` for your Storybook by logging in to [Chromatic](https://www.chromatic.com/start) and creating a project. Login via OAuth from GitHub, GitLab, or Bitbucket.
+Before publishing, generate a unique `<project-token>` for your Storybook by signing in to [Chromatic](https://www.chromatic.com/start) and creating a project. Sign in with your GitHub, GitLab, Bitbucket, or email.
 
 <details>
 <summary id="demo-chromatic-unlinked">How to continue setup if you require SSO, on-premises, or have a different Git provider.</summary>
