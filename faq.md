@@ -287,3 +287,10 @@ If you signed up via OAuth, Chromatic will retrieve the email addresses associat
 If you signed up via email, go to the Profile page to change your email address and password. Get there by signing in and clicking on your avatar in the header.
 
 </details>
+
+<details>
+<summary>How do I change my username?</summary>
+
+If you signed up via email, you'll be assigned a username based on your email. Go to the Profile page to change your username. Get there by signing in and clicking on your avatar in the header.
+
+</details>
