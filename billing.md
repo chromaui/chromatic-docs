@@ -14,6 +14,16 @@ Chromatic charges based on [snapshots](snapshots) and browser coverage respectiv
 
 Everytime you run a build, we take one snapshot for each story. If you have 50 stories, Chromatic will take 50 snapshots. In addition, testing multiple viewports and browsers are also considered snapshots.
 
+For example, see how many snapshots are taken in different scenarios below.
+
+| Story count | Builds    | Browsers   | Viewports   | Snapshots taken |
+| ----------- | --------- | ---------- | ----------- | --------------- |
+| 1 story     | 10 builds | 1 browser  | 1 viewport  | 10 snapshots    |
+| 1 story     | 10 builds | 2 browsers | 1 viewport  | 20 snapshots    |
+| 2 stories   | 10 builds | 1 browser  | 1 viewport  | 20 snapshots    |
+| 2 stories   | 10 builds | 2 browsers | 1 viewport  | 40 snapshots    |
+| 2 stories   | 10 builds | 2 browsers | 2 viewports | 80 snapshots    |
+
 <div class="aside">
 
 If you use our free [Publish Storybook](setup) service only you will not be billed for snapshots.
