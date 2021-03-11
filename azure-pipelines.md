@@ -97,6 +97,38 @@ Read the official Azure <a href="https://docs.microsoft.com/en-us/azure/devops/p
 
 Now your pipeline will only run Chromatic in the `master` branch.
 
+### Overriding Chromatic's branch detection
+
+If your Azure pipeline includes a set of rules for branches (e.g., renames the branch) it can lead to unforeseen build errors.
+
+In this case, you can adjust your workflow and include the `--branch-name` flag. This flag overrides Chromatic's default branch detection in favor of the specified branch:
+
+```yml
+# azure-pipelines.yml
+
+# Other configurations
+
+# Pipeline stages
+stages:
+- stage: Test
+  displayName: Chromatic Testing
+  # Job list
+  jobs:
+  - job: Chromatic_Deploy
+    displayName: Publish to Chromatic
+    steps:
+      # Other steps in the pipeline
+
+      #👇Adds Chromatic as a step in the pipeline
+    - task: CmdLine@2
+      displayName: Publish to Chromatic
+      inputs:
+        #👇Runs Chromatic with the --branch-name flag to override the baseline branch
+        script: npx chromatic --project-token=${CHROMATIC_PROJECT_TOKEN} --branch-name=${YOUR_BRANCH}
+```
+
+Chromatic will now detect the correct branch and run your workflow. You can also apply this when fixing cross-forks UI comparisons.
+
 ### UI Test and UI Review
 
 [UI Tests](test) and [UI Review](review) rely on [branch and baseline](branching-and-baselines) detection to keep track of [snapshots](snapshots). We recommend the following configuration.

@@ -32,6 +32,21 @@ For extra security, add Chromatic's <code>project-token</code> as an environment
 
 Depending on the CI provider you're using, running Chromatic from a specific branch will not be a issue. Refer to your CI documentation for further details.
 
+### Overriding Chromatic's branch detection
+
+If your worflow includes a set of rules for branches (e.g renames the branch) it can lead to unforeseen build errors.
+
+In this case, you can adjust your workflow and include the `--branch-name` flag. This flag overrides Chromatic's default branch detection in favor of the specified branch:
+
+```yml
+# your-workflow
+- run:
+    # 👇 Runs the Chromatic CLI with the --branch-name flag to override the baseline branch
+    command: npm run chromatic --project-token=CHROMATIC_PROJECT_TOKEN --branch-name=${YOUR_BRANCH}
+```
+
+Chromatic will now detect the correct branch and run your workflow. You can also apply this when fixing cross-forks UI comparisons.
+
 ### UI Test and UI Review
 
 [UI Tests](test) and [UI Review](review) rely on [branch and baseline](branching-and-baselines) detection to keep track of [snapshots](snapshots). We recommend the following configuration.

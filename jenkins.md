@@ -74,6 +74,37 @@ Read the official Jenkins <a href="https://www.jenkins.io/doc/book/pipeline/synt
 
 Now your pipeline will only run Chromatic in the `example` branch.
 
+### Overriding Chromatic's branch detection
+
+If your Jenkins pipeline includes a set of rules for branches (e.g., renames the branch) it can lead to unforeseen build errors.
+
+In this case, you can adjust your workflow and include the `--branch-name` flag. This flag overrides Chromatic's default branch detection in favor of the specified branch:
+
+```groovy
+/* JenkinsFile */
+
+pipeline {
+  /* Other pipeline configuration. */
+
+  stages {
+    /* Other pipeline stages */
+    
+    /* 👇 Adds Chromatic as a stage */
+    stage('Publish to Chromatic') {
+      environment {
+        CHROMATIC_PROJECT_TOKEN = 'Chromatic project token'
+        YOUR_BRANCH='your-branch'
+      }
+      steps {
+         /* 👇 Runs the Chromatic CLI --branch-name flag to override the baseline branch */
+         sh "yarn chromatic --project-token=${CHROMATIC_PROJECT_TOKEN} --branch-name=${YOUR_BRANCH}" 
+      }
+    }
+  }
+}
+```
+
+Chromatic will now detect the correct branch and run your workflow. You can also apply this when fixing cross-forks UI comparisons.
 
 ### Recommended configuration for build events
 
