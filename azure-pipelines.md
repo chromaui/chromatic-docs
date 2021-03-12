@@ -99,7 +99,7 @@ Now your pipeline will only run Chromatic in the `master` branch.
 
 ### Overriding Chromatic's branch detection
 
-If your Azure pipeline includes a set of rules for branches (e.g., renames the branch) it can lead to unforeseen build errors.
+If your Azure pipeline includes a set of rules for branches (e.g., renames the branch, creates ephemeral, or temporary branches) it can lead to unforeseen build errors.
 
 In this case, you can adjust your workflow and include the `--branch-name` flag. This flag overrides Chromatic's default branch detection in favor of the specified branch:
 
@@ -127,7 +127,7 @@ stages:
         script: npx chromatic --project-token=${CHROMATIC_PROJECT_TOKEN} --branch-name=${YOUR_BRANCH}
 ```
 
-Chromatic will now detect the correct branch and run your workflow. You can also apply this when fixing cross-forks UI comparisons.
+Chromatic will now detect the correct branch and run your workflow. You can also apply this when fixing cross-fork UI comparisons.
 
 ### UI Test and UI Review
 
