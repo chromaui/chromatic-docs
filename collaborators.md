@@ -55,7 +55,10 @@ If you signed up via email and password, Chromatic won't have a Git repo to sync
 
 Projects can also have external collaborators. These are stakeholders like PMs, designers, and consultants who don't commit code but contribute to the sign off process. They can also be fellow developers who don't have repo access or use a different Git provider.
 
-External collaborators are added and removed manually. Invite them via a link or email. Once they create an account they'll get access to your project.
+External collaborators are added and removed manually. Once they create an account, they'll get access to your project. There are two ways to add collaborators:
+
+- Invite link: Share a URL with stakeholders. They are auto-assigned a `developer` role.
+- Invite email: Send individual invites via email. You can fine tune roles before sending.
 
 ![Project manage page external collaborators](img/collaborators-project-external.png)
 
