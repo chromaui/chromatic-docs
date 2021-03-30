@@ -93,9 +93,9 @@ Open source projects are viewable to all users even if they're not listed as a c
 
 ### Visiblity
 
-By default, your published Storybooks on Chromatic are private. They can only be accessed by collaborators who are signed in to Chromatic and have permission to view components and builds.
+By default, published Storybooks on Chromatic are private. They can only be accessed by collaborators who are signed in to Chromatic and have permission to view components and builds.
 
-When you make your Storybook public, the stories and static assets are accessible to visitors without signing in. Share the URL with stakeholders, clients, and the anyone with a link. Your Chromatic library, tests, and settings will remain private.
+When you set Storybook visibility to public, it will be accessible to visitors without signing in. Anyone with a link can access. Your Chromatic library, tests, and settings will remain private.
 
 ![Project manage page Storybook visibility](img/collaborators-visibility.png)
 
