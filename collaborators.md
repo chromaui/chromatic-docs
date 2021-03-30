@@ -91,7 +91,7 @@ Go to your project's Manage page to view your role and it's capabilities.
 
 Open source projects are viewable to all users even if they're not listed as a collaborator or have a Chromatic account. But in order to manage or review the open source project, collaborators must have explicit access and the corresponding role.
 
-### Visiblity
+### Visibility
 
 By default, published Storybooks on Chromatic are private. They can only be accessed by collaborators who are signed in to Chromatic and have permission to view components and builds.
 
