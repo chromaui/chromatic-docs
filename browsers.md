@@ -32,8 +32,6 @@ Your team can also see how a story renders in a given browser across different b
 
 Congratulations you enabled a new browser! From now on our Capture Cloud will spin up as many Chrome, Firefox, or IE11 machines as you need to test your Storybook in the least amount of time.
 
----
-
 ## Verify UI changes across browsers
 
 When Chromatic tests detect a visual change to a story in any enabled browser you'll get notified. For instance, if you have a `TooltipMessage:default` story that is tested in Chrome and Firefox, you'll be notified when changes happen in either Chrome or Firefox.
@@ -47,6 +45,12 @@ You can see changes for the browser's snapshot in the review workflow.
 Once you accept changes to the story, its baselines are updated. Each story has one baseline for Chrome, it can also have baselines for Firefox and IE11.
 
 <div class="aside">If you test responsiveness with the viewport parameters, baselines are associated with each viewport, and those can have a Chrome, Firefox, or IE11 baseline.</div>
+
+## Browser upgrades
+
+Chromatic's infrastructure is periodically updated to use the the latest **stable** browser version (can be behind the latest version). When an infrastructure upgrade is available you're notified in the app.
+
+Upgrades can cause subtle changes in story appearance due to the underlying rendering engine changes. We try to make upgrades as easy as possible by auto-migrating your test baselines. Learn more about [infrastructure upgrades](infrastructure-upgrades) and view [browser versions](infrastructure-release-notes).
 
 ---
 
