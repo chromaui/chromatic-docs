@@ -141,14 +141,14 @@ This package was previously named `storybook-chromatic`. If you still have `stor
 
 **With npm:**
 
-```
+```sh
 npm uninstall --save-dev storybook-chromatic
 npm install --save-dev chromatic
 ```
 
 **With yarn:**
 
-```
+```sh
 yarn remove storybook-chromatic
 yarn add --dev chromatic
 ```
