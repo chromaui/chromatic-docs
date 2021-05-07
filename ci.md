@@ -12,11 +12,11 @@ Configure CI to publish your Storybook and run Chromatic's automation whenever y
 
 ## Configure CI
 
-Before we begin, make sure you set the `CHROMATIC_PROJECT_TOKEN` environment variable when you run CI builds in your CI service's configuration. And add a chromatic script to your `package.json`.
+Before we begin, make sure you set the `CHROMATIC_PROJECT_TOKEN` environment variable (sometimes referred to as "secrets") in your CI service's configuration. Add a `chromatic` script to your `package.json` if you don't have one already, and make sure `chromatic` is listed in `devDependencies`.
 
 ```json
 "scripts": {
-  "chromatic": "chromatic --project-token CHROMATIC_PROJECT_TOKEN --exit-zero-on-changes"
+  "chromatic": "chromatic --exit-zero-on-changes"
 }
 ```
 
@@ -31,8 +31,7 @@ Integrate with popular CI tools like you would any other job. Run `npm run chrom
     command: npm run chromatic # publish Storybook and run visual tests
 ```
 
-Here's how we recommend configuring Chromatic for popular CI services.
-
+Here's how we recommend configuring Chromatic for popular CI services:
 
 - [GitHub Actions](github-actions)
 - [GitLab Pipelines](gitlab)
