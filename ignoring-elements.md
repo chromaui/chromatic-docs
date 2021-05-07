@@ -21,7 +21,8 @@ pixels within the bounding rectangle of ignored elements. It's important to ensu
 
 ## Ignore stories
 
-You can omit stories entirely from Chromatic testing using the `disable` [story parameter](https://storybook.js.org/docs/react/writing-stories/parameters#story-parameters):
+If you have a story you do not wish to snapshot in Chromatic, you can disable snapshotting with the
+`disableSnapshot` [story parameter](https://storybook.js.org/docs/react/writing-stories/parameters#story-parameters):
 
 ```js
 // MyComponent.stories.js | MyComponent.stories.ts
@@ -36,26 +37,25 @@ const Template = (args) => <MyComponent {...args} />;
 
 export const StoryName = Template.bind({});
 StoryName.parameters = {
-  // disables Chromatic on a story level
-  chromatic: { disable: true },
+  // disables Chromatic's snapshotting on a story level
+  chromatic: { disableSnapshot: true },
 };
 ```
 
+If you want to adopt snapshotting incrementally, you can use Storybook's parameter inheritance to whitelist stories.
 
-If you want to adopt Chromatic incrementally, you can use Storybook's parameter inheritance to whitelist stories.
-
-In your [`.storybook/preview.js`](https://storybook.js.org/docs/react/configure/overview#configure-story-rendering) add the `disable` option in the [parameters](https://storybook.js.org/docs/react/writing-stories/parameters#global-parameters):
+In your [`.storybook/preview.js`](https://storybook.js.org/docs/react/configure/overview#configure-story-rendering) add the `disableSnapshot` option in the [parameters](https://storybook.js.org/docs/react/writing-stories/parameters#global-parameters):
 
 ```js
 // .storybook/preview.js
 
 export const parameters = {
-  // disables Chromatic on a global level
-  chromatic: { disable: true },
+  // disables snapshotting on a global level
+  chromatic: { disableSnapshot: true },
 };
 ```
 
-In the component's stories you'd like to enable Chromatic:
+In the component's stories you'd like to enable snapshotting:
 
 ```js
 // MyComponent.stories.js | MyComponent.stories.ts
@@ -64,13 +64,13 @@ import MyComponent from './MyComponent';
 
 export default {
   component: MyComponent,
-  // enables Chromatic for the component
+  // enables snapshotting for the component
   parameters: {
-    chromatic: { disable: false },
+    chromatic: { disableSnapshot: false },
   },
 };
 
-const Template = (args) => <MyComponent {...args} />; 
+const Template = (args) => <MyComponent {...args} />;
 
 export const StoryName = Template.bind({});
 StoryName.args = {};

@@ -55,3 +55,19 @@ If you want to get a Chromatic PR badge for such commits (for instance if you bl
 If you are combining your Storybooks into a single Storybook (see above), but you have detected only a subset of projects have changed, in order to avoid unnecessarily capturing unchanged stories, you can build a Storybook with a subset of your projects' stories.
 
 Ordinarily when you run a build that is missing a set of stories, Chromatic will treat those stories as deleted and the next build that includes them will have no baseline for them, and treat them as new. You can pass the `--preserve-missing` flag to your build to avoid this behavior. What this means is Chromatic will pass the baselines forward and treat all missing stories as "preserved" without re-capturing them.
+
+### Building a subset of your stories
+
+In order to build a Storybook with a subset of your stories, you can use an environment variable in `.storybook/main.js`:
+
+```js
+const storiesForProject = {
+  projectA: './projectA/**.stories.js',
+  projectB: './projectB/**.stories.js',
+  // etc
+};
+
+export default {
+  stories: storiesForProject[process.env.ONLY_STORYBOOK_PROJECT] || '**/*.stories.js',
+};
+```
