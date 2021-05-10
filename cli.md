@@ -87,7 +87,7 @@ These options may help you debug problems or enable integration with other tools
 | `--debug`                   | Output verbose debugging information. This option implies `--no-interactive`.                                                                                                                      |
 | `--ci`                      | Mark this build as a CI build. Alternatively, set the `CI` environment variable (present in most CI systems). This option implies `--no-interactive`.                                              |
 | `--list`                    | List available stories. This requires running a full build.                                                                                                                                        |
-| `--only <storypath>`        | Only run a single story or a subset of stories. Use the `title` from the story's default export as the story path. This typically looks like `Path/To/Story`. Globs are supported via [picomatch]. |
+| `--only <storypath>`        | Only run a single story or a subset of stories. Use the `title` from the story's default export as the story path. This typically looks like `Path/To/Story`. Globs are supported via [picomatch]. This option implies `--preserve-missing`. |
 | `--junit-report [filepath]` | Write build results to a JUnit XML file. Defaults to `chromatic-build-{buildNumber}.xml`. `{buildNumber}` will be replaced with the actual build number.                                           |
 
 ### Deprecated options
