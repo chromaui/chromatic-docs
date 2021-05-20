@@ -47,7 +47,7 @@ to learn more.
 
 ### Usage alerts
 
-Keep track of snapshot usage for your account by setting up a usage alert. We'll email a designated address when you hit a certain snapshot threshold in a billing period.
+Keep track of your account's snapshot usage by setting up a usage alert. When you hit a certain snapshot threshold in a billing period we'll send a notificaton to a designated email address.
 
 For example, if you want to be notified when you use 90% of the 35,000 snapshots in the Starter plan, you'd set the snapshot alert threshold to 31,500.
 
