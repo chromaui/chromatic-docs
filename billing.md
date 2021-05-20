@@ -45,6 +45,14 @@ Find the current months usage in the Plan section of the Billing page.
 If you exceed the number of snapshots in your plan you’ll be billed for extra snapshots at the end of the month. Consider upgrading to a enterprise plan for more snapshots. Contact us via in-app chat or <a href="mailto:support@chromatic.com?Subject=Custom%20plan">email</a>
 to learn more.
 
+### Usage alerts
+
+Keep track of snapshot usage for your account by setting up a usage alert. We'll email a designated address when you hit a certain snapshot threshold in a billing period.
+
+For example, if you want to be notified when you use 90% of the 35,000 snapshots in the Starter plan, you'd set the snapshot alert threshold to 31,500.
+
+![Setup usage alerting](img/billing-usage-alert.png)
+
 ## Change plans
 
 Change your plan in account settings. All changes are prorated to the day. That means you can change your plan at any time in the month without getting charged unneccessarily for unused snapshots.
