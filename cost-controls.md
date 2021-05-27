@@ -28,7 +28,14 @@ Check your CLI output to see the number of snapshots taken and charged for.
 
 ### Prerequisites
   
--  You must be on Storybook 6.2+ to use `--only-changed`.
+- You must be on Storybook 6.2+ to use `--only-changed`.
+- You must be using the `main.js:stories` field for your stories, not requiring them in `.storybook/preview.js`
+ 
+### Troubleshooting
+ 
+ - If you have a large dependency tree, the build process may crash with an out of memory error. To work around this, pass `NODE_OPTIONS=--max_old_space_size=4096` (or higher) as an environment variable to the Chromatic CLI.
+ 
+ - If you are manually building your storybook, ensure you pass `--webpack-stats-json path/to/sb/build` to the `build-storybook` script.
   
 ### Circumstances when a full build will be run
 
