@@ -41,7 +41,7 @@ Certain circumstances could potentially affect all stories. We re-test everythin
 
 #### Static Storybook builds
 
-If you're manually building Storybook, pass `--Webpack-stats-json path/to/sb/build` to the `build-storybook` script.
+If you're manually building Storybook, pass `--webpack-stats-json path/to/sb/build` to the `build-storybook` script.
 
 #### Specify which changes trigger a full re-test
 
