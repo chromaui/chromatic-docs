@@ -6,15 +6,16 @@ description: Speed up tests by detecting file changes with Git
 
 # TurboTest (beta)
 
-> TurboTest is in beta. Email [support](mailto:support@chromatic.com) if you want early access.
+> TurboTest is in beta. Email [support](mailto:support@chromatic.com) for early access.
 
-TurboTest is an advanced configuration that speeds up Chromatic tests using Git and the Webpack dependency graph. It identifies the components whose files change, then intelligently tests only the stories associated with those components.
+TurboTest is an advanced configuration that speeds up Chromatic tests using Git and Webpack's dependency graph. It identifies the component files that change, then intelligently tests only the stories associated with those components.
 
 Your tests complete in a fraction of the time which means you can expand test coverage while also economizing snapshot usage.
 
 #### Prerequisites
 
 - Storybook 6.2+
+- Webpack
 - You must use the `main.js:stories` field for stories, not require them in `.storybook/preview.js`
 
 ## Enable
@@ -63,7 +64,7 @@ When `--only-changed` is setup, skipping testing happens automatically. You'll s
 
 #### Only test subprojects of monorepos
 
-If you are working in a monorepo, it may be possible to find situations where you know changes only affect a subproject. In such cases, you can [run Chromatic on a subset of your Storybook](monorepos#advanced-only-test-a-subset-of-stories).
+If you're working in a monorepo, there are situations where you know changes only affect a subproject. In those cases, you can [run Chromatic on a subset of your Storybook](monorepos#advanced-only-test-a-subset-of-stories).
 
 When `--only-changed` is setup, running tests on subprojects that change happens automatically. You'll still build and upload your Storybook but Chromatic won't test it or take snapshots.
 
