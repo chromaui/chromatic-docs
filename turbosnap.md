@@ -1,0 +1,97 @@
+---
+layout: default
+title: TurboSnap
+description: Speed up tests by detecting file changes with Git
+---
+
+# TurboSnap (beta)
+
+> TurboSnap is in beta. Email [support](mailto:support@chromatic.com) for early access.
+
+TurboSnap is an advanced Chromatic feature that speeds up builds for faster [UI testing](test) and [review](review) using Git and Webpack's [dependency graph](https://webpack.js.org/concepts/dependency-graph/). It identifies component files that change, then intelligently builds and tests only the stories associated with those components.
+
+Your builds complete in a fraction of the time, which means you can start gathering feedback faster and fix regressions efficiently.
+
+
+#### Prerequisites
+
+- Storybook 6.2+
+- Webpack
+- Stories correctly [configured](https://storybook.js.org/docs/react/configure/overview#configure-story-loading) in Storybook's `main.js`
+-  Items subject to changes (e.g., CSS, images) should not be listed in [`preview.js`](https://storybook.js.org/docs/react/configure/overview#configure-story-rendering) to prevent a complete rebuild.
+
+## Enable
+
+Run Chromatic's CLI with the `--only-changed` option to enable TurboSnap. It will build and test stories that may have been affected by the Git changes since the last build. Depending on how your project is setup, you may need [additional configuration](#configure).
+
+
+### How it works
+
+1.  Chromatic considers the Git changes between the current commit and the commit of the [ancestor build](branching-and-baselines#calculating-the-ancestor-builds).
+2.  Chromatic then uses Webpack's dependency graph to track those changes back up to the story files that depend on them.
+3.  Chromatic only tests the stories defined in those story files.
+
+
+Stories that have not changed will not be tested (i.e., snapshotted), despite appearing in Chromatic's UI as if they were. Thus, leading to a significant decrease in usage.
+
+Certain circumstances could potentially affect all stories. To prevent false positives, we re-test everything if any of the following requirements are met:
+
+- Changes to package versions in `package.json`, `yarn.lock`, `package-lock.json`
+- Changes to your Storybook's configuration
+- Changes in your static folder (e.g., fonts, images that aren't loaded via Webpack imports)
+- [Infrastructure upgrades](infrastructure-upgrades)
+- [UI Test in a new browser](browsers)
+
+## Configure
+
+#### Static Storybook builds
+
+
+If you're manually building Storybook, adjust your `build-storybook` script to include the `--webpack-stats-json` option. For example:
+
+```json
+{
+  "scripts": {
+    "build-storybook": "build-storybook --webpack-stats-json path/to/sb/build"
+  }
+}
+```
+
+#### Specify which changes trigger a full re-test
+
+TurboSnap relies on Webpack's dependency graph. That means if you're using files that are processed externally to Webpack, with the output consumed by Webpack, you'll need to trigger a re-test when they change.
+
+For example, if you use an external SASS compiler (not `sass-loader`) to compile `.sass` files to `.css` files, which Webpack consumes, then a change to a `.sass` file will not match any dependencies, preventing stories from being captured (i.e., snapshotted).
+
+To work around this, run Chromatic's CLI with the `--externals` option to specify one or more globs of "externally processed" files. For example:
+
+```bash
+yarn chromatic --project-token=<token> --only-changed --externals "*.sass" --externals "*.mjml"`
+```
+
+#### Enable for specific branches
+
+To enable this feature for specific branches, pass a glob to `--only-changed` (e.g., `yarn chromatic --only-changed 'feature/*'`).
+
+#### Support for monorepos
+
+If you're working in a monorepo, there are some situations where you're certain no UI has changed. For instance, if you make a backend-only change. In such cases, you can [skip Chromatic entirely](monorepos#only-run-chromatic-when-changes-occur-in-a-subproject).
+
+With TurboSnap enabled, you'll be able to build and publish your Storybook into Chromatic, but UI testing will be automatically skipped.
+
+#### Only test subprojects of monorepos
+
+If you're working in a monorepo, there are situations where you know changes only affect a subproject. In those cases, you can [run Chromatic on a subset of your Storybook](monorepos#advanced-only-test-a-subset-of-stories).
+
+With TurboSnap enabled, running tests on subprojects that change happens automatically. You'll be able to build and publish your Storybook, but Chromatic won't test it or take snapshots.
+
+---
+
+### Troubleshooting
+
+<details>
+<summary>Why is my build failing with an <code>Out of memory error</code>?</summary>
+
+If you have a large dependency tree, the build process may fail due to an out of memory error. Re-run Chromatic's CLI with the `NODE_OPTIONS=--max_old_space_size=4096` (or higher) environment variable to increase the amount of available memory.
+
+</details>
