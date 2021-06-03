@@ -220,6 +220,13 @@ Free plans come with 5000 snapshots per month. Once free snapshots are exhausted
 
 </details>
 
+<details>
+<summary>What happens to my snapshots if I don't use them?</summary>
+
+At the beginning of each month, your snapshot count will be reset. Any remaining snapshots from the previous month will not accumulate.
+
+</details>
+
 #### Browsers
 
 <details>
