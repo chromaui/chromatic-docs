@@ -18,7 +18,6 @@ Your builds complete in a fraction of the time, which means you can start gather
 - Storybook 6.2+
 - Webpack
 - Stories correctly [configured](https://storybook.js.org/docs/react/configure/overview#configure-story-loading) in Storybook's `main.js`
--  Items subject to changes (e.g., CSS, images) should not be listed in [`preview.js`](https://storybook.js.org/docs/react/configure/overview#configure-story-rendering) to prevent a complete rebuild.
 
 ## Enable
 
@@ -32,12 +31,13 @@ Run Chromatic's CLI with the `--only-changed` option to enable TurboSnap. It wil
 3.  Chromatic only tests the stories defined in those story files.
 
 
-Stories that have not changed will not be tested (i.e., snapshotted), despite appearing in Chromatic's UI as if they were. Thus, leading to a significant decrease in usage.
+Stories that have not changed will not be tested (i.e., snapshotted), despite appearing in Chromatic's UI as if they were. In many cases this will lead to much decreased snapshot usage and faster build times.
 
 Certain circumstances could potentially affect all stories. To prevent false positives, we re-test everything if any of the following requirements are met:
 
 - Changes to package versions in `package.json`, `yarn.lock`, `package-lock.json`
 - Changes to your Storybook's configuration
+- Changes in files that are imported by your [`preview.js`](https://storybook.js.org/docs/react/configure/overview#configure-story-rendering) (as this could affect any story)
 - Changes in your static folder (e.g., fonts, images that aren't loaded via Webpack imports)
 - [Infrastructure upgrades](infrastructure-upgrades)
 - [UI Test in a new browser](browsers)
@@ -47,7 +47,9 @@ Certain circumstances could potentially affect all stories. To prevent false pos
 #### Static Storybook builds
 
 
-If you're manually building Storybook, adjust your `build-storybook` script to include the `--webpack-stats-json` option. For example:
+If you're manually building Storybook, adjust your `build-storybook` script to include the `--webpack-stats-json` option. (If Chromatic builds your Storybook for you, this is not necessary, it will take care of it for you).
+
+For example:
 
 ```json
 {
@@ -77,13 +79,13 @@ To enable this feature for specific branches, pass a glob to `--only-changed` (e
 
 If you're working in a monorepo, there are some situations where you're certain no UI has changed. For instance, if you make a backend-only change. In such cases, you can [skip Chromatic entirely](monorepos#only-run-chromatic-when-changes-occur-in-a-subproject).
 
-With TurboSnap enabled, you'll be able to build and publish your Storybook into Chromatic, but UI testing will be automatically skipped.
+With TurboSnap enabled, you'll be able to build and publish your Storybook into Chromatic, but UI testing will be automatically skipped. So there is no need to skip manually.
 
 #### Only test subprojects of monorepos
 
 If you're working in a monorepo, there are situations where you know changes only affect a subproject. In those cases, you can [run Chromatic on a subset of your Storybook](monorepos#advanced-only-test-a-subset-of-stories).
 
-With TurboSnap enabled, running tests on subprojects that change happens automatically. You'll be able to build and publish your Storybook, but Chromatic won't test it or take snapshots.
+With TurboSnap enabled, running tests on subprojects that change happens automatically. You'll be able to build and publish your Storybook, but Chromatic won't test unchanged subprojects or take snapshots. So there is no need to build a subset of your Storybook manually.
 
 ---
 
