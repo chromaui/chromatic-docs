@@ -8,9 +8,9 @@ description: Speed up tests by detecting file changes with Git
 
 > TurboSnap is in beta. Email [support](mailto:support@chromatic.com) for early access.
 
-TurboSnap is an advanced Chromatic feature that speeds up builds for faster [UI testing](test) and [review](review) using Git and Webpack's [dependency graph](https://webpack.js.org/concepts/dependency-graph/). It identifies component files that change, then intelligently builds and tests only the stories associated with those components.
+TurboSnap is an advanced Chromatic feature that speeds up builds for faster [UI testing](test) and [review](review) using Git and Webpack's [dependency graph](https://webpack.js.org/concepts/dependency-graph/). It identifies component files that change, then intelligently builds and snapshots only the stories associated with those components.
 
-Your builds complete in a fraction of the time, which means you can start gathering feedback faster and fix regressions efficiently.
+⚠️ When using TurboSnap, your builds may complete in less time using fewer snapshots. However, we don't recommend using TurboSnap immediately when starting out with Chromatic since the configuration is more complicated and can lead to difficult to debug scenarios or UI changes being missed. Instead, become familiar with Chromatic's out of the box behavior and once your project has been running smoothly for some time consider trying out TurboSnap.
 
 
 #### Prerequisites
@@ -39,6 +39,7 @@ Certain circumstances could potentially affect all stories. To prevent false pos
 - Changes to your Storybook's configuration
 - Changes in files that are imported by your [`preview.js`](https://storybook.js.org/docs/react/configure/overview#configure-story-rendering) (as this could affect any story)
 - Changes in your static folder (e.g., fonts, images that aren't loaded via Webpack imports)
+- Changes to files specific by the `--externals` option (see below)
 - [Infrastructure upgrades](infrastructure-upgrades)
 - [UI Test in a new browser](browsers)
 
