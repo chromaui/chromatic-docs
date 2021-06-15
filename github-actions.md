@@ -81,15 +81,16 @@ Or you could disable Chromatic on pull requests from forked repositories.
 Chromatic's GitHub Action includes additional options to customize your workflow. The table below lists what's currently available:
 
 
-| Option                    | Description                                                       | Type                  | Example value                              | Default value                 |
-| --------------------------| ------------------------------------------------------------------| ----------------------| -------------------------------------------|-------------------------------|
-| **buildScriptName**       | The script that builds your Storybook                             | *String*              | <code>build-storybook</code>               |<code>build-storybook</code>   |
-| **storybookBuildDir**     | Provide a directory with your built Storybook.                    | *String*              | <code>storybook-static</code>              |<code>storybook-static</code>  |
-| **allowConsoleErrors**    | Do not exit when runtime errors occur in Storybook                | *Boolean*             | <code>True</code>                          |<code>false</code>             |
-| **autoAcceptChanges**     | Automatically accepts all changes in Chromatic                    | *String* or *Boolean* | <code>my-branch</code> or <code>true</code>|<code>false</code>             |
-| **exitZeroOnChanges**     | Positive exit of action even when there are changes detected      | *String* or *Boolean* | <code>my-branch</code> or <code>true</code>|<code>true</code>              |
-| **exitOnceUploaded**      | Exit with status 0 (OK) once the build has been sent to Chromatic | *String* or *Boolean* | <code>my-branch</code> or <code>true</code>|<code>false</code>             |
-|**ignoreLastBuildOnBranch**| Ignores latest build on current branch as a baseline if that build is no longer present in git history (i.e. branch was rebased). Multiple branches allowed through [picomatch] | *String*|<code>my-branch</code>|N/A|
+| Option                      | Description                                                                                                                                                                     | Type                  | Example value     | Default value    |
+|-----------------------------|---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|-----------------------|-------------------|------------------|
+| **buildScriptName**         | The script that builds your Storybook                                                                                                                                           | *String*              | build-storybook   | build-storybook  |
+| **storybookBuildDir**       | Provide a directory with your built Storybook.                                                                                                                                  | *String*              | storybook-static  | storybook-static |
+| **allowConsoleErrors**      | Do not exit when runtime errors occur in Storybook                                                                                                                              | *Boolean*             | True              | false            |
+| **autoAcceptChanges**       | Automatically accepts all changes in Chromatic                                                                                                                                  | *String* or *Boolean* | my-branch or true | false            |
+| **exitZeroOnChanges**       | Positive exit of action even when there are changes detected                                                                                                                    | *String* or *Boolean* | my-branch or true | true             |
+| **exitOnceUploaded**        | Exit with status 0 (OK) once the build has been sent to Chromatic                                                                                                               | *String* or *Boolean* | my-branch or true | false            |
+| **ignoreLastBuildOnBranch** | Ignores latest build on current branch as a baseline if that build is no longer present in git history (i.e. branch was rebased). Multiple branches allowed through [picomatch] | *String*              | my-branch         | N/A              |
+| **workingDir**              | Provide the location of Storybook's `package.json` if installed in a subdirectory (i.e., monorepos)                                                                            | *String*              | my-folder  | N/A              |
 
 ### Support for `actions/checkout@v2` 
 
