@@ -66,7 +66,7 @@ External collaborators are added and removed manually. Once they create an accou
 
 Roles give you fine-grained control over who can do what. There are four roles that can be assigned to any collaborator.
 
-Each project has a unique set of roles that are managed by the project owner. For example, you can be an "developer" in one project and a "viewer" in another.
+Each project has a unique set of roles that are managed by the project owner. For example, you can be a "developer" in one project and a "viewer" in another.
 
 | Role                | What you can do                                                                                                |
 | ------------------- | -------------------------------------------------------------------------------------------------------------- |
