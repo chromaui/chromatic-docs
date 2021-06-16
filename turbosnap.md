@@ -12,7 +12,6 @@ TurboSnap is an advanced Chromatic feature that speeds up builds for faster [UI 
 
 Your builds complete in a fraction of the time, which means you can start gathering feedback faster and fix regressions efficiently.
 
-
 #### Prerequisites
 
 - Storybook 6.2+
@@ -23,13 +22,11 @@ Your builds complete in a fraction of the time, which means you can start gather
 
 Run Chromatic's CLI with the `--only-changed` option to enable TurboSnap. It will build and test stories that may have been affected by the Git changes since the last build. Depending on how your project is setup, you may need [additional configuration](#configure).
 
-
 ### How it works
 
 1.  Chromatic considers the Git changes between the current commit and the commit of the [ancestor build](branching-and-baselines#calculating-the-ancestor-builds).
 2.  Chromatic then uses Webpack's dependency graph to track those changes back up to the story files that depend on them.
 3.  Chromatic only tests the stories defined in those story files.
-
 
 Stories that have not changed will not be tested (i.e., snapshotted), despite appearing in Chromatic's UI as if they were. In many cases this will lead to much decreased snapshot usage and faster build times.
 
@@ -45,7 +42,6 @@ Certain circumstances could potentially affect all stories. To prevent false pos
 ## Configure
 
 #### Static Storybook builds
-
 
 If you're manually building Storybook, adjust your `build-storybook` script to include the `--webpack-stats-json` option. (If Chromatic builds your Storybook for you, this is not necessary, it will take care of it for you).
 
