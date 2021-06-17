@@ -25,6 +25,8 @@ If you want to setup a subdomain such as `storybook.ui.team`, the process is as 
 4. Enter a git branch name for which to host the latest Storybook. Typically this would be `main`, `master` or `next`.
 5. Save your settings, then navigate to the vanity domain to see if it works. It might take a while for the DNS update to propagate.
 
+![Add a CNAME record](img/add-cname-record.png)
+
 ### Setup an apex domain
 
 To setup an apex (root) domain such as `ui.team`, do the following:
