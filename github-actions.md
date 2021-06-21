@@ -155,7 +155,7 @@ Other branches can also be included, such as the ones created by the Renovate bo
 
 ### Support for environment variables
 
-Environment variables are supported in Chromatic. But it comes with a tradeoff. We recommend that you prefix each environment variable with the `STORYBOOK` keyword and adjust your workflow to the following:
+Environment variables are supported in Chromatic. But it comes with a caveat. We recommend that you prefix each environment variable with the `STORYBOOK` keyword and adjust your workflow to the following:
 
 ```yml
 # .github/workflows/chromatic.yml
