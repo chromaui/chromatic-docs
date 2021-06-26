@@ -20,7 +20,9 @@ TurboSnap is an advanced Chromatic feature that speeds up builds for faster [UI 
 
 ## Enable
 
-Run Chromatic's CLI with the `--only-changed` option to enable TurboSnap. It will build and test stories that may have been affected by the Git changes since the last build. Depending on how your project is setup, you may need [additional configuration](#configure).
+Run Chromatic's CLI with the `--only-changed` option to enable TurboSnap. Alternatively, you can use the `onlyChanged` option to the Chromatic GitHub action.
+
+It will build and test stories that may have been affected by the Git changes since the last build. Depending on how your project is setup, you may need [additional configuration](#configure).
 
 ### How it works
 
@@ -65,7 +67,7 @@ TurboSnap relies on Webpack's dependency graph. That means if you're using files
 
 For example, if you use an external SASS compiler (not `sass-loader`) to compile `.sass` files to `.css` files (which are then consumed by Webpack), then a change to a `.sass` file will not match any dependencies, preventing stories from being captured (i.e., snapshotted).
 
-To work around this, run Chromatic's CLI with the `--externals` option to specify one or more globs of "externally processed" files:
+To work around this, run Chromatic's CLI with the `--externals` option (or `externals` action option) to specify one or more globs of "externally processed" files. For example:
 
 ```bash
 chromatic --only-changed --externals "*.sass" --externals "*.mjml"`
