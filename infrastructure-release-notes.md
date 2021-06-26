@@ -6,6 +6,26 @@ description: Chromatic's browser infrastructure release notes
 
 # Chromatic Capture Cloud release notes
 
+## Version 3
+
+Welcome to `Chromatic Capture Cloud version 3` released June 2021.
+
+**Status**: Beta
+
+Key highlights on this release:
+
+- Chrome version updated to version 89
+
+### Supported browsers versions
+
+| Browser           | Version |
+| ----------------- | ------- |
+| Chrome            | 89      |
+| Firefox           | 65      |
+| Internet Explorer | 11      |
+
+---
+
 ## Version 2
 
 Welcome to `Chromatic Capture Cloud version 2` released December 2020.
@@ -19,7 +39,7 @@ Key highlights on this release:
 ### Supported browsers versions
 
 | Browser           | Version |
-|-------------------|---------|
+| ----------------- | ------- |
 | Chrome            | 84      |
 | Firefox           | 65      |
 | Internet Explorer | 11      |
@@ -39,7 +59,7 @@ Key highlights of this release:
 ### Supported browsers versions
 
 | Browser           | Version |
-|-------------------|---------|
+| ----------------- | ------- |
 | Chrome            | 73      |
 | Firefox           | 65      |
 | Internet Explorer | 11      |

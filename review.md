@@ -44,6 +44,20 @@ Use the Assign Reviewers link on the PR Activity screen to choose reviewers from
 
 <img src="img/assign-reviewers.gif" alt="Assign Reviewers" width="300px" class="center"/>
 
+#### Pull requests from forks
+
+Chromatic supports UI testing and UI review across forks, but there's some caveats. First, it only works with [CI integration](ci#configure-ci) configured to also build PR branches from forks. Secondly, you must expose your `project-token` so that forks can use it. The easiest way to do that is to simply include it in in your `package.json`, for example:
+
+```json
+{
+  "scripts": {
+    "chromatic": "chromatic --project-token <CHROMATIC_PROJECT_TOKEN>"
+  }
+}
+```
+
+If you use a CI provider other than GitHub, you can still use an environment variable. Just make sure your CI is configured to also build forked branches. The `project-token` does not grant access to the project (it can only retrieve a strict set of insensitive data), but it does allow running new builds which count against your snapshot quota.
+
 ## Review changeset
 
 The PR screen includes a Changeset tab showing a side-by-side view of all visual changes introduced in the PR. It compares UI on the head branch to the base branch. Each change, you'll see the component story before and after the PR is applied.

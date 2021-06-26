@@ -38,13 +38,12 @@ Future builds will use the upgrade build's auto-accepted baselines as the source
 
 ![Auto-accept changes](img/infrastructure-upgrades-auto-accept.png)
 
-
 ### Release notes for infrastructure upgrades
 
 Read about the infrastructure changes in the release notes.
 
-| Capture Stack version                                                |Status                                               | 
-|:--------------------------------------------------------------------:|-----------------------------------------------------|
-| [Version 2](infrastructure-release-notes#version-2)                  | General availability                                |
-| [Version 1](infrastructure-release-notes#version-1)                  | Outdated ([opt in for upgrade](#opt-in-to-upgrade)) |
-
+|                Capture Stack version                | Status                                                                                                                             |
+| :-------------------------------------------------: | ---------------------------------------------------------------------------------------------------------------------------------- |
+| [Version 3](infrastructure-release-notes#version-3) | Beta (contact us through our <a class="intercom-concierge-bot">in-app chat</a> or [email](mailto:support@chromatic.com) to opt in) |
+| [Version 2](infrastructure-release-notes#version-2) | General availability                                                                                                               |
+| [Version 1](infrastructure-release-notes#version-1) | Outdated ([opt in for upgrade](#opt-in-to-upgrade))                                                                                |
