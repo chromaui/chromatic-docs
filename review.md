@@ -110,7 +110,7 @@ You can initiate a UI review at any time. However, we recommend doing it later i
 <details>
 <summary>Can I disable UI Review if I'd prefer not to use it?</summary>
 
-You can initiate a UI review at any time. However, we recommend doing it later in the development cycle, once baselines have been approved and UI Tests are green.
+Yes. Go to the manage page for your project where you can disable UI Review. Chromatic will no longer add status checks to your PRs for UI Review once it is disabled.
 
 </details>
 
