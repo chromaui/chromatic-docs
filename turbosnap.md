@@ -130,13 +130,10 @@ With TurboSnap enabled, running tests on subprojects that change happens automat
   
   <ol>
     <li>
-      A change to a <code>package.json</code> or lock file for a subproject that doesn't effect the Storybook (we need to be very conservative as we cannot tell if a change to a lock file could affect <code>node_modules</code> imported by Storybook).
-      There is <a href="https://github.com/chromaui/chromatic-cli/issues/383">a ticket</a> to add opt-out of this behaviour for certain directories in your repository. Upvote it on GitHub if you are running into this a lot.
+      A change to a <code>package.json</code> or lock file for a subproject that doesn't effect the Storybook (we need to be very conservative as we cannot tell if a change to a lock file could affect <code>node_modules</code> imported by Storybook). There is <a href="https://github.com/chromaui/chromatic-cli/issues/383">a ticket</a> to add opt-out of this behaviour for certain directories in your repository. Upvote it on GitHub if you are running into this a lot.
     </li>
-    
     <li>
-      If the previous Chromatic build is linked to a commit that no longer exists in the repository. This can happen for a couple of reasons, most commonly rebasing a feature branch and force-pushing. When we don't know the previous commit, we cannot tell what has changed since then automatically.
-      There is <a href="https://github.com/chromaui/chromatic-cli/issues/368">a ticket</a> to add some more smarts to our logic to try and work around this situation. Upvote it on GitHub if you are running into this a lot.
+      If the previous Chromatic build is linked to a commit that no longer exists in the repository. This can happen for a couple of reasons, most commonly rebasing a feature branch and force-pushing. When we don't know the previous commit, we cannot tell what has changed since then automatically. There is <a href="https://github.com/chromaui/chromatic-cli/issues/368">a ticket</a> to add some more smarts to our logic to try and work around this situation. Upvote it on GitHub if you are running into this a lot.
     </li>
   </ol>
 </details>
