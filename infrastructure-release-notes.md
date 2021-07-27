@@ -8,9 +8,9 @@ description: Chromatic's browser infrastructure release notes
 
 ## Version 3
 
-Welcome to `Chromatic Capture Cloud version 3` released June 2021.
+Welcome to `Chromatic Capture Cloud version 3` released July 2021.
 
-**Status**: Beta
+**Status**: General availability
 
 Key highlights on this release:
 
@@ -30,7 +30,7 @@ Key highlights on this release:
 
 Welcome to `Chromatic Capture Cloud version 2` released December 2020.
 
-**Status**: General availability
+**Status**: Outdated ([opt in for upgrade](infrastructure-upgrades#opt-in-to-upgrade))
 
 Key highlights on this release:
 
