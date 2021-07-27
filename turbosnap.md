@@ -100,15 +100,15 @@ With TurboSnap enabled, running tests on subprojects that change happens automat
   
   <pre><code>Traversing dependencies for X files that changed since the last build</code></pre>
   
-  This message tells us how many git changes Chromatic detected since the last Chromatic build. Usually that's just one or two commit's worth of files.
+  This message tells us how many git changes Chromatic detected since the last Chromatic build. Usually, that's just one or two commit's worth of files.
   
   <pre><code>Found Y story files affected by recent changes</code></pre>
   
-  This message tells you the number of story files that depend on the X changes above. This message also might be replaced by a message telling you that we need to capture all stories (see below).
+  This message tells you the number of story files that depend on the X changes above. This message also might be replaced by a message telling you that we need to capture all stories (<a href="#why-are-full-rebuilds-required">see below</a>).
   
   <pre><code>Tested A stories across B components; capture C snapshots in S seconds.</code></pre>
   
-  This message tells you how many snapshots we actually took, as opposed to the number of stories we found in your Storybook. Usually C would be the number of stories in the Y component files above.
+  This message tells you how many snapshots we actually took instead of the number of stories we found in your Storybook. Usually, C would be the number of stories in the Y component files above.
 </details>
 
 <details>
@@ -124,18 +124,21 @@ With TurboSnap enabled, running tests on subprojects that change happens automat
 <details>
   <summary>Why are full rebuilds required?</summary>
 
-  Full rebuilds can be required for various reasons (see the list in <a href="#how-it-works">how it works<a/>).
+  Full rebuilds can be required for various reasons (see the list in <a href="#how-it-works">how it works</a>).
   
   Some reasons that can be surprising are:
   
-  <ol>
-  <li>
-  A change to a <code>package.json</code> or lock file for a subproject that doesn't effect the Storybook (we need to be very conservative as we cannot tell if a change to a lock file could affect <code>node_modules</code> imported by Storybook). There is <a href="https://github.com/chromaui/chromatic-cli/issues/383">a ticket</a> to add opt-out of this behaviour for certain directories in your repository. Upvote it on GitHub if you are running into this a lot.
-  </li>
-  <li>
-  If the previous Chromatic build is linked to a commit that no longer exists in the repository. This can happen for a couple of reasons, most commonly rebasing a feature branch and force-pushing. When we don't know the previous commit, we cannot tell what has changed since then automatically. There is <a href="https://github.com/chromaui/chromatic-cli/issues/368">a ticket</a> to add some more smarts to our logic to try and work around this situation. Upvote it on GitHub if you are running into this a lot.
-  </li>
-  </ol>
+  1. A change to a <code>package.json</code> or lock file for a subproject that doesn't affect the Storybook (we need to be very conservative as we cannot tell if a change to a lock file could affect <code>node_modules</code> imported by Storybook).
+
+  <div class="aside">
+    If you run into this situation frequently, upvote the <a href="https://github.com/chromaui/chromatic-cli/issues/383">open issue</a> in the Chromatic CLI's issue tracker to opt-out of this behavior for specific directories in your repository.
+  </div>
+
+  2. If the previous Chromatic build is linked to a commit that no longer exists in the repository. It can happen for a couple of reasons, most commonly rebasing a feature branch and force-pushing. When we don't know the previous commit, we cannot tell what has changed since then automatically.
+
+  <div class="aside">
+    If you're encounter this situation often, upvote the <a href="https://github.com/chromaui/chromatic-cli/issues/368">open issue</a> in the Chromatic's CLI's issue tracker to address this situation.
+  </div>
 </details>
 
 
