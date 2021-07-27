@@ -183,7 +183,7 @@ However, this situation can arise due to the following:
 
 1. You are using a shallow clone of your repository when running Chromatic. Chromatic needs access to your full git history in order to find baselines (or at least the history until the previous Chromatic build, which depends on how often you push code/run builds). [Learn about how we use Git for baselines »](branching-and-baselines)
 
-1. Something else happenedperhaps a bug at our end? Please contact us through our in app chat if this is the case.
+1. Something else happened, perhaps a bug at our end? Please contact us through our in app chat if this is the case.
 
 </details>
 
