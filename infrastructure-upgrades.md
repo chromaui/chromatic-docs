@@ -46,4 +46,4 @@ Read about the infrastructure changes in the release notes.
 | :-------------------------------------------------: | ---------------------------------------------------------------------------------------------------------------------------------- |
 | [Version 3](infrastructure-release-notes#version-3) | General availability                                                                                                               |
 | [Version 2](infrastructure-release-notes#version-2) | Outdated ([opt in for upgrade](#opt-in-to-upgrade))                                                                                |
-| [Version 1](infrastructure-release-notes#version-1) | Outdated ([opt in for upgrade](#opt-in-to-upgrade))                                                                                |
+| [Version 1](infrastructure-release-notes#version-1) | No longer available                                                                                                                |

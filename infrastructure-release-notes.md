@@ -50,7 +50,7 @@ Key highlights on this release:
 
 Welcome to `Chromatic Capture Cloud version 1` released January 2020.
 
-**Status**: Outdated ([opt in for upgrade](infrastructure-upgrades#opt-in-to-upgrade))
+**Status**: No longer available
 
 Key highlights of this release:
 
