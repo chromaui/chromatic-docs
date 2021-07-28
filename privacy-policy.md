@@ -18,21 +18,21 @@ Please read this Privacy Notice carefully so you can make an informed decision a
 
 ## Contents
 
-1. Scope of This Privacy Notice
-2. How We Collect Personal Information
-3. Categories of Personal Information We Collect
-4. How We Use Personal Information
-5. Legal Basis for Collecting and Using Your Personal Information
-6. Links to Third-party Websites
-7. Collection of Personal Information From Minors
-8. Sharing and Sale of Your Personal Information
-9. Protection of Personal Information
-10. How Long We keep Your Personal Information
-11. Where We Transfer Your Personal Information
-12. Cookies Notice
-13. Your Privacy Rights
-14. Questions and Contacts
-15. Changes to Our Privacy Notice
+1. [Scope of This Privacy Notice](#scope-of-this-privacy-notice)
+2. [How We Collect Personal Information](#how-we-collect-personal-information)
+3. [Categories of Personal Information We Collect](#categories-of-personal-information-we-collect)
+4. [How We Use Personal Information](#how-we-use-personal-information)
+5. [Legal Basis for Collecting and Using Your Personal Information](#legal-basis-for-collecting-and-using-your-personal-information)
+6. [Links to Third-party Websites](#links-to-third-party-websites)
+7. [Collection of Personal Information From Minors](#collection-of-personal-information-from-minors)
+8. [Sharing and Sale of Your Personal Information](#sharing-and-sale-of-your-personal-information)
+9. [Protection of Personal Information](#protection-of-personal-information)
+10. [How Long We keep Your Personal Information](#how-long-we-keep-your-personal-information)
+11. [Where We Transfer Your Personal Information](#where-we-transfer-your-personal-information)
+12. [Cookies Notice](#cookies-notice)
+13. [Your Privacy Rights](#your-privacy-rights)
+14. [Questions and Contacts](#questions-and-contacts)
+15. [Changes to Our Privacy Notice](#changes-to-our-privacy-notice)
 
 ## 1. Scope of This Privacy Notice
 
@@ -150,9 +150,9 @@ For tracking purposes, we use web beacons on our Website along with other techni
 
 **Google Analytics**
 
-In addition to the cookies detailed below, we use Google Analytics to better understand your use of our Website and services. Google Analytics collects information such as how often users visit our Website, what pages are visited, and what other sites may have been used prior to visiting. Google uses the data collected to track and examine website usage, to prepare reports on its activities and share them with other Google services, and to contextualize and personalize the ads of its own advertising network. More information about how Google Analytics collects and processes data can be found here.
+In addition to the cookies detailed below, we use Google Analytics to better understand your use of our Website and services. Google Analytics collects information such as how often users visit our Website, what pages are visited, and what other sites may have been used prior to visiting. Google uses the data collected to track and examine website usage, to prepare reports on its activities and share them with other Google services, and to contextualize and personalize the ads of its own advertising network. More information about how Google Analytics collects and processes data can be found [here](https://policies.google.com/technologies/partner-sites).
 
-Google’s ability to use and share information collected by Google Analytics about your visits to our Website is restricted by the Google Analytics Terms of Use and the Google Privacy Policy. You can also opt-out of and manage your preferences for Google’s use of personalized advertising and related cookies by visiting Google’s Ad Settings, and Google Analytics also offers an opt-out mechanism for the web available here.
+Google’s ability to use and share information collected by Google Analytics about your visits to our Website is restricted by the [Google Analytics Terms of Use](https://marketingplatform.google.com/about/analytics/terms/us/) and the [Google Privacy Policy](https://policies.google.com/privacy). You can also opt-out of and manage your preferences for Google’s use of personalized advertising and related cookies by visiting Google’s [Ad Settings](https://support.google.com/accounts/answer/2662856?co=GENIE.Platform%3DDesktop&hl=en), and Google Analytics also offers an opt-out mechanism for the web available [here](https://tools.google.com/dlpage/gaoptout/).
 
 **Types of Cookies on Our Website**
 
