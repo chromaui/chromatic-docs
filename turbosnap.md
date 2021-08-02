@@ -32,14 +32,14 @@ It will build and test stories that may have been affected by the Git changes si
 
 Stories that have not changed will not be tested (i.e., snapshotted), despite appearing in Chromatic's UI as if they were. In many cases this will lead to much decreased snapshot usage and faster build times.
 
-Certain circumstances could potentially affect all stories. To prevent false positives, we re-test everything if any of the following requirements are met:
-
+Certain circumstances could potentially affect all stories. To prevent false positives, we re-test everything if any of the following situations apply:
 
 - Changes to package versions in `package.json`, `yarn.lock`, `package-lock.json`
 - Changes to your Storybook's configuration
 - Changes in files that are imported by your [`preview.js`](https://storybook.js.org/docs/react/configure/overview#configure-story-rendering) (as this could affect any story)
 - Changes in your static folder (e.g., fonts, images that aren't loaded via Webpack imports)
 - Changes to files specific by the `--externals` option (see below)
+- Re-run of the same build (commit and branch match the parent build)
 - [Infrastructure upgrades](infrastructure-upgrades)
 - [UI Test in a new browser](browsers)
 
