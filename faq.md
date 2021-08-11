@@ -41,7 +41,7 @@ Chromatic gives professional UI engineers a purpose-built service for visual tes
 <details>
 <summary>How is Chromatic different from visual testing tools like Applitools and Percy?</summary>
 
-Chromatic is a faster, simpler, and cost effective alternative to Applitoolsor Percy that is built for UI components and component libraries. Our customers compare us favorably on developer experience and price.
+Chromatic is a faster, simpler, and cost effective alternative to Applitools or Percy that is built for UI components and component libraries. Our customers compare us favorably on developer experience and price.
 
 [Get a detailed breakdown »](https://www.chromatic.com/choose/visual-testing)
 
