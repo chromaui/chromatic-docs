@@ -1,7 +1,7 @@
 ---
 layout: default
 title: Automate Chromatic with GitLab
-description: Learn how to configure Chromatic with GitLab 
+description: Learn how to configure Chromatic with GitLab
 ---
 
 # Automate Chromatic with GitLab Pipelines
@@ -27,7 +27,6 @@ cache:
   key: $CI_COMMIT_REF_SLUG-$CI_PROJECT_DIR
   paths:
     - .yarn
-
 
 # Installs the dependencies
 before_script:
@@ -62,7 +61,7 @@ chromatic_publish:
   stage: test
   script:
     - yarn chromatic --project-token=$CHROMATIC_PROJECT_TOKEN
-    
+
   #👇Filters the execution to run only on the main branch.
   rules:
     - if: $CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH
@@ -95,7 +94,7 @@ stages:
 #👇Adds Chromatic as a job
 chromatic_publish:
   stage: test
-  #👇Runs Chromatic with the flag to prevent pipeline failure 
+  #👇Runs Chromatic with the flag to prevent pipeline failure
   script:
     - yarn chromatic --project-token=$CHROMATIC_PROJECT_TOKEN  --exit-zero-on-changes
 ```
@@ -118,10 +117,9 @@ A clean `main` branch is a development **best practice** and **highly recommende
 
 If the builds are a result of direct commits to `main`, you will need to accept changes to keep the main branch clean. If they're merged from `feature-branches`, you will need to make sure those branches are passing _before_ you merge into `main`.
 
-
 #### GitLab squash/rebase merge and the "main" branch
 
-Azure's squash/rebase merge functionality creates new commits that have no association to the branch being merged. If you are already using this option, then we will automatically detect this situation and bring baselines over (see [Branching and Baselines](branching-and-baselines#squash-and-rebase-merging) for more details).
+GitLab's squash/rebase merge functionality creates new commits that have no association to the branch being merged. If you are already using this option, then we will automatically detect this situation and bring baselines over (see [Branching and Baselines](branching-and-baselines#squash-and-rebase-merging) for more details).
 
 If you’re using this functionality but notice the incoming changes were not accepted as baselines in Chromatic, then you'll need to adjust the pipeline and include the `--auto-accept-changes` flag. For example:
 
@@ -134,7 +132,7 @@ If you’re using this functionality but notice the incoming changes were not ac
 stages:
   - test
 
- #👇Checks if the branch is main and runs Chromatic with the flag to accept all changes.
+  #👇Checks if the branch is main and runs Chromatic with the flag to accept all changes.
 chromatic_publish_auto_accept_changes:
   stage: test
   script:
@@ -143,12 +141,12 @@ chromatic_publish_auto_accept_changes:
     - if: $CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH
       when: always
 
- #👇Checks if the branch is not main and runs Chromatic
+  #👇Checks if the branch is not main and runs Chromatic
 chromatic_publish:
   stage: test
   script:
     - yarn chromatic --project-token=$CHROMATIC_PROJECT_TOKEN
-  rules: 
+  rules:
     - if: '$CI_PIPELINE_SOURCE == "merge_request_event"'
       when: always
       allow_failure: true
@@ -177,7 +175,6 @@ chromatic_publish:
   script:
     # 👇 Option to skip the last build on target branch
     - yarn chromatic --project-token=$CHROMATIC_PROJECT_TOKEN --ignore-last-build-on-branch=my-branch
-
 ```
 
 <div class="aside">

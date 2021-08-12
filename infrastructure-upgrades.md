@@ -44,6 +44,6 @@ Read about the infrastructure changes in the release notes.
 
 |                Capture Stack version                | Status                                                                                                                             |
 | :-------------------------------------------------: | ---------------------------------------------------------------------------------------------------------------------------------- |
-| [Version 3](infrastructure-release-notes#version-3) | Beta (contact us through our <a class="intercom-concierge-bot">in-app chat</a> or [email](mailto:support@chromatic.com) to opt in) |
-| [Version 2](infrastructure-release-notes#version-2) | General availability                                                                                                               |
-| [Version 1](infrastructure-release-notes#version-1) | Outdated ([opt in for upgrade](#opt-in-to-upgrade))                                                                                |
+| [Version 3](infrastructure-release-notes#version-3) | General availability                                                                                                               |
+| [Version 2](infrastructure-release-notes#version-2) | Outdated ([opt in for upgrade](#opt-in-to-upgrade))                                                                                |
+| [Version 1](infrastructure-release-notes#version-1) | No longer available                                                                                                                |
