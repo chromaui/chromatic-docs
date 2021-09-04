@@ -46,18 +46,22 @@ Chromatic detects UI changes but it's still up to you to verify if changes are i
 <div class="aside">Tip: Speed up accept/deny using <a href="#keyboard-shortcuts">keyboard shortcuts</a> and batch actions.</div>
 
 <details>
-<summary>What about baselines in other branches?</summary>
+<summary>What about baselines on other branches?</summary>
 
-Chromatic automatically changes the baseline snapshots that it uses for each build depending on your branch. Each branch has a separate set of baselines. This means you can update UI components on multiple feature branches in parallel without conflicts. [Learn more »](branching-and-baselines)
+Chromatic automatically changes the baseline snapshots that it uses for each build depending on your branch. Each branch has a separate set of baselines.
+
+This means you can update UI components on multiple feature branches in parallel without conflicts. When you merge branches, the most recent baseline takes precedence. [Learn about branching and baselines »](branching-and-baselines)
 
 </details>
 
 <details>
 <summary>How do I reproduce the snapshot?</summary>
 
-Sometimes you need a closer look to determine why a snapshot is rendering as it does. Along with pixel and DOM diffs, Chromatic displays the interactive stories just as they appear in Storybook. Click on the snapshot image to go to the component screen. Then click on the "Canvas" tab to view the fully interactive story.
+Sometimes you need a closer look to determine why a snapshot is rendering as it does. Along with pixel and DOM diffs, Chromatic displays the interactive stories just as they appear in Storybook.
 
-<video autoPlay muted playsInline controls width="560px" class="center">
+Click "Inspect snapshot" to open the Inspector. Switch between the "Canvas" and "Snapshot" tabs to compare the live component to the snapshot.
+
+<video autoPlay muted playsInline loop width="560px" class="center" style="pointer-events: none;">
   <source src="img/feature-component-inspect-optimized.mp4" type="video/mp4" />
 </video>
 </details>
@@ -70,6 +74,16 @@ UI tests (shown on the build screen) detect changes between builds, specifically
 In contrast, the PR screen shows the changeset between the latest commit on the PR branch (head) and the 'merge base' (base). Think of it like code review, but for UI.
 
 </details>
+
+#### Discussions
+
+Reviewers can point out bugs or ask questions by creating discussions. Discussions are shown in situ of a UI change so all collaborators have the same reference point.
+
+Pin discussions on a change to give precise feedback on what’s wrong. Pair discussions with denying a change to block merging until bugs are resolved.
+
+<video autoPlay muted playsInline loop width="560px" class="center" style="pointer-events: none;">
+  <source src="img/testscreen-comment-pinned-optimized.mp4" type="video/mp4" />
+</video>
 
 ## Merge
 
