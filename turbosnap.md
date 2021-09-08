@@ -4,9 +4,7 @@ title: TurboSnap
 description: Speed up tests by detecting file changes with Git
 ---
 
-# TurboSnap (beta)
-
-> TurboSnap is in beta. Email [support](mailto:support@chromatic.com) for early access.
+# TurboSnap
 
 TurboSnap is an advanced Chromatic feature that speeds up builds for faster [UI testing](test) and [review](review) using Git and Webpack's [dependency graph](https://webpack.js.org/concepts/dependency-graph/). It identifies component files that change, then intelligently builds and snapshots only the stories associated with those components.
 
@@ -96,55 +94,56 @@ With TurboSnap enabled, running tests on subprojects that change happens automat
 <details>
 <summary>How can I tell if TurboSnap is working?</summary>
 
-  The best way to see if TurboSnap is working is to inspect your CLI output. There are a couple of messages the CLI outputs of particular relevance:
-  
+The best way to see if TurboSnap is working is to inspect your CLI output. There are a couple of messages the CLI outputs of particular relevance:
+
   <pre><code>Traversing dependencies for X files that changed since the last build</code></pre>
-  
-  This message tells us how many git changes Chromatic detected since the last Chromatic build. Usually, that's just one or two commit's worth of files.
-  
+
+This message tells us how many git changes Chromatic detected since the last Chromatic build. Usually, that's just one or two commit's worth of files.
+
   <pre><code>Found Y story files affected by recent changes</code></pre>
-  
-  This message tells you the number of story files that depend on the X changes above. This message also might be replaced by a message telling you that we need to capture all stories (<a href="#why-are-full-rebuilds-required">see below</a>).
-  
+
+This message tells you the number of story files that depend on the X changes above. This message also might be replaced by a message telling you that we need to capture all stories (<a href="#why-are-full-rebuilds-required">see below</a>).
+
   <pre><code>Tested A stories across B components; capture C snapshots in S seconds.</code></pre>
-  
-  This message tells you how many snapshots we actually took instead of the number of stories we found in your Storybook. Usually, C would be the number of stories in the Y component files above.
+
+This message tells you how many snapshots we actually took instead of the number of stories we found in your Storybook. Usually, C would be the number of stories in the Y component files above.
+
 </details>
 
 <details>
   <summary>Why are no changes being detected?</summary>
 
-  If the messages above indicate no story files are being detected by changes, then possibly there is an issue matching up the git changes with the files in your Storybook build. Use the <code>--debug</code> flag to get more information about what Chromatic is doing (use the <code>chromatic-cli@canary</code> version for better debugging).
-  
-  We are adding some tools to the CLI to help you debug further; for now, contact Chromatic support if this is happening to you.
-  
-  Another reason that changes may be missed is if the changed files aren't directly included in the webpack build; use the <a href="#specify-which-changes-trigger-a-full-re-test"><code>--externals</code> flag</a> to tell Chromatic about this.
+If the messages above indicate no story files are being detected by changes, then possibly there is an issue matching up the git changes with the files in your Storybook build. Use the <code>--debug</code> flag to get more information about what Chromatic is doing (use the <code>chromatic-cli@canary</code> version for better debugging).
+
+We are adding some tools to the CLI to help you debug further; for now, contact Chromatic support if this is happening to you.
+
+Another reason that changes may be missed is if the changed files aren't directly included in the webpack build; use the <a href="#specify-which-changes-trigger-a-full-re-test"><code>--externals</code> flag</a> to tell Chromatic about this.
+
 </details>
 
 <details>
   <summary>Why are full rebuilds required?</summary>
 
-  Full rebuilds can be required for various reasons (see the list in <a href="#how-it-works">how it works</a>).
-  
-  Some reasons that can be surprising are:
-  
-  1. A change to a <code>package.json</code> or lock file for a subproject that doesn't affect the Storybook (we need to be very conservative as we cannot tell if a change to a lock file could affect <code>node_modules</code> imported by Storybook).
+Full rebuilds can be required for various reasons (see the list in <a href="#how-it-works">how it works</a>).
+
+Some reasons that can be surprising are:
+
+1. A change to a <code>package.json</code> or lock file for a subproject that doesn't affect the Storybook (we need to be very conservative as we cannot tell if a change to a lock file could affect <code>node_modules</code> imported by Storybook).
 
   <div class="aside">
     If you run into this situation frequently, upvote the <a href="https://github.com/chromaui/chromatic-cli/issues/383">open issue</a> in the Chromatic CLI's issue tracker to opt-out of this behavior for specific directories in your repository.
   </div>
 
-  2. If the previous Chromatic build is linked to a commit that no longer exists in the repository. It can happen for a couple of reasons, most commonly rebasing a feature branch and force-pushing. When we don't know the previous commit, we cannot tell what has changed since then automatically.
+2. If the previous Chromatic build is linked to a commit that no longer exists in the repository. It can happen for a couple of reasons, most commonly rebasing a feature branch and force-pushing. When we don't know the previous commit, we cannot tell what has changed since then automatically.
 
   <div class="aside">
     If you're encounter this situation often, upvote the <a href="https://github.com/chromaui/chromatic-cli/issues/368">open issue</a> in the Chromatic's CLI's issue tracker to address this situation.
   </div>
 </details>
 
-
 <details>
   <summary>Why is my build failing with an <code>Out of memory error</code>?</summary>
 
-  If you have a large dependency tree, the build process may fail due to an out of memory error. Re-run Chromatic's CLI with the `NODE_OPTIONS=--max_old_space_size=4096` (or higher) environment variable to increase the amount of available memory. Your CI provider may require additional configuration to allow more memory usage.
+If you have a large dependency tree, the build process may fail due to an out of memory error. Re-run Chromatic's CLI with the `NODE_OPTIONS=--max_old_space_size=4096` (or higher) environment variable to increase the amount of available memory. Your CI provider may require additional configuration to allow more memory usage.
 
 </details>
