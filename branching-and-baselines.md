@@ -51,6 +51,7 @@ For this reason, we _always_ include accepted baselines from the latest build on
 ```bash
 chromatic --ignore-last-build-on-branch=example-branch
 ```
+
 <div class="aside">
 Read our CI <a href="/docs/ci"> documentation</a>. 
 </div>
@@ -148,17 +149,13 @@ In the case that there are multiple ancestor builds, the algorithm to calculate 
 
 #### Visualize baseline history
 
-When you [verify baselines in the app](test#verify-ui-changes), you'll see a historical set of baselines that correspond to the algorithm above:
+When you [verify UI Test changes on Chromatic](test#verify-ui-changes), you'll see a historical set of baselines that correspond to the algorithm above. This helps you understand when the baseline changed, by who, and in which commit.
 
-![Ancestor Builds](img/baseline-history.png)
+<video autoPlay muted playsInline loop width="600px" class="center" style="pointer-events: none;">
+  <source src="img/testscreen-baseline-history-detail-optimized.mp4" type="video/mp4" />
+</video>
 
-In the above screenshot, the snapshot marked "Most recent build...." was the snapshot we found on the ancestor build that we checked the status for. As it wasn’t accepted, we went to its baseline.
-
-The next snapshot, marked “Identical to build...”, was determined to be a baseline on the previous build and used as it hadn’t changed compared to its own baseline.
-
-The next listed snapshot, marked “Accepted by Tom Coleman”, was the original version of that snapshot, at the point it changed and was accepted by Tom as the previous baseline.
-
-The next listed snapshot was the previous time this component changed, from the perspective of this commit, etc.
+The snapshot marked "Most recent build...." is a change that hasn't been accepted as a baseline yet. The baseline marked "current baseline" is the last known good version of the snapshot that was accepted by Tom Coleman. Going back in the timeline, the listed baselines show previous times the component changed.
 
 ## How the merge base is calculated
 
