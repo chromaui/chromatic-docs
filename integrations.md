@@ -21,6 +21,9 @@ Post a message in a designated Slack channel when a build's [status changes](#st
 7. Click the "Add webhook" button in the Slack section then paste the webhook from step 4 into the input.
 8. 🎉 You'll now receive notifications in your Slack channel.
 
+> Please note that Slack notifications are not posted for passed builds.
+
+
 The custom icon:
 ![Chromatic Slack icon](img/chromatic-slack-icon.png)
 
