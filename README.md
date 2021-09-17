@@ -1,6 +1,6 @@
 # Chromatic docs
 
-The `master` branch is automatically deployed to https://www.chromatic.com/docs/
+The `main` branch is automatically deployed to https://www.chromatic.com/docs/
 
 ## Deployment
 
