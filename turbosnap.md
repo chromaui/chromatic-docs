@@ -154,6 +154,8 @@ Found 218 user modules
 
 In this example, it found 2 CSF globs, which are the `stories` configured in your Storybook's `main.js` config file. From those globs, it detected a total of 218 modules (i.e. source files traceable from those globs via imports). What follows is a list of stories files, the IDs of which will get sent to Chromatic and used to limit the stories files to be tested.
 
+If this list of files contains things you didn't expect, take a look at any global decorators (e.g. theme provider, wrapper component). These are typically configured in Storybook's `preview.js` file. You might have a decorator that's imported from e.g. an `index.js` file, which itself imports a bunch of other files. This can lead to *all* stories depending on a big swath of seemingly unrelated files.
+
 </details>
 
 <details>
