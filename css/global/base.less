@@ -93,7 +93,16 @@ pre {
 code {
   display: inline-block;
   vertical-align: baseline;
-  color: darken(#37d5d3, 20%);
+
+  font-size: 85%; // Relative font size based on size of surrounding text
+  line-height: 1;
+  white-space: nowrap;
+
+  padding: 3px 5px;
+  color: inherit;
+  background-color: @color-border;
+  border-radius: 3px;
+  border: 1px solid @color-border;
 }
 
 pre {
@@ -102,4 +111,13 @@ pre {
   background: @color-lighter;
   color: @color-darkest;
   border-radius: 4px;
+
+  code {
+    //resets for default <code> style
+    font-size: 100%;
+    color: inherit;
+    background-color: none;
+    border-radius: none;
+    border: none;
+  }
 }
