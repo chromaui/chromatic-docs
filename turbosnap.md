@@ -114,11 +114,48 @@ This message tells you how many snapshots we actually took instead of the number
 <details>
   <summary>Why are no changes being detected?</summary>
 
-If the messages above indicate no story files are being detected by changes, then possibly there is an issue matching up the git changes with the files in your Storybook build. Use the <code>--debug</code> flag to get more information about what Chromatic is doing (use the <code>chromatic-cli@canary</code> version for better debugging).
-
-We are adding some tools to the CLI to help you debug further; for now, contact Chromatic support if this is happening to you.
+If the messages above indicate no story files are being detected by changes, then possibly there is an issue matching up the git changes with the files in your Storybook build. Use the <code>--debug</code> flag to get more information about what Chromatic is doing.
 
 Another reason that changes may be missed is if the changed files aren't directly included in the webpack build; use the <a href="#specify-which-changes-trigger-a-full-re-test"><code>--externals</code> flag</a> to tell Chromatic about this.
+
+You can manually trace a set of files to a set of related story files, based on a Webpack stats file, using the `stats-to-story-files` utility. First you need to generate a `preview-stats.json` like so (requires Storybook >=6.3):
+
+  <pre><code>yarn build-storybook --webpack-stats-json</code></pre>
+
+The `preview-stats.json` will end up in the build directory, typically `storybook-static`. If you want to manually inspect this file, you can trim it down to it's bare essentials using this command:
+
+  <pre><code>yarn chromatic trim-stats-file</code></pre>
+
+Or, if you're using a custom build directory:
+
+  <pre><code>yarn chromatic trim-stats-file ./path/to/preview-stats.json</code></pre>
+
+This will output a `preview-stats.trimmed.json` which should be much more human-readable (sort of).
+
+Now, to trace a set of changed file paths to their dependent story files, run the following:
+
+  <pre><code>chromatic stats-to-story-files [path to preview-stats.json] [...changed file paths]</code></pre>
+
+For example:
+
+  <pre><code>yarn chromatic stats-to-story-files ./storybook-static/preview-stats.json ./src/components/link.js ./src/pages/index.js</pre></code>
+
+This prints the number of detected CSF globs, the total number of modules, and a map of `Webpack module ID -> file path` for each of the found story files (typically `*.stories.js`).
+
+Example output:
+
+  <pre><code>Found 2 CSF globs
+Found 218 user modules
+{
+  '114': './src/components/buildPassed.stories.js',
+  '228': './src/components/buildHasChanges.stories.js',
+  '229': './src/components/storybookPublished.stories.js',
+  ...
+}</pre></code>
+
+In this example, it found 2 CSF globs, which are the `stories` configured in your Storybook's `main.js` config file. From those globs, it detected a total of 218 modules (i.e. source files traceable from those globs via imports). What follows is a list of stories files, the IDs of which will get sent to Chromatic and used to limit the stories files to be tested.
+
+If this list of files contains things you didn't expect, take a look at any global decorators (e.g. theme provider, wrapper component). These are typically configured in Storybook's `preview.js` file. You might have a decorator that's imported from e.g. an `index.js` file, which itself imports a bunch of other files. This can lead to *all* stories depending on a big swath of seemingly unrelated files.
 
 </details>
 
