@@ -6,7 +6,7 @@ description: Embed your Storybook on Medium, Notion, and other platforms
 
 # Embed stories
 
-Chromatic supports the oEmbed standard which means you can embed stories in Medium articles, Notion pages, and countless other platforms. All you need is the URL for a Storybook published on Chromatic.
+Chromatic supports the oEmbed standard, which means you can embed stories in Medium articles, Notion pages, and countless other platforms. All you need is the URL for a Storybook published on Chromatic.
 
 ## Embed a story with the toolbar
 
@@ -48,9 +48,9 @@ https://<commithash>--<appid>.chromatic.com/iframe.html?id=shadowboxcta--default
 
 <summary>How to embed stories in Medium</summary>
 
-Paste the Storybook URL into your Medium article then press Enter. The embed will automatically resize to fit the height of your story.
+Paste the Storybook URL into your Medium article, then press Enter. The embed will automatically resize to fit the height of your story.
 
-While editing an artcile, Medium renders all embeds non-interactive. Once you publish, the embed will be interactive. [View live demo on Medium »](https://medium.com/@ghengeveld/embedding-storybook-on-medium-ce8a280c03ad)
+While editing an article, Medium renders all embeds non-interactive. Once you publish, the embed will be interactive. [View live demo on Medium »](https://medium.com/@ghengeveld/embedding-storybook-on-medium-ce8a280c03ad)
 
 </details>
 
