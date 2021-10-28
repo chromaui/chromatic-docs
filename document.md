@@ -44,6 +44,10 @@ When you're linking to a library or component on Chromatic, it can be useful to 
 
 **Example**: `https://www.chromatic.com/library?appId=...&branch=main`.
 
+## Embedding
+
+If you're documenting components outside of Storybook, you may be able to [embed interactive stories](embedding). This works on many platforms that support the oEmbed specification.
+
 ---
 
 ## Next: Automate with CI
