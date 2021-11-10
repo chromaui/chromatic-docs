@@ -60,9 +60,9 @@ https://<commithash>--<appid>.chromatic.com/iframe.html?<path-to-story>&viewMode
 
 <summary>How to embed stories in Medium</summary>
 
-Paste the Storybook URL into your Medium article then press Enter. The embed will automatically resize to fit the height of your story.
+Paste the Storybook URL into your Medium article, then press Enter. The embed will automatically resize to fit the height of your story.
 
-While editing an artcile, Medium renders all embeds non-interactive. Once you publish, the embed will be interactive. [View live demo on Medium »](https://medium.com/@ghengeveld/embedding-storybook-on-medium-ce8a280c03ad)
+While editing an article, Medium renders all embeds non-interactive. Once you publish, the embed will be interactive. [View live demo on Medium »](https://medium.com/@ghengeveld/embedding-storybook-on-medium-ce8a280c03ad)
 
 </details>
 
