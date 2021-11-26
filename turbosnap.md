@@ -71,6 +71,7 @@ You may need additional config in the following situations:
 
 - You're using `--storybook-build-dir` or `-d` to let Chromatic use a prebuilt Storybook
 - You have files outside the Webpack dependency tree which affect your stories (e.g. Sass or template files)
+- You want to enable or disable TurboSnap for specific branches
 
 ### Prebuilt Storybook
 
@@ -113,15 +114,17 @@ To work around this, run Chromatic's CLI with the `--externals` option (or `exte
 chromatic --only-changed --externals "*.sass" --externals "*.mjml"`
 ```
 
-### Enable for specific branches
+### Enable or disable for specific branches
 
-To enable this feature for specific branches, pass a glob to `--only-changed` (e.g. `chromatic --only-changed "feature/*"`).
+To enable TurboSnap for specific branches, pass a glob to `--only-changed` (e.g. `chromatic --only-changed "feature/*"`). Use a negating glob (e.g. `chromatic --only-changed "!(main)"`) to enable all but certain branches. See [picomatch] for details.
 
 ## Notes on monorepos
 
 TurboSnap will make working in a monorepo more efficient. Because it detects affected stories based on the actual files changed, pushing a commit that touched only backend code will run faster in CI and not use up your snapshot quota. However, it will still build and publish your Storybook. To avoid that, you can [skip Chromatic entirely](monorepos#only-run-chromatic-when-changes-occur-in-a-subproject), speeding up your CI pipeline even more.
 
 If your monorepo has stories from multiple subprojects coming together in one Storybook, may currently [run Chromatic on a subset of your Storybook](monorepos#advanced-only-test-a-subset-of-stories). With TurboSnap enabled, that happens automatically. You'll be able to build and publish your entire Storybook, but Chromatic won't test unchanged subprojects or take snapshots of those stories. So there is no need to build a subset of your Storybook manually.
+
+[picomatch]: https://www.npmjs.com/package/picomatch#globbing-features
 
 ---
 
