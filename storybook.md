@@ -81,6 +81,7 @@ Create a file called `src/components/Histogram.stories.js` and write the followi
 
 ```js
 // src/components/Histogram.stories.js|jsx|ts|tsx
+
 import React from "react";
 
 import { Histogram } from "./Histogram";
@@ -233,6 +234,7 @@ Storybook's parameters are a set of named static metadata, commonly used to cont
 
 ```js
 // Page.stories.js|jsx|ts|tsx
+
 import React from "react";
 
 import { rest } from "msw";
