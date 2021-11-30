@@ -44,23 +44,65 @@ Certain circumstances could potentially affect all stories. To prevent false pos
 
 ## Configure
 
-#### Static Storybook builds
-
-If you're using `--storybook-build-dir` to provide a prebuilt Storybook, adjust your `build-storybook` script to include the `--webpack-stats-json` option. If Chromatic builds your Storybook for you, this is not necessary, it will take care of it for you.
-
-For example:
+To enable TurboSnap for your project, add the `--only-changed` flag to your `chromatic` script, or add the `onlyChanged: true` option to your GitHub workflow config.
 
 ```json
 {
   "scripts": {
-    "build-storybook": "build-storybook --webpack-stats-json storybook-static"
+    "chromatic": "chromatic --only-changed"
+  }
+}
+```
+
+Or for GitHub Actions:
+
+```yaml
+steps:
+  # ...
+  - name: Publish to Chromatic
+    uses: chromaui/action@v1
+    with:
+      token: {% raw %}${{ secrets.GITHUB_TOKEN }}{% endraw %}
+      projectToken: {% raw %}${{ secrets.CHROMATIC_PROJECT_TOKEN }}{% endraw %}
+      onlyChanged: true
+```
+
+You may need additional config in the following situations:
+
+- You're using `--storybook-build-dir` or `-d` to let Chromatic use a prebuilt Storybook
+- You have files outside the Webpack dependency tree which affect your stories (e.g. Sass or template files)
+- You want to enable or disable TurboSnap for specific branches
+
+### Prebuilt Storybook
+
+If you're using `--storybook-build-dir` to provide a prebuilt Storybook, adjust your `build-storybook` script to include the `--webpack-stats-json` option. If Chromatic builds your Storybook for you, this is not necessary, it will take care of it. For example:
+
+```json
+{
+  "scripts": {
+    "build-storybook": "build-storybook --webpack-stats-json"
   }
 }
 ```
 
 In Storybook 6.2, `--webpack-stats-json` must be set to the value of `--output-dir` (`storybook-static` by default). In Storybook 6.3+, the value can be omitted as it will use the value of `--output-dir` automatically. Note that `--webpack-stats-json` is not supported before Storybook 6.2, and therefore cannot be used with TurboSnap.
 
-#### Specify which changes trigger a full re-test
+#### Specify a deviating Storybook base directory
+
+If you're using a prebuilt Storybook, and your `build-storybook` script was not executed from same directory where you're running `chromatic`, you'll have to specify the relative path to the Storybook project root (where you run `build-storybook` from). For example, when your Storybook lives at `./services/webapp` in your Git repository:
+
+```json
+{
+  "scripts": {
+    // This would be a different package.json than the one with `build-storybook`
+    "chromatic": "chromatic --only-changed --storybook-base-dir services/webapp"
+  }
+}
+```
+
+If you're running `chromatic` from the same subdirectory as `build-storybook`, this should not be necessary, as Chromatic will auto-detect the correct base dir.
+
+### Specify external files to trigger a full re-test when they change
 
 TurboSnap relies on Webpack's dependency graph. That means if you're using files that are processed externally to Webpack, with the output consumed by Webpack, you'll need to trigger a re-test when they change.
 
@@ -72,21 +114,17 @@ To work around this, run Chromatic's CLI with the `--externals` option (or `exte
 chromatic --only-changed --externals "*.sass" --externals "*.mjml"`
 ```
 
-#### Enable for specific branches
+### Enable or disable for specific branches
 
-To enable this feature for specific branches, pass a glob to `--only-changed` (e.g. `chromatic --only-changed "feature/*"`).
+To enable TurboSnap for specific branches, pass a glob to `--only-changed` (e.g. `chromatic --only-changed "feature/*"`). Use a negating glob (e.g. `chromatic --only-changed "!(main)"`) to enable all but certain branches. See [picomatch] for details.
 
-#### Support for monorepos
+## Notes on monorepos
 
-If you're working in a monorepo, there are some situations where you're certain no UI has changed. For instance, if you make a backend-only change. In such cases, you can [skip Chromatic entirely](monorepos#only-run-chromatic-when-changes-occur-in-a-subproject).
+TurboSnap will make working in a monorepo more efficient. Because it detects affected stories based on the actual files changed, pushing a commit that touched only backend code will run faster in CI and not use up your snapshot quota. However, it will still build and publish your Storybook. To avoid that, you can [skip Chromatic entirely](monorepos#only-run-chromatic-when-changes-occur-in-a-subproject), speeding up your CI pipeline even more.
 
-With TurboSnap enabled, you'll be able to publish your Storybook to Chromatic, but UI testing will be automatically skipped. So there is no need to skip manually.
+If your monorepo has stories from multiple subprojects coming together in one Storybook, may currently [run Chromatic on a subset of your Storybook](monorepos#advanced-only-test-a-subset-of-stories). With TurboSnap enabled, that happens automatically. You'll be able to build and publish your entire Storybook, but Chromatic won't test unchanged subprojects or take snapshots of those stories. So there is no need to build a subset of your Storybook manually.
 
-#### Only test subprojects of monorepos
-
-If you're working in a monorepo, there are situations where you know changes only affect a subproject. In those cases, you can [run Chromatic on a subset of your Storybook](monorepos#advanced-only-test-a-subset-of-stories).
-
-With TurboSnap enabled, running tests on subprojects that change happens automatically. You'll be able to build and publish your Storybook, but Chromatic won't test unchanged subprojects or take snapshots. So there is no need to build a subset of your Storybook manually.
+[picomatch]: https://www.npmjs.com/package/picomatch#globbing-features
 
 ---
 
@@ -155,7 +193,7 @@ Found 218 user modules
 
 In this example, it found 2 CSF globs, which are the `stories` configured in your Storybook's `main.js` config file. From those globs, it detected a total of 218 modules (i.e. source files traceable from those globs via imports). What follows is a list of stories files, the IDs of which will get sent to Chromatic and used to limit the stories files to be tested.
 
-If this list of files contains things you didn't expect, take a look at any global decorators (e.g. theme provider, wrapper component). These are typically configured in Storybook's `preview.js` file. You might have a decorator that's imported from e.g. an `index.js` file, which itself imports a bunch of other files. This can lead to *all* stories depending on a big swath of seemingly unrelated files.
+If this list of files contains things you didn't expect, take a look at any global decorators (e.g. theme provider, wrapper component). These are typically configured in Storybook's `preview.js` file. You might have a decorator that's imported from e.g. an `index.js` file, which itself imports a bunch of other files. This can lead to _all_ stories depending on a big swath of seemingly unrelated files.
 
 </details>
 
@@ -172,7 +210,7 @@ Some reasons that can be surprising are:
     If you run into this situation frequently, upvote the <a href="https://github.com/chromaui/chromatic-cli/issues/383">open issue</a> in the Chromatic CLI's issue tracker to opt-out of this behavior for specific directories in your repository.
   </div>
 
-2. If the previous Chromatic build is linked to a commit that no longer exists in the repository. It can happen for a couple of reasons, most commonly rebasing a feature branch and force-pushing. When we don't know the previous commit, we cannot tell what has changed since then automatically.
+2. If the previous Chromatic build is linked to a commit that no longer exists in the repository. It can happen for a couple of reasons, most commonly rebasing a feature branch, force-pushing or when running the GitHub Action with the `pull_request` trigger which uses an ephemeral merge commit. When we don't know the previous commit, Chromatic cannot determine which files have changed.
 
   <div class="aside">
     If you're encounter this situation often, upvote the <a href="https://github.com/chromaui/chromatic-cli/issues/368">open issue</a> in the Chromatic's CLI's issue tracker to address this situation.
