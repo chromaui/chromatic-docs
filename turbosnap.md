@@ -71,6 +71,7 @@ You may need additional config in the following situations:
 
 - You're using `--storybook-build-dir` or `-d` to let Chromatic use a prebuilt Storybook
 - You have files outside the Webpack dependency tree which affect your stories (e.g. Sass or template files)
+- You have files that should not trigger a re-test
 - You want to enable or disable TurboSnap for specific branches
 
 ### Prebuilt Storybook
@@ -113,6 +114,18 @@ To work around this, run Chromatic's CLI with the `--externals` option (or `exte
 ```bash
 chromatic --only-changed --externals "*.sass" --externals "*.mjml"`
 ```
+
+### Avoid re-testing dependent stories when certain files changed
+
+You may have certain files in your Webpack dependency graph which are (indirectly) used by a story, but which you know are unlikely to cause a meaningful (visual) change. The typical example is a global decorator which imports some utility files. Since a global decorator applies to all stories, a change to such a utility file would cause the entire Storybook to be re-tested. You can avoid that problem using the `--ignore-changed` flag:
+
+```bash
+chromatic --only-changed --ignore-changed ".storybook/decorators/*.js"
+```
+
+TurboSnap works by taking a list of changed files in your Git repository and tracing those down to a set of story files. The `--ignore-changed` flag allows you to filter the list of changed files before tracing any dependencies. That means any changed file matching `--ignore-changed` will be ignored for the sake of tracing dependencies, just as if that file wasn't changed.
+
+> Keep in mind that your tests will be less reliable when using this flag, because it may skip stories that actually did have meaningful changes. It's recommended to disable TurboSnap on your main branch, so at least you will be able to catch such changes there.
 
 ### Enable or disable for specific branches
 
