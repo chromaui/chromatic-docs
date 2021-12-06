@@ -76,6 +76,7 @@ These options control how Chromatic behaves with regards to your stories and wha
 | `--patch-build <headbranch...basebranch>` | Create a patch build to fix a missing PR comparison.                                                                                                                                  |
 | `--preserve-missing`                      | Treat missing stories as unchanged rather than deleted when comparing to the baseline.                                                                                                |
 | `--skip [branch]`                         | Skip Chromatic tests, but mark the commit as passing. Avoids blocking PRs due to required merge checks. Only for `[branch]`, if specified. Globs are supported via [picomatch].       |
+| `--zip`                                   | Upload Storybook to Chromatic as a single zip file instead of individual content files.                                                                                               |
 
 ### Debug options
 
