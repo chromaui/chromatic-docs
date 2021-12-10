@@ -8,12 +8,69 @@ description: Learn how to capture hover and focus states
 
 CSS includes pseudo-classes that allow precise styling of different element states. Here are a few techniques for capturing them in Chromatic.
 
-## Trigger CSS states via props
+## With interactive stories
 
-For interactive states, we recommend separating state from the component to achieve a "pure" stateless component and a stateful one. Then you can write stories against the stateless one in exactly the configurations you are after. This is useful for development too, we've found you can toggle between stories without even needing to interact with the component.
+We recommend adding an interactive story with Storybook's [play](https://storybook.js.org/docs/react/writing-stories/play-function) function to test elements with interactive states (e.g., `hover`, `focus`). For example:
 
 ```js
-// MyComponent.js
+// Form.stories.js|jsx
+
+import { userEvent, waitFor, within } from "@storybook/testing-library";
+
+import { Form } from "./LoginForm";
+
+export default {
+  component: Form,
+  title: "Form",
+};
+
+/*
+ * Read more about Storybook templates at:
+ * https://storybook.js.org/docs/react/writing-stories/introduction#using-args
+ */
+const Template = (args) => <LoginForm {...args} />;
+
+export const WithHoverState = Template.bind({});
+
+/*
+ * Read more about Storybook play function at:
+ * https://storybook.js.org/docs/react/writing-stories/play-function
+ */
+WithHoverState.play = async ({ canvasElement }) => {
+  // Starts querying the component from its root
+  const canvas = within(canvasElement);
+
+  // Looks up the input and fills it.
+  const emailInput = canvas.getByLabelText("email", {
+    selector: "input",
+  });
+
+  await userEvent.type(emailInput, "Example");
+
+  // Looks up the button and interacts with it.
+  const submitButton = canvas.getByRole("button");
+  await userEvent.click(submitButton);
+
+  // Triggers the hover state
+  await waitFor(async () => {
+    await userEvent.hover(canvas.getByLabelText("Email error"));
+  });
+};
+```
+
+<div class="aside">
+  When an interactive story is published, Chromatic will await the <code>play</code> function to execute before capturing it.
+</div>
+
+Check your build to verify how Chromatic captured and tested the state without changes to your component's implementation or user intervention.
+
+<details>
+  <summary>Trigger CSS states via props</summary>
+
+You can also test the element's states, although not recommended, by creating a separate "pure" stateless component, which you can use to test the exact configurations you are after via props. Looking at the following example:
+
+```js
+// MyComponent.js|jsx
 
 export function MyComponent({ isHovered, isActive, label }) {
   return (
@@ -26,24 +83,33 @@ export function MyComponent({ isHovered, isActive, label }) {
 MyComponent.defaultProps = {
   isHovered: false,
   isActive: false,
-  label: 'Submit'
+  label: "Submit",
 };
 ```
 
-Then write a story that triggers the props.
+You can write the following story to trigger the props:
 
 ```js
-// MyComponent.stories.js | MyComponent.stories.ts
+// MyComponent.stories.js|jsx
 
-import MyComponent from "./MyComponent";
+import { MyComponent } from './MyComponent';
 
 export default {
   component: MyComponent,
+  title: 'MyComponent',
 };
 
+/*
+ * Read more about Storybook templates at:
+ * https://storybook.js.org/docs/react/writing-stories/introduction#using-args
+ */
 const Template = (args) => <MyComponent {...args}/>;
 
 export const HoverState = Template.bind({});
+/*
+ * More on args at:
+ * https://storybook.js.org/docs/react/writing-stories/args
+ */
 HoverState.args = {
   isHovered: true,
   label: `I'm :hover`
@@ -56,9 +122,9 @@ ActiveState.args = {
 }:
 ```
 
-## CSS class name
+<h3> CSS class name </h3>
 
-Add a CSS class name that mirrors the `:hover`, `:active`, or `:focus` state.
+You can also add a CSS class name that mirrors the states you're trying to test (e.g., `hover`, `active`):
 
 ```css
 /* Component styles */
@@ -73,35 +139,42 @@ MyComponent.active {
 }
 ```
 
-Then write a story that utilizes the class name.
+Then write a story that utilizes the class name:
 
 ```js
-// MyComponent.stories.js | MyComponent.stories.ts
+// MyComponent.stories.js|jsx
 
-import MyComponent from "./MyComponent";
+import { MyComponent } from "./MyComponent";
 
 export default {
   component: MyComponent,
+  title: "MyComponent",
 };
 
-const Template = (args) => <MyComponent {...args}/>;
+/*
+ * Read more about Storybook templates at:
+ * https://storybook.js.org/docs/react/writing-stories/introduction#using-args
+ */
+const Template = (args) => <MyComponent {...args} />;
 
-export const HoverStatewithClass= Template.bind({});
+export const HoverStatewithClass = Template.bind({});
+
+/*
+ * More on args at:
+ * https://storybook.js.org/docs/react/writing-stories/args
+ */
 HoverStatewithClass.args = {
   ...HoverState.args,
-  className: 'hover'
+  className: "hover",
 };
 
 export const ActiveStatewithClass = Template.bind({});
 ActiveStatewithClass.args = {
   ...ActiveState.args,
-  className: 'active',
+  className: "active",
 };
-
 ```
 
 You can also extend this technique using a JS wrapper that [automates adding a class](https://github.com/Workday/canvas-kit/pull/377/files).
 
-## In the future
-
-We're considering ways to allow this kind of interaction via Chromatic and may add a thin layer for this in the future.
+</details>
