@@ -10,7 +10,7 @@ CSS includes pseudo-classes that allow precise styling of different element stat
 
 ## With interactive stories
 
-We recommend adding an interactive story with Storybook's [play](https://storybook.js.org/docs/react/writing-stories/play-function) function to test elements with interactive states (e.g., `hover`, `focus`). For example:
+We recommend writing interactive stories with Storybook's [play](https://storybook.js.org/docs/react/writing-stories/play-function) function to test components with interactive states (e.g., `hover`, `focus`). For example:
 
 ```js
 // Form.stories.js|jsx
