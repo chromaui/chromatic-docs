@@ -117,15 +117,19 @@ chromatic --only-changed --externals "*.sass" --externals "*.mjml"`
 
 ### Avoid re-testing dependent stories when certain files changed
 
-You may have certain files in your Webpack dependency graph which are (indirectly) used by a story, but which you know are unlikely to cause a meaningful (visual) change. The typical example is a global decorator which imports some utility files. Since a global decorator applies to all stories, a change to such a utility file would cause the entire Storybook to be re-tested. You can avoid that problem using the `--ignore-changed` flag:
+You may have certain files in your Webpack dependency graph which are (indirectly) used by a story, but which you know are unlikely to cause a meaningful (visual) change. The typical example is a global decorator which imports some utility files. Since a global decorator applies to all stories, a change to such a utility file would cause the entire Storybook to be re-tested. You can avoid that problem using the `--untraced` flag:
 
 ```bash
-chromatic --only-changed --ignore-changed ".storybook/decorators/*.js"
+chromatic --only-changed --untraced ".storybook/decorators/*.js"
 ```
 
-TurboSnap works by taking a list of changed files in your Git repository and tracing those down to a set of story files. The `--ignore-changed` flag allows you to filter the list of changed files before tracing any dependencies. That means any changed file matching `--ignore-changed` will be ignored for the sake of tracing dependencies, just as if that file wasn't changed.
+TurboSnap works by taking a list of changed files in your Git repository and tracing those down to a set of story files. The `--untraced` flag allows you to skip tracing dependencies for certain files. That means any file in the Webpack dependency graph matching `--untraced` will be ignored, and thus stories (indirectly) depending on it will not get marked for re-testing at that time. However, those stories still might get marked as a result of tracing another changed file (via a different dependency chain).
 
-> Keep in mind that your tests will be less reliable when using this flag, because it may skip stories that actually did have meaningful changes. It's recommended to disable TurboSnap on your main branch, so at least you will be able to catch such changes there.
+> Keep in mind that your tests will be less reliable when using `--untraced`, because it may skip stories that actually did have meaningful changes. It's recommended to disable TurboSnap on your main branch (see below), so at least you will be able to catch such changes there.
+
+`--untraced` is particularly useful when you're importing "index" files that re-export a bunch of underlying modules. A change to any of these modules would cause any file that imports the index file to be considered "dirty", even if it doesn't actually use the changed module. By using `--untraced` on the index file, all of its re-exported modules are automatically untraced as well, as long as they aren't imported directly.
+
+> Using an index file with re-exported modules defeats "tree shaking", leading to bundles that are needlessly large. You should avoid this pattern if you care about bundle size (and thus performance).
 
 ### Enable or disable for specific branches
 
