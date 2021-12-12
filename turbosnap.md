@@ -36,7 +36,7 @@ Certain circumstances could potentially affect all stories. To prevent false pos
 - Changes to package versions in `package.json`, `yarn.lock`, `package-lock.json`
 - Changes to your Storybook's configuration
 - Changes in files that are imported by your [`preview.js`](https://storybook.js.org/docs/react/configure/overview#configure-story-rendering) (as this could affect any story)
-- Changes in your static folder (e.g., fonts, images that aren't loaded via Webpack imports)
+- Changes in your static folder (if specified using `--static-dir` / `-s`)
 - Changes to files specific by the `--externals` option (see below)
 - Re-run of the same build (commit and branch match the parent build)
 - [Infrastructure upgrades](infrastructure-upgrades)
@@ -70,7 +70,8 @@ steps:
 You may need additional config in the following situations:
 
 - You're using `--storybook-build-dir` or `-d` to let Chromatic use a prebuilt Storybook
-- You have files outside the Webpack dependency tree which affect your stories (e.g. Sass or template files)
+- You are using the `staticDirs` config in your main Storybook configuration
+- You have other files outside the Webpack dependency tree which affect your stories (e.g. Sass or template files)
 - You want to enable or disable TurboSnap for specific branches
 
 ### Prebuilt Storybook
@@ -89,7 +90,7 @@ In Storybook 6.2, `--webpack-stats-json` must be set to the value of `--output-d
 
 #### Specify a deviating Storybook base directory
 
-If you're using a prebuilt Storybook, and your `build-storybook` script was not executed from same directory where you're running `chromatic`, you'll have to specify the relative path to the Storybook project root (where you run `build-storybook` from). For example, when your Storybook lives at `./services/webapp` in your Git repository:
+If you're using a prebuilt Storybook, and your `build-storybook` script was not executed from the same directory where you're running `chromatic`, you'll have to specify the relative path to the Storybook project root (where you run `build-storybook` from). For example, when your Storybook lives at `./services/webapp` in your Git repository:
 
 ```json
 {
@@ -102,17 +103,19 @@ If you're using a prebuilt Storybook, and your `build-storybook` script was not 
 
 If you're running `chromatic` from the same subdirectory as `build-storybook`, this should not be necessary, as Chromatic will auto-detect the correct base dir.
 
-### Specify external files to trigger a full re-test when they change
+### Specify static and external files to trigger a full re-test when they change
 
-TurboSnap relies on Webpack's dependency graph. That means if you're using files that are processed externally to Webpack, with the output consumed by Webpack, you'll need to trigger a re-test when they change.
+TurboSnap relies on Webpack's dependency graph. That means if you're using files that are processed externally to Webpack, with the output consumed by Webpack, you'll need to trigger a re-test when they change. This includes static assets like fonts, images and CSS files, as well as files that compile to static assets such as Sass, so long as they are not processed through a Webpack loader.
 
-For example, if you use an external SASS compiler (not `sass-loader`) to compile `.sass` files to `.css` files (which are then consumed by Webpack), then a change to a `.sass` file will not match any dependencies, preventing stories from being captured (i.e., snapshotted).
+For example, if you use an external Sass compiler (not `sass-loader`) to compile `.sass` files to `.css` files (which may then by consumed by Webpack), then a change to a `.sass` file will not match any dependencies, preventing stories from being captured (i.e., snapshotted).
 
 To work around this, run Chromatic's CLI with the `--externals` option (or `externals` action option) to specify one or more globs of "externally processed" files. For example:
 
 ```bash
-chromatic --only-changed --externals "*.sass" --externals "*.mjml"`
+chromatic --only-changed --externals "*.sass" --externals "public/**"
 ```
+
+> If you are using the [`staticDirs`](https://storybook.js.org/docs/react/configure/images-and-assets#serving-static-files-via-storybook-configuration) option in your main Storybook config (introduced in Storybook 6.4), you should flag those as externals as well. While the deprecated `--static-dir` (`-s`) Storybook CLI flag is auto-detected, the config option in `main.js` is not.
 
 ### Enable or disable for specific branches
 
