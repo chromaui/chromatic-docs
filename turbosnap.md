@@ -103,7 +103,7 @@ If you're using a prebuilt Storybook, and your `build-storybook` script was not 
 
 If you're running `chromatic` from the same subdirectory as `build-storybook`, this should not be necessary, as Chromatic will auto-detect the correct base dir.
 
-### Specify static and external files to trigger a full re-test when they change
+### Specify external files to trigger a full re-test when they change
 
 TurboSnap relies on Webpack's dependency graph. That means if you're using files that are processed externally to Webpack, with the output consumed by Webpack, you'll need to trigger a re-test when they change. This includes static assets like fonts, images and CSS files, as well as files that compile to static assets such as Sass, so long as they are not processed through a Webpack loader.
 
