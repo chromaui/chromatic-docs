@@ -89,6 +89,7 @@ Chromatic's GitHub Action includes additional options to customize your workflow
 | **exitOnceUploaded**        | Exit with status 0 (OK) once the build has been sent to Chromatic                                                              | _String_ or _Boolean_ | my-branch or true | false            |
 | **ignoreLastBuildOnBranch** | Ignores the latest build on the current branch as a baseline if that build. Multiple branches are allowed through [picomatch]  | _String_              | my-branch         | N/A              |
 | **workingDir**              | Provide the location of Storybook's `package.json` if installed in a subdirectory (i.e., monorepos)                            | _String_              | my-folder         | N/A              |
+| **skip**              | Skip Chromatic tests, but mark the commit as passing. Avoids blocking PRs due to required merge checks                               | _String_ or _Boolean_              | branch or true         | false              |
 
 
 ### Support for `actions/checkout@v2`
