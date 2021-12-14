@@ -1,14 +1,14 @@
 ---
 layout: default
-title: Interactive stories
-description: Learn how to set up interactive stories
+title: Interactions
+description: Learn how to simulate interactions with interactive stories
 ---
 
-# Interactive stories
+# Interactions
 
-Building components and testing them in Chromatic safeguard you against unexpected regressions. But not every component can be thoroughly tested without user intervention.
+Building components and testing them in Chromatic safeguards you against unexpected regressions. But not every component can be tested without user intervention. For instance, forms, tooltips, and dropdowns.
 
-Storybook's interactive stories enable you to test such scenarios. You automate component interactions using a [`play`](https://storybook.js.org/docs/react/writing-stories/play-function) function, which includes small snippets of code that run after the story renders—scripting the exact steps a user would take to interact with the component.
+Interactive stories enable you to test how components respond to user input by simulating behavior via the [`play`](https://storybook.js.org/docs/react/writing-stories/play-function) function.
 
 ## How it works
 

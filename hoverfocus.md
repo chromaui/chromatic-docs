@@ -8,9 +8,11 @@ description: Learn how to capture hover and focus states
 
 CSS includes pseudo-classes that allow precise styling of different element states. Here are a few techniques for capturing them in Chromatic.
 
-## With interactive stories
+## Interactive stories
 
-We recommend writing interactive stories with Storybook's [play](https://storybook.js.org/docs/react/writing-stories/play-function) function to test components with interactive states (e.g., `hover`, `focus`). For example:
+Interactive stories allow you to test component interactions (e.g., `hover`, `focus`) via Storybook's [play](https://storybook.js.org/docs/react/writing-stories/play-function) function. Chromatic will render the story and await the <code>play</code> function to execute before taking a snapshot.
+
+For example:
 
 ```js
 // Form.stories.js|jsx
@@ -58,11 +60,9 @@ WithHoverState.play = async ({ canvasElement }) => {
 };
 ```
 
-<div class="aside">
-  When an interactive story is published, Chromatic will await the <code>play</code> function to execute before capturing it.
-</div>
+---
 
-Check your build to verify how Chromatic captured and tested the state without changes to your component's implementation or user intervention.
+### Other methods
 
 <details>
   <summary>Trigger CSS states via props</summary>
@@ -122,7 +122,11 @@ ActiveState.args = {
 }:
 ```
 
-<h3> CSS class name </h3>
+</details>
+
+<details>
+
+  <summary>Use CSS class names</summary>
 
 You can also add a CSS class name that mirrors the states you're trying to test (e.g., `hover`, `active`):
 
