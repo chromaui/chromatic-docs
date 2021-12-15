@@ -22,9 +22,11 @@ Go to your organization's Settings page to view collaborators.
 
 ![Settings page collaborators](img/collaborators-organization.png)
 
-<div class="aside">
-Email and password accounts don't have the concept of organization-level collaborators. 
-</div>
+### Billing and usage
+
+Collaborate on billing, usage, and permissions by syncing your organization with GitHub, Bitbucket, or GitLab.
+
+Email and password accounts don't have the concept of organization-level collaborators. If you want other teammates to access an account, you'll need to sync the account with a [Git provider](#organization-collaborators) or share login credentials (for example, via a password manager).
 
 ## Project collaborators
 
