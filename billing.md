@@ -55,23 +55,23 @@ For example, if you want to be notified when you use 90% of the 35,000 snapshots
 
 ### Usage reports
 
-You can generate detailed usage reports for your own bookkeeping. Monthly and yearly reports are available for download as a CSV file. Contact us via our in-app chat or [email](mailto:support@chromatic.com) if you'd like a custom date range or have the report formatted as JSON.
+You can generate detailed usage reports for your own bookkeeping. Monthly and yearly reports are available for download as a CSV file. Contact us via our in-app chat or [email](mailto:support@chromatic.com) if you'd like a custom date range or have the report formatted as JSON. The downloaded CSV includes the following columns:
 
-![Setup usage alerting](img/billing-usage-report.png)
+| Column                      | Description                                                                                                       |
+| --------------------------- | ----------------------------------------------------------------------------------------------------------------- |
+| Date                        | Creation date and time of the build (ISO 8601)                                                                    |
+| App ID                      | Unique Chromatic project identifier                                                                               |
+| Build ID                    | Unique Chromatic build identifier                                                                                 |
+| Repository slug             | Owner and name of the Git repository linked to the project (`<ownerName>:<repoName>`)                             |
+| Branch name                 | Git branch name for which the build was created, prefixed with `<ownerName>:` if the build originates from a fork |
+| Build number                | The incremental number for this build                                                                             |
+| Skipped snapshots           | Number of snapshots that you saved (not got billed for) thanks to [TurboSnap](turbosnap)                          |
+| Chrome snapshots            | Number of billed snapshots captured in Chrome                                                                     |
+| Firefox snapshots           | Number of billed snapshots captured in Firefox                                                                    |
+| Internet Explorer snapshots | Number of billed snapshots captured in Internet Explorer                                                          |
+| Safari snapshots            | Number of billed snapshots captured in Safari                                                                     |
 
-The downloaded CSV includes the following columns:
-
-- Date - Creation date and time of the build (ISO 8601)
-- App ID - Unique Chromatic project identifier
-- Build ID - Unique Chromatic build identifier
-- Repository slug - Owner and name of the Git repository linked to the project (`<ownerName>:<repoName>`)
-- Branch name - Git branch name for which the build was created, prefixed with `<ownerName>:` if the build originates from a fork
-- Build number - The incremental number for this build
-- Skipped snapshots - Number of snapshots that you saved (not got billed for) thanks to [TurboSnap](turbosnap)
-- Chrome snapshots - Number of billed snapshots captured in Chrome
-- Firefox snapshots - Number of billed snapshots captured in Firefox
-- Internet Explorer snapshots - Number of billed snapshots captured in Internet Explorer
-- Safari snapshots - Number of billed snapshots captured in Safari
+![Setup usage report](img/billing-usage-report.png)
 
 ## Change plans
 
