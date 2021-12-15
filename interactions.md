@@ -18,6 +18,7 @@ Enable interactive stories by adding a `play` function to your component's story
 // LoginForm.stories.js|jsx
 
 import React from "react";
+
 import { userEvent, within } from "@storybook/testing-library";
 import { Form } from "./Form";
 
@@ -26,36 +27,28 @@ export default {
   title: "Form",
 };
 
-/*
- * Read more about Storybook templates at:
- * https://storybook.js.org/docs/react/writing-stories/introduction#using-args
- */
 const Template = (args) => <Form {...args} />;
 
-export const Default = Template.bind({});
-
 export const FilledForm = Template.bind({});
-/*
- * Read more about Storybook play function at:
- * https://storybook.js.org/docs/react/writing-stories/play-function
- */
+
 FilledForm.play = async ({ canvasElement }) => {
   // Starts querying the component from its root
   const canvas = within(canvasElement);
 
-  // Looks up the input and fills it.
+  // Looks up the inputs and fills them.
   const emailInput = canvas.getByLabelText("email", {
     selector: "input",
   });
 
   await userEvent.type(emailInput, "Example");
-  // Looks up the input and fills it.
+
   const passwordInput = canvas.getByLabelText("password", {
     selector: "input",
   });
 
   await userEvent.type(passwordInput, "Example");
 
+  // Looks up the button and interacts with it.
   const submitButton = canvas.getByRole("button");
   await userEvent.click(submitButton);
 };

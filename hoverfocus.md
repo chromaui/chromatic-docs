@@ -10,14 +10,15 @@ CSS includes pseudo-classes that allow precise styling of different element stat
 
 ## Add interactions
 
-Interactions allow you to verify how a component responds to user input (e.g., `hover`, `focus`). As of 6.3, stories are capable of simulating user behavior via the [play](https://storybook.js.org/docs/react/writing-stories/play-function) function. Chromatic awaits <code>play</code> function execution before taking a snapshot.
+Interactions allow you to verify how a component responds to user input (e.g., `hover`, `focus`). As of 6.4, stories are capable of simulating user behavior via the [play](https://storybook.js.org/docs/react/writing-stories/play-function) function. Chromatic awaits <code>play</code> function execution before taking a snapshot.
 
 ### Hover
 
-Lorem ipsum hover...
+To test how the component responds when a user hovers over it, write a <code>play</code> function mimicking this behavior. For example:
 
 ```js
 // Form.stories.js|jsx
+import React from "react";
 
 import { userEvent, waitFor, within } from "@storybook/testing-library";
 
@@ -28,18 +29,10 @@ export default {
   title: "Form",
 };
 
-/*
- * Read more about Storybook templates at:
- * https://storybook.js.org/docs/react/writing-stories/introduction#using-args
- */
 const Template = (args) => <LoginForm {...args} />;
 
 export const WithHoverState = Template.bind({});
 
-/*
- * Read more about Storybook play function at:
- * https://storybook.js.org/docs/react/writing-stories/play-function
- */
 WithHoverState.play = async ({ canvasElement }) => {
   // Starts querying the component from its root
   const canvas = within(canvasElement);
@@ -64,9 +57,50 @@ WithHoverState.play = async ({ canvasElement }) => {
 
 ### Focus
 
-Lorem ipsum focus...
+To simulate how the component responds when an element is focused (i.e., through mouse or keyboard), write a <code>play</code> function emulating the behavior. For example:
 
-[Insert code snippet here]
+```js
+// Form.stories.js|jsx
+
+import React from "react";
+
+import { userEvent, within } from "@storybook/testing-library";
+
+import { Form } from "./LoginForm";
+
+export default {
+  component: Form,
+  title: "Form",
+};
+
+const Template = (args) => <LoginForm {...args} />;
+
+export const WithFocusState = Template.bind({});
+
+WithFocusState.play = async ({ canvasElement }) => {
+  // Starts querying the component from its root
+  const canvas = within(canvasElement);
+
+  // Looks up the inputs and fills them.
+  const emailInput = canvas.getByLabelText("email", {
+    selector: "input",
+  });
+  await userEvent.type(emailInput, "Example");
+
+  const passwordInput = canvas.getByLabelText("password", {
+    selector: "input",
+  });
+
+  await userEvent.type(passwordInput, "Example");
+
+  // Looks up the button and interacts with it.
+  const submitButton = canvas.getByRole("button");
+  await userEvent.click(submitButton);
+
+  // Sets focus on the email input
+  emailInput.focus();
+};
+```
 
 ---
 
@@ -107,17 +141,11 @@ export default {
   title: 'MyComponent',
 };
 
-/*
- * Read more about Storybook templates at:
- * https://storybook.js.org/docs/react/writing-stories/introduction#using-args
- */
+
 const Template = (args) => <MyComponent {...args}/>;
 
 export const HoverState = Template.bind({});
-/*
- * More on args at:
- * https://storybook.js.org/docs/react/writing-stories/args
- */
+
 HoverState.args = {
   isHovered: true,
   label: `I'm :hover`
@@ -163,18 +191,10 @@ export default {
   title: "MyComponent",
 };
 
-/*
- * Read more about Storybook templates at:
- * https://storybook.js.org/docs/react/writing-stories/introduction#using-args
- */
 const Template = (args) => <MyComponent {...args} />;
 
 export const HoverStatewithClass = Template.bind({});
 
-/*
- * More on args at:
- * https://storybook.js.org/docs/react/writing-stories/args
- */
 HoverStatewithClass.args = {
   ...HoverState.args,
   className: "hover",
