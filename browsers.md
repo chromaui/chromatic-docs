@@ -68,9 +68,9 @@ Chromatic does not programmatically compare snapshots from different browsers ag
 <details>
 <summary>Does Chromatic support specific browser versions?</summary>
 
-Chromatic does not support running tests on specific browser versions. During the course of building Chromatic's capture cloud, we found that not all browser versions are created equal. Some contain bugs that lead to rendering inconsistencies. Our aim at Chromatic is to take care of these messy details so that you don't have to and get consisntently flake free tests. 
+Chromatic does not support running tests on specific browser versions. During the course of building Chromatic's Capture Cloud, we found that not all browser versions are created equal. Some contain bugs that lead to rendering inconsistencies. Our aim is to take care of these messy details so that you don't have to, giving you consistently flake free tests. 
   
-We extensively test new browser versions and modify our infrastructure to handle quirks between them. Our goal is to provide you with the latest stable version of each of our supported browsers on a timely schedule with a painless upgrade experience between versions.
+We extensively test new browser versions and modify our infrastructure to handle quirks between them. Our goal is to provide you with the latest stable version of each of our supported browsers on a timely schedule with a painless upgrade experience between them.
 
-We don't maintain support for old browser versions in Chromatic since most users are upgraded to the lastest versions automatically and this simplifies our infrastructure and customer support.
+We don't maintain support for old browser versions in Chromatic since most users are upgraded to the lastest version automatically and this simplifies our infrastructure and customer support.
 </details>
