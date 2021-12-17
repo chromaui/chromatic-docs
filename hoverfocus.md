@@ -18,6 +18,7 @@ To test how the component responds when a user hovers over it, write a <code>pla
 
 ```js
 // Form.stories.js|jsx
+
 import React from "react";
 
 import { userEvent, waitFor, within } from "@storybook/testing-library";
@@ -28,11 +29,9 @@ export default {
   component: Form,
   title: "Form",
 };
-
 const Template = (args) => <LoginForm {...args} />;
 
 export const WithHoverState = Template.bind({});
-
 WithHoverState.play = async ({ canvasElement }) => {
   // Starts querying the component from its root
   const canvas = within(canvasElement);
@@ -55,50 +54,41 @@ WithHoverState.play = async ({ canvasElement }) => {
 };
 ```
 
+<div class="aside">
+
+To test a component with a CSS pseudo class <code>:hover</code>, update your implementation based on the [using class names](#use-css-class) documentation below.
+
+</div>
+
 ### Focus
 
 To simulate how the component responds when an element is focused (i.e., through mouse or keyboard), write a <code>play</code> function emulating the behavior. For example:
 
 ```js
-// Form.stories.js|jsx
+// Button.stories.js|jsx
 
 import React from "react";
 
 import { userEvent, within } from "@storybook/testing-library";
 
-import { Form } from "./LoginForm";
+import { Button } from "./Button";
 
 export default {
-  component: Form,
-  title: "Form",
+  component: Button,
+  title: "Button",
 };
 
-const Template = (args) => <LoginForm {...args} />;
+const Template = (args) => <Button {...args} />;
 
 export const WithFocusState = Template.bind({});
 
+export const WithFocusState = Template.bind({});
 WithFocusState.play = async ({ canvasElement }) => {
   // Starts querying the component from its root
   const canvas = within(canvasElement);
 
-  // Looks up the inputs and fills them.
-  const emailInput = canvas.getByLabelText("email", {
-    selector: "input",
-  });
-  await userEvent.type(emailInput, "Example");
-
-  const passwordInput = canvas.getByLabelText("password", {
-    selector: "input",
-  });
-
-  await userEvent.type(passwordInput, "Example");
-
   // Looks up the button and interacts with it.
-  const submitButton = canvas.getByRole("button");
-  await userEvent.click(submitButton);
-
-  // Sets focus on the email input
-  emailInput.focus();
+  canvas.getByRole("button").focus();
 };
 ```
 
@@ -160,7 +150,7 @@ ActiveState.args = {
 
 </details>
 
-<details>
+<details id="use-css-class">
 
   <summary>Use CSS class names</summary>
 
@@ -208,5 +198,37 @@ ActiveStatewithClass.args = {
 ```
 
 You can also extend this technique using a JS wrapper that [automates adding a class](https://github.com/Workday/canvas-kit/pull/377/files).
+
+</details>
+
+<details>
+<summary>With Storybook's Pseudo States addon</summary>
+
+For simple, functional components with CSS pseudo-classes (e.g., `hover`, `active`), you can also use the [Storybook's Pseudo States addon](https://storybook.js.org/addons/storybook-addon-pseudo-states) to test such states. For example:
+
+```js
+// Button.stories.js|jsx
+
+import React from "react";
+import { Button } from "./Button";
+
+export default {
+  title: "Button",
+  component: Button,
+};
+
+const Template = (args) => <Button {...args} />;
+
+export const WithHoverState = Template.bind({});
+WithHoverState.args = {
+  size: "small",
+  label: "Button",
+};
+
+WithHoverState.parameters = {
+  // Toggles the component hover state via parameter.
+  pseudo: { hover: true },
+};
+```
 
 </details>
