@@ -6,7 +6,7 @@ description: Learn how to configure Chromatic with GitHub Actions
 
 # Automate Chromatic with GitHub Actions
 
-Chromatic has a [GitHub Action](https://github.com/chromaui/action) to help you automate your visual regression tests and publish Storybook.
+Chromatic provides a [GitHub Action](https://github.com/marketplace/actions/publish-to-chromatic) to help you automate your visual regression tests and publish Storybook.
 
 ### Setup
 
@@ -79,18 +79,17 @@ Or you could disable Chromatic on pull requests from forked repositories.
 
 Chromatic's GitHub Action includes additional options to customize your workflow. The table below lists what's currently available:
 
-| Option                      | Description                                                                                                                    | Type                  | Example value     | Default value    |
-|-----------------------------|--------------------------------------------------------------------------------------------------------------------------------|-----------------------|-------------------|------------------|
-| **buildScriptName**         | The script that builds your Storybook                                                                                          | _String_              | build-storybook   | build-storybook  |
-| **storybookBuildDir**       | Provide a directory with your built Storybook.                                                                                 | _String_              | storybook-static  | storybook-static |
-| **allowConsoleErrors**      | Do not exit when runtime errors occur in Storybook                                                                             | _Boolean_             | True              | false            |
-| **autoAcceptChanges**       | Automatically accepts all changes in Chromatic                                                                                 | _String_ or _Boolean_ | my-branch or true | false            |
-| **exitZeroOnChanges**       | Positive exit of action even when there are changes detected                                                                   | _String_ or _Boolean_ | my-branch or true | true             |
-| **exitOnceUploaded**        | Exit with status 0 (OK) once the build has been sent to Chromatic                                                              | _String_ or _Boolean_ | my-branch or true | false            |
-| **ignoreLastBuildOnBranch** | Ignores the latest build on the current branch as a baseline if that build. Multiple branches are allowed through [picomatch]  | _String_              | my-branch         | N/A              |
-| **workingDir**              | Provide the location of Storybook's `package.json` if installed in a subdirectory (i.e., monorepos)                            | _String_              | my-folder         | N/A              |
-| **skip**              | Skip Chromatic tests, but mark the commit as passing. Avoids blocking PRs due to required merge checks                               | _String_ or _Boolean_              | branch or true         | false              |
-
+| Option                      | Description                                                                                                                   | Type                  | Example value     | Default value    |
+| --------------------------- | ----------------------------------------------------------------------------------------------------------------------------- | --------------------- | ----------------- | ---------------- |
+| **buildScriptName**         | The script that builds your Storybook                                                                                         | _String_              | build-storybook   | build-storybook  |
+| **storybookBuildDir**       | Provide a directory with your built Storybook.                                                                                | _String_              | storybook-static  | storybook-static |
+| **allowConsoleErrors**      | Do not exit when runtime errors occur in Storybook                                                                            | _Boolean_             | True              | false            |
+| **autoAcceptChanges**       | Automatically accepts all changes in Chromatic                                                                                | _String_ or _Boolean_ | my-branch or true | false            |
+| **exitZeroOnChanges**       | Positive exit of action even when there are changes detected                                                                  | _String_ or _Boolean_ | my-branch or true | true             |
+| **exitOnceUploaded**        | Exit with status 0 (OK) once the build has been sent to Chromatic                                                             | _String_ or _Boolean_ | my-branch or true | false            |
+| **ignoreLastBuildOnBranch** | Ignores the latest build on the current branch as a baseline if that build. Multiple branches are allowed through [picomatch] | _String_              | my-branch         | N/A              |
+| **workingDir**              | Provide the location of Storybook's `package.json` if installed in a subdirectory (i.e., monorepos)                           | _String_              | my-folder         | N/A              |
+| **skip**                    | Skip Chromatic tests, but mark the commit as passing. Avoids blocking PRs due to required merge checks                        | _String_ or _Boolean_ | branch or true    | false            |
 
 ### Support for `actions/checkout@v2`
 
@@ -181,13 +180,13 @@ jobs:
         env:
           #👇 Sets the environment variable
           STORYBOOK_SOME_ENV_VAR: {% raw %}${{ secrets.STORYBOOK_SOME_ENV_VAR }} {% endraw %}
- ```
+```
 
 <div class="aside">
 Read the official <a href="https://storybook.js.org/docs/react/configure/environment-variables">Storybook environment variable's documentation </a>.
 </div>
 
-Including the `env` option ensures all environment variables set up will be ready to be used in your UI tests and deployed Storybook. 
+Including the `env` option ensures all environment variables set up will be ready to be used in your UI tests and deployed Storybook.
 
 ### Recommended configuration for build events
 
@@ -228,7 +227,7 @@ jobs:
 Read about the <a href="#available-options">available options</a>.
 </div>
 
-When using `exitZeroOnChanges`,  your workflow will still stop and fail if your Storybook contains stories that error.
+When using `exitZeroOnChanges`, your workflow will still stop and fail if your Storybook contains stories that error.
 
 #### Re-run failed builds after verifying UI test results
 
