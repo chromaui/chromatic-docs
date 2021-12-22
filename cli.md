@@ -76,20 +76,20 @@ These options control how Chromatic behaves with regards to your stories and wha
 | `--patch-build <headbranch...basebranch>` | Create a patch build to fix a missing PR comparison.                                                                                                                                  |
 | `--preserve-missing`                      | Treat missing stories as unchanged rather than deleted when comparing to the baseline.                                                                                                |
 | `--skip [branch]`                         | Skip Chromatic tests, but mark the commit as passing. Avoids blocking PRs due to required merge checks. Only for `[branch]`, if specified. Globs are supported via [picomatch].       |
-| `--zip`                                   | Publish your Storybook to Chromatic as a single zip file instead of individual content files.                                                                                               |
+| `--zip`                                   | Publish your Storybook to Chromatic as a single zip file instead of individual content files.                                                                                         |
 
 ### Debug options
 
 These options may help you debug problems or enable integration with other tools.
 
-| CLI flag                    |                                                                                                                                                                                                    |
-| --------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `--no-interactive`          | Don't ask interactive questions about your setup and don't overwrite output. `true` in non-TTY environments.                                                                                       |
-| `--debug`                   | Output verbose debugging information. This option implies `--no-interactive`.                                                                                                                      |
-| `--ci`                      | Mark this build as a CI build. Alternatively, set the `CI` environment variable (present in most CI systems). This option implies `--no-interactive`.                                              |
-| `--list`                    | List available stories. This requires running a full build.                                                                                                                                        |
+| CLI flag                    |                                                                                                                                                                                                                                              |
+| --------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `--no-interactive`          | Don't ask interactive questions about your setup and don't overwrite output. `true` in non-TTY environments.                                                                                                                                 |
+| `--debug`                   | Output verbose debugging information. This option implies `--no-interactive`.                                                                                                                                                                |
+| `--ci`                      | Mark this build as a CI build. Alternatively, set the `CI` environment variable (present in most CI systems). This option implies `--no-interactive`.                                                                                        |
+| `--list`                    | List available stories. This requires running a full build.                                                                                                                                                                                  |
 | `--only <storypath>`        | Only run a single story or a subset of stories. Use the `title` from the story's default export as the story path. This typically looks like `Path/To/Story`. Globs are supported via [picomatch]. This option implies `--preserve-missing`. |
-| `--junit-report [filepath]` | Write build results to a JUnit XML file. Defaults to `chromatic-build-{buildNumber}.xml`. `{buildNumber}` will be replaced with the actual build number.                                           |
+| `--junit-report [filepath]` | Write build results to a JUnit XML file. Defaults to `chromatic-build-{buildNumber}.xml`. `{buildNumber}` will be replaced with the actual build number.                                                                                     |
 
 ### Deprecated options
 
@@ -134,7 +134,7 @@ To start using uploaded builds, ensure you are on the latest version of [**chrom
 
 There are examples here: https://github.com/chromaui/chromatic-cli
 
-Do not run this based on a github pull_request event. If you do, the commit and branch will get reported wrong, use [https://github.com/chromaui/action](https://github.com/chromaui/action) instead.
+Do not run this based on a GitHub `pull_request` event. If you do, the commit and branch will get reported wrong, use [our GitHub Action](https://github.com/marketplace/actions/publish-to-chromatic) instead.
 
 ## Migrating to the new CLI package
 
