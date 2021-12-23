@@ -4,17 +4,17 @@ title: Hover and focus states
 description: Learn how to capture hover and focus states
 ---
 
-# CSS hover and focus states
+# Hover and focus states
 
-CSS includes pseudo-classes that allow precise styling of different element states. Here are a few techniques for capturing them in Chromatic.
+Components can respond differently based on hover or focus events. Here are a few techniques for capturing the result of these user events Chromatic.
 
-## Add interactions
+## Make your stories interactive
 
-Interactions allow you to verify how a component responds to user input (e.g., `hover`, `focus`). As of 6.4, stories are capable of simulating user behavior via the [play](https://storybook.js.org/docs/react/writing-stories/play-function) function. Chromatic awaits <code>play</code> function execution before taking a snapshot.
+As of 6.4, stories are capable of simulating user interactions via the [play](https://storybook.js.org/docs/react/writing-stories/play-function) function. Interactions allow you to verify how a component responds to user input (e.g., `hover`, `focus`, `click`, `type`). Chromatic awaits `play` function execution before taking a snapshot.
 
-### Hover
+### JavaScript-triggered hover states
 
-To test how the component responds when a user hovers over it, write a <code>play</code> function mimicking this behavior. For example:
+If the hover behavior is triggered via JavaScript (e.g., tooltips or dropdowns), write a `play` function to simulate hover. Use Storybook's instrumented version of Testing Library. For example:
 
 ```js
 // Form.stories.js|jsx
@@ -54,47 +54,9 @@ WithHoverState.play = async ({ canvasElement }) => {
 };
 ```
 
-<div class="aside">
+### CSS :hover state
 
-To test a component with a CSS pseudo class <code>:hover</code>, update your implementation based on the [using class names](#use-css-class) documentation below.
-
-</div>
-
-### Focus
-
-To simulate how the component responds when an element is focused (i.e., through mouse or keyboard), write a <code>play</code> function emulating the behavior. For example:
-
-```js
-// Button.stories.js|jsx
-
-import React from "react";
-
-import { userEvent, within } from "@storybook/testing-library";
-
-import { Button } from "./Button";
-
-export default {
-  component: Button,
-  title: "Button",
-};
-
-const Template = (args) => <Button {...args} />;
-
-export const WithFocusState = Template.bind({});
-
-export const WithFocusState = Template.bind({});
-WithFocusState.play = async ({ canvasElement }) => {
-  // Starts querying the component from its root
-  const canvas = within(canvasElement);
-
-  // Looks up the button and interacts with it.
-  canvas.getByRole("button").focus();
-};
-```
-
----
-
-### Other methods
+CSS includes the `:hover` pseudo-class that allow precise styling of an element on cursor hover. This is a "trusted event" for web browsers, meaning it can't be simulated by the `play` function. There are multiple ways you can mock `:hover` below.
 
 <details>
   <summary>Trigger CSS states via props</summary>
@@ -150,7 +112,7 @@ ActiveState.args = {
 
 </details>
 
-<details id="use-css-class">
+<details>
 
   <summary>Use CSS class names</summary>
 
@@ -232,3 +194,35 @@ WithHoverState.parameters = {
 ```
 
 </details>
+
+### Focus
+
+To simulate how the component responds when an element is focused (i.e., through mouse or keyboard), write a `play` function emulating the behavior. For example:
+
+```js
+// Button.stories.js|jsx
+
+import React from "react";
+
+import { userEvent, within } from "@storybook/testing-library";
+
+import { Button } from "./Button";
+
+export default {
+  component: Button,
+  title: "Button",
+};
+
+const Template = (args) => <Button {...args} />;
+
+export const WithFocusState = Template.bind({});
+
+export const WithFocusState = Template.bind({});
+WithFocusState.play = async ({ canvasElement }) => {
+  // Starts querying the component from its root
+  const canvas = within(canvasElement);
+
+  // Looks up the button and interacts with it.
+  canvas.getByRole("button").focus();
+};
+```
