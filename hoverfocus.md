@@ -10,11 +10,11 @@ Components can respond differently based on hover or focus events. Here are a fe
 
 ## Make your stories interactive
 
-As of 6.4, stories are capable of simulating user interactions via the [play](https://storybook.js.org/docs/react/writing-stories/play-function) function. Interactions allow you to verify how a component responds to user input (e.g., hover, focus, click, type). Chromatic awaits `play` function execution before taking a snapshot.
+As of 6.4, stories are capable of simulating user interactions via the [`play`](https://storybook.js.org/docs/react/writing-stories/play-function) function. Interactions allow you to verify how a component responds to user input (e.g., hover, focus, click, type). Chromatic awaits `play` function execution before taking a snapshot.
 
 ## JavaScript-triggered hover states
 
-If the hover behavior is triggered via JavaScript (e.g., tooltips or dropdowns), write a `play` function to simulate hover. Use Storybook's instrumented version of Testing Library. For example:
+If the hover behavior is triggered via JavaScript like tooltips or dropdowns, write a `play` function to simulate it using Storybook's instrumented version of Testing Library. For example:
 
 ```js
 // Form.stories.js|jsx
@@ -56,7 +56,7 @@ WithHoverState.play = async ({ canvasElement }) => {
 
 ## CSS :hover state
 
-CSS includes the `:hover` pseudo-class that allow precise styling of an element on cursor hover. This is a "trusted event" for web browsers, meaning it can't be simulated by the `play` function. There are multiple ways you can snapshot this state below.
+CSS includes the `:hover` pseudo-class that allow precise styling of an element on cursor hover. This is a "trusted event" for web browsers, meaning it can't be simulated by the `play` function. There are multiple ways you can snapshot this state.
 
 <details>
 
