@@ -6,6 +6,26 @@ description: Chromatic's browser infrastructure release notes
 
 # Chromatic Capture Cloud release notes
 
+## Version 4
+
+Welcome to `Chromatic Capture Cloud version 4` released January 2022.
+
+**Status**: Beta
+
+Key highlights on this release:
+
+- Firefox version updated to version 92
+
+### Supported browsers versions
+
+| Browser           | Version |
+| ----------------- | ------- |
+| Chrome            | 89      |
+| Firefox           | 92      |
+| Internet Explorer | 11      |
+
+---
+
 ## Version 3
 
 Welcome to `Chromatic Capture Cloud version 3` released July 2021.
