@@ -49,7 +49,7 @@ There two types of Chromatic projects: linked and unlinked.
 
 Linked projects are associated with a repository on GitHub, Bitbucket, or GitLab. That allows Chromatic to [sync collaborators](collaborators#project-collaborators), badge pull requests, get pull request metadata for [UI Review](review), and keep track of [UI Test](test) baselines.
 
-You can link a project during the project creation process or afterward on the project's Manage page.
+You can link a project during the project creation process or afterward on the project's Manage page within the Collaborators tab.
 
 #### Unlinked projects
 
