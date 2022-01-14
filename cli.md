@@ -98,7 +98,7 @@ These options may help you debug problems or enable integration with other tools
 | 0         | OK                         | Exited successfully                                    |
 | 1         | BUILD_HAS_CHANGES          | Chromatic build has (visual) changes                   |
 | 2         | BUILD_HAS_ERRORS           | Chromatic build has component errors                   |
-| 3         | BUILD_FAILED               | Chromatic build failed                                 |
+| 3         | BUILD_FAILED               | Chromatic build failed due to system error             |
 | 4         | BUILD_NO_STORIES           | Chromatic build failed because it contained no stories |
 | 5         | BUILD_WAS_LIMITED          | Chromatic build was limited                            |
 | 11        | ACCOUNT_QUOTA_REACHED      | Chromatic account reached its snapshot quota           |
