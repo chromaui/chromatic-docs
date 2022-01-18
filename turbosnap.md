@@ -174,27 +174,31 @@ If the messages above indicate no story files are being detected by changes, the
 
 Another reason that changes may be missed is if the changed files aren't directly included in the webpack build; use the <a href="#specify-which-changes-trigger-a-full-re-test"><code>--externals</code> flag</a> to tell Chromatic about this.
 
-You can manually trace a set of files to a set of related story files, based on a Webpack stats file, using the `stats-to-story-files` utility. First you need to generate a `preview-stats.json` like so (requires Storybook >=6.3):
+If you're trying to figure out why certain stories are being re-tested, you can pass the `--trace-changed` flag, which will print a visual report of how changed files link to your story files:
 
-  <pre><code>yarn build-storybook --webpack-stats-json</code></pre>
+  <pre><code>npx chromatic --only-changed --trace-changed</code></pre>
+
+Alternatively, you can manually trace a set of files to a set of related story files, based on a Webpack stats file, using the `trace` utility. First you need to generate a `preview-stats.json` like so (requires Storybook >=6.3):
+
+  <pre><code>npx build-storybook --webpack-stats-json</code></pre>
 
 The `preview-stats.json` will end up in the build directory, typically `storybook-static`. If you want to manually inspect this file, you can trim it down to it's bare essentials using this command:
 
-  <pre><code>yarn chromatic trim-stats-file</code></pre>
+  <pre><code>npx chromatic trim-stats-file</code></pre>
 
 Or, if you're using a custom build directory:
 
-  <pre><code>yarn chromatic trim-stats-file ./path/to/preview-stats.json</code></pre>
+  <pre><code>npx chromatic trim-stats-file ./path/to/preview-stats.json</code></pre>
 
 This will output a `preview-stats.trimmed.json` which should be much more human-readable (sort of).
 
 Now, to trace a set of changed file paths to their dependent story files, run the following:
 
-  <pre><code>chromatic stats-to-story-files [path to preview-stats.json] [...changed file paths]</code></pre>
+  <pre><code>npx chromatic trace [...changed file paths]</code></pre>
 
 For example:
 
-  <pre><code>yarn chromatic stats-to-story-files ./storybook-static/preview-stats.json ./src/components/link.js ./src/pages/index.js</pre></code>
+  <pre><code>npx chromatic trace ./src/components/link.js ./src/pages/index.js</pre></code>
 
 This prints the number of detected CSF globs, the total number of modules, and a map of `Webpack module ID -> file path` for each of the found story files (typically `*.stories.js`).
 
