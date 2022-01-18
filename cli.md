@@ -91,6 +91,28 @@ These options may help you debug problems or enable integration with other tools
 | `--only <storypath>`        | Only run a single story or a subset of stories. Use the `title` from the story's default export as the story path. This typically looks like `Path/To/Story`. Globs are supported via [picomatch]. This option implies `--preserve-missing`. |
 | `--junit-report [filepath]` | Write build results to a JUnit XML file. Defaults to `chromatic-build-{buildNumber}.xml`. `{buildNumber}` will be replaced with the actual build number.                                                                                     |
 
+### Exit codes
+
+| Exit code | Key                        | Description                                            |
+| --------- | -------------------------- | ------------------------------------------------------ |
+| 0         | OK                         | Exited successfully                                    |
+| 1         | BUILD_HAS_CHANGES          | Chromatic build has (visual) changes                   |
+| 2         | BUILD_HAS_ERRORS           | Chromatic build has component errors                   |
+| 3         | BUILD_FAILED               | Chromatic build failed due to system error             |
+| 4         | BUILD_NO_STORIES           | Chromatic build failed because it contained no stories |
+| 5         | BUILD_WAS_LIMITED          | Chromatic build was limited                            |
+| 11        | ACCOUNT_QUOTA_REACHED      | Chromatic account reached its snapshot quota           |
+| 12        | ACCOUNT_PAYMENT_REQUIRED   | Chromatic account requires payment                     |
+| 101       | GIT_NOT_CLEAN              | Git repository workspace not clean                     |
+| 102       | GIT_OUT_OF_DATE            | Git repository not up-to-date with remote              |
+| 103       | GIT_NO_MERGE_BASE          | Git branch has no merge base                           |
+| 104       | NPM_INSTALL_FAILED         | npm or Yarn failed to install dependencies             |
+| 105       | NPM_BUILD_STORYBOOK_FAILED | npm or Yarn failed to run build-storybook script       |
+| 201       | FETCH_ERROR                | HTTP fetch error                                       |
+| 202       | GRAPHQL_ERROR              | GrahpQL API error                                      |
+| 254       | INVALID_OPTIONS            | Invalid options (flags) provided                       |
+| 255       | UNKNOWN_ERROR              | Unknown error                                          |
+
 ### Deprecated options
 
 These options are still supported, but might be removed in a future version. Avoid them if possible. See "Uploading Storybook via the tunnel" below for details.
