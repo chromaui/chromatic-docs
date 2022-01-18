@@ -9,66 +9,69 @@ description: Learn syntax for markdown in chromatic discussions
 ### Bold
 **bold text**
 
-```
+`
 **bold text**
-```
+`
 ### Blockquote
 
 > blockquote
-```
-> blockquote
-```
+
+
+
+`> blockquote`
+
 ### Ordered List
 1. First item
 2. Second item
 3. Third item
-```
-1. First item
-2. Second item
-3. Third item
-```
+
 ### Unordered List
 - First item
 - Second item
 - Third item
 
-```
-- First item
-- Second item
-- Third item
-```
+<div>
+- First item<br/>
+- Second item<br/>
+- Third item<br/>
+</div>
+or 
+<div>
+* First item<br/>
+* Second item<br/>
+* Third item<br/>
+</div>
+
 ### Code
 `code`
 
-```
-`code`
-```
+<div>`code`</div>
 
 
 ### Link
-[Markdown Guide](https://www.markdownguide.org)
+[Chromatic Docs](https://www.chromatic.com/docs)
 
-```
-[Markdown Guide](https://www.markdownguide.org)
-```
+`
+[Chromatic Docs](https://www.chromatic.com/docs)
+`
 
 ### Fenced Code Block
 
 ```
+
 {
-  "firstName": "John",
-  "lastName": "Smith",
-  "age": 25
+  "story": "Button",
+  "build": 2
 }
+
 ```
 
 
 \`\`\`
 
 {
-  "firstName": "John",
-  "lastName": "Smith",
-  "age": 25
+  "story": "Button",
+  "build": 2
 }
 
 \`\`\`
