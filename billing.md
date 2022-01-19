@@ -55,7 +55,15 @@ For example, if you want to be notified when you use 90% of the 35,000 snapshots
 
 ### Usage reports
 
-You can generate detailed usage reports for your own bookkeeping. Monthly and yearly reports are available for download as a CSV file. Contact us via our in-app chat or [email](mailto:support@chromatic.com) if you'd like a custom date range or have the report formatted as JSON. The downloaded CSV includes the following columns:
+You can generate detailed usage reports for your own bookkeeping. Monthly and yearly reports are available for download as a CSV file. Contact us via our in-app chat or [email](mailto:support@chromatic.com) if you'd like a custom date range or have the report formatted as JSON.
+
+<div class="aside">
+
+Usage reports are currently in closed beta. Contact us if you'd like early access to this feature.
+
+</div>
+
+The downloaded CSV includes the following columns:
 
 | Column                      | Description                                                                                                       |
 | --------------------------- | ----------------------------------------------------------------------------------------------------------------- |
