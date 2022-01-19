@@ -105,6 +105,8 @@ These options may help you debug problems or enable integration with other tools
 | `--only <storypath>`        | Only run a single story or a subset of stories. Use the `title` from the story's default export as the story path. This typically looks like `Path/To/Story`. Globs are supported via [picomatch]. This option implies `--preserve-missing`. |
 | `--trace-changed [mode]`    | Print dependency trace for changed files to affected story files. Set to "expanded" to list individual modules. Requires `--only-changed`.                                                                                                   |
 
+See [diagnosing issues](#diagnosing-issues) for when to use these flags.
+
 ### Exit codes
 
 | Exit code | Key                        | Description                                            |
@@ -173,6 +175,17 @@ To start using uploaded builds, ensure you are on the latest version of [**chrom
 There are examples here: https://github.com/chromaui/chromatic-cli
 
 Do not run this based on a GitHub `pull_request` event. If you do, the commit and branch will get reported wrong, use [our GitHub Action](https://github.com/marketplace/actions/publish-to-chromatic) instead.
+
+## Diagnosing issues
+
+Getting your Chromatic CI script configured _just right_ can take some trial and error. To help debug issues, you may want to consider using some of the debug flags:
+
+- `--no-interactive`: When running the CLI locally, use this flag so you'll get logs like you would in CI, which are more elaborate than the interactive logs. This is automatically enabled in CI, so it's useless to add it in a CI script.
+- `--diagnostics`: Before terminating the process, this dumps process context information to `chromatic-diagnostics.json`. This is the first place to look if you're seeing things you didn't expect. In a CI system, you'll have to configure this file as a **build artifact** so you can download it. How to do this depends on your CI provider.
+- `--dry-run`: Use this if you just want to debug the CLI without actually publishing your Storybook or running a Chromatic build. Typically you'd pair this with `--diagnostics`.
+- `--debug`: This enables verbose logging and `--no-interactive`. Use this if you want to see the nitty gritty details. Mostly useful if you have issues with publishing (uploading) your Storybook to Chromatic.
+- `--trace-changed`: Specifically for TurboSnap, you can use this flag to get a printed tree view of the dependencies between changed files (according to Git) and your story files.
+- `--only`: If you have some specific stories which are causing problems, you can use this flag to run a build for just those stories (one or more). If you don't know which stories are available, you can use `--list` to print a list of all stories in your Storybook, though it will require running a Chromatic build.
 
 ## Migrating to the new CLI package
 
