@@ -117,6 +117,7 @@ See [diagnosing issues](#diagnosing-issues) for when to use these flags.
 | 3         | BUILD_FAILED               | Chromatic build failed due to system error             |
 | 4         | BUILD_NO_STORIES           | Chromatic build failed because it contained no stories |
 | 5         | BUILD_WAS_LIMITED          | Chromatic build was limited                            |
+| 5         | BUILD_CANCELED             | Chromatic build was canceled                           |
 | 11        | ACCOUNT_QUOTA_REACHED      | Chromatic account reached its snapshot quota           |
 | 12        | ACCOUNT_PAYMENT_REQUIRED   | Chromatic account requires payment                     |
 | 101       | GIT_NOT_CLEAN              | Git repository workspace not clean                     |
