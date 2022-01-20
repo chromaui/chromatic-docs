@@ -16,6 +16,9 @@ TurboSnap is an advanced Chromatic feature that speeds up builds for faster [UI 
 - Storybook 6.2+
 - Webpack
 - Stories correctly [configured](https://storybook.js.org/docs/react/configure/overview#configure-story-loading) in Storybook's `main.js`
+- For GitHub Actions: run on `push` rather than `pull_request`
+
+> GitHub workflows have various "triggers" that a Chromatic action could be running on. In general, we recommend sticking to `push` unless you really know what you're doing. TurboSnap will _not_ work when using the `pull_request` trigger or one of its variations. The reason is that `pull_request` workflows run against an ephemeral merge commit, which doesn't actually exist in your Git history yet, but _would_ if you were to merge the PR at that point. If your PR triggers multiple builds before being merged, Chromatic would not be able to find those earlier PR builds because your Git history does not actually contain the commit for which you ran a Chromatic build. Our own GitHub Action works around that by using `pull_request.head.sha` as the commit hash for the build, even though it's really running against the merge commit, just so we can still track baseline history. However, this discrepancy means TurboSnap would be looking at a different set of changed files than were actually in the recorded commit (and which depends on the state of your base branch), yielding unpredictable results.
 
 ## Enable
 

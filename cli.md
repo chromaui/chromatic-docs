@@ -49,7 +49,9 @@ Get your project token from the Chromatic website during onboarding or on your p
 This option can also be configured by setting the `CHROMATIC_PROJECT_TOKEN` environment variable.
 Environment variables are also read from a `.env` file, if present.
 
-<div class="aside">Note: <code>--project-token</code> was previously known as <code>--app-code</code>. If you encounter an error referring to this, you should upgrade to the latest version of the Chromatic CLI. See <a href="#migrating-to-the-new-cli-package">migrating to the new package</a>.</div>
+<div class="aside">
+Note: <code>--project-token</code> was previously known as <code>--app-code</code>. If you encounter an error referring to this, you should upgrade to the latest version of the Chromatic CLI. See <a href="#migrating-to-the-new-cli-package">migrating to the new package</a>.
+</div>
 
 ### Storybook options
 
@@ -61,22 +63,31 @@ Environment variables are also read from a `.env` file, if present.
 | `--output-dir <dirname>`          | Relative path to target directory for building your Storybook, in case you want to preserve it. Otherwise a temporary directory is used if possible. Alias: `-o`                     |
 | `--storybook-build-dir <dirname>` | If you have already built your Storybook, provide the path to the static build directory. Alias: `-d`                                                                                |
 
+<div class="aside">
+A placeholder in <code>&lt;angled brackets&gt;</code> denotes a required value, while <code>[square brackets]</code> denote an optional value. An optional flag value is interpreted as <code>true</code> when no value is provided.
+</div>
+
 ### Chromatic options
 
 These options control how Chromatic behaves with regards to your stories and what to do with them. These might be needed in certain branching situations. See more in the [**branching docs**](branching-and-baselines).
 
-| CLI flag                                  |                                                                                                                                                                                       |
-| ----------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `--allow-console-errors`                  | Continue running Chromatic even if there are errors logged to console in your Storybook.                                                                                              |
-| `--auto-accept-changes [branch]`          | If there are any changes to the build, automatically accept them. Only for `[branch]`, if specified. Globs are supported via [picomatch].                                             |
-| `--branch-name <branch>`                  | Override the branch name. Only meant to be used for unsupported CI integrations and fixing cross-fork PR comparisons. Also accepts `<owner>:<branch>` format.                         |
-| `--exit-once-uploaded [branch]`           | Exit with `0` once the built version has been published to Chromatic. Only for `[branch]`, if specified. Globs are supported via [picomatch].                                         |
-| `--exit-zero-on-changes [branch]`         | If all snapshots render but there are visual changes, exit with code `0` rather than the usual exit code `1`. Only for `[branch]`, if specified. Globs are supported via [picomatch]. |
-| `--ignore-last-build-on-branch <branch>`  | Do not use the last build on this branch as a baseline if it is no longer in history (i.e. branch was rebased). Globs are supported via [picomatch].                                  |
-| `--patch-build <headbranch...basebranch>` | Create a patch build to fix a missing PR comparison.                                                                                                                                  |
-| `--preserve-missing`                      | Treat missing stories as unchanged rather than deleted when comparing to the baseline.                                                                                                |
-| `--skip [branch]`                         | Skip Chromatic tests, but mark the commit as passing. Avoids blocking PRs due to required merge checks. Only for `[branch]`, if specified. Globs are supported via [picomatch].       |
-| `--zip`                                   | Publish your Storybook to Chromatic as a single zip file instead of individual content files.                                                                                         |
+| CLI flag                                  |                                                                                                                                                                                                                              |
+| ----------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `--auto-accept-changes [branch]`          | If there are any changes to the build, automatically accept them. Only for `[branch]`, if specified. Globs are supported via [picomatch].                                                                                    |
+| `--branch-name <branch>`                  | Override the branch name. Only meant to be used for unsupported CI integrations and fixing cross-fork PR comparisons. Also accepts `<owner>:<branch>` format.                                                                |
+| `--ci`                                    | Mark this build as a CI build. Alternatively, set the `CI` environment variable (present in most CI systems). This option implies `--no-interactive`.                                                                        |
+| `--exit-once-uploaded [branch]`           | Exit with `0` once the built version has been published to Chromatic. Only for `[branch]`, if specified. Globs are supported via [picomatch].                                                                                |
+| `--exit-zero-on-changes [branch]`         | If all snapshots render but there are visual changes, exit with code `0` rather than the usual exit code `1`. Only for `[branch]`, if specified. Globs are supported via [picomatch].                                        |
+| `--externals <filepath>`                  | Disable TurboSnap when any of these files have changed since the baseline build. Globs are supported via picomatch. This flag can be specified multiple times. Requires --only-changed.                                      |
+| `--ignore-last-build-on-branch <branch>`  | Do not use the last build on this branch as a baseline if it is no longer in history (i.e. branch was rebased). Globs are supported via [picomatch].                                                                         |
+| `--only-changed [branch]`                 | Enables TurboSnap: Only run stories affected by files changed since the baseline build. Only for `[branch]`, if specified. Globs are supported via [picomatch]. All other snapshots will be inherited from the prior commit. |
+| `--patch-build <headbranch...basebranch>` | Create a patch build to fix a missing PR comparison.                                                                                                                                                                         |
+| `--preserve-missing`                      | Treat missing stories as unchanged rather than deleted when comparing to the baseline.                                                                                                                                       |
+| `--skip [branch]`                         | Skip Chromatic tests, but mark the commit as passing. Avoids blocking PRs due to required merge checks. Only for `[branch]`, if specified. Globs are supported via [picomatch].                                              |
+| `--storybook-base-dir <dirname>`          | Relative path from repository root to Storybook project root. Use with `--only-changed` and `--storybook-build-dir` when your Storybook is located in a subdirectory of your repository.                                     |
+| `--storybook-config-dir <dirname>`        | Relative path from where you run Chromatic to your Storybook config directory. Use with `--only-changed` and `--storybook-build-dir` when using a custom `--config-dir` (`-c`) flag for Storybook. Defaults to `.storybook`. |
+| `--untraced <filepath>`                   | Disregard these files and their dependencies when tracing dependent stories for TurboSnap. Globs are supported via picomatch. This flag can be specified multiple times. Requires --only-changed.                            |
+| `--zip`                                   | Publish your Storybook to Chromatic as a single zip file instead of individual content files.                                                                                                                                |
 
 ### Debug options
 
@@ -84,12 +95,17 @@ These options may help you debug problems or enable integration with other tools
 
 | CLI flag                    |                                                                                                                                                                                                                                              |
 | --------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `--no-interactive`          | Don't ask interactive questions about your setup and don't overwrite output. `true` in non-TTY environments.                                                                                                                                 |
 | `--debug`                   | Output verbose debugging information. This option implies `--no-interactive`.                                                                                                                                                                |
-| `--ci`                      | Mark this build as a CI build. Alternatively, set the `CI` environment variable (present in most CI systems). This option implies `--no-interactive`.                                                                                        |
-| `--list`                    | List available stories. This requires running a full build.                                                                                                                                                                                  |
-| `--only <storypath>`        | Only run a single story or a subset of stories. Use the `title` from the story's default export as the story path. This typically looks like `Path/To/Story`. Globs are supported via [picomatch]. This option implies `--preserve-missing`. |
+| `--diagnostics`             | Write process context information to `chromatic-diagnostics.json`.                                                                                                                                                                           |
+| `--dry-run`                 | Run without actually publishing to Chromatic.                                                                                                                                                                                                |
+| `--force-rebuild [branch]`  | Do not skip build when a rebuild is detected. Only for `[branch]`, if specified. Globs are supported via [picomatch].                                                                                                                        |
 | `--junit-report [filepath]` | Write build results to a JUnit XML file. Defaults to `chromatic-build-{buildNumber}.xml`. `{buildNumber}` will be replaced with the actual build number.                                                                                     |
+| `--list`                    | List available stories. This requires running a full build.                                                                                                                                                                                  |
+| `--no-interactive`          | Don't ask interactive questions about your setup and don't overwrite output. `true` in non-TTY environments.                                                                                                                                 |
+| `--only <storypath>`        | Only run a single story or a subset of stories. Use the `title` from the story's default export as the story path. This typically looks like `Path/To/Story`. Globs are supported via [picomatch]. This option implies `--preserve-missing`. |
+| `--trace-changed [mode]`    | Print dependency trace for changed files to affected story files. Set to "expanded" to list individual modules. Requires `--only-changed`.                                                                                                   |
+
+See [diagnosing issues](#diagnosing-issues) for when to use these flags.
 
 ### Exit codes
 
@@ -120,6 +136,8 @@ These options are still supported, but might be removed in a future version. Avo
 
 | CLI flag                  |                                                                                                                                              |
 | ------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------- |
+| `--allow-console-errors`  | Continue running Chromatic even if there are errors logged to console in your Storybook.                                                     |
+| `--app-code <token>`      | Renamed to `--project-token`.                                                                                                                |
 | `--script-name [name]`    | The npm script that starts your Storybook. Defaults to `storybook`. Alias: `-s`                                                              |
 | `--exec <command>`        | Alternatively, a shell command that starts your Storybook. Alias: `-e`                                                                       |
 | `--do-not-start`          | Don't attempt to start or build Storybook. Use this if your Storybook is already running, for example when part of a larger app. Alias: `-S` |
@@ -158,6 +176,17 @@ To start using uploaded builds, ensure you are on the latest version of [**chrom
 There are examples here: https://github.com/chromaui/chromatic-cli
 
 Do not run this based on a GitHub `pull_request` event. If you do, the commit and branch will get reported wrong, use [our GitHub Action](https://github.com/marketplace/actions/publish-to-chromatic) instead.
+
+## Diagnosing issues
+
+Getting your Chromatic CI script configured _just right_ can take some trial and error. To help debug issues, you may want to consider using some of the debug flags:
+
+- `--no-interactive`: When running the CLI locally, use this flag so you'll get logs like you would in CI, which are more elaborate than the interactive logs. This is automatically enabled in CI, so it's useless to add it in a CI script.
+- `--diagnostics`: Before terminating the process, this dumps process context information to `chromatic-diagnostics.json`. This is the first place to look if you're seeing things you didn't expect. In a CI system, you'll have to configure this file as a **build artifact** so you can download it. How to do this depends on your CI provider.
+- `--dry-run`: Use this if you just want to debug the CLI without actually publishing your Storybook or running a Chromatic build. Typically you'd pair this with `--diagnostics`.
+- `--debug`: This enables verbose logging and `--no-interactive`. Use this if you want to see the nitty gritty details. Mostly useful if you have issues with publishing (uploading) your Storybook to Chromatic.
+- `--trace-changed`: Specifically for TurboSnap, you can use this flag to get a printed tree view of the dependencies between changed files (according to Git) and your story files.
+- `--only`: If you have some specific stories which are causing problems, you can use this flag to run a build for just those stories (one or more). If you don't know which stories are available, you can use `--list` to print a list of all stories in your Storybook, though it will require running a Chromatic build.
 
 ## Migrating to the new CLI package
 
