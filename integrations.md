@@ -23,7 +23,6 @@ Post a message in a designated Slack channel when a build's [status changes](#st
 
 > Please note that Slack notifications are not posted for passed builds.
 
-
 The custom icon:
 ![Chromatic Slack icon](img/chromatic-slack-icon.png)
 
@@ -34,40 +33,47 @@ Connect Chromatic to other services that support webhooks to script custom behav
 1. Go to your [Chromatic project](https://www.chromatic.com/start) and click the manage tab in the sidebar. Scroll down to "Integrations".
 2. Click the "Add webhook" button in the custom webhook section then paste your webhook into the input.
 
-When a build's [status changes](#status-notifications) we'll call your webhook with this data:
+When a build's [status changes](#result-and-status-codes) we'll send a `POST` request to your webhook with a body that looks like this:
 
 ```json
 {
   "event": "build-status-changed",
   "build": {
+    "number": 123,
+    "result": "SUCCESS",
     "status": "BUILD_ACCEPTED",
-    "webUrl": "https://www.chromatic.com/build?appId={appId}&number={buildNumber}",
-    "committerName": "Jack",
-    "number": 1,
-    "branch": "tech/refactor",
-    "storybookUrl": "https://{appId}-{hash}.chromatic.com/",
-    "changeCount": 0,
+    "webUrl": "https://www.chromatic.com/build?appId=5dca7f6a6ce19b00201febb7&number=123",
+    "branch": "main",
+    "commit": "f6f223efb3b99b83ac3b0b6ece9f9620619933c1",
+    "committerName": "John Doe",
+    "storybookUrl": "https://5dca7f6a6ce19b00201febb7-yubzntxvow.chromatic.com/",
+    "changeCount": 12,
     "componentCount": 42,
     "specCount": 100
   }
 }
 ```
 
+The `event` name is constant, but the `build` data will vary.
+
 ### Signed Webhooks
 
 Chromatic supports signed webhooks, here is example code of how to handle them: [signed-webhook-examples](https://github.com/chromaui/signed-webhook-examples). Please contact us via in-app chat or <a href="mailto:support@chromatic.com?Subject=Signed%20webhooks">email</a> to enable signed webhooks on your account.
 
-## Status notifications
+### Result and status codes
 
-Chromatic reports these statuses for each build.
+| Update                            | `result`        | `status`    | Legacy `status`  |
+| --------------------------------- | --------------- | ----------- | ---------------- |
+| 🌕 Ready for review (has changes) | `SUCCESS`       | `PENDING`   | `BUILD_PENDING`  |
+| 🟢 Passed (no changes)            | `SUCCESS`       | `PASSED`    | `BUILD_PASSED`   |
+| 🟢 Accepted                       | `SUCCESS`       | `ACCEPTED`  | `BUILD_ACCEPTED` |
+| 🔴 Denied                         | `SUCCESS`       | `DENIED`    | `BUILD_DENIED`   |
+| 🔴 Broken                         | `CAPTURE_ERROR` | `BROKEN`    | `BUILD_FAILED`   |
+| ⚫️ Canceled                      | `SYSTEM_ERROR`  | `CANCELLED` | `BUILD_ERROR`    |
+| ⚫️ Error                         | `SYSTEM_ERROR`  | `FAILED`    | `BUILD_ERROR`    |
+| ⚫️ Timed out                     | `TIMEOUT`       | `FAILED`    | `BUILD_ERROR`    |
 
-| Build               | Status             |
-| ------------------- | ------------------ |
-| 🌕 Ready for review | `BUILD_PENDING`    |
-| ✅ Accepted         | `BUILD_ACCEPTED`   |
-| ✅ Passed           | `BUILD_PASSED`     |
-| 🔴 Denied           | `BUILD_DENIED`     |
-| 🔴 Failed           | `BUILD_FAILED`     |
-| ⚫️ Error           | `BUILD_ERROR`      |
-| ⚫️ Timed out       | `BUILD_TIMED_OUT`  |
-| ⚫️ Not captured    | `BUILD_NO_CAPTURE` |
+<div class="aside">
+If you've been using a custom webhook for a long time, or used to have one in the past, your project might still be configured to receive the legacy `status` values.
+You can either continue to use the old values, or contact us so we can switch your project over to the new values. Removing and recreating your webhook will not automatically update you to the new format.
+</div>
