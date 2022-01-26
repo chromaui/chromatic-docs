@@ -1,77 +1,85 @@
 ---
 layout: default
-title: Chromatic Markdown Syntax
-description: Learn syntax for markdown in chromatic discussions
+title: Chromatic Markdown syntax
+description: Learn how to use markdown in discussions
 ---
 
-# Markdown supported
+# Markdown support in Chromatic
 
-### Bold
-**bold text**
+Create sophisticated formatting for your prose and code in Chromatic with simple syntax.
 
-`
-**bold text**
-`
-### Blockquote
+## Styling text
 
-> blockquote
+Wrap your text with `**` to add emphasis. When published the text will be formatted in **bold**.
 
+```md
+**This is bold text.**
 
+This is not.
+```
 
-`> blockquote`
+## Quoting text
 
-### Ordered List
-1. First item
-2. Second item
-3. Third item
+Quote specific elements from discussions by adding a `>` and pasting in the relevant text.
 
-### Unordered List
+```md
+This is not a quote.
+
+> This is a text quote
+```
+
+## Quoting code
+
+Call out relevant code or commands inside a discussion by surrounding the relevant text with single backticks <code>`</code>, the text within the backticks will not be formatted.
+
+```md
+Run Chromatic by issuing `npx chromatic --project-token=<project-token>`
+```
+
+## Working with code blocks
+
+Share code examples by wrapping the relevant code with triple backticks <code>\`\`\`</code> before and after each code block. We recommend placing a blank line before and after the code block for readability.
+
+````
+
+```
+
+function Example(){
+
+ console.log("This is an example function");
+
+}
+
+```
+
+````
+
+## Working with lists
+
+Create lists of items in your discussions by preceding one or more lines of text with `-` or `*`.
+
+```md
 - First item
+
 - Second item
+
 - Third item
-
-<div>
-- First item<br/>
-- Second item<br/>
-- Third item<br/>
-</div>
-or 
-<div>
-* First item<br/>
-* Second item<br/>
-* Third item<br/>
-</div>
-
-### Code
-`code`
-
-<div>`code`</div>
-
-
-### Link
-[Chromatic Docs](https://www.chromatic.com/docs)
-
-`
-[Chromatic Docs](https://www.chromatic.com/docs)
-`
-
-### Fenced Code Block
-
 ```
 
-{
-  "story": "Button",
-  "build": 2
-}
+If you need to order your list, precede each line with a number.
 
+```md
+1. First item
+
+2. Second item
+
+3. Third item
 ```
 
+## Adding links
 
-\`\`\`
+Supply links inside your comments by wrapping the link text in brackets`[ ]` and the URL in parentheses `( )`.
 
-{
-  "story": "Button",
-  "build": 2
-}
-
-\`\`\`
+```md
+Learn more about UI review in the [UI review documentation](https://www.chromatic.com/docs/review).
+```
