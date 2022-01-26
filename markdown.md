@@ -42,7 +42,7 @@ Share code examples by wrapping the relevant code with triple backticks <code>\`
 
 ````
 
-```
+```js
 
 function Example(){
 
