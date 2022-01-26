@@ -40,18 +40,12 @@ Run Chromatic by issuing `npx chromatic --project-token=<project-token>`
 
 Share code examples by wrapping the relevant code with triple backticks <code>\`\`\`</code> before and after each code block. We recommend placing a blank line before and after the code block for readability.
 
-````
-
+````md
 ```js
-
-function Example(){
-
- console.log("This is an example function");
-
+function Example() {
+  console.log("This is an example function");
 }
-
 ```
-
 ````
 
 ## Working with lists
