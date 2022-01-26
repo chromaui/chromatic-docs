@@ -62,13 +62,18 @@ Chromatic supports signed webhooks, here is example code of how to handle them: 
 
 ### Result and status codes
 
-| Update                            | `result`        | `status`    |
-| --------------------------------- | --------------- | ----------- |
-| 🌕 Ready for review (has changes) | `SUCCESS`       | `PENDING`   |
-| 🟢 Passed (no changes)            | `SUCCESS`       | `PASSED`    |
-| 🟢 Accepted                       | `SUCCESS`       | `ACCEPTED`  |
-| 🔴 Denied                         | `SUCCESS`       | `DENIED`    |
-| 🔴 Broken                         | `CAPTURE_ERROR` | `BROKEN`    |
-| ⚫️ Canceled                      | `SYSTEM_ERROR`  | `CANCELLED` |
-| ⚫️ Error                         | `SYSTEM_ERROR`  | `FAILED`    |
-| ⚫️ Timed out                     | `TIMEOUT`       | `FAILED`    |
+| Update                            | `result`        | `status`    | Legacy `status`  |
+| --------------------------------- | --------------- | ----------- | ---------------- |
+| 🌕 Ready for review (has changes) | `SUCCESS`       | `PENDING`   | `BUILD_PENDING`  |
+| 🟢 Passed (no changes)            | `SUCCESS`       | `PASSED`    | `BUILD_PASSED`   |
+| 🟢 Accepted                       | `SUCCESS`       | `ACCEPTED`  | `BUILD_ACCEPTED` |
+| 🔴 Denied                         | `SUCCESS`       | `DENIED`    | `BUILD_DENIED`   |
+| 🔴 Broken                         | `CAPTURE_ERROR` | `BROKEN`    | `BUILD_FAILED`   |
+| ⚫️ Canceled                      | `SYSTEM_ERROR`  | `CANCELLED` | `BUILD_ERROR`    |
+| ⚫️ Error                         | `SYSTEM_ERROR`  | `FAILED`    | `BUILD_ERROR`    |
+| ⚫️ Timed out                     | `TIMEOUT`       | `FAILED`    | `BUILD_ERROR`    |
+
+<div class="aside">
+If you've been using a custom webhook for a long time, or used to have one in the past, your project might still be configured to receive the legacy `status` values.
+You can either continue to use the old values, or contact us so we can switch your project over to the new values. Removing and recreating your webhook will not automatically update you to the new format.
+</div>
