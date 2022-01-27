@@ -69,11 +69,3 @@ If you need to order your list, precede each line with a number.
 
 3. Third item
 ```
-
-## Adding links
-
-Supply links inside your comments by wrapping the link text in brackets`[ ]` and the URL in parentheses `( )`.
-
-```md
-Learn more about UI review in the [UI review documentation](https://www.chromatic.com/docs/review).
-```
