@@ -63,7 +63,7 @@ As used in this Agreement, the following terms shall have the meanings set forth
     - (c) Services Materials
     - (d) Training Materials
     - (e) Documentation
-    - (f) implementation architectures that encompass Chromatic and any of the foregoing items (a) – (e) ("Implementation Architectures").
+    - (f) Implementation architectures that encompass Chromatic and any of the foregoing items (a) – (e) ("Implementation Architectures").
 
 - "**Consulting Services**" means Chroma consulting services offerings as set forth in an applicable Subscription Order or SOW.
 
@@ -292,7 +292,11 @@ Subject to the terms and conditions of this Agreement, Chroma will provide to Cu
 
 - 6.6 **Reservation of Rights**
 
-  Chroma reserves all rights not expressly granted to Customer in this Agreement. Except as expressly stated, nothing herein shall be construed to (1) directly or indirectly grant to a receiving party any title to or ownership of a providing party’s intellectual property rights in services or materials furnished by such providing party hereunder, or (2) preclude such providing party from developing, marketing, using, licensing, modifying or otherwise freely exploiting services or materials that are similar to or related to the Support, services, or materials provided hereunder.
+  Chroma reserves all rights not expressly granted to Customer in this Agreement. Except as expressly stated, nothing herein shall be construed to:
+
+  1. Directly or indirectly grant to a receiving party any title to or ownership of a providing party’s intellectual property rights in services or materials furnished by such providing party hereunder.
+
+  2. Preclude such providing party from developing, marketing, using, licensing, modifying or otherwise freely exploiting services or materials that are similar to or related to the Support, services, or materials provided hereunder.
 
 - 6.7 **Copyright Policy**
 
