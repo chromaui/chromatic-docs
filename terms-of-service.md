@@ -56,11 +56,11 @@ As used in this Agreement, the following terms shall have the meanings set forth
 
   - (iv) Customer specific terms or pricing set forth in business proposals, this Agreement or any Subscription Order or SOW (as defined below).
   - (v) Where Chroma is the Disclosing Party:
-    - (a) Chroma’s Pre-Existing Intellectual Property
-    - (b) General Enhancements
-    - (c) Services Materials
-    - (d) Training Materials
-    - (e) Documentation
+    - (a) Chroma’s Pre-Existing Intellectual Property.
+    - (b) General Enhancements.
+    - (c) Services Materials.
+    - (d) Training Materials.
+    - (e) Documentation.
     - (f) Implementation architectures that encompass Chromatic and any of the foregoing items (a) – (e) ("Implementation Architectures").
 
 - "**Consulting Services**" means Chroma consulting services offerings as set forth in an applicable Subscription Order or SOW.
@@ -98,11 +98,11 @@ As used in this Agreement, the following terms shall have the meanings set forth
 
 - "**Work Product**" means all inventions, improvements, modifications, enhancements, derivatives, processes, methodologies, formulas, designs, drawings, data, information, and works of authorship in which any proprietary right exists or may be acquired or asserted, and which are developed, discovered, invented, authored, or first reduced to practice by Chroma, alone or jointly with Customer and/or any third party or parties, in the course of providing Support under this Agreement provided, however, that Work Product shall not include:
 
-  - (a) Chroma's Pre-Existing Intellectual Property
-  - (b) General Enhancements
-  - (c) Services Materials
-  - (d) Training Materials
-  - (e) Documentation
+  - (a) Chroma's Pre-Existing Intellectual Property.
+  - (b) General Enhancements.
+  - (c) Services Materials.
+  - (d) Training Materials.
+  - (e) Documentation.
   - (f) Implementation Architectures.
 
 - "**We**" "**Us**" or "**Our**" means the Chroma Software company described in [Section 12](#12-general) (Governing Law and Venue).
@@ -122,7 +122,7 @@ Subject to the terms and conditions of this Agreement, Chroma will provide to Cu
   - (a) Make the Services and Content available to Customer pursuant to this Agreement and the applicable Order Forms.
   - (b) Use commercially reasonable efforts to make the online Purchased Services available 24 hours a day, 7 days a week, except for:
 
-    - (i) Planned downtime (of which We shall give at least 1 business day notice and which We shall schedule to the extent practicable during the off-peak hours of our choosing)
+    - (i) Planned downtime (of which We shall give at least 1 business day notice and which We shall schedule to the extent practicable during the off-peak hours of our choosing).
     - (ii) Any unavailability caused by circumstances beyond Our reasonable control, including, for example, an act of God, act of government, flood, fire, earthquake, civil unrest, war, act of terror, quarantine, strike or other labor problem (other than one involving Our employees), Internet service provider failure or delay, or denial of service attack.
 
 - 2.2. **Protection of Customer Data**
@@ -150,7 +150,9 @@ Subject to the terms and conditions of this Agreement, Chroma will provide to Cu
 
   Additional trial terms and conditions may appear as part of a Subscription Order or on a trial registration web page. Any such additional terms and conditions are incorporated into this Agreement by reference and are legally binding.
 
-  ANY DATA YOU ENTER INTO THE SERVICES, AND ANY CUSTOMIZATIONS MADE TO THE SERVICES BY OR FOR YOU, DURING YOUR FREE TRIAL MAY BE PERMANENTLY LOST UNLESS YOU PURCHASE A SUBSCRIPTION TO THE SAME SERVICES AS THOSE COVERED BY THE TRIAL, PURCHASE UPGRADED SERVICES, OR EXPORT SUCH DATA, BEFORE THE END OF THE TRIAL PERIOD. NOTWITHSTANDING [SECTION 9](#9-warranty), DURING THE FREE TRIAL THE SERVICES ARE PROVIDED "AS IS" WITHOUT ANY WARRANTY. Please review Documentation during the trial period so that You become familiar with the features and functions of the Services before You make Your purchase.
+  ANY DATA YOU ENTER INTO THE SERVICES, AND ANY CUSTOMIZATIONS MADE TO THE SERVICES BY OR FOR YOU, DURING YOUR FREE TRIAL MAY BE PERMANENTLY LOST UNLESS YOU PURCHASE A SUBSCRIPTION TO THE SAME SERVICES AS THOSE COVERED BY THE TRIAL, PURCHASE UPGRADED SERVICES, OR EXPORT SUCH DATA, BEFORE THE END OF THE TRIAL PERIOD. NOTWITHSTANDING [SECTION 9](#9-warranty), DURING THE FREE TRIAL THE SERVICES ARE PROVIDED "AS IS" WITHOUT ANY WARRANTY.
+
+  Please review Documentation during the trial period so that You become familiar with the features and functions of the Services before You make Your purchase.
 
 - 2.6 **Beta Services**
 
