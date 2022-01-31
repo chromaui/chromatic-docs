@@ -347,7 +347,11 @@ Subject to the terms and conditions of this Agreement, Chroma will provide to Cu
 
   - Each party represents and warrants that it has the right, power, and authority to enter into, and perform its obligations under, this Agreement and each Subscription Order and SOW.
 
-  - Chroma warrants that the Services and Support will be performed by qualified personnel in a professional and workmanlike manner consistent with applicable industry standards. Customer must notify Chroma in writing of any alleged failure by Chroma to perform Support or Services in accordance with the foregoing warranty within thirty (30) days of the delivery of the affected Services or Support. Chroma’s entire liability and Customer’s sole remedy for Chroma’s failure to perform in accordance with the above warranty shall be for Chroma to: (i) use commercially reasonable efforts to cure or correct such failure, or (ii) if Chroma is unable to cure or correct such failure, terminate the affected Services or Support and refund that portion of fees paid by Customer to Chroma that corresponds to such failure to perform.
+  - Chroma warrants that the Services and Support will be performed by qualified personnel in a professional and workmanlike manner consistent with applicable industry standards. Customer must notify Chroma in writing of any alleged failure by Chroma to perform Support or Services in accordance with the foregoing warranty within thirty (30) days of the delivery of the affected Services or Support. Chroma’s entire liability and Customer’s sole remedy for Chroma’s failure to perform in accordance with the above warranty shall be for Chroma to:
+
+    - (i) Use commercially reasonable efforts to cure or correct such failure.
+
+    - (ii) If Chroma is unable to cure or correct such failure, terminate the affected Services or Support and refund that portion of fees paid by Customer to Chroma that corresponds to such failure to perform.
 
 - 9.2 **Disclaimer**
 
