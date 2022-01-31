@@ -16,10 +16,8 @@ Agreement is effective as of the date Customer accepts the terms of this Agreeme
 understand and agree that Chroma will treat your use of the Chroma Services as acceptance of the Terms from that point onwards. You may not access the Services if
 You are a direct competitor, except with Chroma’s prior written consent. In addition, You may not access the Services for purposes of monitoring their availability,
 performance or functionality, or for any other benchmarking or competitive purposes.
-IN ORDER TO USE CHROMA SERVICES, CUSTOMER AGREES TO THE TERMS AND CONDITIONS OF THIS AGREEMENT WHICH WILL GOVERN CUSTOMER’S
-PURCHASE AND USE OF CHROMA SERVICES. IF YOU ARE ACTING ON BEHALF OF AN ENTITY, YOU REPRESENT THAT YOU HAVE THE AUTHORITY TO
-ENTER INTO THIS AGREEMENT ON BEHALF OF THAT ENTITY. IF CUSTOMER DOES NOT ACCEPT THE TERMS OF THIS AGREEMENT, THEN IT MUST NOT
-PURCHASE OR USE THE CHROMA SERVICES.
+
+IN ORDER TO USE CHROMA SERVICES, CUSTOMER AGREES TO THE TERMS AND CONDITIONS OF THIS AGREEMENT WHICH WILL GOVERN CUSTOMER’S PURCHASE AND USE OF CHROMA SERVICES. IF YOU ARE ACTING ON BEHALF OF AN ENTITY, YOU REPRESENT THAT YOU HAVE THE AUTHORITY TO ENTER INTO THIS AGREEMENT ON BEHALF OF THAT ENTITY. IF CUSTOMER DOES NOT ACCEPT THE TERMS OF THIS AGREEMENT, THEN IT MUST NOT PURCHASE OR USE THE CHROMA SERVICES.
 
 ## Contents
 
@@ -150,7 +148,9 @@ Subject to the terms and conditions of this Agreement, Chroma will provide to Cu
   - (a) The end of the free trial period for which you registered to use the applicable Service(s).
   - (b) The start date of any Service subscriptions ordered by You for such Service(s).
 
-  Additional trial terms and conditions may appear as part of a Subscription Order or on a trial registration web page. Any such additional terms and conditions are incorporated into this Agreement by reference and are legally binding. ANY DATA YOU ENTER INTO THE SERVICES, AND ANY CUSTOMIZATIONS MADE TO THE SERVICES BY OR FOR YOU, DURING YOUR FREE TRIAL MAY BE PERMANENTLY LOST UNLESS YOU PURCHASE A SUBSCRIPTION TO THE SAME SERVICES AS THOSE COVERED BY THE TRIAL, PURCHASE UPGRADED SERVICES, OR EXPORT SUCH DATA, BEFORE THE END OF THE TRIAL PERIOD. NOTWITHSTANDING [SECTION 9](#9-warranty), DURING THE FREE TRIAL THE SERVICES ARE PROVIDED "AS IS" WITHOUT ANY WARRANTY. Please review Documentation during the trial period so that You become familiar with the features and functions of the Services before You make Your purchase.
+  Additional trial terms and conditions may appear as part of a Subscription Order or on a trial registration web page. Any such additional terms and conditions are incorporated into this Agreement by reference and are legally binding.
+
+  ANY DATA YOU ENTER INTO THE SERVICES, AND ANY CUSTOMIZATIONS MADE TO THE SERVICES BY OR FOR YOU, DURING YOUR FREE TRIAL MAY BE PERMANENTLY LOST UNLESS YOU PURCHASE A SUBSCRIPTION TO THE SAME SERVICES AS THOSE COVERED BY THE TRIAL, PURCHASE UPGRADED SERVICES, OR EXPORT SUCH DATA, BEFORE THE END OF THE TRIAL PERIOD. NOTWITHSTANDING [SECTION 9](#9-warranty), DURING THE FREE TRIAL THE SERVICES ARE PROVIDED "AS IS" WITHOUT ANY WARRANTY. Please review Documentation during the trial period so that You become familiar with the features and functions of the Services before You make Your purchase.
 
 - 2.6 **Beta Services**
 
@@ -158,8 +158,7 @@ Subject to the terms and conditions of this Agreement, Chroma will provide to Cu
 
 - 2.7 **Recommendations**
 
-  Chroma may, and Customer grants us permission to, make recommendations via Chroma Services or other marketing
-  channels for products or services we think may be of interest to you based on your Application(s), Content, and/or use of Chroma services.
+  Chroma may, and Customer grants us permission to, make recommendations via Chroma Services or other marketing channels for products or services we think may be of interest to you based on your Application(s), Content, and/or use of Chroma services.
 
 - 2.8 **Modification of Chroma Services**
 
@@ -275,7 +274,7 @@ Subject to the terms and conditions of this Agreement, Chroma will provide to Cu
   - (b) General Enhancements.
   - (c) Services Materials.
   - (d) Training Materials.
-  - (e) Documentation
+  - (e) Documentation.
   - (f) Implementation Architectures (together, the "Chroma Retained Property"), including any and all Intellectual Property therein and thereto. Except as expressly set forth herein, nothing in this Agreement conveys any right, title, or interest in or to the Chroma Retained Property or Chromatic (including General Enhancements thereto) to Customer or any other third party.
 
 - 6.3 **Work Product**
@@ -359,7 +358,7 @@ Subject to the terms and conditions of this Agreement, Chroma will provide to Cu
 
 - 9.2 **Disclaimer**
 
-  EXCEPT AS EXPRESSLY PROVIDED IN SECTION 9.1, CHROMA DOES NOT MAKE OR GIVE ANY REPRESENTATION, WARRANTY, OR COVENANT OF ANY KIND, WHETHER EXPRESS OR IMPLIED, IN CONNECTION WITH THE SUPPORT OR SERVICES PROVIDED HEREUNDER. WITHOUT LIMITING THE FOREGOING, AND TO THE MAXIMUM EXTENT PERMITTED BY APPLICABLE LAW, CHROMA EXPRESSLY DISCLAIMS ANY AND ALL IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO IMPLIED WARRANTIES OF MERCHANTABILITY, QUALITY, NON INFRINGEMENT, TITLE, OR FITNESS FOR A PARTICULAR PURPOSE AND ANY REPRESENTATION, WARRANTY, OR COVENANT BASED ON COURSE OF DEALING OR USAGE IN TRADE. NO ADVICE OR INFORMATION, WHETHER ORAL OR WRITTEN, OBTAINED BY CUSTOMER FROM CHROMA OR THROUGH THE CHROMATIC WILL CREATE ANY WARRANTY NOT EXPRESSLY STATED HEREIN. WITHOUT LIMITING THE FOREGOING, CHROMATIC, ITS SUBSIDIARIES, ITS AFFILIATES, AND ITS LICENSORS DO NOT WARRANT THAT THE CONTENT IS ACCURATE, RELIABLE OR CORRECT THAT CHROMATIC WILL MEET CUSTOMER’S REQUIREMENTS THAT CHROMATIC WILL BE AVAILABLE AT ANY PARTICULAR TIME OR LOCATION, UNINTERRUPTED OR SECURE OR THAT ANY DEFECTS OR ERRORS WILL BE CORRECTED, INCLUDING WITHOUT LIMITATION BY ANY CHROMA SUPPORT. CHROMA SHALL HAVE NO OBLIGATION TO IDENTIFY OR CORRECT ANY DEFECTS OR ERRORS, OR TO MODIFY CHROMATIC OR PERFORM ANY SOFTWARE DEVELOPMENT SERVICES AS PART OF THE CHROMA SUPPORT.
+  EXCEPT AS EXPRESSLY PROVIDED IN SECTION [9.1](#9-warranty), CHROMA DOES NOT MAKE OR GIVE ANY REPRESENTATION, WARRANTY, OR COVENANT OF ANY KIND, WHETHER EXPRESS OR IMPLIED, IN CONNECTION WITH THE SUPPORT OR SERVICES PROVIDED HEREUNDER. WITHOUT LIMITING THE FOREGOING, AND TO THE MAXIMUM EXTENT PERMITTED BY APPLICABLE LAW, CHROMA EXPRESSLY DISCLAIMS ANY AND ALL IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO IMPLIED WARRANTIES OF MERCHANTABILITY, QUALITY, NON INFRINGEMENT, TITLE, OR FITNESS FOR A PARTICULAR PURPOSE AND ANY REPRESENTATION, WARRANTY, OR COVENANT BASED ON COURSE OF DEALING OR USAGE IN TRADE. NO ADVICE OR INFORMATION, WHETHER ORAL OR WRITTEN, OBTAINED BY CUSTOMER FROM CHROMA OR THROUGH THE CHROMATIC WILL CREATE ANY WARRANTY NOT EXPRESSLY STATED HEREIN. WITHOUT LIMITING THE FOREGOING, CHROMATIC, ITS SUBSIDIARIES, ITS AFFILIATES, AND ITS LICENSORS DO NOT WARRANT THAT THE CONTENT IS ACCURATE, RELIABLE OR CORRECT THAT CHROMATIC WILL MEET CUSTOMER’S REQUIREMENTS THAT CHROMATIC WILL BE AVAILABLE AT ANY PARTICULAR TIME OR LOCATION, UNINTERRUPTED OR SECURE OR THAT ANY DEFECTS OR ERRORS WILL BE CORRECTED, INCLUDING WITHOUT LIMITATION BY ANY CHROMA SUPPORT. CHROMA SHALL HAVE NO OBLIGATION TO IDENTIFY OR CORRECT ANY DEFECTS OR ERRORS, OR TO MODIFY CHROMATIC OR PERFORM ANY SOFTWARE DEVELOPMENT SERVICES AS PART OF THE CHROMA SUPPORT.
 
 ## 10. Indemnification
 
