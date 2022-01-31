@@ -314,12 +314,17 @@ Subject to the terms and conditions of this Agreement, Chroma will provide to Cu
   - (i) Was in the possession of the Receiving Party at the time of disclosure without any restrictions as to confidentiality of such information.
 
   - (ii) Was generally available to the public at the time of disclosure or became generally available to the public after disclosure through no breach of this Agreement or other wrongful act by the Receiving Party.
-  - (iii) was rightfully received by the Receiving Party from a third party without restriction on disclosure.
-  - (iv) is independently developed by the Receiving Party without use of or reference to the Confidential Information. The Receiving Party may disclose Confidential Information to the extent required to comply with binding orders of governmental entities that have jurisdiction over it provided that, to the extent legally permitted, the Receiving Party gives the Disclosing Party reasonable written notice to allow the Disclosing Party to seek a protective order or other appropriate remedy, discloses only such Confidential Information as is required by the governmental entity, and uses commercially reasonable efforts to obtain confidential treatment for any Confidential Information disclosed.
+  - (iii) Was rightfully received by the Receiving Party from a third party without restriction on disclosure.
+  - (iv) Is independently developed by the Receiving Party without use of or reference to the Confidential Information. The Receiving Party may disclose Confidential Information to the extent required to comply with binding orders of governmental entities that have jurisdiction over it provided that, to the extent legally permitted, the Receiving Party gives the Disclosing Party reasonable written notice to allow the Disclosing Party to seek a protective order or other appropriate remedy, discloses only such Confidential Information as is required by the governmental entity, and uses commercially reasonable efforts to obtain confidential treatment for any Confidential Information disclosed.
 
 - 7.3 **Return and Destruction**
 
-  Upon the written request of the Disclosing Party, the Receiving Party shall promptly return or destroy the Confidential Information, including all copies thereof (certifying the fact of such destruction to the Disclosing Party), with the exception that the Receiving Party (a) may retain an archival copy of the Confidential Information and (b) is not required to destroy or alter computer based backup files generated in the normal course of its business. Any Confidential Information contained in such archival copies or backup files shall, however, remain subject to the confidentiality obligations of this Section 7.
+  Upon the written request of the Disclosing Party, the Receiving Party shall promptly return or destroy the Confidential Information, including all copies thereof (certifying the fact of such destruction to the Disclosing Party), with the exception that the Receiving Party:
+
+  - (a) May retain an archival copy of the Confidential Information.
+  - (b) Is not required to destroy or alter computer based backup files generated in the normal course of its business.
+
+  Any Confidential Information contained in such archival copies or backup files shall, however, remain subject to the confidentiality obligations of this Section 7.
 
 - 7.4 **Equitable Relief**
 
