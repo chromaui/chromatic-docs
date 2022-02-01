@@ -120,8 +120,8 @@ Some options can be configured through environment variables. You will typically
 | `CHROMATIC_POLL_INTERVAL`     | Polling interval when waiting for build to finish (default: `1000`)                    |
 | `CHROMATIC_RETRIES`           | Number of times to retry file upload (default: `5`)                                    |
 | `CHROMATIC_STORYBOOK_VERSION` | Overrides Storybook package/version detection (e.g. `@storybook/react@6.5.0-alpha.25`) |
-| `CHROMATIC_TIMEOUT`           | Number of ms before giving up on `start-storybook` (default: `5 * 60 * 1000`)          |
-| `STORYBOOK_BUILD_TIMEOUT`     | Number of ms before giving up on `build-storybook` (default: `10 * 60 * 1000`)         |
+| `CHROMATIC_TIMEOUT`           | Number of ms before giving up on `start-storybook` (default: `300000` (5 minutes))     |
+| `STORYBOOK_BUILD_TIMEOUT`     | Number of ms before giving up on `build-storybook` (default: `600000` (10 minutes))    |
 | `CI`                          | See `--ci`                                                                             |
 | `LOG_LEVEL`                   | One of: `silent`, `error`, `warn`, `info`, `debug`                                     |
 | `DISABLE_LOGGING`             | Set to `true` to disable logging. Equal to `LOG_LEVEL=silent`                          |
