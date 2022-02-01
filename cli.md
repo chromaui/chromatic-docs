@@ -107,28 +107,48 @@ These options may help you debug problems or enable integration with other tools
 
 See [diagnosing issues](#diagnosing-issues) for when to use these flags.
 
+### Environment variables
+
+Some options can be configured through environment variables. You will typically only need these when instructed to. Flags take precedence over environment variables.
+
+| Environment variable          | Description                                                                            |
+| ----------------------------- | -------------------------------------------------------------------------------------- |
+| `CHROMATIC_PROJECT_TOKEN`     | Project token, see `--project-token`                                                   |
+| `CHROMATIC_SHA`               | Git commit hash                                                                        |
+| `CHROMATIC_BRANCH`            | Git branch name, see `--branch-name`                                                   |
+| `CHROMATIC_SLUG`              | Git repository slug (e.g. `chromaui/chromatic-cli`)                                    |
+| `CHROMATIC_POLL_INTERVAL`     | Polling interval when waiting for build to finish (default: `1000`)                    |
+| `CHROMATIC_RETRIES`           | Number of times to retry file upload (default: `5`)                                    |
+| `CHROMATIC_STORYBOOK_VERSION` | Overrides Storybook package/version detection (e.g. `@storybook/react@6.5.0-alpha.25`) |
+| `CHROMATIC_TIMEOUT`           | Number of ms before giving up on `start-storybook` (default: `300000` (5 minutes))     |
+| `STORYBOOK_BUILD_TIMEOUT`     | Number of ms before giving up on `build-storybook` (default: `600000` (10 minutes))    |
+| `CI`                          | See `--ci`                                                                             |
+| `LOG_LEVEL`                   | One of: `silent`, `error`, `warn`, `info`, `debug`                                     |
+| `DISABLE_LOGGING`             | Set to `true` to disable logging. Equal to `LOG_LEVEL=silent`                          |
+| `HTTPS_PROXY` or `HTTP_PROXY` | Used to configure [https-proxy-agent]                                                  |
+
 ### Exit codes
 
-| Exit code | Key                        | Description                                            |
-| --------- | -------------------------- | ------------------------------------------------------ |
-| 0         | OK                         | Exited successfully                                    |
-| 1         | BUILD_HAS_CHANGES          | Chromatic build has (visual) changes                   |
-| 2         | BUILD_HAS_ERRORS           | Chromatic build has component errors                   |
-| 3         | BUILD_FAILED               | Chromatic build failed due to system error             |
-| 4         | BUILD_NO_STORIES           | Chromatic build failed because it contained no stories |
-| 5         | BUILD_WAS_LIMITED          | Chromatic build was limited                            |
-| 6         | BUILD_WAS_CANCELED         | Chromatic build was canceled                           |
-| 11        | ACCOUNT_QUOTA_REACHED      | Chromatic account reached its snapshot quota           |
-| 12        | ACCOUNT_PAYMENT_REQUIRED   | Chromatic account requires payment                     |
-| 101       | GIT_NOT_CLEAN              | Git repository workspace not clean                     |
-| 102       | GIT_OUT_OF_DATE            | Git repository not up-to-date with remote              |
-| 103       | GIT_NO_MERGE_BASE          | Git branch has no merge base                           |
-| 104       | NPM_INSTALL_FAILED         | npm or Yarn failed to install dependencies             |
-| 105       | NPM_BUILD_STORYBOOK_FAILED | npm or Yarn failed to run build-storybook script       |
-| 201       | FETCH_ERROR                | HTTP fetch error                                       |
-| 202       | GRAPHQL_ERROR              | GrahpQL API error                                      |
-| 254       | INVALID_OPTIONS            | Invalid options (flags) provided                       |
-| 255       | UNKNOWN_ERROR              | Unknown error                                          |
+| Exit code | Key                          | Description                                            |
+| --------- | ---------------------------- | ------------------------------------------------------ |
+| `0`       | `OK`                         | Exited successfully                                    |
+| `1`       | `BUILD_HAS_CHANGES`          | Chromatic build has (visual) changes                   |
+| `2`       | `BUILD_HAS_ERRORS`           | Chromatic build has component errors                   |
+| `3`       | `BUILD_FAILED`               | Chromatic build failed due to system error             |
+| `4`       | `BUILD_NO_STORIES`           | Chromatic build failed because it contained no stories |
+| `5`       | `BUILD_WAS_LIMITED`          | Chromatic build was limited                            |
+| `6`       | `BUILD_WAS_CANCELED`         | Chromatic build was canceled                           |
+| `11`      | `ACCOUNT_QUOTA_REACHED`      | Chromatic account reached its snapshot quota           |
+| `12`      | `ACCOUNT_PAYMENT_REQUIRED`   | Chromatic account requires payment                     |
+| `101`     | `GIT_NOT_CLEAN`              | Git repository workspace not clean                     |
+| `102`     | `GIT_OUT_OF_DATE`            | Git repository not up-to-date with remote              |
+| `103`     | `GIT_NO_MERGE_BASE`          | Git branch has no merge base                           |
+| `104`     | `NPM_INSTALL_FAILED`         | npm or Yarn failed to install dependencies             |
+| `105`     | `NPM_BUILD_STORYBOOK_FAILED` | npm or Yarn failed to run build-storybook script       |
+| `201`     | `FETCH_ERROR`                | HTTP fetch error                                       |
+| `202`     | `GRAPHQL_ERROR`              | GrahpQL API error                                      |
+| `254`     | `INVALID_OPTIONS`            | Invalid options (flags) provided                       |
+| `255`     | `UNKNOWN_ERROR`              | Unknown error                                          |
 
 ### Deprecated options
 
@@ -210,6 +230,7 @@ yarn add --dev chromatic
 - [Package on npm](https://www.npmjs.com/package/chromatic)
 
 [picomatch]: https://www.npmjs.com/package/picomatch#globbing-features
+[https-proxy-agent]: https://www.npmjs.com/package/https-proxy-agent
 
 ---
 
