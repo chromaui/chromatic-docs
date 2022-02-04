@@ -12,42 +12,42 @@ Before we begin, you'll need to figure out which embed format your platform supp
 
 ## Embed a story with the toolbar
 
-Embed a story with the toolbar by replacing the `<commithash>`, `<appid>`, and `<path-to-story>` with the details for your story.
+Embed a story with the toolbar by replacing the `<appid>`, `<uploadhash>`, and `<path-to-story>` with the details for your story. You can retrieve this URL by opening your Storybook from a Build or Library screen. Embedding Storybooks by their branch name or commit hash is not supported yet.
 
 ```bash
 // oEmbed
-https://<commithash>--<appid>.chromatic.com/?path=<path-to-story>
+https://<appid>-<uploadhash>.chromatic.com/?path=<path-to-story>
 
 // iframe embed
-<iframe src="https://<commithash>--<appid>.chromatic.com/?path=<path-to-story>&full=1&shortcuts=false&singleStory=true" width="800" height="400"></iframe>
+<iframe src="https://<appid>-<uploadhash>.chromatic.com/?path=<path-to-story>&full=1&shortcuts=false&singleStory=true" width="800" height="400"></iframe>
 ```
 
 ![Full Storybook embed on Medium](img/embed-story-toolbar.png)
 
 ## Embed a plain story
 
-Embed a plain story without the toolbar by replacing the `<commithash>`, `<appid>`, and `<path-to-story>` with the details for your story.
+Embed a plain story without the toolbar by replacing the `<appid>`, `<uploadhash>`, and `<path-to-story>` with the details for your story.
 
 ```bash
 // oEmbed
-https://<commithash>--<appid>.chromatic.com/iframe.html?<path-to-story>&viewMode=story
+https://<appid>-<uploadhash>.chromatic.com/iframe.html?<path-to-story>&viewMode=story
 
 // iframe embed
-<iframe src="<commithash>--<appid>.chromatic.com/?path=<path-to-story>&viewMode=story&shortcuts=false&singleStory=true" width="800" height="400"></iframe>
+<iframe src="<appid>-<uploadhash>.chromatic.com/?path=<path-to-story>&viewMode=story&shortcuts=false&singleStory=true" width="800" height="400"></iframe>
 ```
 
 ![Plain canvas embed on Medium](img/embed-story.png)
 
 ## Embed a docs page
 
-You can also embed a docs page by replacing the `<commithash>`, `<appid>`, and `<path-to-story>` with the details for your story.
+You can also embed a docs page by replacing the `<appid>`, `<uploadhash>`, and `<path-to-story>` with the details for your story.
 
 ```bash
 // oEmbed
-https://<commithash>--<appid>.chromatic.com/iframe.html?<path-to-story>&viewMode=docs
+https://<appid>-<uploadhash>.chromatic.com/iframe.html?<path-to-story>&viewMode=docs
 
 // iframe embed
-<iframe src="https://<commithash>--<appid>.chromatic.com/?path=<path-to-story>&viewMode=docs&shortcuts=false&singleStory=true" width="800" height="400"></iframe>
+<iframe src="https://<appid>-<uploadhash>.chromatic.com/?path=<path-to-story>&viewMode=docs&shortcuts=false&singleStory=true" width="800" height="400"></iframe>
 ```
 
 ![Docs page embed on Medium](img/embed-docs.png)
