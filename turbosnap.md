@@ -252,9 +252,10 @@ If you have a large dependency tree, the build process may fail due to an out of
 <details>
   <summary>Why do merge commits test more changes that I expect?</summary>
 
-Ordinarily, TurboSnap uses all files that have changed (according to git) since the last build as the starting point for figuring out which components/stories to test. Things get a little more complicated when there are two "last builds" (i.e. a merge commit).
-  
-When you have a merge commit, TurboSnap will start from **any file that has changed since either parent build** (i.e the union of the git changes).
-  
-The reason for this is that Chromatic wants to be careful to ensure we always test stories that could potentially have visual changes. When we are sure a story will not have changes we "copy" the latest snapshot from the last build. However, we can only do that if we are *sure* the new version of the story will look the same. That is if we know that in the *current commit* the code for that story will be exactly the same as in that previous build -- which means the code for the story file and all it's dependencies has not changed on **either side of the branch**.
+Ordinarily, TurboSnap uses all files that have changed (according to git) since the last build as the starting point for figuring out which components/stories to test. The changed file behavior is more complex with merge commits because there are two "last builds".
+
+When you have a merge commit, TurboSnap will start from **any file that has changed since either parent build**. For example, the union of the git changes. It detects any story with the potential to have visual changes so that it can be tested. If it's sure a story won't have visual changes, it "copies" the latest snapshot from the last build.
+
+TurboSnap determines if the new story version has potential visual changes by checking whether the _current commit's_ code for that story is the same as in that previous build. If it is the same, the code for the story file and all it's dependencies has not changed on **either side of the branch** and thus will not be snapshotted.
+
 </details>
