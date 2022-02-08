@@ -248,3 +248,13 @@ Some reasons that can be surprising are:
 If you have a large dependency tree, the build process may fail due to an out of memory error. Re-run Chromatic's CLI with the `NODE_OPTIONS=--max_old_space_size=4096` (or higher) environment variable to increase the amount of available memory. Your CI provider may require additional configuration to allow more memory usage.
 
 </details>
+
+<details>
+  <summary>Why do merge commits test more changes that I expect?</summary>
+
+Ordinarily, TurboSnap uses all files that have changed (according to git) since the last build as the starting point for figuring out which components/stories to test. Things get a little more complicated when there are two "last builds" (i.e. a merge commit).
+  
+When you have a merge commit, TurboSnap will start from **any file that has changed since either parent build** (i.e the union of the git changes).
+  
+The reason for this is that Chromatic wants to be careful to ensure we always test stories that could potentially have visual changes. When we are sure a story will not have changes we "copy" the latest snapshot from the last build. However, we can only do that if we are *sure* the new version of the story will look the same. That is if we know that in the *current commit* the code for that story will be exactly the same as in that previous build -- which means the code for the story file and all it's dependencies has not changed on **either side of the branch**.
+</details>
