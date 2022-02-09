@@ -18,16 +18,6 @@ Wrap your text with `**` to add emphasis. When published the text will be format
 This is not.
 ```
 
-## Quoting text
-
-Quote specific elements from discussions by adding a `>` and pasting in the relevant text.
-
-```md
-This is not a quote.
-
-> This is a text quote
-```
-
 ## Quoting code
 
 Call out relevant code or commands inside a discussion by surrounding the relevant text with single backticks <code>`</code>, the text within the backticks will not be formatted.
