@@ -254,7 +254,7 @@ If you have a large dependency tree, the build process may fail due to an out of
 
 Ordinarily, TurboSnap uses all files that have changed (according to git) since the last build as the starting point for figuring out which components/stories to test. The changed file behavior is more complex with merge commits because there are two "last builds".
 
-When you have a merge commit, TurboSnap will start from **any file that has changed since either parent build**. For example, the union of the git changes. It detects any story with the potential to have visual changes so that it can be tested. If it's sure a story won't have visual changes, it "copies" the latest snapshot from the last build.
+When you have a merge commit, TurboSnap will start from **any file that has changed since either parent build**. In other words, the union of the git changes. It detects any story with the potential to have visual changes so that it can be tested. If it's sure a story won't have visual changes, it "copies" the latest snapshot from the last build.
 
 TurboSnap determines if the new story version has potential visual changes by checking whether the _current commit's_ code for that story is the same as in that previous build. If it is the same, the code for the story file and all it's dependencies has not changed on **either side of the branch** and thus will not be snapshotted.
 
