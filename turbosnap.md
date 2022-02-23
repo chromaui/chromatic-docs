@@ -251,11 +251,12 @@ If you have a large dependency tree, the build process may fail due to an out of
 
 <details>
   <summary>Why do merge commits test more changes that I expect?</summary>
+  
+  Ordinarily, TurboSnap uses git to find all files that have changed since the <a href="/branching-and-baselines#calculating-the-ancestor-builds">ancestor build</a> to determine which components/stories to snapshot. The changed file behavior is more complex with merge commits because there are two "ancestor builds".
 
-Ordinarily, TurboSnap uses all files that have changed (according to git) since the last build as the starting point for figuring out which components/stories to test. The changed file behavior is more complex with merge commits because there are two "last builds".
+When you have a merge commit, Chromatic considers **any file that has changed since either ancestor's commit** to decide if a story needs to be re-snapshotted. In other words, the union of the git changes. 
+  
+The reason for this behaviour relates to what Chromatic does when it chooses not to re-snapshot a story. In such case, it "copies" the snapshot for the story from the ancestor build, knowing (due to the git check) that the story cannot have changed in the meantime.
 
-When you have a merge commit, TurboSnap will start from **any file that has changed since either parent build**. In other words, the union of the git changes. It detects any story with the potential to have visual changes so that it can be tested. If it's sure a story won't have visual changes, it "copies" the latest snapshot from the last build.
-
-TurboSnap determines if the new story version has potential visual changes by checking whether the _current commit's_ code for that story is the same as in that previous build. If it is the same, the code for the story file and all it's dependencies has not changed on **either side of the branch** and thus will not be snapshotted.
-
+In the case of merge commits, Chromatic does not know ahead of time which side of the merge the snapshot might be copied from because that involves running the <a href="/branching-and-baselines#calculating-a-snapshot-baseline-from-the-ancestor-builds">complete baseline selection</a> process, so it needs to be conservative and allow for changes on either branch.
 </details>
