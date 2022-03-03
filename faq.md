@@ -223,7 +223,7 @@ Free plans come with 5000 snapshots per month. Once free snapshots are exhausted
 <details>
 <summary>What happens to my snapshots if I don't use them?</summary>
 
-At the beginning of each month, your snapshot count will be reset. Any remaining snapshots from the previous month will not accumulate.
+Chromatic will reset the snapshot count every month, calculated based on the day you've signed up. For instance, if you signed up on February 14th, your count will be reset on the 14th of each month. Any remaining snapshots from the previous month will not accumulate.
 
 </details>
 
