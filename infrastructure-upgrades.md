@@ -42,9 +42,24 @@ Future builds will use the upgrade build's auto-accepted baselines as the source
 
 Read about the infrastructure changes in the release notes.
 
-|                Capture Stack version                | Status               |
-| :-------------------------------------------------: | -------------------- |
-| [Version 4](infrastructure-release-notes#version-4) | General availability |
+|                Capture Stack version                | Status                                              |
+| :-------------------------------------------------: | --------------------------------------------------- |
+| [Version 4](infrastructure-release-notes#version-4) | General availability                                |
 | [Version 3](infrastructure-release-notes#version-3) | Outdated ([opt in for upgrade](#opt-in-to-upgrade)) |
-| [Version 2](infrastructure-release-notes#version-2) | No longer available  |
-| [Version 1](infrastructure-release-notes#version-1) | No longer available  |
+| [Version 2](infrastructure-release-notes#version-2) | No longer available                                 |
+| [Version 1](infrastructure-release-notes#version-1) | No longer available                                 |
+
+---
+
+### Frequently asked questions
+
+<details>
+<summary>Does Chromatic support specific browser versions?</summary>
+
+Chromatic does not support running tests on specific browser versions. While building Chromatic's Capture Cloud, we found that not all browser versions are created equal. Some contain bugs that lead to rendering inconsistencies. We aim to take care of these details so that you don't have to, giving you consistently flake-free tests.
+
+We extensively test new browser versions and modify our infrastructure to handle well-known inconsistencies between them. Our goal is to provide you with the latest stable version of each of our supported browsers on a timely schedule with a painless upgrade experience between them.
+
+That said, we don't support outdated browser versions since our users are [automatically upgraded](#how-to-upgrade-your-project) to the latest versions after the upgrade window ends, simplifying your infrastructure and customer support.
+
+</details>
