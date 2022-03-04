@@ -54,12 +54,11 @@ Read about the infrastructure changes in the release notes.
 ### Frequently asked questions
 
 <details>
-<summary>Does Chromatic support specific browser versions?</summary>
+<summary>Can I run tests on a specific browser version?</summary>
 
-Chromatic does not support running tests on specific browser versions. While building Chromatic's Capture Cloud, we found that not all browser versions are created equal. Some contain bugs that lead to rendering inconsistencies. We aim to take care of these details so that you don't have to, giving you consistently flake-free tests.
+Chromatic does not support running tests on specific browser versions.
+With each infrastructure upgrade, our goal is to provide you with the latest stable browser versions, enabling a consistently flake-free testing environment while simplifying our infrastructure and customer support.
 
-We extensively test new browser versions and modify our infrastructure to handle well-known inconsistencies between them. Our goal is to provide you with the latest stable version of each of our supported browsers on a timely schedule with a painless upgrade experience between them.
-
-That said, we don't support outdated browser versions since our users are [automatically upgraded](#how-to-upgrade-your-project) to the latest versions after the upgrade window ends, simplifying your infrastructure and customer support.
+Read our [documentation](browsers) to learn more about enabling additional browsers.
 
 </details>
