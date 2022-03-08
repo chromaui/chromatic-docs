@@ -42,9 +42,23 @@ Future builds will use the upgrade build's auto-accepted baselines as the source
 
 Read about the infrastructure changes in the release notes.
 
-|                Capture Stack version                | Status               |
-| :-------------------------------------------------: | -------------------- |
-| [Version 4](infrastructure-release-notes#version-4) | General availability |
+|                Capture Stack version                | Status                                              |
+| :-------------------------------------------------: | --------------------------------------------------- |
+| [Version 4](infrastructure-release-notes#version-4) | General availability                                |
 | [Version 3](infrastructure-release-notes#version-3) | Outdated ([opt in for upgrade](#opt-in-to-upgrade)) |
-| [Version 2](infrastructure-release-notes#version-2) | No longer available  |
-| [Version 1](infrastructure-release-notes#version-1) | No longer available  |
+| [Version 2](infrastructure-release-notes#version-2) | No longer available                                 |
+| [Version 1](infrastructure-release-notes#version-1) | No longer available                                 |
+
+---
+
+### Frequently asked questions
+
+<details>
+<summary>Can I run tests on a specific browser version?</summary>
+
+Chromatic does not support running tests on specific browser versions.
+With each infrastructure upgrade, our goal is to provide you with the latest stable browser versions, enabling a consistently flake-free testing environment while simplifying our infrastructure and customer support.
+
+Read our [documentation](browsers) to learn more about enabling additional browsers.
+
+</details>
