@@ -6,13 +6,13 @@ description: Chromatic billing information
 
 # Billing and invoices
 
-Chromatic bills subscribers on a monthly basis. At the beginning of each month you're charged for your plan. If there are overages, you'll be charged at the end of the month.
+Chromatic bills customers monthly based on their subscription date. For instance, if you subscribed on February 14th, you'll be billed on the 14th of each month. Any additional overages will be attached to the current billing period. Similarly, snapshots are allocated within the same time frame and reset following the same cadence.
 
 ## Snapshots
 
-Chromatic charges based on [snapshots](snapshots) and browser coverage respectively. Snapshots power [UI Tests](tests) and [UI Review](review). They are only taken when you enable “UI Review” or “UI Tests” for your project.
+Chromatic charges based on [snapshots](snapshots) and browser coverage, respectively. Snapshots power [UI Tests](tests) and [UI Review](review). They are only taken when you enable “UI Review” or “UI Tests” for your project.
 
-Everytime you run a build, we take one snapshot for each story. If you have 50 stories, Chromatic will take 50 snapshots. In addition, testing multiple viewports and browsers are also considered snapshots.
+Every time you run a build, we take one snapshot for each story. If you have 50 stories, Chromatic will take 50 snapshots. In addition, testing multiple viewports and browsers are also considered snapshots.
 
 For example, see how many snapshots are taken in different scenarios below.
 
@@ -32,24 +32,24 @@ If you use our free [Publish Storybook](setup) service only you will not be bill
 
 ### How we count snapshots
 
-Snapshots are counted at the account level. If your account has multiple projects we sum the number of snapshots used by each project to get your total usage. Chromatic doesn't breakdown billing per project.
+Snapshots are counted at the account level. If your account has multiple projects, we sum the number of snapshots each project uses to get your total usage. Chromatic doesn't break down billing per project.
 
 ### View current months usage
 
-Find the current months usage in the Plan section of the Billing page.
+Find the current month's usage in the Plan section of the Billing page.
 
 ![Chromatic monthly snapshots used](img/article-view-snapshots-billing-screen.png)
 
 ### Overages
 
-If you exceed the number of snapshots in your plan you’ll be billed for extra snapshots at the end of the month. Consider upgrading to a enterprise plan for more snapshots. Contact us via in-app chat or <a href="mailto:support@chromatic.com?Subject=Custom%20plan">email</a>
+If you exceed the number of snapshots in your plan, you’ll be billed for extra snapshots in your next invoice. Consider upgrading to an enterprise plan for more snapshots. Contact us via in-app chat or <a href="mailto:support@chromatic.com?Subject=Custom%20plan">email</a>
 to learn more.
 
 ### Usage alerts
 
-Keep track of your account's snapshot usage by setting up a usage alert. When you hit a certain snapshot threshold in a billing period we'll send a notificaton to a designated email address.
+Keep track of your account's snapshot usage by setting up a usage alert. When you hit a certain snapshot threshold in a billing period, we'll notify the designated email address.
 
-For example, if you want to be notified when you use 90% of the 35,000 snapshots in the Starter plan, you'd set the snapshot alert threshold to 31,500.
+For example, if you want to get a notification when you use 90% of the 35,000 snapshots in the Starter plan, you'd set the snapshot alert threshold to 31,500.
 
 ![Setup usage alerting](img/billing-usage-alert.png)
 
@@ -83,7 +83,7 @@ The downloaded CSV includes the following columns:
 
 ## Change plans
 
-Change your plan in account settings. All changes are prorated to the day. That means you can change your plan at any time in the month without getting charged unneccessarily for unused snapshots.
+Change your plan in account settings. All changes are prorated to the day. That means you can change your plan anytime in the month without getting charged unnecessarily for unused snapshots.
 
 ## Invoices
 
@@ -93,7 +93,7 @@ Invoices are generated each month on your account's Billing page. Click to see a
 
 ### Email invoices to your billing or finance manager
 
-By default, Chromatic sets the account's billing email to the email address of the person who signed up to the plan. We send all billing and account related emails to this address.
+By default, Chromatic sets the account's billing email to the email address of the person who signed up for the plan. We send all billing and account related emails to this address.
 
 Go to the Payment section on the Billing page to change the billing email associated with your account. Click "Change email".
 
@@ -101,8 +101,8 @@ Go to the Payment section on the Billing page to change the billing email associ
 
 ### Refunds
 
-If you aren’t happy with Chromatic we’ll refund your money. We want customers to ship consistent UIs, save time, and build bulletproof component libraries.
+If you aren’t happy with Chromatic, we’ll refund your money. We want customers to ship consistent UIs, save time, and build bulletproof component libraries.
 
-If it’s not working out for you, contact us via our in-app chat or [email](mailto:support@chromatic.com) to get a refund for your current months usage.
+If it’s not working out for you, contact us via our in-app chat or [email](mailto:support@chromatic.com) to get a refund for your current month's usage.
 
 Subsequent refunds will be credited to your account for use in future invoices.
