@@ -91,9 +91,9 @@ Chromatic's GitHub Action includes additional options to customize your workflow
 | **workingDir**              | Provide the location of Storybook's `package.json` if installed in a subdirectory (i.e., monorepos)                           | _String_              | my-folder         | N/A              |
 | **skip**                    | Skip Chromatic tests, but mark the commit as passing. Avoids blocking PRs due to required merge checks                        | _String_ or _Boolean_ | branch or true    | false            |
 
-### Support for `actions/checkout@v2`
+### Support for `actions/checkout@v2` and above
 
-Version 2 of the `actions/checkout` is supported. But it comes with a caveat. It will only retrieve a single commit without any additional history. Chromatic needs the full Git history to keep track of changes in your repository.
+Chromatic supports the latest versions of the `actions/checkout` (i.e., versions 2 and 3). Both of them come with a caveat. They will only retrieve a single commit without any additional history. Chromatic needs the full Git history to keep track of changes in your repository.
 
 You'll need to make the following change to your workflow:
 
@@ -155,7 +155,47 @@ Other branches can also be included, such as the ones created by the Renovate bo
 
 ### Support for environment variables
 
-Environment variables are supported in Chromatic. But it comes with a caveat. We recommend that you prefix each environment variable with the `STORYBOOK` keyword and adjust your workflow to the following:
+Environment variables are supported in Chromatic. You can use them to customize your workflow execution or provide project-related variables (e.g., API URLs). Below is a table and condensed examples featuring the available Chromatic variables and how to set up a project-specific variable.
+
+| Environment variable          | Description                                                                                                                                                                           |
+| ----------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `CHROMATIC_PROJECT_TOKEN`     | Sets Chromatic's project token, used as an advanced case.<br/> See [setup](#setup) to learn how to configure the token.<br/> `env: CHROMATIC_PROJECT_TOKEN: 'Example-project-token'`  |
+| `CHROMATIC_POLL_INTERVAL`     | Configures a polling interval in milliseconds to wait for the build to finish. <br/> Default value: `1000`.<br/> `env: CHROMATIC_POLL_INTERVAL: 3000`                                 |
+| `CHROMATIC_RETRIES`           | Configures the number of attempts to upload to Chromatic.<br/> Default value: `5`.<br/> `env: CHROMATIC_RETRIES: 10`                                                                  |
+| `CHROMATIC_STORYBOOK_VERSION` | Overrides Storybook package/version detection. <br/> `env: CHROMATIC_STORYBOOK_VERSION: '@storybook/react@6.5.0-alpha.25'`                                                            |
+| `STORYBOOK_BUILD_TIMEOUT`     | Sets the waiting period in milliseconds for Storybook's build process to finish. <br/> Default value: `600000` (10 minutes).<br/> `env: STORYBOOK_BUILD_TIMEOUT: 30000`               |
+| `CI`                          | Marks the execution environment as CI.<br/> `env: CI: true`                                                                                                                           |
+| `LOG_LEVEL`                   | Configures the log level.<br/> Available options are: `silent`, `error`, `warn`, `info`, `debug`. <br/> `env: LOG_LEVEL:'info'`                                                       |
+| `DISABLE_LOGGING`             | Disables logging. Similar to setting `env: LOG_LEVEL: 'silent'`.<br/> `env: DISABLE_LOGGING: true`                                                                                    |
+| `HTTPS_PROXY` or `HTTP_PROXY` | Provides the proxy server's URL.<br/> Used to configure [https-proxy-agent](https://www.npmjs.com/package/https-proxy-agent).<br/> `env: HTTPS_PROXY: 'https://example-proxy-server'` |
+
+```yml
+# .github/workflows/chromatic.yml
+
+# Other configuration required
+
+# List of jobs
+jobs:
+  chromatic-deployment:
+    # Operating System
+    runs-on: ubuntu-latest
+    # Job steps
+    steps:
+      - uses: actions/checkout@v1
+      - run: yarn
+        #👇 Adds Chromatic as a step in the workflow
+      - uses: chromaui/action@v1
+        # Options required for Chromatic's GitHub Action
+        with:
+          projectToken: {% raw %}${{ secrets.CHROMATIC_PROJECT_TOKEN }}{% endraw %}
+          token: {% raw %}${{ secrets.GITHUB_TOKEN }}{% endraw %}
+        env:
+          #👇 Sets the environment variable
+          CHROMATIC_RETRIES: 5
+          LOG_LEVEL: 'error'
+```
+
+If you need to provide project-specific environment variables, it comes with a caveat. We recommend that you prefix each variable with the `STORYBOOK` keyword and adjust your workflow to the following:
 
 ```yml
 # .github/workflows/chromatic.yml
@@ -185,8 +225,6 @@ jobs:
 <div class="aside">
 Read the official <a href="https://storybook.js.org/docs/react/configure/environment-variables">Storybook environment variable's documentation </a>.
 </div>
-
-Including the `env` option ensures all environment variables set up will be ready to be used in your UI tests and deployed Storybook.
 
 ### Recommended configuration for build events
 
