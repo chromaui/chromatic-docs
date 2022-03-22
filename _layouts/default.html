@@ -8,7 +8,8 @@
         <div class="content">
           {% include sidebar_nav.html %}
           <div class="main document-formatting">
-    				{{ content }}
+            <span id="toc-section-titles" hidden>{{ page.title }}</span>
+            {{ content }}
           </div>
         </div>
       </div>
