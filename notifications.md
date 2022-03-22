@@ -18,12 +18,12 @@ In UI Review, Chromatic emails the PR owner and any participants when a discussi
 
 ### Change default email address
 
-Go to the [Profile](https://www.chromatic.com/profile) page to set the default email address.
+To set the default email address, go to the [Profile](https://www.chromatic.com/profile) page.
 
 ![Change email](img/profile-account-email-password.png)
 
 ### Forward emails for different projects to other addresses
 
-Go to the [Notifications](https://www.chromatic.com/notifications) page to adjust which activities trigger emails and where they get sent.
+To adjust which activities trigger emails and where they get sent, go to the [Notifications](https://www.chromatic.com/notifications) page.
 
 By default, notifications get sent to your default email address. If you signed up via GitHub, Bitbucket, or GitLab, Chromatic will retrieve the email addresses associated with your account from your Git provider. You can forward notifications to any of these email addresses.
