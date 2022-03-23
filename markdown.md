@@ -8,6 +8,8 @@ description: Learn how to use markdown in discussions
 
 Create sophisticated formatting for your prose and code in Chromatic with simple syntax.
 
+![Markdown in Chromatic](img/markdown.gif)
+
 ## Styling text
 
 Wrap your text with `**` to add emphasis. When published the text will be formatted in **bold**.
