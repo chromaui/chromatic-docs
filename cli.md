@@ -16,7 +16,7 @@ The [Chromatic CLI](https://www.npmjs.com/package/chromatic) builds and publishe
 
 ## Quick Start
 
-```sh
+```shell
 npx chromatic --project-token <your-project-token>
 ```
 
@@ -27,7 +27,7 @@ After the first run, the CLI will automatically ask you to add a script to your 
 
 Optionally, you can install `chromatic` as a dependency, while using the same script above.
 
-```sh
+```shell
 npm install -D chromatic
 ```
 
@@ -214,14 +214,14 @@ This package was previously named `storybook-chromatic`. If you still have `stor
 
 **With npm:**
 
-```sh
+```shell
 npm uninstall --save-dev storybook-chromatic
 npm install --save-dev chromatic
 ```
 
 **With yarn:**
 
-```sh
+```shell
 yarn remove storybook-chromatic
 yarn add --dev chromatic
 ```

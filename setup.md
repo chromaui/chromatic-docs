@@ -51,7 +51,7 @@ Now continue setting up Chromatic [as usual](setup#install).
 
 Install the [**chromatic**](https://www.npmjs.com/package/chromatic) package from npm.
 
-```bash
+```shell
 # Yarn
 yarn add --dev chromatic
 
@@ -85,7 +85,7 @@ If you allowed `chromatic` to add the above line, it will also have written the 
 
 Once you installed the `chromatic` package and have a `<project-token>`, run the following command in your project directory.
 
-```bash
+```shell
 npx chromatic --project-token <your-project-token>
 ```
 
@@ -95,7 +95,7 @@ We use the <code>build-storybook</code> script from your <code>package.json</cod
 
 When complete, you'll see the build status and a link to the published Storybook:
 
-```bash
+```shell
 Build 1 published.
 
 View it online at https://www.chromatic.com/build?appId=...&number=1.

@@ -17,14 +17,14 @@ Enable interactive stories by adding a `play` function to your component's story
 ```js
 // LoginForm.stories.js|jsx
 
-import React from "react";
+import React from 'react';
 
-import { userEvent, within } from "@storybook/testing-library";
-import { Form } from "./Form";
+import { userEvent, within } from '@storybook/testing-library';
+import { Form } from './Form';
 
 export default {
   component: Form,
-  title: "Form",
+  title: 'Form',
 };
 
 const Template = (args) => <Form {...args} />;

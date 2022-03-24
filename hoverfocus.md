@@ -19,16 +19,17 @@ If the hover behavior is triggered via JavaScript like tooltips or dropdowns, wr
 ```js
 // Form.stories.js|jsx
 
-import React from "react";
+import React from 'react';
 
-import { userEvent, waitFor, within } from "@storybook/testing-library";
+import { userEvent, waitFor, within } from '@storybook/testing-library';
 
-import { Form } from "./LoginForm";
+import { Form } from './LoginForm';
 
 export default {
   component: Form,
-  title: "Form",
+  title: 'Form',
 };
+
 const Template = (args) => <LoginForm {...args} />;
 
 export const WithHoverState = Template.bind({});
@@ -82,11 +83,11 @@ Then write a story that utilizes the class name:
 ```js
 // MyComponent.stories.js|jsx
 
-import { MyComponent } from "./MyComponent";
+import { MyComponent } from './MyComponent';
 
 export default {
   component: MyComponent,
-  title: "MyComponent",
+  title: 'MyComponent',
 };
 
 const Template = (args) => <MyComponent {...args} />;
@@ -172,12 +173,13 @@ For atomic, functional components with CSS pseudo-classes (e.g., `hover`, `activ
 ```js
 // Button.stories.js|jsx
 
-import React from "react";
-import { Button } from "./Button";
+import React from 'react';
+
+import { Button } from './Button';
 
 export default {
-  title: "Button",
   component: Button,
+  title: 'Button',
 };
 
 const Template = (args) => <Button {...args} />;
@@ -203,15 +205,15 @@ To simulate how the component responds when an element is focused (i.e., through
 ```js
 // Button.stories.js|jsx
 
-import React from "react";
+import React from 'react';
 
-import { userEvent, within } from "@storybook/testing-library";
+import { userEvent, within } from '@storybook/testing-library';
 
-import { Button } from "./Button";
+import { Button } from './Button';
 
 export default {
   component: Button,
-  title: "Button",
+  title: 'Button',
 };
 
 const Template = (args) => <Button {...args} />;

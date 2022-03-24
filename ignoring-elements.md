@@ -25,12 +25,13 @@ If you have a story you do not wish to snapshot in Chromatic, you can disable sn
 `disableSnapshot` [story parameter](https://storybook.js.org/docs/react/writing-stories/parameters#story-parameters):
 
 ```js
-// MyComponent.stories.js | MyComponent.stories.ts
+// MyComponent.stories.js|jsx
 
-import MyComponent from './MyComponent';
+import { MyComponent } from './MyComponent';
 
 export default {
   component: MyComponent,
+  title: 'MyComponent',
 };
 
 const Template = (args) => <MyComponent {...args} />;
@@ -58,16 +59,17 @@ export const parameters = {
 In the component's stories you'd like to enable snapshotting:
 
 ```js
-// MyComponent.stories.js | MyComponent.stories.ts
+// MyComponent.stories.js|jsx
 
-import MyComponent from './MyComponent';
+import { MyComponent } from './MyComponent';
 
 export default {
   component: MyComponent,
-  // enables snapshotting for the component
+  // Enables snapshotting for the component
   parameters: {
     chromatic: { disableSnapshot: false },
   },
+  title: 'MyComponent',
 };
 
 const Template = (args) => <MyComponent {...args} />;
@@ -86,11 +88,11 @@ Chromatic to ignore.
 
 import React from 'react';
 
-export default function MyComponent() {
+export function MyComponent() {
   return (
     <div>
       <p>
-        This date will always change so ignore it:{' '}
+        This date will always change so ignore it:{" "}
         <span className="chromatic-ignore">{new Date()}</span>
       </p>
       <p>

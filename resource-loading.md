@@ -66,7 +66,8 @@ This alternate solution uses the browsers font load API and the [`isChromatic()`
 
 ```js
 // preview.js
-import isChromatic from "chromatic/isChromatic";
+
+import isChromatic from 'chromatic/isChromatic';
 
 if (isChromatic() && document.fonts) {
   addDecorator((story) => {

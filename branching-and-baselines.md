@@ -48,7 +48,7 @@ If you rebase a branch (say updating to branch off the latest commit off `main`)
 
 For this reason, we _always_ include accepted baselines from the latest build on the current branch, regardless of git history. You can bypass this with the `--ignore-last-build-on-branch=<branch-name>` flag of `chromatic`. For example:
 
-```bash
+```shell
 chromatic --ignore-last-build-on-branch=example-branch
 ```
 
@@ -86,7 +86,7 @@ When you create a new build for a new commit, Chromatic will calculate a baselin
 
 The ancestor build is the most recent ancestor (commit) in the git history that has had Chromatic run against it. Often, it is the previous commit:
 
-```
+```shell
 x - Build N
 |
 y - Build N+1
@@ -94,7 +94,7 @@ y - Build N+1
 
 If you don’t run CI on every commit (which is common if you don’t push every single time you commit), there may be a gap:
 
-```
+```shell
 x - Build N
 |
 y
@@ -104,7 +104,7 @@ z - Build N+1
 
 Also, it is possible there is more than one most recent ancestor, in particular if the commit we are looking at is a merge commit:
 
-```
+```shell
 x - Build N
 |
 |    p - Build N+1
@@ -132,7 +132,7 @@ If there is, check the status of that snapshot:
 
 The last case bears thinking about a bit. Consider this scenario:
 
-```
+```shell
 x - Build N
 |
 y - Build N+1
@@ -163,7 +163,7 @@ To find the merge base build in Chromatic, it needs to track back from the curre
 
 Typically this leads to a situation like so:
 
-```
+```shell
 x - y - z [base]
   \
     w - p - q [head]
@@ -175,7 +175,7 @@ Chromatic will now compare the stories from `q` to the corresponding stories in 
 
 If the head branch has been more recently updated from the base branch, the merge base can be a more recent commit than the point we branched off:
 
-```
+```shell
 x - y - z [base]
   \       \
     w - p - q [head]

@@ -14,7 +14,7 @@ Before we begin, you'll need to figure out which embed format your platform supp
 
 Embed a story with the toolbar by replacing the `<appid>`, `<uploadhash>`, and `<path-to-story>` with the details for your story. You can retrieve this URL by opening your Storybook from a Build or Library screen. Embedding Storybooks by their branch name or commit hash is not supported yet.
 
-```bash
+```shell
 // oEmbed
 https://<appid>-<uploadhash>.chromatic.com/?path=<path-to-story>
 
@@ -28,7 +28,7 @@ https://<appid>-<uploadhash>.chromatic.com/?path=<path-to-story>
 
 Embed a plain story without the toolbar by replacing the `<appid>`, `<uploadhash>`, and `<path-to-story>` with the details for your story.
 
-```bash
+```shell
 // oEmbed
 https://<appid>-<uploadhash>.chromatic.com/iframe.html?<path-to-story>&viewMode=story
 
@@ -42,7 +42,7 @@ https://<appid>-<uploadhash>.chromatic.com/iframe.html?<path-to-story>&viewMode=
 
 You can also embed a docs page by replacing the `<appid>`, `<uploadhash>`, and `<path-to-story>` with the details for your story.
 
-```bash
+```shell
 // oEmbed
 https://<appid>-<uploadhash>.chromatic.com/iframe.html?<path-to-story>&viewMode=docs
 

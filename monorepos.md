@@ -23,6 +23,8 @@ A common approach that works well for many teams is to combine multiple subproje
 For example, you could write in your `.storybook/main.js`:
 
 ```js
+// .storybook/main.js
+
 module.exports = {
   stories: ['../project-1/**/*.stories.js', '../project-2/**/*.stories.js'],
 };
@@ -61,6 +63,8 @@ Ordinarily when you run a build that is missing a set of stories, Chromatic will
 In order to build a Storybook with a subset of your stories, you can use an environment variable in `.storybook/main.js`:
 
 ```js
+// .storybook/main.js
+
 const storiesForProject = {
   projectA: './projectA/**.stories.js',
   projectB: './projectB/**.stories.js',
