@@ -21,7 +21,7 @@ import { MyComponent } from './MyComponent';
 
 export default {
   component: MyComponent,
-  title: "MyComponent",
+  title: 'MyComponent',
 };
 
 const Template = (args) => <MyComponent {...args} />;

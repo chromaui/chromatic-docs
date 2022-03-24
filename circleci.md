@@ -140,7 +140,7 @@ We use GitHub, GitLab, and Bitbucket APIs respectively to detect squashing and r
 
 If you’re using this functionality but notice the incoming changes were not accepted as baselines in Chromatic, then you'll need to adjust the `chromatic` command and include the `--auto-accept-changes` flag. For example:
 
-```bash
+```shell
 # .circleci/config.yml
 
 # Other required configuration
@@ -199,7 +199,7 @@ One use case for this feature is skipping builds for branches created by a bot. 
 
 To skip builds for `dependabot` branches, use the following:
 
-```bash
+```shell
 chromatic --skip 'dependabot/**'
 ```
 
@@ -209,7 +209,7 @@ Read our <a href="/docs/cli#chromatic-options"> CLI documentation</a>.
 
 To apply this to multiple branches, use an "extended glob". See [picomatch] for details.
 
-```bash
+```shell
 chromatic --skip '@(renovate/**|dependabot/**)'
 ```
 

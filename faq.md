@@ -138,7 +138,7 @@ If your component infers its dimensions from the layout of the surrounding DOM e
 ```js
 // MyComponent.stories.js|jsx
 
-import { MyComponent } from './MyComponent'
+import { MyComponent } from './MyComponent';
 
 export default {
   component: MyComponent,
@@ -150,7 +150,7 @@ export default {
     ),
   ],
   title: 'Example Story',
-}
+};
 
 export const StoryWithDimensions = () => <MyComponent/>
 ```
@@ -165,7 +165,7 @@ If your component infers its dimensions from the layout of the surrounding DOM e
 ```js
 // MyComponent.stories.js|jsx
 
-import MyComponent from './MyComponent'
+import { MyComponent } from './MyComponent';
 
 export default {
   component: MyComponent,
@@ -177,7 +177,7 @@ export default {
     ),
   ],
   title: 'Example Story',
-}
+};
 
 const Template = (args) => <MyComponent/>;
 

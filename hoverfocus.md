@@ -29,6 +29,7 @@ export default {
   component: Form,
   title: 'Form',
 };
+
 const Template = (args) => <LoginForm {...args} />;
 
 export const WithHoverState = Template.bind({});

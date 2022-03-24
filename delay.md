@@ -28,7 +28,7 @@ import { MyComponent } from './MyComponent';
 
 export default {
   component: MyComponent,
-  title: "MyComponent",
+  title: 'MyComponent',
 };
 
 const Template = (args) => <MyComponent {...args} />;
@@ -60,7 +60,7 @@ export default {
     // Sets a delay for the component's stories
     chromatic: { delay: 300 },
   },
-  title: "MyComponent",
+  title: 'MyComponent',
 };
 
 const Template = (args) => <MyComponent {...args} />;

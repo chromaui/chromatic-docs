@@ -15,7 +15,7 @@ This is useful when you want to change behavior of all stories when rendered in 
 ```js
 // .storybook/preview.js
 
-import isChromatic from "chromatic/isChromatic";
+import isChromatic from 'chromatic/isChromatic';
 
 // Disable animation
 if (isChromatic()) {
@@ -35,7 +35,7 @@ This is useful when you want to change behavior of one component's stories when 
 // MyComponent.stories.js|jsx
 
 import { MyComponent } from './MyComponent';
-import isChromatic from "chromatic/isChromatic";
+import isChromatic from 'chromatic/isChromatic';
 
 export default {
   component: MyComponent,

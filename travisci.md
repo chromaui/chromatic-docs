@@ -192,7 +192,7 @@ One use case for this feature is skipping builds for branches created by a bot. 
 
 To skip builds for `dependabot` branches, use the following:
 
-```bash
+```shell
 chromatic --skip 'dependabot/**'
 ```
 
@@ -202,7 +202,7 @@ Read our <a href="/docs/cli#chromatic-options"> CLI documentation</a>.
 
 To apply this to multiple branches, use an "extended glob". See [picomatch] for details.
 
-```bash
+```shell
 chromatic --skip '@(renovate/**|dependabot/**)'
 ```
 
