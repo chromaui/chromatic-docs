@@ -108,14 +108,14 @@ When Chromatic takes a screenshot for an element that has a viewport-relative he
 To set the height, you can add a decorator for stories that wraps them in a container with a fixed height:
 
 ```js
-// MyComponent.stories.js | MyComponent.stories.ts
+// MyComponent.stories.js|jsx
 
-import MyComponent from './MyComponent';
+import { MyComponent } from './MyComponent';
 
 export default {
-  title: 'Example Story',
   component: MyComponent,
-  decorators:  [(Story) => {% raw %}<div style={{ margin: '3em' }}{% endraw %}><Story/></div>]
+  decorators:  [(Story) => {% raw %}<div style={{ margin: '3em' }}{% endraw %}><Story/></div>],
+  title: 'Example Story',
 };
 ```
 
@@ -136,9 +136,9 @@ If you use an “animateIn” effect set [delay](delay) to ensure we snapshot wh
 If your component infers its dimensions from the layout of the surrounding DOM elements (e.g., it's a modal that uses `position:fixed`), you'll need to set the height of that component's stories using a decorator.
 
 ```js
-// MyComponent.stories.js | MyComponent.stories.ts
+// MyComponent.stories.js|jsx
 
-import MyComponent from './MyComponent'
+import { MyComponent } from './MyComponent'
 
 export default {
   component: MyComponent,
@@ -149,6 +149,7 @@ export default {
       </div>
     ),
   ],
+  title: 'Example Story',
 }
 
 export const StoryWithDimensions = () => <MyComponent/>
@@ -162,12 +163,11 @@ export const StoryWithDimensions = () => <MyComponent/>
 If your component infers its dimensions from the layout of the surrounding DOM elements (e.g., it's a modal that uses `position:fixed`), you can set the height of that component's stories using a <a href="https://storybook.js.org/docs/react/writing-stories/decorators#component-decorators">decorator</a>.
 
 ```js
-// MyComponent.stories.js | MyComponent.stories.ts
+// MyComponent.stories.js|jsx
 
 import MyComponent from './MyComponent'
 
 export default {
-  title: 'Example Story',
   component: MyComponent,
   decorators: [
     storyFn => (
@@ -176,6 +176,7 @@ export default {
       </div>
     ),
   ],
+  title: 'Example Story',
 }
 
 const Template = (args) => <MyComponent/>;

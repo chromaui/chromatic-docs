@@ -13,25 +13,25 @@ UI components can respond to device width. Chromatic makes it easy to visual tes
 To set a viewport, specify one or more screen _widths_ to the `chromatic.viewports` [parameter](https://storybook.js.org/docs/react/writing-stories/parameters#story-parameters):
 
 ```js
-// MyComponent.stories.js | MyComponent.stories.ts
+// MyComponent.stories.js|jsx
 
-import MyComponent from './MyComponent';
+import { MyComponent } from './MyComponent';
 
 export default {
   component: MyComponent,
+  title: 'MyComponent',
 };
 
 const Template = (args) => <MyComponent {...args} />;
 
 export const StoryName = Template.bind({});
-StoryName.args={
-  with: 'props'
+StoryName.args = {
+  with: 'props',
 };
 StoryName.parameters = {
   // Set the viewports in Chromatic at a story level.
   chromatic: { viewports: [320, 1200] },
 };
-
 ```
 
 When Chromatic captures your story, it will create _two_ snapshots on your build, with the browser set at each viewports. These viewports will be treated separately, with independent baselines and distinct approvals.
@@ -41,9 +41,9 @@ When Chromatic captures your story, it will create _two_ snapshots on your build
 Thanks to Storybook's built in [parameter](https://storybook.js.org/docs/react/writing-stories/parameters#component-parameters) API, you can also target viewport at a group of stories or even your entire Storybook. To apply a set of viewports to all component's stories, use:
 
 ```js
-// MyComponent.stories.js | MyComponent.stories.ts
+// MyComponent.stories.js|jsx
 
-import MyComponent from './MyComponent';
+import { MyComponent } from './MyComponent';
 
 export default {
   component: MyComponent,
@@ -51,20 +51,20 @@ export default {
     // Set the viewports in Chromatic at a component level.
     chromatic: { viewports: [320, 1200] },
   },
+  title: 'MyComponent',
 }
 
 const Template = (args) => <MyComponent {...args} />;
 
 export const StoryName = Template.bind({});
 StoryName.args = {
-  with: 'props'
+  with: 'props',
 };
 
-export const SecondStoryName = (args) = Template.bind({});
+export const SecondStoryName = (args = Template.bind({}));
 SecondStoryName.args = {
-  with: 'other-props'
+  with: 'other-props',
 };
-
 ```
 
 ---

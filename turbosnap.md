@@ -115,7 +115,7 @@ For example, if you use an external Sass compiler (not `sass-loader`) to compile
 
 To work around this, run Chromatic's CLI with the `--externals` option (or `externals` action option) to specify one or more globs of "externally processed" files. For example:
 
-```bash
+```shell
 chromatic --only-changed --externals "*.sass" --externals "public/**"
 ```
 
@@ -125,7 +125,7 @@ chromatic --only-changed --externals "*.sass" --externals "public/**"
 
 You may have certain files in your Webpack dependency graph which are (indirectly) used by a story, but which you know are unlikely to cause a meaningful (visual) change. The typical example is a global decorator which imports some utility files. Since a global decorator applies to all stories, a change to such a utility file would cause the entire Storybook to be re-tested. You can avoid that problem using the `--untraced` flag:
 
-```bash
+```shell
 chromatic --only-changed --untraced ".storybook/decorators/*.js"
 ```
 
@@ -254,9 +254,10 @@ If you have a large dependency tree, the build process may fail due to an out of
   
   Ordinarily, TurboSnap uses git to find all files that have changed since the <a href="/branching-and-baselines#calculating-the-ancestor-builds">ancestor build</a> to determine which components/stories to snapshot. The changed file behavior is more complex with merge commits because there are two "ancestor builds".
 
-When you have a merge commit, Chromatic considers **any file that has changed since either ancestor's commit** to decide if a story needs to be re-snapshotted. In other words, the union of the git changes. 
-  
+When you have a merge commit, Chromatic considers **any file that has changed since either ancestor's commit** to decide if a story needs to be re-snapshotted. In other words, the union of the git changes.
+
 The reason for this behaviour relates to what Chromatic does when it chooses not to re-snapshot a story. In such case, it "copies" the snapshot for the story from the ancestor build, knowing (due to the git check) that the story cannot have changed in the meantime.
 
 In the case of merge commits, Chromatic does not know ahead of time which side of the merge the snapshot might be copied from because that involves running the <a href="/branching-and-baselines#calculating-a-snapshot-baseline-from-the-ancestor-builds">complete baseline selection</a> process, so it needs to be conservative and allow for changes on either branch.
+
 </details>
