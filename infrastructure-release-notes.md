@@ -30,7 +30,7 @@ Key highlights on this release:
 
 Welcome to `Chromatic Capture Cloud version 3` released July 2021.
 
-**Status**: Outdated ([opt in for upgrade](infrastructure-upgrades#opt-in-to-upgrade))
+**Status**: No longer available
 
 Key highlights on this release:
 
