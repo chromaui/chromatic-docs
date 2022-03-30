@@ -36,7 +36,6 @@ jobs:
         uses: chromaui/action@v1
         # Chromatic GitHub Action options
         with:
-          token: {% raw %}${{ secrets.GITHUB_TOKEN }}{% endraw %}
           # 👇 Chromatic projectToken, refer to the manage page to obtain it.
           projectToken: {% raw %}${{ secrets.CHROMATIC_PROJECT_TOKEN }}{% endraw %}
 ```
@@ -117,7 +116,6 @@ jobs:
         uses: chromaui/action@v1
         # Options required to the GitHub Chromatic Action
         with:
-          token: {% raw %}${{ secrets.GITHUB_TOKEN }}{% endraw %}
           # 👇 Chromatic projectToken, refer to the manage page to obtain it.
           projectToken: {% raw %}${{ secrets.CHROMATIC_PROJECT_TOKEN }}{% endraw %}
 ```
@@ -139,7 +137,7 @@ If you need to customize your workflow to run Chromatic on specific branches, ad
 on:
   push:
     branches-ignore:
-      - "example" # 👈 Excludes the example branch
+      - 'example' # 👈 Excludes the example branch
 
 jobs:
 # The list of jobs and steps
@@ -188,7 +186,6 @@ jobs:
         # Options required for Chromatic's GitHub Action
         with:
           projectToken: {% raw %}${{ secrets.CHROMATIC_PROJECT_TOKEN }}{% endraw %}
-          token: {% raw %}${{ secrets.GITHUB_TOKEN }}{% endraw %}
         env:
           #👇 Sets the environment variable
           CHROMATIC_RETRIES: 5
@@ -216,7 +213,6 @@ jobs:
         # Options required for Chromatic's GitHub Action
         with:
           projectToken: {% raw %}${{ secrets.CHROMATIC_PROJECT_TOKEN }}{% endraw %}
-          token: {% raw %}${{ secrets.GITHUB_TOKEN }}{% endraw %}
         env:
           #👇 Sets the environment variable
           STORYBOOK_SOME_ENV_VAR: {% raw %}${{ secrets.STORYBOOK_SOME_ENV_VAR }} {% endraw %}
@@ -255,7 +251,6 @@ jobs:
         uses: chromaui/action@v1
         # Options required to the GitHub chromatic action
         with:
-          token: {% raw %}${{ secrets.GITHUB_TOKEN }}{% endraw %}
           # 👇 Chromatic projectToken, refer to the manage page to obtain it.
           projectToken: {% raw %}${{ secrets.CHROMATIC_PROJECT_TOKEN }}{% endraw %}
           exitZeroOnChanges: true # 👈 Option to prevent the workflow from failing
@@ -301,7 +296,6 @@ jobs:
         uses: chromaui/action@v1
         # Required options for the Chromatic GitHub Action
         with:
-          token: {% raw %}${{ secrets.GITHUB_TOKEN }}{% endraw %}
           # 👇 Chromatic projectToken, refer to the manage page to obtain it.
           projectToken: {% raw %}${{ secrets.CHROMATIC_PROJECT_TOKEN }}{% endraw %}
         # 👇 Checks if the branch is main and accepts all changes in Chromatic
@@ -310,7 +304,6 @@ jobs:
         uses: chromaui/action@v1
         # Required options for the Chromatic GitHub Action
         with:
-          token: {% raw %}${{ secrets.GITHUB_TOKEN }}{% endraw %}
           # 👇 Chromatic projectToken, refer to the manage page to obtain it.
           projectToken: {% raw %}${{ secrets.CHROMATIC_PROJECT_TOKEN }}{% endraw %}
           autoAcceptChanges: true # 👈 Option to accept all changes
@@ -338,7 +331,6 @@ jobs:
         uses: chromaui/action@v1
         # Options required to the GitHub chromatic action
         with:
-          token: {% raw %}${{ secrets.GITHUB_TOKEN }}{% endraw %}
           # 👇 Chromatic projectToken, refer to the manage page to obtain it.
           projectToken: {% raw %}${{ secrets.CHROMATIC_PROJECT_TOKEN }}{% endraw %}
           ignoreLastBuildOnBranch: 'my-branch' # 👈 Option to skip the last build on target branch
