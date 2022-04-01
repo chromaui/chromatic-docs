@@ -128,18 +128,32 @@
     <li>
       <a href="interactions" class="{% if page.title == "Interactions" %}active {% endif %}link">Interactions</a>
     </li>
+    <li>
+      <a href="monorepos" class="{% if page.title == " Monorepos" %}active {% endif %}link">Monorepos</a>
+    </li>
   </ul>
 
-  <div class="title">Reference</div>
-  <ul class="docs-list"> 
+  <div class="title">Snapshot</div>
+  <ul class="docs-list">
     <li>
-      <a
-        href="snapshots"
-        class="{% if page.title == "Snapshots" %}active {% endif %}link"
-      >
-        Snapshots</a
-      >
+      <a href="snapshots" class="{% if page.title == " Snapshots" %}active {% endif %}link">
+        Snapshots</a>
     </li>
+    <li>
+      <a href="turbosnap" class="{% if page.title == " TurboSnap" %}active {% endif %}link">TurboSnap</a>
+    </li>
+    <li>
+      <a href="resource-loading" class="{% if page.title == " Resource loading" %}active {% endif %}link">Resource
+        loading</a>
+    </li>
+    <li>
+      <a href="branching-and-baselines" class="{% if page.title == " Branches and baselines" %}active {% endif %}link">
+        Branches & baselines</a>
+    </li>
+  </ul>
+
+  <div class="title">Collaborate</div>
+  <ul class="docs-list"> 
     <li>
       <a
         href="access"
@@ -153,54 +167,16 @@
         Collaborators</a>
     </li>
     <li>
-      <a
-        href="branching-and-baselines"
-        class="{% if page.title == "Branches and baselines" %}active {% endif %}link"
-      >
-        Branches & baselines</a
-      >
-    </li>
-
-    <li>
-      <a
-        href="resource-loading"
-        class="{% if page.title == "Resource loading" %}active {% endif %}link"
-        >Resource loading</a
-      >
-    </li>
-
-    <li>
-      <a
-        href="monorepos"
-        class="{% if page.title == "Monorepos" %}active {% endif %}link"
-        >Monorepos</a
-      >
-    </li>
-    <li>
-      <a
-        href="infrastructure-upgrades"
-        class="{% if page.title == "Infrastructure upgrades" %}active {% endif %}link"
-      >
-        Infrastructure upgrades</a
-      >
-    </li>
-    <li>
-      <a href="turbosnap" class="{% if page.title == "TurboSnap" %}active {% endif %}link">TurboSnap</a>
-    </li>
-    <li>
       <a href="embed" class="{% if page.title == "Embed stories" %}active {% endif %}link">Embed</a>
     </li>
     <li>
-      <a
-        href="open-source"
-        class="{% if page.title == "Open source sponsorships" %}active {% endif %}link"
-        >Open source plan</a
-      >
+      <a href="figma" class="{% if page.title == "Figma" %}active {% endif %}link">Figma</a>
     </li>
     <li>
       <a href="markdown" class="{% if page.title == "Chromatic Markdown syntax" %}active {% endif %}link">Markdown</a>
     </li>
   </ul>
+
   <div class="title">CI</div>
   <ul class="docs-list"> 
     <li>
@@ -269,23 +245,23 @@
     <li>
       <a href="support" class="{% if page.title == "Support" %}active {% endif %}link">Support</a>
     </li>
-    
     <li>
       <a href="billing" class="{% if page.title == "Billing" %}active {% endif %}link">Billing & invoices</a>
     </li>
     <li>
       <a href="notifications" class="{% if page.title == "Notifications" %}active {% endif %}link">Notifications</a>
     </li>
-
+    <li>
+      <a href="infrastructure-upgrades" class="{% if page.title == " Infrastructure upgrades" %}active {% endif %}link">
+        Infrastructure upgrades</a>
+    </li>
     <li>
       <a href="faq" class="{% if page.title == "FAQ" %}active {% endif %}link">FAQ</a>
     </li>
-
     <li>
       <a href="security" class="{% if page.title == "Security" %}active {% endif %}link">
         Security</a>
     </li>
-
     <li>
       <a href="privacy-policy" class="{% if page.title == "Privacy policy" %}active {% endif %}link">
         Privacy policy</a>
@@ -294,7 +270,10 @@
       <a href="terms-of-service" class="{% if page.title == "Terms of service" %}active {% endif %}link">
         Terms of service</a>
     </li>
-
+    <li>
+      <a href="open-source" class="{% if page.title == " Open source sponsorships" %}active {% endif %}link">Open source
+        plan</a>
+    </li>
   </ul>
   <button
     class="btn outline small round show-desktop intercom-concierge-bot">Get support</button
