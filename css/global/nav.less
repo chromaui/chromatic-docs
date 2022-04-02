@@ -1,7 +1,9 @@
 .nav-wrapper {
   .page-margins;
   padding-top: 12px;
-  @media (min-width: @breakpoint) { padding-top: 36px; }
+  @media (min-width: @breakpoint) {
+    padding-top: 36px;
+  }
 }
 
 .nav {
@@ -21,18 +23,8 @@
       }
 
       display: block;
-
-      transition: all 150ms ease-out;
-      transform: translate3d(0, 0, 0);
-      &:hover {
-        transform: translate3d(0, -1px, 0);
-      }
-      &:active {
-        transform: translate3d(0, 0, 0);
-      }
     }
   }
-
 
   .nav-group {
     .position(absolute, 0, auto, auto, 0);
