@@ -128,7 +128,7 @@ Some options can be configured through environment variables. You will typically
 | `HTTPS_PROXY` or `HTTP_PROXY` | Used to configure [https-proxy-agent]                                                  |
 
 <div class="aside">
-If you specify any of `CHROMATIC_SHA`, `CHROMATIC_BRANCH` or `CHROMATIC_SLUG`, you will have to specify all three, otherwise they will be ignored.
+* If you specify any of <code>CHROMATIC_SHA</code>, <code>CHROMATIC_BRANCH</code> or <code>CHROMATIC_SLUG</code>, you will have to specify all three, otherwise they will be ignored.
 </div>
 
 ### Exit codes
