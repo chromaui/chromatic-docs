@@ -114,9 +114,9 @@ Some options can be configured through environment variables. You will typically
 | Environment variable          | Description                                                                            |
 | ----------------------------- | -------------------------------------------------------------------------------------- |
 | `CHROMATIC_PROJECT_TOKEN`     | Project token, see `--project-token`                                                   |
-| `CHROMATIC_SHA`               | Git commit hash                                                                        |
-| `CHROMATIC_BRANCH`            | Git branch name, see `--branch-name`                                                   |
-| `CHROMATIC_SLUG`              | Git repository slug (e.g. `chromaui/chromatic-cli`)                                    |
+| `CHROMATIC_SHA` *             | Git commit hash                                                                        |
+| `CHROMATIC_BRANCH` *          | Git branch name, see `--branch-name`                                                   |
+| `CHROMATIC_SLUG` *            | Git repository slug (e.g. `chromaui/chromatic-cli`)                                    |
 | `CHROMATIC_POLL_INTERVAL`     | Polling interval when waiting for build to finish (default: `1000`)                    |
 | `CHROMATIC_RETRIES`           | Number of times to retry file upload (default: `5`)                                    |
 | `CHROMATIC_STORYBOOK_VERSION` | Overrides Storybook package/version detection (e.g. `@storybook/react@6.5.0-alpha.25`) |
@@ -126,6 +126,10 @@ Some options can be configured through environment variables. You will typically
 | `LOG_LEVEL`                   | One of: `silent`, `error`, `warn`, `info`, `debug`                                     |
 | `DISABLE_LOGGING`             | Set to `true` to disable logging. Equal to `LOG_LEVEL=silent`                          |
 | `HTTPS_PROXY` or `HTTP_PROXY` | Used to configure [https-proxy-agent]                                                  |
+
+<div class="aside">
+If you specify any of `CHROMATIC_SHA`, `CHROMATIC_BRANCH` or `CHROMATIC_SLUG`, you will have to specify all three, otherwise they will be ignored.
+</div>
 
 ### Exit codes
 
