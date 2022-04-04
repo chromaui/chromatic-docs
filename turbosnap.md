@@ -14,7 +14,7 @@ TurboSnap is an advanced Chromatic feature that speeds up builds for faster [UI 
 
 - Chromatic CLI 5.8+
 - Storybook 6.2+
-- Webpack
+- Webpack (for experimental Vite support see [vite-plugin-turbosnap](https://github.com/IanVS/vite-plugin-turbosnap))
 - Stories correctly [configured](https://storybook.js.org/docs/react/configure/overview#configure-story-loading) in Storybook's `main.js`
 - For GitHub Actions: run on `push` rather than `pull_request`
 
