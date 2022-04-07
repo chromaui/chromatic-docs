@@ -25,6 +25,15 @@ Build your own permalinks to get more flexibility. For example, link to the `mai
 | To a branch | `https://<branch>--<appid>.chromatic.com`     |
 | To a commit | `https://<commithash>--<appid>.chromatic.com` |
 
+#### Branches that contain special characters or are too long
+
+Subdomains have certain character limitations. Any thing besides letters and dashes it will be stripped from your branch name. Also, if your branch name is too long, it will be truncated to the first 37 characters.
+
+| Branch   | Example Permalink|
+| ----------- | --------------------------------------------- |
+| feature/my-feature | `https://featuremy-feature--<appid>.chromatic.com`     |
+| thisisareallysuperduperextralongbranchname | `https://thisisareallysuperduperextralongbranc--<appid>.chromatic.com` |
+
 ### Custom domain for your Storybook
 
 A custom domain gives you a memorable URL to share with stakeholders and teammates. It points to your project’s latest published Storybook on a given branch. Most customers choose to setup a Storybook subdomain on their company or project domain name.
