@@ -27,7 +27,7 @@ Build your own permalinks to get more flexibility. For example, link to the `mai
 
 #### Branches that contain special characters or are too long
 
-Subdomains have certain character limitations. Any thing besides letters and dashes it will be stripped from your branch name. Also, if your branch name is too long, it will be truncated to the first 37 characters.
+Subdomains have character and length limitations. Only letters and dash characters are supported, that means any unsupported characters will be stripped from your branch name. If your branch name is longer than 37 characters it will be truncated.
 
 | Branch   | Example Permalink|
 | ----------- | --------------------------------------------- |
