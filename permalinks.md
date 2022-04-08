@@ -27,11 +27,11 @@ Build your own permalinks to get more flexibility. For example, link to the `mai
 
 #### Branches that contain special characters or are too long
 
-Subdomains have character and length limitations. Only letters and dash characters are supported, that means any unsupported characters will be stripped from your branch name. If your branch name is longer than 37 characters it will be truncated.
+Subdomains have character and length limitations. Only letters and dash characters are supported, that means any unsupported characters in your branch name will be replaced with dashes. If your branch name is longer than 37 characters it will be truncated.
 
 | Branch   | Example Permalink|
 | ----------- | --------------------------------------------- |
-| feature/my-feature | `https://featuremy-feature--<appid>.chromatic.com`     |
+| feature/fix-bug | `https://feature-fix-bug--<appid>.chromatic.com`     |
 | thisisareallysuperduperextralongbranchname | `https://thisisareallysuperduperextralongbranc--<appid>.chromatic.com` |
 
 ### Custom domain for your Storybook
