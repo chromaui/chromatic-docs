@@ -63,3 +63,9 @@ The characteristics of an unlinked project include:
 - Notifications are manually setup via Chromatic's [custom webhooks](integrations#custom-webhooks).
 
 Learn how to create an unlinked project [here](setup#demo-chromatic-unlinked).
+
+<div class="aside">
+
+When can I create an unlinked project? You can only create unlinked projects on email/password accounts. If your account currently syncs permissions with GitHub, Bitbucket, or GitLab, you'll need to create a new email/password account to set up an unlinked project. Message us via in-app chat to share billing between accounts.
+
+</div>
