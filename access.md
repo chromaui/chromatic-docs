@@ -57,6 +57,7 @@ Unlinked projects are not linked to a repository on GitHub, Bitbucket, or GitLab
 
 The characteristics of an unlinked project include:
 
+- You have an email/password account
 - Chromatic runs as a [CI-only](ci) job.
 - Collaborators are [manually managed](collaborators#external-collaborators) via an invite list.
 - PR badging is manually configured in your CI provider.
