@@ -64,8 +64,13 @@ The characteristics of an unlinked project include:
 
 Learn how to create an unlinked project [here](setup#demo-chromatic-unlinked).
 
-<div class="aside">
+---
 
-When can I create an unlinked project? You can only create unlinked projects on email/password accounts. If your account currently syncs permissions with GitHub, Bitbucket, or GitLab, you'll need to create a new email/password account to set up an unlinked project. Message us via in-app chat to share billing between accounts.
+### Troubleshooting
 
-</div>
+<details>
+<summary>How do I make an unlinked project on my GitHub, Bitbucket, or Gitlab account?</summary>
+
+You can only create unlinked projects on email/password accounts. If your account currently syncs permissions with GitHub, Bitbucket, or GitLab, you'll need to create a new email/password account to set up an unlinked project. Message us via in-app chat to share billing between accounts.
+
+</details>
