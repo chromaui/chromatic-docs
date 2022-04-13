@@ -72,10 +72,12 @@ Learn how to create an unlinked project [here](setup#demo-chromatic-unlinked).
 <details>
 <summary>How do I create an unlinked project on my existing GitHub, Bitbucket, or GitLab account?</summary>
 
-- ✅ You can create unlinked projects on personal OAuth accounts.
+- ❌ You can't create unlinked projects on GitHub org, Bitbucket workspace, or GitLab group connected accounts.
+- ✅ You can create unlinked projects on personal GitHub, Bitbucket, or GitLab accounts.
 - ✅ You can create unlinked projects on email/password accounts.
-- ❌ You can't create unlinked projects on GitHub org, GitLab group, or Bitbucket workspace connected accounts.
 
-If your team account is currently connected with GitHub, Bitbucket, or GitLab, you'll need to create a new email/password account to set up an unlinked project. Your teammates can access this account if the credentials are shared (typically done via a password manager). To share billing between connected accounts and email/password accounts, message us via in-app chat.
+If your account is currently connected to a GitHub org, Bitbucket workspace, or GitLab group, you'll need to create a new email/password account to set up an unlinked project. Your teammates can access this account by sharing credentials (for example, with a password manager).
+
+To share billing between an existing connected account and an email/password account, message us via in-app chat.
 
 </details>
