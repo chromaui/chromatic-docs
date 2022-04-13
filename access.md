@@ -57,9 +57,27 @@ Unlinked projects are not linked to a repository on GitHub, Bitbucket, or GitLab
 
 The characteristics of an unlinked project include:
 
+- You're using a email/password account OR a personal OAuth account.
 - Chromatic runs as a [CI-only](ci) job.
 - Collaborators are [manually managed](collaborators#external-collaborators) via an invite list.
 - PR badging is manually configured in your CI provider.
 - Notifications are manually setup via Chromatic's [custom webhooks](integrations#custom-webhooks).
 
 Learn how to create an unlinked project [here](setup#demo-chromatic-unlinked).
+
+---
+
+### Troubleshooting
+
+<details>
+<summary>How do I create an unlinked project on my existing GitHub, Bitbucket, or GitLab account?</summary>
+
+- ❌ You can't create unlinked projects on GitHub org, Bitbucket workspace, or GitLab group connected accounts.
+- ✅ You can create unlinked projects on personal GitHub, Bitbucket, or GitLab accounts.
+- ✅ You can create unlinked projects on email/password accounts.
+
+If your account is currently connected to a GitHub org, Bitbucket workspace, or GitLab group, you'll need to create a new email/password account to set up an unlinked project. Your teammates can access this account by sharing credentials (for example, with a password manager).
+
+To share billing between an existing connected account and an email/password account, message us via in-app chat.
+
+</details>
