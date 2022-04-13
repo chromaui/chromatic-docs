@@ -60,27 +60,28 @@ We recommend that you ensure fonts are always loaded prior to rendering the stor
 If you’re loading fonts from an external CDN service (like Google Fonts or Adobe Fonts), be careful that the font files you’re preloading match the fonts called for in your CSS.
 </div>
 
-#### Solution B: Check fonts have loaded in a decorator
+#### Solution B: Check fonts have loaded in a loader
 
 This alternate solution uses the browsers font load API and the [`isChromatic()`](ischromatic) helper function to verify that fonts load when in the Chromatic environment.
 
 ```js
-// preview.js
+// .storybook/preview.js
 
 import isChromatic from 'chromatic/isChromatic';
 
-if (isChromatic() && document.fonts) {
-  addDecorator((story) => {
-    const [isLoadingFonts, setIsLoadingFonts] = useState(true);
-    useEffect(() => {
-      Promise.all([document.fonts.load("400 1em Font Name")]).then(() =>
-        setIsLoadingFonts(false)
-      );
-    }, []);
+// Use the document.fonts API to check if fonts have loaded
+// https://developer.mozilla.org/en-US/docs/Web/API/Document/fonts API to
+const fontLoader = async () => ({
+  fonts: await Promise.all([document.fonts.load('400 1em Font Name')]),
+  // or
+  // fonts: await document.fonts.ready,
+});
 
-    return isLoadingFonts ? null : story();
-  });
-}
+/* 👇 It's configured as a global loader
+ * See https://storybook.js.org/docs/react/writing-stories/loaders
+ * to learn more about loaders
+ */
+export const loaders = isChromatic() && document.fonts ? [fontLoader] : [];
 ```
 
 #### Solution C: Don't load fonts
