@@ -56,6 +56,12 @@ When a build's [status changes](#result-and-status-codes) we'll send a `POST` re
 
 The `event` name is constant, but the `build` data will vary.
 
+#### How to integrate custom webhooks
+
+Chromatic will make a post request with the above body to the designated webhook URL. That gives you flexibility to catch the webhook response and customize it to fit the service you're integrating with.
+
+Most customers set up a simple proxy app to customize the webhook message. Here's a [sample project](https://github.com/chromaui/gitlab-webhook-proxy) that uses an Express server as a proxy.
+
 ### Signed Webhooks
 
 Chromatic supports signed webhooks, here is example code of how to handle them: [signed-webhook-examples](https://github.com/chromaui/signed-webhook-examples). Please contact us via in-app chat or <a href="mailto:support@chromatic.com?Subject=Signed%20webhooks">email</a> to enable signed webhooks on your account.
