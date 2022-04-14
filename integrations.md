@@ -60,7 +60,7 @@ The `event` name is constant, but the `build` data will vary.
 
 Chromatic will make a post request with the above body to the designated webhook URL. That gives you flexibility to catch the webhook response and customize it to fit the service you're integrating with.
 
-Most customers set up a simple proxy app to customize the webhook message. Here's a [sample project](https://github.com/chromaui/gitlab-webhook-proxy) that uses an Express server as a proxy.
+Most customers set up a simple proxy app to customize the webhook message. Here's a [sample project](https://github.com/chromaui/github-webhook-proxy) that uses an Express server as a proxy.
 
 ### Signed Webhooks
 
