@@ -28,6 +28,13 @@ Storybook Connect is a Figma plugin that allows you to link stories to Figma com
 
 4. Once linked, the component and its instances will all have links in the sidebar to view the corresponding story. ![Figma sidebar view](img/figma-plugin-sidebar-view.png)
 
+<details>
+<summary >Do I need to re-link components everytime Storybook is published?</summary>
+
+Nope. Chromatic automatically updates your linked stories to reflect the latest build on the designated branch. That means even when the build URL for a branch changes in Chromatic, the Figma component will always display the latest build on the branch.
+
+</details>
+
 ### Open a story in Figma
 
 1. Select the component that you've previously linked in Figma.
