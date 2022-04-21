@@ -40,8 +40,10 @@ Chromatic's GitHub App enables [UI Review](review) for pull requests. We need ad
 
 Chromatic requests the minimum permissions needed to use the tool. With GitHub, we request permissions for "OAuth" and "GitHub app" respectively. This allows organizations to expand permissions incrementally as they use more features.
 
-1. **Chromatic OAuth app**: Enables GitHub sign in. Request access from your admin [here](https://github.com/settings/connections/applications/495b5c3cb5ae140436a0).
-2. **Chromatic.com app**: Enables [UI Review](review). Request access from your admin [here](https://github.com/apps/chromatic-com).
+If your GitHub organization requires an admin to approve apps, you'll need to request access inside of Chromatic and track their status inside of GitHub (below).
+
+1. **Chromatic OAuth app**: Enables GitHub sign in. Track your access request [here](https://github.com/settings/connections/applications/495b5c3cb5ae140436a0).
+2. **Chromatic.com app**: Enables [UI Review](review). Track your access request [here](https://github.com/apps/chromatic-com).
 
 </details>
 
