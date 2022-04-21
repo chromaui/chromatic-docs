@@ -35,6 +35,17 @@ Chromatic's GitHub App enables [UI Review](review) for pull requests. We need ad
 - ✅ Read access to organization members (for collaborators)
 - 🔒 We do not request access to your code
 
+<details>
+    <summary>How do I request access from my GitHub organization admin?</summary>
+
+    Chromatic requests the minimum permissions needed to use the tool. With GitHub, we request permissions for "OAuth" and "GitHub app" respectively. This allows organizations to expand permissions incrementally as they use more features.
+
+    To enable GitHub sign in, you need to approve the Chromatic OAuth app. Request access from your admin and track the progress of your request [here](https://github.com/settings/connections/applications/495b5c3cb5ae140436a0).
+
+    To use [UI Review](review), you need to approve the Chromatic.com app. Request access from your admin and track the progress of your request [here](https://github.com/apps/chromatic-com).
+
+</details>
+
 ## Organizations
 
 A Chromatic organization mirrors its counterpart GitHub Organization, Bitbucket Group, or GitLab Team. Open the account menu to swap between organizations or add a new organization.
