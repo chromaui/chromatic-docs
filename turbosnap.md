@@ -149,9 +149,9 @@ If your monorepo has stories from multiple subprojects coming together in one St
 
 ## Compatability
 
-### Squash/rebase merging
+#### Squash/rebase merging
 
-**TurboSnap is not compatible with squash and merge rebasing.** The reason is because Chromatic creates a “faux” git link between a commit, let's call it `r'`, and `r`, the commit it is rebasing, turning `r'` into a faux merge commit.
+TurboSnap is _not_ compatible with squash and merge rebasing. The reason is because Chromatic creates a “faux” git link between a commit, let's call it `r'`, and `r`, the commit it is rebasing, turning `r'` into a faux merge commit.
 
 ```shell
 a  -  b  -  c         [main]
@@ -163,11 +163,11 @@ a  -  b  -  c         [main]
 
 But in the case of squash or rebase, it cannot find the diff between `r'` and `r` because as it has been rebased. It's impossible for Chromatic to track the baseline in these cases because `r` no longer exists in the repository.
 
-### `pull_request` vs `push` triggers
+#### `pull_request` vs `push` triggers
 
 GitHub workflows have various "triggers" that a Chromatic action could be running on. In general, we recommend sticking to `push` unless you really know what you're doing.
 
-**TurboSnap is not compatible with the `pull_request` trigger or its variations.** The reason is that `pull_request` workflows run against an ephemeral merge commit, which doesn't actually exist in your Git history yet, but _would_ if you were to merge the PR at that point.
+TurboSnap is _not_ compatible with the `pull_request` trigger or its variations. The reason is that `pull_request` workflows run against an ephemeral merge commit, which doesn't actually exist in your Git history yet, but _would_ if you were to merge the PR at that point.
 
 If your PR triggers multiple builds before being merged, Chromatic would not be able to find those earlier PR builds because your Git history does not actually contain the commit for which you ran a Chromatic build.
 
