@@ -161,7 +161,7 @@ a  -  b  -  c         [main]
     p - q - r . . . . . .        [the old feature]
 ```
 
-But in the case of squash or rebase, it cannot find the diff between `r'` and `r` because as it has been rebased. It's impossible for Chromatic to track the baseline in these cases because `r` no longer exists in the repository.
+But in the case of squash or rebase, it cannot find the diff between `r'` and `r` because it has been rebased away. It's impossible for Chromatic to track the baseline in these cases because `r` no longer exists in the repository.
 
 #### GitHub pull_request triggers
 
