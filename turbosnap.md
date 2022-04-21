@@ -16,8 +16,8 @@ TurboSnap is an advanced Chromatic feature that speeds up builds for faster [UI 
 - Storybook 6.2+
 - Webpack (for experimental Vite support see [vite-plugin-turbosnap](https://github.com/IanVS/vite-plugin-turbosnap))
 - Stories correctly [configured](https://storybook.js.org/docs/react/configure/overview#configure-story-loading) in Storybook's `main.js`
-- You're not squash/rebase merging [learn more](#squash-rebase-merging)
-- For GitHub Actions: run on `push` rather than `pull_request` [learn more](#pull-request-vs-push-triggers)
+- You're not squash/rebase merging ([learn more](#squashrebase-merging))
+- For GitHub Actions: run on `push` rather than `pull_request` ([learn more](#github-pullrequest-triggers))
 
 ## Enable
 
@@ -163,7 +163,7 @@ a  -  b  -  c         [main]
 
 But in the case of squash or rebase, it cannot find the diff between `r'` and `r` because as it has been rebased. It's impossible for Chromatic to track the baseline in these cases because `r` no longer exists in the repository.
 
-#### `pull_request` vs `push` triggers
+#### GitHub pull_request triggers
 
 GitHub workflows have various "triggers" that a Chromatic action could be running on. In general, we recommend sticking to `push` unless you really know what you're doing.
 
