@@ -146,6 +146,19 @@ If your monorepo has stories from multiple subprojects coming together in one St
 
 [picomatch]: https://www.npmjs.com/package/picomatch#globbing-features
 
+## Notes on squash and merge rebasing
+
+TurboSnap is not compatible with squash and merge rebasing. 
+```
+a  -  b  -  c         [main]
+             \
+              p'  -  q'  -  r'   [feature]
+ \                        .
+    p - q - r . . . . . .        [the old feature]
+```
+    
+Chromatic creates a “faux” git link between a commit, let's call it `r`', and `r`, the commit it is rebasing, turning `r'` into a faux merge commit. However, it cannot find the diff between `r'` and `r` because as it has been rebased. `r` no longer exists in the repository any more.
+
 ---
 
 ### Troubleshooting
