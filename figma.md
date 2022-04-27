@@ -4,7 +4,7 @@ title: Figma
 description: Connect stories to variants
 ---
 
-# Figma plugin (beta)
+# Figma plugin
 
 Storybook Connect is a Figma plugin that allows you to link stories to Figma components. Once linked, you can view your live stories in the design workspace without leaving Figma.
 
