@@ -12,6 +12,8 @@ The `diffThreshold` parameter allows you to fine tune the threshold for visual c
 
 Chromatic's default threshold is `.063` which balances high visual accuracy with low false positives (for example, from artifacts like anti-aliasing). `0` is the most accurate. `1` is the least accurate.
 
+Interactively demo different `diffThreshold` values with [this tool](https://6262c53f521620003ac2ff49-ukmsdlppcb.chromatic.com/?path=/story/stories-diff-threshold-check--test-yours-out).
+
 Configure the `diffThreshold` with a Storybook [parameter](https://storybook.js.org/docs/react/writing-stories/parameters#story-parameters) like so:
 
 ```js
