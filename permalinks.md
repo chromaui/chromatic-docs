@@ -42,7 +42,7 @@ A custom domain gives you a memorable URL to share with stakeholders and teammat
 
 - Premium plan subscription
 - Ability to add DNS records to the domain name
-- [Storybook visibility](https://www.chromatic.com/docs/collaborators#visibility) set to `public`
+
 
 #### How to setup a custom subdomain
 
