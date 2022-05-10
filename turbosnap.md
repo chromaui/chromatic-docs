@@ -133,6 +133,12 @@ TurboSnap works by taking a list of changed files in your Git repository and tra
 
 `--untraced` is particularly useful when you're importing "index" files that re-export a bunch of underlying modules. A change to any of these modules would cause any file that imports the index file to be considered "dirty", even if it doesn't actually use the changed module. By using `--untraced` on the index file, all of its re-exported modules are automatically untraced as well, as long as they aren't imported directly.
 
+#### Avoid re-testing on changes to package control files
+
+When certain files that pertain to `node_modules` (`package.json`, `package-lock.json`, `yarn.lock`) change, TurboSnap cannot safely tell what may have changed inside `node_modules`, and so needs to re-test all stories.
+
+You can opt out of this by passing these file names to the `--untraced` flag: e.g. `--untraced=package.json,yarn.lock`. **NOTE:** this may lead to builds where visual changes due to changed dependencies are missed!
+
 ### Enable or disable for specific branches
 
 To enable TurboSnap for specific branches, pass a glob to `--only-changed` (e.g. `chromatic --only-changed "feature/*"`). Use a negating glob (e.g. `chromatic --only-changed "!(main)"`) to enable all but certain branches. See [picomatch] for details.
