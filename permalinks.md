@@ -43,7 +43,6 @@ A custom domain gives you a memorable URL to share with stakeholders and teammat
 - Premium plan subscription
 - Ability to add DNS records to the domain name
 
-
 #### How to setup a custom subdomain
 
 1. Go to the DNS management interface provided by your domain registrar or web hosting provider. Find the section where you can add DNS records.
