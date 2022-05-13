@@ -32,7 +32,7 @@ Components and their stories are securely indexed each commit and branch. Use th
 
 ## Direct access to your Storybook
 
-Your Storybook is published on our secure CDN. Collaborators with [access rights](access) will also get access by logging in.
+Your Storybook is published on our secure CDN. Published Storybooks are private by default with [access](access) restricted to logged in collaborators. [Visibility](collaborators#visibility) can be set to public if desired.
 
 Chromatic generates a [permalink](permalinks) for the latest uploaded Storybook on a given branch. That makes it easy to share with your teammates or link to from docs. `https://<branch>--<appid>.chromatic.com`
 
