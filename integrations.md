@@ -49,7 +49,8 @@ When a build's [status changes](#result-and-status-codes) we'll send a `POST` re
     "storybookUrl": "https://5dca7f6a6ce19b00201febb7-yubzntxvow.chromatic.com/",
     "changeCount": 12,
     "componentCount": 42,
-    "specCount": 100
+    "specCount": 100,
+    "projectName": "my-repo",
   }
 }
 ```
