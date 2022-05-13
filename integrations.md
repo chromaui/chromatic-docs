@@ -50,7 +50,7 @@ When a build's [status changes](#result-and-status-codes) we'll send a `POST` re
     "changeCount": 12,
     "componentCount": 42,
     "specCount": 100,
-    "projectName": "my-repo",
+    "projectName": "my-repo"
   }
 }
 ```
