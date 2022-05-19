@@ -12,13 +12,14 @@ Learn how to manage access to your Chromatic account and projects.
 
 Sign in to Chromatic via OAuth, email or SSO.
 
-### OAuth
+#### OAuth
 
 Chromatic supports the cloud versions of GitHub, GitLab, or Bitbucket on our [self-serve plans](https://www.chromatic.com/pricing).
 
 If you use the on-premise or enterprise versions of GitHub, GitLab, or Bitbucket, we can support you via our [enterprise plan](https://www.chromatic.com/pricing). We recommend trialing Chromatic first by following these [instructions](setup#demo-chromatic-unlinked).
 
-#### OAuth Scopes
+<details>
+    <summary>What OAuth scopes does Chromatic request?</summary>
 
 Depending on your Git provider, Chromatic will request a set of OAuth scopes when you first sign in. Chromatic uses these permissions to enumerate your list of repos, set PR statuses, and retrieve users for assignment to review. Chromatic will never read/write source code.
 
@@ -27,6 +28,8 @@ Depending on your Git provider, Chromatic will request a set of OAuth scopes whe
 | [GitHub](https://developer.github.com/apps/building-oauth-apps/understanding-scopes-for-oauth-apps/#available-scopes)        | `['user:email', 'read:user', 'read:org', 'repo:status']` |
 | [GitLab](https://docs.gitlab.com/ee/user/profile/personal_access_tokens.html#limiting-scopes-of-a-personal-access-token)     | `['api']`                                                |
 | [Bitbucket](https://confluence.atlassian.com/bitbucket/oauth-on-bitbucket-cloud-238027431.html#OAuthonBitbucketCloud-Scopes) | `['account', 'repository', 'pullrequest', 'webhook']`    |
+
+</details>
 
 <details>
     <summary>What permissions does the GitHub App request?</summary>
@@ -52,7 +55,7 @@ If your GitHub organization requires an admin to approve apps, you'll need to re
 
 </details>
 
-### Email
+#### Email
 
 Email and password authentication is available on all accounts. It's a popular authentication method for [external collaborators](collaborators#external-collaborators) like designers, PMs, and other stakeholders.
 
@@ -64,7 +67,7 @@ If you're setting up Chromatic for your team as the account owner or administrat
 
 We recommend signing up with email for projects that **are not** on GitHub, Bitbucket, or GitLab. For example, projects on services like Azure DevOps, AWS, etc. Read the setup instructions for these types of projects [here](setup#demo-chromatic-unlinked).
 
-### Single Sign-On (SSO)
+#### Single Sign-On (SSO)
 
 Single Sign-On (SSO) is available to enterprise customers. To sign-in, make sure to navigate to your team's custom Chromatic URL, for example `mycompany.chromatic.com`.
 
