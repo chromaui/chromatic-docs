@@ -33,6 +33,7 @@ export PATH=$HOME/gems/bin:$PATH
 3. [ctrl + o] then [return] to save
 4. `$ source .bashrc`
 5. Try installing jekyll again or continue on
+6. On an M1 mac, you might have to run `bundle update ffi sassc`
 
 ## Running the site
 
