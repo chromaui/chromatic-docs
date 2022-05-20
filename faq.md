@@ -196,6 +196,38 @@ If you'd only like to see multiple themes side-by-side in Chromatic and not in y
 
 </details>
 
+<details>
+<summary>Why am I seeing a blank snapshot?</summary>
+
+Blank snapshots are often caused by:
+
+- **An "animateIn" effect**—If your component use an “animateIn” effect [set delay](/docs/delay) to ensure we snapshot when the animation completes.
+
+- **Position:fixed**—Fixed position elements may depend on viewport size but not have dimensions themselves. Wrap your component in an element whose height and width are defined.
+
+Learn more about [debugging snapshots](/docs/snapshots#troubleshooting).
+
+</details>
+
+<details>
+<summary>Why are my images or fonts not rendering?</summary>
+
+Image and font rendering can be tricky. Resources that load from unpredictable or flaky sources may not load in time (15s) to capture. Workaround this by:
+
+- Serving resources as [static files in Storybook](https://storybook.js.org/configurations/serving-static-files/) (this also improves your test speed)
+- Using a [placeholder service](https://placeholder.com/).
+
+Learn more about how we [load resources](/docs/resource-loading).
+
+</details>
+
+<details>
+<summary>Why am I getting inconsistent or incorrect snapshots?</summary>
+
+Checkout common reasons why snapshots render inconsistently and solutions [**here**](/docs/test#false-positives).
+
+</details>
+
 ## Usage
 
 <details>
