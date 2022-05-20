@@ -231,11 +231,16 @@ Checkout common reasons why snapshots render inconsistently and solutions [**her
 ## Usage
 
 <details>
-<summary>How is UI Review different from UI Tests?</summary>
+<summary>How is UI Review different from UI Tests? How do I get the best functionality out of both?</summary>
 
-Testing is done primarily by developers, most often iteratively during development. The focus is on preventing UI regressions (bugs) and maintaining a clean set of baselines to test against.
+In a nutshell, **UI Tests** prevent regressions (bugs), while **UI Review** is for gathering qualitative feedback from your team.
 
-Review is usually performed by designers, PMs, customers, and other stakeholders. The focus is not on finding bugs (this should have already happened through testing) but rather to find cases where the implementation is not quite as was intended by the design or specifications. The modern development process moves quickly and often developers are filling in gaps according to their best guess. UI review is an opportunity for developers to sync with other teammates to get a final OK before shipping.
+The modern development process moves quickly, and developers often fill in gaps according to their best guess. UI review is an opportunity for developers to sync with other teammates to get a final OK before shipping.
+
+Here's how we recommend using the workflows together:
+
+- **UI Tests (commit vs commit):** Use like unit tests to catch UI regressions in components. Typically, a developer would be responsible for this. It ensures you don't introduce any bugs as you build new features. You'll get notified of bugs down to the commit.
+- **UI Review (branch vs branch):** Once you've finished the first iteration of the implementation and think the PR is "done", it's now ready for review from stakeholders like your tech lead, designer or PM. This workflow helps them review all the changes in a PR at once, and gives them tools to give you precise feedback on stories.
 
 </details>
 
@@ -314,6 +319,20 @@ No. Snapshots taken for one workflow are reused for the other. You don't get cha
 <summary>What happens if I disable UI Tests and/or UI Review?</summary>
 
 As long as either the testing or review features are enabled, Chromatic will continue taking snapshots. With both disabled, Chromatic will stop taking snapshots and all other features of the platform (such as publishing) will continue without limits.
+
+</details>
+
+#### Continuos Integration
+
+<details>
+<summary>How to run Chromatic on a specific branch or only when merging to main?</summary>
+
+How Chromatic is triggered depends on your Continuous Integration (CI) setup. You can configure your CI provider to run Chromatic on a specific branch or only when merging to your main branch.
+
+For example, here’s how GitHub Actions can be configured:
+
+- [Using filters](https://docs.github.com/en/actions/using-workflows/triggering-a-workflow#using-filters)
+- [Using conditions to control job execution](https://docs.github.com/en/actions/using-jobs/using-conditions-to-control-job-execution)
 
 </details>
 
