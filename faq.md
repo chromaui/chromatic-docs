@@ -341,6 +341,36 @@ For example, here’s how GitHub Actions can be configured:
 <details>
 <summary>Why isn’t TurboSnap working for me?</summary>
 
+TurboSnap is _not_ compatible with squash and merge rebasing ([learn more](http://127.0.0.1:4000/docs/turbosnap#squashrebase-merging)). Or you might be missing one of the necessary [prerequisites](docs/turbosnap#prerequisites).
+
+</details>
+
+#### Storybook Connect Figma plugin
+
+<details>
+<summary>Can you choose which version of the design from a Storybook is shown in Figma?</summary>
+
+Yes, you can select which branch’s Stories are connected to Figma.
+
+Chromatic generates a unique permalink when a Storybook is published. You can link your component by using the URL to a specific commit or a [permalink](http://127.0.0.1:4000/docs/permalinks#build-your-own-permalink) to a branch.
+
+However, the plugin will always display stories from the latest build for that branch once linked.
+
+</details>
+
+<details>
+<summary>Does the integration sync automatically?</summary>
+
+Yes. Chromatic automatically updates your linked stories to reflect the latest build on the designated branch. That means even when the build URL for a branch changes in Chromatic, the Figma component will always display the latest build on the branch.
+
+</details>
+
+<details>
+<summary>How do permissions work?</summary>
+
+If I’m in Figma and the person that has access to my Figma file doesn’t have access to the story, can they still see the widget/I-frame?
+They must be able to see the story in chromatic to be able to see it in the plugin.
+
 </details>
 
 ## Your account
