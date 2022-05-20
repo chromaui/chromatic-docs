@@ -336,6 +336,13 @@ For example, here’s how GitHub Actions can be configured:
 
 </details>
 
+#### TurboSnap
+
+<details>
+<summary>Why isn’t TurboSnap working for me?</summary>
+
+</details>
+
 ## Your account
 
 <details>
