@@ -16,7 +16,6 @@ TurboSnap is an advanced Chromatic feature that speeds up builds for faster [UI 
 - Storybook 6.2+
 - Webpack (for experimental Vite support see [vite-plugin-turbosnap](https://github.com/IanVS/vite-plugin-turbosnap))
 - Stories correctly [configured](https://storybook.js.org/docs/react/configure/overview#configure-story-loading) in Storybook's `main.js`
-- You're not squash/rebase merging ([learn more](#squashrebase-merging))
 - For GitHub Actions: run on `push` rather than `pull_request` ([learn more](#github-pullrequest-triggers))
 
 ## Enable
@@ -155,20 +154,6 @@ If your monorepo has stories from multiple subprojects coming together in one St
 
 ## Compatability
 
-#### Squash/rebase merging
-
-TurboSnap is _not_ compatible with squash and merge rebasing. The reason is because Chromatic creates a “faux” git link between a commit, let's call it `r'`, and `r`, the commit it is rebasing, turning `r'` into a faux merge commit.
-
-```shell
-a  -  b  -  c         [main]
-             \
-              p'  -  q'  -  r'   [feature]
- \                        .
-    p - q - r . . . . . .        [the old feature]
-```
-
-But in the case of squash or rebase, it cannot find the diff between `r'` and `r` because it has been rebased away. It's impossible for Chromatic to track the baseline in these cases because `r` no longer exists in the repository.
-
 #### GitHub pull_request triggers
 
 GitHub workflows have various "triggers" that a Chromatic action could be running on. In general, we recommend sticking to `push` unless you really know what you're doing.
@@ -257,20 +242,12 @@ If this list of files contains things you didn't expect, take a look at any glob
 <details>
   <summary>Why are full rebuilds required?</summary>
 
-Full rebuilds can be required for various reasons (see the list in <a href="#how-it-works">how it works</a>).
-
-Some reasons that can be surprising are:
+Full rebuilds can be required for various reasons (see the list in <a href="#how-it-works">how it works</a>). In particular it can be surprising when:
 
 1. A change to a <code>package.json</code> or lock file for a subproject that doesn't affect the Storybook (we need to be very conservative as we cannot tell if a change to a lock file could affect <code>node_modules</code> imported by Storybook).
 
   <div class="aside">
     If you run into this situation frequently, upvote the <a href="https://github.com/chromaui/chromatic-cli/issues/383">open issue</a> in the Chromatic CLI's issue tracker to opt-out of this behavior for specific directories in your repository.
-  </div>
-
-2. If the previous Chromatic build is linked to a commit that no longer exists in the repository. It can happen for a couple of reasons, most commonly rebasing a feature branch, force-pushing or when running the GitHub Action with the `pull_request` trigger which uses an ephemeral merge commit. When we don't know the previous commit, Chromatic cannot determine which files have changed.
-
-  <div class="aside">
-    If you're encounter this situation often, upvote the <a href="https://github.com/chromaui/chromatic-cli/issues/368">open issue</a> in the Chromatic's CLI's issue tracker to address this situation.
   </div>
 </details>
 
