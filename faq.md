@@ -322,7 +322,7 @@ As long as either the testing or review features are enabled, Chromatic will con
 
 </details>
 
-#### Continuos Integration
+#### Continuous Integration
 
 <details>
 <summary>How to run Chromatic on a specific branch or only when merging to main?</summary>
