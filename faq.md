@@ -327,7 +327,7 @@ As long as either the testing or review features are enabled, Chromatic will con
 <details>
 <summary>How to run Chromatic on a specific branch or only when merging to main?</summary>
 
-How Chromatic is triggered depends on your Continuous Integration (CI) setup. You can configure your CI provider to run Chromatic on a specific branch or only when merging to your main branch.
+How Chromatic is triggered depends on your Continuous Integration (CI) setup. You can configure your CI provider to run Chromatic on a specific branch or only when merging to your main branch. Please beware that changing which branches Chromatic runs on may affect test and review coverage because Chromatic uses Git history to [track baselines](branching-and-baselines).
 
 For example, here’s how GitHub Actions can be configured:
 
