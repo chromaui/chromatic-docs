@@ -359,7 +359,7 @@ However, the plugin will always display stories from the latest build for that b
 </details>
 
 <details>
-<summary>Does the integration sync automatically?</summary>
+<summary>Does the Figma integration sync automatically?</summary>
 
 Yes. Chromatic automatically updates your linked stories to reflect the latest build on the designated branch. That means even when the build URL for a branch changes in Chromatic, the Figma component will always display the latest build on the branch.
 
