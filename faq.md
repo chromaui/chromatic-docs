@@ -352,7 +352,7 @@ TurboSnap is _not_ compatible with squash and merge rebasing ([learn more](http:
 
 Yes, you can select which branch’s Stories are connected to Figma.
 
-Chromatic generates a unique permalink when a Storybook is published. You can link your component by using the URL to a specific commit or a [permalink](http://127.0.0.1:4000/docs/permalinks#build-your-own-permalink) to a branch.
+Chromatic generates a unique permalink when a Storybook is published. You can link your component by using the URL to a specific commit or a [permalink](permalinks#build-your-own-permalink) to a branch.
 
 However, the plugin will always display stories from the latest build for that branch once linked.
 
