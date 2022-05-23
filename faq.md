@@ -233,7 +233,7 @@ Checkout common reasons why snapshots render inconsistently and solutions [**her
 <details>
 <summary>How is UI Review different from UI Tests? How do I get the best functionality out of both?</summary>
 
-In a nutshell, **UI Tests** prevent regressions (bugs), while **UI Review** is for gathering qualitative feedback from your team.
+In a nutshell, [**UI Tests**](test) prevent regressions (bugs), while [**UI Review**](review) is for gathering qualitative feedback from your team.
 
 The modern development process moves quickly, and developers often fill in gaps according to their best guess. UI review is an opportunity for developers to sync with other teammates to get a final OK before shipping.
 
