@@ -341,7 +341,7 @@ For example, here’s how GitHub Actions can be configured:
 <details>
 <summary>Why isn’t TurboSnap working for me?</summary>
 
-TurboSnap is _not_ compatible with squash and merge rebasing ([learn more](http://127.0.0.1:4000/docs/turbosnap#squashrebase-merging)). Or you might be missing one of the necessary [prerequisites](docs/turbosnap#prerequisites).
+TurboSnap is _not_ compatible with squash and merge rebasing ([learn more](turbosnap#squashrebase-merging)). Or you might be missing one of the necessary [prerequisites](docs/turbosnap#prerequisites).
 
 </details>
 
