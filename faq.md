@@ -368,7 +368,9 @@ Yes. Chromatic automatically updates your linked stories to reflect the latest b
 <details>
 <summary>How do permissions work?</summary>
 
-If I’m in Figma and the person that has access to my Figma file doesn’t have access to the story, can they still see the widget/I-frame?
+Figma users must have access to the Chromatic project in order to use the plugin. That means Figma collaborators (viewers, editors, admins) that have access to your Figma file but don't have access to Chromatic will not be able to see the stories. 
+
+Learn how to invite teammates as [collaborators](collaborators) on your Chromatic project. We don't charge "per seat" so you can invite your whole team.
 They must be able to see the story in chromatic to be able to see it in the plugin.
 
 </details>
