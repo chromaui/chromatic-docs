@@ -6,7 +6,7 @@ description: Security overview and responsible disclosure
 
 # Security policy
 
-Our priority is securing your intellectual property and sensitive information. Download an overview (PDF) of our security policy [here](assets/Chroma-Security-Policy.pdf).
+Our priority is securing your intellectual property and sensitive information. View and download an overview of our security policy [here](https://app.drata.com/security-report/36340072-4a17-4b9e-80be-1b80562aeb41/30c79316-dfa2-42a8-9b0c-2766cd6ecb89).
 
 ## SOC 2
 
