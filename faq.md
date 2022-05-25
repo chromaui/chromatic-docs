@@ -265,6 +265,15 @@ Chromatic will reset the snapshot count every month, calculated based on the day
 
 </details>
 
+<details>
+<summary>Where can I find my project token?</summary>
+
+The project token is available on the Configure page of your project.
+
+![Navigate to the Manage page and click on the Configure tab](img/project-token.png)
+
+</details>
+
 #### Browsers
 
 <details>
@@ -368,7 +377,7 @@ Yes. Chromatic automatically updates your linked stories to reflect the latest b
 <details>
 <summary>How do permissions work?</summary>
 
-Figma users must have access to the Chromatic project in order to use the plugin. That means Figma collaborators (viewers, editors, admins) that have access to your Figma file but don't have access to Chromatic will not be able to see the stories. 
+Figma users must have access to the Chromatic project in order to use the plugin. That means Figma collaborators (viewers, editors, admins) that have access to your Figma file but don't have access to Chromatic will not be able to see the stories.
 
 Learn how to invite teammates as [collaborators](collaborators) on your Chromatic project. We don't charge "per seat" so you can invite your whole team.
 They must be able to see the story in chromatic to be able to see it in the plugin.
