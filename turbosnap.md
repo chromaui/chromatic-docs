@@ -32,6 +32,8 @@ It will build and test stories that may have been affected by the Git changes si
 
 Stories that have not changed will not be tested (i.e., snapshotted), despite appearing in Chromatic's UI as if they were. In many cases this will lead to much decreased snapshot usage and faster build times.
 
+#### Full rebuilds
+
 Certain circumstances could potentially affect all stories. To prevent false positives, we re-test everything if any of the following situations apply:
 
 - Changes to package versions in `package.json`, `yarn.lock`, `package-lock.json`
@@ -42,6 +44,16 @@ Certain circumstances could potentially affect all stories. To prevent false pos
 - Re-run of the same build (commit and branch match the parent build)
 - [Infrastructure upgrades](infrastructure-upgrades)
 - [UI Test in a new browser](browsers)
+
+#### Missing commits (rebasing)
+
+The above algorithm depends on taking the git difference between the current commit and the commit for the ancestor build. In some cases (such as rebasing and force pushing), the commit for the ancestor may no longer exist in the repository, which prevents Chromatic from doing the git diff.
+
+In such situations Chromatic will search back from the ancestor until it finds a "replacement build", which still has a valid commit in the repository. Chromatic then approximates the difference between the ancestor and the current commit by considering the git difference between the current commit and the replacement and the detected UI changes between the ancestor and the replacement.
+
+A story will be tested in such circumstances if it either:
+(A) had code changes (according to git) between the current commit and the replacement OR
+(B) had visual changes (according to chromatic) between the replacement and the ancestor build.
 
 ## Configure
 
@@ -152,7 +164,7 @@ If your monorepo has stories from multiple subprojects coming together in one St
 
 ---
 
-## Compatability
+## Compatibility
 
 #### GitHub pull_request triggers
 
@@ -242,9 +254,7 @@ If this list of files contains things you didn't expect, take a look at any glob
 <details>
   <summary>Why are full rebuilds required?</summary>
 
-Full rebuilds can be required for various reasons (see the list in <a href="#how-it-works">how it works</a>). In particular it can be surprising when:
-
-1. A change to a <code>package.json</code> or lock file for a subproject that doesn't affect the Storybook (we need to be very conservative as we cannot tell if a change to a lock file could affect <code>node_modules</code> imported by Storybook).
+Full rebuilds can be required for various reasons (see the list in <a href="#how-it-works">how it works</a>). Another scenario where a full rebuild will also be required is due to a change to a <code>package.json</code> or lock file for a subproject that doesn't affect the Storybook (we need to be very conservative as we cannot tell if a change to a lock file could affect <code>node_modules</code> imported by Storybook).
 
   <div class="aside">
     If you run into this situation frequently, upvote the <a href="https://github.com/chromaui/chromatic-cli/issues/383">open issue</a> in the Chromatic CLI's issue tracker to opt-out of this behavior for specific directories in your repository.
