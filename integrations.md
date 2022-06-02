@@ -10,7 +10,7 @@ Integrate Chromatic into your existing tools and services with [webhooks](https:
 
 ## Slack notifications
 
-Post a message in a designated Slack channel when a build's [status changes](#status-notifications). Follow the instructions below to connect a Chromatic project to a Slack channel using a webhook. You can repeat this process to create webhook URLs for multiple channels.
+Post a message in a designated Slack channel when a build's [status changes](#result-and-status-codes). Follow the instructions below to connect a Chromatic project to a Slack channel using a webhook. You can repeat this process to create webhook URLs for multiple channels.
 
 1. Sign in to Slack and add the [Incoming WebHooks](https://slack.com/apps/A0F7XDUAZ-incoming-webhooks) app to your workspace.
 2. Choose the channel where you want Chromatic to post notifications then click “Add Incoming WebHooks integration”.
