@@ -47,13 +47,13 @@ Certain circumstances could potentially affect all stories. To prevent false pos
 
 #### Missing commits (rebasing)
 
-The above algorithm depends on taking the git difference between the current commit and the commit for the ancestor build. In some cases (such as rebasing and force pushing), the commit for the ancestor may no longer exist in the repository, which prevents Chromatic from doing the git diff.
+Under the hood, TurboSnap works by calculating the difference between the current commit and its ancestor. However, there are certain cases (i.e., rebasing, force pushing) where the commit linked to the previous build no longer exists in the repository, which prevents Chromatic from 
+doing this computation accurately. 
 
-In such situations Chromatic will search back from the ancestor until it finds a "replacement build", which still has a valid commit in the repository. Chromatic then approximates the difference between the ancestor and the current commit by considering the git difference between the current commit and the replacement and the detected UI changes between the ancestor and the replacement.
+In this case, it will search the existing builds until it finds a suitable "replacement build" with a valid commit in the repository. Once found, it approximates the difference between the two commits alongside any UI changes. This can lead to a story being re-tested if one of the following requirements is met:
 
-A story will be tested in such circumstances if it either:
-(A) had code changes (according to git) between the current commit and the replacement OR
-(B) had visual changes (according to chromatic) between the replacement and the ancestor build.
+- Code changes detected (according to Git) between the current and replacement commit
+- Visual changes identified (according to Chromatic) between the ancestor build and the replacement commit's build
 
 ## Configure
 
