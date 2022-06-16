@@ -270,7 +270,7 @@ Chromatic will reset the snapshot count every month, calculated based on the day
 
 The project token is available on the Configure page of your project.
 
-![Navigate to the Manage page and click on the Configure tab](img/project-token.png)
+![Navigate to the Manage page and click on the Configure tab](img/configure-project-token.jpg)
 
 </details>
 
