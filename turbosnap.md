@@ -147,23 +147,29 @@ To enable TurboSnap for specific branches, pass a glob to `--only-changed` (e.g.
 
 The best way to see if TurboSnap is working is to inspect your CLI output. There are a couple of messages the CLI outputs of particular relevance:
 
-```
+```shell
 Traversing dependencies for X files that changed since the last build
 ```
 
+<div class="aside">
 This message tells us how many git changes Chromatic detected since the last Chromatic build. Usually, that's just one or two commit's worth of files.
+</div>
 
-```
+```shell
 Found Y story files affected by recent changes
 ```
 
+<div class="aside">
 This message tells you the number of story files that depend on the X changes above. This message also might be replaced by a message telling you that we need to capture all stories (<a href="#why-are-full-rebuilds-required">see below</a>).
+</div>
 
-```
+```shell
 Tested A stories across B components; capture C snapshots in S seconds.
 ```
 
+<div class="aside">
 This message tells you how many snapshots we actually took instead of the number of stories we found in your Storybook. Usually, C would be the number of stories in the Y component files above.
+</div>
 
 Once TurboSnap is activated, all subsequent builds will display an indicator with TurboSnap's status. Find it on the Build page above your tests.
 
