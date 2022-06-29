@@ -12,11 +12,10 @@ TurboSnap is an advanced Chromatic feature that speeds up builds for faster [UI 
 
 #### Prerequisites
 
-- Chromatic CLI 5.8+
+- Chromatic CLI [5.8+](https://www.npmjs.com/package/chromatic)
 - Storybook 6.2+
 - Webpack (for experimental Vite support see [vite-plugin-turbosnap](https://github.com/IanVS/vite-plugin-turbosnap))
 - Stories correctly [configured](https://storybook.js.org/docs/react/configure/overview#configure-story-loading) in Storybook's `main.js`
-- You're not squash/rebase merging ([learn more](#squashrebase-merging))
 - For GitHub Actions: run on `push` rather than `pull_request` ([learn more](#github-pullrequest-triggers))
 
 ## Enable
@@ -187,20 +186,6 @@ If your monorepo has stories from multiple subprojects coming together in one St
 
 ## Compatability
 
-#### Squash/rebase merging
-
-TurboSnap is _not_ compatible with squash and merge rebasing. The reason is because Chromatic creates a “faux” git link between a commit, let's call it `r'`, and `r`, the commit it is rebasing, turning `r'` into a faux merge commit.
-
-```shell
-a  -  b  -  c         [main]
-             \
-              p'  -  q'  -  r'   [feature]
- \                        .
-    p - q - r . . . . . .        [the old feature]
-```
-
-But in the case of squash or rebase, it cannot find the diff between `r'` and `r` because it has been rebased away. It's impossible for Chromatic to track the baseline in these cases because `r` no longer exists in the repository.
-
 #### GitHub pull_request triggers
 
 GitHub workflows have various "triggers" that a Chromatic action could be running on. In general, we recommend sticking to `push` unless you really know what you're doing.
@@ -304,5 +289,12 @@ When you have a merge commit, Chromatic considers **any file that has changed si
 The reason for this behaviour relates to what Chromatic does when it chooses not to re-snapshot a story. In such case, it "copies" the snapshot for the story from the ancestor build, knowing (due to the git check) that the story cannot have changed in the meantime.
 
 In the case of merge commits, Chromatic does not know ahead of time which side of the merge the snapshot might be copied from because that involves running the <a href="/branching-and-baselines#calculating-a-snapshot-baseline-from-the-ancestor-builds">complete baseline selection</a> process, so it needs to be conservative and allow for changes on either branch.
+
+</details>
+
+<details>
+  <summary>Does TurboSnap work with squash/rebase merge?</summary>
+
+TurboSnap is compatible with squash and merge rebasing as of version 6.6+. Please update your package to get support.
 
 </details>
