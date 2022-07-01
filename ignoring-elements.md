@@ -98,7 +98,7 @@ export function MyComponent() {
       <p>
         Also ignore the animated gif:
         <img
-          className="chromatic-ignore"
+          data-chromatic="ignore"
           src="https://media0.giphy.com/media/3oriO4WnYwNTZLKv5K/giphy.gif"
         />
       </p>
