@@ -80,7 +80,7 @@ StoryName.args = {};
 
 ## Ignore DOM elements
 
-Add the `.chromatic-ignore` CSS class or `[data-chromatic="ignore"]` attribute to elements in your component you want
+Add the `chromatic-ignore` CSS class or `data-chromatic="ignore"` attribute to elements in your component you want
 Chromatic to ignore.
 
 ```js
