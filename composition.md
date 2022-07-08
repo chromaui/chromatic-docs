@@ -67,7 +67,7 @@ Published Storybooks follow the [access rules](access) of your project. If you h
 
 Design system and component library authors can automatically compose their Storybook inside their consumer’s Storybooks.
 
-Add a `storybook` property in the `package.json`. Use the [permalink to a commit](#compose-storybook-by-branch-or-commit) in the `url` field
+Add a `storybook` property in the `package.json`. Use the [permalink to a commit](#compose-storybook-by-branch-or-commit) in the `url` field.
 
 ```json
 {
@@ -90,6 +90,9 @@ Chromatic supports automatic versioning for the following Git providers.
 | Bitbucket                                     | Not supported                            |
 | [Unlinked projects](access#unlinked-projects) | Not supported                            |
 
+<details>
+  <summary>How to manually query for versions?</summary>
+
 If automatic versioning isn't supported for your Git provider, you can still get version information by manually updating your `package.json` with the permalink of the current published Storybook (e.g. `https://<commithash>--<appid>.chromatic.com`).
 
 Use the `/metadata.json` endpoint to get additional information about the deployed Storybook version. It will output a response similar to the example below:
@@ -101,6 +104,8 @@ Use the `/metadata.json` endpoint to get additional information about the deploy
   }
 }
 ```
+
+</details>
 
 ---
 
