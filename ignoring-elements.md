@@ -80,7 +80,7 @@ StoryName.args = {};
 
 ## Ignore DOM elements
 
-Add the `.chromatic-ignore` CSS class or `[data-chromatic="ignore"]` attribute to elements in your component you want
+Add the `chromatic-ignore` CSS class or `data-chromatic="ignore"` attribute to elements in your component you want
 Chromatic to ignore.
 
 ```js
@@ -98,7 +98,7 @@ export function MyComponent() {
       <p>
         Also ignore the animated gif:
         <img
-          className="chromatic-ignore"
+          data-chromatic="ignore"
           src="https://media0.giphy.com/media/3oriO4WnYwNTZLKv5K/giphy.gif"
         />
       </p>

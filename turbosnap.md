@@ -12,7 +12,7 @@ TurboSnap is an advanced Chromatic feature that speeds up builds for faster [UI 
 
 #### Prerequisites
 
-- Chromatic CLI 5.8+
+- Chromatic CLI [5.8+](https://www.npmjs.com/package/chromatic)
 - Storybook 6.2+
 - Webpack (for experimental Vite support see [vite-plugin-turbosnap](https://github.com/IanVS/vite-plugin-turbosnap))
 - Stories correctly [configured](https://storybook.js.org/docs/react/configure/overview#configure-story-loading) in Storybook's `main.js`
@@ -47,8 +47,8 @@ Certain circumstances could potentially affect all stories. To prevent false pos
 
 #### Missing commits (rebasing)
 
-Under the hood, TurboSnap works by calculating the difference between the current commit and its ancestor. However, there are certain cases (i.e., rebasing, force pushing) where the commit linked to the previous build no longer exists in the repository, which prevents Chromatic from 
-doing this computation accurately. 
+Under the hood, TurboSnap works by calculating the difference between the current commit and its ancestor. However, there are certain cases (i.e., rebasing, force pushing) where the commit linked to the previous build no longer exists in the repository, which prevents Chromatic from
+doing this computation accurately.
 
 In this case, it will search the existing builds until it finds a suitable "replacement build" with a valid commit in the repository. Once found, it approximates the difference between the two commits alongside any UI changes. This can lead to a story being re-tested if one of the following requirements is met:
 
@@ -154,6 +154,38 @@ You can opt out of this by passing these file names to the `--untraced` flag: e.
 
 To enable TurboSnap for specific branches, pass a glob to `--only-changed` (e.g. `chromatic --only-changed "feature/*"`). Use a negating glob (e.g. `chromatic --only-changed "!(main)"`) to enable all but certain branches. See [picomatch] for details.
 
+### Confirm TurboSnap is working
+
+The best way to see if TurboSnap is working is to inspect your CLI output. There are a couple of messages the CLI outputs of particular relevance:
+
+```shell
+Traversing dependencies for X files that changed since the last build
+```
+
+<div class="aside">
+This message tells us how many git changes Chromatic detected since the last Chromatic build. Usually, that's just one or two commit's worth of files.
+</div>
+
+```shell
+Found Y story files affected by recent changes
+```
+
+<div class="aside">
+This message tells you the number of story files that depend on the X changes above. This message also might be replaced by a message telling you that we need to capture all stories (<a href="#why-are-full-rebuilds-required">see below</a>).
+</div>
+
+```shell
+Tested A stories across B components; capture C snapshots in S seconds.
+```
+
+<div class="aside">
+This message tells you how many snapshots we actually took instead of the number of stories we found in your Storybook. Usually, C would be the number of stories in the Y component files above.
+</div>
+
+Once TurboSnap is activated, all subsequent builds will display an indicator with TurboSnap's status. Find it on the Build page above your tests.
+
+![TurboSnap indicator](img/build-turbosnap.png)
+
 ### Notes on monorepos
 
 TurboSnap will make working in a monorepo more efficient. Because it detects affected stories based on the actual files changed, pushing a commit that touched only backend code will run faster in CI and not use up your snapshot quota. However, it will still build and publish your Storybook. To avoid that, you can [skip Chromatic entirely](monorepos#only-run-chromatic-when-changes-occur-in-a-subproject), speeding up your CI pipeline even more.
@@ -179,25 +211,6 @@ Our own GitHub Action works around that by using `pull_request.head.sha` as the 
 ---
 
 ### Troubleshooting
-
-<details>
-<summary>How can I tell if TurboSnap is working?</summary>
-
-The best way to see if TurboSnap is working is to inspect your CLI output. There are a couple of messages the CLI outputs of particular relevance:
-
-  <pre><code>Traversing dependencies for X files that changed since the last build</code></pre>
-
-This message tells us how many git changes Chromatic detected since the last Chromatic build. Usually, that's just one or two commit's worth of files.
-
-  <pre><code>Found Y story files affected by recent changes</code></pre>
-
-This message tells you the number of story files that depend on the X changes above. This message also might be replaced by a message telling you that we need to capture all stories (<a href="#why-are-full-rebuilds-required">see below</a>).
-
-  <pre><code>Tested A stories across B components; capture C snapshots in S seconds.</code></pre>
-
-This message tells you how many snapshots we actually took instead of the number of stories we found in your Storybook. Usually, C would be the number of stories in the Y component files above.
-
-</details>
 
 <details>
   <summary>Why are no changes being detected?</summary>
@@ -278,5 +291,12 @@ When you have a merge commit, Chromatic considers **any file that has changed si
 The reason for this behaviour relates to what Chromatic does when it chooses not to re-snapshot a story. In such case, it "copies" the snapshot for the story from the ancestor build, knowing (due to the git check) that the story cannot have changed in the meantime.
 
 In the case of merge commits, Chromatic does not know ahead of time which side of the merge the snapshot might be copied from because that involves running the <a href="/branching-and-baselines#calculating-a-snapshot-baseline-from-the-ancestor-builds">complete baseline selection</a> process, so it needs to be conservative and allow for changes on either branch.
+
+</details>
+
+<details>
+  <summary>Does TurboSnap work with squash/rebase merge?</summary>
+
+TurboSnap is compatible with squash and merge rebasing as of version 6.6+. Please update your package to get support.
 
 </details>

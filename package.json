@@ -16,7 +16,7 @@
     "grunt-contrib-watch": "^1.0.0"
   },
   "scripts": {
-    "start": "jekyll server -l",
+    "start": "bundle exec jekyll server -l",
     "build": "jekyll build",
     "build-deploy": "yarn build; rm -rf _site_deploy/docs; mv _site _site_deploy/docs",
     "test": "jest --watch --env=jsdom",
