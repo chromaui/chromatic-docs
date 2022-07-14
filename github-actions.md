@@ -90,6 +90,19 @@ Chromatic's GitHub Action includes additional options to customize your workflow
 | **workingDir**              | Provide the location of Storybook's `package.json` if installed in a subdirectory (i.e., monorepos)                           | _String_              | my-folder         | N/A              |
 | **skip**                    | Skip Chromatic tests, but mark the commit as passing. Avoids blocking PRs due to required merge checks                        | _String_ or _Boolean_ | branch or true    | false            |
 
+### Outputs
+
+Chromatic's GitHub Action returns some information about your build in the form of outputs. The table below lists what's currently available:
+
+| Name             | Type   | Description                                                                                                                       |
+| ---------------- | ------ | --------------------------------------------------------------------------------------------------------------------------------- |
+| **url**          | string | An alias for the build URL (e.g. `https://www.chromatic.com/build?appId=<app id goes here>&number=<build number>`)                |
+| **buildUrl**     | string | The build URL (e.g. `https://www.chromatic.com/build?appId=<app id goes here>&number=<build number>`)                             |
+| **storybookUrl** | string | The Storybook preview URL for your current branch / Pull Request (e.g. `https://<app id goes here>-<branch hash>.chromatic.com/`) |
+| **code**         | string | The exit code for the current run of the Chromatic CLI                                                                            |
+
+Please refer to [this GitHub document](https://docs.github.com/en/actions/using-workflows/workflow-syntax-for-github-actions#jobsjob_idoutputs) discussing how to use these outputs.
+
 ### Support for `actions/checkout@v2` and above
 
 Chromatic supports the latest versions of the `actions/checkout` (i.e., versions 2 and 3). Both of them come with a caveat. They will only retrieve a single commit without any additional history. Chromatic needs the full Git history to keep track of changes in your repository.
