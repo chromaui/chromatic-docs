@@ -122,6 +122,29 @@ export default {
 </details>
 
 <details>
+<summary>Why are components that render in a portal (tooltip, modal, menu) getting cut off?</summary>
+
+Portals allows components to render arbitrary elements outside of the parent component's initial DOM hierarchy. For example, tooltips, modals, and menus can be triggered by a nested button, but render close to the top of the DOM hierarchy using portals.
+
+Chromatic uses the "natural" height for your component's outermost DOM element (using Storybook's `#root` element) to determine snapshot dimensions. But portals render outside of the Storybook `#root` element. This means that Chromatic can't auto-detect their dimensions when capturing the snapshot. This can result in your snapshot looking "cut off".
+
+Snapshot portaled elements by adding a [decorator](https://storybook.js.org/docs/react/writing-stories/decorators#component-decorators) that wraps stories in a fixed height container. Adjust the height to account for the total dimensions of your component and portal.
+
+```js
+// MyComponent.stories.js|jsx
+
+import { MyComponent } from './MyComponent';
+
+export default {
+  component: MyComponent,
+  decorators:  [(Story) => {% raw %}<div style={{ height: '300px' }}{% endraw %}><Story/></div>],
+  title: 'Example Story',
+};
+```
+
+</details>
+
+<details>
 <summary>How do I capture content inside scrollable <code>divs</code>?</summary>
 
 Scrollable divs constrain the height of their children. Change the height of the scrollable div to ensure all content fits. It's not possible for Chromatic to infer how tall scrollable divs are intended to be.
