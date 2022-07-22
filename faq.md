@@ -81,9 +81,22 @@ You don't need to do this anymore. Chromatic is a Storybook-optimized cloud serv
 <details>
 <summary>Where are my images and fonts?</summary>
 
-Make sure your resource hosts are reliably fast. When possible serve resources statically via Storybook or use a dedicated service. Learn more about [resource loading in Chromatic](resource-loading).
+Image and font rendering can be tricky. Resources that load from unpredictable or flaky sources may not load in time (15s) to capture. Workaround this by:
+
+- Ensure resources load [reliably fast in Chromatic](resource-loading)
+- Serve resources as [static files in Storybook](https://storybook.js.org/configurations/serving-static-files/) (this also improves your test speed)
+- Using a [placeholder service](https://placeholder.com/).
 
 If your resources are behind a firewall, whitelist our domain so we can load your resources.
+
+</details>
+
+<details>
+<summary>Why do my emojis look different in the snapshot versus on my machine?</summary>
+
+Emojis are handled by your operating system's emoji font. Most OSs have a different emoji font and those fonts tend to change over time. For example, if you view a story on a Mac you'll get Apple’s set of emojis.
+
+Chromatic captures Chrome and Firefox snapshots in a Linux environment. It includes a common set of emojis used by most systems. Those emojis will likely look different from ones on a consumer OS like Mac or Windows. Unfortunately, there's no workaround available at this time.
 
 </details>
 
@@ -233,18 +246,6 @@ Learn more about [debugging snapshots](/docs/snapshots#troubleshooting).
 </details>
 
 <details>
-<summary>Why are my images or fonts not rendering?</summary>
-
-Image and font rendering can be tricky. Resources that load from unpredictable or flaky sources may not load in time (15s) to capture. Workaround this by:
-
-- Serving resources as [static files in Storybook](https://storybook.js.org/configurations/serving-static-files/) (this also improves your test speed)
-- Using a [placeholder service](https://placeholder.com/).
-
-Learn more about how we [load resources](/docs/resource-loading).
-
-</details>
-
-<details>
 <summary>Why am I getting inconsistent or incorrect snapshots?</summary>
 
 Checkout common reasons why snapshots render inconsistently and solutions [**here**](/docs/test#false-positives).
@@ -294,6 +295,27 @@ Chromatic will reset the snapshot count every month, calculated based on the day
 The project token is available on the Configure page of your project.
 
 ![Navigate to the Manage page and click on the Configure tab](img/configure-project-token.jpg)
+
+</details>
+
+<details>
+<summary>Why are the story names in Chromatic different than what I have in Storybook?</summary>
+
+Chromatic follows Storybook's [naming best practice](https://storybook.js.org/docs/react/writing-stories/naming-components-and-hierarchy). The last level of hierarchy is tracked as the component name.
+
+```js
+export default {
+  title: "App/Components/Button",
+  component: Button,
+};
+
+export const Primary = () => <Button primary>Button</Button>;
+export const Secondary = () => <Button secondary>Button</Button>;
+```
+
+In the example above, `Button` is the component name, while `Primary` and `Secondary` are the story names respectively. If your Storybook is organized in a different way, that will affect how your components and story names appears in both Chromatic and Storybook. There's no way to configure name detection.
+
+Folks often encounter naming issues with advanced customization of the Storybook sidebar. In most cases, you can achieve your desired groupings while also adhering to naming best practices using this Storybook [organization method](https://storybook.js.org/blog/structuring-your-storybook/).
 
 </details>
 

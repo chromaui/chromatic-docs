@@ -40,6 +40,14 @@ Nope. Chromatic automatically updates your linked stories to reflect the latest 
 
 </details>
 
+### Link a story to multiple Figma variants at the same time
+
+1. Select Figma variants. ![Select variants](img/figma-plugin-select-variants.png)
+
+2. Click "Link all". ![Link variants](img/figma-plugin-link-variants.png)
+
+3. Paste the URL into the plugin’s form field. ![Paste story url](img/figma-plugin-paste-url.png)
+
 ### Open a story in Figma
 
 1. Select the component that you've previously linked in Figma.
