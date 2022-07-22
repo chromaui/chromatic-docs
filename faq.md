@@ -96,7 +96,7 @@ If your resources are behind a firewall, whitelist our domain so we can load you
 
 Emojis are handled by your operating system's emoji font. Most OSs have a different emoji font and those fonts tend to change over time. For example, if you view a story on a Mac you'll get Apple’s set of emojis.
 
-Chromatic captures Chrome and Firefox snapshots in a Linux environment. It includes a common set of emojis used by most systems. Those emojis will likely look different from ones on a consumer OS like Mac or Windows. Unfortunately, there's no workaround available at this time.
+Chromatic captures Chrome and Firefox snapshots in a Linux environment. It includes a common set of emojis used by most systems. Those emojis will likely look different from emojis on a consumer OS like Mac or Windows. Unfortunately, there's no workaround available at this time.
 
 </details>
 
@@ -301,7 +301,7 @@ The project token is available on the Configure page of your project.
 <details>
 <summary>Why are the story names in Chromatic different than what I have in Storybook?</summary>
 
-Chromatic follows Storybook's [naming best practice](https://storybook.js.org/docs/react/writing-stories/naming-components-and-hierarchy). The last level of hierarchy is tracked as the component name.
+Chromatic follows Storybook's [naming best practice](https://storybook.js.org/docs/react/writing-stories/naming-components-and-hierarchy). The last level in the hierarchy is tracked as the component name.
 
 ```js
 export default {
@@ -313,9 +313,9 @@ export const Primary = () => <Button primary>Button</Button>;
 export const Secondary = () => <Button secondary>Button</Button>;
 ```
 
-In the example above, `Button` is the component name, while `Primary` and `Secondary` are the story names respectively. If your Storybook is organized in a different way, that will affect how your components and story names appears in both Chromatic and Storybook. There's no way to configure name detection.
+In the example above, `Button` is the component name, while `Primary` and `Secondary` are the story names respectively. If your Storybook is organized in a different way, that will affect how your components and story names appear in both Chromatic and Storybook. There's no way to configure name detection.
 
-Folks often encounter naming issues with advanced customization of the Storybook sidebar. In most cases, you can achieve your desired groupings while also adhering to naming best practices using this Storybook [organization method](https://storybook.js.org/blog/structuring-your-storybook/).
+Folks often encounter naming issues when customizing their Storybook sidebar. In most cases, you can achieve your desired groupings while also adhering to naming best practices using these [organizational tips](https://storybook.js.org/blog/structuring-your-storybook/).
 
 </details>
 
