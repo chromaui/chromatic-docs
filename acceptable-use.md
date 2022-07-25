@@ -1,10 +1,10 @@
 ---
 layout: default
-title: Acceptable use policy
-description: Chromatic Acceptable use policy
+title: Acceptable Use Policy
+description: Chromatic Acceptable Use Policy
 ---
 
-# Acceptable use policy
+# Acceptable Use Policy
 
 Chroma Software, Inc.®  
 Last reviewed: July 25, 2022

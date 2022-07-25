@@ -1,6 +1,6 @@
 ---
 layout: default
-title: Terms of service
+title: Terms of Service
 description: Chromatic Terms of Service
 ---
 

@@ -1,6 +1,6 @@
 ---
 layout: default
-title: Privacy policy
+title: Privacy Policy
 description: Chromatic Privacy Policy
 ---
 
