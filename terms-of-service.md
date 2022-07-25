@@ -6,7 +6,7 @@ description: Chromatic Terms of Service
 
 # Terms of Service
 
-Chroma Software, Inc.®
+Chroma Software, Inc.®  
 Last updated: July 16, 2019
 
 The Chroma Terms of Service Agreement (the "Agreement") is made by and between the customer identified in a Service Registration Form, Subscription Order, Online
