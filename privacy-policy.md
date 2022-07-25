@@ -1,13 +1,12 @@
 ---
 layout: default
-title: Privacy policy
+title: Privacy Policy
 description: Chromatic Privacy Policy
 ---
 
-# Chroma Software, Inc.®
-
 # Privacy and Cookies Notice
 
+Chroma Software, Inc.®  
 Last Reviewed: 07/15/2021
 
 Chroma Software, Inc., a business corporation (herein “Chromatic”, “we”, “us” or “our”), based in the United States and headquartered at 548 Market St. #26384 San Francisco, CA 94104, is committed to protecting and respecting your privacy and personal information (herein, “personal information” refers to any information that identifies you or is about you as an individual).
