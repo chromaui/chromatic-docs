@@ -226,6 +226,6 @@ WithFocusState.play = async ({ canvasElement }) => {
   const canvas = within(canvasElement);
 
   // Looks up the button and interacts with it.
-  canvas.getByRole("button").focus();
+  await canvas.getByRole("button").focus();
 };
 ```
