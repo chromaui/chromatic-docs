@@ -46,7 +46,7 @@ In a new browser window, navigate to your GitHub repository. Click the **Setting
 
 ![GitHub Secrets workflow](img/secrets-workflow-optimized.png)
 
-Fill in the form with the necessary information, as detailed below, replace `Value` with your own Chromatic project token.
+Fill in the form with the necessary information, as detailed below, and replace `Value` with your own Chromatic project token.
 
 ![GitHub repository secret configured](img/github-repo-new-secret-filled.png)
 
@@ -89,6 +89,7 @@ Chromatic's GitHub Action includes additional options to customize your workflow
 | **ignoreLastBuildOnBranch** | Ignores the latest build on the current branch as a baseline if that build. Multiple branches are allowed through [picomatch] | _String_              | my-branch         | N/A              |
 | **workingDir**              | Provide the location of Storybook's `package.json` if installed in a subdirectory (i.e., monorepos)                           | _String_              | my-folder         | N/A              |
 | **skip**                    | Skip Chromatic tests, but mark the commit as passing. Avoids blocking PRs due to required merge checks                        | _String_ or _Boolean_ | branch or true    | false            |
+| **zip**                     | Publish your Storybook to Chromatic as a single zip file instead of individual content files.                                 | _Boolean_             | true              | false            |
 
 ### Outputs
 
@@ -163,6 +164,33 @@ Read the official <a href="https://docs.github.com/en/free-pro-team@latest/actio
 Now Chromatic will run for any branch except `example`.
 
 Other branches can also be included, such as the ones created by the Renovate bot.
+
+### Run Chromatic on large projects
+
+Chromatic is prepared to handle large file uploads (with a limit of 5000 files, including stories and assets). If your project exceeds this limit, we recommend enabling the `zip` option in your workflow to compress your build before uploading it. For example:
+
+```yml
+# .github/workflows/chromatic.yml
+
+# Other configuration required
+
+# List of jobs
+jobs:
+  chromatic-deployment:
+    # Operating System
+    runs-on: ubuntu-latest
+    # Job steps
+    steps:
+      - uses: actions/checkout@v1
+      - run: yarn
+        #👇 Adds Chromatic as a step in the workflow
+      - uses: chromaui/action@v1
+        # Options required for Chromatic's GitHub Action
+        with:
+          projectToken: {% raw %}${{ secrets.CHROMATIC_PROJECT_TOKEN }}{% endraw %}
+          #👇Runs Chromatic with the option to compress the build output.
+          zip: true
+```
 
 ### Support for environment variables
 
@@ -289,7 +317,7 @@ If the builds result from direct commits to `main`, you will need to accept chan
 
 #### GitHub squash/rebase merge and the "main" branch
 
-GitHub's squash/rebase merge functionality creates new commits that have no association to the branch being merged. If you've enabled our GitHub application in the [UI Review](review) workflow, then we will automatically detect this situation and bring baselines over (see [Branching and Baselines](branching-and-baselines#squash-and-rebase-merging) for more details).
+GitHub's squash/rebase merge functionality creates new commits that have no association with the branch being merged. If you've enabled our GitHub application in the [UI Review](review) workflow, then we will automatically detect this situation and bring baselines over (see [Branching and Baselines](branching-and-baselines#squash-and-rebase-merging) for more details).
 
 If you’re using this functionality but notice the incoming changes were not accepted as baselines in Chromatic, then you'll need to adjust the workflow to include a new step with the `autoAcceptChanges` option. For example:
 

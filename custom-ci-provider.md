@@ -32,6 +32,17 @@ For extra security, add Chromatic's <code>project-token</code> as an environment
 
 Depending on the CI provider you're using, running Chromatic from a specific branch will not be a issue. Refer to your CI documentation for further details.
 
+### Run Chromatic on large projects
+
+Chromatic is prepared to handle large file uploads (with a limit of 5000 files, including stories and assets). If your project exceeds this limit, we recommend adjusting your workflow and run the `chromatic` command with the `--zip` flag to compress your build before uploading it. For example:
+
+```yml
+# your-workflow
+- run:
+    #👇Runs Chromatic with the flag to compress the build output.
+    command: npm run chromatic --project-token=CHROMATIC_PROJECT_TOKEN --zip
+```
+
 ### Overriding Chromatic's branch detection
 
 If your worflow includes a set of rules for branches (e.g., renames the branch, creates ephemeral, or temporary branches) it can lead to unforeseen build errors.
@@ -62,7 +73,7 @@ If you are using pull request statuses as required checks before merging, you ma
 
 - run:
     # 👇 Runs Chromatic with the flag to prevent stage failure
-    command: npm run chromatic --project-token=CHROMATIC_PROJECT_TOKEN
+    command: npm run chromatic --project-token=CHROMATIC_PROJECT_TOKEN --exit-zero-on-changes
 ```
 
 <div class="aside">

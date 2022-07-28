@@ -34,6 +34,7 @@ pipeline {
   }
 }
 ```
+
 <div class="aside">
 For extra security, add Chromatic's <code>project-token</code> as an environment variable. See the official official Jenkins <a href="https://www.jenkins.io/doc/book/pipeline/jenkinsfile/#using-environment-variables"> environment variables documentation</a>.
 </div>
@@ -50,7 +51,7 @@ pipeline {
 
   stages {
     /* Other pipeline stages */
-    
+
     /* 👇 Adds Chromatic as a stage */
     stage('Publish to Chromatic') {
       when {
@@ -61,7 +62,7 @@ pipeline {
       }
       steps {
          /* 👇 Runs the Chromatic CLI */
-         sh "yarn chromatic --project-token=${CHROMATIC_PROJECT_TOKEN}" 
+         sh "yarn chromatic --project-token=${CHROMATIC_PROJECT_TOKEN}"
       }
     }
   }
@@ -73,6 +74,33 @@ Read the official Jenkins <a href="https://www.jenkins.io/doc/book/pipeline/synt
 </div>
 
 Now your pipeline will only run Chromatic in the `example` branch.
+
+### Run Chromatic on large projects
+
+Chromatic is prepared to handle large file uploads (with a limit of 5000 files, including stories and assets). If your project exceeds this limit, we recommend adjusting your workflow and run the `chromatic` command with the `--zip` flag to compress your build before uploading it. For example:
+
+```groovy
+/* JenkinsFile */
+
+pipeline {
+  /* Other pipeline configuration. */
+
+  stages {
+    /* Other pipeline stages */
+
+    /* 👇 Adds Chromatic as a stage */
+    stage('Publish to Chromatic') {
+      environment {
+        CHROMATIC_PROJECT_TOKEN = 'Chromatic project token'
+      }
+      steps {
+         /* 👇 Runs Chromatic with the flag to compress the build output. */
+         sh "yarn chromatic --project-token=${CHROMATIC_PROJECT_TOKEN} --zip"
+      }
+    }
+  }
+}
+```
 
 ### Overriding Chromatic's branch detection
 
@@ -88,7 +116,7 @@ pipeline {
 
   stages {
     /* Other pipeline stages */
-    
+
     /* 👇 Adds Chromatic as a stage */
     stage('Publish to Chromatic') {
       environment {
@@ -97,7 +125,7 @@ pipeline {
       }
       steps {
          /* 👇 Runs the Chromatic CLI --branch-name flag to override the baseline branch */
-         sh "yarn chromatic --project-token=${CHROMATIC_PROJECT_TOKEN} --branch-name=${YOUR_BRANCH}" 
+         sh "yarn chromatic --project-token=${CHROMATIC_PROJECT_TOKEN} --branch-name=${YOUR_BRANCH}"
       }
     }
   }
@@ -170,7 +198,6 @@ If the builds are a result of direct commits to `main`, you will need to accept 
 
 #### Squash/rebase merge and the "main" branch
 
-
 We use GitHub, GitLab, and Bitbucket APIs respectively to detect squashing and rebasing so your baselines match your expectations no matter your Git workflow (see [Branching and Baselines](branching-and-baselines#squash-and-rebase-merging) for more details).
 
 If you’re using this functionality but notice the incoming changes were not accepted as baselines in Chromatic, then you'll need to adjust the pipeline and include a new Chromatic stage using the `--auto-accept-changes` flag. For example:
@@ -183,31 +210,31 @@ pipeline {
 
   stages {
     /* Other pipeline stages */
-    
+
     /* 👇 Checks if the current branch is not main and runs Chromatic */
     stage('Publish to Chromatic') {
-      when { 
-        not { 
-          branch 'main' 
-        } 
+      when {
+        not {
+          branch 'main'
+        }
       }
       environment {
         CHROMATIC_PROJECT_TOKEN = 'Chromatic project token'
       }
       steps {
-         sh "yarn chromatic --project-token=${CHROMATIC_PROJECT_TOKEN}" 
+         sh "yarn chromatic --project-token=${CHROMATIC_PROJECT_TOKEN}"
       }
     }
     /* 👇 Checks if the current branch is main and runs Chromatic with the flag to accept all changes */
     stage('Publish to Chromatic and auto accept changes') {
-      when { 
+      when {
          branch 'main'
       }
       environment {
         CHROMATIC_PROJECT_TOKEN = 'Chromatic project token'
       }
       steps {
-         sh "yarn chromatic --project-token=${CHROMATIC_PROJECT_TOKEN} --auto-accept-changes" 
+         sh "yarn chromatic --project-token=${CHROMATIC_PROJECT_TOKEN} --auto-accept-changes"
       }
     }
   }
@@ -251,13 +278,11 @@ Read our <a href="/docs/cli#chromatic-options"> CLI documentation</a>.
 
 Including the `--ignore-last-build-on-branch` flag ensures the latest build for the specific branch is not used as a baseline.
 
-
 #### Run Chromatic on external forks of open source projects
 
 You can enable PR checks for external forks by sharing your `project-token` where you configured the Chromatic command (often in `package.json` or in the pipeline stage).
 
 There are tradeoffs. Sharing `project-token`'s allows _contributors_ and others to run Chromatic. They'll be able to use your snapshots. They will not be able to get access to your account, settings, or accept baselines. This can be an acceptable tradeoff for open source projects who value community contributions.
-
 
 #### Skipping builds for certain branches
 

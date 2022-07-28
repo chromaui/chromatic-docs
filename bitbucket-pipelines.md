@@ -30,6 +30,7 @@ pipelines:
             # 👇 Runs Chromatic
           - yarn chromatic --project-token=$CHROMATIC_PROJECT_TOKEN
 ```
+
 <div class="aside">
 For extra security, add Chromatic's <code>project-token</code> as an environment variable. See the official BitBucket <a href="https://support.atlassian.com/bitbucket-cloud/docs/variables-and-secrets/">environment variables documentation</a>.
 </div>
@@ -60,6 +61,28 @@ Read the official BitBucket <a href="https://support.atlassian.com/bitbucket-clo
 
 Now your pipeline will only run Chromatic in the `main` branch.
 
+### Run Chromatic on large projects
+
+Chromatic is prepared to handle large file uploads (with a limit of 5000 files, including stories and assets). If your project exceeds this limit, we recommend adjusting your pipeline and run the `chromatic` command with the `--zip` flag to compress your build before uploading it. For example:
+
+```yml
+# bitbucket-pipelines.yml
+
+# A sample pipeline implementation
+pipelines:
+  default:
+    # Other steps in the pipeline
+
+    # 👇 Adds Chromatic as a step in the pipeline
+    - step:
+        name: "Publish to Chromatic"
+        # Other pipeline configuration
+        script:
+          - yarn install
+            #👇Runs Chromatic with the flag to compress the build output.
+          - yarn chromatic --project-token=$CHROMATIC_PROJECT_TOKEN --zip
+```
+
 ### UI Test and UI Review
 
 [UI Tests](test) and [UI Review](review) rely on [branch and baseline](branching-and-baselines) detection to keep track of [snapshots](snapshots). We recommend the following configuration.
@@ -82,7 +105,7 @@ pipelines:
         # Other pipeline configuration
         script:
           - yarn install
-            # 👇 Runs Chromatic with the flag to prevent pipeline failure 
+            # 👇 Runs Chromatic with the flag to prevent pipeline failure
           - yarn chromatic --project-token=$CHROMATIC_PROJECT_TOKEN --exit-zero-on-changes
 ```
 
@@ -103,7 +126,6 @@ If you deny any change, you will need to make the necessary code changes to fix 
 A clean `main` branch is a development **best practice** and **highly recommended** for Chromatic. In practice, this means ensuring that test builds in your `main` branch are passing.
 
 If the builds are a result of direct commits to `main`, you will need to accept changes to keep the main branch clean. If they're merged from `feature-branches`, you will need to make sure those branches are passing _before_ you merge into `main`.
-
 
 #### BitBucket squash/rebase merge and the "main" branch
 
@@ -131,7 +153,6 @@ pipelines:
           name: 'Publish to Chromatic'
           script:
             - yarn chromatic --project-token=$CHROMATIC_PROJECT_TOKEN
-
 ```
 
 <div class="aside">
@@ -166,7 +187,6 @@ Read our <a href="/docs/cli#chromatic-options"> CLI documentation</a>.
 
 Including the `--ignore-last-build-on-branch` flag ensures the latest build for the specific branch is not used as a baseline.
 
-
 #### BitBucket pipelines and patch builds
 
 If you're creating a [patch build](branching-and-baselines#patch-builds) in Chromatic to fix a missing pull request comparison, you'll need to adjust your existing pipeline to the following:
@@ -174,13 +194,12 @@ If you're creating a [patch build](branching-and-baselines#patch-builds) in Chro
 ```yml
 # bitbucket-pipelines.yml
 
-
 pipelines:
   pull-requests:
     # 👇 Will run as default for any branch not elsewhere defined
     '**':
       - step:
-           # 👇 Adds Chromatic as a step in the pipeline
+          # 👇 Adds Chromatic as a step in the pipeline
           name: 'Publish to Chromatic'
           caches:
             - node
@@ -200,7 +219,6 @@ Now you'll be able to to see the UI changeset for PRs and perform [UI Review](re
 <div class="aside">
 See the following <a href="https://community.atlassian.com/t5/Bitbucket-Pipelines-questions/pipeline-doesnt-recognize-origin-master/qaq-p/968614">BitBucket issue</a> for a detailed explanation.
 </div>
-
 
 #### Run Chromatic on external forks of open source projects
 
