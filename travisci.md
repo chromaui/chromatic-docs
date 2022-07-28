@@ -55,13 +55,32 @@ jobs:
 Read the official Travis CI <a href="https://docs.travis-ci.com/user/conditional-builds-stages-jobs/"> conditional build documentation</a>.
 </div>
 
+### Run Chromatic on large projects
+
+Chromatic is prepared to handle large file uploads (with a limit of 5000 files, including stories and assets). If your project exceeds this limit, we recommend adjusting your workflow and run the `chromatic` command with the `--zip` flag to compress your build before uploading it. For example:
+
+```yml
+# travis.yml
+
+# Other required configuration
+
+jobs:
+  include:
+    # Other jobs
+
+    # 👇 Adds Chromatic as a job
+    - name: 'Publish to Chromatic'
+      #👇Runs Chromatic with the flag to compress the build output.
+      script: yarn chromatic --project-token=${CHROMATIC_PROJECT_TOKEN} --zip
+```
+
 ### Recommended configuration for build events
 
 Travis CI like other CI systems offer the option of running builds for various types of events. For instance for commits pushed to a branch in a pull request. Or for "merge" commits between that branch and the base branch (main).
 
-These specific types of commits (merge) don't persist in the history of your repository. That can cause Chromatic's baselines to be lost in certain situations. 
+These specific types of commits (merge) don't persist in the history of your repository. That can cause Chromatic's baselines to be lost in certain situations.
 
-For internal pull requests (ie. pull requests that aren't from forks) we recommend disabling Chromatic on `pr` build events. Also make sure you have `push` builds enabled in your settings. 
+For internal pull requests (ie. pull requests that aren't from forks) we recommend disabling Chromatic on `pr` build events. Also make sure you have `push` builds enabled in your settings.
 
 Once these conditions are met, add the following code to your `.travis.yml`:
 
@@ -82,7 +101,6 @@ jobs:
 ```
 
 For external pull requests (i.e forked repositories), the above code will ensure Chromatic runs with the `pr` build event, because Travis will not trigger `push` events for these cases.
-
 
 ### UI Test and UI Review
 
@@ -178,7 +196,6 @@ Read our <a href="/docs/cli#chromatic-options"> CLI documentation</a>.
 Including the `--ignore-last-build-on-branch` flag ensures the latest build for the specific branch is not used as a baseline.
 
 #### Run Chromatic on external forks of open source projects
-
 
 You can enable PR checks for external forks by sharing your `project-token` where you configured the Chromatic command (often in `package.json` or in the job).
 

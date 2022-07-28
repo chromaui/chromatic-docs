@@ -74,6 +74,27 @@ Read the official GitLab <a href="https://docs.gitlab.com/ee/ci/yaml/#rules">con
 
 Now your pipeline will only run Chromatic in the `main` branch.
 
+### Run Chromatic on large projects
+
+Chromatic is prepared to handle large file uploads (with a limit of 5000 files, including stories and assets). If your project exceeds this limit, we recommend adjusting your pipeline and run the `chromatic` command with the `--zip` flag to compress your build before uploading it. For example:
+
+```yml
+# .gitlab-ci.yml
+
+# Additional pipeline configurations
+
+# Sets the stages for the pipeline
+stages:
+  - test
+
+#👇Adds Chromatic as a job
+chromatic_publish:
+  stage: test
+  #👇Runs Chromatic with the flag to compress the build output.
+  script:
+    - yarn chromatic --project-token=$CHROMATIC_PROJECT_TOKEN --zip
+```
+
 ### UI Test and UI Review
 
 [UI Tests](test) and [UI Review](review) rely on [branch and baseline](branching-and-baselines) detection to keep track of [snapshots](snapshots). We recommend the following configuration.
@@ -96,7 +117,7 @@ chromatic_publish:
   stage: test
   #👇Runs Chromatic with the flag to prevent pipeline failure
   script:
-    - yarn chromatic --project-token=$CHROMATIC_PROJECT_TOKEN  --exit-zero-on-changes
+    - yarn chromatic --project-token=$CHROMATIC_PROJECT_TOKEN --exit-zero-on-changes
 ```
 
 <div class="aside">

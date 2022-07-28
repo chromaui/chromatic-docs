@@ -21,7 +21,7 @@ jobs:
   # Other jobs
 
   # 👇 Adds Chromatic as a job
-  chromatic-deployment: 
+  chromatic-deployment:
     docker:
       - image: circleci/node:12
     working_directory: ~/repo
@@ -35,7 +35,6 @@ jobs:
         # 👇 Runs the Chromatic CLI
       - run: yarn chromatic --project-token=${CHROMATIC_PROJECT_TOKEN}
 
-
 workflows:
   # 👇 Adds Chromatic to the workflow
   chromatic-deploy:
@@ -46,7 +45,6 @@ workflows:
 <div class="aside">
 For extra security, add Chromatic's <code>project-token</code> as an environment variable. See the official CircleCI <a href="https://circleci.com/docs/2.0/env-vars/">environment variables documentation</a>.
 </div>
-
 
 ### Run Chromatic on specific branches
 
@@ -76,6 +74,30 @@ Read the official CircleCI <a href="https://circleci.com/docs/2.0/configuration-
 
 Now Chromatic will only run in the `main` branch.
 
+### Run Chromatic on large projects
+
+Chromatic is prepared to handle large file uploads (with a limit of 5000 files, including stories and assets). If your project exceeds this limit, we recommend adjusting your workflow and run the `chromatic` command with the `--zip` flag to compress your build before uploading it. For example:
+
+```yml
+# .circleci/config.yml
+
+# Other required configuration
+
+jobs:
+  # Other jobs
+
+  # 👇 Adds Chromatic as a job
+  chromatic-deployment:
+    # Other configuration
+    steps:
+      # Other job steps
+
+      #👇Runs Chromatic with the flag to compress the build output.
+      - run: yarn chromatic --project-token=${CHROMATIC_PROJECT_TOKEN} --zip
+
+# Workflows here
+```
+
 ### External Pull Requests
 
 See this [CircleCI documentation](https://circleci.com/blog/triggering-trusted-ci-jobs-on-untrusted-forks/) for workflows related to pull requests from forked repositories.
@@ -84,8 +106,7 @@ See this [CircleCI documentation](https://circleci.com/blog/triggering-trusted-c
 
 For a more complex workflow configuration, checkout this [Chromatic CircleCI Orb](https://circleci.com/orbs/registry/orb/wave/chromatic) made by a customer.
 
-In there you'll find various scenarios that you can use depending on  your needs.
-
+In there you'll find various scenarios that you can use depending on your needs.
 
 ### UI Test and UI Review
 
@@ -104,7 +125,7 @@ jobs:
   # Other jobs
 
   # 👇 Adds Chromatic as a job
-  chromatic-deployment: 
+  chromatic-deployment:
     # Other configuration
     steps:
       # Other job steps
@@ -113,7 +134,6 @@ jobs:
       - run: yarn chromatic --project-token=${CHROMATIC_PROJECT_TOKEN} --exit-zero-on-changes
 
 # Workflows here
-
 ```
 
 <div class="aside">
@@ -136,7 +156,7 @@ If the builds are a result of direct commits to `main`, you will need to accept 
 
 #### Squash/rebase merge and the "main" branch
 
-We use GitHub, GitLab, and Bitbucket APIs respectively to detect squashing and rebasing so your baselines match your expectations no matter your Git workflow  (see [Branching and Baselines](branching-and-baselines#squash-and-rebase-merging) for more details).
+We use GitHub, GitLab, and Bitbucket APIs respectively to detect squashing and rebasing so your baselines match your expectations no matter your Git workflow (see [Branching and Baselines](branching-and-baselines#squash-and-rebase-merging) for more details).
 
 If you’re using this functionality but notice the incoming changes were not accepted as baselines in Chromatic, then you'll need to adjust the `chromatic` command and include the `--auto-accept-changes` flag. For example:
 
@@ -172,7 +192,7 @@ jobs:
   # Other jobs
 
   # 👇 Adds Chromatic as a job
-  chromatic-deployment: 
+  chromatic-deployment:
     # Other configuration
     steps:
       # Other job steps
@@ -181,8 +201,8 @@ jobs:
       - run: yarn chromatic --project-token=${CHROMATIC_PROJECT_TOKEN} --ignore-last-build-on-branch=my-branch
 
 # Workflows here
-
 ```
+
 Including the `--ignore-last-build-on-branch` flag ensures the latest build for the specific branch is not used as a baseline.
 
 #### Run Chromatic on external forks of open source projects

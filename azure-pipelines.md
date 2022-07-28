@@ -97,6 +97,34 @@ Read the official Azure <a href="https://docs.microsoft.com/en-us/azure/devops/p
 
 Now your pipeline will only run Chromatic in the `main` branch.
 
+### Run Chromatic on large projects
+
+Chromatic is prepared to handle large file uploads (with a limit of 5000 files, including stories and assets). If your project exceeds this limit, we recommend adjusting your pipeline and run the `chromatic` command with the `--zip` flag to compress your build before uploading it. For example:
+
+```yml
+# azure-pipelines.yml
+
+# Other configurations
+
+# Pipeline stages
+stages:
+- stage: Test
+  displayName: Chromatic Testing
+  # Job list
+  jobs:
+  - job: Chromatic_Deploy
+    displayName: Publish to Chromatic
+    steps:
+      # Other steps in the pipeline
+
+      #👇Adds Chromatic as a step in the pipeline
+    - task: CmdLine@2
+      displayName: Publish to Chromatic
+      inputs:
+        #👇Runs Chromatic with the flag to compress the build output.
+        script: npx chromatic --project-token=${CHROMATIC_PROJECT_TOKEN} --zip
+```
+
 ### Overriding Chromatic's branch detection
 
 If your Azure pipeline includes a set of rules for branches (e.g., renames the branch, creates ephemeral, or temporary branches) it can lead to unforeseen build errors.
