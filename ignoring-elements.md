@@ -12,8 +12,8 @@ Sometimes a component's appearance changes every render or contains content like
 <summary>How does it work?</summary>
 
 Chromatic uses the rendered visual output at the pixel level to determine whether components' have changed.
-Setting the `.chromatic-ignore` class or `[data-chromatic="ignore"]` attribute instructs the diffing algorithm to ignore the
-pixels within the bounding rectangle of ignored elements. It's important to ensure the calculated bounding rectangle fully covers the changing content.
+It's important to ensure the calculated bounding rectangle fully covers the changing content and maintains the exact dimensions as the baseline (e.g., width, height, and relative positioning). Setting the `.chromatic-ignore` class or `[data-chromatic="ignore"]` attribute instructs the diffing algorithm to ignore the
+pixels within the bounding rectangle of ignored elements.
 
 </details>
 

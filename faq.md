@@ -41,13 +41,13 @@ Chromatic gives professional UI engineers a purpose-built service for visual tes
 <details>
 <summary>How is Chromatic different from visual testing tools like Applitools and Percy?</summary>
 
-Chromatic is a faster, simpler, and cost effective alternative to Applitools or Percy that is built for UI components and component libraries. Our customers compare us favorably on developer experience and price.
+Chromatic is a faster, simpler, and cost-effective alternative to Applitools or Percy that is built for UI components and component libraries. Our customers compare us favorably on developer experience and price.
 
 [Get a detailed breakdown »](https://www.chromatic.com/choose/visual-testing)
 
 **Product differentiation**:
 
-- Components are first class citizens in Chromatic so our workflow is necessarily different
+- Components are first-class citizens in Chromatic so our workflow is necessarily different
 
 - Deep integration with Storybook (we're core maintainers)
 
@@ -137,7 +137,7 @@ export default {
 <details>
 <summary>Why are components that render in a portal (tooltip, modal, menu) getting cut off?</summary>
 
-Portals allows components to render arbitrary elements outside of the parent component's initial DOM hierarchy. For example, tooltips, modals, and menus can be triggered by a nested button, but render close to the top of the DOM hierarchy using portals.
+Portals allow components to render arbitrary elements outside of the parent component's initial DOM hierarchy. For example, tooltips, modals, and menus can be triggered by a nested button, but render close to the top of the DOM hierarchy using portals.
 
 Chromatic uses the "natural" height for your component's outermost DOM element (using Storybook's `#root` element) to determine snapshot dimensions. But portals render outside of the Storybook `#root` element. This means that Chromatic can't auto-detect their dimensions when capturing the snapshot. This can result in your snapshot looking "cut off".
 
@@ -239,7 +239,7 @@ Blank snapshots are often caused by:
 
 - **An "animateIn" effect**—If your component use an “animateIn” effect [set delay](/docs/delay) to ensure we snapshot when the animation completes.
 
-- **Position:fixed**—Fixed position elements may depend on viewport size but not have dimensions themselves. Wrap your component in an element whose height and width are defined.
+- **Position:fixed**—Fixed position elements may depend on viewport size but do not have dimensions themselves. Wrap your component in an element whose height and width are defined.
 
 Learn more about [debugging snapshots](/docs/snapshots#troubleshooting).
 
@@ -249,6 +249,15 @@ Learn more about [debugging snapshots](/docs/snapshots#troubleshooting).
 <summary>Why am I getting inconsistent or incorrect snapshots?</summary>
 
 Checkout common reasons why snapshots render inconsistently and solutions [**here**](/docs/test#false-positives).
+
+</details>
+
+<details>
+<summary>Why am I getting a failing build when ignoring an element?</summary>
+
+By default, Chromatic's diffing algorithm skips the DOM elements marked with either a `.chromatic-ignore` CSS class or `data-chromatic="ignore"` attribute. 
+
+However, if you're using this functionality but notice the incoming changes are still being captured. In that case, you'll need to ensure that both the [baseline](/docs/branching-and-baselines) and new snapshots retain the same dimensions (e.g., width, height, and relative positioning).
 
 </details>
 
@@ -263,15 +272,15 @@ The modern development process moves quickly, and developers often fill in gaps 
 
 Here's how we recommend using the workflows together:
 
-- **UI Tests (commit vs commit):** Use like unit tests to catch UI regressions in components. Typically, a developer would be responsible for this. It ensures you don't introduce any bugs as you build new features. You'll get notified of bugs down to the commit.
-- **UI Review (branch vs branch):** Once you've finished the first iteration of the implementation and think the PR is "done", it's now ready for review from stakeholders like your tech lead, designer or PM. This workflow helps them review all the changes in a PR at once, and gives them tools to give you precise feedback on stories.
+- **UI Tests (commit vs. commit):** Use like unit tests to catch UI regressions in components. Typically, a developer would be responsible for this. It ensures you don't introduce any bugs as you build new features. You'll get notified of bugs down to the commit.
+- **UI Review (branch vs. branch):** Once you've finished the first iteration of the implementation and think the PR is "done", it's now ready for review from stakeholders like your tech lead, designer, or PM. This workflow helps them review all the changes in a PR at once and gives them tools to give you precise feedback on stories.
 
 </details>
 
 <details>
 <summary>Can I only take snapshots when a component's code changes?</summary>
 
-We recommend taking snapshots on every build because it's the most reliable way to catch UI regressions. Global dependencies, such as CSS or third party APIs can affect the UI without the code changing.
+We recommend taking snapshots on every build because it's the most reliable way to catch UI regressions. Global dependencies, such as CSS or third-party APIs can affect the UI without the code changing.
 
 </details>
 
@@ -285,7 +294,7 @@ Free plans come with 5000 snapshots per month. Once free snapshots are exhausted
 <details>
 <summary>What happens to my snapshots if I don't use them?</summary>
 
-Chromatic will reset the snapshot count every month, calculated based on the day you've signed up. For instance, if you signed up on February 14th, your count will be reset on the 14th of each month. Any remaining snapshots from the previous month will not accumulate.
+Chromatic will reset the snapshot count monthly, calculated based on the day you've signed up. For instance, if you signed up on February 14th, your count will be reset on the 14th of each month. Any remaining snapshots from the previous month will not accumulate.
 
 </details>
 
@@ -338,7 +347,7 @@ No. At the moment, Chrome is fixed as the browser used for UI review.
 <details>
 <summary>How do browsers affect my snapshot count?</summary>
 
-Each browser adds another snapshot for each of your stories. For example, if you have a story that is tested in Chrome and IE11 that counts as two snapshots.
+Each browser adds another snapshot for each of your stories. For example, if you have a story that is tested in Chrome and IE11, that counts as two snapshots.
 
 If you also test your story with different viewports, those count as snapshots as well. For example, you want to test a story at `320px`, `1280px`, `Chrome`, and `IE11`. This would count as 4 snapshots.
 
@@ -404,11 +413,11 @@ TurboSnap is _not_ compatible with squash and merge rebasing ([learn more](turbo
 <details>
 <summary>Can you choose which version of the design from a Storybook is shown in Figma?</summary>
 
-Yes, you can select which branch’s Stories are connected to Figma.
+Yes, you can select which branch's stories are connected to Figma.
 
 Chromatic generates a unique permalink when a Storybook is published. You can link your component by using the URL to a specific commit or a [permalink](permalinks#build-your-own-permalink) to a branch.
 
-However, the plugin will always display stories from the latest build for that branch once linked.
+However, once linked, the plugin will always display stories from the latest build for that branch.
 
 </details>
 
@@ -424,8 +433,8 @@ Yes. Chromatic automatically updates your linked stories to reflect the latest b
 
 Figma users must have access to the Chromatic project in order to use the plugin. That means Figma collaborators (viewers, editors, admins) that have access to your Figma file but don't have access to Chromatic will not be able to see the stories.
 
-Learn how to invite teammates as [collaborators](collaborators) on your Chromatic project. We don't charge "per seat" so you can invite your whole team.
-They must be able to see the story in chromatic to be able to see it in the plugin.
+Learn how to invite teammates as [collaborators](collaborators) on your Chromatic project. We don't charge "per seat", so you can invite your whole team.
+They must be able to see the story in Chromatic to be able to see it in the plugin.
 
 </details>
 
