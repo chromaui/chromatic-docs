@@ -101,6 +101,13 @@ Chromatic captures Chrome and Firefox snapshots in a Linux environment. It inclu
 </details>
 
 <details>
+<summary>Where are my videos?</summary>
+
+Videos are interactive and time-based which introduces inconsistencies in snapshots. Chromatic hides videos by default to prevent false positives. You'll see a blank space where the video is supposed to render.
+
+</details>
+
+<details>
 <summary>Why am I getting cross-origin errors with my stories?</summary>
 
 Most likely you are calling into `window.parent` somewhere in your code. As we serve your Storybook preview iframe inside our www.chromatic.com domain this leads to a x-origin error as your code doesn't have access to our frame (with good reason!).
