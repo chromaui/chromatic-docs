@@ -262,7 +262,7 @@ Checkout common reasons why snapshots render inconsistently and solutions [**her
 <details>
 <summary>Why am I getting a failing build when ignoring an element?</summary>
 
-By default, Chromatic's diffing algorithm skips the DOM elements marked with either a `.chromatic-ignore` CSS class or `data-chromatic="ignore"` attribute. 
+By default, Chromatic's diffing algorithm skips the DOM elements marked with either a `.chromatic-ignore` CSS class or `data-chromatic="ignore"` attribute.
 
 However, if you're using this functionality but notice the incoming changes are still being captured. In that case, you'll need to ensure that both the [baseline](/docs/branching-and-baselines) and new snapshots retain the same dimensions (e.g., width, height, and relative positioning).
 
@@ -321,7 +321,7 @@ Chromatic follows Storybook's [naming best practice](https://storybook.js.org/do
 
 ```js
 export default {
-  title: "App/Components/Button",
+  title: 'App/Components/Button',
   component: Button,
 };
 
@@ -442,6 +442,13 @@ Figma users must have access to the Chromatic project in order to use the plugin
 
 Learn how to invite teammates as [collaborators](collaborators) on your Chromatic project. We don't charge "per seat", so you can invite your whole team.
 They must be able to see the story in Chromatic to be able to see it in the plugin.
+
+</details>
+
+<details>
+<summary>What permissions do I need in Figma?</summary>
+
+You require a Figma `editor` role to both link and view stories with this plugin.
 
 </details>
 

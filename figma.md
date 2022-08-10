@@ -14,13 +14,13 @@ Storybook Connect is a Figma plugin that allows you to link stories to Figma com
 
 #### Prerequisites
 
-- Figma `editor` role
+- Figma `editor` role (to both link and view stories)
 - Listed as a [collaborator](#collaborators) in the Chromatic project
 
 ### Install the plugin
 
 1. Go to [Storybook Connect](https://www.figma.com/community/plugin/1056265616080331589/Storybook-Connect) in the Figma community to install the plugin.
-2. Open the plugin from the Resources Tab (shift+i) > Plugins > Storybook Connect. ![Plugins menu](img/figma-plugin-widget-menu.png)  
+2. Open the plugin from the Resources Tab (shift+i) > Plugins > Storybook Connect. ![Plugins menu](img/figma-plugin-widget-menu.png)
    Alternatively you can use the command palette in Figma `command + /` then type `Storybook Connect`. ![Open Storybook Connect in Figma](img/figma-plugin-open-in-figma.png)
 3. Follow the installation instructions to authenticate with Chromatic.
 
