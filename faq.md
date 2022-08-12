@@ -268,6 +268,17 @@ However, if you're using this functionality but notice the incoming changes are 
 
 </details>
 
+<details>
+<summary>Why is my tab component's width rendering inconsistently?</summary>
+
+Certain UI libraries like Material calculate the dimensions of each tab by measuring the rendered width of the tab's children using JavaScript (for example, via `getBoundingClientRect()`).
+
+However, this can lead to inconsistent snapshots in cases where you load a custom font. Fonts affect the dimensions of text within tabs. Since custom fonts can load before, during, or after the tab component itself loads, the dimensions calculated by the tab component can also vary.
+
+The solution we recommend is to use a `<link rel="preload">` in your [`.storybook/preview-head.html`](https://storybook.js.org/docs/react/configure/story-rendering#adding-to-head) to preload the font before the story renders. This ensures that the dimensions of the contents inside of the tab component remain consistent when measured.
+
+</details>
+
 ## Usage
 
 <details>
