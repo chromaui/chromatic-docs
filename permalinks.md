@@ -16,6 +16,12 @@ Before we begin, find your project's unique app id. Go to the permalink section 
 
 ![Permalinks on the Manage screen](img/permalinks.png)
 
+### Visibility
+
+The visibility of your permalinks are based on your project's [visibility settings](collaborators#visibility).
+
+If you want to share your links with people that don't have Chromatic credentials, you'll need set your Storybook visibility to public.
+
 ### Build your own permalink
 
 Build your own permalinks to get more flexibility. For example, link to the `main` branch of Storybook in your external documentation site. Or link to a specific Storybook version (via commit) for [Composition](composition).
