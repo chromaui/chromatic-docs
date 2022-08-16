@@ -16,11 +16,11 @@ Before we begin, find your project's unique app id. Go to the permalink section 
 
 ![Permalinks on the Manage screen](img/permalinks.png)
 
-### Visibility
+### Share permalinks with collaborators
 
-The visibility of your permalinks are based on your project's [visibility settings](collaborators#visibility).
+Permalink access is based on your project's [collaborators](collaborators#project-collaborators). Whoever is listed as a collaborator will be able to access your project. If your project is private, they'll need to sign in to view the permalink.
 
-If you want to share your links with people that don't have Chromatic credentials, you'll need set your Storybook visibility to public.
+If you want to share permalinks with people that aren't listed as collaborators, you'll need set [Storybook visibility](collaborators#visibility) to public. That allows anyone with a link to access a project's published Storybooks (your library, tests, and settings will remain private).
 
 ### Build your own permalink
 
@@ -35,9 +35,9 @@ Build your own permalinks to get more flexibility. For example, link to the `mai
 
 Subdomains have character and length limitations. Only letters and dash characters are supported, that means any unsupported characters in your branch name will be replaced with dashes. If your branch name is longer than 37 characters it will be truncated.
 
-| Branch   | Example Permalink|
-| ----------- | --------------------------------------------- |
-| feature/fix-bug | `https://feature-fix-bug--<appid>.chromatic.com`     |
+| Branch                                     | Example Permalink                                                      |
+| ------------------------------------------ | ---------------------------------------------------------------------- |
+| feature/fix-bug                            | `https://feature-fix-bug--<appid>.chromatic.com`                       |
 | thisisareallysuperduperextralongbranchname | `https://thisisareallysuperduperextralongbranc--<appid>.chromatic.com` |
 
 ### Custom domain for your Storybook
