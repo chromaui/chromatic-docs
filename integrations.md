@@ -31,9 +31,9 @@ The custom icon:
 Connect Chromatic to other services that support webhooks to script custom behavior and automate advanced workflows.
 
 1. Go to your [Chromatic project](https://www.chromatic.com/start) and click the manage tab in the sidebar. Scroll down to "Integrations".
-2. Click the "Add webhook" button in the custom webhook section then paste your webhook into the input.
+2. Click the "Add webhook" button in the custom webhook section, then paste your webhook into the input.
 
-When a build's [status changes](#result-and-status-codes) we'll send a `POST` request to your webhook with a body that looks like this:
+When a build's [status changes](#result-and-status-codes), we'll send a `POST` request to your webhook with a body that looks like this:
 
 ```json
 {
@@ -61,11 +61,16 @@ The `event` name is constant, but the `build` data will vary.
 
 Chromatic will make a post request with the above body to the designated webhook URL. That gives you flexibility to catch the webhook response and customize it to fit the service you're integrating with.
 
-Most customers set up a simple proxy app to customize the webhook message. Here's a [sample project](https://github.com/chromaui/github-webhook-proxy) that uses an Express server as a proxy.
+Most customers set up a simple proxy app to customize the webhook message. Below are some starter projects for known Git providers that use Express as a proxy to help you integrate with Chromatic.
+
+| Git provider | Repository                                                 |
+| ------------ | ---------------------------------------------------------- |
+| GitHub       | [Source](https://github.com/chromaui/github-webhook-proxy) |
+| GitLab       | [Source](https://github.com/chromaui/gitlab-webhook-proxy) |
 
 ### Signed Webhooks
 
-Chromatic supports signed webhooks, here is example code of how to handle them: [signed-webhook-examples](https://github.com/chromaui/signed-webhook-examples). Please contact us via in-app chat or <a href="mailto:support@chromatic.com?Subject=Signed%20webhooks">email</a> to enable signed webhooks on your account.
+Chromatic supports signed webhooks. Here is an example code of handling them: [signed-webhook-examples](https://github.com/chromaui/signed-webhook-examples). Please contact us via in-app chat or <a href="mailto:support@chromatic.com?Subject=Signed%20webhooks">email</a> to enable signed webhooks on your account.
 
 ### Result and status codes
 
@@ -81,6 +86,8 @@ Chromatic supports signed webhooks, here is example code of how to handle them: 
 | ⚫️ Timed out                     | `TIMEOUT`       | `FAILED`    | `BUILD_ERROR`    |
 
 <div class="aside">
+
 If you've been using a custom webhook for a long time, or used to have one in the past, your project might still be configured to receive the legacy `status` values.
 You can either continue to use the old values, or contact us so we can switch your project over to the new values. Removing and recreating your webhook will not automatically update you to the new format.
+
 </div>
