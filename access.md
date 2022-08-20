@@ -10,7 +10,7 @@ Learn how to manage access to your Chromatic account and projects.
 
 ## Authentication
 
-Sign in to Chromatic via OAuth, email or SSO.
+Sign in to Chromatic via OAuth, email, or SSO.
 
 #### OAuth
 

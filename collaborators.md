@@ -10,6 +10,10 @@ Chromatic keeps track of UI feedback and tests in one place so that collaborator
 
 ## Organization collaborators
 
+Manage organization collaborators via OAuth, email, or SSO.
+
+#### OAuth
+
 Chromatic mirrors access permissions with your GitHub Organization, Bitbucket Group, or GitLab Team. Users who have access to your organization will also have access to your Chromatic organization.
 
 | Permission level       | What collaborators can do                           |
@@ -22,13 +26,27 @@ Go to your organization's Settings page to view collaborators.
 
 ![Settings page collaborators](img/collaborators-organization.png)
 
+#### Email
+
+Email and password accounts don't have the concept of organization-level collaborators. If you want other teammates to access an account, you'll need to sync the account with a [Git provider](#organization-collaborators) or share login credentials (for example, via a password manager).
+
+However, projects _within_ an organization do support [project-level collaborators](#project-collaborators).
+
+#### Single Sign-On (SSO)
+
+Single Sign-On (SSO) is available to enterprise customers. Chromatic syncs access permissions with your SSO provider. At the organization-level, contact us via in-app chat or email to manage collaborators.
+
+When you add or remove collaborators in your SSO provider, that access will be reflected in Chromatic automatically.
+
 ### Billing and usage
 
 Collaborate on billing, usage, and permissions by syncing your organization with GitHub, Bitbucket, or GitLab.
 
-Email and password accounts don't have the concept of organization-level collaborators. If you want other teammates to access an account, you'll need to sync the account with a [Git provider](#organization-collaborators) or share login credentials (for example, via a password manager).
+For email and password accounts, only the account owner can login to access billing information. For SSO accounts, contact your company's SSO administrator to manage billing.
 
 ## Project collaborators
+
+#### OAuth
 
 Chromatic syncs access permissions with your GitHub, Bitbucket, or GitLab repository. Users who have access to your code will also have access to your project.
 
@@ -51,7 +69,15 @@ Manually override the mirrored permissions by adjusting collaborator [roles](#ro
 
 ![Project manage page collaborators](img/collaborators-project-git.png)
 
-If you signed up via email and password, Chromatic won't have a Git repo to sync with. You'll need to manage project collaborators manually via external collaborators below.
+#### Email
+
+If you signed up via email and password, Chromatic won't have a Git repo to sync with. You'll need to manage project collaborators manually via external collaborators [below](#external-collaborators).
+
+#### Single Sign-On (SSO)
+
+Chromatic syncs access permissions with your SSO provider. At the project-level, all collaborators who have access via SSO will also get access to every Chromatic project within your organization's account.
+
+When you add or remove collaborators in your SSO provider, that access will be reflected in Chromatic automatically.
 
 ### External collaborators
 
@@ -92,6 +118,10 @@ Go to your project's Manage page to view your role and it's capabilities.
 #### Roles for open source projects
 
 Open source projects are viewable to all users even if they're not listed as a collaborator or have a Chromatic account. But in order to manage or review the open source project, collaborators must have explicit access and the corresponding role.
+
+#### Roles for Single Sign-On (SSO)
+
+Chromatic syncs collaborators with your SSO provider. All collaborators are granted `owner` capabilities.
 
 ### Visibility
 
