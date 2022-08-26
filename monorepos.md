@@ -26,8 +26,8 @@ For example, you could write in your `.storybook/main.js`:
 // .storybook/main.js
 
 module.exports = {
-  stories: ['../project-1/**/*.stories.js', '../project-2/**/*.stories.js'],
-};
+  stories: ["../project-1/**/*.stories.js", "../project-2/**/*.stories.js"],
+}
 ```
 
 Often teams find a single Storybook for all their development works quite well, also!
@@ -54,24 +54,23 @@ If you want to get a Chromatic PR badge for such commits (for instance if you bl
 
 ## Advanced: Only test a subset of stories
 
-If you are combining your Storybooks into a single Storybook (see above), but you have detected only a subset of projects have changed, in order to avoid unnecessarily capturing unchanged stories, you can build a Storybook with a subset of your projects' stories.
+If you are combining your Storybooks into a single Storybook (see above), but you have detected only a subset of projects have changed, in order to avoid unnecessarily capturing unchanged stories, you can instruct Chromatic to only capture and test a subset of your Storybook's stories. There are two ways to do so:
 
-Ordinarily when you run a build that is missing a set of stories, Chromatic will treat those stories as deleted and the next build that includes them will have no baseline for them, and treat them as new. You can pass the `--preserve-missing` flag to your build to avoid this behavior. What this means is Chromatic will pass the baselines forward and treat all missing stories as "preserved" without re-capturing them.
+- Recommended: Use [TurboSnap](turbosnap) to automatically only snapshot stories for which related source files have changed.
+- Use [`--only-story-names`](cli#chromatic-options) to only snapshot stories matching a glob pattern by component/story name.
+
+In each of these cases, any stories that aren't tested are "inherited" from their baseline.
+
+### `onlyStoryNames`
+
+The `--only-story-names` flag accepts a glob and can be specified multiple times. Any component/story name (e.g. `Forms/Button/*`) which match the glob will have all of its stories captured and tested.
+
+```
+npx chromatic --only-story-names "Forms/**" --only-story-names "**/Header/*"
+```
+
+This would match all stories for all components under "Forms" (i.e. any story file which `title` path starts with "Forms"), as well as all stories for the "Header" component, regardless of where it is in the hierarchy (i.e. any story file which `title` path ends with "Header"). Again, make sure to use quotes around glob patterns.
 
 ### Building a subset of your stories
 
-In order to build a Storybook with a subset of your stories, you can use an environment variable in `.storybook/main.js`:
-
-```js
-// .storybook/main.js
-
-const storiesForProject = {
-  projectA: './projectA/**.stories.js',
-  projectB: './projectB/**.stories.js',
-  // etc
-};
-
-export default {
-  stories: storiesForProject[process.env.ONLY_STORYBOOK_PROJECT] || '**/*.stories.js',
-};
-```
+With the deprecation (and eventual removal) of the `--preserve-missing` flag, it is no longer recommended to build a partial Storybook containing a subset of your stories. Publishing a Storybook with missing stories will result in those missing stories to be marked as "removed".
