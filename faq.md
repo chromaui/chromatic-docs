@@ -422,7 +422,7 @@ For example, here’s how GitHub Actions can be configured:
 <details>
 <summary>Why isn’t TurboSnap working for me?</summary>
 
-TurboSnap is _not_ compatible with squash and merge rebasing ([learn more](turbosnap#squashrebase-merging)). Or you might be missing one of the necessary [prerequisites](docs/turbosnap#prerequisites).
+You may be missing one of the necessary [prerequisites](turbosnap#prerequisites). For [debugging information](turbosnap#confirm-turbosnap-is-working) check your CI build logs.
 
 </details>
 
@@ -460,6 +460,23 @@ They must be able to see the story in Chromatic to be able to see it in the plug
 <summary>What permissions do I need in Figma?</summary>
 
 You require a Figma `editor` role to both link and view stories with this plugin.
+
+</details>
+
+## Compatability
+
+<details>
+<summary>Does Chromatic work with Azure DevOps?</summary>
+
+Chromatic is a CI-powered service. That means you can run `chromatic` in any CI workflow including Azure DevOps. However, some of the automatic configuration that comes out of the box from Chromatic won't be available to Azure DevOps users. Rest assured, it's straightforward to configure yourself.
+
+Things to note:
+
+- Your team must sign up via [email/password](access#email)
+- Access control is manually-managed at the project level via [External Collaborators](collaborators#external-collaborators)
+- Pull request checks must be setup via in your [CI provider](ci#pull-request-checks)
+
+[Read the setup guide now](setup#demo-chromatic-unlinked)
 
 </details>
 
