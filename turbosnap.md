@@ -282,7 +282,7 @@ If you have a large dependency tree, the build process may fail due to an out of
 </details>
 
 <details>
-  <summary>Why do merge commits test more changes that I expect?</summary>
+  <summary>Why do merge commits test more changes than I expect?</summary>
 
 Ordinarily, TurboSnap uses git to find all files that have changed since the <a href="/branching-and-baselines#calculating-the-ancestor-builds">ancestor build</a> to determine which components/stories to snapshot. The changed file behavior is more complex with merge commits because there are two "ancestor builds".
 
