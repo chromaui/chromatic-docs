@@ -468,15 +468,13 @@ You require a Figma `editor` role to both link and view stories with this plugin
 <details>
 <summary>Does Chromatic work with Azure DevOps?</summary>
 
-Chromatic is a CI-powered service. That means you can run `chromatic` in any CI workflow including Azure DevOps. However, some of the automatic configuration that comes out of the box from Chromatic won't be available to Azure DevOps users. Rest assured, it's straightforward to configure yourself.
-
-Things to note:
+Chromatic is a CI-powered service. That means you can run `chromatic` in any CI workflow including Azure DevOps. However, some of the automatic configuration that comes out of the box from Chromatic won't be available to Azure DevOps users. Rest assured, it's straightforward to configure yourself. Below are things to note for set up:
 
 - Your team must sign up via [email/password](access#email)
 - Access control is manually-managed at the project level via [External Collaborators](collaborators#external-collaborators)
 - Pull request checks must be setup via in your [CI provider](ci#pull-request-checks)
 
-[Read the setup guide now](setup#demo-chromatic-unlinked)
+Read the [setup guide](setup#demo-chromatic-unlinked).
 
 </details>
 
