@@ -119,3 +119,20 @@ If your account is currently connected to a GitHub org, Bitbucket workspace, or 
 To share billing between an existing connected account and an email/password account, message us via in-app chat.
 
 </details>
+
+<details>
+<summary>How do I link a project to a Git provider using my email/password account?</summary>
+
+Email accounts are not connected to a Git provider by default. This means you can only create [unlinked projects](access#unlinked-projects).
+
+Follow these instructions to link your project to a Git provider:
+
+1. Go to your profile (`/profile`) and connect to your Git provider.
+2. Go to the project's Manage page » Collaborate tab.
+3. Click to "sync collaborators with a Git repository".
+
+This connects your Chromatic email/password account with your Git provider account which then allows you to setup a [linked project](access#linked-projects).
+
+Note: Your personal account must have access to the repository in order to connect in Chromatic. You may need to ask an administrator to grant you additional permissions.
+
+</details>
