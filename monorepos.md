@@ -54,12 +54,23 @@ If you want to get a Chromatic PR badge for such commits (for instance if you bl
 
 ## Advanced: Only test a subset of stories
 
-If you are combining your Storybooks into a single Storybook (see above), but you have detected only a subset of projects have changed, in order to avoid unnecessarily capturing unchanged stories, you can instruct Chromatic to only capture and test a subset of your Storybook's stories. There are two ways to do so:
+If you are combining your Storybooks into a single Storybook (see above), but you have detected only a subset of projects have changed, in order to avoid unnecessarily capturing unchanged stories, you can instruct Chromatic to only capture and test a subset of your Storybook's stories. There are three ways to do so:
 
 - Recommended: Use [TurboSnap](turbosnap) to automatically only snapshot stories for which related source files have changed.
+- Use [`--only-story-files`](cli#chromatic-options) to only snapshot stories matching a glob pattern by story file name.
 - Use [`--only-story-names`](cli#chromatic-options) to only snapshot stories matching a glob pattern by component/story name.
 
-In each of these cases, any stories that aren't tested are "inherited" from their baseline.
+In each of these cases, any stories that aren't tested are "inherited" from their baseline. You cannot use both `--only-story-files` and `--only-story-names`.
+
+### `onlyStoryFiles`
+
+The `--only-story-files` flag accepts a glob and can be specified multiple times. Any story files (e.g. `Example.stories.js`) which match the glob will have all of its stories captured and tested.
+
+```
+npx chromatic --only-story-files "./src/components/**/.stories.js" --only-story-files "./shared/**/*.stories.js"
+```
+
+Make sure you include quotes around glob patterns, otherwise they will be interpreted by your shell and it won't work.
 
 ### `onlyStoryNames`
 
