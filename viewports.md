@@ -52,7 +52,7 @@ export default {
     chromatic: { viewports: [320, 1200] },
   },
   title: 'MyComponent',
-}
+};
 
 const Template = (args) => <MyComponent {...args} />;
 
@@ -73,7 +73,7 @@ SecondStoryName.args = {
 
 <details><summary>What viewports can I choose?</summary>
 
-A viewport can be any whole number between 320 and 1800 pixels.
+A viewport can be any whole number between 200 and 2560 pixels. The maximum number of pixels per snapshot is 25,000,000.
 
 </details>
 
