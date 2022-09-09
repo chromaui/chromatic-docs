@@ -10,7 +10,7 @@ Our priority is securing your intellectual property and sensitive information. V
 
 ## SOC 2
 
-Chromatic is [SOC 2 Type 1](https://us.aicpa.org/interestareas/frc/assuranceadvisoryservices/serviceorganization-smanagement) compliant. This rigorous, independent assessment of our internal security controls serves as validation of our dedication to the highest standards for security, availability, and confidentiality.
+Chromatic is [SOC 2](https://us.aicpa.org/interestareas/frc/assuranceadvisoryservices/serviceorganization-smanagement) compliant. This rigorous, independent assessment of our internal security controls serves as validation of our dedication to the highest standards for security, availability, and confidentiality.
 
 ## Responsible disclosure
 
