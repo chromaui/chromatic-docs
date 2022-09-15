@@ -417,6 +417,35 @@ For example, here’s how GitHub Actions can be configured:
 
 </details>
 
+<details>
+<summary>Why can't the Chromatic CLI find git during CI?</summary>
+
+Pipeline configurations allow you to specify the docker image that you'd like to use for your runners. To keep the image size small, lots of `*-slim` images do not come with git installed which Chromatic CLI requires to link builds to commits.
+
+To solve this you can install git as a step before running the Chromatic CLI or change your image to something that includes git.
+
+</details>
+
+<details>
+<summary>Why can't Chromatic find my ancestor build during CI?</summary>
+
+This problem can arise when your project's git history is altered during CI.
+
+For example, we have found some community GitHub actions such as `tj-actions/changed-files` that alters git history in order to determine which files have been changed.
+
+In this instance, we found that checking out your repository again after running `tj-actions/changed-files` again resolves the issue.
+
+Your steps should look something like this
+
+```
+Checkout
+tj-actions/changed-files
+Checkout
+Chromatic
+```
+
+</details>
+
 #### TurboSnap
 
 <details>
