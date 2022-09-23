@@ -125,7 +125,7 @@ stages:
 
 ### Run Chromatic on Monorepos
 
-Chromatic can be run on monorepos that have multiple subprojects. Each subproject will need it's own project token stored as an environment variable.
+Chromatic can be run on monorepos that have multiple subprojects. Each subproject will need its own project token stored as an environment variable.
 
 ```yml
 # azure-pipelines.yml
