@@ -95,6 +95,35 @@ chromatic_publish:
     - yarn chromatic --project-token=$CHROMATIC_PROJECT_TOKEN --zip
 ```
 
+### Run Chromatic on Monorepos
+
+Chromatic can be run on monorepos that have multiple subprojects. Each subproject will need it's own project token.
+
+```yml
+# .gitlab-ci.yml
+
+# Additional pipeline configurations
+
+# Sets the stages for the pipeline
+stages:
+  - test
+
+#👇Adds Chromatic as a job
+chromatic_publish_project_1:
+  stage: test
+  #👇Runs Chromatic with the flag to compress the build output.
+  script:
+    - cd pacakges/project_1 && yarn chromatic --project-token=$CHROMATIC_PROJECT_TOKEN_1
+
+chromatic_publish_project_2:
+  stage: test
+  #👇Runs Chromatic with the flag to compress the build output.
+  script:
+    - cd pacakges/project_2 && yarn chromatic --project-token=$CHROMATIC_PROJECT_TOKEN_2
+```
+
+When running Chromatic for the subproject, you will need to ensure that you are in the correct working directory for the subproject along with either having a `build-storybook` npm script in the subproject's `package.json` file or explicitly naming the script using the `buildScriptName` parameter and making sure the script is listed in the subproject's `package.json` file. Alternatively, you could build the storybook in a separate step and then point the action at the build output using the `storybookBuildDir` parameter
+
 ### UI Test and UI Review
 
 [UI Tests](test) and [UI Review](review) rely on [branch and baseline](branching-and-baselines) detection to keep track of [snapshots](snapshots). We recommend the following configuration.

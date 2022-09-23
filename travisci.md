@@ -19,11 +19,11 @@ To integrate Chromatic with your existing workflow, you’ll need to add the fol
 
 jobs:
   include:
-     # Other jobs
+    # Other jobs
 
-     # 👇 Adds Chromatic as a job
-   - name: 'Publish to Chromatic'
-     script: yarn chromatic --project-token=${CHROMATIC_PROJECT_TOKEN}
+    # 👇 Adds Chromatic as a job
+    - name: "Publish to Chromatic"
+      script: yarn chromatic --project-token=${CHROMATIC_PROJECT_TOKEN}
 ```
 
 <div class="aside">
@@ -44,11 +44,11 @@ branches:
 
 jobs:
   include:
-     # Other jobs
+    # Other jobs
 
-     # 👇 Adds Chromatic as a job
-   - name: 'Publish to Chromatic'
-     script: yarn chromatic --project-token=${CHROMATIC_PROJECT_TOKEN}
+    # 👇 Adds Chromatic as a job
+    - name: "Publish to Chromatic"
+      script: yarn chromatic --project-token=${CHROMATIC_PROJECT_TOKEN}
 ```
 
 <div class="aside">
@@ -69,10 +69,34 @@ jobs:
     # Other jobs
 
     # 👇 Adds Chromatic as a job
-    - name: 'Publish to Chromatic'
+    - name: "Publish to Chromatic"
       #👇Runs Chromatic with the flag to compress the build output.
       script: yarn chromatic --project-token=${CHROMATIC_PROJECT_TOKEN} --zip
 ```
+
+### Run Chromatic on Monorepos
+
+Chromatic can be run on monorepos that have multiple subprojects. Each subproject will need it's own project token stored as an environment variable.
+
+```yml
+# travis.yml
+
+# Other required configuration
+
+jobs:
+  include:
+    # Other jobs
+
+    # 👇 Adds Chromatic as a job
+    - name: "Publish Project 1 to Chromatic"
+      #👇Runs Chromatic with the flag to compress the build output.
+      script: cd pacakges/project_1 && yarn chromatic --project-token=${CHROMATIC_PROJECT_TOKEN_1}
+    - name: "Publish Project 2 to Chromatic"
+      #👇Runs Chromatic with the flag to compress the build output.
+      script: cd pacakges/project_2 && yarn chromatic --project-token=${CHROMATIC_PROJECT_TOKEN_2}
+```
+
+When running Chromatic for the subproject, you will need to ensure that you are in the correct working directory for the subproject along with either having a `build-storybook` npm script in the subproject's `package.json` file or explicitly naming the script using the `buildScriptName` parameter and making sure the script is listed in the subproject's `package.json` file. Alternatively, you could build the storybook in a separate step and then point the action at the build output using the `storybookBuildDir` parameter
 
 ### Recommended configuration for build events
 
@@ -91,13 +115,13 @@ Once these conditions are met, add the following code to your `.travis.yml`:
 
 jobs:
   include:
-     # Other jobs
+    # Other jobs
 
-     # 👇 Adds Chromatic as a job
-   - name: 'Publish to Chromatic'
-     # 👇 Verifies the build event type or a if it's a forked repository
-     if: (type = push OR head_repo != repo )
-     script: yarn chromatic --project-token=${CHROMATIC_PROJECT_TOKEN}
+    # 👇 Adds Chromatic as a job
+    - name: "Publish to Chromatic"
+      # 👇 Verifies the build event type or a if it's a forked repository
+      if: (type = push OR head_repo != repo )
+      script: yarn chromatic --project-token=${CHROMATIC_PROJECT_TOKEN}
 ```
 
 For external pull requests (i.e forked repositories), the above code will ensure Chromatic runs with the `pr` build event, because Travis will not trigger `push` events for these cases.
@@ -117,12 +141,12 @@ If you are using pull request statuses as required checks before merging, you ma
 
 jobs:
   include:
-     # Other jobs
+    # Other jobs
 
-     # 👇 Adds Chromatic as a job
-   - name: 'Publish to Chromatic'
-     # 👇 Runs Chromatic with the flag to prevent workflow failure
-     script: yarn chromatic --project-token=${CHROMATIC_PROJECT_TOKEN} --exit-zero-on-changes
+    # 👇 Adds Chromatic as a job
+    - name: "Publish to Chromatic"
+      # 👇 Runs Chromatic with the flag to prevent workflow failure
+      script: yarn chromatic --project-token=${CHROMATIC_PROJECT_TOKEN} --exit-zero-on-changes
 ```
 
 <div class="aside">
@@ -156,14 +180,14 @@ If you’re using this functionality but notice the incoming changes were not ac
 
 jobs:
   include:
-     # 👇 Checks if the branch is not main and runs Chromatic
-   - name: 'Publish to Chromatic'
-     if: branch != main 
-     script: yarn chromatic --project-token=${CHROMATIC_PROJECT_TOKEN}
-     # 👇 Checks if the branch is main and runs Chromatic with the flag to accept all changes
-   - name: 'Publish to Chromatic and auto accepts changes'
-     if: branch = main
-     script: yarn chromatic --project-token=${CHROMATIC_PROJECT_TOKEN} --auto-accept-changes
+    # 👇 Checks if the branch is not main and runs Chromatic
+    - name: "Publish to Chromatic"
+      if: branch != main
+      script: yarn chromatic --project-token=${CHROMATIC_PROJECT_TOKEN}
+      # 👇 Checks if the branch is main and runs Chromatic with the flag to accept all changes
+    - name: "Publish to Chromatic and auto accepts changes"
+      if: branch = main
+      script: yarn chromatic --project-token=${CHROMATIC_PROJECT_TOKEN} --auto-accept-changes
 ```
 
 <div class="aside">
@@ -181,12 +205,12 @@ If you want to test the changes introduced by the rebased branch, you can adjust
 
 jobs:
   include:
-     # Other jobs
+    # Other jobs
 
-     # 👇 Adds Chromatic as a job
-   - name: 'Publish to Chromatic'
-     # 👇 Option to skip the last build on target branch
-     script: yarn chromatic --project-token=${CHROMATIC_PROJECT_TOKEN} --ignore-last-build-on-branch=my-branch
+    # 👇 Adds Chromatic as a job
+    - name: "Publish to Chromatic"
+      # 👇 Option to skip the last build on target branch
+      script: yarn chromatic --project-token=${CHROMATIC_PROJECT_TOKEN} --ignore-last-build-on-branch=my-branch
 ```
 
 <div class="aside">

@@ -102,6 +102,37 @@ pipeline {
 }
 ```
 
+### Run Chromatic on Monorepos
+
+Chromatic can be run on monorepos that have multiple subprojects. Each subproject will need it's own project token stored as an environment variable.
+
+```groovy
+/* JenkinsFile */
+
+pipeline {
+  /* Other pipeline configuration. */
+
+  stages {
+    /* Other pipeline stages */
+
+    /* 👇 Adds Chromatic as a stage */
+    stage('Publish to Chromatic') {
+      environment {
+        CHROMATIC_PROJECT_TOKEN_1 = 'Chromatic project token'
+        CHROMATIC_PROJECT_TOKEN_2 = 'Chromatic project token'
+      }
+      steps {
+         /* 👇 Runs Chromatic with the flag to compress the build output. */
+         sh "cd pacakges/project_1 && yarn chromatic --project-token=${CHROMATIC_PROJECT_TOKEN_1}"
+         sh "cd pacakges/project_2 && yarn chromatic --project-token=${CHROMATIC_PROJECT_TOKEN_2}"
+      }
+    }
+  }
+}
+```
+
+When running Chromatic for the subproject, you will need to ensure that you are in the correct working directory for the subproject along with either having a `build-storybook` npm script in the subproject's `package.json` file or explicitly naming the script using the `buildScriptName` parameter and making sure the script is listed in the subproject's `package.json` file. Alternatively, you could build the storybook in a separate step and then point the action at the build output using the `storybookBuildDir` parameter
+
 ### Overriding Chromatic's branch detection
 
 If your Jenkins pipeline includes a set of rules for branches (e.g., renames the branch, creates ephemeral, or temporary branches) it can lead to unforeseen build errors.

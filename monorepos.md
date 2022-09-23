@@ -6,7 +6,7 @@ description: Chromatic's support for monorepos
 
 # Monorepos
 
-A common pattern in modern web development is monorepos -- having a single repository that contains multiple distinct projects. As a Chromatic project is associated with a single repository in a one-to-one way, there are a few tips that can help with using Chromatic with a monorepo.
+A common pattern in modern web development is monorepos -- having a single repository that contains multiple distinct projects. As a monorepo can be associated with many Chromatic projects, there are a few tips that can help with using Chromatic with a monorepo.
 
 ## Running Chromatic from a subproject
 
@@ -14,7 +14,7 @@ Chromatic doesn't assume anything about how you run the CLI, so there is no reas
 
 ## Running Chromatic for more than one subproject's Storybook
 
-You can only have one linked project in Chromatic for any given repository, so if you want to run Chromatic for more than one subproject, you have two options:
+You can have multiple linked projects in Chromatic for any given repository, so if you want to run Chromatic for more than one subproject, you have two options:
 
 ### Combine multiple projects into a single Storybook
 
@@ -27,7 +27,7 @@ For example, you could write in your `.storybook/main.js`:
 
 module.exports = {
   stories: ["../project-1/**/*.stories.js", "../project-2/**/*.stories.js"],
-}
+};
 ```
 
 Often teams find a single Storybook for all their development works quite well, also!
@@ -36,11 +36,11 @@ Often teams find a single Storybook for all their development works quite well, 
 
 In Chromatic a project is typically linked to a repository and will synchronize permissions from the permissions of that repository as well as post build status messages to the repository's Pull (Merge) Requests.
 
-You can currently only have a single project linked to a given repository. That means if you want to run Chromatic more than once for a given repository's commit, you can only get a single commit status on your PRs (MRs).
+For each sub-project in the monorepo that you would like to run Chromatic on, you will need to create a project in Chromatic from a previously linked repository and retreive the project token for it. Then, you can run Chromatic for each sub project using that token.
 
-However, you can still create a second project in Chromatic, linked to a dummy repository created in your organization/team for this purpose. If you mirror the repository membership from the "real" repository to the dummy repository, access to the Chromatic project will work fine.
+For every project that you link within the monorepo, you will get commit statuses for each project. In CI, you will need to add a step for each project and use the specific project token for that project.
 
-You would then use the token of the second project to run the second `chromatic` test command in the second subproject. The big downside of this approach is the lack of a Pull (Merge) Request status based on the result of the second test run. You can however wait for and use the exit code of the `chromatic` CLI run (don't use the `--exit-zero-on-changes` flag in this case!)
+![Mutltiple Commit Statuses in Monorepo](img/monorepo-commit-status.png)
 
 ---
 
@@ -85,3 +85,9 @@ This would match all stories for all components under "Forms" (i.e. any story fi
 ### Building a subset of your stories
 
 With the deprecation (and eventual removal) of the `--preserve-missing` flag, it is no longer recommended to build a partial Storybook containing a subset of your stories. Publishing a Storybook with missing stories will result in those missing stories to be marked as "removed".
+
+## Advanced: TurboSnap
+
+TurboSnap is an good feature to use with monorepos to avoid re-snapshotting all components across all projects when any changes occur. The `--untraced` CLI flag can be used to ignore all changes outside of a package or related packages. For example, given a monorepo with unrelated packages `foo` and `bar` , you can add the following CLI option to `foo`’s Chromatic command to only run snapshots when files inside the `foo` package change: `--untraced \"./packages/!(foo)/**\"` . Note that the glob pattern starts from the root directory of the repository, not from the directory of the `foo` package. You can also specify `--untraced` multiple times to include multiple glob patterns
+
+Some monorepo setups manage third-party dependencies at the root level (so all dependencies in the monorepo have consistent versions). You may wish to ignore these root-level files (like a lockfile) to avoid unnecessary snapshots, but be aware that some changes may go unnoticed.

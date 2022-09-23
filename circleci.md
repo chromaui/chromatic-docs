@@ -94,9 +94,34 @@ jobs:
 
       #👇Runs Chromatic with the flag to compress the build output.
       - run: yarn chromatic --project-token=${CHROMATIC_PROJECT_TOKEN} --zip
-
 # Workflows here
 ```
+
+### Run Chromatic on Monorepos
+
+Chromatic can be run on monorepos that have multiple subprojects. Each subproject will need it's own project token stored as an environment variable.
+
+```yml
+# .circleci/config.yml
+
+# Other required configuration
+
+jobs:
+  # Other jobs
+
+  # 👇 Adds Chromatic as a job
+  chromatic-deployment:
+    # Other configuration
+    steps:
+      # Other job steps
+
+      #👇Runs Chromatic with the flag to compress the build output.
+      - run: cd pacakges/project_1 && yarn chromatic --project-token=${CHROMATIC_PROJECT_TOKEN_1}
+      - run: cd pacakges/project_2 && yarn chromatic --project-token=${CHROMATIC_PROJECT_TOKEN_2}
+# Workflows here
+```
+
+When running Chromatic for the subproject, you will need to ensure that you are in the correct working directory for the subproject along with either having a `build-storybook` npm script in the subproject's `package.json` file or explicitly naming the script using the `buildScriptName` parameter and making sure the script is listed in the subproject's `package.json` file. Alternatively, you could build the storybook in a separate step and then point the action at the build output using the `storybookBuildDir` parameter
 
 ### External Pull Requests
 
@@ -130,9 +155,8 @@ jobs:
     steps:
       # Other job steps
 
-        # 👇 Runs Chromatic with the flag to prevent workflow failure
+      # 👇 Runs Chromatic with the flag to prevent workflow failure
       - run: yarn chromatic --project-token=${CHROMATIC_PROJECT_TOKEN} --exit-zero-on-changes
-
 # Workflows here
 ```
 
@@ -199,7 +223,6 @@ jobs:
 
       # 👇 Option to skip the last build on target branch
       - run: yarn chromatic --project-token=${CHROMATIC_PROJECT_TOKEN} --ignore-last-build-on-branch=my-branch
-
 # Workflows here
 ```
 

@@ -20,9 +20,9 @@ pipelines:
   default:
     # Other steps in the pipeline
 
-      # 👇 Adds Chromatic as a step
+    # 👇 Adds Chromatic as a step
     - step:
-        name: 'Publish to Chromatic'
+        name: "Publish to Chromatic"
         caches:
           - node
         script:
@@ -51,8 +51,8 @@ pipelines:
     # 👇 The example branch will display the message in the console instead of running Chromatic.
     main:
       - step:
-         script:
-           - yarn chromatic --project-token=$CHROMATIC_PROJECT_TOKEN
+          script:
+            - yarn chromatic --project-token=$CHROMATIC_PROJECT_TOKEN
 ```
 
 <div class="aside">
@@ -83,6 +83,65 @@ pipelines:
           - yarn chromatic --project-token=$CHROMATIC_PROJECT_TOKEN --zip
 ```
 
+### Run Chromatic on Monorepos
+
+Chromatic can be run on monorepos that have multiple subprojects. Each subproject will need it's own project token stored as an environment variable.
+
+```yml
+# bitbucket-pipelines.yml
+
+# A sample pipeline implementation
+pipelines:
+  default:
+    # Other steps in the pipeline
+
+    # 👇 Adds Chromatic as a step in the pipeline
+    - step:
+        name: "Publish Project 1 to Chromatic"
+        # Other pipeline configuration
+        script:
+          - yarn install
+            #👇Runs Chromatic with the flag to compress the build output.
+          - cd pacakges/project_1 && yarn chromatic --project-token=$CHROMATIC_PROJECT_TOKEN_1
+    - step:
+        name: "Publish Project 2 to Chromatic"
+        # Other pipeline configuration
+        script:
+          - yarn install
+            #👇Runs Chromatic with the flag to compress the build output.
+          - cd pacakges/project_2 && yarn chromatic --project-token=$CHROMATIC_PROJECT_TOKEN_2
+```
+
+When running Chromatic for the subproject, you will need to ensure that you are in the correct working directory for the subproject along with either having a `build-storybook` npm script in the subproject's `package.json` file or explicitly naming the script using the `buildScriptName` parameter and making sure the script is listed in the subproject's `package.json` file. Alternatively, you could build the storybook in a separate step and then point the action at the build output using the `storybookBuildDir` parameter
+
+If you want to run Chromatic in parallel for each subproject, you can use this snippet below.
+
+```yml
+# bitbucket-pipelines.yml
+
+# A sample pipeline implementation
+pipelines:
+  default:
+    # Other steps in the pipeline
+
+    # 👇 Adds Chromatic as a step in the pipeline
+    - parallel:
+        - step:
+            name: "Publish Project 1 to Chromatic"
+            # Other pipeline configuration
+            script:
+              - yarn install
+                #👇Runs Chromatic with the flag to compress the build output.
+              - yarn chromatic --project-token=$CHROMATIC_PROJECT_TOKEN_1
+        - step:
+            name: "Publish Project 2 to Chromatic"
+            # Other pipeline configuration
+            script:
+              - yarn install
+                #👇Runs Chromatic with the flag to compress the build output.
+              - yarn chromatic --project-token=$CHROMATIC_PROJECT_TOKEN_2
+```
+
 ### UI Test and UI Review
 
 [UI Tests](test) and [UI Review](review) rely on [branch and baseline](branching-and-baselines) detection to keep track of [snapshots](snapshots). We recommend the following configuration.
@@ -99,9 +158,9 @@ pipelines:
   default:
     # Other steps in the pipeline
 
-      # 👇 Adds Chromatic as a step in the pipeline
+    # 👇 Adds Chromatic as a step in the pipeline
     - step:
-        name: 'Publish to Chromatic'
+        name: "Publish to Chromatic"
         # Other pipeline configuration
         script:
           - yarn install
@@ -139,9 +198,9 @@ If you’re using this functionality but notice the incoming changes were not ac
 # A sample pipeline implementation
 pipelines:
   default:
-      # 👇 Checks if the branch is main and runs Chromatic with the flag to accept all changes.
+    # 👇 Checks if the branch is main and runs Chromatic with the flag to accept all changes.
     - step:
-        name: 'Publish to Chromatic and auto accept changes'
+        name: "Publish to Chromatic and auto accept changes"
         caches:
           - node
         script:
@@ -150,7 +209,7 @@ pipelines:
     # 👇 Checks if the branch is not main and runs Chromatic
     your-branch:
       - step:
-          name: 'Publish to Chromatic'
+          name: "Publish to Chromatic"
           script:
             - yarn chromatic --project-token=$CHROMATIC_PROJECT_TOKEN
 ```
@@ -171,9 +230,9 @@ pipelines:
   default:
     # Other steps in the pipeline
 
-      # 👇 Adds Chromatic as a step in the pipeline
+    # 👇 Adds Chromatic as a step in the pipeline
     - step:
-        name: 'Publish to Chromatic'
+        name: "Publish to Chromatic"
         # Other pipeline configuration
         script:
           - yarn install
@@ -197,14 +256,14 @@ If you're creating a [patch build](branching-and-baselines#patch-builds) in Chro
 pipelines:
   pull-requests:
     # 👇 Will run as default for any branch not elsewhere defined
-    '**':
+    "**":
       - step:
           # 👇 Adds Chromatic as a step in the pipeline
-          name: 'Publish to Chromatic'
+          name: "Publish to Chromatic"
           caches:
             - node
           script:
-              # 👇 Brings over the changes from the BitBucket repo
+            # 👇 Brings over the changes from the BitBucket repo
             - git fetch origin main:main
               # 👇 Option to update the build based on the changes obtained
             - yarn chromatic --project-token=$CHROMATIC_PROJECT_TOKEN --patch-build=$your-branch...main
