@@ -123,8 +123,8 @@ jobs:
       # Other job steps
 
       #👇Runs Chromatic with the flag to compress the build output.
-      - run: cd pacakges/project_1 && yarn chromatic --project-token=${CHROMATIC_PROJECT_TOKEN_1}
-      - run: cd pacakges/project_2 && yarn chromatic --project-token=${CHROMATIC_PROJECT_TOKEN_2}
+      - run: cd packages/project_1 && yarn chromatic --project-token=${CHROMATIC_PROJECT_TOKEN_1}
+      - run: cd packages/project_2 && yarn chromatic --project-token=${CHROMATIC_PROJECT_TOKEN_2}
 # Workflows here
 ```
 

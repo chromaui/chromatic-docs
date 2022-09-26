@@ -120,13 +120,13 @@ chromatic_publish_project_1:
   stage: test
   #👇Runs Chromatic with the flag to compress the build output.
   script:
-    - cd pacakges/project_1 && yarn chromatic --project-token=$CHROMATIC_PROJECT_TOKEN_1
+    - cd packages/project_1 && yarn chromatic --project-token=$CHROMATIC_PROJECT_TOKEN_1
 
 chromatic_publish_project_2:
   stage: test
   #👇Runs Chromatic with the flag to compress the build output.
   script:
-    - cd pacakges/project_2 && yarn chromatic --project-token=$CHROMATIC_PROJECT_TOKEN_2
+    - cd packages/project_2 && yarn chromatic --project-token=$CHROMATIC_PROJECT_TOKEN_2
 ```
 
 ### UI Test and UI Review

@@ -155,7 +155,7 @@ stages:
             displayName: Publish Project 1 to Chromatic
             inputs:
               #👇Runs Chromatic with the flag to compress the build output.
-              script: cd pacakges/project_1 && npx chromatic --project-token=${CHROMATIC_PROJECT_TOKEN_1}
+              script: cd packages/project_1 && npx chromatic --project-token=${CHROMATIC_PROJECT_TOKEN_1}
       - job: Chromatic_Deploy_2
         displayName: Publish Project 2 to Chromatic
         steps:
@@ -166,7 +166,7 @@ stages:
             displayName: Publish Project 2 to Chromatic
             inputs:
               #👇Runs Chromatic with the flag to compress the build output.
-              script: cd pacakges/project_2 && npx chromatic --project-token=${CHROMATIC_PROJECT_TOKEN_2}
+              script: cd packages/project_2 && npx chromatic --project-token=${CHROMATIC_PROJECT_TOKEN_2}
 ```
 
 ### Overriding Chromatic's branch detection

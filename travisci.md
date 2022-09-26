@@ -97,10 +97,10 @@ jobs:
     # 👇 Adds Chromatic as a job
     - name: "Publish Project 1 to Chromatic"
       #👇Runs Chromatic with the flag to compress the build output.
-      script: cd pacakges/project_1 && yarn chromatic --project-token=${CHROMATIC_PROJECT_TOKEN_1}
+      script: cd packages/project_1 && yarn chromatic --project-token=${CHROMATIC_PROJECT_TOKEN_1}
     - name: "Publish Project 2 to Chromatic"
       #👇Runs Chromatic with the flag to compress the build output.
-      script: cd pacakges/project_2 && yarn chromatic --project-token=${CHROMATIC_PROJECT_TOKEN_2}
+      script: cd packages/project_2 && yarn chromatic --project-token=${CHROMATIC_PROJECT_TOKEN_2}
 ```
 
 ### Recommended configuration for build events

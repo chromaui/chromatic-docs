@@ -109,14 +109,14 @@ pipelines:
         script:
           - yarn install
             #👇Runs Chromatic with the flag to compress the build output.
-          - cd pacakges/project_1 && yarn chromatic --project-token=$CHROMATIC_PROJECT_TOKEN_1
+          - cd packages/project_1 && yarn chromatic --project-token=$CHROMATIC_PROJECT_TOKEN_1
     - step:
         name: "Publish Project 2 to Chromatic"
         # Other pipeline configuration
         script:
           - yarn install
             #👇Runs Chromatic with the flag to compress the build output.
-          - cd pacakges/project_2 && yarn chromatic --project-token=$CHROMATIC_PROJECT_TOKEN_2
+          - cd packages/project_2 && yarn chromatic --project-token=$CHROMATIC_PROJECT_TOKEN_2
 ```
 
 If you want to run Chromatic in parallel for each subproject, you can use this snippet below.

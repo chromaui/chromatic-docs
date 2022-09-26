@@ -58,10 +58,10 @@ If you've already built your Storybook in a separate CI step, you can alternativ
 # your-workflow
 - run:
     #👇Runs Chromatic with the flag to compress the build output.
-    command: cd pacakges/project_1 && npm run chromatic --project-token=CHROMATIC_PROJECT_TOKEN_1
+    command: cd packages/project_1 && npm run chromatic --project-token=CHROMATIC_PROJECT_TOKEN_1
 - run:
     #👇Runs Chromatic with the flag to compress the build output.
-    command: cd pacakges/project_2 && npm run chromatic --project-token=CHROMATIC_PROJECT_TOKEN_1
+    command: cd packages/project_2 && npm run chromatic --project-token=CHROMATIC_PROJECT_TOKEN_1
 ```
 
 ### Overriding Chromatic's branch detection
