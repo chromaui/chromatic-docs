@@ -32,9 +32,9 @@ module.exports = {
 
 Often teams find a single Storybook for all their development works quite well, also!
 
-### Run Chromatic more than once in a second Chromatic project
+### Run Chromatic for each subproject
 
-In Chromatic a project is typically linked to a repository and will synchronize permissions from the permissions of that repository as well as post build status messages to the repository's Pull (Merge) Requests.
+In Chromatic, a project is typically linked to a repository and will synchronize permissions from the permissions of that repository as well as post build status messages to the repository's Pull (Merge) Requests.
 
 Monorepos have multiple subprojects in one repository. Each subproject in a monorepo can be associated with a separate Chromatic project that adds additional build statuses to the repository's Pull (Merge) requests. Here's how to set it up:
 
@@ -48,6 +48,17 @@ Monorepos have multiple subprojects in one repository. Each subproject in a mono
 For every project that you link within the monorepo, you will get commit statuses for each project. In CI, you will need to add a step for each project and use the specific project token for that project.
 
 ![Multiple commit statuses in monorepo](img/monorepo-commit-status.png)
+
+Learn how to setup a monorepos with your CI provider below:
+
+- [GitHub Actions](github-actions#run-chromatic-on-monorepos)
+- [GitLab Pipelines](gitlab#run-chromatic-on-monorepos)
+- [Bitbucket Pipelines](bitbucket-pipelines#run-chromatic-on-monorepos)
+- [CircleCI](circleci#run-chromatic-on-monorepos)
+- [Travis CI](travisci#run-chromatic-on-monorepos)
+- [Jenkins](jenkins#run-chromatic-on-monorepos)
+- [Azure Pipelines](azure-pipelines#run-chromatic-on-monorepos)
+- [Other CI providers](custom-ci-provider#run-chromatic-on-monorepos)
 
 ---
 
