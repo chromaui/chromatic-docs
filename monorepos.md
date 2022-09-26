@@ -39,16 +39,15 @@ In Chromatic a project is typically linked to a repository and will synchronize 
 Monorepos have multiple subprojects in one repository. Each subproject in a monorepo can be associated with a separate Chromatic project that adds additional build statuses to the repository's Pull (Merge) requests. Here's how to set it up:
 
 1. Go to your account's Projects page
-2. Create a new Chromatic project for a monorepo's subproject 
+2. Create a new Chromatic project for a monorepo's subproject
 3. Link the project to the same monorepo repository from your Git provider
 4. Copy the `project-token` from the project's manage page.
 5. Paste the `project-token` in your CI step to run Chromatic for that subproject
-6. Repeat for each subproject 
-
+6. Repeat for each subproject
 
 For every project that you link within the monorepo, you will get commit statuses for each project. In CI, you will need to add a step for each project and use the specific project token for that project.
 
-![Mutltiple Commit Statuses in Monorepo](img/monorepo-commit-status.png)
+![Multiple commit statuses in monorepo](img/monorepo-commit-status.png)
 
 ---
 
@@ -96,9 +95,9 @@ With the deprecation (and eventual removal) of the `--preserve-missing` flag, it
 
 ## Advanced: TurboSnap
 
-TurboSnap is a good feature to use with monorepos to avoid re-snapshotting all components across all projects when any changes occur. 
+TurboSnap is a good feature to use with monorepos to avoid re-snapshotting all components across all projects when any changes occur.
 
-The `--untraced` CLI flag can be used to ignore all changes outside of a package or related packages. For example, given a monorepo with unrelated packages `foo` and `bar`, you can add the following CLI option to `foo`’s Chromatic command to only run snapshots when files inside the `foo` package change: `--untraced \"./packages/!(foo)/**\"` . 
+The `--untraced` CLI flag can be used to ignore all changes outside of a package or related packages. For example, given a monorepo with unrelated packages `foo` and `bar`, you can add the following CLI option to `foo`’s Chromatic command to only run snapshots when files inside the `foo` package change: `--untraced \"./packages/!(foo)/**\"` .
 
 Note that the glob pattern starts from the root directory of the repository, not from the directory of the `foo` package. You can also specify `--untraced` multiple times to include multiple glob patterns.
 

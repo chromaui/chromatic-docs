@@ -192,9 +192,16 @@ jobs:
           zip: true
 ```
 
-### Run Chromatic on Monorepos
+### Run Chromatic on monorepos
 
 Chromatic can be run on monorepos that have multiple subprojects. Each subproject will need it's own project token.
+
+#### Prerequisites
+
+1. Ensure that you're in the correct working directory for the subproject.
+2. Have `build-storybook` npm script in the subproject's `package.json` file OR explicitly name the script using the `buildScriptName` parameter and make sure the script is listed in the subproject's `package.json` file.
+
+If you've already built your Storybook in a separate CI step, you can alternatively point the action at the build output using the `storybookBuildDir` parameter.
 
 ```yml
 # .github/workflows/chromatic.yml
@@ -231,13 +238,6 @@ jobs:
           projectToken: {% raw %}${{ secrets.CHROMATIC_PROJECT_TOKEN_2 }}{% endraw %}
           workingDir: packages/project_2
 ```
-
-Requirements for running Chromatic in a subproject: 
-
-1. Ensure that you're in the correct working directory for the subproject. 
-2. Have `build-storybook` npm script in the subproject's `package.json` file OR explicitly name the script using the `buildScriptName` parameter and make sure the script is listed in the subproject's `package.json` file. 
-
-If you've already built your Storybook in a separate CI step, you can alternatively point the action at the build output using the `storybookBuildDir` parameter.
 
 If you want to run Chromatic in parallel for each subproject, you will need to create a workflow for each.
 

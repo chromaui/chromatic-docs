@@ -97,9 +97,16 @@ jobs:
 # Workflows here
 ```
 
-### Run Chromatic on Monorepos
+### Run Chromatic on monorepos
 
 Chromatic can be run on monorepos that have multiple subprojects. Each subproject will need it's own project token stored as an environment variable.
+
+#### Prerequisites
+
+1. Ensure that you're in the correct working directory for the subproject.
+2. Have `build-storybook` npm script in the subproject's `package.json` file OR explicitly name the script using the `buildScriptName` parameter and make sure the script is listed in the subproject's `package.json` file.
+
+If you've already built your Storybook in a separate CI step, you can alternatively point the action at the build output using the `storybookBuildDir` parameter.
 
 ```yml
 # .circleci/config.yml
@@ -120,13 +127,6 @@ jobs:
       - run: cd pacakges/project_2 && yarn chromatic --project-token=${CHROMATIC_PROJECT_TOKEN_2}
 # Workflows here
 ```
-
-Requirements for running Chromatic in a subproject: 
-
-1. Ensure that you're in the correct working directory for the subproject. 
-2. Have `build-storybook` npm script in the subproject's `package.json` file OR explicitly name the script using the `buildScriptName` parameter and make sure the script is listed in the subproject's `package.json` file. 
-
-If you've already built your Storybook in a separate CI step, you can alternatively point the action at the build output using the `storybookBuildDir` parameter.
 
 ### External Pull Requests
 
