@@ -8,9 +8,11 @@ description: Security overview and responsible disclosure
 
 Our priority is securing your intellectual property and sensitive information. View and download an overview of our security policy [here](https://app.drata.com/security-report/36340072-4a17-4b9e-80be-1b80562aeb41/30c79316-dfa2-42a8-9b0c-2766cd6ecb89).
 
-## SOC 2
+## SOC 2 Type 2
 
 Chromatic is [SOC 2](https://us.aicpa.org/interestareas/frc/assuranceadvisoryservices/serviceorganization-smanagement) compliant. This rigorous, independent assessment of our internal security controls serves as validation of our dedication to the highest standards for security, availability, and confidentiality.
+
+[Download Chromatic's SOC 2 report now »](https://security.chromatic.com/)
 
 ## Responsible disclosure
 
