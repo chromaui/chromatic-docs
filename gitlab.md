@@ -115,19 +115,27 @@ If you've already built your Storybook in a separate CI step, you can alternativ
 stages:
   - test
 
-#👇Adds Chromatic as a job
+#👇Runs Chromatic in parallel for each monorepo subproject.
 chromatic_publish_project_1:
   stage: test
-  #👇Runs Chromatic with the flag to compress the build output.
+  before_script:
+    # Other steps
+    - cd packages/project_1
   script:
-    - cd packages/project_1 && yarn chromatic --project-token=$CHROMATIC_PROJECT_TOKEN_1
+    - yarn chromatic --project-token=$CHROMATIC_PROJECT_TOKEN_1
 
 chromatic_publish_project_2:
   stage: test
-  #👇Runs Chromatic with the flag to compress the build output.
+  before_script:
+    # Other steps
+    - cd packages/project_2
   script:
-    - cd packages/project_2 && yarn chromatic --project-token=$CHROMATIC_PROJECT_TOKEN_2
+    - yarn chromatic --project-token=$CHROMATIC_PROJECT_TOKEN_2
 ```
+
+<div class="aside">
+Additional paralellization can be achieved when configuring your workflow to run Chromatic on multiple subprojects. Read the official GitLab <a href="https://docs.gitlab.com/ee/ci/jobs/job_control.html#parallelize-large-jobs"> documentation</a>.
+</div>
 
 ### UI Test and UI Review
 

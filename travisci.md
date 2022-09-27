@@ -90,18 +90,25 @@ If you've already built your Storybook in a separate CI step, you can alternativ
 
 # Other required configuration
 
+#👇Runs Chromatic in parallel for each monorepo subproject
 jobs:
   include:
     # Other jobs
-
-    # 👇 Adds Chromatic as a job
     - name: "Publish Project 1 to Chromatic"
-      #👇Runs Chromatic with the flag to compress the build output.
-      script: cd packages/project_1 && yarn chromatic --project-token=${CHROMATIC_PROJECT_TOKEN_1}
+      before_script:
+        # Other steps
+        - cd packages/project_1
+      script: yarn chromatic --project-token=${CHROMATIC_PROJECT_TOKEN_1}
     - name: "Publish Project 2 to Chromatic"
-      #👇Runs Chromatic with the flag to compress the build output.
-      script: cd packages/project_2 && yarn chromatic --project-token=${CHROMATIC_PROJECT_TOKEN_2}
+      before_script:
+        # Other steps
+        - cd packages/project_2
+      script: yarn chromatic --project-token=${CHROMATIC_PROJECT_TOKEN_2}
 ```
+
+<div class="aside">
+Additional parallelization can be achieved when configuring your workflow to run Chromatic on multiple subprojects. Read the official Travis CI <a href="https://docs.travis-ci.com/user/build-matrix/"> build matrix documentation</a>
+</div>
 
 ### Recommended configuration for build events
 

@@ -56,13 +56,27 @@ If you've already built your Storybook in a separate CI step, you can alternativ
 
 ```yml
 # your-workflow
+
+  #👇Runs Chromatic sequentially for each monorepo subproject.
 - run:
-    #👇Runs Chromatic with the flag to compress the build output.
     command: cd packages/project_1 && npm run chromatic --project-token=CHROMATIC_PROJECT_TOKEN_1
 - run:
-    #👇Runs Chromatic with the flag to compress the build output.
     command: cd packages/project_2 && npm run chromatic --project-token=CHROMATIC_PROJECT_TOKEN_1
 ```
+
+If you want to run Chromatic in parallel for each subproject, you can use this snippet below.
+
+```yml
+# your-workflow
+
+  #👇Runs Chromatic in parallel for each monorepo subproject.
+- parallel:
+    - run:
+        command: cd packages/project_1 && npm run chromatic --project-token=CHROMATIC_PROJECT_TOKEN_1
+    - run:
+        command: cd packages/project_2 && npm run chromatic --project-token=CHROMATIC_PROJECT_TOKEN_1
+```
+
 
 ### Overriding Chromatic's branch detection
 
