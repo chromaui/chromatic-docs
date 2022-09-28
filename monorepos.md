@@ -8,9 +8,7 @@ description: Chromatic's support for monorepos
 
 A common pattern in modern web development is monorepos -- having a single repository that contains multiple distinct projects. As a monorepo can be associated with many Chromatic projects, there are a few tips that can help with using Chromatic with a monorepo.
 
-## Running Chromatic from a subproject
-
-Chromatic doesn't assume anything about how you run the CLI, so there is no reason that you cannot run it from inside a subproject. Ensure you pass the correct project token, and it will work fine.
+Chromatic doesn’t assume anything about how you run the CLI. This means you can run it from inside any project or subproject so long as you pass the correct project token.
 
 ## Running Chromatic for more than one subproject's Storybook
 
@@ -34,22 +32,15 @@ Often teams find a single Storybook for all their development works quite well, 
 
 ### Run Chromatic for each subproject
 
-In Chromatic, a project is typically linked to a repository and will synchronize permissions from the permissions of that repository as well as post build status messages to the repository's Pull (Merge) Requests.
+In Chromatic, a project is typically linked to a Git repository and will synchronize permissions from the permissions of that repository as well as post build status messages to the repository’s pull/merge requests.
 
-Monorepos have multiple subprojects in one repository. Each subproject in a monorepo can be associated with a separate Chromatic project that adds additional build statuses to the repository's Pull (Merge) requests. Here's how to set it up:
+Each subproject in a monorepo can now be associated with a separate Chromatic project that adds additional build statuses to the repository’s pull/merge requests. Here's how to set it up.
 
-1. Go to your account's Projects page
-2. Create a new Chromatic project for a monorepo's subproject
-3. Link the project to the same monorepo repository from your Git provider
-4. Copy the `project-token` from the project's manage page.
-5. Paste the `project-token` in your CI step to run Chromatic for that subproject
-6. Repeat for each subproject
+1. Go to your account’s Projects page and click "Add project" to create a new Chromatic project (link it to the monorepo repository from your Git provider). ![Create project for each monorepo subproject](img/monorepo-copy-project-token.png)
 
-For every project that you link within the monorepo, you will get commit statuses for each project. In CI, you will need to add a step for each project and use the specific project token for that project.
+2. Copy the `project-token` from the new project’s manage page. ![Copy project-token for monorepo](img/monorepo-copy-project-token.png)
 
-![Multiple commit statuses in monorepo](img/monorepo-commit-status.png)
-
-Learn how to set up a monorepos with your CI provider below:
+3. Paste the `project-token` in your CI step to run Chromatic for that subproject. Below are examples with popular CI services.
 
 - [GitHub Actions](github-actions#run-chromatic-on-monorepos)
 - [GitLab Pipelines](gitlab#run-chromatic-on-monorepos)
@@ -59,6 +50,10 @@ Learn how to set up a monorepos with your CI provider below:
 - [Jenkins](jenkins#run-chromatic-on-monorepos)
 - [Azure Pipelines](azure-pipelines#run-chromatic-on-monorepos)
 - [Other CI providers](custom-ci-provider#run-chromatic-on-monorepos)
+
+Every monorepo subproject will get build statuses posted to the pull/merge request. In CI, you’ll need to add a step for each project and use the specific project token for that project.
+
+![Multiple commit statuses in monorepo](img/monorepo-commit-status.png)
 
 ---
 
