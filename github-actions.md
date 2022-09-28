@@ -151,7 +151,7 @@ If you need to customize your workflow to run Chromatic on specific branches, ad
 on:
   push:
     branches-ignore:
-      - 'example' # 👈 Excludes the example branch
+      - "example" # 👈 Excludes the example branch
 
 jobs:
 # The list of jobs and steps
@@ -190,6 +190,113 @@ jobs:
           projectToken: {% raw %}${{ secrets.CHROMATIC_PROJECT_TOKEN }}{% endraw %}
           #👇Runs Chromatic with the option to compress the build output.
           zip: true
+```
+
+### Run Chromatic on monorepos
+
+Chromatic can be run on monorepos that have multiple subprojects. Each subproject will need it's own project token.
+
+#### Prerequisites
+
+1. Ensure that you're in the correct working directory for the subproject.
+2. Have `build-storybook` npm script in the subproject's `package.json` file OR explicitly name the script using the `buildScriptName` parameter and make sure the script is listed in the subproject's `package.json` file.
+
+If you've already built your Storybook in a separate CI step, you can alternatively point the action at the build output using the `storybookBuildDir` parameter.
+
+```yml
+# .github/workflows/chromatic.yml
+
+# Workflow name
+name: 'Chromatic'
+
+# Event for the workflow
+on: push
+
+# List of jobs
+jobs:
+  chromatic-deployment:
+    # Operating System
+    runs-on: ubuntu-latest
+    # Job steps
+    steps:
+      - uses: actions/checkout@v1
+      - name: Install dependencies
+        run: yarn
+        # 👇 Adds Chromatic as a step in the workflow
+      - name: Publish Project 1 to Chromatic
+        uses: chromaui/action@v1
+        # Chromatic GitHub Action options
+        with:
+          # 👇 Chromatic projectToken, refer to the manage page to obtain it.
+          projectToken: {% raw %}${{ secrets.CHROMATIC_PROJECT_TOKEN_1 }}{% endraw %}
+          workingDir: packages/project_1
+      - name: Publish Project 2 to Chromatic
+        uses: chromaui/action@v1
+        # Chromatic GitHub Action options
+        with:
+          # 👇 Chromatic projectToken, refer to the manage page to obtain it.
+          projectToken: {% raw %}${{ secrets.CHROMATIC_PROJECT_TOKEN_2 }}{% endraw %}
+          workingDir: packages/project_2
+```
+
+If you want to run Chromatic in parallel for each subproject, you will need to create a workflow for each.
+
+```yml
+# .github/workflows/chromatic-1.yml
+
+# Workflow name
+name: 'Chromatic 1'
+
+# Event for the workflow
+on: push
+
+# List of jobs
+jobs:
+  chromatic-deployment:
+    # Operating System
+    runs-on: ubuntu-latest
+    # Job steps
+    steps:
+      - uses: actions/checkout@v1
+      - name: Install dependencies
+        run: yarn
+        # 👇 Adds Chromatic as a step in the workflow
+      - name: Publish to Chromatic
+        uses: chromaui/action@v1
+        # Chromatic GitHub Action options
+        with:
+          # 👇 Chromatic projectToken, refer to the manage page to obtain it.
+          projectToken: {% raw %}${{ secrets.CHROMATIC_PROJECT_TOKEN_1 }}{% endraw %}
+          workingDir: packages/project_1
+```
+
+```yml
+# .github/workflows/chromatic-2.yml
+
+# Workflow name
+name: 'Chromatic 2'
+
+# Event for the workflow
+on: push
+
+# List of jobs
+jobs:
+  chromatic-deployment:
+    # Operating System
+    runs-on: ubuntu-latest
+    # Job steps
+    steps:
+      - uses: actions/checkout@v1
+      - name: Install dependencies
+        run: yarn
+        # 👇 Adds Chromatic as a step in the workflow
+      - name: Publish to Chromatic
+        uses: chromaui/action@v1
+        # Chromatic GitHub Action options
+        with:
+          # 👇 Chromatic projectToken, refer to the manage page to obtain it.
+          projectToken: {% raw %}${{ secrets.CHROMATIC_PROJECT_TOKEN_2 }}{% endraw %}
+          workingDir: packages/project_2
 ```
 
 ### Support for environment variables

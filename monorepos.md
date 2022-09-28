@@ -6,19 +6,17 @@ description: Chromatic's support for monorepos
 
 # Monorepos
 
-A common pattern in modern web development is monorepos -- having a single repository that contains multiple distinct projects. As a Chromatic project is associated with a single repository in a one-to-one way, there are a few tips that can help with using Chromatic with a monorepo.
+A common pattern in modern web development is monorepos -- having a single repository that contains multiple distinct projects. As a monorepo can be associated with many Chromatic projects, there are a few tips that can help with using Chromatic with a monorepo.
 
-## Running Chromatic from a subproject
-
-Chromatic doesn't assume anything about how you run the CLI, so there is no reason that you cannot run it from inside a sub-project. Ensure you pass the correct project token and it will work fine.
+Chromatic doesn’t assume anything about how you run the CLI. This means you can run it from inside any project or subproject so long as you pass the correct project token.
 
 ## Running Chromatic for more than one subproject's Storybook
 
-You can only have one linked project in Chromatic for any given repository, so if you want to run Chromatic for more than one subproject, you have two options:
+You can have multiple linked subprojects in Chromatic for any given repository, so if you want to run Chromatic for more than one subproject, you have two options:
 
 ### Combine multiple projects into a single Storybook
 
-A common approach that works well for many teams is to combine multiple subproject's Storybooks into a single Storybook. When you run Chromatic on the principal Storybook you test all stories in a singe Chromatic project.
+A common approach that works well for many teams is to combine multiple subproject's Storybooks into a single Storybook. When you run Chromatic on the principal Storybook, you test all stories in a single Chromatic project.
 
 For example, you could write in your `.storybook/main.js`:
 
@@ -27,61 +25,107 @@ For example, you could write in your `.storybook/main.js`:
 
 module.exports = {
   stories: ["../project-1/**/*.stories.js", "../project-2/**/*.stories.js"],
-}
+};
 ```
 
 Often teams find a single Storybook for all their development works quite well, also!
 
-### Run Chromatic more than once in a second Chromatic project
+### Run Chromatic for each subproject
 
-In Chromatic a project is typically linked to a repository and will synchronize permissions from the permissions of that repository as well as post build status messages to the repository's Pull (Merge) Requests.
+In Chromatic, a project is typically linked to a Git repository and will synchronize permissions from the permissions of that repository as well as post build status messages to the repository’s pull/merge requests.
 
-You can currently only have a single project linked to a given repository. That means if you want to run Chromatic more than once for a given repository's commit, you can only get a single commit status on your PRs (MRs).
+Each subproject in a monorepo can now be associated with a separate Chromatic project that adds additional build statuses to the repository’s pull/merge requests. Here's how to set it up.
 
-However, you can still create a second project in Chromatic, linked to a dummy repository created in your organization/team for this purpose. If you mirror the repository membership from the "real" repository to the dummy repository, access to the Chromatic project will work fine.
+1. Go to your account’s Projects page and click "Add project" to create a new Chromatic project (link it to the monorepo repository from your Git provider). ![Create project for each monorepo subproject](img/monorepo-copy-project-token.png)
 
-You would then use the token of the second project to run the second `chromatic` test command in the second subproject. The big downside of this approach is the lack of a Pull (Merge) Request status based on the result of the second test run. You can however wait for and use the exit code of the `chromatic` CLI run (don't use the `--exit-zero-on-changes` flag in this case!)
+2. Copy the `project-token` from the new project’s manage page. ![Copy project-token for monorepo](img/monorepo-copy-project-token.png)
+
+3. Paste the `project-token` in your CI step to run Chromatic for that subproject. Below are examples with popular CI services.
+   - [GitHub Actions](github-actions#run-chromatic-on-monorepos)
+   - [GitLab Pipelines](gitlab#run-chromatic-on-monorepos)
+   - [Bitbucket Pipelines](bitbucket-pipelines#run-chromatic-on-monorepos)
+   - [CircleCI](circleci#run-chromatic-on-monorepos)
+   - [Travis CI](travisci#run-chromatic-on-monorepos)
+   - [Jenkins](jenkins#run-chromatic-on-monorepos)
+   - [Azure Pipelines](azure-pipelines#run-chromatic-on-monorepos)
+   - [Other CI providers](custom-ci-provider#run-chromatic-on-monorepos)
+
+Every monorepo subproject will get build statuses posted to the pull/merge request. In CI, you’ll need to add a step for each project and use the specific project token for that project.
+
+![Multiple commit statuses in monorepo](img/monorepo-commit-status.png)
 
 ---
 
 ## Only run Chromatic when changes occur in a subproject
 
-If your monorepo consists of both UI subprojects and backend subprojects, it may be common to have commits that do not touch UI at all. In such cases it makes little sense to run Chromatic on those commits.
+If your monorepo consists of both UI and backend subprojects, it may be common to have commits that do not touch UI at all. In such cases, running Chromatic on those commits makes little sense.
 
-You can use tools like [`lerna changed`](https://github.com/lerna/lerna/tree/master/commands/changed#readme) to detect such situations (depending on how you've setup your monorepo).
+You can use tools like [`lerna changed`](https://github.com/lerna/lerna/tree/master/commands/changed#readme) to detect such situations (depending on how you've set up your monorepo).
 
-If you want to get a Chromatic PR badge for such commits (for instance if you block merging on Chromatic builds), you can use the `--skip` CLI flag to indicate that this commit does not need to be built and tested.
+If you want to get a Chromatic PR badge for such commits (for instance, if you block merging on Chromatic builds), you can use the `--skip` CLI flag to indicate that this commit does not need to be built and tested.
 
-## Advanced: Only test a subset of stories
+## Advanced configuration
 
-If you are combining your Storybooks into a single Storybook (see above), but you have detected only a subset of projects have changed, in order to avoid unnecessarily capturing unchanged stories, you can instruct Chromatic to only capture and test a subset of your Storybook's stories. There are three ways to do so:
+### Run tests on a subset of stories
+
+If you are combining multiple Storybooks into one (see [above](#combine-multiple-projects-into-a-single-storybook)), but detected that only a subset of projects has changed, you can instruct Chromatic to capture and test that particular subset of stories as follows:
 
 - Recommended: Use [TurboSnap](turbosnap) to automatically only snapshot stories for which related source files have changed.
 - Use [`--only-story-files`](cli#chromatic-options) to only snapshot stories matching a glob pattern by story file name.
 - Use [`--only-story-names`](cli#chromatic-options) to only snapshot stories matching a glob pattern by component/story name.
 
-In each of these cases, any stories that aren't tested are "inherited" from their baseline. You cannot use both `--only-story-files` and `--only-story-names`.
+In each case, stories that aren't tested are "inherited" from their baseline. You cannot use both `--only-story-files` and `--only-story-names` CLI flags directly from the CLI or your CI workflow.
 
-### `onlyStoryFiles`
+#### With TurboSnap
 
-The `--only-story-files` flag accepts a glob and can be specified multiple times. Any story files (e.g. `Example.stories.js`) which match the glob will have all of its stories captured and tested.
+TurboSnap is an excellent feature to use with monorepos to avoid re-snapshotting all components across all projects when any changes occur.
 
-```
+The `--untraced` CLI flag can be used to ignore all changes outside of a package or related packages. For example, given a monorepo with unrelated packages `UI` and `app`, you can add the following CLI option to `UI`’s Chromatic command to only run snapshots when files inside the `UI` package change: `--untraced \"./packages/!(UI)/**\"` .
+
+Note that the glob pattern starts from the root directory of the repository, not from the directory of the `UI` package. You can also specify `--untraced` multiple times to include multiple glob patterns.
+
+Some monorepo setups manage third-party dependencies at the root level (so all dependencies in the monorepo have consistent versions). You may wish to ignore these root-level files (e.g., lockfile) to avoid unnecessary snapshots, but be aware that changes can go unnoticed.
+
+#### With onlyStoryFiles
+
+The `--only-story-files` flag accepts a glob and can be specified multiple times. Any story files (e.g., `Example.stories.js`) which match the glob will have all of their stories captured and tested.
+
+```shell
 npx chromatic --only-story-files "./src/components/**/.stories.js" --only-story-files "./shared/**/*.stories.js"
 ```
 
-Make sure you include quotes around glob patterns, otherwise they will be interpreted by your shell and it won't work.
+<div class="aside">
+Using quotes around the glob patterns is intentional and recommended to avoid being incorrectly detected by your shell, preventing the command from executing correctly.
+</div>
 
-### `onlyStoryNames`
+#### With onlyStoryNames
 
-The `--only-story-names` flag accepts a glob and can be specified multiple times. Any component/story name (e.g. `Forms/Button/*`) which match the glob will have all of its stories captured and tested.
+The `--only-story-names` flag accepts a glob and can be specified multiple times. Any component/story name (e.g., `Forms/Button/*`) which matches the glob will have all of its stories captured and tested.
 
-```
+```shell
 npx chromatic --only-story-names "Forms/**" --only-story-names "**/Header/*"
 ```
 
-This would match all stories for all components under "Forms" (i.e. any story file which `title` path starts with "Forms"), as well as all stories for the "Header" component, regardless of where it is in the hierarchy (i.e. any story file which `title` path ends with "Header"). Again, make sure to use quotes around glob patterns.
+This would match all stories for all components under "Forms" (i.e., any story file which `title` path starts with "Forms"), as well as all stories for the "Header" component, regardless of where it is in the hierarchy (i.e., any story file which `title` path ends with "Header"). Again, make sure to use quotes around glob patterns.
 
 ### Building a subset of your stories
 
-With the deprecation (and eventual removal) of the `--preserve-missing` flag, it is no longer recommended to build a partial Storybook containing a subset of your stories. Publishing a Storybook with missing stories will result in those missing stories to be marked as "removed".
+With the deprecation (and eventual removal) of the `--preserve-missing` flag, building a partial Storybook containing a subset of your stories is no longer recommended. Publishing a Storybook with missing stories will result in those missing stories being marked as "removed".
+
+---
+
+## Troubleshooting
+
+<details>
+<summary>Why am I not seeing my monorepo subproject listed in my pull request checklist?</summary>
+
+When using an existing project that is part of the monorepo and [requiring PR checks](ci#pull-request-checks) for merging, you will need to remove and re-add them within your Git provider as the name linked to the check will have changed. It also applies if a subproject is renamed.
+
+</details>
+
+<details>
+<summary>Why is my monorepo project triggering a full rebuild?</summary>
+
+If TurboSnap is enabled inside a monorepo project, [file changes](turbosnap#full-rebuilds) that impact one package will automatically trigger a full rebuild on all related projects when running Chromatic. Read more about how to ignore changes in unrelated packages [above](#with-turbosnap).
+
+</details>

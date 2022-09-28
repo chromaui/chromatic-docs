@@ -1,7 +1,7 @@
 ---
 layout: default
 title: Automate Chromatic with Azure
-description: Learn how to configure Chromatic with Azure 
+description: Learn how to configure Chromatic with Azure
 ---
 
 # Automate Chromatic with Azure Pipelines
@@ -15,49 +15,49 @@ To integrate Chromatic with your existing pipeline, you'll need to add the follo
 ```yml
 # azure-pipelines.yml
 
-#👇Event to trigger pipeline execution
+# 👇 Event to trigger pipeline execution
 trigger:
-- main
+  - main
 
-#👇Environment variables created for Chromatic
+# 👇 Environment variables created for Chromatic
 variables:
-- group: chromatic-keys
+  - group: chromatic-keys
 
-# Other configurations 
+# Other configurations
 
 # Pipeline stages
 stages:
-- stage: Test
-  displayName: Chromatic Testing
-  # Job list
-  jobs:
-  - job: Chromatic_Deploy
-    displayName: Install packages and publishes to Chromatic
-    variables:
-      # Sets scoped environment variable to cache packages
-      npm_config_cache: $(Pipeline.Workspace)/.npm 
-    # List of steps
-    steps:
-      #👇Installs and configures Node environment
-    - task: NodeTool@0
-      inputs:
-        versionSpec: '12.x'
-      displayName: 'Install Node.js'  
-    - task: Cache@2
-      displayName: Install and cache packages
-      inputs:
-        key: 'npm | "$(Agent.OS)" | package-lock.json'
-        restoreKeys: |
-          npm | "$(Agent.OS)"
-        path: $(npm_config_cache)
-    - script: npm ci
-      condition: ne(variables.CACHE_RESTORED, 'true')
-      #👇 Adds Chromatic as a step
-    - task: CmdLine@2
-      displayName: Publish to Chromatic
-      inputs:
-        #👇Runs Chromatic
-        script: npx chromatic --project-token=${CHROMATIC_PROJECT_TOKEN}
+  - stage: Test
+    displayName: Chromatic Testing
+    # Job list
+    jobs:
+      - job: Chromatic_Deploy
+        displayName: Install packages and publishes to Chromatic
+        variables:
+          # Sets scoped environment variable to cache packages
+          npm_config_cache: $(Pipeline.Workspace)/.npm
+        # List of steps
+        steps:
+          # 👇 Installs and configures Node environment
+          - task: NodeTool@0
+            inputs:
+              versionSpec: "12.x"
+            displayName: "Install Node.js"
+          - task: Cache@2
+            displayName: Install and cache packages
+            inputs:
+              key: 'npm | "$(Agent.OS)" | package-lock.json'
+              restoreKeys: |
+                npm | "$(Agent.OS)"
+              path: $(npm_config_cache)
+          - script: npm ci
+            condition: ne(variables.CACHE_RESTORED, 'true')
+            # 👇 Adds Chromatic as a step
+          - task: CmdLine@2
+            displayName: Publish to Chromatic
+            inputs:
+              # 👇 Runs Chromatic
+              script: npx chromatic --project-token=${CHROMATIC_PROJECT_TOKEN}
 ```
 
 <div class="aside">
@@ -71,23 +71,21 @@ If you need to customize your workflow to run Chromatic on specific branches, ad
 ```yml
 # azure-pipelines.yml
 
-#👇Event to trigger pipeline execution
+# 👇 Event to trigger pipeline execution
 trigger:
   branches:
     include:
-    - main # 👈 Filters the execution to run only on the main branch
+      - main # 👈 Filters the execution to run only on the main branch
     exclude:
-    - example
+      - example
 
-#👇Configures pipeline execution on pull requests
+# 👇 Configures pipeline execution on pull requests
 pr:
   branches:
     include:
-    - main # 👈 Filters the execution to run only on the pull requests for the main branch
+      - main # 👈 Filters the execution to run only on the pull requests for the main branch
     exclude:
-    - example
-
-
+      - example
 # Additional pipeline configurations
 ```
 
@@ -108,22 +106,71 @@ Chromatic is prepared to handle large file uploads (with a limit of 5000 files, 
 
 # Pipeline stages
 stages:
-- stage: Test
-  displayName: Chromatic Testing
-  # Job list
-  jobs:
-  - job: Chromatic_Deploy
-    displayName: Publish to Chromatic
-    steps:
-      # Other steps in the pipeline
+  - stage: Test
+    displayName: Chromatic Testing
+    # Job list
+    jobs:
+      - job: Chromatic_Deploy
+        displayName: Publish to Chromatic
+        steps:
+          # Other steps in the pipeline
 
-      #👇Adds Chromatic as a step in the pipeline
-    - task: CmdLine@2
-      displayName: Publish to Chromatic
-      inputs:
-        #👇Runs Chromatic with the flag to compress the build output.
-        script: npx chromatic --project-token=${CHROMATIC_PROJECT_TOKEN} --zip
+          # 👇 Adds Chromatic as a step in the pipeline
+          - task: CmdLine@2
+            displayName: Publish to Chromatic
+            inputs:
+              # 👇 Runs Chromatic with the flag to compress the build output.
+              script: npx chromatic --project-token=${CHROMATIC_PROJECT_TOKEN} --zip
 ```
+
+### Run Chromatic on monorepos
+
+Chromatic can be run on monorepos that have multiple subprojects. Each subproject will need its own project token stored as an environment variable.
+
+#### Prerequisites
+
+1. Ensure that you're in the correct working directory for the subproject.
+2. Have `build-storybook` npm script in the subproject's `package.json` file OR explicitly name the script using the `buildScriptName` parameter and make sure the script is listed in the subproject's `package.json` file.
+
+If you've already built your Storybook in a separate CI step, you can alternatively point the action at the build output using the `storybookBuildDir` parameter.
+
+```yml
+# azure-pipelines.yml
+
+# Other configurations
+
+# Pipeline stages
+stages:
+  - stage: Test
+    displayName: Chromatic Testing
+
+    # 👇 Adds Chromatic as a step in the pipeline
+    jobs:
+      # 👇 Runs Chromatic sequentially for each monorepo subproject.
+      - job: Chromatic_Deploy_1
+        displayName: Publish Project 1 to Chromatic
+        steps:
+          # Other steps in the pipeline
+
+          - task: CmdLine@2
+            displayName: Publish Project 1 to Chromatic
+            inputs:
+              
+              script: cd packages/project_1 && npx chromatic --project-token=${CHROMATIC_PROJECT_TOKEN_1}
+      - job: Chromatic_Deploy_2
+        displayName: Publish Project 2 to Chromatic
+        steps:
+          # Other steps in the pipeline
+
+          - task: CmdLine@2
+            displayName: Publish Project 2 to Chromatic
+            inputs:
+              script: cd packages/project_2 && npx chromatic --project-token=${CHROMATIC_PROJECT_TOKEN_2}
+```
+
+<div class="aside">
+Additional paralellization can be achieved when configuring your workflow to run Chromatic on multiple subprojects. Read the official Azure DevOps <a href="https://learn.microsoft.com/en-us/azure/devops/pipelines/licensing/concurrent-jobs?view=azure-devops&tabs=ms-hosted"> documentation</a>.
+</div>
 
 ### Overriding Chromatic's branch detection
 
@@ -138,21 +185,21 @@ In this case, you can adjust your workflow and include the `--branch-name` flag.
 
 # Pipeline stages
 stages:
-- stage: Test
-  displayName: Chromatic Testing
-  # Job list
-  jobs:
-  - job: Chromatic_Deploy
-    displayName: Publish to Chromatic
-    steps:
-      # Other steps in the pipeline
+  - stage: Test
+    displayName: Chromatic Testing
+    # Job list
+    jobs:
+      - job: Chromatic_Deploy
+        displayName: Publish to Chromatic
+        steps:
+          # Other steps in the pipeline
 
-      #👇Adds Chromatic as a step in the pipeline
-    - task: CmdLine@2
-      displayName: Publish to Chromatic
-      inputs:
-        #👇Runs Chromatic with the --branch-name flag to override the baseline branch
-        script: npx chromatic --project-token=${CHROMATIC_PROJECT_TOKEN} --branch-name=${YOUR_BRANCH}
+          # 👇 Adds Chromatic as a step in the pipeline
+          - task: CmdLine@2
+            displayName: Publish to Chromatic
+            inputs:
+              # 👇 Runs Chromatic with the --branch-name flag to override the baseline branch
+              script: npx chromatic --project-token=${CHROMATIC_PROJECT_TOKEN} --branch-name=${YOUR_BRANCH}
 ```
 
 Chromatic will now detect the correct branch and run your workflow. You can also apply this when fixing cross-fork UI comparisons.
@@ -172,21 +219,21 @@ If you are using pull request statuses as required checks before merging, you ma
 
 # Pipeline stages
 stages:
-- stage: Test
-  displayName: Chromatic Testing
-  # Job list
-  jobs:
-  - job: Chromatic_Deploy
-    displayName: Publish to Chromatic
-    steps:
-      # Other steps in the pipeline
+  - stage: Test
+    displayName: Chromatic Testing
+    # Job list
+    jobs:
+      - job: Chromatic_Deploy
+        displayName: Publish to Chromatic
+        steps:
+          # Other steps in the pipeline
 
-      #👇Adds Chromatic as a step in the pipeline
-    - task: CmdLine@2
-      displayName: Publish to Chromatic
-      inputs:
-        #👇Runs Chromatic with the flag to prevent pipeline failure 
-        script: npx chromatic --project-token=${CHROMATIC_PROJECT_TOKEN} --exit-zero-on-changes
+          # 👇 Adds Chromatic as a step in the pipeline
+          - task: CmdLine@2
+            displayName: Publish to Chromatic
+            inputs:
+              #👇Runs Chromatic with the flag to prevent pipeline failure
+              script: npx chromatic --project-token=${CHROMATIC_PROJECT_TOKEN} --exit-zero-on-changes
 ```
 
 <div class="aside">
@@ -207,7 +254,6 @@ A clean `main` branch is a development **best practice** and **highly recommende
 
 If the builds are a result of direct commits to `main`, you will need to accept changes to keep the main branch clean. If they're merged from `feature-branches`, you will need to make sure those branches are passing _before_ you merge into `main`.
 
-
 #### Azure squash/rebase merge and the "main" branch
 
 Azure's squash/rebase merge functionality creates new commits that have no association to the branch being merged. If you are already using this option, then we will automatically detect this situation and bring baselines over (see [Branching and Baselines](branching-and-baselines#squash-and-rebase-merging) for more details).
@@ -217,31 +263,31 @@ If you’re using this functionality but notice the incoming changes were not ac
 ```yml
 # azure-pipelines.yml
 
-# Other configurations 
+# Other configurations
 
 # Pipeline stages
 stages:
-- stage: Test
-  displayName: Chromatic Testing
-  # Job list
-  jobs:
-  - job: Chromatic_Deploy
-    displayName: Publish to Chromatic
-    steps:
-      # Other steps in the pipeline
+  - stage: Test
+    displayName: Chromatic Testing
+    # Job list
+    jobs:
+      - job: Chromatic_Deploy
+        displayName: Publish to Chromatic
+        steps:
+          # Other steps in the pipeline
 
-      #👇Checks if the branch is main and runs Chromatic with the flag to accept all changes.
-    - task: CmdLine@2
-      displayName: Publish to Chromatic and auto accept changes
-      condition: and(succeeded(), eq(variables['build.sourceBranch'], 'refs/heads/main'))
-      inputs:
-        script: npx chromatic --project-token=${CHROMATIC_PROJECT_TOKEN} --auto-accept-changes
-      #👇 Checks if the branch is not main and runs Chromatic
-    - task: CmdLine@2
-      displayName: Publish to Chromatic
-      condition: eq(variables['Build.Reason'], 'PullRequest')
-      inputs:
-        script: npx chromatic --project-token=${CHROMATIC_PROJECT_TOKEN}
+          # 👇 Checks if the branch is main and runs Chromatic with the flag to accept all changes.
+          - task: CmdLine@2
+            displayName: Publish to Chromatic and auto accept changes
+            condition: and(succeeded(), eq(variables['build.sourceBranch'], 'refs/heads/main'))
+            inputs:
+              script: npx chromatic --project-token=${CHROMATIC_PROJECT_TOKEN} --auto-accept-changes
+            # 👇 Checks if the branch is not main and runs Chromatic
+          - task: CmdLine@2
+            displayName: Publish to Chromatic
+            condition: eq(variables['Build.Reason'], 'PullRequest')
+            inputs:
+              script: npx chromatic --project-token=${CHROMATIC_PROJECT_TOKEN}
 ```
 
 <div class="aside">
@@ -255,24 +301,24 @@ If you want to test the changes introduced by the rebased branch, you can adjust
 ```yml
 # azure-pipelines.yml
 
-# Other configurations 
+# Other configurations
 
 # Pipeline stages
 stages:
-- stage: Test
-  displayName: Chromatic Testing
-  # Job list
-  jobs:
-  - job: Chromatic_Deploy
-    displayName: Publish to Chromatic
-    steps:
-      # Other steps in the pipeline
+  - stage: Test
+    displayName: Chromatic Testing
+    # Job list
+    jobs:
+      - job: Chromatic_Deploy
+        displayName: Publish to Chromatic
+        steps:
+          # Other steps in the pipeline
 
-      #👇 Option to skip the last build on target branch
-    - task: CmdLine@2
-      displayName: Publish to Chromatic
-      inputs:
-        script: npx chromatic --project-token=${CHROMATIC_PROJECT_TOKEN} --ignore-last-build-on-branch=my-branch
+          # 👇 Option to skip the last build on target branch
+          - task: CmdLine@2
+            displayName: Publish to Chromatic
+            inputs:
+              script: npx chromatic --project-token=${CHROMATIC_PROJECT_TOKEN} --ignore-last-build-on-branch=my-branch
 ```
 
 <div class="aside">

@@ -39,9 +39,44 @@ Chromatic is prepared to handle large file uploads (with a limit of 5000 files, 
 ```yml
 # your-workflow
 - run:
-    #👇Runs Chromatic with the flag to compress the build output.
+    # 👇 Runs Chromatic with the flag to compress the build output.
     command: npm run chromatic --project-token=CHROMATIC_PROJECT_TOKEN --zip
 ```
+
+### Run Chromatic on monorepos
+
+Chromatic can be run on monorepos that have multiple subprojects. Each subproject will need it's own project token stored as an environment variable.
+
+#### Prerequisites
+
+1. Ensure that you're in the correct working directory for the subproject.
+2. Have `build-storybook` npm script in the subproject's `package.json` file OR explicitly name the script using the `buildScriptName` parameter and make sure the script is listed in the subproject's `package.json` file.
+
+If you've already built your Storybook in a separate CI step, you can alternatively point the action at the build output using the `storybookBuildDir` parameter.
+
+```yml
+# your-workflow
+
+  # 👇 Runs Chromatic sequentially for each monorepo subproject.
+- run:
+    command: cd packages/project_1 && npm run chromatic --project-token=CHROMATIC_PROJECT_TOKEN_1
+- run:
+    command: cd packages/project_2 && npm run chromatic --project-token=CHROMATIC_PROJECT_TOKEN_1
+```
+
+If you want to run Chromatic in parallel for each subproject, you can use this snippet below.
+
+```yml
+# your-workflow
+
+  # 👇 Runs Chromatic in parallel for each monorepo subproject.
+- parallel:
+    - run:
+        command: cd packages/project_1 && npm run chromatic --project-token=CHROMATIC_PROJECT_TOKEN_1
+    - run:
+        command: cd packages/project_2 && npm run chromatic --project-token=CHROMATIC_PROJECT_TOKEN_1
+```
+
 
 ### Overriding Chromatic's branch detection
 
@@ -69,7 +104,7 @@ If you are using pull request statuses as required checks before merging, you ma
 ```yml
 # your-workflow
 
-# Your custom CI implementation 
+# Your custom CI implementation
 
 - run:
     # 👇 Runs Chromatic with the flag to prevent stage failure
@@ -96,22 +131,22 @@ If the builds are a result of direct commits to `main`, you will need to accept 
 
 #### Squash/rebase merge and the "main" branch
 
-We use GitHub, GitLab, and Bitbucket APIs respectively to detect squashing and rebasing so your baselines match your expectations no matter your Git workflow  (see [Branching and Baselines](branching-and-baselines#squash-and-rebase-merging) for more details).
+We use GitHub, GitLab, and Bitbucket APIs respectively to detect squashing and rebasing so your baselines match your expectations no matter your Git workflow (see [Branching and Baselines](branching-and-baselines#squash-and-rebase-merging) for more details).
 
 If you’re using this functionality but notice the incoming changes were not accepted as baselines in Chromatic, then you'll need to adjust the `chromatic` command and include the `--auto-accept-changes` flag. For example:
 
 ```yml
 # your-workflow
 
-# Your custom CI implementation 
+# Your custom CI implementation
 
 - run:
     # 👇 Checks if the current branch is not main and runs Chromatic
     if: branch != main
-      command: npm run chromatic --project-token=CHROMATIC_PROJECT_TOKEN 
+      command: npm run chromatic --project-token=CHROMATIC_PROJECT_TOKEN
     # 👇 Checks if the current branch is main and accepts all changes in Chromatic
     else:
-      command: npm run chromatic --project-token=${CHROMATIC_PROJECT_TOKEN} --auto-accept-changes 
+      command: npm run chromatic --project-token=${CHROMATIC_PROJECT_TOKEN} --auto-accept-changes
 ```
 
 <div class="aside">

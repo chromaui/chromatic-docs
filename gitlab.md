@@ -32,7 +32,7 @@ cache:
 before_script:
   - yarn install --frozen-lockfile --prefer-offline --cache-folder .yarn
 
-#👇Adds Chromatic as a job
+# 👇 Adds Chromatic as a job
 chromatic_publish:
   stage: test
   script:
@@ -56,7 +56,7 @@ If you need to customize your workflow to run Chromatic on specific branches, ad
 stages:
   - test
 
-#👇Adds Chromatic as a job
+# 👇 Adds Chromatic as a job
 chromatic_publish:
   stage: test
   script:
@@ -87,13 +87,55 @@ Chromatic is prepared to handle large file uploads (with a limit of 5000 files, 
 stages:
   - test
 
-#👇Adds Chromatic as a job
+# 👇 Adds Chromatic as a job
 chromatic_publish:
   stage: test
-  #👇Runs Chromatic with the flag to compress the build output.
+  # 👇 Runs Chromatic with the flag to compress the build output.
   script:
     - yarn chromatic --project-token=$CHROMATIC_PROJECT_TOKEN --zip
 ```
+
+### Run Chromatic on monorepos
+
+Chromatic can be run on monorepos that have multiple subprojects. Each subproject will need it's own project token.
+
+#### Prerequisites
+
+1. Ensure that you're in the correct working directory for the subproject.
+2. Have `build-storybook` npm script in the subproject's `package.json` file OR explicitly name the script using the `buildScriptName` parameter and make sure the script is listed in the subproject's `package.json` file.
+
+If you've already built your Storybook in a separate CI step, you can alternatively point the action at the build output using the `storybookBuildDir` parameter.
+
+```yml
+# .gitlab-ci.yml
+
+# Additional pipeline configurations
+
+# Sets the stages for the pipeline
+stages:
+  - test
+
+# 👇 Runs Chromatic in parallel for each monorepo subproject.
+chromatic_publish_project_1:
+  stage: test
+  before_script:
+    # Other steps
+    - cd packages/project_1
+  script:
+    - yarn chromatic --project-token=$CHROMATIC_PROJECT_TOKEN_1
+
+chromatic_publish_project_2:
+  stage: test
+  before_script:
+    # Other steps
+    - cd packages/project_2
+  script:
+    - yarn chromatic --project-token=$CHROMATIC_PROJECT_TOKEN_2
+```
+
+<div class="aside">
+Additional paralellization can be achieved when configuring your workflow to run Chromatic on multiple subprojects. Read the official GitLab <a href="https://docs.gitlab.com/ee/ci/jobs/job_control.html#parallelize-large-jobs"> documentation</a>.
+</div>
 
 ### UI Test and UI Review
 
@@ -112,10 +154,10 @@ If you are using pull request statuses as required checks before merging, you ma
 stages:
   - test
 
-#👇Adds Chromatic as a job
+# 👇 Adds Chromatic as a job
 chromatic_publish:
   stage: test
-  #👇Runs Chromatic with the flag to prevent pipeline failure
+  # 👇 Runs Chromatic with the flag to prevent pipeline failure
   script:
     - yarn chromatic --project-token=$CHROMATIC_PROJECT_TOKEN --exit-zero-on-changes
 ```
@@ -153,7 +195,7 @@ If you’re using this functionality but notice the incoming changes were not ac
 stages:
   - test
 
-  #👇Checks if the branch is main and runs Chromatic with the flag to accept all changes.
+  # 👇 Checks if the branch is main and runs Chromatic with the flag to accept all changes.
 chromatic_publish_auto_accept_changes:
   stage: test
   script:
@@ -162,7 +204,7 @@ chromatic_publish_auto_accept_changes:
     - if: $CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH
       when: always
 
-  #👇Checks if the branch is not main and runs Chromatic
+  # 👇 Checks if the branch is not main and runs Chromatic
 chromatic_publish:
   stage: test
   script:
@@ -190,7 +232,7 @@ If you want to test the changes introduced by the rebased branch, you can adjust
 stages:
   - test
 
-#👇Adds Chromatic as a job
+# 👇 Adds Chromatic as a job
 chromatic_publish:
   stage: test
   script:

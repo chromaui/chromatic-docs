@@ -27,8 +27,8 @@ pipeline {
         CHROMATIC_PROJECT_TOKEN = 'Chromatic project token'
       }
       steps {
-         /* 👇 Runs the Chromatic CLI */
-         sh "yarn chromatic --project-token=${CHROMATIC_PROJECT_TOKEN}"
+        /* 👇 Runs the Chromatic CLI */
+        sh "yarn chromatic --project-token=${CHROMATIC_PROJECT_TOKEN}"
       }
     }
   }
@@ -61,8 +61,8 @@ pipeline {
         CHROMATIC_PROJECT_TOKEN = 'Chromatic project token'
       }
       steps {
-         /* 👇 Runs the Chromatic CLI */
-         sh "yarn chromatic --project-token=${CHROMATIC_PROJECT_TOKEN}"
+        /* 👇 Runs the Chromatic CLI */
+        sh "yarn chromatic --project-token=${CHROMATIC_PROJECT_TOKEN}"
       }
     }
   }
@@ -94,11 +94,90 @@ pipeline {
         CHROMATIC_PROJECT_TOKEN = 'Chromatic project token'
       }
       steps {
-         /* 👇 Runs Chromatic with the flag to compress the build output. */
-         sh "yarn chromatic --project-token=${CHROMATIC_PROJECT_TOKEN} --zip"
+        /* 👇 Runs Chromatic with the flag to compress the build output. */
+        sh "yarn chromatic --project-token=${CHROMATIC_PROJECT_TOKEN} --zip"
       }
     }
   }
+}
+```
+
+### Run Chromatic on monorepos
+
+Chromatic can be run on monorepos that have multiple subprojects. Each subproject will need it's own project token stored as an environment variable.
+
+#### Prerequisites
+
+1. Ensure that you're in the correct working directory for the subproject.
+2. Have `build-storybook` npm script in the subproject's `package.json` file OR explicitly name the script using the `buildScriptName` parameter and make sure the script is listed in the subproject's `package.json` file.
+
+If you've already built your Storybook in a separate CI step, you can alternatively point the action at the build output using the `storybookBuildDir` parameter.
+
+```groovy
+/* JenkinsFile */
+
+pipeline {
+  /* Other pipeline configuration. */
+
+  stages {
+    /* Other pipeline stages */
+
+    /* 👇 Adds Chromatic as a stage */
+    stage('Publish to Chromatic') {
+      environment {
+        CHROMATIC_PROJECT_TOKEN_1 = 'Chromatic project token'
+        CHROMATIC_PROJECT_TOKEN_2 = 'Chromatic project token'
+      }
+      /* 👇 Runs Chromatic sequentially for each monorepo subproject. */
+      steps {
+        dir('packages/project_1/'){
+          sh "yarn chromatic --project-token=${CHROMATIC_PROJECT_TOKEN_1}"
+        }
+        dir('packages/project_2/'){
+          sh "yarn chromatic --project-token=${CHROMATIC_PROJECT_TOKEN_2}"}"
+      }
+    }
+  }
+}
+```
+
+If you want to run Chromatic in parallel for each subproject, you can use this snippet below.
+
+```groovy
+/* JenkinsFile */
+
+pipeline {
+  /* Other pipeline configuration. */
+  stages {
+     /* Other pipeline stages */
+
+    /* 👇 Adds Chromatic as a stage */
+    stage('Publish to Chromatic') {
+
+      /* 👇 Runs Chromatic in parallel for each monorepo subproject. */
+      parallel {
+        stage('Publish Project 1 to Chromatic') {
+          environment {
+            CHROMATIC_PROJECT_TOKEN_1 = 'Chromatic project token'
+          }
+          steps {
+            dir('packages/project_1/'){
+              sh "yarn chromatic --project-token=${CHROMATIC_PROJECT_TOKEN_1}"
+            }
+          }
+        }
+        stage('Publish Project 2 to Chromatic') {
+          environment {
+            CHROMATIC_PROJECT_TOKEN_2 = 'Chromatic project token'
+          }
+          steps {
+            dir('packages/project_2/'){
+              sh "yarn chromatic --project-token=${CHROMATIC_PROJECT_TOKEN_2}"
+            }
+          }
+        }
+      }
+    }
 }
 ```
 
@@ -124,8 +203,8 @@ pipeline {
         YOUR_BRANCH='your-branch'
       }
       steps {
-         /* 👇 Runs the Chromatic CLI --branch-name flag to override the baseline branch */
-         sh "yarn chromatic --project-token=${CHROMATIC_PROJECT_TOKEN} --branch-name=${YOUR_BRANCH}"
+        /* 👇 Runs the Chromatic CLI --branch-name flag to override the baseline branch */
+        sh "yarn chromatic --project-token=${CHROMATIC_PROJECT_TOKEN} --branch-name=${YOUR_BRANCH}"
       }
     }
   }
@@ -170,8 +249,8 @@ pipeline {
         CHROMATIC_PROJECT_TOKEN = 'Chromatic project token'
       }
       steps {
-         /* 👇 Runs Chromatic with the flag to prevent stage failure */
-         sh "yarn chromatic --project-token=${CHROMATIC_PROJECT_TOKEN} --exit-zero-on-changes"
+        /* 👇 Runs Chromatic with the flag to prevent stage failure */
+        sh "yarn chromatic --project-token=${CHROMATIC_PROJECT_TOKEN} --exit-zero-on-changes"
       }
     }
   }
@@ -222,19 +301,19 @@ pipeline {
         CHROMATIC_PROJECT_TOKEN = 'Chromatic project token'
       }
       steps {
-         sh "yarn chromatic --project-token=${CHROMATIC_PROJECT_TOKEN}"
+        sh "yarn chromatic --project-token=${CHROMATIC_PROJECT_TOKEN}"
       }
     }
     /* 👇 Checks if the current branch is main and runs Chromatic with the flag to accept all changes */
     stage('Publish to Chromatic and auto accept changes') {
       when {
-         branch 'main'
+        branch 'main'
       }
       environment {
         CHROMATIC_PROJECT_TOKEN = 'Chromatic project token'
       }
       steps {
-         sh "yarn chromatic --project-token=${CHROMATIC_PROJECT_TOKEN} --auto-accept-changes"
+        sh "yarn chromatic --project-token=${CHROMATIC_PROJECT_TOKEN} --auto-accept-changes"
       }
     }
   }
@@ -264,8 +343,8 @@ pipeline {
         CHROMATIC_PROJECT_TOKEN = 'Chromatic project token'
       }
       steps {
-         /* 👇 Option to skip the last build on target branch */
-         sh "yarn chromatic --project-token=${CHROMATIC_PROJECT_TOKEN} --ignore-last-build-on-branch=my-branch"
+        /* 👇 Option to skip the last build on target branch */
+        sh "yarn chromatic --project-token=${CHROMATIC_PROJECT_TOKEN} --ignore-last-build-on-branch=my-branch"
       }
     }
   }

@@ -190,7 +190,7 @@ Once TurboSnap is activated, all subsequent builds will display an indicator wit
 
 TurboSnap will make working in a monorepo more efficient. Because it detects affected stories based on the actual files changed, pushing a commit that touched only backend code will run faster in CI and not use up your snapshot quota. However, it will still build and publish your Storybook. To avoid that, you can [skip Chromatic entirely](monorepos#only-run-chromatic-when-changes-occur-in-a-subproject), speeding up your CI pipeline even more.
 
-If your monorepo has stories from multiple subprojects coming together in one Storybook, you might currently [run Chromatic on a subset of your Storybook](monorepos#advanced-only-test-a-subset-of-stories). With TurboSnap enabled, that happens automatically. You'll be able to build and publish your entire Storybook, but Chromatic won't test unchanged subprojects or take snapshots of those stories. You no longer need to build a subset of your Storybook manually.
+If your monorepo has stories from multiple subprojects coming together in one Storybook, you might currently [run Chromatic on a subset of your Storybook](monorepos#run-tests-on-a-subset-of-stories). With TurboSnap enabled, that happens automatically. You'll be able to build and publish your entire Storybook, but Chromatic won't test unchanged subprojects or take snapshots of those stories. You no longer need to build a subset of your Storybook manually.
 
 [picomatch]: https://www.npmjs.com/package/picomatch#globbing-features
 
