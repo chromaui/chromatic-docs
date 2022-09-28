@@ -128,7 +128,7 @@ pipeline {
         CHROMATIC_PROJECT_TOKEN_1 = 'Chromatic project token'
         CHROMATIC_PROJECT_TOKEN_2 = 'Chromatic project token'
       }
-      /*👇Runs Chromatic sequentially for each monorepo subproject. */
+      /* 👇 Runs Chromatic sequentially for each monorepo subproject. */
       steps {
         dir('packages/project_1/'){
           sh "yarn chromatic --project-token=${CHROMATIC_PROJECT_TOKEN_1}"
@@ -154,7 +154,7 @@ pipeline {
     /* 👇 Adds Chromatic as a stage */
     stage('Publish to Chromatic') {
 
-      /*👇Runs Chromatic in parallel for each monorepo subproject. */
+      /* 👇 Runs Chromatic in parallel for each monorepo subproject. */
       parallel {
         stage('Publish Project 1 to Chromatic') {
           environment {

@@ -79,7 +79,7 @@ pipelines:
         # Other pipeline configuration
         script:
           - yarn install
-            #👇Runs Chromatic with the flag to compress the build output.
+            # 👇 Runs Chromatic with the flag to compress the build output.
           - yarn chromatic --project-token=$CHROMATIC_PROJECT_TOKEN --zip
 ```
 
@@ -102,7 +102,7 @@ pipelines:
   default:
     # Other steps in the pipeline
 
-    #👇Runs Chromatic sequentially for each monorepo subproject.
+    # 👇 Runs Chromatic sequentially for each monorepo subproject.
     - step:
         name: "Publish Project 1 to Chromatic"
         # Other pipeline configuration
@@ -129,7 +129,7 @@ pipelines:
   default:
     # Other steps in the pipeline
 
-    #👇Runs Chromatic in parallel for each monorepo subproject.
+    # 👇 Runs Chromatic in parallel for each monorepo subproject.
     - parallel:
         - step:
             name: "Publish Project 1 to Chromatic"

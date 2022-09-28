@@ -90,7 +90,7 @@ If you've already built your Storybook in a separate CI step, you can alternativ
 
 # Other required configuration
 
-#👇Runs Chromatic in parallel for each monorepo subproject
+# 👇 Runs Chromatic in parallel for each monorepo subproject
 jobs:
   include:
     # Other jobs

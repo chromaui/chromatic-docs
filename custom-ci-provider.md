@@ -39,7 +39,7 @@ Chromatic is prepared to handle large file uploads (with a limit of 5000 files, 
 ```yml
 # your-workflow
 - run:
-    #👇Runs Chromatic with the flag to compress the build output.
+    # 👇 Runs Chromatic with the flag to compress the build output.
     command: npm run chromatic --project-token=CHROMATIC_PROJECT_TOKEN --zip
 ```
 
@@ -57,7 +57,7 @@ If you've already built your Storybook in a separate CI step, you can alternativ
 ```yml
 # your-workflow
 
-  #👇Runs Chromatic sequentially for each monorepo subproject.
+  # 👇 Runs Chromatic sequentially for each monorepo subproject.
 - run:
     command: cd packages/project_1 && npm run chromatic --project-token=CHROMATIC_PROJECT_TOKEN_1
 - run:
@@ -69,7 +69,7 @@ If you want to run Chromatic in parallel for each subproject, you can use this s
 ```yml
 # your-workflow
 
-  #👇Runs Chromatic in parallel for each monorepo subproject.
+  # 👇 Runs Chromatic in parallel for each monorepo subproject.
 - parallel:
     - run:
         command: cd packages/project_1 && npm run chromatic --project-token=CHROMATIC_PROJECT_TOKEN_1

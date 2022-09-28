@@ -92,7 +92,7 @@ jobs:
     steps:
       # Other job steps
 
-      #👇Runs Chromatic with the flag to compress the build output.
+      # 👇 Runs Chromatic with the flag to compress the build output.
       - run: yarn chromatic --project-token=${CHROMATIC_PROJECT_TOKEN} --zip
 # Workflows here
 ```
@@ -122,7 +122,7 @@ jobs:
     steps:
       # Other job steps
 
-      #👇Runs Chromatic with the flag to compress the build output.
+      # 👇 Runs Chromatic sequentially for each monorepo subproject.
       - run: cd packages/project_1 && yarn chromatic --project-token=${CHROMATIC_PROJECT_TOKEN_1}
       - run: cd packages/project_2 && yarn chromatic --project-token=${CHROMATIC_PROJECT_TOKEN_2}
 # Workflows here

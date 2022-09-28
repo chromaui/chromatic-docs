@@ -32,7 +32,7 @@ cache:
 before_script:
   - yarn install --frozen-lockfile --prefer-offline --cache-folder .yarn
 
-#👇Adds Chromatic as a job
+# 👇 Adds Chromatic as a job
 chromatic_publish:
   stage: test
   script:
@@ -56,7 +56,7 @@ If you need to customize your workflow to run Chromatic on specific branches, ad
 stages:
   - test
 
-#👇Adds Chromatic as a job
+# 👇 Adds Chromatic as a job
 chromatic_publish:
   stage: test
   script:
@@ -87,10 +87,10 @@ Chromatic is prepared to handle large file uploads (with a limit of 5000 files, 
 stages:
   - test
 
-#👇Adds Chromatic as a job
+# 👇 Adds Chromatic as a job
 chromatic_publish:
   stage: test
-  #👇Runs Chromatic with the flag to compress the build output.
+  # 👇 Runs Chromatic with the flag to compress the build output.
   script:
     - yarn chromatic --project-token=$CHROMATIC_PROJECT_TOKEN --zip
 ```
@@ -115,7 +115,7 @@ If you've already built your Storybook in a separate CI step, you can alternativ
 stages:
   - test
 
-#👇Runs Chromatic in parallel for each monorepo subproject.
+# 👇 Runs Chromatic in parallel for each monorepo subproject.
 chromatic_publish_project_1:
   stage: test
   before_script:
@@ -154,10 +154,10 @@ If you are using pull request statuses as required checks before merging, you ma
 stages:
   - test
 
-#👇Adds Chromatic as a job
+# 👇 Adds Chromatic as a job
 chromatic_publish:
   stage: test
-  #👇Runs Chromatic with the flag to prevent pipeline failure
+  # 👇 Runs Chromatic with the flag to prevent pipeline failure
   script:
     - yarn chromatic --project-token=$CHROMATIC_PROJECT_TOKEN --exit-zero-on-changes
 ```
@@ -195,7 +195,7 @@ If you’re using this functionality but notice the incoming changes were not ac
 stages:
   - test
 
-  #👇Checks if the branch is main and runs Chromatic with the flag to accept all changes.
+  # 👇 Checks if the branch is main and runs Chromatic with the flag to accept all changes.
 chromatic_publish_auto_accept_changes:
   stage: test
   script:
@@ -204,7 +204,7 @@ chromatic_publish_auto_accept_changes:
     - if: $CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH
       when: always
 
-  #👇Checks if the branch is not main and runs Chromatic
+  # 👇 Checks if the branch is not main and runs Chromatic
 chromatic_publish:
   stage: test
   script:
@@ -232,7 +232,7 @@ If you want to test the changes introduced by the rebased branch, you can adjust
 stages:
   - test
 
-#👇Adds Chromatic as a job
+# 👇 Adds Chromatic as a job
 chromatic_publish:
   stage: test
   script:

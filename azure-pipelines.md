@@ -15,11 +15,11 @@ To integrate Chromatic with your existing pipeline, you'll need to add the follo
 ```yml
 # azure-pipelines.yml
 
-#👇Event to trigger pipeline execution
+# 👇 Event to trigger pipeline execution
 trigger:
   - main
 
-#👇Environment variables created for Chromatic
+# 👇 Environment variables created for Chromatic
 variables:
   - group: chromatic-keys
 
@@ -38,7 +38,7 @@ stages:
           npm_config_cache: $(Pipeline.Workspace)/.npm
         # List of steps
         steps:
-          #👇Installs and configures Node environment
+          # 👇 Installs and configures Node environment
           - task: NodeTool@0
             inputs:
               versionSpec: "12.x"
@@ -52,11 +52,11 @@ stages:
               path: $(npm_config_cache)
           - script: npm ci
             condition: ne(variables.CACHE_RESTORED, 'true')
-            #👇 Adds Chromatic as a step
+            # 👇 Adds Chromatic as a step
           - task: CmdLine@2
             displayName: Publish to Chromatic
             inputs:
-              #👇Runs Chromatic
+              # 👇 Runs Chromatic
               script: npx chromatic --project-token=${CHROMATIC_PROJECT_TOKEN}
 ```
 
@@ -71,7 +71,7 @@ If you need to customize your workflow to run Chromatic on specific branches, ad
 ```yml
 # azure-pipelines.yml
 
-#👇Event to trigger pipeline execution
+# 👇 Event to trigger pipeline execution
 trigger:
   branches:
     include:
@@ -79,7 +79,7 @@ trigger:
     exclude:
       - example
 
-#👇Configures pipeline execution on pull requests
+# 👇 Configures pipeline execution on pull requests
 pr:
   branches:
     include:
@@ -115,11 +115,11 @@ stages:
         steps:
           # Other steps in the pipeline
 
-          #👇Adds Chromatic as a step in the pipeline
+          # 👇 Adds Chromatic as a step in the pipeline
           - task: CmdLine@2
             displayName: Publish to Chromatic
             inputs:
-              #👇Runs Chromatic with the flag to compress the build output.
+              # 👇 Runs Chromatic with the flag to compress the build output.
               script: npx chromatic --project-token=${CHROMATIC_PROJECT_TOKEN} --zip
 ```
 
@@ -143,29 +143,28 @@ If you've already built your Storybook in a separate CI step, you can alternativ
 stages:
   - stage: Test
     displayName: Chromatic Testing
-    # Job list
+
+    # 👇 Adds Chromatic as a step in the pipeline
     jobs:
+      # 👇 Runs Chromatic sequentially for each monorepo subproject.
       - job: Chromatic_Deploy_1
         displayName: Publish Project 1 to Chromatic
         steps:
           # Other steps in the pipeline
 
-          #👇Adds Chromatic as a step in the pipeline
           - task: CmdLine@2
             displayName: Publish Project 1 to Chromatic
             inputs:
-              #👇Runs Chromatic with the flag to compress the build output.
+              
               script: cd packages/project_1 && npx chromatic --project-token=${CHROMATIC_PROJECT_TOKEN_1}
       - job: Chromatic_Deploy_2
         displayName: Publish Project 2 to Chromatic
         steps:
           # Other steps in the pipeline
 
-          #👇Adds Chromatic as a step in the pipeline
           - task: CmdLine@2
             displayName: Publish Project 2 to Chromatic
             inputs:
-              #👇Runs Chromatic with the flag to compress the build output.
               script: cd packages/project_2 && npx chromatic --project-token=${CHROMATIC_PROJECT_TOKEN_2}
 ```
 
@@ -195,11 +194,11 @@ stages:
         steps:
           # Other steps in the pipeline
 
-          #👇Adds Chromatic as a step in the pipeline
+          # 👇 Adds Chromatic as a step in the pipeline
           - task: CmdLine@2
             displayName: Publish to Chromatic
             inputs:
-              #👇Runs Chromatic with the --branch-name flag to override the baseline branch
+              # 👇 Runs Chromatic with the --branch-name flag to override the baseline branch
               script: npx chromatic --project-token=${CHROMATIC_PROJECT_TOKEN} --branch-name=${YOUR_BRANCH}
 ```
 
@@ -229,7 +228,7 @@ stages:
         steps:
           # Other steps in the pipeline
 
-          #👇Adds Chromatic as a step in the pipeline
+          # 👇 Adds Chromatic as a step in the pipeline
           - task: CmdLine@2
             displayName: Publish to Chromatic
             inputs:
@@ -277,13 +276,13 @@ stages:
         steps:
           # Other steps in the pipeline
 
-          #👇Checks if the branch is main and runs Chromatic with the flag to accept all changes.
+          # 👇 Checks if the branch is main and runs Chromatic with the flag to accept all changes.
           - task: CmdLine@2
             displayName: Publish to Chromatic and auto accept changes
             condition: and(succeeded(), eq(variables['build.sourceBranch'], 'refs/heads/main'))
             inputs:
               script: npx chromatic --project-token=${CHROMATIC_PROJECT_TOKEN} --auto-accept-changes
-            #👇 Checks if the branch is not main and runs Chromatic
+            # 👇 Checks if the branch is not main and runs Chromatic
           - task: CmdLine@2
             displayName: Publish to Chromatic
             condition: eq(variables['Build.Reason'], 'PullRequest')
@@ -315,7 +314,7 @@ stages:
         steps:
           # Other steps in the pipeline
 
-          #👇 Option to skip the last build on target branch
+          # 👇 Option to skip the last build on target branch
           - task: CmdLine@2
             displayName: Publish to Chromatic
             inputs:
