@@ -128,6 +128,10 @@ jobs:
 # Workflows here
 ```
 
+<div class="aside">
+Additional paralellization can be achieved when configuring your workflow to run Chromatic on multiple subprojects. Read the official CircleCI <a href="https://circleci.com/docs/parallelism-faster-jobs"> documentation</a>.
+</div>
+
 ### External Pull Requests
 
 See this [CircleCI documentation](https://circleci.com/blog/triggering-trusted-ci-jobs-on-untrusted-forks/) for workflows related to pull requests from forked repositories.

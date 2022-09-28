@@ -169,6 +169,10 @@ stages:
               script: cd packages/project_2 && npx chromatic --project-token=${CHROMATIC_PROJECT_TOKEN_2}
 ```
 
+<div class="aside">
+Additional paralellization can be achieved when configuring your workflow to run Chromatic on multiple subprojects. Read the official Azure DevOps <a href="https://learn.microsoft.com/en-us/azure/devops/pipelines/licensing/concurrent-jobs?view=azure-devops&tabs=ms-hosted"> documentation</a>.
+</div>
+
 ### Overriding Chromatic's branch detection
 
 If your Azure pipeline includes a set of rules for branches (e.g., renames the branch, creates ephemeral, or temporary branches) it can lead to unforeseen build errors.
