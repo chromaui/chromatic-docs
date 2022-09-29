@@ -220,6 +220,6 @@ Yes. Go to the manage page for your project where you can disable UI Tests. Chro
 <details>
 <summary>Why does my build have failed tests?</summary>
 
-A story's play function has an unexpected error that caused it to fail, you can learn more about interaction tests [here](https://storybook.js.org/docs/react/writing-tests/interaction-testing)
+"Failed tests" happens when a story's [play function](https://storybook.js.org/docs/react/writing-stories/play-function#gatsby-focus-wrapper) has an unexpected error that caused it to fail. You can learn more about interaction tests [here](https://storybook.js.org/docs/react/writing-tests/interaction-testing).
 
 </details>
