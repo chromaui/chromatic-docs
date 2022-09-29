@@ -216,3 +216,10 @@ If your stories are larger than this, perhaps something has gone wrong? Let us k
 Yes. Go to the manage page for your project where you can disable UI Tests. Chromatic will no longer add status checks to your PRs for UI Tests once it is disabled.
 
 </details>
+
+<details>
+<summary>Why does my build have failed tests?</summary>
+
+"Failed tests" happens when a story's [play function](https://storybook.js.org/docs/react/writing-stories/play-function#gatsby-focus-wrapper) has an unexpected error that caused it to fail. You can learn more about interaction tests [here](https://storybook.js.org/docs/react/writing-tests/interaction-testing).
+
+</details>
