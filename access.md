@@ -21,7 +21,7 @@ If you use the on-premise or enterprise versions of GitHub, GitLab, or Bitbucket
 <details>
     <summary>What OAuth scopes does Chromatic request?</summary>
 
-Depending on your Git provider, Chromatic will request a set of OAuth scopes when you first sign in. Chromatic uses these permissions to enumerate your list of repos, set PR statuses, and retrieve users for assignment to review. Chromatic will never read/write source code.
+Depending on your Git provider, Chromatic will request a set of OAuth scopes when you first sign in. Chromatic uses these permissions to enumerate your list of repositories, set PR statuses, and retrieve users for assignment to review. Chromatic will never read/write source code.
 
 | Git provider                                                                                                                 | OAuth Scopes                                             |
 | ---------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------- |
@@ -50,7 +50,7 @@ Chromatic requests the minimum permissions needed to use the tool. With GitHub, 
 
 If your GitHub organization requires an admin to approve apps, you'll need to request access inside of Chromatic and track their status inside of GitHub (below).
 
-1. **Chromatic OAuth app**: Enables GitHub sign in. Track your access request [here](https://github.com/settings/connections/applications/495b5c3cb5ae140436a0).
+1. **Chromatic OAuth app**: Enables GitHub sign-in. Track your access request [here](https://github.com/settings/connections/applications/495b5c3cb5ae140436a0).
 2. **Chromatic.com app**: Enables [UI Review](review). Track your access request [here](https://github.com/apps/chromatic-com).
 
 </details>
@@ -69,7 +69,7 @@ We recommend signing up with email for projects that **are not** on GitHub, Bitb
 
 #### Single Sign-On (SSO)
 
-Single Sign-On (SSO) is available to enterprise customers. To sign-in, make sure to navigate to your team's custom Chromatic URL, for example `mycompany.chromatic.com`.
+Single Sign-On (SSO) is available to enterprise customers. To sign in, make sure to navigate to your team's custom Chromatic URL, for example, `mycompany.chromatic.com`.
 
 If you don't know the Chromatic URL for your team, you may need to ask the account or project owner.
 
@@ -81,21 +81,33 @@ A Chromatic organization mirrors its counterpart GitHub Organization, Bitbucket 
 
 ## Projects
 
-There two types of Chromatic projects: linked and unlinked.
+There are two types of Chromatic projects: linked and unlinked.
 
 #### Linked projects
 
 Linked projects are associated with a repository on GitHub, Bitbucket, or GitLab. That allows Chromatic to [sync collaborators](collaborators#project-collaborators), badge pull requests, get pull request metadata for [UI Review](review), and keep track of [UI Test](test) baselines.
 
+By creating a linked project in Chromatic, you automatically have at your disposal:
+
+- [Collaborators](collaborators) synched automatically based on your Git provider.
+
+- UI test notifications are enabled via automated webhooks for third-party integrations.
+
+- Automated PR badging is configured automatically via [OAuth permissions](#what-permissions-does-the-github-app-request) granted by the Git provider.
+
+- Chromatic's GitHub App provides a faster UI review process and PR metadata retrieval.
+
+- Improved handling of [rebasing](branching-and-baselines) and squash & merge commit strategies enabled with Chromatic's GitHub App.
+
 You can link a project during the project creation process or afterward on the project's Manage page within the Collaborators tab.
 
 #### Unlinked projects
 
-Unlinked projects are not linked to a repository on GitHub, Bitbucket, or GitLab. They do not automatically [sync collaborators](collaborators#project-collaborators) or badge pull requests. An unlinked project is perfect for teams that self-host Git or have enterprise Git providers (that aren't on Chromatic's enterprise plan).
+An unlinked project is perfect for teams that self-host Git or have enterprise Git providers (that aren't on Chromatic's enterprise plan). Unlinked projects are not linked to a repository on GitHub, Bitbucket, or GitLab. They do not automatically [sync collaborators](collaborators#project-collaborators) or badge pull requests.
 
 The characteristics of an unlinked project include:
 
-- You're using a email/password account OR a personal OAuth account.
+- You're using an email/password account OR a personal OAuth account.
 - Chromatic runs as a [CI-only](ci) job.
 - Collaborators are [manually managed](collaborators#external-collaborators) via an invite list.
 - PR badging is manually configured in your CI provider.
@@ -131,7 +143,7 @@ Follow these instructions to link your project to a Git provider:
 2. Go to the project's Manage page » Collaborate tab.
 3. Click to "sync collaborators with a Git repository".
 
-This connects your Chromatic email/password account with your Git provider account which then allows you to setup a [linked project](access#linked-projects).
+This connects your Chromatic email/password account with your Git provider account, allowing you to set up a [linked project](access#linked-projects).
 
 Note: Your personal account must have access to the repository in order to connect in Chromatic. You may need to ask an administrator to grant you additional permissions.
 
