@@ -19,3 +19,13 @@ Chromatic is [SOC 2](https://us.aicpa.org/interestareas/frc/assuranceadvisoryser
 Our team is vigilant about adhering to security best practices. But we're not so naive to believe that we're perfect. Security is a priority – we'll act quickly to address verifiable security issues.
 
 Please report security issues to [security@chromatic.com](mailto:security@chromatic.com). Include your name, vulnerability description, and steps to reproduce.
+
+You can download and read our full responsible disclosure policy from our [security center](https://security.chromatic.com/).
+
+# Acknowledgments
+
+Chromatic is grateful to the following individuals for responsibly disclosing security issues, allowing us to make Chromatic safer for everyone.
+
+## 2022
+
+- [Bharat Adhikari](https://www.linkedin.com/in/bharat-adhikari-726337225)
