@@ -69,7 +69,7 @@ We recommend signing up with email for projects that **are not** on GitHub, Bitb
 
 #### Single Sign-On (SSO)
 
-Single Sign-On (SSO) is available to enterprise customers. To sign in, make sure to navigate to your team's custom Chromatic URL, for example, `mycompany.chromatic.com`.
+Single Sign-On (SSO) is available to enterprise customers. To sign-in, make sure to navigate to your team's custom Chromatic URL, for example, `mycompany.chromatic.com`.
 
 If you don't know the Chromatic URL for your team, you may need to ask the account or project owner.
 
