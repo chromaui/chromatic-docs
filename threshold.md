@@ -17,18 +17,18 @@ Configure the `diffThreshold` with a Storybook [parameter](https://storybook.js.
 ```js
 // MyComponent.stories.js|jsx
 
-import { MyComponent } from "./MyComponent";
+import { MyComponent } from './MyComponent';
 
 export default {
   component: MyComponent,
-  title: "MyComponent",
+  title: 'MyComponent',
 };
 
 const Template = (args) => <MyComponent {...args} />;
 
 export const StoryName = Template.bind({});
 StoryName.args = {
-  with: "props",
+  with: 'props',
 };
 StoryName.parameters = {
   // Sets the diffThreshold for 0.2 for a specific story.
@@ -49,18 +49,18 @@ Configure the `diffIncludeAntiAliasing` with a Storybook [parameter](https://sto
 ```js
 // MyComponent.stories.js|jsx
 
-import { MyComponent } from "./MyComponent";
+import { MyComponent } from './MyComponent';
 
 export default {
   component: MyComponent,
-  title: "MyComponent",
+  title: 'MyComponent',
 };
 
 const Template = (args) => <MyComponent {...args} />;
 
 export const StoryName = Template.bind({});
 StoryName.args = {
-  with: "props",
+  with: 'props',
 };
 StoryName.parameters = {
   // Detect anti-aliased pixels
