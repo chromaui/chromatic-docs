@@ -8,7 +8,7 @@ description: What is a Snapshot in Chromatic
 
 A snapshot is an image of a story plus some metadata captured by a standardized browser in Chromatic's Capture Cloud infrastructure. Snapshots power [UI Test](test) and [UI Review](review).
 
-#### Table of contents
+Table of contents
 
 - [View snapshots for a story](#view-snapshots-for-a-story)
 - [How are snapshots captured?](#how-capture-works)
