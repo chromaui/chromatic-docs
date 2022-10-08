@@ -129,8 +129,6 @@ Snapshots don't look right? Learn how to debug snapshots [here](snapshots).
 
 </div>
 
-#### Common
-
 <details>
 <summary>Why are my builds failing because of component errors?</summary>
 
