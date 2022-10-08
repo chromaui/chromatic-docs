@@ -8,10 +8,18 @@ description: What is a Snapshot in Chromatic
 
 A snapshot is an image of a story plus some metadata captured by a standardized browser in Chromatic's Capture Cloud infrastructure. Snapshots power [UI Test](test) and [UI Review](review).
 
+#### Table of contents
+
+- [View snapshots for a story](#view-snapshots-for-a-story)
 - [How are snapshots captured?](#how-capture-works)
 - [Improve snapshot consistency](#improve-snapshot-consistency)
-- [View snapshots for a story](#view-snapshots-for-a-story)
-- [Snapshot billing](billing)
+- [Debug snapshot rendering](#debug-snapshot-rendering)
+
+<div class="aside">
+
+Looking for information on snapshot billing? [Go to usage and billing docs](billing)
+
+</div>
 
 ## View snapshots for a story
 
@@ -73,7 +81,7 @@ It's essential that your components and stories render in a **consistent** fashi
 
 If you still need inconsistent elements for local development purposes inside Storybook, you can use `isChromatic()` exported from [our package](isChromatic) to apply the solutions above only when in the Chromatic environment.
 
-## Debug snapshot inconsistency
+## Debug snapshot rendering
 
 <details>
 <summary>Where are my images and fonts?</summary>
@@ -250,13 +258,6 @@ Learn more about [debugging snapshots](/docs/snapshots#troubleshooting).
 </details>
 
 <details>
-<summary>Why am I getting inconsistent or incorrect snapshots?</summary>
-
-Checkout common reasons why snapshots render inconsistently and solutions [**here**](/docs/test#false-positives).
-
-</details>
-
-<details>
 <summary>Why am I getting a failing build when ignoring an element?</summary>
 
 By default, Chromatic's diffing algorithm skips the DOM elements marked with either a `.chromatic-ignore` CSS class or `data-chromatic="ignore"` attribute.
@@ -266,7 +267,7 @@ However, if you're using this functionality but notice the incoming changes are 
 </details>
 
 <details>
-<summary>Why is my tab component's width rendering inconsistently?</summary>
+<summary>Why is my tab component's width rendering inconsistently in snapshots?</summary>
 
 Certain UI libraries like Material calculate the dimensions of each tab by measuring the rendered width of the tab's children using JavaScript (for example, via `getBoundingClientRect()`).
 
