@@ -18,44 +18,28 @@ A snapshot is an image of a story plus some metadata captured by a standardized 
 Here's how Chromatic snapshotting works:
 
 <details>
-<summary>
-
-1. Load each story in the designated [browser](browsers) and [viewport](viewports)
-
-</summary>
+<summary>1. Load each story in the designated <a href="browsers">browser</a> and <a href="viewports">viewport</a></summary>
 
 Capture Cloud navigates to your published Storybook. It loads all stories in parallel at your desired viewport using our fleet of standardized browsers.
 
 </details>
 
 <details>
-<summary>
-
-2. Wait for the story to render
-
-</summary>
+<summary>2. Wait for the story to render</summary>
 
 Capture Cloud uses underlying browser APIs combined with our own set of heuristics to determine when the component has "loaded". One of the primary heuristics Chromatic uses is network "quiesence" – a period of network inactivity which signals that all resources have loaded. Loading is the closest approximation for when component renders that's currently possible.
 
 </details>
 
 <details>
-<summary>
-
-3. Take a screenshot and crop it to the dimensions of the UI
-
-</summary>
+<summary>3. Take a screenshot and crop it to the dimensions of the UI</summary>
 
 Chromatic crops the screenshot to the size of your component. It determines crop dimensions by measuring the bounding box of the child node of Storybook's `#root` element. For atomic components, cropping eliminates negative spaces around snapshots which makes increases the visual information you have to review. For pages, Chromatic captures the full width and height of the rendered UI.
 
 </details>
 
 <details>
-<summary>
-
-4. Save snapshot and diff between previous baseline snapshots for a build or branch
-
-</summary>
+<summary>4. Save snapshot and diff between previous baseline snapshots for a build or branch</summary>
 
 Each snapshot is associated with a story and tagged with commit, branch, and other relevant metadata. Snapshots are stored in Chromatic's cloud. For UI Test and UI Review, snapshots are visually compared (diff) to identify changes. Our infrastructure is effectively capable of snapshotting every story in parallel, no matter how many stories you have.
 
