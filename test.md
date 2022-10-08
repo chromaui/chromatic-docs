@@ -123,7 +123,13 @@ Now that you can catch bugs during development, learn about how to invite stakeh
 
 ### Troubleshooting
 
-[My snapshots don't look right](snapshots)
+<div class="aside">
+
+Snapshots don't look right? Learn how to debug snapshots [here](snapshots).
+
+</div>
+
+#### Common
 
 <details>
 <summary>Why are my builds failing because of component errors?</summary>
@@ -142,7 +148,7 @@ Note that in the case that there is a descendent build of this build on _a diffe
 </details>
 
 <details>
-<summary>Why do I see <code>Didn't find any commits in this git repository in the last X builds</code>?</summary>
+<summary>Why do I see "Didn't find any commits in this git repository in the last X builds"?</summary>
 
 This means that across the last X unique commits across all builds in your app, we didn't find a single one that exists in the repository you ran this build against. Commits can go missing if you rebase or perform squash-merges, however, if all of the previous X builds' commits are missing, it is likely something has gone wrong.
 
@@ -151,7 +157,7 @@ If you've reached this situation and can't work out why, please contact us throu
 </details>
 
 <details>
-<summary>Why do I see <code>Failed to find common ancestors with most recent builds within X commits</code>?</summary>
+<summary>Why do I see "Failed to find common ancestors with most recent builds within X commits"?</summary>
 
 This means that although we found recent builds that _were_ in your git repository history (see above), we couldn't find any _common_ history between your checked out build and those builds within X commits.
 
@@ -160,7 +166,7 @@ Unless you are doing something unusual with your git repository, this is extreme
 </details>
 
 <details>
-<summary>Why do I see <code>Build X is based on a commit without ancestor builds</code>? </summary>
+<summary>Why do I see "Build X is based on a commit without ancestor builds"? </summary>
 
 When we create a build, we search your git history for a recent Chromatic build based on a commit that is an ancestor (i.e. a commit that is in the direct history of this commit). Unless this is the very first build, if we do not find one, we will show you this message.
 
