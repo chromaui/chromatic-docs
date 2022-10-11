@@ -22,10 +22,10 @@ Please report security issues to [security@chromatic.com](mailto:security@chroma
 
 You can download and read our full responsible disclosure policy from our [security center](https://security.chromatic.com/).
 
-# Acknowledgments
+### Acknowledgments
 
 Chromatic is grateful to the following individuals for responsibly disclosing security issues, allowing us to make Chromatic safer for everyone.
 
-## 2022
+#### 2022
 
 - [Bharat Adhikari](https://www.linkedin.com/in/bharat-adhikari-726337225)

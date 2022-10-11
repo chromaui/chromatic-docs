@@ -43,7 +43,13 @@ Chromatic detects UI changes but it's still up to you to verify if changes are i
 
 ![Snapshot that's unreviewed](img/snapshot-unreviewed.png)
 
-<div class="aside">Tip: Speed up accept/deny using <a href="#keyboard-shortcuts">keyboard shortcuts</a> and batch actions.</div>
+<details>
+<summary>Speed up review with keyboard shortcuts</summary>
+
+Verify UI changes faster using keyboard shortcuts. Protip: Pressing 1 multiple times switches between the baseline and new snapshot in the 1up view.
+![Keyboard shortcuts](img/keyboard-shortcuts.png)
+
+</details>
 
 <details>
 <summary>What about baselines on other branches?</summary>
@@ -59,7 +65,7 @@ This means you can update UI components on multiple feature branches in parallel
 
 Sometimes you need a closer look to determine why a snapshot is rendering as it does. Along with pixel and DOM diffs, Chromatic displays the interactive stories just as they appear in Storybook.
 
-Click "Inspect snapshot" to open the Inspector. Switch between the "Canvas" and "Snapshot" tabs to compare the live component to the snapshot.
+Click "Inspect snapshot" to open the Inspector. Switch between the "Canvas" and "Snapshot" tabs to compare the live component to the snapshot. Learn more about snapshots [here](snapshots).
 
 <video autoPlay muted playsInline loop width="560px" class="center" style="pointer-events: none;">
   <source src="img/feature-component-inspect-optimized.mp4" type="video/mp4" />
@@ -115,38 +121,13 @@ Now that you can catch bugs during development, learn about how to invite stakeh
 
 ---
 
-<details>
-<summary><h3 class="no-anchor">Keyboard shortcuts</h3></summary>
-
-Verify UI changes faster using keyboard shortcuts. Protip: Pressing 1 multiple times switches between the baseline and new snapshot in the 1up view.
-![Keyboard shortcuts](img/keyboard-shortcuts.png)
-
-</details>
-
-<details>
-<summary><h3 class="no-anchor">False positives</h3></summary>
-
-It's essential that your components and stories render in a **consistent** fashion between tests to prevent false positives. Some reasons your stories might not render consistently and ways you can avoid this include:
-
-- **Randomness in stories**: It's not uncommon to use random number generators to generate data for complex component inputs. To avoid this, you can hard-code the input data, but often a more convenient solution is to use a tool like [seedrandom](https://github.com/davidbau/seedrandom) which you can use to make your "random" number generator consistent.
-
-- **Use of the current date/time**: Dates and times are a testers bane! To get consistency in components or tests that use the current time, you can use a tool to also "seed" the time, like [timemachine](https://github.com/schickling/timemachine) for the `Date` object.
-
-- **Animations**: Chromatic will attempt to pause all animations. However, you may need to [configure](animations) Chromatic's exact behavior.
-
-- **Unpredictable resource hosts**: Resources that load from unpredictable or flaky sources may not load in time (15s) to capture. Workaround this by serving resources as [static files in Storybook](https://storybook.js.org/configurations/serving-static-files/) or using a [placeholder service](https://placeholder.com/). Learn more about how we [load resources](resource-loading).
-
-- **Iframes rendering out of the viewport**: Some browsers only visually render iframes when they are inside of the viewport, despite the fact that they have loaded with all of their resources. For this reason, if you have an iframe that is placed below the viewport of a tall story, it will appear blank. You may want to [ignore that element](ignoring-elements) and also test it in isolation so that it fits inside of the viewport.
-
-- **Skip stories**: Some stories may render unpredictably intentionally. If this is the case you may want to [ignore the story](ignoring-elements) from testing and move on.
-
-- **Introduce a delay**: As a last resort, you can try adding a [delay](delay). This will delay Chromatic's snapshot for a specified amount of time. The trouble with this technique whilst it may make the problem less common, it may not eliminate it completely.
-
-If you want to utilize the above techniques to ensure consistency for Chromatic's tests, but you still want random elements for your local Storybook, you can use `isChromatic()` exported from [our package](isChromatic) to check for the Chromatic environment.
-
-</details>
-
 ### Troubleshooting
+
+<div class="aside">
+
+Snapshots don't look right? Learn how to debug snapshots [here](snapshots).
+
+</div>
 
 <details>
 <summary>Why are my builds failing because of component errors?</summary>
@@ -165,7 +146,7 @@ Note that in the case that there is a descendent build of this build on _a diffe
 </details>
 
 <details>
-<summary>Why do I see <code>Didn't find any commits in this git repository in the last X builds</code>?</summary>
+<summary>Why do I see "Didn't find any commits in this git repository in the last X builds"?</summary>
 
 This means that across the last X unique commits across all builds in your app, we didn't find a single one that exists in the repository you ran this build against. Commits can go missing if you rebase or perform squash-merges, however, if all of the previous X builds' commits are missing, it is likely something has gone wrong.
 
@@ -174,7 +155,7 @@ If you've reached this situation and can't work out why, please contact us throu
 </details>
 
 <details>
-<summary>Why do I see <code>Failed to find common ancestors with most recent builds within X commits</code>?</summary>
+<summary>Why do I see "Failed to find common ancestors with most recent builds within X commits"?</summary>
 
 This means that although we found recent builds that _were_ in your git repository history (see above), we couldn't find any _common_ history between your checked out build and those builds within X commits.
 
@@ -183,7 +164,7 @@ Unless you are doing something unusual with your git repository, this is extreme
 </details>
 
 <details>
-<summary>Why do I see <code>Build X is based on a commit without ancestor builds</code>? </summary>
+<summary>Why do I see "Build X is based on a commit without ancestor builds"? </summary>
 
 When we create a build, we search your git history for a recent Chromatic build based on a commit that is an ancestor (i.e. a commit that is in the direct history of this commit). Unless this is the very first build, if we do not find one, we will show you this message.
 
@@ -198,15 +179,6 @@ However, this situation can arise due to the following:
 1. You are using a shallow clone of your repository when running Chromatic. Chromatic needs access to your full git history in order to find baselines (or at least the history until the previous Chromatic build, which depends on how often you push code/run builds). [Learn about how we use Git for baselines »](branching-and-baselines)
 
 1. Something else happened, perhaps a bug at our end? Please contact us through our in app chat if this is the case.
-
-</details>
-
-<details>
-<summary>Why am I seeing an error for large images?</summary>
-
-We have a 25 million pixel size limit for image snapshots. This ensures fast and reliable performance for every build.
-
-If your stories are larger than this, perhaps something has gone wrong? Let us know if you need this limit increased via our in-app chat or [email](mailto:support@chromatic.com).
 
 </details>
 
