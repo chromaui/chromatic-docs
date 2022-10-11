@@ -6,7 +6,7 @@ description: Learn how to make Chromatic wait before capturing a snapshot
 
 # Delay snapshots
 
-Components sometimes trigger custom interactions on render. For example, JavaScript-driven [animations](animations#javascript-animations) that cannot [otherwise be disabled](test#false-positives) or third-party functionality outside of your control.
+Components sometimes trigger custom interactions on render. For example, JavaScript-driven [animations](animations#javascript-animations) that cannot [otherwise be disabled](snapshots#improve-snapshot-consistency) or third-party functionality outside of your control.
 
 You can delay capture for a fixed time to allow your story to get into the intended state. Using delay requires Storybook 4.0 or later.
 
