@@ -38,19 +38,19 @@ WithHoverState.play = async ({ canvasElement }) => {
   const canvas = within(canvasElement);
 
   // Looks up the input and fills it.
-  const emailInput = canvas.getByLabelText("email", {
-    selector: "input",
+  const emailInput = canvas.getByLabelText('email', {
+    selector: 'input',
   });
 
-  await userEvent.type(emailInput, "Example");
+  await userEvent.type(emailInput, 'Example');
 
   // Looks up the button and interacts with it.
-  const submitButton = canvas.getByRole("button");
+  const submitButton = canvas.getByRole('button');
   await userEvent.click(submitButton);
 
   // Triggers the hover state
   await waitFor(async () => {
-    await userEvent.hover(canvas.getByLabelText("Email error"));
+    await userEvent.hover(canvas.getByLabelText('Email error'));
   });
 };
 ```
@@ -96,13 +96,13 @@ export const HoverStatewithClass = Template.bind({});
 
 HoverStatewithClass.args = {
   ...HoverState.args,
-  className: "hover",
+  className: 'hover',
 };
 
 export const ActiveStatewithClass = Template.bind({});
 ActiveStatewithClass.args = {
   ...ActiveState.args,
-  className: "active",
+  className: 'active',
 };
 ```
 
@@ -130,7 +130,7 @@ export function MyComponent({ isHovered, isActive, label }) {
 MyComponent.defaultProps = {
   isHovered: false,
   isActive: false,
-  label: "Submit",
+  label: 'Submit',
 };
 ```
 
@@ -186,8 +186,8 @@ const Template = (args) => <Button {...args} />;
 
 export const WithHoverState = Template.bind({});
 WithHoverState.args = {
-  size: "small",
-  label: "Button",
+  size: 'small',
+  label: 'Button',
 };
 
 WithHoverState.parameters = {
@@ -226,6 +226,32 @@ WithFocusState.play = async ({ canvasElement }) => {
   const canvas = within(canvasElement);
 
   // Looks up the button and interacts with it.
-  await canvas.getByRole("button").focus();
+  await canvas.getByRole('button').focus();
 };
 ```
+
+---
+
+### Frequently asked questions
+
+<details>
+
+  <summary>Why are focus states visible in Storybook but not in a snapshot?</summary>
+
+Snapshots can sometimes exclude outline and other focus styles because Chromatic trims each snapshot to the dimensions of the root node of the story.
+
+To capture those styles, wrap the story in a [decorator](https://storybook.js.org/docs/react/writing-stories/decorators#component-decorators) that adds slight padding.
+
+```js
+// MyComponent.stories.js|jsx
+
+import { MyComponent } from './MyComponent';
+
+export default {
+  component: MyComponent,
+  decorators:  [(Story) => {% raw %}<div style={{ padding: '1em' }}{% endraw %}><Story/></div>],
+  title: 'Example Story',
+};
+```
+
+</details>
