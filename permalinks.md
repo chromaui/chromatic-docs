@@ -26,10 +26,14 @@ If you want to share permalinks with people that aren't listed as collaborators,
 
 Build your own permalinks to get more flexibility. For example, link to the `main` branch of Storybook in your external documentation site. Or link to a specific Storybook version (via commit) for [Composition](composition).
 
-| Permalink   | Format                                        |
-| ----------- | --------------------------------------------- |
-| To a branch | `https://<branch>--<appid>.chromatic.com`     |
-| To a commit | `https://<commithash>--<appid>.chromatic.com` |
+| Permalink   | Format                                        | Example                                                   |
+| ----------- | --------------------------------------------- | --------------------------------------------------------- |
+| To a branch | `https://<branch>--<appid>.chromatic.com`     | `https://main--example-chromatic-app-id.chromatic.com`    |
+| To a commit | `https://<commithash>--<appid>.chromatic.com` | `https://a22675e--example-chromatic-app-id.chromatic.com` |
+
+<div class="aside">
+ Tip: Check the build screen on your project's dashboard to get the commit hash for a specific build.
+</div>
 
 #### Branches that contain special characters or are too long
 
