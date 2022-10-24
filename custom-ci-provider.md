@@ -61,7 +61,7 @@ If you've already built your Storybook in a separate CI step, you can alternativ
 - run:
     command: cd packages/project_1 && npm run chromatic --project-token=CHROMATIC_PROJECT_TOKEN_1
 - run:
-    command: cd packages/project_2 && npm run chromatic --project-token=CHROMATIC_PROJECT_TOKEN_1
+    command: cd packages/project_2 && npm run chromatic --project-token=CHROMATIC_PROJECT_TOKEN_2
 ```
 
 If you want to run Chromatic in parallel for each subproject, you can use this snippet below.
@@ -74,7 +74,7 @@ If you want to run Chromatic in parallel for each subproject, you can use this s
     - run:
         command: cd packages/project_1 && npm run chromatic --project-token=CHROMATIC_PROJECT_TOKEN_1
     - run:
-        command: cd packages/project_2 && npm run chromatic --project-token=CHROMATIC_PROJECT_TOKEN_1
+        command: cd packages/project_2 && npm run chromatic --project-token=CHROMATIC_PROJECT_TOKEN_2
 ```
 
 
