@@ -8,11 +8,11 @@ description: Learn how interaction testing works with Chromatic
 
 Building components and testing them in Chromatic safeguards you against unexpected regressions. But not every component can be tested without user intervention—for instance, forms, tooltips, and dropdowns.
 
-Interaction testing enables you to emulate how a component responds to user interaction. You can test how a component behaves when a user clicks a button, hovers over an element, or types into a form via [`play`](https://storybook.js.org/docs/react/writing-stories/play-function) function.
+Interaction testing enables you to emulate how a component responds to user interaction. You can test how a component behaves when a user clicks a button, hovers over an element, or types into a form via the [`play`](https://storybook.js.org/docs/react/writing-stories/play-function) function.
 
 ## How interaction tests work in Chromatic
 
-Enable interaction testing by adding a `play` function to your component's story. For example, if you were working with a form and you want to validate you can write the following story:
+Enable interaction testing by adding a `play` function to your component's story. For example, if you were working with a form and you want to validate it you can write the following story:
 
 ```js
 // LoginForm.stories.js|jsx
@@ -22,7 +22,7 @@ import React from 'react';
 import { within, userEvent } from '@storybook/testing-library';
 import { expect } from '@storybook/jest';
 
-import { LoginForm } from './LoginForm';
+import { Form } from './LoginForm';
 
 export default {
   component: Form,
@@ -38,7 +38,7 @@ FilledForm.play = async ({ canvasElement }) => {
 
   // Starts querying the DOM tree from the component's root element
   await userEvent.type(canvas.getByLabelText('Email'), 'Example@email.com');
-  await userEvent.type(canvas.getByLabelText("Password"), 'password');
+  await userEvent.type(canvas.getByLabelText('Password'), 'password');
 
   await userEvent.click(canvas.getByRole('button'));
 
@@ -70,7 +70,7 @@ import React from 'react';
 import { within, userEvent } from '@storybook/testing-library';
 import { expect } from '@storybook/jest';
 
-import { LoginForm } from './LoginForm';
+import { Form } from './LoginForm';
 
 export default {
   component: Form,
@@ -86,7 +86,7 @@ WithButtonClick.play = async ({ canvasElement }) => {
 
   // Starts querying the DOM tree from the component's root element
   await userEvent.type(canvas.getByLabelText('Email'), 'Example@email.com');
-  await userEvent.type(canvas.getByLabelText("Password"), 'password');
+  await userEvent.type(canvas.getByLabelText('Password'), 'password');
 
   //👇 This assertion will cause an error in the story
   await expect(canvas.getByRole('button')).not.toBeInTheDocument();
