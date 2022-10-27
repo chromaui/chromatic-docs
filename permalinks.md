@@ -39,9 +39,9 @@ Build your own permalinks to get more flexibility. For example, link to the `mai
 
 If your project's repository is a fork, it will appear in Chromatic with the format `organization_name:repository_name`. Permalink URLs will need to be modified as such:
 
-| Branch                                     | Format                              |
-| ------------------------------------------ | ------------------------------------- |
-| To a branch | `https://<repository>-fork-<branch>--<appid>.chromatic.com`      |
+| Branch      | Format                                                      | Example                                                          |
+| ----------- | ----------------------------------------------------------- | ---------------------------------------------------------------- |
+| To a branch | `https://<repository>-fork-<branch>--<appid>.chromatic.com` | `https://acme-fork-main--example-chromatic-app-id.chromatic.com` |
 
 #### Branches that contain special characters or are too long
 
