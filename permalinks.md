@@ -37,7 +37,7 @@ Build your own permalinks to get more flexibility. For example, link to the `mai
 
 #### Branches that are within forked repositories
 
-If your projects repository is a fork, it will appear in chromatic with the format organization_name:repository_name. For permalinks this means that you need to modify your url as such:
+If your project's repository is a fork, it will appear in Chromatic with the format `organization_name:repository_name`. Permalink URLs will need to be modified as such:
 
 | Branch                                     | Format                              |
 | ------------------------------------------ | ------------------------------------- |
