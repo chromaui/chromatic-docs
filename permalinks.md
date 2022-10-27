@@ -35,6 +35,14 @@ Build your own permalinks to get more flexibility. For example, link to the `mai
  Tip: Check the build screen on your project's dashboard to get the commit hash for a specific build.
 </div>
 
+#### Branches that are within forked repositories
+
+If your project's repository is a fork, it will appear in Chromatic with the format `organization_name:repository_name`. Permalink URLs will need to be modified as such:
+
+| Branch      | Format                                                      | Example                                                          |
+| ----------- | ----------------------------------------------------------- | ---------------------------------------------------------------- |
+| To a branch | `https://<repository>-fork-<branch>--<appid>.chromatic.com` | `https://acme-fork-main--example-chromatic-app-id.chromatic.com` |
+
 #### Branches that contain special characters or are too long
 
 Subdomains have character and length limitations. Only letters and dash characters are supported, that means any unsupported characters in your branch name will be replaced with dashes. If your branch name is longer than 37 characters it will be truncated.
