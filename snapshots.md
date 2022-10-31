@@ -252,11 +252,11 @@ If you'd only like to see multiple themes side-by-side in Chromatic and not in y
 
 Blank snapshots are often caused by:
 
-- **An "animateIn" effect**—If your component use an “animateIn” effect [set delay](/docs/delay) to ensure we snapshot when the animation completes.
+- **An "animateIn" effect**—If your component use an “animateIn” effect [set delay](delay) to ensure we snapshot when the animation completes.
 
 - **Position:fixed**—Fixed position elements may depend on viewport size but do not have dimensions themselves. Wrap your component in an element whose height and width are defined.
 
-Learn more about [debugging snapshots](/docs/snapshots#troubleshooting).
+Learn more about [debugging snapshots](snapshots#troubleshooting).
 
 </details>
 
@@ -265,7 +265,7 @@ Learn more about [debugging snapshots](/docs/snapshots#troubleshooting).
 
 By default, Chromatic's diffing algorithm skips the DOM elements marked with either a `.chromatic-ignore` CSS class or `data-chromatic="ignore"` attribute.
 
-However, if you're using this functionality but notice the incoming changes are still being captured. In that case, you'll need to ensure that both the [baseline](/docs/branching-and-baselines) and new snapshots retain the same dimensions (e.g., width, height, and relative positioning).
+However, if you're using this functionality but notice the incoming changes are still being captured. In that case, you'll need to ensure that both the [baseline](branching-and-baselines) and new snapshots retain the same dimensions (e.g., width, height, and relative positioning).
 
 </details>
 
