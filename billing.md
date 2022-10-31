@@ -10,7 +10,7 @@ Chromatic bills customers monthly based on their subscription date. For instance
 
 ## Snapshots
 
-Chromatic charges based on [snapshots](snapshots) and browser coverage, respectively. Snapshots power [UI Tests](tests) and [UI Review](review). They are only taken when you enable “UI Review” or “UI Tests” for your project.
+Chromatic charges based on [snapshots](snapshots) and browser coverage, respectively. Snapshots power [UI Tests](test) and [UI Review](review). They are only taken when you enable “UI Review” or “UI Tests” for your project.
 
 Every time you run a build, we take one snapshot for each story. If you have 50 stories, Chromatic will take 50 snapshots. In addition, testing multiple viewports and browsers are also considered snapshots.
 
