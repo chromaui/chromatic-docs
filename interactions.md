@@ -10,10 +10,10 @@ Building components and testing them in Chromatic safeguards you against unexpec
 
 Interaction testing enables you to emulate how a component responds to user interaction. You can test how a component behaves when a user clicks a button, hovers over an element, or types into a form via the [`play`](https://storybook.js.org/docs/react/writing-stories/play-function) function.
 
-## How interaction tests work in Chromatic
+## How to write interaction tests
 
-Enable interaction testing by adding a `play` function to your component's story. For example, if you were working with a form and you want to validate it you can write the following story:
-
+Add a `play` function to your component's story to set up interaction testing. For example, if you were working with a form and you want to validate it, you can write the following story:
+ 
 ```js
 // LoginForm.stories.js|jsx
 
@@ -31,6 +31,7 @@ export default {
 
 const Template = (args) => <Form {...args} />;
 
+// 👇 This is a story with an interaction test enabled via the play function
 export const FilledForm = Template.bind({});
 FilledForm.play = async ({ canvasElement }) => {
   // Assigns canvas to the component root element
@@ -52,7 +53,9 @@ FilledForm.play = async ({ canvasElement }) => {
 Read more about interaction testing in the official Storybook <a href="https://storybook.js.org/docs/react/writing-tests/interaction-testing">documentation</a>. 
 </div>
 
-Publish your newly added story either via the [CLI](cli) or [CI](ci) and access your project's build screen to preview the types of tests which ran on your story.
+### Confirm interaction tests are working
+
+To verify that interaction tests are working in Chromatic, publish your story either via [CLI](cli) or [CI](ci). Once published, you'll see interaction tests listed in the build screen alongside the other types of tests that ran on your story.
 
 ![Interactive story snapshot](img/chromatic-dashboard-build-screen.png)
 
@@ -60,46 +63,15 @@ Click the newly added build to preview the test. Chromatic will wait for the `pl
 
 ## Debug test failures
 
-In case there's an error with the interaction test, Chromatic provides you with a detailed log of which interactions ran, alongside some helpful metadata on the environment in which the tests ran. For example:
+In case of interaction test failure, you'll get a visual notification on the build screen that your test has a problem. To find out which steps failed in your interaction test, click the "View exceptions" button for a detailed log alongside some helpful metadata on the environment in which the tests ran.
 
-```js
-// LoginForm.stories.js|jsx
+![Failed interaction test in Chromatic](img/chromatic-interaction-testing-worflow.gif)
 
-import React from 'react';
-
-import { within, userEvent } from '@storybook/testing-library';
-import { expect } from '@storybook/jest';
-
-import { Form } from './LoginForm';
-
-export default {
-  component: Form,
-  title: 'Form',
-};
-
-const Template = (args) => <Form {...args} />;
-
-export const WithButtonClick = Template.bind({});
-WithButtonClick.play = async ({ canvasElement }) => {
-  // Assigns canvas to the component root element
-  const canvas = within(canvasElement);
-
-  // Starts querying the DOM tree from the component's root element
-  await userEvent.type(canvas.getByLabelText('Email'), 'Example@email.com');
-  await userEvent.type(canvas.getByLabelText('Password'), 'password');
-
-  //👇 This assertion will cause an error in the story
-  await expect(canvas.getByRole('button')).not.toBeInTheDocument();
-};
-```
-
-![Failed interaction test in Chromatic](img/chromatic-interaction-failed-tests.png)
-
-## PR status checks
+## PR check for "Interaction tests"
 
 If you already enabled Chromatic as part of your [CI workflow](ci), interaction test failures are automatically reported in your list of checks.
 
-![Failed interaction tests in CI](img/chromatic-pr-checks-error-state.png)
+![Failed interaction tests in CI](img/interaction-pr-check-failed-test.png)
 
 ---
 
