@@ -63,9 +63,14 @@ Click the newly added build to preview the test. Chromatic will wait for the `pl
 
 ## Debug test failures
 
-In case of interaction test failure, you'll get a visual notification on the build screen that your test has a problem. To find out which steps failed in your interaction test, click the "View exceptions" button for a detailed log alongside some helpful metadata on the environment in which the tests ran.
+In case of interaction test failure, you'll get a visual notification on the build screen that your test has a problem. [Reviewing](review) and accepting the build as a baseline will be blocked until the tests are fixed.
 
-![Failed interaction test in Chromatic](img/chromatic-interaction-testing-worflow.gif)
+![Chromatic dashboard with failed test](img/interaction-build-screen-failed-test.png)
+
+To find out which steps failed in your interaction test, click the "View exceptions" button for a detailed log alongside some helpful metadata on the environment in which the tests ran.
+
+![Chromatic test screen with failed test](img/interaction-test-screen-failed-test.png)
+
 
 ## PR check for "Interaction tests"
 
