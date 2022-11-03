@@ -63,14 +63,17 @@ Click the newly added build to preview the test. Chromatic will wait for the `pl
 
 ## Debug test failures
 
-In case of interaction test failure, you'll get a visual notification on the build screen that your test has a problem. [Reviewing](review) and accepting the build as a baseline will be blocked until the tests are fixed.
+In case of interaction test failure, you'll get a visual notification on the build screen that your test has a problem. Reviewing and accepting the build as a baseline will also be blocked until the tests are fixed.
 
 ![Chromatic dashboard with failed test](img/interaction-build-screen-failed-test.png)
 
-To find out which steps failed in your interaction test, click the "View exceptions" button for a detailed log alongside some helpful metadata on the environment in which the tests ran.
+To find out which steps failed in your interaction test, click on the change to see a snapshot of the state where the error occurred, alongside a detailed log and helpful metadata on the environment in which the tests ran.
 
 ![Chromatic test screen with failed test](img/interaction-test-screen-failed-test.png)
 
+### Permalinks for reproductions
+
+Chromatic provides a link to the exact state of your story when the test failed. It helps reproduce the error and debug it. Click the "View Storybook" button to open the erroring story in Storybook. Share the link with your team to help them reproduce the error.
 
 ## PR check for "Interaction tests"
 
