@@ -24,18 +24,18 @@ Use [story-level](https://storybook.js.org/docs/react/writing-stories/parameters
 ```js
 // MyComponent.stories.js|jsx
 
-import { MyComponent } from "./MyComponent";
+import { MyComponent } from './MyComponent';
 
 export default {
   component: MyComponent,
-  title: "MyComponent",
+  title: 'MyComponent',
 };
 
 const Template = (args) => <MyComponent {...args} />;
 
 export const StoryName = Template.bind({});
 StoryName.args = {
-  with: "props",
+  with: 'props',
 };
 StoryName.parameters = {
   // Sets the delay for a specific story.
@@ -51,7 +51,8 @@ For finer-grained control over when a snapshot is captured, use [interactions](i
 
 Check for DOM elements using `getBy`, `findBy`, or `queryBy`.
 
-```
+```javascript
+// Chart.stories.js
 import { within, userEvent } from '@storybook/testing-library';
 import { expect } from '@storybook/jest';
 
@@ -76,9 +77,10 @@ WithChartLoad.play = async ({ canvasElement }) => {
 
 If your UI requires extra time to paint after the DOM loads, consider setting a timeout by adding this step to your `play` function:
 
-```
-...
+```javascript
+// ...
 WithChartLoad.play = async ({ canvasElement }) => {
+  //👇 This sets a timeout of 2s
   await new Promise((resolve) => setTimeout(resolve, 2000));
 };
 ```
@@ -90,7 +92,7 @@ Chromatic uses Storybook’s built in [parameter](https://storybook.js.org/docs/
 ```js
 // MyComponent.stories.js|jsx
 
-import { MyComponent } from "./MyComponent";
+import { MyComponent } from './MyComponent';
 
 export default {
   component: MyComponent,
@@ -98,18 +100,18 @@ export default {
     // Sets a delay for the component's stories
     chromatic: { delay: 300 },
   },
-  title: "MyComponent",
+  title: 'MyComponent',
 };
 
 const Template = (args) => <MyComponent {...args} />;
 
 export const StoryName = Template.bind({});
 StoryName.args = {
-  with: "props",
+  with: 'props',
 };
 
 export const SecondStoryName = Template.bind({});
 SecondStoryName.args = {
-  with: "other-props",
+  with: 'other-props',
 };
 ```
