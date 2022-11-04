@@ -49,7 +49,7 @@ This technique is intended for interactions and animations that end after a cert
 
 For finer-grained control over when a snapshot is captured, use [interactions](interactions) and the `play` function to write assertions that check for DOM elements or set timeouts. Chromatic waits for interactions to pass before capturing a snapshot.
 
-Check for DOM elements using `getBy`, `findBy`, or `queryBy`.
+Check for DOM elements using `getBy`, `findBy`, or `queryBy` (docs [here](https://testing-library.com/docs/dom-testing-library/cheatsheet/#queries)).
 
 ```javascript
 // Chart.stories.js
