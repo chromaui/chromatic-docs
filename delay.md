@@ -24,18 +24,18 @@ Use [story-level](https://storybook.js.org/docs/react/writing-stories/parameters
 ```js
 // MyComponent.stories.js|jsx
 
-import { MyComponent } from './MyComponent';
+import { MyComponent } from "./MyComponent";
 
 export default {
   component: MyComponent,
-  title: 'MyComponent',
+  title: "MyComponent",
 };
 
 const Template = (args) => <MyComponent {...args} />;
 
 export const StoryName = Template.bind({});
 StoryName.args = {
-  with: 'props',
+  with: "props",
 };
 StoryName.parameters = {
   // Sets the delay for a specific story.
@@ -52,14 +52,35 @@ For finer-grained control over when a snapshot is captured, use [interactions](i
 Check for DOM elements using `getBy`, `findBy`, or `queryBy`.
 
 ```
- <!-- Insert getBy example here -->
+import { within, userEvent } from '@storybook/testing-library';
+import { expect } from '@storybook/jest';
+
+import { Chart } from './Chart';
+
+export default {
+  component: Chart,
+  title: 'Chart',
+};
+
+const Template = (args) => <Chart {...args} />;
+
+export const WithChartLoad = Template.bind({});
+WithChartLoad.play = async ({ canvasElement }) => {
+  // Assigns canvas to the component root element
+  const canvas = within(canvasElement);
+
+  //👇 This assertion will pass if the chart with the matching id exists
+  await expect(canvas.getByTestId('stats-chart')).toBeInTheDocument();
+};
 ```
 
 If your UI requires extra time to paint after the DOM loads, consider setting a timeout by adding this step to your `play` function:
 
 ```
-<!-- Insert setTimeout example here -->
-await new Promise((resolve) => setTimeout(resolve, 2000));
+...
+WithChartLoad.play = async ({ canvasElement }) => {
+  await new Promise((resolve) => setTimeout(resolve, 2000));
+};
 ```
 
 ## Delay all stories of a component
@@ -69,7 +90,7 @@ Chromatic uses Storybook’s built in [parameter](https://storybook.js.org/docs/
 ```js
 // MyComponent.stories.js|jsx
 
-import { MyComponent } from './MyComponent';
+import { MyComponent } from "./MyComponent";
 
 export default {
   component: MyComponent,
@@ -77,18 +98,18 @@ export default {
     // Sets a delay for the component's stories
     chromatic: { delay: 300 },
   },
-  title: 'MyComponent',
+  title: "MyComponent",
 };
 
 const Template = (args) => <MyComponent {...args} />;
 
 export const StoryName = Template.bind({});
 StoryName.args = {
-  with: 'props',
+  with: "props",
 };
 
 export const SecondStoryName = Template.bind({});
 SecondStoryName.args = {
-  with: 'other-props',
+  with: "other-props",
 };
 ```
