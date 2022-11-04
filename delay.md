@@ -45,6 +45,23 @@ StoryName.parameters = {
 
 This technique is intended for interactions and animations that end after a certain period of time (e.g., "animate in"). If your animation is continuous and you cannot disable it, you may need to use an [ignore region](ignoring-elements) to stop Chromatic from considering such parts of your component.
 
+### Use an assertion to delay snapshot capture
+
+For finer-grained control over when a snapshot is captured, use [interactions](interactions) and the `play` function to write assertions that check for DOM elements or set timeouts. Chromatic waits for interactions to pass before capturing a snapshot.
+
+Check for DOM elements using `getBy`, `findBy`, or `queryBy`.
+
+```
+ <!-- Insert getBy example here -->
+```
+
+If your UI requires extra time to paint after the DOM loads, consider setting a timeout by adding this step to your `play` function:
+
+```
+<!-- Insert setTimeout example here -->
+await new Promise((resolve) => setTimeout(resolve, 2000));
+```
+
 ## Delay all stories of a component
 
 Chromatic uses Storybook’s built in [parameter](https://storybook.js.org/docs/react/writing-stories/parameters#component-parameters) API to make it straightforward to set delay on a group of stories:
