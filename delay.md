@@ -52,26 +52,27 @@ For finer-grained control over when a snapshot is captured, use [interactions](i
 Check for DOM elements using `getBy`, `findBy`, or `queryBy` (docs [here](https://testing-library.com/docs/dom-testing-library/cheatsheet/#queries)).
 
 ```javascript
-// Chart.stories.js
+// MyComponent.stories.js|jsx
+
 import { within, userEvent } from '@storybook/testing-library';
 import { expect } from '@storybook/jest';
 
-import { Chart } from './Chart';
+import { MyComponent } from './MyComponent';
 
 export default {
-  component: Chart,
-  title: 'Chart',
+  component: MyComponent,
+  title: 'MyComponent',
 };
 
-const Template = (args) => <Chart {...args} />;
+const Template = (args) => <MyComponent {...args} />;
 
-export const WithChartLoad = Template.bind({});
-WithChartLoad.play = async ({ canvasElement }) => {
+export const StoryName = Template.bind({});
+StoryName.play = async ({ canvasElement }) => {
   // Assigns canvas to the component root element
   const canvas = within(canvasElement);
 
-  //👇 This assertion will pass if the chart with the matching id exists
-  await expect(canvas.getByTestId('stats-chart')).toBeInTheDocument();
+  //👇 This assertion will pass if a DOM element with the matching id exists
+  await expect(canvas.getByTestId('element-waiting-for')).toBeInTheDocument();
 };
 ```
 
@@ -79,7 +80,7 @@ If your UI requires extra time to paint after the DOM loads, consider setting a 
 
 ```javascript
 // ...
-WithChartLoad.play = async ({ canvasElement }) => {
+StoryName.play = async ({ canvasElement }) => {
   //👇 This sets a timeout of 2s
   await new Promise((resolve) => setTimeout(resolve, 2000));
 };
