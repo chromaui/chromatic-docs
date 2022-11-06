@@ -83,3 +83,27 @@ Depending on your CI provider, you likely have a workflow configuration file whi
 #### GitHub Action
 
 If you use GitHub Actions, you're likely using `chromaui/action`. Look for `uses: chromaui/action@v1` and check the `with:` block right below it (if any). If it specifies `preserveMissing`, remove it.
+
+### 3. Enable TurboSnap or manually specify stories to snapshot
+
+To avoid snapshotting irrelevant stories, you have several options. You can add `--only-changed` to enable [TurboSnap](turbosnap), or use either the `--only-story-files` or `--only-story-names` [CLI flag](cli#chromatic-options) to manually define which stories to snapshot. These flags are also available as inputs to our GitHub Action (using camelCase).
+
+#### `--only-story-files` (`onlyStoryFiles`)
+
+To run only stories from "Project Alpha" described above, you can specify `--only-story-files="./projectA/**/*` (note this path is relative to your Storybook project, not the `.storybook` config dir). You can specify this flag multiple times to test multiple projects/directories, or use globs to do complex matching.
+
+<div class="aside">
+This is the most straightforward replacement to the behavior illustrated in step 1, but it is also a relatively blunt weapon because you're still testing an entire subdirectory.
+</div>
+
+#### `--only-story-names` (`onlyStoryNames`)
+
+Depending on your Storybook setup and hierarchy, it may be convenient to filter stories by their story path/name instead of their filename. For example: `--only-story-names="Atoms/Button/*"`. You can specify the flag multiple times to test multiple stories, or use globbing to do complex matching.
+
+<div class="aside">
+This flag used to be called `--only`. If you happen to be using `--only`, you should change it to `--only-story-names`.
+</div>
+
+#### `--only-changed` (`onlyChanged: true`)
+
+Unless you already have a reliable and fine-grained way to determine which stories to test, you're probably better off using [TurboSnap](turbosnap). TurboSnap is a way to automatically skip snapshots for stories that are known to not have been affected by any code changes introduced since the previous Chromatic build. It does this by cross-referencing the list of changed files in your Git repository against the Webpack dependency graph. It effectively traces source code changes to story files, and sets `--only-story-files` accordingly.
