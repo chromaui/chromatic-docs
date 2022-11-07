@@ -45,6 +45,47 @@ StoryName.parameters = {
 
 This technique is intended for interactions and animations that end after a certain period of time (e.g., "animate in"). If your animation is continuous and you cannot disable it, you may need to use an [ignore region](ignoring-elements) to stop Chromatic from considering such parts of your component.
 
+### Use an assertion to delay snapshot capture
+
+For finer-grained control over when a snapshot is captured, use [interactions](interactions) and the `play` function to write assertions that check for DOM elements or set timeouts. Chromatic waits for interactions to pass before capturing a snapshot.
+
+Check for DOM elements using `getBy`, `findBy`, or `queryBy` (docs [here](https://testing-library.com/docs/dom-testing-library/cheatsheet/#queries)).
+
+```javascript
+// MyComponent.stories.js|jsx
+
+import { within, userEvent } from '@storybook/testing-library';
+import { expect } from '@storybook/jest';
+
+import { MyComponent } from './MyComponent';
+
+export default {
+  component: MyComponent,
+  title: 'MyComponent',
+};
+
+const Template = (args) => <MyComponent {...args} />;
+
+export const StoryName = Template.bind({});
+StoryName.play = async ({ canvasElement }) => {
+  // Assigns canvas to the component root element
+  const canvas = within(canvasElement);
+
+  //👇 This assertion will pass if a DOM element with the matching id exists
+  await expect(canvas.getByTestId('element-waiting-for')).toBeInTheDocument();
+};
+```
+
+If your UI requires extra time to paint after the DOM loads, consider setting a timeout by adding this step to your `play` function:
+
+```javascript
+// ...
+StoryName.play = async ({ canvasElement }) => {
+  //👇 This sets a timeout of 2s
+  await new Promise((resolve) => setTimeout(resolve, 2000));
+};
+```
+
 ## Delay all stories of a component
 
 Chromatic uses Storybook’s built in [parameter](https://storybook.js.org/docs/react/writing-stories/parameters#component-parameters) API to make it straightforward to set delay on a group of stories:
