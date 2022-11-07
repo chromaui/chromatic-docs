@@ -6,78 +6,78 @@ description: Learn how interaction testing works with Chromatic
 
 # Interaction tests
 
-Building components and testing them in Chromatic safeguards you against unexpected regressions. But not every component can be tested without user intervention—for instance, forms, tooltips, and dropdowns.
-
-Interaction testing enables you to emulate how a component responds to user interaction. You can test how a component behaves when a user clicks a button, hovers over an element, or types into a form via the [`play`](https://storybook.js.org/docs/react/writing-stories/play-function) function.
+Interaction tests enable you to verify how a component responds to user behaviors like click, type, keyboard, and hover. It uses the [`play`](https://storybook.js.org/docs/react/writing-stories/play-function) function in Storybook.
 
 ## How to write interaction tests
 
-Add a `play` function to your component's story to set up interaction testing. For example, if you were working with a form and you want to validate it, you can write the following story:
- 
+Add a `play` function to your component's story to enable interaction tests. For example, if you want to validate a component's behavior write the following story:
+
 ```js
-// LoginForm.stories.js|jsx
+// RangeSlider.stories.js|jsx
 
 import React from 'react';
 
 import { within, userEvent } from '@storybook/testing-library';
 import { expect } from '@storybook/jest';
 
-import { Form } from './LoginForm';
+import { RangeSlider } from './RangeSlider';
 
 export default {
-  component: Form,
-  title: 'Form',
+  component: RangeSlider,
+  title: 'Library/Charts/RangeSlider',
 };
 
-const Template = (args) => <Form {...args} />;
+const Template = (args) => <RangeSlider {...args} />;
 
-// 👇 This is a story with an interaction test enabled via the play function
-export const FilledForm = Template.bind({});
-FilledForm.play = async ({ canvasElement }) => {
+export const RangeSlider = Template.bind({});
+RangeSlider.play = async ({ canvasElement }) => {
   // Assigns canvas to the component root element
   const canvas = within(canvasElement);
 
-  // Starts querying the DOM tree from the component's root element
-  await userEvent.type(canvas.getByLabelText('Email'), 'Example@email.com');
-  await userEvent.type(canvas.getByLabelText('Password'), 'password');
+  // ⌨️ Type into input field
+  await userEvent.type(canvas.getByTestId('input-max-range'), '15');
 
-  await userEvent.click(canvas.getByRole('button'));
-
-  await expect(
-    canvas.getByText('Login Successful! Redirecting you to your account.')
-  ).toBeInTheDocument();
+  // ✅ Assert that component is responding to user behavior
+  const availableOptions = await canvas.findAllByTestId('highlighted-bar');
+  await expect(availableOptions.length).toBe(15);
 };
 ```
 
 <div class="aside">
-Read more about interaction testing in the official Storybook <a href="https://storybook.js.org/docs/react/writing-tests/interaction-testing">documentation</a>. 
+
+Read Storybook's interaction testing [docs](https://storybook.js.org/docs/react/writing-tests/interaction-testing). Get an API cheatsheet for user events [here](https://storybook.js.org/docs/react/writing-tests/interaction-testing#api-for-user-events).
+
 </div>
+
+In Storybook, your interactions and assertions are visualized in the addon panel. Use the playback buttons to step through each interaction to confirm that it’s working as intended.
+
+![Storybook passed tests](img/interaction-test-storybook-canvas-passed-test.png)
 
 ### Confirm interaction tests are working
 
-To verify that interaction tests are working in Chromatic, publish your story either via [CLI](cli) or [CI](ci). Once published, you'll see interaction tests listed in the build screen alongside the other types of tests that ran on your story.
+Interaction tests run behind the scenes without you having to configure anything. To verify that they are working in Chromatic, publish your Storybook either via [CLI](cli) or [CI](ci). You can confirm that they’re running with the “Interaction” label in the Build page’s Tests section.
 
-![Interactive story snapshot](img/chromatic-dashboard-build-screen.png)
-
-Click the newly added build to preview the test. Chromatic will wait for the `play` to run before capturing the snapshot.
+![Confirm interaction test run in the build summary](img/interaction-test-buildsummary-confirm.png)
 
 ## Debug test failures
 
-In case of interaction test failure, you'll get a visual notification on the build screen that your test has a problem. Reviewing and accepting the build as a baseline will also be blocked until the tests are fixed.
+Chromatic notifies you when an interaction errors or an assertion fails. We designate these as critical failures that need immediate attention. You won’t be able to review the change or pass the build until the test is fixed.
 
-![Chromatic dashboard with failed test](img/interaction-build-screen-failed-test.png)
+![Build page with failed interaction test](img/interaction-build-screen-failed-test.png)
 
-To find out which steps failed in your interaction test, click on the change to see a snapshot of the state where the error occurred, alongside a detailed log and helpful metadata on the environment in which the tests ran.
+To find out which steps failed in your interaction test, click on the change to see a snapshot of the state where the error occurred. You'll see a detailed log and browser environment metadata to help with reproductions.
 
-![Chromatic test screen with failed test](img/interaction-test-screen-failed-test.png)
+![Test page with failed interaction test](img/interaction-test-screen-failed-test.png)
 
 ### Permalinks for reproductions
 
-Chromatic provides a link to the exact state of your story when the test failed. It helps reproduce the error and debug it. Click the "View Storybook" button to open the erroring story in Storybook. Share the link with your team to help them reproduce the error.
+Go to your published Storybook to reproduce the exact state of your story when the test failed. Click the "View Storybook" button to open the erroring story with the error message visible. Share the link with your team to help them reproduce the error.
 
-## PR check for "Interaction tests"
+![Storybook with failed interaction test](img/interaction-test-storybook-failed-test.png)
 
-If you already enabled Chromatic as part of your [CI workflow](ci), interaction test failures are automatically reported in your list of checks.
+## PR check for interaction tests
+
+Interaction tests are reported in the UI Tests pull request check. When a test fails, you'll see a "Failed tests" status message prompting you to fix the test before moving on.
 
 ![Failed interaction tests in CI](img/interaction-pr-check-failed-test.png)
 
