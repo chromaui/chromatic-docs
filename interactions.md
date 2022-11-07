@@ -34,7 +34,7 @@ InputRange.play = async ({ canvasElement }) => {
   // Assigns canvas to the component root element
   const canvas = within(canvasElement);
 
-  // ⌨️ Type into input field
+  // 🔢 Type into input field
   await userEvent.type(canvas.getByTestId('input-max-range'), '15');
 
   // ✅ Assert that component is responding to user behavior
