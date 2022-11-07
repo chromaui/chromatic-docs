@@ -10,7 +10,7 @@ Interaction tests enable you to verify how a component responds to user behavior
 
 ## How to write interaction tests
 
-Add a `play` function to your component's story to enable interaction tests. For example, if you want to validate a component's behavior write the following story:
+Add a [`play`](https://storybook.js.org/docs/react/writing-stories/play-function) function to your component's story to enable interaction tests. For example, if you want to validate a component's behavior write the following story:
 
 ```js
 // RangeSlider.stories.js|jsx
@@ -69,9 +69,9 @@ To find out which steps failed in your interaction test, click on the change to 
 
 ![Test page with failed interaction test](img/interaction-test-screen-failed-test.png)
 
-### Permalinks for reproductions
+### Reproduce test failures with a URL
 
-Go to your published Storybook to reproduce the exact state of your story when the test failed. Click the "View Storybook" button to open the erroring story with the error message visible. Share the link with your team to help them reproduce the error.
+Go to your published Storybook to reproduce the exact state of your story when the test failed. Click the "View Storybook" button on the test page to open the failed story with the error message visible. Share the link with teammates to get a second opinion.
 
 ![Storybook with failed interaction test](img/interaction-test-storybook-failed-test.png)
 
@@ -86,8 +86,17 @@ Interaction tests are reported in the UI Tests pull request check. When a test f
 ### Frequently asked questions
 
 <details>
-<summary>Why are my interaction tests not working in IE11?</summary>
+<summary>Why aren't my interaction tests working in IE11?</summary>
 
 IE11 has entered the end of life and isn't supported by the instrumented libraries that Chromatic relies upon to run interaction tests. We recommend previewing your tests using the other available browsers (e.g., Firefox, Chrome).
+
+</details>
+
+<details>
+<summary>My interactions aren't getting snapshotted consistently with external web fonts?</summary>
+
+Interactions run as soon as the DOM loads. But external resources like web fonts can load before or after the interaction runs depending on network latency. This cause dialogs, tooltips, and menus to change position.
+
+We recommend [preloading fonts](resource-loading#loading-custom-fonts) to ensure they're available when the DOM renders. If preloading is not possible, try adding a [delay before running interactions](delay#use-an-assertion-to-delay-snapshot-capture).
 
 </details>
