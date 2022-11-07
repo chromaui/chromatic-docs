@@ -95,7 +95,7 @@ IE11 has entered the end of life and isn't supported by the instrumented librari
 <details>
 <summary>My interactions aren't getting snapshotted consistently with external web fonts?</summary>
 
-Interactions run as soon as the DOM loads. But external resources like web fonts can load before or after the interaction runs depending on network latency. This cause dialogs, tooltips, and menus to change position.
+Interactions run as soon as the DOM loads. But external resources like web fonts can load before or after the interaction runs depending on network latency. This can cause dialogs, tooltips, and menus to change position.
 
 We recommend [preloading fonts](resource-loading#loading-custom-fonts) to ensure they're available when the DOM renders. If preloading is not possible, try adding a [delay before running interactions](delay#use-an-assertion-to-delay-snapshot-capture).
 
