@@ -29,8 +29,8 @@ export default {
 
 const Template = (args) => <RangeSlider {...args} />;
 
-export const RangeSlider = Template.bind({});
-RangeSlider.play = async ({ canvasElement }) => {
+export const InputRange = Template.bind({});
+InputRange.play = async ({ canvasElement }) => {
   // Assigns canvas to the component root element
   const canvas = within(canvasElement);
 
