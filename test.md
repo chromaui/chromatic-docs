@@ -12,7 +12,9 @@ UI tests pinpoint visual changes and verify user [interactions](interactions). T
 
 ## Enable
 
-Enable visual tests for your project on the manage screen. If your stories have [interactions tests](interactions), they'll run automatically when visual tests are enabled. All snapshots are taken in Chrome by default. This is also where you expand test coverage to additional browsers.
+Enable visual tests for your project on the manage page. If your stories have [interaction tests](interactions), they'll run automatically when visual tests are enabled.
+
+All snapshots are taken in Chrome by default. Select additional browsers to expand test coverage in 1-click.
 
 ![Enable UI Tests](img/uitests-for-docs.png)
 
