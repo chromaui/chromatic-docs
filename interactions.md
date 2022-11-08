@@ -6,7 +6,7 @@ description: Learn how interaction testing works with Chromatic
 
 # Interaction tests
 
-Interaction tests enable you to verify how a component responds to user behaviors like click, type, keyboard, and hover. It uses the [`play`](https://storybook.js.org/docs/react/writing-stories/play-function) function in Storybook.
+Interaction tests enable you to verify how a component responds to user behaviors like click, type, keyboard, and hover. It uses the [`play`](https://storybook.js.org/docs/react/writing-stories/play-function) function in Storybook 6.5 and above.
 
 ## How to write interaction tests
 
@@ -49,7 +49,18 @@ Read Storybook's interaction testing [docs](https://storybook.js.org/docs/react/
 
 </div>
 
-In Storybook, your interactions and assertions are visualized in the addon panel. Use the playback buttons to step through each interaction to confirm that it’s working as intended.
+In Storybook, your interactions and assertions are visualized in the addon panel. Enable the playback controls to step through each interaction to confirm that it’s working as intended.
+
+```js
+// .storybook/main.js|ts
+
+module.exports = {
+  stories: ['../src/**/*.stories.mdx', '../src/**/*.stories.@(js|jsx|ts|tsx)'],
+  features: {
+    interactionsDebugger: true, // 👈 Enable playback controls
+  },
+};
+```
 
 ![Storybook passed tests](img/interaction-test-storybook-canvas-passed-test.png)
 
