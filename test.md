@@ -6,13 +6,13 @@ description: Learn how to run Chromatic UI Tests
 
 # UI Tests
 
-UI tests capture a visual [snapshot](snapshots) of every story in a cloud browser environment. Whenever you push code, Chromatic generates a new set of snapshots and compares them against [baselines](branching-and-baselines#baselines). If there are visual changes, you verify if they're intentional.
+UI tests pinpoint visual changes and verify user [interactions](interactions). They capture a [snapshot](snapshots) of every story in a cloud browser environment. Whenever you push code, Chromatic generates a new set of snapshots and compares them against [baseline snapshots](branching-and-baselines#baselines). If there are changes, you verify if they're intentional. If there are test errors, you get notified to fix them.
 
 ![UI test](img/workflow-uitest.png)
 
 ## Enable
 
-Enable visual tests for your project on the manage screen. All snapshots are taken in Chrome by default. This is also where you expand test coverage to additional browsers.
+Enable visual tests for your project on the manage screen. [Interaction tests](interactions) are automatically run when you enable visual tests. All snapshots are taken in Chrome by default. This is also where you expand test coverage to additional browsers.
 
 ![Enable UI Tests](img/uitests-for-docs.png)
 
@@ -22,14 +22,21 @@ Once visual tests are enabled, you can establish baselines by [running a Chromat
 
 ## View changes between baselines
 
-Each build Chromatic compares new snapshots to existing baselines from previous builds. The list of changes are shown on the build page in the web app. The build will be marked "unreviewed" and the changes will be listed in the "Tests" table.
+Each build, Chromatic compares new snapshots to existing baselines from previous builds. The list of changes are shown on the build page in the web app. The build will be marked "unreviewed" and the changes will be listed in the "Tests" table.
 
 ![Build with unreviewed tests](img/build-test-unreviewed.png)
 
 <details>
 <summary class="no-anchor">What about component errors?</summary>
 
-When a story fails to render it will be badged with "Component Error". You will not be able to "pass" a build that has component errors. Fix story errors in Storybook and run tests again.
+When a story fails to render it will be badged with "Component Error". You will not be able to "pass" a build that has component errors. Fix story errors in Storybook and run the build again.
+
+</details>
+
+<details>
+<summary class="no-anchor">What about failed tests?</summary>
+
+When interaction tests fail, the story will be badged with "Failed test". You will not be able to "pass" a build that has failed tests. Fix interaction tests in Storybook and run the build again.
 
 </details>
 
@@ -37,9 +44,9 @@ When a story fails to render it will be badged with "Component Error". You will 
 
 Chromatic detects UI changes but it's still up to you to verify if changes are intentional. For intentional changes, you need to update the baseline so future tests will be compared to the _latest baseline_ for the story. If a change is unintentional it needs to be fixed.
 
-- ✅**Accept change**: This updates the story baseline. When a snapshot is accepted it won’t need to be re-accepted until it changes, even through git branches or merges.
+- ✅&nbsp;**Accept change**: This updates the story baseline. When a snapshot is accepted it won’t need to be re-accepted until it changes, even through git branches or merges.
 
-- ❌**Deny change**: This marks the change as "denied" indicating a regression and immediately fails the build. You can deny multiple changes per build.
+- ❌&nbsp;**Deny change**: This marks the change as "denied" indicating a regression and immediately fails the build. You can deny multiple changes per build.
 
 ![Snapshot that's unreviewed](img/snapshot-unreviewed.png)
 
@@ -93,9 +100,9 @@ Pin discussions on a change to give precise feedback on what’s wrong. Pair dis
 
 ## Merge
 
-If you accept all the changes, the build will **🟢Pass**. Future builds whose stories have the same appearance will pass.
+If you accept all the changes, the build will **🟢&nbsp;Pass**. Future builds whose stories have the same appearance will pass.
 
-If you deny any of the changes, the build will **🔴Fail**. You will need to make code changes (and thus start a new build) to get the build to pass.
+If you deny any of the changes, the build will **🔴&nbsp;Fail**. You will need to make code changes (and thus start a new build) to get the build to pass.
 
 When your build is passed (all changes accepted), you're ready to merge visual changes with confidence knowing that your UI is bug free. Chromatic will update the PR check for "UI Tests" to reflect the build status.
 
