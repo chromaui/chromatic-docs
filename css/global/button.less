@@ -1,6 +1,4 @@
 .btn {
-  .transition( all 150ms ease-out );
-  .transform(translate3d(0,0,0));
   border: 0;
   display: inline-block;
   overflow: hidden;
@@ -30,6 +28,10 @@
   // Disabled
   &[disabled] {
     cursor: not-allowed;
+  }
+
+  &:hover, &:active {
+    .transition(all 150ms ease-out);
   }
 
   // Button colors
