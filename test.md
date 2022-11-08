@@ -6,13 +6,13 @@ description: Learn how to run Chromatic UI Tests
 
 # UI Tests
 
-UI tests pinpoint visual changes and verify user [interactions](interactions). They capture a [snapshot](snapshots) of every story in a cloud browser environment. Whenever you push code, Chromatic generates a new set of snapshots and compares them against [baseline snapshots](branching-and-baselines#baselines). If there are changes, you verify if they're intentional. If there are test errors, you get notified to fix them.
+UI tests pinpoint visual changes and verify user [interactions](interactions). They capture a [snapshot](snapshots) of every story in a cloud browser environment. Whenever you push code, Chromatic generates a new set of snapshots and compares them against [baseline snapshots](branching-and-baselines#baselines). If there are changes, you verify that they're intentional. If there are test errors, you get notified to fix them.
 
 ![UI test](img/workflow-uitest.png)
 
 ## Enable
 
-Enable visual tests for your project on the manage screen. [Interaction tests](interactions) are automatically run when you enable visual tests. All snapshots are taken in Chrome by default. This is also where you expand test coverage to additional browsers.
+Enable visual tests for your project on the manage screen. If your stories have [interactions tests](interactions), they'll run automatically when visual tests are enabled. All snapshots are taken in Chrome by default. This is also where you expand test coverage to additional browsers.
 
 ![Enable UI Tests](img/uitests-for-docs.png)
 
