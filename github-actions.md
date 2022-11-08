@@ -78,29 +78,49 @@ Or you could disable Chromatic on pull requests from forked repositories.
 
 Chromatic's GitHub Action includes additional options to customize your workflow. The table below lists what's currently available:
 
-| Option                      | Description                                                                                                                   | Type                  | Example value     | Default value    |
-| --------------------------- | ----------------------------------------------------------------------------------------------------------------------------- | --------------------- | ----------------- | ---------------- |
-| **buildScriptName**         | The script that builds your Storybook                                                                                         | _String_              | build-storybook   | build-storybook  |
-| **storybookBuildDir**       | Provide a directory with your built Storybook.                                                                                | _String_              | storybook-static  | storybook-static |
-| **allowConsoleErrors**      | Do not exit when runtime errors occur in Storybook                                                                            | _Boolean_             | True              | false            |
-| **autoAcceptChanges**       | Automatically accepts all changes in Chromatic                                                                                | _String_ or _Boolean_ | my-branch or true | false            |
-| **exitZeroOnChanges**       | Positive exit of action even when there are changes detected                                                                  | _String_ or _Boolean_ | my-branch or true | true             |
-| **exitOnceUploaded**        | Exit with status 0 (OK) once the build has been sent to Chromatic                                                             | _String_ or _Boolean_ | my-branch or true | false            |
-| **ignoreLastBuildOnBranch** | Ignores the latest build on the current branch as a baseline of that build. Multiple branches are allowed through [picomatch] | _String_              | my-branch         | N/A              |
-| **workingDir**              | Provide the location of Storybook's `package.json` if installed in a subdirectory (i.e., monorepos)                           | _String_              | my-folder         | N/A              |
-| **skip**                    | Skip Chromatic tests, but mark the commit as passing. Avoids blocking PRs due to required merge checks                        | _String_ or _Boolean_ | branch or true    | false            |
-| **zip**                     | Publish your Storybook to Chromatic as a single zip file instead of individual content files.                                 | _Boolean_             | true              | false            |
+| Option                      | Description                                                                                                       | Type                  | Example value           | Default value        |
+| --------------------------- | ----------------------------------------------------------------------------------------------------------------- | --------------------- | ----------------------- | -------------------- |
+| **autoAcceptChanges**       | Automatically accepts all changes in Chromatic.                                                                   | `string` or `boolean` | `"my-branch"` or `true` | `false`              |
+| **buildScriptName**         | The script that builds your Storybook.                                                                            | `string`              | `"build:storybook"`     | `"build-storybook"`  |
+| **debug**                   | Output verbose debugging information.                                                                             | `boolean`             | `true`                  | `false`              |
+| **diagnostics**             | Write process context information to `chromatic-diagnostics.json`.                                                | `boolean`             | `true`                  | `false`              |
+| **dryRun**                  | Run without actually publishing to Chromatic.                                                                     | `boolean`             | `true`                  | `false`              |
+| **exitZeroOnChanges**       | Positive exit of action even when there are changes detected.                                                     | `string` or `boolean` | `"my-branch"` or `true` | `true`               |
+| **exitOnceUploaded**        | Exit with status 0 (OK) once the build has been sent to Chromatic.                                                | `string` or `boolean` | `"my-branch"` or `true` | `false`              |
+| **externals**               | Disable [TurboSnap](turbosnap) when any of these files have changed since the baseline build.                     | `string`              | `"my-folder/**"`        |                      |
+| **forceRebuild**            | Do not skip build when a rebuild is detected.                                                                     | `string` or `boolean` | `"my-branch"` or `true` | `false`              |
+| **ignoreLastBuildOnBranch** | Do not use the last build on this branch as a baseline if it is no longer in history (i.e., branch was rebased).  | `string`              | `"my-branch"`           |                      |
+| **onlyChanged**             | Enables [TurboSnap](turbosnap): Only run stories affected by files changed since the baseline build.              | `boolean`             | `true`                  | `false`              |
+| **onlyStoryFiles**          | Only run a single story or a subset of stories by their filename(s).                                              | `string`              | `"src/ui/**"`           | `false`              |
+| **onlyStoryNames**          | Only run a single story or a subset of stories by their name.                                                     | `string`              | `"Atoms/Button/*"`      | `false`              |
+| **projectToken**            | Your Chromatic project token.                                                                                     | `string`              | `"j02w2tdh63"`          |                      |
+| **skip**                    | Skip Chromatic tests, but mark the commit as passing. Avoids blocking Pull Requests due to required merge checks. | `string` or `boolean` | `"my-branch"` or `true` | `false`              |
+| **storybookBaseDir**        | Relative path from repository root to Storybook project root.                                                     | `string`              | `"src/ui"`              |                      |
+| **storybookBuildDir**       | Provide a directory with your built storybook; use if you have already built your Storybook.                      | `string`              | `"dist/storybook"`      | `"storybook-static"` |
+| **storybookConfigDir**      | Relative path from where you run Chromatic to your Storybook config directory.                                    | `string`              | `"storybook-config"`    | `".storybook"`       |
+| **traceChanged**            | Print dependency trace for changed files to affected story files; set to "expanded" to list individual modules.   | `string` or `boolean` | `"extended"` or `true`  | `false`              |
+| **workingDir**              | Provide the location of Storybook's `package.json` if installed in a subdirectory (i.e., monorepos).              | `string`              | `"my-folder"`           |                      |
+| **untraced**                | Disregard these files and their dependencies when tracing dependent stories for [TurboSnap](turbosnap).           | `string`              | `"my-folder/\*\*"`      |                      |
+| **zip**                     | Publish your Storybook to Chromatic as a single zip file instead of individual content files.                     | `boolean`             | `true`                  | `false`              |
 
 ### Outputs
 
 Chromatic's GitHub Action returns some information about your build in the form of outputs. The table below lists what's currently available:
 
-| Name             | Type   | Description                                                                                                                       |
-| ---------------- | ------ | --------------------------------------------------------------------------------------------------------------------------------- |
-| **url**          | string | An alias for the build URL (e.g. `https://www.chromatic.com/build?appId=<app id goes here>&number=<build number>`)                |
-| **buildUrl**     | string | The build URL (e.g. `https://www.chromatic.com/build?appId=<app id goes here>&number=<build number>`)                             |
-| **storybookUrl** | string | The Storybook preview URL for your current branch / Pull Request (e.g. `https://<app id goes here>-<branch hash>.chromatic.com/`) |
-| **code**         | string | The exit code for the current run of the Chromatic CLI                                                                            |
+| Name                             | Type     | Description                                                                                                        |
+| -------------------------------- | -------- | ------------------------------------------------------------------------------------------------------------------ |
+| **url**                          | `string` | An alias for the build URL.<br/> `https://www.chromatic.com/build?appId=example-app-id&number=100`                 |
+| **buildUrl**                     | `string` | The build URL. <br/> `https://www.chromatic.com/build?appId=example-app-id&number=100`                             |
+| **storybookUrl**                 | `string` | The Storybook preview URL for your current branch / Pull Request.<b/> `https://main--example-app-id.chromatic.com` |
+| **code**                         | `string` | The exit code for the current run of the Chromatic [CLI](cli#exit-codes).                                          |
+| **actualCaptureCount**           | `number` | The number of captured snapshots.                                                                                  |
+| **changeCount**                  | `number` | The number of tests with visual changes, including any inherited changes (e.g., due to [TurboSnap](turbosnap)).    |
+| **componentCount**               | `number` | The number of components in the published Storybook.                                                               |
+| **errorCount**                   | `number` | The number of tests with error(s), including any inherited errors (e.g., due to [TurboSnap](turbosnap)).           |
+| **inheritedCaptureCount**        | `number` | The number of inherited (not captured) snapshots (e.g., due to [TurboSnap](turbosnap)).                            |
+| **interactionTestFailuresCount** | `number` | The number of stories with interaction test failures.                                                              |
+| **specCount**                    | `number` | The number of stories in the published Storybook.                                                                  |
+| **testCount**                    | `number` | The number of tests on the build.                                                                                  |
 
 Please refer to [this GitHub document](https://docs.github.com/en/actions/using-workflows/workflow-syntax-for-github-actions#jobsjob_idoutputs) discussing how to use these outputs.
 
