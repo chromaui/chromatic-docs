@@ -72,7 +72,7 @@ Interaction tests run behind the scenes without you having to configure anything
 
 ## Debug test failures
 
-Chromatic notifies you when an interaction errors or an assertion fails. We designate these as critical failures that need immediate attention. You won’t be able to review the change or pass the build until the test is fixed.
+Chromatic notifies you when an interaction errors or an assertion fails. We designate these as critical failures that need immediate attention. You won’t be able to pass the build until the test is fixed.
 
 ![Build page with failed interaction test](img/interaction-build-screen-failed-test.png)
 
