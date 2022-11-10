@@ -10,11 +10,11 @@ description: We are removing the --preserve-missing flag and will start to fail 
 ⚠️ If you were linked here from the Chromatic webapp or CLI, this means your build was using `--preserve-missing` and action is required.
 </div>
 
-The `--preserve-missing` CLI flag (also known as the `preserveMissing` input to our GitHub Action) has been deprecated for a while and is soon to be removed entirely. We are removing the `--preserve-missing` behavior because it is incompatible with [infrastructure upgrade builds](infrastructure-upgrades#upgrade-builds) and makes it impossible to ever intentionally remove a story from Chromatic. Builds which still use this flag will eventually start to fail. If your Chromatic workflow is still configured with this flag, it must be updated.
+The `--preserve-missing` CLI flag (also known as the `preserveMissing` input to our GitHub Action) has been deprecated for a while and is soon to be removed entirely. We are removing the `--preserve-missing` behavior because it is incompatible with [infrastructure upgrade builds](infrastructure-upgrades#upgrade-builds) and makes it impossible to ever intentionally remove a story from Chromatic. Builds which still use this flag will eventually start to fail. If your Chromatic workflow is still configured with this flag, it must be updated. The upcoming "Version 5" [capture infrastructure](infrastructure-upgrades) will not support `--preserve-missing`.
 
 ## Rolling brownouts
 
-🚦 Starting **January 1, 2023** we will gradually start to fail builds that still use `--preserve-missing`. These "brownouts" will occur for 10 minutes each hour. On **February 1, 2023** the flag will be removed completely and any builds that still use it will fail.
+🚦 Starting **January 1, 2023** we will gradually start to fail builds that still use `--preserve-missing` even if they are still on Version 4 capture infrastructure. These "brownouts" will occur for 10 minutes each hour. Eventually you will be automatically upgraded to the latest capture infrastructure, at which point you will no longer be able to use `--preserve-missing` (all builds that still use it will fail).
 
 ## Reducing snapshots
 
