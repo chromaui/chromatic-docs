@@ -118,6 +118,7 @@ Some options can be configured through environment variables. You will typically
 | `CHROMATIC_BRANCH` \*         | Git branch name, see `--branch-name`                                                   |
 | `CHROMATIC_SLUG` \*           | Git repository slug (e.g. `chromaui/chromatic-cli`)                                    |
 | `CHROMATIC_POLL_INTERVAL`     | Polling interval when waiting for build to finish (default: `1000`)                    |
+| `CHROMATIC_OUTPUT_INTERVAL`   | Frequency of progress output while polling or uploading (default: `10000`)             |
 | `CHROMATIC_RETRIES`           | Number of times to retry file upload (default: `5`)                                    |
 | `CHROMATIC_STORYBOOK_VERSION` | Overrides Storybook package/version detection (e.g. `@storybook/react@6.5.0-alpha.25`) |
 | `CHROMATIC_TIMEOUT`           | Number of ms before giving up on `start-storybook` (default: `300000` (5 minutes))     |
