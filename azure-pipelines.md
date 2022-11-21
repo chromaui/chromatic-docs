@@ -34,6 +34,9 @@ stages:
           npm_config_cache: $(Pipeline.Workspace)/.npm
         # List of steps
         steps:
+          - checkout: self
+            displayName: "Get full Git history"
+            fetchDepth: 0
           # 👇 Installs and configures Node environment
           - task: NodeTool@0
             inputs:
