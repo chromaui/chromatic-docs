@@ -19,10 +19,6 @@ To integrate Chromatic with your existing pipeline, you'll need to add the follo
 trigger:
   - main
 
-# 👇 Environment variables created for Chromatic
-variables:
-  - group: chromatic-keys
-
 # Other configurations
 
 # Pipeline stages
@@ -38,10 +34,13 @@ stages:
           npm_config_cache: $(Pipeline.Workspace)/.npm
         # List of steps
         steps:
+          - checkout: self
+            displayName: "Get full Git history"
+            fetchDepth: 0
           # 👇 Installs and configures Node environment
           - task: NodeTool@0
             inputs:
-              versionSpec: "12.x"
+              versionSpec: "14.x"
             displayName: "Install Node.js"
           - task: Cache@2
             displayName: Install and cache packages
@@ -58,10 +57,12 @@ stages:
             inputs:
               # 👇 Runs Chromatic
               script: npx chromatic --project-token=${CHROMATIC_PROJECT_TOKEN}
+            env:
+              CHROMATIC_PROJECT_TOKEN: $(CHROMATIC_PROJECT_TOKEN)
 ```
 
 <div class="aside">
-For extra security, add Chromatic's <code>project-token</code> as an environment variable. See the official Azure <a href="https://docs.microsoft.com/en-us/azure/devops/pipelines/library/variable-groups?view=azure-devops&tabs=yaml">environment variables documentation</a>.
+For extra security, add Chromatic's <code>project-token</code> as an environment variable. See the official Azure <a href="https://learn.microsoft.com/en-us/azure/devops/pipelines/process/set-secret-variables?view=azure-devops&tabs=yaml%2Cbash">environment variables documentation</a>.
 </div>
 
 ### Run Chromatic on specific branches
@@ -121,6 +122,8 @@ stages:
             inputs:
               # 👇 Runs Chromatic with the flag to compress the build output.
               script: npx chromatic --project-token=${CHROMATIC_PROJECT_TOKEN} --zip
+            env:
+              CHROMATIC_PROJECT_TOKEN: $(CHROMATIC_PROJECT_TOKEN)
 ```
 
 ### Run Chromatic on monorepos
@@ -155,8 +158,9 @@ stages:
           - task: CmdLine@2
             displayName: Publish Project 1 to Chromatic
             inputs:
-              
               script: cd packages/project_1 && npx chromatic --project-token=${CHROMATIC_PROJECT_TOKEN_1}
+            env:
+              CHROMATIC_PROJECT_TOKEN_1: $(CHROMATIC_PROJECT_TOKEN_1)
       - job: Chromatic_Deploy_2
         displayName: Publish Project 2 to Chromatic
         steps:
@@ -166,6 +170,8 @@ stages:
             displayName: Publish Project 2 to Chromatic
             inputs:
               script: cd packages/project_2 && npx chromatic --project-token=${CHROMATIC_PROJECT_TOKEN_2}
+            env:
+              CHROMATIC_PROJECT_TOKEN_2: $(CHROMATIC_PROJECT_TOKEN_2)
 ```
 
 <div class="aside">
@@ -200,6 +206,8 @@ stages:
             inputs:
               # 👇 Runs Chromatic with the --branch-name flag to override the baseline branch
               script: npx chromatic --project-token=${CHROMATIC_PROJECT_TOKEN} --branch-name=${YOUR_BRANCH}
+            env:
+              CHROMATIC_PROJECT_TOKEN: $(CHROMATIC_PROJECT_TOKEN)
 ```
 
 Chromatic will now detect the correct branch and run your workflow. You can also apply this when fixing cross-fork UI comparisons.
@@ -234,6 +242,8 @@ stages:
             inputs:
               #👇Runs Chromatic with the flag to prevent pipeline failure
               script: npx chromatic --project-token=${CHROMATIC_PROJECT_TOKEN} --exit-zero-on-changes
+            env:
+              CHROMATIC_PROJECT_TOKEN: $(CHROMATIC_PROJECT_TOKEN)
 ```
 
 <div class="aside">
@@ -282,12 +292,16 @@ stages:
             condition: and(succeeded(), eq(variables['build.sourceBranch'], 'refs/heads/main'))
             inputs:
               script: npx chromatic --project-token=${CHROMATIC_PROJECT_TOKEN} --auto-accept-changes
+            env:
+              CHROMATIC_PROJECT_TOKEN: $(CHROMATIC_PROJECT_TOKEN)
             # 👇 Checks if the branch is not main and runs Chromatic
           - task: CmdLine@2
             displayName: Publish to Chromatic
             condition: eq(variables['Build.Reason'], 'PullRequest')
             inputs:
               script: npx chromatic --project-token=${CHROMATIC_PROJECT_TOKEN}
+            env:
+              CHROMATIC_PROJECT_TOKEN: $(CHROMATIC_PROJECT_TOKEN)
 ```
 
 <div class="aside">
@@ -319,6 +333,8 @@ stages:
             displayName: Publish to Chromatic
             inputs:
               script: npx chromatic --project-token=${CHROMATIC_PROJECT_TOKEN} --ignore-last-build-on-branch=my-branch
+            env:
+              CHROMATIC_PROJECT_TOKEN: $(CHROMATIC_PROJECT_TOKEN)
 ```
 
 <div class="aside">
