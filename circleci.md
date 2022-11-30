@@ -31,7 +31,7 @@ jobs:
           keys:
             - v1-dependencies-{% raw %}{{ checksum "package.json" }}{% endraw %}
             - v1-dependencies-
-      - run: yarn install
+      - run: yarn install # or use run: npm install if you use npm
         # 👇 Runs the Chromatic CLI
       - run: yarn chromatic --project-token=${CHROMATIC_PROJECT_TOKEN}
 

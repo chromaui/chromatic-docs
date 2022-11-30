@@ -30,7 +30,7 @@ jobs:
     steps:
       - uses: actions/checkout@v1
       - name: Install dependencies
-        run: yarn
+        run: yarn # or use run: npm install if you use npm
         # 👇 Adds Chromatic as a step in the workflow
       - name: Publish to Chromatic
         uses: chromaui/action@v1
@@ -144,7 +144,7 @@ jobs:
         with:
           fetch-depth: 0 # 👈 Required to retrieve git history
       - name: Install dependencies
-        run: yarn
+        run: yarn # or use run: npm install if you use npm
         # 👇 Adds Chromatic as a step in the workflow
       - name: Publish to Chromatic
         uses: chromaui/action@v1
@@ -171,7 +171,7 @@ If you need to customize your workflow to run Chromatic on specific branches, ad
 on:
   push:
     branches-ignore:
-      - "example" # 👈 Excludes the example branch
+      - 'example' # 👈 Excludes the example branch
 
 jobs:
 # The list of jobs and steps
@@ -202,7 +202,7 @@ jobs:
     # Job steps
     steps:
       - uses: actions/checkout@v1
-      - run: yarn
+      - run: yarn # or use run: npm install if you use npm
         #👇 Adds Chromatic as a step in the workflow
       - uses: chromaui/action@v1
         # Options required for Chromatic's GitHub Action
@@ -241,7 +241,7 @@ jobs:
     steps:
       - uses: actions/checkout@v1
       - name: Install dependencies
-        run: yarn
+        run: yarn # or use run: npm install if you use npm
         # 👇 Adds Chromatic as a step in the workflow
       - name: Publish Project 1 to Chromatic
         uses: chromaui/action@v1
@@ -279,7 +279,7 @@ jobs:
     steps:
       - uses: actions/checkout@v1
       - name: Install dependencies
-        run: yarn
+        run: yarn # or use run: npm install if you use npm
         # 👇 Adds Chromatic as a step in the workflow
       - name: Publish to Chromatic
         uses: chromaui/action@v1
@@ -308,7 +308,7 @@ jobs:
     steps:
       - uses: actions/checkout@v1
       - name: Install dependencies
-        run: yarn
+        run: yarn # or use run: npm install if you use npm
         # 👇 Adds Chromatic as a step in the workflow
       - name: Publish to Chromatic
         uses: chromaui/action@v1
@@ -348,7 +348,7 @@ jobs:
     # Job steps
     steps:
       - uses: actions/checkout@v1
-      - run: yarn
+      - run: yarn # or use run: npm install if you use npm
         #👇 Adds Chromatic as a step in the workflow
       - uses: chromaui/action@v1
         # Options required for Chromatic's GitHub Action
@@ -375,7 +375,7 @@ jobs:
     # Job steps
     steps:
       - uses: actions/checkout@v1
-      - run: yarn
+      - run: yarn # or use run: npm install if you use npm
         #👇 Adds Chromatic as a step in the workflow
       - uses: chromaui/action@v1
         # Options required for Chromatic's GitHub Action
