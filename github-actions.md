@@ -30,6 +30,7 @@ jobs:
     steps:
       - uses: actions/checkout@v1
       - name: Install dependencies
+        # 👇 Install dependencies with the same package manager used in the project (replace it as needed) e.g. yarn, npm, pnpm
         run: yarn
         # 👇 Adds Chromatic as a step in the workflow
       - name: Publish to Chromatic
@@ -144,6 +145,7 @@ jobs:
         with:
           fetch-depth: 0 # 👈 Required to retrieve git history
       - name: Install dependencies
+        # 👇 Install dependencies with the same package manager used in the project (replace it as needed) e.g. yarn, npm, pnpm
         run: yarn
         # 👇 Adds Chromatic as a step in the workflow
       - name: Publish to Chromatic
@@ -202,13 +204,14 @@ jobs:
     # Job steps
     steps:
       - uses: actions/checkout@v1
+        # 👇 Install dependencies with the same package manager used in the project (replace it as needed) e.g. yarn, npm, pnpm
       - run: yarn
-        #👇 Adds Chromatic as a step in the workflow
+        # 👇 Adds Chromatic as a step in the workflow
       - uses: chromaui/action@v1
         # Options required for Chromatic's GitHub Action
         with:
           projectToken: {% raw %}${{ secrets.CHROMATIC_PROJECT_TOKEN }}{% endraw %}
-          #👇Runs Chromatic with the option to compress the build output.
+          # 👇Runs Chromatic with the option to compress the build output.
           zip: true
 ```
 
@@ -241,6 +244,7 @@ jobs:
     steps:
       - uses: actions/checkout@v1
       - name: Install dependencies
+        # 👇 Install dependencies with the same package manager used in the project (replace it as needed) e.g. yarn, npm, pnpm
         run: yarn
         # 👇 Adds Chromatic as a step in the workflow
       - name: Publish Project 1 to Chromatic
@@ -279,6 +283,7 @@ jobs:
     steps:
       - uses: actions/checkout@v1
       - name: Install dependencies
+        # 👇 Install dependencies with the same package manager used in the project (replace it as needed) e.g. yarn, npm, pnpm
         run: yarn
         # 👇 Adds Chromatic as a step in the workflow
       - name: Publish to Chromatic
@@ -308,6 +313,7 @@ jobs:
     steps:
       - uses: actions/checkout@v1
       - name: Install dependencies
+        # 👇 Install dependencies with the same package manager used in the project (replace it as needed) e.g. yarn, npm, pnpm
         run: yarn
         # 👇 Adds Chromatic as a step in the workflow
       - name: Publish to Chromatic
@@ -348,14 +354,15 @@ jobs:
     # Job steps
     steps:
       - uses: actions/checkout@v1
+        # 👇 Install dependencies with the same package manager used in the project (replace it as needed) e.g. yarn, npm, pnpm
       - run: yarn
-        #👇 Adds Chromatic as a step in the workflow
+        # 👇 Adds Chromatic as a step in the workflow
       - uses: chromaui/action@v1
         # Options required for Chromatic's GitHub Action
         with:
           projectToken: {% raw %}${{ secrets.CHROMATIC_PROJECT_TOKEN }}{% endraw %}
         env:
-          #👇 Sets the environment variable
+          # 👇 Sets the environment variable
           CHROMATIC_RETRIES: 5
           LOG_LEVEL: 'error'
 ```
