@@ -91,6 +91,8 @@ By creating a linked project in Chromatic, you automatically have at your dispos
 
 - [Collaborators](collaborators) synched automatically based on your Git provider.
 
+- The [visibility](collaborators#visibility) of your published Storybook will be synced with the visibility of your GitHub repository
+
 - UI test notifications are enabled via automated webhooks for third-party integrations.
 
 - Automated PR badging is configured automatically via [OAuth permissions](#what-permissions-does-the-github-app-request) granted by the Git provider.
