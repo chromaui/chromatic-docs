@@ -156,16 +156,16 @@ Some options can be configured through environment variables. You will typically
 
 ### Deprecated options
 
-These options are still supported, but will be removed in a future version. If your project uses them please adjust your configuration to remove them.
+The following options are still supported but will be removed in a future version. If your project still uses them, we encourage you to remove them from your scripts or configuration at your earliest convenience.
 
-| CLI flag                  |                                                                                                                                              |
-| ------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------- |
-| `--allow-console-errors`  | Continue running Chromatic even if there are errors logged to console in your Storybook.                                                     |
-| `--app-code <token>`      | Renamed to `--project-token`.                                                                                                                |
+| CLI flag                 |                                                                                          |
+| ------------------------ | ---------------------------------------------------------------------------------------- |
+| `--allow-console-errors` | Continue running Chromatic even if there are errors logged to console in your Storybook. |
+| `--app-code <token>`     | Renamed to `--project-token`.                                                            |
 
 ### Unsupported options
 
-These options are no longer supported by our CLI and have no longer have an effect if you pass them. It is safe to remove these from your scripts and configuration.
+The options listed below are no longer supported by our CLI and will not yield any result if you provide them in your project. We recommend removing them from your scripts and configuration.
 
 | CLI flag                  |                                                                                                                                              |
 | ------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------- |
