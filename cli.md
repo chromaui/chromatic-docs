@@ -156,12 +156,19 @@ Some options can be configured through environment variables. You will typically
 
 ### Deprecated options
 
-These options are still supported, but might be removed in a future version. Avoid them if possible. See "Uploading Storybook via the tunnel" below for details.
+The following options are still supported but will be removed in a future version. If your project still uses them, we encourage you to remove them from your scripts or configuration at your earliest convenience.
+
+| CLI flag                 |                                                                                          |
+| ------------------------ | ---------------------------------------------------------------------------------------- |
+| `--allow-console-errors` | Continue running Chromatic even if there are errors logged to console in your Storybook. |
+| `--app-code <token>`     | Renamed to `--project-token`.                                                            |
+
+### Unsupported options
+
+The options listed below are no longer supported by our CLI and will not yield any result if you provide them in your project. We recommend removing them from your scripts and configuration.
 
 | CLI flag                  |                                                                                                                                              |
 | ------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------- |
-| `--allow-console-errors`  | Continue running Chromatic even if there are errors logged to console in your Storybook.                                                     |
-| `--app-code <token>`      | Renamed to `--project-token`.                                                                                                                |
 | `--script-name [name]`    | The npm script that starts your Storybook. Defaults to `storybook`. Alias: `-s`                                                              |
 | `--exec <command>`        | Alternatively, a shell command that starts your Storybook. Alias: `-e`                                                                       |
 | `--do-not-start`          | Don't attempt to start or build Storybook. Use this if your Storybook is already running, for example when part of a larger app. Alias: `-S` |
@@ -171,29 +178,6 @@ These options are still supported, but might be removed in a future version. Avo
 | `--storybook-key <path>`  | Use with `--storybook-https`. Auto detected from the npm script when using `--script-name`.                                                  |
 | `--storybook-ca <ca>`     | Use with `--storybook-https`. Auto detected from the npm script when using `--script-name`.                                                  |
 | `--storybook-url <url>`   | Run against an online Storybook at some URL. This implies `--do-not-start`. Alias: `-u`                                                      |
-
-<details>
-<summary>Uploading Storybook via the tunnel (deprecated)</summary>
-
-We changed the way that Chromatic CLI builds and uploads Storybook over time. Before we begin, make sure you're using the latest [**chromatic**](https://www.npmjs.com/package/chromatic) package.
-
-#### Tunnel method (deprecated)
-
-The original version of [**storybook-chromatic**](https://www.npmjs.com/package/storybook-chromatic) (deprecated) used a tunnelling mechanism in order to capture screenshots of your stories and create a hosted version of your Storybook. The CLI package would create a HTTPS tunnel between your CI server (running Storybook in development mode) and our capture cloud.
-
-This technique worked well, but it relied on a stable network connection between your CI server and our tunnel's server while building. In some cases, this connection could be less than perfect for reasons outside of anyone's control. This could lead to miscaptured stories when resources failed to load.
-
-#### Build and publish method
-
-As of `^2.0.0`, Chromatic CLI defaults to building a static Storybook then uploading it to our servers before starting the capture process. It relies on the Storybook command `build-storybook`.
-
-In practice, this method is more predictable, reliable, and faster for creating builds. It also means you can pass the `--exit-once-uploaded` flag (as of `^3.4.0`) and not have to keep your CI server running while Chromatic is capturing.
-
-We'll continue to support the tunnel, however it is officially deprecated. We urge you to switch to uploaded builds.
-
-To start using uploaded builds, ensure you are on the latest version of [**chromatic**](https://www.npmjs.com/package/chromatic) and that you are not using the `-s` / `--script-name` flag in your "chromatic" script. If you use a custom npm script name to build Storybook, you'll need to pass the `-b` / `--build-script-name` flag to the Chromatic CLI.
-
-</details>
 
 ## Usage in a GitHub Action
 
