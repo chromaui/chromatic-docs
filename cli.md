@@ -162,6 +162,13 @@ These options are still supported, but might be removed in a future version. Avo
 | ------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------- |
 | `--allow-console-errors`  | Continue running Chromatic even if there are errors logged to console in your Storybook.                                                     |
 | `--app-code <token>`      | Renamed to `--project-token`.                                                                                                                |
+
+### Unsupported options
+
+These options are no longer supported by our CLI and have no longer have an effect if you pass them. It is safe to remove these from your scripts and configuration.
+
+| CLI flag                  |                                                                                                                                              |
+| ------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------- |
 | `--script-name [name]`    | The npm script that starts your Storybook. Defaults to `storybook`. Alias: `-s`                                                              |
 | `--exec <command>`        | Alternatively, a shell command that starts your Storybook. Alias: `-e`                                                                       |
 | `--do-not-start`          | Don't attempt to start or build Storybook. Use this if your Storybook is already running, for example when part of a larger app. Alias: `-S` |
