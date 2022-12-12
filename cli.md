@@ -111,24 +111,34 @@ See [diagnosing issues](#diagnosing-issues) for when to use these flags.
 
 Some options can be configured through environment variables. You will typically only need these when instructed to. Flags take precedence over environment variables.
 
-| Environment variable          | Description                                                                            |
-| ----------------------------- | -------------------------------------------------------------------------------------- |
-| `CHROMATIC_PROJECT_TOKEN`     | Project token, see `--project-token`                                                   |
-| `CHROMATIC_SHA` \*            | Git commit hash                                                                        |
-| `CHROMATIC_BRANCH` \*         | Git branch name, see `--branch-name`                                                   |
-| `CHROMATIC_SLUG` \*           | Git repository slug (e.g. `chromaui/chromatic-cli`)                                    |
-| `CHROMATIC_POLL_INTERVAL`     | Polling interval when waiting for build to finish (default: `1000`)                    |
-| `CHROMATIC_RETRIES`           | Number of times to retry file upload (default: `5`)                                    |
-| `CHROMATIC_STORYBOOK_VERSION` | Overrides Storybook package/version detection (e.g. `@storybook/react@6.5.0-alpha.25`) |
-| `CHROMATIC_TIMEOUT`           | Number of ms before giving up on `start-storybook` (default: `300000` (5 minutes))     |
-| `STORYBOOK_BUILD_TIMEOUT`     | Number of ms before giving up on `build-storybook` (default: `600000` (10 minutes))    |
-| `CI`                          | See `--ci`                                                                             |
-| `LOG_LEVEL`                   | One of: `silent`, `error`, `warn`, `info`, `debug`                                     |
-| `DISABLE_LOGGING`             | Set to `true` to disable logging. Equal to `LOG_LEVEL=silent`                          |
-| `HTTPS_PROXY` or `HTTP_PROXY` | Used to configure [https-proxy-agent]                                                  |
+| Environment variable                  | Description                                                                            |
+| ------------------------------------- | -------------------------------------------------------------------------------------- |
+| `CHROMATIC_PROJECT_TOKEN`             | Project token, see `--project-token`                                                   |
+| `CHROMATIC_SHA` \*                    | Git commit hash                                                                        |
+| `CHROMATIC_BRANCH` \*                 | Git branch name, see `--branch-name`                                                   |
+| `CHROMATIC_SLUG` \*                   | Git repository slug (e.g. `chromaui/chromatic-cli`)                                    |
+| `CHROMATIC_POLL_INTERVAL`             | Polling interval when waiting for build to finish (default: `1000`)                    |
+| `CHROMATIC_RETRIES`                   | Number of times to retry file upload (default: `5`)                                    |
+| `CHROMATIC_STORYBOOK_VERSION`         | Overrides Storybook package/version detection (e.g. `@storybook/react@6.5.0-alpha.25`) |
+| `CHROMATIC_TIMEOUT`                   | Number of ms before giving up on `start-storybook` (default: `300000` (5 minutes))     |
+| `STORYBOOK_BUILD_TIMEOUT`             | Number of ms before giving up on `build-storybook` (default: `600000` (10 minutes))    |
+| `CHROMATIC_DNS_SERVERS` \*\*          | Overrides the DNS server IP address(es) used by node-fetch, comma-separated            |
+| `CHROMATIC_DNS_FAILOVER_SERVERS` \*\* | Fallback DNS server IPs (default: '1.1.1.1, 8.8.8.8' (Cloudflare, Google))             |
+| `CI`                                  | See `--ci`                                                                             |
+| `LOG_LEVEL`                           | One of: `silent`, `error`, `warn`, `info`, `debug`                                     |
+| `DISABLE_LOGGING`                     | Set to `true` to disable logging. Equal to `LOG_LEVEL=silent`                          |
+| `HTTPS_PROXY` or `HTTP_PROXY` \*\*    | Used to configure [https-proxy-agent]                                                  |
 
 <div class="aside">
 * If you specify any of <code>CHROMATIC_SHA</code>, <code>CHROMATIC_BRANCH</code> or <code>CHROMATIC_SLUG</code>, you will have to specify all three, otherwise they will be ignored.
+</div>
+
+<div class="aside">
+** By default, the operating system will handle DNS resolution. If lookup fails (`ENOTFOUND` error), we first switch from `dns.lookup` (operating system lookup) to `dns.resolve` (network lookup) and try again. If that still fails, we add `CHROMATIC_DNS_FAILOVER_SERVERS` to the list of available DNS servers and try again. See Node's [DNS implementation considerations](https://nodejs.org/docs/latest/api/dns.html#dns_implementation_considerations) for details.
+
+If DNS is known to be an issue in your environment, or you have a specific DNS server IP to use, you can specify `CHROMATIC_DNS_SERVERS` (comma-separated list of IP addresses) to force the use of `dns.resolve` with this set of servers. The failover servers will still be used if the primary DNS fails. To disable the failover servers, set `CHROMATIC_DNS_FAILOVER_SERVERS` to an empty string.
+
+Note that the use of `CHROMATIC_DNS_SERVERS` or `CHROMATIC_DNS_FAILOVER_SERVERS` will override any configured `HTTPS_PROXY` or `HTTP_PROXY`.
 </div>
 
 ### Exit codes
