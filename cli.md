@@ -111,6 +111,7 @@ See [diagnosing issues](#diagnosing-issues) for when to use these flags.
 
 Some options can be configured through environment variables. You will typically only need these when instructed to. Flags take precedence over environment variables.
 
+
 | Environment variable             | Description                                                                                                                                  |
 | -------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------- |
 | `CHROMATIC_PROJECT_TOKEN`        | Project token, see `--project-token`                                                                                                         |
