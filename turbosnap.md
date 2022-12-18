@@ -6,9 +6,9 @@ description: Speed up tests by detecting file changes with Git
 
 # TurboSnap
 
-TurboSnap is an advanced Chromatic feature that speeds up builds for faster [UI testing](test) and [review](review) using Git and Webpack's [dependency graph](https://webpack.js.org/concepts/dependency-graph/). It identifies component files that change, then intelligently builds and snapshots only the stories associated with those components.
+TurboSnap is an advanced Chromatic feature that speeds up builds for faster [UI testing](test) and [review](review) using Git and Webpack's [dependency graph](https://webpack.js.org/concepts/dependency-graph/). It identifies component files and dependencies that have changed, then intelligently snapshots only the stories associated with those changes.
 
-⚠️ When using TurboSnap, your builds may complete in less time using fewer snapshots. However, we don't recommend using TurboSnap immediately when starting out with Chromatic since the configuration is more complicated and can lead to difficult to debug scenarios or UI changes being missed. Instead, become familiar with Chromatic's out of the box behavior and once your project has been running smoothly for some time consider trying out TurboSnap.
+⚠️ When using TurboSnap, your builds may complete in less time using fewer snapshots. However, we don't allow using TurboSnap immediately when starting out with Chromatic since the configuration is more complicated and can lead to difficult to debug scenarios or UI changes being missed. Instead, become familiar with Chromatic's out of the box behavior and once your project has been running smoothly for some time consider trying out TurboSnap. TurboSnap is unlocked after 10 succesful builds on CI, at least one of which is accepted.
 
 #### Prerequisites
 
@@ -36,7 +36,7 @@ Stories that have not changed will not be tested (i.e., snapshotted), despite ap
 
 Certain circumstances could potentially affect all stories. To prevent false positives, we re-test everything if any of the following situations apply:
 
-- Changes to package versions in `package.json`, `yarn.lock`, `package-lock.json`
+- Changes to dependency versions in `package.json`, if no valid lockfile is available
 - Changes to your Storybook's configuration
 - Changes in files that are imported by your [`preview.js`](https://storybook.js.org/docs/react/configure/overview#configure-story-rendering) (as this could affect any story)
 - Changes in your static folder (if specified using `--static-dir` / `-s`)
@@ -47,8 +47,7 @@ Certain circumstances could potentially affect all stories. To prevent false pos
 
 #### Missing commits (rebasing)
 
-Under the hood, TurboSnap works by calculating the difference between the current commit and its ancestor. However, there are certain cases (i.e., rebasing, force pushing) where the commit linked to the previous build no longer exists in the repository, which prevents Chromatic from
-doing this computation accurately.
+Under the hood, TurboSnap works by calculating the difference between the current commit and its ancestor. However, there are certain cases (i.e., rebasing, force pushing) where the commit linked to the previous build no longer exists in the repository, which prevents Chromatic from doing this computation accurately.
 
 In this case, it will search the existing builds until it finds a suitable "replacement build" with a valid commit in the repository. Once found, it approximates the difference between the two commits alongside any UI changes. This can lead to a story being re-tested if one of the following requirements is met:
 
@@ -84,7 +83,7 @@ You may need additional config in the following situations:
 - You're using `--storybook-build-dir` or `-d` to let Chromatic use a prebuilt Storybook
 - You are using the `staticDirs` config in your main Storybook configuration
 - You have other files outside the Webpack dependency tree which affect your stories (e.g. Sass or template files)
-- You have files that should not trigger a re-test
+- You have files that should never trigger a re-test (e.g. in a monorepo)
 - You want to enable or disable TurboSnap for specific branches
 
 ### Prebuilt Storybook
@@ -146,9 +145,9 @@ TurboSnap works by taking a list of changed files in your Git repository and tra
 
 #### Avoid re-testing on changes to package control files
 
-When certain files that pertain to `node_modules` (`package.json`, `package-lock.json`, `yarn.lock`) change, TurboSnap cannot safely tell what may have changed inside `node_modules`, and so needs to re-test all stories.
+When certain files that pertain to `node_modules` (`package.json`, `package-lock.json`, `yarn.lock`) change, TurboSnap attempts to determine an exact set of changed dependencies and trace those dependencies to associated stories. We rely on lock file(s) to get actual version numbers rather than semver ranges. TurboSnap retrieves versions for both the current state of the repository, as well as for each baseline commit. If a lockfile is missing or out of sync with package.json, TurboSnap cannot do this and we'll have to re-test all stories.
 
-You can opt out of this by passing these file names to the `--untraced` flag: e.g. `--untraced=package.json,yarn.lock`. **NOTE:** this may lead to builds where visual changes due to changed dependencies are missed!
+Similar to source code changes, `--untraced` can also be used to ignore dependency updates by specifying e.g. `--untraced "services/backend/package.json"`. That way, any dependency updates in that package will not be considered when applying TurboSnap. More likely though, you will just untrace `services/backend/**` to ignore _any_ change in that directory, including dependency changes. It's also possible to untrace a lockfile (to the same effect), but note that untracing the root lockfile will ignore dependency changes in _all_ packages that rely on it. That is, any subpackage that does not have its own lockfile.
 
 ### Enable or disable for specific branches
 
@@ -158,7 +157,7 @@ To enable TurboSnap for specific branches, pass a glob to `--only-changed` (e.g.
 
 The best way to see if TurboSnap is working is to inspect your CLI output. There are a couple of messages the CLI outputs of particular relevance:
 
-```shell
+```
 Traversing dependencies for X files that changed since the last build
 ```
 
@@ -166,7 +165,7 @@ Traversing dependencies for X files that changed since the last build
 This message tells us how many git changes Chromatic detected since the last Chromatic build. Usually, that's just one or two commit's worth of files.
 </div>
 
-```shell
+```
 Found Y story files affected by recent changes
 ```
 
@@ -174,7 +173,7 @@ Found Y story files affected by recent changes
 This message tells you the number of story files that depend on the X changes above. This message also might be replaced by a message telling you that we need to capture all stories (<a href="#why-are-full-rebuilds-required">see below</a>).
 </div>
 
-```shell
+```
 Tested A stories across B components; capture C snapshots in S seconds.
 ```
 
