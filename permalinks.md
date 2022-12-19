@@ -80,3 +80,16 @@ A custom domain gives you a memorable URL to share with stakeholders and teammat
 <img src="img/permalinks-custom-domain-form.png" alt="permalinks custom domain" style="width: 400px; display:block; margin: 0 auto;">
 
 </details>
+
+<details>
+<summary><b>My domain remains in the "Issuing certificate" state</b></summary>
+
+Your DNS may be configured with [CAA records](https://en.wikipedia.org/wiki/DNS_Certification_Authority_Authorization) that only allow certain authorities to issue certificates for your domain names. The Chromatic custom domain relies on Let's Encrypt. In order to allow Let's Encrypt to issue a certificate for your Chromatic custom domain, add a `CAA` record for `letsencrypt.org`. For example:
+
+```
+<your domain>. 300 IN CAA 128 issue "letsencrypt.org"
+```
+
+As CAA records are inherited by subdomains, you can configure the CAA record at the apex domain, which is convenient if you have multiple Chromatic projects.
+
+</details>
