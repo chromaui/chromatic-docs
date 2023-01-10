@@ -123,6 +123,15 @@ The project token is available on the Configure page of your project.
 </details>
 
 <details>
+<summary>Can I reset or cycle my project token?</summary>
+
+Users with the [`owner`](collaborators#roles) role can reset or cycle project tokens on the Configure page of your project.
+
+![Navigate to the Manage page and click on the Configure tab](img/configure-project-token.jpg)
+
+</details>
+
+<details>
 <summary>Why are the story names in Chromatic different than what I have in Storybook?</summary>
 
 Chromatic follows Storybook's [naming best practice](https://storybook.js.org/docs/react/writing-stories/naming-components-and-hierarchy). The last level in the hierarchy is tracked as the component name.
