@@ -15,6 +15,10 @@ To integrate Chromatic with your existing workflow, you’ll need to add the fol
 ```yml
 # travis.yml
 
+language: node_js
+node_js:
+  - 16
+
 # Other required configuration
 
 jobs:

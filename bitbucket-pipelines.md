@@ -15,6 +15,8 @@ To integrate Chromatic with your existing pipeline, you'll need to add the follo
 ```yml
 # bitbucket-pipelines.yml
 
+image: node:16
+
 # A sample pipeline implementation
 pipelines:
   default:

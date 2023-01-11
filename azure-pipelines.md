@@ -40,7 +40,7 @@ stages:
           # 👇 Installs and configures Node environment
           - task: NodeTool@0
             inputs:
-              versionSpec: "14.x"
+              versionSpec: "16.x"
             displayName: "Install Node.js"
           - task: Cache@2
             displayName: Install and cache packages
