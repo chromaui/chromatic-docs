@@ -31,6 +31,7 @@ jobs:
           keys:
             - v1-dependencies-{% raw %}{{ checksum "package.json" }}{% endraw %}
             - v1-dependencies-
+      # 👇 Install dependencies with the same package manager used in the project (replace it as needed) e.g. yarn, npm, pnpm  
       - run: yarn install
         # 👇 Runs the Chromatic CLI
       - run: yarn chromatic --project-token=${CHROMATIC_PROJECT_TOKEN}
