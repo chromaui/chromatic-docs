@@ -178,6 +178,42 @@ stages:
 Additional paralellization can be achieved when configuring your workflow to run Chromatic on multiple subprojects. Read the official Azure DevOps <a href="https://learn.microsoft.com/en-us/azure/devops/pipelines/licensing/concurrent-jobs?view=azure-devops&tabs=ms-hosted"> documentation</a>.
 </div>
 
+### Enable TurboSnap
+
+TurboSnap is an advanced Chromatic feature implemented to improve the build time for large projects, disabled by default once you add Chromatic to your CI environment. To enable it, you'll need to adjust your existing workflow and run the `chromatic` command with the `--only-changed` flag as follows:
+
+```yml
+# azure-pipelines.yml
+
+# Other configurations
+
+# Pipeline stages
+stages:
+  - stage: Test
+    displayName: Chromatic Testing
+    # Job list
+    jobs:
+      - job: Chromatic_Deploy
+        displayName: Publish to Chromatic
+        steps:
+          # Other steps in the pipeline
+
+          # 👇 Adds Chromatic as a step in the pipeline
+          - task: CmdLine@2
+            displayName: Publish to Chromatic
+            inputs:
+              # 👇 Enables Chromatic's TurboSnap feature.
+              script: npx chromatic --project-token=${CHROMATIC_PROJECT_TOKEN} --only-changed
+            env:
+              CHROMATIC_PROJECT_TOKEN: $(CHROMATIC_PROJECT_TOKEN)
+```
+
+<div class="aside">
+
+TurboSnap is highly customizable and can be configured to fit your requirements. For more information, read our [documentation](turbosnap).
+
+</div>
+
 ### Overriding Chromatic's branch detection
 
 If your Azure pipeline includes a set of rules for branches (e.g., renames the branch, creates ephemeral, or temporary branches) it can lead to unforeseen build errors.

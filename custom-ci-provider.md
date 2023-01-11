@@ -77,6 +77,23 @@ If you want to run Chromatic in parallel for each subproject, you can use this s
         command: cd packages/project_2 && npm run chromatic --project-token=CHROMATIC_PROJECT_TOKEN_2
 ```
 
+### Enable TurboSnap
+
+TurboSnap is an advanced Chromatic feature implemented to improve the build time for large projects, disabled by default once you add Chromatic to your CI environment. To enable it, you'll need to adjust your existing workflow and run the `chromatic` command with the `--only-changed` flag as follows:
+
+```yml
+# your-workflow
+
+- run:
+    # 👇 Enables Chromatic's TurboSnap feature.
+    command: npm run chromatic --project-token=CHROMATIC_PROJECT_TOKEN --only-changed
+```
+
+<div class="aside">
+
+TurboSnap is highly customizable and can be configured to fit your requirements. For more information, read our [documentation](turbosnap).
+
+</div>
 
 ### Overriding Chromatic's branch detection
 

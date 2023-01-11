@@ -149,6 +149,34 @@ pipelines:
               - yarn chromatic --project-token=$CHROMATIC_PROJECT_TOKEN_2
 ```
 
+### Enable TurboSnap
+
+TurboSnap is an advanced Chromatic feature implemented to improve the build time for large projects, disabled by default once you add Chromatic to your CI environment. To enable it, you'll need to adjust your existing workflow and run the `chromatic` command with the `--only-changed` flag as follows:
+
+```yml
+# bitbucket-pipelines.yml
+
+# A sample pipeline implementation
+pipelines:
+  default:
+    # Other steps in the pipeline
+
+    # 👇 Adds Chromatic as a step in the pipeline
+    - step:
+        name: "Publish to Chromatic"
+        # Other pipeline configuration
+        script:
+          - yarn install
+            # 👇 Enables Chromatic's TurboSnap feature.
+          - yarn chromatic --project-token=$CHROMATIC_PROJECT_TOKEN --only-changed
+```
+
+<div class="aside">
+
+TurboSnap is highly customizable and can be configured to fit your requirements. For more information, read our [documentation](turbosnap).
+
+</div>
+
 ### UI Test and UI Review
 
 [UI Tests](test) and [UI Review](review) rely on [branch and baseline](branching-and-baselines) detection to keep track of [snapshots](snapshots). We recommend the following configuration.
