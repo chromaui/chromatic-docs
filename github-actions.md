@@ -353,6 +353,36 @@ TurboSnap is highly customizable and can be configured to fit your requirements.
 
 </div>
 
+
+#### Trigger full rebuilds 
+
+By default, TurboSnap relies on Webpack's dependency graph to determine which files changes since the last build. If you're working with files processed outside the scope of Webpack (e.g., fonts, images, CSS, external libraries), you can use the `externals` option to tell Chromatic to rebuild the entire project when a file matching the pattern is changed. For example:
+
+
+```yml
+# .github/workflows/chromatic.yml
+
+# Other necessary configuration
+
+jobs:
+  chromatic-deployment:
+    steps:
+        # 👇 Adds Chromatic as a step in the workflow
+      - name: Publish to Chromatic
+        uses: chromaui/action@v1
+        # Options required to the GitHub chromatic action
+        with:
+          # 👇 Chromatic projectToken, refer to the manage page to obtain it.
+          projectToken: {% raw %}${{ secrets.CHROMATIC_PROJECT_TOKEN }}{% endraw %}
+          onlyChanged: true # 👈 Required option to enable TurboSnap
+          externals: {% raw %}packages/(icons/icons|tokens/src)/**{% endraw %}
+```
+
+<div class="aside">
+
+The `externals` option also accept additional glob patterns defined via [picomatch].
+</div>
+
 ### Support for environment variables
 
 Environment variables are supported in Chromatic. You can use them to customize your workflow execution or provide project-related variables (e.g., API URLs). Below is a table and condensed examples featuring the available Chromatic variables and how to set up a project-specific variable.
