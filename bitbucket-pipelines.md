@@ -15,6 +15,8 @@ To integrate Chromatic with your existing pipeline, you'll need to add the follo
 ```yml
 # bitbucket-pipelines.yml
 
+image: node:16
+
 # A sample pipeline implementation
 pipelines:
   default:
@@ -146,6 +148,34 @@ pipelines:
               - cd packages/project_2
               - yarn chromatic --project-token=$CHROMATIC_PROJECT_TOKEN_2
 ```
+
+### Enable TurboSnap
+
+TurboSnap is an advanced Chromatic feature implemented to improve the build time for large projects, disabled by default once you add Chromatic to your CI environment. To enable it, you'll need to adjust your existing workflow and run the `chromatic` command with the `--only-changed` flag as follows:
+
+```yml
+# bitbucket-pipelines.yml
+
+# A sample pipeline implementation
+pipelines:
+  default:
+    # Other steps in the pipeline
+
+    # 👇 Adds Chromatic as a step in the pipeline
+    - step:
+        name: "Publish to Chromatic"
+        # Other pipeline configuration
+        script:
+          - yarn install
+            # 👇 Enables Chromatic's TurboSnap feature.
+          - yarn chromatic --project-token=$CHROMATIC_PROJECT_TOKEN --only-changed
+```
+
+<div class="aside">
+
+TurboSnap is highly customizable and can be configured to fit your requirements. For more information, read our [documentation](turbosnap).
+
+</div>
 
 ### UI Test and UI Review
 

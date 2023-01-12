@@ -23,7 +23,7 @@ jobs:
   # 👇 Adds Chromatic as a job
   chromatic-deployment:
     docker:
-      - image: circleci/node:12
+      - image: circleci/node:16
     working_directory: ~/repo
     steps:
       - checkout
@@ -131,6 +131,35 @@ jobs:
 
 <div class="aside">
 Additional paralellization can be achieved when configuring your workflow to run Chromatic on multiple subprojects. Read the official CircleCI <a href="https://circleci.com/docs/parallelism-faster-jobs"> documentation</a>.
+</div>
+
+### Enable TurboSnap
+
+TurboSnap is an advanced Chromatic feature implemented to improve the build time for large projects, disabled by default once you add Chromatic to your CI environment. To enable it, you'll need to adjust your existing workflow and run the `chromatic` command with the `--only-changed` flag as follows:
+
+```yml
+# .circleci/config.yml
+
+# Other required configuration
+
+jobs:
+  # Other jobs
+
+  # 👇 Adds Chromatic as a job
+  chromatic-deployment:
+    # Other configuration
+    steps:
+      # Other job steps
+
+      # 👇 Enables Chromatic's TurboSnap feature.
+      - run: yarn chromatic --project-token=${CHROMATIC_PROJECT_TOKEN} --only-changed
+# Workflows here
+```
+
+<div class="aside">
+
+TurboSnap is highly customizable and can be configured to fit your requirements. For more information, read our [documentation](turbosnap).
+
 </div>
 
 ### External Pull Requests

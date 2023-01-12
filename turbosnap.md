@@ -20,7 +20,7 @@ TurboSnap is an advanced Chromatic feature that speeds up builds for faster [UI 
 
 ## Enable
 
-Run Chromatic's CLI with the `--only-changed` option to enable TurboSnap. Alternatively, you can use the `onlyChanged` option for the Chromatic GitHub action.
+Run Chromatic's CLI with the `--only-changed` option to enable TurboSnap. Alternatively, you can use the `onlyChanged` option for the Chromatic [GitHub action](github-actions#enable-turbosnap).
 
 It will build and test stories that may have been affected by the Git changes since the last build. Depending on your project setup, you may need [additional configuration](#configure).
 
@@ -121,10 +121,32 @@ TurboSnap relies on Webpack's dependency graph. That means if you're using files
 
 For example, if you use an external Sass compiler (not `sass-loader`) to compile `.sass` files to `.css` files (which may then be consumed by Webpack), then a change to a `.sass` file will not match any dependencies, preventing stories from being captured (i.e., snapshotted).
 
-To work around this, run Chromatic's CLI with the `--externals` option (or `externals` action option) to specify one or more globs of "externally processed" files. For example:
+To work around this, run Chromatic's CLI with the `--externals` flag to specify one or more globs of "externally processed" files. For example:
 
 ```shell
 chromatic --only-changed --externals "*.sass" --externals "public/**"
+```
+
+If you've set up TurboSnap with Chromatic's [GitHub action](github-actions#enable-turbosnap), you can extend your existing workflow and provide the `externals` option as follows:
+
+```yml
+# .github/workflows/chromatic.yml
+
+# Other necessary configuration
+
+jobs:
+  chromatic-deployment:
+    steps:
+        # 👇 Adds Chromatic as a step in the workflow
+      - name: Publish to Chromatic
+        uses: chromaui/action@v1
+        # Options required to the GitHub chromatic action
+        with:
+          # 👇 Chromatic projectToken, refer to the manage page to obtain it.
+          projectToken: {% raw %}${{ secrets.CHROMATIC_PROJECT_TOKEN }}{% endraw %}
+          externals: |
+            - '*.sass'
+            - 'public/**'
 ```
 
 > If you are using the [`staticDirs`](https://storybook.js.org/docs/react/configure/images-and-assets#serving-static-files-via-storybook-configuration) option in your main Storybook config (introduced in Storybook 6.4), you should flag those as externals as well. While the deprecated `--static-dir` (`-s`) Storybook CLI flag is auto-detected, the config option in `main.js` is not.
@@ -170,7 +192,9 @@ Found Y story files affected by recent changes
 ```
 
 <div class="aside">
-This message tells you the number of story files that depend on the X changes above. This message also might be replaced by a message telling you that we need to capture all stories (<a href="#why-are-full-rebuilds-required">see below</a>).
+
+This message tells you the number of story files that depend on the X changes above. This message also might be replaced by a message telling you that we need to capture all stories ([see below](#why-are-full-rebuilds-required) ).
+
 </div>
 
 ```shell
@@ -214,9 +238,9 @@ Our own GitHub Action works around that by using `pull_request.head.sha` as the 
 <details>
   <summary>Why are no changes being detected?</summary>
 
-If the messages above indicate no story files are being detected by changes, then possibly there is an issue matching up the git changes with the files in your Storybook build. Use the <code>--debug</code> flag to get more information about what Chromatic is doing.
+If the messages above indicate no story files are being detected by changes, then possibly there is an issue matching up the git changes with the files in your Storybook build. Use the `--debug` flag to get more information about what Chromatic is doing.
 
-Another reason that changes may be missed is if the changed files aren't directly included in the webpack build; use the <a href="#specify-which-changes-trigger-a-full-re-test"><code>--externals</code> flag</a> to tell Chromatic about this.
+Another reason that changes may be missed is if the changed files aren't directly included in the webpack build; use the [`externals` flag](#specify-external-files-to-trigger-a-full-re-test-when-they-change) to tell Chromatic about this.
 
 If you're trying to figure out why certain stories are being re-tested, you can pass the `--trace-changed` flag, which will print a visual report of how changed files link to your story files:
 
@@ -280,7 +304,7 @@ If this list of files contains things you didn't expect, look at any global deco
 <details>
   <summary>Why are full rebuilds required?</summary>
 
-Full rebuilds can be required for various reasons (see the list in <a href="#how-it-works">how it works</a>). Another scenario where a full rebuild will also be required is due to a change to a <code>package.json</code> or lock file for a subproject that doesn't affect the Storybook (we need to be very conservative as we cannot tell if a change to a lock file could affect <code>node_modules</code> imported by Storybook).
+Full rebuilds can be required for various reasons (see the list in [how it works](#how-it-works)). Another scenario where a full rebuild will also be required is due to a change to a `package.json` or lock file for a subproject that doesn't affect the Storybook (we need to be very conservative as we cannot tell if a change to a lock file could affect `node_modules` imported by Storybook).
 
   <div class="aside">
     If you run into this situation frequently, upvote the <a href="https://github.com/chromaui/chromatic-cli/issues/383">open issue</a> in the Chromatic CLI's issue tracker to opt-out of this behavior for specific directories in your repository.
@@ -297,13 +321,13 @@ If you have a large dependency tree, the build process may fail due to an out of
 <details>
   <summary>Why do merge commits test more changes than I expect?</summary>
 
-Ordinarily, TurboSnap uses git to find all files that have changed since the <a href="/docs/branching-and-baselines#calculating-the-ancestor-builds">ancestor build</a> to determine which components/stories to snapshot. The changed file behavior is more complex with merge commits because there are two "ancestor builds".
+Ordinarily, TurboSnap uses git to find all files that have changed since the [ancestor build](branching-and-baselines#calculating-the-ancestor-builds) to determine which components/stories to snapshot. The changed file behavior is more complex with merge commits because there are two "ancestor builds".
 
 When you have a merge commit, Chromatic considers **any file that has changed since either ancestor's commit** to decide if a story needs to be re-snapshotted. In other words, the union of the git changes.
 
 The reason for this behavior relates to what Chromatic does when it chooses not to re-snapshot a story. In such case, it "copies" the snapshot for the story from the ancestor build, knowing (due to the git check) that the story cannot have changed in the meantime.
 
-In the case of merge commits, Chromatic does not know ahead of time which side of the merge the snapshot might be copied from because that involves running the <a href="/docs/branching-and-baselines#calculating-a-snapshot-baseline-from-the-ancestor-builds">complete baseline selection</a> process, so it needs to be conservative and allow for changes on either branch.
+In the case of merge commits, Chromatic does not know ahead of time which side of the merge the snapshot might be copied from because that involves running the [complete baseline selection](branching-and-baselines#calculating-a-snapshot-baseline-from-the-ancestor-builds) process, so it needs to be conservative and allow for changes on either branch.
 
 </details>
 
