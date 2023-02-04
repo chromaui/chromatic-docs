@@ -21,11 +21,9 @@ In doing this, you’ll have captured all component states and variations as sto
 - [Building pages with Storybook](https://storybook.js.org/docs/react/writing-stories/build-pages-with-storybook)
 - [Stories are tests](https://storybook.js.org/blog/stories-are-tests/)
 
-### 2. Run Chromatic
+### 2. Run Chromatic in CI
 
-Once you've finished the first iteration of the implementation, open a pull request and run a Chromatic build.
-
-We recommend [configuring your CI](ci) to run a Chromatic build whenever you push code to get the most out of Chromatic.
+Once you've finished the first iteration of the implementation, open a pull request and run a Chromatic build. We recommend [configuring your CI](ci) to run a Chromatic build whenever you push code. This ensures the published Storybook on Chromatic is up to date and ensures comprehensive coverage for UI Test and UI Review.
 
 <details>
 <summary>How often should I run Chromatic?</summary>
@@ -51,15 +49,17 @@ This enables you to run Chromatic regularly while reducing the snapshot count pe
 
 </details>
 
-### 3. UI Test to catch bugs
+### 3. UI Tests to catch bugs
 
 Changes in development are inevitable, and bugs can easily slip in, especially with UIs. A small tweak to the CSS can cause a component or one of its states to break. Even worse, the bug can have a cascading effect cause other components and pages to break.
+
+You use Storybook to isolate UI components, mock their variations, and save the supported test cases as stories. Chromatic then captures a snapshot of each story in a cloud browser.
 
 ![visual bugs are inevitable](img/visual-bugs.gif)
 
 Tests are typically used to verify logic. That makes sense; you run a function, get its output, and determine if it is correct or not. Computers are great at verifying data. But what about how something looks?
 
-Chromatic’s UI tests are designed to catch changes in UI appearance aka visual bugs.
+Chromatic’s UI tests are designed to catch visual and interaction bugs.
 
 <details>
 <summary>What are visual bugs?</summary>
@@ -68,24 +68,14 @@ Visual bugs are the unintentional errors in your UIs appearance that make it loo
 
 </details>
 
-#### Use stories as test cases
-
-You use Storybook to isolate UI components, mock their variations, and save the supported test cases as stories. Chromatic then captures a snapshot of each story in a cloud browser.
-
-#### Developers verify UI changes
-
-UI Tests are similar to other types of testing (unit, E2E, etc.), in that they enable developers to catch and fix regressions.
-
-UI Tests compare the snapshot of a story commit with the previously accepted [baseline](branching-and-baselines#branches-and-baselines) in your git history (typically on the same branch). Upon completion, you can review the diff. If the changes are intentional, press the accept button to update the baselines.
-
 <details>
-<summary>How can I test user interaction with Chromatic?</summary>
+<summary>What are interaction bugs?</summary>
 
-In most cases you can supply props to a component to render a particular state as a story. But some component variations can not be reproduced with props alone; they require user interaction. For example drop-downs, modals, and form elements.
+Interaction bugs are unintentional errors in UI behavior that prevents it from working as intended. For example: a dialog doesn't open or a form doesn't respond to typing events.
 
-[Interactive stories](interactions) enable you to test how components respond to user input. You can then attach a [play function](https://storybook.js.org/docs/react/writing-stories/play-function) to the story to simulate user behavior (e.g., clicks and inputs) and run assertions.
+[Interactive stories combined with assertions](interactions) enable you to test how components respond to user input. Attach a [play function](https://storybook.js.org/docs/react/writing-stories/play-function) to the story to simulate user behavior (e.g., click and type) and assert against that behavior.
 
-Interaction tests run behind the scenes without you having to configure anything. You'll be notified of any test failures via the Chromatic UI.
+Interaction tests in Chromatic run behind the scenes without you having to configure anything. You'll be notified of any test failures via the Chromatic UI.
 
 These are designated as critical failures that need immediate attention. You won't be able to pass the build until the test is fixed.
 
@@ -95,22 +85,30 @@ To debug, you can launch the published Storybook to reproduce the exact state of
 
 </details>
 
-Once all changes are approved, the UI is considered “ready” and you can move to the review phase.
+#### Developers verify UI changes
+
+UI Tests are similar to other types of testing (unit, E2E, etc.), in that they enable developers to catch and fix regressions.
+
+UI Tests compare the snapshot of a story with the previously accepted [baseline](branching-and-baselines#branches-and-baselines) in your git history (typically on the same branch). If there are changes, you'll get a diff of the changes. If the changes are intentional, press the accept button to update the baselines.
+
+Once all changes are approved, the UI is considered “ready” and you can move to the UI Review phase.
 
 ### 4. UI Review to get team sign off
 
 ![Assign reviewers to get feedback](img/ui-review.png)
 
-On your Git provider (GitHub, Gitlab, Bitbucket, etc.) you assign other devs to review the code for a pull request. Chromatic allows you to assign designers, PMs, and other stakeholders to review the UI changes associated with that pull request. Review is the opportunity to get qualitative feedback on changes from your team and get a final sign off.
+In tools like GitHub, Gitlab, and Bitbucket you assign other devs to review the code for a pull request. Chromatic complements this workflow by allowing you to assign designers, PMs, and other stakeholders to review UI changes in that pull request.
 
-Developers often fill in edge cases and overcome technical hurdles while coding. These challenges may not be apparent just by looking at the code, and it can be difficult to manually click through the UI to ensure that all possible variations are reviewed. Chromatic's superpower is that it knows exactly which stories have changed, so it can show the reviewer precisely what they need to review, simplifying the approval process.
+Review is the opportunity to discuss changes and get final team sign off. In the past, teams had to manually click through the UI to review all possible variations. Chromatic's superpower is that it knows exactly which stories have changed. It generates a changeset for your reviewers that shows precisely what they need to review. This speeds up the sign off process.
+
+UI Review is essential because developers often run into edge cases or technical hurdles that your team didn't consider.
 
 For [UI Review](review), Chromatic shows you a branch vs branch comparison. That is, what will change on the base branch when you merge this PR.
 
 <details>
 <summary>How do I invite collaborators to my project?</summary>
 
-To add or remove collaborators, go to the Project > Collaborators screen. You can invite them by email or by sharing an invite link.
+To add or remove collaborators, go to the collaborate tab on your project's Manage page. You can invite them by email or by sharing an invite link.
 
 [More on inviting collaborators »](collaborators#external-collaborators)
 
@@ -119,7 +117,7 @@ To add or remove collaborators, go to the Project > Collaborators screen. You ca
 <details>
 <summary>How to assign designers and PMs to review?</summary>
 
-Use the Assign Reviewers link on the PR Activity screen to choose reviewers from the project’s collaborators. Reviewers will be emailed a link to the PR screen to begin their review.
+Use the Assign Reviewers link on the PR Activity page to choose reviewers from the project’s collaborators. Reviewers will be emailed a link to the PR screen to begin their review.
 
 ![assign reviewers by picking from your list of collaborators](img/assign-reviewers.gif)
 
