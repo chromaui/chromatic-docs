@@ -6,7 +6,13 @@ description: Learn how interaction testing works with Chromatic
 
 # Interaction tests
 
-Interaction tests enable you to verify how a component responds to user behaviors like click, type, keyboard, and hover. It uses the [`play`](https://storybook.js.org/docs/react/writing-stories/play-function) function in Storybook 6.5 and above.
+Interaction tests enable you to verify how a component responds to user behaviors like click, type, keyboard, and hover. It's powered by Storybook's [`play`](https://storybook.js.org/docs/react/writing-stories/play-function) function.
+
+<div class="aside">
+
+Interaction tests require Storybook 6.5.10+. Check which version you have in package.json or open the "About Storybook" page in your Storybook.
+
+</div>
 
 ## How to write interaction tests
 
@@ -72,7 +78,7 @@ Interaction tests run behind the scenes without you having to configure anything
 
 ## Debug test failures
 
-Chromatic notifies you when an interaction errors or an assertion fails. We designate these as critical failures that need immediate attention. You won’t be able to review the change or pass the build until the test is fixed.
+Chromatic notifies you when an interaction errors or an assertion fails. We designate these as critical failures that need immediate attention. You won’t be able to pass the build until the test is fixed.
 
 ![Build page with failed interaction test](img/interaction-build-screen-failed-test.png)
 

@@ -181,6 +181,39 @@ pipeline {
 }
 ```
 
+### Enable TurboSnap
+
+TurboSnap is an advanced Chromatic feature implemented to improve the build time for large projects, disabled by default once you add Chromatic to your CI environment. To enable it, you'll need to adjust your existing workflow and run the `chromatic` command with the `--only-changed` flag as follows:
+
+```groovy
+/* JenkinsFile */
+
+pipeline {
+  /* Other pipeline configuration. */
+
+  stages {
+    /* Other pipeline stages */
+
+    /* 👇 Adds Chromatic as a stage */
+    stage('Publish to Chromatic') {
+      environment {
+        CHROMATIC_PROJECT_TOKEN = 'Chromatic project token'
+      }
+      steps {
+        /* 👇 Enables Chromatic's TurboSnap feature. */
+        sh "yarn chromatic --project-token=${CHROMATIC_PROJECT_TOKEN} --only-changed"
+      }
+    }
+  }
+}
+```
+
+<div class="aside">
+
+TurboSnap is highly customizable and can be configured to fit your requirements. For more information, read our [documentation](turbosnap).
+
+</div>
+
 ### Overriding Chromatic's branch detection
 
 If your Jenkins pipeline includes a set of rules for branches (e.g., renames the branch, creates ephemeral, or temporary branches) it can lead to unforeseen build errors.

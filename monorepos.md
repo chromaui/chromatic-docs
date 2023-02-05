@@ -84,6 +84,10 @@ The `--untraced` CLI flag can be used to ignore all changes outside of a package
 
 Note that the glob pattern starts from the root directory of the repository, not from the directory of the `UI` package. You can also specify `--untraced` multiple times to include multiple glob patterns.
 
+```shell
+npx chromatic --only-changed --untraced=package.json,yarn.lock --exit-zero-on-changes
+```
+
 Some monorepo setups manage third-party dependencies at the root level (so all dependencies in the monorepo have consistent versions). You may wish to ignore these root-level files (e.g., lockfile) to avoid unnecessary snapshots, but be aware that changes can go unnoticed.
 
 #### With onlyStoryFiles

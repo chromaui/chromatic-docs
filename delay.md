@@ -54,7 +54,7 @@ Check for DOM elements using `getBy`, `findBy`, or `queryBy` (docs [here](https:
 ```javascript
 // MyComponent.stories.js|jsx
 
-import { within, userEvent } from '@storybook/testing-library';
+import { within, userEvent, waitFor } from '@storybook/testing-library';
 import { expect } from '@storybook/jest';
 
 import { MyComponent } from './MyComponent';
@@ -71,8 +71,12 @@ StoryName.play = async ({ canvasElement }) => {
   // Assigns canvas to the component root element
   const canvas = within(canvasElement);
 
-  //👇 This assertion will pass if a DOM element with the matching id exists
-  await expect(canvas.getByTestId('element-waiting-for')).toBeInTheDocument();
+  //   Wait for the below assertion not throwing an error anymore (default timeout is 1000ms)
+  //👇 This is especially useful when you have an asynchronous action or component that you want to wait for
+  await waitFor(() => {
+    //👇 This assertion will pass if a DOM element with the matching id exists
+    expect(canvas.getByTestId("button")).toBeInTheDocument();
+  });
 };
 ```
 

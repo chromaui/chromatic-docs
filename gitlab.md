@@ -137,6 +137,33 @@ chromatic_publish_project_2:
 Additional paralellization can be achieved when configuring your workflow to run Chromatic on multiple subprojects. Read the official GitLab <a href="https://docs.gitlab.com/ee/ci/jobs/job_control.html#parallelize-large-jobs"> documentation</a>.
 </div>
 
+### Enable TurboSnap
+
+TurboSnap is an advanced Chromatic feature implemented to improve the build time for large projects, disabled by default once you add Chromatic to your CI environment. To enable it, you'll need to adjust your existing workflow and run the `chromatic` command with the `--only-changed` flag as follows:
+
+```yml
+# .gitlab-ci.yml
+
+# Additional pipeline configurations
+
+# Sets the stages for the pipeline
+stages:
+  - test
+
+# 👇 Adds Chromatic as a job
+chromatic_publish:
+  stage: test
+  # 👇 Enables Chromatic's TurboSnap feature.
+  script:
+    - yarn chromatic --project-token=$CHROMATIC_PROJECT_TOKEN --only-changed
+```
+
+<div class="aside">
+
+TurboSnap is highly customizable and can be configured to fit your requirements. For more information, read our [documentation](turbosnap).
+
+</div>
+
 ### UI Test and UI Review
 
 [UI Tests](test) and [UI Review](review) rely on [branch and baseline](branching-and-baselines) detection to keep track of [snapshots](snapshots). We recommend the following configuration.

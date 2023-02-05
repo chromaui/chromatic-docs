@@ -15,6 +15,10 @@ To integrate Chromatic with your existing workflow, you’ll need to add the fol
 ```yml
 # travis.yml
 
+language: node_js
+node_js:
+  - 16
+
 # Other required configuration
 
 jobs:
@@ -108,6 +112,31 @@ jobs:
 
 <div class="aside">
 Additional parallelization can be achieved when configuring your workflow to run Chromatic on multiple subprojects. Read the official Travis CI <a href="https://docs.travis-ci.com/user/build-matrix/"> build matrix documentation</a>
+</div>
+
+### Enable TurboSnap
+
+TurboSnap is an advanced Chromatic feature implemented to improve the build time for large projects, disabled by default once you add Chromatic to your CI environment. To enable it, you'll need to adjust your existing workflow and run the `chromatic` command with the `--only-changed` flag as follows:
+
+```yml
+# travis.yml
+
+# Other required configuration
+
+jobs:
+  include:
+    # Other jobs
+
+    # 👇 Adds Chromatic as a job
+    - name: "Publish to Chromatic"
+      # 👇 Enables Chromatic's TurboSnap feature.
+      script: yarn chromatic --project-token=${CHROMATIC_PROJECT_TOKEN} --only-changed
+```
+
+<div class="aside">
+
+TurboSnap is highly customizable and can be configured to fit your requirements. For more information, read our [documentation](turbosnap).
+
 </div>
 
 ### Recommended configuration for build events
