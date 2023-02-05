@@ -103,13 +103,6 @@ Interaction tests are reported in the UI Tests pull request check. When a test f
 ### Frequently asked questions
 
 <details>
-<summary>Why aren't my interaction tests working in IE11?</summary>
-
-IE11 has entered the end of life and isn't supported by the instrumented libraries that Chromatic relies upon to run interaction tests. We recommend previewing your tests using the other available browsers (e.g., Firefox, Chrome).
-
-</details>
-
-<details>
 <summary>My interactions aren't getting snapshotted consistently with external web fonts?</summary>
 
 Interactions run as soon as the DOM loads. But external resources like web fonts can load before or after the interaction runs depending on network latency. This can cause dialogs, tooltips, and menus to change position.
