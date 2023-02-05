@@ -57,7 +57,7 @@ You use Storybook to isolate UI components, mock their variations, and save the 
 
 ![visual bugs are inevitable](img/visual-bugs.gif)
 
-Chromatic’s UI tests are designed to catch visual and interaction bugs.
+Chromatic’s [UI tests](test) are designed to catch visual and interaction bugs.
 
 <details>
 <summary>What are visual bugs?</summary>
@@ -95,9 +95,9 @@ In tools like GitHub, Gitlab, and Bitbucket you assign other devs to review the 
 
 Review is the opportunity to discuss changes and get final team sign off. In the past, teams had to manually click through the UI to review all possible variations. Chromatic's superpower is that it knows exactly which stories have changed. It generates a changeset for your reviewers that shows precisely what they need to review. This speeds up the sign off process.
 
-UI Review is essential because developers often run into edge cases or technical hurdles that your team didn't consider.
+[UI Review](review) is essential because developers often run into edge cases or technical hurdles that your team didn't consider.
 
-For [UI Review](review), Chromatic shows you a branch vs branch comparison. That is, what will change on the base branch when you merge this PR.
+For UI Review, Chromatic shows you a branch vs branch comparison. That is, what will change on the base branch when you merge this PR.
 
 <details>
 <summary>How do I invite collaborators to my project?</summary>
@@ -171,4 +171,4 @@ You finished setting up Chromatic. We look forward to the incredible UIs you'll 
 
 #### How to get support
 
-You're supported by the team behind Storybook. For the quickest response, [login](https://www.chromatic.com/start) and use the in-app chat or <a href="mailto:support@chromatic.com?Subject=Question">email</a>.
+You're supported by the team behind Storybook. For the quickest response, [sign in](https://www.chromatic.com/start) and use the in-app chat or <a href="mailto:support@chromatic.com?Subject=Question">email</a>.
