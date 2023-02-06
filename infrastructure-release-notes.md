@@ -16,14 +16,17 @@ Key highlights on this release:
 
 - Chrome version updated to version 105
 - Firefox version updated to version 103
+- Safari version 16 added
+- Edge version 105 added
 
 ### Supported browsers versions
 
-| Browser           | Version |
-| ----------------- | ------- |
-| Chrome            | 105     |
-| Firefox           | 103     |
-| Internet Explorer | 11      |
+| Browser | Version |
+| ------- | ------- |
+| Chrome  | 105     |
+| Firefox | 103     |
+| Safari  | 16      |
+| Edge    | 105     |
 
 ---
 
