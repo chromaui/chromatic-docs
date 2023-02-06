@@ -282,10 +282,4 @@ The solution we recommend is to use a `<link rel="preload">` in your [`.storyboo
 
 ## Browser differences between snapshots
 
-Chromatic attempts to render as consistently as possible across our supported browsers. But browsers expose different capabilities which can affect your snapshots. It's normal to have slight differences in snapshots that
-
-Chrome gives us full access to network APIs. That means we can confirm when resources load with greater accuracy. In a nutshell, your snapshots are more consistent. In Chrome, we render your story via a Storybook JS API, and then watch network activity, waiting for quiescence (a period of no network activity) before capturing a snapshot.
-
-Firefox and Internet Explorer have built in APIs to tell when assets are loaded. In practice, these APIs are less nuanced than Chrome which may affect your snapshots. In Firefox and IE11, we browse to a Storybook URL that renders your story, then wait for the browser “load” event in addition to our own heuristics to determine when the story finishes rendering.
-
-The above can behave differently if your page loads resources (such as JS files) via techniques that aren’t picked up by the load event (such as AJAX / background requests).
+Chromatic attempts to render as consistently as possible across our supported browsers. But all browsers have different capabilities and built-in APIs. In practice, this means your snapshots may appear or behave differently depending on which browser you're looking at. This is ideal for customers because it mirrors what the end users who use different browsers would also encounter.

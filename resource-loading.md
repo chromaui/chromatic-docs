@@ -24,16 +24,6 @@ If you know how long async rendering takes, you can add a [delay](delay) to avoi
 
 We are investigating ways to add first-class support to Storybook and Chromatic for asynchronous rendering. Let us know if you need this feature by chat or [email](mailto:support@chromatic.com?Subject=Asynchronous%20Rendering).
 
-## Browser differences
-
-Chromatic attempts to render as consistently as possible across our supported browsers. But all browsers have different capabilities that are worth mentioning here.
-
-Chrome gives us full access to network APIs. That means we can confirm when resources load with greater accuracy. In a nutshell, your snapshots are more consistent. In Chrome, we render your story via a Storybook JS API, and then watch network activity, waiting for quiescence (a period of no network activity) before capturing a snapshot.
-
-Firefox and Internet Explorer have built in APIs to tell when assets are loaded. In practice, these APIs are less nuanced than Chrome which may affect your snapshots. In Firefox and IE11, we browse to a Storybook URL that renders your story, then wait for the browser ["load" event](https://developer.mozilla.org/en-US/docs/Web/API/Window/load_event) in addition to our own heuristics to determine when the story finishes rendering.
-
-The above can behave differently if your page loads resources (such as JS files) via techniques that aren't picked up by the load event (such as AJAX / background requests).
-
 ## Loading custom fonts
 
 Browsers can decide to render HTML in multiple passes when custom fonts are used. They do this to speed up the time-to-first-meaningful-paint.
@@ -48,11 +38,11 @@ We recommend that you ensure fonts are always loaded prior to rendering the stor
 // ./storybook/preview-head.html
 
 <link
-  rel="preload"
-  href="path/to/font.woff2"
-  as="font"
-  type="font/woff2"
-  crossorigin="anonymous"
+  rel='preload'
+  href='path/to/font.woff2'
+  as='font'
+  type='font/woff2'
+  crossorigin='anonymous'
 />
 ```
 

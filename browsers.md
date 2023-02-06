@@ -6,7 +6,7 @@ description: Enable visual testing with multiple browsers
 
 # Browser support
 
-UIs might look perfect in one browser but be broken in another. Chromatic helps you extend your test coverage to Chrome, Firefox, and IE11 in one click.
+UIs might look perfect in one browser but be broken in another. Chromatic helps you extend your test coverage to Chrome, Firefox, Safari, and Edge in one click.
 
 ## Enable new browsers
 
@@ -30,7 +30,7 @@ Your team can also see how a story renders in a given browser across different b
   <source src="img/browser-componentscreen-toggle-snapshots.mp4" type="video/mp4" />
 </video>
 
-Congratulations, you enabled a new browser! From now on, our Capture Cloud will spin up as many Chrome, Firefox, or IE11 machines as you need to test your Storybook in the least amount of time.
+Congratulations, you enabled a new browser! From now on, our Capture Cloud will spin up as many Chrome, Firefox, Safari, or Edge machines as you need to test your Storybook in the least amount of time.
 
 ## Verify UI changes across browsers
 
@@ -42,9 +42,9 @@ You can see changes for the browser's snapshot in the [review](review#find-your-
 
 ![Changes in Firefox snapshot](img/browser-snapshotscreen-diff-in-firefox-snapshot.jpg)
 
-Once you accept changes to the story, its baselines are updated. Each story has one baseline for Chrome, and it can also have baselines for Firefox and IE11.
+Once you accept changes to the story, its baselines are updated. Each story has one baseline for Chrome, and it can also have baselines for Firefox, Safari, and Edge.
 
-<div class="aside">If you test responsiveness with the viewport parameters, baselines are associated with each viewport, and those can have a Chrome, Firefox, or IE11 baseline.</div>
+<div class="aside">If you test responsiveness with the viewport parameters, baselines are associated with each viewport, and those can have a Chrome, Firefox, Safari or Edge baseline.</div>
 
 ## Browser upgrades
 

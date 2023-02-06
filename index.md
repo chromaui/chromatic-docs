@@ -18,7 +18,7 @@ Publish your Storybook to our secure CDN when you push code. Chromatic provides 
 
 #### ✅ UI Tests
 
-Test for visual regressions in components. Chromatic turns your stories into test baselines. Each story is rendered in Chrome, Firefox, and Internet Explorer 11 simultaneously, then compared to a screenshot of the "last known good state" to detect bugs.
+Test for visual regressions in components. Chromatic turns your stories into test baselines. Each story is rendered in Chrome, Firefox, Safari, and Edge simultaneously, then compared to a screenshot of the "last known good state" to detect bugs.
 
 #### 💬 UI Review
 

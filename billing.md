@@ -70,8 +70,9 @@ The downloaded CSV includes the following columns:
 | Skipped snapshots           | Number of snapshots that you saved (not got billed for) thanks to [TurboSnap](turbosnap)                          |
 | Chrome snapshots            | Number of billed snapshots captured in Chrome                                                                     |
 | Firefox snapshots           | Number of billed snapshots captured in Firefox                                                                    |
-| Internet Explorer snapshots | Number of billed snapshots captured in Internet Explorer                                                          |
 | Safari snapshots            | Number of billed snapshots captured in Safari                                                                     |
+| Edge snapshots              | Number of billed snapshots captured in Edge                                                                       |
+| Internet Explorer snapshots | Phasing out in 2023. Number of billed snapshots captured in Internet Explorer.                                    |
 
 ![Setup usage report](img/billing-usage-report.png)
 

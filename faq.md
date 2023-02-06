@@ -171,16 +171,16 @@ No. At the moment, Chrome is fixed as the browser used for UI review.
 <details>
 <summary>How do browsers affect my snapshot count?</summary>
 
-Each browser adds another snapshot for each of your stories. For example, if you have a story that is tested in Chrome and IE11, that counts as two snapshots.
+Each browser adds another snapshot for each of your stories. For example, if you have a story that is tested in Chrome and Safari, that counts as two snapshots.
 
-If you also test your story with different viewports, those count as snapshots as well. For example, you want to test a story at `320px`, `1280px`, `Chrome`, and `IE11`. This would count as 4 snapshots.
+If you also test your story with different viewports, those count as snapshots as well. For example, you want to test a story at `320px`, `1280px`, `Chrome`, and `Safari`. This would count as 4 snapshots.
 
 </details>
 
 <details>
 <summary>Does adding more browser coverage add time to my tests?</summary>
 
-Yes it can. We do our best to provide the fastest test speeds but there are limits to browser performance (IE11) even when scaled across hundreds and thousands of machines.
+Yes it can. We do our best to provide the fastest test speeds but there are limits to browser performance even when scaled across hundreds and thousands of machines.
 
 </details>
 
