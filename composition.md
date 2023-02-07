@@ -6,7 +6,7 @@ description: Learn to combine Storybooks through composition
 
 # Storybook Composition
 
-Chromatic publishes your Storybook to a secure CDN. That means you can combine published Storybooks with your local Storybook using [Composition](https://storybook.js.org/docs/react/workflows/storybook-composition).
+Chromatic publishes your Storybook to a secure CDN. That means you can combine published Storybooks with your local Storybook using [Composition](https://storybook.js.org/docs/react/sharing/storybook-composition).
 
 <div class="aside">Chromatic does not snapshot externally composed Storybooks for UI Tests or UI Review.</div>
 
@@ -111,5 +111,5 @@ Use the `/metadata.json` endpoint to get additional information about the deploy
 
 ### Resources
 
-- [Storybook composition](https://storybook.js.org/docs/react/workflows/storybook-composition)
-- [Package composition with Storybook](https://storybook.js.org/docs/react/workflows/package-composition)
+- [Storybook composition](https://storybook.js.org/docs/react/sharing/storybook-composition)
+- [Package composition with Storybook](https://storybook.js.org/docs/react/sharing/package-composition)
