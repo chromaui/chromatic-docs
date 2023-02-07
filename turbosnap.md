@@ -8,7 +8,15 @@ description: Speed up tests by detecting file changes with Git
 
 TurboSnap is an advanced Chromatic feature that speeds up builds for faster [UI testing](test) and [review](review) using Git and Webpack's [dependency graph](https://webpack.js.org/concepts/dependency-graph/). It identifies component files and dependencies that have changed, then intelligently snapshots only the stories associated with those changes.
 
-⚠️ When using TurboSnap, your builds may complete in less time using fewer snapshots. However, we don't allow using TurboSnap immediately when starting out with Chromatic since the configuration is more complicated and can lead to difficult to debug scenarios or UI changes being missed. Instead, become familiar with Chromatic's out-of-the-box behavior, and once your project has been running smoothly, consider trying out TurboSnap. TurboSnap is unlocked after ten successful builds on CI, at least one of which is accepted.
+<div class="aside">
+
+⚠️ When using TurboSnap, your builds may complete in less time using fewer snapshots. However, we don't allow using TurboSnap immediately when starting out with Chromatic since the configuration is more complicated and can lead to difficult to debug scenarios or UI changes being missed.
+
+Instead, become familiar with Chromatic's out-of-the-box behavior, and once your project has been running smoothly, consider trying out TurboSnap. TurboSnap is unlocked after ten successful builds on CI, at least one of which is accepted.
+
+</div>
+
+![TurboSnap tracks dependencies](img/turbosnap-dep-tracking.gif)
 
 #### Prerequisites
 
