@@ -8,7 +8,7 @@ description: Speed up tests by detecting file changes with Git
 
 TurboSnap is an advanced Chromatic feature that speeds up builds for faster [UI testing](test) and [review](review) using Git and Webpack's [dependency graph](https://webpack.js.org/concepts/dependency-graph/). It identifies component files and dependencies that have changed, then intelligently snapshots only the stories associated with those changes.
 
-⚠️ When using TurboSnap, your builds may complete in less time using fewer snapshots. However, we don't allow using TurboSnap immediately when starting out with Chromatic since the configuration is more complicated and can lead to difficult to debug scenarios or UI changes being missed. Instead, become familiar with Chromatic's out-of-the-box behavior, and once your project has been running smoothly, consider trying out TurboSnap. TurboSnap is unlocked after ten successful builds on CI, at least one of which is accepted.
+![TurboSnap tracks dependencies](img/turbosnap-dep-tracking.gif)
 
 #### Prerequisites
 
@@ -16,6 +16,7 @@ TurboSnap is an advanced Chromatic feature that speeds up builds for faster [UI 
 - Storybook 6.2+
 - Webpack (for experimental Vite support, see [vite-plugin-turbosnap](https://github.com/IanVS/vite-plugin-turbosnap))
 - Stories correctly [configured](https://storybook.js.org/docs/react/configure/overview#configure-story-loading) in Storybook's `main.js`
+- 10 successful builds on CI with at least one accepted
 - For GitHub Actions: run on `push` rather than `pull_request` ([learn more](#github-pullrequest-triggers))
 
 ## Enable
@@ -23,6 +24,10 @@ TurboSnap is an advanced Chromatic feature that speeds up builds for faster [UI 
 Run Chromatic's CLI with the `--only-changed` option to enable TurboSnap. Alternatively, you can use the `onlyChanged` option for the Chromatic [GitHub action](github-actions#enable-turbosnap).
 
 It will build and test stories that may have been affected by the Git changes since the last build. Depending on your project setup, you may need [additional configuration](#configure).
+
+<div class="aside">
+⚠️ When using TurboSnap, your builds may complete in less time using fewer snapshots. However, we don't allow using TurboSnap immediately when starting out with Chromatic since the configuration is more complicated and can lead to difficult to debug scenarios or UI changes being missed. Instead, become familiar with Chromatic's out-of-the-box behavior, and once your project has been running smoothly, consider trying out TurboSnap. TurboSnap is unlocked after ten successful builds on CI, at least one of which is accepted.
+</div>
 
 ### How it works
 
