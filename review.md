@@ -42,7 +42,7 @@ If you [linked your project](access) to GitHub, Bitbucket, or GitLab, your proje
 
 Use the Assign Reviewers link on the PR Activity screen to choose reviewers from the project's collaborators. Reviewers will be emailed a link to the PR screen to begin their review.
 
-<img src="img/assign-reviewers.gif" alt="Assign Reviewers" width="300px" class="center"/>
+![assign reviewers by picking from your list of collaborators](img/assign-reviewers.png)
 
 #### Pull requests from forks
 

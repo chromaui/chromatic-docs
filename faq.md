@@ -118,7 +118,7 @@ Chromatic will reset the snapshot count monthly, calculated based on the day you
 
 The project token is available on the Configure page of your project.
 
-![Navigate to the Manage page and click on the Configure tab](img/configure-project-token.jpg)
+![Navigate to the Manage page and click on the Configure tab](img/configure-project-token.png)
 
 </details>
 
@@ -127,7 +127,7 @@ The project token is available on the Configure page of your project.
 
 Users with the [`owner`](collaborators#roles) role can reset or cycle project tokens on the Configure page of your project.
 
-![Navigate to the Manage page and click on the Configure tab](img/configure-project-token.jpg)
+![Navigate to the Manage page and click on the Configure tab](img/reset-project-token.png)
 
 </details>
 
@@ -138,7 +138,7 @@ Chromatic follows Storybook's [naming best practice](https://storybook.js.org/do
 
 ```js
 export default {
-  title: "App/Components/Button",
+  title: 'App/Components/Button',
   component: Button,
 };
 

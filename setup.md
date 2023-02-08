@@ -27,10 +27,8 @@ Start by signing in using your _personal_ account via any of the supported provi
 
 Select "Create a project" and type your project name to create an unlinked project.
 
-<video autoPlay muted playsInline loop width="560px" style="margin-bottom: 1em">
-  <source src="img/chromatic-setup-unlinked-project.mp4" type="video/mp4" />
-</video>
- 
+![Setup unlinked project](img/chromatic-setup-unlinked-project.png)
+
 Nice! You created an unlinked project. This will allow you to get started with [UI Testing](test) workflow regardless of the underlying git provider. You can then configure your CI system to automatically run a Chromatic build on push.
 
 The Chromatic CLI provides the option to generate a JUnit XML report of your build, which you can use to handle commit / pull request statuses yourself. See [debug options](cli#debug-options) for details.
