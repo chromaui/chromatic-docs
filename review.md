@@ -44,8 +44,6 @@ Use the Assign Reviewers link on the PR Activity screen to choose reviewers from
 
 ![assign reviewers by picking from your list of collaborators](img/assign-reviewers.png)
 
-![Changeset tab](img/prscreen-changes.png)
-
 #### Pull requests from forks
 
 Chromatic supports UI testing and UI review across forks, but there's some caveats. First, it only works with [CI integration](ci#configure-ci) configured to also build PR branches from forks. Secondly, you must expose your `project-token` so that forks can use it. The easiest way to do that is to simply include it in in your `package.json`, for example:

@@ -113,7 +113,7 @@ To add or remove collaborators, go to the collaborate tab on your project's Mana
 
 Use the Assign Reviewers link on the PR Activity page to choose reviewers from the project’s collaborators. Reviewers will be emailed a link to the PR screen to begin their review.
 
-![assign reviewers by picking from your list of collaborators](img/assign-reviewers.png)
+![assign reviewers by picking from your list of collaborators](img/prscreen-assign-reviewers.png)
 
 </details>
 
