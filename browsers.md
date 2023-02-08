@@ -16,19 +16,15 @@ Go to the "Manage" screen and click to enable another browser. Chrome is enabled
 
 Chromatic will create baselines for the newly enabled browser on the next test run. Previously accepted stories in Chrome will be auto-accepted as baselines in the new browser. You'll want to make sure your builds pass before enabling a new browser.
 
-<video autoPlay muted playsInline loop width="560px" class="center">
-  <source src="img/browser-buildscreen-multiple-browsers-inprogress.mp4" type="video/mp4" />
-</video>
+![Enable cross-browser UI Tests](img/browser-buildscreen-multiple-browsers-inprogress.png)
 
 The new browser's snapshots will be marked as "New" on the Build page, and you will now be able to view them during [review](review).
 
-![New Firefox snapshot in Chromatic](img/browser-snapshotscreen-new-firefox-snapshot.jpg)
+![New Firefox snapshot in Chromatic](img/browser-snapshotscreen-new-firefox-snapshot.png)
 
 Your team can also see how a story renders in a given browser across different builds and branches on the component screen.
 
-<video autoPlay muted playsInline loop width="560px" class="center">
-  <source src="img/browser-componentscreen-toggle-snapshots.mp4" type="video/mp4" />
-</video>
+![View snapshots taken in different browsers](img/browser-componentscreen-toggle-snapshots.png)
 
 Congratulations, you enabled a new browser! From now on, our Capture Cloud will spin up as many Chrome, Firefox, Safari, or Edge machines as you need to test your Storybook in the least amount of time.
 
@@ -36,11 +32,11 @@ Congratulations, you enabled a new browser! From now on, our Capture Cloud will 
 
 When Chromatic tests detect a visual change to a story in any enabled browser, you'll get notified. For instance, if you have a `TooltipMessage:default` story tested in Chrome and Firefox, you'll get a notification when changes happen in either browser.
 
-![Notification of changes in Firefox snapshot](img/browser-buildscreen-notification.jpg)
+![Notification of changes in Firefox snapshot](img/browser-buildscreen-notification.png)
 
 You can see changes for the browser's snapshot in the [review](review#find-your-pull-request) workflow.
 
-![Changes in Firefox snapshot](img/browser-snapshotscreen-diff-in-firefox-snapshot.jpg)
+![Changes in Firefox snapshot](img/browser-snapshotscreen-diff-in-firefox-snapshot.png)
 
 Once you accept changes to the story, its baselines are updated. Each story has one baseline for Chrome, and it can also have baselines for Firefox, Safari, and Edge.
 

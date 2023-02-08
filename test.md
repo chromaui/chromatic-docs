@@ -76,10 +76,7 @@ Sometimes you need a closer look to determine why a snapshot is rendering as it 
 
 Click "Inspect snapshot" to open the Inspector. Switch between the "Canvas" and "Snapshot" tabs to compare the live component to the snapshot. Learn more about snapshots [here](snapshots).
 
-<video autoPlay muted playsInline loop width="560px" class="center" style="pointer-events: none;">
-  <source src="img/feature-component-inspect-optimized.mp4" type="video/mp4" />
-</video>
-</details>
+![Reproduce snapshot](img/feature-component-inspect.png)
 
 <details>
 <summary>How are changes on builds different from those listed on the PR Screen 'Changeset' tab?</summary>

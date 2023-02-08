@@ -68,7 +68,7 @@ module.exports = {
 };
 ```
 
-![Storybook passed tests](img/interaction-test-storybook-canvas-passed-test.png)
+![Storybook passed tests](img/interaction-test-storybook-passed-test.png)
 
 ### Confirm interaction tests are working
 

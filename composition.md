@@ -26,13 +26,13 @@ In your local Storybook, add a `refs` key to [`.storybook/main.js`](https://stor
 // .storybook/main.js
 
 module.exports = {
-  stories: ["../src/**/*.stories.@(js|jsx|ts|tsx)"],
+  stories: ['../src/**/*.stories.@(js|jsx|ts|tsx)'],
   refs: {
-    "chromatic-published-Storybook": {
+    'chromatic-published-Storybook': {
       // The title of your Storybook
-      title: "Design System",
+      title: 'Design System',
       // The url provided by Chromatic when it was published
-      url: "https://your-published-url.chromatic.com",
+      url: 'https://your-published-url.chromatic.com',
     },
   },
 };
@@ -40,7 +40,7 @@ module.exports = {
 
 When your local Storybook starts, it will auto detect the `refs` and compose your published Storybook. You'll see both sets of stories side-by-side.
 
-![Multiple Storybooks combined through composition](img/reference-external-storybooks-composition.jpg)
+![Multiple Storybooks combined through composition](img/reference-external-storybooks-composition.png)
 
 ### Compose Storybook by branch or commit
 

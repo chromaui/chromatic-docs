@@ -113,7 +113,7 @@ To add or remove collaborators, go to the collaborate tab on your project's Mana
 
 Use the Assign Reviewers link on the PR Activity page to choose reviewers from the project’s collaborators. Reviewers will be emailed a link to the PR screen to begin their review.
 
-![assign reviewers by picking from your list of collaborators](img/assign-reviewers.gif)
+![assign reviewers by picking from your list of collaborators](img/assign-reviewers.png)
 
 </details>
 
@@ -149,7 +149,9 @@ Storybook can automatically [generate UI documentation](https://storybook.js.org
 
 [Storybook Connect](figma#figma-plugin) is a Figma plugin that allows you to link stories to Figma components. Once linked, you can view your live stories in the design workspace without leaving Figma.
 
-![Embedded story and design side-by-side](img/sb-connect.gif)
+<video autoPlay muted playsInline loop width="560px" class="center" style="pointer-events: none;" title="Embedded story and design side-by-side">
+  <source src="img/figma-plugin-open-story.mp4" type="video/mp4" />
+</video>
 
 #### Embed stories to showcase your work
 
