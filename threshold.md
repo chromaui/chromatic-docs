@@ -67,3 +67,16 @@ StoryName.parameters = {
   chromatic: { diffIncludeAntiAliasing: true },
 };
 ```
+
+### Troubleshooting
+
+<details>
+<summary>Why weren't diffs found when a color or background changed?</summary>
+
+Chromatic uses a threshold to determine how much needs to visually change between snapshots before they get flagged as changes. This prevents false positives due to anti-aliasing and other non-deterministic rendering artifacts.
+
+But our default threshold may result in subtle changes being missed. For instance, nuanced changes to the shade of gray of a background. In this case, you may want to adjust the `diffThreshold` to be more accurate (lower value).
+
+Find the right threshold for your UI using our [**interactive diff tool**](https://6262c53f521620003ac2ff49-ukmsdlppcb.chromatic.com/?path=/story/stories-diff-threshold-check--test-yours-out).
+
+</details>
