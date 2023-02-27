@@ -38,7 +38,7 @@ StoryName.parameters = {
 
 Adjusting the `diffThreshold` parameter allows Chromatic to detect the most subtle visual change within your component when snapshotted. While accurate for most common scenarios, it can also lead to an inconsistent UI test. For example, setting the parameter to a value of `0.8` can be enough to prevent Chromatic from accurately detecting a change in the component (e.g., positioning).
 
-If you're unsure which value will be enough; we've created a [tool](https://6262c53f521620003ac2ff49-ukmsdlppcb.chromatic.com/?path=/story/stories-diff-threshold-check--test-yours-out) allowing you to preview how adjusting the parameter impacts your UI tests in real-time.
+If you're unsure which value will be enough; we've created an [**interactive diff tool**](https://6262c53f521620003ac2ff49-ukmsdlppcb.chromatic.com/?path=/story/stories-diff-threshold-check--test-yours-out) allowing you to preview how adjusting the parameter impacts your UI tests in real-time.
 
 ### Anti-aliasing
 
