@@ -35,6 +35,7 @@ This is useful when you want to change behavior of one component's stories when 
 // MyComponent.stories.js|jsx
 
 import { MyComponent } from './MyComponent';
+
 import isChromatic from 'chromatic/isChromatic';
 
 export default {
@@ -42,10 +43,9 @@ export default {
   title: 'MyComponent',
 };
 
-const Template = (args) => <MyComponent {...args} />;
-
-export const StoryName = Template.bind({});
-StoryName.args = {
-  label: isChromatic() ? `I'm in Chromatic` : `Not in Chromatic`,
+export const StoryName = {
+  args: {
+    label: isChromatic() ? `I'm in Chromatic` : `Not in Chromatic`,
+  },
 };
 ```

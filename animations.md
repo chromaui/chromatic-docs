@@ -24,12 +24,11 @@ export default {
   title: 'MyComponent',
 };
 
-const Template = (args) => <MyComponent {...args} />;
-
-export const StoryName = Template.bind({});
-StoryName.parameters = {
-  // Notifies Chromatic to pause the animations when they finish for the specific story.
-  chromatic: { pauseAnimationAtEnd: true },
+export const StoryName = {
+  parameters: {
+    // Notifies Chromatic to pause the animations when they finish for the specific story.
+    chromatic: { pauseAnimationAtEnd: true },
+  },
 };
 ```
 
@@ -38,10 +37,14 @@ You can use Storybook's [parameter](https://storybook.js.org/docs/react/writing-
 ```js
 // .storybook/preview.js
 
-export const parameters = {
-  // Notifies Chromatic to pause the animations when they finish at a global level.
-  chromatic: { pauseAnimationAtEnd: true },
+const preview = {
+  parameters: {
+    // Notifies Chromatic to pause the animations when they finish at a global level.
+    chromatic: { pauseAnimationAtEnd: true },
+  },
 };
+
+export default preview;
 ```
 
 ## JavaScript animations
