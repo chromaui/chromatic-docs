@@ -24,14 +24,15 @@ export default {
   title: 'MyComponent',
 };
 
-export const StoryName = {
-  args: {
-    with: 'props',
-  },
-  parameters: {
-    // Sets the diffThreshold for the component.
-    chromatic: { diffThreshold: 0.2 },
-  },
+const Template = (args) => <MyComponent {...args} />;
+
+export const StoryName = Template.bind({});
+StoryName.args = {
+  with: 'props',
+};
+StoryName.parameters = {
+  // Sets the diffThreshold for 0.2 for a specific story.
+  chromatic: { diffThreshold: 0.2 },
 };
 ```
 
@@ -55,14 +56,15 @@ export default {
   title: 'MyComponent',
 };
 
-export const StoryName = {
-  args: {
-    with: 'props',
-  },
-  parameters: {
-    // Detect anti-aliased pixels
-    chromatic: { diffIncludeAntiAliasing: true },
-  },
+const Template = (args) => <MyComponent {...args} />;
+
+export const StoryName = Template.bind({});
+StoryName.args = {
+  with: 'props',
+};
+StoryName.parameters = {
+  // Detect anti-aliased pixels
+  chromatic: { diffIncludeAntiAliasing: true },
 };
 ```
 
