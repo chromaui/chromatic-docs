@@ -25,7 +25,7 @@ In your local Storybook, add a `refs` key to [`.storybook/main.js`](https://stor
 ```js
 // .storybook/main.js
 
-module.exports = {
+const config = {
   stories: ['../src/**/*.stories.@(js|jsx|ts|tsx)'],
   refs: {
     'chromatic-published-Storybook': {
@@ -36,6 +36,7 @@ module.exports = {
     },
   },
 };
+export default config;
 ```
 
 When your local Storybook starts, it will auto detect the `refs` and compose your published Storybook. You'll see both sets of stories side-by-side.
