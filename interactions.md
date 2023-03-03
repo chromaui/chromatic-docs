@@ -21,6 +21,8 @@ Add a [`play`](https://storybook.js.org/docs/react/writing-stories/play-function
 ```js
 // RangeSlider.stories.js|jsx
 
+import React from 'react';
+
 import { within, userEvent } from '@storybook/testing-library';
 import { expect } from '@storybook/jest';
 
@@ -31,18 +33,19 @@ export default {
   title: 'Library/Charts/RangeSlider',
 };
 
-export const InputRange = {
-  play: async ({ canvasElement }) => {
-    // Assigns canvas to the component root element
-    const canvas = within(canvasElement);
+const Template = (args) => <RangeSlider {...args} />;
 
-    // 🔢 Type into input field
-    await userEvent.type(canvas.getByTestId('input-max-range'), '15');
+export const InputRange = Template.bind({});
+InputRange.play = async ({ canvasElement }) => {
+  // Assigns canvas to the component root element
+  const canvas = within(canvasElement);
 
-    // ✅ Assert that component is responding to user behavior
-    const availableOptions = await canvas.findAllByTestId('highlighted-bar');
-    await expect(availableOptions.length).toBe(15);
-  },
+  // 🔢 Type into input field
+  await userEvent.type(canvas.getByTestId('input-max-range'), '15');
+
+  // ✅ Assert that component is responding to user behavior
+  const availableOptions = await canvas.findAllByTestId('highlighted-bar');
+  await expect(availableOptions.length).toBe(15);
 };
 ```
 
@@ -51,6 +54,19 @@ export const InputRange = {
 Read Storybook's interaction testing [docs](https://storybook.js.org/docs/react/writing-tests/interaction-testing). Get an API cheatsheet for user events [here](https://storybook.js.org/docs/react/writing-tests/interaction-testing#api-for-user-events).
 
 </div>
+
+In Storybook, your interactions and assertions are visualized in the addon panel. Enable the playback controls to step through each interaction to confirm that it’s working as intended.
+
+```js
+// .storybook/main.js|ts
+
+module.exports = {
+  stories: ['../src/**/*.stories.mdx', '../src/**/*.stories.@(js|jsx|ts|tsx)'],
+  features: {
+    interactionsDebugger: true, // 👈 Enable playback controls
+  },
+};
+```
 
 ![Storybook passed tests](img/interaction-test-storybook-passed-test.png)
 

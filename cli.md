@@ -120,9 +120,9 @@ Some options can be configured through environment variables. You will typically
 | `CHROMATIC_POLL_INTERVAL`        | Polling interval when waiting for the build to finish (default: `1000`)                                                                      |
 | `CHROMATIC_OUTPUT_INTERVAL`      | Frequency of progress output while polling or uploading (default: `10000`)                                                                   |
 | `CHROMATIC_RETRIES`              | Number of times to retry file upload (default: `5`)                                                                                          |
-| `CHROMATIC_STORYBOOK_VERSION`    | Overrides Storybook package/version detection (e.g. `@storybook/react@7.1.0-alpha.25`)                                                       |
-| `CHROMATIC_TIMEOUT`              | Number of ms before giving up on `storybook dev` (default: `300000` (5 minutes))                                                           |
-| `STORYBOOK_BUILD_TIMEOUT`        | Number of ms before giving up on `storybook build` (default: `600000` (10 minutes))                                                          |
+| `CHROMATIC_STORYBOOK_VERSION`    | Overrides Storybook package/version detection (e.g. `@storybook/react@6.5.0-alpha.25`)                                                       |
+| `CHROMATIC_TIMEOUT`              | Number of ms before giving up on `start-storybook` (default: `300000` (5 minutes))                                                           |
+| `STORYBOOK_BUILD_TIMEOUT`        | Number of ms before giving up on `build-storybook` (default: `600000` (10 minutes))                                                          |
 | `CHROMATIC_DNS_SERVERS`          | Overrides the DNS server IP address(es) used by node-fetch, comma-separated. See [troubleshooting guide for issues](#chromatic-dns-options)  |
 | `CHROMATIC_DNS_FAILOVER_SERVERS` | Fallback DNS server IPs (default: `1.1.1.1`, `8.8.8.8` (Cloudflare, Google)). See [troubleshooting guide for issues](#chromatic-dns-options) |
 | `CI`                             | See `--ci`                                                                                                                                   |

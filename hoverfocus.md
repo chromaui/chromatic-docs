@@ -19,6 +19,8 @@ If the hover behavior is triggered via JavaScript like tooltips or dropdowns, wr
 ```js
 // Form.stories.js|jsx
 
+import React from 'react';
+
 import { userEvent, waitFor, within } from '@storybook/testing-library';
 
 import { Form } from './LoginForm';
@@ -28,27 +30,28 @@ export default {
   title: 'Form',
 };
 
-export const WithHoverState = {
-  play: async ({ canvasElement }) => {
-    // Starts querying the component from its root
-    const canvas = within(canvasElement);
+const Template = (args) => <LoginForm {...args} />;
 
-    // Looks up the input and fills it.
-    const emailInput = canvas.getByLabelText('email', {
-      selector: 'input',
-    });
+export const WithHoverState = Template.bind({});
+WithHoverState.play = async ({ canvasElement }) => {
+  // Starts querying the component from its root
+  const canvas = within(canvasElement);
 
-    await userEvent.type(emailInput, 'Example');
+  // Looks up the input and fills it.
+  const emailInput = canvas.getByLabelText('email', {
+    selector: 'input',
+  });
 
-    // Looks up the button and interacts with it.
-    const submitButton = canvas.getByRole('button');
-    await userEvent.click(submitButton);
+  await userEvent.type(emailInput, 'Example');
 
-    // Triggers the hover state
-    await waitFor(async () => {
-      await userEvent.hover(canvas.getByLabelText('Email error'));
-    });
-  },
+  // Looks up the button and interacts with it.
+  const submitButton = canvas.getByRole('button');
+  await userEvent.click(submitButton);
+
+  // Triggers the hover state
+  await waitFor(async () => {
+    await userEvent.hover(canvas.getByLabelText('Email error'));
+  });
 };
 ```
 
@@ -87,18 +90,19 @@ export default {
   title: 'MyComponent',
 };
 
-export const HoverStatewithClass = {
-  args: {
-    ...HoverState.args,
-    className: 'hover',
-  },
+const Template = (args) => <MyComponent {...args} />;
+
+export const HoverStatewithClass = Template.bind({});
+
+HoverStatewithClass.args = {
+  ...HoverState.args,
+  className: 'hover',
 };
 
-export const ActiveStatewithClass = {
-  args: {
-    ...ActiveState.args,
-    className: 'active',
-  },
+export const ActiveStatewithClass = Template.bind({});
+ActiveStatewithClass.args = {
+  ...ActiveState.args,
+  className: 'active',
 };
 ```
 
@@ -142,19 +146,21 @@ export default {
   title: 'MyComponent',
 };
 
-export const HoverState = {
-  args: {
-    isHovered: true,
-    label: `I'm :hover`,
-  },
+
+const Template = (args) => <MyComponent {...args}/>;
+
+export const HoverState = Template.bind({});
+
+HoverState.args = {
+  isHovered: true,
+  label: `I'm :hover`
 };
 
-export const ActiveState = {
-  args: {
-    isActive: true,
-    label: `I'm :active`,
-  },
-};
+export const ActiveState = Template.bind({});
+ActiveState.args = {
+  isActive: true,
+  label: `I'm :active`
+}:
 ```
 
 </details>
@@ -167,6 +173,8 @@ For atomic, functional components with CSS pseudo-classes (e.g., `hover`, `activ
 ```js
 // Button.stories.js|jsx
 
+import React from 'react';
+
 import { Button } from './Button';
 
 export default {
@@ -174,15 +182,17 @@ export default {
   title: 'Button',
 };
 
-export const WithHoverState = {
-  args: {
-    size: 'small',
-    label: 'Button',
-  },
-  parameters: {
-    // Toggles the component hover state via parameter.
-    pseudo: { hover: true },
-  },
+const Template = (args) => <Button {...args} />;
+
+export const WithHoverState = Template.bind({});
+WithHoverState.args = {
+  size: 'small',
+  label: 'Button',
+};
+
+WithHoverState.parameters = {
+  // Toggles the component hover state via parameter.
+  pseudo: { hover: true },
 };
 ```
 
@@ -195,6 +205,8 @@ To simulate how the component responds when an element is focused (i.e., through
 ```js
 // Button.stories.js|jsx
 
+import React from 'react';
+
 import { userEvent, within } from '@storybook/testing-library';
 
 import { Button } from './Button';
@@ -204,14 +216,17 @@ export default {
   title: 'Button',
 };
 
-export const WithFocusState = {
-  play: async ({ canvasElement }) => {
-    // Starts querying the component from its root
-    const canvas = within(canvasElement);
+const Template = (args) => <Button {...args} />;
 
-    // Looks up the button and interacts with it.
-    await canvas.getByRole('button').focus();
-  },
+export const WithFocusState = Template.bind({});
+
+export const WithFocusState = Template.bind({});
+WithFocusState.play = async ({ canvasElement }) => {
+  // Starts querying the component from its root
+  const canvas = within(canvasElement);
+
+  // Looks up the button and interacts with it.
+  await canvas.getByRole('button').focus();
 };
 ```
 

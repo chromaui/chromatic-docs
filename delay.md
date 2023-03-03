@@ -31,14 +31,15 @@ export default {
   title: 'MyComponent',
 };
 
-export const StoryName = {
-  args: {
-    with: 'props',
-  },
-  parameters: {
-    // Sets the delay for a specific story.
-    chromatic: { delay: 300 },
-  },
+const Template = (args) => <MyComponent {...args} />;
+
+export const StoryName = Template.bind({});
+StoryName.args = {
+  with: 'props',
+};
+StoryName.parameters = {
+  // Sets the delay for a specific story.
+  chromatic: { delay: 300 },
 };
 ```
 
@@ -53,7 +54,7 @@ Check for DOM elements using `getBy`, `findBy`, or `queryBy` (docs [here](https:
 ```javascript
 // MyComponent.stories.js|jsx
 
-import { userEvent, waitFor, within } from '@storybook/testing-library';
+import { within, userEvent, waitFor } from '@storybook/testing-library';
 import { expect } from '@storybook/jest';
 
 import { MyComponent } from './MyComponent';
@@ -63,18 +64,19 @@ export default {
   title: 'MyComponent',
 };
 
-export const StoryName = {
-  play: async ({ canvasElement }) => {
-    // Assigns canvas to the component root element
-    const canvas = within(canvasElement);
+const Template = (args) => <MyComponent {...args} />;
 
-    //   Wait for the below assertion not throwing an error anymore (default timeout is 1000ms)
-    //👇 This is especially useful when you have an asynchronous action or component that you want to wait for
-    await waitFor(() => {
-      //👇 This assertion will pass if a DOM element with the matching id exists
-      expect(canvas.getByTestId('button')).toBeInTheDocument();
-    });
-  },
+export const StoryName = Template.bind({});
+StoryName.play = async ({ canvasElement }) => {
+  // Assigns canvas to the component root element
+  const canvas = within(canvasElement);
+
+  //   Wait for the below assertion not throwing an error anymore (default timeout is 1000ms)
+  //👇 This is especially useful when you have an asynchronous action or component that you want to wait for
+  await waitFor(() => {
+    //👇 This assertion will pass if a DOM element with the matching id exists
+    expect(canvas.getByTestId("button")).toBeInTheDocument();
+  });
 };
 ```
 
@@ -82,15 +84,9 @@ If your UI requires extra time to paint after the DOM loads, consider setting a 
 
 ```javascript
 // ...
-
-export const StoryName = {
-  play: async ({ canvasElement }) => {
-    // Assigns canvas to the component root element
-    const canvas = within(canvasElement);
-
-    //👇 This sets a timeout of 2s
-    await new Promise((resolve) => setTimeout(resolve, 2000));
-  },
+StoryName.play = async ({ canvasElement }) => {
+  //👇 This sets a timeout of 2s
+  await new Promise((resolve) => setTimeout(resolve, 2000));
 };
 ```
 
@@ -112,15 +108,15 @@ export default {
   title: 'MyComponent',
 };
 
-export const StoryName = {
-  args: {
-    with: 'props',
-  },
+const Template = (args) => <MyComponent {...args} />;
+
+export const StoryName = Template.bind({});
+StoryName.args = {
+  with: 'props',
 };
 
-export const SecondStoryName = {
-  args: {
-    with: 'other-props',
-  },
+export const SecondStoryName = Template.bind({});
+SecondStoryName.args = {
+  with: 'other-props',
 };
 ```

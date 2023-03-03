@@ -22,14 +22,15 @@ export default {
   title: 'MyComponent',
 };
 
-export const StoryName = {
-  args: {
-    with: 'props',
-  },
-  parameters: {
-    // Set the viewports in Chromatic at a story level.
-    chromatic: { viewports: [320, 1200] },
-  },
+const Template = (args) => <MyComponent {...args} />;
+
+export const StoryName = Template.bind({});
+StoryName.args = {
+  with: 'props',
+};
+StoryName.parameters = {
+  // Set the viewports in Chromatic at a story level.
+  chromatic: { viewports: [320, 1200] },
 };
 ```
 
@@ -53,16 +54,16 @@ export default {
   title: 'MyComponent',
 };
 
-export const StoryName = {
-  args: {
-    with: 'props',
-  },
+const Template = (args) => <MyComponent {...args} />;
+
+export const StoryName = Template.bind({});
+StoryName.args = {
+  with: 'props',
 };
 
-export const SecondStoryName = {
-  args: {
-    with: 'other-props',
-  },
+export const SecondStoryName = (args = Template.bind({}));
+SecondStoryName.args = {
+  with: 'other-props',
 };
 ```
 
@@ -90,14 +91,10 @@ We don't recommend this in most cases because each viewport is treated independe
 ```js
 // .storybook/preview.js
 
-const preview = {
-  parameters: {
-    // Set the viewports in Chromatic globally.
-    chromatic: { viewports: [320, 1200] },
-  },
+export const parameters = {
+  // Set the viewports in Chromatic globally.
+  chromatic: { viewports: [320, 1200] },
 };
-
-export default preview;
 ```
 
 </details>

@@ -203,14 +203,7 @@ export default {
   title: 'Example Story',
 };
 
-/*
- *👇 Render functions are a framework specific feature to allow you control on how the component renders.
- * See https://storybook.js.org/docs/react/api/csf
- * to learn how to use render functions.
- */
-export const StoryWithDimensions = {
-  render: () => <MyComponent/>
-};
+export const StoryWithDimensions = () => <MyComponent/>
 ```
 
 </details>
@@ -237,9 +230,10 @@ export default {
   title: 'Example Story',
 };
 
-export const StoryWithDimensions = {
-  args:{},
-};
+const Template = (args) => <MyComponent/>;
+
+export const StoryWithDimensions = Template.bind({});
+StoryWithDimensions.args = {};
 ```
 
 </details>
