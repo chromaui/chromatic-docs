@@ -6,26 +6,28 @@ description: Chromatic promotion code rules and redemption
 
 # Promotion code eligibility
 
-Chromatic's promotional signup credit is for new customers only.
+We're thrilled to welcome new customers to Chromatic with a signup credit. Check if you're eligible using the criteria below.
 
-- A new customer is defined as an "organization" account having signed up within the last 7 days.
-- An "organization" account is an account that includes multiple individual accounts; for example a GitHub Organization, Bitbucket Group, or GitLab Team.
+#### Criteria
+
+- You're a new customer. That means you've signed up within the last 7 days.
+- Your account is for an "organization" you belong to with other teammates not your personal account. For example, a GitHub Organization, Bitbucket Group, or GitLab Team.
 
 <div class="aside">
 
-If you have an email/password account, it must be associated with a team that has multiple [collaborators](collaborators) within it. Promo codes for email/password accounts will be honored at our discretion.
+If you have an email/password account, it must be associated with a team that has multiple [collaborators](collaborators) within it. Promotion codes for email/password accounts will be honored at our discretion.
 
 </div>
 
-### Not applicable for
+#### Not applicable
 
 - Individual user accounts (for example, your personal GitHub account)
 - Accounts that already have existing discounts or promotions applied
 - Existing customers that already use Chromatic in other parts of their organization
 
-### Expiry
+#### Expiration date
 
-Expires in 1 year after application or when the signup credit is exhausted, whichever comes first.
+The promotion code for new customers will expire 1 year after being applied or when the signup credit is exhausted, whichever comes first.
 
 ## How to redeem your promo code
 
