@@ -8,9 +8,9 @@ description: Chromatic's browser infrastructure release notes
 
 ## Version 5
 
-Welcome to `Chromatic Capture Cloud version 5` released February 2022.
+Welcome to `Chromatic Capture Cloud version 5` released February 2023.
 
-**Status**: Beta
+**Status**: General availability
 
 Key highlights on this release:
 
@@ -34,7 +34,7 @@ Key highlights on this release:
 
 Welcome to `Chromatic Capture Cloud version 4` released January 2022.
 
-**Status**: General availability
+**Status**: Outdated ([opt in for upgrade](infrastructure-upgrades#opt-in-to-upgrade))
 
 Key highlights on this release:
 

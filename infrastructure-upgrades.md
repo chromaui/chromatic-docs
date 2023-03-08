@@ -42,13 +42,13 @@ Future builds will use the upgrade build's auto-accepted baselines as the source
 
 Read about the infrastructure changes in the release notes.
 
-|                Capture Stack version                | Status                                                                                                                             |
-| :-------------------------------------------------: | ---------------------------------------------------------------------------------------------------------------------------------- |
-| [Version 5](infrastructure-release-notes#version-5) | Beta (contact us through our <a class="intercom-concierge-bot">in-app chat</a> or [email](mailto:support@chromatic.com) to opt in) |
-| [Version 4](infrastructure-release-notes#version-4) | General availability                                                                                                               |
-| [Version 3](infrastructure-release-notes#version-3) | No longer available                                                                                                                |
-| [Version 2](infrastructure-release-notes#version-2) | No longer available                                                                                                                |
-| [Version 1](infrastructure-release-notes#version-1) | No longer available                                                                                                                |
+|                Capture Stack version                | Status                                              |
+| :-------------------------------------------------: | ----------------------------------------------------|
+| [Version 5](infrastructure-release-notes#version-5) | General availability                                |
+| [Version 4](infrastructure-release-notes#version-4) | Outdated ([opt in for upgrade](#opt-in-to-upgrade)) |
+| [Version 3](infrastructure-release-notes#version-3) | No longer available                                 |
+| [Version 2](infrastructure-release-notes#version-2) | No longer available                                 |
+| [Version 1](infrastructure-release-notes#version-1) | No longer available                                 |
 
 ---
 
