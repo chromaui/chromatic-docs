@@ -29,7 +29,7 @@ Expires in 1 year after application or when the signup credit is exhausted, whic
 
 ## How to redeem your promo code
 
-In order to redeem your promo code your account must have a project setup with at least one build run.
+In order to redeem your promo code follow these steps:
 
 1. Sign up to Chromatic
 2. Link your account with a GitHub Organization, Bitbucket Group, or GitLab Team.
