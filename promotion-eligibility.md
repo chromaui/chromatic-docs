@@ -33,7 +33,7 @@ The promotion code for new customers will expire 1 year after being applied or w
 
 In order to redeem your promo code follow these steps:
 
-1. Sign up to Chromatic
+1. [Sign up to Chromatic](/start?startWithSignup=true)
 2. Link your account with a GitHub Organization, Bitbucket Group, or GitLab Team.
 3. Setup your first project
 4. Run at least one build
