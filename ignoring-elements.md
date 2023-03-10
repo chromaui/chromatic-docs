@@ -34,12 +34,11 @@ export default {
   title: 'MyComponent',
 };
 
-const Template = (args) => <MyComponent {...args} />;
-
-export const StoryName = Template.bind({});
-StoryName.parameters = {
-  // disables Chromatic's snapshotting on a story level
-  chromatic: { disableSnapshot: true },
+export const StoryName = {
+  parameters: {
+    // Disables Chromatic's snapshotting on a story level
+    chromatic: { disableSnapshot: true },
+  },
 };
 ```
 
@@ -50,10 +49,14 @@ In your [`.storybook/preview.js`](https://storybook.js.org/docs/react/configure/
 ```js
 // .storybook/preview.js
 
-export const parameters = {
-  // disables snapshotting on a global level
-  chromatic: { disableSnapshot: true },
+const preview = {
+  parameters: {
+    // Disables Chromatic's snapshotting on a global level
+    chromatic: { disableSnapshot: true },
+  },
 };
+
+export default preview;
 ```
 
 In the component's stories you'd like to enable snapshotting:
@@ -65,17 +68,14 @@ import { MyComponent } from './MyComponent';
 
 export default {
   component: MyComponent,
+  title: 'MyComponent',
   // Enables snapshotting for the component
   parameters: {
     chromatic: { disableSnapshot: false },
   },
-  title: 'MyComponent',
 };
 
-const Template = (args) => <MyComponent {...args} />;
-
-export const StoryName = Template.bind({});
-StoryName.args = {};
+export const StoryName = { args: {} };
 ```
 
 ## Ignore DOM elements
@@ -84,9 +84,7 @@ Add the `chromatic-ignore` CSS class or `data-chromatic="ignore"` attribute to e
 Chromatic to ignore.
 
 ```js
-// MyComponent.js
-
-import React from 'react';
+// MyComponent.js|jsx
 
 export function MyComponent() {
   return (

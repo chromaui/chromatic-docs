@@ -23,9 +23,11 @@ For example, you could write in your `.storybook/main.js`:
 ```js
 // .storybook/main.js
 
-module.exports = {
+const config = {
   stories: ["../project-1/**/*.stories.js", "../project-2/**/*.stories.js"],
 };
+
+export default config;
 ```
 
 Often teams find a single Storybook for all their development works quite well, also!
