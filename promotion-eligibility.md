@@ -10,6 +10,7 @@ We're thrilled to welcome new customers to Chromatic with a signup credit. Check
 
 #### Criteria
 
+- You have a promo code
 - You're a new customer. That means you've signed up within the last 7 days.
 - Your account is for an "organization" you belong to with other teammates not your personal account. For example, a GitHub Organization, Bitbucket Group, or GitLab Team.
 
@@ -37,6 +38,6 @@ In order to redeem your promo code follow these steps:
 2. Link your account with a GitHub Organization, Bitbucket Group, or GitLab Team.
 3. Setup your first project
 4. Run at least one build
-5. Contact us to check eligibility via in-app chat
+5. Contact us to check eligibility & promo code via in-app chat
 
 <a class="intercom-promotion-code-qualification-bot"><b>Click to redeem via in-app chat</b></a>.
