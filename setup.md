@@ -57,7 +57,7 @@ yarn add --dev chromatic
 npm install --save-dev chromatic
 ```
 
-<div class="aside">Storybook 3.4 or later is required.</div>
+<div class="aside">Storybook 6.5 or later is required. We also guarantee support for Node 14.18.x through Node 16.19.1. Other Node releases may encounter errors. To switch between Node versions, we recommend using <a href="https://github.com/nvm-sh/nvm">nvm</a>, <a href="https://github.com/tj/n">n</a>, or another version manager.</div>
 
 <details>
 
