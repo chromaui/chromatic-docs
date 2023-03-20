@@ -64,11 +64,13 @@ Now that you learned how UI components are documented in Chromatic, let's see ho
 <summary>Why is my Storybook failing to load in Chromatic's Canvas tab?</summary>
 
 **Mixed content**
+<br />
 If your stories make use of non-HTTPS content (for instance, images), the iframe rendering your stories will fail to load, as modern browsers do not allow [mixed content](https://developer.mozilla.org/en-US/docs/Web/Security/Mixed_content) (HTTP content sources included within HTTPS pages).
 
 To fix this, ensure all resources used by your stories are served via HTTPS.
 
 **CORS violation**
+<br />
 Chromatic renders your published stories in an iframe. Due to browser security restrictions, your components and stories cannot reference `window.parent` or `window.top`. In Storybook, those properties would reference the Storybook manager interface, which is located on the same domain as the iframe and therefore allowed. But when rendered on chromatic.com, those properties would reference a different (sub)domain and therefore violate CORS restrictions, causing a JavaScript error. There are three ways to mitigate this issue:
 
 1. Don’t reference `window.parent` or `window.top`. If you’re trying to communicate with the Storybook manager UI, it’s better to use “channels.” Storybook provides the [useChannel API](https://storybook.js.org/docs/react/addons/addons-api#usechannel) for this purpose.
