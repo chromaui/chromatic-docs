@@ -16,15 +16,16 @@ jobs:
 
     steps:
     - name: Checkout
-      uses: actions/checkout@v2
+      uses: actions/checkout@v3
       with:
+        node-version: 16
         # Necessary to grab the HEAD commit from the source branch when
         # acting on a PR. Otherwise, `git log` will only contain the merge commit
         ref: ${{ github.event.pull_request.head.sha }}
 
-    - uses: actions/setup-node@v1
+    - uses: actions/setup-node@v3
       with:
-        node-version: '16.x'
+        node-version: 16
 
     - name: Build
       run: |
