@@ -58,7 +58,6 @@ jobs:
     - name: 'Deploy'
       uses: nwtgck/actions-netlify@v1.2
       with:
-        alias: ${{ github.head_ref }}-${{ env.SHA }}
         deploy-message: "${{ env.REF }}@${{ env.SHA }}: ${{ env.DEPLOY_MESSAGE }} (${{ github.workflow }} workflow)"
         github-token: ${{ secrets.GITHUB_TOKEN }}
         enable-commit-comment: true
