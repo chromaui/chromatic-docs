@@ -204,7 +204,7 @@ export default {
 };
 
 /*
- *👇 Render functions are a framework specific feature to allow you control on how the component renders.
+ *👇 Render functions are a framework-specific feature to allow you control over how the component renders.
  * See https://storybook.js.org/docs/react/api/csf
  * to learn how to use render functions.
  */
@@ -238,7 +238,7 @@ export default {
 };
 
 /*
- *👇 Render functions are a framework specific feature to allow you control on how the component renders.
+ *👇 Render functions are a framework-specific feature to allow you control over how the component renders.
  * See https://storybook.js.org/docs/react/api/csf
  * to learn how to use render functions.
  */
@@ -253,7 +253,7 @@ export const StoryWithDimensions = {
 <details>
 <summary>Do you support taking snapshots of a component with multiple themes?</summary>
 
-We recommend you render stories multiple times, one for each theme. Here's [a code snippet](https://github.com/storybookjs/storybook/blob/next/code/ui/.storybook/preview.tsx#L174-L231) of how to configure Storybook to show the same story in multiple themes. This is how the snapshots will [appear in Chromatic](https://www.chromatic.com/library?appId=5a375b97f4b14f0020b0cda3&branch=next).
+We recommend you render stories multiple times, one for each theme. Here's a [blog post](https://storybook.js.org/blog/how-to-add-a-theme-switcher-to-storybook/) that explains how to enable a theme switcher in Storybook. Using this approach, this is how the snapshots will [appear in Chromatic](https://www.chromatic.com/library?appId=5a375b97f4b14f0020b0cda3&branch=next).
 
 If you'd only like to see multiple themes side-by-side in Chromatic and not in your local Storybook, use [isChromatic()](isChromatic).
 

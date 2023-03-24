@@ -27,7 +27,7 @@ export const StoryName = {
     with: 'props',
   },
   parameters: {
-    // Set the viewports in Chromatic at a story level.
+    //👇 Defines a list of viewport widths for a single story to be captured in Chromatic.
     chromatic: { viewports: [320, 1200] },
   },
 };
@@ -48,7 +48,7 @@ export default {
   component: MyComponent,
   title: 'MyComponent',
   parameters: {
-    // Set the viewports in Chromatic at a component level.
+    //👇 Defines a list of viewport widths applied to all stories of a component to be captured in Chromatic.
     chromatic: { viewports: [320, 1200] },
   },
 };
@@ -92,7 +92,7 @@ We don't recommend this in most cases because each viewport is treated independe
 
 const preview = {
   parameters: {
-    // Set the viewports in Chromatic globally.
+    //👇 Defines a list of viewport widths applied globally to all stories.
     chromatic: { viewports: [320, 1200] },
   },
 };
