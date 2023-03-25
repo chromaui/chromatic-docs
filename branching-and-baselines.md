@@ -169,7 +169,7 @@ x - y - z [base]
     w - p - q [head]
 ```
 
-Starting with the build corresponding to commit `q`, Chromatic walks back the commit and build history, through `p` and `w` until it reaches `x`. This the "merge base" build (and also commit, which would be output from `git merge-base base head`).
+Starting with the build corresponding to commit `q`, Chromatic walks back the commit and build history, through `p` and `w` until it reaches `x`. This is the "merge base" build (and also commit, which would be output from `git merge-base base head`).
 
 Chromatic will now compare the stories from `q` to the corresponding stories in `x` to generate the UI changes for the PR.
 
