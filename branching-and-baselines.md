@@ -64,7 +64,7 @@ If you use the "squash" or "rebase" merge feature on Pull Requests, then a commi
 
 ![Squash and rebase merges remove Git history](img/squash-merge.png)
 
-This means Chromatic has no way to tell, using Git, that baselines accepted during the PR should "come over" to to main branch. Instead, we use Git provider APIs to detect this situation. When running the squash/rebase merge commit we'll use the accepted baselines of the _most recent_ commit on the head branch of the PR.
+This means Chromatic has no way to tell, using Git, that baselines accepted during the PR should "come over" to the main branch. Instead, we use Git provider APIs to detect this situation. When running the squash/rebase merge commit we'll use the accepted baselines of the _most recent_ commit on the head branch of the PR.
 
 If you are using GitHub, you need to enable our GitHub App (on the [Pull Requests](review) screen) for this feature to work. Bitbucket and GitLab will work out of the box.
 
