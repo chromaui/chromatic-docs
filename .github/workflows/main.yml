@@ -15,7 +15,7 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-    - uses: actions/checkout@v2
+    - uses: actions/checkout@v3
       with:
         node-version: 16
         # Necessary to grab the HEAD commit from the source branch when
@@ -55,17 +55,26 @@ jobs:
         echo "DEPLOY_MESSAGE=$DEPLOY_MESSAGE" >> $GITHUB_ENV
 
       # Sets the branch name as environment variable
-    - name: 'Deploy'
-      uses: nwtgck/actions-netlify@v2.0.0
-      with:
-        deploy-message: "${{ env.REF }}@${{ env.SHA }}: ${{ env.DEPLOY_MESSAGE }} (${{ github.workflow }} workflow)"
-        github-token: ${{ secrets.GITHUB_TOKEN }}
-        enable-commit-comment: true
-        enable-pull-request-comment: true
-        production-branch: 'main'
-        publish-dir: './_site_deploy'
-
+    - name: Build
+      id: netlify-build
+      uses: netlify/actions/build@master
       env:
-        NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_AUTH_TOKEN }}
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         NETLIFY_SITE_ID: ${{ secrets.NETLIFY_SITE_ID }}
+        NETLIFY_DIR: ./_site_deploy
+        NETLIFY_CMD: yarn build-deploy
+
+    # - name: Deploy
+    #   uses: nwtgck/actions-netlify@v2.0.0
+    #   with:
+    #     deploy-message: "${{ env.REF }}@${{ env.SHA }}: ${{ env.DEPLOY_MESSAGE }} (${{ github.workflow }} workflow)"
+    #     github-token: ${{ secrets.GITHUB_TOKEN }}
+    #     enable-commit-comment: true
+    #     enable-pull-request-comment: true
+    #     production-branch: main
+    #     publish-dir: ./_site_deploy
+
+    #   env:
+    #     NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_AUTH_TOKEN }}
+    #     NETLIFY_SITE_ID: ${{ secrets.NETLIFY_SITE_ID }}
 
