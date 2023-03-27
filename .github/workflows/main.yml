@@ -56,14 +56,14 @@ jobs:
 
       # Sets the branch name as environment variable
     - name: 'Deploy'
-      uses: nwtgck/actions-netlify@v1.2
+      uses: nwtgck/actions-netlify@v2.0.0
       with:
         deploy-message: "${{ env.REF }}@${{ env.SHA }}: ${{ env.DEPLOY_MESSAGE }} (${{ github.workflow }} workflow)"
         github-token: ${{ secrets.GITHUB_TOKEN }}
         enable-commit-comment: true
         enable-pull-request-comment: true
         production-branch: 'main'
-        publish-dir: '_site_deploy'
+        publish-dir: './_site_deploy'
 
       env:
         NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_AUTH_TOKEN }}
