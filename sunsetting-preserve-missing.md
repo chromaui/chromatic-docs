@@ -29,15 +29,19 @@ The `--preserve-missing` flag is commonly used when publishing a _partial_ Story
 Most likely you will have a `.storybook/main.js` which contains something like this:
 
 ```js
+// .storybook/main.js
+
 const stories = {
   projectA: "../projectA/**.stories.js",
   projectB: "../projectB/**.stories.js",
   // etc
-}
+};
 
-export default {
+const config = {
   stories: stories[process.env.STORYBOOK_PROJECT] || "**/*.stories.js",
-}
+};
+
+export default config;
 ```
 
 In which case you'd set the `STORYBOOK_PROJECT` environment variable to control which stories get included in your Storybook. **Do not do this** unless you target a different Chromatic project for each Storybook project (e.g. in a [monorepo](monorepos) setup).
@@ -45,12 +49,24 @@ In which case you'd set the `STORYBOOK_PROJECT` environment variable to control 
 For the above, you might [configure your `stories`](https://storybook.js.org/docs/react/configure/overview#with-a-configuration-object) as follows:
 
 ```js
-export default {
+// .storybook/main.js
+
+const config = {
   stories: [
-    { directory: "../projectA", files: "*.stories.*", titlePrefix: "Project Alpha" },
-    { directory: "../projectB", files: "*.stories.*", titlePrefix: "Project Beta" },
+    {
+      directory: '../projectA',
+      files: '*.stories.*',
+      titlePrefix: 'Project Alpha',
+    },
+    {
+      directory: '../projectB',
+      files: '*.stories.*',
+      titlePrefix: 'Project Beta',
+    },
   ],
-}
+};
+
+export default config;
 ```
 
 This will load stories from both projects, but prefix story paths with the project name so that each has a section in the sidebar.

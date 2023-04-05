@@ -22,15 +22,14 @@ export default {
   title: 'MyComponent',
 };
 
-const Template = (args) => <MyComponent {...args} />;
-
-export const StoryName = Template.bind({});
-StoryName.args = {
-  with: 'props',
-};
-StoryName.parameters = {
-  // Set the viewports in Chromatic at a story level.
-  chromatic: { viewports: [320, 1200] },
+export const StoryName = {
+  args: {
+    with: 'props',
+  },
+  parameters: {
+    //👇 Defines a list of viewport widths for a single story to be captured in Chromatic.
+    chromatic: { viewports: [320, 1200] },
+  },
 };
 ```
 
@@ -47,23 +46,23 @@ import { MyComponent } from './MyComponent';
 
 export default {
   component: MyComponent,
+  title: 'MyComponent',
   parameters: {
-    // Set the viewports in Chromatic at a component level.
+    //👇 Defines a list of viewport widths applied to all stories of a component to be captured in Chromatic.
     chromatic: { viewports: [320, 1200] },
   },
-  title: 'MyComponent',
 };
 
-const Template = (args) => <MyComponent {...args} />;
-
-export const StoryName = Template.bind({});
-StoryName.args = {
-  with: 'props',
+export const StoryName = {
+  args: {
+    with: 'props',
+  },
 };
 
-export const SecondStoryName = (args = Template.bind({}));
-SecondStoryName.args = {
-  with: 'other-props',
+export const SecondStoryName = {
+  args: {
+    with: 'other-props',
+  },
 };
 ```
 
@@ -91,10 +90,14 @@ We don't recommend this in most cases because each viewport is treated independe
 ```js
 // .storybook/preview.js
 
-export const parameters = {
-  // Set the viewports in Chromatic globally.
-  chromatic: { viewports: [320, 1200] },
+const preview = {
+  parameters: {
+    //👇 Defines a list of viewport widths applied globally to all stories.
+    chromatic: { viewports: [320, 1200] },
+  },
 };
+
+export default preview;
 ```
 
 </details>

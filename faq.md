@@ -137,13 +137,27 @@ Users with the [`owner`](collaborators#roles) role can reset or cycle project to
 Chromatic follows Storybook's [naming best practice](https://storybook.js.org/docs/react/writing-stories/naming-components-and-hierarchy). The last level in the hierarchy is tracked as the component name.
 
 ```js
+// Button.stories.js|jsx
+
+import { Button } from './Button';
+
 export default {
   title: 'App/Components/Button',
   component: Button,
 };
 
-export const Primary = () => <Button primary>Button</Button>;
-export const Secondary = () => <Button secondary>Button</Button>;
+/*
+ *👇 Render functions are a framework-specific feature to allow you control over how the component renders.
+ * See https://storybook.js.org/docs/react/api/csf
+ * to learn how to use render functions.
+ */
+export const Primary = {
+  render: () => <Button primary>Button</Button>,
+};
+
+export const Secondary = {
+  render: () => <Button secondary>Button</Button>,
+};
 ```
 
 In the example above, `Button` is the component name, while `Primary` and `Secondary` are the story names respectively. If your Storybook is organized in a different way, that will affect how your components and story names appear in both Chromatic and Storybook. There's no way to configure name detection.
