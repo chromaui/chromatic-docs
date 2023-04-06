@@ -90,7 +90,7 @@ You can zoom, pan, and even inspect the layers.
 If you haven’t used the Figma plugin already, you can now connect your Figma components to your stories from within the Chromatic web app. You just need to grab the Figma URL for a component like so:
 ![image](https://user-images.githubusercontent.com/1164060/229818480-f24216e0-3367-4a6b-9c5e-8ab1e7087cd4.png)
 
-Next, drop that URL in the form on any component’s design tab and save the connection for all your teammates to view this design in the future. 
+Next, enter that URL in the form on any story's design tab and save the connection for all your teammates to view this design in the future. 
 ![image](https://user-images.githubusercontent.com/1164060/229818541-4d478fd9-e049-4ef8-a12f-3178cca42b99.png)
 
 ## Things to note
