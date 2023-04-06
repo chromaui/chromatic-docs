@@ -67,14 +67,14 @@ Invite non-technical teammates like designers or PMs to your Chromatic project a
 Every Chromatic plan comes with unlimited collaborators and [fine-grained roles](collaborators#roles). There are no extra charges "per seat".
 
 # Figma in Chromatic
-Last year Chromatic released Storybook Connect, a Figma plugin that connects stories to Figma components. This connection allowed you to view your team’s Storybook stories without leaving Figma. Since then, thousands have downloaded the plugin to bring their stories closer to the designs.
+In 2022 Chromatic released Storybook Connect, a Figma plugin that connects stories to Figma components. This connection allowed you to view your team’s Storybook stories without leaving Figma. Since then, thousands have downloaded the plugin to bring their stories closer to the designs.
 Recently, Chromatic introduced a new integration with Figma. This allows you to view Figma components in Chromatic and make new connections between your Figma designs and your Storybook stories from within Chromatic. 
 
 ## Enable
 
 Since this workflow is still in early release, we must opt you in first. Please email us via support@chromatic.com to get access. 
 
-To get started with this integration, you need to connect your Figma account with Chromatic. Visit your project’s Manage page, and under the configuration tab, you’ll find a new “Connected Applications” section. If you or your teammate have the appropriate Figma access to view your team's designs you can go ahead and connect Figma to this project.
+To get started with this integration, you need to connect your Figma account with Chromatic. Visit your project’s Manage page, and under the configuration tab, you’ll find a new “Connected Applications” section. If you or a teammate have the appropriate Figma access to view your team's designs you can go ahead and connect Figma to this project.
 ![image](https://user-images.githubusercontent.com/1164060/229817853-fb89142b-0c5a-4aa5-881f-cfcca8ddb8ff.png)
 
 ## View a linked Figma design
