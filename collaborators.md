@@ -34,9 +34,9 @@ However, projects _within_ an organization do support [project-level collaborato
 
 #### Single Sign-On (SSO)
 
-Single Sign-On (SSO) is available to enterprise customers. Chromatic syncs access permissions with your SSO provider. At the organization-level, contact us via in-app chat or email to manage collaborators.
+Single Sign-On (SSO) is available to enterprise customers. Chromatic syncs access permissions with your SSO provider. At the organization-level, contact us via in-app chat or email to manage or remove collaborators.
 
-When you add or remove collaborators in your SSO provider, that access will be reflected in Chromatic automatically.
+When you add collaborators in your SSO provider, that access will be reflected in Chromatic automatically.
 
 ### Billing and usage
 
