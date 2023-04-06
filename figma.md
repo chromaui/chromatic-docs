@@ -72,7 +72,7 @@ Recently, Chromatic introduced a new integration with Figma. This allows you to 
 
 ## Enable
 
-Since this workflow is still in Beta, we must opt you in first. Please reach out via Intercom in order to get access. 
+Since this workflow is still in early release, we must opt you in first. Please email us via support@chromatic.com to get access. 
 
 To get started with this integration, you need to connect your Figma account with Chromatic. Visit your project’s Manage page, and under the configuration tab, you’ll find a new “Connected Applications” section. If you or your teammate have the appropriate Figma access to view your team's designs you can go ahead and connect Figma to this project.
 ![image](https://user-images.githubusercontent.com/1164060/229817853-fb89142b-0c5a-4aa5-881f-cfcca8ddb8ff.png)
