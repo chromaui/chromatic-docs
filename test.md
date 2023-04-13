@@ -78,6 +78,8 @@ Click "Inspect snapshot" to open the Inspector. Switch between the "Canvas" and 
 
 ![Reproduce snapshot](img/feature-component-inspect.png)
 
+</details>
+
 <details>
 <summary>How are changes on builds different from those listed on the PR Screen 'Changeset' tab?</summary>
 
@@ -147,7 +149,7 @@ A build will _fail_ if any of the snapshots fail to render (i.e. in rendering th
 
 If a build isn't the newest build on a branch, we disable reviewing the build; as any future builds will base themselves on the _newest_ build, making approvals to this build pointless.
 
-Note that in the case that there is a descendent build of this build on _a different branch_ (for instance if the commit for this build was merged into that different branch), we do allow reviewing of this build. Future builds on this branch _will_ use approved changes from the build; however future builds on the different branch will notfor this reason it is best to review builds before merging them.
+Note that in the case that there is a descendent build of this build on _a different branch_ (for instance, if the commit for this build was merged into that different branch), we do allow reviewing of this build. Future builds on this branch _will_ use approved changes from the build; however, future builds on the different branch will not. For this reason, it is best to review builds before merging them.
 
 </details>
 
