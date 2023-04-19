@@ -17,6 +17,7 @@ When a build's [status changes](#result-and-status-codes), we'll send a `POST` r
 
 ```json
 {
+  "version": 2,
   "event": "build",
   "build": {
     "number": 123,
@@ -46,6 +47,7 @@ Similarly, we call your endpoint when a review is created:
 
 ```json
 {
+  "version": 2,
   "event": "review",
   "review": {
     "number": 1,
@@ -70,6 +72,7 @@ When a reviewer is assigned to a review or they approve the changes, we send an 
 
 ```json
 {
+  "version": 2,
   "event": "review-decision",
   "reviewDecision": {
     "status": "PENDING", // | "APPROVED"
@@ -117,7 +120,7 @@ Most customers set up a simple proxy app to customize the webhook message. Below
 
 ### Versioned webhooks
 
-Our webhooks are versioned and won't suddenly change when we roll out an update. Our requests include the `X-Webhook-Version` header (e.g. `2`) to indicate what version was used.
+Our webhooks are versioned and won't suddenly change when we roll out an update. Our requests include the `X-Webhook-Version` header (e.g. `2`) to indicate what version was used, as well as a `"version"` property in the JSON request body.
 
 If you've been using a custom webhook for a long time, or used to have one in the past, your project might still be configured to receive an older type of webhook. In this case you'll see a prompt like this:
 
