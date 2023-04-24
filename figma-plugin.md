@@ -65,3 +65,8 @@ When a story is linked to a Figma component, that link persists across teams and
 Invite non-technical teammates like designers or PMs to your Chromatic project as [external collaborators](collaborators#external-collaborators). That gives them permissions to view and manage linked components.
 
 Every Chromatic plan comes with unlimited collaborators and [fine-grained roles](collaborators#roles). There are no extra charges "per seat".
+
+### Want to incorporate Figma in Chromatic?
+<div class="aside">
+Chromatic has <a href="figma-in-chromatic">another integration with Figma</a> that brings code and design, side-by-side support into the web app. You’ll be able to view Figma components alongside their linked story right within Chromatic.
+</div>
