@@ -66,7 +66,8 @@ Invite non-technical teammates like designers or PMs to your Chromatic project a
 
 Every Chromatic plan comes with unlimited collaborators and [fine-grained roles](collaborators#roles). There are no extra charges "per seat".
 
-### Want to incorporate Figma in Chromatic?
-<div class="aside">
+<details>
+<summary>Want to incorporate Figma in Chromatic?</summary>
+
 Chromatic has <a href="figma-in-chromatic">another integration with Figma</a> that brings code and design, side-by-side support into the web app. You’ll be able to view Figma components alongside their linked story right within Chromatic.
-</div>
+</details>

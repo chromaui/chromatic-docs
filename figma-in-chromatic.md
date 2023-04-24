@@ -35,7 +35,8 @@ Next, enter that URL in the form on any story's design tab and save the connecti
 - When you link a Figma frame or layer that is not a component it will not show up in the Figma plugin, Storybook Connect, because the plugin only supports Components at this time.
 - Components linked from either the plugin or the Chromatic side that have not been published to a Figma library yet will not render within the Designs tab.
 
-### Looking for a Figma plugin?
-<div class="aside">
+<details>
+<summary>Looking for a Figma plugin?</summary>
+
 <a href="figma-plugin">Storybook Connect</a> is a Figma plugin that allows you to link stories to Figma components. Once linked, you can view your live stories in the design workspace without leaving Figma.
-</div>
+</details>
