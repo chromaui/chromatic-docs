@@ -30,7 +30,7 @@ The custom icon:
 
 Connect Chromatic to other services that support webhooks to script custom behavior and automate advanced workflows.
 
-1. Go to [Chromatic](https://www.chromatic.com/start), select your project and click the Manage tab in the sidebar.
+1. Go to [Chromatic](https://www.chromatic.com/start), select your project, and click the Manage tab in the sidebar.
 2. Scroll down to "Integrations", click the "Add webhook" button in the custom webhook section and set your webhook URL.
 
 We'll send a `POST` request to your webhook to notify about the following events:

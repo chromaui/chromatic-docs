@@ -124,7 +124,7 @@ Most customers set up a simple proxy app to customize the webhook message. Below
 
 ### Versioned webhooks
 
-Our webhooks are versioned and won't introduce breaking changes when we roll out an update. Our requests include the `X-Webhook-Version` header (e.g. `2`) to indicate what version was used and a `"version"` property in the JSON request body. We may introduce new events or add new fields, properties or HTTP headers without incrementing the version number, as we consider those to be non-breaking changes.
+Our webhooks are versioned and won't introduce breaking changes when we roll out an update. Our requests include the `X-Webhook-Version` header (e.g. `2`) to indicate what version was used and a `"version"` property in the JSON request body. We may introduce new events or add new fields, properties, or HTTP headers without incrementing the version number, as we consider those to be non-breaking changes.
 
 If you've been using a custom webhook for a long time, or used to have one in the past, your project might still be configured to receive an older type of webhook. In this case you'll see a prompt like this:
 
