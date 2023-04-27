@@ -51,7 +51,8 @@ Navigate to the Reviews link in the sidebar and click the “Create Review” bu
 
 <div class="aside">
 <p><b>Note:</b> If you are trying to review the changes completed in a pull (merge) request, you will want to match the head and base branches of the Review with the respective branches of the pull (merge) request.</p>
-<p>Additionally, you can only have one open Review at a time with the same branch combination. For example, if your head branch is <code>new-changes</code> and your base branch is <code>main</code>, you cannot open another Review with <code>new-changes</code> as the head branch and <code>main</code> as the base branch.</p>
+<p>You can only have one open Review at a time with the same branch combination. For example, if your head branch is <code>new-changes</code> and your base branch is <code>main</code>, you cannot open another Review with <code>new-changes</code> as the head branch and <code>main</code> as the base branch.</p>
+<p>While it is unlikely you would need to do so, you can manually create a review for a linked project as well.</p>
 </div>
 
 <details>
