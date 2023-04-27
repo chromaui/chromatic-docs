@@ -28,7 +28,7 @@ Enable UI Review for your project on the Manage screen. Then go to the Reviews t
 ### For unlinked projects
 This workflow is still in Beta, so we must opt you in first. Please reach out to your Customer Success contact or [support@chromatic.com](mailto:support@chromatic.com) in order to get access.
 
-Once you’re in the beta for Unlinked UI Review, you can enable UI Review for your existing projects on the Manage screen. Any projects created after you enroll will automatically have it enabled. You’ll then go to the Reviews tab in the web app sidebar.
+Once you’re in the beta for Unlinked UI Review, any new projects created will automatically have UI Review enabled. For your existing projects, you can enable UI Review on the Manage screen (see above).
 
 <div class="aside">
 <p><b>Note:</b> In order to create a review, you will need to have at least 2 git branches with a build on each.</p>
@@ -36,19 +36,22 @@ Once you’re in the beta for Unlinked UI Review, you can enable UI Review for y
 
 ## Create a review
 ### For linked projects
-If you have [linked your project](access#linked-projects) to a repository on GitHub, Bitbucket, or GitLab, [enabled UI Review](review#enable), and [set up CI](ci), Chromatic will run builds for each commit on the PR branch automatically. Nothing else is needed from you to create a review.
+If you have [linked your project](access#linked-projects) to a repository on GitHub, Bitbucket, or GitLab, [enabled UI Review](review#enable), and [set up CI](ci), Chromatic will run builds automatically for each commit on a PR branch. Nothing else is needed from you to create a review.
 
 ### For manual reviews
 Navigate to the Reviews link in the sidebar and click the “Create Review” button.
 
-* Select the base branch, which is the branch that’s used as the source of truth for comparison.
-* Select the head branch, which is the branch that has the changes that you want to compare with the source of truth. Then, click “Continue to review.”
-
 ![Create Review](img/create-review.png)
 
+* Select the base branch, which is the branch that’s used as the source of truth for comparison.
+* Select the head branch, which is the branch that has the changes that you want to compare with the source of truth. Then, click “Continue to review.”
+* Enter a title for the Review. Then, press “Compare branches”
+
+![Create review branches](img/create-review-branches.png)
+
 <div class="aside">
-<p><b>Note:</b> If you are trying to review the changes completed in a pull (merge) request, you will want to match the head and base branches of the review with the respective branches of the pull (merge) request.
-</p>
+<p><b>Note:</b> If you are trying to review the changes completed in a pull (merge) request, you will want to match the head and base branches of the review with the respective branches of the pull (merge) request.</p>
+<p>Additionally, you can only have one open review at a time with the same branch combination. For example, if your head branch is <code>new-changes</code> and your base branch is <code>main</code>, you cannot open another review with <code>new-changes</code> as the head branch and <code>main</code> as the base branch.</p>
 </div>
 
 <details>
@@ -58,14 +61,6 @@ Navigate to the Reviews link in the sidebar and click the “Create Review” bu
 * The head branch is the branch that has the actual changes that need to be compared against the base branch.
 
 </details>
-
-![Create review branches](img/create-review-branches.png)
-
-* Enter a title for the Review. Then, press “Compare branches”
-
-<div class="aside">
-<p><b>Note:</b> You can only have one open review at a time with the same branch combination. For example, if your head branch is `new-changes` and your base branch is `main`, you cannot open another review with `new-changes` as the head branch and `main` as the base branch.</p>
-</div>
 
 ## Understanding the Review
 
@@ -122,7 +117,7 @@ At the bottom of the Review screen’s [activity tab](review#find-your-pull-requ
 3. All assigned reviewers must approve &rarr; Click 'Approve' in the Review screen tab bar.
 
 <div class="aside">
-<p><b>Note:</b> Step #3 is not mandatory if you would like to close the review.
+<p><b>Note:</b> Step #3 is not required if you would like to close the review.
 </p>
 </div>
 
