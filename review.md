@@ -6,39 +6,36 @@ description: Learn how to review changes for your component library
 
 # UI Review
 
-UI tests protect you from accidental regressions. But, before you ship, you’ll want to invite developers, designers, and PMs to review the UI, discuss changes, and get the final team to sign off.
+UI Tests protect you from accidental regressions. But, before you ship, you’ll want to invite developers, designers, and PMs to review the UI, discuss changes, and get the final sign off.
 
 UI Review creates a changeset of the exact visual changes introduced on a new branch. You assign reviewers who can comment and request tweaks on changes that aren’t quite right. Think of it like a code review, but for your UI.
 
-Previously, this feature was only available for accounts that [linked projects](access#linked-projects) with GitHub, GitLab, or Bitbucket. We are now making the feature available to all of our customers, on both linked and unlinked projects.
+Previously, this feature was only available for accounts that [linked projects](access#linked-projects) with GitHub, GitLab, or Bitbucket. We are now making the feature available to all of our customers, for both linked and unlinked projects.
 
 ![UI Review](img/workflow-uireview.png)
 
 ## Enable
 
-### For linked projects
-Enable UI Review for your project on the Manage screen. Then go to the Reviews tab in the web app sidebar. You’ll be prompted to install the GitHub app or webhooks for GitLab or Bitbucket.
+### Linked projects
+Enable UI Review for your project on the Manage screen.
 
 ![Enable UI Review](img/uireview-for-docs.png)
+
+Once enabled, visit the Reviews tab in the web app sidebar. There you’ll be prompted to install the GitHub app or webhooks for GitLab/Bitbucket.
+
 
 <div class="aside">
 <p><b>Note:</b> For linked projects, you must <a href="ci">set up CI</a> so that Chromatic is able to run builds for each commit on the PR branch.</p>
 </div>
 
-### For unlinked projects
-This workflow is still in Beta, so we must opt you in first. Please reach out to your Customer Success contact or [support@chromatic.com](mailto:support@chromatic.com) in order to get access.
-
-Once you’re in the beta for Unlinked UI Review, any new projects created will automatically have UI Review enabled. For your existing projects, you can enable UI Review on the Manage screen (see above).
-
-<div class="aside">
-<p><b>Note:</b> In order to create a Review, you will need to have at least two git branches with a build on each.</p>
-</div>
+### Unlinked projects
+For any existing projects not already taking advantage of UI Review, you can enable it on the project’s Manage screen (see above). Any new projects will automatically have UI Review enabled.
 
 ## Create a Review
-### For linked projects
+### Linked projects
 If you have [linked your project](access#linked-projects) to a repository on GitHub, Bitbucket, or GitLab, [enabled UI Review](review#enable), and [set up CI](ci), Chromatic will run builds automatically for each commit on a PR branch. Nothing else is needed from you to create a Review.
 
-### For unlinked projects
+### Unlinked projects
 Navigate to the Reviews link in the sidebar and click the “Create Review” button.
 
 ![Create Review](img/create-review.png)
@@ -50,9 +47,21 @@ Navigate to the Reviews link in the sidebar and click the “Create Review” bu
 ![Create review branches](img/create-review-branches.png)
 
 <div class="aside">
-<p><b>Note:</b> If you are trying to review the changes completed in a pull (merge) request, you will want to match the head and base branches of the Review with the respective branches of the pull (merge) request.</p>
-<p>You can only have one open Review at a time with the same branch combination. For example, if your head branch is <code>new-changes</code> and your base branch is <code>main</code>, you cannot open another Review with <code>new-changes</code> as the head branch and <code>main</code> as the base branch.</p>
-<p>While it is unlikely you would need to do so, you can manually create a review for a linked project as well.</p>
+<p><b>Notes:</b></p>
+  <ul>
+    <li>
+      <p>In order to create a Review, you will need to have at least two git branches with a build on each.</p>
+    </li>
+    <li>
+      <p>If you are trying to review the changes completed in a pull (merge) request, you will want to match the head and base branches of the Review with the respective branches of the pull (merge) request.</p>
+    </li>
+    <li>
+      <p>You can only have one open Review at a time with the same branch combination. For example, if your head branch is <code>new-changes</code> and your base branch is <code>main</code>, you cannot open another Review with <code>new-changes</code> as the head branch and <code>main</code> as the base branch.</p>
+    </li>
+    <li>
+      <p>While it is unlikely you would need to do so, you can manually create a review for a linked project as well.</p>
+    </li>
+  </ul>
 </div>
 
 <details>
@@ -124,22 +133,28 @@ At the bottom of the Review screen’s [activity tab](review#find-your-pull-requ
 
 ![UI Checklist](img/prscreen-ui-checklist.png)
 
-## Close a Review
+## Closing a Review
 
-Once a Review is complete, it can be closed. Click the ‘Close review’ menu item in the ‘Review now’ button tooltip. Your review will be displayed in the list of ‘Closed’ Reviews on the Reviews page.
+### Linked projects
+No action is required on linked projects to close a Review. Once the PR branch is merged, the Review will be closed automatically.
+### Unlinked projects
+Once a Review is complete, it can be closed by clicking the ‘Close review’ menu item in the ‘Review now’ button tooltip. Your review will then be displayed in the list of ‘Closed’ Reviews on the Reviews page.
+
+![Close Review](img/close-review.png)
 
 <div class="aside">
 <p><b>Note:</b> closing a Review <b>does not</b> merge the branches in git.</p>
 </div>
 
-![Close Review](img/close-review.png)
 ## PR check for "UI Review"
 
+### Linked projects
 You'll get a 'UI Review' status check for each PR that shows the state of the UI Checklist. Require the check in [GitHub](https://help.github.com/en/github/administering-a-repository/enabling-required-status-checks), [GitLab](https://docs.gitlab.com/ee/api/commits.html#post-the-build-status-to-a-commit), or [Bitbucket](https://confluence.atlassian.com/bitbucket/suggest-or-require-checks-before-a-merge-856691474.html) to ensure that impactful changes are considered by the team before merging.
 
 ![PR for UI Review](img/prbadge-review.png)
 
-Manually created Reviews will not create a “UI Review” status check in GitHub, GitLab or Bitbucket. To create a status check in your Git provider for manually created Reviews, you can use a [custom webhook](integrations#custom-webhooks).
+### Unlinked projects
+Manually created Reviews will not create a “UI Review” status check in GitHub, GitLab, or Bitbucket. To create a status check in your Git provider for manually created Reviews, you can use a [custom webhook](integrations#custom-webhooks).
 
 ---
 
