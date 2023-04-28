@@ -67,8 +67,8 @@ Navigate to the Reviews link in the sidebar and click the “Create Review” bu
 <details>
 <summary>Glossary</summary>
 
-* The base branch is the branch that you want to use as a baseline for the comparison.
-* The head branch is the branch that has the actual changes that need to be compared against the base branch.
+* <b>Base branch:</b> the branch you want to use as a baseline for the comparison
+* <b>Head branch:</b> the branch with the new changes that need to be compared against the base branch
 
 </details>
 
