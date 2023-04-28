@@ -160,7 +160,7 @@ Manually created Reviews will not create a “UI Review” status check in GitHu
 
 ## Next: Learn about documenting reusable components
 
-Now that you've seen how to review the UI changeset before merging, learn how Chromatic makes is simple to share versioned and interactive component docs.
+Now that you’ve seen how to review the UI changeset before merging, learn how Chromatic makes sharing versioned and interactive component docs simple.
 
 <a class="btn primary round" href="document">Read next chapter</a>
 
