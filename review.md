@@ -10,7 +10,7 @@ UI Tests protect you from accidental regressions. But, before you ship, you’ll
 
 UI Review creates a changeset of the exact visual changes introduced on a new branch. You assign reviewers who can comment and request tweaks on changes that aren’t quite right. Think of it like a code review, but for your UI.
 
-Previously, this feature was only available for accounts that [linked projects](access#linked-projects) with GitHub, GitLab, or Bitbucket. We are now making the feature available to all of our customers, for both linked and unlinked projects.
+Previously, this feature was only available for accounts that linked projects with GitHub, GitLab, or Bitbucket. We are now making the feature available to all of our customers, for both [linked](access#linked-projects) and [unlinked projects](access#unlinked-projects).
 
 ![UI Review](img/workflow-uireview.png)
 
@@ -82,7 +82,7 @@ Once a Review has been created—either manually or through CI—navigate to the
 
 Invite other developers, designers, PMs, and stakeholders to help review changes. This closes the feedback loop between disciplines and helps you find the answer to “does this look right?”
 
-If you [linked your project](access) to GitHub, Bitbucket, or GitLab, your project permissions are synced so collaborators can sign in to review immediately. If your [project is unlinked](access), use the project invite code to add collaborators.
+If you [linked your project](access#linked-projects) to GitHub, Bitbucket, or GitLab, your project permissions are synced so collaborators can sign in to review immediately. If your [project is unlinked](access#unlinked-projects), use the project invite code to add collaborators.
 
 #### Assign reviewers
 
