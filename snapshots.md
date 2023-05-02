@@ -10,11 +10,12 @@ A snapshot is an image of a story plus some metadata captured by a standardized 
 
 Table of contents:
 
-- [View snapshots for a story](#view-snapshots-for-a-story)
-- [How are snapshots captured?](#how-are-snapshots-captured)
-- [Improve snapshot consistency](#improve-snapshot-consistency)
-- [Debug snapshot rendering](#debug-snapshot-rendering)
-- [Browser differences between snapshots](#browser-differences-between-snapshots)
+- [Snapshots](#snapshots)
+  - [View snapshots for a story](#view-snapshots-for-a-story)
+  - [How are snapshots captured?](#how-are-snapshots-captured)
+  - [Improve snapshot consistency](#improve-snapshot-consistency)
+  - [Debug snapshot rendering](#debug-snapshot-rendering)
+  - [Browser differences between snapshots](#browser-differences-between-snapshots)
 
 <div class="aside">
 
@@ -70,7 +71,7 @@ It's essential that your components and stories render in a **consistent** fashi
 
 - **Animations**: Chromatic will attempt to pause all animations. However, you may need to [configure](animations) Chromatic's exact behavior.
 
-- **Unpredictable resource hosts**: Resources that load from unpredictable or flaky sources may not load in time (15s) to capture. Workaround this by serving resources as [static files in Storybook](https://storybook.js.org/configurations/serving-static-files/) or using a [placeholder service](https://placeholder.com/). Learn more about how we [load resources](resource-loading).
+- **Unpredictable resource hosts**: Resources that load from unpredictable or flaky sources may not load in time (15s) to capture. Workaround this by serving resources as [static files in Storybook](https://storybook.js.org/configurations/serving-static-files/) or using a [placeholder service](https://placehold.co/). Learn more about how we [load resources](resource-loading).
 
 - **Web font loading**: Web fonts can load at different times which will impact snapshot consistency, especially when combined with [interactions](interactions). Serve web fonts as [static files in Storybook](https://storybook.js.org/configurations/serving-static-files/) and make sure to [preload](resource-loading#solution-a-preload-fonts) them.
 
