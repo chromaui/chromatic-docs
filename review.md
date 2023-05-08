@@ -17,32 +17,36 @@ Previously, this feature was only available for accounts that linked projects wi
 ## Enable
 
 ### Linked projects
+
 Enable UI Review for your project on the Manage screen.
 
 ![Enable UI Review](img/uireview-for-docs.png)
 
 Once enabled, visit the Reviews tab in the web app sidebar. There you’ll be prompted to install the GitHub app or webhooks for GitLab/Bitbucket.
 
-
 <div class="aside">
 <p><b>Note:</b> For linked projects, you must <a href="ci">set up CI</a> so that Chromatic is able to run builds for each commit on the PR branch.</p>
 </div>
 
 ### Unlinked projects
+
 For any existing projects not already taking advantage of UI Review, you can enable it on the project’s Manage screen (see above). Any new projects will automatically have UI Review enabled.
 
 ## Create a Review
+
 ### Linked projects
+
 If you have [linked your project](access#linked-projects) to a repository on GitHub, Bitbucket, or GitLab, [enabled UI Review](review#enable), and [set up CI](ci), Chromatic will run builds automatically for each commit on a PR branch. Nothing else is needed from you to create a Review.
 
 ### Unlinked projects
+
 Navigate to the Reviews link in the sidebar and click the “Create Review” button.
 
 ![Create Review](img/create-review.png)
 
-* Select the base branch, which is the branch that’s used as the source of truth for comparison.
-* Select the head branch, which is the branch that has the changes that you want to compare with the source of truth. Then, click “Continue to review.”
-* Enter a title for the Review. Then, press “Compare branches”
+- Select the base branch, which is the branch that’s used as the source of truth for comparison.
+- Select the head branch, which is the branch that has the changes that you want to compare with the source of truth. Then, click “Continue to review.”
+- Enter a title for the Review. Then, press “Compare branches”
 
 ![Create review branches](img/create-review-branches.png)
 
@@ -67,8 +71,8 @@ Navigate to the Reviews link in the sidebar and click the “Create Review” bu
 <details>
 <summary>Glossary</summary>
 
-* <b>Base branch:</b> the branch you want to use as a baseline for the comparison
-* <b>Head branch:</b> the branch with the new changes that need to be compared against the base branch
+- <b>Base branch:</b> the branch you want to use as a baseline for the comparison
+- <b>Head branch:</b> the branch with the new changes that need to be compared against the base branch
 
 </details>
 
@@ -92,7 +96,7 @@ Use the Assign Reviewers link on the Review’s Activity screen to choose review
 
 #### Pull requests from forks
 
-Chromatic supports UI Test and UI Review across forks, but there's some caveats. First, it only works with [CI integration](ci#configure-ci) configured to also build PR branches from forks. Secondly, you must expose your `project-token` so that forks can use it. The easiest way to do that is to simply include it in in your `package.json`, for example:
+Chromatic supports UI Test and UI Review across forks, but there's some caveats. First, it only works with [CI integration](ci#configure-ci) configured to also build PR branches from forks. Secondly, you must expose your project token so that forks can use it. The easiest way to do that is to simply include it in in your `package.json`, for example:
 
 ```json
 {
@@ -102,7 +106,7 @@ Chromatic supports UI Test and UI Review across forks, but there's some caveats.
 }
 ```
 
-If you use a CI provider other than GitHub, you can still use an environment variable. Just make sure your CI is configured to also build forked branches. The `project-token` does not grant access to the project (it can only retrieve a strict set of insensitive data), but it does allow running new builds which count against your snapshot quota.
+If you use a CI provider other than GitHub, you can still use an environment variable. Just make sure your CI is configured to also build forked branches. The project token does not grant access to the project (it can only retrieve a strict set of insensitive data), but it does allow running new builds which count against your snapshot quota.
 
 ## Review the changes
 
@@ -136,8 +140,11 @@ At the bottom of the Review screen’s [activity tab](review#find-your-pull-requ
 ## Closing a Review
 
 ### Linked projects
+
 No action is required on linked projects to close a Review. Once the PR branch is merged, the Review will be closed automatically.
+
 ### Unlinked projects
+
 Once a Review is complete, it can be closed by clicking the ‘Close review’ menu item in the ‘Review now’ button tooltip. Your review will then be displayed in the list of ‘Closed’ Reviews on the Reviews page.
 
 ![Close Review](img/close-review.png)
@@ -149,11 +156,13 @@ Once a Review is complete, it can be closed by clicking the ‘Close review’ m
 ## PR check for "UI Review"
 
 ### Linked projects
+
 You'll get a 'UI Review' status check for each PR that shows the state of the UI Checklist. Require the check in [GitHub](https://help.github.com/en/github/administering-a-repository/enabling-required-status-checks), [GitLab](https://docs.gitlab.com/ee/api/commits.html#post-the-build-status-to-a-commit), or [Bitbucket](https://confluence.atlassian.com/bitbucket/suggest-or-require-checks-before-a-merge-856691474.html) to ensure that impactful changes are considered by the team before merging.
 
 ![PR for UI Review](img/prbadge-review.png)
 
 ### Unlinked projects
+
 Manually created Reviews will not create a “UI Review” status check in GitHub, GitLab, or Bitbucket. To create a status check in your Git provider for manually created Reviews, you can use a [custom webhook](integrations#custom-webhooks).
 
 ---

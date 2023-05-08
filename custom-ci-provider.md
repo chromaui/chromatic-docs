@@ -21,11 +21,11 @@ To integrate Chromatic with your existing CI provider, you'll need to add the fo
     command: npm test # Run your unit tests
 - run:
     # 👇 Publish Storybook and run visual tests in Chromatic
-    command: npm run chromatic --project-token=CHROMATIC_PROJECT_TOKEN
+    command: npm run chromatic
 ```
 
 <div class="aside">
-For extra security, add Chromatic's <code>project-token</code> as an environment variable. See your provider's documentation for reference.
+For security, don't include the plaintext project token in your pipeline config file. Instead, store it as a (secret) environment variable named <code>CHROMATIC_PROJECT_TOKEN</code>. The <code>chromatic</code> script will automatically use <code>CHROMATIC_PROJECT_TOKEN</code>, no need to use the <code>--project-token</code> flag. See your provider's documentation for reference.
 </div>
 
 ### Run Chromatic on specific branches
@@ -40,7 +40,7 @@ Chromatic is prepared to handle large file uploads (with a limit of 5000 files, 
 # your-workflow
 - run:
     # 👇 Runs Chromatic with the flag to compress the build output.
-    command: npm run chromatic --project-token=CHROMATIC_PROJECT_TOKEN --zip
+    command: npm run chromatic --zip
 ```
 
 ### Run Chromatic on monorepos
@@ -57,11 +57,15 @@ If you've already built your Storybook in a separate CI step, you can alternativ
 ```yml
 # your-workflow
 
-  # 👇 Runs Chromatic sequentially for each monorepo subproject.
+# 👇 Runs Chromatic sequentially for each monorepo subproject.
 - run:
-    command: cd packages/project_1 && npm run chromatic --project-token=CHROMATIC_PROJECT_TOKEN_1
+    command: cd packages/project_1 && npm run chromatic
+    environment:
+      CHROMATIC_PROJECT_TOKEN: $CHROMATIC_PROJECT_TOKEN_1
 - run:
-    command: cd packages/project_2 && npm run chromatic --project-token=CHROMATIC_PROJECT_TOKEN_2
+    command: cd packages/project_2 && npm run chromatic
+    environment:
+      CHROMATIC_PROJECT_TOKEN: $CHROMATIC_PROJECT_TOKEN_2
 ```
 
 If you want to run Chromatic in parallel for each subproject, you can use this snippet below.
@@ -69,12 +73,16 @@ If you want to run Chromatic in parallel for each subproject, you can use this s
 ```yml
 # your-workflow
 
-  # 👇 Runs Chromatic in parallel for each monorepo subproject.
+# 👇 Runs Chromatic in parallel for each monorepo subproject.
 - parallel:
     - run:
-        command: cd packages/project_1 && npm run chromatic --project-token=CHROMATIC_PROJECT_TOKEN_1
+        command: cd packages/project_1 && npm run chromatic
+        environment:
+          CHROMATIC_PROJECT_TOKEN: $CHROMATIC_PROJECT_TOKEN_1
     - run:
-        command: cd packages/project_2 && npm run chromatic --project-token=CHROMATIC_PROJECT_TOKEN_2
+        command: cd packages/project_2 && npm run chromatic
+        environment:
+          CHROMATIC_PROJECT_TOKEN: $CHROMATIC_PROJECT_TOKEN_1
 ```
 
 ### Enable TurboSnap
@@ -86,7 +94,7 @@ TurboSnap is an advanced Chromatic feature implemented to improve the build time
 
 - run:
     # 👇 Enables Chromatic's TurboSnap feature.
-    command: npm run chromatic --project-token=CHROMATIC_PROJECT_TOKEN --only-changed
+    command: npm run chromatic --only-changed
 ```
 
 <div class="aside">
@@ -105,7 +113,7 @@ In this case, you can adjust your workflow and include the `--branch-name` flag.
 # your-workflow
 - run:
     # 👇 Runs the Chromatic CLI with the --branch-name flag to override the baseline branch
-    command: npm run chromatic --project-token=CHROMATIC_PROJECT_TOKEN --branch-name=${YOUR_BRANCH}
+    command: npm run chromatic --branch-name=${YOUR_BRANCH}
 ```
 
 Chromatic will now detect the correct branch and run your workflow. You can also apply this when fixing cross-fork UI comparisons.
@@ -125,7 +133,7 @@ If you are using pull request statuses as required checks before merging, you ma
 
 - run:
     # 👇 Runs Chromatic with the flag to prevent stage failure
-    command: npm run chromatic --project-token=CHROMATIC_PROJECT_TOKEN --exit-zero-on-changes
+    command: npm run chromatic --exit-zero-on-changes
 ```
 
 <div class="aside">
@@ -160,10 +168,10 @@ If you’re using this functionality but notice the incoming changes were not ac
 - run:
     # 👇 Checks if the current branch is not main and runs Chromatic
     if: branch != main
-      command: npm run chromatic --project-token=CHROMATIC_PROJECT_TOKEN
+      command: npm run chromatic
     # 👇 Checks if the current branch is main and accepts all changes in Chromatic
     else:
-      command: npm run chromatic --project-token=${CHROMATIC_PROJECT_TOKEN} --auto-accept-changes
+      command: npm run chromatic --auto-accept-changes
 ```
 
 <div class="aside">
@@ -174,9 +182,9 @@ Including the `--auto-accept-changes` flag ensures all incoming changes will be 
 
 #### Run Chromatic on external forks of open source projects
 
-You can enable PR checks for external forks by sharing your `project-token` where you configured the Chromatic command (often in `package.json` or in the workflow).
+You can enable PR checks for external forks by sharing your project token where you configured the Chromatic command (often in `package.json` or in the pipeline step).
 
-There are tradeoffs. Sharing `project-token`'s allows _contributors_ and others to run Chromatic. They'll be able to use your snapshots. They will not be able to get access to your account, settings, or accept baselines. This can be an acceptable tradeoff for open source projects who value community contributions.
+Sharing project tokens allows contributors and others to run Chromatic builds on your project, consuming your snapshot quota. They will not be able to get access to your account, settings, or accept baselines. This can be an acceptable tradeoff for open source projects that value community contributions.
 
 #### Skipping builds for certain branches
 

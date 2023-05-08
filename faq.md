@@ -116,7 +116,7 @@ Chromatic will reset the snapshot count monthly, calculated based on the day you
 <details>
 <summary>Where can I find my project token?</summary>
 
-The project token is available on the Configure page of your project.
+The project token is available on the Manage → Configure page of your project.
 
 ![Navigate to the Manage page and click on the Configure tab](img/configure-project-token.png)
 
@@ -139,12 +139,12 @@ Chromatic follows Storybook's [naming best practice](https://storybook.js.org/do
 ```js
 // Button.stories.js|jsx
 
-import { Button } from './Button';
+import { Button } from "./Button"
 
 export default {
-  title: 'App/Components/Button',
+  title: "App/Components/Button",
   component: Button,
-};
+}
 
 /*
  *👇 Render functions are a framework-specific feature to allow you control over how the component renders.
@@ -153,11 +153,11 @@ export default {
  */
 export const Primary = {
   render: () => <Button primary>Button</Button>,
-};
+}
 
 export const Secondary = {
   render: () => <Button secondary>Button</Button>,
-};
+}
 ```
 
 In the example above, `Button` is the component name, while `Primary` and `Secondary` are the story names respectively. If your Storybook is organized in a different way, that will affect how your components and story names appear in both Chromatic and Storybook. There's no way to configure name detection.

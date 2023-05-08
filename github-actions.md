@@ -64,7 +64,7 @@ GitHub secrets work at a repository level. Forked repositories will not have acc
 ```json
 {
   "scripts": {
-    "chromatic": "chromatic --project-token=CHROMATIC_PROJECT_TOKEN"
+    "chromatic": "chromatic --project-token CHROMATIC_PROJECT_TOKEN"
   }
 }
 ```
@@ -79,30 +79,30 @@ Or you could disable Chromatic on pull requests from forked repositories.
 
 Chromatic's GitHub Action includes additional options to customize your workflow. The table below lists what's currently available:
 
-| Option                      | Description                                                                                                          | Type                  | Example value           | Default value        |
-| --------------------------- | -------------------------------------------------------------------------------------------------------------------- | --------------------- | ----------------------- | -------------------- |
-| **autoAcceptChanges**       | Automatically accepts all changes in Chromatic.                                                                      | `string` or `boolean` | `"my-branch"` or `true` | `false`              |
-| **buildScriptName**         | The script that builds your Storybook.                                                                               | `string`              | `"build:storybook"`     | `"build-storybook"`  |
-| **debug**                   | Output verbose debugging information.                                                                                | `boolean`             | `true`                  | `false`              |
-| **diagnostics**             | Write process context information to `chromatic-diagnostics.json`.                                                   | `boolean`             | `true`                  | `false`              |
-| **dryRun**                  | Run without actually publishing to Chromatic.                                                                        | `boolean`             | `true`                  | `false`              |
-| **exitZeroOnChanges**       | Positive exit of action even when changes are detected.                                                              | `string` or `boolean` | `"my-branch"` or `true` | `true`               |
-| **exitOnceUploaded**        | Exit with status 0 (OK) once the build has been sent to Chromatic.                                                   | `string` or `boolean` | `"my-branch"` or `true` | `false`              |
-| **externals**               | Disable [TurboSnap](turbosnap) when any of these files have changed since the baseline build.                        | `string`              | `"my-folder/**"`        |                      |
-| **forceRebuild**            | Do not skip build when a rebuild is detected.                                                                        | `string` or `boolean` | `"my-branch"` or `true` | `false`              |
-| **ignoreLastBuildOnBranch** | Do not use the last build on this branch as a baseline if it is no longer in history (i.e., the branch was rebased). | `string`              | `"my-branch"`           |                      |
-| **onlyChanged**             | Enables [TurboSnap](turbosnap): Only run stories affected by files changed since the baseline build.                 | `boolean`             | `true`                  | `false`              |
-| **onlyStoryFiles**          | Only run a single story or a subset of stories by their filename(s).                                                 | `string`              | `"src/ui/**"`           | `false`              |
-| **onlyStoryNames**          | Only run a single story or a subset of stories by their name.                                                        | `string`              | `"Atoms/Button/*"`      | `false`              |
-| **projectToken**            | Your Chromatic project token.                                                                                        | `string`              | `"j02w2tdh63"`          |                      |
-| **skip**                    | Skip Chromatic tests, but mark the commit as passing. It avoids blocking Pull Requests due to required merge checks. | `string` or `boolean` | `"my-branch"` or `true` | `false`              |
-| **storybookBaseDir**        | Relative path from repository root to Storybook project root.                                                        | `string`              | `"src/ui"`              |                      |
-| **storybookBuildDir**       | Provide a directory with your built Storybook; use it if you have already built it.                                  | `string`              | `"dist/storybook"`      | `"storybook-static"` |
-| **storybookConfigDir**      | Relative path from where you run Chromatic to your Storybook config directory.                                       | `string`              | `"storybook-config"`    | `".storybook"`       |
-| **traceChanged**            | Print dependency trace for changed files to affected story files; set to "expanded" to list individual modules.      | `string` or `boolean` | `"extended"` or `true`  | `false`              |
-| **workingDir**              | Provide the location of Storybook's `package.json` if installed in a subdirectory (i.e., monorepos).                 | `string`              | `"my-folder"`           |                      |
-| **untraced**                | Disregard these files and their dependencies when tracing dependent stories for [TurboSnap](turbosnap).              | `string`              | `"my-folder/\*\*"`      |                      |
-| **zip**                     | Publish your Storybook to Chromatic as a single zip file instead of individual content files.                        | `boolean`             | `true`                  | `false`              |
+| Option                      | Description                                                                                                          | Type                  | Example value            | Default value        |
+| --------------------------- | -------------------------------------------------------------------------------------------------------------------- | --------------------- | ------------------------ | -------------------- |
+| **autoAcceptChanges**       | Automatically accepts all changes in Chromatic.                                                                      | `string` or `boolean` | `"my-branch"` or `true`  | `false`              |
+| **buildScriptName**         | The script that builds your Storybook.                                                                               | `string`              | `"build:storybook"`      | `"build-storybook"`  |
+| **debug**                   | Output verbose debugging information.                                                                                | `boolean`             | `true`                   | `false`              |
+| **diagnostics**             | Write process context information to `chromatic-diagnostics.json`.                                                   | `boolean`             | `true`                   | `false`              |
+| **dryRun**                  | Run without actually publishing to Chromatic.                                                                        | `boolean`             | `true`                   | `false`              |
+| **exitZeroOnChanges**       | Positive exit of action even when changes are detected.                                                              | `string` or `boolean` | `"my-branch"` or `true`  | `true`               |
+| **exitOnceUploaded**        | Exit with status 0 (OK) once the build has been sent to Chromatic.                                                   | `string` or `boolean` | `"my-branch"` or `true`  | `false`              |
+| **externals**               | Disable [TurboSnap](turbosnap) when any of these files have changed since the baseline build.                        | `string`              | `"my-folder/**"`         |                      |
+| **forceRebuild**            | Do not skip build when a rebuild is detected.                                                                        | `string` or `boolean` | `"my-branch"` or `true`  | `false`              |
+| **ignoreLastBuildOnBranch** | Do not use the last build on this branch as a baseline if it is no longer in history (i.e., the branch was rebased). | `string`              | `"my-branch"`            |                      |
+| **onlyChanged**             | Enables [TurboSnap](turbosnap): Only run stories affected by files changed since the baseline build.                 | `boolean`             | `true`                   | `false`              |
+| **onlyStoryFiles**          | Only run a single story or a subset of stories by their filename(s).                                                 | `string`              | `"src/ui/**"`            | `false`              |
+| **onlyStoryNames**          | Only run a single story or a subset of stories by their name.                                                        | `string`              | `"Atoms/Button/*"`       | `false`              |
+| **projectToken**            | Your Chromatic project token.                                                                                        | `string`              | `"chpt_b2ae83517a0a706"` |                      |
+| **skip**                    | Skip Chromatic tests, but mark the commit as passing. It avoids blocking Pull Requests due to required merge checks. | `string` or `boolean` | `"my-branch"` or `true`  | `false`              |
+| **storybookBaseDir**        | Relative path from repository root to Storybook project root.                                                        | `string`              | `"src/ui"`               |                      |
+| **storybookBuildDir**       | Provide a directory with your built Storybook; use it if you have already built it.                                  | `string`              | `"dist/storybook"`       | `"storybook-static"` |
+| **storybookConfigDir**      | Relative path from where you run Chromatic to your Storybook config directory.                                       | `string`              | `"storybook-config"`     | `".storybook"`       |
+| **traceChanged**            | Print dependency trace for changed files to affected story files; set to "expanded" to list individual modules.      | `string` or `boolean` | `"extended"` or `true`   | `false`              |
+| **workingDir**              | Provide the location of Storybook's `package.json` if installed in a subdirectory (i.e., monorepos).                 | `string`              | `"my-folder"`            |                      |
+| **untraced**                | Disregard these files and their dependencies when tracing dependent stories for [TurboSnap](turbosnap).              | `string`              | `"my-folder/\*\*"`       |                      |
+| **zip**                     | Publish your Storybook to Chromatic as a single zip file instead of individual content files.                        | `boolean`             | `true`                   | `false`              |
 
 ### Outputs
 
@@ -353,11 +353,9 @@ TurboSnap is highly customizable and can be configured to fit your requirements.
 
 </div>
 
-
-#### Trigger full rebuilds 
+#### Trigger full rebuilds
 
 By default, TurboSnap relies on Webpack's dependency graph to determine which files changes since the last build. If you're working with files processed outside the scope of Webpack (e.g., fonts, images, CSS, external libraries), you can use the `externals` option to tell Chromatic to rebuild the entire project when a file matching the pattern is changed. For example:
-
 
 ```yml
 # .github/workflows/chromatic.yml
@@ -381,6 +379,7 @@ jobs:
 <div class="aside">
 
 The `externals` option also accept additional glob patterns defined via [picomatch].
+
 </div>
 
 ### Support for environment variables
@@ -577,9 +576,9 @@ Including the `ignoreLastBuildOnBranch` option ensures the latest build for the 
 
 #### Run Chromatic on external forks of open source projects
 
-You can enable PR checks for external forks by sharing your `project-token` where you configured the Chromatic command (often in `package.json` or in the workflow step).
+You can enable PR checks for external forks by sharing your project token where you configured the Chromatic command (often in `package.json` or in the pipeline step).
 
-There are tradeoffs. Sharing `project-token`'s allows _contributors_ and others to run Chromatic. They'll be able to use your snapshots. They will not be able to get access to your account, settings, or accept baselines. It can be an acceptable tradeoff for open source projects which value community contributions.
+Sharing project tokens allows contributors and others to run Chromatic builds on your project, consuming your snapshot quota. They will not be able to get access to your account, settings, or accept baselines. This can be an acceptable tradeoff for open source projects that value community contributions.
 
 #### Skipping builds for certain branches
 

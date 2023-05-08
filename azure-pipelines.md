@@ -56,13 +56,13 @@ stages:
             displayName: Publish to Chromatic
             inputs:
               # 👇 Runs Chromatic
-              script: npx chromatic --project-token=${CHROMATIC_PROJECT_TOKEN}
+              script: npx chromatic
             env:
               CHROMATIC_PROJECT_TOKEN: $(CHROMATIC_PROJECT_TOKEN)
 ```
 
 <div class="aside">
-For extra security, add Chromatic's <code>project-token</code> as an environment variable. See the official Azure <a href="https://learn.microsoft.com/en-us/azure/devops/pipelines/process/set-secret-variables?view=azure-devops&tabs=yaml%2Cbash">environment variables documentation</a>.
+For security, don't include the plaintext project token in your pipeline config file. Instead, store it as a secret environment variable and pass it using the <code>env</code> option. The <code>chromatic</code> script will automatically use <code>CHROMATIC_PROJECT_TOKEN</code>, no need to use the <code>--project-token</code> flag. See the official Azure <a href="https://learn.microsoft.com/en-us/azure/devops/pipelines/process/set-secret-variables?view=azure-devops&tabs=yaml%2Cbash">environment variables documentation</a>.
 </div>
 
 ### Run Chromatic on specific branches
@@ -121,14 +121,14 @@ stages:
             displayName: Publish to Chromatic
             inputs:
               # 👇 Runs Chromatic with the flag to compress the build output.
-              script: npx chromatic --project-token=${CHROMATIC_PROJECT_TOKEN} --zip
+              script: npx chromatic --zip
             env:
               CHROMATIC_PROJECT_TOKEN: $(CHROMATIC_PROJECT_TOKEN)
 ```
 
 ### Run Chromatic on monorepos
 
-Chromatic can be run on monorepos that have multiple subprojects. Each subproject will need its own project token stored as an environment variable.
+Chromatic can be run on monorepos that have multiple subprojects. Each subproject will need its own project token set as an environment variable.
 
 #### Prerequisites
 
@@ -158,9 +158,9 @@ stages:
           - task: CmdLine@2
             displayName: Publish Project 1 to Chromatic
             inputs:
-              script: cd packages/project_1 && npx chromatic --project-token=${CHROMATIC_PROJECT_TOKEN_1}
+              script: cd packages/project_1 && npx chromatic
             env:
-              CHROMATIC_PROJECT_TOKEN_1: $(CHROMATIC_PROJECT_TOKEN_1)
+              CHROMATIC_PROJECT_TOKEN: $(CHROMATIC_PROJECT_TOKEN_1)
       - job: Chromatic_Deploy_2
         displayName: Publish Project 2 to Chromatic
         steps:
@@ -169,9 +169,9 @@ stages:
           - task: CmdLine@2
             displayName: Publish Project 2 to Chromatic
             inputs:
-              script: cd packages/project_2 && npx chromatic --project-token=${CHROMATIC_PROJECT_TOKEN_2}
+              script: cd packages/project_2 && npx chromatic
             env:
-              CHROMATIC_PROJECT_TOKEN_2: $(CHROMATIC_PROJECT_TOKEN_2)
+              CHROMATIC_PROJECT_TOKEN: $(CHROMATIC_PROJECT_TOKEN_2)
 ```
 
 <div class="aside">
@@ -203,7 +203,7 @@ stages:
             displayName: Publish to Chromatic
             inputs:
               # 👇 Enables Chromatic's TurboSnap feature.
-              script: npx chromatic --project-token=${CHROMATIC_PROJECT_TOKEN} --only-changed
+              script: npx chromatic --only-changed
             env:
               CHROMATIC_PROJECT_TOKEN: $(CHROMATIC_PROJECT_TOKEN)
 ```
@@ -241,7 +241,7 @@ stages:
             displayName: Publish to Chromatic
             inputs:
               # 👇 Runs Chromatic with the --branch-name flag to override the baseline branch
-              script: npx chromatic --project-token=${CHROMATIC_PROJECT_TOKEN} --branch-name=${YOUR_BRANCH}
+              script: npx chromatic --branch-name=${YOUR_BRANCH}
             env:
               CHROMATIC_PROJECT_TOKEN: $(CHROMATIC_PROJECT_TOKEN)
 ```
@@ -277,7 +277,7 @@ stages:
             displayName: Publish to Chromatic
             inputs:
               #👇Runs Chromatic with the flag to prevent pipeline failure
-              script: npx chromatic --project-token=${CHROMATIC_PROJECT_TOKEN} --exit-zero-on-changes
+              script: npx chromatic --exit-zero-on-changes
             env:
               CHROMATIC_PROJECT_TOKEN: $(CHROMATIC_PROJECT_TOKEN)
 ```
@@ -327,7 +327,7 @@ stages:
             displayName: Publish to Chromatic and auto accept changes
             condition: and(succeeded(), eq(variables['build.sourceBranch'], 'refs/heads/main'))
             inputs:
-              script: npx chromatic --project-token=${CHROMATIC_PROJECT_TOKEN} --auto-accept-changes
+              script: npx chromatic --auto-accept-changes
             env:
               CHROMATIC_PROJECT_TOKEN: $(CHROMATIC_PROJECT_TOKEN)
             # 👇 Checks if the branch is not main and runs Chromatic
@@ -335,7 +335,7 @@ stages:
             displayName: Publish to Chromatic
             condition: eq(variables['Build.Reason'], 'PullRequest')
             inputs:
-              script: npx chromatic --project-token=${CHROMATIC_PROJECT_TOKEN}
+              script: npx chromatic
             env:
               CHROMATIC_PROJECT_TOKEN: $(CHROMATIC_PROJECT_TOKEN)
 ```
@@ -368,7 +368,7 @@ stages:
           - task: CmdLine@2
             displayName: Publish to Chromatic
             inputs:
-              script: npx chromatic --project-token=${CHROMATIC_PROJECT_TOKEN} --ignore-last-build-on-branch=my-branch
+              script: npx chromatic --ignore-last-build-on-branch=my-branch
             env:
               CHROMATIC_PROJECT_TOKEN: $(CHROMATIC_PROJECT_TOKEN)
 ```
@@ -381,9 +381,9 @@ Including the `--ignore-last-build-on-branch` flag ensures the latest build for 
 
 #### Run Chromatic on external forks of open source projects
 
-You can enable PR checks for external forks by sharing your `project-token` where you configured the Chromatic command (often in `package.json` or in the pipeline step).
+You can enable PR checks for external forks by sharing your project token where you configured the Chromatic command (often in `package.json` or in the pipeline step).
 
-There are tradeoffs. Sharing `project-token`'s allows _contributors_ and others to run Chromatic. They'll be able to use your snapshots. They will not be able to get access to your account, settings, or accept baselines. This can be an acceptable tradeoff for open source projects who value community contributions.
+Sharing project tokens allows contributors and others to run Chromatic builds on your project, consuming your snapshot quota. They will not be able to get access to your account, settings, or accept baselines. This can be an acceptable tradeoff for open source projects that value community contributions.
 
 #### Skipping builds for certain branches
 
