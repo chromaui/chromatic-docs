@@ -33,9 +33,9 @@ It will build and test stories that may have been affected by the Git changes si
 
 1.  Chromatic considers the Git changes between the current commit and the commit of the [ancestor build](branching-and-baselines#calculating-the-ancestor-builds).
 2.  Chromatic then uses Webpack's dependency graph to track those changes back up to the story files that depend on them.
-3.  Chromatic only tests the stories defined in those story files.
+3.  Chromatic only tests the stories defined in those story files, as well as any tests that were denied on the parent build.
 
-Stories that have not changed will not be tested (i.e., snapshotted), despite appearing in Chromatic's UI as if they were. In many cases, this will lead to much-decreased snapshot usage and faster build times.
+Stories that have not changed will not be tested (i.e., snapshotted), despite appearing in Chromatic's UI as if they were. In many cases, this will lead to much-decreased snapshot usage and faster build times. If you denied any [UI Tests](test#verify-ui-changes) on the parent build, we will always re-capture those stories even if TurboSnap would otherwise skip them. This is helpful in dealing with [inconsistent snapshots](snapshots#improve-snapshot-consistency).
 
 #### Full rebuilds
 

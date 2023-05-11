@@ -48,7 +48,7 @@ Chromatic detects UI changes but it's still up to you to verify if changes are i
 
 - ✅&nbsp;**Accept change**: This updates the story baseline. When a snapshot is accepted it won’t need to be re-accepted until it changes, even through git branches or merges.
 
-- ❌&nbsp;**Deny change**: This marks the change as "denied" indicating a regression and immediately fails the build. You can deny multiple changes per build.
+- ❌&nbsp;**Deny change**: This marks the change as "denied" indicating a regression and immediately fails the build. You can deny multiple changes per build. Denying a change will force a re-capture on the next build, even if [TurboSnap](turbosnap) would otherwise skip it.
 
 ![Snapshot that's unreviewed](img/snapshot-unreviewed.png)
 
