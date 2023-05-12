@@ -24,7 +24,7 @@ pipeline {
     /* 👇 Adds Chromatic as a stage */
     stage('Publish to Chromatic') {
       environment {
-        CHROMATIC_PROJECT_TOKEN = 'Chromatic project token'
+        CHROMATIC_PROJECT_TOKEN = credentials('chromatic-project-token')
       }
       steps {
         /* 👇 Runs the Chromatic CLI */
@@ -36,7 +36,7 @@ pipeline {
 ```
 
 <div class="aside">
-For extra security, add Chromatic's <code>project-token</code> as an environment variable. See the official official Jenkins <a href="https://www.jenkins.io/doc/book/pipeline/jenkinsfile/#using-environment-variables"> environment variables documentation</a>.
+We recommend saving the project token as a secret text environment variable named <code>CHROMATIC_PROJECT_TOKEN</code> for security reasons. When the Chromatic CLI is executed, it will read the environment variable automatically without any additional flags. Refer to the official official Jenkins <a href="https://www.jenkins.io/doc/book/pipeline/jenkinsfile/#handling-credentials">environment variables documentation</a> to learn more about it.
 </div>
 
 ### Run Chromatic on specific branches
@@ -58,7 +58,7 @@ pipeline {
         branch 'example' /* 👈 Filters the execution to run only on the main branch */
       }
       environment {
-        CHROMATIC_PROJECT_TOKEN = 'Chromatic project token'
+        CHROMATIC_PROJECT_TOKEN = credentials('chromatic-project-token')
       }
       steps {
         /* 👇 Runs the Chromatic CLI */
@@ -91,7 +91,7 @@ pipeline {
     /* 👇 Adds Chromatic as a stage */
     stage('Publish to Chromatic') {
       environment {
-        CHROMATIC_PROJECT_TOKEN = 'Chromatic project token'
+        CHROMATIC_PROJECT_TOKEN = credentials('chromatic-project-token')
       }
       steps {
         /* 👇 Runs Chromatic with the flag to compress the build output. */
@@ -125,8 +125,8 @@ pipeline {
     /* 👇 Adds Chromatic as a stage */
     stage('Publish to Chromatic') {
       environment {
-        CHROMATIC_PROJECT_TOKEN_1 = 'Chromatic project token'
-        CHROMATIC_PROJECT_TOKEN_2 = 'Chromatic project token'
+        CHROMATIC_PROJECT_TOKEN_1 = credentials('chromatic-project-token-1')
+        CHROMATIC_PROJECT_TOKEN_2 = credentials('chromatic-project-token-2')
       }
       /* 👇 Runs Chromatic sequentially for each monorepo subproject. */
       steps {
@@ -158,7 +158,7 @@ pipeline {
       parallel {
         stage('Publish Project 1 to Chromatic') {
           environment {
-            CHROMATIC_PROJECT_TOKEN_1 = 'Chromatic project token'
+            CHROMATIC_PROJECT_TOKEN_1 = credentials('chromatic-project-token-1')
           }
           steps {
             dir('packages/project_1/'){
@@ -168,7 +168,7 @@ pipeline {
         }
         stage('Publish Project 2 to Chromatic') {
           environment {
-            CHROMATIC_PROJECT_TOKEN_2 = 'Chromatic project token'
+            CHROMATIC_PROJECT_TOKEN_2 = credentials('chromatic-project-token-2')
           }
           steps {
             dir('packages/project_2/'){
@@ -197,7 +197,7 @@ pipeline {
     /* 👇 Adds Chromatic as a stage */
     stage('Publish to Chromatic') {
       environment {
-        CHROMATIC_PROJECT_TOKEN = 'Chromatic project token'
+        CHROMATIC_PROJECT_TOKEN = credentials('chromatic-project-token')
       }
       steps {
         /* 👇 Enables Chromatic's TurboSnap feature. */
@@ -232,7 +232,7 @@ pipeline {
     /* 👇 Adds Chromatic as a stage */
     stage('Publish to Chromatic') {
       environment {
-        CHROMATIC_PROJECT_TOKEN = 'Chromatic project token'
+        CHROMATIC_PROJECT_TOKEN = credentials('chromatic-project-token')
         YOUR_BRANCH='your-branch'
       }
       steps {
@@ -279,7 +279,7 @@ pipeline {
     /* 👇 Adds Chromatic as a stage in the pipeline */
     stage('Publish to Chromatic') {
       environment {
-        CHROMATIC_PROJECT_TOKEN = 'Chromatic project token'
+        CHROMATIC_PROJECT_TOKEN = credentials('chromatic-project-token')
       }
       steps {
         /* 👇 Runs Chromatic with the flag to prevent stage failure */
@@ -331,7 +331,7 @@ pipeline {
         }
       }
       environment {
-        CHROMATIC_PROJECT_TOKEN = 'Chromatic project token'
+        CHROMATIC_PROJECT_TOKEN = credentials('chromatic-project-token')
       }
       steps {
         sh "yarn chromatic"
@@ -343,7 +343,7 @@ pipeline {
         branch 'main'
       }
       environment {
-        CHROMATIC_PROJECT_TOKEN = 'Chromatic project token'
+        CHROMATIC_PROJECT_TOKEN = credentials('chromatic-project-token')
       }
       steps {
         sh "yarn chromatic --auto-accept-changes"
@@ -373,7 +373,7 @@ pipeline {
     /* 👇 Adds Chromatic as a stage in the pipeline */
     stage('Publish to Chromatic') {
       environment {
-        CHROMATIC_PROJECT_TOKEN = 'Chromatic project token'
+        CHROMATIC_PROJECT_TOKEN = credentials('chromatic-project-token')
       }
       steps {
         /* 👇 Option to skip the last build on target branch */
@@ -394,7 +394,7 @@ Including the `--ignore-last-build-on-branch` flag ensures the latest build for 
 
 You can enable PR checks for external forks by sharing your project token where you configured the Chromatic command (often in `package.json` or in the pipeline step).
 
-Sharing project tokens allows contributors and others to run Chromatic builds on your project, consuming your snapshot quota. They will not be able to get access to your account, settings, or accept baselines. This can be an acceptable tradeoff for open source projects that value community contributions.
+Sharing project tokens allows contributors and others to run Chromatic builds on your project, consuming your snapshot quota. They cannot access your account, settings, or accept baselines. This can be an acceptable tradeoff for open source projects that value community contributions.
 
 #### Skipping builds for certain branches
 

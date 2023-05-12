@@ -62,7 +62,7 @@ stages:
 ```
 
 <div class="aside">
-For security, don't include the plaintext project token in your pipeline config file. Instead, store it as a secret environment variable and pass it using the <code>env</code> option. The <code>chromatic</code> script will automatically use <code>CHROMATIC_PROJECT_TOKEN</code>, no need to use the <code>--project-token</code> flag. See the official Azure <a href="https://learn.microsoft.com/en-us/azure/devops/pipelines/process/set-secret-variables?view=azure-devops&tabs=yaml%2Cbash">environment variables documentation</a>.
+We recommend saving the project token as a secret environment variable named <code>CHROMATIC_PROJECT_TOKEN</code> for security reasons. In your Azure pipeline configuration, forward it using the <code>env</code> option. When the Chromatic CLI is executed, it will read the environment variable automatically without any additional flags. Refer to the official Azure <a href="https://learn.microsoft.com/en-us/azure/devops/pipelines/process/set-secret-variables?view=azure-devops&tabs=yaml%2Cbash">environment variables documentation</a> to learn more about it.
 </div>
 
 ### Run Chromatic on specific branches
@@ -383,7 +383,7 @@ Including the `--ignore-last-build-on-branch` flag ensures the latest build for 
 
 You can enable PR checks for external forks by sharing your project token where you configured the Chromatic command (often in `package.json` or in the pipeline step).
 
-Sharing project tokens allows contributors and others to run Chromatic builds on your project, consuming your snapshot quota. They will not be able to get access to your account, settings, or accept baselines. This can be an acceptable tradeoff for open source projects that value community contributions.
+Sharing project tokens allows contributors and others to run Chromatic builds on your project, consuming your snapshot quota. They cannot access your account, settings, or accept baselines. This can be an acceptable tradeoff for open source projects that value community contributions.
 
 #### Skipping builds for certain branches
 

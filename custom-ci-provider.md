@@ -25,7 +25,7 @@ To integrate Chromatic with your existing CI provider, you'll need to add the fo
 ```
 
 <div class="aside">
-For security, don't include the plaintext project token in your pipeline config file. Instead, store it as a (secret) environment variable named <code>CHROMATIC_PROJECT_TOKEN</code>. The <code>chromatic</code> script will automatically use <code>CHROMATIC_PROJECT_TOKEN</code>, no need to use the <code>--project-token</code> flag. See your provider's documentation for reference.
+We recommend saving the project token as a (secret) environment variable named <code>CHROMATIC_PROJECT_TOKEN</code> for security reasons. When the Chromatic CLI is executed, it will read the environment variable automatically without any additional flags. See your provider's documentation for reference.
 </div>
 
 ### Run Chromatic on specific branches
@@ -184,7 +184,7 @@ Including the `--auto-accept-changes` flag ensures all incoming changes will be 
 
 You can enable PR checks for external forks by sharing your project token where you configured the Chromatic command (often in `package.json` or in the pipeline step).
 
-Sharing project tokens allows contributors and others to run Chromatic builds on your project, consuming your snapshot quota. They will not be able to get access to your account, settings, or accept baselines. This can be an acceptable tradeoff for open source projects that value community contributions.
+Sharing project tokens allows contributors and others to run Chromatic builds on your project, consuming your snapshot quota. They cannot access your account, settings, or accept baselines. This can be an acceptable tradeoff for open source projects that value community contributions.
 
 #### Skipping builds for certain branches
 
