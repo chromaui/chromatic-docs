@@ -82,7 +82,7 @@ If you want to run Chromatic in parallel for each subproject, you can use this s
     - run:
         command: cd packages/project_2 && npm run chromatic
         environment:
-          CHROMATIC_PROJECT_TOKEN: $CHROMATIC_PROJECT_TOKEN_1
+          CHROMATIC_PROJECT_TOKEN: $CHROMATIC_PROJECT_TOKEN_2
 ```
 
 ### Enable TurboSnap
