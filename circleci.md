@@ -31,10 +31,10 @@ jobs:
           keys:
             - v1-dependencies-{% raw %}{{ checksum "package.json" }}{% endraw %}
             - v1-dependencies-
-        # 👇 Install dependencies with the same package manager used in the project (replace it as needed) e.g. yarn, npm, pnpm  
+        # 👇 Install dependencies with the same package manager used in the project (replace it as needed) e.g. yarn, npm, pnpm
       - run: yarn install
         # 👇 Runs the Chromatic CLI
-      - run: yarn chromatic --project-token=${CHROMATIC_PROJECT_TOKEN}
+      - run: yarn chromatic
 
 workflows:
   # 👇 Adds Chromatic to the workflow
@@ -44,7 +44,7 @@ workflows:
 ```
 
 <div class="aside">
-For extra security, add Chromatic's <code>project-token</code> as an environment variable. See the official CircleCI <a href="https://circleci.com/docs/2.0/env-vars/">environment variables documentation</a>.
+We recommend saving the project token as an environment variable named <code>CHROMATIC_PROJECT_TOKEN</code> for security reasons. When the Chromatic CLI is executed, it will read the environment variable automatically without any additional flags. Refer to the official CircleCI <a href="https://circleci.com/docs/env-vars/">environment variables documentation</a> to learn more about it.
 </div>
 
 ### Run Chromatic on specific branches
@@ -94,7 +94,7 @@ jobs:
       # Other job steps
 
       # 👇 Runs Chromatic with the flag to compress the build output.
-      - run: yarn chromatic --project-token=${CHROMATIC_PROJECT_TOKEN} --zip
+      - run: yarn chromatic --zip
 # Workflows here
 ```
 
@@ -124,8 +124,14 @@ jobs:
       # Other job steps
 
       # 👇 Runs Chromatic sequentially for each monorepo subproject.
-      - run: cd packages/project_1 && yarn chromatic --project-token=${CHROMATIC_PROJECT_TOKEN_1}
-      - run: cd packages/project_2 && yarn chromatic --project-token=${CHROMATIC_PROJECT_TOKEN_2}
+      - run:
+          command: cd packages/project_1 && yarn chromatic
+          environment:
+            CHROMATIC_PROJECT_TOKEN: $CHROMATIC_PROJECT_TOKEN_1
+      - run:
+          command: cd packages/project_2 && yarn chromatic
+          environment:
+            CHROMATIC_PROJECT_TOKEN: $CHROMATIC_PROJECT_TOKEN_2
 # Workflows here
 ```
 
@@ -152,7 +158,7 @@ jobs:
       # Other job steps
 
       # 👇 Enables Chromatic's TurboSnap feature.
-      - run: yarn chromatic --project-token=${CHROMATIC_PROJECT_TOKEN} --only-changed
+      - run: yarn chromatic --only-changed
 # Workflows here
 ```
 
@@ -195,7 +201,7 @@ jobs:
       # Other job steps
 
       # 👇 Runs Chromatic with the flag to prevent workflow failure
-      - run: yarn chromatic --project-token=${CHROMATIC_PROJECT_TOKEN} --exit-zero-on-changes
+      - run: yarn chromatic --exit-zero-on-changes
 # Workflows here
 ```
 
@@ -231,10 +237,10 @@ If you’re using this functionality but notice the incoming changes were not ac
 # 👇 Checks if the current branch is not the main and runs Chromatic
 if [ "${CIRCLE_BRANCH}" != "main" ];
 then
-  yarn chromatic --project-token=CHROMATIC_PROJECT_TOKEN
+  yarn chromatic
 else
   # 👇 Checks if the current branch is main and runs Chromatic with the flag to accept all changes
-  yarn chromatic --project-token=CHROMATIC_PROJECT_TOKEN --auto-accept-changes
+  yarn chromatic --auto-accept-changes
 fi
 ```
 
@@ -261,7 +267,7 @@ jobs:
       # Other job steps
 
       # 👇 Option to skip the last build on target branch
-      - run: yarn chromatic --project-token=${CHROMATIC_PROJECT_TOKEN} --ignore-last-build-on-branch=my-branch
+      - run: yarn chromatic --ignore-last-build-on-branch=my-branch
 # Workflows here
 ```
 
@@ -269,9 +275,9 @@ Including the `--ignore-last-build-on-branch` flag ensures the latest build for 
 
 #### Run Chromatic on external forks of open source projects
 
-You can enable PR checks for external forks by sharing your `project-token` where you configured the Chromatic command (often in `package.json` or in the job).
+You can enable PR checks for external forks by sharing your project token where you configured the Chromatic command (often in `package.json` or in the pipeline step).
 
-There are tradeoffs. Sharing `project-token`'s allows _contributors_ and others to run Chromatic. They'll be able to use your snapshots. They will not be able to get access to your account, settings, or accept baselines. This can be an acceptable tradeoff for open source projects who value community contributions.
+Sharing project tokens allows contributors and others to run Chromatic builds on your project, consuming your snapshot quota. They cannot access your account, settings, or accept baselines. This can be an acceptable tradeoff for open source projects that value community contributions.
 
 #### Skipping builds for certain branches
 

@@ -27,11 +27,11 @@ jobs:
 
     # 👇 Adds Chromatic as a job
     - name: "Publish to Chromatic"
-      script: yarn chromatic --project-token=${CHROMATIC_PROJECT_TOKEN}
+      script: yarn chromatic
 ```
 
 <div class="aside">
-For extra security, add Chromatic's <code>project-token</code> as an environment variable. See the official Travis CI <a href="https://docs.travis-ci.com/user/environment-variables/"> environment variables documentation</a>.
+We recommend saving the project token as an encrypted environment variable named <code>CHROMATIC_PROJECT_TOKEN</code> for security reasons. When the Chromatic CLI is executed, it will read the environment variable automatically without any additional flags. Refer to the official Travis CI <a href="https://docs.travis-ci.com/user/environment-variables/#defining-variables-in-repository-settings"> environment variables documentation</a> to learn more about it.
 </div>
 
 ### Run Chromatic on specific branches
@@ -52,7 +52,7 @@ jobs:
 
     # 👇 Adds Chromatic as a job
     - name: "Publish to Chromatic"
-      script: yarn chromatic --project-token=${CHROMATIC_PROJECT_TOKEN}
+      script: yarn chromatic
 ```
 
 <div class="aside">
@@ -75,7 +75,7 @@ jobs:
     # 👇 Adds Chromatic as a job
     - name: "Publish to Chromatic"
       #👇Runs Chromatic with the flag to compress the build output.
-      script: yarn chromatic --project-token=${CHROMATIC_PROJECT_TOKEN} --zip
+      script: yarn chromatic --zip
 ```
 
 ### Run Chromatic on monorepos
@@ -102,12 +102,14 @@ jobs:
       before_script:
         # Other steps
         - cd packages/project_1
-      script: yarn chromatic --project-token=${CHROMATIC_PROJECT_TOKEN_1}
+      script: yarn chromatic
+      env: CHROMATIC_PROJECT_TOKEN=$CHROMATIC_PROJECT_TOKEN_1
     - name: "Publish Project 2 to Chromatic"
       before_script:
         # Other steps
         - cd packages/project_2
-      script: yarn chromatic --project-token=${CHROMATIC_PROJECT_TOKEN_2}
+      script: yarn chromatic
+      env: CHROMATIC_PROJECT_TOKEN=$CHROMATIC_PROJECT_TOKEN_2
 ```
 
 <div class="aside">
@@ -130,7 +132,7 @@ jobs:
     # 👇 Adds Chromatic as a job
     - name: "Publish to Chromatic"
       # 👇 Enables Chromatic's TurboSnap feature.
-      script: yarn chromatic --project-token=${CHROMATIC_PROJECT_TOKEN} --only-changed
+      script: yarn chromatic --only-changed
 ```
 
 <div class="aside">
@@ -162,7 +164,7 @@ jobs:
     - name: "Publish to Chromatic"
       # 👇 Verifies the build event type or a if it's a forked repository
       if: (type = push OR head_repo != repo )
-      script: yarn chromatic --project-token=${CHROMATIC_PROJECT_TOKEN}
+      script: yarn chromatic
 ```
 
 For external pull requests (i.e forked repositories), the above code will ensure Chromatic runs with the `pr` build event, because Travis will not trigger `push` events for these cases.
@@ -187,7 +189,7 @@ jobs:
     # 👇 Adds Chromatic as a job
     - name: "Publish to Chromatic"
       # 👇 Runs Chromatic with the flag to prevent workflow failure
-      script: yarn chromatic --project-token=${CHROMATIC_PROJECT_TOKEN} --exit-zero-on-changes
+      script: yarn chromatic --exit-zero-on-changes
 ```
 
 <div class="aside">
@@ -224,11 +226,11 @@ jobs:
     # 👇 Checks if the branch is not main and runs Chromatic
     - name: "Publish to Chromatic"
       if: branch != main
-      script: yarn chromatic --project-token=${CHROMATIC_PROJECT_TOKEN}
+      script: yarn chromatic
       # 👇 Checks if the branch is main and runs Chromatic with the flag to accept all changes
     - name: "Publish to Chromatic and auto accepts changes"
       if: branch = main
-      script: yarn chromatic --project-token=${CHROMATIC_PROJECT_TOKEN} --auto-accept-changes
+      script: yarn chromatic --auto-accept-changes
 ```
 
 <div class="aside">
@@ -251,7 +253,7 @@ jobs:
     # 👇 Adds Chromatic as a job
     - name: "Publish to Chromatic"
       # 👇 Option to skip the last build on target branch
-      script: yarn chromatic --project-token=${CHROMATIC_PROJECT_TOKEN} --ignore-last-build-on-branch=my-branch
+      script: yarn chromatic --ignore-last-build-on-branch=my-branch
 ```
 
 <div class="aside">
@@ -262,9 +264,9 @@ Including the `--ignore-last-build-on-branch` flag ensures the latest build for 
 
 #### Run Chromatic on external forks of open source projects
 
-You can enable PR checks for external forks by sharing your `project-token` where you configured the Chromatic command (often in `package.json` or in the job).
+You can enable PR checks for external forks by sharing your project token where you configured the Chromatic command (often in `package.json` or in the pipeline step).
 
-There are tradeoffs. Sharing `project-token`'s allows _contributors_ and others to run Chromatic. They'll be able to use your snapshots. They will not be able to get access to your account, settings, or accept baselines. This can be an acceptable tradeoff for open source projects who value community contributions.
+Sharing project tokens allows contributors and others to run Chromatic builds on your project, consuming your snapshot quota. They cannot access your account, settings, or accept baselines. This can be an acceptable tradeoff for open source projects that value community contributions.
 
 #### Skipping builds for certain branches
 

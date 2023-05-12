@@ -36,11 +36,11 @@ before_script:
 chromatic_publish:
   stage: test
   script:
-    - yarn chromatic --project-token=$CHROMATIC_PROJECT_TOKEN
+    - yarn chromatic
 ```
 
 <div class="aside">
-For extra security, add Chromatic's <code>project-token</code> as an environment variable. See the official GitLab <a href="https://docs.gitlab.com/ce/ci/variables/README.html#predefined-variables-environment-variables">environment variables documentation</a>.
+We recommend saving the project token as a masked environment variable named <code>CHROMATIC_PROJECT_TOKEN</code> for security reasons. When the Chromatic CLI is executed, it will read the environment variable automatically without any additional flags. Refer to the official GitLab <a href="https://docs.gitlab.com/ee/ci/variables/index.html#mask-a-cicd-variable">environment variables documentation</a> to learn more about it.
 </div>
 
 ### Run Chromatic on specific branches
@@ -60,7 +60,7 @@ stages:
 chromatic_publish:
   stage: test
   script:
-    - yarn chromatic --project-token=$CHROMATIC_PROJECT_TOKEN
+    - yarn chromatic
 
   #👇Filters the execution to run only on the main branch.
   rules:
@@ -92,7 +92,7 @@ chromatic_publish:
   stage: test
   # 👇 Runs Chromatic with the flag to compress the build output.
   script:
-    - yarn chromatic --project-token=$CHROMATIC_PROJECT_TOKEN --zip
+    - yarn chromatic --zip
 ```
 
 ### Run Chromatic on monorepos
@@ -122,7 +122,9 @@ chromatic_publish_project_1:
     # Other steps
     - cd packages/project_1
   script:
-    - yarn chromatic --project-token=$CHROMATIC_PROJECT_TOKEN_1
+    - yarn chromatic
+  variables:
+    CHROMATIC_PROJECT_TOKEN: $CHROMATIC_PROJECT_TOKEN_1
 
 chromatic_publish_project_2:
   stage: test
@@ -130,7 +132,9 @@ chromatic_publish_project_2:
     # Other steps
     - cd packages/project_2
   script:
-    - yarn chromatic --project-token=$CHROMATIC_PROJECT_TOKEN_2
+    - yarn chromatic
+  variables:
+    CHROMATIC_PROJECT_TOKEN: $CHROMATIC_PROJECT_TOKEN_2
 ```
 
 <div class="aside">
@@ -155,7 +159,7 @@ chromatic_publish:
   stage: test
   # 👇 Enables Chromatic's TurboSnap feature.
   script:
-    - yarn chromatic --project-token=$CHROMATIC_PROJECT_TOKEN --only-changed
+    - yarn chromatic --only-changed
 ```
 
 <div class="aside">
@@ -186,7 +190,7 @@ chromatic_publish:
   stage: test
   # 👇 Runs Chromatic with the flag to prevent pipeline failure
   script:
-    - yarn chromatic --project-token=$CHROMATIC_PROJECT_TOKEN --exit-zero-on-changes
+    - yarn chromatic --exit-zero-on-changes
 ```
 
 <div class="aside">
@@ -226,7 +230,7 @@ stages:
 chromatic_publish_auto_accept_changes:
   stage: test
   script:
-    - yarn chromatic --project-token=$CHROMATIC_PROJECT_TOKEN --auto-accept-changes
+    - yarn chromatic --auto-accept-changes
   rules:
     - if: $CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH
       when: always
@@ -235,7 +239,7 @@ chromatic_publish_auto_accept_changes:
 chromatic_publish:
   stage: test
   script:
-    - yarn chromatic --project-token=$CHROMATIC_PROJECT_TOKEN
+    - yarn chromatic
   rules:
     - if: '$CI_PIPELINE_SOURCE == "merge_request_event"'
       when: always
@@ -264,7 +268,7 @@ chromatic_publish:
   stage: test
   script:
     # 👇 Option to skip the last build on target branch
-    - yarn chromatic --project-token=$CHROMATIC_PROJECT_TOKEN --ignore-last-build-on-branch=my-branch
+    - yarn chromatic --ignore-last-build-on-branch=my-branch
 ```
 
 <div class="aside">
@@ -275,9 +279,9 @@ Including the `--ignore-last-build-on-branch` flag ensures the latest build for 
 
 #### Run Chromatic on external forks of open source projects
 
-You can enable PR checks for external forks by sharing your `project-token` where you configured the Chromatic command (often in `package.json` or in the pipeline step).
+You can enable PR checks for external forks by sharing your project token where you configured the Chromatic command (often in `package.json` or in the pipeline step).
 
-There are tradeoffs. Sharing `project-token`'s allows _contributors_ and others to run Chromatic. They'll be able to use your snapshots. They will not be able to get access to your account, settings, or accept baselines. This can be an acceptable tradeoff for open source projects who value community contributions.
+Sharing project tokens allows contributors and others to run Chromatic builds on your project, consuming your snapshot quota. They cannot access your account, settings, or accept baselines. This can be an acceptable tradeoff for open source projects that value community contributions.
 
 #### Skipping builds for certain branches
 

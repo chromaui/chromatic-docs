@@ -12,7 +12,7 @@ The Chromatic CLI builds then publishes Storybook to a secure workspace in the c
 
 ## Sign up
 
-Before publishing, generate a unique `<project-token>` for your Storybook by signing in to [Chromatic](https://www.chromatic.com/start) and creating a project. Sign in with your GitHub, GitLab, Bitbucket, or email.
+Before publishing, generate a unique project token for your Storybook by signing in to [Chromatic](https://www.chromatic.com/start) and creating a project. Sign in with your GitHub, GitLab, Bitbucket, or email.
 
 <details>
 <summary id="demo-chromatic-unlinked">How to continue setup if you require SSO, on-premises, or have a different Git provider.</summary>
@@ -73,7 +73,7 @@ The `chromatic` command will also give you the option of adding an npm script to
 }
 ```
 
-The above script command will pick up your project token by reading the `CHROMATIC_PROJECT_TOKEN` environment variable. After adding the above, ensure you set `CHROMATIC_PROJECT_TOKEN` when you run builds---such as in your CI config.
+The above script command will pick up your project token by reading the `CHROMATIC_PROJECT_TOKEN` environment variable. After adding the above, ensure you set `CHROMATIC_PROJECT_TOKEN` when you run builds - such as in your CI config.
 
 If you allowed `chromatic` to add the above line, it will also have written the environment variable to your `package.json`. This environment variable can also be set via your CI config for extra privacy.
 
@@ -81,7 +81,7 @@ If you allowed `chromatic` to add the above line, it will also have written the 
 
 ## Run Chromatic
 
-Once you installed the `chromatic` package and have a `<project-token>`, run the following command in your project directory.
+Once you installed the `chromatic` package and have a project token, run the following command in your project directory.
 
 ```shell
 npx chromatic --project-token <your-project-token>

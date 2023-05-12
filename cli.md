@@ -39,19 +39,7 @@ If you don't install `chromatic` as a dependency, `npx` will automatically downl
 
 ## Configuration
 
-### Required options
-
-| CLI flag                  |                                               |
-| ------------------------- | --------------------------------------------- |
-| `--project-token <token>` | The unique code for your project. Alias: `-t` |
-
-Get your project token from the Chromatic website during onboarding or on your project's Manage page.
-This option can also be configured by setting the `CHROMATIC_PROJECT_TOKEN` environment variable.
-Environment variables are also read from a `.env` file if present.
-
-<div class="aside">
-Note: <code>--project-token</code> was previously known as <code>--app-code</code>. If you encounter an error referring to this, you should upgrade to the latest version of the Chromatic CLI. See <a href="#migrating-to-the-new-cli-package">migrating to the new package</a>.
-</div>
+The only required configuration is the project token. Get your project token from the Chromatic website during onboarding or on your project's Manage page. Store your project token as the `CHROMATIC_PROJECT_TOKEN` environment variable or secret.
 
 ### Storybook options
 
@@ -84,6 +72,7 @@ These options control how Chromatic behaves concerning your stories and what to 
 | `--only-story-files <storypath>`          | Only run a single story or a subset of stories by their filename(s). Specify the full path to the story file relative to the root of your Storybook project. Globs are supported via [picomatch]. This flag can be specified multiple times.                                                                                                                                                       |
 | `--only-story-names <storypath>`          | Only run a single story or a subset of stories by their name(s). Use the `title` from the story file's default export as the story path, followed by the desired story names. For example, if selecting all stories from a single story file with a `title` of `Example/Button`, this would be `Example/Button/*`. Globs are supported via [picomatch]. This flag can be specified multiple times. |
 | `--patch-build <headbranch...basebranch>` | Create a patch build to fix a missing PR comparison.                                                                                                                                                                                                                                                                                                                                               |
+| `--project-token <token>`                 | The unique code for your project. Prefer to use `CHROMATIC_PROJECT_TOKEN` instead if you can. Alias: `-t`                                                                                                                                                                                                                                                                                          |
 | `--skip [branch]`                         | Skip Chromatic tests, but mark the commit as passing. It avoids blocking PRs due to required merge checks. Only for `[branch]`, if specified. Globs are supported via [picomatch].                                                                                                                                                                                                                 |
 | `--storybook-base-dir <dirname>`          | Relative path from repository root to Storybook project root. Use with `--only-changed` and `--storybook-build-dir` when your Storybook is located in a subdirectory of your repository.                                                                                                                                                                                                           |
 | `--storybook-config-dir <dirname>`        | Relative path from where you run Chromatic to your Storybook config directory. Use with `--only-changed` and `--storybook-build-dir` when using a custom `--config-dir` (`-c`) flag for Storybook. Defaults to `.storybook`.                                                                                                                                                                       |
@@ -109,7 +98,7 @@ See [diagnosing issues](#diagnosing-issues) for when to use these flags.
 
 ### Environment variables
 
-Some options can be configured through environment variables. You will typically only need these when instructed to. Flags take precedence over environment variables.
+Some options can be configured through environment variables. You will typically only need these when instructed to. Flags take precedence over environment variables. Environment variables are also read from a `.env` file if present.
 
 | Environment variable             | Description                                                                                                                                  |
 | -------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------- |

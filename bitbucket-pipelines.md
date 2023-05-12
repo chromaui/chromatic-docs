@@ -30,11 +30,11 @@ pipelines:
         script:
           - yarn install
             # 👇 Runs Chromatic
-          - yarn chromatic --project-token=$CHROMATIC_PROJECT_TOKEN
+          - yarn chromatic
 ```
 
 <div class="aside">
-For extra security, add Chromatic's <code>project-token</code> as an environment variable. See the official BitBucket <a href="https://support.atlassian.com/bitbucket-cloud/docs/variables-and-secrets/">environment variables documentation</a>.
+We recommend saving the project token as a secured environment variable named <code>CHROMATIC_PROJECT_TOKEN</code> for security reasons. When the Chromatic CLI is executed, it will read the stored value automatically without any additional flags or configuration. Refer to the official BitBucket <a href="https://support.atlassian.com/bitbucket-cloud/docs/variables-and-secrets/">environment variables documentation</a> to learn more about it.
 </div>
 
 ### Run Chromatic on specific branches
@@ -54,7 +54,7 @@ pipelines:
     main:
       - step:
           script:
-            - yarn chromatic --project-token=$CHROMATIC_PROJECT_TOKEN
+            - yarn chromatic
 ```
 
 <div class="aside">
@@ -82,7 +82,7 @@ pipelines:
         script:
           - yarn install
             # 👇 Runs Chromatic with the flag to compress the build output.
-          - yarn chromatic --project-token=$CHROMATIC_PROJECT_TOKEN --zip
+          - yarn chromatic --zip
 ```
 
 ### Run Chromatic on monorepos
@@ -109,16 +109,18 @@ pipelines:
         name: "Publish Project 1 to Chromatic"
         # Other pipeline configuration
         script:
+          - CHROMATIC_PROJECT_TOKEN=$CHROMATIC_PROJECT_TOKEN_1
           - yarn install
           - cd packages/project_1
-          - yarn chromatic --project-token=$CHROMATIC_PROJECT_TOKEN_1
+          - yarn chromatic
     - step:
         name: "Publish Project 2 to Chromatic"
         # Other pipeline configuration
         script:
+          - CHROMATIC_PROJECT_TOKEN=$CHROMATIC_PROJECT_TOKEN_2
           - yarn install
           - cd packages/project_2
-          - yarn chromatic --project-token=$CHROMATIC_PROJECT_TOKEN_2
+          - yarn chromatic
 ```
 
 If you want to run Chromatic in parallel for each subproject, you can use this snippet below.
@@ -139,14 +141,14 @@ pipelines:
             script:
               - yarn install
               - cd packages/project_1
-              - yarn chromatic --project-token=$CHROMATIC_PROJECT_TOKEN_1
+              - yarn chromatic --project-token $CHROMATIC_PROJECT_TOKEN_1
         - step:
             name: "Publish Project 2 to Chromatic"
             # Other pipeline configuration
             script:
               - yarn install
               - cd packages/project_2
-              - yarn chromatic --project-token=$CHROMATIC_PROJECT_TOKEN_2
+              - yarn chromatic --project-token $CHROMATIC_PROJECT_TOKEN_2
 ```
 
 ### Enable TurboSnap
@@ -168,7 +170,7 @@ pipelines:
         script:
           - yarn install
             # 👇 Enables Chromatic's TurboSnap feature.
-          - yarn chromatic --project-token=$CHROMATIC_PROJECT_TOKEN --only-changed
+          - yarn chromatic --only-changed
 ```
 
 <div class="aside">
@@ -200,7 +202,7 @@ pipelines:
         script:
           - yarn install
             # 👇 Runs Chromatic with the flag to prevent pipeline failure
-          - yarn chromatic --project-token=$CHROMATIC_PROJECT_TOKEN --exit-zero-on-changes
+          - yarn chromatic --exit-zero-on-changes
 ```
 
 <div class="aside">
@@ -239,14 +241,14 @@ pipelines:
         caches:
           - node
         script:
-          - yarn chromatic --project-token=${CHROMATIC_PROJECT_TOKEN} --auto-accept-changes
+          - yarn chromatic --auto-accept-changes
   pull-requests:
     # 👇 Checks if the branch is not main and runs Chromatic
     your-branch:
       - step:
           name: "Publish to Chromatic"
           script:
-            - yarn chromatic --project-token=$CHROMATIC_PROJECT_TOKEN
+            - yarn chromatic
 ```
 
 <div class="aside">
@@ -272,7 +274,7 @@ pipelines:
         script:
           - yarn install
             # 👇 Option to skip the last build on target branch
-          - yarn chromatic --project-token=$CHROMATIC_PROJECT_TOKEN --ignore-last-build-on-branch=my-branch
+          - yarn chromatic --ignore-last-build-on-branch=my-branch
 ```
 
 <div class="aside">
@@ -301,7 +303,7 @@ pipelines:
             # 👇 Brings over the changes from the BitBucket repo
             - git fetch origin main:main
               # 👇 Option to update the build based on the changes obtained
-            - yarn chromatic --project-token=$CHROMATIC_PROJECT_TOKEN --patch-build=$your-branch...main
+            - yarn chromatic --patch-build=$your-branch...main
 ```
 
 Including the `git` command prior to running Chromatic prevents unwanted build errors when Chromatic retrieves the information from your BitBucket repo.
@@ -316,9 +318,9 @@ See the following <a href="https://community.atlassian.com/t5/Bitbucket-Pipeline
 
 #### Run Chromatic on external forks of open source projects
 
-You can enable PR checks for external forks by sharing your `project-token` where you configured the Chromatic command (often in `package.json` or in the pipeline step).
+You can enable PR checks for external forks by sharing your project token where you configured the Chromatic command (often in `package.json` or in the pipeline step).
 
-There are tradeoffs. Sharing `project-token`'s allows _contributors_ and others to run Chromatic. They'll be able to use your snapshots. They will not be able to get access to your account, settings, or accept baselines. This can be an acceptable tradeoff for open source projects who value community contributions.
+Sharing project tokens allows contributors and others to run Chromatic builds on your project, consuming your snapshot quota. They cannot access your account, settings, or accept baselines. This can be an acceptable tradeoff for open source projects that value community contributions.
 
 #### Skipping builds for certain branches
 
