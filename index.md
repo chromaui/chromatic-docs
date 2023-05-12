@@ -10,7 +10,7 @@ description: Chromatic is a cloud based toolchain built around Storybook to help
 
 ## What is Chromatic?
 
-Chromatic is a cloud-based toolchain for [Storybook](https://storybook.js.org) that helps teams ship UI components faster. It's made by the [team](https://www.chromatic.com/company/about) behind Storybook. Watch the [3 minute demo](https://youtu.be/9o6uB1X-LZ8) now or read on for the key features:
+Chromatic is a cloud-based toolchain for [Storybook](https://storybook.js.org) that helps teams ship UI components faster. It's made by the [team](https://www.chromatic.com/company/about) behind Storybook. Watch a [quick demo video](https://youtu.be/zhrboql8UuU) now or read on for the key features:
 
 #### ⬆️ Publish Storybook
 
