@@ -26,6 +26,10 @@ You can download and read our full responsible disclosure policy from our [secur
 
 Chromatic is grateful to the following individuals for responsibly disclosing security issues, allowing us to make Chromatic safer for everyone.
 
+#### 2023
+
+- [Ye Yint Htet](https://twitter.com/yeyinth54031769)
+
 #### 2022
 
 - [Bharat Adhikari](https://www.linkedin.com/in/bharat-adhikari-726337225)
