@@ -71,7 +71,9 @@ It's essential that your components and stories render in a **consistent** fashi
 
 - **Animations**: Chromatic will attempt to pause all animations. However, you may need to [configure](animations) Chromatic's exact behavior.
 
-- **Unpredictable resource hosts**: Resources that load from unpredictable or flaky sources may not load in time (15s) to capture. Workaround this by serving resources as [static files in Storybook](https://storybook.js.org/configurations/serving-static-files/) or using a [placeholder service](https://placehold.co/). Learn more about how we [load resources](resource-loading).
+- **Unpredictable resource hosts**: Resources that load from unpredictable or flaky sources may not load in time (15s) to capture. Work around this by serving resources as [static files in Storybook](https://storybook.js.org/configurations/serving-static-files/) or using a [placeholder service](https://placehold.co/). Learn more about how we [load resources](resource-loading).
+
+- **Image CDNs & compression algorithms**: Image CDNs optimize for image weight and size, which affect how it renders. Since this happens upstream of Chromatic, any changes to those images in your components will be caught as visual changes. Work around this by ensuring the served images are identical every time and using consistent compression settings. Also consider serving images as [static files in Storybook](https://storybook.js.org/configurations/serving-static-files/) or using a [placeholder service](https://placehold.co/).
 
 - **Web font loading**: Web fonts can load at different times which will impact snapshot consistency, especially when combined with [interactions](interactions). Serve web fonts as [static files in Storybook](https://storybook.js.org/configurations/serving-static-files/) and make sure to [preload](resource-loading#solution-a-preload-fonts) them.
 
@@ -90,7 +92,7 @@ If you still need inconsistent elements for local development purposes inside St
 <details>
 <summary>Where are my images and fonts?</summary>
 
-Image and font rendering can be tricky. Resources that load from unpredictable or flaky sources may not load in time (15s) to capture. Workaround this by:
+Image and font rendering can be tricky. Resources that load from unpredictable or flaky sources may not load in time (15s) to capture. Work around this by:
 
 - Ensure resources load [reliably fast in Chromatic](resource-loading)
 - Serve resources as [static files in Storybook](https://storybook.js.org/configurations/serving-static-files/) (this also improves your test speed)
