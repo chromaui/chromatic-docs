@@ -6,8 +6,8 @@ description: We are removing the --preserve-missing flag and will start to fail 
 
 # Sunsetting `--preserve-missing`
 
-<div class="aside">
-🚨 Support for the `--preserve-missing` CLI flag has been removed completely as of May, 2023. If you were linked here from the Chromatic webapp or CLI, this means your build is still using `--preserve-missing` and action is required. Please follow the steps outlined below to resolve your issue. If you need assistance, please <a href="mailto:support@chromatic.com?Subject=preserve-missing%20flag">contact support</a>.
+<div class="aside" style="margin-bottom: 2rem;">
+🚨&nbsp;&nbsp;Support for the <code>--preserve-missing</code> CLI flag has been removed completely as of May, 2023. If you were linked here from the Chromatic webapp or CLI, this means your build is still using <code>--preserve-missing</code> and action is required. Please follow the steps outlined below to resolve your issue. If you need assistance, please <a href="mailto:support@chromatic.com?Subject=preserve-missing%20flag">contact support</a>.
 </div>
 
 The `--preserve-missing` CLI flag (also known as the `preserveMissing` input to our GitHub Action) has been deprecated for a while and is soon to be removed entirely. We are removing the `--preserve-missing` behavior because it is incompatible with [infrastructure upgrade builds](infrastructure-upgrades#upgrade-builds) and makes it impossible to ever intentionally remove a story from Chromatic. Builds which still use this flag will eventually start to fail. If your Chromatic workflow is still configured with this flag, it must be updated. The upcoming "Version 5" [capture infrastructure](infrastructure-upgrades) will not support `--preserve-missing`.
