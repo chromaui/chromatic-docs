@@ -116,7 +116,7 @@ This would match all stories for all components under "Forms" (i.e., any story f
 
 ### Building a subset of your stories
 
-With the deprecation (and eventual removal) of the `--preserve-missing` flag, building a partial Storybook containing a subset of your stories is no longer recommended. Publishing a Storybook with missing stories will result in those missing stories being marked as "removed".
+With the removal of the `--preserve-missing` flag, building a partial Storybook containing a subset of your stories is no longer recommended. Publishing a Storybook with missing stories will result in those missing stories being marked as "removed".
 
 ---
 
