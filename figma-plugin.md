@@ -72,3 +72,15 @@ Every Chromatic plan comes with unlimited collaborators and [fine-grained roles]
 
 Chromatic has <a href="figma-in-chromatic">another integration with Figma</a> that brings code and design, side-by-side support into the web app. You’ll be able to view Figma components alongside their linked story right within Chromatic.
 </details>
+<details>
+<summary>What urls are supported in the Figma plugin?</summary>
+
+  The plugin supports two url formats hosted on chromatic:
+
+
+  | Url Format                         |            Example                      |
+| --------------------------------- | --------------------------------- |
+| Storybook Story Url      |https://master--5ccbc373887ca40020446347.chromatic.com/?path=/story/button--basic |
+| Chromatic Component url         | https://www.chromatic.com/component?appId=5ccbc373887ca40020446347&csfId=button&buildNumber=1242&k=64821b99eedbc52679c33cd6-1200-interactive-true&h=7&b=-1               |
+
+</details>
