@@ -14,7 +14,7 @@ UI Review creates a changeset of the exact visual changes introduced on a new br
 ![UI Review](img/workflow-uireview.png)
 
 <div class="aside">
-<p>👀  <strong>Looking for Manual UI Reviews</strong>? See <a href="#manual-ui-review">the documentation below</a>.</p>
+<p>👀  <strong>Looking for Manual UI Reviews</strong>? See <a href="review#manual-ui-review">the documentation below</a>.</p>
 </div>
 
 ## Enable
@@ -101,7 +101,7 @@ You'll get a 'UI Review' status check for each PR that shows the state of the UI
 
 # Manual UI Review
 
-Since UI Review is such a core Chromatic feature&mdash;allowing all stakeholders to review and discuss UI changes&mdash;that we want everyone to benefit from it. So even if you haven’t connected your project to your git provider or set up CI, you can still use UI Review.
+Since UI Review is such a core Chromatic feature&mdash;allowing all stakeholders to review and discuss UI changes&mdash;we want everyone to benefit from it. So even if you haven’t connected your project to a git provider or set up CI, you can still use UI Review.
 
 ## Enable UI Review
 
@@ -122,6 +122,8 @@ If you’re familiar with creating pull or merge requests with git, this process
 - Select the head branch, which is the branch that has changes that you want to compare with the source of truth. This is most likely a feature or bug fix branch you’ve recently completed work on.
 - Enter a title for the Review.
 - Click the “Compare branches” button to generate your new Review
+
+Your Review is now ready for you and your team to discuss. Follow along from to the [Understanding the Review](review#understanding-the-review) section on for more information on how to benefit the most from UI Review.
 
 <details>
 <summary>Glossary</summary>
