@@ -43,7 +43,9 @@ export const StoryName = {
 ```
 
 <div class="aside">
-<p>⚠️  <b>Note:</b> Disabling story snapshots using <code>disableSnapshot</code> will stop Chromatic from snapshotting the story, but it will continue to be indexed and appear in the Library view. If you click to the story from the Library, you won’t see a Snapshot tab as you would elsewhere, because there are none. However, in order to completely remove the story from the Library, you will need to remove the story from your Storybook.</p>
+
+Using `disableSnapshot` stops Chromatic from capturing a snapshot of the story, but the story will remain indexed and appear in the Library view. You'll no longer see a "Snapshot" tab for that story. If you want to remove the story altogether, you will need to delete it from your Storybook.
+
 </div>
 
 If you want to adopt snapshotting incrementally, you can use Storybook's parameter inheritance to whitelist stories.
