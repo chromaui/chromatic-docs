@@ -101,25 +101,25 @@ You'll get a 'UI Review' status check for each PR that shows the state of the UI
 
 # Manual UI Review
 
-Since UI Review is such a core Chromatic feature&mdash;allowing all stakeholders to review and discuss UI changes&mdash;we want everyone to benefit from it. So even if you haven’t connected your project to a git provider or set up CI, you can still use UI Review.
+Manual UI Review helps you see the visual differences between any pair of branches - even if your project isn't connected to a git provider. 
 
 ## Enable UI Review
 
-Before creating a Review, ensure that you’ve enabled UI Review for your project on the Manage screen.
+Go to your project's Manage page to enable UI Review. 
 
 ![Enable UI Review](img/uireview-for-docs.png)
 
 ## Create a Review
 
 ![Create Review](img/create-review.png)
-Within your project, navigate to the Reviews page from the sidebar. There you’ll see a “Create review” button. Clicking that button will navigate you to a new page where you can create the specific Review you want.
+Go to your project's Reviews page from the sidebar. Click the “Create review” button to pick the pair of branches you want to compare.
 
 ![Create review branches](img/create-review-branches.png)
 
 If you’re familiar with creating pull or merge requests with git, this process will be very familiar:
 
-- Select the base branch, which is the branch that’s used as the source of truth for comparison. Typically this will be your main branch.
-- Select the head branch, which is the branch that has changes that you want to compare with the source of truth. This is most likely a feature or bug fix branch you’ve recently completed work on.
+- Select the base branch, which is the branch that’s used as the source of truth for comparison. Typically, this will be your `main` branch.
+- Select the head branch, which is the branch that has changes that you want to compare with the source of truth. This is often a feature or bug fix branch you’re  working on.
 - Enter a title for the Review.
 - Click the “Compare branches” button to generate your new Review
 
@@ -138,7 +138,7 @@ Manually created Reviews will not create a “UI Review” status check in GitHu
 
 ## Closing a Review
 
-While Reviews generated through CI will be closed automatically once the PR branch is merged, Manual UI Reviews are required to be manually closed. So, once a Review is complete, it can be closed by clicking the ‘Close review’ menu item in the ‘Review now’ button tooltip. Your review will then be displayed in the list of ‘Closed’ Reviews on the Reviews page.
+Prune your completed manual UI Reviews by clicking the "Close review" menu item in the "Review now" button tooltip. Your review will be moved in the list of "Closed" Reviews on the Reviews page.
 
 ![Close Review](img/close-review.png)
 
