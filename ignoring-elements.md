@@ -42,6 +42,12 @@ export const StoryName = {
 };
 ```
 
+<div class="aside">
+
+Using `disableSnapshot` stops Chromatic from capturing a snapshot of the story, but the story will remain indexed and appear in the Library view. You'll no longer see a "Snapshot" tab for that story. If you want to remove the story altogether, you will need to delete it from your Storybook.
+
+</div>
+
 If you want to adopt snapshotting incrementally, you can use Storybook's parameter inheritance to whitelist stories.
 
 In your [`.storybook/preview.js`](https://storybook.js.org/docs/react/configure/overview#configure-story-rendering) add the `disableSnapshot` option in the [parameters](https://storybook.js.org/docs/react/writing-stories/parameters#global-parameters):
