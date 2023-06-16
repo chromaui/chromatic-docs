@@ -8,11 +8,9 @@ description: Chromatic E2E (end-to-end) visual tests capture snapshots of pages 
 
 (⚠️ **Experimental**)
 
-Chromatic **E2E (end-to-end) visual tests** capture live [“archives”](#what-are-archives) of pages at the end of [Playwright](https://playwright.dev/) end-to-end tests and, optionally, at any point during tests.
+Chromatic **E2E (end-to-end) visual tests** capture live [“archives”](#what-are-archives) of pages at the end of [Playwright](https://playwright.dev/) end-to-end tests and, optionally, at any point during tests. The archives you create during each test run can be viewed in a Storybook UI, so you can inspect them in Chromatic (or [locally](#running-the-storybook-locally)) after each build to more closely debug changes and errors.
 
 This means you can the full Chromatic [**UI Tests**](test) and [**UI Review**](review) features _without_ writing any [Storybook stories](https://storybook.js.org/docs/react/get-started/whats-a-story). (Storybook is still used, but automatically configured for you.)
-
-Additionally, the archives you create during each test run can be viewed in a Storybook UI, so you can inspect them in Chromatic (or [locally](#running-the-storybook-locally)) after each build to more closely debug changes and errors.
 
 ## What are archives?
 
