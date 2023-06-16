@@ -8,24 +8,26 @@ description: Chromatic E2E (end-to-end) visual tests capture snapshots of pages 
 
 (⚠️ **Experimental**)
 
-Chromatic **E2E (end-to-end) visual tests** allow you to use the full Chromatic [**UI Tests**](test) and [**UI Review**](review) features with pages visited during end-to-end tests in [Playwright](https://playwright.dev/).
+Chromatic **E2E (end-to-end) visual tests** capture live [“archives”](#what-are-archives) of pages at the end of [Playwright](https://playwright.dev/) end-to-end tests and, optionally, at any point during tests.
 
-This means you can use Chromatic _without_ setting up [Storybook](https://js.storybook.org).
+This means you can the full Chromatic [**UI Tests**](test) and [**UI Review**](review) features _without_ writing any [Storybook stories](https://storybook.js.org/docs/react/get-started/whats-a-story). (Storybook is still used, but automatically configured for you.)
 
-You can use use E2E visual tests to capture live “archives” of pages at the end of a test and, optionally, at any point during a test. An **archive** is a self-contained, re-renderable HTML “snapshot” of your page at a certain point in time extracted from the Playwright driven browser’s DOM.
+Additionally, the archives you create during each test run can be viewed in a Storybook UI, so you can inspect them in Chromatic (or [locally](#running-the-storybook-locally)) after each build to more closely debug changes and errors.
+
+## What are archives?
+
+An **archive** is a self-contained, re-renderable HTML “snapshot” of your page at a certain point in time extracted from the Playwright driven browser’s DOM.
 
 Those archives are then passed to Chromatic’s normal build process, which screenshots those archives in parallel in whichever [cloud browsers](browsers) you like, compares the output, and presents you with the changes to review.
 
-Additionally, the archives you create during each test run can be viewed in a Storybook UI, which means you can inspect them in Chromatic (or [locally](#running-the-storybook-locally)) after each build to more closely debug changes and errors.
-
 ## Requirements
 
-- End-to-end tests written in [Playwright](https://playwright.dev/) v1.12+
-- If you're already using Storybook in your project, Storybook package versions must be v7+ ([Migration guide from v6 to v7](https://storybook.js.org/docs/7.0/react/migration-guide))
+- E2E (end-to-end) visual tests works with end-to-end tests written in [Playwright](https://playwright.dev/) v1.12+.
+- ⚠️ **Warning** If your project is already using Storybook, that Storybook will need to be on version 7+ to work alongside the Archive Storybook. If you’re using an older version of Storybook, you can follow this [migration guide](https://storybook.js.org/docs/7.0/react/migration-guide) to upgrade.
 
 ## Installation
 
-Get started by installing the Test Archiver package and the Archive Storybook (a specially-configured Storybook instance that can display your archives):
+Get started by installing the Test Archiver package and the Archive Storybook (a specially-configured Storybook instance that can display your [archives](#what-are-archives)):
 
 ```shell
 yarn add --dev @chromaui/test-archiver @chromaui/archive-storybook
@@ -33,7 +35,7 @@ yarn add --dev @chromaui/test-archiver @chromaui/archive-storybook
 
 ## Usage
 
-To create an archive at the end of a Playwright test, import `test` and `expect` from `@chromaui/test-archiver` instead of `@playwright/test`:
+To create an [archive](#what-are-archives) at the end of a Playwright test, import `test` and `expect` from `@chromaui/test-archiver` instead of `@playwright/test`:
 
 ```js
 // 👇 Remove this line
@@ -88,15 +90,9 @@ test("my test", async ({ page }, testInfo) => {
 
 ## Setting up a Chromatic project
 
-Whenever you run your Playwright test suite, archives will be created and stored in `./test-archives/latest` (you can change that location with [settings](#settings)). Those archives will automatically be integrated in the Archive Storybook installed above (which can be [run locally](#running-the-storybook-locally)).
+Whenever you run your Playwright test suite, [archives](#what-are-archives) will be created and stored in `./test-archives/latest` (you can change that location with [settings](#settings)). Those archives will automatically be integrated in the Archive Storybook installed above (which can be [run locally](#running-the-storybook-locally)).
 
 If your project is already tested with Storybook in Chromatic, you can set up a second Chromatic project to test the Archive Storybook using our [monorepo support](monorepos#run-chromatic-for-each-subproject).
-
-<div class="aside">
-
-⚠️ **Warning** If your project is already using Storybook, that Storybook will need to be on version 7+ to work alongside the Archive Storybook. If you’re using an older version of Storybook, you can follow this [migration guide](https://storybook.js.org/docs/7.0/react/migration-guide) to upgrade.
-
-</div>
 
 ### Create a second project
 
@@ -211,7 +207,7 @@ chromatic:
 
 ## Running the Storybook locally
 
-If you want to debug your test archives locally, you can run the Archive Storybook on your machine.
+If you want to debug your test [archives](#what-are-archives) locally, you can run the Archive Storybook on your machine.
 
 First run the E2E tests to generate the latest results
 
@@ -237,4 +233,4 @@ You can further configure the Test Archiver with these settings:
 
 ### `CHROMATIC_ARCHIVE_LOCATION`
 
-To override the archive location, set the this environment variable, both when running your Playwright tests and when starting the Storybook (or publishing it in on CI).
+To override the [archive](#what-are-archives) location, set the this environment variable, both when running your Playwright tests and when starting the Storybook (or publishing it in on CI).
