@@ -1,7 +1,7 @@
 ---
 layout: default
 title: E2E Visual Tests
-description: Chromatic E2E (end-to-end) visual tests allow you to use the full Chromatic UI Tests and UI Review features with pages visited during end-to-end tests in Playwright.
+description: Chromatic E2E (end-to-end) visual tests capture snapshots of pages visited during Playwright tests.
 ---
 
 # E2E visual tests
@@ -60,12 +60,12 @@ To take manual snapshots at specific points of your tests, you can use the `take
 ```js
 import { test, expect, takeArchive } from "@chromaui/test-archiver";
 
-//                               👇 Add testInfo parameter
+// 👇 Add testInfo parameter
 test("my test", async ({ page }, testInfo) => {
   await page.goto("https://playwright.dev/");
 
   // Call takeArchive to take an archive "snapshot" of the page at this point in the test
-  //                      👇 Pass testInfo to takeArchive
+  // 👇 Pass testInfo to takeArchive
   await takeArchive(page, testInfo);
 
   await page.getByRole("link", { name: "Get started" }).click();
@@ -100,11 +100,11 @@ If your project is already tested with Storybook in Chromatic, you can set up a 
 
 ### Create a second project
 
-1. First, open [your Chromatic app](http://chromatic.com/start), browse to your account, and choose “Add project”.
+1. Open [your Chromatic app](http://chromatic.com/start), browse to your account, and choose “Add project”:
 
    ![Create project for each monorepo subproject](img/monorepo-create-project.png)
 
-2. From there, choose your repository a second time:
+2. Choose your repository a second time:
 
    <!-- TODO: Local img -->
 
@@ -116,7 +116,7 @@ If your project is already tested with Storybook in Chromatic, you can set up a 
 
    ![Creating a second Project"](https://user-images.githubusercontent.com/132554/231355208-1ee68dfc-f585-421c-833d-c33a6f84ca52.png)
 
-4. Take note of the token for the new project, you’ll need it in the next step.
+4. Take note of the token for the new project, you’ll need it when you run Chromatic.
 
 ### Run Chromatic on the archives manually
 
@@ -142,7 +142,10 @@ Next, set up your CI service to run Chromatic a second time on each run. The sec
 ```yaml
 # For instance in our GitHub action:
 steps:
-  - uses: actions/checkout@v1
+  - name: Checkout repository
+    uses: actions/checkout@v2
+    with:
+      fetch-depth: 0
   - name: Install dependencies
     run: yarn
 
@@ -218,7 +221,7 @@ yarn playwright test # or similar
 
 <div class="aside">
 
-💡 The `--headed` flag displays your tests in the browser as they run, which can be another helpful tool for debugging.
+💡 In addition to running the Archive Storybook locally, you can debug by adding the [`--headed` flag](https://playwright.dev/docs/test-cli#reference) to the `playwright test` command, which will display your tests in the browser as they run.
 
 </div>
 
