@@ -38,11 +38,23 @@ In Chromatic, a project is typically linked to a Git repository and will synchro
 
 Each subproject in a monorepo can now be associated with a separate Chromatic project that adds additional build statuses to the repository’s pull/merge requests. Here's how to set it up.
 
-1. Go to your account’s Projects page and click "Add project" to create a new Chromatic project (link it to the monorepo repository from your Git provider). ![Create project for each monorepo subproject](img/monorepo-create-project.png)
+1. Open [your Chromatic app](http://chromatic.com/start), browse to your account, and press the “Add project” button:
 
-2. Copy the `project-token` from the new project’s manage page. ![Copy project-token for monorepo](img/monorepo-copy-project-token.png)
+   ![Projects screen with the "Add project" button outlined and an arrow pointing to it](img/monorepo-add-project.jpg)
 
-3. Paste the `project-token` in your CI step to run Chromatic for that subproject. Below are examples with popular CI services.
+2. Choose your monorepo repository a second time:
+
+   ![A screen with the heading "Choose project to add" followed by a list of possible projects. The highlighted item is labeled "webapp (added)".](img/monorepo-choose-project.jpg)
+
+3. Choose a name for your new project:
+
+   ![A screen with the heading "Create another project for this repo?" followed by a text input for the name of the project and a submit button labeled "Create another project"](img/monorepo-create-second-project.jpg)
+
+4. Take note of the token for the new project. You can also find it on the project’s manage page:
+
+   ![Copy project-token for monorepo](img/monorepo-copy-project-token.png)
+
+5. Paste the `project-token` in your CI step to run Chromatic for that subproject. Below are examples with popular CI services.
    - [GitHub Actions](github-actions#run-chromatic-on-monorepos)
    - [GitLab Pipelines](gitlab#run-chromatic-on-monorepos)
    - [Bitbucket Pipelines](bitbucket-pipelines#run-chromatic-on-monorepos)

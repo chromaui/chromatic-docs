@@ -94,80 +94,72 @@ test("my test", async ({ page }, testInfo) => {
 
 ## Using with Chromatic
 
-If your project is already tested with Storybook in Chromatic, you can set up a second Chromatic project to test the Archive Storybook using our [monorepo support](monorepos#run-chromatic-for-each-subproject).
+1. **Set up a Chromatic project**
 
-### Create a second project
+   If your repository already has an associated Chromatic project, you can set up an additional Chromatic project to test the Archive Storybook using the [instructions for monorepo support](monorepos#run-chromatic-for-each-subproject).
 
-1. Open [your Chromatic app](http://chromatic.com/start), browse to your account, and choose “Add project”:
+   Otherwise, follow [these sign up instructions](setup#sign-up) to create a new Chromatic project.
 
-   ![Create project for each monorepo subproject](img/monorepo-create-project.png)
+   <div class="aside">
 
-2. Choose your repository a second time:
+   👉 Take note of the project token for the new project. You’ll need it in the next steps.
 
-   <!-- TODO: Local img -->
+   </div>
 
-   ![Chromatic Project Chooser](https://user-images.githubusercontent.com/132554/231355192-78a041d2-a552-4e88-b53f-20cafbb76f5f.png)
+2. **Run Chromatic on the archives manually**
 
-3. Choose a name for your second project, like “End to End Test Archives”:
+   Add the scripts for running and building the Archive Storybook to your `package.json` (the same `scripts` from which you run your Playwright tests):
 
-   <!-- TODO: Local img -->
+   ```json
+   "scripts": {
+     "archive-storybook": "archive-storybook",
+     "build-archive-storybook": "build-archive-storybook"
+   }
+   ```
 
-   ![Creating a second Project"](https://user-images.githubusercontent.com/132554/231355208-1ee68dfc-f585-421c-833d-c33a6f84ca52.png)
+   Now you can try manually running Chromatic against the archives with the project you just created (using the token you noted above):
 
-4. Take note of the token for the new project, you’ll need it when you run Chromatic.
+   ```shell
+   npx chromatic --build-script-name=build-archive-storybook -t=<TOKEN>
+   ```
 
-### Run Chromatic on the archives manually
+3. **Run Chromatic on the archives in CI**
 
-Add the scripts for running and building the Archive Storybook to your `package.json`:
+   If you are already running Chromatic in CI, you can add an additional step to run Chromatic on the Archive Storybook. This additional step must be placed after your E2E tests run. It uses the project token from the new project you created above and the `--build-script-name=build-archive-storybook` flag:
 
-```json
-"scripts": {
-  "archive-storybook": "archive-storybook",
-  "build-archive-storybook": "build-archive-storybook"
-}
-```
+   ```yaml
+   # For instance in our GitHub action:
+   steps:
+     - name: Checkout repository
+       uses: actions/checkout@v2
+       with:
+         fetch-depth: 0
+     - name: Install dependencies
+       run: yarn
 
-Now you can try running Chromatic against the archives with the project you just created manually:
+     # 👇 Run Chromatic as normal for your Storybook
+     - name: Publish to Chromatic
+       uses: chromaui/action@v1
+       with:
+         projectToken: ${{ secrets.CHROMATIC_PROJECT_TOKEN }}
 
-```shell
-npx chromatic --build-script-name=build-archive-storybook -t=<TOKEN>
-```
+     # 👇 Run your E2E tests *before* running Chromatic for your E2E test archives
+     - name: E2E tests
+       run: yarn playwright test
 
-### Run Chromatic on the archives in CI
+     # 👇 Run Chromatic for your E2E test archives
+     - name: Publish E2E Archives to Chromatic
+       uses: chromaui/action@v1
+       with:
+         # 👇 This is the token for the archive project
+         projectToken: ${{ secrets.CHROMATIC_ARCHIVE_PROJECT_TOKEN }}
+         # 👇 Tell Chromatic to build the Archive Storybook
+         buildScriptName: build-archive-storybook
+   ```
 
-Next, set up your CI service to run Chromatic a second time on each run. The second `chromatic` step should use the project token from the new project you created above, and should use the `--build-script-name=build-archive-storybook` flag:
+   If you're not already running Chromatic in CI, you can follow the standard [CI setup instructions](ci) to automate your E2E test archives in Chromatic. Remember to use the project token from the new project you created above and the `--build-script-name=build-archive-storybook` flag.
 
-```yaml
-# For instance in our GitHub action:
-steps:
-  - name: Checkout repository
-    uses: actions/checkout@v2
-    with:
-      fetch-depth: 0
-  - name: Install dependencies
-    run: yarn
-
-  # 👇 Run Chromatic as normal for your Storybook
-  - name: Publish to Chromatic
-    uses: chromaui/action@v1
-    with:
-      projectToken: ${{ secrets.CHROMATIC_PROJECT_TOKEN }}
-
-  # 👇 Run your E2E tests *before* running Chromatic for your E2E test archives
-  - name: E2E tests
-    run: yarn playwright test
-
-  # 👇 Run Chromatic for your E2E test archives
-  - name: Publish E2E Archives to Chromatic
-    uses: chromaui/action@v1
-    with:
-      # 👇 This is the token for the archive project
-      projectToken: ${{ secrets.CHROMATIC_ARCHIVE_PROJECT_TOKEN }}
-      # 👇 Tell Chromatic to build the Archive Storybook
-      buildScriptName: build-archive-storybook
-```
-
-Once you’ve set up the above (or similar for your CI provider) and pushed a commit, you should see a build with your archive’s screenshots appear on the new project.
+   Once you’ve set up the above (or similar for your CI provider) and pushed a commit, you should see a build with your archive’s screenshots appear on the new project.
 
 ### Sharded Playwright Runs
 
