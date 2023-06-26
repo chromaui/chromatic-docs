@@ -48,16 +48,20 @@ To create an [archive](#what-are-archives) at the end of a Playwright test, impo
 import { test, expect } from "@chromaui/test-archiver";
 
 // Then use as normal
-test("...", async ({ page }) => {
-  expect(/* things */);
+test("Home page", async ({ page }) => {
+  await page.goto("https://chromatic.com/");
+
+  await expect(page).toHaveTitle(/Chromatic/);
+
+  // ...
 });
 ```
 
 Once the above is in place, Test Archiver will run in addition to the Playwright test, archiving the final state, whether it passes or fails.
 
-[Screenshot of published Storybook, showing archive captured in the prior code snippet]
+The above snippet produces an archive that looks like this in Storybook:
 
-<!-- TODO ![Screenshot of published Storybook, showing archive captured in the prior code snippet]() -->
+![Published Archive Storybook, showing archive captured in the prior code snippet](img/archive-storybook-basic.png)
 
 ### Manual snapshots
 
@@ -67,18 +71,21 @@ To take manual snapshots at specific points of your tests, you can use the `take
 import { test, expect, takeArchive } from "@chromaui/test-archiver";
 
 // 👇 Add testInfo parameter
-test("my test", async ({ page }, testInfo) => {
-  await page.goto("https://playwright.dev/");
+test("Home page", async ({ page }, testInfo) => {
+  await page.goto("https://chromatic.com/");
+
+  await expect(page).toHaveTitle(/Chromatic/);
 
   // Call takeArchive to take an archive "snapshot" of the page at this point in the test
   // 👇 Pass testInfo to takeArchive
   await takeArchive(page, testInfo);
 
-  await page.getByRole("link", { name: "Get started" }).click();
+  await page.getByRole("link", { name: "Get started now" }).click();
+  await expect(page).toHaveTitle(/Sign in/);
 
   // You can call it several times, as necessary
   // To help disambiguate, you can give the archive "snapshot" a name
-  await takeArchive(page, "After clicking link", testInfo);
+  await takeArchive(page, "After clicking CTA", testInfo);
 });
 ```
 
@@ -88,9 +95,9 @@ test("my test", async ({ page }, testInfo) => {
 
 </div>
 
-[Screenshot of published Storybook, showing archives captured in the prior code snippet]
+The above snippet produces archives that look like this in Storybook:
 
-<!-- TODO ![Screenshot of published Storybook, showing archives captured in the prior code snippet]() -->
+![Published Archive Storybook, showing archives captured in the prior code snippet](img/archive-storybook-takeArchive.png)
 
 ## Using with Chromatic
 
