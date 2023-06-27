@@ -151,7 +151,7 @@ The above snippet produces archives that look like this in Storybook:
      - name: Publish to Chromatic
        uses: chromaui/action@v1
        with:
-         projectToken: ${{ secrets.CHROMATIC_PROJECT_TOKEN }}
+         projectToken: ${% raw %}{{ secrets.CHROMATIC_PROJECT_TOKEN }}{% endraw %}
 
      # 👇 Run your E2E tests *before* running Chromatic for your E2E test archives
      - name: E2E tests
@@ -162,7 +162,7 @@ The above snippet produces archives that look like this in Storybook:
        uses: chromaui/action@v1
        with:
          # 👇 This is the token for the archive project
-         projectToken: ${{ secrets.CHROMATIC_ARCHIVE_PROJECT_TOKEN }}
+         projectToken: ${% raw %}{{ secrets.CHROMATIC_ARCHIVE_PROJECT_TOKEN }}{% endraw %}
          # 👇 Tell Chromatic to build the Archive Storybook
          buildScriptName: build-archive-storybook
    ```
@@ -186,12 +186,12 @@ test:
       shard: [1, 2]
   steps:
     - name: Run Playwright tests
-      run: npx playwright test --shard=${{ matrix.shard }}/${{ strategy.job-total }}
+      run: npx playwright test --shard=${% raw %}{{ matrix.shard }}{% endraw %}/${% raw %}{{ strategy.job-total }}{% endraw %}
 
     - uses: actions/upload-artifact@v3
       if: always()
       with:
-        name: playwright-report-${{ matrix.shard }}_${{ strategy.job-total }}
+        name: playwright-report-${% raw %}{{ matrix.shard }}{% endraw %}_${% raw %}{{ strategy.job-total }}{% endraw %}
         path: ./test-archives/latest
         retention-days: 30
 
@@ -205,7 +205,7 @@ chromatic:
     - name: Publish E2E Archives to Chromatic
       uses: chromaui/action@v1
       with:
-        projectToken: ${{ secrets.CHROMATIC_ARCHIVE_PROJECT_TOKEN }}
+        projectToken: ${% raw %}{{ secrets.CHROMATIC_ARCHIVE_PROJECT_TOKEN }}{% endraw %}
         buildScriptName: build-archive-storybook
 ```
 
