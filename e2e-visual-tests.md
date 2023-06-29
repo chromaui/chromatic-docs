@@ -8,7 +8,7 @@ description: Chromatic E2E Visual Tests capture snapshots of pages visited durin
 
 <div class="aside">
 
-🧪 **Experimental** We're actively integrating feedback from early access users, so the API and other details below may change. If you have any feedback, please [let us know](TK).
+🧪 **Experimental** We're actively integrating feedback from [early access users](https://forms.gle/w43XGAJXVWpAF5oC7), so the API and other details below may change.
 
 </div>
 
@@ -45,9 +45,9 @@ yarn add --dev @chromaui/test-archiver @chromaui/archive-storybook
 To create an [archive](#what-are-archives) at the end of a Playwright test, import `test` and `expect` from `@chromaui/test-archiver` instead of `@playwright/test`:
 
 ```js
-// 👇 Remove this line
+// ➖ Remove this line
 // import { test, expect } from '@playwright/test';
-// 👇 Add this line
+// ➕ Add this line
 import { test, expect } from "@chromaui/test-archiver";
 
 // Then use as normal
