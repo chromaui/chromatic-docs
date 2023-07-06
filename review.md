@@ -52,7 +52,7 @@ If you find you’re always assigning the same reviewers, you can set default re
 
 To add default reviewers, visit your project’s Manage page. There, in the Review section of the Automate tab, is a heading reading Default Reviewers. Beneath that heading is a button to add a default reviewer.
 
-![assign default reviewers by picking from your list of collaborators](img/default-reviewers.png)
+![assign default reviewers by picking from your list of collaborators](img/default-reviewer.png)
 
 You can set as many teammates as a default reviewer as makes sense for your project. Remember, everyone you add as a default reviewer will be assigned to every set of changes going forward, so be judicious.
 
@@ -120,11 +120,11 @@ You'll get a 'UI Review' status check for each PR that shows the state of the UI
 
 # Manual UI Review
 
-Manual UI Review helps you see the visual differences between any pair of branches - even if your project isn't connected to a git provider. 
+Manual UI Review helps you see the visual differences between any pair of branches - even if your project isn't connected to a git provider.
 
 ## Enable UI Review
 
-Go to your project's Manage page to enable UI Review. 
+Go to your project's Manage page to enable UI Review.
 
 ![Enable UI Review](img/uireview-for-docs.png)
 
