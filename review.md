@@ -47,6 +47,25 @@ Use the Assign Reviewers link on the Review’s Activity screen to choose review
 
 ![assign reviewers by picking from your list of collaborators](img/assign-reviewers.png)
 
+#### Default reviewers
+If you find you’re always assigning the same reviewers, you can set default reviewers for your project. Default reviewers will be automatically assigned to new Review.
+
+To add default reviewers, visit your project’s Manage page. There, in the Review section of the Automate tab, is a heading reading Default Reviewers. Beneath that heading is a button to add a default reviewer.
+
+![assign default reviewers by picking from your list of collaborators](img/default-reviewers.png)
+
+You can set as many teammates as a default reviewer as makes sense for your project. Remember, everyone you add as a default reviewer will be assigned to every set of changes going forward, so be judicious.
+
+Once you’ve added some folks as default reviewers, they’ll be displayed below:
+
+![display list of default reviewers](img/default-reviewer-list.png)
+
+To remove a teammate from the default reviewers list, you can simply click Remove to the right of their name. This will remove them as default reviewer but not from the project.
+
+<div class="aside">
+<p><b>Note:</b> Even with a default reviewer set for the project, you can still assign additional reviewers on a per-Review basis.</p>
+</div>
+
 #### Pull requests from forks
 
 Chromatic supports UI Test and UI Review across forks, but there's some caveats. First, it only works with [CI integration](ci#configure-ci) configured to also build PR branches from forks. Secondly, you must expose your project token so that forks can use it. The easiest way to do that is to simply include it in in your `package.json`, for example:
