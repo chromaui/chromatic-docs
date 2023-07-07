@@ -6,7 +6,6 @@ description: Learn how to review changes for your component library
 
 # UI Review
 
-
 UI Tests protect you from accidental regressions. But, before you ship, you’ll want to invite developers, designers, and PMs to review the UI, discuss changes, and get the final sign off.
 
 UI Review creates a changeset of the exact visual changes introduced on a new branch. You assign reviewers who can comment and request tweaks on changes that aren’t quite right. Think of it like a code review, but for your UI.
@@ -48,23 +47,14 @@ Use the Assign Reviewers link on the Review’s Activity screen to choose review
 ![assign reviewers by picking from your list of collaborators](img/assign-reviewers.png)
 
 #### Default reviewers
-If you find you’re always assigning the same reviewers, you can set default reviewers for your project. Default reviewers will be automatically assigned to new Review.
 
-To add default reviewers, visit your project’s Manage page. There, in the Review section of the Automate tab, is a heading reading Default Reviewers. Beneath that heading is a button to add a default reviewer.
+If you find you’re always assigning the same reviewers, you can set default reviewers for your project. Default reviewers will be automatically assigned to new Review. You can also assign additional reviewers on a per-Review basis.
+
+Add default reviewers on your project’s Manage page. Go to the Review section to add a default reviewer.
 
 ![assign default reviewers by picking from your list of collaborators](img/default-reviewer.png)
 
-You can set as many teammates as a default reviewer as makes sense for your project. Remember, everyone you add as a default reviewer will be assigned to every set of changes going forward, so be judicious.
-
-Once you’ve added some folks as default reviewers, they’ll be displayed below:
-
-![display list of default reviewers](img/default-reviewer-list.png)
-
-To remove a teammate from the default reviewers list, you can simply click Remove to the right of their name. This will remove them as default reviewer but not from the project.
-
-<div class="aside">
-<p><b>Note:</b> Even with a default reviewer set for the project, you can still assign additional reviewers on a per-Review basis.</p>
-</div>
+Remove a default reviewer by clicking "Remove" beside their name. This will remove them as default reviewer but not from the project.
 
 #### Pull requests from forks
 
@@ -115,7 +105,6 @@ You'll get a 'UI Review' status check for each PR that shows the state of the UI
 
 ![PR for UI Review](img/prbadge-review.png)
 
-
 ---
 
 # Manual UI Review
@@ -138,7 +127,7 @@ Go to your project's Reviews page from the sidebar. Click the “Create review�
 If you’re familiar with creating pull or merge requests with git, this process will be very familiar:
 
 - Select the base branch, which is the branch that’s used as the source of truth for comparison. Typically, this will be your `main` branch.
-- Select the head branch, which is the branch that has changes that you want to compare with the source of truth. This is often a feature or bug fix branch you’re  working on.
+- Select the head branch, which is the branch that has changes that you want to compare with the source of truth. This is often a feature or bug fix branch you’re working on.
 - Enter a title for the Review.
 - Click the “Compare branches” button to generate your new Review
 
@@ -153,6 +142,7 @@ Your Review is now ready for you and your team to discuss. Follow along from to 
 </details>
 
 ## PR check for "UI Review"
+
 Manually created Reviews will not create a “UI Review” status check in GitHub, GitLab, or Bitbucket. To create a status check in your Git provider for manually created Reviews, you can use a [custom webhook](integrations#custom-webhooks).
 
 ## Closing a Review
