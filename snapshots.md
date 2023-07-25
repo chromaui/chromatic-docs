@@ -51,7 +51,7 @@ Capture Cloud uses underlying browser APIs combined with our own set of heuristi
 <details>
 <summary>3. Take a screenshot and crop it to the dimensions of the UI</summary>
 
-Chromatic crops the screenshot to the size of your component. It determines crop dimensions by measuring the bounding box of the child node of Storybook's `#storybook-root` element if you're using Storybook 7 or higher or the `#root` element with older Storybook versions. For atomic components, cropping eliminates negative spaces around snapshots reducing the visual information you must review. For pages, Chromatic captures the full width and height of the rendered UI.
+Chromatic crops the screenshot to the size of your component. It determines crop dimensions by measuring the bounding box of the child node of Storybook's `#storybook-root` element in version 7 or higher, or the `#root` element for previous versions. For atomic components, cropping eliminates negative spaces around snapshots reducing the visual information you must review. For pages, Chromatic captures the full width and height of the rendered UI.
 
 </details>
 
