@@ -34,10 +34,23 @@ The Archive Storyook is passed to Chromatic’s build process, which screenshots
 
 ## Installation
 
-Get started by installing the Test Archiver package and the Archive Storybook (a specially-configured Storybook instance that can display your [archives](#what-are-archives)):
+Get started by installing the Test Archiver package and the Archive Storybook (a specially-configured Storybook instance that can display your [archives](#what-are-archives)).
+
+### As a new installation of Storybook
+
+If you aren't yet using Storybook in your project, install with:
 
 ```shell
-yarn add --dev @chromaui/test-archiver @chromaui/archive-storybook
+yarn add --dev @chromaui/test-archiver @chromaui/archive-storybook @storybook/cli @storybook/addon-essentials @storybook/server-webpack5 react react-dom
+```
+
+### If you are already using Storybook
+
+If you are already using Storybook in your project, install as a second Storybook with:
+
+```shell
+# Replace <version> with the version you are using for your other Storybook packages, e.g. 7.1.0
+yarn add --dev @chromaui/test-archiver @chromaui/archive-storybook @storybook/server-webpack5@<version>
 ```
 
 ## Usage
