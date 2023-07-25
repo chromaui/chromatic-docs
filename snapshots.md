@@ -8,14 +8,13 @@ description: What is a Snapshot in Chromatic
 
 A snapshot is an image of a story plus some metadata captured by a standardized browser in Chromatic's Capture Cloud infrastructure. Snapshots power [UI Test](test) and [UI Review](review).
 
-Table of contents:
+## Table of contents:
 
-- [Snapshots](#snapshots)
-  - [View snapshots for a story](#view-snapshots-for-a-story)
-  - [How are snapshots captured?](#how-are-snapshots-captured)
-  - [Improve snapshot consistency](#improve-snapshot-consistency)
-  - [Debug snapshot rendering](#debug-snapshot-rendering)
-  - [Browser differences between snapshots](#browser-differences-between-snapshots)
+- [View snapshots for a story](#view-snapshots-for-a-story)
+- [How are snapshots captured?](#how-are-snapshots-captured)
+- [Improve snapshot consistency](#improve-snapshot-consistency)
+- [Debug snapshot rendering](#debug-snapshot-rendering)
+- [Browser differences between snapshots](#browser-differences-between-snapshots)
 
 <div class="aside">
 
@@ -52,7 +51,7 @@ Capture Cloud uses underlying browser APIs combined with our own set of heuristi
 <details>
 <summary>3. Take a screenshot and crop it to the dimensions of the UI</summary>
 
-Chromatic crops the screenshot to the size of your component. It determines crop dimensions by measuring the bounding box of the child node of Storybook's `#root` element. For atomic components, cropping eliminates negative spaces around snapshots which makes increases the visual information you have to review. For pages, Chromatic captures the full width and height of the rendered UI.
+Chromatic crops the screenshot to the size of your component. It determines crop dimensions by measuring the bounding box of the child node of Storybook's `#storybook-root` element in version 7 or higher, or the `#root` element for previous versions. For atomic components, cropping eliminates negative spaces around snapshots reducing the visual information you must review. For pages, Chromatic captures the full width and height of the rendered UI.
 
 </details>
 
@@ -155,11 +154,11 @@ export default {
 <details>
 <summary>Why are components that render in a portal (tooltip, modal, menu) getting cut off?</summary>
 
-Portals allow components to render arbitrary elements outside of the parent component's initial DOM hierarchy. For example, tooltips, modals, and menus can be triggered by a nested button, but render close to the top of the DOM hierarchy using portals.
+Portals allow components to render arbitrary elements outside the parent component's initial DOM hierarchy. For example, tooltips, modals, and menus can be triggered by a nested button, but render close to the top of the DOM hierarchy using portals.
 
-Chromatic uses the "natural" height for your component's outermost DOM element (using Storybook's `#root` element) to determine snapshot dimensions. But portals render outside of the Storybook `#root` element. This means that Chromatic can't auto-detect their dimensions when capturing the snapshot. This can result in your snapshot looking "cut off".
+However, when using Chromatic to capture snapshots of your component, it relies on the "natural" height of your component's outermost DOM element (using Storybook's `#storybook-root` element in version 7 or higher, or the `#root` element for previous versions) to determine snapshot dimensions. As portals render outside of Storybook's DOM tree, their dimensions cannot be auto-detected by Chromatic, which can lead to cut-off snapshots.
 
-Snapshot portaled elements by adding a [decorator](https://storybook.js.org/docs/react/writing-stories/decorators#component-decorators) that wraps stories in a fixed height container. Adjust the height to account for the total dimensions of your component and portal.
+To capture snapshots of portaled elements, you can use a [decorator](https://storybook.js.org/docs/react/writing-stories/decorators#component-decorators) that wraps your stories in a fixed height container. You can adjust the height of the container to account for the total dimensions of your component and portal.
 
 ```js
 // MyComponent.stories.js|jsx
