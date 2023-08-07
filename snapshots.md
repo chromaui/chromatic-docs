@@ -14,6 +14,7 @@ A snapshot is an image of a story plus some metadata captured by a standardized 
 - [How are snapshots captured?](#how-are-snapshots-captured)
 - [Improve snapshot consistency](#improve-snapshot-consistency)
 - [Debug snapshot rendering](#debug-snapshot-rendering)
+- [Retake snapshots & rerun builds](#retake-snapshots-rerun-builds)
 - [Browser differences between snapshots](#browser-differences-between-snapshots)
 
 <div class="aside">
@@ -293,6 +294,20 @@ However, this can lead to inconsistent snapshots in cases where you load a custo
 The solution we recommend is to use a `<link rel="preload">` in your [`.storybook/preview-head.html`](https://storybook.js.org/docs/react/configure/story-rendering#adding-to-head) to preload the font before the story renders. This ensures that the dimensions of the contents inside of the tab component remain consistent when measured.
 
 </details>
+
+## Rerun builds to retake snapshots
+
+Double-check whether a visual change is real or caused by inconsistencies in your app code by retaking snapshots. Click the "rerun" button to kick off a new build that uses identical settings and configuration as your original build. Only snapshots for denied and unreviewed changes will be captured. Any changes you accepted in the original build will not be snapshotted again in a rerun build.
+
+![Rerun button](img/build-detail-rerun-button.png)
+
+Debug inconsistent snapshots by looking at the set of changes between the original build and rerun build. You might encounter these common scenarios:
+
+- 🟢 Changes are identical between builds: This means the snapshots are accurately showing bonafide UI changes that need your verification. Continue the [UI Tests workflow as usual](test#verify-ui-changes).
+- 🟡 Changes are different between builds: This means there are inconsistent snapshots which are introducing false positives to your visual tests. Learn how to [improve snapshot consistency](#improve-snapshot-consistency).
+
+Chromatic calls out potential rendering inconsistencies whenever a build is rerun.
+![Inconsistent snapshot detection](img/build-detail-inconsistent-snapshot-detection.png)
 
 ## Browser differences between snapshots
 
