@@ -70,9 +70,9 @@ export const StoryName = {
     const canvas = within(canvasElement);
     //   Wait for the below assertion not throwing an error anymore (default timeout is 1000ms)
     //👇 This is especially useful when you have an asynchronous action or component that you want to wait for
-    await waitFor(() => {
+    await waitFor(async () => {
       //👇 This assertion will pass if a DOM element with the matching id exists
-      expect(canvas.getByTestId('button')).toBeInTheDocument();
+      await expect(canvas.getByTestId('button')).toBeInTheDocument();
     });
   },
 };
