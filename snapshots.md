@@ -303,10 +303,10 @@ Double-check whether a visual change is real or caused by inconsistencies in you
 
 Debug inconsistent snapshots by looking at the set of changes between the original build and rerun build. You might encounter these common scenarios:
 
-- 🟢 Changes are identical between builds: This means the snapshots are accurately showing bonafide UI changes that need your verification. Continue the [UI Tests workflow as usual](test#verify-ui-changes).
-- 🟡 Changes are different between builds: This means there are inconsistent snapshots which are introducing false positives to your visual tests. Learn how to [improve snapshot consistency](#improve-snapshot-consistency).
+- Identical changes between builds: This means the snapshots are accurately showing bonafide UI changes that need your verification. Continue the [UI Tests workflow](test#verify-ui-changes) as usual.
+- Different changes between builds: This means there are inconsistent snapshots which are introducing false positives to your visual tests. Learn how to [improve snapshot consistency](#improve-snapshot-consistency).
 
-Chromatic calls out potential rendering inconsistencies whenever a build is rerun.
+When there are potential rendering inconsistencies in a rerun build, Chromatic will call them out in a message.
 ![Inconsistent snapshot detection](img/build-detail-inconsistent-snapshot-detection.png)
 
 ## Browser differences between snapshots
