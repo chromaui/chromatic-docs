@@ -14,7 +14,7 @@ A snapshot is an image of a story plus some metadata captured by a standardized 
 - [How are snapshots captured?](#how-are-snapshots-captured)
 - [Improve snapshot consistency](#improve-snapshot-consistency)
 - [Debug snapshot rendering](#debug-snapshot-rendering)
-- [Retake snapshots & rerun builds](#retake-snapshots-rerun-builds)
+- [Retake snapshots & rerun builds](#rerun-builds-to-retake-snapshots)
 - [Browser differences between snapshots](#browser-differences-between-snapshots)
 
 <div class="aside">
