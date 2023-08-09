@@ -81,6 +81,15 @@ Click "Inspect snapshot" to open the Inspector. Switch between the "Canvas" and 
 </details>
 
 <details>
+<summary>Can I retake a snapshot?</summary>
+
+Yes, [rerun the latest build](snapshots#rerun-builds-to-retake-snapshots) on your branch to retake snapshots of unreviewed or denied changes.
+
+![Rerun button](img/build-detail-rerun-button.png)
+
+</details>
+
+<details>
 <summary>How are changes on builds different from those listed on the PR Screen 'Changeset' tab?</summary>
 
 UI tests (shown on the build screen) detect changes between builds, specifically, between the last accepted baseline and the latest build. This is useful for detecting defects during the development process and when merging to the main branch to ship.
@@ -201,5 +210,12 @@ Yes. Go to the manage page for your project where you can disable UI Tests. Chro
 <summary>Why does my build have failed tests?</summary>
 
 "Failed tests" happens when a story's [play function](https://storybook.js.org/docs/react/writing-stories/play-function#gatsby-focus-wrapper) has an unexpected error that caused it to fail. You can learn more about interaction tests [here](https://storybook.js.org/docs/react/writing-tests/interaction-testing).
+
+</details>
+
+<details>
+<summary>Can I rerun a build without running my whole CI workflow?</summary>
+
+Yes you can [rerun the latest build on any branch](snapshots#rerun-builds-to-retake-snapshots) outside of your CI workflow. Go to the build page to kick off a new build that uses identical settings and configuration as your old build.
 
 </details>
