@@ -34,10 +34,10 @@ Update your Storybook configuration file `.storybook/main.js|ts` file to include
 // .storybook/main.js
 
 const config = {
-  stories: ["../src/**/*.mdx", "../src/**/*.stories.@(js|jsx|mjs|ts|tsx)"],
+  stories: ['../src/**/*.mdx', '../src/**/*.stories.@(js|jsx|mjs|ts|tsx)'],
   addons: [
     // Other Storybook addons
-    "@chromaui/addon-visual-tests",
+    '@chromaui/addon-visual-tests',
   ],
 };
 export default config;
