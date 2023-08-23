@@ -226,17 +226,17 @@ chromatic:
 
 The Archive Storybook is a preconfigured Storybook instance that Chromatic uses to capture your [archives](#what-are-archives). It can also be run locally to view and debug your archives.
 
-First run the E2E tests to generate the latest results:
-
-```shell
-yarn playwright test # or similar
-```
-
 <div class="aside">
 
 💡 In addition to running the Archive Storybook locally, you can debug by adding the [`--headed` flag](https://playwright.dev/docs/test-cli#reference) to the `playwright test` command, which will display your tests in the browser as they run.
 
 </div>
+
+First run the E2E tests to generate the latest results:
+
+```shell
+yarn playwright test # or similar
+```
 
 Then you can run the Archive Storybook with the `archive-storybook` command, and visit it like any other Storybook:
 
@@ -251,3 +251,21 @@ You can further configure the Test Archiver with these settings:
 ### `CHROMATIC_ARCHIVE_LOCATION`
 
 To override the [archive](#what-are-archives) location, set this environment variable, both when running your Playwright tests and when starting the Storybook (or publishing it on CI).
+
+## FAQs
+
+### Does this mean we should no longer write stories for our page components?
+
+No. Our recommendation is still to develop and test your components, including pages, in Storybook. There are benefits to doing so:
+
+- **Coverage** — It’s much easier to write a story for every possible input of a page. Certain states (in-between loading states, unusual API responses) are difficult or impossible to achieve in E2E but simple in Storybook.
+- **Reproductions** — if something goes wrong with a snapshot it’s much easier to pull up the story in Storybook and iterate towards fixing it.
+- **Component Driven Development** — Storybook also offers many attendant workflow benefits for development and collaboration because you can anchor work and conversations about a UI in a specific state (e.g. settings page for new project).
+
+E2E Visual Testing is well-suited to testing user flows, not just individual pages, which can be difficult to accomplish in Storybook.
+
+For pages in a legacy project that are otherwise difficult to isolate in Storybook, E2E Visual Tests helps you extend visual test coverage to those pages.
+
+### Doesn’t the Archive Storybook get us most of the benefits of developing with stories?
+
+It does, particularly the ease of sharing a reproduction. But because you have to run the full E2E test suite to generate the snapshots, it can be a long feedback loop while developing.
