@@ -268,4 +268,8 @@ For pages in a legacy project that are otherwise difficult to isolate in Storybo
 
 ### Doesn’t the Archive Storybook get us most of the benefits of developing with stories?
 
-It does, particularly the ease of sharing a reproduction. But because you have to run the full E2E test suite to generate the snapshots, it can be a long feedback loop while developing.
+It depends. Archive Storybooks are intended to make it easier to debug and reproduce visual tests. This way when you're reviewing visual changes, you don't have to rerun the E2E test suite to inspect what a page looks like in a specific state. 
+
+The tradeoff is that the full E2E test suite needs to be run before generating the archive Storybook. During development, this can lengthen the feedback loop. 
+
+If you're developing a new UI, we recommend writing stories for comprehensive coverage. If you're adding visual tests to an existing UI that already has E2E tests, we recommend E2EVT to cover the "happy paths".
