@@ -27,7 +27,7 @@ Looking for information on snapshot billing? [Go to billing docs](billing)
 
 The component screen allows you to select between the 'Canvas', 'Snapshot', and 'Docs'. Under the Snapshot tab, you'll find the image captured by Chromatic's cloud browser -- this is exactly what the browser 'saw' at the time that it rendered the story. Swap between Snapshot and Canvas tabs to compare image to live implementation.
 
-![Component screen](img/component.png)
+![Component screen with snapshot](img/component-snapshot.png)
 
 <div class="aside">Tip: Click the expand icon in the top right to open the story in your published Storybook.</div>
 
