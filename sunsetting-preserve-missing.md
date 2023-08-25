@@ -32,13 +32,13 @@ Most likely you will have a `.storybook/main.js` which contains something like t
 // .storybook/main.js
 
 const stories = {
-  projectA: "../projectA/**.stories.js",
-  projectB: "../projectB/**.stories.js",
+  projectA: '../projectA/**.stories.js',
+  projectB: '../projectB/**.stories.js',
   // etc
 };
 
 const config = {
-  stories: stories[process.env.STORYBOOK_PROJECT] || "**/*.stories.js",
+  stories: stories[process.env.STORYBOOK_PROJECT] || '**/*.stories.js',
 };
 
 export default config;
