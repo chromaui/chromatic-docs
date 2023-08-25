@@ -16,11 +16,11 @@ description: Configure Storybook to test UIs with the visual testing addon
 
 <p></p>
 
-Chromatic's Visual Testing addon is essential for detecting UI bugs during development. It enables you to run visual tests on your stories and compare changes with the latest baselines across multiple viewports and browsers to catch UI regressions early in development without leaving Storybook.
+Chromatic's Visual Testing addon helps you detect UI bugs during development. It enables you to run visual tests on your stories and compare changes with the latest baselines across multiple browsers and viewport sizes. Pinpoint visual changes in UI appearance and behavior and automate visual testing without leaving Storybook.
 
 ## Installation
 
-To enable visual testing with Storybook, you must take additional steps to set it up properly. We recommend that you have a fully functional Storybook project running the latest version (e.g., 7.2 or higher) and a Chromatic [account](access) configured with a project to which you have access.
+To enable visual testing with Storybook, you must take additional steps to set it up properly. We recommend that you have a fully functional Storybook project running the latest version (e.g., 7.2 or higher) and a Chromatic account configured with a [project](setup#sign-up) to which you have access.
 
 Run the following command to install the addon:
 
@@ -43,11 +43,15 @@ const config = {
 export default config;
 ```
 
+Start your Storybook, and you'll see some noticeable changes in the UI: a new toolbar icon and the Visual tests panel where you can inspect the test results.
+
+![Visual testing addon enabled](img/visual-tests-enable.png)
+
 ## Authentication
 
 Before using the visual testing addon, you must authenticate yourself with Chromatic. Click the "Enable" button in the addon panel and follow the onboarding workflow to set up your account and link your existing Storybook instance with Chromatic. After the authentication process is complete, you'll be redirected back to Storybook, where you'll see a list of available projects to which you have access.
 
-![Visual testing addon enabled](img/visual-tests-enable.png)
+![Visual testing addon authentication](img/visual-tests-sign-in.png)
 
 <div class="aside">
 
@@ -59,13 +63,19 @@ Select the project on which you want to run your visual tests to complete the on
 
 ## How to run visual tests
 
-Get started visual testing by introducing a change in one of your components; for example, change a background color or font size, save the file, and commit your local changes. Click the "Run tests" button in the toolbar to begin the process. The addon will connect to Chromatic, trigger a local build, snapshot your components, including [browsers](browsers) and [viewport sizes](viewports), and compare them against the latest baseline available in Chromatic.
+Get started visual testing by introducing a change in one of your components; for example, change a background color or font size, save the file, and commit your local changes. Click the "Run tests" button in the toolbar to begin the process. This will:
+
+1. Connect to Chromatic
+2. Start a local build, which will:
+   - Snapshot your components, including [browsers](browsers) and [viewport sizes](viewports)
+   - Compare the new snapshots against the latest baselines
+3. Display the results in the addon panel
 
 ![Storybook running visual tests with the addon](img/visual-tests-run-tests.png)
 
 ## Review changes
 
-To find out which changes were introduced in the latest build, the addon highlights the stories that require your attention. Cycle through them and review them. If the changes are intentional, click the "Accept" button to update the baseline with the latest changes. This will ensure that when you push the changes into your remote repository, they will be reconciled with the public build and automatically marked as accepted in Chromatic.
+To find out which changes were introduced in the latest build, the addon highlights the stories that require your attention. Cycle through them and review them. If the changes are intentional, click the "Accept" button to update the baseline with the latest changes and mark them as accepted in Chromatic. This will ensure that when you push the changes into your remote repository, they will be reconciled with builds deployed from [CI](ci) or the [CLI](cli).
 
 ![Confirm UI changes in Storybook](img/visual-tests-accept-all.png)
 
@@ -74,15 +84,7 @@ To find out which changes were introduced in the latest build, the addon highlig
 <details>
 <summary>Why is my private project token available in the configuration?</summary>
 
-Currently, the visual testing addon is still in its early access stage, and we're actively working on enhancing the user experience and the overall stability of the addon. Therefore, the behavior you're experiencing is expected. We suggest storing the token in a `.env` file if you have any security concerns.
-
-</details>
-
-<details>
-
-<summary>Why is the addon reporting that my snapshots are outdated?</summary>
-
-By default, the addon uses a similar approach to Git to determine which files have changed and require testing. However, specific files (e.g., `build-storybook.log`) can be incorrectly detected and cause the addon to notify you that the snapshots are outdated. Add the necessary files to your `.gitignore` file to prevent this from happening.
+If you have any security concerns, you can save it in a `.env` file. The Visual testing addon is still in its early access stage, and we'll be improving how we use this token in future releases.
 
 </details>
 
@@ -97,7 +99,7 @@ const stringWidth = require('string-width');
 Error [ERR_REQUIRE_ESM]: require() of ES Module /my-project/node_modules/string-width/index.js is not supported.
 ```
 
-This is a known issue when using an older version of the Yarn package manager (e.g., version 1.x). To solve this issue, you can upgrade to the latest stable version. However, if you cannot upgrade, adjust your `package.json` file and provide a resolution field to enable the Yarn package manager to install the correct dependencies. In doing so, you may be required to delete your `node_modules` directory and `yarn.lock` file before installing the dependencies again.
+This is a [known issue](https://github.com/storybookjs/storybook/issues/22431) when using an older version of the Yarn package manager (e.g., version 1.x). To solve this issue, you can upgrade to the latest stable version. However, if you cannot upgrade, adjust your `package.json` file and provide a resolution field to enable the Yarn package manager to install the correct dependencies. In doing so, you may be required to delete your `node_modules` directory and `yarn.lock` file before installing the dependencies again.
 
 ```json
 {
