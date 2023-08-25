@@ -36,7 +36,7 @@ export const StoryName = {
     with: 'props',
   },
   parameters: {
-    // Sets the delay for a specific story.
+    // Sets the delay (in milliseconds) for a specific story.
     chromatic: { delay: 300 },
   },
 };
