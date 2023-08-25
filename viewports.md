@@ -238,9 +238,31 @@ A width or height can be any whole number between 200 and 2560 pixels. The maxim
 <details>
 <summary>Can I control the height of the viewport?</summary>
 
-Yes, you can control the height using the `viewports.height` property.
+Yes, you can control the height using the `viewport.height` property.
 
 If no height is specified, Chromatic will capture a snapshot based on the intrinsic height of the root container.
+
+````jsx
+// MyComponent.stories.js
+import { MyComponent } from './MyComponent';
+
+export default {
+  component: MyComponent,
+  title: 'MyComponent',
+  parameters: {
+    chromatic: {
+      modes: {
+        small: {
+          viewport: {
+            height: 300,
+            width: 800,
+          },
+        }
+      },
+    },
+  },
+};
+```
 
 </details>
 
@@ -275,6 +297,7 @@ export default preview;
 <details>
 <summary>What happens when I don’t specify a viewport?</summary>
 
-Chromatic defaults to a viewport of width 1200px and height 900px
+Chromatic defaults to a viewport of width 1200px and height 900px.
 
 </details>
+````
