@@ -16,7 +16,7 @@ description: Configure Storybook to test UIs with the visual testing addon
 
 <p></p>
 
-Chromatic's Visual Testing addon helps you detect UI bugs during development. It enables you to run visual tests on your stories and compare changes with the latest baselines across multiple browsers and viewport sizes. Pinpoint visual changes in UI appearance and behavior and automate visual testing without leaving Storybook.
+Chromatic's Visual Testing addon helps you detect UI bugs during development. It enables you to run visual tests on your stories and compare changes with the latest baselines across multiple browsers and viewport sizes. Pinpoint changes in UI appearance and behavior and automate visual testing without leaving Storybook.
 
 ## Installation
 
@@ -63,7 +63,7 @@ Select the project on which you want to run your visual tests to complete the on
 
 ## How to run visual tests
 
-Get started visual testing by introducing a change in one of your components; for example, change a background color or font size, save the file, and commit your local changes. Click the "Run tests" button in the toolbar to begin the process. This will:
+Get started visual testing by introducing a change in one of your components; for example, change a background color or font size. Then save the file, and commit your local changes. Click the "Run tests" button in the toolbar to begin the process. This will:
 
 1. Connect to Chromatic
 2. Start a local build, which will:
@@ -99,7 +99,7 @@ const stringWidth = require('string-width');
 Error [ERR_REQUIRE_ESM]: require() of ES Module /my-project/node_modules/string-width/index.js is not supported.
 ```
 
-This is a [known issue](https://github.com/storybookjs/storybook/issues/22431) when using an older version of the Yarn package manager (e.g., version 1.x). To solve this issue, you can upgrade to the latest stable version. However, if you cannot upgrade, adjust your `package.json` file and provide a resolution field to enable the Yarn package manager to install the correct dependencies. In doing so, you may be required to delete your `node_modules` directory and `yarn.lock` file before installing the dependencies again.
+This is a [known issue](https://github.com/storybookjs/storybook/issues/22431#issuecomment-1630086092) when using an older version of the Yarn package manager (e.g., version 1.x). To solve this issue, you can upgrade to the latest stable version. However, if you cannot upgrade, adjust your `package.json` file and provide a resolution field to enable the Yarn package manager to install the correct dependencies. In doing so, you may be required to delete your `node_modules` directory and `yarn.lock` file before installing the dependencies again.
 
 ```json
 {
