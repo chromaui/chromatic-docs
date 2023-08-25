@@ -56,6 +56,8 @@ export default {
   title: 'MyComponent',
   parameters: {
     //👇 Defines a list of viewport widths applied to all stories of a component to be captured in Chromatic.
+    // Note only widths are supported, to control width and height, use the modes api
+    // https://www.chromatic.com/docs/viewports
     chromatic: { viewports: [320, 1200] },
   },
 };
@@ -102,6 +104,8 @@ If you’re still using the legacy API, then assign viewports for the entire Sto
 const preview = {
   parameters: {
     //👇 Defines a list of viewport widths applied globally to all stories.
+    // Note only widths are supported, to control width and height, use the modes api
+    // https://www.chromatic.com/docs/viewports
     chromatic: { viewports: [320, 1200] },
   },
 };

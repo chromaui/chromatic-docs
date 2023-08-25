@@ -20,7 +20,7 @@ Let's consider the following example that uses a decorator & globals to switch l
 
 ![Switching the locale between English, German and Arabic using the Storybook toolbar](img/finished-switcher.gif)
 
-The locale values are defined using [global types](https://storybook.js.org/docs/react/essentials/toolbars-and-globals#global-types-and-the-toolbar-annotation). The `withI18next` decorator retrieves the value of the `locale` global and applies it to `I18nextProvider`, enabling us to test a stories with different translations.
+The locale values are defined using [global types](https://storybook.js.org/docs/react/essentials/toolbars-and-globals#global-types-and-the-toolbar-annotation). The `withI18next` decorator retrieves the value of the `locale` global and applies it to `I18nextProvider`, enabling us to test stories with different translations.
 
 ```jsx
 // .storybook/preview.js|ts
@@ -75,7 +75,7 @@ export default preview;
 
 ## Define decorator specific modes
 
-Modes are defined in the `.storybook/modes.js|ts` file. Set the value for the global associated with your decorator using the `chromatic[mode_name].[global_name]` parameter. For example:
+Modes are defined in the `.storybook/modes.js|ts` file. If your project doesn't have this file yet, go ahead and create it. Set the value for the global associated with your decorator using the `chromatic[mode_name].[global_name]` parameter. For example:
 
 ```jsx
 // .storybook/modes.js|ts

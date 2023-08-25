@@ -7,14 +7,14 @@ description: Configure Chromatic to test responsive components at various viewpo
 # Viewports for responsive UIs
 
 <div class="aside" style="margin-bottom: 2rem;">
-<p>ℹ️&nbsp;&nbsp;This feature uses the modes API. To learn more, checkout the <a href="/docs/modes#using-modes">getting started guide</a>.</p>
+<p>ℹ️&nbsp;&nbsp;This page documents viewports using the modes API. To learn more, checkout the <a href="/docs/modes#using-modes">getting started guide</a>.</p>
 
 <p style="margin-bottom: 0;">If you are transitioning from the <code>chromatic.viewports</code> API to the modes API, please consult the <a href="#migration-from-viewports-legacy-to-modes">migration guide</a>.</p>
 </div>
 
 ## Define viewport modes
 
-Modes are defined in the `.storybook/modes.js|ts` file. To set viewport in a mode, specify the screen width and/or height using the `chromatic[mode_name].viewport` parameter.
+Modes are defined in the `.storybook/modes.js|ts` file. If your project doesn't have this file yet, go ahead and create it. To set viewport in a mode, specify the screen width and/or height using the `chromatic[mode_name].viewport` parameter.
 
 The following are all acceptable viewport values:
 
@@ -60,7 +60,7 @@ export const allModes = {
 };
 ```
 
-## Apply modes to set v**iewports**
+## Apply modes to set viewports
 
 Modes can be applied at different levels: project, component, or story. When a mode includes a valid viewport parameter, Chromatic will adjust the viewport size to match the defined dimensions while capturing the snapshot.
 
@@ -108,7 +108,7 @@ export const MembersOnly = {
 };
 ```
 
-When Chromatic captures your story, it will create *two* snapshots on your build, with the browser set at each viewports. These modes will be treated separately, with independent baselines and distinct approvals.
+When Chromatic captures your story, it will create *two* snapshots on your build, with the browser set at each viewport. These modes will be treated separately, with independent baselines and distinct approvals.
 
 ## Combining modes with viewports addon
 
@@ -121,6 +121,10 @@ The Storybook [viewport addon](https://storybook.js.org/docs/react/essentials/vi
 ### Reference viewport by name
 
 You start by configuring your desired set of viewports in `.storybook/preview.js|ts`. For example:
+
+<div class="aside">
+⚠️&nbsp;&nbsp;While the viewport addon allows you to specify dimensions using any valid CSS unit (such as px, rem, calc, etc.), Chromatic modes only support whole numbers or strings with a "px" suffix.
+</div>
 
 ```jsx
 import type { Preview } from '@storybook/react';
@@ -166,11 +170,6 @@ export const allModes = {
   },
 };
 ```
-
-<aside>
-ℹ️ Note that while the viewport addon allows you to specify dimensions using any valid CSS unit (such as px, rem, calc, etc.), Chromatic modes only support whole numbers or strings with a "px" suffix.
-
-</aside>
 
 - **What if I set `defaultViewport` in my story?**
   You have the ability to configure the default viewport for stories at different levels: project, component, or story. This can be done by setting the `parameters.viewport` value. By adjusting this setting, you can control the dimensions of the story canvas when viewing it in the browser using Storybook.

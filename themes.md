@@ -18,7 +18,7 @@ Themes control the visual characteristics of UI—color palette, typography, whi
 
 ## Configure CSS and theme in your Storybook
 
-There are various ways to configure Storybook for loading CSS and applying themes. Our recommendation is to use [@storybook/addon-themes](https://twitter.com/storybook/addon-themes), which is a framework-agnostic solution compatible with most popular tools.
+There are various ways to configure Storybook for loading CSS and applying themes. Our recommendation is to use [@storybook/addon-themes](https://github.com/storybookjs/storybook/tree/next/code/addons/themes), which is a framework-agnostic solution compatible with most popular tools.
 For tool-specific setup instructions, please refer to the recipes provided below:
 
 - [Emotion](https://github.com/storybookjs/storybook/tree/next/code/addons/themes/docs/getting-started/emotion.md)
@@ -59,7 +59,7 @@ export default preview;
 
 ## Define theme modes
 
-Modes are defined in the `.storybook/modes.js|ts` file. To enable a theme within a mode, specify the theme name using the `chromatic[mode_name].theme` parameter.
+Modes are defined in the `.storybook/modes.js|ts` file. If your project doesn't have this file yet, go ahead and create it. To enable a theme within a mode, specify the theme name using the `chromatic[mode_name].theme` parameter.
 
 ```jsx
 // .storybook/modes.js|ts
@@ -105,4 +105,4 @@ export const Base = {
 };
 ```
 
-When Chromatic captures your story, it will create *two* snapshots on your build, with the corresponding theme enabled. Each mode will have an independent baselines and require distinct approval.
+When Chromatic captures your story, it will capture *two* snapshots during the build, with the corresponding theme enabled. Each mode will have an independent baselines and require distinct approval.
