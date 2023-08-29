@@ -342,3 +342,10 @@ In the case of merge commits, Chromatic does not know ahead of time which side o
 TurboSnap is compatible with squash and merge rebasing as of version 6.6+. Please update your package to get support.
 
 </details>
+
+<details>
+<summary>Does TurboSnap work with the Visual Testing addon?</summary>
+
+No. The Visual Testing addon is still in its early access stage. Support for TurboSnap will be added as part of a future release.
+
+</details>
