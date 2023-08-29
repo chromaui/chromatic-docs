@@ -40,6 +40,9 @@ jobs:
           # 👇 Chromatic projectToken, refer to the manage page to obtain it.
           projectToken: {% raw %}${{ secrets.CHROMATIC_PROJECT_TOKEN }}{% endraw %}
 ```
+<div class="aside">
+Please refer to our <a href="https://www.chromatic.com/docs/github-actions#support-for-codeactionscheckoutv2code-and-above">support documentation</a> if you're using <code>actions/checkout@v2</code> or above.
+</div>
 
 For extra security, you'll need to configure secrets.
 
