@@ -26,7 +26,6 @@ Components and their stories are securely indexed each commit and branch. Use th
 
 - **Canvas**: Interact with the real component code to reproduce behavior
 - **Snapshot**: Verify the image [snapshots](snapshots) used for cross-browser [UI Tests](test)
-- **Docs**: Browse API and usage documentation created by [Storybook Docs](https://storybook.js.org/docs/react/writing-docs/introduction).
 
 ![Component screen](img/component.png)
 
