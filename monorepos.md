@@ -10,6 +10,20 @@ A common pattern in modern web development is monorepos -- having a single repos
 
 Chromatic doesn’t assume anything about how you run the CLI. This means you can run it from inside any project or subproject so long as you pass the correct project token.
 
+
+
+## Visual testing addon for monorepos 
+
+
+### Custom configuration
+
+If you're working with a monorepo
+
+
+
+
+
+
 ## Running Chromatic for more than one subproject's Storybook
 
 You can have multiple linked subprojects in Chromatic for any given repository, so if you want to run Chromatic for more than one subproject, you have two options:
