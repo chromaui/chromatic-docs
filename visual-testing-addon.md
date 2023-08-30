@@ -55,7 +55,7 @@ Before using the Visual Testing addon, you must authenticate yourself with Chrom
 
 <div class="aside">
 
-💡 As part of the authentication process, the addon will ask you for light permissions to access your Chromatic account. The addon will only use this information to authenticate you and to synchronize your visual tests with Chromatic. The addon will never use this information for any other purpose.
+💡 As part of the authentication process, the addon will ask you for light permissions to access your Chromatic account. The addon will only use this information to authenticate you and to synchronize your visual tests with Chromatic. The addon won't use this information for any other purpose.
 
 </div>
 
