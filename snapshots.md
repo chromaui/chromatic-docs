@@ -27,9 +27,22 @@ Looking for information on snapshot billing? [Go to billing docs](billing)
 
 The component screen allows you to select between 'Canvas' and 'Snapshot'. Under the Snapshot tab, you'll find the image captured by Chromatic's cloud browser -- this is exactly what the browser 'saw' at the time that it rendered the story. Swap between Snapshot and Canvas tabs to compare images to live implementation.
 
+<!-- ask M for an image -->
+
 ![Component screen with snapshot](img/component-snapshot.png)
 
 <div class="aside">Tip: Click the expand icon in the top right to open the story in your published Storybook.</div>
+
+### With the Visual Testing addon
+
+If you're using the [addon](visual-testing-addon) to capture component snapshots, it will automatically display them in the addon panel allowing you to quickly verify changes without leaving Storybook.
+
+
+This enables you to compare the new snapshots against the latest baselines,
+
+[review and accept changes](visual-testing-addon#review-changes) without leaving Storybook. 
+
+![Visual testing addon snapshots](img/visual-tests-snapshots.png)
 
 ## How are snapshots captured?
 
@@ -300,6 +313,12 @@ The solution we recommend is to use a `<link rel="preload">` in your [`.storyboo
 Double-check whether a visual change is real or caused by inconsistencies in your app code by retaking snapshots. Click the "rerun" button to kick off a new build that uses identical settings and configuration as your original build. Only snapshots for denied and unreviewed changes will be captured. Any changes you accepted in the original build will not be snapshotted again in a rerun build.
 
 ![Rerun button](img/build-detail-rerun-button.png)
+
+<div class="aside">
+
+💡 If you're using the [Visual Testing addon](visual-testing-addon) to snapshot your components, you cannot trigger the rerun build workflow in Chromatic. This feature is only available when running builds from the [CLI](cli) or [CI](ci). 
+
+</div>
 
 Debug inconsistent snapshots by looking at the set of changes between the original build and rerun build. You might encounter these common scenarios:
 

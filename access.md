@@ -44,14 +44,17 @@ Chromatic's GitHub App enables [UI Review](review) for pull requests. We need ad
 </details>
 
 <details>
-<summary>What permissions does the Visual Testing addon request?</summary>
 
-<!-- If you're enabling visual testing with the [Visual Testing addon](/docs/visual-testing-addon), during the onboarding process, you'll be asked to grant the addon access to your Chromatic account. The addon will only use this information to authenticate you and to synchronize your visual tests with Chromatic. The addon will never use this information for any other purpose.
+<summary>How does the Visual Testing addon handle authentication? </summary>
 
-Chromatic's Visual Testing addon asks for a minimal set of permissions to access your Chromatic account.
-
-The addon will only use this information to authenticate you and to synchronize your visual tests with Chromatic. The addon will never use this information for any other purpose.
-the addon will ask you for light permissions to access your Chromatic account. The addon will only use this information to authenticate you and to synchronize your visual tests with Chromatic. The addon will never use this information for any other purpose. -->
+By default, the addon will use the same authentication process as other Chromatic applications (e.g., the [Figma plugin](https://www.figma.com/community/plugin/1056265616080331589/Storybook-Connect)) to connect your Storybook instance with Chromatic. During the onboarding process, the addon will:
+- Generate a unique verification code to authenticate you with Chromatic
+- Redirect you to Chromatic to validate the code
+- Ask for light permissions to access your Chromatic account including:
+   - View profile information
+   - View account information
+   - View projects
+   - Manage projects
 
 </details>
 
@@ -162,3 +165,11 @@ This connects your Chromatic email/password account with your Git provider accou
 Note: Your personal account must have access to the repository in order to connect in Chromatic. You may need to ask an administrator to grant you additional permissions.
 
 </details>
+
+
+<details>
+<summary>Can I use the Visual test addon with a unlinked project?</summary>
+
+Yes. Running visual tests with the addon is available for both [linked](#linked-projects) and [unlinked](#unlinked-projects) projects without any additional configuration or restrictions.
+
+</detail>
