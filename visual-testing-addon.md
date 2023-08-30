@@ -67,10 +67,10 @@ By default, Storybook offers zero-config support to run visual tests with Storyb
 
 | Option            | Description                                                                                                                              |
 | ----------------- | ---------------------------------------------------------------------------------------------------------------------------------------- |
-| `buildScriptName` | Defines the custom Storybook build script <br/> `options: { buildScriptName: 'deploy-storybook' }`                             |
-| `debug`           | Output verbose debugging information to the console. <br/> `options: { debug: true }`                                          |
 | `projectId`       | Automatically configured. Sets the value for the project identifier <br/> `options: { projectId: Project:64cbcde96f99841e8b007d75 }`     |
 | `projectToken`    | Automatically configured. Sets the value for the project token <br/> `options: { projectToken: 'chpt_b2ae83517a0a706' }`                 |
+| `buildScriptName` | Defines the custom Storybook build script <br/> `options: { buildScriptName: 'deploy-storybook' }`                                       |
+| `debug`           | Output verbose debugging information to the console. <br/> `options: { debug: true }`                                                    |
 | `zip`             | Recommended for large projects. Configures the addon to deploy your Storybook to Chromatic as a zip file. <br/> `options: { zip: true }` |
 
 ```js
