@@ -49,7 +49,7 @@ Start your Storybook, and you'll see some noticeable changes in the UI: a new to
 
 ## Authentication
 
-Before using the visual testing addon, you must authenticate yourself with Chromatic. Click the "Enable" button in the addon panel and follow the onboarding workflow to set up your account and link your existing Storybook instance with Chromatic. After the authentication process is complete, you'll be redirected back to Storybook, where you'll see a list of available projects to which you have access.
+Before using the Visual Testing addon, you must authenticate yourself with Chromatic. Click the "Enable" button in the addon panel and follow the onboarding workflow to set up your account and link your existing Storybook instance with Chromatic. After the authentication process is complete, you'll be redirected back to Storybook, where you'll see a list of available projects to which you have access.
 
 ![Visual testing addon authentication](img/visual-tests-sign-in.png)
 
@@ -60,6 +60,40 @@ Before using the visual testing addon, you must authenticate yourself with Chrom
 </div>
 
 Select the project on which you want to run your visual tests to complete the onboarding process. The addon will automatically save your selection, adjust the configuration file to include the necessary project identifiers, and retrieve the latest baselines if available.
+
+## Configure
+
+By default, Storybook offers zero-config support to run visual tests with Storybook and Chromatic. However, you can extend your Storybook configuration file (i.e., `.storybook/main.js|ts`) and provide additional options to control how tests are run. Listed below are the available options and examples of how to use them.
+
+| Option            | Description                                                                                                                              |
+| ----------------- | ---------------------------------------------------------------------------------------------------------------------------------------- |
+| `buildScriptName` | Defines the custom Storybook build script <br/> `options: { buildScriptName: 'deploy-storybook' }`                             |
+| `debug`           | Output verbose debugging information to the console. <br/> `options: { debug: true }`                                          |
+| `projectId`       | Automatically configured. Sets the value for the project identifier <br/> `options: { projectId: Project:64cbcde96f99841e8b007d75 }`     |
+| `projectToken`    | Automatically configured. Sets the value for the project token <br/> `options: { projectToken: 'chpt_b2ae83517a0a706' }`                 |
+| `zip`             | Recommended for large projects. Configures the addon to deploy your Storybook to Chromatic as a zip file. <br/> `options: { zip: true }` |
+
+```js
+// .storybook/main.js
+
+const config = {
+  stories: ['../src/**/*.mdx', '../src/**/*.stories.@(js|jsx|mjs|ts|tsx)'],
+  addons: [
+    // Other Storybook addons
+    {
+      name: '@chromaui/addon-visual-tests',
+      options: {
+        projectId: 'Project:64cbcde96f99841e8b007d75',
+        projectToken: 'chpt_fa88b088041ccde',
+        buildScriptName: 'deploy-storybook',
+        debug: true,
+        zip: true
+      },
+    },
+  ],
+};
+export default config;
+```
 
 ## How to run visual tests
 
