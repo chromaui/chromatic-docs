@@ -15,11 +15,16 @@ Chromatic doesn’t assume anything about how you run the CLI. This means you ca
 ## Visual testing addon for monorepos 
 
 
+
 ### Custom configuration
 
-If you're working with a monorepo
+Two situations may require custom configuration:
+1- 
+2- Custom script
 
 
+
+## CI configuration
 
 
 
