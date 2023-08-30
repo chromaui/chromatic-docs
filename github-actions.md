@@ -41,7 +41,9 @@ jobs:
           projectToken: {% raw %}${{ secrets.CHROMATIC_PROJECT_TOKEN }}{% endraw %}
 ```
 <div class="aside">
-Please refer to our <a href="https://www.chromatic.com/docs/github-actions#support-for-codeactionscheckoutv2code-and-above">support documentation</a> if you're using <code>actions/checkout@v2</code> or above.
+
+Please refer to our [support documentation](#support-for-actions-checkout-v2-and-above) if you're using `actions/checkout@v2` or above.
+
 </div>
 
 For extra security, you'll need to configure secrets.
@@ -128,7 +130,7 @@ Chromatic's GitHub Action returns some information about your build in the form 
 
 Please refer to [this GitHub document](https://docs.github.com/en/actions/using-workflows/workflow-syntax-for-github-actions#jobsjob_idoutputs) discussing how to use these outputs.
 
-### Support for `actions/checkout@v2` and above
+<h3 id="support-for-actions-checkout-v2-and-above">Support for <code>actions/checkout@v2</code> and above</h3>
 
 Chromatic supports the latest versions of the `actions/checkout` (i.e., versions 2 and 3). Both of them come with a caveat. They will only retrieve a single commit without any additional history. Chromatic needs the full Git history to keep track of changes in your repository.
 
