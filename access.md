@@ -44,6 +44,18 @@ Chromatic's GitHub App enables [UI Review](review) for pull requests. We need ad
 </details>
 
 <details>
+<summary>What permissions does the Visual Testing addon request?</summary>
+
+<!-- If you're enabling visual testing with the [Visual Testing addon](/docs/visual-testing-addon), during the onboarding process, you'll be asked to grant the addon access to your Chromatic account. The addon will only use this information to authenticate you and to synchronize your visual tests with Chromatic. The addon will never use this information for any other purpose.
+
+Chromatic's Visual Testing addon asks for a minimal set of permissions to access your Chromatic account.
+
+The addon will only use this information to authenticate you and to synchronize your visual tests with Chromatic. The addon will never use this information for any other purpose.
+the addon will ask you for light permissions to access your Chromatic account. The addon will only use this information to authenticate you and to synchronize your visual tests with Chromatic. The addon will never use this information for any other purpose. -->
+
+</details>
+
+<details>
     <summary>How do I request access from my GitHub organization admin?</summary>
 
 Chromatic requests the minimum permissions needed to use the tool. With GitHub, we request permissions for "OAuth" and "GitHub app" respectively. This allows organizations to expand permissions incrementally as they use more features.
