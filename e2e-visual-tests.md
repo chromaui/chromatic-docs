@@ -10,6 +10,11 @@ description: Chromatic E2E Visual Tests capture snapshots of pages visited durin
 
 🧪 **Experimental** We're actively integrating feedback from [early access users](https://forms.gle/w43XGAJXVWpAF5oC7), so the API and other details below may change.
 
+Current limitations:
+
+- Not yet tested on Windows
+- Only available for Playwright right now
+
 </div>
 
 <!-- Without this the paragraph below butts up against the aside -->
@@ -43,6 +48,12 @@ If you aren't yet using Storybook in your project, install with:
 ```shell
 yarn add --dev @chromaui/test-archiver @chromaui/archive-storybook @storybook/cli @storybook/addon-essentials @storybook/server-webpack5 react react-dom
 ```
+
+<div class="aside">
+
+💡 Note that if you are already using React in your project, you should install the version you are already using to avoid conflicts. The command above will install the latest version of each package.
+
+</div>
 
 ### If you are already using Storybook
 
@@ -143,7 +154,7 @@ The above snippet produces archives that look like this in Storybook:
    Now you can try manually running Chromatic against the archives with the project you just created (using the token you noted above):
 
    ```shell
-   npx chromatic --build-script-name=build-archive-storybook -t=<TOKEN>
+   npx chromatic@latest --build-script-name=build-archive-storybook -t=<TOKEN>
    ```
 
 3. **Run Chromatic on the archives in CI**
