@@ -256,7 +256,11 @@ npx chromatic --only-changed --trace-changed
 Alternatively, using the `trace` utility, you can manually trace a set of files to a set of related story files based on a Webpack stats file. First, you need to generate a `preview-stats.json` like so (requires Storybook >=6.3):
 
 ```shell
-npx build-storybook --webpack-stats-json
+# npm
+npm run build-storybook --webpack-stats-json
+
+# yarn
+yarn build-storybook --webpack-stats-json
 ```
 
 The `preview-stats.json` will end up in the build directory, typically `storybook-static`. If you want to inspect this file manually, you can trim it down to its bare essentials using this command:
