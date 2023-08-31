@@ -25,7 +25,6 @@ Looking for information on snapshot billing? [Go to billing docs](billing)
 
 ## View snapshots for a story
 
-
 The component screen allows you to select between 'Canvas' and 'Snapshot'. Under the Snapshot tab, you'll find the image captured by Chromatic's cloud browser -- this is exactly what the browser 'saw' at the time that it rendered the story. Swap between Snapshot and Canvas tabs to compare images to live implementation.
 
 ![Component screen with snapshot](img/component-snapshot.png)
@@ -36,8 +35,7 @@ The component screen allows you to select between 'Canvas' and 'Snapshot'. Under
 
 If you're using the [addon](visual-testing-addon) to run visual tests, it will automatically display the captured snapshots in the addon panel, allowing you to compare images to live implementation and verify changes without leaving Storybook.
 
-![Visual Testing addon snapshot preview](img/preview-snapshot.png)
-
+![Visual Testing addon snapshot preview](img/visual-tests-snapshot-preview.png)
 
 ## How are snapshots captured?
 
@@ -311,7 +309,7 @@ Double-check whether a visual change is real or caused by inconsistencies in you
 
 <div class="aside">
 
-💡 If you're using the [Visual Testing addon](visual-testing-addon) to snapshot your components, you cannot trigger the rerun build workflow in Chromatic. This feature is only available when running builds from the [CLI](cli) or [CI](ci). 
+💡 If you're using the [Visual Testing addon](visual-testing-addon) to snapshot your components, you cannot trigger the rerun build workflow in Chromatic. This feature is only available when running builds from the [CLI](cli) or [CI](ci).
 
 </div>
 
