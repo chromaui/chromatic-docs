@@ -11,6 +11,8 @@
   },
   "dependencies": {
     "@astrojs/react": "^3.0.0",
+    "@chromaui/tetra": "^1.15.12",
+    "@fontsource-variable/nunito-sans": "^5.0.9",
     "@types/react": "^18.2.21",
     "@types/react-dom": "^18.2.7",
     "astro": "^3.0.3",

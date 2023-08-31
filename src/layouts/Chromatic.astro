@@ -6,6 +6,8 @@ interface Props {
 }
 
 const { title } = Astro.props;
+
+import '@fontsource-variable/nunito-sans';
 ---
 
 <!DOCTYPE html>
@@ -32,7 +34,7 @@ const { title } = Astro.props;
 		--accent-gradient: linear-gradient(45deg, rgb(var(--accent)), rgb(var(--accent-light)) 30%, white 60%);
 	}
 	html {
-		font-family: system-ui, sans-serif;
+		font-family: 'Nunito Sans Variable', sans-serif;
 		background: #fff;
 		background-size: 224px;
 	}
