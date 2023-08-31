@@ -10,25 +10,6 @@ A common pattern in modern web development is monorepos -- having a single repos
 
 Chromatic doesn’t assume anything about how you run the CLI. This means you can run it from inside any project or subproject so long as you pass the correct project token.
 
-
-
-## Visual testing addon for monorepos 
-
-
-
-### Custom configuration
-
-Two situations may require custom configuration:
-1- 
-2- Custom script
-
-
-
-## CI configuration
-
-
-
-
 ## Running Chromatic for more than one subproject's Storybook
 
 You can have multiple linked subprojects in Chromatic for any given repository, so if you want to run Chromatic for more than one subproject, you have two options:
@@ -73,23 +54,128 @@ Each subproject in a monorepo can now be associated with a separate Chromatic pr
 
    ![Copy project-token for monorepo](img/monorepo-copy-project-token.png)
 
-5. Paste the `project-token` in your CI step to run Chromatic for that subproject. Below are examples with popular CI services.
-   - [GitHub Actions](github-actions#run-chromatic-on-monorepos)
-   - [GitLab Pipelines](gitlab#run-chromatic-on-monorepos)
-   - [Bitbucket Pipelines](bitbucket-pipelines#run-chromatic-on-monorepos)
-   - [CircleCI](circleci#run-chromatic-on-monorepos)
-   - [Travis CI](travisci#run-chromatic-on-monorepos)
-   - [Jenkins](jenkins#run-chromatic-on-monorepos)
-   - [Azure Pipelines](azure-pipelines#run-chromatic-on-monorepos)
-   - [Other CI providers](custom-ci-provider#run-chromatic-on-monorepos)
+## Automate visual testing with the Visual Testing addon
+
+You can integrate Chromatic's Visual Testing addon into your monorepo environment to automate visual testing and detect UI bugs during development. The Visual Testing addon enables you to run visual tests on your stories and compare changes with the latest baselines across multiple browsers and viewport sizes.
+
+### Setup
+
+To enable visual tes
+The instructions below detail how to get started
+
+1. Run the following command to install the addon:
+
+```shell
+yarn workspace design-system add @chromaui/addon-visual-tests --dev
+```
+
+2. Update your Storybook configuration file `packages/design-system/.storybook/main.js|ts` file to include the addon:
+
+```js
+// packages/design-system/.storybook/main.js
+
+const config = {
+  stories: ["../src/**/*.mdx", "../src/**/*.stories.@(js|jsx|mjs|ts|tsx)"],
+  addons: [
+    // Other Storybook addons
+    "@chromaui/addon-visual-tests",
+  ],
+};
+export default config;
+```
+
+3. Start your Storybook, and you'll see a new toolbar icon and the Visual tests panel where you can inspect the test results.
+
+4. Click the "Enable" button and follow the onboarding workflow to set up your account and link your existing Storybook instance with Chromatic.
+
+5. Select the project for which you want to run visual tests. The addon will automatically detect your choice, adjust the configuration file to include the necessary project identifiers, and retrieve the latest baselines if available.
+
+### Working with custom
+
+By default, the Visual testing addon will automatically detect the required configuration file and include the required configuration options when you finish the onboarding process
+
+By default the Visual Testing adddon relies on the standard Storybook build script to run the tests.
+
+If you're working with a customized monorepo with specific configuration requirements (i.e, custom build scripts), you can adjust the configuration file to
+
+If you're working with a customized monorepo with specific configuration requirements, you can adjust the configuration file to include the necessary project identifiers and customize the build script to run the tests.
+
+By default, the Visual Testing addon will automatically detect the configuration file and include the necessary project identifiers when you finish the onboarding process and rely on the default build script to run the tests. If you're working with a customized monorepo with specific configuration requirements, you can adjust the configuration file to include the necessary project identifiers and customize the build script to run the tests.
+
+```js
+// packages/design-system/.storybook/main.js
+
+const config = {
+  stories: [
+    '../app/components/**/*.@(mdx|stories.*)',
+    '../UI/**/*.@(mdx|stories.*)',
+  ],
+  addons: [
+    // Other Storybook addons
+    {
+      name: '@chromaui/addon-visual-tests",
+      options: {
+        projectId: 'Project:64cbcde96f99841e8b007d75',
+        projectToken: 'chpt_fa88b088041ccde',
+        buildScriptName:'design-system:build-storybook'
+      },
+    },
+  ],
+};
+export default config;
+```
+
+. If you're working with a customized monorepo environment whe
+
+### Improving performance
+
+If you're running visual tests in a larger project and notice a significant increase in build times, you can improve the performance of the Visual Testing addon by adding the `zip` option to your Storybook configuration file. This will compress the Storybook build before uploading it to Chromatic, significantly reducing the time it takes to run the tests and report the results.
+
+```js
+// .storybook/main.js
+
+const config = {
+  stories: [
+    '../app/components/**/*.@(mdx|stories.*)',
+    '../UI/**/*.@(mdx|stories.*)',
+  ],
+  addons: [
+    // Other Storybook addons
+    {
+      name: '@chromaui/addon-visual-tests",
+      options: {
+        projectId: 'Project:64cbcde96f99841e8b007d75',
+        projectToken: 'chpt_fa88b088041ccde',
+        zip: true,
+      },
+    },
+  ],
+};
+export default config;
+```
+
+## Automate with CI
+
+To enable Chromatic as a standalone project as part of your CI workflow, you'll need to adjust your configuration file based on your chosen CI provider (e.g., [GitHub Actions](github-actions), [GitLab](gitlab), [CircleCI](circleci)). However, if you're working with individual subprojects, you'll need to adjust the workflow to include a step for each project. Listed below are starter instructions for each CI provider that Chromatic supports.
+
+- [GitHub Actions](github-actions#run-chromatic-on-monorepos)
+- [GitLab Pipelines](gitlab#run-chromatic-on-monorepos)
+- [Bitbucket Pipelines](bitbucket-pipelines#run-chromatic-on-monorepos)
+- [CircleCI](circleci#run-chromatic-on-monorepos)
+- [Travis CI](travisci#run-chromatic-on-monorepos)
+- [Jenkins](jenkins#run-chromatic-on-monorepos)
+- [Azure Pipelines](azure-pipelines#run-chromatic-on-monorepos)
+- [Other CI providers](custom-ci-provider#run-chromatic-on-monorepos)
 
 Every monorepo subproject will get build statuses posted to the pull/merge request. In CI, you’ll need to add a step for each project and use the specific project token for that project.
 
 ![Multiple commit statuses in monorepo](img/monorepo-commit-status.png)
 
----
+## Advanced configuration
 
-## Only run Chromatic when changes occur in a subproject
+The following sections detail advanced configuration options only available when running Chromatic from [CLI](cli) or [CI](ci). Currently, they're unavailable when configuring the Visual Testing addon in a monorepo environment.
+
+### Only run Chromatic when changes occur in a subproject
 
 If your monorepo consists of both UI and backend subprojects, it may be common to have commits that do not touch UI at all. In such cases, running Chromatic on those commits makes little sense.
 
@@ -97,11 +183,9 @@ You can use tools like [`lerna changed`](https://github.com/lerna/lerna/tree/mas
 
 If you want to get a Chromatic PR badge for such commits (for instance, if you block merging on Chromatic builds), you can use the `--skip` CLI flag to indicate that this commit does not need to be built and tested.
 
-## Advanced configuration
-
 ### Run tests on a subset of stories
 
-If you are combining multiple Storybooks into one (see [above](#combine-multiple-projects-into-a-single-storybook)), but detected that only a subset of projects has changed, you can instruct Chromatic to capture and test that particular subset of stories as follows:
+If you are combining multiple Storybooks into one (see [above](#combine-multiple-projects-into-a-single-storybook)) but detect that only a subset of projects has changed, you can instruct Chromatic to capture and test that particular subset of stories as follows:
 
 - Recommended: Use [TurboSnap](turbosnap) to automatically only snapshot stories for which related source files have changed.
 - Use [`--only-story-files`](cli#chromatic-options) to only snapshot stories matching a glob pattern by story file name.
@@ -125,7 +209,7 @@ Some monorepo setups manage third-party dependencies at the root level (so all d
 
 #### With onlyStoryFiles
 
-The `--only-story-files` flag accepts a glob and can be specified multiple times. Any story files (e.g., `Example.stories.js`) which match the glob will have all of their stories captured and tested.
+The `--only-story-files` flag accepts a glob and can be specified multiple times. Any story files (e.g., `Example.stories.js`) that match the glob will have all their stories captured and tested.
 
 ```shell
 npx chromatic --only-story-files "./src/components/**/.stories.js" --only-story-files "./shared/**/*.stories.js"
@@ -137,13 +221,13 @@ Using quotes around the glob patterns is intentional and recommended to avoid be
 
 #### With onlyStoryNames
 
-The `--only-story-names` flag accepts a glob and can be specified multiple times. Any component/story name (e.g., `Forms/Button/*`) which matches the glob will have all of its stories captured and tested.
+The `--only-story-names` flag accepts a glob and can be specified multiple times. Any component/story name (e.g., `Forms/Button/*`) that matches the glob will have all its stories captured and tested.
 
 ```shell
 npx chromatic --only-story-names "Forms/**" --only-story-names "**/Header/*"
 ```
 
-This would match all stories for all components under "Forms" (i.e., any story file which `title` path starts with "Forms"), as well as all stories for the "Header" component, regardless of where it is in the hierarchy (i.e., any story file which `title` path ends with "Header"). Again, make sure to use quotes around glob patterns.
+This would match all stories for all components under "Forms" (i.e., any story file whose `title` path starts with "Forms"), as well as all stories for the "Header" component, regardless of where it is in the hierarchy (i.e., any story file which `title` path ends with "Header"). Again, make sure to use quotes around glob patterns.
 
 ### Building a subset of your stories
 
@@ -163,6 +247,13 @@ When using an existing project that is part of the monorepo and [requiring PR ch
 <details>
 <summary>Why is my monorepo project triggering a full rebuild?</summary>
 
-If TurboSnap is enabled inside a monorepo project, [file changes](turbosnap#full-rebuilds) that impact one package will automatically trigger a full rebuild on all related projects when running Chromatic. Read more about how to ignore changes in unrelated packages [above](#with-turbosnap).
+If TurboSnap is enabled inside a monorepo project, [file changes](turbosnap#full-rebuilds) that impact one package will automatically trigger a full rebuild on all related projects when running Chromatic. Read more about ignoring changes in unrelated packages [above](#with-turbosnap).
 
 </details>
+
+<details>
+<summary></summary>
+
+If you've enabled the Visual Testing addon and notice a significant increase in build times, you may need to adjust your root-level Storybook configuration file or the individual sub-package configuration file and add the `zip` option. This will compress the Storybook build before uploading it to Chromatic, which may significantly reduce the build time.
+
+</summary>
