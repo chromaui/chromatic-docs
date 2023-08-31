@@ -1,67 +1,54 @@
-# Chromatic docs
-
-The `main` branch is automatically deployed to https://www.chromatic.com/docs/
-
-## Deployment
-
-[![Netlify Status](https://api.netlify.com/api/v1/badges/3e1d4d54-1349-4c8a-b214-788ae7aac3a4/deploy-status)](https://app.netlify.com/sites/chromatic2-docs/deploys)
-
-Available at [docs.chromatic.com](docs.chromatic.com) and via Netlify's build previews on branches/PRs. The 'website' proxies this to https://www.chromatic.com/docs/
-
-To configure, access the Netlify [dashboard](https://app.netlify.com/sites/chromatic2-docs/overview).
-
-Deploy previews are set up for PRs.
-
-## Installing jekyll for local development
-
-1. Install gems with `bundle install`
-
-### Troubleshooting install
-
-Note: If you don't have permission to install gems you may need to add something to your `.bashrc`. [Link](https://jekyllrb.com/docs/troubleshooting/#no-sudo)
-
-1. `$ nano .bashrc`
-2. Append to your .bashrc:
+# Astro Starter Kit: Basics
 
 ```
-# Ruby exports
-
-export GEM_HOME=$HOME/gems
-export PATH=$HOME/gems/bin:$PATH
+npm create astro@latest -- --template basics
 ```
 
-3. [ctrl + o] then [return] to save
-4. `$ source .bashrc`
-5. Try installing jekyll again or continue on
-6. On an M1 mac, you might have to run `bundle update ffi sassc`
+[![Open in StackBlitz](https://developer.stackblitz.com/img/open_in_stackblitz.svg)](https://stackblitz.com/github/withastro/astro/tree/latest/examples/basics)
+[![Open with CodeSandbox](https://assets.codesandbox.io/github/button-edit-lime.svg)](https://codesandbox.io/p/sandbox/github/withastro/astro/tree/latest/examples/basics)
+[![Open in GitHub Codespaces](https://github.com/codespaces/badge.svg)](https://codespaces.new/withastro/astro?devcontainer_path=.devcontainer/basics/devcontainer.json)
 
-## Running the site
+> 🧑‍🚀 **Seasoned astronaut?** Delete this file. Have fun!
 
-1. Run `yarn start`
-2. Navigate to http://localhost:4000/docs/
+![just-the-basics](https://github.com/withastro/astro/assets/2244813/a0a5533c-a856-4198-8470-2d67b1d7c554)
 
-## Styling
+## 🚀 Project Structure
 
-1. Edit `style.less` or one of the other less files.
-2. Compile LESS to CSS via `yarn grunt` in command line. _Note:_ this command watches for changes. We don't have a build step for compiling from scratch so if you need to recompile styles, save one the less files whilst grunt is watching for changes.
-3. Commit the compiled `style.css`
+Inside of your Astro project, you'll see the following folders and files:
 
-## Editing Content
+```
+/
+├── public/
+│   └── favicon.svg
+├── src/
+│   ├── components/
+│   │   └── Card.astro
+│   ├── layouts/
+│   │   └── Layout.astro
+│   └── pages/
+│       └── index.astro
+└── package.json
+```
 
-Try to follow the conventions present.
+Astro looks for `.astro` or `.md` files in the `src/pages/` directory. Each page is exposed as a route based on its file name.
 
-### Pages
+There's nothing special about `src/components/`, but that's where we like to put any Astro/React/Vue/Svelte/Preact components.
 
-Edit the `.md` files in the root of the repo or copy them to add new pages.
+Any static assets, like images, can be placed in the `public/` directory.
 
-### Sidebar
+## 🧞 Commands
 
-Edit `sidebar_nav.html` to change the sidebar.
+All commands are run from the root of the project, from a terminal:
 
-### Images
+| Command                   | Action                                           |
+| :------------------------ | :----------------------------------------------- |
+| `npm install`             | Installs dependencies                            |
+| `npm run dev`             | Starts local dev server at `localhost:4321`      |
+| `npm run build`           | Build your production site to `./dist/`          |
+| `npm run preview`         | Preview your build locally, before deploying     |
+| `npm run astro ...`       | Run CLI commands like `astro add`, `astro check` |
+| `npm run astro -- --help` | Get help using the Astro CLI                     |
 
-Add the `center` css class to center images horizontally if they aren't full screen.
+## 👀 Want to learn more?
 
-### Search
-
-Algolia's Docsearch is integrated with the project. Every 24 hours it will crawl docs.chromatic.com and update it's index. The search input box is wired up to this index. You don't need to do anything special, whatever is pushed to docs.chromatic.com will be automatically indexed.
+Feel free to check [our documentation](https://docs.astro.build) or jump into our [Discord server](https://astro.build/chat).
