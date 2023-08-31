@@ -25,9 +25,8 @@ Looking for information on snapshot billing? [Go to billing docs](billing)
 
 ## View snapshots for a story
 
-The component screen allows you to select between 'Canvas' and 'Snapshot'. Under the Snapshot tab, you'll find the image captured by Chromatic's cloud browser -- this is exactly what the browser 'saw' at the time that it rendered the story. Swap between Snapshot and Canvas tabs to compare images to live implementation.
 
-<!-- ask M for an image -->
+The component screen allows you to select between 'Canvas' and 'Snapshot'. Under the Snapshot tab, you'll find the image captured by Chromatic's cloud browser -- this is exactly what the browser 'saw' at the time that it rendered the story. Swap between Snapshot and Canvas tabs to compare images to live implementation.
 
 ![Component screen with snapshot](img/component-snapshot.png)
 
@@ -35,14 +34,10 @@ The component screen allows you to select between 'Canvas' and 'Snapshot'. Under
 
 ### With the Visual Testing addon
 
-If you're using the [addon](visual-testing-addon) to capture component snapshots, it will automatically display them in the addon panel allowing you to quickly verify changes without leaving Storybook.
+If you're using the [addon](visual-testing-addon) to run visual tests, it will automatically display the captured snapshots in the addon panel, allowing you to compare images to live implementation and verify changes without leaving Storybook.
 
+![Visual Testing addon snapshot preview](img/preview-snapshot.png)
 
-This enables you to compare the new snapshots against the latest baselines,
-
-[review and accept changes](visual-testing-addon#review-changes) without leaving Storybook. 
-
-![Visual testing addon snapshots](img/visual-tests-snapshots.png)
 
 ## How are snapshots captured?
 

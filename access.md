@@ -44,21 +44,6 @@ Chromatic's GitHub App enables [UI Review](review) for pull requests. We need ad
 </details>
 
 <details>
-
-<summary>How does the Visual Testing addon handle authentication? </summary>
-
-By default, the addon will use the same authentication process as other Chromatic applications (e.g., the [Figma plugin](https://www.figma.com/community/plugin/1056265616080331589/Storybook-Connect)) to connect your Storybook instance with Chromatic. During the onboarding process, the addon will:
-- Generate a unique verification code to authenticate you with Chromatic
-- Redirect you to Chromatic to validate the code
-- Ask for light permissions to access your Chromatic account including:
-   - View profile information
-   - View account information
-   - View projects
-   - Manage projects
-
-</details>
-
-<details>
     <summary>How do I request access from my GitHub organization admin?</summary>
 
 Chromatic requests the minimum permissions needed to use the tool. With GitHub, we request permissions for "OAuth" and "GitHub app" respectively. This allows organizations to expand permissions incrementally as they use more features.
@@ -67,6 +52,21 @@ If your GitHub organization requires an admin to approve apps, you'll need to re
 
 1. **Chromatic OAuth app**: Enables GitHub sign-in. Track your access request [here](https://github.com/settings/connections/applications/495b5c3cb5ae140436a0).
 2. **Chromatic.com app**: Enables [UI Review](review). Track your access request [here](https://github.com/apps/chromatic-com).
+
+</details>
+
+<details>
+
+<summary>How does the Visual Testing addon handle authentication? </summary>
+
+By default, the addon will use the same authentication process as other Chromatic applications (e.g., the [Figma plugin](https://www.figma.com/community/plugin/1056265616080331589/Storybook-Connect)) to connect your Storybook instance with Chromatic. During the onboarding process, the addon will:
+- Generate a unique verification code to authenticate you with Chromatic
+- Redirect you to Chromatic to validate the code
+- Ask for lightweight permissions to access your Chromatic account including:
+   - View profile information
+   - View account information
+   - View projects
+   - Manage projects
 
 </details>
 
