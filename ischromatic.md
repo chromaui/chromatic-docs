@@ -52,7 +52,7 @@ export const StoryName = {
 
 ## Usage in Node Environments
 
-In Node Environments, this is useful if you want to change the behavior of Storybook files (main.js or preview.js) based on whether Storybook is being ran via Chromatic.
+This is useful if you want to change the behavior of Storybook files as they are processed in a Node.JS context.
 
 ```json
 //package.json
