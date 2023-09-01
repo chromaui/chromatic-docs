@@ -39,7 +39,7 @@ The Archive Storyook is passed to Chromatic’s build process, which screenshots
 
 ## Installation
 
-Get started by installing the Test Archiver package and the Archive Storybook (a specially-configured Storybook instance that can display your [archives](#what-are-archives)).
+Get started by installing the Test Archiver package and the Archive Storybook package (a specially-configured Storybook instance that can display your [archives](#what-are-archives)).
 
 ### As a new installation of Storybook
 
@@ -90,6 +90,8 @@ The above snippet produces an archive that looks like this in Storybook:
 
 ![Published Archive Storybook, showing archive captured in the prior code snippet](img/archive-storybook-basic.png)
 
+(You can view your archives in a published Storybook, [via Chromatic](#using-with-chromatic), or [locally](#running-the-storybook-locally).)
+
 ### Manual snapshots
 
 To take manual snapshots at specific points of your tests, you can use the `takeArchive` function inside your test runs:
@@ -126,6 +128,8 @@ The above snippet produces archives that look like this in Storybook:
 
 ![Published Archive Storybook, showing archives captured in the prior code snippet](img/archive-storybook-takeArchive.png)
 
+(You can view your archives in a published Storybook, [via Chromatic](#using-with-chromatic), or [locally](#running-the-storybook-locally).)
+
 ## Using with Chromatic
 
 1. **Set up a Chromatic project**
@@ -142,11 +146,10 @@ The above snippet produces archives that look like this in Storybook:
 
 2. **Run Chromatic on the archives manually**
 
-   Add the scripts for running and building the Archive Storybook to your `package.json` (the same `scripts` from which you run your Playwright tests):
+   Add the script for building the Archive Storybook to your `package.json` (the same `scripts` from which you run your Playwright tests):
 
    ```json
    "scripts": {
-     "archive-storybook": "archive-storybook",
      "build-archive-storybook": "build-archive-storybook"
    }
    ```
@@ -249,7 +252,15 @@ First run the E2E tests to generate the latest results:
 yarn playwright test # or similar
 ```
 
-Then you can run the Archive Storybook with the `archive-storybook` command, and visit it like any other Storybook:
+Then add the script for running the Archive Storybook to your `package.json` (the same `scripts` from which you run your Playwright tests):
+
+   ```json
+   "scripts": {
+     "archive-storybook": "archive-storybook",
+   }
+   ```
+
+Now you can run the Archive Storybook with the `archive-storybook` command, and visit it like any other Storybook:
 
 ```shell
 yarn archive-storybook
