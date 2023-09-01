@@ -257,7 +257,7 @@ Alternatively, using the `trace` utility, you can manually trace a set of files 
 
 ```shell
 # npm
-npm run build-storybook --webpack-stats-json
+npm run build-storybook -- --webpack-stats-json
 
 # yarn
 yarn build-storybook --webpack-stats-json
