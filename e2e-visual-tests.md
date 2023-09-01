@@ -256,7 +256,8 @@ Then add the script for running the Archive Storybook to your `package.json` (th
 
    ```json
    "scripts": {
-     "archive-storybook": "archive-storybook",
+     "archive-storybook": "archive-storybook", // 👈 Add this line
+     "build-archive-storybook": "build-archive-storybook"
    }
    ```
 
