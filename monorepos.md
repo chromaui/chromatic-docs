@@ -4,11 +4,18 @@ title: Monorepos
 description: Chromatic's support for monorepos
 ---
 
+# Steps
+
+1. Add a project
+2. Add the Visual testing addon
+   2.1. Set up the addon
+   2.2. Authenticate with Chromatic
+   2.3. Run visual tests
+3. Automate visual tests with CI
+
 # Monorepos
 
-A common pattern in modern web development is monorepos -- having a single repository that contains multiple distinct projects. As a monorepo can be associated with many Chromatic projects, there are a few tips that can help with using Chromatic with a monorepo.
-
-Chromatic doesn’t assume anything about how you run the CLI. This means you can run it from inside any project or subproject so long as you pass the correct project token.
+Intro goes here
 
 ## Running Chromatic for more than one subproject's Storybook
 
@@ -50,32 +57,47 @@ Each subproject in a monorepo can now be associated with a separate Chromatic pr
 
    ![A screen with the heading "Create another project for this repo?" followed by a text input for the name of the project and a submit button labeled "Create another project"](img/monorepo-create-second-project.jpg)
 
-4. Take note of the token for the new project. You can also find it on the project’s manage page:
+## Set up CI to run Chromatic
 
-   ![Copy project-token for monorepo](img/monorepo-copy-project-token.png)
+To enable Chromatic as a standalone project as part of your CI workflow, you'll need to adjust your configuration file based on your CI provider (e.g., [GitHub Actions](github-actions), [GitLab](gitlab), [CircleCI](circleci)). However, if you're working with individual subprojects, you must adjust the workflow to include a step for each project with the correct project token. Listed below are starter examples for each CI provider that Chromatic supports.
 
-## Automate visual testing with the Visual Testing addon
+- [GitHub Actions](github-actions#run-chromatic-on-monorepos)
+- [GitLab Pipelines](gitlab#run-chromatic-on-monorepos)
+- [Bitbucket Pipelines](bitbucket-pipelines#run-chromatic-on-monorepos)
+- [CircleCI](circleci#run-chromatic-on-monorepos)
+- [Travis CI](travisci#run-chromatic-on-monorepos)
+- [Jenkins](jenkins#run-chromatic-on-monorepos)
+- [Azure Pipelines](azure-pipelines#run-chromatic-on-monorepos)
+- [Other CI providers](custom-ci-provider#run-chromatic-on-monorepos)
 
-You can integrate Chromatic's Visual Testing addon into your monorepo environment to automate visual testing and detect UI bugs during development. The Visual Testing addon enables you to run visual tests on your stories and compare changes with the latest baselines across multiple browsers and viewport sizes.
+When Chromatic runs in your CI workflow, it will provide a build status check for your pull/merge request based on the build results.
+
+![Multiple commit statuses in monorepo](img/monorepo-commit-status.png)
+
+## Visual Testing addon
+
+The most accurate way to check UI bugs is to run Chromatic from the CLI or CI on every commit. To help you improve your development workflow, you can use the Visual Testing addon to run visual tests on your stories. It captures snapshots of your components and compares them with the latest baselines across multiple browsers and viewport sizes without leaving Storybook.
 
 ### Setup
 
-To enable visual tes
-The instructions below detail how to get started
+To enable visual testing with the addon, you'll need to take additional steps to set it up properly. We recommend you go through the [Visual Testing addon documentation](visual-testing-addon) before proceeding with the rest of the required configuration.
 
-1. Run the following command to install the addon:
+Run the following command to install the addon in your monorepo:
 
 ```shell
 yarn workspace design-system add @chromaui/addon-visual-tests --dev
 ```
 
-2. Update your Storybook configuration file `packages/design-system/.storybook/main.js|ts` file to include the addon:
+Update your Storybook configuration file (e.g.,`packages/design-system/.storybook/main.js|ts`) file to include the addon:
 
 ```js
 // packages/design-system/.storybook/main.js
 
 const config = {
-  stories: ["../src/**/*.mdx", "../src/**/*.stories.@(js|jsx|mjs|ts|tsx)"],
+  stories: [
+    "../app/components/**/*.@(mdx|stories.*)",
+    "../UI/**/*.@(mdx|stories.*)",
+  ],
   addons: [
     // Other Storybook addons
     "@chromaui/addon-visual-tests",
@@ -84,23 +106,19 @@ const config = {
 export default config;
 ```
 
-3. Start your Storybook, and you'll see a new toolbar icon and the Visual tests panel where you can inspect the test results.
+When you run visual tests with the addon it will connect to Chromatic, start a local build, and snapshot your components, including [browsers](browsers) and [viewport sizes](viewports), compare the new snapshots against the latest baselines, and report the results.
 
-4. Click the "Enable" button and follow the onboarding workflow to set up your account and link your existing Storybook instance with Chromatic.
+![Storybook running visual tests with the addon](img/visual-tests-run-tests.png)
 
-5. Select the project for which you want to run visual tests. The addon will automatically detect your choice, adjust the configuration file to include the necessary project identifiers, and retrieve the latest baselines if available.
+### Manual configuration
 
-### Working with custom
+By default, during onboarding, the addon will try to detect the project's Storybook configuration file. If it's unable to find it, it will notify you in the addon panel and provide you with the necessary instructions to configure it manually.
 
-By default, the Visual testing addon will automatically detect the required configuration file and include the required configuration options when you finish the onboarding process
+![Visual Testing addon configuration instructions](img/visual-tests-addon-manual-config.png)
 
-By default the Visual Testing adddon relies on the standard Storybook build script to run the tests.
+### Override the default configuration
 
-If you're working with a customized monorepo with specific configuration requirements (i.e, custom build scripts), you can adjust the configuration file to
-
-If you're working with a customized monorepo with specific configuration requirements, you can adjust the configuration file to include the necessary project identifiers and customize the build script to run the tests.
-
-By default, the Visual Testing addon will automatically detect the configuration file and include the necessary project identifiers when you finish the onboarding process and rely on the default build script to run the tests. If you're working with a customized monorepo with specific configuration requirements, you can adjust the configuration file to include the necessary project identifiers and customize the build script to run the tests.
+If you're working with a customized monorepo with specific configuration requirements (i.e., custom build scripts), you can adjust the configuration file, either globally or individually, for each package and configure the build script to run the tests. For example:
 
 ```js
 // packages/design-system/.storybook/main.js
@@ -125,11 +143,9 @@ const config = {
 export default config;
 ```
 
-. If you're working with a customized monorepo environment whe
-
 ### Improving performance
 
-If you're running visual tests in a larger project and notice a significant increase in build times, you can improve the performance of the Visual Testing addon by adding the `zip` option to your Storybook configuration file. This will compress the Storybook build before uploading it to Chromatic, significantly reducing the time it takes to run the tests and report the results.
+If you're running visual tests in a larger project and notice a significant increase in the time the addon takes to run your tests, you can increase its performance by adding the `zip` option to your Storybook configuration file. This will compress the Storybook build before uploading it to Chromatic, significantly reducing the time it takes to run the tests.
 
 ```js
 // .storybook/main.js
@@ -154,26 +170,11 @@ const config = {
 export default config;
 ```
 
-## Automate with CI
-
-To enable Chromatic as a standalone project as part of your CI workflow, you'll need to adjust your configuration file based on your chosen CI provider (e.g., [GitHub Actions](github-actions), [GitLab](gitlab), [CircleCI](circleci)). However, if you're working with individual subprojects, you'll need to adjust the workflow to include a step for each project. Listed below are starter instructions for each CI provider that Chromatic supports.
-
-- [GitHub Actions](github-actions#run-chromatic-on-monorepos)
-- [GitLab Pipelines](gitlab#run-chromatic-on-monorepos)
-- [Bitbucket Pipelines](bitbucket-pipelines#run-chromatic-on-monorepos)
-- [CircleCI](circleci#run-chromatic-on-monorepos)
-- [Travis CI](travisci#run-chromatic-on-monorepos)
-- [Jenkins](jenkins#run-chromatic-on-monorepos)
-- [Azure Pipelines](azure-pipelines#run-chromatic-on-monorepos)
-- [Other CI providers](custom-ci-provider#run-chromatic-on-monorepos)
-
-Every monorepo subproject will get build statuses posted to the pull/merge request. In CI, you’ll need to add a step for each project and use the specific project token for that project.
-
-![Multiple commit statuses in monorepo](img/monorepo-commit-status.png)
+---
 
 ## Advanced configuration
 
-The following sections detail advanced configuration options only available when running Chromatic from [CLI](cli) or [CI](ci). Currently, they're unavailable when configuring the Visual Testing addon in a monorepo environment.
+The following sections detail advanced configuration options only available when running Chromatic from CLI or CI. Currently, they're unavailable when configuring the Visual Testing addon in a monorepo environment.
 
 ### Only run Chromatic when changes occur in a subproject
 
@@ -233,8 +234,6 @@ This would match all stories for all components under "Forms" (i.e., any story f
 
 With the removal of the `--preserve-missing` flag, building a partial Storybook containing a subset of your stories is no longer recommended. Publishing a Storybook with missing stories will result in those missing stories being marked as "removed".
 
----
-
 ## Troubleshooting
 
 <details>
@@ -250,10 +249,3 @@ When using an existing project that is part of the monorepo and [requiring PR ch
 If TurboSnap is enabled inside a monorepo project, [file changes](turbosnap#full-rebuilds) that impact one package will automatically trigger a full rebuild on all related projects when running Chromatic. Read more about ignoring changes in unrelated packages [above](#with-turbosnap).
 
 </details>
-
-<details>
-<summary></summary>
-
-If you've enabled the Visual Testing addon and notice a significant increase in build times, you may need to adjust your root-level Storybook configuration file or the individual sub-package configuration file and add the `zip` option. This will compress the Storybook build before uploading it to Chromatic, which may significantly reduce the build time.
-
-</summary>
