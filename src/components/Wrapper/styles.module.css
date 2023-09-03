@@ -1,0 +1,15 @@
+.wrapper {
+  display: flex;
+  gap: 2.5rem;
+  margin: 2.5rem 0;
+}
+
+.content {
+  flex-grow: 1;
+  flex-shrink: 1;
+}
+
+.content img {
+  width: 100%;
+  height: auto;
+}

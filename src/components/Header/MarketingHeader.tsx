@@ -38,7 +38,6 @@ export const MarketingHeader: FC<Props> = ({ theme = "light" }) => {
       desktopBreakpoint={1000}
       desktopRight={
         <>
-          coucou
           <Link
             size="md"
             weight="semibold"
