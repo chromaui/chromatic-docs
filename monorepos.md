@@ -4,28 +4,15 @@ title: Monorepos
 description: Chromatic's support for monorepos
 ---
 
-# Steps
-
-1. Add a project
-2. Add the Visual testing addon
-   2.1. Set up the addon
-   2.2. Authenticate with Chromatic
-   2.3. Run visual tests
-3. Automate visual tests with CI
-
 # Monorepos
 
-Intro goes here
+A common pattern in modern web development is monorepos -- having a single repository that contains multiple distinct projects. With Chromatic, developers can test for UI changes in each project individually or as a single project, all while integrating seamlessly with your CI pipeline or the Visual Testing addon to ensure your UI remains consistent and error-free throughout the development process.
 
-## Running Chromatic for more than one subproject's Storybook
+## Add a monorepo project
 
-You can have multiple linked subprojects in Chromatic for any given repository, so if you want to run Chromatic for more than one subproject, you have two options:
+To enable Chromatic in your monorepo environment, you can combine every package's stories into a single Storybook instance. This allows for efficient visual testing of individual subprojects while maintaining a unified view across your monorepo. For example:
 
-### Combine multiple projects into a single Storybook
-
-A common approach that works well for many teams is to combine multiple subproject's Storybooks into a single Storybook. When you run Chromatic on the principal Storybook, you test all stories in a single Chromatic project.
-
-For example, you could write in your `.storybook/main.js`:
+For example:
 
 ```js
 // .storybook/main.js
@@ -37,24 +24,19 @@ const config = {
 export default config;
 ```
 
-Often teams find a single Storybook for all their development works quite well, also!
-
 ### Run Chromatic for each subproject
 
-In Chromatic, a project is typically linked to a Git repository and will synchronize permissions from the permissions of that repository as well as post build status messages to the repository’s pull/merge requests.
+If you're working with a monoporepo containing multiple subprojects, you can run Chromatic separately for each subproject, allowing a more granular testing approach. To add individual subprojects to Chromatic, you'll need to:
 
-Each subproject in a monorepo can now be associated with a separate Chromatic project that adds additional build statuses to the repository’s pull/merge requests. Here's how to set it up.
-
-1. Open [your Chromatic app](http://chromatic.com/start), browse to your account, and press the “Add project” button:
+1. Click the "Add project" button on your account dashboard to add a new project
 
    ![Projects screen with the "Add project" button outlined and an arrow pointing to it](img/monorepo-add-project.jpg)
 
-2. Choose your monorepo repository a second time:
+2. Select the project's repository a second time
 
    ![A screen with the heading "Choose project to add" followed by a list of possible projects. The highlighted item is labeled "webapp (added)".](img/monorepo-choose-project.jpg)
 
-3. Choose a name for your new project:
-
+3. Enter a name for your new project
    ![A screen with the heading "Create another project for this repo?" followed by a text input for the name of the project and a submit button labeled "Create another project"](img/monorepo-create-second-project.jpg)
 
 ## Set up CI to run Chromatic
@@ -74,9 +56,9 @@ When Chromatic runs in your CI workflow, it will provide a build status check fo
 
 ![Multiple commit statuses in monorepo](img/monorepo-commit-status.png)
 
-## Visual Testing addon
+## Execute tests with the Visual Testing addon
 
-The most accurate way to check UI bugs is to run Chromatic from the CLI or CI on every commit. To help you improve your development workflow, you can use the Visual Testing addon to run visual tests on your stories. It captures snapshots of your components and compares them with the latest baselines across multiple browsers and viewport sizes without leaving Storybook.
+The most accurate way to check UI bugs is to run Chromatic from the CLI or CI on every commit. The Visual Testing addon simplifies the visual testing process with Chromatic. When it tests your stories, it will generate a separate build, capturing component snapshots for each browser and viewport size. These builds are treated separately, with distinct approvals.
 
 ### Setup
 
@@ -88,7 +70,7 @@ Run the following command to install the addon in your monorepo:
 yarn workspace design-system add @chromaui/addon-visual-tests --dev
 ```
 
-Update your Storybook configuration file (e.g.,`packages/design-system/.storybook/main.js|ts`) file to include the addon:
+Update your Storybook configuration file (e.g., `packages/design-system/.storybook/main.js|ts`) file to include the addon:
 
 ```js
 // packages/design-system/.storybook/main.js
@@ -145,7 +127,7 @@ export default config;
 
 ### Improving performance
 
-If you're running visual tests in a larger project and notice a significant increase in the time the addon takes to run your tests, you can increase its performance by adding the `zip` option to your Storybook configuration file. This will compress the Storybook build before uploading it to Chromatic, significantly reducing the time it takes to run the tests.
+If you're running visual tests in a larger project and notice a significant increase in the time the addon takes to run your tests, you can improve its performance by adding the `zip` option to your Storybook configuration file. This will compress the Storybook build before uploading it to Chromatic, significantly reducing the time it takes to run the tests.
 
 ```js
 // .storybook/main.js
