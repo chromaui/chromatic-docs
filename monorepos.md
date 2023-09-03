@@ -18,7 +18,7 @@ For example:
 // .storybook/main.js
 
 const config = {
-  stories: ["../project-1/**/*.stories.js", "../project-2/**/*.stories.js"],
+  stories: ['../project-1/**/*.stories.js', '../project-2/**/*.stories.js'],
 };
 
 export default config;
@@ -77,12 +77,12 @@ Update your Storybook configuration file (e.g., `packages/design-system/.storybo
 
 const config = {
   stories: [
-    "../app/components/**/*.@(mdx|stories.*)",
-    "../UI/**/*.@(mdx|stories.*)",
+    '../app/components/**/*.@(mdx|stories.*)',
+    '../UI/**/*.@(mdx|stories.*)',
   ],
   addons: [
     // Other Storybook addons
-    "@chromaui/addon-visual-tests",
+    '@chromaui/addon-visual-tests',
   ],
 };
 export default config;
