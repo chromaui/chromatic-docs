@@ -14,23 +14,23 @@ export const sidebarData = [
       },
       {
         title: "UI Tests",
-        url: "test",
+        url: "/test",
       },
       {
         title: "UI Review",
-        url: "review",
+        url: "/review",
       },
       {
         title: "Document",
-        url: "document",
+        url: "/document",
       },
       {
         title: "Automate with CI",
-        url: "ci",
+        url: "/ci",
       },
       {
         title: "Workflow",
-        url: "workflow",
+        url: "/workflow",
       },
     ],
   },
@@ -39,67 +39,67 @@ export const sidebarData = [
     items: [
       {
         title: "CLI",
-        url: "cli",
+        url: "/cli",
       },
       {
         title: "Viewports",
-        url: "viewports",
+        url: "/viewports",
       },
       {
         title: "Browsers",
-        url: "browsers",
+        url: "/browsers",
       },
       {
         title: "Ignore elements",
-        url: "ignoring-elements",
+        url: "/ignoring-elements",
       },
       {
         title: "Animations",
-        url: "animations",
+        url: "/animations",
       },
       {
         title: "Delay",
-        url: "delay",
+        url: "/delay",
       },
       {
         title: "Threshold for changes",
-        url: "threshold",
+        url: "/threshold",
       },
       {
         title: "Media features",
-        url: "media-features",
+        url: "/media-features",
       },
       {
         title: "Hover and focus",
-        url: "hoverfocus",
+        url: "/hoverfocus",
       },
       {
         title: "isChromatic()",
-        url: "ischromatic",
+        url: "/ischromatic",
       },
       {
         title: "Integrations",
-        url: "integrations",
+        url: "/integrations",
       },
       {
         title: "Custom webhooks",
-        url: "custom-webhooks",
+        url: "/custom-webhooks",
       },
       {
         title: "Composition",
-        url: "composition",
+        url: "/composition",
       },
       {
         title: "Permalinks",
-        url: "permalinks",
+        url: "/permalinks",
       },
       {
         title: "Interaction tests",
-        url: "interactions",
+        url: "/interactions",
       },
       {
         title: "Monorepos",
-        url: "monorepos",
+        url: "/monorepos",
       },
     ],
   },
@@ -108,19 +108,19 @@ export const sidebarData = [
     items: [
       {
         title: "Snapshots",
-        url: "snapshots",
+        url: "/snapshots",
       },
       {
         title: "Resource loading",
-        url: "resource-loading",
+        url: "/resource-loading",
       },
       {
         title: "Branches & baselines",
-        url: "branching-and-baselines",
+        url: "/branching-and-baselines",
       },
       {
         title: "Turbosnap",
-        url: "turbosnap",
+        url: "/turbosnap",
       },
     ],
   },
@@ -129,27 +129,27 @@ export const sidebarData = [
     items: [
       {
         title: "Access control",
-        url: "access",
+        url: "/access",
       },
       {
         title: "Collaborators",
-        url: "collaborators",
+        url: "/collaborators",
       },
       {
         title: "Embed",
-        url: "embed",
+        url: "/embed",
       },
       {
         title: "Figma plugin",
-        url: "figma-plugin",
+        url: "/figma-plugin",
       },
       {
         title: "Figma in Chromatic",
-        url: "figma-in-chromatic",
+        url: "/figma-in-chromatic",
       },
       {
         title: "Markdown",
-        url: "markdown",
+        url: "/markdown",
       },
     ],
   },
@@ -158,35 +158,35 @@ export const sidebarData = [
     items: [
       {
         title: "GitHub Actions",
-        url: "github-actions",
+        url: "/github-actions",
       },
       {
         title: "GitLab pipelines",
-        url: "gitlab",
+        url: "/gitlab",
       },
       {
         title: "Bitbucket pipelines",
-        url: "bitbucket",
+        url: "/bitbucket",
       },
       {
         title: "Circle CI",
-        url: "circleci",
+        url: "/circleci",
       },
       {
         title: "Travis CI",
-        url: "travisci",
+        url: "/travisci",
       },
       {
         title: "Jenkins",
-        url: "jenkins",
+        url: "/jenkins",
       },
       {
         title: "Azure pipelines",
-        url: "azure-pipelines",
+        url: "/azure-pipelines",
       },
       {
         title: "Other CI providers",
-        url: "custom-ci-provider",
+        url: "/custom-ci-provider",
       },
     ],
   },
@@ -195,43 +195,43 @@ export const sidebarData = [
     items: [
       {
         title: "Support",
-        url: "support",
+        url: "/support",
       },
       {
         title: "Billing & invoices",
-        url: "billing",
+        url: "/billing",
       },
       {
         title: "Notifications",
-        url: "notifications",
+        url: "/notifications",
       },
       {
         title: "Infrastructure upgrades",
-        url: "infrastructure-upgrades",
+        url: "/infrastructure-upgrades",
       },
       {
         title: "Security",
-        url: "security",
+        url: "/security",
       },
       {
         title: "Terms of service",
-        url: "terms-of-service",
+        url: "/terms-of-service",
       },
       {
         title: "Privacy policy",
-        url: "privacy-policy",
+        url: "/privacy-policy",
       },
       {
         title: "Acceptable use policy",
-        url: "acceptable-use",
+        url: "/acceptable-use",
       },
       {
         title: "Open source plan",
-        url: "open-source",
+        url: "/open-source",
       },
       {
         title: "FAQ",
-        url: "faq",
+        url: "/faq",
       },
     ],
   },
