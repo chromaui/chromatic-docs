@@ -40,11 +40,31 @@ const IconWrapper = styled.div`
   margin-top: -2px;
 `;
 
-const ContentWrapper = styled.div`
+const ContentWrapper = styled.div<{ isTimeline: boolean }>`
   display: flex;
   flex-direction: column;
   gap: 4px;
-  margin-left: 35px;
+  margin-left: ${({ isTimeline }) => (isTimeline ? "22px" : "35px")};
+  position: relative;
+
+  &:before {
+    content: "";
+    display: ${({ isTimeline }) => (isTimeline ? "block" : "none")};
+    position: absolute;
+    top: 12px;
+    left: 4px;
+    width: 1px;
+    height: calc(100% - 24px);
+    background-color: ${color.slate300};
+    z-index: 0;
+  }
+`;
+
+const Line = styled.div`
+  display: flex;
+  gap: 16px;
+  align-items: center;
+  height: 34px;
 `;
 
 const ContentItem = styled.div`
@@ -59,6 +79,16 @@ const ContentItem = styled.div`
   }
 `;
 
+const Bullet = styled.div`
+  position: relative;
+  z-index: 1;
+  width: 9px;
+  height: 9px;
+  background-color: ${color.slate300};
+  border-radius: 100%;
+  box-shadow: white 0px 0px 0px 4px;
+`;
+
 export const Sidebar: FC = () => {
   return (
     <Content>
@@ -70,10 +100,13 @@ export const Sidebar: FC = () => {
             </IconWrapper>
             {group.title}
           </Trigger>
-          <ContentWrapper>
+          <ContentWrapper isTimeline={!!group.timeline}>
             {group.items.map((item, j) => (
               <Collapsible.Content key={j} asChild>
-                <ContentItem>{item.title}</ContentItem>
+                <Line>
+                  {!!group.timeline && <Bullet />}
+                  <ContentItem>{item.title}</ContentItem>
+                </Line>
               </Collapsible.Content>
             ))}
           </ContentWrapper>

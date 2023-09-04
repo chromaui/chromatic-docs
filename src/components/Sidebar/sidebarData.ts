@@ -36,7 +36,6 @@ export const sidebarData = [
   },
   {
     title: "Configuration",
-    timeline: true,
     items: [
       {
         title: "CLI",
@@ -106,7 +105,6 @@ export const sidebarData = [
   },
   {
     title: "Snapshot",
-    timeline: true,
     items: [
       {
         title: "Snapshots",
@@ -128,7 +126,6 @@ export const sidebarData = [
   },
   {
     title: "Collaborate",
-    timeline: true,
     items: [
       {
         title: "Access control",
@@ -158,7 +155,6 @@ export const sidebarData = [
   },
   {
     title: "CI",
-    timeline: true,
     items: [
       {
         title: "GitHub Actions",
@@ -196,7 +192,6 @@ export const sidebarData = [
   },
   {
     title: "Account",
-    timeline: true,
     items: [
       {
         title: "Support",

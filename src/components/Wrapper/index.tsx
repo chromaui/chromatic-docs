@@ -4,7 +4,6 @@ import { MarketingHeader } from "../Header/MarketingHeader";
 import { MarketingFooter } from "../Footer/MarketingFooter";
 import { Container } from "@chromaui/tetra";
 import { Sidebar } from "../Sidebar";
-import Styles from "./styles.module.css";
 import { styled } from "@storybook/theming";
 
 interface Props {
