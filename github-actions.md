@@ -108,20 +108,20 @@ Chromatic's GitHub Action includes additional options to customize your workflow
 
 Chromatic's GitHub Action returns some information about your build in the form of outputs. The table below lists what's currently available:
 
-| Name                             | Type     | Description                                                                                                        |
-| -------------------------------- | -------- | ------------------------------------------------------------------------------------------------------------------ |
-| **url**                          | `string` | An alias for the build URL.<br/> `https://www.chromatic.com/build?appId=example-app-id&number=100`                 |
-| **buildUrl**                     | `string` | The build URL. <br/> `https://www.chromatic.com/build?appId=example-app-id&number=100`                             |
-| **storybookUrl**                 | `string` | The Storybook preview URL for your current branch / Pull Request.<b/> `https://main--example-app-id.chromatic.com` |
-| **code**                         | `string` | The exit code for the current run of the Chromatic [CLI](cli#exit-codes).                                          |
-| **actualCaptureCount**           | `number` | The number of captured snapshots.                                                                                  |
-| **changeCount**                  | `number` | The number of tests with visual changes, including any inherited changes (e.g., due to [TurboSnap](turbosnap)).    |
-| **componentCount**               | `number` | The number of components in the published Storybook.                                                               |
-| **errorCount**                   | `number` | The number of tests with error(s), including any inherited errors (e.g., due to [TurboSnap](turbosnap)).           |
-| **inheritedCaptureCount**        | `number` | The number of inherited (not captured) snapshots (e.g., due to [TurboSnap](turbosnap)).                            |
-| **interactionTestFailuresCount** | `number` | The number of stories with interaction test failures.                                                              |
-| **specCount**                    | `number` | The number of stories in the published Storybook.                                                                  |
-| **testCount**                    | `number` | The number of tests on the build.                                                                                  |
+| Name                             | Type     | Description                                                                                                               |
+| -------------------------------- | -------- | --------------------------------------------------------------------------------------------------------------------------|
+| **url**                          | `string` | An alias for the build URL.<br/> `https://www.chromatic.com/build?appId=example-app-id&number=100`                        |
+| **buildUrl**                     | `string` | The build URL. <br/> `https://www.chromatic.com/build?appId=example-app-id&number=100`                                    |
+| **storybookUrl**                 | `string` | The Storybook preview URL for your current branch / Pull Request.<br/> `https://example-app-id-<unique-id>.chromatic.com` |
+| **code**                         | `string` | The exit code for the current run of the Chromatic [CLI](cli#exit-codes).                                                 |
+| **actualCaptureCount**           | `number` | The number of captured snapshots.                                                                                         |
+| **changeCount**                  | `number` | The number of tests with visual changes, including any inherited changes (e.g., due to [TurboSnap](turbosnap)).           |
+| **componentCount**               | `number` | The number of components in the published Storybook.                                                                      |
+| **errorCount**                   | `number` | The number of tests with error(s), including any inherited errors (e.g., due to [TurboSnap](turbosnap)).                  |
+| **inheritedCaptureCount**        | `number` | The number of inherited (not captured) snapshots (e.g., due to [TurboSnap](turbosnap)).                                   |
+| **interactionTestFailuresCount** | `number` | The number of stories with interaction test failures.                                                                     |
+| **specCount**                    | `number` | The number of stories in the published Storybook.                                                                         |
+| **testCount**                    | `number` | The number of tests on the build.                                                                                         |
 
 Please refer to [this GitHub document](https://docs.github.com/en/actions/using-workflows/workflow-syntax-for-github-actions#jobsjob_idoutputs) discussing how to use these outputs.
 
