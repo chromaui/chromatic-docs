@@ -382,7 +382,7 @@ If you rename the mode, a new snapshot baseline will be created based on the new
 <details>
 <summary>Which addons are supported?</summary>
 
-Any Storybook addon that uses [globals](https://storybook.js.org/docs/react/essentials/toolbars-and-globals#globals). For example:  [@storybookjs/addon-themes](https://github.com/storybookjs/storybook/tree/next/code/addons/themes?ref=chromaticblog.ghost.io), [@storybookjs/addon-viewport](https://github.com/storybookjs/storybook/tree/next/code/addons/viewport), [@storybook/addon-backgrounds](https://github.com/storybookjs/storybook/tree/next/code/addons/backgrounds) and [storybook-i18n](https://github.com/stevensacks/storybook-i18n/tree/main?ref=chromaticblog.ghost.io).
+Any Storybook addon that uses [globals](https://storybook.js.org/docs/react/essentials/toolbars-and-globals#globals). For example:  [@storybookjs/addon-themes](https://storybook.js.org/addons/@storybook/addon-themes), [@storybookjs/addon-viewport](https://storybook.js.org/addons/@storybook/addon-viewport), [@storybook/addon-backgrounds](https://storybook.js.org/addons/@storybook/addon-backgrounds) and [storybook-i18n](https://github.com/stevensacks/storybook-i18n/tree/main).
 
 Or if you build a custom decorator that uses addons. For more on custom decorators, see: [Modes with custom decorators](/docs/custom-decorators).
 
