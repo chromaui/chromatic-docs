@@ -4,6 +4,10 @@ import { sidebarData } from "./sidebarData";
 import { styled } from "@storybook/theming";
 import { typography, Icon, color, fontWeight } from "@chromaui/tetra";
 
+interface SidebarProps {
+  url?: string;
+}
+
 const Content = styled.div`
   display: flex;
   flex-direction: column;
@@ -60,16 +64,17 @@ const ContentWrapper = styled.div<{ isTimeline: boolean }>`
   }
 `;
 
-const Line = styled.div`
+const Line = styled.a`
+  all: unset;
   display: flex;
   gap: 16px;
   align-items: center;
   height: 34px;
 `;
 
-const ContentItem = styled.div`
+const ContentItem = styled.div<{ isActive: boolean }>`
   ${typography.body16}
-  color: ${color.slate600};
+  color: ${({ isActive }) => (isActive ? color.blue500 : color.slate600)};
   font-weight: ${fontWeight.regular};
   cursor: pointer;
   transition: all 0.2s ease-in-out;
@@ -79,17 +84,18 @@ const ContentItem = styled.div`
   }
 `;
 
-const Bullet = styled.div`
+const Bullet = styled.div<{ isActive: boolean }>`
   position: relative;
   z-index: 1;
   width: 9px;
   height: 9px;
-  background-color: ${color.slate300};
+  background-color: ${({ isActive }) =>
+    isActive ? color.blue500 : color.slate300};
   border-radius: 100%;
   box-shadow: white 0px 0px 0px 4px;
 `;
 
-export const Sidebar: FC = () => {
+export const Sidebar: FC<SidebarProps> = ({ url }) => {
   return (
     <Content>
       {sidebarData.map((group, i) => (
@@ -101,14 +107,17 @@ export const Sidebar: FC = () => {
             {group.title}
           </Trigger>
           <ContentWrapper isTimeline={!!group.timeline}>
-            {group.items.map((item, j) => (
-              <Collapsible.Content key={j} asChild>
-                <Line>
-                  {!!group.timeline && <Bullet />}
-                  <ContentItem>{item.title}</ContentItem>
-                </Line>
-              </Collapsible.Content>
-            ))}
+            {group.items.map((item, j) => {
+              const isActive = item.url === url;
+              return (
+                <Collapsible.Content key={j} asChild>
+                  <Line href={item.url}>
+                    {!!group.timeline && <Bullet isActive={isActive} />}
+                    <ContentItem isActive={isActive}>{item.title}</ContentItem>
+                  </Line>
+                </Collapsible.Content>
+              );
+            })}
           </ContentWrapper>
         </Collapsible.Root>
       ))}

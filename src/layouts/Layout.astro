@@ -2,10 +2,14 @@
 import { Wrapper } from '../components/Wrapper';
 
 interface Props {
-	title: string;
+	content: {
+		title?: string;
+		description?: string;
+	};
 }
 
-const { title } = Astro.props;
+const { content: { title } } = Astro.props;
+const { pathname } = Astro.url;
 
 import '@fontsource-variable/nunito-sans';
 ---
@@ -21,7 +25,7 @@ import '@fontsource-variable/nunito-sans';
 		<title>{title}</title>
 	</head>
 	<body>
-		<Wrapper client:load>
+		<Wrapper client:load url={pathname}>
 			<slot />
 		</Wrapper>
 	</body>

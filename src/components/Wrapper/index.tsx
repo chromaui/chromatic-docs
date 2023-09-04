@@ -8,6 +8,7 @@ import { styled } from "@storybook/theming";
 
 interface Props {
   children: React.ReactNode;
+  url?: string;
 }
 
 const ContentWrapper = styled.div`
@@ -30,13 +31,13 @@ const Content = styled.div`
   }
 `;
 
-export const Wrapper: FC<Props> = ({ children }) => {
+export const Wrapper: FC<Props> = ({ children, url }) => {
   return (
     <>
       <MarketingHeader />
       <Container>
         <ContentWrapper>
-          <Sidebar />
+          <Sidebar url={url} />
           <Content>{children}</Content>
         </ContentWrapper>
       </Container>
