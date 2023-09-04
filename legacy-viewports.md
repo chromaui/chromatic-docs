@@ -92,6 +92,7 @@ It is not possible to control height with this legacy API. However, you can achi
 </details>
 
 <details>
+
 <summary>How do I assign viewports globally to all components in my Storybook?</summary>
 
 Use modes and set a [project level mode](/docs/modes#stacking-modes).
