@@ -32,7 +32,7 @@ LazyLoad.disabled = isChromatic();
 This is useful when you want to change behavior of one component's stories when rendered in Chromatic.
 
 ```js
-// MyComponent.stories.js|jsx|ts|tsx
+// MyComponent.stories.js|jsx
 
 import { MyComponent } from './MyComponent';
 
@@ -56,7 +56,7 @@ If you're working with Storybook 7.0 or later, you can also adjust your `chromat
 
 ```json
 {
-  scripts: {
+  "scripts": {
     "chromatic": "IS_CHROMATIC=true chromatic",
   }
 }
@@ -64,7 +64,7 @@ If you're working with Storybook 7.0 or later, you can also adjust your `chromat
 Then in your component story file, set the options (e.g., [args](https://storybook.js.org/docs/react/writing-stories/args), [parameters](https://storybook.js.org/docs/react/writing-stories/parameters)) based on the environment variable as follows:
 
 ```js
-// MyComponent.stories.js|jsx|ts|tsx
+// MyComponent.stories.js|jsx
 
 import { MyComponent } from './MyComponent';
 
@@ -80,4 +80,8 @@ export const StoryName = {
 };
 ```
 
-<div class="aside"> ℹ️ For Vite-based environments, you may be required to adjust your story to allow it to access the environment variable. See the [Vite documentation](https://vitejs.dev/guide/env-and-mode.html) for more information. </div>
+<div class="aside"> 
+
+ℹ️ For Vite-based environments, you may be required to adjust your story to allow it to access the environment variable. See the [Vite documentation](https://vitejs.dev/guide/env-and-mode.html) for more information.
+
+</div>
