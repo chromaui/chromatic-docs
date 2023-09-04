@@ -7,7 +7,7 @@ description: Configure Chromatic to test components with different themes
 # Themes in modes
 
 <div class="aside" style="margin-bottom: 2rem;">
-ℹ️&nbsp;&nbsp;This feature uses the modes API. To learn more, checkout the <a href="/docs/modes#using-modes">getting started guide</a>.
+ℹ️&nbsp;&nbsp;This feature uses the modes API. Learn how to <a href="/docs/modes">get started</a>.
 </div>
 
 Themes control the visual characteristics of UI—color palette, typography, white space, border styles, shadows, radii, etc. Using modes enables Chromatic to test the same story with multiple themes.

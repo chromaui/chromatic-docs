@@ -7,14 +7,14 @@ description: Configure Chromatic to test responsive components at various viewpo
 # Viewports for responsive UIs
 
 <div class="aside" style="margin-bottom: 2rem;">
-<p>ℹ️&nbsp;&nbsp;This page documents viewports using the modes API. To learn more, checkout the <a href="/docs/modes#using-modes">getting started guide</a>.</p>
+<p>ℹ️&nbsp;&nbsp;This page documents viewports using the modes API. Learn how to <a href="/docs/modes">get started</a>.</p>
 
 <p style="margin-bottom: 0;">If you are transitioning from the <code>chromatic.viewports</code> API to the modes API, please consult the <a href="#migration-from-viewports-legacy-to-modes">migration guide</a>.</p>
 </div>
 
 ## Define viewport modes
 
-Modes are defined in the `.storybook/modes.js|ts` file. If your project doesn't have this file yet, go ahead and create it. To set viewport in a mode, specify the screen width and/or height using the `chromatic[mode_name].viewport` parameter.
+Modes are defined in the `.storybook/modes.js|ts` file. If your project doesn't have this file yet, go ahead and create it. To set viewport in a mode, specify the screen width and/or height using the `chromatic[<your-mode-name>].viewport` parameter.
 
 The following are all acceptable viewport values:
 
