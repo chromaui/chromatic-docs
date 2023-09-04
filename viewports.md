@@ -171,40 +171,46 @@ export const allModes = {
 };
 ```
 
-- **What if I set `defaultViewport` in my story?**
-  You have the ability to configure the default viewport for stories at different levels: project, component, or story. This can be done by setting the `parameters.viewport` value. By adjusting this setting, you can control the dimensions of the story canvas when viewing it in the browser using Storybook.
-  However, it's important to note that when capturing snapshots, Chromatic will ignore `defaultViewport` and size the viewport based on the configuration within the mode.
-  In the example below, `MyStory` will use `md` viewport size when viewed in the browser. However, the two snapshots will use `lg` and `xl` viewport sizes respectively.
+<details>
+<summary>What if I set <code>defaultViewport</code> in my story?</summary>
 
-  ```jsx
-  // MyComponent.stories.ts|tsx
+You have the ability to configure the default viewport for stories at different levels: project, component, or story. This can be done by setting the `parameters.viewport` value. By adjusting this setting, you can control the dimensions of the story canvas when viewing it in the browser using Storybook.
 
-  import type { Meta, StoryObj } from '@storybook/react';
-  import { allModes } from '../.storybook/modes';
-  import { MyComponent } from './MyComponent';
+However, it's important to note that when capturing snapshots, Chromatic will ignore `defaultViewport` and size the viewport based on the configuration within the mode.
 
-  const meta: Meta<typeof MyComponent> = {
-    component: MyComponent,
-    title: 'MyComponent',
-  };
+In the example below, `MyStory` will use `md` viewport size when viewed in the browser. However, the two snapshots will use `lg` and `xl` viewport sizes respectively.
 
-  export default meta;
-  type Story = StoryObj<typeof MyComponent>;
+```jsx
+// MyComponent.stories.ts|tsx
 
-  export const MyStory: Story = {
-    parameters: {
-      viewport: {
-        defaultViewport: 'md',
-      },
-      chromatic: {
-        modes: {
-          lg: allModes['lg'],
-          xl: allModes['xl'],
-        },
+import type { Meta, StoryObj } from '@storybook/react';
+import { allModes } from '../.storybook/modes';
+import { MyComponent } from './MyComponent';
+
+const meta: Meta<typeof MyComponent> = {
+  component: MyComponent,
+  title: 'MyComponent',
+};
+
+export default meta;
+type Story = StoryObj<typeof MyComponent>;
+
+export const MyStory: Story = {
+  parameters: {
+    viewport: {
+      defaultViewport: 'md',
+    },
+    chromatic: {
+      modes: {
+        lg: allModes['lg'],
+        xl: allModes['xl'],
       },
     },
-  };
-  ```
+  },
+};
+```
+
+</details>
 
 ## Migration from viewports (legacy) to modes
 

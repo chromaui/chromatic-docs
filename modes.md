@@ -209,7 +209,7 @@ export default {
   title: 'ArticleCard',
   parameters: {
     chromatic: {
-      //🔶 Test each story for ArticleCard in two modes
+      //🔶 Test each story for ArticleCard with this mode
       modes: {
         desktop: allModes['desktop'],
       },
@@ -230,6 +230,7 @@ export const Base = {
     },
   },
 };
+
 export const MembersOnly = {
   args: {
     //...
