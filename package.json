@@ -10,6 +10,7 @@
     "astro": "astro"
   },
   "dependencies": {
+    "@astrojs/mdx": "^1.0.0",
     "@astrojs/react": "^3.0.0",
     "@chromaui/tetra": "^1.15.15",
     "@fontsource-variable/nunito-sans": "^5.0.9",
