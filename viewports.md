@@ -248,7 +248,7 @@ Yes, you can control the height using the `viewport.height` property.
 
 If no height is specified, Chromatic will capture a snapshot based on the intrinsic height of the root container.
 
-````jsx
+```jsx
 // MyComponent.stories.js
 import { MyComponent } from './MyComponent';
 
@@ -263,7 +263,7 @@ export default {
             height: 300,
             width: 800,
           },
-        }
+        },
       },
     },
   },
@@ -306,4 +306,3 @@ export default preview;
 Chromatic defaults to a viewport of width 1200px and height 900px.
 
 </details>
-````
