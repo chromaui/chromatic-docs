@@ -23,8 +23,7 @@ Let's consider the following example that uses a decorator & globals to switch l
 The locale values are defined using [global types](https://storybook.js.org/docs/react/essentials/toolbars-and-globals#global-types-and-the-toolbar-annotation). The `withI18next` decorator retrieves the value of the `locale` global and applies it to `I18nextProvider`, enabling us to test stories with different translations.
 
 ```jsx
-// .storybook/preview.js|ts
-import { Preview } from '@storybook/your-renderer';
+// .storybook/preview.js
 
 import React, { Suspense } from 'react';
 import { I18nextProvider } from 'react-i18next';
@@ -51,7 +50,7 @@ const withI18next = (Story, context) => {
   );
 };
 
-const preview: Preview = {
+const preview = {
   decorators: [withI18next],
   globalTypes: {
     locale: {
@@ -75,10 +74,11 @@ export default preview;
 
 ## Define decorator specific modes
 
-Modes are defined in the `.storybook/modes.js|ts` file. If your project doesn't have this file yet, go ahead and create it. Set the value for the global associated with your decorator using the `chromatic[mode_name].[global_name]` parameter. For example:
+Modes are defined in the `.storybook/modes.js` file. If your project doesn't have this file yet, go ahead and create it. Set the value for the global associated with your decorator using the `chromatic[mode_name].[global_name]` parameter. For example:
 
 ```jsx
-// .storybook/modes.js|ts
+// .storybook/modes.js
+
 export const allModes = {
   english: {
     locale: 'en',
@@ -98,6 +98,7 @@ With the above set of modes, we can apply them as follows:
 
 ```jsx
 // ArticleCard.stories.js
+
 import { allModes } from '../.storybook/modes';
 import { MyComponent } from './MyComponent';
 

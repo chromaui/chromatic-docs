@@ -33,8 +33,8 @@ Don't see your favorite tool listed? No worries! You can check out the "Writing 
 For this example, let's assume that the themes addon has been configured with a light theme and a dark theme:
 
 ```jsx
-// .storybook/preview.js|ts
-import { Preview } from '@storybook/your-renderer';
+// .storybook/preview.js
+
 import { withThemeByClassName } from '@storybook/addon-themes';
 
 import '../src/index.css';
@@ -59,10 +59,11 @@ export default preview;
 
 ## Define theme modes
 
-Modes are defined in the `.storybook/modes.js|ts` file. If your project doesn't have this file yet, go ahead and create it. To enable a theme within a mode, specify the theme name using the `chromatic[mode_name].theme` parameter.
+Modes are defined in the `.storybook/modes.js` file. If your project doesn't have this file yet, go ahead and create it. To enable a theme within a mode, specify the theme name using the `chromatic[mode_name].theme` parameter.
 
 ```jsx
-// .storybook/modes.js|ts
+// .storybook/modes.js
+
 export const allModes = {
   light: {
     theme: 'light',
@@ -81,6 +82,7 @@ With the above set of modes, we can apply them as follows:
 
 ```jsx
 // ArticleCard.stories.js
+
 import { allModes } from '../.storybook/modes';
 import { ArticleCard } from './ArticleCard';
 

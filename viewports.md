@@ -14,7 +14,7 @@ description: Configure Chromatic to test responsive components at various viewpo
 
 ## Define viewport modes
 
-Modes are defined in the `.storybook/modes.js|ts` file. If your project doesn't have this file yet, go ahead and create it. To set viewport in a mode, specify the screen width and/or height using the `chromatic[<your-mode-name>].viewport` parameter.
+Modes are defined in the `.storybook/modes.js` file. If your project doesn't have this file yet, go ahead and create it. To set viewport in a mode, specify the screen width and/or height using the `chromatic[<your-mode-name>].viewport` parameter.
 
 The following are all acceptable viewport values:
 
@@ -25,7 +25,8 @@ The following are all acceptable viewport values:
 - Only height (snapshot will use the default width of 1200px, and be trimmed to the content width)
 
 ```jsx
-// .storybook/modes.js|ts
+// .storybook/modes.js
+
 export const allModes = {
   default: {
     // integer is just width
@@ -64,10 +65,11 @@ export const allModes = {
 
 Modes can be applied at different levels: project, component, or story. When a mode includes a valid viewport parameter, Chromatic will adjust the viewport size to match the defined dimensions while capturing the snapshot.
 
-For example, given the following set of modes in `.storybook/modes.js|ts`.
+For example, given the following set of modes in `.storybook/modes.js`.
 
 ```jsx
-// .storybook/modes.js|ts
+// .storybook/modes.js
+
 export const allModes = {
   small: { name: 'Small', styles: { width: '640px', height: '900px' } },
   medium: { name: 'Medium', styles: { width: '768px', height: '900px' } },
@@ -79,6 +81,7 @@ We can apply the modes, like so:
 
 ```jsx
 // ArticleCard.stories.js
+
 import { allModes } from '../.storybook/modes';
 import { ArticleCard } from './ArticleCard';
 
@@ -120,16 +123,16 @@ The Storybook [viewport addon](https://storybook.js.org/docs/react/essentials/vi
 
 ### Reference viewport by name
 
-You start by configuring your desired set of viewports in `.storybook/preview.js|ts`. For example:
+You start by configuring your desired set of viewports in `.storybook/preview.js`. For example:
 
 <div class="aside">
 ⚠️&nbsp;&nbsp;While the viewport addon allows you to specify dimensions using any valid CSS unit (such as px, rem, calc, etc.), Chromatic modes only support whole numbers or strings with a "px" suffix.
 </div>
 
-```jsx
-import type { Preview } from '@storybook/react';
+```js
+// .storybook/preview.js
 
-const preview: Preview = {
+const preview = {
   parameters: {
     viewport: {
       viewports: {
@@ -141,6 +144,7 @@ const preview: Preview = {
         '2xl': { name: '2XL', styles: { width: '1536px', height: '900px' } },
       },
     },
+  },
 };
 
 export default preview;
@@ -149,7 +153,8 @@ export default preview;
 You can now refer to these viewports by their key in your modes definition. For example:
 
 ```jsx
-// .storybook/modes.js|ts
+// .storybook/modes.js
+
 export const allModes = {
   xsm: {
     viewport: 'xs',
@@ -181,7 +186,7 @@ However, it's important to note that when capturing snapshots, Chromatic will ig
 In the example below, `MyStory` will use `md` viewport size when viewed in the browser. However, the two snapshots will use `lg` and `xl` viewport sizes respectively.
 
 ```jsx
-// MyComponent.stories.ts|tsx
+// MyComponent.stories.jsx
 
 import type { Meta, StoryObj } from '@storybook/react';
 import { allModes } from '../.storybook/modes';
@@ -250,6 +255,7 @@ If no height is specified, Chromatic will capture a snapshot based on the intrin
 
 ```jsx
 // MyComponent.stories.js
+
 import { MyComponent } from './MyComponent';
 
 export default {
@@ -277,14 +283,14 @@ export default {
 
 We don’t recommend this in most cases because each viewport is treated independently and snapshots must be approved as such.
 
-But if you really want to assign project level modes, you can do so by setting the `chromatic.modes` parameter in [`.storybook/preview.ts|js`](https://storybook.js.org/docs/react/configure/overview#configure-story-rendering):
+But if you really want to assign project level modes, you can do so by setting the `chromatic.modes` parameter in [`.storybook/preview.js`](https://storybook.js.org/docs/react/configure/overview#configure-story-rendering):
 
 ```jsx
-// .storybook/preview.ts
-import type { Preview } from '@storybook/react';
+// .storybook/preview.js
+
 import { allModes } from '../.storybook/modes';
 
-const preview: Preview = {
+const preview = {
   parameters: {
     chromatic: {
       modes: {

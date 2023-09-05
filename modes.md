@@ -52,15 +52,15 @@ Example modes:
 
 Addons offer the ability to control various global settings within Storybook. For instance, you can use viewports, styling, and background addons to manage the theme, dimensions, and background color of a story.
 
-Make sure to configure the addons in `.storybook/preview.ts` for each global setting you want to test.
+Make sure to configure the addons in `.storybook/preview.js` for each global setting you want to test.
 
 ```jsx
-// .storybook/preview.ts
-import type { Preview } from '@storybook/react';
+// .storybook/preview.js
+
 import { withThemeByClassName } from '@storybook/addon-themes';
 import '../src/index.css';
 
-const preview: Preview = {
+const preview = {
   parameters: {
     viewport: {
       viewports: {
@@ -91,10 +91,11 @@ export default preview;
 
 ### 2. Define modes
 
-To define all your modes, create a file called `.storybook/modes.js|ts`. Each mode should specify the values for the global settings it wants to control. This can be limited to a single global or can group multiple globals together.
+To define all your modes, create a file called `.storybook/modes.js`. Each mode should specify the values for the global settings it wants to control. This can be limited to a single global or can group multiple globals together.
 
 ```jsx
-// .storybook/modes.js|ts
+// .storybook/modes.js
+
 export const allModes = {
   mobile: {
     viewport: 'small',
@@ -125,10 +126,11 @@ export const allModes = {
 
 ### 3. Apply modes using the chromatic parameter
 
-To apply the modes to a component, import them into a CSF (`*.stories.js|ts`) file and use the `chromatic` parameter.
+To apply the modes to a component, import them into a CSF (`*.stories.js`) file and use the `chromatic` parameter.
 
 ```jsx
 // ArticleCard.stories.js
+
 import { allModes } from '../.storybook/modes';
 import { ArticleCard } from './ArticleCard';
 
@@ -174,14 +176,14 @@ You have the flexibility to apply modes at the project, component level, or the 
 
 ### Project level modes
 
-For instance, at the project level, we apply modes by setting the `chromatic` parameter in `.storybook/preview.ts`:
+For instance, at the project level, we apply modes by setting the `chromatic` parameter in `.storybook/preview.js`:
 
 ```jsx
-// .storybook/preview.ts
-import type { Preview } from '@storybook/react';
+// .storybook/preview.js
+
 import { allModes } from '../.storybook/modes';
 
-const preview: Preview = {
+const preview = {
   parameters: {
     chromatic: {
       modes: {
@@ -201,6 +203,7 @@ Then in the CSF file we set modes at the component level and/or the story level:
 
 ```jsx
 // ArticleCard.stories.js
+
 import { allModes } from '../.storybook/modes';
 import { ArticleCard } from './ArticleCard';
 
@@ -238,7 +241,7 @@ export const MembersOnly = {
 };
 ```
 
-In the example above (`.storybook/preview.ts` combined with `ArticleCard.stories.js`), Chromatic will generate the following tests:
+In the example above (`.storybook/preview.js` combined with `ArticleCard.stories.js`), Chromatic will generate the following tests:
 
 1. For `ArticleCard.Base`, there will be 4 snapshots: light, dark, desktop, and mobile.
 2. For `ArticleCard.MembersOnly`, there will be 3 snapshots: light, dark, and desktop.
@@ -251,6 +254,7 @@ In the example below, `desktop` mode is applied at the component level. But we�
 
 ```jsx
 // ArticleCard.stories.js
+
 import { allModes } from '../.storybook/modes';
 import { ArticleCard } from './ArticleCard';
 
@@ -295,7 +299,8 @@ Chromatic treats each mode as an individual entity, with its own unique baseline
 Let’s look at an example, this Storybook uses the following set of modes:
 
 ```jsx
-// .storybook/modes.js|ts
+// .storybook/modes.js
+
 export const allModes = {
   'dark desktop': {
     backgrounds: 'dark',
@@ -314,6 +319,7 @@ We then apply some of those modes to a component, like so:
 
 ```jsx
 // ArticleCard.stories.js
+
 import { allModes } from '../.storybook/modes';
 import { ArticleCard } from './ArticleCard';
 
@@ -350,7 +356,8 @@ With the above configuration, Chromatic will capture the following snapshots:
 Now, let's consider a scenario where we modify the definition of the mode. Even if the viewport size changes, Chromatic will continue to compare the new snapshot for `dark desktop` against the previously accepted baseline for `dark desktop`.
 
 ```jsx
-// .storybook/modes.js|ts
+// .storybook/modes.js
+
 export const allModes = {
   'dark desktop': {
     backgrounds: 'dark',
