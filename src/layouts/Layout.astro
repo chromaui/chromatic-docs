@@ -1,4 +1,6 @@
 --- 
+import { MarketingFooter } from '../components/Footer/MarketingFooter';
+import { MarketingHeader } from '../components/Header/MarketingHeader';
 import { Wrapper } from '../components/Wrapper';
 
 interface Props {
@@ -25,9 +27,11 @@ import '@fontsource-variable/nunito-sans';
 		<title>{title}</title>
 	</head>
 	<body>
+		<MarketingHeader client:load />
 		<Wrapper client:load url={pathname}>
 			<slot />
 		</Wrapper>
+		<MarketingFooter client:load />
 	</body>
 </html>
 <style is:global>
@@ -37,15 +41,29 @@ import '@fontsource-variable/nunito-sans';
 		--accent-dark: 49, 10, 101;
 		--accent-gradient: linear-gradient(45deg, rgb(var(--accent)), rgb(var(--accent-light)) 30%, white 60%);
 	}
+
+	* {
+		box-sizing: border-box;
+		-webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+		-webkit-tap-highlight-color: transparent; /* For some Androids */
+	}
+
+	html {
+		outline: none;
+		-webkit-font-smoothing: antialiased;
+		-moz-osx-font-smoothing: grayscale;
+	}
+
+	body {
+		font-size: 16px;
+ 		line-height: 24px;
+	}
 	html, body {
 		font-family: 'Nunito Sans Variable', sans-serif;
 		background: #fff;
-		background-size: 224px;
 		margin: 0;
 		padding: 0;
-	}
-	code {
-		font-family: Menlo, Monaco, Lucida Console, Liberation Mono, DejaVu Sans Mono,
-			Bitstream Vera Sans Mono, Courier New, monospace;
+		-webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
 	}
 </style>

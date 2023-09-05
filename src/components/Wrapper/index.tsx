@@ -1,10 +1,12 @@
 import React from "react";
 import type { FC } from "react";
-import { MarketingHeader } from "../Header/MarketingHeader";
-import { MarketingFooter } from "../Footer/MarketingFooter";
 import { Container } from "@chromaui/tetra";
 import { Sidebar } from "../Sidebar";
 import { styled } from "@storybook/theming";
+import { button } from "../../styles/button";
+import { formatting } from "../../styles/formatting";
+import { base } from "../../styles/base";
+import { link } from "../../styles/link";
 
 interface Props {
   children: React.ReactNode;
@@ -20,28 +22,22 @@ const ContentWrapper = styled.div`
 const Content = styled.div`
   flex-grow: 1;
   flex-shrink: 1;
+  font-size: 16px;
+  line-height: 28px;
 
-  img {
-    width: 100%;
-    height: auto;
-  }
-
-  h1 {
-    margin: 0 0 24px 0;
-  }
+  ${base}
+  ${button}
+  ${formatting}
+  ${link}
 `;
 
 export const Wrapper: FC<Props> = ({ children, url }) => {
   return (
-    <>
-      <MarketingHeader />
-      <Container>
-        <ContentWrapper>
-          <Sidebar url={url} />
-          <Content>{children}</Content>
-        </ContentWrapper>
-      </Container>
-      <MarketingFooter />
-    </>
+    <Container>
+      <ContentWrapper>
+        <Sidebar url={url} />
+        <Content>{children}</Content>
+      </ContentWrapper>
+    </Container>
   );
 };
