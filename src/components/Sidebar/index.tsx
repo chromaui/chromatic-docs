@@ -98,29 +98,38 @@ const Bullet = styled.div<{ isActive: boolean }>`
 export const Sidebar: FC<SidebarProps> = ({ url }) => {
   return (
     <Content>
-      {sidebarData.map((group, i) => (
-        <Collapsible.Root defaultOpen={group.defaultOpen} key={i}>
-          <Trigger>
-            <IconWrapper className="icon-wrapper">
-              <Icon name="arrowright" />
-            </IconWrapper>
-            {group.title}
-          </Trigger>
-          <ContentWrapper isTimeline={!!group.timeline}>
-            {group.items.map((item, j) => {
-              const isActive = item.url === url;
-              return (
-                <Collapsible.Content key={j} asChild>
-                  <Line href={item.url}>
-                    {!!group.timeline && <Bullet isActive={isActive} />}
-                    <ContentItem isActive={isActive}>{item.title}</ContentItem>
-                  </Line>
-                </Collapsible.Content>
-              );
-            })}
-          </ContentWrapper>
-        </Collapsible.Root>
-      ))}
+      {sidebarData.map((group, i) => {
+        const isSomeActive = group.items.some((item) => item.url === url);
+
+        return (
+          <Collapsible.Root
+            defaultOpen={group.defaultOpen || isSomeActive}
+            key={i}
+          >
+            <Trigger>
+              <IconWrapper className="icon-wrapper">
+                <Icon name="arrowright" />
+              </IconWrapper>
+              {group.title}
+            </Trigger>
+            <ContentWrapper isTimeline={!!group.timeline}>
+              {group.items.map((item, j) => {
+                const isActive = item.url === url;
+                return (
+                  <Collapsible.Content key={j} asChild>
+                    <Line href={item.url}>
+                      {!!group.timeline && <Bullet isActive={isActive} />}
+                      <ContentItem isActive={isActive}>
+                        {item.title}
+                      </ContentItem>
+                    </Line>
+                  </Collapsible.Content>
+                );
+              })}
+            </ContentWrapper>
+          </Collapsible.Root>
+        );
+      })}
     </Content>
   );
 };
