@@ -168,7 +168,7 @@ Note: Your personal account must have access to the repository in order to conne
 
 
 <details>
-<summary>Can I use the Visual test addon with a unlinked project?</summary>
+<summary>Can I use the Visual test addon with an unlinked project?</summary>
 
 Yes. Running visual tests with the addon is available for both [linked](#linked-projects) and [unlinked](#unlinked-projects) projects without any additional configuration or restrictions.
 
