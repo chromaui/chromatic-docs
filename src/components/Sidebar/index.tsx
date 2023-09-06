@@ -8,12 +8,16 @@ interface SidebarProps {
   url?: string;
 }
 
-const Content = styled.div`
-  display: flex;
-  flex-direction: column;
-  width: 240px;
-  flex-shrink: 0;
-  gap: 24px;
+const Container = styled.div`
+  display: none;
+
+  @media (min-width: 800px) {
+    display: flex;
+    flex-direction: column;
+    width: 240px;
+    flex-shrink: 0;
+    gap: 24px;
+  }
 `;
 
 const Trigger = styled(Collapsible.Trigger)`
@@ -97,7 +101,7 @@ const Bullet = styled.div<{ isActive: boolean }>`
 
 export const Sidebar: FC<SidebarProps> = ({ url }) => {
   return (
-    <Content>
+    <Container>
       {sidebarData.map((group, i) => {
         const isSomeActive = group.items.some((item) => item.url === url);
 
@@ -130,6 +134,6 @@ export const Sidebar: FC<SidebarProps> = ({ url }) => {
           </Collapsible.Root>
         );
       })}
-    </Content>
+    </Container>
   );
 };
