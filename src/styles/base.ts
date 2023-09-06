@@ -75,8 +75,32 @@ export const base = css`
     margin-bottom: 1.25rem;
   }
 
+  code {
+    display: inline-block;
+    vertical-align: baseline;
+
+    font-size: 85%; // Relative font size based on size of surrounding text
+    line-height: 1;
+    white-space: nowrap;
+
+    padding: 3px 5px;
+    color: inherit;
+    background-color: rgba(0, 0, 0, 0.05);
+    border-radius: 3px;
+    border: 1px solid rgba(0, 0, 0, 0.1);
+  }
+
   pre {
     padding: 1em 1.25em;
     border-radius: 4px;
+
+    code {
+      display: block;
+      white-space: pre;
+      line-height: 1.6;
+      background-color: inherit;
+      border: none;
+      padding: 0;
+    }
   }
 `;
