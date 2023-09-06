@@ -101,6 +101,7 @@ export const base = css`
       background-color: inherit;
       border: none;
       padding: 0;
+      font-size: 90%;
     }
   }
 `;
