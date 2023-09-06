@@ -256,7 +256,11 @@ npx chromatic --only-changed --trace-changed
 Alternatively, using the `trace` utility, you can manually trace a set of files to a set of related story files based on a Webpack stats file. First, you need to generate a `preview-stats.json` like so (requires Storybook >=6.3):
 
 ```shell
-npx build-storybook --webpack-stats-json
+# npm
+npm run build-storybook -- --webpack-stats-json
+
+# yarn
+yarn build-storybook --webpack-stats-json
 ```
 
 The `preview-stats.json` will end up in the build directory, typically `storybook-static`. If you want to inspect this file manually, you can trim it down to its bare essentials using this command:
@@ -340,5 +344,12 @@ In the case of merge commits, Chromatic does not know ahead of time which side o
   <summary>Does TurboSnap work with squash/rebase merge?</summary>
 
 TurboSnap is compatible with squash and merge rebasing as of version 6.6+. Please update your package to get support.
+
+</details>
+
+<details>
+<summary>Does TurboSnap work with the Visual Testing addon?</summary>
+
+No. The Visual Testing addon is still in its early access stage. Support for TurboSnap will be added as part of a future release.
 
 </details>

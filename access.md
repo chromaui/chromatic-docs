@@ -55,6 +55,21 @@ If your GitHub organization requires an admin to approve apps, you'll need to re
 
 </details>
 
+<details>
+
+<summary>How does the Visual Testing addon handle authentication? </summary>
+
+By default, the addon will use the same authentication process as other Chromatic applications (e.g., the [Figma plugin](https://www.figma.com/community/plugin/1056265616080331589/Storybook-Connect)) to connect your Storybook instance with Chromatic. During the onboarding process, the addon will:
+- Generate a unique verification code to authenticate you with Chromatic
+- Redirect you to Chromatic to validate the code
+- Ask for lightweight permissions to access your Chromatic account including:
+   - View profile information
+   - View account information
+   - View projects
+   - Manage projects
+
+</details>
+
 #### Email
 
 Email and password authentication is available on all accounts. It's a popular authentication method for [external collaborators](collaborators#external-collaborators) like designers, PMs, and other stakeholders.
@@ -150,3 +165,11 @@ This connects your Chromatic email/password account with your Git provider accou
 Note: Your personal account must have access to the repository in order to connect in Chromatic. You may need to ask an administrator to grant you additional permissions.
 
 </details>
+
+
+<details>
+<summary>Can I use the Visual test addon with an unlinked project?</summary>
+
+Yes. Running visual tests with the addon is available for both [linked](#linked-projects) and [unlinked](#unlinked-projects) projects without any additional configuration or restrictions.
+
+</detail>
