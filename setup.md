@@ -45,6 +45,8 @@ Now continue setting up Chromatic [as usual](setup#install).
 
 ![Setup project](img/setup.png)
 
+## Visual testing adddon section
+
 ## Install
 
 Install the [**chromatic**](https://www.npmjs.com/package/chromatic) package from npm.
