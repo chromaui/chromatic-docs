@@ -58,37 +58,11 @@ When Chromatic runs in your CI workflow, it will provide a build status check fo
 
 ## Execute tests with the Visual Testing addon
 
-The most accurate way to check UI bugs is to run Chromatic from the CLI or CI on every commit. The Visual Testing addon simplifies the visual testing process with Chromatic. When it tests your stories, it will generate a separate build, capturing component snapshots for each browser and viewport size. These builds are treated separately, with distinct approvals.
+The Visual Tests addon brings the power of Chromatic right into Storybook, so you can run visual tests without waiting on CI. It simplifies the visual testing process by turning your stories into tests that pinpoint regressions. When it tests your stories, it will generate a separate build, capturing component snapshots for each browser and viewport size. These builds are treated separately, with distinct approvals.
 
 ### Setup
 
 To enable visual testing with the addon, you'll need to take additional steps to set it up properly. We recommend you go through the [Visual Testing addon documentation](visual-testing-addon) before proceeding with the rest of the required configuration.
-
-Run the following command to install the addon in your monorepo:
-
-```shell
-yarn workspace design-system add @chromaui/addon-visual-tests --dev
-```
-
-Update your Storybook configuration file (e.g., `packages/design-system/.storybook/main.js|ts`) file to include the addon:
-
-```js
-// packages/design-system/.storybook/main.js
-
-const config = {
-  stories: [
-    '../app/components/**/*.@(mdx|stories.*)',
-    '../UI/**/*.@(mdx|stories.*)',
-  ],
-  addons: [
-    // Other Storybook addons
-    '@chromaui/addon-visual-tests',
-  ],
-};
-export default config;
-```
-
-When you run visual tests with the addon it will connect to Chromatic, start a local build, and snapshot your components, including [browsers](browsers) and [viewport sizes](viewports), compare the new snapshots against the latest baselines, and report the results.
 
 ![Storybook running visual tests with the addon](img/visual-tests-run-tests.png)
 
@@ -117,7 +91,8 @@ const config = {
       options: {
         projectId: 'Project:64cbcde96f99841e8b007d75',
         projectToken: 'chpt_fa88b088041ccde',
-        buildScriptName:'design-system:build-storybook'
+        //👇 Configures the custom Storybook build script
+        buildScriptName:'design-system:build-storybook',
       },
     },
   ],
@@ -144,6 +119,7 @@ const config = {
       options: {
         projectId: 'Project:64cbcde96f99841e8b007d75',
         projectToken: 'chpt_fa88b088041ccde',
+        //👇 Compresses Storybook before uploading it to Chromatic
         zip: true,
       },
     },
@@ -156,7 +132,7 @@ export default config;
 
 ## Advanced configuration
 
-The following sections detail advanced configuration options only available when running Chromatic from CLI or CI. Currently, they're unavailable when configuring the Visual Testing addon in a monorepo environment.
+The following sections detail advanced configuration options only available when running Chromatic from CLI or CI. As the Visual Testing addon is still in early access enabling any of the options below (e.g., TurboSnap) will result in the addon ignoring them and use the default configuration instead. This will not affect your builds as they are treated separately, and any incoming change will be reconciled with builds generated via CLI or CI.
 
 ### Only run Chromatic when changes occur in a subproject
 
@@ -210,7 +186,7 @@ The `--only-story-names` flag accepts a glob and can be specified multiple times
 npx chromatic --only-story-names "Forms/**" --only-story-names "**/Header/*"
 ```
 
-This would match all stories for all components under "Forms" (i.e., any story file whose `title` path starts with "Forms"), as well as all stories for the "Header" component, regardless of where it is in the hierarchy (i.e., any story file which `title` path ends with "Header"). Again, make sure to use quotes around glob patterns.
+If you use the above configuration in Chromatic, it will attempt to match the glob pattern to your stories. The lookup process will start with stories that have a "Forms" title prefix. It will then scan for stories with a "Header" suffix.
 
 ### Building a subset of your stories
 
