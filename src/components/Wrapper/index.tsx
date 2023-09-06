@@ -16,7 +16,7 @@ interface Props {
 const ContentWrapper = styled.div`
   display: flex;
   gap: 2.5rem;
-  margin: 2.5rem 0;
+  margin: 64px 0;
 `;
 
 const Content = styled.div`

@@ -166,7 +166,7 @@ export const sidebarData = [
       },
       {
         title: "Bitbucket pipelines",
-        url: "/bitbucket",
+        url: "/bitbucket-pipelines",
       },
       {
         title: "Circle CI",
