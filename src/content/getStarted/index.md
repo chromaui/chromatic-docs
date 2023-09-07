@@ -1,12 +1,12 @@
 ---
-layout: "../layouts/Layout.astro"
+layout: "../../layouts/Layout.astro"
 title: Introduction
 description: Chromatic is a cloud based toolchain built around Storybook to help teams develop robust UI components faster, together.
 ---
 
 # Introduction to Chromatic
 
-![Chromatic Overview](../images/storybook-chromatic-overview.png)
+![Chromatic Overview](../../images/storybook-chromatic-overview.png)
 
 ## What is Chromatic?
 

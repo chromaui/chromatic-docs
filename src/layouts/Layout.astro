@@ -18,6 +18,11 @@ const { content: { title } } = Astro.props;
 const { pathname } = Astro.url;
 const getStarted = await getCollection("getStarted");
 const configuration = await getCollection("configuration");
+const modes = await getCollection("modes");
+const snapshot = await getCollection("snapshot");
+const collaborate = await getCollection("collaborate");
+const ci = await getCollection("ci");
+const account = await getCollection("account");
 const sidebar = [
 	{
 		title: "Get Started",
@@ -28,10 +33,28 @@ const sidebar = [
 	{
 		title: "Configuration",
 		items: configuration,
-	}
+	},
+	{
+		title: "Modes",
+		items: modes,
+	},
+	{
+		title: "Snapshot",
+		items: snapshot,
+	},
+	{
+		title: "Collaborate",
+		items: collaborate,
+	},
+	{
+		title: "CI",
+		items: ci,
+	},
+	{
+		title: "Account",
+		items: account,
+	},
 ]
-
-console.log(getStarted.length)
 
 ---
 

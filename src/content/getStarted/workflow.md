@@ -1,5 +1,5 @@
 ---
-layout: "../layouts/Layout.astro"
+layout: "../../layouts/Layout.astro"
 title: Workflow
 description: Learn the Chromatic workflow
 ---
@@ -8,7 +8,7 @@ description: Learn the Chromatic workflow
 
 Chromatic automates UI development so you can build more features, faster, and with less manual work. Here’s the recommended workflow that takes full advantage of everything we have to offer.
 
-[![Chromatic workflow](../images/chromatic-workflow.png)](../images/chromatic-workflow.png)
+[![Chromatic workflow](../../images/chromatic-workflow.png)](../../images/chromatic-workflow.png)
 
 ### 1. Build in Storybook
 
@@ -55,7 +55,7 @@ Changes in development are inevitable, and bugs can easily slip in, especially w
 
 You use Storybook to isolate UI components, mock their variations, and save the supported test cases as stories. Chromatic then captures a snapshot of each story in a cloud browser for testing.
 
-![visual bugs are inevitable](../images/visual-bugs.gif)
+![visual bugs are inevitable](../../images/visual-bugs.gif)
 
 Chromatic’s [UI tests](test) are designed to catch visual and interaction bugs.
 
@@ -79,7 +79,7 @@ These are designated as critical failures that need immediate attention. You won
 
 To debug, you can launch the published Storybook to reproduce the exact state of your story when the test failed. Click the "View Storybook" button on the test page to open the failed story.
 
-![Storybook with failed interaction test](../images/interaction-test-screen-failed-test.png)
+![Storybook with failed interaction test](../../images/interaction-test-screen-failed-test.png)
 
 </details>
 
@@ -89,7 +89,7 @@ Once all changes are approved, the UI is considered “ready” and you can move
 
 ### 4. UI Review to get team sign off
 
-![Assign reviewers to get feedback](../images/ui-review.png)
+![Assign reviewers to get feedback](../../images/ui-review.png)
 
 In tools like GitHub, Gitlab, and Bitbucket you assign other devs to review the code for a pull request. Chromatic complements this workflow by allowing you to assign designers, PMs, and other stakeholders to review UI changes in that pull request.
 
@@ -113,7 +113,7 @@ To add or remove collaborators, go to the collaborate tab on your project's Mana
 
 Use the Assign Reviewers link on the PR Activity page to choose reviewers from the project’s collaborators. Reviewers will be emailed a link to the PR screen to begin their review.
 
-![assign reviewers by picking from your list of collaborators](../images/prscreen-assign-reviewers.png)
+![assign reviewers by picking from your list of collaborators](../../images/prscreen-assign-reviewers.png)
 
 </details>
 
@@ -122,7 +122,7 @@ Use the Assign Reviewers link on the PR Activity page to choose reviewers from t
 
 Reviewers can request changes to the implementation via the comment box beneath each story. These get aggregated at the bottom of the PR screen’s activity tab. Developers can see a [list of tasks](review#ui-checklist) which must be completed before UI is ready to merge.
 
-![UI Review checklist](../images/prscreen-ui-checklist.png)
+![UI Review checklist](../../images/prscreen-ui-checklist.png)
 
 </details>
 
@@ -130,7 +130,7 @@ Reviewers can request changes to the implementation via the comment box beneath 
 
 Chromatic will badge PRs to notify you about publish, test, and review results. Once all checks are complete, you’re ready to merge!
 
-![PR badges](../images/prbadges.png)
+![PR badges](../../images/prbadges.png)
 
 ### 6. Publish and share your Storybook
 
