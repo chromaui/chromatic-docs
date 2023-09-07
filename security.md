@@ -28,7 +28,7 @@ Chromatic is grateful to the following individuals for responsibly disclosing se
 
 #### 2023
 
-- [Ye Yint Htet](https://twitter.com/yeyinth54031769)
+- [Rohit Sharma](https://www.linkedin.com/in/r0x5r/)
 
 #### 2022
 
