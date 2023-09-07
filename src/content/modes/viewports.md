@@ -1,5 +1,5 @@
 ---
-layout: "../layouts/Layout.astro"
+layout: "../../layouts/Layout.astro"
 title: Viewports
 description: Configure Chromatic to test responsive components at various viewports
 ---

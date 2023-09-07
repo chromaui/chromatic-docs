@@ -1,5 +1,5 @@
 ---
-layout: "../layouts/Layout.astro"
+layout: "../../layouts/Layout.astro"
 title: Monorepos
 description: Chromatic's support for monorepos
 ---
@@ -40,19 +40,19 @@ Each subproject in a monorepo can now be associated with a separate Chromatic pr
 
 1. Open [your Chromatic app](http://chromatic.com/start), browse to your account, and press the “Add project” button:
 
-   ![Projects screen with the "Add project" button outlined and an arrow pointing to it](../images/monorepo-add-project.jpg)
+   ![Projects screen with the "Add project" button outlined and an arrow pointing to it](../../images/monorepo-add-project.jpg)
 
 2. Choose your monorepo repository a second time:
 
-   ![A screen with the heading "Choose project to add" followed by a list of possible projects. The highlighted item is labeled "webapp (added)".](../images/monorepo-choose-project.jpg)
+   ![A screen with the heading "Choose project to add" followed by a list of possible projects. The highlighted item is labeled "webapp (added)".](../../images/monorepo-choose-project.jpg)
 
 3. Choose a name for your new project:
 
-   ![A screen with the heading "Create another project for this repo?" followed by a text input for the name of the project and a submit button labeled "Create another project"](../images/monorepo-create-second-project.jpg)
+   ![A screen with the heading "Create another project for this repo?" followed by a text input for the name of the project and a submit button labeled "Create another project"](../../images/monorepo-create-second-project.jpg)
 
 4. Take note of the token for the new project. You can also find it on the project’s manage page:
 
-   ![Copy project-token for monorepo](../images/monorepo-copy-project-token.png)
+   ![Copy project-token for monorepo](../../images/monorepo-copy-project-token.png)
 
 5. Paste the `project-token` in your CI step to run Chromatic for that subproject. Below are examples with popular CI services.
    - [GitHub Actions](github-actions#run-chromatic-on-monorepos)
@@ -66,7 +66,7 @@ Each subproject in a monorepo can now be associated with a separate Chromatic pr
 
 Every monorepo subproject will get build statuses posted to the pull/merge request. In CI, you’ll need to add a step for each project and use the specific project token for that project.
 
-![Multiple commit statuses in monorepo](../images/monorepo-commit-status.png)
+![Multiple commit statuses in monorepo](../../images/monorepo-commit-status.png)
 
 ---
 

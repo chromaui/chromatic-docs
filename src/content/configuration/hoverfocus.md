@@ -1,5 +1,5 @@
 ---
-layout: "../layouts/Layout.astro"
+layout: "../../layouts/Layout.astro"
 title: Hover and focus states
 description: Learn how to capture hover and focus states
 ---

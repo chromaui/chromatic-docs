@@ -1,5 +1,5 @@
 ---
-layout: "../layouts/Layout.astro"
+layout: "../../layouts/Layout.astro"
 title: Integrations
 description: Connect Chromatic to other services with webhooks
 ---
@@ -24,7 +24,7 @@ Post a message in a designated Slack channel when a build's [status changes](#re
 > Please note that Slack notifications are not posted for passed builds.
 
 The custom icon:
-![Chromatic Slack icon](../images/chromatic-slack-icon.png)
+![Chromatic Slack icon](../../images/chromatic-slack-icon.png)
 
 ## Custom webhooks
 

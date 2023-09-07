@@ -1,5 +1,5 @@
 ---
-layout: "../layouts/Layout.astro"
+layout: "../../layouts/Layout.astro"
 title: Security
 description: Security overview and responsible disclosure
 ---

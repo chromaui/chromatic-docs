@@ -1,5 +1,5 @@
 ---
-layout: "../layouts/Layout.astro"
+layout: "../../layouts/Layout.astro"
 title: Branches and baselines
 description: Learn how Chromatic uses git information to tie your builds together
 ---
@@ -22,7 +22,7 @@ For [UI Tests](test), we aim to keep an up to date "baseline" for each story (at
 
 That means once a snapshot is accepted as a baseline, it won’t need to be re-accepted until it changes, even through git branching and merging. The mechanism to achieve this is explained below.
 
-![Baselines](../images/baselines.jpg)
+![Baselines](../../images/baselines.jpg)
 
 ## Baselines
 
@@ -62,7 +62,7 @@ Chromatic detects squash and rebase merges. Your baselines are preserved between
 
 If you use the "squash" or "rebase" merge feature on Pull Requests, then a commit is created on your base branch that is not a descendant of the commits for the PR. See the diagram below.
 
-![Squash and rebase merges remove Git history](../images/squash-merge.png)
+![Squash and rebase merges remove Git history](../../images/squash-merge.png)
 
 This means Chromatic has no way to tell, using Git, that baselines accepted during the PR should "come over" to the main branch. Instead, we use Git provider APIs to detect this situation. When running the squash/rebase merge commit we'll use the accepted baselines of the _most recent_ commit on the head branch of the PR.
 
@@ -116,7 +116,7 @@ In this case, Build N+2 will have two ancestor builds (N, and N+1).
 Things can get a little more complicated (see some exceptions below) but that’s the basic idea.
 You can see the ancestor builds listed on the build page:
 
-![Ancestor Builds](../images/ancestor-builds.png)
+![Ancestor Builds](../../images/ancestor-builds.png)
 
 #### Calculating a snapshot baseline from the ancestor build(s)
 

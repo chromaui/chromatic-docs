@@ -1,5 +1,5 @@
 ---
-layout: "../layouts/Layout.astro"
+layout: "../../layouts/Layout.astro"
 title: Notifications
 description: Control when and how you receive activity notifications
 ---
@@ -20,7 +20,7 @@ In UI Review, Chromatic emails the PR owner and any participants when a discussi
 
 To set the default email address, go to the [Profile](https://www.chromatic.com/profile) page.
 
-![Change email](../images/profile-account-email-password.png)
+![Change email](../../images/profile-account-email-password.png)
 
 ### Forward emails for different projects to other addresses
 

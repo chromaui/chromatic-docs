@@ -1,5 +1,5 @@
 ---
-layout: "../layouts/Layout.astro"
+layout: "../../layouts/Layout.astro"
 title: Automate Chromatic with BitBucket
 description: Learn how to configure Chromatic with BitBucket Pipelines
 ---

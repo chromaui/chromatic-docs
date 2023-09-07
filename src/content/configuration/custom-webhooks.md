@@ -1,5 +1,5 @@
 ---
-layout: "../layouts/Layout.astro"
+layout: "../../layouts/Layout.astro"
 title: Custom webhooks
 description: Connect Chromatic to other services with webhooks
 ---
@@ -128,7 +128,7 @@ Our webhooks are versioned and won't introduce breaking changes when we roll out
 
 If you've been using a custom webhook for a long time, or used to have one in the past, your project might still be configured to receive an older type of webhook. In this case you'll see a prompt like this:
 
-![Outdated Chromatic webhook](../images/custom-webhook-outdated.png)
+![Outdated Chromatic webhook](../../images/custom-webhook-outdated.png)
 
 You can either continue to use the existing integration, or upgrade your webhook to the latest version. As soon as you've upgraded, you'll start to receive the updated request format, so your endpoint should already be setup to handle them.
 

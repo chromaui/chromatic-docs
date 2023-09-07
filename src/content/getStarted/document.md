@@ -2,6 +2,7 @@
 layout: "../../layouts/Layout.astro"
 title: Document
 description: Learn how Chromatic helps document components.
+sidebar: { order: 4 }
 ---
 
 # Document

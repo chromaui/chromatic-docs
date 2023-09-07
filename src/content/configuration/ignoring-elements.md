@@ -1,5 +1,5 @@
 ---
-layout: "../layouts/Layout.astro"
+layout: "../../layouts/Layout.astro"
 title: Ignore stories and elements
 description: Learn how you can tell Chromatic to ignore changes for certain elements
 ---
@@ -17,7 +17,7 @@ pixels within the bounding rectangle of ignored elements.
 
 </details>
 
-![Ignore elements](../images/ignore.jpg)
+![Ignore elements](../../images/ignore.jpg)
 
 ## Ignore stories
 

@@ -2,6 +2,7 @@
 layout: "../../layouts/Layout.astro"
 title: Setup
 description: Learn how to setup Chromatic and publish Storybook
+sidebar: { order: 2 }
 ---
 
 # Setup and publish Storybook

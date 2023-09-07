@@ -1,5 +1,5 @@
 ---
-layout: "../layouts/Layout.astro"
+layout: "../../layouts/Layout.astro"
 title: Media Features
 description: Learn how to use media features in Chromatic Capture
 ---

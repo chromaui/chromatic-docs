@@ -1,5 +1,5 @@
 ---
-layout: "../layouts/Layout.astro"
+layout: "../../layouts/Layout.astro"
 title: Collaborators
 description: Learn how to add and manage collaborators
 ---
@@ -24,7 +24,7 @@ Organization collaborators can manage billing and account status but may not hav
 
 Go to your organization's Settings page to view collaborators.
 
-![Settings page collaborators](../images/collaborators-organization.png)
+![Settings page collaborators](../../images/collaborators-organization.png)
 
 #### Email
 
@@ -61,13 +61,13 @@ If your project is hosted in Bitbucket, ensure that you and your team members ha
 
 Project collaborators can view and manage the project based on their [role](#roles). Go to your project's Manage page to view collaborators and assign roles.
 
-![Project collaborators](../images/collaborators-project.png)
+![Project collaborators](../../images/collaborators-project.png)
 
 You can add or remove a collaborator by adjusting their access in your Git repository. The permission changes in your upstream repository are mirrored downstream in Chromatic.
 
 Manually override the mirrored permissions by adjusting collaborator [roles](#roles) or [inviting external collaborators](#external-collaborators) on an ad hoc basis.
 
-![Project manage page collaborators](../images/collaborators-project-git.png)
+![Project manage page collaborators](../../images/collaborators-project-git.png)
 
 #### Email
 
@@ -88,7 +88,7 @@ External collaborators are added and removed manually. Once they create an accou
 - Invite link: Share a URL with stakeholders. They are auto-assigned a `developer` role.
 - Invite email: Send individual invites via email. You can fine tune roles before sending.
 
-![Project manage page external collaborators](../images/collaborators-project-external.png)
+![Project manage page external collaborators](../../images/collaborators-project-external.png)
 
 ### Roles
 
@@ -113,7 +113,7 @@ Transfer ownership by assigning another collaborator as an owner and then reassi
 
 Go to your project's Manage page to view your role and it's capabilities.
 
-![Project manage page your role](../images/collaborators-role.png)
+![Project manage page your role](../../images/collaborators-role.png)
 
 #### Roles for open source projects
 
@@ -131,7 +131,7 @@ However, published Storybooks for [linked projects](access#linked-projects) with
 
 When you set Storybook visibility to public, it will be accessible to visitors without signing in. Anyone with a link can access. Your private information like Chromatic library, tests, settings, Git provider, and any associated metadata will remain private. A public Storybook only shares information that is contained in that Storybook.
 
-![Project manage page Storybook visibility](../images/collaborators-visibility.png)
+![Project manage page Storybook visibility](../../images/collaborators-visibility.png)
 
 ---
 

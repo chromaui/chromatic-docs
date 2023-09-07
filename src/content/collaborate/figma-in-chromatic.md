@@ -1,5 +1,5 @@
 ---
-layout: "../layouts/Layout.astro"
+layout: "../../layouts/Layout.astro"
 title: Figma in Chromatic
 description: View Figma components with their linked story right in Chromatic
 ---
@@ -14,15 +14,15 @@ Chromatic has another integration with Figma, bringing that code and design, sid
 Since this workflow is still in early release, we must opt you in first. Please email us via support@chromatic.com to get access.
 
 To get started with this integration, you need to connect your Figma account with Chromatic. Visit your project’s Manage page, and under the configuration tab, you’ll find a new “Connected Applications” section. If you or a teammate have the appropriate Figma access to view your team's designs you can go ahead and connect Figma to this project.
-![Chromatic manage screen showing new “Connected Applications” section](../images/figma-manage.png)
+![Chromatic manage screen showing new “Connected Applications” section](../../images/figma-manage.png)
 
 ## View a linked Figma design
 
 If you’ve already linked Figma components and stories via the [Storybook Connect Figma plugin](https://www.figma.com/community/plugin/1056265616080331589/Storybook-Connect) then you’ll be able to view those Figma components in Chromatic already. Just visit the Library in your Chromatic project and click one of your components. You’ll see a new “Designs” tab which renders the Figma component in a canvas.
-![Designs tab in Chromatic showing the rendering of a Figma component](../images/figma-designs.png)
+![Designs tab in Chromatic showing the rendering of a Figma component](../../images/figma-designs.png)
 
 You can zoom, pan, and even inspect the layers.
-![Designs tab in Chromatic showing the rendering of a Figma component with the layer inspect drawer open showing CSS for the layer](../images/figma-layer-styles.png)
+![Designs tab in Chromatic showing the rendering of a Figma component with the layer inspect drawer open showing CSS for the layer](../../images/figma-layer-styles.png)
 
 ## Create a link to a Figma design
 
@@ -30,7 +30,7 @@ If you haven’t used the Figma plugin already, you can now connect your Figma c
 ![image](https://user-images.githubusercontent.com/1164060/229818480-f24216e0-3367-4a6b-9c5e-8ab1e7087cd4.png)
 
 Next, enter that URL in the form on any story's design tab and save the connection for all your teammates to view this design in the future.
-![Designs tab in Chromatic showing the Link to a design UI](../images/figma-link-story.png)
+![Designs tab in Chromatic showing the Link to a design UI](../../images/figma-link-story.png)
 
 ## Things to note
 

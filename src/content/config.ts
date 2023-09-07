@@ -2,6 +2,13 @@ import { z, defineCollection } from "astro:content";
 
 const schema = z.object({
   title: z.string(),
+  sidebar: z
+    .object({
+      label: z.string().optional(),
+      order: z.number().optional(),
+      hide: z.boolean().optional(),
+    })
+    .optional(),
 });
 
 const getStarted = defineCollection({

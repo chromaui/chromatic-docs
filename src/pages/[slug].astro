@@ -3,7 +3,14 @@ import { getCollection } from "astro:content";
 import type { CollectionEntry} from "astro:content";
 
 export async function getStaticPaths() {
-  const articles = await getCollection("getStarted");
+  const getStarted = await getCollection("getStarted");
+  const configuration = await getCollection("configuration");
+  const modes = await getCollection("modes");
+  const snapshot = await getCollection("snapshot");
+  const collaborate = await getCollection("collaborate");
+  const ci = await getCollection("ci");
+  const account = await getCollection("account");
+  const articles = [...getStarted, ...configuration, ...modes, ...snapshot, ...collaborate, ...ci, ...account];
   return articles.map((article) => ({ params: { slug: article.slug }, props: { article } }));
 }
 

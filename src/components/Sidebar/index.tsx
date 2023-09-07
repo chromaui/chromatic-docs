@@ -2,12 +2,21 @@ import type { FC } from "react";
 import * as Collapsible from "@radix-ui/react-collapsible";
 import { styled } from "@storybook/theming";
 import { typography, Icon, color, fontWeight } from "@chromaui/tetra";
+import type { CollectionEntry } from "astro:content";
 
 interface SidebarProps {
   url?: string;
   sidebar?: {
     title: string;
-    items: { data: { title: string }; slug: string }[];
+    items: (
+      | CollectionEntry<"getStarted">
+      | CollectionEntry<"configuration">
+      | CollectionEntry<"modes">
+      | CollectionEntry<"snapshot">
+      | CollectionEntry<"collaborate">
+      | CollectionEntry<"ci">
+      | CollectionEntry<"account">
+    )[];
     defaultOpen?: boolean;
     timeline?: boolean;
   }[];
@@ -105,11 +114,35 @@ const Bullet = styled.div<{ isActive: boolean }>`
 `;
 
 export const Sidebar: FC<SidebarProps> = ({ url, sidebar }) => {
-  // console.log(sidebar?.map((group) => group.items));
+  const sidebarItems = sidebar
+    ? sidebar.map((group) => ({
+        ...group,
+        items: group.items
+          .map((item) => ({
+            ...item,
+            data: {
+              ...item.data,
+              sidebar: {
+                label: item.data?.sidebar?.label || item.data.title,
+                order: item.data?.sidebar?.order || 999,
+                hide: item.data?.sidebar?.hide || false,
+              },
+            },
+          }))
+          .sort((p1, p2) =>
+            p1.data.sidebar.order > p2.data.sidebar.order
+              ? 1
+              : p1.data.sidebar.order < p2.data.sidebar.order
+              ? -1
+              : 0
+          ),
+      }))
+    : [];
+
   return (
     <Container>
-      {sidebar &&
-        sidebar.map((group, i) => {
+      {sidebarItems &&
+        sidebarItems.map((group, i) => {
           const isSomeActive = group.items.some((item) => item.slug === url);
 
           return (
@@ -131,7 +164,7 @@ export const Sidebar: FC<SidebarProps> = ({ url, sidebar }) => {
                       <Line href={item.slug}>
                         {!!group.timeline && <Bullet isActive={isActive} />}
                         <ContentItem isActive={isActive}>
-                          {item.data.title}
+                          {item.data.sidebar.label}
                         </ContentItem>
                       </Line>
                     </Collapsible.Content>

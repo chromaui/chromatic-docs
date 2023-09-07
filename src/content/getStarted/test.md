@@ -2,6 +2,7 @@
 layout: "../../layouts/Layout.astro"
 title: Test
 description: Learn how to run Chromatic UI Tests
+sidebar: { order: 3, label: "UI Tests" }
 ---
 
 # UI Tests

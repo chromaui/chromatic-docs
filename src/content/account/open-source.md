@@ -1,5 +1,5 @@
 ---
-layout: "../layouts/Layout.astro"
+layout: "../../layouts/Layout.astro"
 title: Open source sponsorships
 description: Chromatic sponsors open source component libraries
 ---

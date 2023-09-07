@@ -1,5 +1,5 @@
 ---
-layout: "../layouts/Layout.astro"
+layout: "../../layouts/Layout.astro"
 title: Interaction tests
 description: Learn how interaction testing works with Chromatic
 ---
@@ -53,35 +53,35 @@ Read Storybook's interaction testing [docs](https://storybook.js.org/docs/react/
 
 </div>
 
-![Storybook passed tests](../images/interaction-test-storybook-passed-test.png)
+![Storybook passed tests](../../images/interaction-test-storybook-passed-test.png)
 
 ### Confirm interaction tests are working
 
 Interaction tests run behind the scenes without you having to configure anything. To verify that they are working in Chromatic, publish your Storybook either via [CLI](cli) or [CI](ci). You can confirm that they’re running with the “Interaction” label in the Build page’s Tests section.
 
-![Confirm interaction test run in the build summary](../images/interaction-test-buildsummary-confirm.png)
+![Confirm interaction test run in the build summary](../../images/interaction-test-buildsummary-confirm.png)
 
 ## Debug test failures
 
 Chromatic notifies you when an interaction errors or an assertion fails. We designate these as critical failures that need immediate attention. You won’t be able to pass the build until the test is fixed.
 
-![Build page with failed interaction test](../images/interaction-build-screen-failed-test.png)
+![Build page with failed interaction test](../../images/interaction-build-screen-failed-test.png)
 
 To find out which steps failed in your interaction test, click on the change to see a snapshot of the state where the error occurred. You'll see a detailed log and browser environment metadata to help with reproductions.
 
-![Test page with failed interaction test](../images/interaction-test-screen-failed-test.png)
+![Test page with failed interaction test](../../images/interaction-test-screen-failed-test.png)
 
 ### Reproduce test failures with a URL
 
 Go to your published Storybook to reproduce the exact state of your story when the test failed. Click the "View Storybook" button on the test page to open the failed story with the error message visible. Share the link with teammates to get a second opinion.
 
-![Storybook with failed interaction test](../images/interaction-test-storybook-failed-test.png)
+![Storybook with failed interaction test](../../images/interaction-test-storybook-failed-test.png)
 
 ## PR check for interaction tests
 
 Interaction tests are reported in the UI Tests pull request check. When a test fails, you'll see a "Failed tests" status message prompting you to fix the test before moving on.
 
-![Failed interaction tests in CI](../images/interaction-pr-check-failed-test.png)
+![Failed interaction tests in CI](../../images/interaction-pr-check-failed-test.png)
 
 ---
 

@@ -1,5 +1,5 @@
 ---
-layout: "../layouts/Layout.astro"
+layout: "../../layouts/Layout.astro"
 title: Snapshots
 description: What is a Snapshot in Chromatic
 ---
@@ -27,7 +27,7 @@ Looking for information on snapshot billing? [Go to billing docs](billing)
 
 The component screen allows you to select between 'Canvas' and 'Snapshot'. Under the Snapshot tab, you'll find the image captured by Chromatic's cloud browser -- this is exactly what the browser 'saw' at the time that it rendered the story. Swap between Snapshot and Canvas tabs to compare images to live implementation.
 
-![Component screen with snapshot](../images/component-snapshot.png)
+![Component screen with snapshot](../../images/component-snapshot.png)
 
 <div class="aside">Tip: Click the expand icon in the top right to open the story in your published Storybook.</div>
 
@@ -299,7 +299,7 @@ The solution we recommend is to use a `<link rel="preload">` in your [`.storyboo
 
 Double-check whether a visual change is real or caused by inconsistencies in your app code by retaking snapshots. Click the "rerun" button to kick off a new build that uses identical settings and configuration as your original build. Only snapshots for denied and unreviewed changes will be captured. Any changes you accepted in the original build will not be snapshotted again in a rerun build.
 
-![Rerun button](../images/build-detail-rerun-button.png)
+![Rerun button](../../images/build-detail-rerun-button.png)
 
 Debug inconsistent snapshots by looking at the set of changes between the original build and rerun build. You might encounter these common scenarios:
 
@@ -307,7 +307,7 @@ Debug inconsistent snapshots by looking at the set of changes between the origin
 - Different changes between builds: This means there are inconsistent snapshots which are introducing false positives to your visual tests. Learn how to [improve snapshot consistency](#improve-snapshot-consistency).
 
 When there are potential rendering inconsistencies in a rerun build, Chromatic will call them out in a message.
-![Inconsistent snapshot detection](../images/build-detail-inconsistent-snapshot-detection.png)
+![Inconsistent snapshot detection](../../images/build-detail-inconsistent-snapshot-detection.png)
 
 ## Browser differences between snapshots
 

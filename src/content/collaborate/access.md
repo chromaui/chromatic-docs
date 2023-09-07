@@ -1,5 +1,5 @@
 ---
-layout: "../layouts/Layout.astro"
+layout: "../../layouts/Layout.astro"
 title: Access control
 description: Learn how to control who has access to your Chromatic project
 ---
@@ -77,7 +77,7 @@ If you don't know the Chromatic URL for your team, you may need to ask the accou
 
 A Chromatic organization mirrors its counterpart GitHub Organization, Bitbucket Group, or GitLab Team. Open the account menu to swap between organizations or add a new organization.
 
-![Account menu](../images/account-menu.png)
+![Account menu](../../images/account-menu.png)
 
 ## Projects
 

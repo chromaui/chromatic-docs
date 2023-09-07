@@ -1,5 +1,5 @@
 ---
-layout: "../layouts/Layout.astro"
+layout: "../../layouts/Layout.astro"
 title: TurboSnap
 description: Speed up tests by detecting file changes with Git
 ---
@@ -8,7 +8,7 @@ description: Speed up tests by detecting file changes with Git
 
 TurboSnap is an advanced Chromatic feature that speeds up builds for faster [UI testing](test) and [review](review) using Git and Webpack's [dependency graph](https://webpack.js.org/concepts/dependency-graph/). It identifies component files and dependencies that have changed, then intelligently snapshots only the stories associated with those changes.
 
-![TurboSnap tracks dependencies](../images/turbosnap-dep-tracking.gif)
+![TurboSnap tracks dependencies](../../images/turbosnap-dep-tracking.gif)
 
 #### Prerequisites
 
@@ -212,7 +212,7 @@ This message tells you how many snapshots we actually took instead of the number
 
 Once TurboSnap is activated, all subsequent builds will display an indicator with TurboSnap's status. Find it on the Build page above your tests.
 
-![TurboSnap indicator](../images/build-turbosnap.png)
+![TurboSnap indicator](../../images/build-turbosnap.png)
 
 ### Notes on monorepos
 

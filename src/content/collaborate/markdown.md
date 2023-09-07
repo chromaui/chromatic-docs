@@ -1,5 +1,5 @@
 ---
-layout: "../layouts/Layout.astro"
+layout: "../../layouts/Layout.astro"
 title: Chromatic Markdown syntax
 description: Learn how to use markdown in discussions
 ---
@@ -8,7 +8,7 @@ description: Learn how to use markdown in discussions
 
 Create sophisticated formatting for your prose and code in Chromatic with simple syntax.
 
-![Markdown in Chromatic](../images/markdown.gif)
+![Markdown in Chromatic](../../images/markdown.gif)
 
 ## Styling text
 

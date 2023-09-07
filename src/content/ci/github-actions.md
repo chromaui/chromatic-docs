@@ -1,5 +1,5 @@
 ---
-layout: "../layouts/Layout.astro"
+layout: "../../layouts/Layout.astro"
 title: Automate Chromatic with GitHub Actions
 description: Learn how to configure Chromatic with GitHub Actions
 ---
@@ -51,11 +51,11 @@ For extra security, you'll need to configure secrets.
 
 In a new browser window, navigate to your GitHub repository. Click the **Settings** tab, followed by **Secrets** and then **New secret**.
 
-![GitHub Secrets workflow](../images/secrets-workflow-optimized.png)
+![GitHub Secrets workflow](../../images/secrets-workflow-optimized.png)
 
 Fill in the form with the necessary information, as detailed below, and replace `Value` with your own Chromatic project token.
 
-![GitHub repository secret configured](../images/github-repo-new-secret-filled.png)
+![GitHub repository secret configured](../../images/github-repo-new-secret-filled.png)
 
 Finish by clicking the **Add secret** button.
 

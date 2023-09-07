@@ -2,6 +2,7 @@
 layout: "../../layouts/Layout.astro"
 title: Workflow
 description: Learn the Chromatic workflow
+sidebar: { order: 6 }
 ---
 
 # How to use Chromatic

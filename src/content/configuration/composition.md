@@ -1,5 +1,5 @@
 ---
-layout: "../layouts/Layout.astro"
+layout: "../../layouts/Layout.astro"
 title: Composition
 description: Learn to combine Storybooks through composition
 ---
@@ -42,7 +42,7 @@ export default config;
 
 When your local Storybook starts, it will auto detect the `refs` and compose your published Storybook. You'll see both sets of stories side-by-side.
 
-![Multiple Storybooks combined through composition](../images/reference-external-storybooks-composition.png)
+![Multiple Storybooks combined through composition](../../images/reference-external-storybooks-composition.png)
 
 ### Compose Storybook by branch or commit
 

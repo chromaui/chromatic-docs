@@ -1,5 +1,5 @@
 ---
-layout: "../layouts/Layout.astro"
+layout: "../../layouts/Layout.astro"
 title: Figma Plugin
 description: Connect stories to variants
 ---
@@ -20,19 +20,19 @@ Storybook Connect is a Figma plugin that allows you to link stories to Figma com
 ### Install the plugin
 
 1. Go to [Storybook Connect](https://www.figma.com/community/plugin/1056265616080331589/Storybook-Connect) in the Figma community to install the plugin.
-2. Open the plugin from the Resources Tab (shift+i) > Plugins > Storybook Connect. ![Plugins menu](../images/figma-plugin-widget-menu.png)
+2. Open the plugin from the Resources Tab (shift+i) > Plugins > Storybook Connect. ![Plugins menu](../../images/figma-plugin-widget-menu.png)
 
-Alternatively you can use the command palette in Figma `command + /` then type `Storybook Connect`. ![Open Storybook Connect in Figma](../images/figma-plugin-open-in-figma.png) 3. Follow the installation instructions to authenticate with Chromatic.
+Alternatively you can use the command palette in Figma `command + /` then type `Storybook Connect`. ![Open Storybook Connect in Figma](../../images/figma-plugin-open-in-figma.png) 3. Follow the installation instructions to authenticate with Chromatic.
 
 ### Link a story to a Figma component
 
-1. Select a Figma component to link. The plugin supports linking stories to Figma components, variants, and instances. It does not support linking stories to layers. ![Select component](../images/figma-plugin-select-component.png)
+1. Select a Figma component to link. The plugin supports linking stories to Figma components, variants, and instances. It does not support linking stories to layers. ![Select component](../../images/figma-plugin-select-component.png)
 
-2. Navigate to a story in a Storybook published on Chromatic. Make sure it's on the branch you want to link. Then copy the URL to the story. ![Copy story url](../images/figma-plugin-copy-url.png)
+2. Navigate to a story in a Storybook published on Chromatic. Make sure it's on the branch you want to link. Then copy the URL to the story. ![Copy story url](../../images/figma-plugin-copy-url.png)
 
-3. Paste the URL into the plugin’s form field. ![Paste story url](../images/figma-plugin-paste-url.png)
+3. Paste the URL into the plugin’s form field. ![Paste story url](../../images/figma-plugin-paste-url.png)
 
-4. Once linked, the component and its instances will all have links in the sidebar to view the corresponding story. ![Figma sidebar view](../images/figma-plugin-sidebar-view.png)
+4. Once linked, the component and its instances will all have links in the sidebar to view the corresponding story. ![Figma sidebar view](../../images/figma-plugin-sidebar-view.png)
 
 <details>
 <summary >Do I need to re-link components everytime Storybook is published?</summary>
@@ -43,11 +43,11 @@ Nope. Chromatic automatically updates your linked stories to reflect the latest 
 
 ### Link a story to multiple Figma variants at the same time
 
-1. Select Figma variants. ![Select variants](../images/figma-plugin-select-variants.png)
+1. Select Figma variants. ![Select variants](../../images/figma-plugin-select-variants.png)
 
-2. Click "Link all". ![Link variants](../images/figma-plugin-link-variants.png)
+2. Click "Link all". ![Link variants](../../images/figma-plugin-link-variants.png)
 
-3. Paste the URL into the plugin’s form field. ![Paste story url](../images/figma-plugin-paste-url.png)
+3. Paste the URL into the plugin’s form field. ![Paste story url](../../images/figma-plugin-paste-url.png)
 
 ### Open a story in Figma
 

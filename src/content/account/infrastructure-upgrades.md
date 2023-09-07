@@ -1,5 +1,5 @@
 ---
-layout: "../layouts/Layout.astro"
+layout: "../../layouts/Layout.astro"
 title: Infrastructure upgrades
 description: Learn how Chromatic handles browser rendering changes to be minimally disruptive
 ---
@@ -18,7 +18,7 @@ When an infrastructure upgrade is available you're notified in the app. You choo
 
 Opt-in to the upgrade on the Manage screen for your project. This will switch you over to the new infrastructure and migrate UI test baselines using **upgrade builds**.
 
-![Opt-in to infrastructure upgrade](../images/managescreen-infrastructure-upgrade.png)
+![Opt-in to infrastructure upgrade](../../images/managescreen-infrastructure-upgrade.png)
 
 ### Upgrade builds
 
@@ -26,7 +26,7 @@ Chromatic runs an "upgrade build" to ensure stories are snapshotted using a cons
 
 An upgrade build isolates all the UI changes caused by swapping infrastructure in one build. Unlike typical builds, upgrade builds don't snapshot new code. They work by **rerunning** the most recent build on that branch using the new infrastructure.
 
-![Upgrade builds](../images/infrastructure-upgrades-flow.png)
+![Upgrade builds](../../images/infrastructure-upgrades-flow.png)
 
 Existing baselines that were snapshotted on old infrastructure are re-snapshotted using the new infrastructure. This ensures that subsequent builds are compared "apples-to-apples" to baselines snapshotted on the same infrastructure.
 
@@ -36,7 +36,7 @@ Visual differences between old and new infrastructure are auto-accepted. Since t
 
 Future builds will use the upgrade build's auto-accepted baselines as the source of truth.
 
-![Auto-accept changes](../images/infrastructure-upgrades-auto-accept.png)
+![Auto-accept changes](../../images/infrastructure-upgrades-auto-accept.png)
 
 ### Release notes for infrastructure upgrades
 

@@ -1,5 +1,5 @@
 ---
-layout: "../layouts/Layout.astro"
+layout: "../../layouts/Layout.astro"
 title: Privacy Policy
 description: Chromatic Privacy Policy
 ---

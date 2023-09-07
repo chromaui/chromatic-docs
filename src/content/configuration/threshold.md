@@ -1,5 +1,5 @@
 ---
-layout: "../layouts/Layout.astro"
+layout: "../../layouts/Layout.astro"
 title: Threshold
 description: Learn how to fine-tune the amount of visual change between snapshots before they get marked as changes
 ---

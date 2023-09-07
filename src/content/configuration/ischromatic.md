@@ -1,5 +1,5 @@
 ---
-layout: "../layouts/Layout.astro"
+layout: "../../layouts/Layout.astro"
 title: isChromatic
 description: Learn how to control what executes in the Chromatic environment
 ---

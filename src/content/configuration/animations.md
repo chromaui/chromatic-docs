@@ -1,5 +1,5 @@
 ---
-layout: "../layouts/Layout.astro"
+layout: "../../layouts/Layout.astro"
 title: Animations
 description: Learn how Chromatic pauses animations and how to control the behavior
 ---

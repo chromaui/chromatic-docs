@@ -1,5 +1,5 @@
 ---
-layout: "../layouts/Layout.astro"
+layout: "../../layouts/Layout.astro"
 title: FAQ
 description: Frequently asked questions about Chromatic
 ---
@@ -118,7 +118,7 @@ Chromatic will reset the snapshot count monthly, calculated based on the day you
 
 The project token is available on the Manage → Configure page of your project.
 
-![Navigate to the Manage page and click on the Configure tab](../images/configure-project-token.png)
+![Navigate to the Manage page and click on the Configure tab](../../images/configure-project-token.png)
 
 </details>
 
@@ -127,7 +127,7 @@ The project token is available on the Manage → Configure page of your project.
 
 Users with the [`owner`](collaborators#roles) role can reset or cycle project tokens on the Configure page of your project.
 
-![Navigate to the Manage page and click on the Configure tab](../images/reset-project-token.png)
+![Navigate to the Manage page and click on the Configure tab](../../images/reset-project-token.png)
 
 </details>
 

@@ -1,5 +1,5 @@
 ---
-layout: "../layouts/Layout.astro"
+layout: "../../layouts/Layout.astro"
 title: Billing
 description: Chromatic billing information
 ---
@@ -38,7 +38,7 @@ Snapshots are counted at the account level. If your account has multiple project
 
 Find the current month's usage in the Plan section of the Billing page.
 
-![Chromatic monthly snapshots used](../images/article-view-snapshots-billing-screen.png)
+![Chromatic monthly snapshots used](../../images/article-view-snapshots-billing-screen.png)
 
 ### Overages
 
@@ -51,7 +51,7 @@ Keep track of your account's snapshot usage by setting up a usage alert. When yo
 
 For example, if you want to get a notification when you use 90% of the 35,000 snapshots in the Starter plan, you'd set the snapshot alert threshold to 31,500.
 
-![Setup usage alerting](../images/billing-usage-alert.png)
+![Setup usage alerting](../../images/billing-usage-alert.png)
 
 ### Usage reports
 
@@ -74,7 +74,7 @@ The downloaded CSV includes the following columns:
 | Edge snapshots              | Number of billed snapshots captured in Edge                                                                       |
 | Internet Explorer snapshots | Phasing out in 2023. Number of billed snapshots captured in Internet Explorer.                                    |
 
-![Setup usage report](../images/billing-usage-report.png)
+![Setup usage report](../../images/billing-usage-report.png)
 
 ## Change plans
 
@@ -84,7 +84,7 @@ Change your plan in account settings. All changes are prorated to the day. That 
 
 Invoices are generated each month on your account's Billing page. Click to see a PDF of the amount owed and a breakdown of snapshot usage.
 
-![Chromatic invoice statement](../images/articles-chromatic-invoice-view-statements.png)
+![Chromatic invoice statement](../../images/articles-chromatic-invoice-view-statements.png)
 
 ### Email invoices to your billing or finance manager
 
@@ -92,7 +92,7 @@ By default, Chromatic sets the account's billing email to the email address of t
 
 Go to the Payment section on the Billing page to change the billing email associated with your account. Click "Change email".
 
-![Chromatic billing](../images/articles-chromatic-change-billing-email-billscreen.png)
+![Chromatic billing](../../images/articles-chromatic-change-billing-email-billscreen.png)
 
 ### Refunds
 

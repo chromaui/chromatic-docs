@@ -1,5 +1,5 @@
 ---
-layout: "../layouts/Layout.astro"
+layout: "../../layouts/Layout.astro"
 title: Embed stories
 description: Embed your Storybook on Medium, Notion, and other platforms
 ---
@@ -22,7 +22,7 @@ https://<appid>-<uploadhash>.chromatic.com/?path=<path-to-story>
 <iframe src="https://<appid>-<uploadhash>.chromatic.com/?path=<path-to-story>&full=1&shortcuts=false&singleStory=true" width="800" height="400"></iframe>
 ```
 
-![Full Storybook embed on Medium](../images/embed-story-toolbar.png)
+![Full Storybook embed on Medium](../../images/embed-story-toolbar.png)
 
 ## Embed a plain story
 
@@ -36,7 +36,7 @@ https://<appid>-<uploadhash>.chromatic.com/iframe.html?<path-to-story>&viewMode=
 <iframe src="<appid>-<uploadhash>.chromatic.com/?path=<path-to-story>&viewMode=story&shortcuts=false&singleStory=true" width="800" height="400"></iframe>
 ```
 
-![Plain canvas embed on Medium](../images/embed-story.png)
+![Plain canvas embed on Medium](../../images/embed-story.png)
 
 ## Embed a docs page
 
@@ -50,7 +50,7 @@ https://<appid>-<uploadhash>.chromatic.com/iframe.html?<path-to-story>&viewMode=
 <iframe src="https://<appid>-<uploadhash>.chromatic.com/?path=<path-to-story>&viewMode=docs&shortcuts=false&singleStory=true" width="800" height="400"></iframe>
 ```
 
-![Docs page embed on Medium](../images/embed-docs.png)
+![Docs page embed on Medium](../../images/embed-docs.png)
 
 ---
 
@@ -72,7 +72,7 @@ While editing an article, Medium renders all embeds non-interactive. Once you pu
 
 In your Notion doc type `/embed`, press Enter, then paste the Storybook URL as the embed link. You can manually resize the embed as needed.
 
-![Notion embed command](../images/embed-notion.png)
+![Notion embed command](../../images/embed-notion.png)
 
 </details>
 
@@ -82,6 +82,6 @@ In your Notion doc type `/embed`, press Enter, then paste the Storybook URL as t
 
 In your Ghost post type `/html`, press Enter, then paste the `<iframe>` URL. You can manually resize the embed via the height and width properties as needed.
 
-![Notion embed command](../images/embed-ghost.png)
+![Notion embed command](../../images/embed-ghost.png)
 
 </details>
