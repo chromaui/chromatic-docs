@@ -1,5 +1,5 @@
 ---
-layout: "../layouts/Layout.astro"
+layout: "../../layouts/Layout.astro"
 title: Review
 description: Learn how to review changes for your component library
 ---
@@ -10,7 +10,7 @@ UI Tests protect you from accidental regressions. But, before you ship, you’ll
 
 UI Review creates a changeset of the exact visual changes introduced on a new branch. You assign reviewers who can comment and request tweaks on changes that aren’t quite right. Think of it like a code review, but for your UI.
 
-![UI Review](../images/workflow-uireview.png)
+![UI Review](../../images/workflow-uireview.png)
 
 <div class="aside">
 <p>👀  <strong>Looking for Manual UI Reviews</strong>? See <a href="review#manual-ui-review">the documentation below</a>.</p>
@@ -20,7 +20,7 @@ UI Review creates a changeset of the exact visual changes introduced on a new br
 
 Enable UI Review for your project on the Manage screen.
 
-![Enable UI Review](../images/uireview-for-docs.png)
+![Enable UI Review](../../images/uireview-for-docs.png)
 
 Once enabled, visit the Reviews tab in the web app sidebar. There you’ll be prompted to install the GitHub app or webhooks for GitLab/Bitbucket.
 
@@ -32,7 +32,7 @@ Once enabled, visit the Reviews tab in the web app sidebar. There you’ll be pr
 
 Once a Review has been created—either manually or through CI—navigate to the Reviews tab and select the appropriate Review. You will then land on the Activity tab, which shows a timeline of [builds](setup#view-published-storybook), active discussions, and Review status. This showcases what needs to be done in the Review process.
 
-![Activity tab](../images/prscreen-activity.png)
+![Activity tab](../../images/prscreen-activity.png)
 
 ### Invite teammates
 
@@ -44,7 +44,7 @@ If you [linked your project](access#linked-projects) to GitHub, Bitbucket, or Gi
 
 Use the Assign Reviewers link on the Review’s Activity screen to choose reviewers from the project’s collaborators. Reviewers will be emailed a link to the Review screen to begin their review.
 
-![assign reviewers by picking from your list of collaborators](../images/assign-reviewers.png)
+![assign reviewers by picking from your list of collaborators](../../images/assign-reviewers.png)
 
 #### Default reviewers
 
@@ -52,7 +52,7 @@ If you find you’re always assigning the same reviewers, you can set default re
 
 Add default reviewers on your project’s Manage page. Go to the Review section to add a default reviewer.
 
-![assign default reviewers by picking from your list of collaborators](../images/default-reviewer.png)
+![assign default reviewers by picking from your list of collaborators](../../images/default-reviewer.png)
 
 Remove a default reviewer by clicking "Remove" beside their name. This will remove them as default reviewer but not from the project.
 
@@ -74,7 +74,7 @@ If you use a CI provider other than GitHub, you can still use an environment var
 
 The Review screen includes a Changeset tab showing a side-by-side view of all visual changes introduced on your head branch. It compares the UI on the head branch to the base branch. You’ll see each change’s component story before and after the head branch changes are applied to your base branch.
 
-![Changeset tab](../images/prscreen-changes.png)
+![Changeset tab](../../images/prscreen-changes.png)
 
 <div class="aside"><b>Tip:</b> To hint at what UI changed, toggle the highlighted diff (in neon green) on and off.</div>
 
@@ -82,7 +82,7 @@ The Review screen includes a Changeset tab showing a side-by-side view of all vi
 
 Reviewers can request updates to the implementation via the comment box beneath each change. Discussions are threaded and attached to the specific story represented by the change.
 
-![Changeset Comments](../images/ui-changes-comments.png)
+![Changeset Comments](../../images/ui-changes-comments.png)
 
 ## UI checklist
 
@@ -97,13 +97,13 @@ At the bottom of the Review screen’s [activity tab](review#find-your-pull-requ
 </p>
 </div>
 
-![UI Checklist](../images/prscreen-ui-checklist.png)
+![UI Checklist](../../images/prscreen-ui-checklist.png)
 
 ## PR check for "UI Review"
 
 You'll get a 'UI Review' status check for each PR that shows the state of the UI Checklist. Require the check in [GitHub](https://help.github.com/en/github/administering-a-repository/enabling-required-status-checks), [GitLab](https://docs.gitlab.com/ee/api/commits.html#post-the-build-status-to-a-commit), or [Bitbucket](https://confluence.atlassian.com/bitbucket/suggest-or-require-checks-before-a-merge-856691474.html) to ensure that impactful changes are considered by the team before merging.
 
-![PR for UI Review](../images/prbadge-review.png)
+![PR for UI Review](../../images/prbadge-review.png)
 
 ---
 
@@ -115,14 +115,14 @@ Manual UI Review helps you see the visual differences between any pair of branch
 
 Go to your project's Manage page to enable UI Review.
 
-![Enable UI Review](../images/uireview-for-docs.png)
+![Enable UI Review](../../images/uireview-for-docs.png)
 
 ## Create a Review
 
-![Create Review](../images/create-review.png)
+![Create Review](../../images/create-review.png)
 Go to your project's Reviews page from the sidebar. Click the “Create review” button to pick the pair of branches you want to compare.
 
-![Create review branches](../images/create-review-branches.png)
+![Create review branches](../../images/create-review-branches.png)
 
 If you’re familiar with creating pull or merge requests with git, this process will be very familiar:
 
@@ -149,7 +149,7 @@ Manually created Reviews will not create a “UI Review” status check in GitHu
 
 Prune your completed manual UI Reviews by clicking the "Close review" menu item in the "Review now" button tooltip. Your review will be moved in the list of "Closed" Reviews on the Reviews page.
 
-![Close Review](../images/close-review.png)
+![Close Review](../../images/close-review.png)
 
 <div class="aside">
 <p><b>Be aware:</b> closing a Review <b>does not</b> merge the branches in git.</p>

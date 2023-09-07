@@ -1,5 +1,5 @@
 ---
-layout: "../layouts/Layout.astro"
+layout: "../../layouts/Layout.astro"
 title: Setup
 description: Learn how to setup Chromatic and publish Storybook
 ---
@@ -8,7 +8,7 @@ description: Learn how to setup Chromatic and publish Storybook
 
 The Chromatic CLI builds then publishes Storybook to a secure workspace in the cloud. That allows your team to access all your stories at [chromatic.com](https://www.chromatic.com/start).
 
-![Publish Storybook](../images/workflow-publish.png)
+![Publish Storybook](../../images/workflow-publish.png)
 
 ## Sign up
 
@@ -27,7 +27,7 @@ Start by signing in using your _personal_ account via any of the supported provi
 
 Select "Create a project" and type your project name to create an unlinked project.
 
-![Setup unlinked project](../images/chromatic-setup-unlinked-project.png)
+![Setup unlinked project](../../images/chromatic-setup-unlinked-project.png)
 
 Nice! You created an unlinked project. This will allow you to get started with [UI Testing](test) workflow regardless of the underlying git provider. You can then configure your CI system to automatically run a Chromatic build on push.
 
@@ -43,7 +43,7 @@ Now continue setting up Chromatic [as usual](setup#install).
 
 </details>
 
-![Setup project](../images/setup.png)
+![Setup project](../../images/setup.png)
 
 ## Install
 
@@ -103,13 +103,13 @@ View it online at https://www.chromatic.com/build?appId=...&number=1.
 
 You published Storybook online! Every time you run the `chromatic` command you get a corresponding build in Chromatic's web app. You can now browse components, view [**UI Tests**](test) results (if enabled), and navigate to associated PR/MRs for [**UI Review**](review).
 
-![Build for publish](../images/build-publish-only.png)
+![Build for publish](../../images/build-publish-only.png)
 
 ## Get the PR check
 
 Chromatic posts a "Storybook Publish" status check in your pull/merge request that links to the latest published Storybook. This gives teams secure, convenient access to browse components and stories. Get the PR check by [automating Chromatic with CI](ci).
 
-![PR badge for publish](../images/prbadge-publish.png)
+![PR badge for publish](../../images/prbadge-publish.png)
 
 <div class="aside">During setup we recommend running <code>chromatic</code> on the command line to make sure the configuration is correct. For production use run Chromatic in CI.</div>
 

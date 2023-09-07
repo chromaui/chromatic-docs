@@ -1,7 +1,11 @@
 --- 
+import { Container } from '@chromaui/tetra';
 import { MarketingFooter } from '../components/Footer/MarketingFooter';
 import { MarketingHeader } from '../components/Header/MarketingHeader';
 import { Wrapper } from '../components/Wrapper';
+import '@fontsource-variable/nunito-sans';
+import { Sidebar } from '../components/Sidebar';
+import { getCollection } from 'astro:content';
 
 interface Props {
 	content: {
@@ -12,8 +16,23 @@ interface Props {
 
 const { content: { title } } = Astro.props;
 const { pathname } = Astro.url;
+const getStarted = await getCollection("getStarted");
+const configuration = await getCollection("configuration");
+const sidebar = [
+	{
+		title: "Get Started",
+		items: getStarted,
+		defaultOpen: true,
+    timeline: true
+	},
+	{
+		title: "Configuration",
+		items: configuration,
+	}
+]
 
-import '@fontsource-variable/nunito-sans';
+console.log(getStarted.length)
+
 ---
 
 <!DOCTYPE html>
@@ -26,41 +45,52 @@ import '@fontsource-variable/nunito-sans';
 		<link href="prism.css" rel="stylesheet" />
 		<meta name="generator" content={Astro.generator} />
 		<title>{title}</title>
+		<style is:global>
+			:root {
+				--accent: 136, 58, 234;
+				--accent-light: 224, 204, 250;
+				--accent-dark: 49, 10, 101;
+				--accent-gradient: linear-gradient(45deg, rgb(var(--accent)), rgb(var(--accent-light)) 30%, white 60%);
+			}
+		
+			* {
+				box-sizing: border-box;
+				-webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+				-webkit-tap-highlight-color: transparent; /* For some Androids */
+			}
+		
+			html {
+				outline: none;
+				-webkit-font-smoothing: antialiased;
+				-moz-osx-font-smoothing: grayscale;
+			}
+		
+			html, body {
+				font-family: 'Nunito Sans Variable', sans-serif;
+				background: #fff;
+				margin: 0;
+				padding: 0;
+				-webkit-font-smoothing: antialiased;
+				-moz-osx-font-smoothing: grayscale;
+			}
+
+			.content-wrapper {
+				display: flex;
+				gap: 2.5rem;
+  			margin: 64px 0;
+			}
+		</style>
 	</head>
 	<body>
 		<MarketingHeader client:load />
-		<Wrapper client:load url={pathname}>
-			<slot />
-		</Wrapper>
+		<Container client:load>
+			<div class="content-wrapper">
+				<Sidebar client:load url={pathname.replace(/^\/|\/$/g, '')} sidebar={sidebar} />
+				<Wrapper client:load>
+					<slot />
+				</Wrapper>
+			</div>
+		</Container>
 		<MarketingFooter client:load />
 	</body>
 </html>
-<style is:global>
-	:root {
-		--accent: 136, 58, 234;
-		--accent-light: 224, 204, 250;
-		--accent-dark: 49, 10, 101;
-		--accent-gradient: linear-gradient(45deg, rgb(var(--accent)), rgb(var(--accent-light)) 30%, white 60%);
-	}
-
-	* {
-		box-sizing: border-box;
-		-webkit-tap-highlight-color: rgba(0, 0, 0, 0);
-		-webkit-tap-highlight-color: transparent; /* For some Androids */
-	}
-
-	html {
-		outline: none;
-		-webkit-font-smoothing: antialiased;
-		-moz-osx-font-smoothing: grayscale;
-	}
-
-	html, body {
-		font-family: 'Nunito Sans Variable', sans-serif;
-		background: #fff;
-		margin: 0;
-		padding: 0;
-		-webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale;
-	}
-</style>

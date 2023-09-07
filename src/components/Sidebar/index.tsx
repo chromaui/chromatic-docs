@@ -1,11 +1,16 @@
 import type { FC } from "react";
 import * as Collapsible from "@radix-ui/react-collapsible";
-import { sidebarData } from "./sidebarData";
 import { styled } from "@storybook/theming";
 import { typography, Icon, color, fontWeight } from "@chromaui/tetra";
 
 interface SidebarProps {
   url?: string;
+  sidebar?: {
+    title: string;
+    items: { data: { title: string }; slug: string }[];
+    defaultOpen?: boolean;
+    timeline?: boolean;
+  }[];
 }
 
 const Container = styled.div`
@@ -99,41 +104,43 @@ const Bullet = styled.div<{ isActive: boolean }>`
   box-shadow: white 0px 0px 0px 4px;
 `;
 
-export const Sidebar: FC<SidebarProps> = ({ url }) => {
+export const Sidebar: FC<SidebarProps> = ({ url, sidebar }) => {
+  // console.log(sidebar?.map((group) => group.items));
   return (
     <Container>
-      {sidebarData.map((group, i) => {
-        const isSomeActive = group.items.some((item) => item.url === url);
+      {sidebar &&
+        sidebar.map((group, i) => {
+          const isSomeActive = group.items.some((item) => item.slug === url);
 
-        return (
-          <Collapsible.Root
-            defaultOpen={group.defaultOpen || isSomeActive}
-            key={i}
-          >
-            <Trigger>
-              <IconWrapper className="icon-wrapper">
-                <Icon name="arrowright" />
-              </IconWrapper>
-              {group.title}
-            </Trigger>
-            <ContentWrapper isTimeline={!!group.timeline}>
-              {group.items.map((item, j) => {
-                const isActive = item.url === url;
-                return (
-                  <Collapsible.Content key={j} asChild>
-                    <Line href={item.url}>
-                      {!!group.timeline && <Bullet isActive={isActive} />}
-                      <ContentItem isActive={isActive}>
-                        {item.title}
-                      </ContentItem>
-                    </Line>
-                  </Collapsible.Content>
-                );
-              })}
-            </ContentWrapper>
-          </Collapsible.Root>
-        );
-      })}
+          return (
+            <Collapsible.Root
+              defaultOpen={group.defaultOpen || isSomeActive}
+              key={i}
+            >
+              <Trigger>
+                <IconWrapper className="icon-wrapper">
+                  <Icon name="arrowright" />
+                </IconWrapper>
+                {group.title}
+              </Trigger>
+              <ContentWrapper isTimeline={!!group.timeline}>
+                {group.items.map((item, j) => {
+                  const isActive = item.slug === url;
+                  return (
+                    <Collapsible.Content key={j} asChild>
+                      <Line href={item.slug}>
+                        {!!group.timeline && <Bullet isActive={isActive} />}
+                        <ContentItem isActive={isActive}>
+                          {item.data.title}
+                        </ContentItem>
+                      </Line>
+                    </Collapsible.Content>
+                  );
+                })}
+              </ContentWrapper>
+            </Collapsible.Root>
+          );
+        })}
     </Container>
   );
 };
