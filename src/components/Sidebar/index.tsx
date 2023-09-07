@@ -129,6 +129,7 @@ export const Sidebar: FC<SidebarProps> = ({ url, sidebar }) => {
               },
             },
           }))
+          .filter((item) => !item.data.sidebar.hide)
           .sort((p1, p2) =>
             p1.data.sidebar.order > p2.data.sidebar.order
               ? 1
