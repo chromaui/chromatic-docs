@@ -1,11 +1,17 @@
 ---
-layout: "../../layouts/Layout.astro"
-title: Viewports
-description: Configure Chromatic to test responsive components at various viewports
-sidebar: { order: 2 }
+layout: default
+title: Viewports (legacy)
+description: chromatic.viewports feature is now being replaced by the new Modes API
 ---
 
-# Viewports for responsive UIs
+# Viewports (legacy) for responsive UIs
+
+<div class="aside" style="margin-bottom: 2rem;">
+
+<p>🚨&nbsp;&nbsp;The <code>chromatic.viewports</code> feature is now replaced by the new <a href="/docs/modes">Modes API</a>. With Modes, you can test your stories in various viewports and customize global settings. Additionally, you have the flexibility to define specific viewport heights for testing purposes.</p>
+
+<p style="margin-bottom: 0;">To transition to the new API, please consult the <a href="/docs/viewports#migration-from-viewports-legacy-to-modes">migration guide</a>.</p>
+</div>
 
 UI components can respond to device width. Chromatic makes it easy to visual test these cases with the `viewports` parameter. This helps you define one or more viewport sizes to capture. Using viewports requires Storybook 4.0 or later.
 
@@ -16,16 +22,16 @@ To set a viewport, specify one or more screen _widths_ to the `chromatic.viewpor
 ```js
 // MyComponent.stories.js|jsx
 
-import { MyComponent } from "./MyComponent";
+import { MyComponent } from './MyComponent';
 
 export default {
   component: MyComponent,
-  title: "MyComponent",
+  title: 'MyComponent',
 };
 
 export const StoryName = {
   args: {
-    with: "props",
+    with: 'props',
   },
   parameters: {
     //👇 Defines a list of viewport widths for a single story to be captured in Chromatic.
@@ -43,26 +49,28 @@ Thanks to Storybook's built in [parameter](https://storybook.js.org/docs/react/w
 ```js
 // MyComponent.stories.js|jsx
 
-import { MyComponent } from "./MyComponent";
+import { MyComponent } from './MyComponent';
 
 export default {
   component: MyComponent,
-  title: "MyComponent",
+  title: 'MyComponent',
   parameters: {
     //👇 Defines a list of viewport widths applied to all stories of a component to be captured in Chromatic.
+    // Note only widths are supported, to control width and height, use the modes api
+    // https://www.chromatic.com/docs/viewports
     chromatic: { viewports: [320, 1200] },
   },
 };
 
 export const StoryName = {
   args: {
-    with: "props",
+    with: 'props',
   },
 };
 
 export const SecondStoryName = {
   args: {
-    with: "other-props",
+    with: 'other-props',
   },
 };
 ```
@@ -79,14 +87,17 @@ A viewport can be any whole number between 200 and 2560 pixels. The maximum numb
 
 <details><summary>Can I control the height of the viewport?</summary>
 
-We take a full screenshot of the component even if it flows off the screen. It typically doesn't make a difference what height the browser is when taking screenshots. If this isn't the case for your application, please contact us via in-app chat
+It is not possible to control height with this legacy API. However, you can achieve it using the <a href="/docs/viewports">Modes API</a>.
 
 </details>
 
 <details>
+
 <summary>How do I assign viewports globally to all components in my Storybook?</summary>
 
-We don't recommend this in most cases because each viewport is treated independently and snapshots must be approved as such. But if you really want to assign viewports for an entire Storybook use [`parameters`](https://storybook.js.org/docs/react/writing-stories/parameters#global-parameters) in your [`.storybook/preview.js`](https://storybook.js.org/docs/react/configure/overview#configure-story-rendering):
+Use modes and set a [project level mode](/docs/modes#stacking-modes).
+
+If you’re still using the legacy API, then assign viewports for the entire Storybook using [`parameters`](https://storybook.js.org/docs/react/writing-stories/parameters#global-parameters) in your [`.storybook/preview.js`](https://storybook.js.org/docs/react/configure/overview#configure-story-rendering):
 
 ```js
 // .storybook/preview.js
@@ -94,6 +105,8 @@ We don't recommend this in most cases because each viewport is treated independe
 const preview = {
   parameters: {
     //👇 Defines a list of viewport widths applied globally to all stories.
+    // Note only widths are supported, to control width and height, use the modes api
+    // https://www.chromatic.com/docs/viewports
     chromatic: { viewports: [320, 1200] },
   },
 };
