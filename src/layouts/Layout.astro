@@ -1,12 +1,15 @@
 ---
 import type { MarkdownLayoutProps } from "astro";
 import { Container } from "@chromaui/tetra";
+import "@docsearch/css";
 import { MarketingFooter } from "../components/Footer/MarketingFooter";
 import { MarketingHeader } from "../components/Header/MarketingHeader";
 import { Wrapper } from "../components/Wrapper";
 import "@fontsource-variable/nunito-sans";
 import { Sidebar } from "../components/Sidebar";
 import { getCollection } from "astro:content";
+import SEO from "../components/SEO.astro";
+import Scripts from "../components/Scripts.astro";
 
 type Props = MarkdownLayoutProps<{
   title: string;
@@ -66,28 +69,13 @@ const twitterUsername = "chromaui";
 <!doctype html>
 <html lang="en">
   <head>
-    <meta charset="UTF-8" />
-    <meta name="description" content="Astro description" />
-    <meta name="viewport" content="width=device-width" />
-    <meta name="generator" content={Astro.generator} />
-    <title>{title} • Chromatic docs</title>
-    <meta name="description" content={description} />
-
-    <meta property="og:type" content="article" />
-    <meta property="og:url" content={`${siteUrl}${baseUrl}/`} />
-    <meta property="og:title" content={`${title} • ${siteTitle}`} />
-    <meta property="og:description" content={description} />
-    <meta
-      property="og:image"
-      content={`${siteUrl}${baseUrl}/assets/og-docs.png`}
-    />
-    <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:site" content={`@${twitterUsername}`} />
-    <meta name="twitter:title" content={`${title} • ${siteTitle}`} />
-    <meta name="twitter:description" content={description} />
-    <meta
-      name="twitter:image"
-      content={`${siteUrl}${baseUrl}/assets/og-docs.png`}
+    <SEO
+      title={title}
+      siteUrl={siteUrl}
+      siteTitle={siteTitle}
+      description={description}
+      baseUrl={baseUrl}
+      twitterUsername={twitterUsername}
     />
 
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
@@ -140,6 +128,7 @@ const twitterUsername = "chromaui";
         margin: 64px 0;
       }
     </style>
+    <Scripts />
   </head>
   <body>
     <MarketingHeader client:load />
@@ -156,5 +145,7 @@ const twitterUsername = "chromaui";
       </div>
     </Container>
     <MarketingFooter client:load />
+
+     ../components/Sidebar/Sidebar
   </body>
 </html>

@@ -3,6 +3,8 @@ import * as Collapsible from "@radix-ui/react-collapsible";
 import { styled } from "@storybook/theming";
 import { typography, Icon, color, fontWeight } from "@chromaui/tetra";
 import type { CollectionEntry } from "astro:content";
+import { Search } from "./Search";
+import { Support } from "./Support";
 
 interface SidebarProps {
   url?: string;
@@ -135,13 +137,14 @@ export const Sidebar: FC<SidebarProps> = ({ url, sidebar }) => {
               ? 1
               : p1.data.sidebar.order < p2.data.sidebar.order
               ? -1
-              : 0
+              : 0,
           ),
       }))
     : [];
 
   return (
     <Container>
+      <Search />
       {sidebarItems &&
         sidebarItems.map((group, i) => {
           const isSomeActive = group.items.some((item) => item.slug === url);
@@ -179,6 +182,7 @@ export const Sidebar: FC<SidebarProps> = ({ url, sidebar }) => {
             </Collapsible.Root>
           );
         })}
+      <Support />
     </Container>
   );
 };

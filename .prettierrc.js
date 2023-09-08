@@ -1,4 +1,7 @@
 /** @type {import("prettier").Config} */
-export default {
-  plugins: ['prettier-plugin-astro'],
+
+const config = {
+  plugins: ["prettier-plugin-astro"],
 };
+
+module.exports = config;
