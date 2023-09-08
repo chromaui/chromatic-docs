@@ -2,6 +2,7 @@
 layout: "../../layouts/Layout.astro"
 title: Billing
 description: Chromatic billing information
+sidebar: { order: 2, label: Billing & invoices }
 ---
 
 # Billing and invoices

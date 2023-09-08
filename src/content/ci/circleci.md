@@ -2,6 +2,7 @@
 layout: "../../layouts/Layout.astro"
 title: Automate Chromatic with CircleCI
 description: Learn how to configure Chromatic with CircleCI
+sidebar: { order: 4, label: Circle CI }
 ---
 
 # Automate Chromatic with CircleCI

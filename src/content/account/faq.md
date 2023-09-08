@@ -2,6 +2,7 @@
 layout: "../../layouts/Layout.astro"
 title: FAQ
 description: Frequently asked questions about Chromatic
+sidebar: { order: 10 }
 ---
 
 # Frequently asked questions

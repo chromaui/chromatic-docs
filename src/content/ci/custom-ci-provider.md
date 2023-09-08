@@ -2,6 +2,7 @@
 layout: "../../layouts/Layout.astro"
 title: Automate Chromatic with your custom CI provider
 description: Learn how to configure Chromatic with a custom provider
+sidebar: { order: 8, label: Other CI providers }
 ---
 
 # Automate Chromatic with a custom provider

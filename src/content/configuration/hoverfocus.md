@@ -2,6 +2,7 @@
 layout: "../../layouts/Layout.astro"
 title: Hover and focus states
 description: Learn how to capture hover and focus states
+sidebar: { order: 8, label: Hover and focus }
 ---
 
 # Hover and focus states

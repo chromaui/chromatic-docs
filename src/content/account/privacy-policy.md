@@ -2,6 +2,7 @@
 layout: "../../layouts/Layout.astro"
 title: Privacy Policy
 description: Chromatic Privacy Policy
+sidebar: { order: 7 }
 ---
 
 # Privacy and Cookies Notice
@@ -17,21 +18,23 @@ Please read this Privacy Notice carefully so you can make an informed decision a
 
 ## Contents
 
-1. [Scope of This Privacy Notice](#scope-of-this-privacy-notice)
-2. [How We Collect Personal Information](#how-we-collect-personal-information)
-3. [Categories of Personal Information We Collect](#categories-of-personal-information-we-collect)
-4. [How We Use Personal Information](#how-we-use-personal-information)
-5. [Legal Basis for Collecting and Using Your Personal Information](#legal-basis-for-collecting-and-using-your-personal-information)
-6. [Links to Third-party Websites](#links-to-third-party-websites)
-7. [Collection of Personal Information From Minors](#collection-of-personal-information-from-minors)
-8. [Sharing and Sale of Your Personal Information](#sharing-and-sale-of-your-personal-information)
-9. [Protection of Personal Information](#protection-of-personal-information)
-10. [How Long We keep Your Personal Information](#how-long-we-keep-your-personal-information)
-11. [Where We Transfer Your Personal Information](#where-we-transfer-your-personal-information)
-12. [Cookies Notice](#cookies-notice)
-13. [Your Privacy Rights](#your-privacy-rights)
-14. [Questions and Contacts](#questions-and-contacts)
-15. [Changes to Our Privacy Notice](#changes-to-our-privacy-notice)
+- [Privacy and Cookies Notice](#privacy-and-cookies-notice)
+  - [Contents](#contents)
+  - [1. Scope of This Privacy Notice](#1-scope-of-this-privacy-notice)
+  - [2. How We Collect Personal Information](#2-how-we-collect-personal-information)
+  - [3. Categories of Personal Information We Collect](#3-categories-of-personal-information-we-collect)
+  - [4. How We Use Personal Information](#4-how-we-use-personal-information)
+  - [5. Legal Basis for Collecting and Using Your Personal Information](#5-legal-basis-for-collecting-and-using-your-personal-information)
+  - [6. Links to Third-party Websites](#6-links-to-third-party-websites)
+  - [7. Collection of Personal Information From Minors](#7-collection-of-personal-information-from-minors)
+  - [8. Sharing and Sale of Your Personal Information](#8-sharing-and-sale-of-your-personal-information)
+  - [9. Protection of Personal Information](#9-protection-of-personal-information)
+  - [10. How Long We Keep Your Personal Information](#10-how-long-we-keep-your-personal-information)
+  - [11. Where We Transfer Your Personal Information](#11-where-we-transfer-your-personal-information)
+  - [12. Cookies Notice](#12-cookies-notice)
+  - [13. Your Privacy Rights](#13-your-privacy-rights)
+  - [14. Questions and Contacts](#14-questions-and-contacts)
+  - [15. Changes to Our Privacy Notice](#15-changes-to-our-privacy-notice)
 
 ## 1. Scope of This Privacy Notice
 

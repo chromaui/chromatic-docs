@@ -2,6 +2,7 @@
 layout: "../../layouts/Layout.astro"
 title: Collaborators
 description: Learn how to add and manage collaborators
+sidebar: { order: 2 }
 ---
 
 # Collaborators

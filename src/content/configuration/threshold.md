@@ -2,6 +2,7 @@
 layout: "../../layouts/Layout.astro"
 title: Threshold
 description: Learn how to fine-tune the amount of visual change between snapshots before they get marked as changes
+sidebar: { order: 6, label: Threshold for changes }
 ---
 
 # Threshold for changes

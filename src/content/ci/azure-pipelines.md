@@ -2,6 +2,7 @@
 layout: "../../layouts/Layout.astro"
 title: Automate Chromatic with Azure
 description: Learn how to configure Chromatic with Azure
+sidebar: { order: 7, label: Azure Pipelines }
 ---
 
 # Automate Chromatic with Azure Pipelines

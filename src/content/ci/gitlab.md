@@ -2,6 +2,7 @@
 layout: "../../layouts/Layout.astro"
 title: Automate Chromatic with GitLab
 description: Learn how to configure Chromatic with GitLab
+sidebar: { order: 2, label: Gitlab Pipelines }
 ---
 
 # Automate Chromatic with GitLab Pipelines

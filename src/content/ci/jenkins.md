@@ -2,6 +2,7 @@
 layout: "../../layouts/Layout.astro"
 title: Automate Chromatic with Jenkins
 description: Learn how to configure Chromatic with Jenkins
+sidebar: { order: 6, label: Jenkins }
 ---
 
 # Automate Chromatic with Jenkins

@@ -2,6 +2,7 @@
 layout: "../../layouts/Layout.astro"
 title: Animations
 description: Learn how Chromatic pauses animations and how to control the behavior
+sidebar: { order: 4 }
 ---
 
 # Animations

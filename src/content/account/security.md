@@ -2,6 +2,7 @@
 layout: "../../layouts/Layout.astro"
 title: Security
 description: Security overview and responsible disclosure
+sidebar: { order: 5 }
 ---
 
 # Security policy

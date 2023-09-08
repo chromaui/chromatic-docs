@@ -2,6 +2,7 @@
 layout: "../../layouts/Layout.astro"
 title: Automate Chromatic with Travis CI
 description: Learn how to configure Chromatic with Travis CI
+sidebar: { order: 5, label: Travis CI }
 ---
 
 # Automate Chromatic with Travis CI

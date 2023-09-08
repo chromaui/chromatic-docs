@@ -2,6 +2,7 @@
 layout: "../../layouts/Layout.astro"
 title: TurboSnap
 description: Speed up tests by detecting file changes with Git
+sidebar: { order: 4 }
 ---
 
 # TurboSnap

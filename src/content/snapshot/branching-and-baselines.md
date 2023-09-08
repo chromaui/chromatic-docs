@@ -2,6 +2,7 @@
 layout: "../../layouts/Layout.astro"
 title: Branches and baselines
 description: Learn how Chromatic uses git information to tie your builds together
+sidebar: { order: 3 }
 ---
 
 # Branches and baselines

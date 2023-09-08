@@ -2,6 +2,7 @@
 layout: "../../layouts/Layout.astro"
 title: Open source sponsorships
 description: Chromatic sponsors open source component libraries
+sidebar: { order: 9, label: Open source plan }
 ---
 
 # Open source sponsorships

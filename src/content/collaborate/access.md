@@ -2,6 +2,7 @@
 layout: "../../layouts/Layout.astro"
 title: Access control
 description: Learn how to control who has access to your Chromatic project
+sidebar: { order: 1 }
 ---
 
 # Access control

@@ -2,6 +2,7 @@
 layout: "../../layouts/Layout.astro"
 title: Automate Chromatic with BitBucket
 description: Learn how to configure Chromatic with BitBucket Pipelines
+sidebar: { order: 3, label: Bitbucket Pipelines }
 ---
 
 # Automate Chromatic with BitBucket Pipelines

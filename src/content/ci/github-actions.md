@@ -2,6 +2,7 @@
 layout: "../../layouts/Layout.astro"
 title: Automate Chromatic with GitHub Actions
 description: Learn how to configure Chromatic with GitHub Actions
+sidebar: { order: 1, label: Github Actions }
 ---
 
 # Automate Chromatic with GitHub Actions

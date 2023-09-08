@@ -2,6 +2,7 @@
 layout: "../../layouts/Layout.astro"
 title: Snapshots
 description: What is a Snapshot in Chromatic
+sidebar: { order: 1 }
 ---
 
 # Snapshots
@@ -10,12 +11,14 @@ A snapshot is an image of a story plus some metadata captured by a standardized 
 
 ## Table of contents:
 
-- [View snapshots for a story](#view-snapshots-for-a-story)
-- [How are snapshots captured?](#how-are-snapshots-captured)
-- [Improve snapshot consistency](#improve-snapshot-consistency)
-- [Debug snapshot rendering](#debug-snapshot-rendering)
-- [Retake snapshots & rerun builds](#rerun-builds-to-retake-snapshots)
-- [Browser differences between snapshots](#browser-differences-between-snapshots)
+- [Snapshots](#snapshots)
+  - [Table of contents:](#table-of-contents)
+  - [View snapshots for a story](#view-snapshots-for-a-story)
+  - [How are snapshots captured?](#how-are-snapshots-captured)
+  - [Improve snapshot consistency](#improve-snapshot-consistency)
+  - [Debug snapshot rendering](#debug-snapshot-rendering)
+  - [Rerun builds to retake snapshots](#rerun-builds-to-retake-snapshots)
+  - [Browser differences between snapshots](#browser-differences-between-snapshots)
 
 <div class="aside">
 

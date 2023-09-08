@@ -2,6 +2,7 @@
 layout: "../../layouts/Layout.astro"
 title: Figma Plugin
 description: Connect stories to variants
+sidebar: { order: 4 }
 ---
 
 # Figma plugin

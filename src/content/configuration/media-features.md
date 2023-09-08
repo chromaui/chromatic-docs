@@ -2,6 +2,7 @@
 layout: "../../layouts/Layout.astro"
 title: Media Features
 description: Learn how to use media features in Chromatic Capture
+sidebar: { order: 7 }
 ---
 
 # Media Features

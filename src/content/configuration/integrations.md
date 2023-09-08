@@ -2,6 +2,7 @@
 layout: "../../layouts/Layout.astro"
 title: Integrations
 description: Connect Chromatic to other services with webhooks
+sidebar: { order: 10 }
 ---
 
 # Integrate with Chromatic

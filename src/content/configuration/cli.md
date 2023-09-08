@@ -2,6 +2,7 @@
 layout: "../../layouts/Layout.astro"
 title: CLI
 description: Learn about the Chromatic CLI options
+sidebar: { order: 1 }
 ---
 
 # Chromatic CLI
