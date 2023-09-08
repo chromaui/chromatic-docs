@@ -6,10 +6,11 @@ import { MarketingFooter } from "../components/Footer/MarketingFooter";
 import { MarketingHeader } from "../components/Header/MarketingHeader";
 import { Wrapper } from "../components/Wrapper";
 import "@fontsource-variable/nunito-sans";
-import { Sidebar } from "../components/Sidebar";
+import { Navigation } from "../components/Navigation";
 import { getCollection } from "astro:content";
 import SEO from "../components/SEO.astro";
 import Scripts from "../components/Scripts.astro";
+import { MainWrapper } from "../components/MainWrapper";
 
 type Props = MarkdownLayoutProps<{
   title: string;
@@ -27,7 +28,7 @@ const snapshot = await getCollection("snapshot");
 const collaborate = await getCollection("collaborate");
 const ci = await getCollection("ci");
 const account = await getCollection("account");
-const sidebar = [
+const navItems = [
   {
     title: "Get Started",
     items: getStarted,
@@ -121,31 +122,23 @@ const twitterUsername = "chromaui";
         -webkit-font-smoothing: antialiased;
         -moz-osx-font-smoothing: grayscale;
       }
-
-      .content-wrapper {
-        display: flex;
-        gap: 2.5rem;
-        margin: 64px 0;
-      }
     </style>
     <Scripts />
   </head>
   <body>
     <MarketingHeader client:load />
     <Container client:load>
-      <div class="content-wrapper">
-        <Sidebar
+      <MainWrapper>
+        <Navigation
           client:load
           url={pathname.replace(/^\/|\/$/g, "")}
-          sidebar={sidebar}
+          navItems={navItems}
         />
         <Wrapper client:load>
           <slot />
         </Wrapper>
-      </div>
+      </MainWrapper>
     </Container>
     <MarketingFooter client:load />
-
-     ../components/Sidebar/Sidebar
   </body>
 </html>

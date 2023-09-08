@@ -1,40 +1,15 @@
 import type { FC } from "react";
 import * as Collapsible from "@radix-ui/react-collapsible";
 import { styled } from "@storybook/theming";
-import { typography, Icon, color, fontWeight } from "@chromaui/tetra";
+import {
+  typography,
+  Icon,
+  color,
+  fontWeight,
+  spacing,
+  minMd,
+} from "@chromaui/tetra";
 import type { CollectionEntry } from "astro:content";
-import { Search } from "./Search";
-import { Support } from "./Support";
-
-interface SidebarProps {
-  url?: string;
-  sidebar?: {
-    title: string;
-    items: (
-      | CollectionEntry<"getStarted">
-      | CollectionEntry<"configuration">
-      | CollectionEntry<"modes">
-      | CollectionEntry<"snapshot">
-      | CollectionEntry<"collaborate">
-      | CollectionEntry<"ci">
-      | CollectionEntry<"account">
-    )[];
-    defaultOpen?: boolean;
-    timeline?: boolean;
-  }[];
-}
-
-const Container = styled.div`
-  display: none;
-
-  @media (min-width: 800px) {
-    display: flex;
-    flex-direction: column;
-    width: 240px;
-    flex-shrink: 0;
-    gap: 24px;
-  }
-`;
 
 const Trigger = styled(Collapsible.Trigger)`
   all: unset;
@@ -115,36 +90,50 @@ const Bullet = styled.div<{ isActive: boolean }>`
   box-shadow: white 0px 0px 0px 4px;
 `;
 
-export const Sidebar: FC<SidebarProps> = ({ url, sidebar }) => {
-  const sidebarItems = sidebar
-    ? sidebar.map((group) => ({
-        ...group,
-        items: group.items
-          .map((item) => ({
-            ...item,
-            data: {
-              ...item.data,
-              sidebar: {
-                label: item.data?.sidebar?.label || item.data.title,
-                order: item.data?.sidebar?.order || 999,
-                hide: item.data?.sidebar?.hide || false,
-              },
-            },
-          }))
-          .filter((item) => !item.data.sidebar.hide)
-          .sort((p1, p2) =>
-            p1.data.sidebar.order > p2.data.sidebar.order
-              ? 1
-              : p1.data.sidebar.order < p2.data.sidebar.order
-              ? -1
-              : 0,
-          ),
-      }))
-    : [];
+const SidebarContainer = styled.div`
+  display: none;
 
+  ${minMd} {
+    display: flex;
+    flex-direction: column;
+    flex-shrink: 0;
+    gap: ${spacing[6]};
+  }
+`;
+
+type Item = (
+  | CollectionEntry<"getStarted">
+  | CollectionEntry<"configuration">
+  | CollectionEntry<"modes">
+  | CollectionEntry<"snapshot">
+  | CollectionEntry<"collaborate">
+  | CollectionEntry<"ci">
+  | CollectionEntry<"account">
+) & {
+  data: {
+    sidebar: {
+      label: string;
+      order: number;
+      hide: boolean;
+    };
+  };
+};
+
+interface SidebarItem {
+  title: string;
+  items: Item[];
+  defaultOpen?: boolean;
+  timeline?: boolean;
+}
+
+interface SidebarProps {
+  url?: string;
+  sidebarItems?: SidebarItem[];
+}
+
+export const Sidebar: FC<SidebarProps> = ({ url, sidebarItems }) => {
   return (
-    <Container>
-      <Search />
+    <SidebarContainer>
       {sidebarItems &&
         sidebarItems.map((group, i) => {
           const isSomeActive = group.items.some((item) => item.slug === url);
@@ -182,7 +171,6 @@ export const Sidebar: FC<SidebarProps> = ({ url, sidebar }) => {
             </Collapsible.Root>
           );
         })}
-      <Support />
-    </Container>
+    </SidebarContainer>
   );
 };

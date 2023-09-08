@@ -12,7 +12,6 @@ export function Support() {
   const openIntercom = () => {
     // @ts-ignore
     const { Intercom } = window;
-    console.log(Intercom);
     if (Intercom) {
       Intercom("showNewMessage");
     }
