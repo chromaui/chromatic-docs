@@ -63,6 +63,49 @@ export const formatting = css`
     margin: 2rem 0 0.25rem;
   }
 
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+
+    a.autolink-header {
+      width: 14px;
+      height: 14px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: opacity 0.2s ease-in-out;
+      opacity: 0;
+    }
+
+    .visually-hidden {
+      border: 0;
+      clip: rect(0 0 0 0);
+      height: auto;
+      margin: 0;
+      overflow: hidden;
+      padding: 0;
+      position: absolute;
+      width: 1px;
+      white-space: nowrap;
+    }
+
+    &:hover {
+      a.autolink-header {
+        opacity: 1;
+      }
+    }
+  }
+
+  h1 a.autolink-header {
+    display: none;
+  }
+
   p {
     margin: 1.5em 0;
     position: relative;
