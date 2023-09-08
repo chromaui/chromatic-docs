@@ -81,7 +81,7 @@ export const base = css`
 
     font-size: 85%; // Relative font size based on size of surrounding text
     line-height: 1;
-    white-space: nowrap;
+    white-space: normal;
 
     padding: 3px 5px;
     color: inherit;
@@ -96,7 +96,6 @@ export const base = css`
 
     code {
       display: block;
-      white-space: pre;
       line-height: 1.6;
       background-color: inherit;
       border: none;
