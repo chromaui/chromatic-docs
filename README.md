@@ -4,6 +4,8 @@ The main branch is automatically deployed to https://www.chromatic.com/docs/
 
 ### Deployment
 
+[![Netlify Status](https://api.netlify.com/api/v1/badges/3e1d4d54-1349-4c8a-b214-788ae7aac3a4/deploy-status)](https://app.netlify.com/sites/chromatic2-docs/deploys)
+
 Available at docs.chromatic.com and via Netlify's build previews on branches/PRs. The 'website' proxies this to https://www.chromatic.com/docs/
 
 To configure, access the Netlify [dashboard](https://app.netlify.com/sites/chromatic2-docs/overview).
@@ -30,8 +32,6 @@ This project uses Astro. Inside, you'll see the following folders and files:
 │       └── index.astro
 └── package.json
 ```
-
-Astro looks for `.astro` or `.md` files in the `src/pages/` directory. Each page is exposed as a route based on its file name.
 
 ### 🧞 Commands
 

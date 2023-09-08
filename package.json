@@ -1,7 +1,14 @@
 {
   "name": "chromatic-docs",
-  "type": "module",
-  "version": "0.0.1",
+  "version": "0.0.0",
+  "description": "The Chromatic documentation site.",
+  "license": "ISC",
+  "private": true,
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/chromaui/chromatic.git",
+    "directory": "docs"
+  },
   "scripts": {
     "dev": "astro dev",
     "start": "astro dev",
