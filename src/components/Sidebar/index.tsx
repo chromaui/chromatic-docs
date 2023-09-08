@@ -159,7 +159,11 @@ export const Sidebar: FC<SidebarProps> = ({ url, sidebar }) => {
               </Trigger>
               <ContentWrapper isTimeline={!!group.timeline}>
                 {group.items.map((item, j) => {
-                  const isActive = item.slug === url;
+                  const isHome = url?.length === 0;
+                  const isActive =
+                    isHome && item.slug === "introduction"
+                      ? true
+                      : item.slug === url;
                   return (
                     <Collapsible.Content key={j} asChild>
                       <Line href={item.slug}>
