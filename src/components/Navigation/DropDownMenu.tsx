@@ -88,9 +88,7 @@ export const NavDropdownMenu: FC<NavDropdownMenuProps> = ({
 
   return (
     <Popover.Root open={mobileMenuOpen} onOpenChange={setMobileMenuOpen}>
-      <DropdownTrigger variant={variant} {...props}>
-        {label}
-      </DropdownTrigger>
+      <DropdownTrigger {...props}>{label}</DropdownTrigger>
       <AnimatePresence>
         {mobileMenuOpen && (
           <Popover.Portal forceMount>

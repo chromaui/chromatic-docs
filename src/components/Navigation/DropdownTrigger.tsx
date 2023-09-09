@@ -37,19 +37,16 @@ export const buttonStyles = css`
   }
 `;
 
-const TriggerButton = styled(Popover.Trigger, {
-  shouldForwardProp: (propName) =>
-    propName !== "variant" && propName !== "isActive",
+export const DropdownTrigger = styled(Popover.Trigger, {
+  shouldForwardProp: (propName) => propName !== "isActive",
 })<{
-  variant?: "light" | "dark";
   isActive?: boolean;
 }>`
   ${buttonStyles}
   background-color: ${({ isActive }) => isActive && "rgba(30, 167, 253, 0.07)"};
-  color: ${({ isActive, variant }) => {
+  color: ${({ isActive }) => {
     if (isActive) return color.blue500;
-    if (variant === "light") return color.slate500;
-    return color.white;
+    return color.slate500;
   }};
 
   &[data-state="open"] {
@@ -61,19 +58,3 @@ const TriggerButton = styled(Popover.Trigger, {
     transform: rotate(-180deg) translateY(0px);
   }
 `;
-
-interface DropdownTriggerProps {
-  variant?: "light" | "dark";
-  children?: React.ReactNode;
-}
-
-export const DropdownTrigger: FC<DropdownTriggerProps> = ({
-  children,
-  variant = "light",
-}) => {
-  return (
-    <>
-      <TriggerButton variant={variant}>{children}</TriggerButton>
-    </>
-  );
-};

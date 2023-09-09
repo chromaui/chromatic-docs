@@ -1,6 +1,6 @@
 import { DocSearch } from "@docsearch/react";
 import { css, Global } from "@storybook/theming";
-import { color, spacing } from "@chromaui/tetra";
+import { color, minMd, spacing } from "@chromaui/tetra";
 
 const ALGOLIA_API_KEY = import.meta.env.PUBLIC_ALGOLIA_API_KEY;
 
@@ -21,6 +21,7 @@ const styles = css`
   padding: 10px 14px;
   min-width: ${spacing[36]};
   max-width: ${spacing[48]};
+  width: 100%;
 
   &:focus,
   &:focus:hover {
