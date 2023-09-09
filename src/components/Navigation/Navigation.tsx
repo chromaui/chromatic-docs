@@ -5,6 +5,7 @@ import { Search } from "../Search";
 import { Support } from "../Support";
 import { Sidebar } from "./Sidebar";
 import { minMd, spacing } from "@chromaui/tetra";
+import { DropdownNav } from "./DropdownNav";
 
 interface NavigationProps {
   url?: string;
@@ -26,22 +27,34 @@ interface NavigationProps {
 
 const Container = styled.div`
   display: flex;
+  gap: ${spacing[4]};
+  align-items: center;
 
   ${minMd} {
+    gap: ${spacing[6]};
+    align-items: flex-start;
     flex-direction: column;
     width: 240px;
     flex-shrink: 0;
-    gap: ${spacing[6]};
+  }
+`;
+
+const SupportButton = styled(Support)`
+  display: none;
+
+  ${minMd} {
+    display: block;
   }
 `;
 
 export const Navigation: FC<NavigationProps> = ({ url, navItems }) => {
-  const sidebarItems = navItems
+  const navGroups = navItems
     ? navItems.map((group) => ({
         ...group,
         items: group.items
           .map((item) => ({
             ...item,
+            label: item.data?.sidebar?.label || item.data.title,
             data: {
               ...item.data,
               sidebar: {
@@ -65,8 +78,9 @@ export const Navigation: FC<NavigationProps> = ({ url, navItems }) => {
   return (
     <Container>
       <Search />
-      <Sidebar sidebarItems={sidebarItems} url={url} />
-      <Support />
+      <DropdownNav groups={navGroups as any} url={url} />
+      <Sidebar sidebarItems={navGroups} url={url} />
+      <SupportButton />
     </Container>
   );
 };

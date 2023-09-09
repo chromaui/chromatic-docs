@@ -19,7 +19,8 @@ const styles = css`
   line-height: 16px;
   margin: 0;
   padding: 10px 14px;
-  width: ${spacing[48]};
+  min-width: ${spacing[36]};
+  max-width: ${spacing[48]};
 
   &:focus,
   &:focus:hover {
@@ -51,12 +52,12 @@ const styles = css`
   min-width: 0;
 }
 
-@media (max-width: 750px) {
-  .DocSearch-Button-Keys,
-  .DocSearch-Button-Placeholder {
-    display: initial;
-  }
+
+.DocSearch-Button-Keys,
+.DocSearch-Button-Placeholder {
+  display: initial;
 }
+
 
 // Using an id here to overcome specificity of global input styles
 // These are the same styles as DocSearch defaults

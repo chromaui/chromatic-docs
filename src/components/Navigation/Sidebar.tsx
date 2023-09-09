@@ -137,7 +137,6 @@ export const Sidebar: FC<SidebarProps> = ({ url, sidebarItems }) => {
       {sidebarItems &&
         sidebarItems.map((group, i) => {
           const isSomeActive = group.items.some((item) => item.slug === url);
-
           return (
             <Collapsible.Root
               defaultOpen={group.defaultOpen || isSomeActive}

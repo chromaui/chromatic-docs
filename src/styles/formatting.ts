@@ -380,4 +380,9 @@ export const formatting = css`
     height: 10px;
     width: 10px;
   }
+
+  details > video,
+  details > img {
+    max-width: calc(100% - 30px);
+  }
 `;

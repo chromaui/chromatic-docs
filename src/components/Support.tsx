@@ -8,7 +8,7 @@ const Trigger = styled(Button)`
   font-weight: ${fontWeight.bold};
 `;
 
-export function Support() {
+export function Support({ ...props }) {
   const openIntercom = () => {
     // @ts-ignore
     const { Intercom } = window;
@@ -18,7 +18,13 @@ export function Support() {
   };
 
   return (
-    <Trigger variant="outline" color="slate" size="sm" onClick={openIntercom}>
+    <Trigger
+      variant="outline"
+      color="slate"
+      size="sm"
+      onClick={openIntercom}
+      {...props}
+    >
       Get support
     </Trigger>
   );
