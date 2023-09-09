@@ -8,12 +8,12 @@ sidebar: { order: 4, label: Custom decorators }
 # Custom decorator and globals in modes
 
 <div class="aside" style="margin-bottom: 2rem;">
-ℹ️&nbsp;&nbsp;This feature uses the modes API. Learn how to <a href="/docs/modes">get started</a>.
+ℹ️&nbsp;&nbsp;This feature uses the modes API. Learn how to <a href="modes">get started</a>.
 </div>
 
 [Decorators](https://storybook.js.org/docs/react/writing-stories/decorators#page-top) are a Storybook mechanism that allows you to augment stories with extra rendering functionality. They enable you to provide mock context, translations, or any other project-level settings that a component depends on.
 
-By combining decorators with [modes](/docs/modes), you can test a story with various project-level configurations.
+By combining decorators with [modes](modes), you can test a story with various project-level configurations.
 
 ## Configure your decorator
 

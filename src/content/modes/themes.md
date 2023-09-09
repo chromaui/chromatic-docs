@@ -8,7 +8,7 @@ sidebar: { order: 3 }
 # Themes in modes
 
 <div class="aside" style="margin-bottom: 2rem;">
-ℹ️&nbsp;&nbsp;This feature uses the modes API. Learn how to <a href="/docs/modes">get started</a>.
+ℹ️&nbsp;&nbsp;This feature uses the modes API. Learn how to <a href="modes">get started</a>.
 </div>
 
 Themes control the visual characteristics of UI—color palette, typography, white space, border styles, shadows, radii, etc. Using modes enables Chromatic to test the same story with multiple themes.
@@ -36,9 +36,9 @@ For this example, let's assume that the themes addon has been configured with a 
 ```jsx
 // .storybook/preview.js
 
-import { withThemeByClassName } from "@storybook/addon-themes";
+import { withThemeByClassName } from '@storybook/addon-themes';
 
-import "../src/index.css";
+import '../src/index.css';
 
 const preview: Preview = {
   parameters: {
@@ -47,10 +47,10 @@ const preview: Preview = {
   decorators: [
     withThemeByClassName({
       themes: {
-        light: "light",
-        dark: "dark",
+        light: 'light',
+        dark: 'dark',
       },
-      defaultTheme: "light",
+      defaultTheme: 'light',
     }),
   ],
 };

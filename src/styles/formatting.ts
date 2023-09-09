@@ -323,11 +323,11 @@ export const formatting = css`
     color: #444;
     border-radius: 4px;
     padding: 1em;
+  }
 
-    a {
-      color: #1ea7fd;
-      font-weight: 400;
-    }
+  .aside a {
+    color: #1ea7fd !important;
+    font-weight: 400;
   }
 
   video {

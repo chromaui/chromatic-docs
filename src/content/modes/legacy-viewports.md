@@ -9,9 +9,9 @@ sidebar: { order: 5 }
 
 <div class="aside" style="margin-bottom: 2rem;">
 
-<p>🚨&nbsp;&nbsp;The <code>chromatic.viewports</code> feature is now replaced by the new <a href="/docs/modes">Modes API</a>. With Modes, you can test your stories in various viewports and customize global settings. Additionally, you have the flexibility to define specific viewport heights for testing purposes.</p>
+<p>🚨&nbsp;&nbsp;The <code>chromatic.viewports</code> feature is now replaced by the new <a href="modes">Modes API</a>. With Modes, you can test your stories in various viewports and customize global settings. Additionally, you have the flexibility to define specific viewport heights for testing purposes.</p>
 
-<p style="margin-bottom: 0;">To transition to the new API, please consult the <a href="/docs/viewports#migration-from-viewports-legacy-to-modes">migration guide</a>.</p>
+<p style="margin-bottom: 0;">To transition to the new API, please consult the <a href="viewports#migration-from-viewports-legacy-to-modes">migration guide</a>.</p>
 </div>
 
 UI components can respond to device width. Chromatic makes it easy to visual test these cases with the `viewports` parameter. This helps you define one or more viewport sizes to capture. Using viewports requires Storybook 4.0 or later.
@@ -88,7 +88,7 @@ A viewport can be any whole number between 200 and 2560 pixels. The maximum numb
 
 <details><summary>Can I control the height of the viewport?</summary>
 
-It is not possible to control height with this legacy API. However, you can achieve it using the <a href="/docs/viewports">Modes API</a>.
+It is not possible to control height with this legacy API. However, you can achieve it using the <a href="viewports">Modes API</a>.
 
 </details>
 
@@ -96,7 +96,7 @@ It is not possible to control height with this legacy API. However, you can achi
 
 <summary>How do I assign viewports globally to all components in my Storybook?</summary>
 
-Use modes and set a [project level mode](/docs/modes#stacking-modes).
+Use modes and set a [project level mode](modes#stacking-modes).
 
 If you’re still using the legacy API, then assign viewports for the entire Storybook using [`parameters`](https://storybook.js.org/docs/react/writing-stories/parameters#global-parameters) in your [`.storybook/preview.js`](https://storybook.js.org/docs/react/configure/overview#configure-story-rendering):
 
