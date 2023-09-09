@@ -131,12 +131,16 @@ interface SidebarProps {
   sidebarItems?: SidebarItem[];
 }
 
+const withBase = (url: string) => `${import.meta.env.BASE_URL}/${url}`;
+
 export const Sidebar: FC<SidebarProps> = ({ url, sidebarItems }) => {
   return (
     <SidebarContainer>
       {sidebarItems &&
         sidebarItems.map((group, i) => {
-          const isSomeActive = group.items.some((item) => item.slug === url);
+          const isSomeActive = group.items.some(
+            (item) => withBase(item.slug) === url,
+          );
           return (
             <Collapsible.Root
               defaultOpen={group.defaultOpen || isSomeActive}
@@ -152,9 +156,10 @@ export const Sidebar: FC<SidebarProps> = ({ url, sidebarItems }) => {
                 {group.items.map((item, j) => {
                   const isHome = url?.length === 0;
                   const isActive =
-                    isHome && item.slug === "introduction"
+                    isHome && withBase(item.slug) === "introduction"
                       ? true
-                      : item.slug === url;
+                      : withBase(item.slug) === url;
+
                   return (
                     <Collapsible.Content key={j} asChild>
                       <Line href={item.slug}>
