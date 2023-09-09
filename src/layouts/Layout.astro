@@ -28,6 +28,7 @@ const snapshot = await getCollection("snapshot");
 const collaborate = await getCollection("collaborate");
 const ci = await getCollection("ci");
 const account = await getCollection("account");
+
 const navItems = [
   {
     title: "Get Started",
@@ -62,7 +63,7 @@ const navItems = [
 ];
 
 const siteUrl = "https://www.chromatic.com";
-const baseUrl = "/docs";
+const baseUrl = import.meta.env.BASE_URL;
 const siteTitle = "Chromatic docs";
 const twitterUsername = "chromaui";
 ---
@@ -78,16 +79,7 @@ const twitterUsername = "chromaui";
       baseUrl={baseUrl}
       twitterUsername={twitterUsername}
     />
-
-    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-    <link href="prism.css" rel="stylesheet" />
-    <link
-      rel="shortcut icon"
-      type="image/png"
-      href={`${siteUrl}${baseUrl}/assets/icon-chroma-64x64.png`}
-      sizes="16x16 32x32 64x64"
-    />
-
+    <link href={`${baseUrl}/prism.css`} rel="stylesheet" />
     <style is:global>
       :root {
         --accent: 136, 58, 234;

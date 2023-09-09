@@ -8,6 +8,7 @@ import { h, s } from "hastscript";
 
 // https://astro.build/config
 export default defineConfig({
+  base: "/docs",
   markdown: {
     shikiConfig: {
       // Choose from Shiki's built-in themes (or add your own)
@@ -49,7 +50,7 @@ export default defineConfig({
               }),
               s("path", {
                 d: "M3.61 7.21c-.1-.434-.132-.88-.095-1.321L1.452 7.952a3.25 3.25 0 1 0 4.596 4.596l2.5-2.5a3.25 3.25 0 0 0 0-4.596.5.5 0 0 0-.707.707 2.25 2.25 0 0 1 0 3.182l-2.5 2.5A2.25 2.25 0 1 1 2.159 8.66l1.45-1.45Z",
-              })
+              }),
             ),
           ],
         },

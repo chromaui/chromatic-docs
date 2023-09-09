@@ -18,7 +18,7 @@
   },
   "dependencies": {
     "@astrojs/mdx": "^1.0.0",
-    "@astrojs/react": "^3.0.0",
+    "@astrojs/react": "^3.0.2",
     "@chromaui/tetra": "^1.15.15",
     "@docsearch/css": "^3.5.2",
     "@docsearch/react": "^3.5.2",
