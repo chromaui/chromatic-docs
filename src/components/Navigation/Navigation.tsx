@@ -5,7 +5,7 @@ import { Search } from "../Search";
 import { Support } from "../Support";
 import { SideNav } from "./SideNav";
 import { minMd, spacing } from "@chromaui/tetra";
-import { DropdownNav } from "./DropdownNav";
+// import { DropdownNav } from "./DropdownNav";
 
 interface NavigationProps {
   url?: string;
@@ -78,7 +78,7 @@ export const Navigation: FC<NavigationProps> = ({ url, navItems }) => {
   return (
     <Container>
       <Search />
-      <DropdownNav groups={navGroups as any} url={url} />
+      {/* <DropdownNav groups={navGroups as any} url={url} /> */}
       <SideNav sidebarItems={navGroups} url={url} />
       <SupportButton />
     </Container>

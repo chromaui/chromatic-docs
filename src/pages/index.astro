@@ -1,9 +1,0 @@
----
-import { getEntry } from "astro:content";
-
-const introduction = await getEntry('getStarted', 'introduction');
-const { Content } = await introduction.render();
-
----
-
-<Content />

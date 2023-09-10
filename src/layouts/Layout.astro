@@ -1,16 +1,16 @@
 ---
 import type { MarkdownLayoutProps } from "astro";
 import { Container } from "@chromaui/tetra";
-import "@docsearch/css";
-import { MarketingFooter } from "../components/Footer/MarketingFooter";
-import { MarketingHeader } from "../components/Header/MarketingHeader";
-import { Wrapper } from "../components/Wrapper";
-import "@fontsource-variable/nunito-sans";
-import Navigation from "../components/Navigation.astro";
 import { getCollection } from "astro:content";
+import "@docsearch/css";
+import "@fontsource-variable/nunito-sans";
 import SEO from "../components/SEO.astro";
 import Scripts from "../components/Scripts.astro";
+import { Wrapper } from "../components/Wrapper";
+import { MarketingFooter } from "../components/Footer/MarketingFooter";
+import { MarketingHeader } from "../components/Header/MarketingHeader";
 import { MainWrapper } from "../components/MainWrapper";
+import Navigation from "../components/Navigation/Navigation.astro";
 
 type Props = MarkdownLayoutProps<{
   title: string;
@@ -29,10 +29,23 @@ const collaborate = await getCollection("collaborate");
 const ci = await getCollection("ci");
 const account = await getCollection("account");
 
+const introduction = {
+  id: "introduction.md",
+  slug: "",
+  collection: "getStarted",
+  data: {
+    title: "Introduction",
+    description:
+      "Chromatic is a cloud based toolchain built around Storybook to help teams develop robust UI components faster together",
+    sidebar: { order: 1 },
+  },
+} as any;
+
 const navItems = [
+  // Manually add the introduction page to the top of the list
   {
     title: "Get Started",
-    items: getStarted,
+    items: [introduction, ...getStarted],
     defaultOpen: true,
     timeline: true,
   },

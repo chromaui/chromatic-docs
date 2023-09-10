@@ -154,15 +154,16 @@ export const SideNav: FC<SideNavProps> = ({ url, sidebarItems }) => {
               </Trigger>
               <ContentWrapper isTimeline={!!group.timeline}>
                 {group.items.map((item, j) => {
-                  const isHome = url?.length === 0;
+                  const isHome = withBase("") === url;
+
                   const isActive =
-                    isHome && withBase(item.slug) === "introduction"
+                    isHome && (item.slug as any) == ""
                       ? true
                       : withBase(item.slug) === url;
 
                   return (
                     <Collapsible.Content key={j} asChild>
-                      <Line href={item.slug}>
+                      <Line href={withBase(item.slug)}>
                         {!!group.timeline && <Bullet isActive={isActive} />}
                         <ContentItem isActive={isActive}>
                           {item.data.sidebar.label}
