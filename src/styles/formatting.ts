@@ -277,6 +277,7 @@ export const formatting = css`
     width: 100%;
     margin: 2rem 0;
     table-layout: fixed;
+    overflow: hidden;
 
     a {
       color: #026fb3;

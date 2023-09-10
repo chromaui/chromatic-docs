@@ -78,9 +78,9 @@ Chromatic has <a href="figma-in-chromatic">another integration with Figma</a> th
 
 The plugin supports two url formats hosted on Chromatic:
 
-| URL Format                       | Example                                                                                                                                                    |
-| -------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| Story URL in published Storybook | https://master--5ccbc373887ca40020446347.chromatic.com/?path=/story/button--basic                                                                          |
-| Component URL in Chromatic       | https://www.chromatic.com/component?appId=5ccbc373887ca40020446347&csfId=button&buildNumber=1242&k=64821b99eedbc52679c33cd6-1200-interactive-true&h=7&b=-1 |
+| URL Format                       | Example                                                                                                                                                      |
+| -------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| Story URL in published Storybook | `https://master--5ccbc373887ca40020446347.chromatic.com/?path=/story/button--basic`                                                                          |
+| Component URL in Chromatic       | `https://www.chromatic.com/component?appId=5ccbc373887ca40020446347&csfId=button&buildNumber=1242&k=64821b99eedbc52679c33cd6-1200-interactive-true&h=7&b=-1` |
 
 </details>

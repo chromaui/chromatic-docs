@@ -86,6 +86,8 @@ Or you could disable Chromatic on pull requests from forked repositories.
 
 Chromatic's GitHub Action includes additional options to customize your workflow. The table below lists what's currently available:
 
+<div>
+
 | Option                      | Description                                                                                                          | Type                  | Example value            | Default value        |
 | --------------------------- | -------------------------------------------------------------------------------------------------------------------- | --------------------- | ------------------------ | -------------------- |
 | **autoAcceptChanges**       | Automatically accepts all changes in Chromatic.                                                                      | `string` or `boolean` | `"my-branch"` or `true`  | `false`              |
@@ -110,6 +112,8 @@ Chromatic's GitHub Action includes additional options to customize your workflow
 | **workingDir**              | Provide the location of Storybook's `package.json` if installed in a subdirectory (i.e., monorepos).                 | `string`              | `"my-folder"`            |                      |
 | **untraced**                | Disregard these files and their dependencies when tracing dependent stories for [TurboSnap](turbosnap).              | `string`              | `"my-folder/\*\*"`       |                      |
 | **zip**                     | Publish your Storybook to Chromatic as a single zip file instead of individual content files.                        | `boolean`             | `true`                   | `false`              |
+
+</div>
 
 ### Outputs
 
