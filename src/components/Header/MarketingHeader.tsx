@@ -42,6 +42,7 @@ export const MarketingHeader: FC<Props> = ({ theme = "light" }) => {
             size="md"
             weight="semibold"
             color={theme === "dark" ? "white" : "blue500"}
+            href="https://www.chromatic.com/start"
           >
             Sign in
           </Link>
@@ -49,6 +50,7 @@ export const MarketingHeader: FC<Props> = ({ theme = "light" }) => {
             size="sm"
             variant="outline"
             color={theme === "dark" ? "white" : "blue"}
+            href="https://www.chromatic.com/start?startWithSignup=true"
           >
             Sign up
           </HeaderCTAButton>
@@ -56,10 +58,20 @@ export const MarketingHeader: FC<Props> = ({ theme = "light" }) => {
       }
       mobileBottom={
         <MobileButtons>
-          <Button size="sm" variant="outline" color="blue">
+          <Button
+            size="sm"
+            variant="outline"
+            color="blue"
+            href="https://www.chromatic.com/start"
+          >
             Sign in
           </Button>
-          <Button size="sm" variant="solid" color="blue">
+          <Button
+            size="sm"
+            variant="solid"
+            color="blue"
+            href="https://www.chromatic.com/start?startWithSignup=true"
+          >
             Sign up
           </Button>
         </MobileButtons>
