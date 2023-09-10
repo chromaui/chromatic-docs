@@ -126,14 +126,14 @@ interface SidebarItem {
   timeline?: boolean;
 }
 
-interface SidebarProps {
+interface SideNavProps {
   url?: string;
   sidebarItems?: SidebarItem[];
 }
 
 const withBase = (url: string) => `${import.meta.env.BASE_URL}/${url}`;
 
-export const Sidebar: FC<SidebarProps> = ({ url, sidebarItems }) => {
+export const SideNav: FC<SideNavProps> = ({ url, sidebarItems }) => {
   return (
     <SidebarContainer>
       {sidebarItems &&

@@ -2,7 +2,14 @@ import type { ElementType, FC } from "react";
 import { styled } from "@storybook/theming";
 import * as Popover from "@radix-ui/react-popover";
 import * as RadixDropdownMenu from "@radix-ui/react-dropdown-menu";
-import { typography, color, spacing, minSm, fontWeight } from "@chromaui/tetra";
+import {
+  typography,
+  color,
+  spacing,
+  minSm,
+  fontWeight,
+  minMd,
+} from "@chromaui/tetra";
 import { DropdownTrigger } from "./DropdownTrigger";
 import { AnimatePresence, motion } from "framer-motion";
 import React from "react";
@@ -60,6 +67,12 @@ const Divider = styled.div`
   width: calc(100% - ${spacing[4]});
 `;
 
+const NavMenuDropdownTrigger = styled(DropdownTrigger)`
+  ${minMd} {
+    display: none;
+  }
+`;
+
 interface MenuItem {
   id: string;
   label: string;
@@ -88,7 +101,7 @@ export const NavDropdownMenu: FC<NavDropdownMenuProps> = ({
 
   return (
     <Popover.Root open={mobileMenuOpen} onOpenChange={setMobileMenuOpen}>
-      <DropdownTrigger {...props}>{label}</DropdownTrigger>
+      <NavMenuDropdownTrigger {...props}>{label}</NavMenuDropdownTrigger>
       <AnimatePresence>
         {mobileMenuOpen && (
           <Popover.Portal forceMount>

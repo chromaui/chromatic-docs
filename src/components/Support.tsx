@@ -1,4 +1,4 @@
-import { Button, fontWeight, spacing } from "@chromaui/tetra";
+import { Button, fontWeight, minMd, spacing } from "@chromaui/tetra";
 import { styled } from "@storybook/theming";
 
 const Trigger = styled(Button)`
@@ -6,6 +6,12 @@ const Trigger = styled(Button)`
   width: ${spacing[48]};
   flex: none;
   font-weight: ${fontWeight.bold};
+
+  display: none;
+
+  ${minMd} {
+    display: block;
+  }
 `;
 
 export function Support({ ...props }) {

@@ -1,10 +1,6 @@
-import * as docsearchpkg from "@docsearch/react";
-import { css, Global } from "@storybook/theming";
+---
 import { color, spacing } from "@chromaui/tetra";
-
-const { DocSearch } = docsearchpkg;
-
-const ALGOLIA_API_KEY = import.meta.env.PUBLIC_ALGOLIA_API_KEY;
+import { css, Global } from "@storybook/theming";
 
 const styles = css`
   :root {
@@ -99,16 +95,19 @@ const styles = css`
     margin-left: 2px;
   }
 `;
+---
 
-export function Search() {
-  return (
-    <>
-      <Global styles={styles} />
-      <DocSearch
-        appId="I751GHI6QM"
-        indexName="chromatic"
-        apiKey={ALGOLIA_API_KEY}
-      />
-    </>
-  );
-}
+<Global styles={styles} />
+<div id="docsearch" style="height: 36px"></div>
+<script is:inline src="https://cdn.jsdelivr.net/npm/@docsearch/js@3"></script>
+<script>
+  // import docsearch from "@docsearch/js";
+  const ALGOLIA_API_KEY = import.meta.env.PUBLIC_ALGOLIA_API_KEY;
+
+  window.docsearch({
+    container: "#docsearch",
+    appId: "I751GHI6QM",
+    indexName: "chromatic",
+    apiKey: ALGOLIA_API_KEY,
+  });
+</script>

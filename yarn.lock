@@ -473,7 +473,15 @@
   resolved "https://registry.yarnpkg.com/@docsearch/css/-/css-3.5.2.tgz#610f47b48814ca94041df969d9fcc47b91fc5aac"
   integrity sha512-SPiDHaWKQZpwR2siD0KQUwlStvIAnEyK6tAE2h2Wuoq8ue9skzhlyVQ1ddzOxX6khULnAALDiR/isSF3bnuciA==
 
-"@docsearch/react@^3.5.2":
+"@docsearch/js@^3.5.2":
+  version "3.5.2"
+  resolved "https://registry.yarnpkg.com/@docsearch/js/-/js-3.5.2.tgz#a11cb2e7e62890e9e940283fed6972ecf632629d"
+  integrity sha512-p1YFTCDflk8ieHgFJYfmyHBki1D61+U9idwrLh+GQQMrBSP3DLGKpy0XUJtPjAOPltcVbqsTjiPFfH7JImjUNg==
+  dependencies:
+    "@docsearch/react" "3.5.2"
+    preact "^10.0.0"
+
+"@docsearch/react@3.5.2", "@docsearch/react@^3.5.2":
   version "3.5.2"
   resolved "https://registry.yarnpkg.com/@docsearch/react/-/react-3.5.2.tgz#2e6bbee00eb67333b64906352734da6aef1232b9"
   integrity sha512-9Ahcrs5z2jq/DcAvYtvlqEBHImbm4YJI8M9y0x6Tqg598P40HTEkX7hsMcIuThI+hTFxRGZ9hll0Wygm2yEjng==
@@ -3913,6 +3921,11 @@ postcss@^8.4.27:
     nanoid "^3.3.6"
     picocolors "^1.0.0"
     source-map-js "^1.0.2"
+
+preact@^10.0.0:
+  version "10.17.1"
+  resolved "https://registry.yarnpkg.com/preact/-/preact-10.17.1.tgz#0a1b3c658c019e759326b9648c62912cf5c2dde1"
+  integrity sha512-X9BODrvQ4Ekwv9GURm9AKAGaomqXmip7NQTZgY7gcNmr7XE83adOMJvd3N42id1tMFU7ojiynRsYnY6/BRFxLA==
 
 prebuild-install@^7.1.1:
   version "7.1.1"

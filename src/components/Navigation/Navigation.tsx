@@ -3,7 +3,7 @@ import { styled } from "@storybook/theming";
 import type { CollectionEntry } from "astro:content";
 import { Search } from "../Search";
 import { Support } from "../Support";
-import { Sidebar } from "./Sidebar";
+import { SideNav } from "./SideNav";
 import { minMd, spacing } from "@chromaui/tetra";
 import { DropdownNav } from "./DropdownNav";
 
@@ -79,7 +79,7 @@ export const Navigation: FC<NavigationProps> = ({ url, navItems }) => {
     <Container>
       <Search />
       <DropdownNav groups={navGroups as any} url={url} />
-      <Sidebar sidebarItems={navGroups} url={url} />
+      <SideNav sidebarItems={navGroups} url={url} />
       <SupportButton />
     </Container>
   );

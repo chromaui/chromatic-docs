@@ -6,7 +6,7 @@ import { MarketingFooter } from "../components/Footer/MarketingFooter";
 import { MarketingHeader } from "../components/Header/MarketingHeader";
 import { Wrapper } from "../components/Wrapper";
 import "@fontsource-variable/nunito-sans";
-import { Navigation } from "../components/Navigation";
+import Navigation from "../components/Navigation.astro";
 import { getCollection } from "astro:content";
 import SEO from "../components/SEO.astro";
 import Scripts from "../components/Scripts.astro";
@@ -120,7 +120,7 @@ const twitterUsername = "chromaui";
     <MarketingHeader client:load />
     <Container client:load>
       <MainWrapper client:load>
-        <Navigation client:load url={pathname} navItems={navItems} />
+        <Navigation url={pathname} navItems={navItems} />
         <Wrapper client:load>
           <slot />
         </Wrapper>
