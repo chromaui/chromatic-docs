@@ -1,5 +1,3 @@
-import React from "react";
-import type { FC } from "react";
 import { css, styled } from "@storybook/theming";
 import * as Popover from "@radix-ui/react-popover";
 import { color, fontWeight, spacing, typography } from "@chromaui/tetra";

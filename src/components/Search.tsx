@@ -1,6 +1,8 @@
-import { DocSearch } from "@docsearch/react";
+import * as docsearchpkg from "@docsearch/react";
 import { css, Global } from "@storybook/theming";
-import { color, minMd, spacing } from "@chromaui/tetra";
+import { color, spacing } from "@chromaui/tetra";
+
+const { DocSearch } = docsearchpkg;
 
 const ALGOLIA_API_KEY = import.meta.env.PUBLIC_ALGOLIA_API_KEY;
 
