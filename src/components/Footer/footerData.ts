@@ -7,36 +7,63 @@ export const footerColumns: FooterProps["columns"] = [
       { title: "Pricing", href: "/pricing" },
       { title: "About", href: "/company/about" },
       { title: "Jobs", href: "/company/careers" },
-      { title: "Terms of Service", href: "/docs/terms-of-service" },
-      { title: "Privacy", href: "/docs/privacy-policy" },
+      { title: "Terms of Service", href: "terms-of-service" },
+      { title: "Privacy", href: "privacy-policy" },
       { title: "Status", href: "http://status.chromatic.com/" },
-      { title: "Security • SOC 2", href: "/docs/security" },
+      { title: "Security • SOC 2", href: "security" },
       { title: "Contact Sales", href: "/sales" },
     ],
   },
   {
     title: "Features",
     links: [
-      { title: "Visual test", href: "/features/test" },
-      { title: "Interaction test", href: "/docs/interactions" },
-      { title: "TurboSnap", href: "/docs/turbosnap" },
-      { title: "UI Review", href: "/features/publish" },
-      { title: "Document", href: "/features/document" },
-      { title: "Figma plugin", href: "/features/figma-plugin" },
+      {
+        title: "Visual test",
+        href: "https://www.chromatic.com/features/test",
+      },
+      { title: "Interaction test", href: "interactions" },
+      { title: "TurboSnap", href: "turbosnap" },
+      {
+        title: "UI Review",
+        href: "/features/publish",
+      },
+      {
+        title: "Document",
+        href: "/features/document",
+      },
+      {
+        title: "Figma plugin",
+        href: "/features/figma-plugin",
+      },
     ],
   },
   {
     title: "Customers",
     links: [
-      { title: "Made for Storybook", href: "/solutions/storybook" },
-      { title: "Frontend teams", href: "/solutions/frontend" },
-      { title: "Design systems", href: "/solutions/design-systems" },
-      { title: "Digital agencies", href: "/solutions/agencies" },
+      {
+        title: "Made for Storybook",
+        href: "/solutions/storybook",
+      },
+      {
+        title: "Frontend teams",
+        href: "/solutions/frontend",
+      },
+      {
+        title: "Design systems",
+        href: "/solutions/design-systems",
+      },
+      {
+        title: "Digital agencies",
+        href: "/solutions/agencies",
+      },
       {
         title: "Monday.com",
         href: "/customers/monday",
       },
-      { title: "Collective.work", href: "/customers/collective" },
+      {
+        title: "Collective.work",
+        href: "/customers/collective",
+      },
     ],
   },
   {
