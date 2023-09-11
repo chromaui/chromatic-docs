@@ -45,7 +45,7 @@ const navItems = [
   // Manually add the introduction page to the top of the list
   {
     title: "Get Started",
-    items: [introduction, ...getStarted],
+    items: getStarted,
     defaultOpen: true,
     timeline: true,
   },
@@ -133,7 +133,7 @@ const twitterUsername = "chromaui";
     <MarketingHeader client:load />
     <Container client:load>
       <MainWrapper client:load>
-        <Navigation url={pathname} navItems={navItems} />
+        <Navigation url={pathname.replace(/\/$/g, "")} navItems={navItems} />
         <Wrapper client:load>
           <slot />
         </Wrapper>

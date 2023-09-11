@@ -1,6 +1,6 @@
 ---
 import type { CollectionEntry } from "astro:content";
-import { Search } from "../Search";
+import Search from "../Search.astro";
 import { Support } from "../Support";
 import { SideNav } from "./SideNav";
 import { Container } from "./styles";
@@ -55,7 +55,7 @@ const navGroups = navItems
 ---
 
 <Container client:load>
-  <Search client:load />
+  <Search />
   <DropdownNav client:only="react" groups={navGroups as any} url={url} />
   <SideNav client:load sidebarItems={navGroups} url={url} />
   <Support client:load />

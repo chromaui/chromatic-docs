@@ -155,6 +155,7 @@ export const SideNav: FC<SideNavProps> = ({ url, sidebarItems }) => {
               <ContentWrapper isTimeline={!!group.timeline}>
                 {group.items.map((item, j) => {
                   const isHome = withBase("") === url;
+                  console.log(url, withBase(item.slug));
 
                   const isActive =
                     isHome && (item.slug as any) == ""

@@ -9,7 +9,7 @@ sidebar: { order: 6 }
 
 Chromatic automates UI development so you can build more features, faster, and with less manual work. Here’s the recommended workflow that takes full advantage of everything we have to offer.
 
-[![Chromatic workflow](../../images/chromatic-workflow.png)](../../images/chromatic-workflow.png)
+![Chromatic workflow](../../images/chromatic-workflow.png)
 
 ### 1. Build in Storybook
 
