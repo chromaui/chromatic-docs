@@ -151,7 +151,7 @@ Storybook can automatically [generate UI documentation](https://storybook.js.org
 [Storybook Connect](figma#figma-plugin) is a Figma plugin that allows you to link stories to Figma components. Once linked, you can view your live stories in the design workspace without leaving Figma.
 
 <video autoPlay muted playsInline loop width="560px" class="center" style="pointer-events: none;" title="Embedded story and design side-by-side">
-  <source src="assets/figma-plugin-open-story.mp4" type="video/mp4" />
+  <source src="/docs/assets/figma-plugin-open-story.mp4" type="video/mp4" />
 </video>
 
 #### Embed stories to showcase your work

@@ -10,7 +10,7 @@ sidebar: { order: 4 }
 Storybook Connect is a Figma plugin that allows you to link stories to Figma components. Once linked, you can view your live stories in the design workspace without leaving Figma.
 
 <video autoPlay muted playsInline loop width="560px" class="center" style="pointer-events: none;">
-  <source src="assets/figma-plugin-overview.mp4" type="video/mp4" />
+  <source src="/docs/assets/figma-plugin-overview.mp4" type="video/mp4" />
 </video>
 
 #### Prerequisites
@@ -56,7 +56,7 @@ Nope. Chromatic automatically updates your linked stories to reflect the latest 
 2. Then navigate to Figma’s Design sidebar and click the “View story” action. Alternatively, open the plugin by using the command palette `command + /` then type the name `Storybook Connect`.
 
 <video autoPlay muted playsInline loop width="560px" class="center" style="pointer-events: none;">
-  <source src="assets/figma-plugin-open-story.mp4" type="video/mp4" />
+  <source src="/docs/assets/figma-plugin-open-story.mp4" type="video/mp4" />
 </video>
 
 ### Collaborators

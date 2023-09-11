@@ -10,7 +10,7 @@ sidebar: { order: 1 }
 The [Chromatic CLI](https://www.npmjs.com/package/chromatic) builds and publishes your Storybook. Run `chromatic` in your project directory.
 
 <video autoPlay muted playsInline loop width="560px" style="margin-bottom: 1em">
-  <source src="assets/chromatic-cli-optimized.mp4" type="video/mp4" />
+  <source src="/docs/assets/chromatic-cli-optimized.mp4" type="video/mp4" />
 </video>
 
 <div class="aside">This package was previously named <code>storybook-chromatic</code>. See <a href="#migrating-to-the-new-cli-package">migrating to the new package</a> for details.</div>

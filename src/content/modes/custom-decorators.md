@@ -19,7 +19,7 @@ By combining decorators with [modes](modes), you can test a story with various p
 
 Let's consider the following example that uses a decorator & globals to switch locale of a story. It uses the [react-i18next](https://react.i18next.com/) library to provide translations.
 
-<img src="assets/finished-switcher.gif" alt="Switching the locale between English, German and Arabic using the Storybook toolbar" />
+<img src="/docs/assets/finished-switcher.gif" alt="Switching the locale between English, German and Arabic using the Storybook toolbar" />
 
 The locale values are defined using [global types](https://storybook.js.org/docs/react/essentials/toolbars-and-globals#global-types-and-the-toolbar-annotation). The `withI18next` decorator retrieves the value of the `locale` global and applies it to `I18nextProvider`, enabling us to test stories with different translations.
 

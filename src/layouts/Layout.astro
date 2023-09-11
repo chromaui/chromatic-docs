@@ -119,14 +119,14 @@ const twitterUsername = "chromaui";
   </head>
   <body>
     <MarketingHeader client:load />
-    <Container client:load>
-      <MainWrapper client:load>
+    <Container>
+      <MainWrapper>
         <Navigation url={pathname.replace(/\/$/g, "")} navItems={navItems} />
-        <Wrapper client:load>
+        <Wrapper>
           <slot />
         </Wrapper>
       </MainWrapper>
     </Container>
-    <MarketingFooter client:load />
+    <MarketingFooter />
   </body>
 </html>

@@ -14,7 +14,7 @@ sidebar: { order: 3 }
 Themes control the visual characteristics of UI—color palette, typography, white space, border styles, shadows, radii, etc. Using modes enables Chromatic to test the same story with multiple themes.
 
 <video autoPlay muted playsInline loop width="600px" class="center">
-  <source src="assets/theme-switcher.mp4" type="video/mp4" />
+  <source src="/docs/assets/theme-switcher.mp4" type="video/mp4" />
 </video>
 
 ## Configure CSS and theme in your Storybook

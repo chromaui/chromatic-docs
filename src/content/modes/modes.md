@@ -18,7 +18,7 @@ Using modes requires Storybook 6.0 or later.
 Consider this card component. It supports both light and dark variants, and its layout adjusts based on the viewport size. To switch between themes and viewport sizes, we click on the Storybook toolbar.
 
 <video autoPlay muted playsInline loop width="600px">
-  <source src="assets/addons.mp4" type="video/mp4" />
+  <source src="/docs/assets/addons.mp4" type="video/mp4" />
 </video>
 
 This functionality is made possible by two features:

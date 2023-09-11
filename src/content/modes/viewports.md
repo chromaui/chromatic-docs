@@ -119,7 +119,7 @@ When Chromatic captures your story, it will create *two* snapshots on your bui
 The Storybook [viewport addon](https://storybook.js.org/docs/react/essentials/viewport) enables you to adjust the dimensions of the story canvas. Developers use it to verify the responsive behavior of components when building UIs. With modes, you can easily reference the different viewport sizes that you have configured for the addon.
 
 <video autoPlay muted playsInline loop width="600px" class="center">
-  <source src="assets/addon-viewports-optimized.mp4" type="video/mp4" />
+  <source src="/docs/assets/addon-viewports-optimized.mp4" type="video/mp4" />
 </video>
 
 ### Reference viewport by name
