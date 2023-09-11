@@ -33,6 +33,7 @@ const navGroups = navItems
         .map((item) => ({
           ...item,
           label: item.data?.sidebar?.label || item.data.title,
+          slug: item.data?.isHome ? "" : (item.slug as any),
           data: {
             ...item.data,
             sidebar: {

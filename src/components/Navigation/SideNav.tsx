@@ -131,7 +131,8 @@ interface SideNavProps {
   sidebarItems?: SidebarItem[];
 }
 
-const withBase = (url: string) => `${import.meta.env.BASE_URL}/${url}`;
+const withBase = (url: string) =>
+  url === "" ? import.meta.env.BASE_URL : `${import.meta.env.BASE_URL}/${url}`;
 
 export const SideNav: FC<SideNavProps> = ({ url, sidebarItems }) => {
   return (
@@ -155,10 +156,9 @@ export const SideNav: FC<SideNavProps> = ({ url, sidebarItems }) => {
               <ContentWrapper isTimeline={!!group.timeline}>
                 {group.items.map((item, j) => {
                   const isHome = withBase("") === url;
-                  console.log(url, withBase(item.slug));
 
                   const isActive =
-                    isHome && (item.slug as any) == ""
+                    isHome && item.data.isHome
                       ? true
                       : withBase(item.slug) === url;
 

@@ -9,6 +9,7 @@ const schema = z.object({
       hide: z.boolean().optional(),
     })
     .optional(),
+  isHome: z.boolean().optional(),
 });
 
 const getStarted = defineCollection({

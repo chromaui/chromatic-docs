@@ -1,21 +1,34 @@
 ---
 import { getCollection } from "astro:content";
-import type { CollectionEntry} from "astro:content";
+import type { CollectionEntry } from "astro:content";
 
 export async function getStaticPaths() {
-  const getStarted = await getCollection("getStarted");
+  const getStarted = await getCollection("getStarted", ({ slug }) => {
+    return slug !== "introduction";
+  });
   const configuration = await getCollection("configuration");
   const modes = await getCollection("modes");
   const snapshot = await getCollection("snapshot");
   const collaborate = await getCollection("collaborate");
   const ci = await getCollection("ci");
   const account = await getCollection("account");
-  const articles = [...getStarted, ...configuration, ...modes, ...snapshot, ...collaborate, ...ci, ...account];
-  return articles.map((article) => ({ params: { slug: article.slug }, props: { article } }));
+  const articles = [
+    ...getStarted,
+    ...configuration,
+    ...modes,
+    ...snapshot,
+    ...collaborate,
+    ...ci,
+    ...account,
+  ];
+  return articles.map((article) => ({
+    params: { slug: article.slug },
+    props: { article },
+  }));
 }
 
 interface Props {
-  article: CollectionEntry<'getStarted'>
+  article: CollectionEntry<"getStarted">;
 }
 
 const { article } = Astro.props;

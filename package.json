@@ -22,7 +22,6 @@
     "@astrojs/react": "^3.0.2",
     "@chromaui/tetra": "^1.15.15",
     "@docsearch/css": "^3.5.2",
-    "@docsearch/react": "^3.5.2",
     "@fontsource-variable/nunito-sans": "^5.0.9",
     "@radix-ui/react-collapsible": "^1.0.3",
     "@storybook/api": "^7.4.0",

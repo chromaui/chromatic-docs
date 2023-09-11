@@ -3,6 +3,7 @@ layout: "../../layouts/Layout.astro"
 title: Introduction
 description: Chromatic is a cloud based toolchain built around Storybook to help teams develop robust UI components faster, together.
 sidebar: { order: 1 }
+isHome: true
 ---
 
 # Introduction to Chromatic

@@ -29,18 +29,6 @@ const collaborate = await getCollection("collaborate");
 const ci = await getCollection("ci");
 const account = await getCollection("account");
 
-const introduction = {
-  id: "introduction.md",
-  slug: "",
-  collection: "getStarted",
-  data: {
-    title: "Introduction",
-    description:
-      "Chromatic is a cloud based toolchain built around Storybook to help teams develop robust UI components faster together",
-    sidebar: { order: 1 },
-  },
-} as any;
-
 const navItems = [
   // Manually add the introduction page to the top of the list
   {
