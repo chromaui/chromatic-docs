@@ -10,6 +10,11 @@ description: Chromatic E2E Visual Tests capture snapshots of pages visited durin
 
 🧪 **Experimental** We're actively integrating feedback from [early access users](https://forms.gle/w43XGAJXVWpAF5oC7), so the API and other details below may change.
 
+Current limitations:
+
+- Not yet tested on Windows
+- Only available for Playwright right now
+
 </div>
 
 <!-- Without this the paragraph below butts up against the aside -->
@@ -34,7 +39,7 @@ The Archive Storyook is passed to Chromatic’s build process, which screenshots
 
 ## Installation
 
-Get started by installing the Test Archiver package and the Archive Storybook (a specially-configured Storybook instance that can display your [archives](#what-are-archives)).
+Get started by installing the Test Archiver package and the Archive Storybook package (a specially-configured Storybook instance that can display your [archives](#what-are-archives)).
 
 ### As a new installation of Storybook
 
@@ -43,6 +48,12 @@ If you aren't yet using Storybook in your project, install with:
 ```shell
 yarn add --dev @chromaui/test-archiver @chromaui/archive-storybook @storybook/cli @storybook/addon-essentials @storybook/server-webpack5 react react-dom
 ```
+
+<div class="aside">
+
+💡 Note that if you are already using React in your project, you should install the version you are already using to avoid conflicts. The command above will install the latest version of each package.
+
+</div>
 
 ### If you are already using Storybook
 
@@ -78,6 +89,8 @@ Once the above is in place, Test Archiver will run in addition to the Playwright
 The above snippet produces an archive that looks like this in Storybook:
 
 ![Published Archive Storybook, showing archive captured in the prior code snippet](img/archive-storybook-basic.png)
+
+(You can view your archives in a published Storybook, [via Chromatic](#using-with-chromatic), or [locally](#running-the-storybook-locally).)
 
 ### Manual snapshots
 
@@ -115,6 +128,8 @@ The above snippet produces archives that look like this in Storybook:
 
 ![Published Archive Storybook, showing archives captured in the prior code snippet](img/archive-storybook-takeArchive.png)
 
+(You can view your archives in a published Storybook, [via Chromatic](#using-with-chromatic), or [locally](#running-the-storybook-locally).)
+
 ## Using with Chromatic
 
 1. **Set up a Chromatic project**
@@ -131,11 +146,10 @@ The above snippet produces archives that look like this in Storybook:
 
 2. **Run Chromatic on the archives manually**
 
-   Add the scripts for running and building the Archive Storybook to your `package.json` (the same `scripts` from which you run your Playwright tests):
+   Add the script for building the Archive Storybook to your `package.json` (the same `scripts` from which you run your Playwright tests):
 
    ```json
    "scripts": {
-     "archive-storybook": "archive-storybook",
      "build-archive-storybook": "build-archive-storybook"
    }
    ```
@@ -143,7 +157,7 @@ The above snippet produces archives that look like this in Storybook:
    Now you can try manually running Chromatic against the archives with the project you just created (using the token you noted above):
 
    ```shell
-   npx chromatic --build-script-name=build-archive-storybook -t=<TOKEN>
+   npx chromatic@latest --build-script-name=build-archive-storybook -t=<TOKEN>
    ```
 
 3. **Run Chromatic on the archives in CI**
@@ -238,7 +252,16 @@ First run the E2E tests to generate the latest results:
 yarn playwright test # or similar
 ```
 
-Then you can run the Archive Storybook with the `archive-storybook` command, and visit it like any other Storybook:
+Then add the script for running the Archive Storybook to your `package.json` (the same `scripts` from which you run your Playwright tests):
+
+   ```json
+   "scripts": {
+     "archive-storybook": "archive-storybook", // 👈 Add this line
+     "build-archive-storybook": "build-archive-storybook"
+   }
+   ```
+
+Now you can run the Archive Storybook with the `archive-storybook` command, and visit it like any other Storybook:
 
 ```shell
 yarn archive-storybook
