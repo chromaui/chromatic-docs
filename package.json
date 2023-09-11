@@ -20,7 +20,7 @@
   "dependencies": {
     "@astrojs/mdx": "^1.0.0",
     "@astrojs/react": "^3.0.2",
-    "@chromaui/tetra": "^1.15.15",
+    "@chromaui/tetra": "1.15.16--canary.82.0a6b908.0",
     "@docsearch/css": "^3.5.2",
     "@fontsource-variable/nunito-sans": "^5.0.9",
     "@radix-ui/react-collapsible": "^1.0.3",
@@ -28,7 +28,7 @@
     "@storybook/theming": "^7.4.0",
     "@types/react": "^18.2.21",
     "@types/react-dom": "^18.2.7",
-    "astro": "^3.0.3",
+    "astro": "^3.0.12",
     "framer-motion": "^10.16.2",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",

@@ -12,6 +12,7 @@ export async function getStaticPaths() {
   const collaborate = await getCollection("collaborate");
   const ci = await getCollection("ci");
   const account = await getCollection("account");
+  const notInNavigation = await getCollection("notInNavigation");
   const articles = [
     ...getStarted,
     ...configuration,
@@ -20,6 +21,7 @@ export async function getStaticPaths() {
     ...collaborate,
     ...ci,
     ...account,
+    ...notInNavigation,
   ];
   return articles.map((article) => ({
     params: { slug: article.slug },

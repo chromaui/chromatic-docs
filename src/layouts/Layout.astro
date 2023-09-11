@@ -118,7 +118,7 @@ const twitterUsername = "chromaui";
     <Scripts />
   </head>
   <body>
-    <MarketingHeader transition:persist client:load />
+    <MarketingHeader client:visible />
     <Container>
       <MainWrapper>
         <Navigation url={pathname.replace(/\/$/g, "")} navItems={navItems} />
@@ -127,6 +127,6 @@ const twitterUsername = "chromaui";
         </Wrapper>
       </MainWrapper>
     </Container>
-    <MarketingFooter transition:persist />
+    <MarketingFooter />
   </body>
 </html>

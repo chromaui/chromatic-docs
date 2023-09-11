@@ -31,11 +31,8 @@ export const MarketingHeader: FC<Props> = ({ theme = "light" }) => {
   return (
     <Header
       theme={theme}
-      logoHeightDesktop={24}
-      logoHeightMobile={22}
       desktopData={desktopData}
       mobileData={mobileData}
-      desktopBreakpoint={1000}
       desktopRight={
         <>
           <Link
