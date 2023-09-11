@@ -85,13 +85,13 @@ interface MenuGroup {
   items: MenuItem[];
 }
 
-interface NavDropdownMenuProps {
+interface DropdownMenuProps {
   variant?: "light" | "dark";
   label: string;
   groups: MenuGroup[];
 }
 
-export const NavDropdownMenu: FC<NavDropdownMenuProps> = ({
+export const DropdownMenu: FC<DropdownMenuProps> = ({
   label,
   variant,
   groups,

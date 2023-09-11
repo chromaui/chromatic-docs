@@ -55,7 +55,7 @@ const navGroups = navItems
   : [];
 ---
 
-<Container transition:name="navigation" transition:persist>
+<Container>
   <Search />
   <DropdownNav client:only="react" groups={navGroups as any} url={url} />
   <SideNav client:load sidebarItems={navGroups} url={url} />

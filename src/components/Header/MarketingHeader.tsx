@@ -40,7 +40,7 @@ export const MarketingHeader: FC<Props> = ({ theme = "light" }) => {
         <>
           <Link
             size="md"
-            weight="semibold"
+            weight="bold"
             color={theme === "dark" ? "white" : "blue500"}
             href="https://www.chromatic.com/start"
           >

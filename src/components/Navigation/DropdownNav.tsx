@@ -1,9 +1,9 @@
 import { type FC } from "react";
-import { NavDropdownMenu } from "./DropDownMenu";
+import { DropdownMenu } from "./DropdownMenu";
 import { styled } from "@storybook/theming";
 import { minMd } from "@chromaui/tetra";
 
-const NavMenuWrapper = styled(NavDropdownMenu)`
+const NavDropdownMenu = styled(DropdownMenu)`
   ${minMd} {
     display: none;
   }
@@ -44,5 +44,5 @@ export const DropdownNav: FC<DropdownNavProps> = ({ groups, url }) => {
     allPages.find((item) => item.isActive)?.breadcrumb ||
     allPages[0].breadcrumb;
 
-  return <NavMenuWrapper label={label} groups={navGroups} />;
+  return <NavDropdownMenu label={label} groups={navGroups} />;
 };
