@@ -110,3 +110,25 @@ const styles = css`
     apiKey: ALGOLIA_API_KEY,
   });
 </script>
+
+<style>
+  @keyframes glow {
+    0%,
+    100% {
+      opacity: 1;
+    }
+    50% {
+      opacity: 0.4;
+    }
+  }
+
+  #docsearch:empty {
+    animation: glow 1.5s ease-in-out infinite;
+    box-shadow: rgba(0, 0, 0, 0.1) 0 0 0 1px inset;
+    background: rgba(0, 0, 0, 0.01);
+    color: transparent;
+    cursor: progress;
+    width: 9rem;
+    border-radius: 40px;
+  }
+</style>
