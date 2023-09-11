@@ -9,6 +9,7 @@ import { h, s } from "hastscript";
 // https://astro.build/config
 export default defineConfig({
   base: "/docs",
+  trailingSlash: "never",
   markdown: {
     shikiConfig: {
       // Choose from Shiki's built-in themes (or add your own)
