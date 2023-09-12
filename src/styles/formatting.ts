@@ -227,32 +227,10 @@ export const formatting = css`
     }
   }
 
-  .highlight {
-    overflow-x: auto;
-    margin: 0;
-
+  .table-scroll {
+    overflow: auto;
     table {
-      width: 100%;
-    }
-
-    .gutter {
-      width: 40px;
-    }
-
-    .gutter pre {
-      margin: 0;
-      padding: 1em 10px;
-      text-align: right;
-    }
-
-    .code {
-      pre {
-        overflow-y: auto;
-        overflow-x: auto;
-        padding: 1em 15px 1em 20px;
-        margin: 0;
-        white-space: pre;
-      }
+      table-layout: auto;
     }
   }
 
