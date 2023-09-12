@@ -86,7 +86,7 @@ Or you could disable Chromatic on pull requests from forked repositories.
 
 Chromatic's GitHub Action includes additional options to customize your workflow. The table below lists what's currently available:
 
-<div>
+<div style="overflow: scroll;">
 
 | Option                      | Description                                                                                                          | Type                  | Example value            | Default value        |
 | --------------------------- | -------------------------------------------------------------------------------------------------------------------- | --------------------- | ------------------------ | -------------------- |

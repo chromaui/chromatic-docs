@@ -11,7 +11,6 @@ export const Container = styled.div`
     gap: ${spacing[6]};
     align-items: flex-start;
     flex-direction: column;
-    width: 240px;
     flex-shrink: 0;
   }
 `;

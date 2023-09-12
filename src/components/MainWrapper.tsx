@@ -1,4 +1,4 @@
-import { minMd, spacing } from "@chromaui/tetra";
+import { minLg, minMd, spacing } from "@chromaui/tetra";
 import { styled } from "@storybook/theming";
 
 export const MainWrapper = styled.div`
@@ -9,7 +9,12 @@ export const MainWrapper = styled.div`
 
   ${minMd} {
     margin: ${spacing[16]} 0;
+    display: grid;
+    grid-template-columns: 200px 1fr;
     gap: ${spacing[5]};
-    flex-direction: row;
+  }
+
+  ${minLg} {
+    grid-template-columns: 260px 1fr;
   }
 `;

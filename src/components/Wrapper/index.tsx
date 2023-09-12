@@ -10,9 +10,8 @@ interface Props {
   children: React.ReactNode;
 }
 
-const Content = styled.div`
-  flex-grow: 1;
-  flex-shrink: 1;
+const Content = styled.main`
+  min-width: 0;
   font-size: 16px;
   line-height: 28px;
 

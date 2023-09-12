@@ -211,9 +211,23 @@ export const formatting = css`
     }
   }
 
+  pre {
+    padding: 1.5em;
+    margin: 1.5em 0;
+
+    code {
+      display: inline-block;
+    }
+
+    & + .aside {
+      margin-top: -1.5rem;
+      border-top-left-radius: 0;
+      border-top-right-radius: 0;
+      border-top: 1px solid rgba(0, 0, 0, 0.1);
+    }
+  }
+
   .highlight {
-    font-size: 14px;
-    line-height: 20px;
     overflow-x: auto;
     margin: 0;
 

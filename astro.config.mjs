@@ -10,18 +10,13 @@ import { h, s } from "hastscript";
 export default defineConfig({
   base: "/docs",
   markdown: {
-    shikiConfig: {
-      // Choose from Shiki's built-in themes (or add your own)
-      // https://github.com/shikijs/shiki/blob/main/docs/themes.md
-      // theme: customTheme,
-      theme: "material-theme",
-      // Add custom languages
-      // Note: Shiki has countless langs built-in, including .astro!
-      // https://github.com/shikijs/shiki/blob/main/docs/languages.md
-      langs: [],
-      // Enable word wrap to prevent horizontal scrolling
-      wrap: true,
-    },
+    syntaxHighlight: "prism",
+    // shikiConfig: {
+    //   // theme: customTheme,
+    //   theme: "dracula",
+    //   langs: [],
+    //   wrap: false,
+    // },
     rehypePlugins: [
       rehypeSlug,
       [
