@@ -4,6 +4,15 @@ title: Setup
 description: Learn how to setup Chromatic and publish Storybook
 ---
 
+# Changes
+
+- Intro needs re-work to be more clear about the different workflows
+- Setup workflow
+- Run build from the CLI
+- Preview Storyboko
+- VT addon
+-
+
 # Setup and publish Storybook
 
 The Chromatic CLI builds then publishes Storybook to a secure workspace in the cloud. That allows your team to access all your stories at [chromatic.com](https://www.chromatic.com/start).
@@ -29,7 +38,7 @@ Select "Create a project" and type your project name to create an unlinked proje
 
 ![Setup unlinked project](img/chromatic-setup-unlinked-project.png)
 
-Nice! You created an unlinked project. This will allow you to get started with [UI Testing](test) workflow regardless of the underlying git provider. You can then configure your CI system to automatically run a Chromatic build on push.
+Nice! You created an unlinked project. This will allow you to get started with [UI Testing](test) workflow regardless of the underlying git provider. You can then configure your CI system to run a Chromatic build on push automatically.
 
 The Chromatic CLI provides the option to generate a JUnit XML report of your build, which you can use to handle commit / pull request statuses yourself. See [debug options](cli#debug-options) for details.
 
@@ -44,8 +53,6 @@ Now continue setting up Chromatic [as usual](setup#install).
 </details>
 
 ![Setup project](img/setup.png)
-
-## Visual testing adddon section
 
 ## Install
 
@@ -103,11 +110,25 @@ View it online at https://www.chromatic.com/build?appId=...&number=1.
 
 ## View published Storybook
 
-You published Storybook online! Every time you run the `chromatic` command you get a corresponding build in Chromatic's web app. You can now browse components, view [**UI Tests**](test) results (if enabled), and navigate to associated PR/MRs for [**UI Review**](review).
+You published Storybook online! Every time you run the `chromatic` command, you get a corresponding build in Chromatic's web app. You can now browse components, view [**UI Tests**](test) results (if enabled), and navigate to associated PR/MRs for [**UI Review**](review).
 
 ![Build for publish](img/build-publish-only.png)
 
+### Run local build
+
+You can build your Storybook project locally and deploy it to Chromatic to catch UI bugs an
+
+. This is useful if you want to test your Storybook build before publishing it to Chromatic. A common use case for this is to run Chromatic in CI and locally.
+
+You can build your Storybook project locally and deploy it to Chromatic. This is useful if you want to test your Storybook build before publishing it to Chromatic. A common use case for . To get started with
+
+You can also use the [**Visual testing addon**](visual-testing-addon) to test UI changes locally before publishing them to Chromatic.
+
+review UI changes in Storybook. The addon highlights stories that have changed and lets you accept or reject them.
+
 ## Get the PR check
+
+With [CI](ci), Chromatic will automatically deploy
 
 Chromatic posts a "Storybook Publish" status check in your pull/merge request that links to the latest published Storybook. This gives teams secure, convenient access to browse components and stories. Get the PR check by [automating Chromatic with CI](ci).
 
@@ -128,7 +149,9 @@ Chromatic posts a "Storybook Publish" status check in your pull/merge request th
 <details>
 <summary><h3 class="no-anchor">Command options</h3></summary>
 
-If you have customized the way your Storybook runs, you may need to pass additional options to the `chromatic` command. Learn more in the [package documentation](https://github.com/chromaui/chromatic-cli#main-options).
+If you have customized the way your Storybook runs, you may need to pass additional options to the `chromatic` command. Learn more in the [package documentation](cli#storybook-options).
+
+You
 
 </details>
 
@@ -148,9 +171,9 @@ This error often appears when `git` is not available in your CI environment. Chr
 
 **Common cases:**
 
-- Docker containers: Git may not be installed on certain Docker containers. You'll need to make the image includes Git.
+- Docker containers: Git may not be installed on certain Docker containers. You'll need to make the image include Git.
 - Heroku CI: Git history isn't available by default. You'll have to give Heroku auth access to your repo so that it can clone it before running CI. This can be unideal. Some customers end up using other CI providers to run Chromatic like GitHub Actions (free) or CircleCI.
-- Google Cloud CI: The `.git` folder is ignored by default. Based on [their documentation](https://github.com/GoogleCloudPlatform/cloud-builders/issues/236#issuecomment-374629200) you can try `.gcloudignore`. However, some customers have run into trouble with this solution and instead opted to use other CI providers to run Chromatic like GitHub Actions (free) or CircleCI.
+- Google Cloud CI: The `.git` folder is ignored by default. Based on [their documentation](https://github.com/GoogleCloudPlatform/cloud-builders/issues/236#issuecomment-374629200), you can try `.gcloudignore`. However, some customers have run into trouble with this solution and instead opted to use other CI providers to run Chromatic like GitHub Actions (free) or CircleCI.
 - You don't use Git: Enable Git version control in your project and try Chromatic again.
 
 **Debug yourself:**
@@ -169,7 +192,7 @@ Chromatic builds and runs Storybook flawlessly _most of the time_, but we're not
 <details>
 <summary>Why do my builds timeout</summary>
 
-Chromatic takes snapshots very quickly. However, if we lose the connection to your server (for instance if you stop your server mid-build, or your internet connection goes down), builds can time out. Check your connection and try restarting the build.
+Chromatic takes snapshots very quickly. However, if we lose the connection to your server (for instance, if you stop your server mid-build or your internet connection goes down), builds can time out. Check your connection and try restarting the build.
 
 </details>
 
@@ -178,7 +201,7 @@ Chromatic takes snapshots very quickly. However, if we lose the connection to yo
 
 This happens if certain stories were disabled via the [`chromatic: { disable: true }`](ignoring-elements#ignore-stories) option at a higher level.
 
-To solve this you can:
+To solve this, you can:
 
 1. Remove the top-level [`chromatic: { disable: true }`](ignoring-elements#ignore-stories) option
 1. Enable snapshots for specific stories
