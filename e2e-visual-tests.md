@@ -30,7 +30,7 @@ An **archive** is a self-contained, re-renderable HTML “snapshot” of your pa
 
 <div class="aside">
 
-⚠️ If you have configured a different `outputDir`, you must [configure the Archive Storybook to match](#chromatic_archive_location).
+⚠️ If you have configured a different `outputDir`, you must [configure the Archive Storybook to match](#codechromaticarchivelocationcode).
 
 </div>
 
