@@ -101,7 +101,7 @@ const config = {
   addons: [
     // Other Storybook addons
     {
-      name: "@chromaui/addon-visual-tests",
+      name: '@chromaui/addon-visual-tests',
       options: {
         //👇 Loads the configuration file based on the current environment
         configFile:
