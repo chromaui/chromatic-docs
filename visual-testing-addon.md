@@ -20,7 +20,7 @@ Chromatic's Visual Testing addon helps you detect UI bugs during development. It
 
 ## Installation
 
-To enable visual testing with Storybook, you must take additional steps to set it up properly. We recommend that you have a fully functional Storybook project running the latest version (e.g., 7.2 or higher) and a Chromatic account configured with a [project](setup#sign-up) to which you have access.
+To enable visual testing with Storybook, you must take additional steps to set it up properly. We recommend that you have a fully functional Storybook project running the latest version (e.g., 7.4 or higher) and a Chromatic account configured with a [project](setup#sign-up) to which you have access.
 
 Run the following command to install the addon:
 
@@ -61,17 +61,37 @@ Before using the Visual Testing addon, you must authenticate yourself with Chrom
 
 Select the project on which you want to run your visual tests to complete the onboarding process. The addon will automatically save your selection, adjust the configuration file to include the necessary project identifiers, and retrieve the latest baselines if available.
 
+![Visual testing addon project selection](img/visual-tests-project-selection.png)
+
 ## Configure
 
-By default, Storybook offers zero-config support to run visual tests with Storybook and Chromatic. However, you can extend your Storybook configuration file (i.e., `.storybook/main.js|ts`) and provide additional options to control how tests are run. Listed below are the available options and examples of how to use them.
+By default, your project configuration is stored in a configuration file (i.e., `chromatic.config.json`) in the root directory. However, if you want, you can extend it and provide additional options to control how tests are run. Listed below are the available options and examples of how to use them.
 
-| Option            | Description                                                                                                                              |
-| ----------------- | ---------------------------------------------------------------------------------------------------------------------------------------- |
-| `projectId`       | Automatically configured. Sets the value for the project identifier <br/> `options: { projectId: Project:64cbcde96f99841e8b007d75 }`     |
-| `projectToken`    | Automatically configured. Sets the value for the project token <br/> `options: { projectToken: 'chpt_b2ae83517a0a706' }`                 |
-| `buildScriptName` | Defines the custom Storybook build script <br/> `options: { buildScriptName: 'deploy-storybook' }`                                       |
-| `debug`           | Output verbose debugging information to the console. <br/> `options: { debug: true }`                                                    |
-| `zip`             | Recommended for large projects. Configures the addon to deploy your Storybook to Chromatic as a zip file. <br/> `options: { zip: true }` |
+| Option              | Description                                                                                                                   |
+| ------------------- | ----------------------------------------------------------------------------------------------------------------------------- |
+| `projectId`         | Automatically configured. Sets the value for the project identifier <br/> `"projectId": "Project:64cbcde96f99841e8b007d75"`   |
+| `projectToken`      | Automatically configured. Sets the value for the project token <br/> `"projectToken": "chpt_b2ae83517a0a706"`                 |
+| `autoAcceptChanges` | Accepts the build changes automatically <br/> `"autoAcceptChanges": true`                                                     |
+| `buildScriptName`   | Defines the custom Storybook build script <br/> `"buildScriptName": "deploy-storybook"`                                       |
+| `exitZeroOnChanged` | Exits with a zero status code if changes are detected <br/> `"exitZeroOnChanged": true`                                       |
+| `debug`             | Output verbose debugging information to the console <br/> `"debug": true`                                                     |
+| `zip`               | Recommended for large projects. Configures the addon to deploy your Storybook to Chromatic as a zip file <br/> `"zip": true`  |
+
+```json
+{
+  "projectId": "Project:64cbcde96f99841e8b007d75",
+  "projectToken": "chpt_fa88b088041ccde",
+  "autoAcceptChanges": true,
+  "buildScriptName": "deploy-storybook",
+  "exitZeroOnChanged": true,
+  "debug": true,
+  "zip": true
+}
+```
+
+### Override the default configuration
+
+If you want to customize the addon's default configuration, you can create a file in your project's root directory and adjust the addon's settings in Storybook's configuration file to include it. For example, if you want to run tests based on the current environment:
 
 ```js
 // .storybook/main.js
@@ -81,13 +101,13 @@ const config = {
   addons: [
     // Other Storybook addons
     {
-      name: '@chromaui/addon-visual-tests',
+      name: "@chromaui/addon-visual-tests",
       options: {
-        projectId: 'Project:64cbcde96f99841e8b007d75',
-        projectToken: 'chpt_fa88b088041ccde',
-        buildScriptName: 'deploy-storybook',
-        debug: true,
-        zip: true
+        //👇 Loads the configuration file based on the current environment
+        configFile:
+          process.env.NODE_ENV === 'development'
+            ? 'chromatic.config.json'
+            : 'production.config.json',
       },
     },
   ],
@@ -114,13 +134,6 @@ To find out which changes were introduced in the latest build, the addon highlig
 ![Confirm UI changes in Storybook](img/visual-tests-accept-all.png)
 
 ## Troubleshooting
-
-<details>
-<summary>Why is my private project token available in the configuration?</summary>
-
-If you have any security concerns, you can save it in a `.env` file. The Visual testing addon is still in its early access stage, and we'll be improving how we use this token in future releases.
-
-</details>
 
 <details>
 <summary>Running Storybook with the addon enabled throws an error</summary>
