@@ -105,20 +105,20 @@ export const allModes = {
     viewport: "large",
   },
   dark: {
-    backgrounds: "dark",
+    backgrounds: { value: "#1E293B" },
     theme: "dark",
   },
   light: {
-    backgrounds: "light",
+    backgrounds: { value: "#fff" },
     theme: "light",
   },
   "dark desktop": {
-    backgrounds: "dark",
+    backgrounds: { value: "#1E293B" },
     theme: "dark",
     viewport: "large",
   },
   "light mobile": {
-    backgrounds: "light",
+    backgrounds: { value: "#fff" },
     theme: "light",
     viewport: "small",
   },
@@ -304,12 +304,12 @@ Let’s look at an example, this Storybook uses the following set of modes:
 
 export const allModes = {
   "dark desktop": {
-    backgrounds: "dark",
+    backgrounds: { value: "#1E293B" },
     theme: "dark",
     viewport: "large",
   },
   "light mobile": {
-    backgrounds: "light",
+    backgrounds: { value: "#fff" },
     theme: "light",
     viewport: "small",
   },
@@ -361,13 +361,13 @@ Now, let's consider a scenario where we modify the definition of the mode. Even 
 
 export const allModes = {
   "dark desktop": {
-    backgrounds: "dark",
+    backgrounds: { value: "#1E293B" },
     theme: "dark",
     // Using a different viewport size now
     viewport: "extra-large",
   },
   "light mobile": {
-    backgrounds: "light",
+    backgrounds: { value: "#fff" },
     theme: "light",
     viewport: "small",
   },

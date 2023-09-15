@@ -88,7 +88,7 @@ export const StoryName = { args: {} };
 ## Ignore DOM elements
 
 Add the `chromatic-ignore` CSS class or `data-chromatic="ignore"` attribute to elements in your component you want
-Chromatic to ignore.
+Chromatic to ignore. It's important to ensure the calculated bounding rectangle fully covers the changing content and maintains the exact dimensions as the baseline (e.g., width, height, and relative positioning). If the dimensions change, Chromatic will capture the incoming changes.
 
 ```js
 // MyComponent.js|jsx
