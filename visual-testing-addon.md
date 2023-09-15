@@ -65,15 +65,13 @@ Select the project on which you want to run your visual tests to complete the on
 
 ## Configure
 
-By default, your project configuration is stored in a configuration file (i.e., `chromatic.config.json`) in the root directory. However, if you want, you can extend it and provide additional options to control how tests are run. Listed below are the available options and examples of how to use them.
+By default, your project configuration is stored in a configuration file (i.e., `chromatic.config.json`) in the root directory of your Storybook. However, if you want, you can extend it and provide additional options to control how tests are run. Listed below are the available options and examples of how to use them.
 
 | Option              | Description                                                                                                                   |
 | ------------------- | ----------------------------------------------------------------------------------------------------------------------------- |
 | `projectId`         | Automatically configured. Sets the value for the project identifier <br/> `"projectId": "Project:64cbcde96f99841e8b007d75"`   |
 | `projectToken`      | Automatically configured. Sets the value for the project token <br/> `"projectToken": "chpt_b2ae83517a0a706"`                 |
-| `autoAcceptChanges` | Accepts the build changes automatically <br/> `"autoAcceptChanges": true`                                                     |
 | `buildScriptName`   | Defines the custom Storybook build script <br/> `"buildScriptName": "deploy-storybook"`                                       |
-| `exitZeroOnChanged` | Exits with a zero status code if changes are detected <br/> `"exitZeroOnChanged": true`                                       |
 | `debug`             | Output verbose debugging information to the console <br/> `"debug": true`                                                     |
 | `zip`               | Recommended for large projects. Configures the addon to deploy your Storybook to Chromatic as a zip file <br/> `"zip": true`  |
 
@@ -81,9 +79,7 @@ By default, your project configuration is stored in a configuration file (i.e., 
 {
   "projectId": "Project:64cbcde96f99841e8b007d75",
   "projectToken": "chpt_fa88b088041ccde",
-  "autoAcceptChanges": true,
   "buildScriptName": "deploy-storybook",
-  "exitZeroOnChanged": true,
   "debug": true,
   "zip": true
 }
