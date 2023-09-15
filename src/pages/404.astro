@@ -1,67 +1,17 @@
 ---
 import type { MarkdownLayoutProps } from "astro";
-import { Container } from "@chromaui/tetra";
-import { getCollection } from "astro:content";
+import { Container, Text, VStack, Link } from "@chromaui/tetra";
 import "@docsearch/css";
 import "@fontsource-variable/nunito-sans";
 import SEO from "../components/SEO.astro";
 import Scripts from "../components/Scripts.astro";
-import { Wrapper } from "../components/Wrapper";
 import { MarketingFooter } from "../components/Footer/MarketingFooter";
 import { MarketingHeader } from "../components/Header/MarketingHeader";
-import { MainWrapper } from "../components/MainWrapper";
-import Navigation from "../components/Navigation/Navigation.astro";
 
 type Props = MarkdownLayoutProps<{
   title: string;
   description: string;
 }>;
-
-const {
-  frontmatter: { title, description },
-} = Astro.props;
-const { pathname } = Astro.url;
-const getStarted = await getCollection("getStarted");
-const configuration = await getCollection("configuration");
-const modes = await getCollection("modes");
-const snapshot = await getCollection("snapshot");
-const collaborate = await getCollection("collaborate");
-const ci = await getCollection("ci");
-const account = await getCollection("account");
-
-const navItems = [
-  // Manually add the introduction page to the top of the list
-  {
-    title: "Get Started",
-    items: getStarted,
-    defaultOpen: true,
-    timeline: true,
-  },
-  {
-    title: "Configuration",
-    items: configuration,
-  },
-  {
-    title: "Modes",
-    items: modes,
-  },
-  {
-    title: "Snapshot",
-    items: snapshot,
-  },
-  {
-    title: "Collaborate",
-    items: collaborate,
-  },
-  {
-    title: "CI",
-    items: ci,
-  },
-  {
-    title: "Account",
-    items: account,
-  },
-];
 
 const baseUrl = import.meta.env.BASE_URL;
 ---
@@ -69,8 +19,7 @@ const baseUrl = import.meta.env.BASE_URL;
 <!doctype html>
 <html lang="en">
   <head>
-    <SEO title={title} description={description} />
-    <link rel="stylesheet" href={`${baseUrl}/prism.css`} />
+    <SEO title="Not Found" />
     <style is:global>
       :root {
         --accent: 136, 58, 234;
@@ -111,12 +60,25 @@ const baseUrl = import.meta.env.BASE_URL;
   <body>
     <MarketingHeader client:visible />
     <Container>
-      <MainWrapper>
-        <Navigation url={pathname.replace(/\/$/g, "")} navItems={navItems} />
-        <Wrapper>
-          <slot />
-        </Wrapper>
-      </MainWrapper>
+      <VStack
+        style={{ height: "50vh" }}
+        gap={3}
+        justify="center"
+        align="center"
+      >
+        <Text variant="heading30" alignment="center" as="h1">
+          That's not right!
+        </Text>
+        <div style={{ maxWidth: 400 }}>
+          <Text variant="body14" alignment="center" color="slate500">
+            We couldn't find the page you're looking for. Check the URL or <Link
+              href={baseUrl}
+            >
+              return home
+            </Link>.
+          </Text>
+        </div>
+      </VStack>
     </Container>
     <MarketingFooter />
   </body>
