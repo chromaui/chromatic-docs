@@ -1,11 +1,17 @@
 ---
-import { color, spacing } from "@chromaui/tetra";
+import { color, minMd, spacing } from "@chromaui/tetra";
 import { css, Global } from "@storybook/theming";
 
 const styles = css`
   :root {
     --docsearch-primary-color: ${color.blue500};
     --docsearch-muted-color: ${color.slate600};
+  }
+
+  ${minMd} {
+    #docsearch {
+      width: 100%;
+    }
   }
 
   .DocSearch-Button {
