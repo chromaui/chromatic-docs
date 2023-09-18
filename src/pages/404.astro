@@ -1,0 +1,85 @@
+---
+import type { MarkdownLayoutProps } from "astro";
+import { Container, Text, VStack, Link } from "@chromaui/tetra";
+import "@docsearch/css";
+import SEO from "../components/SEO.astro";
+import Scripts from "../components/Scripts.astro";
+import { MarketingFooter } from "../components/Footer/MarketingFooter";
+import { MarketingHeader } from "../components/Header/MarketingHeader";
+
+type Props = MarkdownLayoutProps<{
+  title: string;
+  description: string;
+}>;
+
+const baseUrl = import.meta.env.BASE_URL;
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <SEO title="Not Found" />
+    <style is:global>
+      :root {
+        --accent: 136, 58, 234;
+        --accent-light: 224, 204, 250;
+        --accent-dark: 49, 10, 101;
+        --accent-gradient: linear-gradient(
+          45deg,
+          rgb(var(--accent)),
+          rgb(var(--accent-light)) 30%,
+          white 60%
+        );
+      }
+
+      * {
+        box-sizing: border-box;
+        -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+        -webkit-tap-highlight-color: transparent; /* For some Androids */
+      }
+
+      html {
+        outline: none;
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
+      }
+
+      html,
+      body {
+        font-family: "Nunito Sans", "Helvetica Neue", Helvetica, Arial,
+          sans-serif;
+        background: #fff;
+        margin: 0;
+        padding: 0;
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
+      }
+    </style>
+    <Scripts />
+  </head>
+  <body>
+    <MarketingHeader client:visible />
+    <Container>
+      <VStack
+        style={{ height: "50vh" }}
+        gap={3}
+        justify="center"
+        align="center"
+      >
+        <Text variant="heading30" alignment="center" as="h1">
+          That's not right!
+        </Text>
+        <div style={{ maxWidth: 400 }}>
+          <Text variant="body14" alignment="center" color="slate500">
+            We couldn't find the page you're looking for. Check the URL or <Link
+              href={baseUrl}
+            >
+              return home
+            </Link>.
+          </Text>
+        </div>
+      </VStack>
+    </Container>
+    <MarketingFooter />
+  </body>
+</html>

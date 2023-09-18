@@ -1,77 +1,76 @@
-name: 'Netlify Preview Deploy'
+name: "Netlify Preview Deploy"
 
 # Runs on all new PR actions
 on:
   pull_request:
-    types: ['opened', 'edited', 'synchronize']
+    types: ["opened", "edited", "synchronize"]
   push:
     branches:
       - main
   release:
-    types: ['published']
+    types: ["published"]
 
 jobs:
   deploy:
     runs-on: ubuntu-latest
 
     steps:
-    - name: Checkout
-      uses: actions/checkout@v2
-      with:
-        # Necessary to grab the HEAD commit from the source branch when
-        # acting on a PR. Otherwise, `git log` will only contain the merge commit
-        ref: ${{ github.event.pull_request.head.sha }}
+      - name: Checkout
+        uses: actions/checkout@v2
+        with:
+          # Necessary to grab the HEAD commit from the source branch when
+          # acting on a PR. Otherwise, `git log` will only contain the merge commit
+          ref: ${{ github.event.pull_request.head.sha }}
 
-    - uses: actions/setup-node@v1
-      with:
-        node-version: '16.x'
+      - uses: actions/setup-node@v1
+        with:
+          node-version: "16.x"
 
-    - name: Build
-      run: |
-        yarn install --pure-lockfile --non-interactive
-        yarn build-deploy
+      - name: Build
+        run: |
+          yarn install --pure-lockfile --non-interactive
+          yarn build-deploy
 
-    - name: Create Deploy Message
-      run: |
-        # Grab branch path
-        FULL_PATH_REF="${{ github.event.pull_request.head.ref || github.ref }}"
+      - name: Create Deploy Message
+        run: |
+          # Grab branch path
+          FULL_PATH_REF="${{ github.event.pull_request.head.ref || github.ref }}"
 
-        # Strip "refs/heads/" from the start
-        REF=${FULL_PATH_REF#refs\/heads\/}
+          # Strip "refs/heads/" from the start
+          REF=${FULL_PATH_REF#refs\/heads\/}
 
-        # Set it in env
-        echo "REF=$REF" >> $GITHUB_ENV
+          # Set it in env
+          echo "REF=$REF" >> $GITHUB_ENV
 
-        # Get the short form of the SHA
-        SHA=$(git rev-parse --short ${{ github.event.pull_request.head.sha || github.sha }})
+          # Get the short form of the SHA
+          SHA=$(git rev-parse --short ${{ github.event.pull_request.head.sha || github.sha }})
 
-        # Set it in env
-        echo "SHA=$SHA" >> $GITHUB_ENV
+          # Set it in env
+          echo "SHA=$SHA" >> $GITHUB_ENV
 
-        # Yank the commit message from the log, using the SHA
-        COMMIT_MSG=$(git log -n 1 --format=%s $SHA)
+          # Yank the commit message from the log, using the SHA
+          COMMIT_MSG=$(git log -n 1 --format=%s $SHA)
 
-        # Set it in env
-        echo "COMMIT_MSG=$COMMIT_MSG" >> $GITHUB_ENV
+          # Set it in env
+          echo "COMMIT_MSG=$COMMIT_MSG" >> $GITHUB_ENV
 
-        # use the PR title or the commit message
-        DEPLOY_MESSAGE="${{ github.event.pull_request.title || env.COMMIT_MSG }}"
-        # Set it in env
-        echo "DEPLOY_MESSAGE=$DEPLOY_MESSAGE" >> $GITHUB_ENV
+          # use the PR title or the commit message
+          DEPLOY_MESSAGE="${{ github.event.pull_request.title || env.COMMIT_MSG }}"
+          # Set it in env
+          echo "DEPLOY_MESSAGE=$DEPLOY_MESSAGE" >> $GITHUB_ENV
 
-      # Sets the branch name as environment variable
-    - name: 'Deploy'
-      uses: nwtgck/actions-netlify@v1.2
-      with:
-        alias: deploy-preview-${{ github.head_ref }}-${{ env.SHA }}
-        deploy-message: "${{ env.REF }}@${{ env.SHA }}: ${{ env.DEPLOY_MESSAGE }} (${{ github.workflow }} workflow)"
-        github-token: ${{ secrets.GITHUB_TOKEN }}
-        enable-commit-comment: true
-        enable-pull-request-comment: true
-        production-branch: 'main'
-        publish-dir: '_site_deploy'
+        # Sets the branch name as environment variable
+      - name: "Deploy"
+        uses: nwtgck/actions-netlify@v1.2
+        with:
+          alias: deploy-preview-${{ github.head_ref }}-${{ env.SHA }}
+          deploy-message: "${{ env.REF }}@${{ env.SHA }}: ${{ env.DEPLOY_MESSAGE }} (${{ github.workflow }} workflow)"
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          enable-commit-comment: true
+          enable-pull-request-comment: true
+          production-branch: "main"
+          publish-dir: "_site_deploy"
 
-      env:
-        NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_AUTH_TOKEN }}
-        NETLIFY_SITE_ID: ${{ secrets.NETLIFY_SITE_ID }}
-
+        env:
+          NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_AUTH_TOKEN }}
+          NETLIFY_SITE_ID: ${{ secrets.NETLIFY_SITE_ID }}
