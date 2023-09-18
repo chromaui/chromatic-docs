@@ -13,7 +13,7 @@
     "dev": "astro dev",
     "start": "astro dev",
     "build": "astro build",
-    "build-deploy": "yarn build; rm -rf _site_deploy/docs; mv dist _site_deploy/docs",
+    "build-deploy": "yarn build; rm -rf _site_deploy/docs; mv dist/404.html _site_deploy; mv dist _site_deploy/docs;",
     "preview": "astro preview",
     "astro": "astro"
   },
