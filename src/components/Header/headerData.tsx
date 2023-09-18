@@ -27,13 +27,13 @@ const links: LinksProps = {
     title: "Interaction Test",
     icon: "pointerhand",
     iconColor: "orange500",
-    href: "interactions",
+    href: "/docs/interactions",
   },
   turboSnap: {
     title: "TurboSnap",
     icon: "dashboard",
     iconColor: "blue500",
-    href: "turbosnap",
+    href: "/docs/turbosnap",
   },
   UIReview: {
     title: "UI Review",
