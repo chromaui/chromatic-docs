@@ -17,7 +17,7 @@ In your `.github/workflows` directory, create a new file called `chromatic.yml` 
 # .github/workflows/chromatic.yml
 
 # Workflow name
-name: 'Chromatic'
+name: "Chromatic"
 
 # Event for the workflow
 on: push
@@ -39,7 +39,7 @@ jobs:
         # Chromatic GitHub Action options
         with:
           # 👇 Chromatic projectToken, refer to the manage page to obtain it.
-          projectToken: {% raw %}${{ secrets.CHROMATIC_PROJECT_TOKEN }}{% endraw %}
+          projectToken: ${{ secrets.CHROMATIC_PROJECT_TOKEN }}
 ```
 
 <div class="aside">
@@ -150,7 +150,7 @@ You'll need to make the following change to your workflow:
 jobs:
   chromatic-deployment:
     steps:
-        # 👇 Version 2 of the action
+      # 👇 Version 2 of the action
       - name: Checkout repository
         uses: actions/checkout@v2
         with:
@@ -164,7 +164,7 @@ jobs:
         # Options required to the GitHub Chromatic Action
         with:
           # 👇 Chromatic projectToken, refer to the manage page to obtain it.
-          projectToken: {% raw %}${{ secrets.CHROMATIC_PROJECT_TOKEN }}{% endraw %}
+          projectToken: ${{ secrets.CHROMATIC_PROJECT_TOKEN }}
 ```
 
 <div class="aside">
@@ -221,7 +221,7 @@ jobs:
       - uses: chromaui/action@v1
         # Options required for Chromatic's GitHub Action
         with:
-          projectToken: {% raw %}${{ secrets.CHROMATIC_PROJECT_TOKEN }}{% endraw %}
+          projectToken: ${{ secrets.CHROMATIC_PROJECT_TOKEN }}
           # 👇Runs Chromatic with the option to compress the build output.
           zip: true
 ```
@@ -241,7 +241,7 @@ If you've already built your Storybook in a separate CI step, you can alternativ
 # .github/workflows/chromatic.yml
 
 # Workflow name
-name: 'Chromatic'
+name: "Chromatic"
 
 # Event for the workflow
 on: push
@@ -263,14 +263,14 @@ jobs:
         # Chromatic GitHub Action options
         with:
           # 👇 Chromatic projectToken, refer to the manage page to obtain it.
-          projectToken: {% raw %}${{ secrets.CHROMATIC_PROJECT_TOKEN_1 }}{% endraw %}
+          projectToken: ${{ secrets.CHROMATIC_PROJECT_TOKEN_1 }}
           workingDir: packages/project_1
       - name: Publish Project 2 to Chromatic
         uses: chromaui/action@v1
         # Chromatic GitHub Action options
         with:
           # 👇 Chromatic projectToken, refer to the manage page to obtain it.
-          projectToken: {% raw %}${{ secrets.CHROMATIC_PROJECT_TOKEN_2 }}{% endraw %}
+          projectToken: ${{ secrets.CHROMATIC_PROJECT_TOKEN_2 }}
           workingDir: packages/project_2
 ```
 
@@ -280,7 +280,7 @@ If you want to run Chromatic in parallel for each subproject, you will need to c
 # .github/workflows/chromatic-1.yml
 
 # Workflow name
-name: 'Chromatic 1'
+name: "Chromatic 1"
 
 # Event for the workflow
 on: push
@@ -302,7 +302,7 @@ jobs:
         # Chromatic GitHub Action options
         with:
           # 👇 Chromatic projectToken, refer to the manage page to obtain it.
-          projectToken: {% raw %}${{ secrets.CHROMATIC_PROJECT_TOKEN_1 }}{% endraw %}
+          projectToken: ${{ secrets.CHROMATIC_PROJECT_TOKEN_1 }}
           workingDir: packages/project_1
 ```
 
@@ -310,7 +310,7 @@ jobs:
 # .github/workflows/chromatic-2.yml
 
 # Workflow name
-name: 'Chromatic 2'
+name: "Chromatic 2"
 
 # Event for the workflow
 on: push
@@ -332,7 +332,7 @@ jobs:
         # Chromatic GitHub Action options
         with:
           # 👇 Chromatic projectToken, refer to the manage page to obtain it.
-          projectToken: {% raw %}${{ secrets.CHROMATIC_PROJECT_TOKEN_2 }}{% endraw %}
+          projectToken: ${{ secrets.CHROMATIC_PROJECT_TOKEN_2 }}
           workingDir: packages/project_2
 ```
 
@@ -348,13 +348,13 @@ TurboSnap is an advanced Chromatic feature implemented to improve the build time
 jobs:
   chromatic-deployment:
     steps:
-        # 👇 Adds Chromatic as a step in the workflow
+      # 👇 Adds Chromatic as a step in the workflow
       - name: Publish to Chromatic
         uses: chromaui/action@v1
         # Options required to the GitHub chromatic action
         with:
           # 👇 Chromatic projectToken, refer to the manage page to obtain it.
-          projectToken: {% raw %}${{ secrets.CHROMATIC_PROJECT_TOKEN }}{% endraw %}
+          projectToken: ${{ secrets.CHROMATIC_PROJECT_TOKEN }}
           onlyChanged: true # 👈 Required option to enable TurboSnap
 ```
 
@@ -376,15 +376,15 @@ By default, TurboSnap relies on Webpack's dependency graph to determine which fi
 jobs:
   chromatic-deployment:
     steps:
-        # 👇 Adds Chromatic as a step in the workflow
+      # 👇 Adds Chromatic as a step in the workflow
       - name: Publish to Chromatic
         uses: chromaui/action@v1
         # Options required to the GitHub chromatic action
         with:
           # 👇 Chromatic projectToken, refer to the manage page to obtain it.
-          projectToken: {% raw %}${{ secrets.CHROMATIC_PROJECT_TOKEN }}{% endraw %}
+          projectToken: ${{ secrets.CHROMATIC_PROJECT_TOKEN }}
           onlyChanged: true # 👈 Required option to enable TurboSnap
-          externals: {% raw %}packages/(icons/icons|tokens/src)/**{% endraw %}
+          externals: packages/(icons/icons|tokens/src)/**
 ```
 
 <div class="aside">
@@ -428,11 +428,11 @@ jobs:
       - uses: chromaui/action@v1
         # Options required for Chromatic's GitHub Action
         with:
-          projectToken: {% raw %}${{ secrets.CHROMATIC_PROJECT_TOKEN }}{% endraw %}
+          projectToken: ${{ secrets.CHROMATIC_PROJECT_TOKEN }}
         env:
           # 👇 Sets the environment variable
           CHROMATIC_RETRIES: 5
-          LOG_LEVEL: 'error'
+          LOG_LEVEL: "error"
 ```
 
 It comes with a caveat if you need to provide project-specific environment variables. We recommend that you prefix each variable with the `STORYBOOK` keyword and adjust your workflow to the following:
@@ -455,10 +455,10 @@ jobs:
       - uses: chromaui/action@v1
         # Options required for Chromatic's GitHub Action
         with:
-          projectToken: {% raw %}${{ secrets.CHROMATIC_PROJECT_TOKEN }}{% endraw %}
+          projectToken: ${{ secrets.CHROMATIC_PROJECT_TOKEN }}
         env:
           #👇 Sets the environment variable
-          STORYBOOK_SOME_ENV_VAR: {% raw %}${{ secrets.STORYBOOK_SOME_ENV_VAR }} {% endraw %}
+          STORYBOOK_SOME_ENV_VAR: ${{ secrets.STORYBOOK_SOME_ENV_VAR }}
 ```
 
 <div class="aside">
@@ -489,13 +489,13 @@ If you are using pull request statuses as required checks before merging, you ma
 jobs:
   chromatic-deployment:
     steps:
-        # 👇 Adds Chromatic as a step in the workflow
+      # 👇 Adds Chromatic as a step in the workflow
       - name: Publish to Chromatic
         uses: chromaui/action@v1
         # Options required to the GitHub chromatic action
         with:
           # 👇 Chromatic projectToken, refer to the manage page to obtain it.
-          projectToken: {% raw %}${{ secrets.CHROMATIC_PROJECT_TOKEN }}{% endraw %}
+          projectToken: ${{ secrets.CHROMATIC_PROJECT_TOKEN }}
           exitZeroOnChanges: true # 👈 Option to prevent the workflow from failing
 ```
 
@@ -531,16 +531,16 @@ If you’re using this functionality but notice the incoming changes were not ac
 jobs:
   chromatic-deployment:
     steps:
-        # Other steps
+      # Other steps
 
-        # 👇 Checks if the branch is not main and runs Chromatic
+      # 👇 Checks if the branch is not main and runs Chromatic
       - name: Publish to Chromatic
         if: github.ref != 'refs/heads/main'
         uses: chromaui/action@v1
         # Required options for the Chromatic GitHub Action
         with:
           # 👇 Chromatic projectToken, refer to the manage page to obtain it.
-          projectToken: {% raw %}${{ secrets.CHROMATIC_PROJECT_TOKEN }}{% endraw %}
+          projectToken: ${{ secrets.CHROMATIC_PROJECT_TOKEN }}
         # 👇 Checks if the branch is main and accepts all changes in Chromatic
       - name: Publish to Chromatic and auto accept changes
         if: github.ref == 'refs/heads/main'
@@ -548,9 +548,8 @@ jobs:
         # Required options for the Chromatic GitHub Action
         with:
           # 👇 Chromatic projectToken, refer to the manage page to obtain it.
-          projectToken: {% raw %}${{ secrets.CHROMATIC_PROJECT_TOKEN }}{% endraw %}
+          projectToken: ${{ secrets.CHROMATIC_PROJECT_TOKEN }}
           autoAcceptChanges: true # 👈 Option to accept all changes
-
 ```
 
 <div class="aside">
@@ -569,14 +568,14 @@ If you want to test the changes introduced by the rebased branch, you can adjust
 jobs:
   chromatic-deployment:
     steps:
-        # 👇 Adds Chromatic as a step in the workflow
+      # 👇 Adds Chromatic as a step in the workflow
       - name: Publish to Chromatic
         uses: chromaui/action@v1
         # Options required to the GitHub chromatic action
         with:
           # 👇 Chromatic projectToken, refer to the manage page to obtain it.
-          projectToken: {% raw %}${{ secrets.CHROMATIC_PROJECT_TOKEN }}{% endraw %}
-          ignoreLastBuildOnBranch: 'my-branch' # 👈 Option to skip the last build on target branch
+          projectToken: ${{ secrets.CHROMATIC_PROJECT_TOKEN }}
+          ignoreLastBuildOnBranch: "my-branch" # 👈 Option to skip the last build on target branch
 ```
 
 <div class="aside">

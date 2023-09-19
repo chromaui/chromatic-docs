@@ -80,7 +80,7 @@ steps:
   - name: Publish to Chromatic
     uses: chromaui/action@v1
     with:
-      projectToken: {% raw %}${{ secrets.CHROMATIC_PROJECT_TOKEN }}{% endraw %}
+      projectToken: ${{ secrets.CHROMATIC_PROJECT_TOKEN }}
       onlyChanged: true
 ```
 
@@ -143,13 +143,13 @@ If you've set up TurboSnap with Chromatic's [GitHub action](github-actions#enabl
 jobs:
   chromatic-deployment:
     steps:
-        # 👇 Adds Chromatic as a step in the workflow
+      # 👇 Adds Chromatic as a step in the workflow
       - name: Publish to Chromatic
         uses: chromaui/action@v1
         # Options required to the GitHub chromatic action
         with:
           # 👇 Chromatic projectToken, refer to the manage page to obtain it.
-          projectToken: {% raw %}${{ secrets.CHROMATIC_PROJECT_TOKEN }}{% endraw %}
+          projectToken: ${{ secrets.CHROMATIC_PROJECT_TOKEN }}
           externals: |
             - '*.sass'
             - 'public/**'

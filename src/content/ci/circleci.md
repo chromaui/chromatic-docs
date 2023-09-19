@@ -30,7 +30,7 @@ jobs:
       - checkout
       - restore_cache:
           keys:
-            - v1-dependencies-{% raw %}{{ checksum "package.json" }}{% endraw %}
+            - v1-dependencies-{{ checksum "package.json" }}
             - v1-dependencies-
         # 👇 Install dependencies with the same package manager used in the project (replace it as needed) e.g. yarn, npm, pnpm
       - run: yarn install
