@@ -14,7 +14,7 @@ UI Review creates a changeset of the exact visual changes introduced on a new br
 ![UI Review](../../images/workflow-uireview.png)
 
 <div class="aside">
-<p>👀  <strong>Looking for Manual UI Reviews</strong>? See <a href="review#manual-ui-review">the documentation below</a>.</p>
+<p>👀  <strong>Looking for Manual UI Reviews</strong>? See <a href="/docs/review#manual-ui-review">the documentation below</a>.</p>
 </div>
 
 ## Enable
@@ -26,7 +26,7 @@ Enable UI Review for your project on the Manage screen.
 Once enabled, visit the Reviews tab in the web app sidebar. There you’ll be prompted to install the GitHub app or webhooks for GitLab/Bitbucket.
 
 <div class="aside">
-<p><b>Note:</b> You must <a href="ci">set up CI</a> so that Chromatic is able to run builds for each commit on the PR branch.</p>
+<p><b>Note:</b> You must <a href="/docs/ci">set up CI</a> so that Chromatic is able to run builds for each commit on the PR branch.</p>
 </div>
 
 ## Understanding the Review
@@ -169,7 +169,7 @@ Prune your completed manual UI Reviews by clicking the "Close review" menu item 
 
 Now that you’ve seen how to review the UI changeset before merging, learn how Chromatic makes sharing versioned and interactive component docs simple.
 
-<a class="btn primary round" href="document">Read next chapter</a>
+<a class="btn primary round" href="/docs/document">Read next chapter</a>
 
 ---
 

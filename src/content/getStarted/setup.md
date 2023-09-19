@@ -120,7 +120,7 @@ Chromatic posts a "Storybook Publish" status check in your pull/merge request th
 
 📸 Now that you published Storybook, let's see how to automate [UI tests](test) to catch bugs.
 
-<a class="btn primary round" href="test">Read next chapter</a>
+<a class="btn primary round" href="/docs/test">Read next chapter</a>
 
 ---
 

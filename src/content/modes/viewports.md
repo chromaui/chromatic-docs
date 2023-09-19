@@ -8,7 +8,7 @@ sidebar: { order: 2 }
 # Viewports for responsive UIs
 
 <div class="aside" style="margin-bottom: 2rem;">
-<p>ℹ️&nbsp;&nbsp;This page documents viewports using the modes API. Learn how to <a href="modes">get started</a>.</p>
+<p>ℹ️&nbsp;&nbsp;This page documents viewports using the modes API. Learn how to <a href="/docs/modes">get started</a>.</p>
 
 <p style="margin-bottom: 0;">If you are transitioning from the <code>chromatic.viewports</code> API to the modes API, please consult the <a href="#migration-from-viewports-legacy-to-modes">migration guide</a>.</p>
 </div>
