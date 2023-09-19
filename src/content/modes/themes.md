@@ -8,7 +8,7 @@ sidebar: { order: 3 }
 # Themes in modes
 
 <div class="aside" style="margin-bottom: 2rem;">
-ℹ️&nbsp;&nbsp;This feature uses the modes API. Learn how to <a href="modes">get started</a>.
+ℹ️&nbsp;&nbsp;This feature uses the modes API. Learn how to <a href="/docs/modes">get started</a>.
 </div>
 
 Themes control the visual characteristics of UI—color palette, typography, white space, border styles, shadows, radii, etc. Using modes enables Chromatic to test the same story with multiple themes.

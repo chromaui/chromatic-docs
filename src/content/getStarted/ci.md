@@ -59,7 +59,7 @@ Require checks in [GitHub](https://help.github.com/en/github/administering-a-rep
 
 How tools work together affects your development speed. Learn the recommended Chromatic workflow.
 
-<a class="btn primary round" href="workflow">Read next chapter</a>
+<a class="btn primary round" href="/docs/workflow">Read next chapter</a>
 
 ---
 
