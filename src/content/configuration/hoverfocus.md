@@ -227,12 +227,18 @@ To capture those styles, wrap the story in a [decorator](https://storybook.js.or
 ```js
 // MyComponent.stories.js|jsx
 
-import { MyComponent } from './MyComponent';
+import { MyComponent } from "./MyComponent";
 
 export default {
   component: MyComponent,
-  title: 'Example Story',
-  decorators:  [(Story) => {% raw %}<div style={{ padding: '1em' }}{% endraw %}><Story/></div>],
+  title: "Example Story",
+  decorators: [
+    (Story) => (
+      <div style={{ padding: "1em" }}>
+        <Story />
+      </div>
+    ),
+  ],
 };
 ```
 

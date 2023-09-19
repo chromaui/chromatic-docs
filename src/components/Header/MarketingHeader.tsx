@@ -30,6 +30,7 @@ const HeaderCTAButton = styled(Button)`
 export const MarketingHeader: FC<Props> = ({ theme = "light" }) => {
   return (
     <Header
+      desktopActiveId="docs"
       theme={theme}
       desktopData={desktopData}
       mobileData={mobileData}

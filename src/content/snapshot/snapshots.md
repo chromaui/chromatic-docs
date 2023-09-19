@@ -144,12 +144,18 @@ To set the height, you can add a decorator for stories that wraps them in a cont
 ```js
 // MyComponent.stories.js|jsx
 
-import { MyComponent } from './MyComponent';
+import { MyComponent } from "./MyComponent";
 
 export default {
   component: MyComponent,
-   title: 'Example Story',
-  decorators:  [(Story) => {% raw %}<div style={{ margin: '3em' }}{% endraw %}><Story/></div>],
+  title: "Example Story",
+  decorators: [
+    (Story) => (
+      <div style={{ margin: "3em" }}>
+        <Story />
+      </div>
+    ),
+  ],
 };
 ```
 
@@ -167,12 +173,18 @@ To capture snapshots of portaled elements, you can use a [decorator](https://sto
 ```js
 // MyComponent.stories.js|jsx
 
-import { MyComponent } from './MyComponent';
+import { MyComponent } from "./MyComponent";
 
 export default {
   component: MyComponent,
-  title: 'Example Story',
-  decorators:  [(Story) => {% raw %}<div style={{ height: '300px' }}{% endraw %}><Story/></div>],
+  title: "Example Story",
+  decorators: [
+    (Story) => (
+      <div style={{ height: "300px" }}>
+        <Story />
+      </div>
+    ),
+  ],
 };
 ```
 
@@ -195,14 +207,14 @@ If your component infers its dimensions from the layout of the surrounding DOM e
 ```js
 // MyComponent.stories.js|jsx
 
-import { MyComponent } from './MyComponent';
+import { MyComponent } from "./MyComponent";
 
 export default {
   component: MyComponent,
-  title: 'Example Story',
+  title: "Example Story",
   decorators: [
-    storyFn => (
-      {% raw %}<div style={{ width: '1200px', height: '800px' }}>{% endraw %}
+    (storyFn) => (
+      <div style={{ width: "1200px", height: "800px" }}>
         This is a decorator for modals and such {storyFn()}
       </div>
     ),
@@ -215,7 +227,7 @@ export default {
  * to learn how to use render functions.
  */
 export const StoryWithDimensions = {
-  render: () => <MyComponent/>,
+  render: () => <MyComponent />,
 };
 ```
 
@@ -229,14 +241,14 @@ If your component infers its dimensions from the layout of the surrounding DOM e
 ```js
 // MyComponent.stories.js|jsx
 
-import { MyComponent } from './MyComponent';
+import { MyComponent } from "./MyComponent";
 
 export default {
   component: MyComponent,
-  title: 'Example Story',
+  title: "Example Story",
   decorators: [
-    storyFn => (
-      {% raw %}<div style={{ width: '1200px', height: '800px' }}>{% endraw %}
+    (storyFn) => (
+      <div style={{ width: "1200px", height: "800px" }}>
         This is a decorator for modals and such {storyFn()}
       </div>
     ),
@@ -249,7 +261,7 @@ export default {
  * to learn how to use render functions.
  */
 export const StoryWithDimensions = {
-  render: () => <MyComponent/>,
+  render: () => <MyComponent />,
   args: {},
 };
 ```
