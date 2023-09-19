@@ -109,7 +109,7 @@ export default config;
 
 ## How to run visual tests
 
-Get started visual testing by introducing a change in one of your components; for example, change a background color or font size. Then save the file, and commit your local changes. Click the "Run tests" button in the toolbar to begin the process. This will:
+Get started visual testing by introducing a change in one of your components; for example, change a background color or font size. Then save the file, and commit your local changes. Click the "Play" button in the sidebar to begin the process. This will:
 
 1. Connect to Chromatic
 2. Start a local build, which will:
@@ -121,9 +121,21 @@ Get started visual testing by introducing a change in one of your components; fo
 
 ## Review changes
 
-To find out which changes were introduced in the latest build, the addon highlights the stories that require your attention. Cycle through them and review them. If the changes are intentional, click the "Accept" button to update the baseline with the latest changes and mark them as accepted in Chromatic. This will ensure that when you push the changes into your remote repository, they will be reconciled with builds deployed from [CI](ci) or the [CLI](cli).
+To find out which changes were introduced in the latest build, the addon highlights the stories that require your attention. Cycle through them and review them. If the changes are intentional, the addon allows you to accept individual snapshots, stories, or the entire build, updating the baseline with the latest changes and marking them as accepted in Chromatic. This will ensure that when you push the changes into your remote repository, they will be reconciled with builds deployed from [CI](ci) or the [CLI](cli).
 
 ![Confirm UI changes in Storybook](../../images/visual-tests-accept-all.png)
+
+If you accept a change, the addon provides an "Unaccept" button in the addon panel that allows you to revert it. This resets the status to "unreviewed," updates Storybook's sidebar, and syncs the change with Chromatic.
+
+![Revert UI changes in Storybook](../../images/visual-tests-unaccept.png)
+
+---
+
+#### What's the difference in testing with the addon vs. CI?
+
+Running tests with the Visual Testing addon shortens the feedback loop by providing a simple workflow to detect UI bugs during development. This means you don't have to wait until your CI environment finishes running, reducing the costs and computational power used to verify what's changed. Once you combine the addon with [TurboSnap](turbosnap)([see below](#turbosnap-support)), only stories with potential changes will be tested, decreasing the number of snapshots taken and the time it takes to run the tests.
+
+---
 
 ## Troubleshooting
 
@@ -147,5 +159,26 @@ This is a [known issue](https://github.com/storybookjs/storybook/issues/22431#is
   }
 }
 ```
+
+</details>
+
+<details>
+<summary>How does the addon impact on snapshot usage?</summary>
+
+Running tests with the addon enabled still counts towards your monthly snapshot usage, but they're likely to stay the same despite the number of builds you run. For customers who are subscribed to the early access program, the snapshots taken will not be billed until the end of the program. If you still see them listed in your bill or have any questions, contact us <a class="intercom-opensource-qualification-bot"><b>via in-app chat</b></a>.
+
+</details>
+
+<details>
+<summary id="turbosnap-support">Does the addon support TurboSnap?</summary>
+
+No. The Visual Testing addon is still in its early access stage. Support for TurboSnap will be added as part of a future release.
+
+</details>
+
+<details>
+<summary>Can I deny a change with the addon?</summary>
+
+No. Denying changes is only available when running builds from CI or the CLI. If you need to, you can revert changes by clicking the "Unaccept" button in the addon panel and re-running the tests to verify them.
 
 </details>
