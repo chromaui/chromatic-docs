@@ -142,6 +142,24 @@ chromatic_publish_project_2:
 Additional paralellization can be achieved when configuring your workflow to run Chromatic on multiple subprojects. Read the official GitLab <a href="https://docs.gitlab.com/ee/ci/jobs/job_control.html#parallelize-large-jobs"> documentation</a>.
 </div>
 
+### Disable Shallow Cloning
+
+GitLab performs a shallow clone by default, which can lead to required patch builds depending on how frequently you run builds between commits.  In order to avoid this, adjust your workflow to include a `GIT_DEPTH` of `0`.  This ensures Chromatic can fetch your entire git history, without having to adjust your general `Git strategy` settings within GitLab:
+
+```yml
+# .gitlab-ci.yml
+
+# Additional pipeline configurations
+
+# Sets the stages for the pipeline
+stages:
+  - test
+
+# 👇 Sets the depth to fetch all git history
+variables:
+  GIT_DEPTH: 0
+```
+
 ### Enable TurboSnap
 
 TurboSnap is an advanced Chromatic feature implemented to improve the build time for large projects, disabled by default once you add Chromatic to your CI environment. To enable it, you'll need to adjust your existing workflow and run the `chromatic` command with the `--only-changed` flag as follows:
