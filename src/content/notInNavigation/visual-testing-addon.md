@@ -24,6 +24,12 @@ Run the following command to install the addon:
 yarn add --dev @chromaui/addon-visual-tests
 ```
 
+<div class="aside">
+
+ℹ️ If you have an older version of Storybook, upgrade to the latest version by running the command `npx storybook@latest upgrade` before installing the addon. See the [migration guide](https://storybook.js.org/docs/7.0/react/migration-guide) for more information.
+
+</div>
+
 Update your Storybook configuration file `.storybook/main.js|ts` file to include the addon:
 
 ```js
