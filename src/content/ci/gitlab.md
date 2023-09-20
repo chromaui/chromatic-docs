@@ -144,7 +144,7 @@ Additional paralellization can be achieved when configuring your workflow to run
 
 ### Disable Shallow Cloning
 
-GitLab performs a shallow clone by default, which can lead to required patch builds depending on how frequently you run builds between commits.  In order to avoid this, adjust your workflow to include a `GIT_DEPTH` of `0`.  This ensures Chromatic can fetch your entire git history, without having to adjust your general `Git strategy` settings:
+GitLab performs a shallow clone by default, which can lead to required patch builds depending on how frequently you run builds between commits.  In order to avoid this, adjust your workflow to include a `GIT_DEPTH` of `0`.  This ensures Chromatic can fetch your entire git history, without having to adjust your general `Git strategy` settings within GitLab:
 
 ```yml
 # .gitlab-ci.yml
