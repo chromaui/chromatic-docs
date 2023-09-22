@@ -171,7 +171,7 @@ This is a [known issue](https://github.com/storybookjs/storybook/issues/22431#is
 <details>
 <summary>How does the addon impact on snapshot usage?</summary>
 
-Running tests with the addon enabled still counts towards your monthly snapshot usage, but they're likely to stay the same despite the number of builds you run. By default, it will follow the same pattern as running tests from CI or CLI (i.e., one snapshot per story, browser) and will take additional snapshots if you enabled <a href="/docs/modes">modes</a>. However, for customers who are subscribed to the early access program, the snapshots taken will not be billed until the end of the program. If you still see them listed in your bill or have any questions, contact us <a class="intercom-opensource-qualification-bot"><b>via in-app chat</b></a>.
+Running tests with the addon enabled still counts towards your monthly snapshot usage, but they're likely to stay the same despite the number of builds you run. By default, it will follow the same pattern as running tests from CI or CLI (i.e., one snapshot per story, browser). If you have enabled <a href="/docs/modes">modes</a>, the addon will also take them into account. However, for customers who are subscribed to the early access program, the snapshots taken will not be billed until the end of the program. If you still see them listed in your bill or have any questions, contact us <a class="intercom-opensource-qualification-bot"><b>via in-app chat</b></a>.
 
 </details>
 
