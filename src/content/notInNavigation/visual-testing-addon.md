@@ -16,13 +16,19 @@ Chromatic's Visual Testing addon helps you detect UI bugs during development. It
 
 ## Installation
 
-To enable visual testing with Storybook, you must take additional steps to set it up properly. We recommend that you have a fully functional Storybook project running the latest version (e.g., 7.4 or higher) and a Chromatic account configured with a [project](setup#sign-up) to which you have access.
+To enable visual testing with Storybook, you must take additional steps to set it up properly. We recommend that you have a fully functional Storybook project running the latest version (e.g., 7.4 or higher) and a Chromatic account configured with a <a href="/docs/setup#sign-up">project</a> to which you have access.
 
 Run the following command to install the addon:
 
 ```shell
 yarn add --dev @chromaui/addon-visual-tests
 ```
+
+<div class="aside">
+
+ℹ️ If you have an older version of Storybook, upgrade to the latest version by running the command `npx storybook@latest upgrade` before installing the addon. See the [migration guide](https://storybook.js.org/docs/7.0/react/migration-guide) for more information.
+
+</div>
 
 Update your Storybook configuration file `.storybook/main.js|ts` file to include the addon:
 
@@ -109,11 +115,11 @@ export default config;
 
 ## How to run visual tests
 
-Get started visual testing by introducing a change in one of your components; for example, change a background color or font size. Then save the file, and commit your local changes. Click the "Run tests" button in the toolbar to begin the process. This will:
+Get started visual testing by introducing a change in one of your components; for example, change a background color or font size. Then save the file, and commit your local changes. Click the "Play" button in the sidebar to begin the process. This will:
 
 1. Connect to Chromatic
 2. Start a local build, which will:
-   - Snapshot your components, including [browsers](browsers) and [viewport sizes](viewports)
+   - Snapshot your components, including <a href="/docs/browsers">browsers</a> and <a href="/docs/viewports">viewport sizes</a>
    - Compare the new snapshots against the latest baselines
 3. Display the results in the addon panel
 
@@ -121,9 +127,21 @@ Get started visual testing by introducing a change in one of your components; fo
 
 ## Review changes
 
-To find out which changes were introduced in the latest build, the addon highlights the stories that require your attention. Cycle through them and review them. If the changes are intentional, click the "Accept" button to update the baseline with the latest changes and mark them as accepted in Chromatic. This will ensure that when you push the changes into your remote repository, they will be reconciled with builds deployed from [CI](ci) or the [CLI](cli).
+To find out which changes were introduced in the latest build, the addon highlights the stories that require your attention. Cycle through them and review them. If the changes are intentional, the addon allows you to accept individual snapshots, stories, or the entire build, updating the baseline with the latest changes and marking them as accepted in Chromatic. This will ensure that when you push the changes into your remote repository, they will be reconciled with builds deployed from <a href="/docs/ci">CI</a> or the <a href="/docs/cli">CLI</a>.
 
 ![Confirm UI changes in Storybook](../../images/visual-tests-accept-all.png)
+
+If you accept a change but want to revert the acceptance, the addon provides an "Unaccept" button that allows you to do just that. This resets the status to "unreviewed," updates Storybook's sidebar, and syncs the change with Chromatic.
+
+![Revert UI changes in Storybook](../../images/visual-tests-unaccept.png)
+
+---
+
+#### What's the difference in testing with the addon vs. CI?
+
+Running tests with the Visual Testing addon shortens the feedback loop by providing a simple workflow to detect UI bugs during development. This means you don't have to wait until your CI environment finishes running, reducing the costs and computational power used to verify what's changed. Once you combine the addon with <a href="/docs/turbosnap">TurboSnap</a>([see below](#turbosnap-support)), you can further reduce the number of snapshots taken and the time it takes to run the tests.
+
+---
 
 ## Troubleshooting
 
@@ -147,5 +165,26 @@ This is a [known issue](https://github.com/storybookjs/storybook/issues/22431#is
   }
 }
 ```
+
+</details>
+
+<details>
+<summary>How does the addon impact on snapshot usage?</summary>
+
+Running tests with the addon enabled still counts towards your monthly snapshot usage, but they're likely to stay the same despite the number of builds you run. By default, it will follow the same pattern as running tests from CI or CLI (i.e., one snapshot per story, browser). If you have enabled <a href="/docs/modes">modes</a>, the addon will also take them into account. However, for customers who are subscribed to the early access program, the snapshots taken will not be billed until the end of the program. If you still see them listed in your bill or have any questions, contact us <a class="intercom-opensource-qualification-bot"><b>via in-app chat</b></a>.
+
+</details>
+
+<details>
+<summary id="turbosnap-support">Does the addon support TurboSnap?</summary>
+
+No. The Visual Testing addon is still in its early access stage. Support for TurboSnap will be added as part of a future release.
+
+</details>
+
+<details>
+<summary>Can I deny a change with the addon?</summary>
+
+No. Denying changes is only available when running builds from CI or the CLI. If you need to, you can revert changes by clicking the "Unaccept" button in the addon panel and re-running the tests to verify them.
 
 </details>
