@@ -20,7 +20,7 @@ Current limitations:
 <!-- Without this the paragraph below butts up against the aside -->
 <p></p>
 
-Chromatic **E2E Visual Tests** capture live [“archives”](#what-are-archives) of pages during [Playwright](https://playwright.dev/) end-to-end tests. This means you can use the full Chromatic [**UI Tests**](test) and [**UI Review**](review) features _without_ writing any [Storybook stories](https://storybook.js.org/docs/react/get-started/whats-a-story). (Storybook is still used, but [automatically configured for you](#running-the-storybook-locally).)
+Chromatic **E2E Visual Tests** capture live [“archives”](#what-are-archives) of pages during [Playwright](https://playwright.dev/) end-to-end tests. This means you can use the full Chromatic <a href="/docs/test"><b>UI Tests</b></a> and <a href="/docs/review"><b>UI Review</b></a> features _without_ writing any [Storybook stories](https://storybook.js.org/docs/react/get-started/whats-a-story). (Storybook is still used, but [automatically configured for you](#running-the-storybook-locally).)
 
 The archives you create during each test run can be viewed in a Storybook UI, so you can inspect them in Chromatic (or [locally](#running-the-storybook-locally)) after each build to more closely debug changes and errors.
 
@@ -34,7 +34,7 @@ An **archive** is a self-contained, re-renderable HTML “snapshot” of your pa
 
 </div>
 
-The Archive Storyook is passed to Chromatic’s build process, which screenshots those archives in whichever [cloud browsers](browsers) you have configured for your project. Chromatic then compares the screenshots, and presents you with the changes to review.
+The Archive Storyook is passed to Chromatic’s build process, which screenshots those archives in whichever <a href="/docs/browsers">cloud browsers you have configured for your project. Chromatic then compares the screenshots, and presents you with the changes to review.
 
 ## Requirements
 
@@ -140,7 +140,7 @@ The above snippet produces archives that look like this in Storybook:
 
    If your repository already has an associated Chromatic project, you can set up an additional Chromatic project to test the Archive Storybook using the [instructions for monorepo support](monorepos#run-chromatic-for-each-subproject).
 
-   Otherwise, follow [these sign up instructions](setup#sign-up) to create a new Chromatic project.
+   Otherwise, follow <a href="/docs/setup#sign-up">these sign up instructions</a> to create a new Chromatic project.
 
    <div class="aside">
 
@@ -289,7 +289,7 @@ No. Our recommendation is still to develop and test your components, including p
 
 - **Coverage** — Certain states (in-between loading states, unusual API responses) are difficult or impossible to achieve in E2E but simple in Storybook. It’s much easier to write a story for every possible input of a page.
 - **Reproductions** — If something goes wrong with a snapshot, it’s much easier to pull up the story in Storybook and iterate towards fixing it.
-- **[Component Driven Development](componentdriven.org)** — Anchoring work and conversations about a UI in a specific state (e.g. settings page for new project) also offers many workflow benefits for development and collaboration.
+- **[Component Driven Development](https://www.componentdriven.org)** — Anchoring work and conversations about a UI in a specific state (e.g., settings page for new project) also offers many workflow benefits for development and collaboration.
 
 Unlike Storybook, E2E Visual Testing is well-suited to testing user flows between pages, not just individual page components.
 
