@@ -94,7 +94,7 @@ It's essential that your components and stories render in a **consistent** fashi
 
 Image and font rendering can be tricky. Resources that load from unpredictable or flaky sources may not load in time (15s) to capture. Work around this by:
 
-- Ensure resources load <a href="/docs/resource-loading">reliably fast in Chromatic</a
+- Ensure resources load <a href="/docs/resource-loading">reliably fast in Chromatic</a>
 - Serve resources as [static files in Storybook](https://storybook.js.org/configurations/serving-static-files/) (this also improves your test speed)
 - Using a [placeholder service](https://placeholder.com/).
 
@@ -123,7 +123,7 @@ Videos are interactive and time-based which introduces inconsistencies in snapsh
 
 Most likely you are calling into `window.parent` somewhere in your code. As we serve your Storybook preview iframe inside our www.chromatic.com domain this leads to a x-origin error as your code doesn't have access to our frame (with good reason!).
 
-Generally speaking it is a good idea to wrap calls like that in a `try { } catch` in case the code is running in a context where that's not possible (e.g Chromatic).
+Generally speaking it is a good idea to wrap calls like that in a `try { } catch` in case the code is running in a context where that's not possible (e.g., Chromatic).
 
 </details>
 
@@ -197,7 +197,7 @@ Scrollable divs constrain the height of their children. Change the height of the
 <details>
 <summary>Why isn’t my modal or dialog captured?</summary>
 
-If you use an “animateIn” effect set <a href="/docs/delay">to ensure we snapshot when the animation completes.
+If you use an “animateIn” effect set <a href="/docs/delay">delay</a> to ensure we snapshot when the animation completes.
 
 If your component infers its dimensions from the layout of the surrounding DOM elements (e.g., it's a modal that uses `position:fixed`), you'll need to set the height of that component's stories using a decorator.
 
