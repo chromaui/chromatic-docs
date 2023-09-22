@@ -7,7 +7,7 @@ sidebar: { order: 1 }
 
 # Snapshots
 
-A snapshot is an image of a story plus some metadata captured by a standardized browser in Chromatic's Capture Cloud infrastructure. Snapshots power [UI Test](test) and [UI Review](review).
+A snapshot is an image of a story plus some metadata captured by a standardized browser in Chromatic's Capture Cloud infrastructure. Snapshots power <a href="/docs/test">UI Tests</a> and <a href="/docs/review">UI Review</a>.
 
 ## Table of contents:
 
@@ -72,7 +72,7 @@ It's essential that your components and stories render in a **consistent** fashi
 
 - **Animations**: Chromatic will attempt to pause all animations. However, you may need to <a href="/docs/animations">configure</a> Chromatic's exact behavior. Chromatic's exact behavior.
 
-- **Unpredictable resource hosts**: Resources that load from unpredictable or flaky sources may not load in time (15s) to capture. Work around this by serving resources as [static files in Storybook](https://storybook.js.org/configurations/serving-static-files/) or using a [placeholder service](https://placehold.co/). Learn more about how we [load resources](resource-loading).
+- **Unpredictable resource hosts**: Resources that load from unpredictable or flaky sources may not load in time (15s) to capture. Work around this by serving resources as [static files in Storybook](https://storybook.js.org/configurations/serving-static-files/) or using a [placeholder service](https://placehold.co/). Learn more about how we <a href="/docs/resource-loading">load resources.
 
 - **Image CDNs & compression algorithms**: Image CDNs optimize for image weight and size, which affect how it renders. Since this happens upstream of Chromatic, any changes to those images in your components will be caught as visual changes. Work around this by ensuring the served images are identical every time and using consistent compression settings. Also consider serving images as [static files in Storybook](https://storybook.js.org/configurations/serving-static-files/) or using a [placeholder service](https://placehold.co/).
 
