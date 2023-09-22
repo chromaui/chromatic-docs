@@ -131,7 +131,7 @@ To find out which changes were introduced in the latest build, the addon highlig
 
 ![Confirm UI changes in Storybook](../../images/visual-tests-accept-all.png)
 
-If you accept a change, the addon provides an "Unaccept" button in the addon panel that allows you to revert it. This resets the status to "unreviewed," updates Storybook's sidebar, and syncs the change with Chromatic.
+If you accept a change but want to revert the acceptance, the addon provides an "Unaccept" button that allows you to do just that. This resets the status to "unreviewed," updates Storybook's sidebar, and syncs the change with Chromatic.
 
 ![Revert UI changes in Storybook](../../images/visual-tests-unaccept.png)
 
@@ -171,7 +171,7 @@ This is a [known issue](https://github.com/storybookjs/storybook/issues/22431#is
 <details>
 <summary>How does the addon impact on snapshot usage?</summary>
 
-Running tests with the addon enabled still counts towards your monthly snapshot usage, but they're likely to stay the same despite the number of builds you run. For customers who are subscribed to the early access program, the snapshots taken will not be billed until the end of the program. If you still see them listed in your bill or have any questions, contact us <a class="intercom-opensource-qualification-bot"><b>via in-app chat</b></a>.
+Running tests with the addon enabled still counts towards your monthly snapshot usage, but they're likely to stay the same despite the number of builds you run. By default, it will follow the same pattern as running tests from CI or CLI (i.e., one snapshot per story, browser) and will take additional snapshots if you enabled <a href="/docs/modes">modes</a>. However, for customers who are subscribed to the early access program, the snapshots taken will not be billed until the end of the program. If you still see them listed in your bill or have any questions, contact us <a class="intercom-opensource-qualification-bot"><b>via in-app chat</b></a>.
 
 </details>
 
