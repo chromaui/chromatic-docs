@@ -220,7 +220,7 @@ export const MyStory: Story = {
 
 ## Migration from viewports (legacy) to modes
 
-The new [modes API](modes) is a successor to the [viewport feature](legacy-viewports) and takes it a step further. With Modes, you can test your stories in different viewports and any combination of global settings you define. Additionally, you can specify specific viewport heights for tests.
+The new [modes API](/docs/modes) is a successor to the [viewport feature](/docs/legacy-viewports) and takes it a step further. With Modes, you can test your stories in different viewports and any combination of global settings you define. Additionally, you can specify specific viewport heights for tests.
 
 Currently, we will continue to support both APIs, but our plan is to deprecate the viewport feature. Behind the scenes, Chromatic will automatically convert viewports to modes when capturing a snapshot. If you are currently using the viewports feature, now is a good time to migrate to the new modes API.
 
