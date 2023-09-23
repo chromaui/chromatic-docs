@@ -75,8 +75,6 @@ As stated above, Chromatic maintains an individual baseline for each _story_, at
 
 The only way that baselines change is when you or someone in your team <a href="/docs/test#verify-ui-changes">accepts a change</a>. Usually what this means is that the baselines are what you’d expect as you work through a feature.
 
-[accepts a change](test#verify-ui-changes). Usually what this means is that the baselines are what you’d expect as you work through a feature.
-
 However, sometimes the choice of baseline can be confusing. Let’s dig in a little further on how it works.
 
 #### Calculating the ancestor build(s)
