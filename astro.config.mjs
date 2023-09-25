@@ -1,7 +1,6 @@
 import { defineConfig } from "astro/config";
 import react from "@astrojs/react";
 import mdx from "@astrojs/mdx";
-import customTheme from "./src/styles/codeTheme.json";
 import rehypeAutolinkHeadings from "rehype-autolink-headings";
 import rehypeSlug from "rehype-slug";
 import { h, s } from "hastscript";
@@ -11,12 +10,6 @@ export default defineConfig({
   base: "/docs",
   markdown: {
     syntaxHighlight: "prism",
-    // shikiConfig: {
-    //   // theme: customTheme,
-    //   theme: "dracula",
-    //   langs: [],
-    //   wrap: false,
-    // },
     rehypePlugins: [
       rehypeSlug,
       [
