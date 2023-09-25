@@ -159,15 +159,17 @@ For Enterprise plans, we support connecting on-premise versions of GitHub Enterp
 You also need to have some information from your Git Provider setup ready
 1. The URL to your Git Provider (e.g. https://chromatic.github.com, https://gitlab.custom.com)
 2. The Name of Your Repository (e.g. chromatic/ux)
-3. Access Token
+3. Access Token (See docs for [GitHub](https://docs.github.com/en/authentication/keeping-your-account-and-data-secure/managing-your-personal-access-tokens) and [GitLab](https://docs.gitlab.com/ee/user/project/settings/project_access_tokens.html))
 
-Depending on your Git Provider, the relevant docs for creating an access token can be found below.
-- [GitHub](https://docs.github.com/en/authentication/keeping-your-account-and-data-secure/managing-your-personal-access-tokens)
-- [GitLab](https://docs.gitlab.com/ee/user/project/settings/project_access_tokens.html)
+Depending on your Git Provider, the relevant docs for creating an access token can be found below. When you create your token, please ensure that you enable the proper scopes. 
+
+| Git provider | Permission Scopes                                        |
+| -------------| -------------------------------------------------------- |
+| GitHub       | `['user:email', 'read:user', 'read:org', 'repo:status']` |
+| GitLab       | `['api']`                                                |
 
 Once you have access and the prerequisite details, follow these instructions to link your project to GitHub Enterprise Server or GitLab self-managed:
 1. Go to the manage (`/manage`) page for the app that you want to connect.
 2. Click the Configure tab.
-3. In the Connected Application section, find the "Sync project with a Git repository" area and click "Add on-prem Git Provider".
-4. Enter the details for your repository.
+3. In the Connected Application section, find the "Sync project with a Git repository" area and click "Add on-prem Git Provider" to enter the details for your repository.
 </details>
