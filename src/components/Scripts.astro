@@ -105,3 +105,15 @@
     }
   })();
 </script>
+<!--
+  Adds on-hover anchors to headings: see https://www.bryanbraun.com/anchorjs/
+  Only using it for summary tags.
+  Using rehype-autolink-headings for headings
+-->
+<script is:inline src="https://cdn.jsdelivr.net/npm/anchor-js/anchor.min.js"
+></script>
+<script is:inline>
+  window.onload = function () {
+    anchors.add("summary:not(.no-anchor)");
+  };
+</script>
