@@ -24,3 +24,5 @@ pnpm-debug.log*
 _site
 _site_deploy/docs
 .jekyll-cache
+# Local Netlify folder
+.netlify
