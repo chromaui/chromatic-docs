@@ -1,5 +1,5 @@
 ---
-
+const baseUrl = import.meta.env.BASE_URL;
 ---
 
 <link rel="preconnect" href="https://fonts.gstatic.com/" cross-origin="true" />
@@ -110,8 +110,7 @@
   Only using it for summary tags.
   Using rehype-autolink-headings for headings
 -->
-<script is:inline src="https://cdn.jsdelivr.net/npm/anchor-js/anchor.min.js"
-></script>
+<script is:inline src={`${baseUrl}/anchor.min.js`}></script>
 <script is:inline>
   window.onload = function () {
     anchors.add("summary:not(.no-anchor)");
