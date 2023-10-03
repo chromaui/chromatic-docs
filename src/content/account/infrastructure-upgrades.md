@@ -61,6 +61,6 @@ Read about the infrastructure changes in the release notes.
 Chromatic does not support running tests on specific browser versions.
 With each infrastructure upgrade, our goal is to provide you with the latest stable browser versions, enabling a consistently flake-free testing environment while simplifying our infrastructure and customer support.
 
-Read our [documentation](browsers) to learn more about enabling additional browsers.
+Read our [documentation](/docs/browsers) to learn more about enabling additional browsers.
 
 </details>

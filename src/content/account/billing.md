@@ -68,7 +68,7 @@ The downloaded CSV includes the following columns:
 | Repository slug             | Owner and name of the Git repository linked to the project (`<ownerName>:<repoName>`)                             |
 | Branch name                 | Git branch name for which the build was created, prefixed with `<ownerName>:` if the build originates from a fork |
 | Build number                | The incremental number for this build                                                                             |
-| Skipped snapshots           | Number of snapshots that you saved (not got billed for) thanks to [/docs/TurboSnap](turbosnap)                    |
+| Skipped snapshots           | Number of snapshots that you saved (not got billed for) thanks to [TurboSnap](/docs/turbosnap)                    |
 | Chrome snapshots            | Number of billed snapshots captured in Chrome                                                                     |
 | Firefox snapshots           | Number of billed snapshots captured in Firefox                                                                    |
 | Safari snapshots            | Number of billed snapshots captured in Safari                                                                     |
