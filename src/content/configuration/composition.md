@@ -13,7 +13,7 @@ Chromatic publishes your Storybook to a secure CDN. That means you can combine p
 
 ## Compose published Storybooks
 
-Chromatic generates a [permalink](permalinks) for published Storybooks to use with Composition that includes:
+Chromatic generates a [permalink](/docs/permalinks) for published Storybooks to use with Composition that includes:
 
 - Versioned endpoints, URLs that resolve to different published Storybooks depending on a version=x.y.z query parameter (where x.y.z is the released version of the package).
 - Support for /stories.json
@@ -47,7 +47,7 @@ When your local Storybook starts, it will auto detect the `refs` and compose you
 
 ### Compose Storybook by branch or commit
 
-Depending on your use case, you may want to compose Storybook using a [permalink](permalinks) to a branch or a commit.
+Depending on your use case, you may want to compose Storybook using a [permalink](/docs/permalinks) to a branch or a commit.
 
 #### Branch: `https://<branch>--<appid>.chromatic.com`
 
@@ -86,12 +86,12 @@ When Storybook starts, it scans for external Storybooks referenced by your packa
 
 Chromatic supports automatic versioning for the following Git providers.
 
-| Git provider                                  | Support                                  |
-| --------------------------------------------- | ---------------------------------------- |
-| GitHub                                        | Public projects only via GitHub Releases |
-| GitLab                                        | Public and private projects              |
-| Bitbucket                                     | Not supported                            |
-| [Unlinked projects](access#unlinked-projects) | Not supported                            |
+| Git provider                                        | Support                                  |
+| --------------------------------------------------- | ---------------------------------------- |
+| GitHub                                              | Public projects only via GitHub Releases |
+| GitLab                                              | Public and private projects              |
+| Bitbucket                                           | Not supported                            |
+| [Unlinked projects](/docs/access#unlinked-projects) | Not supported                            |
 
 <details>
   <summary>How to manually query for versions?</summary>

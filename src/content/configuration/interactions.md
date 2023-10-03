@@ -58,7 +58,7 @@ Read Storybook's interaction testing [docs](https://storybook.js.org/docs/react/
 
 ### Confirm interaction tests are working
 
-Interaction tests run behind the scenes without you having to configure anything. To verify that they are working in Chromatic, publish your Storybook either via [CLI](cli) or [CI](ci). You can confirm that they’re running with the “Interaction” label in the Build page’s Tests section.
+Interaction tests run behind the scenes without you having to configure anything. To verify that they are working in Chromatic, publish your Storybook either via [CLI](/docs/cli) or [CI](/docs/ci). You can confirm that they’re running with the “Interaction” label in the Build page’s Tests section.
 
 ![Confirm interaction test run in the build summary](../../images/interaction-test-buildsummary-confirm.png)
 
@@ -93,6 +93,6 @@ Interaction tests are reported in the UI Tests pull request check. When a test f
 
 Interactions run as soon as the DOM loads. But external resources like web fonts can load before or after the interaction runs depending on network latency. This can cause dialogs, tooltips, and menus to change position.
 
-We recommend [preloading fonts](resource-loading#loading-custom-fonts) to ensure they're available when the DOM renders. If preloading is not possible, try adding a [delay before running interactions](delay#use-an-assertion-to-delay-snapshot-capture).
+We recommend [preloading fonts](/docs/resource-loading#loading-custom-fonts) to ensure they're available when the DOM renders. If preloading is not possible, try adding a [delay before running interactions](/docs/delay#use-an-assertion-to-delay-snapshot-capture).
 
 </details>

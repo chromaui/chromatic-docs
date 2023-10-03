@@ -7,7 +7,7 @@ sidebar: { order: 3, label: Ignore elements }
 
 # Ignore stories and elements
 
-Sometimes a component's appearance changes every render or contains content like video and [animation](animations) that is impossible to test consistently. This will trigger visual changes even when the component code hasn't changed. Ignore stories or DOM elements to tell Chromatic to skip them when looking for changes.
+Sometimes a component's appearance changes every render or contains content like video and [animation](/docs/animations) that is impossible to test consistently. This will trigger visual changes even when the component code hasn't changed. Ignore stories or DOM elements to tell Chromatic to skip them when looking for changes.
 
 <details>
 <summary>How does it work?</summary>

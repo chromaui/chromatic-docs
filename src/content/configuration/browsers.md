@@ -19,7 +19,7 @@ Chromatic will create baselines for the newly enabled browser on the next test r
 
 ![Enable cross-browser UI Tests](../../images/browser-buildscreen-multiple-browsers-inprogress.png)
 
-The new browser's snapshots will be marked as "New" on the Build page, and you will now be able to view them during [review](review).
+The new browser's snapshots will be marked as "New" on the Build page, and you will now be able to view them during [review](/docs/review).
 
 ![New Firefox snapshot in Chromatic](../../images/browser-snapshotscreen-new-firefox-snapshot.png)
 
@@ -35,7 +35,7 @@ When Chromatic tests detect a visual change to a story in any enabled browser, y
 
 ![Notification of changes in Firefox snapshot](../../images/browser-buildscreen-notification.png)
 
-You can see changes for the browser's snapshot in the [review](review#find-your-pull-request) workflow.
+You can see changes for the browser's snapshot in the [review](/docs/review#find-your-pull-request) workflow.
 
 ![Changes in Firefox snapshot](../../images/browser-snapshotscreen-diff-in-firefox-snapshot.png)
 
@@ -47,7 +47,7 @@ Once you accept changes to the story, its baselines are updated. Each story has 
 
 Chromatic's infrastructure is periodically updated to use the latest **stable** browser version (can be behind the latest version). When an infrastructure upgrade is available, you'll see a notification in your project's dashboard.
 
-Upgrades can cause subtle changes in story appearance due to the underlying rendering engine changes. We try to make upgrades as easy as possible by auto-migrating your test baselines. Learn more about [infrastructure upgrades](infrastructure-upgrades) and view [browser versions](infrastructure-release-notes).
+Upgrades can cause subtle changes in story appearance due to the underlying rendering engine changes. We try to make upgrades as easy as possible by auto-migrating your test baselines. Learn more about [infrastructure upgrades](/docs/infrastructure-upgrades) and view [browser versions](/docs/infrastructure-release-notes).
 
 ---
 
@@ -56,7 +56,7 @@ Upgrades can cause subtle changes in story appearance due to the underlying rend
 <details>
 <summary>Does Chromatic tell me when snapshots are different between browsers?</summary>
 
-This has significant trade-offs. Teams that try to verify consistency across browsers end up encountering false positives due to inherent browser/device/OS differences (e.g., font rendering, anti-aliasing) or require workarounds like adjusting the [diff thresholds](threshold), resulting in false positives.
+This has significant trade-offs. Teams that try to verify consistency across browsers end up encountering false positives due to inherent browser/device/OS differences (e.g., font rendering, anti-aliasing) or require workarounds like adjusting the [diff thresholds](/docs/threshold), resulting in false positives.
 
 Chromatic does not programmatically compare snapshots from different browsers against each other. Instead, we compare the snapshots for each browser against the baseline for that browser.
 
@@ -69,6 +69,6 @@ Chromatic does not support running tests on specific browser versions. While bui
 
 We extensively test new browser versions and modify our infrastructure to handle well-known inconsistencies between them. Our goal is to provide you with the latest stable version of each of our supported browsers on a timely schedule with a painless upgrade experience between them.
 
-That said, we don't support outdated browser versions since our users are [automatically upgraded](infrastructure-upgrades#how-to-upgrade-your-project) to the latest versions after the upgrade window ends, simplifying your infrastructure and customer support.
+That said, we don't support outdated browser versions since our users are [automatically upgraded](/docs/infrastructure-upgrades#how-to-upgrade-your-project) to the latest versions after the upgrade window ends, simplifying your infrastructure and customer support.
 
 </details>

@@ -85,9 +85,9 @@ If you want to get a Chromatic PR badge for such commits (for instance, if you b
 
 If you are combining multiple Storybooks into one (see [above](#combine-multiple-projects-into-a-single-storybook)), but detected that only a subset of projects has changed, you can instruct Chromatic to capture and test that particular subset of stories as follows:
 
-- Recommended: Use [TurboSnap](turbosnap) to automatically only snapshot stories for which related source files have changed.
-- Use [`--only-story-files`](cli#chromatic-options) to only snapshot stories matching a glob pattern by story file name.
-- Use [`--only-story-names`](cli#chromatic-options) to only snapshot stories matching a glob pattern by component/story name.
+- Recommended: Use [TurboSnap](/docs/turbosnap) to automatically only snapshot stories for which related source files have changed.
+- Use [`--only-story-files`](/docs/cli#chromatic-options) to only snapshot stories matching a glob pattern by story file name.
+- Use [`--only-story-names`](/docs/cli#chromatic-options) to only snapshot stories matching a glob pattern by component/story name.
 
 In each case, stories that aren't tested are "inherited" from their baseline. You cannot use both `--only-story-files` and `--only-story-names` CLI flags directly from the CLI or your CI workflow.
 
@@ -138,13 +138,13 @@ With the removal of the `--preserve-missing` flag, building a partial Storybook 
 <details>
 <summary>Why am I not seeing my monorepo subproject listed in my pull request checklist?</summary>
 
-When using an existing project that is part of the monorepo and [requiring PR checks](ci#pull-request-checks) for merging, you will need to remove and re-add them within your Git provider as the name linked to the check will have changed. It also applies if a subproject is renamed.
+When using an existing project that is part of the monorepo and [requiring PR checks](/docs/ci#pull-request-checks) for merging, you will need to remove and re-add them within your Git provider as the name linked to the check will have changed. It also applies if a subproject is renamed.
 
 </details>
 
 <details>
 <summary>Why is my monorepo project triggering a full rebuild?</summary>
 
-If TurboSnap is enabled inside a monorepo project, [file changes](turbosnap#full-rebuilds) that impact one package will automatically trigger a full rebuild on all related projects when running Chromatic. Read more about how to ignore changes in unrelated packages [above](#with-turbosnap).
+If TurboSnap is enabled inside a monorepo project, [file changes](/docs/turbosnap#full-rebuilds) that impact one package will automatically trigger a full rebuild on all related projects when running Chromatic. Read more about how to ignore changes in unrelated packages [above](#with-turbosnap).
 
 </details>
