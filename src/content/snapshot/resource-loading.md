@@ -15,7 +15,7 @@ The maximum time to capture a snapshot is 15 seconds. If the resources fail to l
 
 It's tough to predict network stability third-party hosting reliability. These factors mean external resources might not load predictably and affect your snapshots.
 
-We recommend adding [resources to your Storybook](https://storybook.js.org/configurations/serving-static-files/) or using a reliable [placeholder service](https://placeholder.com/). This also makes your builds run faster.
+We recommend adding [resources to your Storybook](https://storybook.js.org/configurations/serving-static-files/) or using a reliable [placeholder service](https://placehold.co/). This also makes your builds run faster.
 
 ## Asynchronous rendering
 
