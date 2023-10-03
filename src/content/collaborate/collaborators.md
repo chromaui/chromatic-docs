@@ -128,7 +128,7 @@ Chromatic syncs collaborators with your SSO provider. All collaborators are gran
 
 By default, published Storybooks on Chromatic are private. They can only be accessed by collaborators who are signed in to Chromatic and have permission to view components and builds.
 
-However, published Storybooks for [linked projects](access#linked-projects) with public repositories will be set to public.
+However, published Storybooks for [linked projects](/docs/access#linked-projects) with public repositories will be set to public.
 
 When you set Storybook visibility to public, it will be accessible to visitors without signing in. Anyone with a link can access. Your private information like Chromatic library, tests, settings, Git provider, and any associated metadata will remain private. A public Storybook only shares information that is contained in that Storybook.
 
@@ -143,6 +143,6 @@ When you set Storybook visibility to public, it will be accessible to visitors w
 
 Chromatic syncs permissions at the account _and_ repo level. Check that your teammates are listed as collaborators in your GitHub, GitLab, or Bitbucket repository.
 
-If they aren't listed, please add them and try accessing the Chromatic project again (you may have to sign in again). Learn more about [access control](access).
+If they aren't listed, please add them and try accessing the Chromatic project again (you may have to sign in again). Learn more about [access control](/docs/access).
 
 </details>

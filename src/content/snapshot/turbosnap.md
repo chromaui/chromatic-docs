@@ -7,7 +7,7 @@ sidebar: { order: 4 }
 
 # TurboSnap
 
-TurboSnap is an advanced Chromatic feature that speeds up builds for faster [UI testing](test) and [review](review) using Git and Webpack's [dependency graph](https://webpack.js.org/concepts/dependency-graph/). It identifies component files and dependencies that have changed, then intelligently snapshots only the stories associated with those changes.
+TurboSnap is an advanced Chromatic feature that speeds up builds for faster [UI testing](/docs/test) and [review](/docs/review) using Git and Webpack's [dependency graph](https://webpack.js.org/concepts/dependency-graph/). It identifies component files and dependencies that have changed, then intelligently snapshots only the stories associated with those changes.
 
 ![TurboSnap tracks dependencies](../../images/turbosnap-dep-tracking.gif)
 
@@ -22,7 +22,7 @@ TurboSnap is an advanced Chromatic feature that speeds up builds for faster [UI 
 
 ## Enable
 
-Run Chromatic's CLI with the `--only-changed` option to enable TurboSnap. Alternatively, you can use the `onlyChanged` option for the Chromatic [GitHub action](github-actions#enable-turbosnap).
+Run Chromatic's CLI with the `--only-changed` option to enable TurboSnap. Alternatively, you can use the `onlyChanged` option for the Chromatic [GitHub action](/docs/github-actions#enable-turbosnap).
 
 It will build and test stories that may have been affected by the Git changes since the last build. Depending on your project setup, you may need [additional configuration](#configure).
 
@@ -32,11 +32,11 @@ It will build and test stories that may have been affected by the Git changes si
 
 ### How it works
 
-1.  Chromatic considers the Git changes between the current commit and the commit of the [ancestor build](branching-and-baselines#calculating-the-ancestor-builds).
+1.  Chromatic considers the Git changes between the current commit and the commit of the [ancestor build](/docs/branching-and-baselines#calculating-the-ancestor-builds).
 2.  Chromatic then uses Webpack's dependency graph to track those changes back up to the story files that depend on them.
 3.  Chromatic only tests the stories defined in those story files, as well as any tests that were denied on the parent build.
 
-Stories that have not changed will not be tested (i.e., snapshotted), despite appearing in Chromatic's UI as if they were. In many cases, this will lead to much-decreased snapshot usage and faster build times. If you denied any [UI Tests](test#verify-ui-changes) on the parent build, we will always re-capture those stories even if TurboSnap would otherwise skip them. This is helpful in dealing with [inconsistent snapshots](snapshots#improve-snapshot-consistency).
+Stories that have not changed will not be tested (i.e., snapshotted), despite appearing in Chromatic's UI as if they were. In many cases, this will lead to much-decreased snapshot usage and faster build times. If you denied any [UI Tests](/docs/test#verify-ui-changes) on the parent build, we will always re-capture those stories even if TurboSnap would otherwise skip them. This is helpful in dealing with [inconsistent snapshots](/docs/snapshots#improve-snapshot-consistency).
 
 #### Full rebuilds
 
@@ -48,8 +48,8 @@ Certain circumstances could potentially affect all stories. To prevent false pos
 - Changes in your static folder (if specified using `--static-dir` / `-s`)
 - Changes to files specified by the `--externals` option (see below)
 - Re-run of the same build (commit and branch match the parent build)
-- [Infrastructure upgrades](infrastructure-upgrades)
-- [UI Test in a new browser](browsers)
+- [Infrastructure upgrades](/docs/infrastructure-upgrades)
+- [UI Test in a new browser](/docs/browsers)
 
 #### Missing commits (rebasing)
 
@@ -133,7 +133,7 @@ To work around this, run Chromatic's CLI with the `--externals` flag to specify 
 chromatic --only-changed --externals "*.sass" --externals "public/**"
 ```
 
-If you've set up TurboSnap with Chromatic's [GitHub action](github-actions#enable-turbosnap), you can extend your existing workflow and provide the `externals` option as follows:
+If you've set up TurboSnap with Chromatic's [GitHub action](/docs/github-actions#enable-turbosnap), you can extend your existing workflow and provide the `externals` option as follows:
 
 ```yml
 # .github/workflows/chromatic.yml
@@ -217,9 +217,9 @@ Once TurboSnap is activated, all subsequent builds will display an indicator wit
 
 ### Notes on monorepos
 
-TurboSnap will make working in a monorepo more efficient. Because it detects affected stories based on the actual files changed, pushing a commit that touched only backend code will run faster in CI and not use up your snapshot quota. However, it will still build and publish your Storybook. To avoid that, you can [skip Chromatic entirely](monorepos#only-run-chromatic-when-changes-occur-in-a-subproject), speeding up your CI pipeline even more.
+TurboSnap will make working in a monorepo more efficient. Because it detects affected stories based on the actual files changed, pushing a commit that touched only backend code will run faster in CI and not use up your snapshot quota. However, it will still build and publish your Storybook. To avoid that, you can [skip Chromatic entirely](/docs/monorepos#only-run-chromatic-when-changes-occur-in-a-subproject), speeding up your CI pipeline even more.
 
-If your monorepo has stories from multiple subprojects coming together in one Storybook, you might currently [run Chromatic on a subset of your Storybook](monorepos#run-tests-on-a-subset-of-stories). With TurboSnap enabled, that happens automatically. You'll be able to build and publish your entire Storybook, but Chromatic won't test unchanged subprojects or take snapshots of those stories. You no longer need to build a subset of your Storybook manually.
+If your monorepo has stories from multiple subprojects coming together in one Storybook, you might currently [run Chromatic on a subset of your Storybook](/docs/monorepos#run-tests-on-a-subset-of-stories). With TurboSnap enabled, that happens automatically. You'll be able to build and publish your entire Storybook, but Chromatic won't test unchanged subprojects or take snapshots of those stories. You no longer need to build a subset of your Storybook manually.
 
 [picomatch]: https://www.npmjs.com/package/picomatch#globbing-features
 
@@ -331,13 +331,13 @@ If you have a large dependency tree, the build process may fail due to an out of
 <details>
   <summary>Why do merge commits test more changes than I expect?</summary>
 
-Ordinarily, TurboSnap uses git to find all files that have changed since the [ancestor build](branching-and-baselines#calculating-the-ancestor-builds) to determine which components/stories to snapshot. The changed file behavior is more complex with merge commits because there are two "ancestor builds".
+Ordinarily, TurboSnap uses git to find all files that have changed since the [ancestor build](/docs/branching-and-baselines#calculating-the-ancestor-builds) to determine which components/stories to snapshot. The changed file behavior is more complex with merge commits because there are two "ancestor builds".
 
 When you have a merge commit, Chromatic considers **any file that has changed since either ancestor's commit** to decide if a story needs to be re-snapshotted. In other words, the union of the git changes.
 
 The reason for this behavior relates to what Chromatic does when it chooses not to re-snapshot a story. In such case, it "copies" the snapshot for the story from the ancestor build, knowing (due to the git check) that the story cannot have changed in the meantime.
 
-In the case of merge commits, Chromatic does not know ahead of time which side of the merge the snapshot might be copied from because that involves running the [complete baseline selection](branching-and-baselines#calculating-a-snapshot-baseline-from-the-ancestor-builds) process, so it needs to be conservative and allow for changes on either branch.
+In the case of merge commits, Chromatic does not know ahead of time which side of the merge the snapshot might be copied from because that involves running the [complete baseline selection](/docs/branching-and-baselines#calculating-a-snapshot-baseline-from-the-ancestor-builds) process, so it needs to be conservative and allow for changes on either branch.
 
 </details>
 
