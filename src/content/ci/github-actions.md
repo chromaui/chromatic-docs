@@ -360,7 +360,7 @@ jobs:
 
 <div class="aside">
 
-TurboSnap is highly customizable and can be configured to fit your requirements. For more information, read our [documentation](turbosnap).
+TurboSnap is highly customizable and can be configured to fit your requirements. For more information, read our [documentation](/docs/turbosnap).
 
 </div>
 

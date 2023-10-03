@@ -11,7 +11,7 @@ Chromatic bills customers monthly based on their subscription date. For instance
 
 ## Snapshots
 
-Chromatic charges based on [snapshots](snapshots) and browser coverage, respectively. Snapshots power [UI Tests](test) and [UI Review](review). They are only taken when you enable “UI Review” or “UI Tests” for your project.
+Chromatic charges based on [snapshots](/docs/snapshots) and browser coverage, respectively. Snapshots power [UI Tests](/docs/test) and [UI Review](/docs/review). They are only taken when you enable “UI Review” or “UI Tests” for your project.
 
 Every time you run a build, we take one snapshot for each story. If you have 50 stories, Chromatic will take 50 snapshots. In addition, testing multiple viewports and browsers are also considered snapshots.
 
@@ -27,7 +27,7 @@ For example, see how many snapshots are taken in different scenarios below.
 
 <div class="aside">
 
-If you use our free [Publish Storybook](setup) service only you will not be billed for snapshots.
+If you use our free [Publish Storybook](/docs/setup) service only you will not be billed for snapshots.
 
 </div>
 
@@ -68,7 +68,7 @@ The downloaded CSV includes the following columns:
 | Repository slug             | Owner and name of the Git repository linked to the project (`<ownerName>:<repoName>`)                             |
 | Branch name                 | Git branch name for which the build was created, prefixed with `<ownerName>:` if the build originates from a fork |
 | Build number                | The incremental number for this build                                                                             |
-| Skipped snapshots           | Number of snapshots that you saved (not got billed for) thanks to [TurboSnap](turbosnap)                          |
+| Skipped snapshots           | Number of snapshots that you saved (not got billed for) thanks to [/docs/TurboSnap](turbosnap)                    |
 | Chrome snapshots            | Number of billed snapshots captured in Chrome                                                                     |
 | Firefox snapshots           | Number of billed snapshots captured in Firefox                                                                    |
 | Safari snapshots            | Number of billed snapshots captured in Safari                                                                     |

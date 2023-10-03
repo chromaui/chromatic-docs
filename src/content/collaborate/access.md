@@ -58,7 +58,7 @@ If your GitHub organization requires an admin to approve apps, you'll need to re
 
 #### Email
 
-Email and password authentication is available on all accounts. It's a popular authentication method for [external collaborators](collaborators#external-collaborators) like designers, PMs, and other stakeholders.
+Email and password authentication is available on all accounts. It's a popular authentication method for [external collaborators](/docs/collaborators#external-collaborators) like designers, PMs, and other stakeholders.
 
 If you're setting up Chromatic for your team as the account owner or administrator, there are some boundaries to be aware of:
 

@@ -7,13 +7,13 @@ sidebar: { order: 3 }
 
 # Notifications
 
-Chromatic sends email notifications to keep [collaborators](collaborators) in the loop. You have control over when and how these notifications are delivered.
+Chromatic sends email notifications to keep [collaborators](/docs/collaborators) in the loop. You have control over when and how these notifications are delivered.
 
-### [UI Tests](test)
+### [UI Tests](/docs/test)
 
 In UI Tests, Chromatic emails the build owner when there are changes to a build and when there are discussions. If you're not the build owner but participate in a discussion thread, you'll get notified of replies for that discussion.
 
-### [UI Review](review)
+### [UI Review](/docs/review)
 
 In UI Review, Chromatic emails the PR owner and any participants when a discussion begins, is replied-to, or gets resolved.
 
