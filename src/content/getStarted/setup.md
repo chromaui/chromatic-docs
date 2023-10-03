@@ -18,7 +18,7 @@ Before publishing, generate a unique project token for your Storybook by signing
 <details>
 <summary id="demo-chromatic-unlinked">How to continue setup if you require SSO, on-premises, or have a different Git provider.</summary>
 
-These instructions will teach you how to setup Chromatic with an ["unlinked" project](access#unlinked-projects). This can be useful in these situations:
+These instructions will teach you how to setup Chromatic with an ["unlinked" project](/docs/access#unlinked-projects). This can be useful in these situations:
 
 - You need an enterprise plan but want to trial Chromatic in your project first
 - You use an OAuth provider that we don't support right now
@@ -30,9 +30,9 @@ Select "Create a project" and type your project name to create an unlinked proje
 
 ![Setup unlinked project](../../images/chromatic-setup-unlinked-project.png)
 
-Nice! You created an unlinked project. This will allow you to get started with [UI Testing](test) workflow regardless of the underlying git provider. You can then configure your CI system to automatically run a Chromatic build on push.
+Nice! You created an unlinked project. This will allow you to get started with [UI Testing](/docs/test) workflow regardless of the underlying git provider. You can then configure your CI system to automatically run a Chromatic build on push.
 
-The Chromatic CLI provides the option to generate a JUnit XML report of your build, which you can use to handle commit / pull request statuses yourself. See [debug options](cli#debug-options) for details.
+The Chromatic CLI provides the option to generate a JUnit XML report of your build, which you can use to handle commit / pull request statuses yourself. See [debug options](/docs/cli#debug-options) for details.
 
 Unlinked projects have certain drawbacks:
 
@@ -40,7 +40,7 @@ Unlinked projects have certain drawbacks:
 - You won't have access to our UI Review workflow, because it relies on retrieving pull requests from your Git provider.
 - Authentication and access control must be handled manually through user invites.
 
-Now continue setting up Chromatic [as usual](setup#install).
+Now continue setting up Chromatic [as usual](/docs/setup#install).
 
 </details>
 
@@ -102,13 +102,13 @@ View it online at https://www.chromatic.com/build?appId=...&number=1.
 
 ## View published Storybook
 
-You published Storybook online! Every time you run the `chromatic` command you get a corresponding build in Chromatic's web app. You can now browse components, view [**UI Tests**](test) results (if enabled), and navigate to associated PR/MRs for [**UI Review**](review).
+You published Storybook online! Every time you run the `chromatic` command you get a corresponding build in Chromatic's web app. You can now browse components, view [**UI Tests**](/docs/test) results (if enabled), and navigate to associated PR/MRs for [**UI Review**](/docs/review).
 
 ![Build for publish](../../images/build-publish-only.png)
 
 ## Get the PR check
 
-Chromatic posts a "Storybook Publish" status check in your pull/merge request that links to the latest published Storybook. This gives teams secure, convenient access to browse components and stories. Get the PR check by [automating Chromatic with CI](ci).
+Chromatic posts a "Storybook Publish" status check in your pull/merge request that links to the latest published Storybook. This gives teams secure, convenient access to browse components and stories. Get the PR check by [automating Chromatic with CI](/docs/ci).
 
 ![PR badge for publish](../../images/prbadge-publish.png)
 
@@ -118,7 +118,7 @@ Chromatic posts a "Storybook Publish" status check in your pull/merge request th
 
 ## Next: Catch UI bugs
 
-📸 Now that you published Storybook, let's see how to automate [UI tests](test) to catch bugs.
+📸 Now that you published Storybook, let's see how to automate [UI tests](/docs/test) to catch bugs.
 
 <a class="btn primary round" href="/docs/test">Read next chapter</a>
 

@@ -31,7 +31,7 @@ Once enabled, visit the Reviews tab in the web app sidebar. There you’ll be pr
 
 ## Understanding the Review
 
-Once a Review has been created—either manually or through CI—navigate to the Reviews tab and select the appropriate Review. You will then land on the Activity tab, which shows a timeline of [builds](setup#view-published-storybook), active discussions, and Review status. This showcases what needs to be done in the Review process.
+Once a Review has been created—either manually or through CI—navigate to the Reviews tab and select the appropriate Review. You will then land on the Activity tab, which shows a timeline of [builds](/docs/setup#view-published-storybook), active discussions, and Review status. This showcases what needs to be done in the Review process.
 
 ![Activity tab](../../images/prscreen-activity.png)
 
@@ -39,7 +39,7 @@ Once a Review has been created—either manually or through CI—navigate to the
 
 Invite other developers, designers, PMs, and stakeholders to help review changes. This closes the feedback loop between disciplines and helps you find the answer to “does this look right?”
 
-If you [linked your project](access#linked-projects) to GitHub, Bitbucket, or GitLab, your project permissions are synced so collaborators can sign in to review immediately. If your [project is unlinked](access#unlinked-projects), use the project invite code to add collaborators.
+If you [linked your project](/docs/access#linked-projects) to GitHub, Bitbucket, or GitLab, your project permissions are synced so collaborators can sign in to review immediately. If your [project is unlinked](/docs/access#unlinked-projects), use the project invite code to add collaborators.
 
 #### Assign reviewers
 
@@ -59,7 +59,7 @@ Remove a default reviewer by clicking "Remove" beside their name. This will remo
 
 #### Pull requests from forks
 
-Chromatic supports UI Test and UI Review across forks, but there's some caveats. First, it only works with [CI integration](ci#configure-ci) configured to also build PR branches from forks. Secondly, you must expose your project token so that forks can use it. The easiest way to do that is to simply include it in in your `package.json`, for example:
+Chromatic supports UI Test and UI Review across forks, but there's some caveats. First, it only works with [CI integration](/docs/ci#configure-ci) configured to also build PR branches from forks. Secondly, you must expose your project token so that forks can use it. The easiest way to do that is to simply include it in in your `package.json`, for example:
 
 ```json
 {
@@ -87,7 +87,7 @@ Reviewers can request updates to the implementation via the comment box beneath 
 
 ## UI checklist
 
-At the bottom of the Review screen’s [activity tab](review#ui-checklist) is a list of tasks that must be completed before UI is ready to be signed off on. If changes are found, the Review will enter the **🟡&nbsp;Pending** state. When changes are approved and checklist items are complete, the Review will be **🟢&nbsp;Passed**. Here’s how to resolve these tasks:
+At the bottom of the Review screen’s [activity tab](/docs/review#ui-checklist) is a list of tasks that must be completed before UI is ready to be signed off on. If changes are found, the Review will enter the **🟡&nbsp;Pending** state. When changes are approved and checklist items are complete, the Review will be **🟢&nbsp;Passed**. Here’s how to resolve these tasks:
 
 1. Changeset must be approved &rarr; Assign reviewers or approve yourself.
 2. Outstanding discussions must be resolved &rarr; Click 'Resolve' on discussions.

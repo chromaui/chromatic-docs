@@ -84,7 +84,7 @@ To debug, you can launch the published Storybook to reproduce the exact state of
 
 </details>
 
-UI Tests are similar to other types of testing (unit, E2E, etc.), in that they enable developers to catch and fix regressions. UI Tests compare the snapshot of a story with the previously accepted [baseline](branching-and-baselines#branches-and-baselines) in your git history (typically on the same branch). If there are changes, you'll get a diff of the changes. If the changes are intentional, press the accept button to update the baselines.
+UI Tests are similar to other types of testing (unit, E2E, etc.), in that they enable developers to catch and fix regressions. UI Tests compare the snapshot of a story with the previously accepted [baseline](/docs/branching-and-baselines#branches-and-baselines) in your git history (typically on the same branch). If there are changes, you'll get a diff of the changes. If the changes are intentional, press the accept button to update the baselines.
 
 Once all changes are approved, the UI is considered “ready” and you can move to the UI Review phase.
 
