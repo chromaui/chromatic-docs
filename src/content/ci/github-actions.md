@@ -97,10 +97,10 @@ Chromatic's GitHub Action includes additional options to customize your workflow
 | **dryRun**                  | Run without actually publishing to Chromatic.                                                                        | `boolean`             | `true`                   | `false`              |
 | **exitZeroOnChanges**       | Positive exit of action even when changes are detected.                                                              | `string` or `boolean` | `"my-branch"` or `true`  | `true`               |
 | **exitOnceUploaded**        | Exit with status 0 (OK) once the build has been sent to Chromatic.                                                   | `string` or `boolean` | `"my-branch"` or `true`  | `false`              |
-| **externals**               | Disable [TurboSnap](turbosnap) when any of these files have changed since the baseline build.                        | `string`              | `"my-folder/**"`         |                      |
+| **externals**               | Disable [TurboSnap](/docs/turbosnap) when any of these files have changed since the baseline build.                  | `string`              | `"my-folder/**"`         |                      |
 | **forceRebuild**            | Do not skip build when a rebuild is detected.                                                                        | `string` or `boolean` | `"my-branch"` or `true`  | `false`              |
 | **ignoreLastBuildOnBranch** | Do not use the last build on this branch as a baseline if it is no longer in history (i.e., the branch was rebased). | `string`              | `"my-branch"`            |                      |
-| **onlyChanged**             | Enables [TurboSnap](turbosnap): Only run stories affected by files changed since the baseline build.                 | `boolean`             | `true`                   | `false`              |
+| **onlyChanged**             | Enables [TurboSnap](/docs/turbosnap): Only run stories affected by files changed since the baseline build.           | `boolean`             | `true`                   | `false`              |
 | **onlyStoryFiles**          | Only run a single story or a subset of stories by their filename(s).                                                 | `string`              | `"src/ui/**"`            | `false`              |
 | **onlyStoryNames**          | Only run a single story or a subset of stories by their name.                                                        | `string`              | `"Atoms/Button/*"`       | `false`              |
 | **projectToken**            | Your Chromatic project token.                                                                                        | `string`              | `"chpt_b2ae83517a0a706"` |                      |
@@ -110,7 +110,7 @@ Chromatic's GitHub Action includes additional options to customize your workflow
 | **storybookConfigDir**      | Relative path from where you run Chromatic to your Storybook config directory.                                       | `string`              | `"storybook-config"`     | `".storybook"`       |
 | **traceChanged**            | Print dependency trace for changed files to affected story files; set to "expanded" to list individual modules.      | `string` or `boolean` | `"expanded"` or `true`   | `false`              |
 | **workingDir**              | Provide the location of Storybook's `package.json` if installed in a subdirectory (i.e., monorepos).                 | `string`              | `"my-folder"`            |                      |
-| **untraced**                | Disregard these files and their dependencies when tracing dependent stories for [TurboSnap](turbosnap).              | `string`              | `"my-folder/\*\*"`       |                      |
+| **untraced**                | Disregard these files and their dependencies when tracing dependent stories for [TurboSnap](/docs/turbosnap).        | `string`              | `"my-folder/\*\*"`       |                      |
 | **zip**                     | Publish your Storybook to Chromatic as a single zip file instead of individual content files.                        | `boolean`             | `true`                   | `false`              |
 
 </div>
@@ -119,20 +119,20 @@ Chromatic's GitHub Action includes additional options to customize your workflow
 
 Chromatic's GitHub Action returns some information about your build in the form of outputs. The table below lists what's currently available:
 
-| Name                             | Type     | Description                                                                                                        |
-| -------------------------------- | -------- | ------------------------------------------------------------------------------------------------------------------ |
-| **url**                          | `string` | An alias for the build URL.<br/> `https://www.chromatic.com/build?appId=example-app-id&number=100`                 |
-| **buildUrl**                     | `string` | The build URL. <br/> `https://www.chromatic.com/build?appId=example-app-id&number=100`                             |
-| **storybookUrl**                 | `string` | The Storybook preview URL for your current branch / Pull Request.<b/> `https://main--example-app-id.chromatic.com` |
-| **code**                         | `string` | The exit code for the current run of the Chromatic [CLI](cli#exit-codes).                                          |
-| **actualCaptureCount**           | `number` | The number of captured snapshots.                                                                                  |
-| **changeCount**                  | `number` | The number of tests with visual changes, including any inherited changes (e.g., due to [TurboSnap](turbosnap)).    |
-| **componentCount**               | `number` | The number of components in the published Storybook.                                                               |
-| **errorCount**                   | `number` | The number of tests with error(s), including any inherited errors (e.g., due to [TurboSnap](turbosnap)).           |
-| **inheritedCaptureCount**        | `number` | The number of inherited (not captured) snapshots (e.g., due to [TurboSnap](turbosnap)).                            |
-| **interactionTestFailuresCount** | `number` | The number of stories with interaction test failures.                                                              |
-| **specCount**                    | `number` | The number of stories in the published Storybook.                                                                  |
-| **testCount**                    | `number` | The number of tests on the build.                                                                                  |
+| Name                             | Type     | Description                                                                                                           |
+| -------------------------------- | -------- | --------------------------------------------------------------------------------------------------------------------- |
+| **url**                          | `string` | An alias for the build URL.<br/> `https://www.chromatic.com/build?appId=example-app-id&number=100`                    |
+| **buildUrl**                     | `string` | The build URL. <br/> `https://www.chromatic.com/build?appId=example-app-id&number=100`                                |
+| **storybookUrl**                 | `string` | The Storybook preview URL for your current branch / Pull Request.<b/> `https://main--example-app-id.chromatic.com`    |
+| **code**                         | `string` | The exit code for the current run of the Chromatic [CLI](/docs/cli#exit-codes).                                       |
+| **actualCaptureCount**           | `number` | The number of captured snapshots.                                                                                     |
+| **changeCount**                  | `number` | The number of tests with visual changes, including any inherited changes (e.g., due to [TurboSnap](/docs/turbosnap)). |
+| **componentCount**               | `number` | The number of components in the published Storybook.                                                                  |
+| **errorCount**                   | `number` | The number of tests with error(s), including any inherited errors (e.g., due to [TurboSnap](/docs/turbosnap)).        |
+| **inheritedCaptureCount**        | `number` | The number of inherited (not captured) snapshots (e.g., due to [TurboSnap](/docs/turbosnap)).                         |
+| **interactionTestFailuresCount** | `number` | The number of stories with interaction test failures.                                                                 |
+| **specCount**                    | `number` | The number of stories in the published Storybook.                                                                     |
+| **testCount**                    | `number` | The number of tests on the build.                                                                                     |
 
 Please refer to [this GitHub document](https://docs.github.com/en/actions/using-workflows/workflow-syntax-for-github-actions#jobsjob_idoutputs) discussing how to use these outputs.
 
@@ -475,7 +475,7 @@ These specific types of commits (merge) don't persist in the history of your rep
 
 ### UI Test and UI Review
 
-[UI Tests](test) and [UI Review](review) rely on [branch and baseline](branching-and-baselines) detection to keep track of [snapshots](snapshots). We recommend the following configuration.
+[UI Tests](/docs/test) and [UI Review](/docs/review) rely on [branch and baseline](/docs/branching-and-baselines) detection to keep track of [snapshots](/docs/snapshots). We recommend the following configuration.
 
 #### Command exit code for "required" checks
 
@@ -507,7 +507,7 @@ When using `exitZeroOnChanges`, your workflow will still stop and fail if your S
 
 #### Re-run failed builds after verifying UI test results
 
-Builds that contain visual changes need to be [verified](test#verify-ui-changes). They will fail if you are not using the `exitZeroOnChanges` option. Once you accept all the changes, re-run the workflow, and the `chromatic-deployment` job will pass.
+Builds that contain visual changes need to be [verified](/docs/test#verify-ui-changes). They will fail if you are not using the `exitZeroOnChanges` option. Once you accept all the changes, re-run the workflow, and the `chromatic-deployment` job will pass.
 
 If you deny any change, you will need to make the necessary code changes to fix the test (and thus start a new run) to get Chromatic to pass again.
 
@@ -519,7 +519,7 @@ If the builds result from direct commits to `main`, you must accept changes to k
 
 #### GitHub squash/rebase merge and the "main" branch
 
-GitHub's squash/rebase merge functionality creates new commits that have no association with the branch being merged. If you've enabled our GitHub application in the [UI Review](review) workflow, then we will automatically detect this situation and bring baselines over (see [Branching and Baselines](branching-and-baselines#squash-and-rebase-merging) for more details).
+GitHub's squash/rebase merge functionality creates new commits that have no association with the branch being merged. If you've enabled our GitHub application in the [UI Review](/docs/review) workflow, then we will automatically detect this situation and bring baselines over (see [Branching and Baselines](/docs/branching-and-baselines#squash-and-rebase-merging) for more details).
 
 If you’re using this functionality but notice the incoming changes were not accepted as baselines in Chromatic, then you'll need to adjust the workflow to include a new step with the `autoAcceptChanges` option. For example:
 

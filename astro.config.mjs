@@ -8,6 +8,7 @@ import { h, s } from "hastscript";
 // https://astro.build/config
 export default defineConfig({
   base: "/docs",
+  trailingSlash: "never",
   markdown: {
     syntaxHighlight: "prism",
     rehypePlugins: [

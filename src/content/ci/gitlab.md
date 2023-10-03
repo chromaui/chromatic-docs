@@ -144,7 +144,7 @@ Additional paralellization can be achieved when configuring your workflow to run
 
 ### Disable Shallow Cloning
 
-GitLab performs a shallow clone by default, which can lead to required patch builds depending on how frequently you run builds between commits.  In order to avoid this, adjust your workflow to include a `GIT_DEPTH` of `0`.  This ensures Chromatic can fetch your entire git history, without having to adjust your general `Git strategy` settings within GitLab:
+GitLab performs a shallow clone by default, which can lead to required patch builds depending on how frequently you run builds between commits. In order to avoid this, adjust your workflow to include a `GIT_DEPTH` of `0`. This ensures Chromatic can fetch your entire git history, without having to adjust your general `Git strategy` settings within GitLab:
 
 ```yml
 # .gitlab-ci.yml
@@ -183,13 +183,13 @@ chromatic_publish:
 
 <div class="aside">
 
-TurboSnap is highly customizable and can be configured to fit your requirements. For more information, read our [documentation](turbosnap).
+TurboSnap is highly customizable and can be configured to fit your requirements. For more information, read our [documentation](/docs/turbosnap).
 
 </div>
 
 ### UI Test and UI Review
 
-[UI Tests](test) and [UI Review](review) rely on [branch and baseline](branching-and-baselines) detection to keep track of [snapshots](snapshots). We recommend the following configuration.
+[UI Tests](/docs/test) and [UI Review](/docs/review) rely on [branch and baseline](/docs/branching-and-baselines) detection to keep track of [snapshots](/docs/snapshots). We recommend the following configuration.
 
 #### Command exit code for "required" checks
 
@@ -220,7 +220,7 @@ When using `--exit-zero-on-changes` your pipeline execution still stop and fail 
 
 #### Re-run failed builds after verifying UI test results
 
-Builds that contain visual changes need to be [verified](test#verify-ui-changes). They will fail if you are not using `--exit-zero-on-changes`. Once you accept all the changes, re-run the pipeline and the `Publish to Chromatic` step will pass.
+Builds that contain visual changes need to be [verified](/docs/test#verify-ui-changes). They will fail if you are not using `--exit-zero-on-changes`. Once you accept all the changes, re-run the pipeline and the `Publish to Chromatic` step will pass.
 
 If you deny any change, you will need to make the necessary code changes to fix the test (and thus start a new build) to get Chromatic to pass again.
 
@@ -232,7 +232,7 @@ If the builds are a result of direct commits to `main`, you will need to accept 
 
 #### GitLab squash/rebase merge and the "main" branch
 
-GitLab's squash/rebase merge functionality creates new commits that have no association to the branch being merged. If you are already using this option, then we will automatically detect this situation and bring baselines over (see [Branching and Baselines](branching-and-baselines#squash-and-rebase-merging) for more details).
+GitLab's squash/rebase merge functionality creates new commits that have no association to the branch being merged. If you are already using this option, then we will automatically detect this situation and bring baselines over (see [Branching and Baselines](/docs/branching-and-baselines#squash-and-rebase-merging) for more details).
 
 If you’re using this functionality but notice the incoming changes were not accepted as baselines in Chromatic, then you'll need to adjust the pipeline and include the `--auto-accept-changes` flag. For example:
 
