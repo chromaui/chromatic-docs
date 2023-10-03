@@ -17,7 +17,7 @@ Sign in to Chromatic via OAuth, email, or SSO.
 
 Chromatic supports the cloud versions of GitHub, GitLab, or Bitbucket on our [self-serve plans](https://www.chromatic.com/pricing).
 
-If you use the on-premise or enterprise versions of GitHub, GitLab, or Bitbucket, we can support you via our [enterprise plan](https://www.chromatic.com/pricing). We recommend trialing Chromatic first by following these [instructions](setup#demo-chromatic-unlinked).
+If you use the on-premise or enterprise versions of GitHub, GitLab, or Bitbucket, we can support you via our [enterprise plan](https://www.chromatic.com/pricing). We recommend trialing Chromatic first by following these [instructions](/docs/setup#demo-chromatic-unlinked).
 
 <details>
     <summary>What OAuth scopes does Chromatic request?</summary>
@@ -35,7 +35,7 @@ Depending on your Git provider, Chromatic will request a set of OAuth scopes whe
 <details>
     <summary>What permissions does the GitHub App request?</summary>
 
-Chromatic's GitHub App enables [UI Review](review) for pull requests. We need additional permissions to access pull request information and add PR checks.
+Chromatic's GitHub App enables [UI Review](/docs/review) for pull requests. We need additional permissions to access pull request information and add PR checks.
 
 - ✅ Read access to metadata
 - ✅ Read and write access to checks and pull requests
@@ -52,7 +52,7 @@ Chromatic requests the minimum permissions needed to use the tool. With GitHub, 
 If your GitHub organization requires an admin to approve apps, you'll need to request access inside of Chromatic and track their status inside of GitHub (below).
 
 1. **Chromatic OAuth app**: Enables GitHub sign-in. Track your access request [here](https://github.com/settings/connections/applications/495b5c3cb5ae140436a0).
-2. **Chromatic.com app**: Enables [UI Review](review). Track your access request [here](https://github.com/apps/chromatic-com).
+2. **Chromatic.com app**: Enables [UI Review](/docs/review). Track your access request [here](https://github.com/apps/chromatic-com).
 
 </details>
 
@@ -63,10 +63,10 @@ Email and password authentication is available on all accounts. It's a popular a
 If you're setting up Chromatic for your team as the account owner or administrator, there are some boundaries to be aware of:
 
 - Email accounts can use Chromatic as normal
-- [Collaborators](collaborators) are manually managed
-- [Pull request checks](ci#pull-request-checks) are manually setup via your CI system
+- [Collaborators](/docs/collaborators) are manually managed
+- [Pull request checks](/docs/ci#pull-request-checks) are manually setup via your CI system
 
-We recommend signing up with email for projects that **are not** on GitHub, Bitbucket, or GitLab. For example, projects on services like Azure DevOps, AWS, etc. Read the setup instructions for these types of projects [here](setup#demo-chromatic-unlinked).
+We recommend signing up with email for projects that **are not** on GitHub, Bitbucket, or GitLab. For example, projects on services like Azure DevOps, AWS, etc. Read the setup instructions for these types of projects [here](/docs/setup#demo-chromatic-unlinked).
 
 #### Single Sign-On (SSO)
 
@@ -86,13 +86,13 @@ There are two types of Chromatic projects: linked and unlinked.
 
 #### Linked projects
 
-Linked projects are associated with a repository on GitHub, Bitbucket, or GitLab. That allows Chromatic to [sync collaborators](collaborators#project-collaborators), badge pull requests, get pull request metadata for [UI Review](review), and keep track of [UI Test](test) baselines.
+Linked projects are associated with a repository on GitHub, Bitbucket, or GitLab. That allows Chromatic to [sync collaborators](/docs/collaborators#project-collaborators), badge pull requests, get pull request metadata for [UI Review](/docs/review), and keep track of [UI Test](/docs/test) baselines.
 
 By creating a linked project in Chromatic, you automatically have at your disposal:
 
-- [Collaborators](collaborators) synched automatically based on your Git provider.
+- [Collaborators](/docs/collaborators) synched automatically based on your Git provider.
 
-- The [visibility](collaborators#visibility) of your published Storybook will be synced with the visibility of your GitHub repository
+- The [visibility](/docs/collaborators#visibility) of your published Storybook will be synced with the visibility of your GitHub repository
 
 - UI test notifications are enabled via automated webhooks for third-party integrations.
 
@@ -100,23 +100,23 @@ By creating a linked project in Chromatic, you automatically have at your dispos
 
 - Chromatic's GitHub App provides a faster UI review process and PR metadata retrieval.
 
-- Improved handling of [rebasing](branching-and-baselines) and squash & merge commit strategies enabled with Chromatic's GitHub App.
+- Improved handling of [rebasing](/docs/branching-and-baselines) and squash & merge commit strategies enabled with Chromatic's GitHub App.
 
 You can link a project during the project creation process or afterward on the project's Manage page within the Collaborators tab.
 
 #### Unlinked projects
 
-An unlinked project is perfect for teams that self-host Git or have enterprise Git providers (that aren't on Chromatic's enterprise plan). Unlinked projects are not linked to a repository on GitHub, Bitbucket, or GitLab. They do not automatically [sync collaborators](collaborators#project-collaborators) or badge pull requests.
+An unlinked project is perfect for teams that self-host Git or have enterprise Git providers (that aren't on Chromatic's enterprise plan). Unlinked projects are not linked to a repository on GitHub, Bitbucket, or GitLab. They do not automatically [sync collaborators](/docs/collaborators#project-collaborators) or badge pull requests.
 
 The characteristics of an unlinked project include:
 
 - You're using an email/password account OR a personal OAuth account.
-- Chromatic runs as a [CI-only](ci) job.
-- Collaborators are [manually managed](collaborators#external-collaborators) via an invite list.
+- Chromatic runs as a [CI-only](/docs/ci) job.
+- Collaborators are [manually managed](/docs/collaborators#external-collaborators) via an invite list.
 - PR badging is manually configured in your CI provider.
-- Notifications are manually setup via Chromatic's [custom webhooks](integrations#custom-webhooks).
+- Notifications are manually setup via Chromatic's [custom webhooks](/docs/integrations#custom-webhooks).
 
-Learn how to create an unlinked project [here](setup#demo-chromatic-unlinked).
+Learn how to create an unlinked project [here](/docs/setup#demo-chromatic-unlinked).
 
 ---
 
@@ -138,7 +138,7 @@ To share billing between an existing connected account and an email/password acc
 <details>
 <summary>How do I link a project to a Git provider using my email/password account?</summary>
 
-Email accounts are not connected to a Git provider by default. This means you can only create [unlinked projects](access#unlinked-projects).
+Email accounts are not connected to a Git provider by default. This means you can only create [unlinked projects](#unlinked-projects).
 
 Follow these instructions to link your project to a Git provider:
 
@@ -146,7 +146,7 @@ Follow these instructions to link your project to a Git provider:
 2. Go to the project's Manage page » Collaborate tab.
 3. Click to "sync collaborators with a Git repository".
 
-This connects your Chromatic email/password account with your Git provider account, allowing you to set up a [linked project](access#linked-projects).
+This connects your Chromatic email/password account with your Git provider account, allowing you to set up a [linked project](#linked-projects).
 
 Note: Your personal account must have access to the repository in order to connect in Chromatic. You may need to ask an administrator to grant you additional permissions.
 
@@ -154,21 +154,23 @@ Note: Your personal account must have access to the repository in order to conne
 <details>
 <summary>How do I link my project to GitHub Enterprise Server or GitLab self-managed?</summary>
 
-For Enterprise plans, we support connecting on-premise versions of GitHub Enterprise and GitLab. Please reach out to us via Support to get access. 
+For Enterprise plans, we support connecting on-premise versions of GitHub Enterprise and GitLab. Please reach out to us via Support to get access.
 
 You also need to have some information from your Git Provider setup ready
+
 1. The URL to your Git Provider (e.g. https://chromatic.github.com, https://gitlab.custom.com)
 2. The Name of Your Repository (e.g. chromatic/ux)
 3. Access Token (See docs for [GitHub](https://docs.github.com/en/authentication/keeping-your-account-and-data-secure/managing-your-personal-access-tokens) and [GitLab](https://docs.gitlab.com/ee/user/project/settings/project_access_tokens.html))
 
-Depending on your Git Provider, the relevant docs for creating an access token can be found below. When you create your token, please ensure that you enable the proper scopes. 
+Depending on your Git Provider, the relevant docs for creating an access token can be found below. When you create your token, please ensure that you enable the proper scopes.
 
 | Git provider | Permission Scopes                                        |
-| -------------| -------------------------------------------------------- |
+| ------------ | -------------------------------------------------------- |
 | GitHub       | `['user:email', 'read:user', 'read:org', 'repo:status']` |
 | GitLab       | `['api']`                                                |
 
 Once you have access and the prerequisite details, follow these instructions to link your project to GitHub Enterprise Server or GitLab self-managed:
+
 1. Go to the manage (`/manage`) page for the app that you want to connect.
 2. Click the Configure tab.
 3. In the Connected Application section, find the "Sync project with a Git repository" area and click "Add on-prem Git Provider" to enter the details for your repository.
