@@ -136,7 +136,7 @@ If you have customized the way your Storybook runs, you may need to pass additio
 <details>
 <summary>Chromatic doesn't work with my custom Storybook script</code></summary>
 
-We do our best to interpret your Storybook script in package.json, but you might need to pass additional options to the `chromatic` command. [Check out all the options »](cli)
+We do our best to interpret your Storybook script in package.json, but you might need to pass additional options to the `chromatic` command. [Check out all the options »](/docs/cli)
 
 </details>
 
@@ -175,11 +175,11 @@ Chromatic takes snapshots very quickly. However, if we lose the connection to yo
 <details>
 <summary>Why is my build failing with the message <code>Cannot run a build with no stories</code>?</summary>
 
-This happens if certain stories were disabled via the [`chromatic: { disable: true }`](ignoring-elements#ignore-stories) option at a higher level.
+This happens if certain stories were disabled via the [`chromatic: { disable: true }`](/docs/ignoring-elements#ignore-stories) option at a higher level.
 
 To solve this you can:
 
-1. Remove the top-level [`chromatic: { disable: true }`](ignoring-elements#ignore-stories) option
+1. Remove the top-level [`chromatic: { disable: true }`](/docs/ignoring-elements#ignore-stories) option
 1. Enable snapshots for specific stories
 1. Run `yarn storybook-build` locally and fix the issues in your stories
 

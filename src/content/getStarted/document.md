@@ -26,15 +26,15 @@ The library screen visualizes the latest components on a branch-by-branch basis.
 Components and their stories are securely indexed each commit and branch. Use the component screen to demo components without needing to switch branches, pull code, or Git. It's your window into the metadata and variations of the component. You can also share a link to this screen to get feedback.
 
 - **Canvas**: Interact with the real component code to reproduce behavior
-- **Snapshot**: Verify the image [snapshots](snapshots) used for cross-browser [UI Tests](test)
+- **Snapshot**: Verify the image [snapshots](/docs/snapshots) used for cross-browser [UI Tests](/docs/test)
 
 ![Component screen](../../images/component.png)
 
 ## Direct access to your Storybook
 
-Your Storybook is published on our secure CDN. Published Storybooks are private by default with [access](access) restricted to logged in collaborators. [Visibility](collaborators#visibility) can be set to public if desired.
+Your Storybook is published on our secure CDN. Published Storybooks are private by default with [access](/docs/access) restricted to logged in collaborators. [Visibility](/docs/collaborators#visibility) can be set to public if desired.
 
-Chromatic generates a [permalink](permalinks) for the latest uploaded Storybook on a given branch. That makes it easy to share with your teammates or link to from docs. `https://<branch>--<appid>.chromatic.com`
+Chromatic generates a [permalink](/docs/permalinks) for the latest uploaded Storybook on a given branch. That makes it easy to share with your teammates or link to from docs. `https://<branch>--<appid>.chromatic.com`
 
 ![Direct Storybook](../../images/published-storybook.png)
 
@@ -46,7 +46,7 @@ When you're linking to a library or component on Chromatic, it can be useful to 
 
 ## Embedding
 
-If you're documenting components outside of Storybook, you may be able to [embed interactive stories](embed). This works on many platforms that support the oEmbed specification.
+If you're documenting components outside of Storybook, you may be able to [embed interactive stories](/docs/embed). This works on many platforms that support the oEmbed specification.
 
 ---
 
@@ -75,7 +75,7 @@ Chromatic renders your published stories in an iframe. Due to browser security r
 
 1. Don’t reference `window.parent` or `window.top`. If you’re trying to communicate with the Storybook manager UI, it’s better to use “channels.” Storybook provides the [useChannel API](https://storybook.js.org/docs/react/addons/addons-api#usechannel) for this purpose.
 
-2. Conditionally avoid `window.parent` and `window.top` by checking `isChromatic()`. We provide the [`isChromatic` utility](https://www.chromatic.com/docs/ischromatic) to “detect” when a story is rendered inside of Chromatic.
+2. Conditionally avoid `window.parent` and `window.top` by checking `isChromatic()`. We provide the [`isChromatic` utility](/docs/ischromatic) to “detect” when a story is rendered inside of Chromatic.
 
 3. Wrap your `window.parent` and `window.top` references in a `try/catch` block. This will suppress the JavaScript error.
 
