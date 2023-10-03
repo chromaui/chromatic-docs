@@ -50,7 +50,7 @@ export default preview;
 
 ## JavaScript animations
 
-Chromatic cannot disable JavaScript driven animations, so we advise disabling such animations manually for Chromatic builds. One way to do that is using [`isChromatic()`](isChromatic):
+Chromatic cannot disable JavaScript driven animations, so we advise disabling such animations manually for Chromatic builds. One way to do that is using [`isChromatic()`](/docs/ischromatic):
 
 ```js
 // .storybook/preview.js
@@ -65,6 +65,6 @@ if (isChromatic()) {
 
 ## Animations that cannot be disabled
 
-If you cannot disable animations (for example if disabling JS animations is difficult), you can use a [delay](delay) to allow the animation to complete before taking the snapshot.
+If you cannot disable animations (for example if disabling JS animations is difficult), you can use a [delay](/docs/delay) to allow the animation to complete before taking the snapshot.
 
-Alternatively, [ignore an element](ignoring-elements) to omit a visible area of your component when comparing snapshots.
+Alternatively, [ignore an element](/docs/ignoring-elements) to omit a visible area of your component when comparing snapshots.

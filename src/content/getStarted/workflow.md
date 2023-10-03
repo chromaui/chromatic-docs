@@ -24,7 +24,7 @@ In doing this, you’ll have captured all component states and variations as sto
 
 ### 2. Run Chromatic in CI
 
-Once you've finished the first iteration of the implementation, open a pull request and run a Chromatic build. We recommend [configuring your CI](ci) to run a Chromatic build whenever you push code. This ensures the published Storybook on Chromatic is up to date and ensures comprehensive coverage for UI Test and UI Review.
+Once you've finished the first iteration of the implementation, open a pull request and run a Chromatic build. We recommend [configuring your CI](/docs/ci) to run a Chromatic build whenever you push code. This ensures the published Storybook on Chromatic is up to date and ensures comprehensive coverage for UI Test and UI Review.
 
 <details>
 <summary>How often should I run Chromatic?</summary>
@@ -33,7 +33,7 @@ We recommend running Chromatic on every push. This ensures that Chromatic is reg
 
 Each snapshot is associated with a commit. That enables you to pinpoint the particular commit where a change was introduced.
 
-It also allows you to [visualize baseline history](branching-and-baselines#visualize-baseline-history). You can review the commits to see how a component changes over time.
+It also allows you to [visualize baseline history](/docs/branching-and-baselines#visualize-baseline-history). You can review the commits to see how a component changes over time.
 
 Not running Chromatic on every commit makes it harder to review diffs and increases the risk of missing changes.
 
@@ -44,7 +44,7 @@ Let's say you run Chromatic on a commit. Then skip it for four commits and then 
 <details>
 <summary>How do I budget snapshots?</summary>
 
-Our main recommendation is to use Chromatic’s [TurboSnap](turbosnap#turbosnap) feature. It uses Git and your project’s dependency graph to identify component files that changed, then intelligently builds and snapshots only the stories associated with those components.
+Our main recommendation is to use Chromatic’s [TurboSnap](/docs/turbosnap#turbosnap) feature. It uses Git and your project’s dependency graph to identify component files that changed, then intelligently builds and snapshots only the stories associated with those components.
 
 This enables you to run Chromatic regularly while reducing the snapshot count per build.
 
@@ -58,7 +58,7 @@ You use Storybook to isolate UI components, mock their variations, and save the 
 
 ![visual bugs are inevitable](../../images/visual-bugs.gif)
 
-Chromatic’s [UI tests](test) are designed to catch visual and interaction bugs.
+Chromatic’s [UI tests](/docs/test) are designed to catch visual and interaction bugs.
 
 <details>
 <summary>What are visual bugs?</summary>
@@ -72,7 +72,7 @@ Visual bugs are the unintentional errors in your UIs appearance that make it loo
 
 Interaction bugs are unintentional errors in UI behavior that prevents it from working as intended. For example: a dialog doesn't open or a form doesn't respond to typing events.
 
-[Interactive stories combined with assertions](interactions) enable you to test how components respond to user input. Attach a [play function](https://storybook.js.org/docs/react/writing-stories/play-function) to the story to simulate user behavior (e.g., click and type) and assert against that behavior.
+[Interactive stories combined with assertions](/docs/interactions) enable you to test how components respond to user input. Attach a [play function](https://storybook.js.org/docs/react/writing-stories/play-function) to the story to simulate user behavior (e.g., click and type) and assert against that behavior.
 
 Interaction tests in Chromatic run behind the scenes without you having to configure anything. You'll be notified of any test failures via the Chromatic UI.
 
@@ -96,7 +96,7 @@ In tools like GitHub, Gitlab, and Bitbucket you assign other devs to review the 
 
 Review is the opportunity to discuss changes and get final team sign off. In the past, teams had to manually click through the UI to review all possible variations. Chromatic's superpower is that it knows exactly which stories have changed. It generates a changeset for your reviewers that shows precisely what they need to review. This speeds up the sign off process.
 
-[UI Review](review) is essential because developers often run into edge cases or technical hurdles that your team didn't consider.
+[UI Review](/docs/review) is essential because developers often run into edge cases or technical hurdles that your team didn't consider.
 
 For UI Review, Chromatic shows you a branch vs branch comparison. That is, what will change on the base branch when you merge this PR.
 
@@ -105,7 +105,7 @@ For UI Review, Chromatic shows you a branch vs branch comparison. That is, what
 
 To add or remove collaborators, go to the collaborate tab on your project's Manage page. You can invite them by email or by sharing an invite link.
 
-[More on inviting collaborators »](collaborators#external-collaborators)
+[More on inviting collaborators »](/docs/collaborators#external-collaborators)
 
 </details>
 
@@ -121,7 +121,7 @@ Use the Assign Reviewers link on the PR Activity page to choose reviewers from t
 <details>
 <summary>How do I track requested changes?</summary>
 
-Reviewers can request changes to the implementation via the comment box beneath each story. These get aggregated at the bottom of the PR screen’s activity tab. Developers can see a [list of tasks](review#ui-checklist) which must be completed before UI is ready to merge.
+Reviewers can request changes to the implementation via the comment box beneath each story. These get aggregated at the bottom of the PR screen’s activity tab. Developers can see a [list of tasks](/docs/review#ui-checklist) which must be completed before UI is ready to merge.
 
 ![UI Review checklist](../../images/prscreen-ui-checklist.png)
 
@@ -137,8 +137,8 @@ Chromatic will badge PRs to notify you about publish, test, and review results. 
 
 During the build process, Chromatic builds and publishes your Storybook to its secure workspace (CDN) accessible to your entire team. That keeps everyone in sync with the latest UI implementation. No fussing with dependencies, git, or local dev environments.
 
-- [Share permalinks with collaborators](permalinks#share-permalinks-with-collaborators)
-- [Custom domain for your Storybook](permalinks#custom-domain-for-your-storybook)
+- [Share permalinks with collaborators](/docs/permalinks#share-permalinks-with-collaborators)
+- [Custom domain for your Storybook](/docs/permalinks#custom-domain-for-your-storybook)
 
 The published Storybook is a shared reference point for your entire team, making cross-discipline collaboration easier.
 
@@ -148,7 +148,7 @@ Storybook can automatically [generate UI documentation](https://storybook.js.org
 
 #### Connect Storybook and Figma
 
-[Storybook Connect](figma#figma-plugin) is a Figma plugin that allows you to link stories to Figma components. Once linked, you can view your live stories in the design workspace without leaving Figma.
+[Storybook Connect](/docs/figma-plugin) is a Figma plugin that allows you to link stories to Figma components. Once linked, you can view your live stories in the design workspace without leaving Figma.
 
 <video autoPlay muted playsInline loop width="560px" class="center" style="pointer-events: none;" title="Embedded story and design side-by-side">
   <source src="/docs/assets/figma-plugin-open-story.mp4" type="video/mp4" />
@@ -156,7 +156,7 @@ Storybook can automatically [generate UI documentation](https://storybook.js.org
 
 #### Embed stories to showcase your work
 
-[Embed](embed#embed-stories) stories in Medium articles, Notion pages, and countless other platforms that support oEmbed. You get to interact with live rendered components instead of static images.
+[Embed](/docs/embed#embed-stories) stories in Medium articles, Notion pages, and countless other platforms that support oEmbed. You get to interact with live rendered components instead of static images.
 
 ---
 

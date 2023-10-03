@@ -53,7 +53,7 @@ If you’re loading fonts from an external CDN service (like Google Fonts or Ado
 
 #### Solution B: Check fonts have loaded in a loader
 
-This alternate solution uses the browsers font load API and the [`isChromatic()`](ischromatic) helper function to verify that fonts load when in the Chromatic environment.
+This alternate solution uses the browsers font load API and the [`isChromatic()`](/docs/ischromatic) helper function to verify that fonts load when in the Chromatic environment.
 
 ```js
 // .storybook/preview.js

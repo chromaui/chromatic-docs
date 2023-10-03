@@ -21,7 +21,7 @@ Before we begin, make sure you set the `CHROMATIC_PROJECT_TOKEN` environment var
 }
 ```
 
-Integrate with popular CI tools like you would any other job. Run `npm run chromatic` to publish your Storybook. If [UI Test](test) or [UI Review](review) are enabled, it will return a non-zero exit code when there are changes. For example:
+Integrate with popular CI tools like you would any other job. Run `npm run chromatic` to publish your Storybook. If [UI Test](/docs/test) or [UI Review](/docs/review) are enabled, it will return a non-zero exit code when there are changes. For example:
 
 ```yml
 - run:
@@ -34,20 +34,20 @@ Integrate with popular CI tools like you would any other job. Run `npm run chrom
 
 Here's how we recommend configuring Chromatic for popular CI services:
 
-- [GitHub Actions](../ci/github-actions)
-- [GitLab Pipelines](../ci/gitlab)
-- [Bitbucket Pipelines](../ci/bitbucket-pipelines)
-- [CircleCI](../ci/circleci)
-- [Travis CI](../ci/travisci)
-- [Jenkins](../ci/jenkins)
-- [Azure Pipelines](../ci/azure-pipelines)
-- [Other CI providers](../ci/custom-ci-provider)
+- [GitHub Actions](/docs/github-actions)
+- [GitLab Pipelines](/docs/gitlab)
+- [Bitbucket Pipelines](/docs/bitbucket-pipelines)
+- [CircleCI](/docs/circleci)
+- [Travis CI](/docs/travisci)
+- [Jenkins](/docs/jenkins)
+- [Azure Pipelines](/docs/azure-pipelines)
+- [Other CI providers](/docs/custom-ci-provider)
 
 ## Pull request checks
 
 When a build runs it will automatically add a PR status check to the current pull request indicating the state of the build. By default, you'll see Storybook Publish. If you enabled UI Tests or UI Review you'll also see their respective checks.
 
-GitHub, Bitbucket, or GitLab projects that are [linked to a repository](../collaborate/access) get this feature out of the box. If you use other version control services to host your code, you can write a custom CI script to add a check for Chromatic (via your CI provider).
+GitHub, Bitbucket, or GitLab projects that are [linked to a repository](/docs/collaborate/access) get this feature out of the box. If you use other version control services to host your code, you can write a custom CI script to add a check for Chromatic (via your CI provider).
 
 Require checks in [GitHub](https://help.github.com/en/github/administering-a-repository/enabling-required-status-checks), [GitLab](https://docs.gitlab.com/ee/api/commits.html#post-the-build-status-to-a-commit), or [Bitbucket](https://confluence.atlassian.com/bitbucket/suggest-or-require-checks-before-a-merge-856691474.html) to ensure they are completed before merging.
 
@@ -70,6 +70,6 @@ How tools work together affects your development speed. Learn the recommended Ch
 
 Chromatic detects CI test runs for most services. But it's not possible for every system, which results in users seeing persistent "Setup CI / Automation" messages in the UI.
 
-If this is happening to you, prepend `CI=true` to your test command like so `CI=true yarn chromatic...` to hide the "Setup CI" messages in Chromatic. [Learn more](test).
+If this is happening to you, prepend `CI=true` to your test command like so `CI=true yarn chromatic...` to hide the "Setup CI" messages in Chromatic. [Learn more](/docs/test).
 
 </details>

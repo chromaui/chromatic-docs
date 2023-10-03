@@ -56,14 +56,14 @@ Each subproject in a monorepo can now be associated with a separate Chromatic pr
    ![Copy project-token for monorepo](../../images/monorepo-copy-project-token.png)
 
 5. Paste the `project-token` in your CI step to run Chromatic for that subproject. Below are examples with popular CI services.
-   - [GitHub Actions](github-actions#run-chromatic-on-monorepos)
-   - [GitLab Pipelines](gitlab#run-chromatic-on-monorepos)
-   - [Bitbucket Pipelines](bitbucket-pipelines#run-chromatic-on-monorepos)
-   - [CircleCI](circleci#run-chromatic-on-monorepos)
-   - [Travis CI](travisci#run-chromatic-on-monorepos)
-   - [Jenkins](jenkins#run-chromatic-on-monorepos)
-   - [Azure Pipelines](azure-pipelines#run-chromatic-on-monorepos)
-   - [Other CI providers](custom-ci-provider#run-chromatic-on-monorepos)
+   - [GitHub Actions](/docs/github-actions#run-chromatic-on-monorepos)
+   - [GitLab Pipelines](/docs/gitlab#run-chromatic-on-monorepos)
+   - [Bitbucket Pipelines](/docs/bitbucket-pipelines#run-chromatic-on-monorepos)
+   - [CircleCI](/docs/circleci#run-chromatic-on-monorepos)
+   - [Travis CI](/docs/travisci#run-chromatic-on-monorepos)
+   - [Jenkins](/docs/jenkins#run-chromatic-on-monorepos)
+   - [Azure Pipelines](/docs/azure-pipelines#run-chromatic-on-monorepos)
+   - [Other CI providers](/docs/custom-ci-provider#run-chromatic-on-monorepos)
 
 Every monorepo subproject will get build statuses posted to the pull/merge request. In CI, you’ll need to add a step for each project and use the specific project token for that project.
 
@@ -85,9 +85,9 @@ If you want to get a Chromatic PR badge for such commits (for instance, if you b
 
 If you are combining multiple Storybooks into one (see [above](#combine-multiple-projects-into-a-single-storybook)), but detected that only a subset of projects has changed, you can instruct Chromatic to capture and test that particular subset of stories as follows:
 
-- Recommended: Use [TurboSnap](turbosnap) to automatically only snapshot stories for which related source files have changed.
-- Use [`--only-story-files`](cli#chromatic-options) to only snapshot stories matching a glob pattern by story file name.
-- Use [`--only-story-names`](cli#chromatic-options) to only snapshot stories matching a glob pattern by component/story name.
+- Recommended: Use [TurboSnap](/docs/turbosnap) to automatically only snapshot stories for which related source files have changed.
+- Use [`--only-story-files`](/docs/cli#chromatic-options) to only snapshot stories matching a glob pattern by story file name.
+- Use [`--only-story-names`](/docs/cli#chromatic-options) to only snapshot stories matching a glob pattern by component/story name.
 
 In each case, stories that aren't tested are "inherited" from their baseline. You cannot use both `--only-story-files` and `--only-story-names` CLI flags directly from the CLI or your CI workflow.
 
@@ -138,13 +138,13 @@ With the removal of the `--preserve-missing` flag, building a partial Storybook 
 <details>
 <summary>Why am I not seeing my monorepo subproject listed in my pull request checklist?</summary>
 
-When using an existing project that is part of the monorepo and [requiring PR checks](ci#pull-request-checks) for merging, you will need to remove and re-add them within your Git provider as the name linked to the check will have changed. It also applies if a subproject is renamed.
+When using an existing project that is part of the monorepo and [requiring PR checks](/docs/ci#pull-request-checks) for merging, you will need to remove and re-add them within your Git provider as the name linked to the check will have changed. It also applies if a subproject is renamed.
 
 </details>
 
 <details>
 <summary>Why is my monorepo project triggering a full rebuild?</summary>
 
-If TurboSnap is enabled inside a monorepo project, [file changes](turbosnap#full-rebuilds) that impact one package will automatically trigger a full rebuild on all related projects when running Chromatic. Read more about how to ignore changes in unrelated packages [above](#with-turbosnap).
+If TurboSnap is enabled inside a monorepo project, [file changes](/docs/turbosnap#full-rebuilds) that impact one package will automatically trigger a full rebuild on all related projects when running Chromatic. Read more about how to ignore changes in unrelated packages [above](#with-turbosnap).
 
 </details>

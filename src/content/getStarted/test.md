@@ -7,13 +7,13 @@ sidebar: { order: 3, label: "UI Tests" }
 
 # UI Tests
 
-UI tests pinpoint visual changes and verify user [interactions](interactions). They capture a [snapshot](snapshots) of every story in a cloud browser environment. Whenever you push code, Chromatic generates a new set of snapshots and compares them against [baseline snapshots](branching-and-baselines#baselines). If there are changes, you verify that they're intentional. If there are test errors, you get notified to fix them.
+UI tests pinpoint visual changes and verify user [interactions](/docs/interactions). They capture a [snapshot](/docs/snapshots) of every story in a cloud browser environment. Whenever you push code, Chromatic generates a new set of snapshots and compares them against [baseline snapshots](/docs/branching-and-baselines#baselines). If there are changes, you verify that they're intentional. If there are test errors, you get notified to fix them.
 
 ![UI test](../../images/workflow-uitest.png)
 
 ## Enable
 
-Enable visual tests for your project on the manage page. If your stories have [interaction tests](interactions), they'll run automatically when visual tests are enabled.
+Enable visual tests for your project on the manage page. If your stories have [interaction tests](/docs/interactions), they'll run automatically when visual tests are enabled.
 
 All snapshots are taken in Chrome by default. Select additional browsers to expand test coverage in 1-click.
 
@@ -21,7 +21,7 @@ All snapshots are taken in Chrome by default. Select additional browsers to expa
 
 ## Establish baselines
 
-Once visual tests are enabled, you can establish baselines by [running a Chromatic build](setup#run-chromatic) in a new project or on a branch without an ancestor. This captures a snapshot of each story in a cloud browser and sets it as the baseline. Subsequent builds will generate new snapshots that are compared against existing baselines to detect UI changes.
+Once visual tests are enabled, you can establish baselines by [running a Chromatic build](/docs/setup#run-chromatic) in a new project or on a branch without an ancestor. This captures a snapshot of each story in a cloud browser and sets it as the baseline. Subsequent builds will generate new snapshots that are compared against existing baselines to detect UI changes.
 
 ## View changes between baselines
 
@@ -49,7 +49,7 @@ Chromatic detects UI changes but it's still up to you to verify if changes are i
 
 - ✅&nbsp;**Accept change**: This updates the story baseline. When a snapshot is accepted it won’t need to be re-accepted until it changes, even through git branches or merges.
 
-- ❌&nbsp;**Deny change**: This marks the change as "denied" indicating a regression and immediately fails the build. You can deny multiple changes per build. Denying a change will force a re-capture on the next build, even if [TurboSnap](turbosnap) would otherwise skip it.
+- ❌&nbsp;**Deny change**: This marks the change as "denied" indicating a regression and immediately fails the build. You can deny multiple changes per build. Denying a change will force a re-capture on the next build, even if [TurboSnap](/docs/turbosnap) would otherwise skip it.
 
 ![Snapshot that's unreviewed](../../images/snapshot-unreviewed.png)
 
@@ -66,7 +66,7 @@ Verify UI changes faster using keyboard shortcuts. Protip: Pressing 1 multiple t
 
 Chromatic automatically changes the baseline snapshots that it uses for each build depending on your branch. Each branch has a separate set of baselines.
 
-This means you can update UI components on multiple feature branches in parallel without conflicts. When you merge branches, the most recent baseline takes precedence. [Learn about branching and baselines »](branching-and-baselines)
+This means you can update UI components on multiple feature branches in parallel without conflicts. When you merge branches, the most recent baseline takes precedence. [Learn about branching and baselines »](/docs/branching-and-baselines)
 
 </details>
 
@@ -75,7 +75,7 @@ This means you can update UI components on multiple feature branches in parallel
 
 Sometimes you need a closer look to determine why a snapshot is rendering as it does. Along with pixel and DOM diffs, Chromatic displays the interactive stories just as they appear in Storybook.
 
-Click "Inspect snapshot" to open the Inspector. Switch between the "Canvas" and "Snapshot" tabs to compare the live component to the snapshot. Learn more about snapshots [here](snapshots).
+Click "Inspect snapshot" to open the Inspector. Switch between the "Canvas" and "Snapshot" tabs to compare the live component to the snapshot. Learn more about snapshots [here](/docs/snapshots).
 
 ![Reproduce snapshot](../../images/feature-component-inspect.png)
 
@@ -84,7 +84,7 @@ Click "Inspect snapshot" to open the Inspector. Switch between the "Canvas" and 
 <details>
 <summary>Can I retake a snapshot?</summary>
 
-Yes, [rerun the latest build](snapshots#rerun-builds-to-retake-snapshots) on your branch to retake snapshots of unreviewed or denied changes.
+Yes, [rerun the latest build](/docs/snapshots#rerun-builds-to-retake-snapshots) on your branch to retake snapshots of unreviewed or denied changes.
 
 ![Rerun button](../../images/build-detail-rerun-button.png)
 
@@ -143,7 +143,7 @@ Now that you can catch bugs during development, learn about how to invite stakeh
 
 <div class="aside">
 
-Snapshots don't look right? Learn how to debug snapshots [here](snapshots).
+Snapshots don't look right? Learn how to debug snapshots [here](/docs/snapshots).
 
 </div>
 
@@ -192,9 +192,9 @@ However, this situation can arise due to the following:
 
 1. You switched branches and re-ran Chromatic, without checking-in the code changes that installed Chromatic. In this case you can safely ignore this message.
 
-1. You rewrote history in merging the Chromatic installation code (e.g. using GitHub's "Squash and Merge" or "Rebase and Merge" buttons). [Learn how to resolve](github-actions#github-squashrebase-merge-and-the-main-branch)
+1. You rewrote history in merging the Chromatic installation code (e.g. using GitHub's "Squash and Merge" or "Rebase and Merge" buttons). [Learn how to resolve](/docs/github-actions#github-squashrebase-merge-and-the-main-branch)
 
-1. You are using a shallow clone of your repository when running Chromatic. Chromatic needs access to your full git history in order to find baselines (or at least the history until the previous Chromatic build, which depends on how often you push code/run builds). [Learn about how we use Git for baselines »](branching-and-baselines)
+1. You are using a shallow clone of your repository when running Chromatic. Chromatic needs access to your full git history in order to find baselines (or at least the history until the previous Chromatic build, which depends on how often you push code/run builds). [Learn about how we use Git for baselines »](/docs/branching-and-baselines)
 
 1. Something else happened, perhaps a bug at our end? Please contact us through our in app chat if this is the case.
 
@@ -217,6 +217,6 @@ Yes. Go to the manage page for your project where you can disable UI Tests. Chro
 <details>
 <summary>Can I rerun a build without running my whole CI workflow?</summary>
 
-Yes you can [rerun the latest build on any branch](snapshots#rerun-builds-to-retake-snapshots) outside of your CI workflow. Go to the build page to kick off a new build that uses identical settings and configuration as your old build.
+Yes you can [rerun the latest build on any branch](/docs/snapshots#rerun-builds-to-retake-snapshots) outside of your CI workflow. Go to the build page to kick off a new build that uses identical settings and configuration as your old build.
 
 </details>

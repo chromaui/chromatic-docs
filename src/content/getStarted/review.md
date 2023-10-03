@@ -87,7 +87,7 @@ Reviewers can request updates to the implementation via the comment box beneath 
 
 ## UI checklist
 
-At the bottom of the Review screen’s [activity tab](review#find-your-pull-request) is a list of tasks that must be completed before UI is ready to be signed off on. If changes are found, the Review will enter the **🟡&nbsp;Pending** state. When changes are approved and checklist items are complete, the Review will be **🟢&nbsp;Passed**. Here’s how to resolve these tasks:
+At the bottom of the Review screen’s [activity tab](review#ui-checklist) is a list of tasks that must be completed before UI is ready to be signed off on. If changes are found, the Review will enter the **🟡&nbsp;Pending** state. When changes are approved and checklist items are complete, the Review will be **🟢&nbsp;Passed**. Here’s how to resolve these tasks:
 
 1. Changeset must be approved &rarr; Assign reviewers or approve yourself.
 2. Outstanding discussions must be resolved &rarr; Click 'Resolve' on discussions.
@@ -132,7 +132,7 @@ If you’re familiar with creating pull or merge requests with git, this process
 - Enter a title for the Review.
 - Click the “Compare branches” button to generate your new Review
 
-Your Review is now ready for you and your team to discuss. Follow along from to the [Understanding the Review](review#understanding-the-review) section on for more information on how to benefit the most from UI Review.
+Your Review is now ready for you and your team to discuss. Follow along from to the [Understanding the Review](#understanding-the-review) section on for more information on how to benefit the most from UI Review.
 
 <details>
 <summary>Glossary</summary>
@@ -144,7 +144,7 @@ Your Review is now ready for you and your team to discuss. Follow along from to 
 
 ## PR check for "UI Review"
 
-Manually created Reviews will not create a “UI Review” status check in GitHub, GitLab, or Bitbucket. To create a status check in your Git provider for manually created Reviews, you can use a [custom webhook](integrations#custom-webhooks).
+Manually created Reviews will not create a “UI Review” status check in GitHub, GitLab, or Bitbucket. To create a status check in your Git provider for manually created Reviews, you can use a [custom webhook](/docs/integrations#custom-webhooks).
 
 ## Closing a Review
 
@@ -178,7 +178,7 @@ Now that you’ve seen how to review the UI changeset before merging, learn how 
 <details>
 <summary>When should I ask for UI Review?</summary>
 
-You can initiate a UI Review at any time. However, we recommend doing it later in the development cycle, once baselines have been approved and UI Tests are green. Learn more about [UI review](review).
+You can initiate a UI Review at any time. However, we recommend doing it later in the development cycle, once baselines have been approved and UI Tests are green. Learn more about [UI review](/docs/review).
 
 </details>
 

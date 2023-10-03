@@ -58,7 +58,7 @@ A placeholder in <code>&lt;angled brackets&gt;</code> denotes a required value, 
 
 ### Chromatic options
 
-These options control how Chromatic behaves concerning your stories and what to do with them. These might be needed in certain branching situations. See more in the [**branching docs**](branching-and-baselines).
+These options control how Chromatic behaves concerning your stories and what to do with them. These might be needed in certain branching situations. See more in the [**branching docs**](/docs/branching-and-baselines).
 
 | CLI flag                                  |                                                                                                                                                                                                                                                                                                                                                                                                    |
 | ----------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |

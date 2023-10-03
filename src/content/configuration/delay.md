@@ -7,7 +7,7 @@ sidebar: { order: 5 }
 
 # Delay snapshots
 
-Components sometimes trigger custom interactions on render. For example, JavaScript-driven [animations](animations#javascript-animations) that cannot [otherwise be disabled](snapshots#improve-snapshot-consistency) or third-party functionality outside of your control.
+Components sometimes trigger custom interactions on render. For example, JavaScript-driven [animations](/docs/animations#javascript-animations) that cannot [otherwise be disabled](/docs/snapshots#improve-snapshot-consistency) or third-party functionality outside of your control.
 
 You can delay capture for a fixed time to allow your story to get into the intended state. Using delay requires Storybook 4.0 or later.
 
@@ -43,11 +43,11 @@ export const StoryName = {
 };
 ```
 
-This technique is intended for interactions and animations that end after a certain period of time (e.g., "animate in"). If your animation is continuous and you cannot disable it, you may need to use an [ignore region](ignoring-elements) to stop Chromatic from considering such parts of your component.
+This technique is intended for interactions and animations that end after a certain period of time (e.g., "animate in"). If your animation is continuous and you cannot disable it, you may need to use an [ignore region](/docs/ignoring-elements) to stop Chromatic from considering such parts of your component.
 
 ### Use an assertion to delay snapshot capture
 
-For finer-grained control over when a snapshot is captured, use [interactions](interactions) and the [`play`](https://storybook.js.org/docs/react/writing-stories/play-function) function to write assertions that check for DOM elements or set timeouts. Chromatic waits for interactions to pass before capturing a snapshot.
+For finer-grained control over when a snapshot is captured, use [interactions](/docs/interactions) and the [`play`](https://storybook.js.org/docs/react/writing-stories/play-function) function to write assertions that check for DOM elements or set timeouts. Chromatic waits for interactions to pass before capturing a snapshot.
 
 Check for DOM elements using `getBy`, `findBy`, or `queryBy` (docs [here](https://testing-library.com/docs/dom-testing-library/cheatsheet/#queries)).
 

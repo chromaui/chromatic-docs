@@ -14,7 +14,7 @@ You can integrate Chromatic into other services and script custom behavior to su
 
 ## Build updates
 
-When a build's [status changes](#result-and-status-codes), we'll send a `POST` request to your webhook with a body that looks like this:
+When a build's [status changes](#build-result-and-status-codes), we'll send a `POST` request to your webhook with a body that looks like this:
 
 ```json
 {
@@ -108,7 +108,7 @@ When a reviewer is assigned to a review or they approve the changes, we send an 
 
 <div class="aside">
 
-Reviews are currently only supported on unlinked projects. [Read more ›](access#projects)
+Reviews are currently only supported on unlinked projects. [Read more ›](/docs/access#projects)
 
 </div>
 
