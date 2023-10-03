@@ -16,7 +16,7 @@
     "build-deploy": "yarn build; rm -rf _site_deploy/docs; mv dist/404.html _site_deploy; mv dist _site_deploy/docs;",
     "preview": "astro preview",
     "astro": "astro",
-    "check-links": "blc https://www.chromatic.com/docs/ -ro -e --filter-level 0 --exclude https://www.chromatic.com/company"
+    "check-links": "blc https://www.chromatic.com/docs/ -ro -e --filter-level 0 --exclude https://www.chromatic.com/company --exclude https://www.chromatic.com/blog --exclude https://www.chromatic.com/features --exclude https://www.chromatic.com/compare --exclude https://www.chromatic.com/library --exclude https://www.chromatic.com/component --exclude https://www.chromatic.com/builds --exclude https://www.chromatic.com/loading"
   },
   "dependencies": {
     "@astrojs/mdx": "^1.0.0",

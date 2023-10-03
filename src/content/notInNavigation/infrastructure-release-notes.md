@@ -34,7 +34,7 @@ Key highlights on this release:
 
 Welcome to `Chromatic Capture Cloud version 4` released January 2022.
 
-**Status**: Outdated ([opt in for upgrade](infrastructure-upgrades#opt-in-to-upgrade))
+**Status**: Outdated ([opt in for upgrade](/docs/infrastructure-upgrades#opt-in-to-upgrade))
 
 Key highlights on this release:
 

@@ -82,7 +82,7 @@ You don't need to do this anymore. Chromatic is a Storybook-optimized cloud serv
 <details>
 <summary>How is UI Review different from UI Tests? How do I get the best functionality out of both?</summary>
 
-In a nutshell, [**UI Tests**](test) prevent regressions (bugs), while [**UI Review**](review) is for gathering qualitative feedback from your team.
+In a nutshell, [**UI Tests**](/docs/test) prevent regressions (bugs), while [**UI Review**](/docs/review) is for gathering qualitative feedback from your team.
 
 The modern development process moves quickly, and developers often fill in gaps according to their best guess. UI review is an opportunity for developers to sync with other teammates to get a final OK before shipping.
 
@@ -126,7 +126,7 @@ The project token is available on the Manage → Configure page of your project.
 <details>
 <summary>Can I reset or cycle my project token?</summary>
 
-Users with the [`owner`](collaborators#roles) role can reset or cycle project tokens on the Configure page of your project.
+Users with the [`owner`](/docs/collaborators#roles) role can reset or cycle project tokens on the Configure page of your project.
 
 ![Navigate to the Manage page and click on the Configure tab](../../images/reset-project-token.png)
 
@@ -229,7 +229,7 @@ As long as either the testing or review features are enabled, Chromatic will con
 <details>
 <summary>How to run Chromatic on a specific branch or only when merging to main?</summary>
 
-How Chromatic is triggered depends on your Continuous Integration (CI) setup. You can configure your CI provider to run Chromatic on a specific branch or only when merging to your main branch. Please beware that changing which branches Chromatic runs on may affect test and review coverage because Chromatic uses Git history to [track baselines](branching-and-baselines).
+How Chromatic is triggered depends on your Continuous Integration (CI) setup. You can configure your CI provider to run Chromatic on a specific branch or only when merging to your main branch. Please beware that changing which branches Chromatic runs on may affect test and review coverage because Chromatic uses Git history to [track baselines](/docs/branching-and-baselines).
 
 For example, here’s how GitHub Actions can be configured:
 
@@ -272,7 +272,7 @@ Chromatic
 <details>
 <summary>Why isn’t TurboSnap working for me?</summary>
 
-You may be missing one of the necessary [prerequisites](turbosnap#prerequisites). For [debugging information](turbosnap#confirm-turbosnap-is-working) check your CI build logs.
+You may be missing one of the necessary [prerequisites](/docs/turbosnap#prerequisites). For [debugging information](/docs/turbosnap#confirm-turbosnap-is-working) check your CI build logs.
 
 </details>
 
@@ -283,7 +283,7 @@ You may be missing one of the necessary [prerequisites](turbosnap#prerequisites)
 
 Yes, you can select which branch's stories are connected to Figma.
 
-Chromatic generates a unique permalink when a Storybook is published. You can link your component by using the URL to a specific commit or a [permalink](permalinks#build-your-own-permalink) to a branch.
+Chromatic generates a unique permalink when a Storybook is published. You can link your component by using the URL to a specific commit or a [permalink](/docs/permalinks#build-your-own-permalink) to a branch.
 
 However, once linked, the plugin will always display stories from the latest build for that branch.
 
@@ -301,7 +301,7 @@ Yes. Chromatic automatically updates your linked stories to reflect the latest b
 
 Figma users must have access to the Chromatic project in order to use the plugin. That means Figma collaborators (viewers, editors, admins) that have access to your Figma file but don't have access to Chromatic will not be able to see the stories.
 
-Learn how to invite teammates as [collaborators](collaborators) on your Chromatic project. We don't charge "per seat", so you can invite your whole team.
+Learn how to invite teammates as [collaborators](/docs/collaborators) on your Chromatic project. We don't charge "per seat", so you can invite your whole team.
 They must be able to see the story in Chromatic to be able to see it in the plugin.
 
 </details>
@@ -320,11 +320,11 @@ You require a Figma `editor` role to both link and view stories with this plugin
 
 Chromatic is a CI-powered service. That means you can run `chromatic` in any CI workflow including Azure DevOps. However, some of the automatic configuration that comes out of the box from Chromatic won't be available to Azure DevOps users. Rest assured, it's straightforward to configure yourself. Below are things to note for set up:
 
-- Your team must sign up via [email/password](access#email)
-- Access control is manually-managed at the project level via [External Collaborators](collaborators#external-collaborators)
-- Pull request checks must be setup via in your [CI provider](ci#pull-request-checks)
+- Your team must sign up via [email/password](/docs/access#email)
+- Access control is manually-managed at the project level via [External Collaborators](/docs/collaborators#external-collaborators)
+- Pull request checks must be setup via in your [CI provider](/docs/ci#pull-request-checks)
 
-Read the [setup guide](setup#demo-chromatic-unlinked).
+Read the [setup guide](/docs/setup#demo-chromatic-unlinked).
 
 </details>
 
