@@ -56,14 +56,14 @@ Each subproject in a monorepo can now be associated with a separate Chromatic pr
    ![Copy project-token for monorepo](../../images/monorepo-copy-project-token.png)
 
 5. Paste the `project-token` in your CI step to run Chromatic for that subproject. Below are examples with popular CI services.
-   - [GitHub Actions](github-actions#run-chromatic-on-monorepos)
-   - [GitLab Pipelines](gitlab#run-chromatic-on-monorepos)
-   - [Bitbucket Pipelines](bitbucket-pipelines#run-chromatic-on-monorepos)
-   - [CircleCI](circleci#run-chromatic-on-monorepos)
-   - [Travis CI](travisci#run-chromatic-on-monorepos)
-   - [Jenkins](jenkins#run-chromatic-on-monorepos)
-   - [Azure Pipelines](azure-pipelines#run-chromatic-on-monorepos)
-   - [Other CI providers](custom-ci-provider#run-chromatic-on-monorepos)
+   - [GitHub Actions](/docs/github-actions#run-chromatic-on-monorepos)
+   - [GitLab Pipelines](/docs/gitlab#run-chromatic-on-monorepos)
+   - [Bitbucket Pipelines](/docs/bitbucket-pipelines#run-chromatic-on-monorepos)
+   - [CircleCI](/docs/circleci#run-chromatic-on-monorepos)
+   - [Travis CI](/docs/travisci#run-chromatic-on-monorepos)
+   - [Jenkins](/docs/jenkins#run-chromatic-on-monorepos)
+   - [Azure Pipelines](/docs/azure-pipelines#run-chromatic-on-monorepos)
+   - [Other CI providers](/docs/custom-ci-provider#run-chromatic-on-monorepos)
 
 Every monorepo subproject will get build statuses posted to the pull/merge request. In CI, you’ll need to add a step for each project and use the specific project token for that project.
 
