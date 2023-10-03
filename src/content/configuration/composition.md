@@ -62,7 +62,7 @@ If you want your local Storybook to compose a specific version of Storybook, use
 
 ### Access control
 
-Published Storybooks follow the [access rules](access) of your project. If you have a private project, you'll need sign in to Chromatic (via Storybook's UI) to load the private Storybook.
+Published Storybooks follow the [access rules](/docs/access) of your project. If you have a private project, you'll need sign in to Chromatic (via Storybook's UI) to load the private Storybook.
 
 ---
 

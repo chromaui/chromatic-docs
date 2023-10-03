@@ -16,7 +16,7 @@
     "build-deploy": "yarn build; rm -rf _site_deploy/docs; mv dist/404.html _site_deploy; mv dist _site_deploy/docs;",
     "preview": "astro preview",
     "astro": "astro",
-    "check-links": "blc https://www.chromatic.com/docs/ -ro -e"
+    "check-links": "blc https://www.chromatic.com/docs/ -ro -e --filter-level 0"
   },
   "dependencies": {
     "@astrojs/mdx": "^1.0.0",
