@@ -6,7 +6,7 @@ description: Chromatic E2E Visual Tests capture snapshots of pages visited durin
 
 # E2E Visual Tests
 
-<div class="aside">
+<div class="aside" style="margin-bottom: 2rem;">
 
 🧪 **Experimental** We're actively integrating feedback from [early access users](https://forms.gle/w43XGAJXVWpAF5oC7), so the API and other details below may change.
 
@@ -17,10 +17,7 @@ Current limitations:
 
 </div>
 
-<!-- Without this the paragraph below butts up against the aside -->
-<p></p>
-
-Chromatic **E2E Visual Tests** capture live [“archives”](#what-are-archives) of pages during [Playwright](https://playwright.dev/) end-to-end tests. This means you can use the full Chromatic <a href="/docs/test"><b>UI Tests</b></a> and <a href="/docs/review"><b>UI Review</b></a> features _without_ writing any [Storybook stories](https://storybook.js.org/docs/react/get-started/whats-a-story). (Storybook is still used, but [automatically configured for you](#running-the-storybook-locally).)
+Chromatic **E2E Visual Tests** capture live [“archives”](#what-are-archives) of pages during [Playwright](https://playwright.dev/) end-to-end tests. This means you can use the full Chromatic [**UI Tests**](/docs/test) and [**UI Review**](/docs/review) features _without_ writing any [Storybook stories](https://storybook.js.org/docs/react/get-started/whats-a-story). (Storybook is still used, but [automatically configured for you](#running-the-storybook-locally).)
 
 The archives you create during each test run can be viewed in a Storybook UI, so you can inspect them in Chromatic (or [locally](#running-the-storybook-locally)) after each build to more closely debug changes and errors.
 
@@ -34,7 +31,7 @@ An **archive** is a self-contained, re-renderable HTML “snapshot” of your pa
 
 </div>
 
-The Archive Storyook is passed to Chromatic’s build process, which screenshots those archives in whichever <a href="/docs/browsers">cloud browsers</a> you have configured for your project. Chromatic then compares the screenshots, and presents you with the changes to review.
+The Archive Storyook is passed to Chromatic’s build process, which screenshots those archives in whichever [cloud browsers](/docs/browsers) you have configured for your project. Chromatic then compares the screenshots, and presents you with the changes to review.
 
 ## Requirements
 
@@ -138,9 +135,9 @@ The above snippet produces archives that look like this in Storybook:
 
 1. **Set up a Chromatic project**
 
-   If your repository already has an associated Chromatic project, you can set up an additional Chromatic project to test the Archive Storybook using the <a href="/docs/monorepos#run-chromatic-for-each-subproject">instructions for monorepo support</a>.
+   If your repository already has an associated Chromatic project, you can set up an additional Chromatic project to test the Archive Storybook using the [instructions for monorepo support](/docs/monorepos#run-chromatic-for-each-subproject).
 
-   Otherwise, follow <a href="/docs/setup#sign-up">these sign up instructions</a> to create a new Chromatic project.
+   Otherwise, follow [these sign up instructions](/docs/setup#sign-up) to create a new Chromatic project.
 
    <div class="aside">
 
@@ -198,7 +195,7 @@ The above snippet produces archives that look like this in Storybook:
          buildScriptName: build-archive-storybook
    ```
 
-   If you're not already running Chromatic in CI, you can follow the standard <a href="docs/ci">CI setup instructions</a> to automate your E2E test archives in Chromatic. Remember to use the project token from the new project you created above and the `--build-script-name=build-archive-storybook` flag.
+   If you're not already running Chromatic in CI, you can follow the standard [CI setup instructions](/docs/ci) to automate your E2E test archives in Chromatic. Remember to use the project token from the new project you created above and the `--build-script-name=build-archive-storybook` flag.
 
    Once you’ve set up the above (or similar for your CI provider) and pushed a commit, you should see a build with your archive’s screenshots appear on the new project.
 

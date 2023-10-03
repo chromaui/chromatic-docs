@@ -63,7 +63,9 @@ stages:
 ```
 
 <div class="aside">
-We recommend saving the project token as a secret environment variable named <code>CHROMATIC_PROJECT_TOKEN</code> for security reasons. In your Azure pipeline configuration, forward it using the <code>env</code> option. When the Chromatic CLI is executed, it will read the environment variable automatically without any additional flags. Refer to the official Azure <a href="https://learn.microsoft.com/en-us/azure/devops/pipelines/process/set-secret-variables?view=azure-devops&tabs=yaml%2Cbash">environment variables documentation</a> to learn more about it.
+
+We recommend saving the project token as a secret environment variable named `CHROMATIC_PROJECT_TOKEN` for security reasons. In your Azure pipeline configuration, forward it using the `env` option. When the Chromatic CLI is executed, it will read the environment variable automatically without any additional flags. Refer to the official Azure [environment variables documentation](https://learn.microsoft.com/en-us/azure/devops/pipelines/process/set-secret-variables?view=azure-devops&tabs=yaml%2Cbash) to learn more about it.
+
 </div>
 
 ### Run Chromatic on specific branches
@@ -92,7 +94,9 @@ pr:
 ```
 
 <div class="aside">
-Read the official Azure <a href="https://docs.microsoft.com/en-us/azure/devops/pipelines/build/triggers?view=azure-devops">conditional pipeline documentation</a>.
+
+Read the official Azure [conditional pipeline documentation](https://docs.microsoft.com/en-us/azure/devops/pipelines/build/triggers?view=azure-devops).
+
 </div>
 
 Now your pipeline will only run Chromatic in the `main` branch.
@@ -176,7 +180,9 @@ stages:
 ```
 
 <div class="aside">
-Additional paralellization can be achieved when configuring your workflow to run Chromatic on multiple subprojects. Read the official Azure DevOps <a href="https://learn.microsoft.com/en-us/azure/devops/pipelines/licensing/concurrent-jobs?view=azure-devops&tabs=ms-hosted"> documentation</a>.
+
+Additional paralellization can be achieved when configuring your workflow to run Chromatic on multiple subprojects. Read the official Azure DevOps [documentation](https://learn.microsoft.com/en-us/azure/devops/pipelines/licensing/concurrent-jobs?view=azure-devops&tabs=ms-hosted).
+
 </div>
 
 ### Enable TurboSnap
@@ -284,7 +290,9 @@ stages:
 ```
 
 <div class="aside">
-Read our <a href="/docs/cli#chromatic-options"> CLI documentation</a>.
+
+Read our [CLI documentation](/docs/cli#chromatic-options).
+
 </div>
 
 When using `--exit-zero-on-changes` your pipeline execution still stop and fail if your Storybook contains stories that error. If you'd prefer Chromatic _never_ to block your pipeline, you can use `npx chromatic || true`.
@@ -342,7 +350,9 @@ stages:
 ```
 
 <div class="aside">
-Read our <a href="/docs/cli#chromatic-options"> CLI documentation</a>.
+
+Read our [CLI documentation](/docs/cli#chromatic-options).
+
 </div>
 
 Including the `--auto-accept-changes` flag ensures all incoming changes will be accepted as baselines. Additionally, you'll maintain a clean `main` branch.
@@ -375,7 +385,9 @@ stages:
 ```
 
 <div class="aside">
-Read our <a href="/docs/cli#chromatic-options"> CLI documentation</a>.
+
+Read our [CLI documentation](/docs/cli#chromatic-options).
+
 </div>
 
 Including the `--ignore-last-build-on-branch` flag ensures the latest build for the specific branch is not used as a baseline.
@@ -399,7 +411,9 @@ chromatic --skip 'renovate/**'
 ```
 
 <div class="aside">
-Read our <a href="/docs/cli#chromatic-options"> CLI documentation</a>.
+
+Read our [CLI documentation](/docs/cli#chromatic-options).
+
 </div>
 
 To apply this to multiple branches, use an "extended glob". See [picomatch] for details.

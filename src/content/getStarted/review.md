@@ -14,7 +14,9 @@ UI Review creates a changeset of the exact visual changes introduced on a new br
 ![UI Review](../../images/workflow-uireview.png)
 
 <div class="aside">
-<p>👀  <strong>Looking for Manual UI Reviews</strong>? See <a href="/docs/review#manual-ui-review">the documentation below</a>.</p>
+
+👀 **Looking for Manual UI Reviews?** See [the documentation below](/docs/review#manual-ui-review).
+
 </div>
 
 ## Enable
@@ -26,7 +28,9 @@ Enable UI Review for your project on the Manage screen.
 Once enabled, visit the Reviews tab in the web app sidebar. There you’ll be prompted to install the GitHub app or webhooks for GitLab/Bitbucket.
 
 <div class="aside">
-<p><b>Note:</b> You must <a href="/docs/ci">set up CI</a> so that Chromatic is able to run builds for each commit on the PR branch.</p>
+
+ℹ️ You must [set up CI](/docs/ci) so that Chromatic is able to run builds for each commit on the PR branch.
+
 </div>
 
 ## Understanding the Review
@@ -77,7 +81,11 @@ The Review screen includes a Changeset tab showing a side-by-side view of all vi
 
 ![Changeset tab](../../images/prscreen-changes.png)
 
-<div class="aside"><b>Tip:</b> To hint at what UI changed, toggle the highlighted diff (in neon green) on and off.</div>
+<div class="aside">
+
+💡 **Tip:** To hint at what UI changed, toggle the highlighted diff (in neon green) on and off.
+
+</div>
 
 #### Discussions
 
@@ -94,8 +102,9 @@ At the bottom of the Review screen’s [activity tab](/docs/review#ui-checklist)
 3. All assigned reviewers must approve &rarr; Click 'Approve' in the Review screen tab bar.
 
 <div class="aside">
-<p><b>Note:</b> Step #3 is not required if you would like to close the Review.
-</p>
+
+ℹ️ Step #3 is not required if you would like to close the Review.
+
 </div>
 
 ![UI Checklist](../../images/prscreen-ui-checklist.png)
@@ -153,7 +162,9 @@ Prune your completed manual UI Reviews by clicking the "Close review" menu item 
 ![Close Review](../../images/close-review.png)
 
 <div class="aside">
-<p><b>Be aware:</b> closing a Review <b>does not</b> merge the branches in git.</p>
+
+ℹ️ Reminder: closing a Review **does not** merge the branches in Git.
+
 </div>
 
 ### Notes:

@@ -61,7 +61,9 @@ Fill in the form with the necessary information, as detailed below, and replace 
 Finish by clicking the **Add secret** button.
 
 <div class="aside">
-Read the official <a href="https://docs.github.com/en/free-pro-team@latest/actions/reference/encrypted-secrets">GitHub secrets documentation</a>.
+
+Read the official [GitHub secrets documentation](https://docs.github.com/en/free-pro-team@latest/actions/reference/encrypted-secrets).
+
 </div>
 
 ### Forked repositories
@@ -77,7 +79,9 @@ GitHub secrets work at a repository level. Forked repositories will not have acc
 ```
 
 <div class="aside">
-Replace <code>CHROMATIC_PROJECT_TOKEN</code> with your own token obtained from Chromatic.
+
+ℹ️ Replace `CHROMATIC_PROJECT_TOKEN` with your own token obtained from Chromatic.
+
 </div>
 
 Or you could disable Chromatic on pull requests from forked repositories.
@@ -134,7 +138,11 @@ Chromatic's GitHub Action returns some information about your build in the form 
 | **specCount**                    | `number` | The number of stories in the published Storybook.                                                                     |
 | **testCount**                    | `number` | The number of tests on the build.                                                                                     |
 
-Please refer to [this GitHub document](https://docs.github.com/en/actions/using-workflows/workflow-syntax-for-github-actions#jobsjob_idoutputs) discussing how to use these outputs.
+<div class="aside">
+
+Read the official [GitHub documentation](https://docs.github.com/en/actions/using-workflows/metadata-syntax-for-github-actions#outputs) for more information about outputs.
+
+</div>
 
 <h3 id="support-for-actions-checkout-v2-and-above">Support for <code>actions/checkout@v2</code> and above</h3>
 
@@ -168,7 +176,9 @@ jobs:
 ```
 
 <div class="aside">
- Read the official <a href="https://github.com/actions/checkout">GitHub Actions documentation</a>.
+
+Read the official [GitHub Actions documentation](https://github.com/actions/checkout).
+
 </div>
 
 ### Run Chromatic on specific branches
@@ -191,7 +201,9 @@ jobs:
 ```
 
 <div class="aside">
-Read the official <a href="https://docs.github.com/en/free-pro-team@latest/actions/reference/workflow-syntax-for-github-actions#example-ignoring-branches-and-tags">GitHub branch workflow documentation</a>.
+
+Read the official [GitHub branch workflow documentation](https://docs.github.com/en/free-pro-team@latest/actions/reference/workflow-syntax-for-github-actions#example-ignoring-branches-and-tags).
+
 </div>
 
 Now Chromatic will run for any branch except `example`.
@@ -462,7 +474,9 @@ jobs:
 ```
 
 <div class="aside">
-Read the official <a href="https://storybook.js.org/docs/react/configure/environment-variables">Storybook environment variable's documentation </a>.
+
+Read the official [Storybook environment variable's documentation](https://storybook.js.org/docs/react/configure/environment-variables).
+
 </div>
 
 ### Recommended configuration for build events
@@ -500,7 +514,9 @@ jobs:
 ```
 
 <div class="aside">
-Read about the <a href="#available-options">available options</a>.
+
+Read about the [available options](#available-options).
+
 </div>
 
 When using `exitZeroOnChanges`, your workflow will still stop and fail if your Storybook contains stories that error.
@@ -553,7 +569,9 @@ jobs:
 ```
 
 <div class="aside">
-Read about the <a href="#available-options">available options</a>.
+
+Read about the [available options](#available-options).
+
 </div>
 
 Including the `autoAcceptChanges` option ensures all incoming changes will be accepted as baselines. Additionally, you'll maintain a clean `main` branch.
@@ -579,7 +597,9 @@ jobs:
 ```
 
 <div class="aside">
-Read about the <a href="#available-options">available options</a>.
+
+Read about the [available options](#available-options).
+
 </div>
 
 Including the `ignoreLastBuildOnBranch` option ensures the latest build for the specific branch is not used as a baseline.
@@ -603,7 +623,9 @@ chromatic --skip 'dependabot/**'
 ```
 
 <div class="aside">
-Read our <a href="/docs/cli#chromatic-options"> CLI documentation</a>.
+
+Read our official [CLI documentation](/docs/cli#chromatic-options).
+
 </div>
 
 To apply this to multiple branches, use an "extended glob". See [picomatch] for details.

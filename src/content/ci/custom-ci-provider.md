@@ -26,7 +26,9 @@ To integrate Chromatic with your existing CI provider, you'll need to add the fo
 ```
 
 <div class="aside">
-We recommend saving the project token as a (secret) environment variable named <code>CHROMATIC_PROJECT_TOKEN</code> for security reasons. When the Chromatic CLI is executed, it will read the environment variable automatically without any additional flags. See your provider's documentation for reference.
+
+We recommend saving the project token as a (secret) environment variable named `CHROMATIC_PROJECT_TOKEN` for security reasons. When the Chromatic CLI is executed, it will read the environment variable automatically without any additional flags. See your provider's documentation for reference.
+
 </div>
 
 ### Run Chromatic on specific branches
@@ -138,7 +140,9 @@ If you are using pull request statuses as required checks before merging, you ma
 ```
 
 <div class="aside">
-Read our official <a href="/docs/cli#chromatic-options">CLI documentation</a>.
+
+Read our official [CLI documentation](/docs/cli#chromatic-options).
+
 </div>
 
 When using `--exit-zero-on-changes` your job will still stop and fail if your Storybook contains stories that error. If you'd prefer Chromatic _never_ to block your job, you can use `npm run chromatic || true`.
@@ -176,7 +180,9 @@ If you’re using this functionality but notice the incoming changes were not ac
 ```
 
 <div class="aside">
-Read our official <a href="/docs/cli#chromatic-options">CLI documentation</a>.
+
+Read our official [CLI documentation](/docs/cli#chromatic-options).
+
 </div>
 
 Including the `--auto-accept-changes` flag ensures all incoming changes will be accepted as baselines. Additionally you'll maintain a clean `main` branch.
@@ -200,7 +206,9 @@ chromatic --skip 'dependabot/**'
 ```
 
 <div class="aside">
-Read our <a href="/docs/cli#chromatic-options"> CLI documentation</a>.
+
+Read our official [CLI documentation](/docs/cli#chromatic-options).
+
 </div>
 
 To apply this to multiple branches, use an "extended glob". See [picomatch] for details.
