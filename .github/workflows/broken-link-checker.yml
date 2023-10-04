@@ -1,0 +1,31 @@
+name: "Broken link checker"
+on:
+  schedule:
+    - cron: "0 0 * * *"
+
+jobs:
+  check-for-broken-links:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+        with:
+          ref: ${{ github.event.pull_request.head.sha }}
+      - name: Install dependencies
+        run: yarn install
+
+      - name: Check links
+        id: check-links
+        run: yarn check-links
+
+      - name: Send failure status to slack
+        if: ${{ failure() }}
+        uses: slackapi/slack-github-action@v1.24.0
+        with:
+          payload: |
+            {
+              "status": "🔴 Found broken links",
+              "report": "https://github.com/${{github.repository}}/commit/${{github.sha}}/checks/${{github.run_id}}"
+            }
+        env:
+          SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
