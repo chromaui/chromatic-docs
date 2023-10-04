@@ -41,7 +41,9 @@ chromatic_publish:
 ```
 
 <div class="aside">
-We recommend saving the project token as a masked environment variable named <code>CHROMATIC_PROJECT_TOKEN</code> for security reasons. When the Chromatic CLI is executed, it will read the environment variable automatically without any additional flags. Refer to the official GitLab <a href="https://docs.gitlab.com/ee/ci/variables/index.html#mask-a-cicd-variable">environment variables documentation</a> to learn more about it.
+
+We recommend saving the project token as a masked environment variable named `CHROMATIC_PROJECT_TOKEN` for security reasons. When the Chromatic CLI is executed, it will read the environment variable automatically without any additional flags. Refer to the official GitLab [environment variables documentation](https://docs.gitlab.com/ee/ci/variables/index.html#mask-a-cicd-variable) to learn more about it.
+
 </div>
 
 ### Run Chromatic on specific branches
@@ -70,7 +72,9 @@ chromatic_publish:
 ```
 
 <div class="aside">
-Read the official GitLab <a href="https://docs.gitlab.com/ee/ci/yaml/#rules">conditional pipeline documentation</a>.
+
+Read the official GitLab [conditional pipeline documentation](https://docs.gitlab.com/ee/ci/yaml/#rules).
+
 </div>
 
 Now your pipeline will only run Chromatic in the `main` branch.
@@ -139,7 +143,9 @@ chromatic_publish_project_2:
 ```
 
 <div class="aside">
-Additional paralellization can be achieved when configuring your workflow to run Chromatic on multiple subprojects. Read the official GitLab <a href="https://docs.gitlab.com/ee/ci/jobs/job_control.html#parallelize-large-jobs"> documentation</a>.
+
+Additional paralellization can be achieved when configuring your workflow to run Chromatic on multiple subprojects. Read the official GitLab [documentation](https://docs.gitlab.com/ee/ci/jobs/job_control.html#parallelize-large-jobs).
+
 </div>
 
 ### Disable Shallow Cloning
@@ -213,7 +219,9 @@ chromatic_publish:
 ```
 
 <div class="aside">
-Read our <a href="/docs/cli#chromatic-options"> CLI documentation</a>.
+
+Read our official [CLI documentation](/docs/cli#chromatic-options).
+
 </div>
 
 When using `--exit-zero-on-changes` your pipeline execution still stop and fail if your Storybook contains stories that error. If you'd prefer Chromatic _never_ to block your pipeline, you can use `yarn chromatic || true`.
@@ -266,7 +274,9 @@ chromatic_publish:
 ```
 
 <div class="aside">
-Read our <a href="/docs/cli#chromatic-options"> CLI documentation</a>.
+
+Read our official [CLI documentation](/docs/cli#chromatic-options).
+
 </div>
 
 Including the `--auto-accept-changes` flag ensures all incoming changes will be accepted as baselines. Additionally, you'll maintain a clean `main` branch.
@@ -291,7 +301,9 @@ chromatic_publish:
 ```
 
 <div class="aside">
-Read our <a href="/docs/cli#chromatic-options"> CLI documentation</a>.
+
+Read our official [CLI documentation](/docs/cli#chromatic-options).
+
 </div>
 
 Including the `--ignore-last-build-on-branch` flag ensures the latest build for the specific branch is not used as a baseline.
@@ -315,7 +327,9 @@ chromatic --skip 'renovate/**'
 ```
 
 <div class="aside">
-Read our <a href="/docs/cli#chromatic-options"> CLI documentation</a>.
+
+Read our official [CLI documentation](/docs/cli#chromatic-options).
+
 </div>
 
 To apply this to multiple branches, use an "extended glob". See [picomatch] for details.

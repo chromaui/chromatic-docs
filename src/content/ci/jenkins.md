@@ -37,7 +37,9 @@ pipeline {
 ```
 
 <div class="aside">
-We recommend saving the project token as a secret text environment variable named <code>CHROMATIC_PROJECT_TOKEN</code> for security reasons. When the Chromatic CLI is executed, it will read the environment variable automatically without any additional flags. Refer to the official official Jenkins <a href="https://www.jenkins.io/doc/book/pipeline/jenkinsfile/#handling-credentials">environment variables documentation</a> to learn more about it.
+
+We recommend saving the project token as a secret text environment variable named `CHROMATIC_PROJECT_TOKEN` for security reasons. When the Chromatic CLI is executed, it will read the environment variable automatically without any additional flags. Refer to the official official Jenkins [environment variables documentation](https://www.jenkins.io/doc/book/pipeline/jenkinsfile/#handling-credentials) to learn more about it.
+
 </div>
 
 ### Run Chromatic on specific branches
@@ -71,7 +73,9 @@ pipeline {
 ```
 
 <div class="aside">
-Read the official Jenkins <a href="https://www.jenkins.io/doc/book/pipeline/syntax/"> conditional pipeline documentation</a>.
+
+Read the official Jenkins [conditional pipeline documentation](https://www.jenkins.io/doc/book/pipeline/syntax/).
+
 </div>
 
 Now your pipeline will only run Chromatic in the `example` branch.
@@ -292,7 +296,9 @@ pipeline {
 ```
 
 <div class="aside">
-Read our <a href="/docs/cli#chromatic-options"> CLI documentation</a>.
+
+Read our official [CLI documentation](/docs/cli#chromatic-options).
+
 </div>
 
 When using `--exit-zero-on-changes` your pipeline will still stop and fail if your Storybook contains stories that error. If you'd prefer Chromatic _never_ to block your pipeline, you can use `yarn chromatic || true`.
@@ -355,7 +361,9 @@ pipeline {
 ```
 
 <div class="aside">
-Read our <a href="/docs/cli#chromatic-options"> CLI documentation</a>.
+
+Read our official [CLI documentation](/docs/cli#chromatic-options).
+
 </div>
 
 Including the `--auto-accept-changes` flag ensures all incoming changes will be accepted as baselines. Additionally, you'll maintain a clean `main` branch.
@@ -386,7 +394,9 @@ pipeline {
 ```
 
 <div class="aside">
-Read our <a href="/docs/cli#chromatic-options"> CLI documentation</a>.
+
+Read our official [CLI documentation](/docs/cli#chromatic-options).
+
 </div>
 
 Including the `--ignore-last-build-on-branch` flag ensures the latest build for the specific branch is not used as a baseline.
@@ -410,7 +420,9 @@ chromatic --skip 'dependabot/**'
 ```
 
 <div class="aside">
-Read our <a href="/docs/cli#chromatic-options"> CLI documentation</a>.
+
+Read our official [CLI documentation](/docs/cli#chromatic-options).
+
 </div>
 
 To apply this to multiple branches, use an "extended glob". See [picomatch] for details.

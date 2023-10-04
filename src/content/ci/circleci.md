@@ -45,7 +45,9 @@ workflows:
 ```
 
 <div class="aside">
-We recommend saving the project token as an environment variable named <code>CHROMATIC_PROJECT_TOKEN</code> for security reasons. When the Chromatic CLI is executed, it will read the environment variable automatically without any additional flags. Refer to the official CircleCI <a href="https://circleci.com/docs/env-vars/">environment variables documentation</a> to learn more about it.
+
+We recommend saving the project token as an environment variable named `CHROMATIC_PROJECT_TOKEN` for security reasons. When the Chromatic CLI is executed, it will read the environment variable automatically without any additional flags. Refer to the official CircleCI [environment variables documentation](https://circleci.com/docs/env-vars/) to learn more about it.
+
 </div>
 
 ### Run Chromatic on specific branches
@@ -71,7 +73,9 @@ workflows:
 ```
 
 <div class="aside">
-Read the official CircleCI <a href="https://circleci.com/docs/2.0/configuration-reference/#filters">conditional job execution documentation</a>.
+
+Read the official CircleCI [conditional job execution documentation](https://circleci.com/docs/2.0/configuration-reference/#filters).
+
 </div>
 
 Now Chromatic will only run in the `main` branch.
@@ -137,7 +141,9 @@ jobs:
 ```
 
 <div class="aside">
-Additional paralellization can be achieved when configuring your workflow to run Chromatic on multiple subprojects. Read the official CircleCI <a href="https://circleci.com/docs/parallelism-faster-jobs"> documentation</a>.
+
+Additional paralellization can be achieved when configuring your workflow to run Chromatic on multiple subprojects. Read the official CircleCI [documentation](https://circleci.com/docs/parallelism-faster-jobs).
+
 </div>
 
 ### Enable TurboSnap
@@ -207,7 +213,9 @@ jobs:
 ```
 
 <div class="aside">
-Read our <a href="/docs/cli#chromatic-options"> CLI documentation</a>.
+
+Read our [CLI documentation](/docs/cli#chromatic-options).
+
 </div>
 
 When using `--exit-zero-on-changes` your job will still stop and fail if your Storybook contains stories that error. If you'd prefer Chromatic _never_ to block your job, you can use `yarn chromatic || true`.
@@ -246,7 +254,9 @@ fi
 ```
 
 <div class="aside">
-Read our <a href="/docs/cli#chromatic-options"> CLI documentation</a>.
+
+Read our [CLI documentation](/docs/cli#chromatic-options).
+
 </div>
 
 Including the `--auto-accept-changes` flag ensures all incoming changes will be accepted as baselines. Additionally, you'll maintain a clean `main` branch.
@@ -293,7 +303,9 @@ chromatic --skip 'dependabot/**'
 ```
 
 <div class="aside">
-Read our <a href="/docs/cli#chromatic-options"> CLI documentation</a>.
+
+Read our [CLI documentation](/docs/cli#chromatic-options).
+
 </div>
 
 To apply this to multiple branches, use an "extended glob". See [picomatch] for details.

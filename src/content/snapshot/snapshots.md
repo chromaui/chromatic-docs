@@ -7,7 +7,7 @@ sidebar: { order: 1 }
 
 # Snapshots
 
-A snapshot is an image of a story plus some metadata captured by a standardized browser in Chromatic's Capture Cloud infrastructure. Snapshots power <a href="/docs/test">UI Tests</a> and <a href="/docs/review">UI Review</a>.
+A snapshot is an image of a story plus some metadata captured by a standardized browser in Chromatic's Capture Cloud infrastructure. Snapshots power [UI Tests](/docs/test) and [UI Review](/docs/review).
 
 ## Table of contents:
 
@@ -20,7 +20,7 @@ A snapshot is an image of a story plus some metadata captured by a standardized 
 
 <div class="aside">
 
-Looking for information on snapshot billing? <a href="/docs/billing">Go to billing docs</a>
+Looking for information on snapshot billing? [Go to billing docs](/docs/billing)
 
 </div>
 
@@ -70,22 +70,22 @@ It's essential that your components and stories render in a **consistent** fashi
 
 - **Randomness in stories**: Components sometimes use random number generators to generate data for complex inputs. To avoid this, you can hard-code the input data, but often a more convenient solution is to use a tool like [seedrandom](https://github.com/davidbau/seedrandom) which you can use to make your "random" number generator consistent.
 
-- **Animations**: Chromatic will attempt to pause all animations. However, you may need to <a href="/docs/animations">configure</a> Chromatic's exact behavior. Chromatic's exact behavior.
+- **Animations**: Chromatic will attempt to pause all animations. However, you may need to [configure](/docs/animations) Chromatic's exact behavior. Chromatic's exact behavior.
 
-- **Unpredictable resource hosts**: Resources that load from unpredictable or flaky sources may not load in time (15s) to capture. Work around this by serving resources as [static files in Storybook](https://storybook.js.org/configurations/serving-static-files/) or using a [placeholder service](https://placehold.co/). Learn more about how we <a href="/docs/resource-loading">load resources</a>.
+- **Unpredictable resource hosts**: Resources that load from unpredictable or flaky sources may not load in time (15s) to capture. Work around this by serving resources as [static files in Storybook](https://storybook.js.org/configurations/serving-static-files/) or using a [placeholder service](https://placehold.co/). Learn more about how we [load resources](/docs/resource-loading).
 
 - **Image CDNs & compression algorithms**: Image CDNs optimize for image weight and size, which affect how it renders. Since this happens upstream of Chromatic, any changes to those images in your components will be caught as visual changes. Work around this by ensuring the served images are identical every time and using consistent compression settings. Also consider serving images as [static files in Storybook](https://storybook.js.org/configurations/serving-static-files/) or using a [placeholder service](https://placehold.co/).
 
-- **Web font loading**: Web fonts can load at different times which will impact snapshot consistency, especially when combined with <a href="/docs/interactions">interactions</a>. Serve web fonts as [static files in Storybook](https://storybook.js.org/configurations/serving-static-files/) and make sure to <a href="/docs/resource-loading#solution-a-preload-fonts">preload</a> them.
+- **Web font loading**: Web fonts can load at different times which will impact snapshot consistency, especially when combined with [interactions](/docs/interactions). Serve web fonts as [static files in Storybook](https://storybook.js.org/configurations/serving-static-files/) and make sure to [preload](/docs/resource-loading#solution-a-preload-fonts) them.
 
-- **Iframes rendering out of the viewport**: Some browsers only visually render iframes when they are inside of the viewport, despite the fact that they have loaded with all of their resources. For this reason, if you have an iframe that is placed below the viewport of a tall story, it will appear blank. You may want to <a href="/docs/ignoring-elements">ignore that element</a> and also test it in isolation so that it fits inside of the viewport.
+- **Iframes rendering out of the viewport**: Some browsers only visually render iframes when they are inside of the viewport, despite the fact that they have loaded with all of their resources. For this reason, if you have an iframe that is placed below the viewport of a tall story, it will appear blank. You may want to [ignore that element](/docs/ignoring-elements) and also test it in isolation so that it fits inside of the viewport.
 
 - **Use of the current date/time**: Dates and times are a testers bane! To get consistency in components or tests that use the current time, you can use a tool to also "seed" the time, like [mockdate](https://www.npmjs.com/package/mockdate) for the `Date` object.
 
-- **UI takes time to render**: UI can take extra time to "settle" into it's final orientation. Add a <a href="/docs/delay">delay</a> to take a snapshot after waiting a period of time. Note that this technique can make the UI rendering inconsistency less obvious in snapshots, but it won't eliminate the underlying issue in how UI renders.
+- **UI takes time to render**: UI can take extra time to "settle" into it's final orientation. Add a [delay](/docs/delay) to take a snapshot after waiting a period of time. Note that this technique can make the UI rendering inconsistency less obvious in snapshots, but it won't eliminate the underlying issue in how UI renders.
 
-- **Intentional randomness**: Some stories may render unpredictably intentionally. If this is the case you may want to <a href="/docs/ignoring-elements"> ignore the story</a> from UI Tests and move on.
-  If you still need inconsistent elements for local development purposes inside Storybook, you can use `isChromatic()` exported from <a href="/docs/ischromatic"> our package</a> to apply the solutions above only when in the Chromatic environment.
+- **Intentional randomness**: Some stories may render unpredictably intentionally. If this is the case you may want to [ignore the story](/docs/ignoring-elements) from UI Tests and move on.
+  If you still need inconsistent elements for local development purposes inside Storybook, you can use `isChromatic()` exported from [our package](/docs/ischromatic) to apply the solutions above only when in the Chromatic environment.
 
 ## Debug snapshot rendering
 
@@ -94,7 +94,7 @@ It's essential that your components and stories render in a **consistent** fashi
 
 Image and font rendering can be tricky. Resources that load from unpredictable or flaky sources may not load in time (15s) to capture. Work around this by:
 
-- Ensure resources load <a href="/docs/resource-loading">reliably fast in Chromatic</a>
+- Ensure resources load [reliably fast in Chromatic](/docs/resource-loading)
 - Serve resources as [static files in Storybook](https://storybook.js.org/configurations/serving-static-files/) (this also improves your test speed)
 - Using a [placeholder service](https://placeholder.com/).
 
@@ -197,7 +197,7 @@ Scrollable divs constrain the height of their children. Change the height of the
 <details>
 <summary>Why isn’t my modal or dialog captured?</summary>
 
-If you use an “animateIn” effect set <a href="/docs/delay">delay</a> to ensure we snapshot when the animation completes.
+If you use an “animateIn” effect set [delay](/docs/delay) to ensure we snapshot when the animation completes.
 
 If your component infers its dimensions from the layout of the surrounding DOM elements (e.g., it's a modal that uses `position:fixed`), you'll need to set the height of that component's stories using a decorator.
 
@@ -233,7 +233,7 @@ export const StoryWithDimensions = {
 <details>
 <summary>What if I have a modal component that doesn't define a width or height?</summary>
 
-If your component infers its dimensions from the layout of the surrounding DOM elements (e.g., it's a modal that uses `position:fixed`), you can set the height of that component's stories using a <a href="https://storybook.js.org/docs/react/writing-stories/decorators#component-decorators">decorator</a>.
+If your component infers its dimensions from the layout of the surrounding DOM elements (e.g., it's a modal that uses `position:fixed`), you can set the height of that component's stories using a [decorator](https://storybook.js.org/docs/react/writing-stories/decorators#component-decorators).
 
 ```js
 // MyComponent.stories.js|jsx
@@ -270,7 +270,7 @@ export const StoryWithDimensions = {
 
 We recommend you render stories multiple times, one for each theme. Here's a [blog post](https://storybook.js.org/blog/how-to-add-a-theme-switcher-to-storybook/) that explains how to enable a theme switcher in Storybook. Using this approach, this is how the snapshots will [appear in Chromatic](https://www.chromatic.com/library?appId=5a375b97f4b14f0020b0cda3&branch=next).
 
-If you'd only like to see multiple themes side-by-side in Chromatic and not in your local Storybook, use <a href="/docs/ischromatic">isChromatic()</a>.
+If you'd only like to see multiple themes side-by-side in Chromatic and not in your local Storybook, use [isChromatic()](/docs/ischromatic).
 
 </details>
 
@@ -279,7 +279,7 @@ If you'd only like to see multiple themes side-by-side in Chromatic and not in y
 
 Blank snapshots are often caused by:
 
-- **An "animateIn" effect**—If your component use an “animateIn” effect <a href="/docs/delay">set delay</a> to ensure we snapshot when the animation completes.
+- **An "animateIn" effect**—If your component use an “animateIn” effect [set delay](/docs/delay) to ensure we snapshot when the animation completes.
 
 - **Position:fixed**—Fixed position elements may depend on viewport size but do not have dimensions themselves. Wrap your component in an element whose height and width are defined.
 
@@ -292,7 +292,7 @@ Learn more about [debugging snapshots](#improve-snapshot-consistency).
 
 By default, Chromatic's diffing algorithm skips the DOM elements marked with either a `.chromatic-ignore` CSS class or `data-chromatic="ignore"` attribute.
 
-However, if you're using this functionality but notice the incoming changes are still being captured. In that case, you'll need to ensure that both the <a href="/docs/branching-and-baselines"/>baseline</a> and new snapshots retain the same dimensions (e.g., width, height, and relative positioning).
+However, if you're using this functionality but notice the incoming changes are still being captured. In that case, you'll need to ensure that both the [baseline](/docs/branching-and-baselines) and new snapshots retain the same dimensions (e.g., width, height, and relative positioning).
 
 </details>
 
@@ -315,7 +315,7 @@ Double-check whether a visual change is real or caused by inconsistencies in you
 
 Debug inconsistent snapshots by looking at the set of changes between the original build and rerun build. You might encounter these common scenarios:
 
-- Identical changes between builds: This means the snapshots are accurately showing bonafide UI changes that need your verification. Continue the <a href="/docs/test/#verify-ui-changes">UI Tests workflow</a> as usual.
+- Identical changes between builds: This means the snapshots are accurately showing bonafide UI changes that need your verification. Continue the [UI Tests workflow](/docs/test#verify-ui-changes) as usual.
 
 - Different changes between builds: This means there are inconsistent snapshots which are introducing false positives to your visual tests. Learn how to [improve snapshot consistency](#improve-snapshot-consistency).
 

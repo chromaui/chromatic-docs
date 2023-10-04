@@ -41,6 +41,6 @@ Next, enter that URL in the form on any story's design tab and save the connecti
 <details>
 <summary>Looking for a Figma plugin?</summary>
 
-<a href="/docs/figma-plugin">Storybook Connect</a> is a Figma plugin that allows you to link stories to Figma components. Once linked, you can view your live stories in the design workspace without leaving Figma.
+[Storybook Connect](/docs/figma-plugin) is a Figma plugin that allows you to link stories to Figma components. Once linked, you can view your live stories in the design workspace without leaving Figma.
 
 </details>

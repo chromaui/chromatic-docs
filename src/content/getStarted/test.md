@@ -127,7 +127,11 @@ Chromatic adds a 'UI Tests' check within the status checks for your pull/merge r
 
 ![PR for UI Tests](../../images/prbadge-test.png)
 
-<div class="aside">CI setup: Chromatic will return an exit code 0 on the CLI which can be used in CI/CD systems to indicate success and unblock deployment. <a href="/docs/ci">Learn about CI.</a></div>
+<div class="aside">
+
+CI setup: Chromatic will return an exit code 0 on the CLI which can be used in CI/CD systems to indicate success and unblock deployment. [Learn about CI](/docs/ci).
+
+</div>
 
 ---
 

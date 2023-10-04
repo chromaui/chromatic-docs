@@ -32,7 +32,9 @@ jobs:
 ```
 
 <div class="aside">
-We recommend saving the project token as an encrypted environment variable named <code>CHROMATIC_PROJECT_TOKEN</code> for security reasons. When the Chromatic CLI is executed, it will read the environment variable automatically without any additional flags. Refer to the official Travis CI <a href="https://docs.travis-ci.com/user/environment-variables/#defining-variables-in-repository-settings"> environment variables documentation</a> to learn more about it.
+
+We recommend saving the project token as an encrypted environment variable named `CHROMATIC_PROJECT_TOKEN` for security reasons. When the Chromatic CLI is executed, it will read the environment variable automatically without any additional flags. Refer to the official Travis CI [environment variables documentation](https://docs.travis-ci.com/user/environment-variables/#defining-variables-in-repository-settings) to learn more about it.
+
 </div>
 
 ### Run Chromatic on specific branches
@@ -57,7 +59,9 @@ jobs:
 ```
 
 <div class="aside">
-Read the official Travis CI <a href="https://docs.travis-ci.com/user/conditional-builds-stages-jobs/"> conditional build documentation</a>.
+
+Read the official Travis CI [conditional build documentation](https://docs.travis-ci.com/user/conditional-builds-stages-jobs/).
+
 </div>
 
 ### Run Chromatic on large projects
@@ -114,7 +118,9 @@ jobs:
 ```
 
 <div class="aside">
-Additional parallelization can be achieved when configuring your workflow to run Chromatic on multiple subprojects. Read the official Travis CI <a href="https://docs.travis-ci.com/user/build-matrix/"> build matrix documentation</a>
+
+Additional parallelization can be achieved when configuring your workflow to run Chromatic on multiple subprojects. Read the official Travis CI [build matrix documentation](https://docs.travis-ci.com/user/build-matrix/).
+
 </div>
 
 ### Enable TurboSnap
@@ -194,7 +200,9 @@ jobs:
 ```
 
 <div class="aside">
-Read our <a href="/docs/cli#chromatic-options"> CLI documentation</a>.
+
+Read our [CLI documentation](/docs/cli#chromatic-options).
+
 </div>
 
 When using `--exit-zero-on-changes` your build will still stop and fail if your Storybook contains stories that error. If you'd prefer Chromatic _never_ to block the build, you can use `yarn chromatic || true`.
@@ -235,7 +243,9 @@ jobs:
 ```
 
 <div class="aside">
-Read our <a href="/docs/cli#chromatic-options"> CLI documentation</a>.
+
+Read our [CLI documentation](/docs/cli#chromatic-options).
+
 </div>
 
 Including the `--auto-accept-changes` flag ensures all incoming changes will be accepted as baselines. Additionally, you'll maintain a clean `main` branch.
@@ -258,7 +268,9 @@ jobs:
 ```
 
 <div class="aside">
-Read our <a href="/docs/cli#chromatic-options"> CLI documentation</a>.
+
+Read our [CLI documentation](/docs/cli#chromatic-options).
+
 </div>
 
 Including the `--ignore-last-build-on-branch` flag ensures the latest build for the specific branch is not used as a baseline.
@@ -282,7 +294,9 @@ chromatic --skip 'dependabot/**'
 ```
 
 <div class="aside">
-Read our <a href="/docs/cli#chromatic-options"> CLI documentation</a>.
+
+Read our [CLI documentation](/docs/cli#chromatic-options).
+
 </div>
 
 To apply this to multiple branches, use an "extended glob". See [picomatch] for details.

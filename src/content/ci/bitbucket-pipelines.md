@@ -35,7 +35,9 @@ pipelines:
 ```
 
 <div class="aside">
-We recommend saving the project token as a secured environment variable named <code>CHROMATIC_PROJECT_TOKEN</code> for security reasons. When the Chromatic CLI is executed, it will read the stored value automatically without any additional flags or configuration. Refer to the official BitBucket <a href="https://support.atlassian.com/bitbucket-cloud/docs/variables-and-secrets/">environment variables documentation</a> to learn more about it.
+
+We recommend saving the project token as a secured environment variable named `CHROMATIC_PROJECT_TOKEN` for security reasons. When the Chromatic CLI is executed, it will read the stored value automatically without any additional flags or configuration. Refer to the official BitBucket [environment variables documentation](https://support.atlassian.com/bitbucket-cloud/docs/variables-and-secrets/) to learn more about it.
+
 </div>
 
 ### Run Chromatic on specific branches
@@ -59,7 +61,9 @@ pipelines:
 ```
 
 <div class="aside">
-Read the official BitBucket <a href="https://support.atlassian.com/bitbucket-cloud/docs/configure-bitbucket-pipelinesyml/">conditional pipeline documentation</a>.
+
+Read the official BitBucket [conditional pipeline documentation](https://support.atlassian.com/bitbucket-cloud/docs/configure-bitbucket-pipelinesyml/).
+
 </div>
 
 Now your pipeline will only run Chromatic in the `main` branch.
@@ -207,7 +211,9 @@ pipelines:
 ```
 
 <div class="aside">
-Read our <a href="/docs/cli#chromatic-options"> CLI documentation</a>.
+
+Read our [CLI documentation](/docs/cli#chromatic-options).
+
 </div>
 
 When using `--exit-zero-on-changes` your pipeline execution still stop and fail if your Storybook contains stories that error. If you'd prefer Chromatic _never_ to block your pipeline, you can use `yarn chromatic || true`.
@@ -253,7 +259,9 @@ pipelines:
 ```
 
 <div class="aside">
-Read our <a href="/docs/cli#chromatic-options"> CLI documentation</a>.
+
+Read our [CLI documentation](/docs/cli#chromatic-options).
+
 </div>
 
 Including the `--auto-accept-changes` flag ensures all incoming changes will be accepted as baselines. Additionally, you'll maintain a clean `main` branch.
@@ -279,7 +287,9 @@ pipelines:
 ```
 
 <div class="aside">
-Read our <a href="/docs/cli#chromatic-options"> CLI documentation</a>.
+
+Read our [CLI documentation](/docs/cli#chromatic-options).
+
 </div>
 
 Including the `--ignore-last-build-on-branch` flag ensures the latest build for the specific branch is not used as a baseline.
@@ -314,7 +324,9 @@ This is based on how BitBucket's pipeline infrastructure handles cloning and bra
 Now you'll be able to to see the UI changeset for PRs and perform [UI Review](/docs/review) as normal.
 
 <div class="aside">
-See the following <a href="https://community.atlassian.com/t5/Bitbucket-Pipelines-questions/pipeline-doesnt-recognize-origin-master/qaq-p/968614">BitBucket issue</a> for a detailed explanation.
+
+See the following [BitBucket issue](https://community.atlassian.com/t5/Bitbucket-Pipelines-questions/pipeline-doesnt-recognize-origin-master/qaq-p/968614) for a detailed explanation.
+
 </div>
 
 #### Run Chromatic on external forks of open source projects
@@ -336,7 +348,9 @@ chromatic --skip 'renovate/**'
 ```
 
 <div class="aside">
-Read our <a href="/docs/cli#chromatic-options"> CLI documentation</a>.
+
+Read our [CLI documentation](/docs/cli#chromatic-options).
+
 </div>
 
 To apply this to multiple branches, use an "extended glob". See [picomatch] for details.

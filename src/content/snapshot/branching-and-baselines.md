@@ -7,11 +7,11 @@ sidebar: { order: 3 }
 
 # Branches and baselines
 
-Chromatic uses your git history to decide how to check stories for changes for both <a href="/docs/test">UI Tests</a> and <a href="/docs/review">UI Review</a>. The way it works is intended to get out of your way and do what you expect. However, there can be situations where things get confusing; this document describes in detail the way Chromatic does it.
+Chromatic uses your git history to decide how to check stories for changes for both [UI Tests](/docs/test) and [UI Review](/docs/review). The way it works is intended to get out of your way and do what you expect. However, there can be situations where things get confusing; this document describes in detail the way Chromatic does it.
 
 ### UI Review: comparing branches
 
-For <a href="/docs/review">UI Review</a>, Chromatic's aim is to show you what will change on the base branch when you merge this PR.
+For [UI Review](/docs/review), Chromatic's aim is to show you what will change on the base branch when you merge this PR.
 
 As such, Chromatic will compare each story on the head branch with the way the story looked on the base branch when you branched off or last merged-in. This is similar to what systems like GitHub do when showing you the code changes in a PR.
 
@@ -19,7 +19,7 @@ Technically, to achieve that, we need to find the "merge-base build" to compare 
 
 ### UI Tests: tracking baselines
 
-For <a href="/docs/test">UI Tests</a>, we aim to keep an up to date "baseline" for each story (at a given viewport) that lives alongside the git history. One way to think about it is as if we checked in a snapshot file into your repository every time you accept a change (we don't do this but we aim to behave as if we did).
+For [UI Tests](/docs/test), we aim to keep an up to date "baseline" for each story (at a given viewport) that lives alongside the git history. One way to think about it is as if we checked in a snapshot file into your repository every time you accept a change (we don't do this but we aim to behave as if we did).
 
 That means once a snapshot is accepted as a baseline, it won’t need to be re-accepted until it changes, even through git branching and merging. The mechanism to achieve this is explained below.
 
@@ -27,7 +27,7 @@ That means once a snapshot is accepted as a baseline, it won’t need to be re-a
 
 ## Baselines
 
-Chromatic's <a href="/docs/test">UI Tests</a> compare snapshots to a baseline: the last known “good” state of the story. Each story has its own baseline that is tracked independently on each branch.
+Chromatic's [UI Tests](/docs/test) compare snapshots to a baseline: the last known “good” state of the story. Each story has its own baseline that is tracked independently on each branch.
 
 When you accept a snapshot you also update the baseline for that story on that branch. When you merge that branch into another (for instance back into `main`), the baseline comes with it. [Learn how we calculate baselines »](#how-baselines-are-calculated)
 
@@ -54,7 +54,9 @@ chromatic --ignore-last-build-on-branch=example-branch
 ```
 
 <div class="aside">
-Read our CI <a href="/docs/ci"> documentation</a>. 
+
+Read our CI [documentation](/docs/ci).
+
 </div>
 
 #### Squash and rebase-merging
@@ -67,13 +69,13 @@ If you use the "squash" or "rebase" merge feature on Pull Requests, then a commi
 
 This means Chromatic has no way to tell, using Git, that baselines accepted during the PR should "come over" to the main branch. Instead, we use Git provider APIs to detect this situation. When running the squash/rebase merge commit we'll use the accepted baselines of the _most recent_ commit on the head branch of the PR.
 
-If you are using GitHub, you need to enable our GitHub App (on the <a href="/docs/review">Pull Request</a> screen) for this feature to work. Bitbucket and GitLab will work out of the box.
+If you are using GitHub, you need to enable our GitHub App (on the [Pull Request](/docs/review) screen) for this feature to work. Bitbucket and GitLab will work out of the box.
 
 ## How baselines are calculated
 
 As stated above, Chromatic maintains an individual baseline for each _story_, at each _viewport_, for each _commit_. That means as you make changes to your components, either by committing new code, merging other branches or otherwise, your baselines will follow your stories.
 
-The only way that baselines change is when you or someone in your team <a href="/docs/test#verify-ui-changes">accepts a change</a>. Usually what this means is that the baselines are what you’d expect as you work through a feature.
+The only way that baselines change is when you or someone in your team [accepts a change](/docs/test#verify-ui-changes). Usually what this means is that the baselines are what you’d expect as you work through a feature.
 
 However, sometimes the choice of baseline can be confusing. Let’s dig in a little further on how it works.
 
@@ -150,7 +152,7 @@ In the case that there are multiple ancestor builds, the algorithm to calculate 
 
 #### Visualize baseline history
 
-When you <a href="/docs/test#verify-ui-changes">verify UI Test changes on Chromatic</a>, you'll see a historical set of baselines that correspond to the algorithm above. This helps you understand when the baseline changed, by who, and in which commit.
+When you [verify UI Test changes on Chromatic](/docs/test#verify-ui-changes), you'll see a historical set of baselines that correspond to the algorithm above. This helps you understand when the baseline changed, by who, and in which commit.
 
 <video autoPlay muted playsInline loop width="600px" class="center" style="pointer-events: none;">
   <source src="/docs/assets/testscreen-baseline-history-detail-optimized.mp4" type="video/mp4" />
@@ -194,7 +196,7 @@ The Chromatic CLI has a special option `--patch-build=$head...$base` which is in
 
 1. Figure out what the merge base commit between head and base is in your git repo.
 2. Check out that commit and update dependencies
-3. Run a Chromatic build for that commit, flagging to the server that is is a special "patch" build (so it doesn't affect <a href="/docs/test">UI Tests</a>baselines).
+3. Run a Chromatic build for that commit, flagging to the server that is is a special "patch" build (so it doesn't affect [UI Tests](/docs/test) baselines).
 4. Put your repository back as it was before.
 
 Essentially we are retroactively creating the merge base build, so we have something to compare against.

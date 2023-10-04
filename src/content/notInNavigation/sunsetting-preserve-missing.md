@@ -10,7 +10,7 @@ description: We are removing the --preserve-missing flag and will start to fail 
 🚨&nbsp;&nbsp;Support for the <code>--preserve-missing</code> CLI flag has been removed completely as of May, 2023. If you were linked here from the Chromatic webapp or CLI, this means your build is still using <code>--preserve-missing</code> and action is required. Please follow the steps outlined below to resolve your issue. If you need assistance, please <a href="mailto:support@chromatic.com?Subject=preserve-missing%20flag">contact support</a>.
 </div>
 
-The `--preserve-missing` CLI flag (also known as the `preserveMissing` input to our GitHub Action) has been deprecated for a while and is soon to be removed entirely. We are removing the `--preserve-missing` behavior because it is incompatible with [infrastructure upgrade builds](infrastructure-upgrades#upgrade-builds) and makes it impossible to ever intentionally remove a story from Chromatic. Builds which still use this flag will eventually start to fail. If your Chromatic workflow is still configured with this flag, it must be updated. The upcoming "Version 5" [capture infrastructure](infrastructure-upgrades) will not support `--preserve-missing`.
+The `--preserve-missing` CLI flag (also known as the `preserveMissing` input to our GitHub Action) has been deprecated for a while and is soon to be removed entirely. We are removing the `--preserve-missing` behavior because it is incompatible with [infrastructure upgrade builds](/docs/infrastructure-upgrades#upgrade-builds) and makes it impossible to ever intentionally remove a story from Chromatic. Builds which still use this flag will eventually start to fail. If your Chromatic workflow is still configured with this flag, it must be updated. The upcoming "Version 5" [capture infrastructure](/docs/infrastructure-upgrades) will not support `--preserve-missing`.
 
 ## Rolling brownouts
 
@@ -18,7 +18,7 @@ The `--preserve-missing` CLI flag (also known as the `preserveMissing` input to 
 
 ## Reducing snapshots
 
-`--preserve-missing` is often used in an effort to reduce the amount of snapshots taken by Chromatic. We provide [TurboSnap](turbosnap) as a way to intelligently skip snapshots automatically. Alternatively, you can use `--only-story-names` or `--only-story-files` to [manually control](cli#chromatic-options) which stories are snapshotted.
+`--preserve-missing` is often used in an effort to reduce the amount of snapshots taken by Chromatic. We provide [TurboSnap](/docs/turbosnap) as a way to intelligently skip snapshots automatically. Alternatively, you can use `--only-story-names` or `--only-story-files` to [manually control](/docs/cli#chromatic-options) which stories are snapshotted.
 
 ## Migrating
 
@@ -44,7 +44,7 @@ const config = {
 export default config;
 ```
 
-In which case you'd set the `STORYBOOK_PROJECT` environment variable to control which stories get included in your Storybook. **Do not do this** unless you target a different Chromatic project for each Storybook project (e.g. in a [monorepo](monorepos) setup).
+In which case you'd set the `STORYBOOK_PROJECT` environment variable to control which stories get included in your Storybook. **Do not do this** unless you target a different Chromatic project for each Storybook project (e.g. in a [monorepo](/docs/monorepos) setup).
 
 For the above, you might [configure your `stories`](https://storybook.js.org/docs/react/configure/overview#with-a-configuration-object) as follows:
 
@@ -102,7 +102,7 @@ If you use GitHub Actions, you're likely using `chromaui/action`. Look for `uses
 
 ### 3. Enable TurboSnap or manually specify stories to snapshot
 
-To avoid snapshotting irrelevant stories, you have several options. You can add `--only-changed` to enable [TurboSnap](turbosnap), or use either the `--only-story-files` or `--only-story-names` [CLI flag](cli#chromatic-options) to manually define which stories to snapshot. These flags are also available as inputs to our GitHub Action (using camelCase).
+To avoid snapshotting irrelevant stories, you have several options. You can add `--only-changed` to enable [TurboSnap](/docs/turbosnap), or use either the `--only-story-files` or `--only-story-names` [CLI flag](/docs/cli#chromatic-options) to manually define which stories to snapshot. These flags are also available as inputs to our GitHub Action (using camelCase).
 
 #### `--only-story-files` (`onlyStoryFiles`)
 
@@ -122,4 +122,4 @@ This flag used to be called `--only`. If you happen to be using `--only`, you sh
 
 #### `--only-changed` (`onlyChanged: true`)
 
-Unless you already have a reliable and fine-grained way to determine which stories to test, you're probably better off using [TurboSnap](turbosnap). TurboSnap is a way to automatically skip snapshots for stories that are known to not have been affected by any code changes introduced since the previous Chromatic build. It does this by cross-referencing the list of changed files in your Git repository against the Webpack dependency graph. It effectively traces source code changes to story files, and sets `--only-story-files` accordingly.
+Unless you already have a reliable and fine-grained way to determine which stories to test, you're probably better off using [TurboSnap](/docs/turbosnap). TurboSnap is a way to automatically skip snapshots for stories that are known to not have been affected by any code changes introduced since the previous Chromatic build. It does this by cross-referencing the list of changed files in your Git repository against the Webpack dependency graph. It effectively traces source code changes to story files, and sets `--only-story-files` accordingly.

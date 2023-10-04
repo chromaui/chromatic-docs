@@ -16,7 +16,7 @@ We're thrilled to welcome new customers to Chromatic with a signup credit. Check
 
 <div class="aside">
 
-If you have an email/password account, it must be associated with a team that has multiple [collaborators](collaborators) within it. Promotion codes for email/password accounts will be honored at our discretion.
+If you have an email/password account, it must be associated with a team that has multiple [collaborators](/docs/collaborators) within it. Promotion codes for email/password accounts will be honored at our discretion.
 
 </div>
 
