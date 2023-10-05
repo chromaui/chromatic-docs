@@ -133,6 +133,12 @@ To work around this, run Chromatic's CLI with the `--externals` flag to specify 
 chromatic --only-changed --externals "*.sass" --externals "public/**"
 ```
 
+<div class="aside">
+
+Globs not working as you expected? Verify your pattern using this [picomatch-playground](https://picomatch-playground-ebjlxm.csb.app/).
+
+</div>
+
 If you've set up TurboSnap with Chromatic's [GitHub action](/docs/github-actions#enable-turbosnap), you can extend your existing workflow and provide the `externals` option as follows:
 
 ```yml
@@ -180,6 +186,12 @@ Similar to source code changes, the `--untraced` flag can also be used to ignore
 ### Enable or disable for specific branches
 
 To enable TurboSnap for specific branches, pass a glob to `--only-changed` (e.g., `chromatic --only-changed "feature/*"`). Use a negating glob (e.g. `chromatic --only-changed "!(main)"`) to enable all but certain branches. See [picomatch] for details.
+
+<div class="aside">
+
+ℹ️ You can verify your glob pattern using this [picomatch-playground](https://picomatch-playground-ebjlxm.csb.app/).
+
+</div>
 
 ### Confirm TurboSnap is working
 
