@@ -49,7 +49,7 @@ Each plan comes with a specific number of snapshots per month. If you reach that
 
 2. **Premium plans:** Review and testing will not be interrupted. Any additional snapshots beyond the included amount will be billed at the end of the month.
 
-For information on the number of snapshots included in each plan and the cost of extra snapshots, please refer to the [pricing page](https://www.chromatic.com/pricing).
+For information on the number of snapshots included in each plan and the cost of extra snapshots, please refer to the [pricing page](https://www.chromatic.com/pricing). You can also set [usage alerts](billing#usage-alerts) to notify a designated email address when you hit a certain number of snapshots.
 
 Alternatively, you may consider upgrading to an enterprise plan for more snapshots. Contact us via in-app chat or <a href="mailto:support@chromatic.com?Subject=Custom%20plan">email</a> to learn more.
 
