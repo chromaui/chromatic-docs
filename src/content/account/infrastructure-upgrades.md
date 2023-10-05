@@ -41,7 +41,7 @@ Future builds will use the upgrade build's auto-accepted baselines as the source
 
 ### Release notes for infrastructure upgrades
 
-Read about the infrastructure changes in the release notes.
+Read about the infrastructure changes in the [release notes](/docs/infrastructure-release-notes).
 
 |                   Capture Stack version                   | Status                                              |
 | :-------------------------------------------------------: | --------------------------------------------------- |
