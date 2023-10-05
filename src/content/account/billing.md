@@ -45,7 +45,7 @@ Find the current month's usage in the Plan section of the Billing page.
 
 Each plan comes with a specific number of snapshots per month. If you reach that limit:
 
-1. **Free plan:** Review and testing will be paused once you exhaust the 5,000 free snapshots per month. You can resume testing by upgrading to a premium plan or waiting until the limit resets at the end of the billing cycle. ![Builds blocked because the account hit the monthly snapshot limit](../../images/builds-blocked.png)
+1. **Free plan:** Review and testing will be paused once you exhaust the 5,000 free snapshots per month. You can resume testing by upgrading to a premium plan or waiting until the limit resets at the end of the billing cycle. ![Builds blocked because the account hit the monthly snapshot limit](../../images/build-blocked.png)
 
 2. **Premium plans:** Review and testing will not be interrupted. Any additional snapshots beyond the included amount will be billed at the end of the month.
 
