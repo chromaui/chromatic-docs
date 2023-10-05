@@ -45,6 +45,21 @@ Chromatic's GitHub App enables [UI Review](/docs/review) for pull requests. We n
 </details>
 
 <details>
+  <summary>Does Chromatic access my source code?</summary>
+
+No, Chromatic only uses the static Storybook build or Storybook source code (if the static build is not being used). The static build refers to a static web application that is generated from your Storybook that can be hosted by any web server.
+
+**For unlinked projects:** Chromatic does not have access to your git provider
+
+**For linked projects:** Chromatic requests data from your git provider without accessing your source code.
+
+For Github and Bitbucket, Chromatic only has access to repository metadata and merge request information.
+
+However, GitLab doesn't offer repository metadata and merge request information without full API access. Therefore, Chromatic has permission to access the source code on GitLab, but it doesn't actually access it.
+
+</details>
+
+<details>
     <summary>How do I request access from my GitHub organization admin?</summary>
 
 Chromatic requests the minimum permissions needed to use the tool. With GitHub, we request permissions for "OAuth" and "GitHub app" respectively. This allows organizations to expand permissions incrementally as they use more features.
