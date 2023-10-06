@@ -93,7 +93,7 @@ External collaborators are added and removed manually. Once they create an accou
 
 #### Limitations of external collaborator accounts
 
-External collaborator accounts do not have an association with a Git provider. As a result, they cannot link the project to a repository on GitHub, Bitbucket, or GitLab.
+External collaborator accounts cannot link the project to a repository on GitHub, Bitbucket, or GitLab.
 
 ### Roles
 

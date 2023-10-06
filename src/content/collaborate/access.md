@@ -33,6 +33,22 @@ Depending on your Git provider, Chromatic will request a set of OAuth scopes whe
 </details>
 
 <details>
+    <summary>What do you need to link a project to a Git provider repository?</summary>
+
+To link a project to a Git provider repository, you need:
+
+- Membership in the organization that owns the repository.
+- Write access to the repository, via one of the following roles:
+
+| Git provider                                                                                                                                                                                                 | Role                                  |
+| ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------- |
+| [GitHub](https://docs.github.com/en/organizations/managing-user-access-to-your-organizations-repositories/managing-repository-roles/repository-roles-for-an-organization#repository-roles-for-organizations) | `write`, `maintain`, or `admin`       |
+| [GitLab](https://docs.gitlab.com/ee/user/permissions.html#project-members-permissions)                                                                                                                       | `developer`, `maintainer`, or `owner` |
+| [Bitbucket](https://support.atlassian.com/bitbucket-cloud/docs/grant-repository-access-to-users-and-groups/)                                                                                                 | `admin`, or `write`                   |
+
+</details>
+
+<details>
     <summary>What permissions does the GitHub App request?</summary>
 
 Chromatic's GitHub App enables [UI Review](/docs/review) for pull requests. We need additional permissions to access pull request information and add PR checks.

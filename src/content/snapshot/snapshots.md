@@ -11,12 +11,14 @@ A snapshot is an image of a story plus some metadata captured by a standardized 
 
 ## Table of contents:
 
-- [View snapshots for a story](#view-snapshots-for-a-story)
-- [How are snapshots captured?](#how-are-snapshots-captured)
-- [Improve snapshot consistency](#improve-snapshot-consistency)
-- [Debug snapshot rendering](#debug-snapshot-rendering)
-- [Rerun builds to retake snapshots](#rerun-builds-to-retake-snapshots)
-- [Browser differences between snapshots](#browser-differences-between-snapshots)
+- [Snapshots](#snapshots)
+  - [Table of contents:](#table-of-contents)
+  - [View snapshots for a story](#view-snapshots-for-a-story)
+  - [How are snapshots captured?](#how-are-snapshots-captured)
+  - [Improve snapshot consistency](#improve-snapshot-consistency)
+  - [Debug snapshot rendering](#debug-snapshot-rendering)
+  - [Rerun builds to retake snapshots](#rerun-builds-to-retake-snapshots)
+  - [Browser differences between snapshots](#browser-differences-between-snapshots)
 
 <div class="aside">
 
@@ -268,9 +270,7 @@ export const StoryWithDimensions = {
 <details>
 <summary>Do you support taking snapshots of a component with multiple themes?</summary>
 
-We recommend you render stories multiple times, one for each theme. Here's a [blog post](https://storybook.js.org/blog/how-to-add-a-theme-switcher-to-storybook/) that explains how to enable a theme switcher in Storybook. Using this approach, this is how the snapshots will [appear in Chromatic](https://www.chromatic.com/library?appId=5a375b97f4b14f0020b0cda3&branch=next).
-
-If you'd only like to see multiple themes side-by-side in Chromatic and not in your local Storybook, use [isChromatic()](/docs/ischromatic).
+Yes, check out the Chromatic's [modes feature](/docs/modes) is simplifies the process of visually testing your stories with different global configs such as themes. Check out the [Themes in modes](/docs/themes) guide to get started.
 
 </details>
 
