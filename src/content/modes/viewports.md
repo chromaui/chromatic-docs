@@ -313,3 +313,14 @@ export default preview;
 Chromatic defaults to a viewport of width 1200px and height 900px.
 
 </details>
+
+</details>
+
+<details>
+<summary>How does snapshot cropping work with viewport width and height?</summary>
+
+When you add a viewport, Chromatic will size the browser's viewport to the defined width and height. It will then take a snapshot and [crop](/snapshots/#3-take-a-screenshot-and-crop-it-to-the-dimensions-of-the-ui) it to the bounding box of the component. This eliminates negative spaces around snapshots reducing the visual information you must review. 
+
+If you haven't set a viewport height, Chromatic will captures the full height of the rendered UI. If you have set a viewport height, Chromatic will capture up to the specified height and not the rest of the UI that would be offscreen.
+
+</details>
