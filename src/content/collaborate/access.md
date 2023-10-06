@@ -37,9 +37,8 @@ Depending on your Git provider, Chromatic will request a set of OAuth scopes whe
 
 To link a project to a Git provider repository, you need:
 
-- Write access to the repository.
 - Membership in the organization that owns the repository.
-- And one of the following roles:
+- Write access to the repository, via one of the following roles:
 
 | Git provider                                                                                                                                                                                                 | Role                                  |
 | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------- |
