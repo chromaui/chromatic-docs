@@ -317,7 +317,7 @@ You require a Figma `editor` role to both link and view stories with this plugin
 <details>
 <summary>How does the addon impact on snapshot usage?</summary>
 
-Running tests with the addon enabled still counts towards your monthly [snapshot usage](snapshots), but they're likely to stay the same despite the number of builds you run. By default, it will follow the same pattern as running tests from CI or CLI (i.e., one snapshot per story, browser). If you have other features enabled, such as [modes](modes), the addon will also take them into account and capture snapshots accordingly.
+Running tests with the addon enabled still counts towards your monthly [snapshot usage](snapshots), but they’re likely to stay the same despite the number of builds you run. By default, it will follow the same pattern as running tests from CI or CLI (i.e., one snapshot per story, per browser). If you have other features enabled, such as [modes](modes), the addon will also take them into account and capture snapshots accordingly.
 
 </details>
 
