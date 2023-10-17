@@ -338,7 +338,7 @@ Yes. Visual tests can be run on both [linked](access#linked-projects) and [unlin
 <details>
 <summary>Can I enable TurboSnap with the addon?</summary>
 
-TurboSnap is available for the addon at an experimental stage. If you already enabled it in your configuration file (i.e., `chromatic.config.json`), running a build with the addon will automatically detect and run tests based on the configuration provided.
+TurboSnap is available for the addon at an experimental stage. If you already enabled the feature in your configuration file (i.e., `chromatic.config.json`), running a build with the addon will automatically detect and run tests based on the configuration provided.
 
 </details>
 
