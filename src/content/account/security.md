@@ -30,6 +30,7 @@ Chromatic is grateful to the following individuals for responsibly disclosing se
 #### 2023
 
 - [Rohit Sharma](https://www.linkedin.com/in/r0x5r/)
+- [Professor the Hunter](https://www.linkedin.com/in/bughuntar/)
 
 #### 2022
 
