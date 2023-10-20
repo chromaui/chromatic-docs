@@ -11,7 +11,11 @@ import { YouTubeCallout } from "../../components/YouTubeCallout";
 
 Global-level configurations (globals) such as viewport size, theme (light/dark), and locale impact how a component renders. Chromatic simplifies the process of visually testing your stories with different global configs.
 
-<YouTubeCallout client:load id="BDuQb8jdz-c" summary="Watch a quick demo of how modes work" />
+<YouTubeCallout
+  client:load
+  id="BDuQb8jdz-c"
+  summary="Watch a quick demo of how modes work"
+/>
 
 You can save combinations of globals as a unique "mode" and apply one or multiple modes to a story using the `chromatic.modes` parameter. When Chromatic tests your story, it will capture a snapshot for each applied mode. These modes are treated separately, with independent baselines and distinct approvals.
 
@@ -375,6 +379,39 @@ export const allModes = {
     backgrounds: { value: "#fff" },
     theme: "light",
     viewport: "small",
+  },
+};
+```
+
+### Maintain the original non-modes based baseline
+
+Sometimes, you might want to keep the original baseline for a story while testing it with extra modes. Add a mode called `1200px` with the value `{ viewport: 1200 }` to your story. This way, you can maintain the original baseline and still test the story with additional modes.
+
+Let's take an example scenario. We want to test the base story in both light and dark modes. By introducing the `1200px` mode, we can maintain the original baseline for that story while also testing it with light and dark modes.
+
+```jsx
+// ArticleCard.stories.js
+
+import { allModes } from "../.storybook/modes";
+import { ArticleCard } from "./ArticleCard";
+
+export default {
+  component: ArticleCard,
+  parameters: {
+    chromatic: {
+      //🔶 Test each story for ArticleCard in two modes
+      modes: {
+        "light mobile": allModes["light mobile"],
+        "dark desktop": allModes["dark desktop"],
+        "1200px": { viewport: 1200 },
+      },
+    },
+  },
+};
+
+export const Base = {
+  args: {
+    //...
   },
 };
 ```
