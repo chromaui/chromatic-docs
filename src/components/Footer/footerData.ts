@@ -9,7 +9,7 @@ export const footerColumns: FooterProps["columns"] = [
       { title: "Jobs", href: "/company/careers" },
       { title: "Terms of Service", href: "/docs/terms-of-service" },
       { title: "Privacy", href: "/docs/privacy-policy" },
-      { title: "Status", href: "http://status.chromatic.com/" },
+      { title: "Status", href: "https://status.chromatic.com/" },
       { title: "Security • SOC 2", href: "/docs/security" },
       { title: "Contact Sales", href: "/sales" },
     ],
