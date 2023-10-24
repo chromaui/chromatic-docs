@@ -39,7 +39,7 @@ In Chromatic, a project is typically linked to a Git repository and will synchro
 
 Each subproject in a monorepo can now be associated with a separate Chromatic project that adds additional build statuses to the repository’s pull/merge requests. Here's how to set it up.
 
-1. Open [your Chromatic app](http://chromatic.com/start), browse to your account, and press the “Add project” button:
+1. Open [your Chromatic app](https://chromatic.com/start), browse to your account, and press the “Add project” button:
 
    ![Projects screen with the "Add project" button outlined and an arrow pointing to it](../../images/monorepo-add-project.jpg)
 
