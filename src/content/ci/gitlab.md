@@ -38,9 +38,17 @@ chromatic_publish:
   stage: test
   script:
     - yarn chromatic
+  # Interruptible is optional, but recommended. It will save you build minutes.
+  # The external chromatic status checks won't cancel by default, so you'll
+  # end up with a lot of redundant builds that don't cancel each other.
+  interruptible: true
 ```
 
 <div class="aside">
+
+Use [interruptible](https://docs.gitlab.com/16.3/ee/ci/yaml/index.html#interruptible) if a job should be canceled when a newer pipeline starts before the job completes. This is the recommended strategy as the external status checks won't update by default, even if you create a new build for the same branch.
+
+This keyword has no effect if [automatic cancellation of redundant pipelines](https://docs.gitlab.com/16.3/ee/ci/pipelines/settings.html#auto-cancel-redundant-pipelines) is disabled. When enabled, a running job with interruptible: true is cancelled when starting a pipeline for a new change on the same branch.
 
 We recommend saving the project token as a masked environment variable named `CHROMATIC_PROJECT_TOKEN` for security reasons. When the Chromatic CLI is executed, it will read the environment variable automatically without any additional flags. Refer to the official GitLab [environment variables documentation](https://docs.gitlab.com/ee/ci/variables/index.html#mask-a-cicd-variable) to learn more about it.
 
