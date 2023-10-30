@@ -80,6 +80,22 @@ If you allowed `chromatic` to add the above line, it will also have written the 
 
 </details>
 
+<details>
+
+<summary>Setup .gitignore to ignore certain files in your Git repository</summary>
+
+Running the Chromatic command may generate certain files for logging and debugging purposes. Exactly which files it generates depends on your configuration, but these entries should likely be added to your `.gitignore` file:
+
+```
+build-storybook.log
+chromatic.log
+chromatic-build-*.xml
+chromatic-diagnostics.json
+storybook-static/
+```
+
+</details>
+
 ## Run Chromatic
 
 Once you installed the `chromatic` package and have a project token, run the following command in your project directory.
