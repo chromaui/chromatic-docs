@@ -1,15 +1,15 @@
 ---
 layout: "../../layouts/Layout.astro"
-title: TurboSnap
+title: TurboSnap (beta)
 description: Speed up tests by detecting file changes with Git
 sidebar: { order: 4 }
 ---
 
 import { YouTubeCallout } from "../../components/YouTubeCallout";
 
-# TurboSnap
+# TurboSnap (beta)
 
-TurboSnap is an advanced Chromatic feature that speeds up builds for faster [UI testing](/docs/test) and [review](/docs/review) using Git and Webpack's [dependency graph](https://webpack.js.org/concepts/dependency-graph/). It identifies component files and dependencies that have changed, then intelligently snapshots only the stories associated with those changes.
+TurboSnap is an advanced Chromatic feature that speeds up builds for faster [UI testing](/docs/test) and [review](/docs/review) using Git and Webpack's [dependency graph](https://webpack.js.org/concepts/dependency-graph/). It identifies component files and dependencies that have changed, then intelligently snapshots only the stories associated with those changes. TurboSnap is currently in beta.
 
 ![TurboSnap tracks dependencies](../../images/turbosnap-dep-tracking.gif)
 
@@ -265,6 +265,13 @@ Our own GitHub Action works around that by using `pull_request.head.sha` as the 
 ---
 
 ### Troubleshooting
+
+<details>
+  <summary>Is TurboSnap ready for production even in beta?</summary>
+
+Yes. Many customers are currently using TurboSnap with enterprise workloads. Our goal for the TurboSnap beta is to fine-tune the algorithm and configuration experience.
+
+</details>
 
 <details>
   <summary>Why are no changes being detected?</summary>
