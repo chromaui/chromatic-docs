@@ -91,7 +91,6 @@ build-storybook.log
 chromatic.log
 chromatic-build-*.xml
 chromatic-diagnostics.json
-storybook-static/
 ```
 
 </details>
