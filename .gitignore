@@ -26,3 +26,6 @@ _site_deploy/docs
 .jekyll-cache
 # Local Netlify folder
 .netlify
+
+# local VSCode settings
+.vscode

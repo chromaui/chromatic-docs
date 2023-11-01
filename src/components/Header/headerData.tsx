@@ -18,34 +18,40 @@ interface LinksProps {
 
 const links: LinksProps = {
   UITest: {
-    title: "Visual test",
+    title: "UI Tests",
     icon: "contrast",
     iconColor: "cyan500",
     href: "/features/test",
+  },
+  VisualTest: {
+    title: "Visual Test",
+    icon: "eye",
+    iconColor: "purple500",
+    href: "/features/visual-test",
   },
   interactionTest: {
     title: "Interaction Test",
     icon: "pointerhand",
     iconColor: "orange500",
-    href: "/docs/interactions",
+    href: "/features/interaction-test",
   },
   turboSnap: {
     title: "TurboSnap",
     icon: "dashboard",
     iconColor: "blue500",
-    href: "/docs/turbosnap",
+    href: "/features/turbosnap",
   },
   UIReview: {
     title: "UI Review",
     icon: "batchaccept",
     iconColor: "green500",
-    href: "/features/publish",
+    href: "/features/review",
   },
-  Document: {
-    title: "Document",
+  Publish: {
+    title: "Publish",
     icon: "document",
     iconColor: "pink500",
-    href: "/features/document",
+    href: "/features/publish",
   },
   figmaPlugin: {
     title: "Figma plugin",
@@ -111,6 +117,11 @@ export const desktopData: HeaderProps["desktopData"] = [
           {
             ...links.UITest,
             type: "link",
+            description: "Test how UIs look & function",
+          },
+          {
+            ...links.VisualTest,
+            type: "link",
             description:
               "Pinpoint bugs down to the browser, viewport, and pixel",
           },
@@ -140,7 +151,7 @@ export const desktopData: HeaderProps["desktopData"] = [
             description: "Speed up team sign-off and manage change requests",
           },
           {
-            ...links.Document,
+            ...links.Publish,
             type: "link",
             description: "Index & version components to reuse existing work",
           },
@@ -273,7 +284,10 @@ export const mobileData: HeaderProps["mobileData"] = [
         ...links.UIReview,
       },
       {
-        ...links.Document,
+        ...links.Publish,
+      },
+      {
+        ...links.VisualTest,
       },
       {
         ...links.interactionTest,
@@ -346,6 +360,11 @@ export const mobileData: HeaderProps["mobileData"] = [
         customIcon: <CollectiveIcon />,
         href: "/customers/collective",
       },
+      // {
+      //   title: 'BBC',
+      //   customIcon: <BBCIcon />,
+      //   href: '/',
+      // },
     ],
   },
   {
