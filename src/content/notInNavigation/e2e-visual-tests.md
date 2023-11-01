@@ -270,7 +270,60 @@ yarn archive-storybook
 
 ## Configuration
 
-You can further configure the Test Archiver with the following settings.
+You can further configure the Test Archiver with the options described in the following sections.
+
+### Setting options using Playwright
+
+The Chromatic [Playwright Fixture](https://playwright.dev/docs/test-fixtures) can be configured with `use` like all [Playwright options](https://playwright.dev/docs/test-use-options).
+
+Setting options globally can be done in your `playwright.config.js` as follows:
+
+```javascript
+// playwright.config.js
+
+import { defineConfig } from '@playwright/test';
+
+export default defineConfig({
+  use: {
+    // ... your other options
+
+    disableAutoCapture: true,
+  },
+  // ... your other configuration
+});
+```
+
+Options can also be overridden at the test level like so:
+
+```javascript
+// mytest.spec.js
+
+test.describe('some block', () => {
+
+  test.use({ disableAutoCapture: true });
+
+  test('some test', async ({ page }) => {
+    // ...
+  });
+});
+```
+
+If you're using TypeScript, the options can be typed:
+
+```typescript
+// playwright.config.ts
+
+import { ChromaticConfig } from '@chromaui/test-archiver';
+ 
+export default defineConfig<ChromaticConfig>({
+  use: {
+    // ... your other options
+
+    disableAutoCapture: true,
+  },
+  // ... your other configuration
+});
+```
 
 ### E2E options
 
