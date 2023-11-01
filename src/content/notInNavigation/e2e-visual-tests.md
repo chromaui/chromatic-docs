@@ -332,7 +332,7 @@ These options control how the Chromatic archive fixture behaves.
 | Option                   | Type      | Description                                                                                                                  |
 |--------------------------|-----------|------------------------------------------------------------------------------------------------------------------------------|
 | `disableAutoCapture`     | `boolean` | When `true`, will disable the capture that happens automatically at the end of a test when using the Chromatic test fixture. |
-| `resourceArchiveTimeout` | `number`  | This is the maximum amount of time that each test will wait for the network to be idle while archiving resources.            |
+| `resourceArchiveTimeout` | `number`  | Maximum amount of time that each test will wait for the network to be idle while archiving resources.                        |
 
 ### Chromatic options
 
