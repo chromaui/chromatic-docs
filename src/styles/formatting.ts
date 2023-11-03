@@ -272,7 +272,8 @@ export const formatting = css`
     overflow: hidden;
 
     a {
-      color: #026fb3;
+      // require !important to override base styles
+      color: #026fb3 !important;
     }
   }
   table tr {
