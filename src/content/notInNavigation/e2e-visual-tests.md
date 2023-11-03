@@ -268,8 +268,8 @@ Now you can run the Archive Storybook with the `archive-storybook` command, and 
 yarn archive-storybook
 ```
 
-## Working in Monorepo
-Often, when using a monorepo, developers tend to keep their e2e tests in a subdirectory instead of the root of the project while the Storybook and Chromatic configuration details live at the root of the project. In these cases, you will need to update the `archive-storybook` and `build-archive-storybook` scripts in your package.json by setting the `-c` flag and `CHROMATIC_ARCHIVE_LOCATION` environment variable.
+## Working in Monorepos
+Often, when using a monorepo, developers tend to keep their e2e tests in a subdirectory instead of in the root of the project. At the same time, the Storybook and Chromatic configuration details live at the project’s root. In these cases, you will need to update the `archive-storybook` and `build-archive-storybook` scripts in your `package.json` by setting the `-c` flag and `CHROMATIC_ARCHIVE_LOCATION` environment variable. For example:
 
 ```json
 "scripts": {
@@ -277,6 +277,12 @@ Often, when using a monorepo, developers tend to keep their e2e tests in a subdi
   "build-archive-storybook": "CHROMATIC_ARCHIVE_LOCATION=path/to/test-archives/latest build-archive-storybook -c path/to/node_modules/@chromaui/archive-storybook/config"
 }
 ```
+
+<div class="aside">
+
+💡 For additional information on using Chromatic with a monorepo, see our [monorepo documentation](/docs/monorepos).
+
+</div>
 
 ## Configuration
 
