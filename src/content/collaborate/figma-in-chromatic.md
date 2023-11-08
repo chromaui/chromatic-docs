@@ -8,11 +8,10 @@ sidebar: { order: 5 }
 # Figma in Chromatic
 
 In 2022 Chromatic released Storybook Connect, a Figma plugin that connects stories to Figma components. This connection allowed you to view your team’s Storybook stories without leaving Figma. Since then, thousands have downloaded the plugin to bring their stories closer to the designs.
-Chromatic has another integration with Figma, bringing that code and design, side-by-side support to Chromatic, too. You’ll be able to view Figma components alongside their linked story right within Chromatic.
+
+Figma in Chromatic is another integration with Figma, bringing that code and design, side-by-side support into Chromatic. With this integration, you’ll be able to view Figma components alongside their linked story right in Chromatic.
 
 ## Enable
-
-Since this workflow is still in early release, we must opt you in first. Please email us via support@chromatic.com to get access.
 
 To get started with this integration, you need to connect your Figma account with Chromatic. Visit your project’s Manage page, and under the configuration tab, you’ll find a new “Connected Applications” section. If you or a teammate have the appropriate Figma access to view your team's designs you can go ahead and connect Figma to this project.
 ![Chromatic manage screen showing new “Connected Applications” section](../../images/figma-manage.png)
