@@ -212,6 +212,7 @@ export const desktopData: HeaderProps["desktopData"] = [
           },
           {
             title: "Netlify",
+            description: "How Netlify rebranded in six weeks without bugs",
             customIcon: <NetlifyIcon />,
             href: "/customers/netlify",
           },
