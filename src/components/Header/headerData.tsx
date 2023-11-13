@@ -5,6 +5,7 @@ import React from "react";
 import { CollectiveIcon } from "./icons/collective";
 import { FigmaIcon } from "./icons/figma";
 import { MondayIcon } from "./icons/monday";
+import { NetlifyIcon } from "./icons/netlify";
 
 interface LinksProps {
   [key: string]: {
@@ -208,6 +209,12 @@ export const desktopData: HeaderProps["desktopData"] = [
           {
             type: "separator",
             title: "Customer Stories",
+          },
+          {
+            title: "Netlify",
+            customIcon: <NetlifyIcon />,
+            href: "/customers/netlify",
+            linkWrapper: Link,
           },
           {
             type: "link",
