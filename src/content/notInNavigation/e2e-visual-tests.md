@@ -273,8 +273,8 @@ Often, when using a monorepo, developers tend to keep their e2e tests in a subdi
 
 ```json
 "scripts": {
-  "archive-storybook": "CHROMATIC_ARCHIVE_LOCATION=path/to/test-archives/latest archive-storybook -c path/to/node_modules/@chromaui/archive-storybook/config",
-  "build-archive-storybook": "CHROMATIC_ARCHIVE_LOCATION=path/to/test-archives/latest build-archive-storybook -c path/to/node_modules/@chromaui/archive-storybook/config"
+  "archive-storybook": "CHROMATIC_ARCHIVE_LOCATION=path/to/test-results/chromatic-archives archive-storybook -c path/to/node_modules/@chromaui/archive-storybook/config",
+  "build-archive-storybook": "CHROMATIC_ARCHIVE_LOCATION=path/to/test-results/chromatic-archives build-archive-storybook -c path/to/node_modules/@chromaui/archive-storybook/config"
 }
 ```
 
