@@ -211,6 +211,7 @@ export const desktopData: HeaderProps["desktopData"] = [
             title: "Customer Stories",
           },
           {
+            type: "link",
             title: "Netlify",
             description: "How Netlify rebranded in six weeks without bugs",
             customIcon: <NetlifyIcon />,
@@ -357,6 +358,11 @@ export const mobileData: HeaderProps["mobileData"] = [
     name: "Customer Stories",
     collapsible: true,
     content: [
+      {
+        title: "Netlify",
+        customIcon: <NetlifyIcon />,
+        href: "/customers/netlify",
+      },
       {
         title: "monday.com",
         customIcon: <MondayIcon />,
