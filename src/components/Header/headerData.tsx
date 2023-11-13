@@ -214,7 +214,6 @@ export const desktopData: HeaderProps["desktopData"] = [
             title: "Netlify",
             customIcon: <NetlifyIcon />,
             href: "/customers/netlify",
-            linkWrapper: Link,
           },
           {
             type: "link",
