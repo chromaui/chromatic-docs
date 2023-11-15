@@ -2,7 +2,7 @@
 layout: "../../layouts/Layout.astro"
 title: Review
 description: Learn how to review changes for your component library
-sidebar: { order: 3 }
+sidebar: { order: 4, label: "UI Review" }
 ---
 
 # UI Review
