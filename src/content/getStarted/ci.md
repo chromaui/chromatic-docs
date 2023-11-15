@@ -2,7 +2,7 @@
 layout: "../../layouts/Layout.astro"
 title: Automate with CI
 description: Learn how to configure Chromatic with your continuous integration service
-sidebar: { order: 5 }
+sidebar: { order: 6 }
 ---
 
 # Automate with continuous integration
