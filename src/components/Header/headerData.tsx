@@ -5,6 +5,7 @@ import React from "react";
 import { CollectiveIcon } from "./icons/collective";
 import { FigmaIcon } from "./icons/figma";
 import { MondayIcon } from "./icons/monday";
+import { NetlifyIcon } from "./icons/netlify";
 
 interface LinksProps {
   [key: string]: {
@@ -211,6 +212,13 @@ export const desktopData: HeaderProps["desktopData"] = [
           },
           {
             type: "link",
+            title: "Netlify",
+            description: "How Netlify rebranded in six weeks without bugs",
+            customIcon: <NetlifyIcon />,
+            href: "/customers/netlify",
+          },
+          {
+            type: "link",
             title: "monday.com",
             description: "How 200 developers speed up their frontend velocity",
             customIcon: <MondayIcon />,
@@ -350,6 +358,11 @@ export const mobileData: HeaderProps["mobileData"] = [
     name: "Customer Stories",
     collapsible: true,
     content: [
+      {
+        title: "Netlify",
+        customIcon: <NetlifyIcon />,
+        href: "/customers/netlify",
+      },
       {
         title: "monday.com",
         customIcon: <MondayIcon />,
