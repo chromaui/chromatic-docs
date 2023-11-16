@@ -123,7 +123,7 @@ Videos are interactive and time-based which introduces inconsistencies in snapsh
 <details>
 <summary>Why am I getting cross-origin errors with my stories?</summary>
 
-Most likely you are calling into `window.parent` somewhere in your code. As we serve your Storybook preview iframe inside our www.chromatic.com domain this leads to a x-origin error as your code doesn't have access to our frame (with good reason!).
+Most likely you are calling into `window.parent` somewhere in your code. As we serve your Storybook preview iframe inside our `www.chromatic.com` domain this leads to a x-origin error as your code doesn't have access to our frame (with good reason!).
 
 Generally speaking it is a good idea to wrap calls like that in a `try { } catch` in case the code is running in a context where that's not possible (e.g., Chromatic).
 
