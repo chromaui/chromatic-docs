@@ -1,13 +1,20 @@
 ---
 layout: "../../layouts/Layout.astro"
-title: Media Features
+title: Media features
 description: Learn how to use media features in Chromatic Capture
 sidebar: { order: 7 }
 ---
 
-# Media Features
+# Media features
 
 CSS media features enable developers to create responsive designs and adapt layouts based on device characteristics, enhancing user experiences. With Chromatic, developers can test and refine CSS media features to ensure consistent and visually appealing designs across different devices and screen sizes.
+
+## Table of contents:
+
+- [`forced-colors`](#test-high-contrast-color-schemes)
+- [`prefers-reduced-motion`](#verify-reduced-motion-animations)
+- [`media: print`](#test-print-styles)
+- [Usage with Modes](#combine-media-features-with-modes)
 
 ## Test high-contrast color schemes
 
@@ -38,7 +45,7 @@ The `forcedColors` option supports the following values:
 
 ## Verify reduced motion animations
 
-The [prefers-reduced-motion](https://developer.mozilla.org/en-US/docs/Web/CSS/@media/prefers-reduced-motion) CSS media feature enables developers to check whether the user enabled a preference for reduced motion animations. Primarily used to create a more inclusive user experience for people who may experience discomfort or nausea when viewing animations that involve rapid movement. To test it in Chromatic, add the `prefersReducedMotion` option to the `chromatic` parameter:
+The [`prefers-reduced-motion`](https://developer.mozilla.org/en-US/docs/Web/CSS/@media/prefers-reduced-motion) CSS media feature enables developers to check whether the user enabled a preference for reduced motion animations. Primarily used to create a more inclusive user experience for people who may experience discomfort or nausea when viewing animations that involve rapid movement. To test it in Chromatic, add the `prefersReducedMotion` option to the `chromatic` parameter:
 
 ```js
 // MyComponent.stories.js|jsx
@@ -62,3 +69,120 @@ The `prefersReducedMotion` option supports the following values:
 
 - `reduce` - Indicating that the user has defined a preference for reduced motion,
 - `no-preference` - Indicating that the user has not preferred reduced motion, and animations display normally.
+
+## Test print styles
+
+The [`print`](https://developer.mozilla.org/en-US/docs/Web/CSS/@media/print) CSS media feature enables developers to create print styles for web pages. To test it in Chromatic, set the `media` option to `print` in the `chromatic` [parameter](https://storybook.js.org/docs/react/writing-stories/parameters):
+
+```js
+// MyComponent.stories.js|jsx
+
+import { MyComponent } from "./MyComponent";
+
+export default {
+  component: MyComponent,
+  title: "MyComponent",
+};
+
+export const Base = {
+  args: {
+    //...
+  },
+};
+
+export const WithPrintStyles = {
+  args: {
+    //...
+  },
+  // 👇 Sets media to "print" for this story
+  parameters: {
+    chromatic: { media: "print" },
+  },
+};
+```
+
+## Combine media features with Modes
+
+You can add media features to existing [Modes](/modes), but you can't define media features in the Mode itself.
+
+For example, if you have existing modes for German and American English locales, you can write a story combining those modes with `chromatic.media` parameter like so:
+
+```js
+// .storybook/modes.js
+
+// Define modes
+export const allModes = {
+  german: {
+    locale: "de",
+  },
+  american: {
+    locale: "en-us",
+  },
+  // {...  other modes}
+};
+```
+
+Then apply the mode and the media feature to your stories.
+
+```js
+// MyComponent.stories.js|jsx
+
+import { allModes } from "../.storybook/modes";
+import { MyComponent } from "./MyComponent";
+
+export default {
+  component: MyComponent,
+  title: "MyComponent",
+};
+
+export const Base = {
+  args: {
+    //...
+  },
+};
+
+// 👇 Combines modes with print media styles
+// 1️⃣ Set the `media` option to `print`
+// 2️⃣ Set the `modes` to use the desired locales
+// 👀 Note: These modes keys (eg, "german print") will be used in the Chromatic UI
+export const WithPrintStyles = {
+  parameters: {
+    chromatic: {
+      // 1️⃣
+      media: "print",
+      // 2️⃣
+      modes: {
+        "german print": allModes["de"],
+        "en-us print": allModes["en-us"],
+      },
+    },
+  },
+};
+```
+
+This would create two Chromatic snapshots, one with German locale mode and print styles, and another with American English locale mode and print styles.
+
+---
+
+### Troubleshooting
+
+<details>
+<summary>Can I define a media feature in Modes?</summary>
+
+No, setting media features in [Modes](/docs/modes/) is not supported.
+
+```js
+// .storybook/modes.js
+
+export const allModes = {
+  // 🚨 THESE WILL NOT WORK 🚨
+  mode: {
+    media: "print",
+    forcedColors: "active",
+    prefersReducedMotion: "reduce",
+  },
+  // {...  other modes}
+};
+```
+
+</details>
