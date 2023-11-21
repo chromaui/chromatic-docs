@@ -103,7 +103,7 @@ export const WithPrintStyles = {
 
 ## Combine media features with Modes
 
-You can add media features to existing [Modes](/modes), but you can't define media features in the Mode itself.
+You can add media features to existing [Modes](/docs/modes), but you can't define media features in the Mode itself.
 
 For example, if you have existing modes for German and American English locales, you can write a story combining those modes with `chromatic.media` parameter like so:
 
