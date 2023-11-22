@@ -1,10 +1,11 @@
 ---
 layout: "../../layouts/Layout.astro"
-title: Visual testing addon for Storybook
+title: Visual Tests addon for Storybook (beta)
 description: Configure Storybook to test UIs with the visual testing addon
+sidebar: { order: 16, label: Addon for Storybook (beta) }
 ---
 
-# Visual testing addon for Storybook
+# Visual Tests addon for Storybook
 
 <div class="aside" style="margin-bottom: 2rem;">
 
