@@ -1,7 +1,8 @@
 ---
 layout: "../../layouts/Layout.astro"
-title: E2E Visual Tests
+title: E2E Visual Tests (beta)
 description: Chromatic E2E Visual Tests capture snapshots of pages visited during Playwright tests.
+sidebar: { order: 17 }
 ---
 
 # E2E Visual Tests
@@ -269,6 +270,7 @@ yarn archive-storybook
 ```
 
 ## Working in Monorepos
+
 Often, when using a monorepo, developers tend to keep their e2e tests in a subdirectory instead of in the root of the project. At the same time, the Storybook and Chromatic configuration details live at the project’s root. In these cases, you will need to update the `archive-storybook` and `build-archive-storybook` scripts in your `package.json` by setting the `-c` flag and `CHROMATIC_ARCHIVE_LOCATION` environment variable. For example:
 
 ```json
@@ -297,7 +299,7 @@ Setting options globally can be done in your `playwright.config.js` as follows:
 ```javascript
 // playwright.config.js
 
-import { defineConfig } from '@playwright/test';
+import { defineConfig } from "@playwright/test";
 
 export default defineConfig({
   use: {
@@ -315,12 +317,11 @@ Options can also be overridden at the test level:
 ```javascript
 // mytest.spec.js
 
-test.describe('some block', () => {
-
+test.describe("some block", () => {
   // 👇 your option overrides
   test.use({ disableAutoCapture: true });
 
-  test('some test', async ({ page }) => {
+  test("some test", async ({ page }) => {
     // ...
   });
 });
@@ -331,13 +332,13 @@ If you're using TypeScript, the options can be typed:
 ```typescript
 // playwright.config.ts
 
-import { ChromaticConfig } from '@chromaui/test-archiver';
+import { ChromaticConfig } from "@chromaui/test-archiver";
 
 export default defineConfig<ChromaticConfig>({
   use: {
     // ... your other options
 
-     // 👇 your option overrides
+    // 👇 your option overrides
     disableAutoCapture: true,
   },
   // ... your other configuration
@@ -349,7 +350,7 @@ export default defineConfig<ChromaticConfig>({
 These options control how the Chromatic archive fixture behaves.
 
 | Option                   | Type      | Description                                                                                                                  |
-|--------------------------|-----------|------------------------------------------------------------------------------------------------------------------------------|
+| ------------------------ | --------- | ---------------------------------------------------------------------------------------------------------------------------- |
 | `disableAutoCapture`     | `boolean` | When `true`, will disable the capture that happens automatically at the end of a test when using the Chromatic test fixture. |
 | `resourceArchiveTimeout` | `number`  | Maximum amount of time that each test will wait for the network to be idle while archiving resources.                        |
 
@@ -357,24 +358,22 @@ These options control how the Chromatic archive fixture behaves.
 
 These options control how Chromatic behaves concerning the stories of your archives.
 
-| Option                    | Type      | Chromatic Docs                                                                |
-|---------------------------|-----------|----------------------------------------------------------------------------|
-| `delay`                   | `number`  | [Delay](/docs/delay/)                                           |
-| `diffIncludeAntiAliasing` | `boolean` | [Threshold for changes](/docs/threshold#anti-aliasing)                         |
-| `diffThreshold`           | `number`  | [Threshold for changes](/docs/threshold#setting-the-threshold)                 |
+| Option                    | Type      | Chromatic Docs                                                          |
+| ------------------------- | --------- | ----------------------------------------------------------------------- |
+| `delay`                   | `number`  | [Delay](/docs/delay/)                                                   |
+| `diffIncludeAntiAliasing` | `boolean` | [Threshold for changes](/docs/threshold#anti-aliasing)                  |
+| `diffThreshold`           | `number`  | [Threshold for changes](/docs/threshold#setting-the-threshold)          |
 | `forcedColors`            | `string`  | [Media Features](/docs/media-features#test-high-contrast-color-schemes) |
-| `pauseAnimationAtEnd`     | `boolean` | [Animations](/docs/animations#css-animations)                       |
+| `pauseAnimationAtEnd`     | `boolean` | [Animations](/docs/animations#css-animations)                           |
 | `prefersReducedMotion`    | `string`  | [Media Features](/docs/media-features#verify-reduced-motion-animations) |
-
 
 ### Environment variables
 
 Some options can be configured through environment variables.
 
-| Environment variable         | Description                                                                                                                                                                                                                                                                                                                                                                                                                                     |
-|------------------------------|-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| Environment variable         | Description                                                                                                                                                                                                                                                                                                                                                                                                                                                 |
+| ---------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | `CHROMATIC_ARCHIVE_LOCATION` | If you have configured your project's [`outputDir`](https://playwright.dev/docs/api/class-testproject#test-project-output-dir) option to be different than the default, you must set the `CHROMATIC_ARCHIVE_LOCATION` environment variable to the same value. This must be done when starting the Storybook and when building it on CI. This ensures that the Archive Storybook can find the [archives](#what-are-archives) generated by the Test Archiver. |
-
 
 ## Frequently asked questions
 
