@@ -26,9 +26,6 @@ interface Props {
 
 const { navItems, url } = Astro.props;
 
-const withBase = (url: string) =>
-  url === "" ? import.meta.env.BASE_URL : `${import.meta.env.BASE_URL}/${url}`;
-
 const navGroups = navItems
   ? navItems.map((group) => ({
       ...group,
@@ -36,7 +33,7 @@ const navGroups = navItems
         .map((item) => ({
           ...item,
           label: item.data?.sidebar?.label || item.data.title,
-          slug: item.data?.isHome ? import.meta.env.BASE_URL : (withBase(item.slug) as any),
+          slug: item.data?.isHome ? "" : (item.slug as any),
           data: {
             ...item.data,
             sidebar: {
