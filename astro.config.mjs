@@ -25,7 +25,6 @@ export default defineConfig({
             tabIndex: -1,
           },
           content: [
-            h("span.visually-hidden", "permalink"),
             s(
               "svg.autolink-svg",
               {
@@ -34,6 +33,7 @@ export default defineConfig({
                 height: 14,
                 fill: "currentColor",
                 viewBox: "0 0 14 14",
+                ariaLabel: "Link to this section",
               },
               s("path", {
                 d: "M11.841 2.159a2.25 2.25 0 0 0-3.182 0l-2.5 2.5a2.25 2.25 0 0 0 0 3.182.5.5 0 0 1-.707.707 3.25 3.25 0 0 1 0-4.596l2.5-2.5a3.25 3.25 0 0 1 4.596 4.596l-2.063 2.063a4.27 4.27 0 0 0-.094-1.32l1.45-1.45a2.25 2.25 0 0 0 0-3.182Z",
