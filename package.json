@@ -21,6 +21,7 @@
   "dependencies": {
     "@astrojs/mdx": "^1.0.0",
     "@astrojs/react": "^3.0.2",
+    "@astrojs/sitemap": "^3.0.3",
     "@chromaui/tetra": "^1.16.0",
     "@docsearch/css": "^3.5.2",
     "@radix-ui/react-collapsible": "^1.0.3",
