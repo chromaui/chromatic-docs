@@ -24,6 +24,7 @@ Chromatic is grateful to the following individuals for responsibly disclosing se
 
 - [Rohit Sharma](https://www.linkedin.com/in/r0x5r/)
 - [Professor the Hunter](https://www.linkedin.com/in/bughuntar/)
+- [Kunal Mhaske](https://www.linkedin.com/in/kunal-mhaske-59928a170/)
 
 #### 2022
 
