@@ -133,7 +133,7 @@ After you merge your code, Chromatic will also apply accepted baselines to stori
 ![Build with reviewed tests](../../images/build-test-reviewed.png)
 
 <details>
-<summary>Why is review disabled in my build screen?</summary>
+<summary>Why is review disabled in the build page?</summary>
 
 If a build isn't the newest build on a branch, we disable reviewing the build; as any future builds will base themselves on the _newest_ build, making approvals to this build pointless.
 
