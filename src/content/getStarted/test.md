@@ -186,15 +186,6 @@ A build will _fail_ if any of the snapshots fail to render (i.e. in rendering th
 </details>
 
 <details>
-<summary>Why is review disabled in my build screen?</summary>
-
-If a build isn't the newest build on a branch, we disable reviewing the build; as any future builds will base themselves on the _newest_ build, making approvals to this build pointless.
-
-Note that in the case that there is a descendent build of this build on _a different branch_ (for instance, if the commit for this build was merged into that different branch), we do allow reviewing of this build. Future builds on this branch _will_ use approved changes from the build; however, future builds on the different branch will not. For this reason, it is best to review builds before merging them.
-
-</details>
-
-<details>
 <summary>Why do I see "Didn't find any commits in this git repository in the last X builds"?</summary>
 
 This means that across the last X unique commits across all builds in your app, we didn't find a single one that exists in the repository you ran this build against. Commits can go missing if you rebase or perform squash-merges, however, if all of the previous X builds' commits are missing, it is likely something has gone wrong.
