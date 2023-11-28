@@ -1,7 +1,7 @@
 ---
 layout: "../../layouts/Layout.astro"
 title: Visual Tests addon for Storybook (beta)
-description: Configure Storybook to test UIs with the visual testing addon
+description: Configure Storybook to test UIs with the Visual Tests Addon
 sidebar: { order: 16, label: Addon for Storybook (beta) }
 ---
 
@@ -13,7 +13,7 @@ sidebar: { order: 16, label: Addon for Storybook (beta) }
 
 </div>
 
-Chromatic's Visual Testing addon helps you detect UI bugs during development. It enables you to run visual tests on your stories and compare changes with the latest baselines across multiple browsers and viewport sizes. Pinpoint changes in UI appearance and behavior and automate visual testing without leaving Storybook.
+Visual Tests Addon helps you detect UI bugs during development. It enables you to run visual tests on your stories and compare changes with the latest baselines across multiple browsers and viewport sizes. Pinpoint changes in UI appearance and behavior and automate visual testing without leaving Storybook.
 
 ## Installation
 
@@ -48,13 +48,13 @@ export default config;
 
 Start your Storybook, and you'll see some noticeable changes in the UI: a new toolbar icon and the Visual tests panel where you can inspect the test results.
 
-![Visual testing addon enabled](../../images/visual-tests-enable.png)
+![Visual Tests Addon enabled](../../images/visual-tests-enable.png)
 
 ## Authentication
 
-Before using the Visual Testing addon, you must authenticate yourself with Chromatic. Click the "Enable" button in the addon panel and follow the onboarding workflow to set up your account and link your existing Storybook instance with Chromatic. After the authentication process is complete, you'll be redirected back to Storybook, where you'll see a list of available projects to which you have access.
+Before using the Visual Tests Addon, you must authenticate yourself with Chromatic. Click the "Enable" button in the addon panel and follow the onboarding workflow to set up your account and link your existing Storybook instance with Chromatic. After the authentication process is complete, you'll be redirected back to Storybook, where you'll see a list of available projects to which you have access.
 
-![Visual testing addon authentication](../../images/visual-tests-sign-in.png)
+![Visual Tests Addon authentication](../../images/visual-tests-sign-in.png)
 
 <div class="aside">
 
@@ -64,7 +64,7 @@ Before using the Visual Testing addon, you must authenticate yourself with Chrom
 
 Select the project on which you want to run your visual tests to complete the onboarding process. The addon will automatically save your selection, adjust the configuration file to include the necessary project identifiers, and retrieve the latest baselines if available.
 
-![Visual testing addon project selection](../../images/visual-tests-project-selection.png)
+![Visual Tests Addon project selection](../../images/visual-tests-project-selection.png)
 
 ## Configure
 
@@ -140,7 +140,7 @@ If you accept a change but want to revert the acceptance, the addon provides an 
 
 #### What's the difference in testing with the addon vs. CI?
 
-Running tests with the Visual Testing addon shortens the feedback loop by providing a simple workflow to detect UI bugs during development. This means you don't have to wait until your CI environment finishes running, reducing the costs and computational power used to verify what's changed. Once you combine the addon with [TurboSnap](/docs/turbosnap)([see below](#turbosnap-support)), you can further reduce the number of snapshots taken and the time it takes to run the tests.
+Running tests with the Visual Tests Addon shortens the feedback loop by providing a simple workflow to detect UI bugs during development. This means you don't have to wait until your CI environment finishes running, reducing the costs and computational power used to verify what's changed. Once you combine the addon with [TurboSnap](/docs/turbosnap)([see below](#turbosnap-support)), you can further reduce the number of snapshots taken and the time it takes to run the tests.
 
 ---
 
@@ -170,16 +170,18 @@ This is a [known issue](https://github.com/storybookjs/storybook/issues/22431#is
 </details>
 
 <details>
-<summary>How does the addon impact on snapshot usage?</summary>
+<summary>Does the addon affect snapshot usage?</summary>
 
-Running tests with the addon enabled still counts towards your monthly snapshot usage, but they're likely to stay the same despite the number of builds you run. By default, it will follow the same pattern as running tests from CI or CLI (i.e., one snapshot per story, browser). If you have enabled [modes](/docs/modes), the addon will also take them into account. However, for customers who are subscribed to the early access program, the snapshots taken will not be billed until the end of the program. If you still see them listed in your bill or have any questions, contact us <a class="intercom-concierge-bot"><b>via in-app chat</b></a>.
+Yes, running tests in the addon counts towards snapshot usage. The addon connects to our cloud to allow you to run tests on-demand in Storybook instead of waiting on CI. But you're still taking snapshots all the same.
+
+For customers in the early access program, the snapshots are free. Your usage will be credited to your account if there are any overages as a result of using the addon. Snapshots will be billed when the early access program concludes. If you still see them listed in your bill or have any questions, contact us <a class="intercom-concierge-bot"><b>via in-app chat</b></a>.
 
 </details>
 
 <details>
 <summary id="turbosnap-support">Does the addon support TurboSnap?</summary>
 
-No. The Visual Testing addon is still in its early access stage. Support for TurboSnap will be added as part of a future release.
+No. The Visual Tests Addon is still in its early access stage. Support for TurboSnap will be added as part of a future release.
 
 </details>
 
