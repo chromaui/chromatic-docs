@@ -54,6 +54,17 @@ Chromatic detects UI changes but it's still up to you to verify if changes are i
 ![Snapshot that's unreviewed](../../images/snapshot-unreviewed.png)
 
 <details>
+<summary>What&rsquo;s the difference between denied and unreviewed changes?</summary>
+
+The purpose of denying is to mark changes you’ve looked at but not accepted. When you've finished reviewing the build, the list of denied changes helps you track what needs fixing.
+
+When it comes to baselines, denying and leaving unreviewed have the same effect. In both cases, the original baseline is used for comparisons. This means in subsequent builds, Chromatic compares the latest build to the original baseline (not the previously denied snapshot).
+
+Denied changes will be marked as unreviewed in subsequent builds for you to review again.
+
+</details>
+
+<details>
 <summary>Speed up review with keyboard shortcuts</summary>
 
 Verify UI changes faster using keyboard shortcuts. Protip: Pressing 1 multiple times switches between the baseline and new snapshot in the 1up view.
@@ -120,6 +131,22 @@ When your build is passed (all changes accepted), you're ready to merge visual c
 After you merge your code, Chromatic will also apply accepted baselines to stories on the target branch. That means you'll only need to accept baselines a single time.
 
 ![Build with reviewed tests](../../images/build-test-reviewed.png)
+
+<details>
+<summary>Why is review disabled in my build screen?</summary>
+
+If a build isn't the newest build on a branch, we disable reviewing the build; as any future builds will base themselves on the _newest_ build, making approvals to this build pointless.
+
+Note that in the case that there is a descendent build of this build on _a different branch_ (for instance, if the commit for this build was merged into that different branch), we do allow reviewing of this build. Future builds on this branch _will_ use approved changes from the build; however, future builds on the different branch will not. For this reason, it is best to review builds before merging them.
+
+</details>
+
+<details>
+<summary>Why is commenting disabled on old builds?</summary>
+
+Comments are disabled on old builds to ensures that discussions are always on topic and up to date with the latest UI. This prevents the situation where different reviewers comment on different versions of the code.
+
+</details>
 
 ## PR check for "UI Tests"
 
