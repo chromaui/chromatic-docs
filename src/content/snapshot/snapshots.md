@@ -307,7 +307,7 @@ The solution we recommend is to use a `<link rel="preload">` in your [`.storyboo
 
 ## Rerun builds to retake snapshots
 
-Double-check whether a visual change is real or caused by inconsistencies in your app code by retaking snapshots. Click the "rerun" button to kick off a new build that uses identical settings and configuration as your original build. Only snapshots for denied and unreviewed changes will be captured. Any changes you accepted in the original build will not be snapshotted again in a rerun build.
+Double-check whether a visual change is real or caused by inconsistencies in your app code by retaking snapshots. Click the "rerun" button to kick off a new build that uses identical settings and configuration as your original build. Only snapshots for denied, unreviewed, or errored changes will be captured. Any changes you accepted in the original build will not be snapshotted again in a rerun build.
 
 ![Rerun button](../../images/build-detail-rerun-button.png)
 
