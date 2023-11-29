@@ -232,7 +232,7 @@ If the builds are a result of direct commits to `main`, you will need to accept 
 
 #### BitBucket squash/rebase merge and the "main" branch
 
-BitBucket's squash/rebase merge functionality creates new commits that have no association to the branch being merged. If you are already using this option, then we will automatically detect this situation and bring baselines over (see [Branching and Baselines](/docs/branching-and-baselines#squash-and-rebase-merging) for more details).
+BitBucket's squash/rebase merge functionality creates new commits that have no association to the branch being merged. If you are already using this option, then we will automatically detect this situation and bring baselines over (see [Branching and Baselines](/docs/branching-and-baselines#how-do-baselines-get-preserved-during-squash-and-rebase-merging) for more details).
 
 If you’re using this functionality but notice the incoming changes were not accepted as baselines in Chromatic, then you'll need to adjust the pipeline and include the `--auto-accept-changes` flag. For example:
 
@@ -296,7 +296,7 @@ Including the `--ignore-last-build-on-branch` flag ensures the latest build for 
 
 #### BitBucket pipelines and patch builds
 
-If you're creating a [patch build](/docs/branching-and-baselines#patch-builds) in Chromatic to fix a missing pull request comparison, you'll need to adjust your existing pipeline to the following:
+If you're creating a [patch build](/docs/branching-and-baselines#what-happens-when-the-merge-base-build-isnt-found-patch-builds) in Chromatic to fix a missing pull request comparison, you'll need to adjust your existing pipeline to the following:
 
 ```yml
 # bitbucket-pipelines.yml
