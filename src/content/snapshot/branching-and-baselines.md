@@ -7,10 +7,22 @@ sidebar: { order: 3 }
 
 # Branches, baselines, and git history
 
-This document breaks down how Chromatic decides what snapshots to compare when using UI Tests or UI Review.
+This document describes how Chromatic decides what snapshots to compare when using UI Tests or UI Review.
 
 - [UI Tests](#ui-tests-verify-changes-on-one-branch): Verify changes on one branch (uses baselines)
 - [UI Review](#ui-review-compare-two-branches-for-changes): Compare two branches for changes (does not use baselines)
+
+```shell
+[M] - A - B - C [base branch]
+    \
+      D - E - [F] [head branch]
+```
+
+<div class="aside">
+
+Visualize the different comparisons methods using the git history diagram above. **UI Tests** compares commit F to E, the previous commit in the git history or its direct ancestors. **UI Review** always compares commit F to M, the merge base.
+
+</div>
 
 ## UI Tests: Verify changes on one branch
 
@@ -122,7 +134,7 @@ You can see the ancestor builds listed on the build page:
 
 Once we’ve got the ancestor builds for a build, the algorithm to calculate the baseline for any given snapshot goes like this:
 
-If there is one ancestor build, find if there is a snapshot for the same story & viewport combination.
+If there is one ancestor build, find if there is a snapshot for the same story & mode combination.
 
 If there is, check the status of that snapshot:
 
@@ -141,6 +153,7 @@ z - Build N+2
 ```
 
 Suppose then in commit y, we changed the color of our submit buttons to be orange rather than green. However, we realized this was a mistake and denied the change. Then in commit z we changed the colour back to green.
+
 Then in Build N+2, we should compare the “new” green buttons to the original green buttons (from Build N). If they are back to the way they were before, the build should pass without you needing to intervene. If the green color is a different shade, Chromatic should show you a diff and you can decide if that’s what you wanted.
 
 <details>
@@ -176,9 +189,18 @@ Similar to a code review, UI Review shows what changes will occur on the base br
 
 ### How changesets are generated
 
-UI Review generates changesets using the most recent snapshots on a build compared to the `merge base`. It does not use baselines to generate changesets so the changeset will show snapshots that are unreviewed (havent been accepted).
+A changeset is a list of UI changes between two branches. [UI Review](/docs/review) compares the latest snapshots on a feature branch to the latest snapshots on the base branch (referenced as `merge base`) to generate a changeset.
 
-Conceptually, this is similar to what systems like GitHub do when showing you the code changes in a pull/merge request.
+Unlike UI Tests, it does not use baselines to generate changesets so the list of changes may also show snapshots that were unreviewed in UI Tests. Conceptually, this is similar to what systems like GitHub do when showing you the code changes in a pull/merge request.
+
+<details>
+<summary>What if I skip running Chromatic on a base branch?</summary>
+
+UI Review will not work if you skip running `chromatic` on a base branch like `main`. Chromatic needs to have two builds to generate a changeset.
+
+UI Review works differently than UI Tests. Some customers skip running `chromatic` on their base branches in UI Tests. This works for UI Tests because our baseline detection algorithm. UI Review needs `chromatic` to run in order to create a build that captures snapshots for comparison.
+
+</details>
 
 #### How is `merge base` calculated
 
