@@ -9,7 +9,7 @@ sidebar: { order: 16, label: Addon for Storybook (beta) }
 
 <div class="aside" style="margin-bottom: 2rem;">
 
-🧪 **Experimental** We're actively integrating feedback from [early access users](https://forms.gle/NCDV1BMGuNfjWrPm9). As a result, both APIs and functionality may undergo potential changes.
+🧪 **Experimental** We’re actively integrating feedback from [early access users](https://forms.gle/NCDV1BMGuNfjWrPm9). As a result, both APIs and functionality may undergo potential changes.
 
 </div>
 
@@ -46,19 +46,19 @@ const config = {
 export default config;
 ```
 
-Start your Storybook, and you'll see some noticeable changes in the UI: a new toolbar icon and the Visual tests panel where you can inspect the test results.
+Start your Storybook, and you’ll see some noticeable changes in the UI: a new toolbar icon and the Visual tests panel where you can inspect the test results.
 
 ![Visual Tests Addon enabled](../../images/visual-tests-enable.png)
 
 ## Authentication
 
-Before using the Visual Tests Addon, you must authenticate yourself with Chromatic. Click the "Enable" button in the addon panel and follow the onboarding workflow to set up your account and link your existing Storybook instance with Chromatic. After the authentication process is complete, you'll be redirected back to Storybook, where you'll see a list of available projects to which you have access.
+Before using the Visual Tests Addon, you must authenticate yourself with Chromatic. Click the “Enable” button in the addon panel and follow the onboarding workflow to set up your account and link your existing Storybook instance with Chromatic. After the authentication process is complete, you’ll be redirected back to Storybook, where you’ll see a list of available projects to which you have access.
 
 ![Visual Tests Addon authentication](../../images/visual-tests-sign-in.png)
 
 <div class="aside">
 
-💡 As part of the authentication process, the addon will ask you for light permissions to access your Chromatic account. The addon will only use this information to authenticate you and to synchronize your visual tests with Chromatic. The addon won't use this information for any other purpose.
+💡 As part of the authentication process, the addon will ask you for light permissions to access your Chromatic account. The addon will only use this information to authenticate you and to synchronize your visual tests with Chromatic. The addon won’t use this information for any other purpose.
 
 </div>
 
@@ -90,7 +90,7 @@ By default, your project configuration is stored in a configuration file (i.e., 
 
 ### Override the default configuration
 
-If you want to customize the addon's default configuration, you can create a file in your project's root directory and adjust the addon's settings in Storybook's configuration file to include it. For example, if you want to run tests based on the current environment:
+If you want to customize the addon’s default configuration, you can create a file in your project’s root directory and adjust the addon’s settings in Storybook’s configuration file to include it. For example, if you want to run tests based on the current environment:
 
 ```js
 // .storybook/main.js
@@ -116,7 +116,7 @@ export default config;
 
 ## How to run visual tests
 
-Get started visual testing by introducing a change in one of your components; for example, change a background color or font size. Then save the file, and commit your local changes. Click the "Play" button in the sidebar to begin the process. This will:
+Get started visual testing by introducing a change in one of your components; for example, change a background color or font size. Then save the file, and commit your local changes. Click the “Play” button in the sidebar to begin the process. This will:
 
 1. Connect to Chromatic
 2. Start a local build, which will:
@@ -132,15 +132,15 @@ To find out which changes were introduced in the latest build, the addon highlig
 
 ![Confirm UI changes in Storybook](../../images/visual-tests-accept-all.png)
 
-If you accept a change but want to revert the acceptance, the addon provides an "Unaccept" button that allows you to do just that. This resets the status to "unreviewed," updates Storybook's sidebar, and syncs the change with Chromatic.
+If you accept a change but want to revert the acceptance, the addon provides an “Unaccept” button that allows you to do just that. This resets the status to “unreviewed,” updates Storybook’s sidebar, and syncs the change with Chromatic.
 
 ![Revert UI changes in Storybook](../../images/visual-tests-unaccept.png)
 
 ---
 
-#### What's the difference in testing with the addon vs. CI?
+#### What’s the difference in testing with the addon vs. CI?
 
-Running tests with the Visual Tests Addon shortens the feedback loop by providing a simple workflow to detect UI bugs during development. This means you don't have to wait until your CI environment finishes running, reducing the costs and computational power used to verify what's changed. Once you combine the addon with [TurboSnap](/docs/turbosnap)([see below](#turbosnap-support)), you can further reduce the number of snapshots taken and the time it takes to run the tests.
+Running tests with the Visual Tests Addon shortens the feedback loop by providing a simple workflow to detect UI bugs during development. This means you don’t have to wait until your CI environment finishes running, reducing the costs and computational power used to verify what’s changed. Once you combine the addon with [TurboSnap](/docs/turbosnap)([see below](#turbosnap-support)), you can further reduce the number of snapshots taken and the time it takes to run the tests.
 
 ---
 
@@ -172,7 +172,7 @@ This is a [known issue](https://github.com/storybookjs/storybook/issues/22431#is
 <details>
 <summary>Does the addon affect snapshot usage?</summary>
 
-Yes, running tests in the addon counts towards snapshot usage. The addon connects to our cloud to allow you to run tests on-demand in Storybook instead of waiting on CI. But you're still taking snapshots all the same.
+Yes, running tests in the addon counts towards snapshot usage. The addon connects to our cloud to allow you to run tests on-demand in Storybook instead of waiting on CI. But you’re still taking snapshots all the same.
 
 For customers in the early access program, the snapshots are free. Your usage will be credited to your account if there are any overages as a result of using the addon. Snapshots will be billed when the early access program concludes. If you still see them listed in your bill or have any questions, contact us <a class="intercom-concierge-bot"><b>via in-app chat</b></a>.
 
@@ -188,6 +188,6 @@ No. The Visual Tests Addon is still in its early access stage. Support for Turbo
 <details>
 <summary>Can I deny a change with the addon?</summary>
 
-No. Denying changes is only available when running builds from CI or the CLI. If you need to, you can revert changes by clicking the "Unaccept" button in the addon panel and re-running the tests to verify them.
+No. Denying changes is only available when running builds from CI or the CLI. If you need to, you can revert changes by clicking the ”Unaccept” button in the addon panel and re-running the tests to verify them.
 
 </details>
