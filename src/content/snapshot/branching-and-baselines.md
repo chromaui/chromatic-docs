@@ -28,11 +28,11 @@ Visualize the different comparisons methods using the git history diagram above.
 
 UI Tests serve as visual regression tests between builds, similar to snapshot testing. When modifications are made in a PR, the tests fail until the new snapshots are accepted as baselines.
 
-### What's a baseline?
+### What’s a baseline?
 
 A baseline is the last known “good” state of the story in a given [mode](/docs/modes). [UI Tests](/docs/test) take snapshots and compare them to baselines to detect changes.
 
-Chromatic's objective is to maintain an up to date "baseline" for each story. Baselines live alongside the git history and persist through git branching and merging.
+Chromatic’s objective is to maintain an up to date “baseline” for each story. Baselines live alongside the git history and persist through git branching and merging.
 
 Baselines only update when changes are [accepted](/docs/test#verify-ui-changes) by you or your team. Since baselines are tracked independently for each branch, when you merge that branch into another (for instance back into `main`), the baseline comes with it.
 
@@ -57,7 +57,7 @@ When you merge two branches together, Chromatic can sometimes have two (or more)
 <details>
 <summary>What happens to baselines when a branch is rebased?</summary>
 
-If you rebase a branch (say updating to branch off the latest commit off `main`), then you create a new commit that isn't a git descendent of the previous (pre-rebase) commit on that branch. Conceptually, that might mean that Chromatic should throw away any approvals that were made for builds on the branch, however this is probably not what you want.
+If you rebase a branch (say updating to branch off the latest commit off `main`), then you create a new commit that isn’t a git descendent of the previous (pre-rebase) commit on that branch. Conceptually, that might mean that Chromatic should throw away any approvals that were made for builds on the branch, however this is probably not what you want.
 
 For this reason, we _always_ include accepted baselines from the latest build on the current branch, regardless of git history. You can bypass this with the `--ignore-last-build-on-branch=<branch-name>` flag of `chromatic`. For example:
 
@@ -78,11 +78,11 @@ Read our CI [documentation](/docs/ci).
 
 Chromatic detects squash and rebase merges. Your baselines are preserved between branches, even when squashing or rebasing wipes the Git history.
 
-If you use the "squash" or "rebase" merge feature on Pull Requests, then a commit is created on your base branch that is not a descendant of the commits for the PR. See the diagram below.
+If you use the “squash” or “rebase” merge feature on Pull Requests, then a commit is created on your base branch that is not a descendant of the commits for the PR. See the diagram below.
 
 ![Squash and rebase merges remove Git history](../../images/squash-merge.png)
 
-This means Chromatic has no way to tell, using Git, that baselines accepted during the PR should "come over" to the main branch. Instead, we use Git provider APIs to detect this situation. When running the squash/rebase merge commit we'll use the accepted baselines of the _most recent_ commit on the head branch of the PR.
+This means Chromatic has no way to tell, using Git, that baselines accepted during the PR should “come over” to the main branch. Instead, we use Git provider APIs to detect this situation. When running the squash/rebase merge commit, we’ll use the accepted baselines of the _most recent_ commit on the head branch of the PR.
 
 If you are using GitHub, you need to enable our GitHub App (on the [Pull Request](/docs/review) screen) for this feature to work. Bitbucket and GitLab will work out of the box.
 
@@ -90,7 +90,7 @@ If you are using GitHub, you need to enable our GitHub App (on the [Pull Request
 
 ### How are baselines calculated?
 
-In Chromatic, a build contains of a set of snapshots, each of which is a snapshot of a single story in a single mode. The baseline is the last accepted snapshot on a given branch. Each branch has builds associated with it, so to find the baseline, we need to traverse git history for that branch to find the "ancestor" build.
+In Chromatic, a build contains of a set of snapshots, each of which is a snapshot of a single story in a single mode. The baseline is the last accepted snapshot on a given branch. Each branch has builds associated with it, so to find the baseline, we need to traverse git history for that branch to find the “ancestor” build.
 
 #### Find the ancestor build(s)
 
@@ -159,7 +159,7 @@ Then in Build N+2, we should compare the “new” green buttons to the original
 <details>
 <summary>How do browsers work with baselines?</summary>
 
-Baselines are calculated above the level of browsers. Clicking "accept" on a baseline will accept all snapshots taken in different browsers associated with that baseline. We can ignore multiple browsers when thinking about baselines.
+Baselines are calculated above the level of browsers. Clicking “accept” on a baseline will accept all snapshots taken in different browsers associated with that baseline. We can ignore multiple browsers when thinking about baselines.
 
 </details>
 
@@ -173,13 +173,13 @@ In the case that there are multiple ancestor builds, the algorithm to calculate 
 <details>
 <summary>How do I visualize baseline history for a story?</summary>
 
-When you [verify UI Test changes on Chromatic](/docs/test#verify-ui-changes), you'll see a historical set of baselines that correspond to the algorithm above. This helps you understand when the baseline changed, by who, and in which commit.
+When you [verify UI Test changes on Chromatic](/docs/test#verify-ui-changes), you’ll see a historical set of baselines that correspond to the algorithm above. This helps you understand when the baseline changed, by who, and in which commit.
 
 <video autoPlay muted playsInline loop width="600px" class="center" style="pointer-events: none;">
   <source src="/docs/assets/testscreen-baseline-history-detail-optimized.mp4" type="video/mp4" />
 </video>
 
-The snapshot marked "Most recent build...." is a change that hasn't been accepted as a baseline yet. The baseline marked "current baseline" is the last known good version of the snapshot that was accepted by Tom Coleman. Going back in the timeline, the listed baselines show previous times the component changed.
+The snapshot marked “Most recent build....” is a change that hasn’t been accepted as a baseline yet. The baseline marked “current baseline” is the last known good version of the snapshot that was accepted by Tom Coleman. Going back in the timeline, the listed baselines show previous times the component changed.
 
 </details>
 
@@ -204,7 +204,7 @@ UI Review works differently than UI Tests. Some customers skip running `chromati
 
 #### How is `merge base` calculated
 
-To find the merge base build in Chromatic, we need to track back from the current latest build on a pull request until we find a build that was on the base branch. We then check that the build matches what's in the git commit history (keep in mind you may not have run a build for every single commit!). Learn more about how we use [ancestor builds](#find-the-ancestor-builds).
+To find the merge base build in Chromatic, we need to track back from the current latest build on a pull request until we find a build that was on the base branch. We then check that the build matches what’s in the git commit history (keep in mind you may not have run a build for every single commit!). Learn more about how we use [ancestor builds](#find-the-ancestor-builds).
 
 Typically this leads to a situation like so:
 
@@ -214,7 +214,7 @@ x - y - z [base]
     w - p - q [head]
 ```
 
-Starting with the build corresponding to commit `q`, Chromatic walks back the commit and build history, through `p` and `w` until it reaches `x`. This is the "merge base" build (and also commit, which would be output from `git merge-base base head`).
+Starting with the build corresponding to commit `q`, Chromatic walks back the commit and build history, through `p` and `w` until it reaches `x`. This is the “merge base” build (and also commit, which would be output from `git merge-base base head`).
 
 Chromatic will now compare the stories from `q` to the corresponding stories in `x` to generate the UI changes for the PR.
 
@@ -231,15 +231,15 @@ In this case the merge base starting at `q` will be `z`. It makes sense to use `
 One thing to note is that if the merge base is quite old, the left hand side of the comparison may be quite old versions of your components. To work around this, merging (or rebasing) the base branch into the feature branch will resolve the issue, as demonstrated above.
 
 <details>
-<summary>What happens when the merge base build isn't found? (patch builds)</summary>
+<summary>What happens when the merge base build isn’t found? (patch builds)</summary>
 
-If Chromatic searches for a merge base and doesn't find one, it will prompt you to create a "patch build". This situation typically comes about when you are first installing Chromatic and you don't have a build for older, historical commits (like the commit `x` in the picture above).
+If Chromatic searches for a merge base and doesn’t find one, it will prompt you to create a “patch build.” This situation typically comes about when you are first installing Chromatic and you don’t have a build for older, historical commits (like the commit `x` in the picture above).
 
 The Chromatic CLI has a special option `--patch-build=$head...$base` which is intended for this purpose. What this does is:
 
 1. Figure out what the merge base commit between head and base is in your git repo.
 2. Check out that commit and update dependencies
-3. Run a Chromatic build for that commit, flagging to the server that is is a special "patch" build (so it doesn't affect [UI Tests](/docs/test) baselines).
+3. Run a Chromatic build for that commit, flagging to the server that is is a special “patch” build (so it doesn’t affect [UI Tests](/docs/test) baselines).
 4. Put your repository back as it was before.
 
 Essentially we are retroactively creating the merge base build, so we have something to compare against.
