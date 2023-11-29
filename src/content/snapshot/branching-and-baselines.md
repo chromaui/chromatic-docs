@@ -180,7 +180,7 @@ UI Review generates changesets using the most recent snapshots on a build compar
 
 Conceptually, this is similar to what systems like GitHub do when showing you the code changes in a pull/merge request.
 
-#### How the `merge base` is calculated
+#### How is `merge base` calculated
 
 To find the merge base build in Chromatic, we need to track back from the current latest build on a pull request until we find a build that was on the base branch. We then check that the build matches what's in the git commit history (keep in mind you may not have run a build for every single commit!). Learn more about how we use [ancestor builds](#find-the-ancestor-builds).
 
