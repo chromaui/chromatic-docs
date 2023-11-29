@@ -76,13 +76,13 @@ Read our CI [documentation](/docs/ci).
 <details>
 <summary>How do baselines get preserved during squash and rebase-merging?</summary>
 
-Chromatic detects squash and rebase merges. Your baselines are preserved between branches, even when squashing or rebasing wipes the Git history.
+Chromatic detects squash and rebase merges. Your baselines are preserved between branches, even when squashing or rebasing wipes the git history.
 
 If you use the “squash” or “rebase” merge feature on Pull Requests, then a commit is created on your base branch that is not a descendant of the commits for the PR. See the diagram below.
 
-![Squash and rebase merges remove Git history](../../images/squash-merge.png)
+![Squash and rebase merges remove git history](../../images/squash-merge.png)
 
-This means Chromatic has no way to tell, using Git, that baselines accepted during the PR should “come over” to the main branch. Instead, we use Git provider APIs to detect this situation. When running the squash/rebase merge commit, we’ll use the accepted baselines of the _most recent_ commit on the head branch of the PR.
+This means Chromatic has no way to tell, using git, that baselines accepted during the PR should “come over” to the main branch. Instead, we use git provider APIs to detect this situation. When running the squash/rebase merge commit, we’ll use the accepted baselines of the _most recent_ commit on the head branch of the PR.
 
 If you are using GitHub, you need to enable our GitHub App (on the [Pull Request](/docs/review) screen) for this feature to work. Bitbucket and GitLab will work out of the box.
 
