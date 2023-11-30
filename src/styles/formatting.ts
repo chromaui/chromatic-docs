@@ -275,6 +275,11 @@ export const formatting = css`
       // require !important to override base styles
       color: #026fb3 !important;
     }
+
+    code {
+      word-wrap: break-word;
+      max-width: 100%;
+    }
   }
   table tr {
     border-top: 1px solid #eee;
