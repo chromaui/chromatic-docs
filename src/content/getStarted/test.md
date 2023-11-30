@@ -46,7 +46,7 @@ When interaction tests fail, the story will be badged with "Failed test". You wi
 <details>
 <summary class="no-anchor">Why are my baselines inconsistent?</summary>
 
-Here are common reasons baselines can be inconsistent and how to fix.
+Here are common reasons baselines can be inconsistent and how to fix them.
 
 You’re not running Chromatic builds on your base branch (e.g., `main`). Chromatic will not be able to track which baselines are associated with which commits and branches. We recommend that you always run Chromatic on your base branch to ensure reliable, consistent baselines.
 
