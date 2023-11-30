@@ -221,7 +221,7 @@ If the builds are a result of direct commits to `main`, you will need to accept 
 
 #### Squash/rebase merge and the "main" branch
 
-We use GitHub, GitLab, and Bitbucket APIs respectively to detect squashing and rebasing so your baselines match your expectations no matter your Git workflow (see [Branching and Baselines](/docs/branching-and-baselines#squash-and-rebase-merging) for more details).
+We use GitHub, GitLab, and Bitbucket APIs respectively to detect squashing and rebasing so your baselines match your expectations no matter your Git workflow (see [Branching and Baselines](/docs/branching-and-baselines#how-do-baselines-get-preserved-during-squash-and-rebase-merging) for more details).
 
 If you’re using this functionality but notice the incoming changes were not accepted as baselines in Chromatic, then you'll need to adjust the workflow and include a new Chromatic job with the `--auto-accept-changes` flag. For example:
 

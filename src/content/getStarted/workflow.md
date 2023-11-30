@@ -33,7 +33,7 @@ We recommend running Chromatic on every push. This ensures that Chromatic is reg
 
 Each snapshot is associated with a commit. That enables you to pinpoint the particular commit where a change was introduced.
 
-It also allows you to [visualize baseline history](/docs/branching-and-baselines#visualize-baseline-history). You can review the commits to see how a component changes over time.
+It also allows you to [visualize baseline history](/docs/branching-and-baselines#how-do-i-visualize-baseline-history-for-a-story). You can review the commits to see how a component changes over time.
 
 Not running Chromatic on every commit makes it harder to review diffs and increases the risk of missing changes.
 
@@ -84,7 +84,7 @@ To debug, you can launch the published Storybook to reproduce the exact state of
 
 </details>
 
-UI Tests are similar to other types of testing (unit, E2E, etc.), in that they enable developers to catch and fix regressions. UI Tests compare the snapshot of a story with the previously accepted [baseline](/docs/branching-and-baselines#branches-and-baselines) in your git history (typically on the same branch). If there are changes, you'll get a diff of the changes. If the changes are intentional, press the accept button to update the baselines.
+UI Tests are similar to other types of testing (unit, E2E, etc.), in that they enable developers to catch and fix regressions. UI Tests compare the snapshot of a story with the previously accepted [baseline](/docs/branching-and-baselines#whats-a-baseline) in your git history (typically on the same branch). If there are changes, you'll get a diff of the changes. If the changes are intentional, press the accept button to update the baselines.
 
 Once all changes are approved, the UI is considered “ready” and you can move to the UI Review phase.
 
