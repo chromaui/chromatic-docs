@@ -135,9 +135,7 @@ After you merge your code, Chromatic will also apply accepted baselines to stori
 <details>
 <summary>Why is review disabled in the build page?</summary>
 
-If a build isn’t the newest build on a branch, we disable reviewing the build; as any future builds will base themselves on the _newest_ build, making approvals to this build pointless.
-
-Note that in the case that there is a descendent build of this build on _a different branch_ (for instance, if the commit for this build was merged into that different branch), we do allow reviewing of this build. Future builds on this branch _will_ use approved changes from the build; however, future builds on the different branch will not. For this reason, it is best to review builds before merging them.
+Reviewing is only enabled for the latest build on a branch to ensure that only the most up-to-date UI gets accepted as baselines.
 
 </details>
 
@@ -145,6 +143,17 @@ Note that in the case that there is a descendent build of this build on _a diffe
 <summary>Why is commenting disabled on old builds?</summary>
 
 Comments are disabled on old builds to ensure that discussions are always on topic and up to date with the latest UI. This prevents the situation where different reviewers comment on different versions of the code.
+
+</details>
+
+<details>
+<summary>Can I review the same commit on separate branches?</summary>
+
+Yes, but it‘s not a best practice.
+
+Every branch has independent baselines for each story until the branch gets merged. If two builds reference the same commit hash but are on _different branches_ it will be possible to review those builds separately so long as they're the latest build on their respective branches. We don't recommend this because you'll have to review the same change multiple times.
+
+Instead, we recommend you regularly review builds to keep feature branches 🟢&nbsp;passing.
 
 </details>
 
