@@ -88,6 +88,19 @@ If you are using GitHub, you need to enable our GitHub App (on the [Pull Request
 
 </details>
 
+<details>
+<summary>How can I avoid re-accepting other’s changes when I update my branch?</summary>
+
+When merging, Chromatic has to compare two branches and pick a baseline for each story. By default, Chromatic chooses the baseline that was most recently accepted.
+
+Consider a busy repository where many people are working on the same UI. An issue occurs when you merge someone else’s changes into your branch (e.g., when you git pull) and they’ve touched the same stories as you.
+
+As Chromatic picks the latest accepted changes, that can often mean it picks your baselines instead of incoming baselines. This results in you having to re-accept the changes the other person made which you might not have the context on.
+
+While Chromatic’s default of choosing latest accepted baseline works for most teams, you may want to change the behavior for your team. If you want Chromatic to always prefer the “incoming” baselines to avoid re-accepting changes, please [email](mailto:support@chromatic.com) support and request the `preferMergedBaselines` feature be enabled for your account.
+
+</details>
+
 ### How are baselines calculated?
 
 In Chromatic, a build contains of a set of snapshots, each of which is a snapshot of a single story in a single mode. The baseline is the last accepted snapshot on a given branch. Each branch has builds associated with it, so to find the baseline, we need to traverse git history for that branch to find the “ancestor” build.
