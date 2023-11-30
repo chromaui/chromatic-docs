@@ -38,8 +38,6 @@ Baselines only update when changes are [accepted](/docs/test#verify-ui-changes) 
 
 Conceptually, this is akin to storing a snapshot file in your repository with each accepted change, though Chromatic does not actually do this.
 
-![Baselines](../../images/baselines.jpg)
-
 <details>
 <summary>What happens to baselines when there are multiple branches?</summary>
 
@@ -193,7 +191,9 @@ Similar to a code review, UI Review shows what changes will occur on the base br
 
 A changeset is a list of UI changes between two branches. [UI Review](/docs/review) compares the latest snapshots on a feature branch to the latest snapshots on the base branch (referenced as `merge base`) to generate a changeset.
 
-Unlike UI Tests, it does not use baselines to generate changesets so the list of changes may also show snapshots that were unreviewed in UI Tests. Conceptually, this is similar to what systems like GitHub do when showing you the code changes in a pull/merge request.
+Conceptually, this is similar to what systems like GitHub do when showing you the code changes in a pull/merge request.
+
+Unlike UI Tests, UI Review does not use baselines to generate changesets so the list of changes may also show snapshots that were unreviewed in UI Tests.
 
 <details>
 <summary>What if I skip running Chromatic on a base branch?</summary>
