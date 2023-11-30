@@ -43,6 +43,19 @@ When interaction tests fail, the story will be badged with “Failed test.” Yo
 
 </details>
 
+<details>
+<summary class="no-anchor">Why are my baselines inconsistent?</summary>
+
+Here are common reasons baselines can be inconsistent and how to fix them.
+
+If you’re not running Chromatic builds on your base branch (e.g., `main`) then Chromatic will not be able to track which baselines are associated with which commits and branches. We recommend that you always run Chromatic on your base branch to ensure reliable, consistent baselines.
+
+If you’re not auto-accepting changes on your base branch (e.g., `main`) then Chromatic can't enforce that your trunk branch is clean and passing. We recommend you add the [`--auto-accept-changes`](/docs/cli/#chromatic-options) flag when running on the trunk branch to ensure all incoming changes will be accepted as baselines.
+
+If you're squash and rebase-merging, Chromatic will not be able to track baselines to commits accurately because squashing removes commits from git history. We recommend you enable Chromatic's GitHub App to [auto-detect](/docs/branching-and-baselines/#how-do-baselines-get-preserved-during-squash-and-rebase-merging) squash and rebase merges which maintains your baselines.
+
+</details>
+
 ## Verify UI changes
 
 Chromatic detects UI changes but it’s still up to you to verify if changes are intentional. For intentional changes, you need to update the baseline so future tests will be compared to the _latest baseline_ for the story. If a change is unintentional it needs to be fixed.
