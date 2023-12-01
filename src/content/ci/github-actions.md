@@ -66,44 +66,19 @@ Read the official [GitHub secrets documentation](https://docs.github.com/en/free
 
 GitHub secrets work at a repository level. Forked repositories will not have access to them. If you want to run Chromatic on cross-repository (forked) PRs, you'll have to expose the `projectToken` by including it as plaintext in your `chromatic.yml` workflow file. Be aware that anyone with access to this file will be able to run Chromatic builds on your project, consuming your snapshot quota. You can reset the project token on the Manage > Configure screen at any time if you think it may have been compromised.
 
-## Available options
+### Pinning the CLI version
 
-Chromatic's GitHub Action includes additional options to customize your workflow. The table below lists what's currently available:
+While the CLI follows [semantic versioning](https://semver.org/), the GitHub Action typically auto-upgrades to the latest version. However, it's possible to pin the CLI version by changing the tag:
 
-<div class="table-scroll" style="overflow: scroll;">
+- To automatically receive all new updates, use `chromaui/action@latest` (the default).
+- To automatically receive new features and bugfixes but avoid breaking changes, use `chromaui/action@vX` where `vX` is a major version number (e.g. `v10`).
+- To not receive any updates but pin the action to a specific CLI version, use `chromaui/action@vX.Y.Z` where `vX.Y.Z` is a full semver version (e.g. `v10.0.0`).
 
-| Option                      | Description                                                                                                          | Type                  | Example value            | Default value           |
-| --------------------------- | -------------------------------------------------------------------------------------------------------------------- | --------------------- | ------------------------ | ----------------------- |
-| **autoAcceptChanges**       | Automatically accepts all changes in Chromatic.                                                                      | `string` or `boolean` | `"my-branch"` or `true`  | `false`                 |
-| **branchName**              | Override the detected Git branch name.                                                                               | `string`              | `"my-branch"`            |                         |
-| **buildScriptName**         | The script that builds your Storybook.                                                                               | `string`              | `"build:storybook"`      | `"build-storybook"`     |
-| **debug**                   | Output verbose debugging information.                                                                                | `boolean`             | `true`                   | `false`                 |
-| **diagnosticsFile**         | Write process context information to a JSON file.                                                                    | `string` or `boolean` | `"debug.json"` or `true` | `false`                 |
-| **dryRun**                  | Run without actually publishing to Chromatic.                                                                        | `boolean`             | `true`                   | `false`                 |
-| **exitOnceUploaded**        | Exit with status 0 (OK) once the build has been sent to Chromatic.                                                   | `string` or `boolean` | `"my-branch"` or `true`  | `false`                 |
-| **exitZeroOnChanges**       | Positive exit of action even when changes are detected.                                                              | `string` or `boolean` | `"my-branch"` or `true`  | `true`                  |
-| **externals**               | Disable [TurboSnap] when any of these files have changed since the baseline build.                                   | `string`              | `"my-folder/**"`         |                         |
-| **forceRebuild**            | Do not skip build when a rebuild is detected.                                                                        | `string` or `boolean` | `"my-branch"` or `true`  | `false`                 |
-| **ignoreLastBuildOnBranch** | Do not use the last build on this branch as a baseline if it is no longer in history (i.e., the branch was rebased). | `string`              | `"my-branch"`            |                         |
-| **junitReport**             | Write build results to a JUnit XML file.                                                                             | `string` or `boolean` | `"report.xml"` or `true` |                         |
-| **logFile**                 | Write CLI logs to a file.                                                                                            | `string` or `boolean` | `"logs.txt"` or `true`   | `false`                 |
-| **onlyChanged**             | Enables [TurboSnap]: Only run stories affected by files changed since the baseline build.                            | `boolean`             | `true`                   | `false`                 |
-| **onlyStoryFiles**          | Only run a single story or a subset of stories by their filename(s).                                                 | `string`              | `"src/ui/**"`            | `false`                 |
-| **onlyStoryNames**          | Only run a single story or a subset of stories by their name.                                                        | `string`              | `"Atoms/Button/*"`       | `false`                 |
-| **projectToken**            | Your Chromatic project token.                                                                                        | `string`              | `"chpt_b2ae83517a0a706"` |                         |
-| **repositorySlug**          | Override the repository slug.                                                                                        | `string`              | `"owner/repositoryName"` |                         |
-| **skip**                    | Skip Chromatic tests, but mark the commit as passing. It avoids blocking Pull Requests due to required merge checks. | `string` or `boolean` | `"my-branch"` or `true`  | `false`                 |
-| **storybookBaseDir**        | Relative path from repository root to Storybook project root.                                                        | `string`              | `"src/ui"`               |                         |
-| **storybookBuildDir**       | Provide a directory with your built Storybook; use it if you have already built it.                                  | `string`              | `"dist/storybook"`       | `"storybook-static"`    |
-| **storybookConfigDir**      | Relative path from where you run Chromatic to your Storybook config directory.                                       | `string`              | `"storybook-config"`     | `".storybook"`          |
-| **storybookLogFile**        | Write Storybook build logs to a file.                                                                                | `string` or `boolean` | `"sb.txt"` or `true`     | `"build-storybook.log"` |
-| **traceChanged**            | Print dependency trace for changed files to affected story files; set to "expanded" to list individual modules.      | `string` or `boolean` | `"expanded"` or `true`   | `false`                 |
-| **workingDir**              | Provide the location of Storybook's `package.json` if installed in a subdirectory (i.e., monorepos).                 | `string`              | `"my-folder"`            |                         |
-| **untraced**                | Disregard these files and their dependencies when tracing dependent stories for [TurboSnap].                         | `string`              | `"my-folder/\*\*"`       |                         |
-| **uploadMetadata**          | Upload Chromatic metadata files as part of the published Storybook.                                                  | `boolean`             | `true`                   | `false`                 |
-| **zip**                     | Publish your Storybook to Chromatic as a single zip file instead of individual content files.                        | `boolean`             | `true`                   | `false`                 |
+The full list of tags is [available on GitHub](https://github.com/chromaui/action/tags).
 
-</div>
+## Configuration
+
+Refer to our [CLI documentation](/docs/cli#configuration-options) for configuration options.
 
 ### Outputs
 
