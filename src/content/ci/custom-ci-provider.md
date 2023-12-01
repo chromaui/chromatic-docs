@@ -141,7 +141,7 @@ If you are using pull request statuses as required checks before merging, you ma
 
 <div class="aside">
 
-Read our official [CLI documentation](/docs/cli#chromatic-options).
+Read our official [CLI documentation](/docs/cli#configuration-options).
 
 </div>
 
@@ -181,7 +181,7 @@ If you’re using this functionality but notice the incoming changes were not ac
 
 <div class="aside">
 
-Read our official [CLI documentation](/docs/cli#chromatic-options).
+Read our official [CLI documentation](/docs/cli#configuration-options).
 
 </div>
 
@@ -207,7 +207,7 @@ chromatic --skip 'dependabot/**'
 
 <div class="aside">
 
-Read our official [CLI documentation](/docs/cli#chromatic-options).
+Read our official [CLI documentation](/docs/cli#configuration-options).
 
 </div>
 

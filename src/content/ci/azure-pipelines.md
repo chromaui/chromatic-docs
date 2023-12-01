@@ -291,7 +291,7 @@ stages:
 
 <div class="aside">
 
-Read our [CLI documentation](/docs/cli#chromatic-options).
+Read our [CLI documentation](/docs/cli#configuration-options).
 
 </div>
 
@@ -351,7 +351,7 @@ stages:
 
 <div class="aside">
 
-Read our [CLI documentation](/docs/cli#chromatic-options).
+Read our [CLI documentation](/docs/cli#configuration-options).
 
 </div>
 
@@ -386,7 +386,7 @@ stages:
 
 <div class="aside">
 
-Read our [CLI documentation](/docs/cli#chromatic-options).
+Read our [CLI documentation](/docs/cli#configuration-options).
 
 </div>
 
@@ -412,7 +412,7 @@ chromatic --skip 'renovate/**'
 
 <div class="aside">
 
-Read our [CLI documentation](/docs/cli#chromatic-options).
+Read our [CLI documentation](/docs/cli#configuration-options).
 
 </div>
 

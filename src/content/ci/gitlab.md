@@ -228,7 +228,7 @@ chromatic_publish:
 
 <div class="aside">
 
-Read our official [CLI documentation](/docs/cli#chromatic-options).
+Read our official [CLI documentation](/docs/cli#configuration-options).
 
 </div>
 
@@ -283,7 +283,7 @@ chromatic_publish:
 
 <div class="aside">
 
-Read our official [CLI documentation](/docs/cli#chromatic-options).
+Read our official [CLI documentation](/docs/cli#configuration-options).
 
 </div>
 
@@ -310,7 +310,7 @@ chromatic_publish:
 
 <div class="aside">
 
-Read our official [CLI documentation](/docs/cli#chromatic-options).
+Read our official [CLI documentation](/docs/cli#configuration-options).
 
 </div>
 
@@ -336,7 +336,7 @@ chromatic --skip 'renovate/**'
 
 <div class="aside">
 
-Read our official [CLI documentation](/docs/cli#chromatic-options).
+Read our official [CLI documentation](/docs/cli#configuration-options).
 
 </div>
 
