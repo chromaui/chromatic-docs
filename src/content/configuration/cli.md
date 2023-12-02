@@ -88,7 +88,7 @@ Flags must be passed as `--kebab-case` whereas options are `camelCase`. Flags ta
 
 ### Configuration options
 
-These options control how Chromatic behaves. See also [**branching docs**](/docs/branching-and-baselines) and [diagnosing issues](#diagnosing-issues) for when to use some of these flags. Some options are only available as a flag.
+These options control how Chromatic behaves. See also [**branching docs**](/docs/branching-and-baselines) and [diagnosing issues](#diagnosing-issues) for when to use some of these flags. Some options are only available as a flag or as an input to the GitHub Action.
 
 <div class="table-scroll" style="overflow: scroll">
 
