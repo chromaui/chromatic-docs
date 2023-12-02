@@ -9,56 +9,52 @@ sidebar: { order: 1, label: Github Actions }
 
 Chromatic provides a [GitHub Action](https://github.com/marketplace/actions/publish-to-chromatic) to help you automate your visual regression tests and publish Storybook.
 
-### Setup
+## Workflow setup
 
 In your `.github/workflows` directory, create a new file called `chromatic.yml` and add the following:
 
 ```yml
 # .github/workflows/chromatic.yml
 
-# Workflow name
 name: "Chromatic"
 
-# Event for the workflow
 on: push
 
-# List of jobs
 jobs:
-  chromatic-deployment:
-    # Operating System
+  chromatic:
     runs-on: ubuntu-latest
-    # Job steps
     steps:
-      - uses: actions/checkout@v1
-      - name: Install dependencies
-        # 👇 Install dependencies with the same package manager used in the project (replace it as needed), e.g. yarn, npm, pnpm
-        run: yarn
-        # 👇 Adds Chromatic as a step in the workflow
-      - name: Publish to Chromatic
-        uses: chromaui/action@v1
-        # Chromatic GitHub Action options
+      - name: Checkout code
+        uses: actions/checkout@v4
         with:
-          # 👇 Chromatic projectToken, refer to the manage page to obtain it.
+          fetch-depth: 0
+
+      - name: Install dependencies
+        # ⚠️ Pick one of these, matching the package manager for your project
+        run: npm ci
+        run: pnpm install
+        run: yarn install --immutable --immutable-cache --check-cache
+
+      - name: Publish to Chromatic
+        uses: chromaui/action@latest
+        with:
+          # ⚠️ Make sure to configure a `CHROMATIC_PROJECT_TOKEN` repository secret
           projectToken: ${{ secrets.CHROMATIC_PROJECT_TOKEN }}
 ```
 
-<div class="aside">
+This is a fairly basic setup. More advanced options are explained below.
 
-Please refer to our [support documentation](#support-for-actions-checkout-v2-and-above) if you're using `actions/checkout@v2` or above.
+### Project token secret
 
-</div>
+To securely provide the projectToken to Chromatic, you must configure a GitHub repository secret. First, find your project on Chromatic.com and go to **Manage** and then **Configure**. Copy the project token.
 
-For extra security, you'll need to configure secrets.
+![Chromatic Project Token configuration](../../images/configure-project-token.png)
 
-In a new browser window, navigate to your GitHub repository. Click the **Settings** tab, followed by **Secrets** and then **New secret**.
+On GitHub, go to the **Settings** tab on your repository. Under **Security**, find **Secrets and variables** and then **Actions**. Click **New repository secret**.
 
-![GitHub Secrets workflow](../../images/secrets-workflow-optimized.png)
+![GitHub Actions Secrets menu](../../images/github-actions-secrets.png)
 
-Fill in the form with the necessary information, as detailed below, and replace `Value` with your own Chromatic project token.
-
-![GitHub repository secret configured](../../images/github-repo-new-secret-filled.png)
-
-Finish by clicking the **Add secret** button.
+Set `CHROMATIC_PROJECT_TOKEN` as the **Name** and paste the project token as the **Secret**. Click **Add secret** to save the value.
 
 <div class="aside">
 
@@ -68,116 +64,44 @@ Read the official [GitHub secrets documentation](https://docs.github.com/en/free
 
 ### Forked repositories
 
-GitHub secrets work at a repository level. Forked repositories will not have access to them. If you want to run Chromatic on cross-repository (forked) PRs, you'll need to make the `project-token` public in your `package.json` as part of a script:
+GitHub secrets work at a repository level. Forked repositories will not have access to them. If you want to run Chromatic on cross-repository (forked) PRs, you'll have to expose the `projectToken` by including it as plaintext in your `chromatic.yml` workflow file. Be aware that anyone with access to this file will be able to run Chromatic builds on your project, consuming your snapshot quota. You can reset the project token on the Manage > Configure screen at any time if you think it may have been compromised.
 
-```json
-{
-  "scripts": {
-    "chromatic": "chromatic --project-token CHROMATIC_PROJECT_TOKEN"
-  }
-}
-```
+### Pinning the CLI version
 
-<div class="aside">
+While the CLI follows [semantic versioning](https://semver.org/), the GitHub Action typically auto-upgrades to the latest version. However, it's possible to pin the CLI version by changing the tag:
 
-ℹ️ Replace `CHROMATIC_PROJECT_TOKEN` with your own token obtained from Chromatic.
+- To automatically receive all new updates, use `chromaui/action@latest` (the default).
+- To automatically receive new features and bugfixes but avoid breaking changes, use `chromaui/action@vX` where `vX` is a major version number (e.g. `v10`).
+- To not receive any updates but pin the action to a specific CLI version, use `chromaui/action@vX.Y.Z` where `vX.Y.Z` is a full semver version (e.g. `v10.0.0`).
 
-</div>
+The full list of tags is [available on GitHub](https://github.com/chromaui/action/tags).
 
-Or you could disable Chromatic on pull requests from forked repositories.
+## Configuration
 
-### Available options
-
-Chromatic's GitHub Action includes additional options to customize your workflow. The table below lists what's currently available:
-
-<div class="table-scroll" style="overflow: scroll;">
-
-| Option                      | Description                                                                                                          | Type                  | Example value            | Default value        |
-| --------------------------- | -------------------------------------------------------------------------------------------------------------------- | --------------------- | ------------------------ | -------------------- |
-| **autoAcceptChanges**       | Automatically accepts all changes in Chromatic.                                                                      | `string` or `boolean` | `"my-branch"` or `true`  | `false`              |
-| **buildScriptName**         | The script that builds your Storybook.                                                                               | `string`              | `"build:storybook"`      | `"build-storybook"`  |
-| **debug**                   | Output verbose debugging information.                                                                                | `boolean`             | `true`                   | `false`              |
-| **diagnostics**             | Write process context information to `chromatic-diagnostics.json`.                                                   | `boolean`             | `true`                   | `false`              |
-| **dryRun**                  | Run without actually publishing to Chromatic.                                                                        | `boolean`             | `true`                   | `false`              |
-| **exitZeroOnChanges**       | Positive exit of action even when changes are detected.                                                              | `string` or `boolean` | `"my-branch"` or `true`  | `true`               |
-| **exitOnceUploaded**        | Exit with status 0 (OK) once the build has been sent to Chromatic.                                                   | `string` or `boolean` | `"my-branch"` or `true`  | `false`              |
-| **externals**               | Disable [TurboSnap](/docs/turbosnap) when any of these files have changed since the baseline build.                  | `string`              | `"my-folder/**"`         |                      |
-| **forceRebuild**            | Do not skip build when a rebuild is detected.                                                                        | `string` or `boolean` | `"my-branch"` or `true`  | `false`              |
-| **ignoreLastBuildOnBranch** | Do not use the last build on this branch as a baseline if it is no longer in history (i.e., the branch was rebased). | `string`              | `"my-branch"`            |                      |
-| **onlyChanged**             | Enables [TurboSnap](/docs/turbosnap): Only run stories affected by files changed since the baseline build.           | `boolean`             | `true`                   | `false`              |
-| **onlyStoryFiles**          | Only run a single story or a subset of stories by their filename(s).                                                 | `string`              | `"src/ui/**"`            | `false`              |
-| **onlyStoryNames**          | Only run a single story or a subset of stories by their name.                                                        | `string`              | `"Atoms/Button/*"`       | `false`              |
-| **projectToken**            | Your Chromatic project token.                                                                                        | `string`              | `"chpt_b2ae83517a0a706"` |                      |
-| **skip**                    | Skip Chromatic tests, but mark the commit as passing. It avoids blocking Pull Requests due to required merge checks. | `string` or `boolean` | `"my-branch"` or `true`  | `false`              |
-| **storybookBaseDir**        | Relative path from repository root to Storybook project root.                                                        | `string`              | `"src/ui"`               |                      |
-| **storybookBuildDir**       | Provide a directory with your built Storybook; use it if you have already built it.                                  | `string`              | `"dist/storybook"`       | `"storybook-static"` |
-| **storybookConfigDir**      | Relative path from where you run Chromatic to your Storybook config directory.                                       | `string`              | `"storybook-config"`     | `".storybook"`       |
-| **traceChanged**            | Print dependency trace for changed files to affected story files; set to "expanded" to list individual modules.      | `string` or `boolean` | `"expanded"` or `true`   | `false`              |
-| **workingDir**              | Provide the location of Storybook's `package.json` if installed in a subdirectory (i.e., monorepos).                 | `string`              | `"my-folder"`            |                      |
-| **untraced**                | Disregard these files and their dependencies when tracing dependent stories for [TurboSnap](/docs/turbosnap).        | `string`              | `"my-folder/\*\*"`       |                      |
-| **zip**                     | Publish your Storybook to Chromatic as a single zip file instead of individual content files.                        | `boolean`             | `true`                   | `false`              |
-
-</div>
+Refer to our [CLI documentation](/docs/cli#configuration-options) for configuration options.
 
 ### Outputs
 
 Chromatic's GitHub Action returns some information about your build in the form of outputs. The table below lists what's currently available:
 
-| Name                             | Type     | Description                                                                                                           |
-| -------------------------------- | -------- | --------------------------------------------------------------------------------------------------------------------- |
-| **url**                          | `string` | An alias for the build URL.<br/> `https://www.chromatic.com/build?appId=example-app-id&number=100`                    |
-| **buildUrl**                     | `string` | The build URL. <br/> `https://www.chromatic.com/build?appId=example-app-id&number=100`                                |
-| **storybookUrl**                 | `string` | The Storybook preview URL for your current branch / Pull Request.<b/> `https://main--example-app-id.chromatic.com`    |
-| **code**                         | `string` | The exit code for the current run of the Chromatic [CLI](/docs/cli#exit-codes).                                       |
-| **actualCaptureCount**           | `number` | The number of captured snapshots.                                                                                     |
-| **changeCount**                  | `number` | The number of tests with visual changes, including any inherited changes (e.g., due to [TurboSnap](/docs/turbosnap)). |
-| **componentCount**               | `number` | The number of components in the published Storybook.                                                                  |
-| **errorCount**                   | `number` | The number of tests with error(s), including any inherited errors (e.g., due to [TurboSnap](/docs/turbosnap)).        |
-| **inheritedCaptureCount**        | `number` | The number of inherited (not captured) snapshots (e.g., due to [TurboSnap](/docs/turbosnap)).                         |
-| **interactionTestFailuresCount** | `number` | The number of stories with interaction test failures.                                                                 |
-| **specCount**                    | `number` | The number of stories in the published Storybook.                                                                     |
-| **testCount**                    | `number` | The number of tests on the build.                                                                                     |
+| Name                             | Type     | Description                                                                                                         |
+| -------------------------------- | -------- | ------------------------------------------------------------------------------------------------------------------- |
+| **url**                          | `string` | An alias for the build URL.<br/> `https://www.chromatic.com/build?appId=example-app-id&number=100`                  |
+| **buildUrl**                     | `string` | The build URL. <br/> `https://www.chromatic.com/build?appId=example-app-id&number=100`                              |
+| **storybookUrl**                 | `string` | The Storybook preview URL for your current branch / Pull Request.<br/> `https://main--example-app-id.chromatic.com` |
+| **code**                         | `string` | The exit code for the current run of the Chromatic [CLI](/docs/cli#exit-codes).                                     |
+| **actualCaptureCount**           | `number` | The number of captured snapshots.                                                                                   |
+| **changeCount**                  | `number` | The number of tests with visual changes, including any inherited changes (e.g., due to [TurboSnap]).                |
+| **componentCount**               | `number` | The number of components in the published Storybook.                                                                |
+| **errorCount**                   | `number` | The number of tests with error(s), including any inherited errors (e.g., due to [TurboSnap]).                       |
+| **inheritedCaptureCount**        | `number` | The number of inherited (not captured) snapshots (e.g., due to [TurboSnap]).                                        |
+| **interactionTestFailuresCount** | `number` | The number of stories with interaction test failures.                                                               |
+| **specCount**                    | `number` | The number of stories in the published Storybook.                                                                   |
+| **testCount**                    | `number` | The number of tests on the build.                                                                                   |
 
 <div class="aside">
 
 Read the official [GitHub documentation](https://docs.github.com/en/actions/using-workflows/metadata-syntax-for-github-actions#outputs) for more information about outputs.
-
-</div>
-
-<h3 id="support-for-actions-checkout-v2-and-above">Support for <code>actions/checkout@v2</code> and above</h3>
-
-Chromatic supports the latest versions of the `actions/checkout` (i.e., versions 2 and 3). Both of them come with a caveat. They will only retrieve a single commit without any additional history. Chromatic needs the full Git history to keep track of changes in your repository.
-
-You'll need to make the following change to your workflow:
-
-```yml
-# .github/workflows/chromatic.yml
-
-# Other configuration required
-
-jobs:
-  chromatic-deployment:
-    steps:
-      # 👇 Version 2 of the action
-      - name: Checkout repository
-        uses: actions/checkout@v2
-        with:
-          fetch-depth: 0 # 👈 Required to retrieve git history
-      - name: Install dependencies
-        # 👇 Install dependencies with the same package manager used in the project (replace it as needed), e.g. yarn, npm, pnpm
-        run: yarn
-        # 👇 Adds Chromatic as a step in the workflow
-      - name: Publish to Chromatic
-        uses: chromaui/action@v1
-        # Options required to the GitHub Chromatic Action
-        with:
-          # 👇 Chromatic projectToken, refer to the manage page to obtain it.
-          projectToken: ${{ secrets.CHROMATIC_PROJECT_TOKEN }}
-```
-
-<div class="aside">
-
-Read the official [GitHub Actions documentation](https://github.com/actions/checkout).
 
 </div>
 
@@ -188,16 +112,13 @@ If you need to customize your workflow to run Chromatic on specific branches, ad
 ```yml
 # .github/workflows/chromatic.yml
 
-# Other necessary configuration
+name: "Chromatic"
 
 # 👇 Workflow event to trigger execution
 on:
   push:
     branches-ignore:
       - "example" # 👈 Excludes the example branch
-
-jobs:
-# The list of jobs and steps
 ```
 
 <div class="aside">
@@ -217,24 +138,15 @@ Chromatic is prepared to handle large file uploads (with a limit of 5000 files, 
 ```yml
 # .github/workflows/chromatic.yml
 
-# Other configuration required
-
-# List of jobs
 jobs:
-  chromatic-deployment:
-    # Operating System
-    runs-on: ubuntu-latest
-    # Job steps
+  chromatic:
     steps:
-      - uses: actions/checkout@v1
-        # 👇 Install dependencies with the same package manager used in the project (replace it as needed), e.g. yarn, npm, pnpm
-      - run: yarn
-        # 👇 Adds Chromatic as a step in the workflow
-      - uses: chromaui/action@v1
-        # Options required for Chromatic's GitHub Action
+      # ... other steps
+
+      - uses: chromaui/action@latest
         with:
           projectToken: ${{ secrets.CHROMATIC_PROJECT_TOKEN }}
-          # 👇Runs Chromatic with the option to compress the build output.
+          # 👇 Runs Chromatic with the option to compress the build output.
           zip: true
 ```
 
@@ -252,66 +164,44 @@ If you've already built your Storybook in a separate CI step, you can alternativ
 ```yml
 # .github/workflows/chromatic.yml
 
-# Workflow name
-name: "Chromatic"
-
-# Event for the workflow
-on: push
-
-# List of jobs
 jobs:
-  chromatic-deployment:
-    # Operating System
+  chromatic:
     runs-on: ubuntu-latest
-    # Job steps
     steps:
-      - uses: actions/checkout@v1
-      - name: Install dependencies
-        # 👇 Install dependencies with the same package manager used in the project (replace it as needed), e.g., yarn, npm, pnpm
-        run: yarn
-        # 👇 Adds Chromatic as a step in the workflow
+      # ... other steps
+
       - name: Publish Project 1 to Chromatic
-        uses: chromaui/action@v1
-        # Chromatic GitHub Action options
+        uses: chromaui/action@latest
         with:
           # 👇 Chromatic projectToken, refer to the manage page to obtain it.
           projectToken: ${{ secrets.CHROMATIC_PROJECT_TOKEN_1 }}
           workingDir: packages/project_1
+
       - name: Publish Project 2 to Chromatic
-        uses: chromaui/action@v1
-        # Chromatic GitHub Action options
+        uses: chromaui/action@latest
         with:
           # 👇 Chromatic projectToken, refer to the manage page to obtain it.
           projectToken: ${{ secrets.CHROMATIC_PROJECT_TOKEN_2 }}
           workingDir: packages/project_2
 ```
 
-If you want to run Chromatic in parallel for each subproject, you will need to create a workflow for each.
+If you want to run Chromatic in parallel for each subproject, you will need to create separate workflow files.
 
 ```yml
 # .github/workflows/chromatic-1.yml
 
-# Workflow name
+# 👇 Customize the workflow name
 name: "Chromatic 1"
 
-# Event for the workflow
 on: push
 
-# List of jobs
 jobs:
-  chromatic-deployment:
-    # Operating System
-    runs-on: ubuntu-latest
-    # Job steps
+  chromatic:
     steps:
-      - uses: actions/checkout@v1
-      - name: Install dependencies
-        # 👇 Install dependencies with the same package manager used in the project (replace it as needed), e.g. yarn, npm, pnpm
-        run: yarn
-        # 👇 Adds Chromatic as a step in the workflow
+      # ... other steps
+
       - name: Publish to Chromatic
-        uses: chromaui/action@v1
-        # Chromatic GitHub Action options
+        uses: chromaui/action@latest
         with:
           # 👇 Chromatic projectToken, refer to the manage page to obtain it.
           projectToken: ${{ secrets.CHROMATIC_PROJECT_TOKEN_1 }}
@@ -321,27 +211,19 @@ jobs:
 ```yml
 # .github/workflows/chromatic-2.yml
 
-# Workflow name
+# 👇 Customize the workflow name
 name: "Chromatic 2"
 
-# Event for the workflow
 on: push
 
 # List of jobs
 jobs:
-  chromatic-deployment:
-    # Operating System
-    runs-on: ubuntu-latest
-    # Job steps
+  chromatic:
     steps:
-      - uses: actions/checkout@v1
-      - name: Install dependencies
-        # 👇 Install dependencies with the same package manager used in the project (replace it as needed), e.g. yarn, npm, pnpm
-        run: yarn
-        # 👇 Adds Chromatic as a step in the workflow
+      # ... other steps
+
       - name: Publish to Chromatic
-        uses: chromaui/action@v1
-        # Chromatic GitHub Action options
+        uses: chromaui/action@latest
         with:
           # 👇 Chromatic projectToken, refer to the manage page to obtain it.
           projectToken: ${{ secrets.CHROMATIC_PROJECT_TOKEN_2 }}
@@ -350,22 +232,19 @@ jobs:
 
 ### Enable TurboSnap
 
-TurboSnap is an advanced Chromatic feature implemented to improve the build time for large projects, disabled by default once you add Chromatic to your CI environment. To enable it, you'll need to adjust your existing workflow and add the `onlyChanged` option to the workflow as follows:
+TurboSnap is an advanced Chromatic feature implemented to improve the build time for large projects. By default, it is disabled in your CI environment. To enable it, add the `onlyChanged` option to the workflow as follows:
 
 ```yml
 # .github/workflows/chromatic.yml
 
-# Other necessary configuration
-
 jobs:
-  chromatic-deployment:
+  chromatic:
     steps:
-      # 👇 Adds Chromatic as a step in the workflow
+      # ... other steps
+
       - name: Publish to Chromatic
-        uses: chromaui/action@v1
-        # Options required to the GitHub chromatic action
+        uses: chromaui/action@latest
         with:
-          # 👇 Chromatic projectToken, refer to the manage page to obtain it.
           projectToken: ${{ secrets.CHROMATIC_PROJECT_TOKEN }}
           onlyChanged: true # 👈 Required option to enable TurboSnap
 ```
@@ -386,14 +265,13 @@ By default, TurboSnap relies on Webpack's dependency graph to determine which fi
 # Other necessary configuration
 
 jobs:
-  chromatic-deployment:
+  chromatic:
     steps:
-      # 👇 Adds Chromatic as a step in the workflow
+      # ... other steps
+
       - name: Publish to Chromatic
-        uses: chromaui/action@v1
-        # Options required to the GitHub chromatic action
+        uses: chromaui/action@latest
         with:
-          # 👇 Chromatic projectToken, refer to the manage page to obtain it.
           projectToken: ${{ secrets.CHROMATIC_PROJECT_TOKEN }}
           onlyChanged: true # 👈 Required option to enable TurboSnap
           externals: packages/(icons/icons|tokens/src)/**
@@ -424,25 +302,16 @@ Environment variables are supported in Chromatic. You can use them to customize 
 ```yml
 # .github/workflows/chromatic.yml
 
-# Other configuration required
-
-# List of jobs
 jobs:
-  chromatic-deployment:
-    # Operating System
-    runs-on: ubuntu-latest
-    # Job steps
+  chromatic:
     steps:
-      - uses: actions/checkout@v1
-        # 👇 Install dependencies with the same package manager used in the project (replace it as needed), e.g. yarn, npm, pnpm
-      - run: yarn
-        # 👇 Adds Chromatic as a step in the workflow
-      - uses: chromaui/action@v1
-        # Options required for Chromatic's GitHub Action
+      # ... other steps
+
+      - uses: chromaui/action@latest
         with:
           projectToken: ${{ secrets.CHROMATIC_PROJECT_TOKEN }}
         env:
-          # 👇 Sets the environment variable
+          # 👇 Sets environment variables
           CHROMATIC_RETRIES: 5
           LOG_LEVEL: "error"
 ```
@@ -452,24 +321,16 @@ It comes with a caveat if you need to provide project-specific environment varia
 ```yml
 # .github/workflows/chromatic.yml
 
-# Other configuration required
-
-# List of jobs
 jobs:
-  chromatic-deployment:
-    # Operating System
-    runs-on: ubuntu-latest
-    # Job steps
+  chromatic:
     steps:
-      - uses: actions/checkout@v1
-      - run: yarn
-        #👇 Adds Chromatic as a step in the workflow
-      - uses: chromaui/action@v1
-        # Options required for Chromatic's GitHub Action
+      # ... other steps
+
+      - uses: chromaui/action@latest
         with:
           projectToken: ${{ secrets.CHROMATIC_PROJECT_TOKEN }}
         env:
-          #👇 Sets the environment variable
+          # 👇 Sets the environment variable
           STORYBOOK_SOME_ENV_VAR: ${{ secrets.STORYBOOK_SOME_ENV_VAR }}
 ```
 
@@ -501,14 +362,13 @@ If you are using pull request statuses as required checks before merging, you ma
 # Other necessary configuration
 
 jobs:
-  chromatic-deployment:
+  chromatic:
     steps:
-      # 👇 Adds Chromatic as a step in the workflow
+      # ... other steps
+
       - name: Publish to Chromatic
-        uses: chromaui/action@v1
-        # Options required to the GitHub chromatic action
+        uses: chromaui/action@latest
         with:
-          # 👇 Chromatic projectToken, refer to the manage page to obtain it.
           projectToken: ${{ secrets.CHROMATIC_PROJECT_TOKEN }}
           exitZeroOnChanges: true # 👈 Option to prevent the workflow from failing
 ```
@@ -523,7 +383,7 @@ When using `exitZeroOnChanges`, your workflow will still stop and fail if your S
 
 #### Re-run failed builds after verifying UI test results
 
-Builds that contain visual changes need to be [verified](/docs/test#verify-ui-changes). They will fail if you are not using the `exitZeroOnChanges` option. Once you accept all the changes, re-run the workflow, and the `chromatic-deployment` job will pass.
+Builds that contain visual changes need to be [verified](/docs/test#verify-ui-changes). They will fail if you are not using the `exitZeroOnChanges` option. Once you accept all the changes, re-run the workflow, and the `chromatic` job will pass.
 
 If you deny any change, you will need to make the necessary code changes to fix the test (and thus start a new run) to get Chromatic to pass again.
 
@@ -542,30 +402,16 @@ If you’re using this functionality but notice the incoming changes were not ac
 ```yml
 # .github/workflows/chromatic.yml
 
-# Other necessary configuration for the action
-
 jobs:
-  chromatic-deployment:
+  chromatic:
     steps:
-      # Other steps
+      # ... other steps
 
-      # 👇 Checks if the branch is not main and runs Chromatic
       - name: Publish to Chromatic
-        if: github.ref != 'refs/heads/main'
-        uses: chromaui/action@v1
-        # Required options for the Chromatic GitHub Action
+        uses: chromaui/action@latest
         with:
-          # 👇 Chromatic projectToken, refer to the manage page to obtain it.
           projectToken: ${{ secrets.CHROMATIC_PROJECT_TOKEN }}
-        # 👇 Checks if the branch is main and accepts all changes in Chromatic
-      - name: Publish to Chromatic and auto accept changes
-        if: github.ref == 'refs/heads/main'
-        uses: chromaui/action@v1
-        # Required options for the Chromatic GitHub Action
-        with:
-          # 👇 Chromatic projectToken, refer to the manage page to obtain it.
-          projectToken: ${{ secrets.CHROMATIC_PROJECT_TOKEN }}
-          autoAcceptChanges: true # 👈 Option to accept all changes
+          autoAcceptChanges: "main" # 👈 Option to accept all changes on main
 ```
 
 <div class="aside">
@@ -581,19 +427,16 @@ If you want to test the changes introduced by the rebased branch, you can adjust
 ```yml
 # .github/workflows/chromatic.yml
 
-# Other necessary configuration
-
 jobs:
-  chromatic-deployment:
+  chromatic:
     steps:
-      # 👇 Adds Chromatic as a step in the workflow
+      # ... other steps
+
       - name: Publish to Chromatic
-        uses: chromaui/action@v1
-        # Options required to the GitHub chromatic action
+        uses: chromaui/action@latest
         with:
-          # 👇 Chromatic projectToken, refer to the manage page to obtain it.
           projectToken: ${{ secrets.CHROMATIC_PROJECT_TOKEN }}
-          ignoreLastBuildOnBranch: "my-branch" # 👈 Option to skip the last build on target branch
+          ignoreLastBuildOnBranch: "my-branch" # 👈 Option to ignore the last build on target branch
 ```
 
 <div class="aside">
@@ -618,20 +461,32 @@ For instance, Dependabot automatically updates the dependencies of a project. Al
 
 To skip builds for `dependabot` branches, use the following:
 
-```shell
-chromatic --skip 'dependabot/**'
+```yml
+# .github/workflows/chromatic.yml
+
+jobs:
+  chromatic:
+    steps:
+      # ... other steps
+
+      - name: Publish to Chromatic
+        uses: chromaui/action@latest
+        with:
+          projectToken: ${{ secrets.CHROMATIC_PROJECT_TOKEN }}
+          skip: "dependabot/**" # 👈 Option to skip Chromatic for certain branches
+```
+
+To apply this to multiple branches, use an "extended glob". See [picomatch] for details.
+
+```yml
+skip: "@(renovate/**|dependabot/**)"
 ```
 
 <div class="aside">
 
-Read our official [CLI documentation](/docs/cli#chromatic-options).
+Read our official [CLI documentation](/docs/cli#configuration-options).
 
 </div>
 
-To apply this to multiple branches, use an "extended glob". See [picomatch] for details.
-
-```shell
-chromatic --skip '@(renovate/**|dependabot/**)'
-```
-
 [picomatch]: https://www.npmjs.com/package/picomatch#globbing-features
+[TurboSnap]: /docs/turbosnap

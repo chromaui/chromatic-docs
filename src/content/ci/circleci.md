@@ -214,7 +214,7 @@ jobs:
 
 <div class="aside">
 
-Read our [CLI documentation](/docs/cli#chromatic-options).
+Read our [CLI documentation](/docs/cli#configuration-options).
 
 </div>
 
@@ -255,7 +255,7 @@ fi
 
 <div class="aside">
 
-Read our [CLI documentation](/docs/cli#chromatic-options).
+Read our [CLI documentation](/docs/cli#configuration-options).
 
 </div>
 
@@ -304,7 +304,7 @@ chromatic --skip 'dependabot/**'
 
 <div class="aside">
 
-Read our [CLI documentation](/docs/cli#chromatic-options).
+Read our [CLI documentation](/docs/cli#configuration-options).
 
 </div>
 

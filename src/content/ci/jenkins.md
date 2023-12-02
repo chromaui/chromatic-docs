@@ -297,7 +297,7 @@ pipeline {
 
 <div class="aside">
 
-Read our official [CLI documentation](/docs/cli#chromatic-options).
+Read our official [CLI documentation](/docs/cli#configuration-options).
 
 </div>
 
@@ -362,7 +362,7 @@ pipeline {
 
 <div class="aside">
 
-Read our official [CLI documentation](/docs/cli#chromatic-options).
+Read our official [CLI documentation](/docs/cli#configuration-options).
 
 </div>
 
@@ -395,7 +395,7 @@ pipeline {
 
 <div class="aside">
 
-Read our official [CLI documentation](/docs/cli#chromatic-options).
+Read our official [CLI documentation](/docs/cli#configuration-options).
 
 </div>
 
@@ -421,7 +421,7 @@ chromatic --skip 'dependabot/**'
 
 <div class="aside">
 
-Read our official [CLI documentation](/docs/cli#chromatic-options).
+Read our official [CLI documentation](/docs/cli#configuration-options).
 
 </div>
 
