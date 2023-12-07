@@ -25,6 +25,7 @@ const configuration = await getCollection("configuration");
 const modes = await getCollection("modes");
 const snapshot = await getCollection("snapshot");
 const collaborate = await getCollection("collaborate");
+const plugins = await getCollection("plugins");
 const ci = await getCollection("ci");
 const account = await getCollection("account");
 
@@ -51,6 +52,10 @@ const navItems = [
   {
     title: "Collaborate",
     items: collaborate,
+  },
+  {
+    title: "Plugins",
+    items: plugins,
   },
   {
     title: "CI",

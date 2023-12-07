@@ -10,6 +10,7 @@ export async function getStaticPaths() {
   const modes = await getCollection("modes");
   const snapshot = await getCollection("snapshot");
   const collaborate = await getCollection("collaborate");
+  const plugins = await getCollection("plugins");
   const ci = await getCollection("ci");
   const account = await getCollection("account");
   const notInNavigation = await getCollection("notInNavigation");
@@ -19,6 +20,7 @@ export async function getStaticPaths() {
     ...modes,
     ...snapshot,
     ...collaborate,
+    ...plugins,
     ...ci,
     ...account,
     ...notInNavigation,
