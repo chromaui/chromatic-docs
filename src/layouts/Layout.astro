@@ -21,6 +21,7 @@ const {
 } = Astro.props;
 const { pathname } = Astro.url;
 const getStarted = await getCollection("getStarted");
+const workflow = await getCollection("workflow");
 const configuration = await getCollection("configuration");
 const modes = await getCollection("modes");
 const snapshot = await getCollection("snapshot");
@@ -37,6 +38,12 @@ const navItems = [
     defaultOpen: true,
     timeline: true,
   },
+  {
+    title: "Workflow",
+    items: workflow,
+    defaultOpen: true,
+    timeline: true,
+  },  
   {
     title: "Configuration",
     items: configuration,

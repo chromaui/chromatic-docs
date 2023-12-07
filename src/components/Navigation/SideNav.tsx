@@ -103,10 +103,12 @@ const SidebarContainer = styled.div`
 
 type Item = (
   | CollectionEntry<"getStarted">
+  | CollectionEntry<"workflow">
   | CollectionEntry<"configuration">
   | CollectionEntry<"modes">
   | CollectionEntry<"snapshot">
   | CollectionEntry<"collaborate">
+  | CollectionEntry<"plugins">
   | CollectionEntry<"ci">
   | CollectionEntry<"account">
 ) & {
