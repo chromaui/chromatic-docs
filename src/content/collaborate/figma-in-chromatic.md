@@ -39,4 +39,4 @@ You can zoom, pan, and even inspect the layers.
 
 ## Bring your stories into Figma with our plugin
 
-[Storybook Connect](/docs/figma-plugin) is a Figma plugin that allows you to link stories to Figma components. Once linked, you can view your live stories in the design workspace without leaving Figma.
+[Storybook Connect](/docs/figma-plugin) is a Figma plugin that allows you view your live stories in your design workspace. It works bi-directionally with Figma in Chromatic. Any connection you make between story and component will be visible in the plugin and in Chromatic.
