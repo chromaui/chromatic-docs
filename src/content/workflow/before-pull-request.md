@@ -5,30 +5,26 @@ description: How to prepare a pull request
 sidebar: { order: 1 }
 ---
 
-# Before a pull request
+<!-- # The Chromatic workflow guide -->
+<!-- ![Chromatic workflow](../../images/chromatic-workflow.png) -->
 
-Chromatic helps you prepare a pull request by verifying the appearance and functionality of a UI in different browsers, viewports, themes, and global settings.
+# Before pull request
 
-TK new diagram for before PR workflow
+This guide walks through the recommended Chromatic workflow. Since Chromatic automatically tests your stories, to get the most out of Chromatic let's take a look at how to best use Storybook.
 
-### Build in Storybook, Playwright, or Cypress
+### Develop UIs with Storybook
 
-Chromatic reuses your existing Storybook stories and Playwright or Cypress end-to-end tests for visual testing.
+Every team is different and so is their workflow. Storybook is designed to be incrementally adoptable. Teams can start using Storybook to develop parts of their UI and expand as needed.
 
-![Chromatic workflow](../../images/chromatic-workflow.png)
+Most teams choose a [Component-Driven](https://componentdriven.org/) workflow. UIs are developed in isolation from the “bottom up” starting with basic components then progressively combined to assemble pages.
 
-In Storybook, developers build UI components in isolation using [component-driven development](https://www.componentdriven.org/), a process for building UIs from the “bottom up,” starting with atomic components and ending with pages. This methodology allows you to naturally capture all component states and variations as stories as you flesh out the UI.
-
-Chromatic uses these stories as visual test cases automatically.
-
-TK Describe building from the component up
-
-— show continuum of component to page » storybook helps you build
-
-- continuum of states for each UI » viewports, themes, browsers, locales, media features, etc.
+1. Build each component in isolation and write stories for its variations.
+2. Compose small components together to enable more complex functionality.
+3. Assemble pages by combining composite components.
+4. Integrate pages into your project by hooking up data and business logic.
 
 <details>
-<summary>Playwright and Cypress integrations</summary>
+<summary>Also integrates with Playwright and Cypress</summary>
 
 Developers test user flows end-to-end by navigating between pages with Playwright or Cypress. This methodology allows you to simulate how users behave. Chromatic uses these E2E tests as visual tests cases by automatically snapshotting key moments in the test.
 
@@ -36,6 +32,24 @@ Developers test user flows end-to-end by navigating between pages with Playwrigh
 [TK Learn how to setup Cypress](/docs/)
 
 </details>
+
+### Analyze each story in multiple dimensions
+
+Once key UI states are captured as stories, verify how each story renders in different environments and settings. This simulates how real users would experience the UI.
+
+| Dimension      | What to test                              |
+| -------------- | ----------------------------------------- |
+| Browsers       | Chrome, Safari, Edge, Firefox             |
+| Viewports      | Mobile, tablet, desktop                   |
+| Themes         | Dark mode, light mode, and custom themes  |
+| Locales        | Languages, text direction                 |
+| Media features | `forced-colors`, `prefers-reduced-motion` |
+
+### Create a library of test cases
+
+In the steps above, you developed UI and manually verified each story's appearance and functionality. Chromatic helps you automate this manual process. It creates a library of test cases from your stories. Every time you push code, the library is tested for changes.
+
+![Component library](../../images/library.png)
 
 ---
 

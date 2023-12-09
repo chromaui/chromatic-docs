@@ -1,40 +1,60 @@
 ---
 layout: "../../layouts/Layout.astro"
 title: During pull request
-description: How to review a pull request
+description: How Chromatic helps you test and review pull requests
 sidebar: { order: 6 }
 ---
 
-# During pull request
+# During pull request workflow
 
 During the pull request, Chromatic runs in CI whenever you push code to prevent bugs and streamline stakeholder sign off. There are two key workflows:
 
 ![Chromatic workflow](../../images/chromatic-during-pull-request.jpg)
 
-### 1. UI Tests catch bugs automatically
+### UI Tests catch bugs automatically
 
-It's easy for bugs to sneak into user interfaces. For example, a small CSS tweak can cause a component or one of its states to break. What's more, a bug can cascade to other components and pages causing them to break too.
+[UI Tests](/docs/test) prevent visual and functional bugs. They're similar to other types of testing (unit, E2E, etc.), in that they enable developers to catch and fix regressions. UI Tests run in CI automatically when you push code so you can see the impact of code changes on the user interface while you develop.
 
-![visual bugs are inevitable](../../images/visual-bugs.gif)
+| UI Tests     | What dimensions are tested                                                                                                                                       |
+| ------------ | ---------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Visual       | [Browsers](/docs/browsers), [Viewports](/docs/viewports), [Themes](/docs/themes), [Locales](/docs/custom-decorators), [CSS Media Features](/docs/media-features) |
+| Interactions | [Click, type, hover](docs/interactions)                                                                                                                          |
 
-Chromatic’s [UI Tests](/docs/test) are designed to prevent visual and functional bugs. UI Tests are similar to other types of testing (unit, E2E, etc.), in that they enable developers to catch and fix regressions before opening a pull request. They run in CI automatically when you push code so you can see the visual impact of code changes while you develop.
+![Build with unreviewed tests](../../images/build-test-unreviewed.png)
 
-TK image of comparison
+UI Tests compare the snapshot of a story with the previously accepted [baseline](/docs/branching-and-baselines#whats-a-baseline) in your git history (typically on the same branch). If there are changes, you'll get a diff of the changes. If the changes are intentional, press the accept button to update the baselines. Once all changes are approved, UI Tests will pass signaling that it's “ready” for review from stakeholders.
 
-UI Tests compare the snapshot of a story with the previously accepted [baseline](/docs/branching-and-baselines#whats-a-baseline) in your git history (typically on the same branch). If there are changes, you'll get a diff of the changes. If the changes are intentional, press the accept button to update the baselines. Once all changes are approved, the UI is considered “ready” for review from stakeholders.
+![Snapshot that’s unreviewed](../../images/snapshot-unreviewed.png)
 
-### 2. UI Review to get team sign off
+### UI Review to get team sign off
 
-![Assign reviewers to get feedback](../../images/ui-review.png)
+After UI Tests pass, the workflow progresses to UI Review. In tools like GitHub, GitLab, and Bitbucket you assign other developers to review the code for a pull request. Chromatic complements this workflow by allowing you to assign designers, product managers, and other stakeholders to review UI changes in that pull request.
 
-In tools like GitHub, GitLab, and Bitbucket you assign other devs to review the code for a pull request. Chromatic complements this workflow by allowing you to assign designers, product managers, and other stakeholders to review UI changes in that pull request.
+<div class="aside">
+
+UI Review is different than UI Tests because it shows you what will change on the base branch when you merge a pull request. This is identical to the difference between code review and testing in CI.
+
+</div>
+
+![Activity tab](../../images/prscreen-activity.png)
+
+<details>
+<summary>How to assign designers and product managers to review?</summary>
+
+Click on Assign Reviewers on the review's Activity tab to choose reviewers from the project’s collaborators. Reviewers will be emailed a link to the review page to begin their review.
+
+![assign reviewers by picking from your list of collaborators](../../images/prscreen-assign-reviewers.png)
+
+</details>
 
 UI Review is the opportunity to discuss changes and get final team sign off. In the past, teams had to manually click through the UI to review all possible variations. Chromatic's superpower is that it knows exactly which stories have changed. It generates a changeset for reviewers that shows precisely what they need to sign off on.
 
-<details>
-<summary>Shouldn't the edge cases be solved earlier in the product or design spec?</summary>
+![Changeset tab](../../images/prscreen-changes.png)
 
-Developers often run into edge cases or technical hurdles that're impossible for teams to predict ahead of time. UI Review acknowledges that even the best plans lack fidelity, and that UI can change between planning and shipping.
+<details>
+<summary>Why UI Review when all the edge cases should be addressed in the spec?</summary>
+
+UI Review acknowledges that even the best laid plans lack fidelity. Developers often run into edge cases or technical hurdles that are impossible for teams to predict ahead of time.
 
 </details>
 
@@ -47,41 +67,20 @@ Invite reviewers by going to the project's Manage page » Collaborate tab. You c
 
 </details>
 
-<details>
-<summary>How to assign designers and product managers to review?</summary>
+Reviewers leave feedback and request changes by starting discussions. Chromatic helps developers gather discussions in one place that every participant can follow. Resolve a discussion to signal that the work is done. Once all discussions are resolved and stakeholders approve, the UI Review will pass.
 
-Use the Assign Reviewers link on the PR Activity page to choose reviewers from the project’s collaborators. Reviewers will be emailed a link to the PR screen to begin their review.
+![UI Checklist](../../images/prscreen-ui-checklist.png)
 
-![assign reviewers by picking from your list of collaborators](../../images/prscreen-assign-reviewers.png)
+### Merge with confidence when pull request checks pass
 
-</details>
-
-<details>
-<summary>How do I track change requests?</summary>
-
-Reviewers can request changes to the implementation via the comment box beneath each story. These get aggregated at the bottom of the PR screen’s activity tab. Developers can see a [list of tasks](/docs/review#ui-checklist) which must be completed before UI is ready to merge.
-
-![UI Review checklist](../../images/prscreen-ui-checklist.png)
-
-</details>
-
-#### Publish and share Storybook for review
-
-During the build process, Chromatic builds and publishes your Storybook to its secure workspace (CDN) accessible to your entire team. It's a shared reference point for your entire team, making cross-discipline collaboration easier. This keeps everyone in sync with the latest UI implementation. No fussing with dependencies, git, or local dev environments.
-
-- [Share permalinks with collaborators](/docs/permalinks#share-permalinks-with-collaborators)
-- [Custom domain for published Storybook](/docs/permalinks#custom-domain-for-your-storybook)
-
-### Merge with confidence with PR checks
-
-Chromatic will badge PRs to notify you about publish, test, and review results. Once all checks are complete, you’re ready to merge!
+The status of UI Tests and UI Review appears on your pull request as a check. This keeps your team abreast of any changes to the user interface that need attention. When all checks pass, you’re ready to merge!
 
 ![PR badges](../../images/prbadges.png)
 
 ---
 
-## How to get stakeholders involved in review
+## Next: How to get stakeholders involved in review
 
-See how Chromatic works from the reviewer point of view. See how easy it is to keep teams in the loop. Learn about comments, notifications, and integrations with tools like Figma or Slack.
+See how Chromatic works from the reviewer point of view. Learn about comments, notifications, and integrations with tools like Figma or Slack.
 
-<a class="btn primary round" href="/docs/during-pull-request">Read next chapter</a>
+<a class="btn primary round" href="/docs/quickstart-for-reviewers">Read next chapter</a>
