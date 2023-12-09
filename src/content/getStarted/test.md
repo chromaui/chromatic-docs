@@ -115,11 +115,11 @@ Yes, [rerun the latest build](/docs/snapshots#rerun-builds-to-retake-snapshots) 
 </details>
 
 <details>
-<summary>How are changes on builds different from those listed on the PR Screen ‘Changeset’ tab?</summary>
+<summary>How are changes on builds different from those listed on the Review page ‘Changeset’ tab?</summary>
 
 UI tests (shown on the build screen) detect changes between builds, specifically, between the last accepted baseline and the latest build. This is useful for detecting defects during the development process and when merging to the main branch to ship.
 
-In contrast, the PR screen shows the changeset between the latest commit on the PR branch (head) and the ‘merge base’ (base). Think of it like code review, but for UI.
+In contrast, the Review page shows the changeset between the latest commit on the PR branch (head) and the ‘merge base’ (base). Think of it like code review, but for UI.
 
 </details>
 
