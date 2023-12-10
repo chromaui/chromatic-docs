@@ -7,6 +7,18 @@ sidebar: { order: 6 }
 
 # Quickstart for reviewers
 
+Before pull request
+
+- Published Storybook shows you what's in production, quick reference, permalinks + custom domains
+- Use Figma plugin to reference UI as you design
+- Auto-documentation that's always up to date
+- Embed stories in Notion and other oEmbed integrators
+
+During pull request
+
+- UI Tests made for other frontend developers: Discussions + mentions, Pinned comments, Slack notifications, email notifications, PR checks, custom webhooks
+- UI Review made for designers and PMs: Changesets, Assign reviewers, default reviewers, roles, Discussions + mentions + resolve,
+
 Chromatic automates UI development so you can build more features, faster, and with less manual work. Here’s the recommended workflow that takes full advantage of everything we have to offer.
 
 ![Chromatic workflow](../../images/chromatic-workflow.png)
