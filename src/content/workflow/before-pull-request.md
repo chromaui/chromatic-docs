@@ -10,13 +10,19 @@ sidebar: { order: 1 }
 
 # Before pull request
 
-This guide walks through the recommended Chromatic workflow. Since Chromatic automatically tests your stories, to get the most out of Chromatic let's take a look at how to best use Storybook.
+Chromatic automates UI development so you can build features faster, with less manual work. Follow along with our recommended workflow to see how Chromatic accelerates your pull request process.
 
 ### Develop UIs with Storybook
 
-Every team is different and so is their workflow. Storybook is designed to be incrementally adoptable. Teams can start using Storybook to develop parts of their UI and expand as needed.
+Chromatic automatically turns stories into tests. So the more coverage of your UI with stories, the more time you'll save your team with our automations.
 
-Most teams choose a [Component-Driven](https://componentdriven.org/) workflow. UIs are developed in isolation from the “bottom up” starting with basic components then progressively combined to assemble pages.
+If you're just getting started with Storybook, we recommend you incrementally adopt Storybook to help develop discrete parts of your UI and expand usage from there. For example, use Storybook to develop a new feature or update an existing feature. This gives you the chance to write your first stories and see how it fits into your workflow.
+
+![Develop with Storybook](../../images/interaction-test-storybook-passed-test.png)
+
+If you're a seasoned Storybook user, most teams choose a [Component-Driven](https://componentdriven.org/) approach to UI development. UIs are built from the “bottom up” starting with basic components that are progressively combined to assemble pages.
+
+![Component-Driven UI](../../images/component-driven.jpg)
 
 1. Build each component in isolation and write stories for its variations.
 2. Compose small components together to enable more complex functionality.
@@ -24,7 +30,7 @@ Most teams choose a [Component-Driven](https://componentdriven.org/) workflow. U
 4. Integrate pages into your project by hooking up data and business logic.
 
 <details>
-<summary>Also integrates with Playwright and Cypress</summary>
+<summary>Chromatic also integrates with Playwright and Cypress</summary>
 
 Developers test user flows end-to-end by navigating between pages with Playwright or Cypress. This methodology allows you to simulate how users behave. Chromatic uses these E2E tests as visual tests cases by automatically snapshotting key moments in the test.
 
@@ -33,21 +39,21 @@ Developers test user flows end-to-end by navigating between pages with Playwrigh
 
 </details>
 
-### Analyze each story in multiple dimensions
+### Verify each story in multiple dimensions
 
-Once key UI states are captured as stories, verify how each story renders in different environments and settings. This simulates how real users would experience the UI.
+Once key UI states are captured as stories, verify how each story renders in different environments and with different user preferences. This simulates how real users would experience the UI.
 
-| Dimension      | What to test                              |
-| -------------- | ----------------------------------------- |
-| Browsers       | Chrome, Safari, Edge, Firefox             |
-| Viewports      | Mobile, tablet, desktop                   |
-| Themes         | Dark mode, light mode, and custom themes  |
-| Locales        | Languages, text direction                 |
-| Media features | `forced-colors`, `prefers-reduced-motion` |
+| Dimension                              | What to test                              |
+| -------------------------------------- | ----------------------------------------- |
+| [Browsers](/docs/browsers)             | Chrome, Safari, Edge, Firefox             |
+| [Viewports](/docs/viewports)           | Mobile, tablet, desktop                   |
+| [Themes](/docs/themes)                 | Dark mode, light mode, and custom themes  |
+| [Locales](/docs/custom-decorators)     | Languages, text direction                 |
+| [Media features](/docs/media-features) | `forced-colors`, `prefers-reduced-motion` |
 
 ### Create a library of test cases
 
-In the steps above, you developed UI and manually verified each story's appearance and functionality. Chromatic helps you automate this manual process. It creates a library of test cases from your stories. Every time you push code, the library is tested for changes.
+In the steps above, you developed UI and manually verified each story's appearance and functionality. Chromatic is designed to automate this manual verification process by creating a library of test cases from your stories. This way, you don't need to go back to each story by hand to check that it looks correct. Instead the library is automatically tested for changes every time you push code.
 
 ![Component library](../../images/library.png)
 

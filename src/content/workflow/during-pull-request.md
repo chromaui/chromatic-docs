@@ -7,7 +7,7 @@ sidebar: { order: 6 }
 
 # During pull request workflow
 
-During the pull request, Chromatic runs in CI whenever you push code to prevent bugs and streamline stakeholder sign off. There are two key workflows:
+During the pull request, Chromatic runs in CI when you push code to prevent bugs and streamline stakeholder sign off. There are two key workflows UI Tests and UI Review.
 
 ![Chromatic workflow](../../images/chromatic-during-pull-request.jpg)
 
