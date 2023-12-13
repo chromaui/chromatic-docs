@@ -7,45 +7,64 @@ sidebar: { order: 6 }
 
 # Quickstart for reviewers
 
-Before pull request
+Chromatic is made for designers, product managers, and other stakeholders to collaborate with developers.
 
-- Published Storybook shows you what's in production, quick reference, permalinks + custom domains
-- Use Figma plugin to reference UI as you design
-- Auto-documentation that's always up to date
-- Embed stories in Notion and other oEmbed integrators
+## Before pull request
 
-During pull request
+Chromatic serves as a library that maps every part of your UI. Use it as a shared reference point to ensure that everyone is referencing the latest UI as they design and spec products.
 
-- UI Tests made for other frontend developers: Discussions + mentions, Pinned comments, Slack notifications, email notifications, PR checks, custom webhooks
-- UI Review made for designers and PMs: Changesets, Assign reviewers, default reviewers, roles, Discussions + mentions + resolve,
+#### Keep everyone in sync with what's in production
 
-Chromatic automates UI development so you can build more features, faster, and with less manual work. Here’s the recommended workflow that takes full advantage of everything we have to offer.
-
-![Chromatic workflow](../../images/chromatic-workflow.png)
-
-### 6. Publish and share your Storybook
-
-During the build process, Chromatic builds and publishes your Storybook to its secure workspace (CDN) accessible to your entire team. That keeps everyone in sync with the latest UI implementation. No fussing with dependencies, git, or local dev environments.
+During the design and product process, you often need to reference what's in production. But it's time consuming to navigate to the right page in the right state. Chromatic builds and publishes your Storybook online whenever you push code. This keeps everyone in sync with the latest UI implementation. No fussing with dependencies, git, or local dev environments.
 
 - [Share permalinks with collaborators](/docs/permalinks#share-permalinks-with-collaborators)
 - [Custom domain for your Storybook](/docs/permalinks#custom-domain-for-your-storybook)
 
-The published Storybook is a shared reference point for your entire team, making cross-discipline collaboration easier.
+#### Integrate with Figma to reference the real UI as you design
 
-#### Document your components
-
-Storybook can automatically [generate UI documentation](https://storybook.js.org/docs/react/writing-docs/introduction) for components. These pages will contain stories rendered as live examples, as well as an interactive "args" table that showcases the component API. Customize the generated docs with additional prose. With Chromatic, you'll get shareable docs URL for your team to reference.
-
-#### Connect Storybook and Figma
-
-[Storybook Connect](/docs/figma-plugin) is a Figma plugin that allows you to link stories to Figma components. Once linked, you can view your live stories in the design workspace without leaving Figma.
+Design and development naturally diverge. During the design process, you need to double-check what's in production to ensure designs are accurate. Chromatic's [Storybook Connect](/docs/figma-plugin) plugin allows you to link stories to Figma components. Once linked, you can view your live stories in the design workspace without ever leaving Figma.
 
 <video autoPlay muted playsInline loop width="560px" class="center" style="pointer-events: none;" title="Embedded story and design side-by-side">
   <source src="/docs/assets/figma-plugin-open-story.mp4" type="video/mp4" />
 </video>
 
-#### Embed stories to showcase your work
+#### Documentation that's always up to date
 
-[Embed](/docs/embed#embed-stories) stories in Medium articles, Notion pages, and countless other platforms that support oEmbed. You get to interact with live rendered components instead of static images.
+Documentatation goes out of date quickly. Storybook and Chromatic work together to automatically [generate UI documentation](https://storybook.js.org/docs/writing-docs/introduction) and publish it to shareable URL. This documentation contains stories rendered as live examples, as well as an interactive component API explorer. Customize the generated docs with additional prose.
+
+#### Embed stories in Notion and other oEmbed services
+
+During the specification process, you often need to describe complex UI behaviors that words can't do justice. [Embed](/docs/embed#embed-stories) UI from Storybook directly into Notion, Medium, and countless other platforms that support oEmbed. This way your readers can interact with live, rendered components that easily show behavior.
 
 ---
+
+## During pull request
+
+During the pull request, stakeholders go to Chromatic at different points to verify test failures and discuss implementation details.
+
+### UI Tests are made for other frontend developers
+
+[UI Tests](/docs/test) check for bugs in appearance and functionality. These serve a similar purpose as unit tests, but for UI. The difference with Chromatic is that the bug finding and fixing process is collaborative. The key features for reviewers are:
+
+- Share links to failed tests
+- Create discussions and mention stakeholders
+- Pin comments beside affected areas
+- Pull request checks
+- Slack and email notifications
+- Customizable webhooks for workflow automation
+
+<video autoPlay muted playsInline loop width="560px" class="center" style="pointer-events: none;">
+  <source src="/docs/assets/testscreen-comment-pinned-optimized.mp4" type="video/mp4" />
+</video>
+
+### UI Review is made for designers and product managers
+
+[UI Review](/docs/review) is where you discuss implementation details with teammates and get their explicit sign off. Chromatic works behind the scenes to make the review process easy by organizing change requests, notifying reviewers, and syncing with your Git provider. The key features for reviewers are:
+
+- Generate changesets to focus reviewer attention on only what changed
+- Assign reviewers manually or automatically
+- Specify fine-grained roles for each stakeholder
+- Create discussions and mention stakeholders
+- Resolve discussions to show that feedback was addressed
+
+![UI Checklist](../../images/prscreen-ui-checklist.png)

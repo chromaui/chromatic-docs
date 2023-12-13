@@ -10,13 +10,13 @@ sidebar: { order: 1 }
 
 # Before pull request
 
-Chromatic automates UI development so you can build features faster, with less manual work. Follow along with our recommended workflow to see how Chromatic accelerates your pull request process.
+Chromatic automates UI development so you can build features faster, with less manual work. Follow along with our recommended workflow to see how fits into your pull request process.
 
 ### Develop UIs with Storybook
 
 Chromatic automatically turns stories into tests. So the more coverage of your UI with stories, the more time you'll save your team with our automations.
 
-If you're just getting started with Storybook, we recommend you incrementally adopt Storybook to help develop discrete parts of your UI and expand usage from there. For example, use Storybook to develop a new feature or update an existing feature. This gives you the chance to write your first stories and see how it fits into your workflow.
+If you're just getting started with Storybook, we recommend you incrementally adopt Storybook to help develop discrete parts of your UI and then expand usage from there. For example, start by using Storybook to develop a new feature. This gives you the chance to write your first stories and see how it fits into your workflow.
 
 ![Develop with Storybook](../../images/interaction-test-storybook-passed-test.png)
 
@@ -41,7 +41,7 @@ Developers test user flows end-to-end by navigating between pages with Playwrigh
 
 ### Verify each story in multiple dimensions
 
-Once key UI states are captured as stories, verify how each story renders in different environments and with different user preferences. This simulates how real users would experience the UI.
+Once key UI states are captured as stories, verify how each story renders in different environments and with different user preferences to see how real users experience the UI.
 
 | Dimension                              | What to test                              |
 | -------------------------------------- | ----------------------------------------- |
@@ -53,7 +53,7 @@ Once key UI states are captured as stories, verify how each story renders in dif
 
 ### Create a library of test cases
 
-In the steps above, you developed UI and manually verified each story's appearance and functionality. Chromatic is designed to automate this manual verification process by creating a library of test cases from your stories. This way, you don't need to go back to each story by hand to check that it looks correct. Instead the library is automatically tested for changes every time you push code.
+In the steps above, you developed UI and manually verified each story's appearance and functionality. Chromatic is designed to automate this manual verification process by creating a library of test cases from your stories. Once you create a story, you don't need to go back to check each story by hand to confirm that it looks correct. Instead, your library is automatically tested for changes every time you push code.
 
 ![Component library](../../images/library.png)
 
