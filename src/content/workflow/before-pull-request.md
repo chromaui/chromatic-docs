@@ -32,7 +32,7 @@ If you're a seasoned Storybook user, most teams choose a [Component-Driven](http
 <details>
 <summary>Chromatic also integrates with Playwright and Cypress</summary>
 
-Developers test user flows end-to-end by navigating between pages with Playwright or Cypress. This methodology allows you to simulate how users behave. Chromatic uses these E2E tests as visual tests cases by automatically snapshotting key moments in the test.
+Developers test user flows end-to-end by navigating between pages with Playwright or Cypress. This methodology allows you to simulate how users behave. Chromatic uses these E2E tests as visual test cases by automatically snapshotting key moments in the test.
 
 [TK Learn how to setup Playwright](/docs/)
 [TK Learn how to setup Cypress](/docs/)
