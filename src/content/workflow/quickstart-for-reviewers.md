@@ -1,11 +1,11 @@
 ---
 layout: "../../layouts/Layout.astro"
-title: Quickstart for reviewers
+title: Guide for reviewers
 description: How to use Chromatic for designers and product managers
 sidebar: { order: 6 }
 ---
 
-# Quickstart for reviewers
+# Guide for reviewers
 
 Chromatic is made for designers, product managers, and other stakeholders to collaborate with developers.
 
@@ -33,7 +33,7 @@ During the specification process, you often need to describe complex UI behavior
 
 ## Chromatic to track changes and sign-off
 
-Designers and product managers enter the Chromatic workflow for [UI Review](/docs/review), a purpose-built tool for discussing implementation details with teammates to get sign-off. Chromatic works behind the scenes to make the review process easy by organizing change requests, notifying reviewers, and syncing with your Git provider. The key features for reviewers are:
+[UI Review](/docs/review) is made for designers and product managers. It's a purpose-built tool for discussing implementation details and tracking sign-offs. Chromatic works behind the scenes to make the review process easy for teams by organizing change requests, notifying participants, and syncing with Git providers for pull requests checks. The key features for reviewers are:
 
 - Generate changesets to focus reviewer attention on only what changed
 - Assign reviewers manually or automatically

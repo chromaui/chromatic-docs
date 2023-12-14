@@ -83,4 +83,4 @@ The status of UI Tests and UI Review appears on your pull request as a check. Th
 
 See how Chromatic works from the reviewer point of view. Learn about comments, notifications, and integrations with tools like Figma and Slack.
 
-<a class="btn primary round" href="/docs/quickstart-for-reviewers">Read next chapter</a>
+<a class="btn primary round" href="/docs/guide-for-reviewers">Read next chapter</a>
