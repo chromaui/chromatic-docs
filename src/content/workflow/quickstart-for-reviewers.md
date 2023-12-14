@@ -30,7 +30,7 @@ Design and development naturally diverge. During the design process, you need to
 
 #### Documentation that's always up to date
 
-Documentatation goes out of date quickly. Storybook and Chromatic work together to automatically [generate UI documentation](https://storybook.js.org/docs/writing-docs/introduction) and publish it to shareable URL. This documentation contains stories rendered as live examples, as well as an interactive component API explorer. Customize the generated docs with additional prose.
+Documentatation goes out of date quickly. Storybook and Chromatic work together to automatically [generate UI documentation](https://storybook.js.org/docs/writing-docs/introduction) and publish it to a shareable URL. This documentation contains stories rendered as live examples, as well as an interactive component API explorer. Customize the generated docs with additional prose.
 
 #### Embed stories in Notion and other oEmbed services
 
