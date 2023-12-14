@@ -2,7 +2,7 @@
 layout: "../../layouts/Layout.astro"
 title: Guide for reviewers
 description: How to use Chromatic for designers and product managers
-sidebar: { order: 6 }
+sidebar: { order: 3 }
 ---
 
 # Guide for reviewers

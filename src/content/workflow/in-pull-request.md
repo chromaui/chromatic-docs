@@ -2,7 +2,7 @@
 layout: "../../layouts/Layout.astro"
 title: In pull request
 description: How Chromatic helps you test and review pull requests
-sidebar: { order: 6 }
+sidebar: { order: 2 }
 ---
 
 # In pull request workflow
