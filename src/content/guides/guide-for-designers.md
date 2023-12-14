@@ -1,8 +1,8 @@
 ---
 layout: "../../layouts/Layout.astro"
-title: For designers
+title: Chromatic for designers
 description: How to use Chromatic for designers
-sidebar: { order: 1 }
+sidebar: { order: 1, label: For designers }
 ---
 
 # Guide for designers
