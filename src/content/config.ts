@@ -57,6 +57,11 @@ const account = defineCollection({
   schema,
 });
 
+const guides = defineCollection({
+  type: "content",
+  schema,
+});
+
 export const collections = {
   getStarted,
   workflow,
@@ -67,4 +72,5 @@ export const collections = {
   plugins,
   ci,
   account,
+  guides,
 };

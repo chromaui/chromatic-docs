@@ -1,15 +1,15 @@
 ---
 layout: "../../layouts/Layout.astro"
-title: Guide for reviewers
-description: How to use Chromatic for designers and product managers
-sidebar: { order: 3 }
+title: For designers
+description: How to use Chromatic for designers
+sidebar: { order: 1 }
 ---
 
-# Guide for reviewers
+# Guide for designers
 
-Chromatic is made for designers, product managers, and other stakeholders to collaborate with developers.
+Chromatic helps designers collaborate with developers on UI implementation.
 
-## Chromatic in the design and product process
+## In the design process
 
 Chromatic serves as a library that maps every part of your UI. Use it as a shared reference point to ensure that everyone is referencing the latest UI as they design and spec products.
 
@@ -31,7 +31,7 @@ During the specification process, you often need to describe complex UI behavior
 
 ---
 
-## Chromatic to track changes and sign-off
+## Track changes and sign-off on implementation
 
 [UI Review](/docs/review) is made for designers and product managers. It's a purpose-built tool for discussing implementation details and tracking sign-offs. Chromatic works behind the scenes to make the review process easy for teams by organizing change requests, notifying participants, and syncing with Git providers for pull requests checks. The key features for reviewers are:
 
