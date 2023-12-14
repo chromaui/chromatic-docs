@@ -76,11 +76,3 @@ Reviewers leave feedback and request changes by starting discussions. Chromatic 
 The status of UI Tests and UI Review appears on your pull request as a check. This keeps your team abreast of any changes to the user interface that need attention. When all checks pass, you’re ready to merge!
 
 ![PR badges](../../images/prbadges.png)
-
----
-
-## Next: How to get stakeholders involved in review
-
-See how Chromatic works from the reviewer point of view. Learn about comments, notifications, and integrations with tools like Figma and Slack.
-
-<a class="btn primary round" href="/docs/guide-for-reviewers">Read next chapter</a>
