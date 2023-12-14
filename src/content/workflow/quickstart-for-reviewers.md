@@ -33,32 +33,14 @@ During the specification process, you often need to describe complex UI behavior
 
 ## Chromatic to track changes and sign-off
 
-In a pull request, designers, product managers, and other developers enter the Chromatic workflow at critical points to verify test failures or discuss implementation details.
-
-### UI Tests are made for other frontend developers
-
-[UI Tests](/docs/test) check for bugs in appearance and functionality. These serve a similar purpose as unit tests, but for UI. The difference with Chromatic is that the bug finding and fixing process is collaborative. The key features for reviewers are:
-
-- Share links to failed tests for reproductions
-- Create discussions and mention stakeholders
-- Pin comments beside affected areas
-- Pull request checks
-- Slack and email notifications
-- Customizable webhooks for workflow automation
-
-<video autoPlay muted playsInline loop width="560px" class="center" style="pointer-events: none;">
-  <source src="/docs/assets/testscreen-comment-pinned-optimized.mp4" type="video/mp4" />
-</video>
-
-### UI Review is made for designers and product managers
-
-[UI Review](/docs/review) is where you discuss implementation details with teammates and get their explicit sign off. Chromatic works behind the scenes to make the review process easy by organizing change requests, notifying reviewers, and syncing with your Git provider. The key features for reviewers are:
+Designers and product managers enter the Chromatic workflow for [UI Review](/docs/review), a purpose-built tool for discussing implementation details with teammates to get sign-off. Chromatic works behind the scenes to make the review process easy by organizing change requests, notifying reviewers, and syncing with your Git provider. The key features for reviewers are:
 
 - Generate changesets to focus reviewer attention on only what changed
 - Assign reviewers manually or automatically
-- Specify fine-grained roles for each stakeholder
-- Create discussions and mention stakeholders
+- Specify fine-grained roles for teammates
+- Create discussions and mention others
 - Resolve discussions to show that feedback was addressed
+- UI checklist to see visualize what needs to be done
 
 ![UI Checklist](../../images/prscreen-ui-checklist.png)
 
