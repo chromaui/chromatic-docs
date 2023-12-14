@@ -1,13 +1,13 @@
 ---
 layout: "../../layouts/Layout.astro"
-title: During pull request
+title: In pull request
 description: How Chromatic helps you test and review pull requests
 sidebar: { order: 6 }
 ---
 
-# During pull request workflow
+# In pull request workflow
 
-During the pull request, Chromatic runs in CI when you push code to prevent bugs and streamline stakeholder sign off. There are two key workflows: UI Tests and UI Review.
+During the pull request, Chromatic runs in CI when you push code to prevent bugs and streamline stakeholder sign-off. There are two key workflows: UI Tests and UI Review.
 
 ![Chromatic workflow](../../images/chromatic-during-pull-request.jpg)
 
@@ -81,6 +81,6 @@ The status of UI Tests and UI Review appears on your pull request as a check. Th
 
 ## Next: How to get stakeholders involved in review
 
-See how Chromatic works from the reviewer point of view. Learn about comments, notifications, and integrations with tools like Figma or Slack.
+See how Chromatic works from the reviewer point of view. Learn about comments, notifications, and integrations with tools like Figma and Slack.
 
 <a class="btn primary round" href="/docs/quickstart-for-reviewers">Read next chapter</a>

@@ -9,44 +9,37 @@ sidebar: { order: 6 }
 
 Chromatic is made for designers, product managers, and other stakeholders to collaborate with developers.
 
-## Before pull request
+## Chromatic in the design and product process
 
 Chromatic serves as a library that maps every part of your UI. Use it as a shared reference point to ensure that everyone is referencing the latest UI as they design and spec products.
 
 #### Keep everyone in sync with what's in production
 
-During the design and product process, you often need to reference what's in production. But it's time consuming to navigate to the right page in the right state. Chromatic builds and publishes your Storybook online whenever you push code. This keeps everyone in sync with the latest UI implementation. No fussing with dependencies, git, or local dev environments.
-
-- [Share permalinks with collaborators](/docs/permalinks#share-permalinks-with-collaborators)
-- [Custom domain for your Storybook](/docs/permalinks#custom-domain-for-your-storybook)
+During the design and product process, you often need to reference what's in production. But it's time consuming to navigate to the right page in the right state. Chromatic builds and publishes your Storybook online whenever you push code. This keeps everyone in sync with the latest UI implementation. No fussing with dependencies, git, or local dev environments. [Learn more »](/docs/setup)
 
 #### Integrate with Figma to reference the real UI as you design
 
-Design and development naturally diverge. During the design process, you need to double-check what's in production to ensure designs are accurate. Chromatic's [Storybook Connect](/docs/figma-plugin) plugin allows you to link stories to Figma components. Once linked, you can view your live stories in the design workspace without ever leaving Figma.
-
-<video autoPlay muted playsInline loop width="560px" class="center" style="pointer-events: none;" title="Embedded story and design side-by-side">
-  <source src="/docs/assets/figma-plugin-open-story.mp4" type="video/mp4" />
-</video>
+Design and development naturally diverge. During the design process, you need to double-check what's in production to ensure designs are accurate. Chromatic links stories to Figma components to enable quick access to both. Install our [Figma Plugin](/docs/figma-plugin) to view live stories inside of Figma. Use [Figma in Chromatic](/docs/figma-in-chromatic) to view design components inside of Chromatic alongside your production UI.
 
 #### Documentation that's always up to date
 
-Documentatation goes out of date quickly. Storybook and Chromatic work together to automatically [generate UI documentation](https://storybook.js.org/docs/writing-docs/introduction) and publish it to a shareable URL. This documentation contains stories rendered as live examples, as well as an interactive component API explorer. Customize the generated docs with additional prose.
+Documentation goes out of date quickly. Storybook and Chromatic work together to automatically [generate UI documentation](https://storybook.js.org/docs/writing-docs/introduction) and publish it to a shareable URL. This documentation contains stories rendered as live examples, as well as an interactive component API explorer. You can also customize the generated docs with additional prose. [Learn more »](/docs/document)
 
 #### Embed stories in Notion and other oEmbed services
 
-During the specification process, you often need to describe complex UI behaviors that words can't do justice. [Embed](/docs/embed#embed-stories) UI from Storybook directly into Notion, Medium, and countless other platforms that support oEmbed. This way your readers can interact with live, rendered components that easily show behavior.
+During the specification process, you often need to describe complex UI behaviors that words can't do justice. Embed UI from Storybook directly into Notion, Medium, and countless other platforms that support oEmbed. This way your readers can interact with live, rendered components that easily show behavior. [Learn more »](/docs/embed#embed-stories)
 
 ---
 
-## During pull request
+## Chromatic to track changes and sign-off
 
-During the pull request, stakeholders go to Chromatic at different points to verify test failures and discuss implementation details.
+In a pull request, designers, product managers, and other developers enter the Chromatic workflow at critical points to verify test failures or discuss implementation details.
 
 ### UI Tests are made for other frontend developers
 
 [UI Tests](/docs/test) check for bugs in appearance and functionality. These serve a similar purpose as unit tests, but for UI. The difference with Chromatic is that the bug finding and fixing process is collaborative. The key features for reviewers are:
 
-- Share links to failed tests
+- Share links to failed tests for reproductions
 - Create discussions and mention stakeholders
 - Pin comments beside affected areas
 - Pull request checks
@@ -68,3 +61,20 @@ During the pull request, stakeholders go to Chromatic at different points to ver
 - Resolve discussions to show that feedback was addressed
 
 ![UI Checklist](../../images/prscreen-ui-checklist.png)
+
+---
+
+## Conclusion
+
+Chromatic helps in multiple phases of the UI development workflow. This guide covered how developers use Chromatic in development and pull requests. Then we toured how designers and product managers can get the most out of Chromatic.
+
+We look forward to the incredible UIs you’ll build.
+
+Our most popular guides and articles
+Intro to Storybook is the essential guide to learning Storybook.
+Design Systems for Developers shares how to build production infrastructure for design systems.
+Visual Testing Handbook details how professional frontend teams visual test with Storybook.
+Component-Driven Development is a “bottoms up” process for building modular UIs starting from components and ending with screens.
+UI Testing Handbook highlights testing strategies used by scaled front-end teams
+How to get support
+You’re supported by the team behind Storybook. For the quickest response, sign in and use the in-app chat or email.
