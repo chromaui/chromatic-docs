@@ -270,3 +270,9 @@ By default, DNS resolution is handled by the environment system. If you are expe
 If you've configured the Chromatic CLI to run with one of the Git environment variables (i.e.,`CHROMATIC_SHA`, `CHROMATIC_BRANCH`, `CHROMATIC_SLUG`), you must configure all three. Otherwise, Chromatic will ignore them when running the build.
 
 </details>
+<summary id="chromatic-csf-tools-error">Why do I need to install <code>@storybook/csf-tools</code>?</summary>
+
+If you are using Storybook 6 and Yarn Berry (aka Yarn PnP), you'll need to ensure you have a direct dependency on <code>@storybook/csf-tools</code> in your <code>package.json</code>. This is because Yarn is strict about peer dependencies.
+
+You should ensure the version of <code>@storybook/csf-tools</code> you have is the same as the other <code>@storybook</code> packages you depend on.
+</details>
