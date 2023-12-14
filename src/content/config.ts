@@ -17,6 +17,11 @@ const getStarted = defineCollection({
   schema,
 });
 
+const workflow = defineCollection({
+  type: "content",
+  schema,
+});
+
 const configuration = defineCollection({
   type: "content",
   schema,
@@ -54,6 +59,7 @@ const account = defineCollection({
 
 export const collections = {
   getStarted,
+  workflow,
   configuration,
   modes,
   snapshot,

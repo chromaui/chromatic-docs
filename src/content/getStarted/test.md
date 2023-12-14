@@ -9,7 +9,7 @@ sidebar: { order: 3, label: "UI Tests" }
 
 UI tests pinpoint visual changes and verify user [interactions](/docs/interactions). They capture a [snapshot](/docs/snapshots) of every story in a cloud browser environment. Whenever you push code, Chromatic generates a new set of snapshots and compares them against [baseline snapshots](/docs/branching-and-baselines#whats-a-baseline). If there are changes, you verify that they’re intentional. If there are test errors, you get notified to fix them.
 
-![UI test](../../images/workflow-uitest.png)
+![UI Tests](../../images/workflow-uitest.png)
 
 ## Enable
 
@@ -115,11 +115,11 @@ Yes, [rerun the latest build](/docs/snapshots#rerun-builds-to-retake-snapshots) 
 </details>
 
 <details>
-<summary>How are changes on builds different from those listed on the PR Screen ‘Changeset’ tab?</summary>
+<summary>How are changes on builds different from those listed on the Review page ‘Changeset’ tab?</summary>
 
 UI tests (shown on the build screen) detect changes between builds, specifically, between the last accepted baseline and the latest build. This is useful for detecting defects during the development process and when merging to the main branch to ship.
 
-In contrast, the PR screen shows the changeset between the latest commit on the PR branch (head) and the ‘merge base’ (base). Think of it like code review, but for UI.
+In contrast, the Review page shows the changeset between the latest commit on the PR branch (head) and the ‘merge base’ (base). Think of it like code review, but for UI.
 
 </details>
 
