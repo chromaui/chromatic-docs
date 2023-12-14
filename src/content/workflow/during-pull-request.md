@@ -22,13 +22,13 @@ During the pull request, Chromatic runs in CI when you push code to prevent bugs
 
 ![Build with unreviewed tests](../../images/build-test-unreviewed.png)
 
-UI Tests compare the snapshot of a story with the previously accepted [baseline](/docs/branching-and-baselines#whats-a-baseline) in your git history (typically on the same branch). If there are changes, you'll get a diff of the changes. If the changes are intentional, press the accept button to update the baselines. Once all changes are approved, UI Tests will pass signaling that it's “ready” for review from stakeholders.
+UI Tests compare the snapshot of a story with the previously accepted [baseline](/docs/branching-and-baselines#whats-a-baseline) in your git history (typically on the same branch). If there are changes, you'll get a diff of the changes. If the changes are intentional, press the accept button to update the baselines. Once all changes are approved, UI Tests will pass, signaling that it's “ready” for review from stakeholders.
 
 ![Snapshot that’s unreviewed](../../images/snapshot-unreviewed.png)
 
 ### UI Review to get team sign off
 
-After UI Tests pass, the workflow progresses to UI Review. In tools like GitHub, GitLab, and Bitbucket you assign other developers to review the code for a pull request. Chromatic complements this workflow by allowing you to assign designers, product managers, and other stakeholders to review UI changes in that pull request.
+After UI Tests pass, the workflow progresses to UI Review. In tools like GitHub, GitLab, and Bitbucket, you assign other developers to review the code for a pull request. Chromatic complements this workflow by allowing you to assign designers, product managers, and other stakeholders to review UI changes in that pull request.
 
 <div class="aside">
 
