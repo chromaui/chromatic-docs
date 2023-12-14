@@ -29,6 +29,7 @@ const collaborate = await getCollection("collaborate");
 const plugins = await getCollection("plugins");
 const ci = await getCollection("ci");
 const account = await getCollection("account");
+const guides = await getCollection("guides");
 
 const navItems = [
   // Manually add the introduction page to the top of the list
@@ -71,6 +72,10 @@ const navItems = [
   {
     title: "Account",
     items: account,
+  },
+  {
+    title: "Guides",
+    items: guides,
   },
 ];
 

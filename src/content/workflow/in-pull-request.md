@@ -1,8 +1,8 @@
 ---
 layout: "../../layouts/Layout.astro"
-title: In pull request
+title: In pull request workflow
 description: How Chromatic helps you test and review pull requests
-sidebar: { order: 6 }
+sidebar: { order: 2, label: In pull request }
 ---
 
 # In pull request workflow
@@ -79,8 +79,16 @@ The status of UI Tests and UI Review appears on your pull request as a check. Th
 
 ---
 
-## Next: How to get stakeholders involved in review
+## Conclusion
 
-See how Chromatic works from the reviewer point of view. Learn about comments, notifications, and integrations with tools like Figma and Slack.
+You finished touring all the ways Chromatic contributes to your UI development workflow. We look forward to the incredible UIs you’ll build. Continue exploring with our most popular guides and articles:
 
-<a class="btn primary round" href="/docs/guide-for-reviewers">Read next chapter</a>
+- [Intro to Storybook](https://storybook.js.org/tutorials/intro-to-storybook/) is the essential guide to learning Storybook.
+- [Design Systems for Developers](https://storybook.js.org/tutorials/design-systems-for-developers/) shares how to build production infrastructure for design systems.
+- [Visual Testing Handbook](https://storybook.js.org/tutorials/visual-testing-handbook/) details how professional frontend teams visual test with Storybook.
+- [Component-Driven Development](https://www.componentdriven.org/) is a "bottoms up" process for building modular UIs starting from components and ending with screens.
+- [UI Testing Handbook](https://storybook.js.org/tutorials/ui-testing-handbook/) highlights testing strategies used by scaled front-end teams
+
+#### How to get support
+
+[Sign in](https://www.chromatic.com/start) to use the in-app chat or <a href="mailto:support@chromatic.com?Subject=Question">email support</a>.

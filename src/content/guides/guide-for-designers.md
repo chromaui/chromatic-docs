@@ -1,15 +1,15 @@
 ---
 layout: "../../layouts/Layout.astro"
-title: Guide for reviewers
-description: How to use Chromatic for designers and product managers
-sidebar: { order: 6 }
+title: Chromatic for designers
+description: How to use Chromatic for designers
+sidebar: { order: 1, label: For designers }
 ---
 
-# Guide for reviewers
+# Guide for designers
 
-Chromatic is made for designers, product managers, and other stakeholders to collaborate with developers.
+Chromatic helps designers collaborate with developers on UI implementation.
 
-## Chromatic in the design and product process
+## In the design process
 
 Chromatic serves as a library that maps every part of your UI. Use it as a shared reference point to ensure that everyone is referencing the latest UI as they design and spec products.
 
@@ -31,7 +31,7 @@ During the specification process, you often need to describe complex UI behavior
 
 ---
 
-## Chromatic to track changes and sign-off
+## Track changes and sign-off on implementation
 
 [UI Review](/docs/review) is made for designers and product managers. It's a purpose-built tool for discussing implementation details and tracking sign-offs. Chromatic works behind the scenes to make the review process easy for teams by organizing change requests, notifying participants, and syncing with Git providers for pull requests checks. The key features for reviewers are:
 
@@ -43,19 +43,3 @@ During the specification process, you often need to describe complex UI behavior
 - UI checklist to see visualize what needs to be done
 
 ![UI Checklist](../../images/prscreen-ui-checklist.png)
-
----
-
-## Conclusion
-
-You finished touring all the ways Chromatic contributes to your UI development workflow. We look forward to the incredible UIs you’ll build. Continue exploring with our most popular guides and articles:
-
-- [Intro to Storybook](https://storybook.js.org/tutorials/intro-to-storybook/) is the essential guide to learning Storybook.
-- [Design Systems for Developers](https://storybook.js.org/tutorials/design-systems-for-developers/) shares how to build production infrastructure for design systems.
-- [Visual Testing Handbook](https://storybook.js.org/tutorials/visual-testing-handbook/) details how professional frontend teams visual test with Storybook.
-- [Component-Driven Development](https://www.componentdriven.org/) is a "bottoms up" process for building modular UIs starting from components and ending with screens.
-- [UI Testing Handbook](https://storybook.js.org/tutorials/ui-testing-handbook/) highlights testing strategies used by scaled front-end teams
-
-#### How to get support
-
-[Sign in](https://www.chromatic.com/start) to use the in-app chat or <a href="mailto:support@chromatic.com?Subject=Question">email support</a>.

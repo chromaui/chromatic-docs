@@ -111,6 +111,7 @@ type Item = (
   | CollectionEntry<"plugins">
   | CollectionEntry<"ci">
   | CollectionEntry<"account">
+  | CollectionEntry<"guides">
 ) & {
   data: {
     sidebar: {
