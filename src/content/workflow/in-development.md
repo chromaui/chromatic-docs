@@ -5,9 +5,6 @@ description: How Chromatic helps teams develop applications
 sidebar: { order: 1 }
 ---
 
-<!-- # The Chromatic workflow guide -->
-<!-- ![Chromatic workflow](../../images/chromatic-workflow.png) -->
-
 # In development workflow
 
 Chromatic automates UI development so you can build features faster, with less manual work. Follow along with our recommended workflow to see how it fits into your development process.
@@ -29,7 +26,7 @@ If you're a seasoned Storybook user, most teams choose a [Component-Driven](http
 3. Assemble pages by combining composite components.
 4. Integrate pages into your project by hooking up data and business logic.
 
-<details>
+<!-- Uncomment when E2EVT lands <details>
 <summary>Chromatic also integrates with Playwright and Cypress</summary>
 
 Developers test user flows end-to-end by navigating between pages with Playwright or Cypress. This methodology allows you to simulate how users behave. Chromatic uses these E2E tests as visual test cases by automatically snapshotting key moments in the test.
@@ -37,7 +34,7 @@ Developers test user flows end-to-end by navigating between pages with Playwrigh
 [TK Learn how to setup Playwright](/docs/)
 [TK Learn how to setup Cypress](/docs/)
 
-</details>
+</details> -->
 
 ### Verify each story in multiple dimensions
 
