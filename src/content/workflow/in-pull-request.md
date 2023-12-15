@@ -7,7 +7,7 @@ sidebar: { order: 2, label: In pull request }
 
 # In pull request workflow
 
-During the pull request, Chromatic runs in CI when you push code to prevent bugs and streamline stakeholder sign-off. There are two key workflows: UI Tests and UI Review.
+Chromatic serves as a single hub that allows you to test, approve PRs, and share feedback. During the pull request, Chromatic automatically runs in CI when you push code. There are two key workflows: UI Tests and UI Review.
 
 ![Chromatic workflow](../../images/chromatic-during-pull-request.jpg)
 
@@ -39,6 +39,15 @@ UI Review is different than UI Tests because it shows you what will change on th
 ![Activity tab](../../images/prscreen-activity.png)
 
 <details>
+<summary>How to invite reviewers to a project?</summary>
+
+Invite reviewers by going to the project's Manage page » Collaborate tab. You can invite collaborators by email or by sharing an invite link. SSO is also an option for Enterprise plans, which enables all teams to access Chromatic easily.
+
+[More on inviting collaborators »](/docs/collaborators#external-collaborators)
+
+</details>
+
+<details>
 <summary>How to assign designers and product managers to review?</summary>
 
 Click on Assign Reviewers on the review's Activity tab to choose reviewers from the project’s collaborators. Reviewers will be emailed a link to the review page to begin their review.
@@ -55,15 +64,6 @@ UI Review is the opportunity to discuss changes and get final team sign off. In 
 <summary>Why UI Review when all the edge cases should be addressed in the spec?</summary>
 
 UI Review acknowledges that even the best laid plans lack fidelity. Developers often run into edge cases or technical hurdles that are impossible for teams to predict ahead of time.
-
-</details>
-
-<details>
-<summary>How to invite reviewers to a project?</summary>
-
-Invite reviewers by going to the project's Manage page » Collaborate tab. You can invite collaborators by email or by sharing an invite link.
-
-[More on inviting collaborators »](/docs/collaborators#external-collaborators)
 
 </details>
 
