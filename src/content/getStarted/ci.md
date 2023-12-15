@@ -55,11 +55,11 @@ Require checks in [GitHub](https://help.github.com/en/github/administering-a-rep
 
 ---
 
-## Next: See the recommended Chromatic workflow
+## You're all set up
 
-How tools work together affects your development speed. Learn the recommended Chromatic workflow.
+Now that you've set up Chromatic, learn the recommended workflow in development and during the pull request.
 
-<a class="btn primary round" href="/docs/workflow">Read next chapter</a>
+<a class="btn primary round" href="/docs/in-development">Learn workflow</a>
 
 ---
 

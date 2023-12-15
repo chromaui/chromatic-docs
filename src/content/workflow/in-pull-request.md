@@ -18,7 +18,7 @@ During the pull request, Chromatic runs in CI when you push code to prevent bugs
 | UI Tests     | What dimensions are tested                                                                                                                                       |
 | ------------ | ---------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | Visual       | [Browsers](/docs/browsers), [Viewports](/docs/viewports), [Themes](/docs/themes), [Locales](/docs/custom-decorators), [CSS Media Features](/docs/media-features) |
-| Interactions | [Click, type, hover](docs/interactions)                                                                                                                          |
+| Interactions | [Click, type, hover](/docs/interactions)                                                                                                                         |
 
 ![Build with unreviewed tests](../../images/build-test-unreviewed.png)
 
