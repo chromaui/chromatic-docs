@@ -77,6 +77,17 @@ The status of UI Tests and UI Review appears on your pull request as a check. Th
 
 ![PR badges](../../images/prbadges.png)
 
+<details>
+<summary>How to make UI Tests and UI Review a required pull request check?</summary>
+
+You have flexibility to control whether UI Tests and UI Review are required checks in your Git provider settings.
+
+Make UI Tests a required check if you want to ensure that you're 100% protected from visual and functional regressions. Make UI Review a required check to ensure that all feedback gets resolved and every change is signed-off.
+
+You can change whether each check is required separately.
+
+</details>
+
 ---
 
 ## Conclusion
