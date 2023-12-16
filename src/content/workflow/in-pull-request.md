@@ -7,7 +7,7 @@ sidebar: { order: 2, label: In pull request }
 
 # In pull request workflow
 
-During the pull request, Chromatic runs in CI when you push code to prevent bugs and streamline stakeholder sign-off. There are two key workflows: UI Tests and UI Review.
+Chromatic serves as a single hub that allows you to test, approve PRs, and share feedback. During the pull request, Chromatic automatically runs in CI when you push code. There are two key workflows: UI Tests and UI Review.
 
 ![Chromatic workflow](../../images/chromatic-during-pull-request.jpg)
 
@@ -39,6 +39,15 @@ UI Review is different than UI Tests because it shows you what will change on th
 ![Activity tab](../../images/prscreen-activity.png)
 
 <details>
+<summary>How to invite reviewers to a project?</summary>
+
+Invite reviewers by going to the project's Manage page » Collaborate tab. You can invite collaborators by email or by sharing an invite link. SSO is also an option for Enterprise plans, which enables all teams to access Chromatic easily.
+
+[More on inviting collaborators »](/docs/collaborators#external-collaborators)
+
+</details>
+
+<details>
 <summary>How to assign designers and product managers to review?</summary>
 
 Click on Assign Reviewers on the review's Activity tab to choose reviewers from the project’s collaborators. Reviewers will be emailed a link to the review page to begin their review.
@@ -58,15 +67,6 @@ UI Review acknowledges that even the best laid plans lack fidelity. Developers o
 
 </details>
 
-<details>
-<summary>How to invite reviewers to a project?</summary>
-
-Invite reviewers by going to the project's Manage page » Collaborate tab. You can invite collaborators by email or by sharing an invite link.
-
-[More on inviting collaborators »](/docs/collaborators#external-collaborators)
-
-</details>
-
 Reviewers leave feedback and request changes by starting discussions. Chromatic helps developers gather discussions in one place that every participant can follow. Resolve a discussion to signal that the work is done. Once all discussions are resolved and stakeholders approve, the UI Review will pass.
 
 ![UI Checklist](../../images/prscreen-ui-checklist.png)
@@ -76,6 +76,17 @@ Reviewers leave feedback and request changes by starting discussions. Chromatic 
 The status of UI Tests and UI Review appears on your pull request as a check. This keeps your team abreast of any changes to the user interface that need attention. When all checks pass, you’re ready to merge!
 
 ![PR badges](../../images/prbadges.png)
+
+<details>
+<summary>How to make UI Tests and UI Review a required pull request check?</summary>
+
+You have flexibility to control whether UI Tests and UI Review are required checks in your Git provider settings.
+
+Make UI Tests a required check if you want to ensure that you're 100% protected from visual and functional regressions. Make UI Review a required check to ensure that all feedback gets resolved and every change is signed-off.
+
+You can change whether each check is required separately.
+
+</details>
 
 ---
 
