@@ -58,6 +58,12 @@ Chromatic's GitHub App enables [UI Review](/docs/review) for pull requests. We n
 - ✅ Read access to organization members (for collaborators)
 - 🔒 We do not request access to your code
 
+<div class="aside">
+
+ℹ️ We recommend teams create a Chromatic “bot” or IT Service Account user on your Git provider. You can grant write permissions to that account for the repositories you want to link to Chromatic projects. This way, tokens aren’t tied to an individual user. And if a token expires, it’s straightforward for anyone on the team to validate a new one.
+
+</div>
+
 </details>
 
 <details>
