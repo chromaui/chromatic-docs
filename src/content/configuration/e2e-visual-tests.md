@@ -353,6 +353,7 @@ These options control how the Chromatic archive fixture behaves.
 | ------------------------ | --------- | ---------------------------------------------------------------------------------------------------------------------------- |
 | `disableAutoCapture`     | `boolean` | When `true`, will disable the capture that happens automatically at the end of a test when using the Chromatic test fixture. |
 | `resourceArchiveTimeout` | `number`  | Maximum amount of time that each test will wait for the network to be idle while archiving resources.                        |
+| `allowedArchiveDomains` | `array`  | A list of domains external to the test location that you want Chromatic to also capture assets from, e.g., <code style="display: inline;">['other-domain.com','our-cdn.com']</code>. |
 
 ### Chromatic options
 
