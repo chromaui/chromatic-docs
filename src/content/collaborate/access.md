@@ -60,7 +60,7 @@ Chromatic's GitHub App enables [UI Review](/docs/review) for pull requests. We n
 
 <div class="aside">
 
-What we recommend is that you create a Chromatic "bot" or IT Service Account user on your GitLab or GitHub installation. That way, if a user leaves the company or a token expires, it is straightforward for your team to validate the new token. Then you would write grant permission to that user to whatever repositories you want to link to Chromatic projects (you can grant extra permissions in the future if you later want to link other projects).
+ℹ️ We recommend teams create a Chromatic “bot” or IT Service Account user on your Git provider. You can grant write permissions to that account for the repositories you want to link to Chromatic projects. This way, tokens aren’t tied to an individual user. And if a token expires, it’s straightforward for anyone on the team to validate a new one.
 
 </div>
 
