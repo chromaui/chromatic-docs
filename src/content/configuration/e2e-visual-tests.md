@@ -405,3 +405,15 @@ The tradeoff is that the full E2E test suite needs to be run before generating t
 If you're developing a new UI, we recommend writing stories for comprehensive coverage. If you're adding visual tests to an existing UI that already has E2E tests, we recommend E2EVT to cover the "happy paths".
 
 </details>
+
+<details>
+
+<summary>What's the difference between E2E Visual Tests and interaction tests?</summary>
+
+Both simulate user behavior, but that's where the similarities end.
+
+E2E Visual Tests are for user flows that go from page-to-page. Chromatic takes snapshots during the Playwright/Cypress test run to detect visual changes in key pages of the user flow. These tests aren't made to express every state of a component because it would be too cumbersome to script and expensive to run.
+
+[Interaction tests](/docs/interactions) simulate user behavior in Storybook stories. When Chromatic runs, it tests those assertions. If the assertion passes, a snapshot is taken and visually tested. If it fails, the test gets badged as "failed". Interaction tests are made to express the states of a component that require user interaction. They do not support user flows that go from page-to-page.
+
+</details>
