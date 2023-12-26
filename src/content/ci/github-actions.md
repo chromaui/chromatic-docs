@@ -375,7 +375,7 @@ jobs:
 
 <div class="aside">
 
-Read about the [available options](#available-options).
+Read about the [available options](/docs/cli/#configuration-options).
 
 </div>
 
@@ -416,7 +416,7 @@ jobs:
 
 <div class="aside">
 
-Read about the [available options](#available-options).
+Read about the [available options](/docs/cli/#configuration-options).
 
 </div>
 
@@ -441,7 +441,7 @@ jobs:
 
 <div class="aside">
 
-Read about the [available options](#available-options).
+Read about the [available options](/docs/cli/#configuration-options).
 
 </div>
 
