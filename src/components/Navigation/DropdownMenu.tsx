@@ -108,7 +108,7 @@ export const DropdownMenu: FC<DropdownMenuProps> = ({
             <Popover.Content
               asChild
               aria-label="Docs Menu"
-              onOpenAutoFocus={(e) => e.preventDefault()}
+              onOpenAutoFocus={(e: Event) => e.preventDefault()}
             >
               <NavigationMenu
                 initial={{ opacity: 0, y: -8 }}
