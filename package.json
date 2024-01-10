@@ -19,23 +19,26 @@
     "check-links": "blc https://www.chromatic.com/docs/ -ro -e --filter-level 0 --exclude https://www.chromatic.com/company --exclude https://www.chromatic.com/blog --exclude https://www.chromatic.com/features --exclude https://www.chromatic.com/compare --exclude https://www.chromatic.com/library --exclude https://www.chromatic.com/component --exclude https://www.chromatic.com/builds --exclude https://www.chromatic.com/loading --exclude https://www.chromatic.com/customers --exclude https://www.chromatic.com/choose --exclude https://www.chromatic.com/solutions --exclude https://www.chromatic.com/notifications --exclude https://www.chromatic.com/reset-password --exclude https://www.chromatic.com/profile"
   },
   "dependencies": {
-    "@astrojs/mdx": "^1.0.0",
-    "@astrojs/react": "^3.0.2",
-    "@astrojs/sitemap": "^3.0.3",
+    "@astrojs/mdx": "^2.0.3",
+    "@astrojs/react": "^3.0.9",
+    "@astrojs/sitemap": "^3.0.4",
     "@chromaui/tetra": "^1.16.0",
     "@docsearch/css": "^3.5.2",
     "@radix-ui/react-collapsible": "^1.0.3",
+    "@radix-ui/react-dropdown-menu": "2.0.5",
+    "@radix-ui/react-popover": "1.0.5",
     "@storybook/api": "^7.4.0",
     "@storybook/theming": "^7.4.0",
     "@types/react": "^18.2.21",
     "@types/react-dom": "^18.2.7",
-    "astro": "^3.0.12",
+    "astro": "^4.1.1",
     "framer-motion": "^10.16.2",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-lite-youtube-embed": "^2.3.52",
     "rehype-autolink-headings": "^7.0.0",
-    "rehype-slug": "^6.0.0"
+    "rehype-slug": "^6.0.0",
+    "sharp": "^0.33.1"
   },
   "devDependencies": {
     "broken-link-checker": "^0.7.8",

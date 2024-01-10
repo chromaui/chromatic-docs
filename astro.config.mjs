@@ -1,14 +1,14 @@
 import { defineConfig } from "astro/config";
 import react from "@astrojs/react";
 import mdx from "@astrojs/mdx";
-import sitemap from '@astrojs/sitemap';
+import sitemap from "@astrojs/sitemap";
 import rehypeAutolinkHeadings from "rehype-autolink-headings";
 import rehypeSlug from "rehype-slug";
 import { h, s } from "hastscript";
 
 // https://astro.build/config
 export default defineConfig({
-  site: 'https://chromatic.com/docs',
+  site: "https://chromatic.com/docs",
   base: "/docs",
   trailingSlash: "never",
   markdown: {
