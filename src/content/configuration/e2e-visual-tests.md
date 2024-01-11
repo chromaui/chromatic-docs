@@ -48,7 +48,7 @@ Get started by installing the Test Archiver package and the Archive Storybook pa
 If you aren't yet using Storybook in your project, install with:
 
 ```shell
-yarn add --dev @chromaui/test-archiver @chromaui/archive-storybook @storybook/cli @storybook/addon-essentials @storybook/server-webpack5 react react-dom
+yarn add --dev @chromaui/test-archiver @chromaui/archive-storybook storybook @storybook/addon-essentials @storybook/server-webpack5 react react-dom
 ```
 
 <div class="aside">
