@@ -5,6 +5,8 @@ description: Learn how to setup Chromatic and publish Storybook
 sidebar: { order: 2 }
 ---
 
+import { TabItem, Tabs } from '../../components/Tabs'
+
 # Setup and publish Storybook
 
 The Chromatic CLI builds then publishes Storybook to a secure workspace in the cloud. That allows your team to access all your stories at [chromatic.com](https://www.chromatic.com/start).
@@ -50,18 +52,22 @@ Now continue setting up Chromatic [as usual](/docs/setup#install).
 
 Install the [**chromatic**](https://www.npmjs.com/package/chromatic) package from npm.
 
-```shell
-# Yarn
-yarn add --dev chromatic
-
-# npm
-npm install --save-dev chromatic
-```
+<Tabs>
+  <TabItem label="npm">
+    ```shell
+    npm install --save-dev chromatic
+    ```
+  </TabItem>
+  <TabItem label="yarn">
+    ```shell
+    yarn add --dev chromatic
+    ```
+  </TabItem>
+</Tabs>
 
 <div class="aside">Storybook 6.5 or later is required. We also guarantee support for Node 14.18.x through Node 16.19.1. Other Node releases may encounter errors. To switch between Node versions, we recommend using <a href="https://github.com/nvm-sh/nvm">nvm</a>, <a href="https://github.com/tj/n">n</a>, or another version manager.</div>
 
 <details>
-
 <summary>Learn how to add <code>chromatic</code> to your package.json</summary>
 
 The `chromatic` command will also give you the option of adding an npm script to your `package.json` so you can run future builds with `npm run chromatic/yarn chromatic`. If you want to add it manually, it should look something like:
@@ -81,7 +87,6 @@ If you allowed `chromatic` to add the above line, it will also have written the 
 </details>
 
 <details>
-
 <summary>Setup .gitignore to ignore certain files in your Git repository</summary>
 
 Running the Chromatic command may generate certain files for logging and debugging purposes. Exactly which files it generates depends on your configuration, but these entries should likely be added to your `.gitignore` file:
@@ -149,7 +154,7 @@ If you have customized the way your Storybook runs, you may need to pass additio
 ### Troubleshooting
 
 <details>
-<summary>Chromatic doesn't work with my custom Storybook script</code></summary>
+<summary>Chromatic doesn't work with my custom Storybook script</summary>
 
 We do our best to interpret your Storybook script in package.json, but you might need to pass additional options to the `chromatic` command. [Check out all the options »](/docs/cli)
 
