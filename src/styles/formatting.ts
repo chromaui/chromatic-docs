@@ -227,6 +227,19 @@ export const formatting = css`
     }
   }
 
+  code-snippet-tabs:has(pre) {
+    > pre {
+      margin: 1.5em 0;
+    }
+
+    & + .aside {
+      margin-top: -1.5rem;
+      border-top-left-radius: 0;
+      border-top-right-radius: 0;
+      border-top: 1px solid rgba(0, 0, 0, 0.1);
+    }
+  }
+
   .table-scroll {
     overflow: auto;
     table {
