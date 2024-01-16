@@ -48,7 +48,7 @@ Get started by installing the Test Archiver package and the Archive Storybook pa
 If you aren't yet using Storybook in your project, install with:
 
 ```shell
-yarn add --dev @chromaui/test-archiver @chromaui/archive-storybook @storybook/server-webpack5 storybook
+yarn add --dev @chromaui/test-archiver @chromaui/archive-storybook @storybook/server-webpack5 @storybook/addon-essentials storybook
 ```
 
 <div class="aside">
@@ -349,11 +349,11 @@ export default defineConfig<ChromaticConfig>({
 
 These options control how the Chromatic archive fixture behaves.
 
-| Option                   | Type      | Description                                                                                                                  |
-| ------------------------ | --------- | ---------------------------------------------------------------------------------------------------------------------------- |
-| `disableAutoCapture`     | `boolean` | When `true`, will disable the capture that happens automatically at the end of a test when using the Chromatic test fixture. |
-| `resourceArchiveTimeout` | `number`  | Maximum amount of time that each test will wait for the network to be idle while archiving resources.                        |
-| `allowedArchiveDomains` | `array`  | A list of domains external to the test location that you want Chromatic to also capture assets from, e.g., <code style="display: inline;">['other-domain.com','our-cdn.com']</code>. |
+| Option                   | Type      | Description                                                                                                                                                                          |
+| ------------------------ | --------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| `disableAutoCapture`     | `boolean` | When `true`, will disable the capture that happens automatically at the end of a test when using the Chromatic test fixture.                                                         |
+| `resourceArchiveTimeout` | `number`  | Maximum amount of time that each test will wait for the network to be idle while archiving resources.                                                                                |
+| `allowedArchiveDomains`  | `array`   | A list of domains external to the test location that you want Chromatic to also capture assets from, e.g., <code style="display: inline;">['other-domain.com','our-cdn.com']</code>. |
 
 ### Chromatic options
 
