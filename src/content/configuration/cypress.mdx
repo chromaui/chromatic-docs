@@ -56,7 +56,7 @@ ELECTRON_EXTRA_LAUNCH_ARGS=--remote-debugging-port=<a-port-number> yarn cypress 
 }
 ```
 
-From there, write your Cypress tests as you normally would. Chromatic will automatically take a snapshot of each page visited during your tests, and upload them to the Chromatic cloud for review.
+From there, write your Cypress tests as you normally would. Chromatic will automatically take a snapshot at the end of each test, and upload them to the Chromatic cloud for review.
 
 ```js
 describe('My First Test', () => {
@@ -85,7 +85,7 @@ describe('My First Test', () => {
     // 👇 finish the test by opening the dropdown menu
     cy.get('.dropdown:first-of-type > .dropdown-toggle').click()
 
-    // 📸 Chromatic automattically takes a snapshot here, at the end of the test
+    // 📸 Chromatic automatically takes a snapshot here, at the end of the test
   })
 })
 ```
