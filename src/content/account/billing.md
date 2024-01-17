@@ -31,6 +31,19 @@ If you use our free [Publish Storybook](/docs/setup) service only you will not b
 
 </div>
 
+### Snapshots with TurboSnap enabled
+
+When [TurboSnap](/docs/turbosnap) is enabled, each Chromatic build generates two types of snapshots:
+
+1. **Regular snapshots:** By analyzing the Git history and the dependency graph of your bundler, it identifies story files and their dependencies that have changed. It then captures new snapshots only for the stories associated with those changes.
+
+2. **TurboSnaps:** The stories that remain unchanged (based on TurboSnap heuristics). These are billed at a cost that is 1/5th of a regular snapshot.
+
+| Story count | Browsers | Viewports | Stories w/ code changes | Regular Snapshots | TurboSnaps | Billed snapshots |
+| ----------- | -------- | --------- | ----------------------- | ----------------- | ---------- | ---------------- |
+| 50 stories  | 2        | 1         | 50                      | 100               | 0          | 100              |
+| 50 stories  | 2        | 2         | 10                      | 20                | 80         | 36               |
+
 ### How we count snapshots
 
 Snapshots are counted at the account level. If your account has multiple projects, we sum the number of snapshots each project uses to get your total usage. Chromatic doesn't break down billing per project.

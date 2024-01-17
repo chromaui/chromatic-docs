@@ -25,6 +25,7 @@ const workflow = await getCollection("workflow");
 const configuration = await getCollection("configuration");
 const modes = await getCollection("modes");
 const snapshot = await getCollection("snapshot");
+const turbosnap = await getCollection("turbosnap");
 const collaborate = await getCollection("collaborate");
 const plugins = await getCollection("plugins");
 const ci = await getCollection("ci");
@@ -56,6 +57,10 @@ const navItems = [
   {
     title: "Snapshot",
     items: snapshot,
+  },
+  {
+    title: "TurboSnap",
+    items: turbosnap,
   },
   {
     title: "Collaborate",

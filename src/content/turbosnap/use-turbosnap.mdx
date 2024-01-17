@@ -1,28 +1,13 @@
 ---
 layout: "../../layouts/Layout.astro"
-title: TurboSnap (beta)
+title: Use TurboSnap
 description: Speed up tests by detecting file changes with Git
-sidebar: { order: 4 }
+sidebar: { order: 2 }
 ---
 
 import { YouTubeCallout } from "../../components/YouTubeCallout";
 
-# TurboSnap (beta)
-
-TurboSnap is an advanced Chromatic feature that speeds up builds for faster [UI Tests](/docs/test) and [UI Review](/docs/review) using Git and Webpack's [dependency graph](https://webpack.js.org/concepts/dependency-graph/). It identifies component files and dependencies that have changed, then intelligently snapshots only the stories associated with those changes. TurboSnap is currently in beta.
-
-![TurboSnap tracks dependencies](../../images/turbosnap-dep-tracking.gif)
-
-#### Prerequisites
-
-- Chromatic CLI [5.8+](https://www.npmjs.com/package/chromatic)
-- Storybook 6.2+
-- Webpack (for experimental Vite support, see [vite-plugin-turbosnap](https://github.com/IanVS/vite-plugin-turbosnap))
-- Stories correctly [configured](https://storybook.js.org/docs/react/configure/overview#configure-story-loading) in Storybook's `main.js`
-- 10 successful builds on CI with at least one accepted
-- For GitHub Actions: run on `push` rather than `pull_request` ([learn more](#github-pullrequest-triggers))
-
-## Enable
+# Enable TurboSnap
 
 Run Chromatic's CLI with the `--only-changed` option to enable TurboSnap. Alternatively, you can use the `onlyChanged` option for the Chromatic [GitHub action](/docs/github-actions#enable-turbosnap).
 
@@ -38,35 +23,14 @@ It will build and test stories that may have been affected by the Git changes si
   after ten successful builds on CI, at least one of which is accepted.
 </div>
 
-### How it works
+### Prerequisites
 
-1.  Chromatic considers the Git changes between the current commit and the commit of the [ancestor build](/docs/branching-and-baselines#find-the-ancestor-builds).
-2.  Chromatic then uses Webpack's dependency graph to track those changes back up to the story files that depend on them.
-3.  Chromatic only tests the stories defined in those story files, as well as any tests that were denied on the parent build.
-
-Stories that have not changed will not be tested (i.e., snapshotted), despite appearing in Chromatic's UI as if they were. In many cases, this will lead to much-decreased snapshot usage and faster build times. If you denied any [UI Tests](/docs/test#verify-ui-changes) on the parent build, we will always re-capture those stories even if TurboSnap would otherwise skip them. This is helpful in dealing with [inconsistent snapshots](/docs/snapshots#improve-snapshot-consistency).
-
-#### Full rebuilds
-
-Certain circumstances could potentially affect all stories. To prevent false positives, we re-test everything if any of the following situations apply:
-
-- Changes to dependency versions in `package.json`, if no valid lockfile is available
-- Changes to your Storybook's configuration
-- Changes in files that are imported by your [`preview.js`](https://storybook.js.org/docs/react/configure/overview#configure-story-rendering) (as this could affect any story)
-- Changes in your static folder (if specified using `--static-dir` / `-s`)
-- Changes to files specified by the `--externals` option (see below)
-- Re-run of the same build (commit and branch match the parent build)
-- [Infrastructure upgrades](/docs/infrastructure-upgrades)
-- [UI Test in a new browser](/docs/browsers)
-
-#### Missing commits (rebasing)
-
-Under the hood, TurboSnap works by calculating the difference between the current commit and its ancestor. However, there are certain cases (i.e., rebasing, force pushing) where the commit linked to the previous build no longer exists in the repository, which prevents Chromatic from doing this computation accurately.
-
-In this case, it will search the existing builds until it finds a suitable "replacement build" with a valid commit in the repository. Once found, it approximates the difference between the two commits alongside any UI changes. This can lead to a story being re-tested if one of the following requirements is met:
-
-- Code changes detected (according to Git) between the current and replacement commit
-- Visual changes identified (according to Chromatic) between the ancestor build and the replacement commit's build
+- Chromatic CLI [10.0+](https://www.npmjs.com/package/chromatic)
+- Storybook 6.2+
+- Webpack (for experimental Vite support, see [vite-plugin-turbosnap](https://github.com/IanVS/vite-plugin-turbosnap))
+- Stories correctly [configured](https://storybook.js.org/docs/react/configure/overview#configure-story-loading) in Storybook's `main.js`
+- 10 successful builds on CI with at least one accepted
+- For GitHub Actions: run on `push` rather than `pull_request` ([learn more](#github-pullrequest-triggers))
 
 ## Configure
 
@@ -100,7 +64,7 @@ You may need additional config in the following situations:
 - You have files that should never trigger a re-test (e.g., in a monorepo)
 - You want to enable or disable TurboSnap for specific branches
 
-### Prebuilt Storybook
+### With prebuilt Storybook
 
 If you're using `--storybook-build-dir` to provide a prebuilt Storybook, adjust your `build-storybook` script to include the `--webpack-stats-json` option. If Chromatic builds your Storybook for you, this is unnecessary, and will take care of it. For example:
 
@@ -271,13 +235,6 @@ Our own GitHub Action works around that by using `pull_request.head.sha` as the 
 ### Troubleshooting
 
 <details>
-  <summary>Is TurboSnap ready for production even in beta?</summary>
-
-Yes. Many customers are currently using TurboSnap with enterprise workloads. Our goal for the TurboSnap beta is to fine-tune the algorithm and configuration experience.
-
-</details>
-
-<details>
   <summary>Why are no changes being detected?</summary>
 
 If the messages above indicate no story files are being detected by changes, then possibly there is an issue matching up the git changes with the files in your Storybook build. Use the `--debug` flag to get more information about what Chromatic is doing.
@@ -350,7 +307,7 @@ If this list of files contains things you didn't expect, look at any global deco
 <details>
   <summary>Why are full rebuilds required?</summary>
 
-Full rebuilds can be required for various reasons (see the list in [how it works](#how-it-works)). Another scenario where a full rebuild will also be required is due to a change to a `package.json` or lock file for a subproject that doesn't affect the Storybook (we need to be very conservative as we cannot tell if a change to a lock file could affect `node_modules` imported by Storybook).
+Full rebuilds can be required for various reasons (see the list in [how it works](/docs/turbosnap#how-it-works)). Another scenario where a full rebuild will also be required is due to a change to a `package.json` or lock file for a subproject that doesn't affect the Storybook (we need to be very conservative as we cannot tell if a change to a lock file could affect `node_modules` imported by Storybook).
 
   <div class="aside">
     If you run into this situation frequently, upvote the <a href="https://github.com/chromaui/chromatic-cli/issues/383">open issue</a> in the Chromatic CLI's issue tracker to opt-out of this behavior for specific directories in your repository.
