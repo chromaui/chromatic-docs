@@ -39,12 +39,12 @@ Chromatic E2E Visual Tests lets you bring Chromatic’s visual testing toolkit i
 npx chromatic init --playwright
 ```
 
-### 2. Update your Playwright tests with `chromatic/playwright` imports:
+### 2. Update your Playwright tests with `chromatic-playwright` imports:
 ```js
 // ➖ Remove this line
 // import { test, expect } from '@playwright/test';
 // ➕ Add this line
-import { test, expect } from "chromatic/playwright";
+import { test, expect } from "chromatic-playwright";
 
 // Then use as normal 👇
 test("Homepage", async ({ page }) => {
@@ -64,7 +64,7 @@ test("Homepage", async ({ page }) => {
     yarn playwright test
     ```
   </TabItem>
-  <TabItem label="npx">
+  <TabItem label="npm">
     ```shell
     npx playwright test
     ```
@@ -93,10 +93,10 @@ The above workflow results in tests that allow you to approve changes at a glanc
 
 ## Taking manual snapshots
 
-A snapshot is taken at the end of every test, whether is passes or fails. But you can also programmatically take manual snapshots at specific points in your tests using the `takeArchive` function inside your test runs:
+A snapshot is taken at the end of every test, whether is passes or fails. But you can also programmatically take manual snapshots at specific points in your tests using the `takeSnapshot` function inside your test runs:
 
 ```js
-import { test, expect, takeArchive } from "chromic/playwright";
+import { test, expect, takeSnapshot } from "chromatic-playwright";
 
 // 👇 Add testInfo parameter
 test("Can filter product", async ({ page }, testInfo) => {
@@ -104,18 +104,18 @@ test("Can filter product", async ({ page }, testInfo) => {
 
   await page.locator('.menu__item:first-of-type').click();
 
-  // Call takeArchive to take an archive "snapshot"
+  // Call takeSnapshot to take an archive "snapshot"
   // of the page at this point in the test
-  // 👇 Pass testInfo to takeArchive
-  await takeArchive(page, testInfo);
+  // 👇 Pass testInfo to takeSnapshot
+  await takeSnapshot(page, testInfo);
 
   // continue with test
   await page.getByRole("link", { name: "Add to cart" }).click();
 
-  // You can call takeArchive multiple times, as necessary
+  // You can call takeSnapshot multiple times, as necessary
   // To help disambiguate, you can give the snapshot a name,
-  // which is passed as the second argument to takeArchive
-  await takeArchive(page, "After adding to cart", testInfo);
+  // which is passed as the second argument to takeSnapshot
+  await takeSnapshot(page, "After adding to cart", testInfo);
 
   await expect(page).toHaveTitle(/Cart/);
 });
@@ -138,8 +138,8 @@ Setting options globally can be done in your `playwright.config.js` as follows:
   <TabItem label="TypeScript">
     ```ts
     // playwright.config.ts
-
-    import { ChromaticConfig } from "@chromaui/test-archiver";
+    import { defineConfig } from "@playwright/test";
+    import { ChromaticConfig } from "chromatic-playwright";
 
     export default defineConfig<ChromaticConfig>({
       use: {
