@@ -39,15 +39,38 @@ module.exports = defineConfig({
 });
 ```
 
-### 4. Prefix your Cypress command with the following environment variable, which defines what port Chrome Devtools Protocol should listen to :
+### 4. Run Cypress as usual, prepending your command with the following environment variable, which defines what port Chrome Devtools Protocol should listen to:
 
 Any port is fine, as long as it's not already in use. We recommend using `9222`.
+<Tabs>
+  <TabItem label="yarn">
+    ```shell
+    ELECTRON_EXTRA_LAUNCH_ARGS=--remote-debugging-port=<a-port-number> yarn cypress run
+    ```
+  </TabItem>
+  <TabItem label="npm">
+    ```shell
+    ELECTRON_EXTRA_LAUNCH_ARGS=--remote-debugging-port=<a-port-number> npx cypress run
+    ```
+  </TabItem>
+</Tabs>
 
-```bash
-ELECTRON_EXTRA_LAUNCH_ARGS=--remote-debugging-port=<a-port-number> yarn cypress run
-```
+### 5. Then run a Chromatic build through the CLI:
 
-### 5. Prepend build scripts with the Cypress-managed downloads folder:
+<Tabs>
+  <TabItem label="yarn">
+    ```shell
+    yarn chromatic --cypress
+    ```
+  </TabItem>
+  <TabItem label="npm">
+    ```shell
+    npm run chromatic --cypress
+    ```
+  </TabItem>
+</Tabs>
+
+### 6. Prepend build scripts with the Cypress-managed downloads folder:
 
 ```json
 "scripts": {
@@ -56,22 +79,9 @@ ELECTRON_EXTRA_LAUNCH_ARGS=--remote-debugging-port=<a-port-number> yarn cypress 
 }
 ```
 
-From there, write your Cypress tests as you normally would. Chromatic will automatically take a snapshot at the end of each test, and upload them to the Chromatic cloud for review.
-
-```js
-describe('My First Test', () => {
-  it('Visits the Kitchen Sink', () => {
-    // 👇 navigate to target page
-    cy.visit('https://example.cypress.io');
-    // 👇 verify the page title
-    cy.title().should('eq', 'Cypress.io: Kitchen Sink')
-  })
-})
-```
-
 ## Taking manual snapshots
 
-A snapshot is taken at the end of every test, whether is passes or fails. But you can also programmatically take manual snapshots at specific points in your tests using the `takeSnapshot` function inside your test runs:
+A snapshot is automatically taken at the end of every test, whether is passes or fails. But you can also programmatically take manual snapshots at specific points in your tests using the `takeSnapshot` function inside your test runs:
 
 ```js
 describe('My First Test', () => {
