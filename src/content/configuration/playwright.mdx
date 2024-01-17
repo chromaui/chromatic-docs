@@ -14,7 +14,7 @@ Chromatic E2E Visual Tests lets you bring Chromatic’s visual testing toolkit i
 <div style="display: flex; flex-flow: row wrap; gap: 0 1.5rem;">
   <ul style="margin:0;">
   <li>[Requirements](#requirements)</li>
-  <li>[Getting started](#verify-reduced-motion-animations)</li>
+  <li>[Getting started](#getting-started)</li>
   <li>[Taking manual snapshots](#taking-manual-snapshots)</li>
   <li>[Playwright options](#playwright-options)</li>
   <li>[E2E options](#e2e-options)</li>
@@ -143,7 +143,7 @@ Setting options globally can be done in your `playwright.config.js` as follows:
 
     export default defineConfig<ChromaticConfig>({
       use: {
-        // ... your other options
+        // ...
 
         // 👇 your option overrides
         disableAutoSnapshot: true,
@@ -160,7 +160,7 @@ Setting options globally can be done in your `playwright.config.js` as follows:
 
     export default defineConfig({
       use: {
-        // ... your other options
+        // ... 
 
         // 👇 your global options
         disableAutoSnapshot: true,
@@ -194,7 +194,7 @@ These options control how the Chromatic archive fixture behaves.
 | ------------------------ | --------- | ---------------------------------------------------------------------------------------------------------------------------- |
 | `disableAutoSnapshot`     | `boolean` | When `true`, will disable the snapshot that happens automatically at the end of a test when using the Chromatic test fixture. |
 | `resourceArchiveTimeout` | `number`  | Maximum amount of time that each test will wait for the network to be idle while archiving resources.                        |
-| `assetDomains` | `array`  | A list of domains external to the test location that you want Chromatic to also capture assets from, e.g., <code style="display: inline;">['other-domain.com','our-cdn.com']</code>. |
+| `assetDomains` | `array[string]`  | A list of domains external to the test location that you want Chromatic to also capture assets from, e.g., <code style="display: inline;">['other-domain.com','our-cdn.com']</code>. |
 
 ### Chromatic options
 
