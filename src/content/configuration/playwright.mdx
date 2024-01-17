@@ -146,7 +146,7 @@ Setting options globally can be done in your `playwright.config.js` as follows:
         // ... your other options
 
         // 👇 your option overrides
-        disableAutoCapture: true,
+        disableAutoSnapshot: true,
       },
       // ... your other configuration
     });
@@ -163,7 +163,7 @@ Setting options globally can be done in your `playwright.config.js` as follows:
         // ... your other options
 
         // 👇 your global options
-        disableAutoCapture: true,
+        disableAutoSnapshot: true,
       },
       // ... your other configuration
     });
@@ -178,7 +178,7 @@ Options can also be overridden at the test level:
 
   test.describe("some block", () => {
     // 👇 your option overrides
-    test.use({ disableAutoCapture: true });
+    test.use({ disableAutoSnapshot: true });
 
     test("some test", async ({ page }) => {
       // ...
@@ -192,9 +192,9 @@ These options control how the Chromatic archive fixture behaves.
 
 | Option                   | Type      | Description                                                                                                                  |
 | ------------------------ | --------- | ---------------------------------------------------------------------------------------------------------------------------- |
-| `disableAutoCapture`     | `boolean` | When `true`, will disable the capture that happens automatically at the end of a test when using the Chromatic test fixture. |
+| `disableAutoSnapshot`     | `boolean` | When `true`, will disable the snapshot that happens automatically at the end of a test when using the Chromatic test fixture. |
 | `resourceArchiveTimeout` | `number`  | Maximum amount of time that each test will wait for the network to be idle while archiving resources.                        |
-| `allowedArchiveDomains` | `array`  | A list of domains external to the test location that you want Chromatic to also capture assets from, e.g., <code style="display: inline;">['other-domain.com','our-cdn.com']</code>. |
+| `assetDomains` | `array`  | A list of domains external to the test location that you want Chromatic to also capture assets from, e.g., <code style="display: inline;">['other-domain.com','our-cdn.com']</code>. |
 
 ### Chromatic options
 
