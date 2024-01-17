@@ -21,14 +21,14 @@ npx chromatic init --cypress
 ### 2. Add the following to your `cypress/support/index.js` file:
 
 ```js
-import '@chromaui/test-archiver/cypress/support';
+import 'chromatic-cypress/support';
 ```
 
-### 3. Add our archiveCypress task to your `cypress.config.js` file:
+### 3. Install our plugin in your `cypress.config.js` file:
 
 ```js
 const { defineConfig } = require("cypress");
-const { installPlugin } = require('@chromaui/test-archiver/cypress');
+const { installPlugin } = require('chromatic-cypress');
 
 module.exports = defineConfig({
   e2e: {
@@ -71,7 +71,7 @@ describe('My First Test', () => {
 
 ## Taking manual snapshots
 
-A snapshot is taken at the end of every test, whether is passes or fails. But you can also programmatically take manual snapshots at specific points in your tests using the `takeArchive` function inside your test runs:
+A snapshot is taken at the end of every test, whether is passes or fails. But you can also programmatically take manual snapshots at specific points in your tests using the `takeSnapshot` function inside your test runs:
 
 ```js
 describe('My First Test', () => {
@@ -80,7 +80,7 @@ describe('My First Test', () => {
     cy.visit('https://example.cypress.io')
 
     // 📸 tell Chromatic to take a snapshot of the initial page state
-		cy.takeChromaticArchive()
+		cy.takeSnapshot()
 
     // 👇 finish the test by opening the dropdown menu
     cy.get('.dropdown:first-of-type > .dropdown-toggle').click()
