@@ -1,0 +1,309 @@
+---
+layout: "../../layouts/Layout.astro"
+title: Playwright
+description: Chromatic E2E Visual Tests capture snapshots of pages visited during Playwright tests.
+sidebar: { order: 17 }
+---
+
+import { TabItem, Tabs } from '../../components/Tabs'
+
+# E2E Visual Tests for Playwright
+Chromatic E2E Visual Tests lets you bring Chromatic’s visual testing toolkit into your existing Playwright workflow. You can use Chromatic to capture snapshots of pages visited during Playwright tests—including DOM, styles, and assets—and then review and approve them in the Chromatic UI.
+
+## Table of contents:
+<div style="display: flex; flex-flow: row wrap; gap: 0 1.5rem;">
+  <ul style="margin:0;">
+  <li>[Requirements](#requirements)</li>
+  <li>[Getting started](#verify-reduced-motion-animations)</li>
+  <li>[Taking manual snapshots](#taking-manual-snapshots)</li>
+  <li>[Playwright options](#playwright-options)</li>
+  <li>[E2E options](#e2e-options)</li>
+  </ul>
+  <ul style="margin:0;">
+  <li>[Chromatic options](#chromatic-options)</li>
+  <li>[Environment variables](#environment-variables)</li>
+  <li>[Working in Monorepos](#working-in-monorepos)</li>
+  <li>[Sharded Playwright Runs](#sharded-playwright-runs)</li>
+  <li>[Frequently asked questions](#frequently-asked-questions)</li>
+  </ul>
+</div>
+## Requirements
+
+- E2E Visual Tests works with end-to-end tests written in [Playwright](https://playwright.dev/) v1.12+.
+
+## Getting started
+
+### 1. Initialize your Chromatic project
+
+```bash
+npx chromatic init --playwright
+```
+
+### 2. Update your Playwright tests with `chromatic/playwright` imports:
+```js
+// ➖ Remove this line
+// import { test, expect } from '@playwright/test';
+// ➕ Add this line
+import { test, expect } from "chromatic/playwright";
+
+// Then use as normal 👇
+test("Homepage", async ({ page }) => {
+  await page.goto("https://mealexpress.com/");
+
+  await expect(page).toHaveTitle("Mealdrop - find your next meal");
+
+  // ...
+});
+```
+
+### 3. Run playwright as usual:
+
+<Tabs>
+  <TabItem label="yarn">
+    ```shell
+    yarn playwright test
+    ```
+  </TabItem>
+  <TabItem label="npx">
+    ```shell
+    npx playwright test
+    ```
+  </TabItem>
+</Tabs>
+
+### 4. Then run a Chromatic build through the CLI:
+
+<Tabs>
+  <TabItem label="yarn">
+    ```shell
+    yarn chromatic --playwright
+    ```
+  </TabItem>
+  <TabItem label="npm">
+    ```shell
+    npm run chromatic --playwright
+    ```
+  </TabItem>
+</Tabs>
+
+The above workflow results in tests that allow you to approve changes at a glance using Chromatic’s web-based merge manager:
+
+![Playwright visual test results as seen in the Chromatic UI](../../images/e2e-playwright-build.png)
+
+
+## Taking manual snapshots
+
+A snapshot is taken at the end of every test, whether is passes or fails. But you can also programmatically take manual snapshots at specific points in your tests using the `takeArchive` function inside your test runs:
+
+```js
+import { test, expect, takeArchive } from "chromic/playwright";
+
+// 👇 Add testInfo parameter
+test("Can filter product", async ({ page }, testInfo) => {
+  await page.goto("/restaurant/dp/B07KMG72");
+
+  await page.locator('.menu__item:first-of-type').click();
+
+  // Call takeArchive to take an archive "snapshot"
+  // of the page at this point in the test
+  // 👇 Pass testInfo to takeArchive
+  await takeArchive(page, testInfo);
+
+  // continue with test
+  await page.getByRole("link", { name: "Add to cart" }).click();
+
+  // You can call takeArchive multiple times, as necessary
+  // To help disambiguate, you can give the snapshot a name,
+  // which is passed as the second argument to takeArchive
+  await takeArchive(page, "After adding to cart", testInfo);
+
+  await expect(page).toHaveTitle(/Cart/);
+});
+```
+
+Every time this test is run, it produces a published library of snapshots using Chromatic’s cloud. Each snapshot has a unique URL, a fully-inspectable DOM, styling, and assets included:
+![Playwright manual snapshot as seen in the Chromatic UI](../../images/e2e-playwright-library.png)
+
+## Configuration
+
+You can further configure both your Playwright and Chromatic tests with the options described in the following sections.
+
+###  Playwright options
+
+The Chromatic [Playwright Fixture](https://playwright.dev/docs/test-fixtures) can be configured with `use` like all [Playwright options](https://playwright.dev/docs/test-use-options).
+
+Setting options globally can be done in your `playwright.config.js` as follows:
+
+<Tabs>
+  <TabItem label="TypeScript">
+    ```ts
+    // playwright.config.ts
+
+    import { ChromaticConfig } from "@chromaui/test-archiver";
+
+    export default defineConfig<ChromaticConfig>({
+      use: {
+        // ... your other options
+
+        // 👇 your option overrides
+        disableAutoCapture: true,
+      },
+      // ... your other configuration
+    });
+    ```
+  </TabItem>
+    <TabItem label="JavaScript">
+    ```javascript
+    // playwright.config.js
+
+    import { defineConfig } from "@playwright/test";
+
+    export default defineConfig({
+      use: {
+        // ... your other options
+
+        // 👇 your global options
+        disableAutoCapture: true,
+      },
+      // ... your other configuration
+    });
+    ```
+  </TabItem>
+</Tabs>
+
+Options can also be overridden at the test level:
+
+  ```javascript
+  // mytest.spec.js
+
+  test.describe("some block", () => {
+    // 👇 your option overrides
+    test.use({ disableAutoCapture: true });
+
+    test("some test", async ({ page }) => {
+      // ...
+    });
+  });
+  ```
+
+### E2E options
+
+These options control how the Chromatic archive fixture behaves.
+
+| Option                   | Type      | Description                                                                                                                  |
+| ------------------------ | --------- | ---------------------------------------------------------------------------------------------------------------------------- |
+| `disableAutoCapture`     | `boolean` | When `true`, will disable the capture that happens automatically at the end of a test when using the Chromatic test fixture. |
+| `resourceArchiveTimeout` | `number`  | Maximum amount of time that each test will wait for the network to be idle while archiving resources.                        |
+| `allowedArchiveDomains` | `array`  | A list of domains external to the test location that you want Chromatic to also capture assets from, e.g., <code style="display: inline;">['other-domain.com','our-cdn.com']</code>. |
+
+### Chromatic options
+
+These options control how Chromatic behaves concerning the stories of your archives.
+
+| Option                    | Type      | Chromatic Docs                                                          |
+| ------------------------- | --------- | ----------------------------------------------------------------------- |
+| `delay`                   | `number`  | [Delay](/docs/delay/)                                                   |
+| `diffIncludeAntiAliasing` | `boolean` | [Threshold for changes](/docs/threshold#anti-aliasing)                  |
+| `diffThreshold`           | `number`  | [Threshold for changes](/docs/threshold#setting-the-threshold)          |
+| `forcedColors`            | `string`  | [Media Features](/docs/media-features#test-high-contrast-color-schemes) |
+| `pauseAnimationAtEnd`     | `boolean` | [Animations](/docs/animations#css-animations)                           |
+| `prefersReducedMotion`    | `string`  | [Media Features](/docs/media-features#verify-reduced-motion-animations) |
+
+### Environment variables
+
+Some options can be configured through environment variables.
+
+| Environment variable         | Description                                                                                                                                                                                                                                                                                                                                                                                                                                                 |
+| ---------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `CHROMATIC_ARCHIVE_LOCATION` | If you have configured your project's [`outputDir`](https://playwright.dev/docs/api/class-testproject#test-project-output-dir) option to be different than the default, you must set the `CHROMATIC_ARCHIVE_LOCATION` environment variable to the same value. This must be done when starting the Storybook and when building it on CI. This ensures that the Archive Storybook can find the [archives](#what-are-archives) generated by the Test Archiver. |
+
+<hr />
+
+## Working in Monorepos
+
+Often, when using a monorepo, developers tend to keep their e2e tests in a subdirectory instead of in the root of the project. At the same time, the Storybook and Chromatic configuration details live at the project’s root. In these cases, you will need to update the `archive-storybook` and `build-archive-storybook` scripts in your `package.json` by setting the `-c` flag and `CHROMATIC_ARCHIVE_LOCATION` environment variable. For example:
+
+```json
+"scripts": {
+  "archive-storybook": "CHROMATIC_ARCHIVE_LOCATION=path/to/test-results archive-storybook -c path/to/node_modules/@chromaui/archive-storybook/config",
+  "build-archive-storybook": "CHROMATIC_ARCHIVE_LOCATION=path/to/test-results build-archive-storybook -c path/to/node_modules/@chromaui/archive-storybook/config"
+}
+```
+
+<div class="aside">
+
+💡 For additional information on using Chromatic with a monorepo, see our [monorepo documentation](/docs/monorepos).
+
+</div>
+
+<hr />
+
+## Sharded Playwright Runs
+
+When running your Playwright tests over multiple shared CI jobs, you’ll need to wait for all jobs to complete, ensure you save the results in `./test-archives` to be accessible by the next job (for instance using an [artifact in GitHub Actions](https://docs.github.com/en/actions/using-workflows/storing-workflow-data-as-artifacts)), and run Chromatic in a job that depends on all of the shards.
+
+For GitHub actions, that might look like:
+
+```yaml
+test:
+  name: Run Playwright
+  needs: install
+  strategy:
+    matrix:
+      shard: [1, 2]
+  steps:
+    - name: Run Playwright tests
+      run: npx playwright test --shard=${{ matrix.shard }}/${{ strategy.job-total }}
+
+    - uses: actions/upload-artifact@v3
+      if: always()
+      with:
+        name: playwright-report-${{ matrix.shard }}_${{ strategy.job-total }}
+        path: ./test-archives/latest
+        retention-days: 30
+
+chromatic:
+  name: Run Chromatic
+  needs: test
+  steps:
+    - name: Download all workflow run artifacts
+      uses: actions/download-artifact@v3
+
+    - name: Publish E2E Archives to Chromatic
+      uses: chromaui/action@v1
+      with:
+        projectToken: ${{ secrets.CHROMATIC_ARCHIVE_PROJECT_TOKEN }}
+        buildScriptName: build-archive-storybook
+```
+
+<hr />
+
+## Frequently asked questions
+
+<details>
+
+<summary>Does this mean we should no longer write stories for our page components?</summary>
+
+No. Our recommendation is still to develop and test your components, including pages, in Storybook. There are benefits to doing so:
+
+- **Coverage** — Certain states (in-between loading states, unusual API responses) are difficult or impossible to achieve in E2E but simple in Storybook. It’s much easier to write a story for every possible input of a page.
+- **Reproductions** — If something goes wrong with a snapshot, it’s much easier to pull up the story in Storybook and iterate towards fixing it.
+- **[Component Driven Development](https://www.componentdriven.org)** — Anchoring work and conversations about a UI in a specific state (e.g., settings page for new project) also offers many workflow benefits for development and collaboration.
+
+Unlike Storybook, E2E Visual Testing is well-suited to testing user flows between pages, not just individual page components.
+
+For pages in a legacy project that are otherwise difficult to isolate in Storybook, E2E Visual Tests helps you extend visual test coverage to those pages.
+
+</details>
+
+<details>
+
+<summary>What's the difference between E2E Visual Tests and interaction tests?</summary>
+
+Both simulate user behavior, but that's where the similarities end.
+
+E2E Visual Tests are for user flows that go from page-to-page. Chromatic takes snapshots during the Playwright/Cypress test run to detect visual changes in key pages of the user flow. These tests aren't made to express every state of a component because it would be too cumbersome to script and expensive to run.
+
+[Interaction tests](/docs/interactions) simulate user behavior in Storybook stories. When Chromatic runs, it tests those assertions. If the assertion passes, a snapshot is taken and visually tested. If it fails, the test gets badged as "failed". Interaction tests are made to express the states of a component that require user interaction. They do not support user flows that go from page-to-page.
+
+</details>
