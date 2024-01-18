@@ -18,13 +18,14 @@ Chromatic E2E Visual Tests lets you bring Chromatic’s visual testing toolkit i
 npx chromatic init --cypress
 ```
 
-### 2. Add the following to your `cypress/support/index.js` file:
+### 2. Add Chromatic to Cypress
 
+Add the following to your `cypress/support/index.js` file:
 ```js
 import 'chromatic-cypress/support';
 ```
 
-### 3. Install our plugin in your `cypress.config.js` file:
+Install our plugin in your `cypress.config.js` file:
 
 ```js
 const { defineConfig } = require("cypress");
@@ -39,23 +40,24 @@ module.exports = defineConfig({
 });
 ```
 
-### 4. Run Cypress as usual, prepending your command with the following environment variable, which defines what port Chrome Devtools Protocol should listen to:
+### 3. Prepend your Cypress run command with the following environment variable, defining which port Chrome Devtools Protocol should listen to
 
-Any port is fine, as long as it's not already in use. We recommend using `9222`.
 <Tabs>
   <TabItem label="yarn">
     ```shell
-    ELECTRON_EXTRA_LAUNCH_ARGS=--remote-debugging-port=<a-port-number> yarn cypress run
+    ELECTRON_EXTRA_LAUNCH_ARGS=--remote-debugging-port=9222 yarn cypress run
     ```
   </TabItem>
   <TabItem label="npm">
     ```shell
-    ELECTRON_EXTRA_LAUNCH_ARGS=--remote-debugging-port=<a-port-number> npx cypress run
+    ELECTRON_EXTRA_LAUNCH_ARGS=--remote-debugging-port=9222 npx cypress run
     ```
   </TabItem>
 </Tabs>
 
-### 5. Then run a Chromatic build through the CLI:
+By default, `9222` is the port that's being listened to. You can customize this with any other port number, as long as it's not already in use.
+
+### 4. Run a Chromatic build through the CLI
 
 <Tabs>
   <TabItem label="yarn">
@@ -70,14 +72,6 @@ Any port is fine, as long as it's not already in use. We recommend using `9222`.
   </TabItem>
 </Tabs>
 
-### 6. Prepend build scripts with the Cypress-managed downloads folder:
-
-```json
-"scripts": {
-  "archive-storybook": "CHROMATIC_ARCHIVE_LOCATION=./cypress/downloads archive-storybook",
-  "build-archive-storybook": "CHROMATIC_ARCHIVE_LOCATION=./cypress/downloads build-archive-storybook"
-}
-```
 
 ## Taking manual snapshots
 
