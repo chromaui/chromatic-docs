@@ -72,6 +72,15 @@ By default, `9222` is the port that's being listened to. You can customize this 
   </TabItem>
 </Tabs>
 
+### 5. Prepend build scripts with the Cypress-managed downloads folder:
+
+```json
+"scripts": {
+  "archive-storybook": "CHROMATIC_ARCHIVE_LOCATION=./cypress/downloads archive-storybook",
+  "build-archive-storybook": "CHROMATIC_ARCHIVE_LOCATION=./cypress/downloads build-archive-storybook"
+}
+```
+
 
 ## Taking manual snapshots
 
