@@ -221,7 +221,7 @@ Some options can be configured through environment variables.
 
 ## Working in Monorepos
 
-Often, when using a monorepo, developers tend to keep their e2e tests in a subdirectory instead of in the root of the project. At the same time, the Storybook and Chromatic configuration details live at the project’s root. In these cases, you will need to update the `archive-storybook` and `build-archive-storybook` scripts in your `package.json` by setting the `-c` flag and `CHROMATIC_ARCHIVE_LOCATION` environment variable. For example:
+Often, when using a monorepo, developers tend to keep their e2e tests in a subdirectory instead of in the root of the project. At the same time, the Storybook and Chromatic configuration details live at the project’s root. In these cases, you will need to update the `archive-storybook` and `build-archive-storybook` scripts in your `package.json` by setting the [`-c` flag](https://storybook.js.org/docs/api/cli-options#build) and `CHROMATIC_ARCHIVE_LOCATION` environment variable. For example:
 
 ```json
 "scripts": {
