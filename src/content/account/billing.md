@@ -45,6 +45,8 @@ When [TurboSnap](/docs/turbosnap) is enabled, each Chromatic build generates two
 | 50 stories  | 2        | 1         | 10                      | 20                | 80         | 36               |
 | 50 stories  | 2        | 2         | 10                      | 40                | 160        | 72               |
 
+Note: your monthly [usage reports](/docs/billing/#usage-reports) will include a breakdown of regular snapshots vs TurboSnaps.
+
 ### How we count snapshots
 
 Snapshots are counted at the account level. If your account has multiple projects, we sum the number of snapshots each project uses to get your total usage. Chromatic doesn't break down billing per project.

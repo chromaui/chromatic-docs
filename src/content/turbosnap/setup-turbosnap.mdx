@@ -23,7 +23,7 @@ It will build and test stories that may have been affected by the Git changes si
   after ten successful builds on CI, at least one of which is accepted.
 </div>
 
-### Prerequisites
+## Prerequisites
 
 - Chromatic CLI [10.0+](https://www.npmjs.com/package/chromatic)
 - Storybook 6.2+
@@ -64,7 +64,56 @@ You may need additional config in the following situations:
 - You have files that should never trigger a re-test (e.g., in a monorepo)
 - You want to enable or disable TurboSnap for specific branches
 
-### With prebuilt Storybook
+<div class="aside">
+
+ℹ️ You can verify your glob pattern using this [picomatch-playground](https://picomatch-playground-ebjlxm.csb.app/).
+
+</div>
+
+### Verify that TurboSnap is working
+
+The best way to see if TurboSnap is working is to inspect your CLI output. There are a couple of messages the CLI outputs of particular relevance:
+
+```shell
+Traversing dependencies for X files that changed since the last build
+```
+
+<div class="aside">
+  This message tells us how many git changes Chromatic has detected since the
+  last Chromatic build. Usually, that's just one or two commits' worth of files.
+</div>
+
+```shell
+Found Y story files affected by recent changes
+```
+
+<div class="aside">
+
+This message tells you the number of story files that depend on the X changes above. This message also might be replaced by a message telling you that we need to capture all stories ([see below](#why-are-full-rebuilds-required) ).
+
+</div>
+
+```shell
+Tested A stories across B components; capture C snapshots in S seconds.
+```
+
+<div class="aside">
+  This message tells you how many snapshots we actually took instead of the
+  number of stories we found in your Storybook. Usually, C would be the number
+  of stories in the Y component files above.
+</div>
+
+Once TurboSnap is activated, all subsequent builds will display an indicator with TurboSnap's status. Find it on the Build page above your tests.
+
+![TurboSnap indicator](../../images/build-turbosnap.png)
+
+---
+
+## Recipes
+
+A few common scenarios require additional configuration.
+
+### TurboSnap with prebuilt Storybook
 
 If you're using `--storybook-build-dir` to provide a prebuilt Storybook, adjust your `build-storybook` script to include the `--webpack-stats-json` option. If Chromatic builds your Storybook for you, this is unnecessary, and will take care of it. For example:
 
@@ -159,50 +208,7 @@ Similar to source code changes, the `--untraced` flag can also be used to ignore
 
 To enable TurboSnap for specific branches, pass a glob to `--only-changed` (e.g., `chromatic --only-changed "feature/*"`). Use a negating glob (e.g. `chromatic --only-changed "!(main)"`) to enable all but certain branches. See [picomatch] for details.
 
-<div class="aside">
-
-ℹ️ You can verify your glob pattern using this [picomatch-playground](https://picomatch-playground-ebjlxm.csb.app/).
-
-</div>
-
-### Confirm TurboSnap is working
-
-The best way to see if TurboSnap is working is to inspect your CLI output. There are a couple of messages the CLI outputs of particular relevance:
-
-```shell
-Traversing dependencies for X files that changed since the last build
-```
-
-<div class="aside">
-  This message tells us how many git changes Chromatic has detected since the
-  last Chromatic build. Usually, that's just one or two commits' worth of files.
-</div>
-
-```shell
-Found Y story files affected by recent changes
-```
-
-<div class="aside">
-
-This message tells you the number of story files that depend on the X changes above. This message also might be replaced by a message telling you that we need to capture all stories ([see below](#why-are-full-rebuilds-required) ).
-
-</div>
-
-```shell
-Tested A stories across B components; capture C snapshots in S seconds.
-```
-
-<div class="aside">
-  This message tells you how many snapshots we actually took instead of the
-  number of stories we found in your Storybook. Usually, C would be the number
-  of stories in the Y component files above.
-</div>
-
-Once TurboSnap is activated, all subsequent builds will display an indicator with TurboSnap's status. Find it on the Build page above your tests.
-
-![TurboSnap indicator](../../images/build-turbosnap.png)
-
-### Notes on monorepos
+### Using TurboSnap in a monorepo
 
 TurboSnap will make working in a monorepo more efficient. Because it detects affected stories based on the actual files changed, pushing a commit that touched only backend code will run faster in CI and not use up your snapshot quota. However, it will still build and publish your Storybook. To avoid that, you can [skip Chromatic entirely](/docs/monorepos#only-run-chromatic-when-changes-occur-in-a-subproject), speeding up your CI pipeline even more.
 
