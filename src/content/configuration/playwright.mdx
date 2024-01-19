@@ -93,20 +93,22 @@ test("Homepage", async ({ page }) => {
   </TabItem>
 </Tabs>
 
+### 5. Add build scripts
+
+In `package.json`, add the following scripts:
+
+```json
+"scripts": {
+  "archive-storybook": "archive-storybook",
+  "build-archive-storybook": "build-archive-storybook"
+}
+```
+
 ### 5. Then run a Chromatic build through the CLI (using the token you noted above):
 
-<Tabs>
-  <TabItem label="yarn">
-    ```shell
-    yarn chromatic@latest --build-script-name=build-archive-storybook -t=<TOKEN>
-    ```
-  </TabItem>
-  <TabItem label="npm">
-    ```shell
-    npx chromatic@latest --build-script-name=build-archive-storybook -t=<TOKEN>
-    ```
-  </TabItem>
-</Tabs>
+```shell
+  npx chromatic@latest --build-script-name=build-archive-storybook -t=<TOKEN>
+```
 
 This workflow results in tests that allow you to approve changes at a glance inside Chromatic.
 

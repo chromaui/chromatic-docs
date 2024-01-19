@@ -41,7 +41,7 @@ Chromatic E2E Visual Tests lets you bring Chromatic’s visual testing toolkit i
 
 ### 3. Add Chromatic to Cypress
 
-Add the following to your `cypress/support/index.js` file:
+Add the following to your `cypress/support/e2e.js` file:
 ```js
 import 'chromatic-cypress/support';
 ```
@@ -80,7 +80,8 @@ Prepend your command with the following environment variable, which defines what
 
 By default, `9222` is the port that's being listened to. You can customize this with any other port number, as long as it's not already in use.
 
-### 5. Prepend build scripts with the Cypress-managed downloads folder:
+### 5. Add build scripts
+In `package.json`, prepend build scripts with the Cypress-managed downloads folder:
 
 ```json
 "scripts": {
@@ -91,19 +92,9 @@ By default, `9222` is the port that's being listened to. You can customize this 
 
 ### 6. Run a Chromatic build (using the token you noted above):
 
-<Tabs>
-  <TabItem label="yarn">
-    ```shell
-    yarn chromatic@latest --build-script-name=build-archive-storybook -t=<TOKEN>
-    ```
-  </TabItem>
-  <TabItem label="npm">
-    ```shell
-    npx chromatic@latest --build-script-name=build-archive-storybook -t=<TOKEN>
-    ```
-  </TabItem>
-</Tabs>
-
+```shell
+  npx chromatic@latest --build-script-name=build-archive-storybook -t=<TOKEN>
+```
 
 ## Taking manual snapshots
 
