@@ -40,9 +40,9 @@ module.exports = defineConfig({
 });
 ```
 
-### 3. Specify the port for Chrome Devtools Protocol to listen on
+### 3. Run Cypress as usual
 
-To define the port on which Chrome DevTools Protocol should listen, prepend the Cypress run command with the following environment variable.
+Prepend your command with the following environment variable, which defines what port Chrome Devtools Protocol should listen to:
 
 <Tabs>
   <TabItem label="yarn">
@@ -59,7 +59,16 @@ To define the port on which Chrome DevTools Protocol should listen, prepend the 
 
 By default, `9222` is the port that's being listened to. You can customize this with any other port number, as long as it's not already in use.
 
-### 4. Run a Chromatic build through the CLI
+### 4. Prepend build scripts with the Cypress-managed downloads folder:
+
+```json
+"scripts": {
+  "archive-storybook": "CHROMATIC_ARCHIVE_LOCATION=./cypress/downloads archive-storybook",
+  "build-archive-storybook": "CHROMATIC_ARCHIVE_LOCATION=./cypress/downloads build-archive-storybook"
+}
+```
+
+### 5. Run a Chromatic build
 
 <Tabs>
   <TabItem label="yarn">
@@ -73,15 +82,6 @@ By default, `9222` is the port that's being listened to. You can customize this 
     ```
   </TabItem>
 </Tabs>
-
-### 5. Prepend build scripts with the Cypress-managed downloads folder:
-
-```json
-"scripts": {
-  "archive-storybook": "CHROMATIC_ARCHIVE_LOCATION=./cypress/downloads archive-storybook",
-  "build-archive-storybook": "CHROMATIC_ARCHIVE_LOCATION=./cypress/downloads build-archive-storybook"
-}
-```
 
 
 ## Taking manual snapshots
