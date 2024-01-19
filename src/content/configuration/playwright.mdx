@@ -33,7 +33,19 @@ Chromatic E2E Visual Tests let you bring Chromatic’s visual testing toolkit in
 
 ## Getting started
 
-### 1. Install dependencies
+### 1. Set up a Chromatic project
+
+   If your repository already has an associated Chromatic project, you can set up an additional Chromatic project to test the Archive Storybook using the [instructions for monorepo support](/docs/monorepos#run-chromatic-for-each-subproject).
+
+   Otherwise, follow [these sign up instructions](/docs/setup#sign-up) to create a new Chromatic project.
+
+   <div class="aside">
+
+   👉 Take note of the project token for the new project. You’ll need it in the next steps.
+
+   </div>
+
+### 2. Install dependencies
 
 <Tabs>
   <TabItem label="yarn">
@@ -49,7 +61,7 @@ Chromatic E2E Visual Tests let you bring Chromatic’s visual testing toolkit in
 </Tabs>
 
 
-### 2. Update your Playwright tests with chromatic-playwright imports:
+### 3. Update your Playwright tests with chromatic-playwright imports:
 ```js
 // ➖ Remove this line
 // import { test, expect } from '@playwright/test';
@@ -66,7 +78,7 @@ test("Homepage", async ({ page }) => {
 });
 ```
 
-### 3. Run Playwright as usual:
+### 4. Run Playwright as usual:
 
 <Tabs>
   <TabItem label="yarn">
@@ -81,17 +93,17 @@ test("Homepage", async ({ page }) => {
   </TabItem>
 </Tabs>
 
-### 4. Then run a Chromatic build through the CLI:
+### 5. Then run a Chromatic build through the CLI (using the token you noted above):
 
 <Tabs>
   <TabItem label="yarn">
     ```shell
-    yarn chromatic --playwright
+    yarn chromatic@latest --build-script-name=build-archive-storybook -t=<TOKEN>
     ```
   </TabItem>
   <TabItem label="npm">
     ```shell
-    npm run chromatic --playwright
+    npx chromatic@latest --build-script-name=build-archive-storybook -t=<TOKEN>
     ```
   </TabItem>
 </Tabs>

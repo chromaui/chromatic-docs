@@ -12,7 +12,19 @@ Chromatic E2E Visual Tests lets you bring Chromatic’s visual testing toolkit i
 
 ## Getting started
 
-### 1. Install dependencies
+### 1. Set up a Chromatic project
+
+   If your repository already has an associated Chromatic project, you can set up an additional Chromatic project to test the Archive Storybook using the [instructions for monorepo support](/docs/monorepos#run-chromatic-for-each-subproject).
+
+   Otherwise, follow [these sign up instructions](/docs/setup#sign-up) to create a new Chromatic project.
+
+   <div class="aside">
+
+   👉 Take note of the project token for the new project. You’ll need it in the next steps.
+
+   </div>
+
+### 2. Install dependencies
 
 <Tabs>
   <TabItem label="yarn">
@@ -27,7 +39,7 @@ Chromatic E2E Visual Tests lets you bring Chromatic’s visual testing toolkit i
   </TabItem>
 </Tabs>
 
-### 2. Add Chromatic to Cypress
+### 3. Add Chromatic to Cypress
 
 Add the following to your `cypress/support/index.js` file:
 ```js
@@ -49,7 +61,7 @@ module.exports = defineConfig({
 });
 ```
 
-### 3. Run Cypress as usual
+### 4. Run Cypress as usual
 
 Prepend your command with the following environment variable, which defines what port Chrome Devtools Protocol should listen to:
 
@@ -68,7 +80,7 @@ Prepend your command with the following environment variable, which defines what
 
 By default, `9222` is the port that's being listened to. You can customize this with any other port number, as long as it's not already in use.
 
-### 4. Prepend build scripts with the Cypress-managed downloads folder:
+### 5. Prepend build scripts with the Cypress-managed downloads folder:
 
 ```json
 "scripts": {
@@ -77,17 +89,17 @@ By default, `9222` is the port that's being listened to. You can customize this 
 }
 ```
 
-### 5. Run a Chromatic build
+### 6. Run a Chromatic build (using the token you noted above):
 
 <Tabs>
   <TabItem label="yarn">
     ```shell
-    yarn chromatic --cypress
+    yarn chromatic@latest --build-script-name=build-archive-storybook -t=<TOKEN>
     ```
   </TabItem>
   <TabItem label="npm">
     ```shell
-    npm run chromatic --cypress
+    npx chromatic@latest --build-script-name=build-archive-storybook -t=<TOKEN>
     ```
   </TabItem>
 </Tabs>
