@@ -33,11 +33,21 @@ Chromatic E2E Visual Tests let you bring Chromatic’s visual testing toolkit in
 
 ## Getting started
 
-### 1. Initialize your Chromatic project
+### 1. Install dependencies
 
-```bash
-npx chromatic init --playwright
-```
+<Tabs>
+  <TabItem label="yarn">
+    ```shell
+    yarn add --dev chromatic chromatic-playwright @storybook/addon-essentials@next @storybook/server-webpack5@next storybook@next
+    ```
+  </TabItem>
+  <TabItem label="npm">
+    ```shell
+    npm install --save-dev chromatic chromatic-playwright @storybook/addon-essentials@next @storybook/server-webpack5@next storybook@next
+    ```
+  </TabItem>
+</Tabs>
+
 
 ### 2. Update your Playwright tests with chromatic-playwright imports:
 ```js

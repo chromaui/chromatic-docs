@@ -12,11 +12,20 @@ Chromatic E2E Visual Tests lets you bring Chromatic’s visual testing toolkit i
 
 ## Getting started
 
-### 1. Initialize your Chromatic project
+### 1. Install dependencies
 
-```bash
-npx chromatic init --cypress
-```
+<Tabs>
+  <TabItem label="yarn">
+    ```shell
+    yarn add --dev chromatic chromatic-cypress @storybook/addon-essentials@next @storybook/server-webpack5@next storybook@next
+    ```
+  </TabItem>
+  <TabItem label="npm">
+    ```shell
+    npm install --save-dev chromatic chromatic-cypress @storybook/addon-essentials@next @storybook/server-webpack5@next storybook@next
+    ```
+  </TabItem>
+</Tabs>
 
 ### 2. Add Chromatic to Cypress
 
