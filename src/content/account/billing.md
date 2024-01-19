@@ -42,7 +42,8 @@ When [TurboSnap](/docs/turbosnap) is enabled, each Chromatic build generates two
 | Story count | Browsers | Viewports | Stories w/ code changes | Regular Snapshots | TurboSnaps | Billed snapshots |
 | ----------- | -------- | --------- | ----------------------- | ----------------- | ---------- | ---------------- |
 | 50 stories  | 2        | 1         | 50                      | 100               | 0          | 100              |
-| 50 stories  | 2        | 2         | 10                      | 20                | 80         | 36               |
+| 50 stories  | 2        | 1         | 10                      | 20                | 80         | 36               |
+| 50 stories  | 2        | 2         | 10                      | 40                | 160        | 72               |
 
 ### How we count snapshots
 

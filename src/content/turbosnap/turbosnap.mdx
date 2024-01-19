@@ -1,6 +1,6 @@
 ---
 layout: "../../layouts/Layout.astro"
-title: TurboSnap
+title: Introduction
 description: Speed up tests by detecting file changes with Git
 sidebar: { order: 1 }
 ---
@@ -45,11 +45,21 @@ In this case, it will search the existing builds until it finds a suitable "repl
 
 ## Pricing
 
-We call the snapshots where Chromatic detects that a story hasn't changed (based on code changes) **TurboSnaps**. These TurboSnaps are billed at 1/5th of the cost of a regular snapshot.
+When TurboSnap is enabled, Chromatic performs a check to determine if there are any code changes that could affect a story. If no changes are detected, it avoids spinning up cloud browsers to capture a new snapshot. Instead, it reuses the existing snapshot, which we refer to as **TurboSnaps**.
+
+TurboSnaps not only speed up the test runs, they also require less infrastructure resources. We pass these savings on to you by billing TurboSnaps at only 1/5th of the cost of a regular snapshot. That's 80% savings.
 
 For example, consider a Storybook with 50 stories. If your code changes impact 10 stories, Chromatic will capture new snapshots for those 10 stories. The cost of that build will be 18 snapshots:
 
 - 10 regular snapshots
 - 40 TurboSnaps (which cost: .2 x 40 = 8 regular snapshots)
+
+Here are a few more billing examples, which also account for multiple browsers and viewports:
+
+| Story count | Browsers | Viewports | Stories w/ code changes | Regular Snapshots | TurboSnaps | Billed snapshots |
+| ----------- | -------- | --------- | ----------------------- | ----------------- | ---------- | ---------------- |
+| 50 stories  | 2        | 1         | 50                      | 100               | 0          | 100              |
+| 50 stories  | 2        | 1         | 10                      | 20                | 80         | 36               |
+| 50 stories  | 2        | 2         | 10                      | 40                | 160        | 72               |
 
 Your monthly [usage reports](/docs/billing/#usage-reports) will include a the breakdown of regular snapshots vs TurboSnaps.
