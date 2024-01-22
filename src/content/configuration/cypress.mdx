@@ -1,0 +1,136 @@
+---
+layout: "../../layouts/Layout.astro"
+title: Cypress (beta)
+description: Chromatic E2E Visual Tests capture snapshots of pages visited during Cypress tests.
+sidebar: { order: 18 }
+---
+
+import { TabItem, Tabs } from "../../components/Tabs";
+
+# E2E Visual Tests for Cypress (beta)
+
+Chromatic E2E Visual Tests lets you bring Chromatic's visual testing toolkit into your existing Cypress workflow. You can use Chromatic to capture snapshots of pages visited during Cypress tests—including DOM, styles, and assets—and then review and approve them in the Chromatic UI.
+
+## Getting started
+
+### 1. Set up a Chromatic project
+
+If your repository already has an associated Chromatic project, you can set up an additional Chromatic project to test the Archive Storybook using the [instructions for monorepo support](/docs/monorepos#run-chromatic-for-each-subproject).
+
+Otherwise, follow [these sign up instructions](/docs/setup#sign-up) to create a new Chromatic project.
+
+<div class="aside">
+  👉 Take note of the project token for the new project. You'll need it in the
+  next steps.
+</div>
+
+### 2. Install dependencies
+
+Run the following command to install chromatic-cypress and related dependencies.
+
+<Tabs>
+  <TabItem label="yarn">
+    ```shell
+    yarn add --dev chromatic chromatic-cypress @storybook/addon-essentials@next @storybook/server-webpack5@next storybook@next
+    ```
+  </TabItem>
+
+  <TabItem label="npm">
+    ```shell
+    npm install --save-dev chromatic chromatic-cypress @storybook/addon-essentials@next @storybook/server-webpack5@next storybook@next
+    ```
+  </TabItem>
+</Tabs>
+
+### 3. Add Chromatic to Cypress
+
+Add the following to your `cypress/support/e2e.js` file:
+
+```js
+import "chromatic-cypress/support";
+```
+
+Install our plugin in your `cypress.config.js` file:
+
+```js
+const { defineConfig } = require("cypress");
+const { installPlugin } = require("chromatic-cypress");
+
+module.exports = defineConfig({
+  e2e: {
+    setupNodeEvents(on, config) {
+      installPlugin(on);
+    },
+  },
+});
+```
+
+### 4. Run Cypress as usual
+
+Prepend your command with the following environment variable, which defines what port Chrome Devtools Protocol should listen to:
+
+<Tabs>
+  <TabItem label="yarn">
+    ```shell
+    ELECTRON_EXTRA_LAUNCH_ARGS=--remote-debugging-port=9222 yarn cypress run
+    ```
+  </TabItem>
+
+  <TabItem label="npm">
+    ```shell
+    ELECTRON_EXTRA_LAUNCH_ARGS=--remote-debugging-port=9222 npx cypress run
+    ```
+  </TabItem>
+</Tabs>
+
+By default, `9222` is the port that's being listened to. You can customize this with any other port number, as long as it's not already in use.
+
+### 5. Set Chromatic archive location
+
+Prepend the build scripts with the Cypress-managed downloads folder
+
+```json
+"scripts": {
+  "archive-storybook": "CHROMATIC_ARCHIVE_LOCATION=./cypress/downloads archive-storybook",
+  "build-archive-storybook": "CHROMATIC_ARCHIVE_LOCATION=./cypress/downloads build-archive-storybook"
+}
+```
+
+### 6. Run a Chromatic build
+
+Use the Chromatic CLI to run a build (using the token you noted above)
+
+```shell
+npx chromatic@latest --build-script-name=build-archive-storybook -t=<TOKEN>
+```
+
+---
+
+## Taking manual snapshots
+
+A snapshot is automatically taken at the end of every test, whether is passes or fails. But you can also programmatically take manual snapshots at specific points in your tests using the `takeSnapshot` function inside your test runs:
+
+```js
+describe("My First Test", () => {
+  it("Visits the Kitchen Sink", () => {
+    // 👇 navigate to target page
+    cy.visit("https://example.cypress.io");
+
+    // 📸 tell Chromatic to take a snapshot of the initial page state
+    cy.takeSnapshot();
+
+    // 👇 finish the test by opening the dropdown menu
+    cy.get(".dropdown:first-of-type > .dropdown-toggle").click();
+
+    // 📸 Chromatic automatically takes a snapshot here, at the end of the test
+  });
+});
+```
+
+### Environment variables
+
+Some options can be configured through environment variables.
+
+| Environment variable         | Description                                                                                                                                                                                                                                                                                                                                                                                                                                               |
+| ---------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `CHROMATIC_ARCHIVE_LOCATION` | If you have configured your project's [`downloadsFolder`](https://docs.cypress.io/guides/references/configuration#Downloads) option to be different than the default, you must set the `CHROMATIC_ARCHIVE_LOCATION` environment variable to the same value. This must be done when starting the Storybook and when building it on CI. This ensures that the Archive Storybook can find the [archives](#what-are-archives) generated by the Test Archiver. |
