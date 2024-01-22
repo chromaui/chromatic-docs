@@ -36,6 +36,12 @@ const links: LinksProps = {
     iconColor: "orange500",
     href: "/features/interaction-test",
   },
+  E2EVisualTest: {
+    title: "E2E Visual test",
+    icon: "play",
+    iconColor: "green500",
+    href: "/features/e2e-visual-test",
+  },
   turboSnap: {
     title: "TurboSnap",
     icon: "dashboard",
@@ -89,12 +95,6 @@ const links: LinksProps = {
     iconColor: "orange500",
     href: "/company/about",
   },
-  blog: {
-    title: "Blog",
-    icon: "star",
-    iconColor: "blue500",
-    href: "/blog",
-  },
   careers: {
     title: "Careers",
     icon: "user",
@@ -130,6 +130,11 @@ export const desktopData: HeaderProps["desktopData"] = [
             ...links.interactionTest,
             type: "link",
             description: "Verify behavior of all screens and components",
+          },
+          {
+            ...links.E2EVisualTest,
+            type: "link",
+            description: "Test every page in your E2E suite",
           },
           {
             ...links.turboSnap,
@@ -260,11 +265,6 @@ export const desktopData: HeaderProps["desktopData"] = [
             description: "Our mission is to improve the UX of the internet",
           },
           {
-            ...links.blog,
-            type: "link",
-            description: "Product updates, news, and changes from Chromatic",
-          },
-          {
             ...links.careers,
             type: "link",
             title: "Careers",
@@ -386,10 +386,6 @@ export const mobileData: HeaderProps["mobileData"] = [
     content: [
       {
         ...links.aboutChromatic,
-      },
-      {
-        ...links.blog,
-        href: "/blog",
       },
       {
         ...links.careers,

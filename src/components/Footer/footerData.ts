@@ -20,6 +20,10 @@ export const footerColumns: FooterProps["columns"] = [
       { title: "UI Tests", href: "/features/test" },
       { title: "Visual test", href: "/features/visual-test" },
       { title: "Interaction test", href: "/features/interaction-test" },
+      {
+        title: "E2E Visual tests",
+        href: "/features/e2e-visual-test",
+      },
       { title: "TurboSnap", href: "/features/turbosnap" },
       { title: "UI Review", href: "/features/review" },
       { title: "Publish", href: "/features/publish" },
