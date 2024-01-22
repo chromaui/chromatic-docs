@@ -42,7 +42,7 @@ For TurboSnaps, Chromatic doesn't have to spin up the full Capture Cloud, requir
 | Story count | Browsers | Viewports | Stories w/ changes | Snapshots | TurboSnaps | Billed snapshots |
 | ----------- | -------- | --------- | ------------------ | --------- | ---------- | ---------------- |
 | 50 stories  | 1        | 1         | 50                 | 50        | 0          | 50               |
-| 50 stories  | 1        | 1         | 10                 | 10        | 8          | 18               |
+| 50 stories  | 1        | 1         | 10                 | 10        | 40         | 18               |
 | 50 stories  | 2        | 1         | 50                 | 100       | 0          | 100              |
 | 50 stories  | 2        | 1         | 10                 | 20        | 80         | 36               |
 | 50 stories  | 2        | 2         | 10                 | 40        | 160        | 72               |
