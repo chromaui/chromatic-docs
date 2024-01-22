@@ -37,7 +37,7 @@ Chromatic's default behavior is to capture new a snapshot for every story in eve
 
 With [TurboSnap](/docs/turbosnap) enabled, Chromatic first analyzes the Git history and the dependency graph of your project to identify which story files or any of their dependencies have changed and only captures new snapshots for those stories. It reuses the existing snapshot for the remaining stories, which we call **TurboSnaps**.
 
-For TurboSnaps, Chromatic doesn't have to spin up the capture cloud, requiring less infrastructure resources. Therefore, they are billed at 1/5th the cost of a regular snapshot.
+For TurboSnaps, Chromatic doesn't have to spin up the full Capture Cloud, requiring less infrastructure resources. Therefore, they are billed at 1/5th the cost of a regular snapshot.
 
 With [TurboSnap](/docs/turbosnap) enabled, Chromatic first analyzes the Git history and the dependency graph of your bundler to identify which story files and their dependencies that have changed and only captures new snapshots for those stories.
 
