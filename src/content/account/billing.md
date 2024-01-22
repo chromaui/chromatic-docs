@@ -33,17 +33,21 @@ If you use our free [Publish Storybook](/docs/setup) service only you will not b
 
 ### Snapshots with TurboSnap enabled
 
-When [TurboSnap](/docs/turbosnap) is enabled, each Chromatic build generates two types of snapshots:
+Chromatic's default behavior is to capture new a snapshot for every story in every build.
 
-1. **Regular snapshots:** By analyzing the Git history and the dependency graph of your bundler, it identifies story files and their dependencies that have changed. It then captures new snapshots only for the stories associated with those changes.
+With [TurboSnap](/docs/turbosnap) enabled, Chromatic first analyzes the Git history and the dependency graph of your project to identify which story files or any of their dependencies have changed and only captures new snapshots for those stories. It reuses the existing snapshot for the remaining stories, which we call **TurboSnaps**.
 
-2. **TurboSnaps:** The stories that remain unchanged (based on TurboSnap heuristics). These are billed at a cost that is 1/5th of a regular snapshot.
+For TurboSnaps, Chromatic doesn't have to spin up the capture cloud, requiring less infrastructure resources. Therefore, they are billed at 1/5th the cost of a regular snapshot.
 
-| Story count | Browsers | Viewports | Stories w/ code changes | Regular Snapshots | TurboSnaps | Billed snapshots |
-| ----------- | -------- | --------- | ----------------------- | ----------------- | ---------- | ---------------- |
-| 50 stories  | 2        | 1         | 50                      | 100               | 0          | 100              |
-| 50 stories  | 2        | 1         | 10                      | 20                | 80         | 36               |
-| 50 stories  | 2        | 2         | 10                      | 40                | 160        | 72               |
+With [TurboSnap](/docs/turbosnap) enabled, Chromatic first analyzes the Git history and the dependency graph of your bundler to identify which story files and their dependencies that have changed and only captures new snapshots for those stories.
+
+| Story count | Browsers | Viewports | Stories w/ changes | Snapshots | TurboSnaps | Billed snapshots |
+| ----------- | -------- | --------- | ------------------ | --------- | ---------- | ---------------- |
+| 50 stories  | 1        | 1         | 50                 | 50        | 0          | 50               |
+| 50 stories  | 1        | 1         | 10                 | 10        | 8          | 18               |
+| 50 stories  | 2        | 1         | 50                 | 100       | 0          | 100              |
+| 50 stories  | 2        | 1         | 10                 | 20        | 80         | 36               |
+| 50 stories  | 2        | 2         | 10                 | 40        | 160        | 72               |
 
 Note: your monthly [usage reports](/docs/billing/#usage-reports) will include a breakdown of regular snapshots vs TurboSnaps.
 
