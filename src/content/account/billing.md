@@ -39,8 +39,6 @@ With [TurboSnap](/docs/turbosnap) enabled, Chromatic first analyzes the Git hist
 
 For TurboSnaps, Chromatic doesn't have to spin up the full Capture Cloud, requiring less infrastructure resources. Therefore, they are billed at 1/5th the cost of a regular snapshot.
 
-With [TurboSnap](/docs/turbosnap) enabled, Chromatic first analyzes the Git history and the dependency graph of your bundler to identify which story files and their dependencies that have changed and only captures new snapshots for those stories.
-
 | Story count | Browsers | Viewports | Stories w/ changes | Snapshots | TurboSnaps | Billed snapshots |
 | ----------- | -------- | --------- | ------------------ | --------- | ---------- | ---------------- |
 | 50 stories  | 1        | 1         | 50                 | 50        | 0          | 50               |
