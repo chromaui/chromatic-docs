@@ -59,7 +59,7 @@ const { installPlugin } = require("chromatic-cypress");
 module.exports = defineConfig({
   e2e: {
     setupNodeEvents(on, config) {
-      installPlugin(on);
+      installPlugin(on, config);
     },
   },
 });
