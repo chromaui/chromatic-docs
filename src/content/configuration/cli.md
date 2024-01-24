@@ -44,11 +44,17 @@ If you don't install `chromatic` as a dependency, `npx` will automatically downl
 
 ## Configuration
 
-The Chromatic CLI can be configured through options in `chromatic.config.json` (recommended), or by passing CLI flags. For use in CI, the only required option is the project token. Get your project token from the Chromatic website during onboarding or on your project's Manage page. Store your project token as the `CHROMATIC_PROJECT_TOKEN` environment variable or secret. The CLI automatically picks up the `CHROMATIC_PROJECT_TOKEN` environment variable so you won't have to explicitly provide it. For local builds with the Visual Tests addon, your personal OAuth token (with which you authenticated the addon) is used instead of the project token.
+Chromatic CLI can be configured through options in `./chromatic.config.json` file (recommended) placed at the root of your project folder, or by passing CLI flags.
 
-A full-featured `chromatic.config.json` file in a CI workflow where all changes to `main` happen through a pull request may look like this:
+For use in CI, the only required option is the project token. Get your project token from the Chromatic website during onboarding or on your project's Manage page. Store your project token as the `CHROMATIC_PROJECT_TOKEN` environment variable or secret. The CLI automatically picks up the `CHROMATIC_PROJECT_TOKEN` environment variable so you won't have to explicitly provide it.
+
+For local builds with the [Visual Tests addon](/docs/visual-tests-addon/), your personal OAuth token (with which you authenticated the addon) is used instead of the project token.
+
+A full-featured `./chromatic.config.json` file in a CI workflow where all changes to `main` happen through a pull request may look like this:
 
 ```json
+// ./chromatic.config.json
+
 {
   "projectId": "Project:...",
   "autoAcceptChanges": "main",
@@ -62,6 +68,8 @@ A full-featured `chromatic.config.json` file in a CI workflow where all changes 
 For unlinked projects that rely on the CI script to report build results, the recommended setup looks like this:
 
 ```json
+// ./chromatic.config.json
+
 {
   "projectId": "Project:...",
   "externals": ["public/**"],
@@ -73,6 +81,8 @@ For unlinked projects that rely on the CI script to report build results, the re
 If you aren't using CI (yet), you are better off with the minimum setup:
 
 ```json
+// ./chromatic.config.json
+
 {
   "projectId": "Project:..."
 }
