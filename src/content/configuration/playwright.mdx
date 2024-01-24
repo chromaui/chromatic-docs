@@ -95,19 +95,9 @@ test("Homepage", async ({ page }) => {
 
 Use the Chromatic CLI to run a build (using the token you noted above)
 
-<Tabs>
-  <TabItem label="yarn">
-    ```shell
-    yarn dlx chromatic@latest --playwright -t=<TOKEN>
-    ```
-  </TabItem>
-
-  <TabItem label="npm">
-    ```shell
-    npx chromatic@latest --playwright -t=<TOKEN>
-    ```
-  </TabItem>
-</Tabs>
+```shell
+npx chromatic@latest --playwright -t=<TOKEN>
+```
 
 This workflow results in tests that allow you to approve changes at a glance inside Chromatic.
 
