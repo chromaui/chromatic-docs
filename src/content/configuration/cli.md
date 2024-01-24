@@ -44,7 +44,7 @@ If you don't install `chromatic` as a dependency, `npx` will automatically downl
 
 ## Configuration
 
-Chromatic CLI can be configured through options in `./chromatic.config.json` file (recommended) in your project's root folder, or by passing CLI flags.
+Chromatic CLI can be configured through options in `./chromatic.config.json` file (recommended) placed at the root of your project folder, or by passing CLI flags.
 
 For use in CI, the only required option is the project token. Get your project token from the Chromatic website during onboarding or on your project's Manage page. Store your project token as the `CHROMATIC_PROJECT_TOKEN` environment variable or secret. The CLI automatically picks up the `CHROMATIC_PROJECT_TOKEN` environment variable so you won't have to explicitly provide it.
 
