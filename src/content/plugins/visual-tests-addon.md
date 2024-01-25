@@ -58,7 +58,7 @@ You'll see list of available projects that you have access to. Select a project 
 
 ## Configure
 
-Chromatic is configured using the [`.storybook/chromatic.config.json`](/docs/cli#configuration) file. By default, the recommended configuration for most projects is already applied. You can also customize the default behavior and provide additional options for full control.
+Chromatic is configured using the [`./chromatic.config.json`](/docs/cli#configuration) file. By default, the recommended configuration for most projects is already applied. You can also customize the default behavior and provide additional options for full control.
 
 ### Addon configuration options
 
@@ -73,7 +73,7 @@ The shortlist of options that are addon-specific are below. View the full list o
 | `zip`             | Recommended for large projects. Configures the addon to deploy your Storybook to Chromatic as a zip file <br/> `"zip": true` |
 
 ```json
-// .storybook/chromatic.config.json
+// ./chromatic.config.json
 {
   "projectId": "Project:64cbcde96f99841e8b007d75",
   "projectToken": "chpt_fa88b088041ccde",
