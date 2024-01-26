@@ -310,31 +310,3 @@ chromatic:
 ```
 
 <hr />
-
-## Frequently asked questions
-
-<details>
-<summary>Does this mean we should no longer write stories for our page components?</summary>
-
-No. Our recommendation is still to develop and test your components, including pages, in Storybook. There are benefits to doing so:
-
-- **Coverage** — Certain states (in-between loading states, unusual API responses) are difficult or impossible to achieve in E2E but simple in Storybook. It’s much easier to write a story for every possible input of a page.
-- **Reproductions** — If something goes wrong with a snapshot, it’s much easier to pull up the story in Storybook and iterate towards fixing it.
-- **[Component Driven Development](https://www.componentdriven.org)** — Anchoring work and conversations about a UI in a specific state (e.g., settings page for new project) also offers many workflow benefits for development and collaboration.
-
-Unlike Storybook, E2E Visual Testing is well-suited to testing user flows between pages, not just individual page components.
-
-For pages in a legacy project that are otherwise difficult to isolate in Storybook, E2E Visual Tests helps you extend visual test coverage to those pages.
-
-</details>
-
-<details>
-<summary>What's the difference between E2E Visual Tests and interaction tests?</summary>
-
-Both simulate user behavior, but that's where the similarities end.
-
-E2E Visual Tests are for user flows that go from page-to-page. Chromatic takes snapshots during the Playwright/Cypress test run to detect visual changes in key pages of the user flow. These tests aren't made to express every state of a component because it would be too cumbersome to script and expensive to run.
-
-[Interaction tests](/docs/interactions) simulate user behavior in Storybook stories. When Chromatic runs, it tests those assertions. If the assertion passes, a snapshot is taken and visually tested. If it fails, the test gets badged as "failed". Interaction tests are made to express the states of a component that require user interaction. They do not support user flows that go from page-to-page.
-
-</details>
