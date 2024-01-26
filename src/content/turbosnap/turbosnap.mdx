@@ -45,9 +45,11 @@ In this case, it will search the existing builds until it finds a suitable "repl
 
 ## Pricing
 
-When TurboSnap is enabled, Chromatic performs a check to determine if there are any code changes that could affect a story. If no changes are detected, it avoids spinning up cloud browsers to capture a new snapshot. Instead, it reuses the existing snapshot, which we refer to as **TurboSnaps**.
+By enabling TurboSnap, Chromatic performs a check to identify stories that have no code changes associated with them. Instead of capturing new snapshots, it intelligently reuses existing ones for these cases. These checks are referred to as **TurboSnaps**.
 
-TurboSnaps not only speed up the test runs, they also require less infrastructure resources. We pass these savings on to you by billing TurboSnaps at only 1/5th of the cost of a regular snapshot. That's 80% savings.
+TurboSnaps not only speed up the test runs, they also require less infrastructure resources. We pass these savings on to you by billing them at 1/5th of the cost of a regular snapshot.
+
+For the remaining stories, Chromatic captures new snapshots as usual and bills them at the regular rate.
 
 For example, consider a Storybook with 50 stories. If your code changes impact 10 stories, Chromatic will capture new snapshots for those 10 stories. The cost of that build will be 18 snapshots:
 
