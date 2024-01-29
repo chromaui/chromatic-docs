@@ -61,7 +61,7 @@ A full-featured `./chromatic.config.json` file in a CI workflow where all change
   "exitOnceUploaded": true,
   "externals": ["public/**"],
   "onlyChanged": true,
-  "skip": ["dependabot/**"]
+  "skip": "dependabot/**"
 }
 ```
 
