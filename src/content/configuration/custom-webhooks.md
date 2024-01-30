@@ -12,6 +12,12 @@ You can integrate Chromatic into other services and script custom behavior to su
 1. Go to your [Chromatic project](https://www.chromatic.com/start) and click the manage tab in the sidebar. Scroll down to "Integrations".
 2. Click the "Add webhook" button in the custom webhook section, then paste your webhook into the input.
 
+<div class="aside">
+
+If you're currently using v1 webhooks, read the [upgrade guide](/docs/upgrading-webhooks).
+
+</div>
+
 ## Build updates
 
 When a build's [status changes](#build-result-and-status-codes), we'll send a `POST` request to your webhook with a body that looks like this:
