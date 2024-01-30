@@ -7,7 +7,7 @@ sidebar: { order: 1 }
 
 # Introduction to TurboSnap
 
-TurboSnap is an advanced Chromatic feature that speeds up [UI Tests](/docs/test). It analyzes your project's Git history and Webpack's [dependency graph](https://webpack.js.org/concepts/dependency-graph/) to identify which components and their dependencies have changed. It intelligently snapshots only the stories associated with those changes.
+TurboSnap is an advanced Chromatic feature that speeds up [UI Tests](/docs/test). It analyzes your project's Git history and Webpack's [dependency graph](https://webpack.js.org/concepts/dependency-graph/) to identify which components and their dependencies have changed. It intelligently snapshots only the stories associated with those changes. For the rest, it copies over the snapshots from baselines that didn't change.
 
 ![TurboSnap tracks dependencies](../../images/turbosnap-dep-tracking.gif)
 
@@ -45,7 +45,7 @@ In this case, it will search the existing builds until it finds a suitable "repl
 
 ## Pricing
 
-By enabling TurboSnap, Chromatic performs a check to identify stories that have no code changes associated with them. Instead of capturing new snapshots, it intelligently reuses existing ones for these cases. These checks are referred to as **TurboSnaps**.
+By enabling TurboSnap, Chromatic performs a check to identify stories that have no code changes associated with them. Instead of capturing new snapshots, it duplicates snapshots from existing baselines in such cases. We refer to these duplicated snapshots as **TurboSnaps**.
 
 TurboSnaps not only speed up the test runs, they also require less infrastructure resources. We pass these savings on to you by billing them at 1/5th of the cost of a regular snapshot.
 
