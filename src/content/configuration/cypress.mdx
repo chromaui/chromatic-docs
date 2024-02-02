@@ -90,7 +90,7 @@ By default, `9222` is the port that's being listened to. You can customize this 
 Use the Chromatic CLI to run a build (using the token you noted above)
 
 ```shell
-npx chromatic --cypress -t=<TOKEN>
+CHROMATIC_ARCHIVE_LOCATION=./cypress/downloads npx chromatic --cypress -t=<TOKEN>
 ```
 
 ---
