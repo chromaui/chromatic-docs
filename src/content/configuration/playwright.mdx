@@ -39,31 +39,31 @@ Otherwise, follow [these sign up instructions](/docs/setup#sign-up) to create a 
 
 ### 2. Install dependencies
 
-Run the following command to install chromatic-playwright and related dependencies.
+Run the following command to install `@chromatic-com/playwright` and related dependencies.
 
 <Tabs>
   <TabItem label="yarn">
     ```shell
-    yarn add --dev chromatic chromatic-playwright @storybook/addon-essentials@next @storybook/server-webpack5@next storybook@next
+    yarn add --dev chromatic @chromatic-com/playwright
     ```
   </TabItem>
 
   <TabItem label="npm">
     ```shell
-    npm install --save-dev chromatic chromatic-playwright @storybook/addon-essentials@next @storybook/server-webpack5@next storybook@next
+    npm install --save-dev chromatic @chromatic-com/playwright
     ```
   </TabItem>
 </Tabs>
 
 ### 3. Add Chromatic to Playwright
 
-Update your Playwright tests with `chromatic-playwright` imports
+Update your Playwright tests with `@chromatic-com/playwright` imports
 
 ```js
 // ➖ Remove this line
 // import { test, expect } from '@playwright/test';
 // ➕ Add this line
-import { test, expect } from "chromatic-playwright";
+import { test, expect } from "@chromatic-com/playwright";
 
 // Then use as normal 👇
 test("Homepage", async ({ page }) => {
@@ -91,23 +91,12 @@ test("Homepage", async ({ page }) => {
   </TabItem>
 </Tabs>
 
-### 5. Add build scripts
-
-In `package.json`, add the following scripts:
-
-```json
-"scripts": {
-  "archive-storybook": "archive-storybook",
-  "build-archive-storybook": "build-archive-storybook"
-}
-```
-
 ### 5. Run a Chromatic build
 
 Use the Chromatic CLI to run a build (using the token you noted above)
 
 ```shell
-npx chromatic@latest --build-script-name=build-archive-storybook -t=<TOKEN>
+npx chromatic --playwright -t=<TOKEN>
 ```
 
 This workflow results in tests that allow you to approve changes at a glance inside Chromatic.
@@ -125,7 +114,7 @@ Now, every time Chromatic runs, it produces snapshots for each test. Each snapsh
 A snapshot is taken at the end of every test, whether is passes or fails. But you can also programmatically take manual snapshots at specific points in your tests using the `takeSnapshot` function inside your test runs:
 
 ```js
-import { test, expect, takeSnapshot } from "chromatic-playwright";
+import { test, expect, takeSnapshot } from "@chromatic-com/playwright";
 
 // 👇 Add testInfo parameter
 test("Can filter product", async ({ page }, testInfo) => {
@@ -170,7 +159,7 @@ Setting options globally can be done in your `playwright.config.js` as follows:
     ```ts
     // playwright.config.ts
     import { defineConfig } from "@playwright/test";
-    import { ChromaticConfig } from "chromatic-playwright";
+    import { ChromaticConfig } from "@chromatic-com/playwright";
 
     export default defineConfig<ChromaticConfig>({
       use: {
