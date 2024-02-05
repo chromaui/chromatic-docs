@@ -1,0 +1,110 @@
+---
+layout: "../../layouts/Layout.astro"
+title: E2E Visual Tests upgrade guide
+description: Steps necessary to upgrade to the beta Cypress and Playwright setup
+---
+
+# E2E Visual Tests upgrade guide
+
+If you're using Chromatic's E2E Visual Tests feature with either [Playwright](/docs/playwright) or [Cypress](/docs/cypress), we have made some changes to the setup. This guide will walk you through the necessary steps.
+
+## Uninstall old packages
+
+Chromatic now provides its separate packages for Playwright and Cypress. Please remove any of the following deprecated packages. Note that you may not have all of them, depending on the framework you used and the version of the setup guide you followed.
+
+- `@chromaui/archive-storybook`
+- `@chromaui/test-archiver`
+- `chromatic-cypress`
+- `chromatic-playwright`
+
+## Uninstall Storybook related packages
+
+The previous setup for E2E Visual Tests required the installation of Storybook and related packages. However, these are no longer necessary.
+
+If your project does not use Storybook and React, you can remove all of them.
+
+If your project uses Storybook or React, you only need to remove the packages that were installed specifically for the E2E Visual Tests setup.
+
+- `@storybook/addon-essentials`
+- `@storybook/cli`
+- `@storybook/server-webpack5`
+- `storybook`
+- `react`
+- `react-dom`
+
+### Install new packages
+
+Install the `chromatic` package and either `@chromatic-com/playwright` or `@chromatic-com/cypress` packages, depending on the E2E testing framework you use.
+
+## Update Scripts
+
+You can remove the `build-archive-storybook` and `archive-storybook` scripts from your project's `package.json` file, as they are no longer necessary. Instead, you can utilize the Chromatic CLI or GitHub Action to run your tests. For more information on the changes related to Chromatic Build, please refer to the [Chromatic Build Changes](#chromatic-build-changes) section for more information.
+
+## Test File Changes
+
+### Playwright
+
+Change all Chromatic imports from `@chromaui/test-archiver` or `chromatic-playwright` to `@chromatic-com/playwright`
+
+More specifically, in spec files update the import for testing functions:
+
+```diff
+-import { test, expect, takeSnapshot } from "chromatic-playwright"
++import { test, expect, takeSnapshot } from "@chromatic-com/playwright"
+```
+
+And in `playwright.config.ts` update the import for `ChromaticConfig`:
+
+```diff
+-import { ChromaticConfig } from "chromatic-playwright"
++import { ChromaticConfig } from "@chromatic-com/playwright"
+```
+
+### Cypress
+
+Update the imports in `cypress/support/e2e.js` file
+
+```diff
+-import "chromatic-cypress/support"
++import "@chromatic-com/cypress/support
+```
+
+And in the `cypress.config.js` file
+
+```diff
+-const { installPlugin } = require("chromatic-cypress")
++const { installPlugin } = require("@chromatic-com/cypress")
+```
+
+## Chromatic Build Changes
+
+If you're using the [Chromatic CLI](/docs/cli):
+
+- Ensure that you've installed `chromatic` package with version `10.7.0` or higher.
+- The new command to publish a Chromatic build is: `yarn chromatic --playwright -t=<TOKEN>` or `yarn chromatic --cypress -t=<TOKEN>`
+- If the Playwright or Cypress test directories are in a custom location or in a nested project from where the command is run, the env var can still be used:
+  ```sh
+  CHROMATIC_ARCHIVE_LOCATION=packages/ui/playwright/test-results yarn chromatic --playwright -t=<TOKEN>
+  ```
+
+If you're using the the GitHub Action, then you can use the following configuration:
+
+```yaml
+- name: Publish to Chromatic
+  uses: chromaui/action@latest
+  with:
+    playwright: true
+    projectToken: ${{ secrets.chromaticProjectToken }}
+
+# or
+
+- name: Publish to Chromatic
+  uses: chromaui/action@latest
+  with:
+    cypress: true
+    projectToken: ${{ secrets.chromaticProjectToken }}
+```
+
+### Re-accept baselines
+
+Once you have upgraded to the new packages, you will likely need to reaccept baselines on your next build. This is because the tests switched the [Storybook layout](https://storybook.js.org/docs/configure/story-layout#global-layout) to fullscreen, so there will be page padding changes to all the tests.
