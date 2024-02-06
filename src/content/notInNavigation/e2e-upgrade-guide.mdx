@@ -4,6 +4,8 @@ title: E2E Visual Tests upgrade guide
 description: Steps necessary to upgrade to the beta Cypress and Playwright setup
 ---
 
+import { TabItem, Tabs } from "../../components/Tabs";
+
 # E2E Visual Tests upgrade guide
 
 If you're using Chromatic's E2E Visual Tests feature with either [Playwright](/docs/playwright) or [Cypress](/docs/cypress), we have made some changes to the setup. This guide will walk you through the necessary steps.
@@ -34,7 +36,25 @@ If your project uses Storybook or React, you only need to remove the packages th
 
 ### Install new packages
 
-Install the `chromatic` package and either `@chromatic-com/playwright` or `@chromatic-com/cypress` packages, depending on the E2E testing framework you use.
+Install the chromatic dependencies for the framework you are using.
+
+<Tabs>
+  <TabItem label="Playwright">
+    ```shell
+    npm install --save-dev chromatic @chromatic-com/playwright
+    # or
+    yarn add --dev chromatic @chromatic-com/playwright
+    ```
+  </TabItem>
+
+  <TabItem label="Cypress">
+    ```shell
+    npm install --save-dev chromatic @chromatic-com/cypress
+    # or
+    yarn add --dev chromatic @chromatic-com/cypress
+    ```
+  </TabItem>
+</Tabs>
 
 ## Update Scripts
 
