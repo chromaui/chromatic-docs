@@ -164,7 +164,7 @@ This is a [known issue](https://github.com/storybookjs/storybook/issues/22431#is
 <details>
 <summary>Does the addon affect snapshot usage?</summary>
 
-The addon will be free to use throughout the early access period (including public beta). If you're an existing Chromatic customer and you receive any overages from using the addon, we'll credit those back to your account after the early access period.
+The addon will be free to use throughout the early access period (including public beta). If you are an existing Chromatic customer and receive overages from using the addon, we will credit those back to you after early access ends.
 
 When early access ends, snapshots will become billed and will count towards your snapshot usage. If you have any questions about snapshot costs or billing, please contact us <a class="intercom-concierge-bot"><b>via in-app chat</b></a>.
 </details>
