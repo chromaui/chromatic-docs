@@ -164,10 +164,9 @@ This is a [known issue](https://github.com/storybookjs/storybook/issues/22431#is
 <details>
 <summary>Does the addon affect snapshot usage?</summary>
 
-Yes, running tests in the addon counts towards snapshot usage. The addon connects to our cloud to allow you to run tests on-demand in Storybook instead of waiting on CI. But you’re still taking snapshots all the same.
+The addon will be free to use throughout the early access period (including public beta). If you're an existing Chromatic customer and you receive any overages from using the addon, we'll credit those back to your account after the early access period.
 
-For users in the public beta, the snapshots are free. Your usage will be credited to your account if there are any overages as a result of using the addon. Snapshots will be billed when the early access program concludes. If you still see them listed in your bill or have any questions, contact us <a class="intercom-concierge-bot"><b>via in-app chat</b></a>.
-
+When early access ends, snapshots will become billed and will count towards your snapshot usage. If you have any questions about snapshot costs or billing, please contact us <a class="intercom-concierge-bot"><b>via in-app chat</b></a>.
 </details>
 
 <details>
