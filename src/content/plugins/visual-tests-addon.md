@@ -182,3 +182,10 @@ Not yet. Visual Tests Addon is in beta with free usage. Support for TurboSnap wi
 No. Denying changes is only available when running builds from CI or the CLI. If you need to, you can revert changes by clicking the ”Unaccept” button in the addon panel.
 
 </details>
+
+<details>
+<summary id="git-addon">Do I need Git to run the addon?</summary>
+
+Yes, Visual Tests addon requires Git to track baselines for each story. To use Chromatic, you need to have git initialized in your project repository and have at least one commit.
+
+</details>
