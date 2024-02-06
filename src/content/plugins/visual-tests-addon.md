@@ -2,14 +2,14 @@
 layout: "../../layouts/Layout.astro"
 title: Visual Tests addon for Storybook (beta)
 description: Configure Storybook to test UIs with the Visual Tests Addon
-sidebar: { order: 1, label: Addon for Storybook (beta) }
+sidebar: { order: 1, label: Storybook addon (beta) }
 ---
 
 # Visual Tests addon for Storybook
 
 <div class="aside" style="margin-bottom: 2rem;">
 
-🧪 Currently in beta: [Sign up for early access](https://forms.gle/NCDV1BMGuNfjWrPm9)
+<b>Feb 6, 2024</b>: Now available in public beta, with active development by six core maintainers. Try it today! 
 
 </div>
 
@@ -20,7 +20,7 @@ Pinpoint visual bugs in local development without leaving Storybook.
 Run the following command to install the addon:
 
 ```shell
-yarn add --dev @chromaui/addon-visual-tests
+yarn add --dev @chromatic-com/storybook
 ```
 
 <div class="aside">
@@ -38,7 +38,7 @@ const config = {
   stories: ["../src/**/*.mdx", "../src/**/*.stories.@(js|jsx|mjs|ts|tsx)"],
   addons: [
     // Other Storybook addons
-    "@chromaui/addon-visual-tests",
+    "@chromatic-com/storybook",
   ],
 };
 export default config;
@@ -164,10 +164,9 @@ This is a [known issue](https://github.com/storybookjs/storybook/issues/22431#is
 <details>
 <summary>Does the addon affect snapshot usage?</summary>
 
-Yes, running tests in the addon counts towards snapshot usage. The addon connects to our cloud to allow you to run tests on-demand in Storybook instead of waiting on CI. But you’re still taking snapshots all the same.
+The addon will be free to use throughout the early access period (including public beta). If you are an existing Chromatic customer and receive overages from using the addon, we will credit those back to you after early access ends.
 
-For customers in the early access program, the snapshots are free. Your usage will be credited to your account if there are any overages as a result of using the addon. Snapshots will be billed when the early access program concludes. If you still see them listed in your bill or have any questions, contact us <a class="intercom-concierge-bot"><b>via in-app chat</b></a>.
-
+When early access ends, snapshots will become billed and will count towards your snapshot usage. If you have any questions about snapshot costs or [billing](https://www.chromatic.com/pricing), please contact us <a class="intercom-concierge-bot"><b>via in-app chat</b></a>.
 </details>
 
 <details>
