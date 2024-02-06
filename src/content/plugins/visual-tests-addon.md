@@ -9,7 +9,7 @@ sidebar: { order: 1, label: Storybook addon (beta) }
 
 <div class="aside" style="margin-bottom: 2rem;">
 
-🧪 Now available in public beta, with active development by six core maintainers. Try it today! 
+<b>Feb 6, 2024</b>: Now available in public beta, with active development by six core maintainers. Try it today! 
 
 </div>
 
