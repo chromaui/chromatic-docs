@@ -166,7 +166,7 @@ This is a [known issue](https://github.com/storybookjs/storybook/issues/22431#is
 
 Yes, running tests in the addon counts towards snapshot usage. The addon connects to our cloud to allow you to run tests on-demand in Storybook instead of waiting on CI. But you’re still taking snapshots all the same.
 
-For customers in the early access program, the snapshots are free. Your usage will be credited to your account if there are any overages as a result of using the addon. Snapshots will be billed when the early access program concludes. If you still see them listed in your bill or have any questions, contact us <a class="intercom-concierge-bot"><b>via in-app chat</b></a>.
+For users in the public beta, the snapshots are free. Your usage will be credited to your account if there are any overages as a result of using the addon. Snapshots will be billed when the early access program concludes. If you still see them listed in your bill or have any questions, contact us <a class="intercom-concierge-bot"><b>via in-app chat</b></a>.
 
 </details>
 
