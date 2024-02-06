@@ -2,14 +2,14 @@
 layout: "../../layouts/Layout.astro"
 title: Visual Tests addon for Storybook (beta)
 description: Configure Storybook to test UIs with the Visual Tests Addon
-sidebar: { order: 1, label: Addon for Storybook (beta) }
+sidebar: { order: 1, label: Storybook addon (beta) }
 ---
 
 # Visual Tests addon for Storybook
 
 <div class="aside" style="margin-bottom: 2rem;">
 
-🧪 Currently in beta: [Sign up for early access](https://forms.gle/NCDV1BMGuNfjWrPm9)
+🧪 Now available in public beta, with active development by six core maintainers. Try it today! 
 
 </div>
 
@@ -20,7 +20,7 @@ Pinpoint visual bugs in local development without leaving Storybook.
 Run the following command to install the addon:
 
 ```shell
-yarn add --dev @chromaui/addon-visual-tests
+yarn add --dev @chromatic-com/storybook
 ```
 
 <div class="aside">
@@ -38,7 +38,7 @@ const config = {
   stories: ["../src/**/*.mdx", "../src/**/*.stories.@(js|jsx|mjs|ts|tsx)"],
   addons: [
     // Other Storybook addons
-    "@chromaui/addon-visual-tests",
+    "@chromatic-com/storybook",
   ],
 };
 export default config;
