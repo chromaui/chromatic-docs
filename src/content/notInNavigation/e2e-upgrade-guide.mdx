@@ -8,11 +8,13 @@ import { TabItem, Tabs } from "../../components/Tabs";
 
 # E2E Visual Tests upgrade guide
 
-If you're using Chromatic's E2E Visual Tests feature with either [Playwright](/docs/playwright) or [Cypress](/docs/cypress), we have made some changes to the setup. This guide will walk you through the necessary steps.
+**Last updated: Feb 6 2024**
+
+With the launch of E2E Visual Tests in public beta, we made some changes to Chromatic's setup process for [Playwright](/docs/playwright) and [Cypress](/docs/cypress). Follow this guide to upgrade and resume your visual tests.
 
 ## Uninstall old packages
 
-Chromatic now provides its separate packages for Playwright and Cypress. Please remove any of the following deprecated packages. Note that you may not have all of them, depending on the framework you used and the version of the setup guide you followed.
+Chromatic now provides separate packages for Playwright and Cypress. Please remove any of the following deprecated packages (you may not have all of them, depending on your framework and the setup guide you followed):
 
 - `@chromaui/archive-storybook`
 - `@chromaui/test-archiver`
@@ -21,11 +23,9 @@ Chromatic now provides its separate packages for Playwright and Cypress. Please 
 
 ## Uninstall Storybook related packages
 
-The previous setup for E2E Visual Tests required the installation of Storybook and related packages. However, these are no longer necessary.
+Previously, E2E Visual Tests required the installation of Storybook and related packages. However, these packages are no longer necessary and can now be uninstalled.
 
-If your project does not use Storybook and React, you can remove all of them.
-
-If your project uses Storybook or React, you only need to remove the packages that were installed specifically for the E2E Visual Tests setup.
+Note: if your project doesn't use Storybook and React, you can remove all packages. If your project uses Storybook or React, you only need to remove the packages that were installed specifically for E2E Visual Tests.
 
 - `@storybook/addon-essentials`
 - `@storybook/cli`
@@ -36,7 +36,7 @@ If your project uses Storybook or React, you only need to remove the packages th
 
 ### Install new packages
 
-Install the chromatic dependencies for the framework you are using.
+Install the Chromatic dependencies for the framework you are using.
 
 <Tabs>
   <TabItem label="Playwright">
@@ -58,22 +58,22 @@ Install the chromatic dependencies for the framework you are using.
 
 ## Update Scripts
 
-You can remove the `build-archive-storybook` and `archive-storybook` scripts from your project's `package.json` file, as they are no longer necessary. Instead, you can utilize the Chromatic CLI or GitHub Action to run your tests. For more information on the changes related to Chromatic Build, please refer to the [Chromatic Build Changes](#chromatic-build-changes) section for more information.
+You can remove the `build-archive-storybook` and `archive-storybook` scripts from your project's `package.json` file, as they are no longer necessary. Instead, run your tests by utilizing the Chromatic CLI or GitHub Action. For more information on the changes related to Chromatic Build, please refer to the [Chromatic Build Changes](#chromatic-build-changes) section.
 
 ## Test File Changes
 
 ### Playwright
 
-Change all Chromatic imports from `@chromaui/test-archiver` or `chromatic-playwright` to `@chromatic-com/playwright`
+Change all Chromatic imports from `@chromaui/test-archiver` or `chromatic-playwright` to `@chromatic-com/playwright`.
 
-More specifically, in spec files update the import for testing functions:
+More specifically, in your spec files, update the import for testing functions:
 
 ```diff
 -import { test, expect, takeSnapshot } from "chromatic-playwright"
 +import { test, expect, takeSnapshot } from "@chromatic-com/playwright"
 ```
 
-And in `playwright.config.ts` update the import for `ChromaticConfig`:
+And in your `playwright.config.ts` file, update the import for `ChromaticConfig`:
 
 ```diff
 -import { ChromaticConfig } from "chromatic-playwright"
@@ -82,14 +82,14 @@ And in `playwright.config.ts` update the import for `ChromaticConfig`:
 
 ### Cypress
 
-Update the imports in `cypress/support/e2e.js` file
+Update the imports in your `cypress/support/e2e.js` file:
 
 ```diff
 -import "chromatic-cypress/support"
 +import "@chromatic-com/cypress/support
 ```
 
-And in the `cypress.config.js` file
+And in your `cypress.config.js` file:
 
 ```diff
 -const { installPlugin } = require("chromatic-cypress")
