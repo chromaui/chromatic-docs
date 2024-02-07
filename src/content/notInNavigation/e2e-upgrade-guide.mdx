@@ -116,24 +116,6 @@ If you're using the [Chromatic CLI](/docs/cli):
   CHROMATIC_ARCHIVE_LOCATION=packages/ui/playwright/test-results yarn chromatic --playwright -t=<TOKEN>
   ```
 
-If you're using the the GitHub Action, then you can use the following configuration:
-
-```yaml
-- name: Publish to Chromatic
-  uses: chromaui/action@latest
-  with:
-    playwright: true
-    projectToken: ${{ secrets.chromaticProjectToken }}
-
-# or
-
-- name: Publish to Chromatic
-  uses: chromaui/action@latest
-  with:
-    cypress: true
-    projectToken: ${{ secrets.chromaticProjectToken }}
-```
-
 ### Re-accept baselines
 
 After upgrading to the new packages, you will be required to re-accept all baselines. That's because we have made changes to how tests are grouped, so all of your tests will appear as new.
