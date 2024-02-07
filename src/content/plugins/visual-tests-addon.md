@@ -25,7 +25,7 @@ yarn add --dev @chromatic-com/storybook
 
 <div class="aside">
 
-Storybook 7.4 and higher required. Read the [migration guide](https://storybook.js.org/docs/migration-guide) for help migrating Storybook versions.
+Storybook 7.6 and higher required. Read the [migration guide](https://storybook.js.org/docs/migration-guide) for help migrating Storybook versions.
 
 </div>
 
