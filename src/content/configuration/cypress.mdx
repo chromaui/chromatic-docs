@@ -99,6 +99,35 @@ Use the Chromatic CLI to run a build (using the token you noted above)
 CHROMATIC_ARCHIVE_LOCATION=./cypress/downloads npx chromatic --cypress -t=<TOKEN>
 ```
 
+Support for the GitHub Action is currently in flux and this interface will likely change, but for now you can use the following configuration:
+
+```yaml
+- name: Publish to Chromatic
+  uses: chromaui/action@latest
+  with:
+    buildScriptName: build-archive-storybook
+    projectToken: ${{ secrets.chromaticProjectToken }}
+
+# With env vars
+
+- name: Publish to Chromatic
+  uses: chromaui/action@latest
+  with:
+    buildScriptName: build-archive-storybook
+    projectToken: ${{ secrets.chromaticProjectToken }}
+  env:
+    CHROMATIC_ARCHIVE_LOCATION=./custom/dir
+```
+
+<div class="aside">
+  Note: with the GitHub Action, if you're using npm as your package manager, you will also need to add the following to `scripts` in `package.json`:
+  ```json
+    "scripts": {
+      "build-archive-storybook": "build-archive-storybook"
+    }
+  ```
+</div>
+
 ---
 
 ## Taking manual snapshots
