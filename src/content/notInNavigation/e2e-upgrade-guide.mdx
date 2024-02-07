@@ -96,6 +96,15 @@ And in your `cypress.config.js` file:
 +const { installPlugin } = require("@chromatic-com/cypress")
 ```
 
+### API Changes
+
+This update includes renaming certain parameters and function names. In addition to the changes outlined above, please make sure to update your test files if you utilize any of the following:
+
+* `takeArchive` function has been renamed to `takeSnapshot`
+* `disableAutoCapture` param has been renamed to `disableAutoSnapshot`
+* `allowedArchiveDomains` param has been renamed to `assetDomains`
+
+
 ## Chromatic Build Changes
 
 If you're using the [Chromatic CLI](/docs/cli):
