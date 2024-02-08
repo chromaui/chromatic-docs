@@ -122,6 +122,60 @@ describe("My First Test", () => {
 });
 ```
 
+---
+
+## Configuration
+
+You can further configure both your Cypress and Chromatic tests with the options described in the following sections.
+
+### Cypress options
+
+Cypress can be configured with [Cypress environment variables](https://docs.cypress.io/guides/guides/environment-variables).
+
+Setting options globally can be done in your Cypress config file as follows:
+
+```ts
+// cypress.config.ts
+export default defineConfig({
+  env: {
+    disableAutoSnapshot: true
+  },
+
+  // other setup...
+});
+```
+Options can also be overridden at the test level:
+
+```ts
+// some-test.cy.ts
+it('A test that does something', { env: { disableAutoSnapshot: true } }, () => {
+  cy.visit('https://some-url.com');
+});
+```
+
+### E2E options
+
+These options control how the Chromatic archive fixture behaves.
+
+| Option                   | Type            | Description                                                                                                                                                                          |
+| ------------------------ | --------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| `disableAutoSnapshot`    | `boolean`       | When `true`, will disable the snapshot that happens automatically at the end of a test when using the Chromatic test fixture.                                                        |
+| `resourceArchiveTimeout` | `number`        | Maximum amount of time that each test will wait for the network to be idle while archiving resources.                                                                                |
+| `assetDomains`           | `array[string]` | A list of domains external to the test location that you want Chromatic to also capture assets from, e.g., <code style="display: inline;">['other-domain.com','our-cdn.com']</code>. |
+
+### Chromatic options
+
+These options control how Chromatic behaves concerning the stories of your archives.
+
+| Option                    | Type      | Chromatic Docs                                                          |
+| ------------------------- | --------- | ----------------------------------------------------------------------- |
+| `delay`                   | `number`  | [Delay](/docs/delay/)                                                   |
+| `diffIncludeAntiAliasing` | `boolean` | [Threshold for changes](/docs/threshold#anti-aliasing)                  |
+| `diffThreshold`           | `number`  | [Threshold for changes](/docs/threshold#setting-the-threshold)          |
+| `forcedColors`            | `string`  | [Media Features](/docs/media-features#test-high-contrast-color-schemes) |
+| `pauseAnimationAtEnd`     | `boolean` | [Animations](/docs/animations#css-animations)                           |
+| `prefersReducedMotion`    | `string`  | [Media Features](/docs/media-features#verify-reduced-motion-animations) |
+
 ### Environment variables
 
 Some options can be configured through environment variables.
