@@ -140,11 +140,8 @@ export default defineConfig({
   env: {
     disableAutoSnapshot: true
   },
-  e2e: {
-    setupNodeEvents(on, config) {
-      installPlugin(on);
-    },
-  },
+
+  // other setup...
 });
 ```
 Options can also be overridden at the test level:
