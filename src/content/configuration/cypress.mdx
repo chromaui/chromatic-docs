@@ -93,13 +93,19 @@ By default, `9222` is the port that's being listened to. You can customize this 
 
 ### 6. Run a Chromatic build
 
+You can use either the Chromatic CLI or the GitHub Action to run a build.
+
+#### Chromatic CLI
+
 Use the Chromatic CLI to run a build (using the token you noted above)
 
 ```shell
 CHROMATIC_ARCHIVE_LOCATION=./cypress/downloads npx chromatic --cypress -t=<TOKEN>
 ```
 
-Support for the GitHub Action is currently in flux and this interface will likely change, but for now you can use the following configuration:
+#### GitHub Action
+
+Use the GitHub Action to run a build. Note that support for GitHub Actions is currently experimental; the interface may change in beta.
 
 ```yaml
 - name: Publish to Chromatic
