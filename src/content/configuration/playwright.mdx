@@ -99,6 +99,10 @@ test("Homepage", async ({ page }) => {
 
 ### 5. Run a Chromatic build
 
+You can use either the Chromatic CLI or the GitHub Action to run a build.
+
+#### Chromatic CLI
+
 Use the Chromatic CLI to run a build (using the token you noted above)
 
 ```shell
@@ -112,6 +116,28 @@ This workflow results in tests that allow you to approve changes at a glance ins
 Now, every time Chromatic runs, it produces snapshots for each test. Each snapshot has a unique URL, a fully-inspectable DOM, styling, and assets included:
 
 ![Playwright manual snapshot as seen in the Chromatic UI](../../images/e2e-playwright-library.jpg)
+
+#### GitHub Action
+
+Use the GitHub Action with the `playwright` flag to run a build.
+
+```yaml
+- name: Publish to Chromatic
+  uses: chromaui/action@latest
+  with:
+    playwright: true
+    projectToken: ${{ secrets.chromaticProjectToken }}
+
+# With env vars
+
+- name: Publish to Chromatic
+  uses: chromaui/action@latest
+  with:
+    playwright: true
+    projectToken: ${{ secrets.chromaticProjectToken }}
+  env:
+    CHROMATIC_ARCHIVE_LOCATION=./custom/dir
+```
 
 ---
 
