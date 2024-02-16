@@ -67,7 +67,6 @@ The shortlist of options that are addon-specific are below. View the full list o
 | Option            | Description                                                                                                                  |
 | ----------------- | ---------------------------------------------------------------------------------------------------------------------------- |
 | `projectId`       | Automatically configured. Sets the value for the project identifier <br/> `"projectId": "Project:64cbcde96f99841e8b007d75"`  |
-| `projectToken`    | Automatically configured. Sets the value for the project token <br/> `"projectToken": "chpt_b2ae83517a0a706"`                |
 | `buildScriptName` | Defines the custom Storybook build script <br/> `"buildScriptName": "deploy-storybook"`                                      |
 | `debug`           | Output verbose debugging information to the console <br/> `"debug": true`                                                    |
 | `zip`             | Recommended for large projects. Configures the addon to deploy your Storybook to Chromatic as a zip file <br/> `"zip": true` |
@@ -76,7 +75,6 @@ The shortlist of options that are addon-specific are below. View the full list o
 // ./chromatic.config.json
 {
   "projectId": "Project:64cbcde96f99841e8b007d75",
-  "projectToken": "chpt_fa88b088041ccde",
   "buildScriptName": "deploy-storybook",
   "debug": true,
   "zip": true
