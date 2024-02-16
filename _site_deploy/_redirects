@@ -3,3 +3,7 @@
 /docs/workflow/ /docs/in-development/
 /docs/visual-testing-addon/ /docs/visual-tests-addon/
 /docs/e2e-visual-tests/ /docs/playwright/
+
+# Plausible analytics
+/js/script.js https://plausible.io/js/script.js 200
+/proxy/api/event https://plausible.io/api/event 200
