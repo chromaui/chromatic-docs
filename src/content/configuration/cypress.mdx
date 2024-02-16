@@ -112,7 +112,7 @@ Use the GitHub Action with the `cypress` flag to run a build.
   uses: chromaui/action@latest
   with:
     cypress: true
-    projectToken: ${{ secrets.chromaticProjectToken }}
+    projectToken: ${{ secrets.CHROMATIC_PROJECT_TOKEN }}
 
 # With env vars
 
@@ -120,7 +120,7 @@ Use the GitHub Action with the `cypress` flag to run a build.
   uses: chromaui/action@latest
   with:
     cypress: true
-    projectToken: ${{ secrets.chromaticProjectToken }}
+    projectToken: ${{ secrets.CHROMATIC_PROJECT_TOKEN }}
   env:
     CHROMATIC_ARCHIVE_LOCATION=./custom/dir
 ```
