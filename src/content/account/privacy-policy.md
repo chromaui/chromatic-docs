@@ -8,7 +8,7 @@ sidebar: { order: 7 }
 # Privacy and Cookies Notice
 
 Chroma Software, Inc.®  
-Last Reviewed: 07/15/2021
+Last Reviewed: Feb 20, 2024
 
 Chroma Software, Inc., a business corporation (herein “Chromatic”, “we”, “us” or “our”), based in the United States and headquartered at 548 Market St. #26384 San Francisco, CA 94104, is committed to protecting and respecting your privacy and personal information (herein, “personal information” refers to any information that identifies you or is about you as an individual).
 
@@ -50,8 +50,8 @@ We may also collect certain online identifiers, which may be considered personal
 
 We may collect, and may have collected in the past, any of the following categories of personal information from you:
 
-- Contact information, such as, postal address, email address, and phone numbers;
-- Personal Identifiers, such as your name, alias, signature, and other unique personal identifiers;
+- Contact information, such as, email address, and phone numbers;
+- Personal Identifiers, such as your name, alias, and other unique personal identifiers;
 - Financial details, such as details about your credit or payment card or payment account, including details of account numbers, payment details, or billing addresses;
 - Account Information, such as your username, and consent and preferences (e.g., to receive newsletters);
 - Credentials, such as passwords, password hints, and similar security information used for authentication and account access;
@@ -122,7 +122,7 @@ We use reasonable administrative, technical, and physical safeguards to protect 
 
 ## 10. How Long We Keep Your Personal Information
 
-We will retain your personal information for as long as is necessary for purposes for which it was collected. Those periods are also based on the requirements of applicable data protection laws, applicable legal and regulatory requirements and periods relating to the commencement of legal actions.
+We will retain your personal information for as long as is necessary for the purposes for which it was collected. Those periods are also based on the requirements of applicable data protection laws, applicable legal and regulatory requirements and periods relating to the commencement of legal actions.
 
 ## 11. Where We Transfer Your Personal Information
 
