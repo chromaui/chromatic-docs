@@ -64,7 +64,7 @@ const Line = styled.a`
   display: flex;
   gap: 16px;
   align-items: center;
-  height: 34px;
+  min-height: 32px;
 `;
 
 const ContentItem = styled.div<{ isActive: boolean }>`
