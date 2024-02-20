@@ -8,7 +8,7 @@ sidebar: { order: 8 }
 # Acceptable Use Policy
 
 Chroma Software, Inc.®  
-Last reviewed: July 25, 2022
+Last reviewed: Feb 22, 2024
 
 Chroma Software, Inc., a business corporation (herein “Chromatic”, “we”, “us” or “our”), offers a cloud service (herein “Chromatic Service”) for Storybook that automates workﬂows for UI feedback, visual regression testing, and documentation. While we support the development of UIs to help create the core frontend technology for thousands of companies, Chromatic Service may only be used for lawful purposes.
 
