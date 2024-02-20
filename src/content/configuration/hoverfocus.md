@@ -11,7 +11,7 @@ Components can respond differently based on hover or focus events. Here are a fe
 
 ## Make your stories interactive
 
-As of 6.4, stories are capable of simulating user interactions via the [`play`](https://storybook.js.org/docs/react/writing-stories/play-function) function. Interactions allow you to verify how a component responds to user input (e.g., hover, focus, click, type). Chromatic awaits `play` function execution before taking a snapshot.
+Stories are capable of simulating user interactions via the [`play`](https://storybook.js.org/docs/react/writing-stories/play-function) function in Storybook 6.4 and above. Interactions allow you to verify how a component responds to user input (e.g., hover, focus, click, type). Chromatic awaits `play` function execution before taking a snapshot.
 
 ## JavaScript-triggered hover states
 
