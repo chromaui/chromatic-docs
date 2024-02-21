@@ -1,11 +1,14 @@
-import { color } from "@chromaui/tetra";
+import {
+  CollectiveIcon,
+  color,
+  CypressIcon,
+  FigmaIcon,
+  MondayIcon,
+  NetlifyIcon,
+  PlaywrightIcon,
+} from "@chromaui/tetra";
 import type { HeaderProps, Icons } from "@chromaui/tetra";
 import React from "react";
-
-import { CollectiveIcon } from "./icons/collective";
-import { FigmaIcon } from "./icons/figma";
-import { MondayIcon } from "./icons/monday";
-import { NetlifyIcon } from "./icons/netlify";
 
 interface LinksProps {
   [key: string]: {
@@ -25,22 +28,34 @@ const links: LinksProps = {
     href: "/features/test",
   },
   VisualTest: {
-    title: "Visual Test",
+    title: "Visual test",
     icon: "eye",
     iconColor: "purple500",
     href: "/features/visual-test",
   },
   interactionTest: {
-    title: "Interaction Test",
+    title: "Interaction test",
     icon: "pointerhand",
     iconColor: "orange500",
     href: "/features/interaction-test",
   },
-  E2EVisualTest: {
-    title: "E2E Visual test",
-    icon: "play",
+  storybook: {
+    title: "Storybook",
+    icon: "storybook",
+    iconColor: "pink500",
+    href: "/storybook",
+  },
+  playwright: {
+    title: "Playwright",
+    customIcon: <PlaywrightIcon />,
     iconColor: "green500",
-    href: "/features/e2e-visual-test",
+    href: "/playwright",
+  },
+  cypress: {
+    title: "Cypress",
+    customIcon: <CypressIcon />,
+    iconColor: "green500",
+    href: "/cypress",
   },
   turboSnap: {
     title: "TurboSnap",
@@ -101,13 +116,19 @@ const links: LinksProps = {
     iconColor: "purple500",
     href: "/company/careers",
   },
+  security: {
+    title: "Security",
+    icon: "lock",
+    iconColor: "green500",
+    href: "/security",
+  },
 };
 
 export const desktopData: HeaderProps["desktopData"] = [
   {
     id: "features",
     name: "Features",
-    leftPosition: -20,
+    leftPosition: -220,
     menu: [
       {
         content: [
@@ -130,11 +151,6 @@ export const desktopData: HeaderProps["desktopData"] = [
             ...links.interactionTest,
             type: "link",
             description: "Verify behavior of all screens and components",
-          },
-          {
-            ...links.E2EVisualTest,
-            type: "link",
-            description: "Test every page in your E2E suite",
           },
           {
             ...links.turboSnap,
@@ -167,7 +183,31 @@ export const desktopData: HeaderProps["desktopData"] = [
             description: "Embed your stories right next to designs in Figma",
           },
         ],
-        backgroundColor: "blue50",
+        backgroundColor: "white",
+      },
+      {
+        content: [
+          {
+            type: "separator",
+            title: "Integrations",
+          },
+          {
+            ...links.storybook,
+            type: "link",
+            description: "Run visual tests directly inside Storybook",
+          },
+          {
+            ...links.playwright,
+            type: "link",
+            description: "Test every page in your Playwright E2E suite",
+          },
+          {
+            ...links.cypress,
+            type: "link",
+            description: "Test every page in your Cypress E2E suite",
+          },
+        ],
+        backgroundColor: "white",
       },
     ],
   },
@@ -238,7 +278,7 @@ export const desktopData: HeaderProps["desktopData"] = [
             href: "/customers/collective",
           },
         ],
-        backgroundColor: "blue50",
+        backgroundColor: "white",
       },
     ],
   },
@@ -249,7 +289,7 @@ export const desktopData: HeaderProps["desktopData"] = [
   },
   {
     id: "blog",
-    name: "Changelog",
+    name: "Blog",
     href: "/blog",
   },
   {
@@ -273,6 +313,12 @@ export const desktopData: HeaderProps["desktopData"] = [
             iconColor: "purple500",
             href: "/company/careers",
           },
+          {
+            ...links.security,
+            type: "link",
+            title: "Security",
+            description: "Security report and overview of compliance",
+          },
         ],
         backgroundColor: "white",
       },
@@ -285,27 +331,13 @@ export const mobileData: HeaderProps["mobileData"] = [
     name: "Features",
     maxItems: 3,
     content: [
-      {
-        ...links.UITest,
-      },
-      {
-        ...links.UIReview,
-      },
-      {
-        ...links.Publish,
-      },
-      {
-        ...links.VisualTest,
-      },
-      {
-        ...links.interactionTest,
-      },
-      {
-        ...links.turboSnap,
-      },
-      {
-        ...links.figmaPlugin,
-      },
+      links.UITest,
+      links.UIReview,
+      links.Publish,
+      links.VisualTest,
+      links.interactionTest,
+      links.turboSnap,
+      links.figmaPlugin,
     ],
   },
   {
@@ -323,16 +355,31 @@ export const mobileData: HeaderProps["mobileData"] = [
         href: "/docs",
       },
       {
-        title: "Changelog",
+        title: "Blog",
         icon: "grow",
         iconColor: "purple500",
-        href: "/blog/releases",
+        href: "/blog",
       },
       {
         title: "Contact sales",
         icon: "email",
         iconColor: "blue500",
         href: "/sales",
+      },
+    ],
+  },
+  {
+    name: "Integrations",
+    collapsible: true,
+    content: [
+      {
+        ...links.storybook,
+      },
+      {
+        ...links.playwright,
+      },
+      {
+        ...links.cypress,
       },
     ],
   },
@@ -373,11 +420,6 @@ export const mobileData: HeaderProps["mobileData"] = [
         customIcon: <CollectiveIcon />,
         href: "/customers/collective",
       },
-      // {
-      //   title: 'BBC',
-      //   customIcon: <BBCIcon />,
-      //   href: '/',
-      // },
     ],
   },
   {
@@ -389,6 +431,9 @@ export const mobileData: HeaderProps["mobileData"] = [
       },
       {
         ...links.careers,
+      },
+      {
+        ...links.security,
       },
     ],
   },

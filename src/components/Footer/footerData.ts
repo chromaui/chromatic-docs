@@ -20,13 +20,12 @@ export const footerColumns: FooterProps["columns"] = [
       { title: "UI Tests", href: "/features/test" },
       { title: "Visual test", href: "/features/visual-test" },
       { title: "Interaction test", href: "/features/interaction-test" },
-      {
-        title: "E2E Visual tests",
-        href: "/features/e2e-visual-test",
-      },
       { title: "TurboSnap", href: "/features/turbosnap" },
       { title: "UI Review", href: "/features/review" },
       { title: "Publish", href: "/features/publish" },
+      { title: "Storybook", href: "/storybook" },
+      { title: "Playwright", href: "/playwright" },
+      { title: "Cypress", href: "/cypress" },
       { title: "Figma plugin", href: "/features/figma-plugin" },
     ],
   },
@@ -83,7 +82,11 @@ export const footerColumns: FooterProps["columns"] = [
 
 export const footerSocialLinks: FooterProps["socialLinks"] = [
   { title: "github", icon: "github", href: "https://github.com/chromaui/" },
-  { title: "twitter", icon: "twitter", href: "https://twitter.com/chromaui" },
+  {
+    title: "twitter",
+    icon: "twitter",
+    href: "https://twitter.com/chromaticcom",
+  },
   {
     title: "youtube",
     icon: "youtube",
