@@ -1,7 +1,7 @@
 ---
 import type { MarkdownLayoutProps } from "astro";
 import { Container } from "@chromaui/tetra";
-import { getCollection } from "astro:content";
+import { getCollection, getEntry } from "astro:content";
 import "@docsearch/css";
 import SEO from "../components/SEO.astro";
 import Scripts from "../components/Scripts.astro";
@@ -20,7 +20,6 @@ const {
   frontmatter: { title, description },
 } = Astro.props;
 const { pathname } = Astro.url;
-const getStarted = await getCollection("getStarted");
 const workflow = await getCollection("workflow");
 const configuration = await getCollection("configuration");
 const modes = await getCollection("modes");
@@ -33,13 +32,6 @@ const account = await getCollection("account");
 const guides = await getCollection("guides");
 
 const navItems = [
-  // Manually add the introduction page to the top of the list
-  {
-    title: "Get Started",
-    items: getStarted,
-    defaultOpen: true,
-    timeline: true,
-  },
   {
     title: "Workflow",
     items: workflow,

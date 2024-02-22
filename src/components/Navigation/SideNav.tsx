@@ -1,4 +1,3 @@
-import type { FC } from "react";
 import * as Collapsible from "@radix-ui/react-collapsible";
 import { styled } from "@storybook/theming";
 import {
@@ -90,6 +89,15 @@ const Bullet = styled.div<{ isActive: boolean }>`
   box-shadow: white 0px 0px 0px 4px;
 `;
 
+const IntroductionItem = styled.a<{ isActive?: boolean }>`
+  all: unset;
+  cursor: pointer;
+  ${typography.body16}
+  color: ${({ isActive }) => (isActive ? color.blue500 : color.slate600)};
+  font-weight: ${fontWeight.semibold};
+  margin-left: 22px; /* to align with the text 14px icon + 8 px gap */
+`;
+
 const SidebarContainer = styled.div`
   display: none;
 
@@ -133,14 +141,22 @@ interface SidebarItem {
 interface SideNavProps {
   url?: string;
   sidebarItems?: SidebarItem[];
+  introduction: CollectionEntry<"getStarted">;
 }
 
 const withBase = (url: string) =>
   url === "" ? import.meta.env.BASE_URL : `${import.meta.env.BASE_URL}/${url}`;
 
-export const SideNav: FC<SideNavProps> = ({ url, sidebarItems }) => {
+const homeUrl = withBase("");
+
+export const SideNav = ({ introduction, url, sidebarItems }: SideNavProps) => {
+  const isHome = url === homeUrl;
+
   return (
     <SidebarContainer>
+      <IntroductionItem href={homeUrl} isActive={isHome}>
+        Introduction
+      </IntroductionItem>
       {sidebarItems &&
         sidebarItems.map((group, i) => {
           const isSomeActive = group.items.some(
@@ -159,12 +175,7 @@ export const SideNav: FC<SideNavProps> = ({ url, sidebarItems }) => {
               </Trigger>
               <ContentWrapper isTimeline={!!group.timeline}>
                 {group.items.map((item, j) => {
-                  const isHome = withBase("") === url;
-
-                  const isActive =
-                    isHome && item.data.isHome
-                      ? true
-                      : withBase(item.slug) === url;
+                  const isActive = withBase(item.slug) === url;
 
                   return (
                     <Collapsible.Content key={j} asChild>
