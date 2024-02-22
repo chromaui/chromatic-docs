@@ -5,6 +5,8 @@ description: Configure Chromatic to test responsive components at various viewpo
 sidebar: { order: 2 }
 ---
 
+import { TabItem, Tabs } from "../../components/Tabs";
+
 # Viewports for responsive UIs
 
 <div class="aside" style="margin-bottom: 2rem;">
@@ -127,7 +129,9 @@ The Storybook [viewport addon](https://storybook.js.org/docs/react/essentials/vi
 You start by configuring your desired set of viewports in `.storybook/preview.js`. For example:
 
 <div class="aside">
-⚠️&nbsp;&nbsp;While the viewport addon allows you to specify dimensions using any valid CSS unit (such as px, rem, calc, etc.), Chromatic modes only support whole numbers or strings with a "px" suffix.
+  ⚠️&nbsp;&nbsp;While the viewport addon allows you to specify dimensions using
+  any valid CSS unit (such as px, rem, calc, etc.), Chromatic modes only support
+  whole numbers or strings with a "px" suffix.
 </div>
 
 ```js
@@ -177,14 +181,76 @@ export const allModes = {
 };
 ```
 
-<details>
-<summary>What if I set <code>defaultViewport</code> in my story?</summary>
+---
 
-You have the ability to configure the default viewport for stories at different levels: project, component, or story. This can be done by setting the `parameters.viewport` value. By adjusting this setting, you can control the dimensions of the story canvas when viewing it in the browser using Storybook.
+### Using defaultViewport
 
-However, it's important to note that when capturing snapshots, Chromatic will ignore `defaultViewport` and size the viewport based on the configuration within the mode.
+Within Storybook, you have the ability to configure the default viewport for stories at different levels: project, component, or story. This can be done by setting the `parameters.viewport` value. By adjusting this setting, you can control the dimensions of the story canvas when viewing it in the browser using Storybook. Chromatic will respect the `defaultViewport` setting when capturing snapshots.
 
-In the example below, `MyStory` will use `md` viewport size when viewed in the browser. However, the two snapshots will use `lg` and `xl` viewport sizes respectively.
+`defaultViewport` can either be set either explicitly:
+
+```js
+export const DefaultViewportExplicit = {
+  args: {
+    //...
+  },
+  parameters: {
+    viewport: {
+      defaultViewport: { width: 534, height: 802 },
+    },
+  },
+};
+```
+
+Or via a named viewport from the viewport addon:
+
+<Tabs>
+  <TabItem label="preview.js">
+    ```js
+    // .storybook/preview.js
+    const preview = {
+      viewport: {
+        viewports: {
+          small: {
+            name: "small",
+            styles: {
+              width: "375px",
+              height: "375px",
+            },
+          },
+        },
+      },
+    };
+    ```
+  </TabItem>
+
+  <TabItem label="stories.js">
+    ```js
+    // MyComponent.stories.js
+    export const DefaultViewportFromName = Template.bind({});
+
+    export const DefaultViewportFromName = {
+      args: {
+        //...
+      },
+      parameters: {
+        viewport: {
+          defaultViewport: "small",
+        },
+      },
+    };
+    ```
+
+  </TabItem>
+</Tabs>
+
+That said, there are a few exceptions when Chromatic will ignore the `defaultViewport` setting:
+
+1. If your story has a `chromatic.viewport` parameter.
+2. If your story uses a mode that specifies viewport.
+3. `defaultViewport` is set to a non-pixel value, eg: `50%`, `65em`, `calc(100vh - calc(70% + 2w))`, etc.
+
+In the example below, both stories will use the `md` viewport size when viewed in the browser. However, `FirstStory` will have one snapshot captured using the `md` viewport size, while `SecondStory` will have two snapshots captured at `lg` and `xl` viewport sizes respectively.
 
 ```jsx
 // MyComponent.stories.jsx
@@ -201,7 +267,15 @@ const meta: Meta<typeof MyComponent> = {
 export default meta;
 type Story = StoryObj<typeof MyComponent>;
 
-export const MyStory: Story = {
+export const FirstStory: Story = {
+  parameters: {
+    viewport: {
+      defaultViewport: 'md',
+    },
+  },
+};
+
+export const SecondStory: Story = {
   parameters: {
     viewport: {
       defaultViewport: 'md',
@@ -216,7 +290,7 @@ export const MyStory: Story = {
 };
 ```
 
-</details>
+---
 
 ## Migration from viewports (legacy) to modes
 
@@ -311,8 +385,6 @@ export default preview;
 <summary>What happens when I don’t specify a viewport?</summary>
 
 Chromatic defaults to a viewport of width 1200px and height 900px.
-
-</details>
 
 </details>
 
