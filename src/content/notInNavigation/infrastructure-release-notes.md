@@ -6,11 +6,37 @@ description: Chromatic's browser infrastructure release notes
 
 # Chromatic Capture Cloud release notes
 
+## Version 6
+
+Welcome to `Chromatic Capture Cloud version 6` released February 2024.
+
+**Status**: General availability
+
+Key highlights on this release:
+
+- Chrome version updated to version 121
+- Firefox version updated to version 121
+- Safari version updated to version 17
+- Edge version updated to version 121
+- Automatically pause videos and animated GIFs at their first frame
+- [`pauseAnimationAtEnd`](/docs/animations#css-animations) is now enabled by default
+
+### Supported browsers versions
+
+| Browser | Version |
+| ------- | ------- |
+| Chrome  | 121     |
+| Firefox | 121     |
+| Safari  | 17      |
+| Edge    | 121     |
+
+---
+
 ## Version 5
 
 Welcome to `Chromatic Capture Cloud version 5` released February 2023.
 
-**Status**: General availability
+**Status**: Outdated ([opt in for upgrade](/docs/infrastructure-upgrades#opt-in-to-upgrade))
 
 Key highlights on this release:
 
