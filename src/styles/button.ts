@@ -1,4 +1,5 @@
 import { css } from "@storybook/theming";
+import { minMd } from "@chromaui/tetra";
 
 export const button = css`
   .btn {
@@ -511,7 +512,9 @@ export const button = css`
     > .btn.toggle-form {
       flex: 1;
 
-      transition: box-shadow 225ms ease-out, background-color 300ms ease-in,
+      transition:
+        box-shadow 225ms ease-out,
+        background-color 300ms ease-in,
         color 300ms ease-out;
       font-size: 14px;
       line-height: 20px;
@@ -536,6 +539,58 @@ export const button = css`
       background-color: fade(#fff, 100%);
       box-shadow: fade(#fff, 70%) 0 0 0 3em inset;
       color: #1ea7fd;
+    }
+  }
+
+  .btn-integration-group {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    flex-wrap: wrap;
+  }
+
+  .btn-integration {
+    border: 1px solid rgba(0, 0, 0, 0.1);
+    border-radius: 5px;
+    display: inline-block;
+    overflow: hidden;
+    padding: 1rem;
+    text-align: center;
+    text-decoration: none;
+
+    font-size: 14px;
+    line-height: 1;
+
+    transition:
+      background 150ms ease-out,
+      border 150ms ease-out,
+      transform 150ms ease-out;
+
+    &:hover {
+      border-color: #1ea7fd;
+      transform: translate3d(0, -3px, 0);
+      box-shadow: rgba(0, 0, 0, 0.08) 0 3px 10px 0;
+    }
+
+    &:active {
+      border-color: #1ea7fd;
+      transform: translate3d(0, 0, 0);
+    }
+
+    img {
+      display: block;
+      width: 32px;
+      height: 32px;
+      padding: 0;
+    }
+
+    ${minMd} {
+      padding: 2rem;
+
+      img {
+        width: 64px;
+        height: 64px;
+      }
     }
   }
 `;

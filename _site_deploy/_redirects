@@ -4,6 +4,15 @@
 /docs/visual-testing-addon/ /docs/visual-tests-addon/
 /docs/e2e-visual-tests/ /docs/playwright/
 
+# Getting started guides
+
+/docs/setup/ /docs/storybook/setup/
+/docs/test/ /docs/storybook/test/
+/docs/review/ /docs/storybook/review/
+/docs/document/ /docs/storybook/document/
+/docs/ci/ /docs/storybook/ci/
+
 # Plausible analytics
+
 /js/script.js https://plausible.io/js/script.js 200
 /proxy/api/event https://plausible.io/api/event 200

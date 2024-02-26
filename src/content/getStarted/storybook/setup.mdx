@@ -1,17 +1,17 @@
 ---
-layout: "../../layouts/Layout.astro"
+layout: "../../../layouts/Layout.astro"
 title: Setup
 description: Learn how to setup Chromatic and publish Storybook
 sidebar: { order: 2 }
 ---
 
-import { TabItem, Tabs } from '../../components/Tabs'
+import { TabItem, Tabs } from "../../../components/Tabs";
 
 # Setup and publish Storybook
 
 The Chromatic CLI builds then publishes Storybook to a secure workspace in the cloud. That allows your team to access all your stories at [chromatic.com](https://www.chromatic.com/start).
 
-![Publish Storybook](../../images/workflow-publish.png)
+![Publish Storybook](../../../images/workflow-publish.png)
 
 ## Sign up
 
@@ -30,7 +30,7 @@ Start by signing in using your _personal_ account via any of the supported provi
 
 Select "Create a project" and type your project name to create an unlinked project.
 
-![Setup unlinked project](../../images/chromatic-setup-unlinked-project.png)
+![Setup unlinked project](../../../images/chromatic-setup-unlinked-project.png)
 
 Nice! You created an unlinked project. This will allow you to get started with [UI Testing](/docs/test) workflow regardless of the underlying git provider. You can then configure your CI system to automatically run a Chromatic build on push.
 
@@ -45,7 +45,7 @@ Now continue setting up Chromatic [as usual](/docs/setup#install).
 
 </details>
 
-![Setup project](../../images/setup.png)
+![Setup project](../../../images/setup.png)
 
 ## Install
 
@@ -53,18 +53,25 @@ Install the [**chromatic**](https://www.npmjs.com/package/chromatic) package fro
 
 <Tabs>
   <TabItem label="npm">
-    ```shell
-    npm install --save-dev chromatic
-    ```
+  ```shell
+  npm install --save-dev chromatic
+  ```
   </TabItem>
+
   <TabItem label="yarn">
-    ```shell
-    yarn add --dev chromatic
-    ```
+  ```shell
+  yarn add --dev chromatic
+  ```
   </TabItem>
 </Tabs>
 
-<div class="aside">Storybook 6.5 or later is required. We also guarantee support for Node 14.18.x through Node 16.19.1. Other Node releases may encounter errors. To switch between Node versions, we recommend using <a href="https://github.com/nvm-sh/nvm">nvm</a>, <a href="https://github.com/tj/n">n</a>, or another version manager.</div>
+<div class="aside">
+  Storybook 6.5 or later is required. We also guarantee support for Node 14.18.x
+  through Node 16.19.1. Other Node releases may encounter errors. To switch
+  between Node versions, we recommend using{" "}
+  <a href="https://github.com/nvm-sh/nvm">nvm</a>,{" "}
+  <a href="https://github.com/tj/n">n</a>, or another version manager.
+</div>
 
 <details>
 <summary>Learn how to add <code>chromatic</code> to your package.json</summary>
@@ -108,7 +115,11 @@ npx chromatic --project-token <your-project-token>
 ```
 
 <div class="aside">
-We use the <code>build-storybook</code> script from your <code>package.json</code> by default. If you have customized the <code>storybook</code> script (for example, adding a static directory with <code>-s</code>), check that you've done the same for <code>build-storybook</code>.
+  We use the <code>build-storybook</code> script from your{" "}
+  <code>package.json</code> by default. If you have customized the{" "}
+  <code>storybook</code> script (for example, adding a static directory with{" "}
+  <code>-s</code>), check that you've done the same for{" "}
+  <code>build-storybook</code>.
 </div>
 
 When complete, you'll see the build status and a link to the published Storybook:
@@ -123,15 +134,19 @@ View it online at https://www.chromatic.com/build?appId=...&number=1.
 
 You published Storybook online! Every time you run the `chromatic` command you get a corresponding build in Chromatic's web app. You can now browse components, view [**UI Tests**](/docs/test) results (if enabled), and navigate to associated PR/MRs for [**UI Review**](/docs/review).
 
-![Build for publish](../../images/build-publish-only.png)
+![Build for publish](../../../images/build-publish-only.png)
 
 ## Get the PR check
 
 Chromatic posts a "Storybook Publish" status check in your pull/merge request that links to the latest published Storybook. This gives teams secure, convenient access to browse components and stories. Get the PR check by [automating Chromatic with CI](/docs/ci).
 
-![PR badge for publish](../../images/prbadge-publish.png)
+![PR badge for publish](../../../images/prbadge-publish.png)
 
-<div class="aside">During setup we recommend running <code>chromatic</code> on the command line to make sure the configuration is correct. For production use run Chromatic in CI.</div>
+<div class="aside">
+  During setup we recommend running <code>chromatic</code> on the command line
+  to make sure the configuration is correct. For production use run Chromatic in
+  CI.
+</div>
 
 ---
 
@@ -139,7 +154,9 @@ Chromatic posts a "Storybook Publish" status check in your pull/merge request th
 
 📸 Now that you published Storybook, let's see how to automate [UI Tests](/docs/test) to catch bugs.
 
-<a class="btn primary round" href="/docs/test">Read next chapter</a>
+<a class="btn primary round" href="/docs/test">
+  Read next chapter
+</a>
 
 ---
 

@@ -1,5 +1,5 @@
 ---
-layout: "../../layouts/Layout.astro"
+layout: "../../../layouts/Layout.astro"
 title: Automate with CI
 description: Learn how to configure Chromatic with your continuous integration service
 sidebar: { order: 6 }
@@ -9,7 +9,7 @@ sidebar: { order: 6 }
 
 Configure CI to publish your Storybook and run Chromatic's automation whenever you push code. Badge your PRs to get notified about test and review results.
 
-![Continuous integration](../../images/workflow-ci.png)
+![Continuous integration](../../../images/workflow-ci.png)
 
 ## Configure CI
 
@@ -51,7 +51,7 @@ GitHub, Bitbucket, or GitLab projects that are [linked to a repository](/docs/ac
 
 Require checks in [GitHub](https://help.github.com/en/github/administering-a-repository/enabling-required-status-checks), [GitLab](https://docs.gitlab.com/ee/api/commits.html#post-the-build-status-to-a-commit), or [Bitbucket](https://confluence.atlassian.com/bitbucket/suggest-or-require-checks-before-a-merge-856691474.html) to ensure they are completed before merging.
 
-![PR badges](../../images/prbadges.png)
+![PR badges](../../../images/prbadges.png)
 
 ---
 

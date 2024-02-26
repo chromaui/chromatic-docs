@@ -227,9 +227,9 @@ export const formatting = css`
     }
   }
 
-  code-snippet-tabs:has(pre) {
-    > pre {
-      margin: 1.5em 0;
+  code-snippet-tabs {
+    pre {
+      margin-top: 0;
     }
 
     & + .aside {

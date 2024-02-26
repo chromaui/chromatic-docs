@@ -1,5 +1,5 @@
 ---
-layout: "../../layouts/Layout.astro"
+layout: "../../../layouts/Layout.astro"
 title: Test
 description: Learn how to run Chromatic UI Tests
 sidebar: { order: 3, label: "UI Tests" }
@@ -9,7 +9,7 @@ sidebar: { order: 3, label: "UI Tests" }
 
 UI Tests pinpoint visual changes and verify user [interactions](/docs/interactions). They capture a [snapshot](/docs/snapshots) of every story in a cloud browser environment. Whenever you push code, Chromatic generates a new set of snapshots and compares them against [baseline snapshots](/docs/branching-and-baselines#whats-a-baseline). If there are changes, you verify that they’re intentional. If there are test errors, you get notified to fix them.
 
-![UI Tests](../../images/workflow-uitest.png)
+![UI Tests](../../../images/workflow-uitest.png)
 
 ## Enable
 
@@ -17,7 +17,7 @@ Enable visual tests for your project on the manage page. If your stories have [i
 
 All snapshots are taken in Chrome by default. Select additional browsers to expand test coverage in 1-click.
 
-![Enable UI Tests](../../images/uitests-for-docs.png)
+![Enable UI Tests](../../../images/uitests-for-docs.png)
 
 ## Establish baselines
 
@@ -27,7 +27,7 @@ Once visual tests are enabled, you can establish baselines by [running a Chromat
 
 Each build, Chromatic compares new snapshots to existing baselines from previous builds. The list of changes are shown on the build page in the web app. The build will be marked “unreviewed” and the changes will be listed in the “Tests” table.
 
-![Build with unreviewed tests](../../images/build-test-unreviewed.png)
+![Build with unreviewed tests](../../../images/build-test-unreviewed.png)
 
 <details>
 <summary class="no-anchor">What about component errors?</summary>
@@ -64,7 +64,7 @@ Chromatic detects UI changes but it’s still up to you to verify if changes are
 
 - ❌&nbsp;**Deny change**: This marks the change as “denied” indicating a regression and immediately fails the build. You can deny multiple changes per build. Denying a change will force a re-capture on the next build, even if [TurboSnap](/docs/turbosnap) would otherwise skip it.
 
-![Snapshot that’s unreviewed](../../images/snapshot-unreviewed.png)
+![Snapshot that’s unreviewed](../../../images/snapshot-unreviewed.png)
 
 <details>
 <summary>What&rsquo;s the difference between denied and unreviewed changes?</summary>
@@ -81,7 +81,7 @@ Denied changes will be marked as unreviewed in subsequent builds for you to revi
 <summary>Speed up review with keyboard shortcuts</summary>
 
 Verify UI changes faster using keyboard shortcuts. Protip: Pressing 1 multiple times switches between the baseline and new snapshot in the 1up view.
-![Keyboard shortcuts](../../images/keyboard-shortcuts.png)
+![Keyboard shortcuts](../../../images/keyboard-shortcuts.png)
 
 </details>
 
@@ -101,7 +101,7 @@ Sometimes you need a closer look to determine why a snapshot is rendering as it 
 
 Click “Inspect snapshot” to open the Inspector. Switch between the “Canvas” and “Snapshot” tabs to compare the live component to the snapshot. Learn more about snapshots [here](/docs/snapshots).
 
-![Reproduce snapshot](../../images/feature-component-inspect.png)
+![Reproduce snapshot](../../../images/feature-component-inspect.png)
 
 </details>
 
@@ -110,7 +110,7 @@ Click “Inspect snapshot” to open the Inspector. Switch between the “Canvas
 
 Yes, [rerun the latest build](/docs/snapshots#rerun-builds-to-retake-snapshots) on your branch to retake snapshots of unreviewed or denied changes.
 
-![Rerun button](../../images/build-detail-rerun-button.png)
+![Rerun button](../../../images/build-detail-rerun-button.png)
 
 </details>
 
@@ -143,7 +143,7 @@ When your build is passed (all changes accepted), you’re ready to merge visual
 
 After you merge your code, Chromatic will also apply accepted baselines to stories on the target branch. That means you’ll only need to accept baselines a single time.
 
-![Build with reviewed tests](../../images/build-test-reviewed.png)
+![Build with reviewed tests](../../../images/build-test-reviewed.png)
 
 <details>
 <summary>Why is review disabled in the build page?</summary>
@@ -174,7 +174,7 @@ Instead, we recommend you regularly review builds to keep feature branches 🟢&
 
 Chromatic adds a ‘UI Tests’ check within the status checks for your pull/merge requests. The badge shows errors or changes that need to be reviewed. Require the check in [GitHub](https://help.github.com/en/github/administering-a-repository/enabling-required-status-checks), [GitLab](https://docs.gitlab.com/ee/api/commits.html#post-the-build-status-to-a-commit), or [Bitbucket](https://confluence.atlassian.com/bitbucket/suggest-or-require-checks-before-a-merge-856691474.html) to prevent accidental UI bugs from being merged.
 
-![PR for UI Tests](../../images/prbadge-test.png)
+![PR for UI Tests](../../../images/prbadge-test.png)
 
 <div class="aside">
 
