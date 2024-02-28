@@ -22,9 +22,12 @@ Add a [`play`](https://storybook.js.org/docs/react/writing-stories/play-function
 ```js
 // RangeSlider.stories.js|jsx
 
-import { within, userEvent } from "@storybook/testing-library";
-
-import { expect } from "@storybook/jest";
+/*
+ * Replace the @storybook/test package with the following if you are using a version of Storybook earlier than 8.0:
+ * import { within, userEvent } from "@storybook/testing-library";
+ * import { expect } from "@storybook/jest";
+ */
+import { within, userEvent, expect } from "@storybook/test";
 
 import { RangeSlider } from "./RangeSlider";
 
