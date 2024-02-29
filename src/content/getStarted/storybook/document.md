@@ -54,7 +54,7 @@ If you're documenting components outside of Storybook, you may be able to [embed
 
 Now that you learned how UI components are documented in Chromatic, let's see how to integrate Chromatic into your continuous integration pipeline and get PR status checks.
 
-<a class="btn primary round" href="/docs/ci">Read next chapter</a>
+<a class="btn primary round" href="/docs/storybook/ci">Read next chapter</a>
 
 ---
 

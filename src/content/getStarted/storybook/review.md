@@ -5,7 +5,7 @@ description: Learn how to review changes for your component library
 sidebar: { order: 4, label: "UI Review" }
 ---
 
-# UI Review
+# UI Review powered by stories
 
 UI Tests protect you from accidental regressions. But, before you ship, you’ll want to invite developers, designers, and PMs to review the UI, discuss changes, and get the final sign off.
 
@@ -180,7 +180,7 @@ Prune your completed manual UI Reviews by clicking the "Close review" menu item 
 
 Now that you’ve seen how to review the UI changeset before merging, learn how Chromatic makes sharing versioned and interactive component docs simple.
 
-<a class="btn primary round" href="/docs/document">Read next chapter</a>
+<a class="btn primary round" href="/docs/storybook/document">Read next chapter</a>
 
 ---
 

@@ -116,7 +116,6 @@ export const button = css`
 
       &.active,
       &:active {
-        box-shadow: #ccc 0 0 0 3em inset;
         background-color: #ccc;
         color: #333;
       }

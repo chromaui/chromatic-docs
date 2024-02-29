@@ -5,6 +5,8 @@ description: Learn how to setup Chromatic and publish Storybook
 sidebar: { order: 2 }
 ---
 
+import TroubleshootingSetup from "../../shared-snippets/troubleshooting-setup.md";
+import DemoChromaticUnlinked from "../../shared-snippets/demo-chromatic-unlinked.md";
 import { TabItem, Tabs } from "../../../components/Tabs";
 
 # Setup and publish Storybook
@@ -17,33 +19,7 @@ The Chromatic CLI builds then publishes Storybook to a secure workspace in the c
 
 Before publishing, generate a unique project token for your Storybook by signing in to [Chromatic](https://www.chromatic.com/start) and creating a project. Sign in with your GitHub, GitLab, Bitbucket, or email.
 
-<details>
-<summary id="demo-chromatic-unlinked">How to continue setup if you require SSO, on-premises, or have a different Git provider.</summary>
-
-These instructions will teach you how to setup Chromatic with an ["unlinked" project](/docs/access#unlinked-projects). This can be useful in these situations:
-
-- You need an enterprise plan but want to trial Chromatic in your project first
-- You use an OAuth provider that we don't support right now
-- You use Git hosting that we don't support right now
-
-Start by signing in using your _personal_ account via any of the supported providers. We'll use this to authenticate you as a user only so the account doesn't have to be associated with your work.
-
-Select "Create a project" and type your project name to create an unlinked project.
-
-![Setup unlinked project](../../../images/chromatic-setup-unlinked-project.png)
-
-Nice! You created an unlinked project. This will allow you to get started with [UI Testing](/docs/test) workflow regardless of the underlying git provider. You can then configure your CI system to automatically run a Chromatic build on push.
-
-The Chromatic CLI provides the option to generate a JUnit XML report of your build, which you can use to handle commit / pull request statuses yourself. See [debug options](/docs/cli#debug-options) for details.
-
-Unlinked projects have certain drawbacks:
-
-- You won't get automatic PR checks, so pull requests will not be marked with our status messages. You'll need to set this up manually via your CI provider.
-- Authentication and access control must be handled manually through user invites.
-
-Now continue setting up Chromatic [as usual](/docs/setup#install).
-
-</details>
+<DemoChromaticUnlinked />
 
 ![Setup project](../../../images/setup.png)
 
@@ -154,7 +130,7 @@ Chromatic posts a "Storybook Publish" status check in your pull/merge request th
 
 📸 Now that you published Storybook, let's see how to automate [UI Tests](/docs/test) to catch bugs.
 
-<a class="btn primary round" href="/docs/test">
+<a class="btn primary round" href="/docs/storybook/test">
   Read next chapter
 </a>
 
@@ -169,6 +145,8 @@ If you have customized the way your Storybook runs, you may need to pass additio
 
 ### Troubleshooting
 
+<TroubleshootingSetup />
+
 <details>
 <summary>Chromatic doesn't work with my custom Storybook script</summary>
 
@@ -177,34 +155,9 @@ We do our best to interpret your Storybook script in package.json, but you might
 </details>
 
 <details>
-<summary>Command error <code>git log -n 1</code></summary>
-
-This error often appears when `git` is not available in your CI environment. Chromatic uses `git` to associate commits to pull/merge requests and set baselines. We require that an executable git is available (on the `$PATH` ) of the `chromatic` script.
-
-**Common cases:**
-
-- Docker containers: Git may not be installed on certain Docker containers. You'll need to make the image includes Git.
-- Heroku CI: Git history isn't available by default. You'll have to give Heroku auth access to your repo so that it can clone it before running CI. This can be unideal. Some customers end up using other CI providers to run Chromatic like GitHub Actions (free) or CircleCI.
-- Google Cloud CI: The `.git` folder is ignored by default. Based on [their documentation](https://github.com/GoogleCloudPlatform/cloud-builders/issues/236#issuecomment-374629200) you can try `.gcloudignore`. However, some customers have run into trouble with this solution and instead opted to use other CI providers to run Chromatic like GitHub Actions (free) or CircleCI.
-- You don't use Git: Enable Git version control in your project and try Chromatic again.
-
-**Debug yourself:**
-
-- Try running the command manually `git log -n 1 --format="%H,%ct,%ce,%cn"` and check if there are errors
-
-</details>
-
-<details>
 <summary>Why do I get errored builds randomly?</summary>
 
 Chromatic builds and runs Storybook flawlessly _most of the time_, but we're not perfect (we wish). Sometimes builds don't run due to rare infrastructure issues. If this happens, try to re-run the build via your CI provider. We keep track of these errors to improve the service.
-
-</details>
-
-<details>
-<summary>Why do my builds timeout</summary>
-
-Chromatic takes snapshots very quickly. However, if we lose the connection to your server (for instance if you stop your server mid-build, or your internet connection goes down), builds can time out. Check your connection and try restarting the build.
 
 </details>
 
