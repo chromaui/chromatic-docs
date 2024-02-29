@@ -5,7 +5,7 @@ description: Learn how to configure Chromatic for Cypress with your continuous i
 sidebar: { order: 3 }
 ---
 
-import TroubleshootingCI from "../../shared-snippets/troubleshooting-ci.md";
+import TroubleshootingCI from "../../shared-snippets/ci/troubleshooting.md";
 
 # Automate Cypress visual tests with CI
 
@@ -23,7 +23,7 @@ Before we begin, make sure you set the `CHROMATIC_PROJECT_TOKEN` environment var
 }
 ```
 
-Integrate with popular CI tools like you would any other job. Run `npm run chromatic` to publish your Storybook. If [UI Test](test) or [UI Review](review) are enabled, it will return a non-zero exit code when there are changes. For example:
+Integrate with popular CI tools like you would any other job. Run `npm run chromatic` to publish your Storybook. If [UI Test](/docs/cypress/test) or [UI Review](/docs/cypress/review) are enabled, it will return a non-zero exit code when there are changes. For example:
 
 ```yml
 - run:
@@ -87,13 +87,13 @@ Require checks in [GitHub](https://help.github.com/en/github/administering-a-rep
 
 ## You're all set up
 
-Now that you've set up Chromatic, learn the recommended workflow in development and during the pull request. Altneratively, you can learn about more advanced configuration options available to you.
+Now that you've set up Chromatic, learn the recommended workflow in development and during the pull request. Or, explore the advanced configuration options to tailor your Chromatic and Cypress setup to your needs.
 
 <a class="btn primary round" href="/docs/in-development">
   Learn workflow
 </a>
 
-<a class="btn outline round" href="configure">
+<a class="btn outline round" href="/docs/cypress/configure">
   Configuration options
 </a>
 
