@@ -101,13 +101,18 @@ Use your project token and run the following command in your project directory.
 npx chromatic --cypress -t=<TOKEN>
 ```
 
-This workflow results in tests that allow you to approve changes at a glance inside Chromatic.
+While your Cypress tests are running, Chromatic captures an archive of your app's UI for each test—DOM, styling, and assets included. When you execute the `chromatic` command, it uploads this archive to Chromatic's cloud infrastructure to capture a snapshot of each test.
 
-![Cypress visual test results as seen in the Chromatic UI](../../../images/e2e-playwright-build.png)
+When complete, you’ll see the build status:
 
-Now, every time Chromatic runs, it produces snapshots for each test. Each snapshot has a unique URL, a fully-inspectable DOM, styling, and assets included:
+```shell
+✔ Started build 1
+  → Continue setup at https://www.chromatic.com/setup?appId=...
+✔ Build 1 auto-accepted
+  → Tested X stories across 10 components; captured 10 snapshots in 1 minute 3 seconds
+```
 
-![Cypress manual snapshot as seen in the Chromatic UI](../../../images/e2e-playwright-library.jpg)
+![Cypress snapshots as seen in the Chromatic UI](../../../images/e2e-playwright-library.jpg)
 
 ---
 
@@ -132,16 +137,13 @@ describe("My First Test", () => {
 });
 ```
 
-Every time this test is run, it produces a published library of snapshots using Chromatic's cloud.
-![Cypress manual snapshot as seen in the Chromatic UI](../../../images/e2e-playwright-manual.jpg)
-
 ---
 
 ## Next: Catch UI bugs using Cypress & Chromatic
 
-📸 Now that you've set up Chromatic to capture snapshots of Cypress tests, let's explore how [visual tests](test) can help catch bugs.
+📸 Now that you've set up Chromatic to capture snapshots of Cypress tests, let's explore how [visual tests](/docs/cypress/test) can help catch bugs.
 
-<a class="btn primary round" href="test">
+<a class="btn primary round" href="/docs/cypress/test">
   Read next chapter
 </a>
 

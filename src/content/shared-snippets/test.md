@@ -1,15 +1,3 @@
-# Run UI tests with Storybook
-
-UI Tests pinpoint visual changes and verify user [interactions](/docs/interactions). They capture a [snapshot](/docs/snapshots) of every story in a cloud browser environment. Whenever you push code, Chromatic generates a new set of snapshots and compares them against [baseline snapshots](/docs/branching-and-baselines#whats-a-baseline). If there are changes, you verify that they’re intentional. If there are test errors, you get notified to fix them.
-
-![UI Tests](../../images/workflow-uitest.png)
-
-## Enable
-
-Enable visual tests for your project on the manage page. If your stories have [interaction tests](/docs/interactions), they’ll run automatically when visual tests are enabled.
-
-All snapshots are taken in Chrome by default. Select additional browsers to expand test coverage in 1-click.
-
 ![Enable UI Tests](../../images/uitests-for-docs.png)
 
 ## Establish baselines
