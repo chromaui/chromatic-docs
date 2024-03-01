@@ -29,7 +29,7 @@ Once enabled, visit the Reviews tab in the web app sidebar. There you’ll be pr
 
 <div class="aside">
 
-ℹ️ You must [set up CI](/docs/ci) so that Chromatic is able to run builds for each commit on the PR branch.
+ℹ️ You must [set up CI](/docs/storybook/ci) so that Chromatic is able to run builds for each commit on the PR branch.
 
 </div>
 
@@ -189,7 +189,7 @@ Now that you’ve seen how to review the UI changeset before merging, learn how 
 <details>
 <summary>When should I ask for UI Review?</summary>
 
-You can initiate a UI Review at any time. However, we recommend doing it later in the development cycle, once baselines have been approved and UI Tests are green. Learn more about [UI review](/docs/review).
+You can initiate a UI Review at any time. However, we recommend doing it later in the development cycle, once baselines have been approved and UI Tests are green. Learn more about [UI review](/docs/storybook/review).
 
 </details>
 
