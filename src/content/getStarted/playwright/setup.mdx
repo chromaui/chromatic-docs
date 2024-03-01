@@ -7,6 +7,7 @@ sidebar: { order: 1 }
 
 import TroubleshootingSetup from "../../shared-snippets/troubleshooting-setup.md";
 import DemoChromaticUnlinked from "../../shared-snippets/demo-chromatic-unlinked.md";
+import RunE2E from "../../shared-snippets/setup-run-e2e.mdx";
 import { TabItem, Tabs } from "../../../components/Tabs";
 
 # Setup Chromatic for Playwright (beta)
@@ -88,18 +89,7 @@ Use your project token and run the following command in your project directory.
 npx chromatic --playwright -t=<TOKEN>
 ```
 
-While your Playwright tests are running, Chromatic captures an archive of your app's UI for each test—DOM, styling, and assets included. When you execute the `chromatic` command, it uploads this archive to Chromatic's cloud infrastructure to capture a snapshot of each test.
-
-When complete, you’ll see the build status:
-
-```shell
-✔ Started build 1
-  → Continue setup at https://www.chromatic.com/setup?appId=...
-✔ Build 1 auto-accepted
-  → Tested X stories across 10 components; captured 10 snapshots in 1 minute 3 seconds
-```
-
-![Playwright snapshots as seen in the Chromatic UI](../../../images/e2e-playwright-library.jpg)
+<RunE2E type="Playwright" />
 
 ---
 
