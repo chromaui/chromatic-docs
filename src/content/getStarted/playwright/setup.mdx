@@ -5,9 +5,9 @@ description: Learn how to setup Chromatic for Playwright
 sidebar: { order: 1 }
 ---
 
-import TroubleshootingSetup from "../../shared-snippets/troubleshooting-setup.md";
 import DemoChromaticUnlinked from "../../shared-snippets/demo-chromatic-unlinked.md";
-import RunE2E from "../../shared-snippets/setup-run-e2e.mdx";
+import TroubleshootingSetup from "../../shared-snippets/setup/troubleshooting.mdx";
+import RunE2E from "../../shared-snippets/setup/run-e2e.mdx";
 import { TabItem, Tabs } from "../../../components/Tabs";
 
 # Setup Chromatic for Playwright (beta)
@@ -137,4 +137,4 @@ test("Can filter product", async ({ page }, testInfo) => {
 
 ### Troubleshooting
 
-<TroubleshootingSetup />
+<TroubleshootingSetup type="Playwright" />
