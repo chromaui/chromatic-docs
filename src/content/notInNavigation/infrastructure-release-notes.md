@@ -16,7 +16,7 @@ Key highlights on this release:
 
 - Chrome version updated to version 121
 - Firefox version updated to version 121
-- Safari version updated to version 17
+- Safari version updated to version 17.4
 - Edge version updated to version 121
 - Automatically pause videos and animated GIFs at their first frame
 - [`pauseAnimationAtEnd`](/docs/animations#css-animations) is now enabled by default
@@ -28,7 +28,7 @@ Key highlights on this release:
 | ------- | ------- |
 | Chrome  | 121     |
 | Firefox | 121     |
-| Safari  | 17      |
+| Safari  | 17.4    |
 | Edge    | 121     |
 
 ---
