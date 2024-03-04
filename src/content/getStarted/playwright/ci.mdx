@@ -29,7 +29,7 @@ Integrate with popular CI tools like you would any other job. Run `npm run chrom
 - run:
     command: npm install # install dependencies
 - run:
-    command: npm run playwright-test # run your playwright tests
+    command: npx playwright test # run your playwright tests
 - run:
     command: npm run chromatic # run visual tests
 ```
@@ -67,6 +67,8 @@ jobs:
       - name: Publish to Chromatic
         uses: chromaui/action@latest
         with:
+          # ⚠️ enable playwright
+          playwright: true
           # ⚠️ Make sure to configure a `CHROMATIC_PROJECT_TOKEN` repository secret
           projectToken: ${{ secrets.CHROMATIC_PROJECT_TOKEN }}
         # ⚠️ Optionally configure the archive loation with env vars
@@ -87,13 +89,9 @@ Require checks in [GitHub](https://help.github.com/en/github/administering-a-rep
 
 ## You're all set up
 
-Now that you've set up Chromatic, learn the recommended workflow in development and during the pull request. Or, explore the advanced configuration options to tailor your Chromatic and Cypress setup to your needs.
+Next up, explore the advanced configuration options to tailor the Chromatic and Playwright setup to your needs.
 
-<a class="btn primary round" href="/docs/in-development">
-  Learn workflow
-</a>
-
-<a class="btn outline round" href="/docs/playwright/configure">
+<a class="btn primary round" href="/docs/playwright/configure">
   Configuration options
 </a>
 
