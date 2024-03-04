@@ -27,7 +27,7 @@ interface DropdownNavProps {
 }
 
 export const DropdownNav: FC<DropdownNavProps> = ({ groups, url }) => {
-  const withBase = (url: string) =>
+  const withBase = (url: string): string =>
     url === ""
       ? import.meta.env.BASE_URL
       : `${import.meta.env.BASE_URL}/${url}`;
@@ -39,7 +39,7 @@ export const DropdownNav: FC<DropdownNavProps> = ({ groups, url }) => {
       breadcrumb: `${group.title} » ${item.label}`,
       label: item.label,
       href: withBase(item.slug),
-      isActive: item.slug === url,
+      isActive: withBase(item.slug) === url,
     })),
   }));
 
