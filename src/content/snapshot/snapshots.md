@@ -305,6 +305,17 @@ The solution we recommend is to use a `<link rel="preload">` in your [`.storyboo
 
 </details>
 
+<details>
+<summary>Why are fonts in my graph component rendering inconsistently?</summary>
+
+Certain charting libraries like Highcharts measure the available space to determine where elements should be laid out.
+
+But this can lead to inconsistent snapshots in cases where you load a custom font. Fonts can load before, during, or after the component itself loads. And different fonts have different dimensions when rendered.
+
+The solution we recommend is to use a `<link rel="preload">` in your [`.storybook/preview-head.html`](https://storybook.js.org/docs/react/configure/story-rendering#adding-to-head) to preload the font before the story renders. This ensures that the dimensions and position of the fonts inside of the graph component remain consistent.
+
+</details>
+
 ## Rerun builds to retake snapshots
 
 Double-check whether a visual change is real or caused by inconsistencies in your app code by retaking snapshots. Click the "rerun" button to kick off a new build that uses identical settings and configuration as your original build. Only snapshots for denied, unreviewed, or errored changes will be captured. Any changes you accepted in the original build will not be snapshotted again in a rerun build.
