@@ -1,5 +1,5 @@
 ---
-import type { CollectionEntry } from "astro:content";
+import { getEntry, type CollectionEntry } from "astro:content";
 import Search from "../Search.astro";
 import { Support } from "../Support";
 import { SideNav } from "./SideNav";
@@ -29,6 +29,7 @@ interface Props {
 }
 
 const { navItems, url } = Astro.props;
+const introduction = await getEntry("getStarted", "introduction");
 
 const navGroups = navItems
   ? navItems.map((group) => ({
@@ -62,6 +63,11 @@ const navGroups = navItems
 <Container>
   <Search />
   <DropdownNav client:only="react" groups={navGroups as any} url={url} />
-  <SideNav client:load sidebarItems={navGroups} url={url} />
+  <SideNav
+    client:load
+    introduction={introduction}
+    sidebarItems={navGroups}
+    url={url}
+  />
   <Support client:load />
 </Container>

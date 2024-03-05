@@ -3,9 +3,9 @@ import { getCollection } from "astro:content";
 import type { CollectionEntry } from "astro:content";
 
 export async function getStaticPaths() {
-  const getStarted = await getCollection("getStarted", ({ slug }) => {
-    return slug !== "introduction";
-  });
+  // const getStarted = await getCollection("getStarted", ({ slug }) => {
+  //   return slug !== "introduction";
+  // });
   const workflow = await getCollection("workflow");
   const configuration = await getCollection("configuration");
   const modes = await getCollection("modes");
@@ -18,7 +18,7 @@ export async function getStaticPaths() {
   const guides = await getCollection("guides");
   const notInNavigation = await getCollection("notInNavigation");
   const articles = [
-    ...getStarted,
+    // ...getStarted,
     ...workflow,
     ...configuration,
     ...modes,
@@ -31,6 +31,7 @@ export async function getStaticPaths() {
     ...guides,
     ...notInNavigation,
   ];
+
   return articles.map((article) => ({
     params: { slug: article.slug },
     props: { article },

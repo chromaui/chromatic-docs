@@ -1,0 +1,214 @@
+---
+layout: "../../../layouts/Layout.astro"
+title: Configure
+description: Learn about the various configuration options for visual tests for Playwright
+sidebar: { order: 4 }
+---
+
+import { TabItem, Tabs } from "../../../components/Tabs";
+
+# Configure visual tests for Playwright
+
+You can enhance your Playwright and Chromatic tests further by configuring them using the options outlined in the following sections.
+
+## Playwright options
+
+The Chromatic [Playwright Fixture](https://playwright.dev/docs/test-fixtures) can be configured with `use` like all [Playwright options](https://playwright.dev/docs/test-use-options).
+
+Setting options globally can be done in your `playwright.config.js` as follows:
+
+<Tabs>
+  <TabItem label="TypeScript">
+    ```ts
+    // playwright.config.ts
+    import { defineConfig } from "@playwright/test";
+    import { ChromaticConfig } from "@chromatic-com/playwright";
+
+    export default defineConfig<ChromaticConfig>({
+      use: {
+        // ...
+
+        // 👇 your option overrides
+        disableAutoSnapshot: true,
+      },
+      // ... your other configuration
+    });
+    ```
+
+  </TabItem>
+    <TabItem label="JavaScript">
+    ```javascript
+    // playwright.config.js
+
+    import { defineConfig } from "@playwright/test";
+
+    export default defineConfig({
+      use: {
+        // ...
+
+        // 👇 your global options
+        disableAutoSnapshot: true,
+      },
+      // ... your other configuration
+    });
+    ```
+
+  </TabItem>
+</Tabs>
+
+Options can also be overridden at the test level:
+
+```javascript
+// mytest.spec.js
+
+test.describe("some block", () => {
+  // 👇 your option overrides
+  test.use({ disableAutoSnapshot: true });
+
+  test("some test", async ({ page }) => {
+    // ...
+  });
+});
+```
+
+## E2E options
+
+These options control how the Chromatic archive fixture behaves.
+
+| Option                   | Type            | Description                                                                                                                                                                          |
+| ------------------------ | --------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| `disableAutoSnapshot`    | `boolean`       | When `true`, will disable the snapshot that happens automatically at the end of a test when using the Chromatic test fixture.                                                        |
+| `resourceArchiveTimeout` | `number`        | Maximum amount of time that each test will wait for the network to be idle while archiving resources.                                                                                |
+| `assetDomains`           | `array[string]` | A list of domains external to the test location that you want Chromatic to also capture assets from, e.g., <code style="display: inline;">['other-domain.com','our-cdn.com']</code>. |
+
+## Chromatic options
+
+These options control how Chromatic behaves concerning the stories of your archives.
+
+| Option                    | Type      | Chromatic Docs                                                          |
+| ------------------------- | --------- | ----------------------------------------------------------------------- |
+| `delay`                   | `number`  | [Delay](/docs/delay/)                                                   |
+| `diffIncludeAntiAliasing` | `boolean` | [Threshold for changes](/docs/threshold#anti-aliasing)                  |
+| `diffThreshold`           | `number`  | [Threshold for changes](/docs/threshold#setting-the-threshold)          |
+| `forcedColors`            | `string`  | [Media Features](/docs/media-features#test-high-contrast-color-schemes) |
+| `pauseAnimationAtEnd`     | `boolean` | [Animations](/docs/animations#css-animations)                           |
+| `prefersReducedMotion`    | `string`  | [Media Features](/docs/media-features#verify-reduced-motion-animations) |
+
+## Environment variables
+
+Some options can be configured through environment variables.
+
+| Environment variable         | Description                                                                                                                                                                                                                                                                                                                                        |
+| ---------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `CHROMATIC_ARCHIVE_LOCATION` | If you have configured your project's [`outputDir`](https://playwright.dev/docs/api/class-testproject#test-project-output-dir) option to be different than the default, you must set the `CHROMATIC_ARCHIVE_LOCATION` environment variable to the same value. This ensures that the Chromatic can find the archives generated by Playwright tests. |
+
+---
+
+## Viewports
+
+Chromatic will capture the DOM and take snapshots at each viewport size a test is configured to run in.
+
+[Viewports in Playwright](https://playwright.dev/docs/emulation#viewport) can be configured globally in you main playwright config file as follows:
+
+```javascript
+import { defineConfig } from "@playwright/test";
+export default defineConfig({
+  projects: [
+    {
+      name: "chromium",
+      use: {
+        ...devices["Desktop Chrome"],
+        viewport: { width: 1280, height: 720 },
+      },
+    },
+    {
+      name: "Mobile",
+      use: {
+        ...devices["Desktop Chrome"],
+        viewport: { width: 500, height: 600 },
+      },
+    },
+  ],
+});
+```
+
+Or at the test level:
+
+```javascript
+test.use({
+  viewport: { width: 1600, height: 1200 },
+});
+
+test("my test", async ({ page }) => {
+  // ...
+});
+```
+
+---
+
+## Working in Monorepos
+
+Often, when using a monorepo, developers tend to keep their e2e tests in a subdirectory instead of in the root of the project. At the same time, the Storybook and Chromatic configuration details live at the project’s root. In these cases, you will need to update the `archive-storybook` and `build-archive-storybook` scripts in your `package.json` by setting the [`-c` flag](https://storybook.js.org/docs/api/cli-options#build) and `CHROMATIC_ARCHIVE_LOCATION` environment variable. For example:
+
+```json
+"scripts": {
+  "archive-storybook": "CHROMATIC_ARCHIVE_LOCATION=path/to/test-results archive-storybook -c path/to/node_modules/@chromaui/archive-storybook/config",
+  "build-archive-storybook": "CHROMATIC_ARCHIVE_LOCATION=path/to/test-results build-archive-storybook -c path/to/node_modules/@chromaui/archive-storybook/config"
+}
+```
+
+<div class="aside">
+
+💡 For additional information on using Chromatic with a monorepo, see our [monorepo documentation](/docs/monorepos).
+
+</div>
+
+---
+
+## Sharded Playwright Runs
+
+When running your Playwright tests over multiple shared CI jobs, you’ll need to wait for all jobs to complete, ensure you save the results in `./test-archives` to be accessible by the next job (for instance using an [artifact in GitHub Actions](https://docs.github.com/en/actions/using-workflows/storing-workflow-data-as-artifacts)), and run Chromatic in a job that depends on all of the shards.
+
+For GitHub actions, that might look like:
+
+```yaml
+test:
+  name: Run Playwright
+  needs: install
+  strategy:
+    matrix:
+      shard: [1, 2]
+  steps:
+    - name: Run Playwright tests
+      run: npx playwright test --shard=${{ matrix.shard }}/${{ strategy.job-total }}
+
+    - uses: actions/upload-artifact@v3
+      if: always()
+      with:
+        name: playwright-report-${{ matrix.shard }}_${{ strategy.job-total }}
+        path: ./test-archives/latest
+        retention-days: 30
+
+chromatic:
+  name: Run Chromatic
+  needs: test
+  steps:
+    - name: Download all workflow run artifacts
+      uses: actions/download-artifact@v3
+
+    - name: Publish E2E Archives to Chromatic
+      uses: chromaui/action@v1
+      with:
+        projectToken: ${{ secrets.CHROMATIC_ARCHIVE_PROJECT_TOKEN }}
+        buildScriptName: build-archive-storybook
+```
+
+---
+
+## You're all set up
+
+Now that you've set up Chromatic, learn the recommended workflow in development and during the pull request
+
+<a class="btn primary round" href="/docs/in-development">
+  Learn workflow
+</a>

@@ -9,6 +9,12 @@ sidebar: { order: 1, label: In development }
 
 Chromatic automates UI development so you can build features faster, with less manual work. Follow along with our recommended workflow to see how it fits into your development process.
 
+<div class="aside">
+
+Not using Storybook? Chromatic integrates seamlessly with [Playwright](/docs/playwright) and [Cypress](/docs/cypress) to offer thorough visual testing. In this scenario, proceed with writing E2E tests as usual and incorporate Chromatic into your [Pull Request workflow »](/docs/in-pull-request)
+
+</div>
+
 ### Develop UIs with Storybook
 
 Chromatic automatically turns stories into tests. So the more coverage of your UI with stories, the more time you'll save your team with our automation.

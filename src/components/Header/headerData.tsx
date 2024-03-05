@@ -80,12 +80,6 @@ const links: LinksProps = {
     customIcon: <FigmaIcon />,
     href: "/features/figma-plugin",
   },
-  madeForStorybook: {
-    title: "Made for Storybook",
-    icon: "contrast",
-    iconColor: "cyan500",
-    href: "/solutions/storybook",
-  },
   frontendTeams: {
     title: "Frontend teams",
     icon: "browser",
@@ -226,11 +220,6 @@ export const desktopData: HeaderProps["desktopData"] = [
           {
             type: "separator",
             title: "Use cases",
-          },
-          {
-            ...links.madeForStorybook,
-            type: "link",
-            description: "Ship UI components with less manual work",
           },
           {
             ...links.frontendTeams,
@@ -387,9 +376,6 @@ export const mobileData: HeaderProps["mobileData"] = [
     name: "Use cases",
     collapsible: true,
     content: [
-      {
-        ...links.madeForStorybook,
-      },
       {
         ...links.frontendTeams,
       },

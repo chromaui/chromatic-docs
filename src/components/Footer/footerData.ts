@@ -32,7 +32,6 @@ export const footerColumns: FooterProps["columns"] = [
   {
     title: "Customers",
     links: [
-      { title: "Made for Storybook", href: "/solutions/storybook" },
       { title: "Frontend teams", href: "/solutions/frontend" },
       { title: "Design systems", href: "/solutions/design-systems" },
       { title: "Digital agencies", href: "/solutions/agencies" },

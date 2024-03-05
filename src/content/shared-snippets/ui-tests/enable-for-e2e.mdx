@@ -1,0 +1,16 @@
+## Enable
+
+Visual tests are enabled by default for all new projects. If you have an existing project, you can enable visual tests by clicking the "Enable UI Tests" button on the manage page. Here you can also select the browsers you want to test in.
+
+All snapshots are taken in Chrome by default. Select additional browsers to expand test coverage in 1-click.
+
+<details>
+<summary>What are the advantages of using Chromatic for cross-browser testing instead of relying on {props.type}'s built-in support?</summary>
+
+When running {props.type} tests in CI across multiple browsers, it is your responsibility to set up and maintain the infrastructure needed to execute those tests. Moreover, you are responsible for optimizing the efficiency of the test runs by either utilizing multiple workers or dividing them among several shared CI jobs.
+
+On the other hand, Chromatic handles infrastructure management for you and optimizes tests to efficiently run across multiple browsers. Our purpose-built infrastructure runs all your tests in parallel. In practice, using Chromatic is faster and more cost-effective than running the entire toolchain on your own.
+
+</details>
+
+![Enable UI Tests](../../../images/uitests-for-docs.png)

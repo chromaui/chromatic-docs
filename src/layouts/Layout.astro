@@ -20,7 +20,15 @@ const {
   frontmatter: { title, description },
 } = Astro.props;
 const { pathname } = Astro.url;
-const getStarted = await getCollection("getStarted");
+const storybook = await getCollection("getStarted", ({ id }) => {
+  return id.startsWith("storybook/");
+});
+const playwright = await getCollection("getStarted", ({ id }) => {
+  return id.startsWith("playwright/");
+});
+const cypress = await getCollection("getStarted", ({ id }) => {
+  return id.startsWith("cypress/");
+});
 const workflow = await getCollection("workflow");
 const configuration = await getCollection("configuration");
 const modes = await getCollection("modes");
@@ -33,11 +41,20 @@ const account = await getCollection("account");
 const guides = await getCollection("guides");
 
 const navItems = [
-  // Manually add the introduction page to the top of the list
   {
-    title: "Get Started",
-    items: getStarted,
+    title: "Storybook",
+    items: storybook,
     defaultOpen: true,
+    timeline: true,
+  },
+  {
+    title: "Playwright",
+    items: playwright,
+    timeline: true,
+  },
+  {
+    title: "Cypress",
+    items: cypress,
     timeline: true,
   },
   {

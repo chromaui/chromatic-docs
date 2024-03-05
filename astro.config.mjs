@@ -11,6 +11,11 @@ export default defineConfig({
   site: "https://chromatic.com/docs",
   base: "/docs",
   trailingSlash: "never",
+  redirects: {
+    "/storybook": "/docs/storybook/setup",
+    "/playwright": "/docs/playwright/setup",
+    "/cypress": "/docs/cypress/setup",
+  },
   markdown: {
     syntaxHighlight: "prism",
     rehypePlugins: [

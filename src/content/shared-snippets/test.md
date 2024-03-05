@@ -1,22 +1,3 @@
----
-layout: "../../layouts/Layout.astro"
-title: Test
-description: Learn how to run Chromatic UI Tests
-sidebar: { order: 3, label: "UI Tests" }
----
-
-# UI Tests
-
-UI Tests pinpoint visual changes and verify user [interactions](/docs/interactions). They capture a [snapshot](/docs/snapshots) of every story in a cloud browser environment. Whenever you push code, Chromatic generates a new set of snapshots and compares them against [baseline snapshots](/docs/branching-and-baselines#whats-a-baseline). If there are changes, you verify that they’re intentional. If there are test errors, you get notified to fix them.
-
-![UI Tests](../../images/workflow-uitest.png)
-
-## Enable
-
-Enable visual tests for your project on the manage page. If your stories have [interaction tests](/docs/interactions), they’ll run automatically when visual tests are enabled.
-
-All snapshots are taken in Chrome by default. Select additional browsers to expand test coverage in 1-click.
-
 ![Enable UI Tests](../../images/uitests-for-docs.png)
 
 ## Establish baselines
@@ -188,7 +169,7 @@ CI setup: Chromatic will return an exit code 0 on the CLI which can be used in C
 
 Now that you can catch bugs during development, learn about how to invite stakeholders into Chromatic’s UI Review workflow to get the team sign off before merging.
 
-<a class="btn primary round" href="/docs/review">Read next chapter</a>
+<a class="btn primary round" href="review">Read next chapter</a>
 
 ---
 

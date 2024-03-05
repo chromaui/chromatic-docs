@@ -45,8 +45,18 @@ New to Storybook? Read our peer-reviewed guides for professional developers at [
 
 ---
 
-## Next: Setup and publish
+## Next: Setup
 
-Setup Chromatic to publish your Storybook. It takes less than 2 minutes.
+Chromatic seamlessly integrates with your existing workflow and toolchain. Setup is straightforward and takes less than 2 minutes. Pick your testing tool of choice to get started.
 
-<a class="btn primary round" href="/docs/setup">Read next chapter</a>
+<div class="btn-integration-group">
+  <a class="btn-integration" href="/docs/storybook/setup" title="Storybook">
+    <img src="src/images/storybook.svg" alt="" />
+  </a>
+  <a class="btn-integration" href="/docs/playwright/setup" title="Playwright">
+    <img src="src/images/playwright.svg" alt="" />
+  </a>
+  <a class="btn-integration" href="/docs/cypress/setup" title="Cypress">
+    <img src="src/images/cypress.svg" alt="" />
+  </a>
+</div>

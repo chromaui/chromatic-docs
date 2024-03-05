@@ -1,0 +1,151 @@
+---
+layout: "../../../layouts/Layout.astro"
+title: Setup
+description: Learn how to setup Chromatic for Cypress
+sidebar: { order: 1 }
+---
+
+import DemoChromaticUnlinked from "../../shared-snippets/demo-chromatic-unlinked.md";
+import RunE2E from "../../shared-snippets/setup/run-e2e.mdx";
+import TroubleshootingSetup from "../../shared-snippets/setup/troubleshooting.mdx";
+import { TabItem, Tabs } from "../../../components/Tabs";
+
+# Setup Chromatic for Cypress (beta)
+
+Chromatic E2E Visual Tests let you bring Chromatic's visual testing toolkit into your existing Cypress workflow. You can use Chromatic to capture snapshots of pages visited during Cypress tests—including DOM, styles, and assets—and then review and approve them in the Chromatic UI.
+
+![Publish Storybook](../../../images/workflow-publish.png)
+
+## Sign up
+
+Generate a unique project token for your app by signing in to [Chromatic](https://www.chromatic.com/start) and creating a project. Sign in with your GitHub, GitLab, Bitbucket, or email.
+
+<div class="aside">
+  If your repository already has a Chromatic project linked to it, you can
+  create an additional Chromatic project to run visual tests with Cypress.
+  Follow the instructions for [sub-projects
+  support](/docs/monorepos#run-chromatic-for-each-subproject).
+</div>
+
+<DemoChromaticUnlinked />
+
+![Setup project](../../../images/setup.png)
+
+## Install
+
+Install [**chromatic**](https://www.npmjs.com/package/chromatic) and `@chromatic-com/cypress` packages from npm.
+
+<Tabs>
+  <TabItem label="npm">
+    ```shell
+    npm install --save-dev chromatic @chromatic-com/cypress
+    ```
+  </TabItem>
+
+  <TabItem label="yarn">
+    ```shell
+    yarn add --dev chromatic @chromatic-com/cypress
+    ```
+  </TabItem>
+</Tabs>
+
+## Add Chromatic to Cypress tests
+
+Add the following to your `cypress/support/e2e.js` file:
+
+```js
+// cypress/support/e2e.js
+import "@chromatic-com/cypress/support";
+```
+
+Then, install the Chromatic plugin in via the `cypress.config.js` file:
+
+```js
+// cypress.config.js
+const { defineConfig } = require("cypress");
+const { installPlugin } = require("@chromatic-com/cypress");
+
+module.exports = defineConfig({
+  e2e: {
+    setupNodeEvents(on, config) {
+      installPlugin(on, config);
+    },
+  },
+});
+```
+
+## Run Cypress
+
+Prefix your Cypress command with the following environment variable. This enables Chromatic to communicate with Cypress using the Chrome DevTools Protocol.
+
+Then run your Cypress tests as you normally would.
+
+<Tabs>
+  <TabItem label="yarn">
+    ```shell
+    ELECTRON_EXTRA_LAUNCH_ARGS=--remote-debugging-port=9222 yarn cypress run
+    ```
+  </TabItem>
+
+  <TabItem label="npm">
+    ```shell
+    ELECTRON_EXTRA_LAUNCH_ARGS=--remote-debugging-port=9222 npx cypress run
+    ```
+  </TabItem>
+</Tabs>
+
+## Run Chromatic
+
+Use your project token and run the following command in your project directory.
+
+```shell
+npx chromatic --cypress -t=<TOKEN>
+```
+
+<RunE2E type="Cypress" />
+
+---
+
+## Taking manual snapshots
+
+A snapshot is taken at the end of every test, whether is passes or fails. But you can also programmatically take manual snapshots at specific points in your tests using the `takeSnapshot` function inside your test runs:
+
+```js
+describe("My First Test", () => {
+  it("Visits the Kitchen Sink", () => {
+    // 👇 navigate to target page
+    cy.visit("https://example.cypress.io");
+
+    // 📸 tell Chromatic to take a snapshot of the initial page state
+    cy.takeSnapshot();
+
+    // 👇 finish the test by opening the dropdown menu
+    cy.get(".dropdown:first-of-type > .dropdown-toggle").click();
+
+    // 📸 Chromatic automatically takes a snapshot here, at the end of the test
+  });
+});
+```
+
+---
+
+## Next: Catch UI bugs using Cypress & Chromatic
+
+📸 Now that you've set up Chromatic to capture snapshots of Cypress tests, let's explore how [visual tests](/docs/cypress/test) can help catch bugs.
+
+<a class="btn primary round" href="/docs/cypress/test">
+  Read next chapter
+</a>
+
+---
+
+### Troubleshooting
+
+<TroubleshootingSetup />
+
+<details>
+<summary id="turbosnap-support">Can I use TurboSnap with Cypress visual tests?</summary>
+
+Not yet. TurboSnap support for Cypress tests will be added as part of a future release.
+
+</details>
