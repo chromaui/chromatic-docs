@@ -51,12 +51,12 @@ Chromatic seamlessly integrates with your existing workflow and toolchain. Setup
 
 <div class="btn-integration-group">
   <a class="btn-integration" href="/docs/storybook/setup" title="Storybook">
-    <img src="src/images/storybook.svg" alt="" />
+    <img src="/docs/assets/storybook.svg" alt="" />
   </a>
   <a class="btn-integration" href="/docs/playwright/setup" title="Playwright">
-    <img src="src/images/playwright.svg" alt="" />
+    <img src="/docs/assets/playwright.svg" alt="" />
   </a>
   <a class="btn-integration" href="/docs/cypress/setup" title="Cypress">
-    <img src="src/images/cypress.svg" alt="" />
+    <img src="/docs/assets/cypress.svg" alt="" />
   </a>
 </div>
