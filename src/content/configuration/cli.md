@@ -13,12 +13,6 @@ The [Chromatic CLI](https://www.npmjs.com/package/chromatic) builds and publishe
   <source src="/docs/assets/chromatic-cli-optimized.mp4" type="video/mp4" />
 </video>
 
-<div class="aside">
-
-This package was previously named <code>storybook-chromatic</code>. See [migrating to the new package](#migrating-to-the-new-cli-package) for details.
-
-</div>
-
 ## Quick Start
 
 ```shell
