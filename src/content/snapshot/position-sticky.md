@@ -2,7 +2,7 @@
 layout: "../../layouts/Layout.astro"
 title: Position sticky & fixed
 description: Learn how to snapshot position sticky and fixed elements
-sidebar: { order: 3 }
+sidebar: { order: 6 }
 ---
 
 # Position sticky & fixed

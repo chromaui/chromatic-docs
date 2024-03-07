@@ -1,8 +1,8 @@
 ---
 layout: "../../layouts/Layout.astro"
-title: Integrations
-description: Connect Chromatic to other services with webhooks
-sidebar: { order: 10 }
+title: Slack
+description: Connect Chromatic to Slack
+sidebar: { order: 3 }
 ---
 
 # Integrate with Chromatic
@@ -26,20 +26,3 @@ Post a message in a designated Slack channel when a build's [status changes](/do
 
 The custom icon:
 ![Chromatic Slack icon](../../images/chromatic-slack-icon.png)
-
-## Custom webhooks
-
-Connect Chromatic to other services that support webhooks to script custom behavior and automate advanced workflows.
-
-1. Go to [Chromatic](https://www.chromatic.com/start), select your project, and click the Manage tab in the sidebar.
-2. Scroll down to "Integrations", click the "Add webhook" button in the custom webhook section and set your webhook URL.
-
-We'll send a `POST` request to your webhook to notify about the following events:
-
-| `event`           | Sent when                                            |
-| ----------------- | ---------------------------------------------------- |
-| `build`           | A build was created or its status has changed        |
-| `review`          | A review was created or its status has changed       |
-| `review-decision` | A reviewer was assigned or they approved the changes |
-
-See [Custom webhooks](/docs/custom-webhooks) for details about the webhook payloads.

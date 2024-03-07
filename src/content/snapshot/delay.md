@@ -2,7 +2,7 @@
 layout: "../../layouts/Layout.astro"
 title: Delay
 description: Learn how to make Chromatic wait before capturing a snapshot
-sidebar: { order: 5 }
+sidebar: { order: 8 }
 ---
 
 # Delay snapshots

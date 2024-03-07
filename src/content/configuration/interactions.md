@@ -2,7 +2,7 @@
 layout: "../../layouts/Layout.astro"
 title: Interaction tests
 description: Learn how interaction testing works with Chromatic
-sidebar: { order: 14 }
+sidebar: { order: 7 }
 ---
 
 # Interaction tests
