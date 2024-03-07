@@ -3,6 +3,7 @@
 /docs/workflow/ /docs/in-development/
 /docs/visual-testing-addon/ /docs/visual-tests-addon/
 /docs/e2e-visual-tests/ /docs/playwright/
+/docs/integrations/ /docs/slack/
 
 # Getting started guides
 

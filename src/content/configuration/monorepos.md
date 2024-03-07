@@ -2,7 +2,7 @@
 layout: "../../layouts/Layout.astro"
 title: Monorepos
 description: Chromatic's support for monorepos
-sidebar: { order: 16 }
+sidebar: { order: 5 }
 ---
 
 # Monorepos
