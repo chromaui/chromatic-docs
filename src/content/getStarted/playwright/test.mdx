@@ -1,8 +1,8 @@
 ---
 layout: "../../../layouts/Layout.astro"
 title: Test
-description: Learn how to run Chromatic UI Tests with Playwright
-sidebar: { order: 2, label: "Visual Tests" }
+description: Learn how to run Chromatic visual tests with Playwright
+sidebar: { order: 2, label: "Visual test" }
 ---
 
 import EnableE2EVT from "../../shared-snippets/ui-tests/enable-for-e2e.mdx";
@@ -10,7 +10,7 @@ import Baselines from "../../shared-snippets/ui-tests/baselines.md";
 import VerifyDiscussMerge from "../../shared-snippets/ui-tests/verify-discuss-merge.md";
 import Troubleshooting from "../../shared-snippets/ui-tests/troubleshooting.md";
 
-# Run Visual tests with Playwright
+# Run visual tests with Playwright
 
 Visual Tests are used to detect UI bugs down to the pixel. They capture a [snapshot](/docs/snapshots) of every Playwright test in a cloud browser environment. Whenever you push code, Chromatic generates a new set of snapshots and compares them against [baseline snapshots](/docs/branching-and-baselines#whats-a-baseline). If there are changes, you verify that they’re intentional. If there are test errors, you get notified to fix them.
 
@@ -29,7 +29,7 @@ Chromatic also offers an advanced diff checker that highlights the differences b
 
 </details>
 
-![UI Tests](../../../images/workflow-uitest.png)
+![UI Tests](../../../images/workflow-e2e-visual-tests.png)
 
 <EnableE2EVT type="Playwright" />
 
