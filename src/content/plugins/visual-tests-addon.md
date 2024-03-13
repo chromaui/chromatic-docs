@@ -128,9 +128,27 @@ When you finish accepting changes as baselines in the addon, you're ready to pus
 
 ---
 
-#### What’s the difference between testing with the addon vs. CI?
+## FAQ
 
-The addon allows running tests on-demand to detect bugs earlier in development. It saves time because you don’t have to wait for CI jobs to finish running.
+<details>
+<summary>What’re "local" builds and how are they different than builds?</summary>
+
+A build is an automated visual test run. When you set up Chromatic in CI, a build runs every time you push a commit to your repository.
+
+With the addon, you're able to visually test uncommitted code. This is useful when you want to quickly check your work in progress for visual changes. The addon creates "local" builds to designate ephemeral uncommitted code from normal builds which use committed code. "Local" just means local to you.
+
+Updating baselines in local builds only effects your other local builds on a given branch. This allows you to iterate quickly in development without affecting teammates. When you want to update the baselines with teammates, you commit your work which triggers a normal build.
+
+If the code is the same between your last local build and the normal build, Chromatic will automatically auto-accept baselines in your CI build so that you don't need to review twice. If you have TurboSnap, Chromatic will intelligently test only the stories that changed and copy over snapshots from stories that were unchanged.
+
+</details>
+
+<details>
+<summary>What’s the difference between testing with the addon vs. CI?</summary>
+
+The addon allows running tests on-demand to detect bugs earlier in development. It saves time because you don’t have to wait for CI jobs to finish running. But the addon doesn't replace CI, Chromatic still requires CI to do its job.
+
+</details>
 
 ---
 
@@ -165,6 +183,7 @@ This is a [known issue](https://github.com/storybookjs/storybook/issues/22431#is
 The addon will be free to use throughout the early access period (including public beta). If you are an existing Chromatic customer and receive overages from using the addon, we will credit those back to you after early access ends.
 
 When early access ends, snapshots will become billed and will count towards your snapshot usage. If you have any questions about snapshot costs or [billing](https://www.chromatic.com/pricing), please contact us <a class="intercom-concierge-bot"><b>via in-app chat</b></a>.
+
 </details>
 
 <details>
