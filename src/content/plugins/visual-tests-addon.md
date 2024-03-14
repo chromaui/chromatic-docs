@@ -135,7 +135,7 @@ When you finish accepting changes as baselines in the addon, you're ready to pus
 
 A build is an automated visual test run. When you set up Chromatic in CI, a build runs every time you push a commit to your repository.
 
-With the addon, you're able to visually test uncommitted code. This is useful when you want to quickly check your work in progress for visual changes. The addon creates local builds to designate ephemeral uncommitted code from normal builds which use committed code. "Local" just means local to you.
+Updating baselines in local builds only affects your other local builds on a given branch. This allows you to iterate quickly in development without affecting teammates. When you want to update the baselines with teammates, you commit and push your work, which triggers a normal build via CI.
 
 Updating baselines in local builds only effects your other local builds on a given branch. This allows you to iterate quickly in development without affecting teammates. When you want to update the baselines with teammates, you commit your work which triggers a normal build via CI.
 
