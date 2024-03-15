@@ -193,12 +193,14 @@ export const desktopData: HeaderProps["desktopData"] = [
           {
             ...links.playwright,
             type: "link",
-            description: "Test every page in your Playwright E2E suite",
+            description:
+              "Visual tests for every page in your Playwright E2E suite",
           },
           {
             ...links.cypress,
             type: "link",
-            description: "Test every page in your Cypress E2E suite",
+            description:
+              "Visual tests for every page in your Cypress E2E suite",
           },
         ],
         backgroundColor: "white",
