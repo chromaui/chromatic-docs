@@ -1,8 +1,8 @@
 ## Verify UI changes
 
-Chromatic detects UI changes but it’s still up to you to verify if changes are intentional. For intentional changes, you need to update the baseline so future tests will be compared to the _latest baseline_ for the story. If a change is unintentional it needs to be fixed.
+Chromatic detects UI changes but it’s still up to you to verify if changes are intentional. For intentional changes, you need to update the baseline so future tests will be compared to the _latest baseline_ for the test. If a change is unintentional it needs to be fixed.
 
-- ✅&nbsp;**Accept change**: This updates the story baseline. When a snapshot is accepted it won’t need to be re-accepted until it changes, even through git branches or merges.
+- ✅&nbsp;**Accept change**: This updates the test baseline. When a snapshot is accepted it won’t need to be re-accepted until it changes, even through git branches or merges.
 
 - ❌&nbsp;**Deny change**: This marks the change as “denied” indicating a regression and immediately fails the build. You can deny multiple changes per build. Denying a change will force a re-capture on the next build, even if [TurboSnap](/docs/turbosnap) would otherwise skip it.
 
@@ -39,7 +39,7 @@ This means you can update UI components on multiple feature branches in parallel
 <details>
 <summary>How do I reproduce the snapshot?</summary>
 
-Sometimes you need a closer look to determine why a snapshot is rendering as it does. Along with pixel and DOM diffs, Chromatic displays the interactive stories just as they appear in Storybook.
+Sometimes you need a closer look to determine why a snapshot is rendering as it does. Along with pixel and DOM diffs, Chromatic displays the interactive page just as it appears in your app and E2E tests.
 
 Click “Inspect snapshot” to open the Inspector. Switch between the “Canvas” and “Snapshot” tabs to compare the live component to the snapshot. Learn more about snapshots [here](/docs/snapshots).
 
@@ -77,13 +77,13 @@ Pin discussions on a change to give precise feedback on what’s wrong. Pair dis
 
 ## Merge
 
-If you accept all the changes, the build will **🟢&nbsp;Pass**. Future builds whose stories have the same appearance will pass.
+If you accept all the changes, the build will **🟢&nbsp;Pass**. Future builds whose tests have the same appearance will pass.
 
 If you deny any of the changes, the build will **🔴&nbsp;Fail**. You will need to make code changes (and thus start a new build) to get the build to pass.
 
 When your build is passed (all changes accepted), you’re ready to merge visual changes with confidence knowing that your UI is bug free. Chromatic will update the PR check for “UI Tests” to reflect the build status.
 
-After you merge your code, Chromatic will also apply accepted baselines to stories on the target branch. That means you’ll only need to accept baselines a single time.
+After you merge your code, Chromatic will also apply accepted baselines to tests on the target branch. That means you’ll only need to accept baselines a single time.
 
 ![Build with reviewed tests](../../../images/build-test-reviewed-e2e.png)
 
@@ -106,7 +106,7 @@ Comments are disabled on old builds to ensure that discussions are always on top
 
 Yes, but it‘s not a best practice.
 
-Every branch has independent baselines for each story until the branch gets merged. If two builds reference the same commit hash but are on _different branches_ it will be possible to review those builds separately so long as they're the latest build on their respective branches. We don't recommend this because you'll have to review the same change multiple times.
+Every branch has independent baselines for each test until the branch gets merged. If two builds reference the same commit hash but are on _different branches_ it will be possible to review those builds separately so long as they're the latest build on their respective branches. We don't recommend this because you'll have to review the same change multiple times.
 
 Instead, we recommend you regularly review builds to keep feature branches 🟢&nbsp;passing.
 

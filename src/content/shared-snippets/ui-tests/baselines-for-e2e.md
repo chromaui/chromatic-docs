@@ -1,6 +1,6 @@
 ## Establish baselines
 
-Once visual tests are enabled, you can establish baselines by [running a Chromatic build](/docs/setup#run-chromatic) in a new project or on a branch without an ancestor. This captures a snapshot of each story in a cloud browser and sets it as the baseline. Subsequent builds will generate new snapshots that are compared against existing baselines to detect UI changes.
+Once visual tests are enabled, you can establish baselines by [running a Chromatic build](/docs/setup#run-chromatic) in a new project or on a branch without an ancestor. This captures a snapshot of each page in a cloud browser and sets it as the baseline. Subsequent builds will generate new snapshots that are compared against existing baselines to detect UI changes.
 
 ## View changes between baselines
 

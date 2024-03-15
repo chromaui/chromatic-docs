@@ -58,13 +58,6 @@ Yes. Go to the manage page for your project where you can disable UI Tests. Chro
 </details>
 
 <details>
-<summary>Why does my build have failed tests?</summary>
-
-“Failed tests” happens when a story’s [play function](https://storybook.js.org/docs/react/writing-stories/play-function#gatsby-focus-wrapper) has an unexpected error that caused it to fail. You can learn more about interaction tests [here](https://storybook.js.org/docs/react/writing-tests/interaction-testing).
-
-</details>
-
-<details>
 <summary>Can I rerun a build without running my whole CI workflow?</summary>
 
 Yes you can [rerun the latest build on any branch](/docs/snapshots#rerun-builds-to-retake-snapshots) outside of your CI workflow. Go to the build page to kick off a new build that uses identical settings and configuration as your old build.
