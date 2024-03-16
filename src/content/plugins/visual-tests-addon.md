@@ -7,12 +7,6 @@ sidebar: { order: 1, label: Storybook addon (beta) }
 
 # Visual Tests addon for Storybook
 
-<div class="aside" style="margin-bottom: 2rem;">
-
-<b>Feb 6, 2024</b>: Now available in public beta, with active development by six core maintainers. Try it today!
-
-</div>
-
 Pinpoint visual bugs in local development without leaving Storybook.
 
 ## Installation
