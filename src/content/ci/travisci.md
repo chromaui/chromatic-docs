@@ -27,7 +27,7 @@ jobs:
     # Other jobs
 
     # 👇 Adds Chromatic as a job
-    - name: "Publish to Chromatic"
+    - name: "Run Chromatic"
       script: yarn chromatic
 ```
 
@@ -54,7 +54,7 @@ jobs:
     # Other jobs
 
     # 👇 Adds Chromatic as a job
-    - name: "Publish to Chromatic"
+    - name: "Run Chromatic"
       script: yarn chromatic
 ```
 
@@ -78,7 +78,7 @@ jobs:
     # Other jobs
 
     # 👇 Adds Chromatic as a job
-    - name: "Publish to Chromatic"
+    - name: "Run Chromatic"
       #👇Runs Chromatic with the flag to compress the build output.
       script: yarn chromatic --zip
 ```
@@ -137,7 +137,7 @@ jobs:
     # Other jobs
 
     # 👇 Adds Chromatic as a job
-    - name: "Publish to Chromatic"
+    - name: "Run Chromatic"
       # 👇 Enables Chromatic's TurboSnap feature.
       script: yarn chromatic --only-changed
 ```
@@ -168,7 +168,7 @@ jobs:
     # Other jobs
 
     # 👇 Adds Chromatic as a job
-    - name: "Publish to Chromatic"
+    - name: "Run Chromatic"
       # 👇 Verifies the build event type or a if it's a forked repository
       if: (type = push OR head_repo != repo )
       script: yarn chromatic
@@ -194,7 +194,7 @@ jobs:
     # Other jobs
 
     # 👇 Adds Chromatic as a job
-    - name: "Publish to Chromatic"
+    - name: "Run Chromatic"
       # 👇 Runs Chromatic with the flag to prevent workflow failure
       script: yarn chromatic --exit-zero-on-changes
 ```
@@ -209,7 +209,7 @@ When using `--exit-zero-on-changes` your build will still stop and fail if your 
 
 #### Re-run failed builds after verifying UI test results
 
-Builds that contain visual changes need to be [verified](/docs/test#verify-ui-changes). They will fail if you are not using `--exit-zero-on-changes`. Once you accept all the changes, re-run the build and the `Publish to Chromatic` job will pass.
+Builds that contain visual changes need to be [verified](/docs/test#verify-ui-changes). They will fail if you are not using `--exit-zero-on-changes`. Once you accept all the changes, re-run the build and the `Run Chromatic` job will pass.
 
 If you deny any change, you will need to make the necessary code changes to fix the test (and thus start a new build) to get Chromatic to pass again.
 
@@ -233,11 +233,11 @@ If you’re using this functionality but notice the incoming changes were not ac
 jobs:
   include:
     # 👇 Checks if the branch is not main and runs Chromatic
-    - name: "Publish to Chromatic"
+    - name: "Run Chromatic"
       if: branch != main
       script: yarn chromatic
       # 👇 Checks if the branch is main and runs Chromatic with the flag to accept all changes
-    - name: "Publish to Chromatic and auto accepts changes"
+    - name: "Run Chromatic and auto accepts changes"
       if: branch = main
       script: yarn chromatic --auto-accept-changes
 ```
@@ -262,7 +262,7 @@ jobs:
     # Other jobs
 
     # 👇 Adds Chromatic as a job
-    - name: "Publish to Chromatic"
+    - name: "Run Chromatic"
       # 👇 Option to skip the last build on target branch
       script: yarn chromatic --ignore-last-build-on-branch=my-branch
 ```
