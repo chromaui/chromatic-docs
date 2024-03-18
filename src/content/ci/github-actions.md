@@ -271,6 +271,21 @@ jobs:
           externals: packages/(icons/icons|tokens/src)/**
 ```
 
+Multiple file patterns can also be provided as follows:
+
+```
+# ... other config
+
+- name: Run Chromatic
+  uses: chromaui/action@latest
+  with:
+    projectToken: ${{ secrets.CHROMATIC_PROJECT_TOKEN }}
+    onlyChanged: true # 👈 Required option to enable TurboSnap
+    externals: |
+      *.sass
+      public/**
+```
+
 <div class="aside">
 
 The `externals` option also accept additional glob patterns defined via [picomatch].
