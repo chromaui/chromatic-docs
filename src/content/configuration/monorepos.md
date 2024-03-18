@@ -80,7 +80,7 @@ You can use tools like [`lerna changed`](https://github.com/lerna/lerna/tree/4fc
 If you want to get a Chromatic PR badge for such commits (for instance, if you block merging on Chromatic builds), you can use the `--skip` CLI flag to indicate that this commit does not need to be built and tested.
 
 <details>
-   <summary>How do I use lerna changed to skip changes in a branch or skip certain builds?</summary>
+   <summary>How do I use Lerna changed to skip changes in a branch or skip certain builds?</summary>
 
 Please refer to the [lerna docs](https://github.com/lerna/lerna/tree/4fcac71c782cf91a3624fded775faaf3ddb8d636/libs/commands/changed) for up to date info. Here's a sample workflow:
 
