@@ -50,7 +50,7 @@ Or for GitHub Actions:
 ```yaml
 steps:
   # ...
-  - name: Publish to Chromatic
+  - name: Run Chromatic
     uses: chromaui/action@v1
     with:
       projectToken: ${{ secrets.CHROMATIC_PROJECT_TOKEN }}
@@ -172,7 +172,7 @@ jobs:
   chromatic-deployment:
     steps:
       # 👇 Adds Chromatic as a step in the workflow
-      - name: Publish to Chromatic
+      - name: Run Chromatic
         uses: chromaui/action@v1
         # Options required to the GitHub chromatic action
         with:

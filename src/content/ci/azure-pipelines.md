@@ -54,7 +54,7 @@ stages:
             condition: ne(variables.CACHE_RESTORED, 'true')
             # 👇 Adds Chromatic as a step
           - task: CmdLine@2
-            displayName: Publish to Chromatic
+            displayName: Run Chromatic
             inputs:
               # 👇 Runs Chromatic
               script: npx chromatic
@@ -117,13 +117,13 @@ stages:
     # Job list
     jobs:
       - job: Chromatic_Deploy
-        displayName: Publish to Chromatic
+        displayName: Run Chromatic
         steps:
           # Other steps in the pipeline
 
           # 👇 Adds Chromatic as a step in the pipeline
           - task: CmdLine@2
-            displayName: Publish to Chromatic
+            displayName: Run Chromatic
             inputs:
               # 👇 Runs Chromatic with the flag to compress the build output.
               script: npx chromatic --zip
@@ -201,13 +201,13 @@ stages:
     # Job list
     jobs:
       - job: Chromatic_Deploy
-        displayName: Publish to Chromatic
+        displayName: Run Chromatic
         steps:
           # Other steps in the pipeline
 
           # 👇 Adds Chromatic as a step in the pipeline
           - task: CmdLine@2
-            displayName: Publish to Chromatic
+            displayName: Run Chromatic
             inputs:
               # 👇 Enables Chromatic's TurboSnap feature.
               script: npx chromatic --only-changed
@@ -239,13 +239,13 @@ stages:
     # Job list
     jobs:
       - job: Chromatic_Deploy
-        displayName: Publish to Chromatic
+        displayName: Run Chromatic
         steps:
           # Other steps in the pipeline
 
           # 👇 Adds Chromatic as a step in the pipeline
           - task: CmdLine@2
-            displayName: Publish to Chromatic
+            displayName: Run Chromatic
             inputs:
               # 👇 Runs Chromatic with the --branch-name flag to override the baseline branch
               script: npx chromatic --branch-name=${YOUR_BRANCH}
@@ -275,13 +275,13 @@ stages:
     # Job list
     jobs:
       - job: Chromatic_Deploy
-        displayName: Publish to Chromatic
+        displayName: Run Chromatic
         steps:
           # Other steps in the pipeline
 
           # 👇 Adds Chromatic as a step in the pipeline
           - task: CmdLine@2
-            displayName: Publish to Chromatic
+            displayName: Run Chromatic
             inputs:
               #👇Runs Chromatic with the flag to prevent pipeline failure
               script: npx chromatic --exit-zero-on-changes
@@ -299,7 +299,7 @@ When using `--exit-zero-on-changes` your pipeline execution still stop and fail 
 
 #### Re-run failed builds after verifying UI test results
 
-Builds that contain visual changes need to be [verified](/docs/test#verify-ui-changes). They will fail if you are not using `--exit-zero-on-changes`. Once you accept all the changes, re-run the pipeline and the `Publish to Chromatic` step will pass.
+Builds that contain visual changes need to be [verified](/docs/test#verify-ui-changes). They will fail if you are not using `--exit-zero-on-changes`. Once you accept all the changes, re-run the pipeline and the `Run Chromatic` step will pass.
 
 If you deny any change, you will need to make the necessary code changes to fix the test (and thus start a new build) to get Chromatic to pass again.
 
@@ -327,13 +327,13 @@ stages:
     # Job list
     jobs:
       - job: Chromatic_Deploy
-        displayName: Publish to Chromatic
+        displayName: Run Chromatic
         steps:
           # Other steps in the pipeline
 
           # 👇 Checks if the branch is main and runs Chromatic with the flag to accept all changes.
           - task: CmdLine@2
-            displayName: Publish to Chromatic and auto accept changes
+            displayName: Run Chromatic and auto accept changes
             condition: and(succeeded(), eq(variables['build.sourceBranch'], 'refs/heads/main'))
             inputs:
               script: npx chromatic --auto-accept-changes
@@ -341,7 +341,7 @@ stages:
               CHROMATIC_PROJECT_TOKEN: $(CHROMATIC_PROJECT_TOKEN)
             # 👇 Checks if the branch is not main and runs Chromatic
           - task: CmdLine@2
-            displayName: Publish to Chromatic
+            displayName: Run Chromatic
             condition: eq(variables['Build.Reason'], 'PullRequest')
             inputs:
               script: npx chromatic
@@ -371,13 +371,13 @@ stages:
     # Job list
     jobs:
       - job: Chromatic_Deploy
-        displayName: Publish to Chromatic
+        displayName: Run Chromatic
         steps:
           # Other steps in the pipeline
 
           # 👇 Option to skip the last build on target branch
           - task: CmdLine@2
-            displayName: Publish to Chromatic
+            displayName: Run Chromatic
             inputs:
               script: npx chromatic --ignore-last-build-on-branch=my-branch
             env:
