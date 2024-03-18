@@ -174,9 +174,7 @@ This is a [known issue](https://github.com/storybookjs/storybook/issues/22431#is
 <details>
 <summary>Does the addon affect snapshot usage?</summary>
 
-The addon will remain free after the early access period (including public beta) ends. If you are an existing Chromatic customer and receive overages from using the addon, we will credit those back to you after early access ends.
-
-When early access ends, snapshots will become billed and will count towards your snapshot usage. If you have any questions about snapshot costs or [billing](https://www.chromatic.com/pricing), please contact us <a class="intercom-concierge-bot"><b>via in-app chat</b></a>.
+The Visual Tests addon uses the same [pricing tiers as Chromatic](https://www.chromatic.com/pricing), providing the number of snapshots subscribed to in your plan. If you have any questions about snapshot costs or billing, please contact us <a class="intercom-concierge-bot"><b>via in-app chat</b></a>.
 
 </details>
 
