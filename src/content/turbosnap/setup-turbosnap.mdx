@@ -312,6 +312,22 @@ If this list of files contains things you didn't expect, look at any global deco
 </details>
 
 <details>
+  <summary>Why changes are not being detected correctly?</summary>
+
+Teams frequently use an index file ([barrel file](https://basarat.gitbook.io/typescript/main-1/barrel)) to simplify imports. This practice allows for easier importing, such as accessing a component from `@component-library` instead of having to specify the full path like `@component-library/elements/table`. However, barrel impact TurboSnap's ability to detect changes.
+
+When encountering a barrel file, TurboSnap relies on Webpack's tree-shaking abilities to accurately identify changes. Otherwise, a modification in `@component-library/elements/table` would prompt changes in all files importing from the barrel file, meaning all files that import from `@component-library`.
+
+Therefore, if you use barrel files, you'll want to ensure that Webpack tree-shaking (dead-code-elimination) is working properly. Here are some tips:
+
+1. Use ES2015 module syntax (i.e. import and export)
+2. Build using `production` mode (`NODE_ENV`) to enable [various optimizations](https://webpack.js.org/configuration/mode/#usage) including minification and tree-shaking.
+3. Make sure that compilers do not automatically convert your ES2015 module syntax into CommonJS modules. This is the default behavior of the popular Babel preset `@babel/preset-env`. See the [documentation](https://babeljs.io/docs/babel-preset-env#modules) for more details.
+4. Use [`sideEffects`](https://webpack.js.org/guides/tree-shaking/#clarifying-tree-shaking-and-sideeffects) to allow Webpack to optimize re-exports. There are trade-offs involved when using `sideEffects`, so it's important to read the Webpack documentation before enabling this feature.
+
+</details>
+
+<details>
   <summary>Why are full rebuilds required?</summary>
 
 Full rebuilds can be required for various reasons (see the list in [how it works](/docs/turbosnap#how-it-works)). Another scenario where a full rebuild will also be required is due to a change to a `package.json` or lock file for a subproject that doesn't affect the Storybook (we need to be very conservative as we cannot tell if a change to a lock file could affect `node_modules` imported by Storybook).
