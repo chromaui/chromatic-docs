@@ -229,7 +229,7 @@ jobs:
           merge-multiple: true
 
       - name: Run Chromatic tests
-        uses: chromaui/action@v1
+        uses: chromaui/action@latest
         with:
           projectToken: ${{ secrets.CHROMATIC_PROJECT_TOKEN }}
           playwright: true
