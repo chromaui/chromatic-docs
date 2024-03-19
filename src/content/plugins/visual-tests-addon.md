@@ -189,7 +189,7 @@ When early access ends, snapshots will become billed and will count towards your
 <details>
 <summary id="turbosnap-support">Does the addon support TurboSnap?</summary>
 
-Not yet. Visual Tests Addon is in beta with free usage. Support for TurboSnap will be added as part of a future release.
+Yes. Visual Tests addon supports TurboSnap via the [`./chromatic.config.json`](/docs/cli#configuration) file.
 
 </details>
 
