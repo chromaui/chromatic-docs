@@ -172,35 +172,67 @@ When running your Playwright tests over multiple shared CI jobs, you’ll need t
 For GitHub actions, that might look like:
 
 ```yaml
-test:
-  name: Run Playwright
-  needs: install
-  strategy:
-    matrix:
-      shard: [1, 2]
-  steps:
-    - name: Run Playwright tests
-      run: npx playwright test --shard=${{ matrix.shard }}/${{ strategy.job-total }}
+# .github/workflows/chromatic.yml
 
-    - uses: actions/upload-artifact@v3
-      if: always()
-      with:
-        name: playwright-report-${{ matrix.shard }}_${{ strategy.job-total }}
-        path: ./test-archives/latest
-        retention-days: 30
+name: "UI Tests"
 
-chromatic:
-  name: Run Chromatic
-  needs: test
-  steps:
-    - name: Download all workflow run artifacts
-      uses: actions/download-artifact@v3
+on: push
 
-    - name: Publish E2E Archives to Chromatic
-      uses: chromaui/action@v1
-      with:
-        projectToken: ${{ secrets.CHROMATIC_ARCHIVE_PROJECT_TOKEN }}
-        buildScriptName: build-archive-storybook
+jobs:
+  test:
+    name: Run Playwright
+    strategy:
+      matrix:
+        shard: [1, 2]
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-node@v1
+        with:
+          node-version: 18.x
+      - name: Install dependencies
+        uses: bahmutov/npm-install@v1
+
+      - name: Install Playwright
+        run: npx playwright install --with-deps
+
+      - name: Run Playwright tests
+        run: npx playwright test --shard=${{ matrix.shard }}/${{ strategy.job-total }}
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: playwright-report-${{ matrix.shard }}_${{ strategy.job-total }}
+          path: ./test-results/chromatic-archives
+          retention-days: 30
+
+  chromatic:
+    name: Run Chromatic
+    needs: test
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-node@v1
+        with:
+          node-version: 18.x
+      - name: Install dependencies
+        uses: bahmutov/npm-install@v1
+
+      - name: Download all workflow run artifacts
+        uses: actions/download-artifact@v4
+        with:
+          path: ./test-results/chromatic-archives
+          pattern: playwright-report-*
+          merge-multiple: true
+
+      - name: Run Chromatic tests
+        uses: chromaui/action@v1
+        with:
+          projectToken: ${{ secrets.CHROMATIC_PROJECT_TOKEN }}
+          playwright: true
 ```
 
 ---
