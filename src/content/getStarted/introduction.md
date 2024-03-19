@@ -12,9 +12,11 @@ isHome: true
 
 ## What is Chromatic?
 
-Chromatic is a cloud-based toolchain that helps teams ship UI components faster. It's made by the [team](https://www.chromatic.com/company/about) behind Storybook and integrates with Storybook, Playwright, and Cypress. Watch a [quick demo video](https://youtu.be/zhrboql8UuU) now or read on for the key features:
+Chromatic is a cloud-based toolchain that helps teams ship UI components faster. It's made by the [team](https://www.chromatic.com/company/about) behind Storybook and integrates with Storybook, Playwright, and Cypress. Watch a [quick demo video](https://youtu.be/zhrboql8UuU) now or read on for the key features.
 
-## For Storybook
+---
+
+## Chromatic for Storybook
 
 #### ⬆️ Publish Storybook
 
@@ -45,7 +47,9 @@ New to Storybook? Read our peer-reviewed guides for professional developers at [
 
 </details>
 
-## For Playwright & Cypress
+---
+
+## Chromatic for Playwright & Cypress
 
 Chromatic integrates with Playwright and Cypress to provide comprehensive visual coverage for your end-to-end (E2E) tests.
 
