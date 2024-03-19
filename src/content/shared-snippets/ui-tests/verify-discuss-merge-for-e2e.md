@@ -72,7 +72,7 @@ Reviewers can point out bugs or ask questions by creating discussions. Discussio
 Pin discussions on a change to give precise feedback on what’s wrong. Pair discussions with denying a change to block merging until bugs are resolved.
 
 <video autoPlay muted playsInline loop width="560px" class="center" style="pointer-events: none;">
-  <source src="/docs/assets/testscreen-comment-pinned-optimized.mp4" type="video/mp4" />
+  <source src="/docs/assets/testscreen-comment-pinned-page.mp4" type="video/mp4" />
 </video>
 
 ## Merge

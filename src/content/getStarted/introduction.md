@@ -12,7 +12,24 @@ isHome: true
 
 ## What is Chromatic?
 
-Chromatic is a cloud-based toolchain for [Storybook](https://storybook.js.org) that helps teams ship UI components faster. It's made by the [team](https://www.chromatic.com/company/about) behind Storybook. Watch a [quick demo video](https://youtu.be/zhrboql8UuU) now or read on for the key features:
+Chromatic is a cloud-based toolchain for [Storybook](https://storybook.js.org/) that helps teams ship UI components faster. It's made by the [team](https://www.chromatic.com/company/about) behind Storybook.
+
+<details>
+<summary><h4 class="no-anchor">What if I can't use Storybook?</h4></summary>
+
+Chromatic integrates with Playwright and Cypress to provide comprehensive visual coverage for your E2E tests.
+
+End-to-end tests check key user flows like “sign up” and “buy now.” Chromatic piggybacks on the config, mocking, and settings you’ve already written in E2E tests to give you confidence that the UI looks correct.
+
+How does it work?
+
+1. Playwright/Cypress drives the browser to specific pages and states in your app.
+2. For each state, Chromatic automatically captures the UI, complete with DOM, styling, and assets then takes a snapshot of it.
+3. Whenever tests run, new snapshots are captured and compared to baseline snapshots to find visual changes.
+
+</details>
+
+Watch a [quick demo video](https://youtu.be/zhrboql8UuU) now or read on for the key features:
 
 #### ⬆️ Publish Storybook
 

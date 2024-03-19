@@ -25,7 +25,7 @@ pipelines:
 
     # 👇 Adds Chromatic as a step
     - step:
-        name: "Publish to Chromatic"
+        name: "Run Chromatic"
         caches:
           - node
         script:
@@ -82,7 +82,7 @@ pipelines:
 
     # 👇 Adds Chromatic as a step in the pipeline
     - step:
-        name: "Publish to Chromatic"
+        name: "Run Chromatic"
         # Other pipeline configuration
         script:
           - yarn install
@@ -170,7 +170,7 @@ pipelines:
 
     # 👇 Adds Chromatic as a step in the pipeline
     - step:
-        name: "Publish to Chromatic"
+        name: "Run Chromatic"
         # Other pipeline configuration
         script:
           - yarn install
@@ -202,7 +202,7 @@ pipelines:
 
     # 👇 Adds Chromatic as a step in the pipeline
     - step:
-        name: "Publish to Chromatic"
+        name: "Run Chromatic"
         # Other pipeline configuration
         script:
           - yarn install
@@ -220,7 +220,7 @@ When using `--exit-zero-on-changes` your pipeline execution still stop and fail 
 
 #### Re-run failed builds after verifying UI test results
 
-Builds that contain visual changes need to be [verified](/docs/test#verify-ui-changes). They will fail if you are not using `--exit-zero-on-changes`. Once you accept all the changes, re-run the pipeline and the `Publish to Chromatic` step will pass.
+Builds that contain visual changes need to be [verified](/docs/test#verify-ui-changes). They will fail if you are not using `--exit-zero-on-changes`. Once you accept all the changes, re-run the pipeline and the `Run Chromatic` step will pass.
 
 If you deny any change, you will need to make the necessary code changes to fix the test (and thus start a new build) to get Chromatic to pass again.
 
@@ -244,7 +244,7 @@ pipelines:
   default:
     # 👇 Checks if the branch is main and runs Chromatic with the flag to accept all changes.
     - step:
-        name: "Publish to Chromatic and auto accept changes"
+        name: "Run Chromatic and auto accept changes"
         caches:
           - node
         script:
@@ -253,7 +253,7 @@ pipelines:
     # 👇 Checks if the branch is not main and runs Chromatic
     your-branch:
       - step:
-          name: "Publish to Chromatic"
+          name: "Run Chromatic"
           script:
             - yarn chromatic
 ```
@@ -278,7 +278,7 @@ pipelines:
 
     # 👇 Adds Chromatic as a step in the pipeline
     - step:
-        name: "Publish to Chromatic"
+        name: "Run Chromatic"
         # Other pipeline configuration
         script:
           - yarn install
@@ -307,7 +307,7 @@ pipelines:
     "**":
       - step:
           # 👇 Adds Chromatic as a step in the pipeline
-          name: "Publish to Chromatic"
+          name: "Run Chromatic"
           caches:
             - node
           script:

@@ -75,9 +75,36 @@ Every monorepo subproject will get build statuses posted to the pull/merge reque
 
 If your monorepo consists of both UI and backend subprojects, it may be common to have commits that do not touch UI at all. In such cases, running Chromatic on those commits makes little sense.
 
-You can use tools like [`lerna changed`](https://github.com/lerna/lerna/tree/master/commands/changed#readme) to detect such situations (depending on how you've set up your monorepo).
+You can use tools like [`lerna changed`](https://github.com/lerna/lerna/tree/4fcac71c782cf91a3624fded775faaf3ddb8d636/libs/commands/changed) to detect such situations (depending on how you've set up your monorepo).
 
 If you want to get a Chromatic PR badge for such commits (for instance, if you block merging on Chromatic builds), you can use the `--skip` CLI flag to indicate that this commit does not need to be built and tested.
+
+<details>
+   <summary>How do I use Lerna changed to skip changes in a branch or skip certain builds?</summary>
+
+Please refer to the [lerna docs](https://github.com/lerna/lerna/tree/4fcac71c782cf91a3624fded775faaf3ddb8d636/libs/commands/changed) for up to date info. Here's a sample workflow:
+
+1. Install Lerna globally: `npm install -g lerna`
+2. Initialize Lerna: `lerna init`
+3. Configure `lerna.json` (replace `<your-branch-name>` with the branch name you want to skip):
+
+   ```json
+   {
+     "command": {
+       "changed": {
+         "ignoreChanges": "<your-branch-name>"
+       }
+     }
+   }
+   ```
+
+4. Run `lerna changed`
+
+If you want to skip a certain build, you can use the `--ignore` flag with the build command.
+
+For example: `lerna run build --ignore <package-name>`
+
+</details>
 
 ## Advanced configuration
 

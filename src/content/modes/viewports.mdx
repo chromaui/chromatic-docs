@@ -12,7 +12,18 @@ import { TabItem, Tabs } from "../../components/Tabs";
 <div class="aside" style="margin-bottom: 2rem;">
 <p>ℹ️&nbsp;&nbsp;This page documents viewports using the modes API. Learn how to <a href="/docs/modes">get started</a>.</p>
 
-<p style="margin-bottom: 0;">If you are transitioning from the <code>chromatic.viewports</code> API to the modes API, please consult the <a href="#migration-from-viewports-legacy-to-modes">migration guide</a>.</p>
+<p>
+  If you are transitioning from the <code>chromatic.viewports</code> API to the
+  modes API, please consult the{" "}
+  <a href="#migration-from-viewports-legacy-to-modes">migration guide</a>.
+</p>
+
+<p style="margin-bottom: 0;">
+  If you are using Chromatic with Playwright, please refer to the{" "}
+  <a href="/docs/playwright/configure#viewports">Playwright documentation</a>.
+</p>
+
+<p style="margin-bottom: 0;">If you are using Chromatic with Cypress, please refer to the <a href="/docs/cypress/configure#viewports">Cypress documentation</a>.</p>
 </div>
 
 ## Define viewport modes
@@ -187,22 +198,7 @@ export const allModes = {
 
 Within Storybook, you have the ability to configure the default viewport for stories at different levels: project, component, or story. This can be done by setting the `parameters.viewport` value. By adjusting this setting, you can control the dimensions of the story canvas when viewing it in the browser using Storybook. Chromatic will respect the `defaultViewport` setting when capturing snapshots.
 
-`defaultViewport` can either be set either explicitly:
-
-```js
-export const DefaultViewportExplicit = {
-  args: {
-    //...
-  },
-  parameters: {
-    viewport: {
-      defaultViewport: { width: 534, height: 802 },
-    },
-  },
-};
-```
-
-Or via a named viewport from the viewport addon:
+`defaultViewport` can ve set via a named viewport from the viewport addon:
 
 <Tabs>
   <TabItem label="preview.js">
@@ -324,7 +320,10 @@ A width or height can be any whole number between 200 and 2560 pixels. The maxim
 <details>
 <summary>Can I control the height of the viewport?</summary>
 
-Yes, you can control the height using the `viewport.height` property.
+Yes, you can control the height using the `viewport.height` property and enabling `parameters.chromatic.cropToViewport`.
+
+- If intrinsic height of the root container is greater than the specified `viewport.height` then the snapshot will be clipped to viewport.height.
+- If intrinsic height of the root container is less than the specified `viewport.height` then the snapshot will be trimmed to that intrinsic height.
 
 If no height is specified, Chromatic will capture a snapshot based on the intrinsic height of the root container.
 
@@ -338,6 +337,7 @@ export default {
   title: "MyComponent",
   parameters: {
     chromatic: {
+      cropToViewport: true,
       modes: {
         small: {
           viewport: {
@@ -391,8 +391,8 @@ Chromatic defaults to a viewport of width 1200px and height 900px.
 <details>
 <summary>How does snapshot cropping work with viewport width and height?</summary>
 
-When you add a viewport, Chromatic will size the browser’s viewport to the defined width and height. It will then take a snapshot and [crop](/docs/snapshots/#3-take-a-screenshot-and-crop-it-to-the-dimensions-of-the-ui) it to the bounding box of the component. This eliminates negative space around snapshots, reducing the visual information you must review.
+When you add a viewport, Chromatic will size the browser’s viewport to the defined width and height. It will then [take a snapshot and crop](/docs/snapshots/#how-are-snapshots-captured) it to the bounding box of the component. This eliminates negative space around snapshots, reducing the visual information you must review.
 
-If you haven't set a viewport height, Chromatic will capture the full height of the rendered UI. If you have set a viewport height, Chromatic will capture up to the specified height and not the rest of the UI that would be offscreen.
+By default, Chromatic captures the full height of the rendered UI, even if a viewport height has been set. This is because in most cases, you want to capture the entire rendered UI. To restrict the capture height to the specified height, set `parameters.chromatic.cropToViewport` to `true`.
 
 </details>

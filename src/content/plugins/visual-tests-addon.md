@@ -181,7 +181,7 @@ The Visual Tests addon uses the same [pricing tiers as Chromatic](https://www.ch
 <details>
 <summary id="turbosnap-support">Does the addon support TurboSnap?</summary>
 
-Not yet. Support for TurboSnap will be added as part of a future release.
+Yes. Visual Tests addon supports TurboSnap via the [`./chromatic.config.json`](/docs/cli#configuration) file.
 
 </details>
 

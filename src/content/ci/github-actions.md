@@ -35,7 +35,7 @@ jobs:
         run: pnpm install
         run: yarn install --immutable --immutable-cache --check-cache
 
-      - name: Publish to Chromatic
+      - name: Run Chromatic
         uses: chromaui/action@latest
         with:
           # ⚠️ Make sure to configure a `CHROMATIC_PROJECT_TOKEN` repository secret
@@ -82,7 +82,7 @@ Refer to our [CLI documentation](/docs/cli#configuration-options) for configurat
 
 ### Outputs
 
-Chromatic's GitHub Action returns some information about your build in the form of outputs. The table below lists what's currently available:
+Chromatic's GitHub Action returns some information about your build in the form of outputs. The table below lists what's currently available. Read the official [GitHub documentation](https://docs.github.com/en/actions/using-workflows/workflow-syntax-for-github-actions#onworkflow_calloutputs) for more information about outputs.
 
 | Name                             | Type     | Description                                                                                                         |
 | -------------------------------- | -------- | ------------------------------------------------------------------------------------------------------------------- |
@@ -98,12 +98,6 @@ Chromatic's GitHub Action returns some information about your build in the form 
 | **interactionTestFailuresCount** | `number` | The number of stories with interaction test failures.                                                               |
 | **specCount**                    | `number` | The number of stories in the published Storybook.                                                                   |
 | **testCount**                    | `number` | The number of tests on the build.                                                                                   |
-
-<div class="aside">
-
-Read the official [GitHub documentation](https://docs.github.com/en/actions/using-workflows/metadata-syntax-for-github-actions#outputs) for more information about outputs.
-
-</div>
 
 ### Run Chromatic on specific branches
 
@@ -200,7 +194,7 @@ jobs:
     steps:
       # ... other steps
 
-      - name: Publish to Chromatic
+      - name: Run Chromatic
         uses: chromaui/action@latest
         with:
           # 👇 Chromatic projectToken, refer to the manage page to obtain it.
@@ -222,7 +216,7 @@ jobs:
     steps:
       # ... other steps
 
-      - name: Publish to Chromatic
+      - name: Run Chromatic
         uses: chromaui/action@latest
         with:
           # 👇 Chromatic projectToken, refer to the manage page to obtain it.
@@ -242,7 +236,7 @@ jobs:
     steps:
       # ... other steps
 
-      - name: Publish to Chromatic
+      - name: Run Chromatic
         uses: chromaui/action@latest
         with:
           projectToken: ${{ secrets.CHROMATIC_PROJECT_TOKEN }}
@@ -269,12 +263,27 @@ jobs:
     steps:
       # ... other steps
 
-      - name: Publish to Chromatic
+      - name: Run Chromatic
         uses: chromaui/action@latest
         with:
           projectToken: ${{ secrets.CHROMATIC_PROJECT_TOKEN }}
           onlyChanged: true # 👈 Required option to enable TurboSnap
           externals: packages/(icons/icons|tokens/src)/**
+```
+
+Multiple file patterns can also be provided as follows:
+
+```
+# ... other config
+
+- name: Run Chromatic
+  uses: chromaui/action@latest
+  with:
+    projectToken: ${{ secrets.CHROMATIC_PROJECT_TOKEN }}
+    onlyChanged: true # 👈 Required option to enable TurboSnap
+    externals: |
+      *.sass
+      public/**
 ```
 
 <div class="aside">
@@ -366,7 +375,7 @@ jobs:
     steps:
       # ... other steps
 
-      - name: Publish to Chromatic
+      - name: Run Chromatic
         uses: chromaui/action@latest
         with:
           projectToken: ${{ secrets.CHROMATIC_PROJECT_TOKEN }}
@@ -407,7 +416,7 @@ jobs:
     steps:
       # ... other steps
 
-      - name: Publish to Chromatic
+      - name: Run Chromatic
         uses: chromaui/action@latest
         with:
           projectToken: ${{ secrets.CHROMATIC_PROJECT_TOKEN }}
@@ -432,7 +441,7 @@ jobs:
     steps:
       # ... other steps
 
-      - name: Publish to Chromatic
+      - name: Run Chromatic
         uses: chromaui/action@latest
         with:
           projectToken: ${{ secrets.CHROMATIC_PROJECT_TOKEN }}
@@ -469,7 +478,7 @@ jobs:
     steps:
       # ... other steps
 
-      - name: Publish to Chromatic
+      - name: Run Chromatic
         uses: chromaui/action@latest
         with:
           projectToken: ${{ secrets.CHROMATIC_PROJECT_TOKEN }}

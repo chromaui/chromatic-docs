@@ -23,7 +23,7 @@ pipeline {
     /* Other pipeline stages */
 
     /* 👇 Adds Chromatic as a stage */
-    stage('Publish to Chromatic') {
+    stage('Run Chromatic') {
       environment {
         CHROMATIC_PROJECT_TOKEN = credentials('chromatic-project-token')
       }
@@ -56,7 +56,7 @@ pipeline {
     /* Other pipeline stages */
 
     /* 👇 Adds Chromatic as a stage */
-    stage('Publish to Chromatic') {
+    stage('Run Chromatic') {
       when {
         branch 'example' /* 👈 Filters the execution to run only on the main branch */
       }
@@ -94,7 +94,7 @@ pipeline {
     /* Other pipeline stages */
 
     /* 👇 Adds Chromatic as a stage */
-    stage('Publish to Chromatic') {
+    stage('Run Chromatic') {
       environment {
         CHROMATIC_PROJECT_TOKEN = credentials('chromatic-project-token')
       }
@@ -128,7 +128,7 @@ pipeline {
     /* Other pipeline stages */
 
     /* 👇 Adds Chromatic as a stage */
-    stage('Publish to Chromatic') {
+    stage('Run Chromatic') {
       environment {
         CHROMATIC_PROJECT_TOKEN_1 = credentials('chromatic-project-token-1')
         CHROMATIC_PROJECT_TOKEN_2 = credentials('chromatic-project-token-2')
@@ -157,7 +157,7 @@ pipeline {
      /* Other pipeline stages */
 
     /* 👇 Adds Chromatic as a stage */
-    stage('Publish to Chromatic') {
+    stage('Run Chromatic') {
 
       /* 👇 Runs Chromatic in parallel for each monorepo subproject. */
       parallel {
@@ -200,7 +200,7 @@ pipeline {
     /* Other pipeline stages */
 
     /* 👇 Adds Chromatic as a stage */
-    stage('Publish to Chromatic') {
+    stage('Run Chromatic') {
       environment {
         CHROMATIC_PROJECT_TOKEN = credentials('chromatic-project-token')
       }
@@ -235,7 +235,7 @@ pipeline {
     /* Other pipeline stages */
 
     /* 👇 Adds Chromatic as a stage */
-    stage('Publish to Chromatic') {
+    stage('Run Chromatic') {
       environment {
         CHROMATIC_PROJECT_TOKEN = credentials('chromatic-project-token')
         YOUR_BRANCH='your-branch'
@@ -282,7 +282,7 @@ pipeline {
     /* Other pipeline stages */
 
     /* 👇 Adds Chromatic as a stage in the pipeline */
-    stage('Publish to Chromatic') {
+    stage('Run Chromatic') {
       environment {
         CHROMATIC_PROJECT_TOKEN = credentials('chromatic-project-token')
       }
@@ -305,7 +305,7 @@ When using `--exit-zero-on-changes` your pipeline will still stop and fail if yo
 
 #### Re-run failed builds after verifying UI test results
 
-Builds that contain visual changes need to be [verified](/docs/test#verify-ui-changes). They will fail if you are not using `--exit-zero-on-changes`. Once you accept all the changes, re-run the build and the `Publish to Chromatic` pipeline stage will pass.
+Builds that contain visual changes need to be [verified](/docs/test#verify-ui-changes). They will fail if you are not using `--exit-zero-on-changes`. Once you accept all the changes, re-run the build and the `Run Chromatic` pipeline stage will pass.
 
 If you deny any change, you will need to make the necessary code changes to fix the test (and thus start a new build) to get Chromatic to pass again.
 
@@ -331,7 +331,7 @@ pipeline {
     /* Other pipeline stages */
 
     /* 👇 Checks if the current branch is not main and runs Chromatic */
-    stage('Publish to Chromatic') {
+    stage('Run Chromatic') {
       when {
         not {
           branch 'main'
@@ -345,7 +345,7 @@ pipeline {
       }
     }
     /* 👇 Checks if the current branch is main and runs Chromatic with the flag to accept all changes */
-    stage('Publish to Chromatic and auto accept changes') {
+    stage('Run Chromatic and auto accept changes') {
       when {
         branch 'main'
       }
@@ -380,7 +380,7 @@ pipeline {
     /* Other pipeline stages */
 
     /* 👇 Adds Chromatic as a stage in the pipeline */
-    stage('Publish to Chromatic') {
+    stage('Run Chromatic') {
       environment {
         CHROMATIC_PROJECT_TOKEN = credentials('chromatic-project-token')
       }

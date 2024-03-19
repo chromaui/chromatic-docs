@@ -29,7 +29,7 @@ Generate a unique project token for your app by signing in to [Chromatic](https:
 
 <DemoChromaticUnlinked />
 
-![Setup project](../../../images/setup.png)
+![Setup project](../../../images/setup-playwright.png)
 
 ## Install
 
@@ -142,6 +142,6 @@ test("Can filter product", async ({ page }, testInfo) => {
 <details>
 <summary id="turbosnap-support">Can I use TurboSnap with Playwright visual tests?</summary>
 
-Not yet. TurboSnap support for Playwright tests will be added as part of a future release.
+No. Playwright is a "black box" tool that tests your fully built app UI in a browser. TurboSnap is incompatible with this testing methodology because it requires tracking code changes and git history to identify the UI that's likely to change. We would love to integrate TurboSnap and Playwright but it isn't technically feasible right now.
 
 </details>
