@@ -12,28 +12,24 @@ If you have a question not covered in our documentation, contact us via our in-a
 ## Comparison with other tools
 
 <details>
-<summary>How is this compared to End-to-End testing tools like Selenium and Cypress?</summary>
+<summary>How is this compared to end-to-end testing tools like Playwright and Cypress?</summary>
 
-Chromatic complements your existing End-to-End tests (Selenium or Cypress).
+Chromatic complements your existing end-to-end tests in Playwright, Cypress, or Selenium.
 
-#### Get tests for free
+End-to-end tests verify user flows like “buy now” or “sign up”. They drive the browser to different pages of a running app and assert functionality. Teams use them in moderation to test the most critical user flows because they can be time-consuming to run.
 
-You already write stories as a natural part of building UIs. Chromatic transforms those stories into tests. That gives you expansive yet accurate UI coverage without having to write new tests.
+Visual tests with Chromatic run alongside E2E tests to ensure flows look correct. Chromatic offers time-saving integrations for [Playwright](https://www.chromatic.com/playwright) and [Cypress](https://www.chromatic.com/cypress).
 
-#### No test flake
+#### Using Storybook?
 
-E2E tests are intended to QA the “happy path”, but are time-consuming to create and brittle to maintain. They tend to be flaky because they rely on the application being in a certain state before running the tests. The tests also have to run in a specific order. Chromatic tests against the static Storybook build. That prevents false positives and negatives.
-
-#### Much faster
-
-Chromatic runs all tests in parallel at no extra cost or configuration. We optimize for the fastest test time by evaluating only the rendered UI. This focus allows Chromatic to run thousands of UI tests in less than a minute. Selenium/Cypress tests can take half an hour or more for an app of meaningful complexity. That said, we recommend you use various testing strategies (visual, unit, E2E) for comprehensive app coverage.
+With Storybook, you already write stories as a natural part of UI development. Chromatic transforms these stories into visual tests. That gives you expansive UI coverage without having to write tests.
 
 </details>
 
 <details>
 <summary>Can I get rid of my BrowserStack or Sauce subscription?</summary>
 
-Our aim isn’t to replace services like Browserstack or Sauce. Cloud browser services are invaluable for verifying interactive behavior (e.g., clicking around the UI) and End-to-End testing but aren’t built or priced for visual testing.
+Our aim isn’t to replace services like Browserstack or Sauce. Cloud browser services are invaluable for verifying interactive behavior (e.g., clicking around the UI) and end-to-end testing but aren’t built or priced for visual testing.
 
 Chromatic gives professional UI engineers a purpose-built service for visual testing which helps you reduce your reliance on cloud browser services. In practice, our customers typically scale back their usage and save a boatload of money while increasing their testing productivity.
 
@@ -42,7 +38,7 @@ Chromatic gives professional UI engineers a purpose-built service for visual tes
 <details>
 <summary>How is Chromatic different from visual testing tools like Applitools and Percy?</summary>
 
-Chromatic is a faster, simpler, and cost-effective alternative to Applitools or Percy that is built for UI components and component libraries. Our customers compare us favorably on developer experience and price.
+Chromatic is a faster, easier to use, and cost-effective alternative to Applitools or Percy that is built for UI components and component libraries. Our customers compare us favorably on developer experience and price.
 
 [Get a detailed breakdown »](https://www.chromatic.com/choose/visual-testing)
 
@@ -202,9 +198,9 @@ Yes it can. We do our best to provide the fastest test speeds but there are limi
 <details>
 <summary>What about testing in every other browser and its versions?</summary>
 
-Chromatic covers the major rendering engines (Blink, Gecko and Trident) at all viewports. This eliminates almost all browser regressions your users are likely to see with minimal effort, configuration, or additional time to your workflow.
+Chromatic covers the major rendering engines (Blink, Gecko and Webkit) at all viewports. This eliminates almost all browser regressions your users are likely to see with minimal effort, configuration, or additional time to your workflow.
 
-Supporting more browser/device combinations ends up having diminishing returns that adds noise to the visual review process.
+Supporting more browser/device combinations ends up having diminishing returns that adds noise to the visual testing process.
 
 </details>
 
@@ -272,7 +268,7 @@ Chromatic
 <details>
 <summary>Why isn’t TurboSnap working for me?</summary>
 
-You may be missing one of the necessary [prerequisites](/docs/turbosnap#prerequisites). For [debugging information](/docs/turbosnap#confirm-turbosnap-is-working) check your CI build logs.
+You may be missing one of the necessary [prerequisites](/docs/setup-turbosnap#prerequisites). For [debugging information](/docs/setup-turbosnap#verify-that-turbosnap-is-working) check your CI build logs.
 
 </details>
 
