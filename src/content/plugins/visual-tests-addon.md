@@ -1,17 +1,11 @@
 ---
 layout: "../../layouts/Layout.astro"
-title: Visual Tests addon for Storybook (beta)
+title: Visual Tests addon for Storybook
 description: Configure Storybook to test UIs with the Visual Tests Addon
-sidebar: { order: 1, label: Storybook addon (beta) }
+sidebar: { order: 1, label: Storybook addon }
 ---
 
 # Visual Tests addon for Storybook
-
-<div class="aside" style="margin-bottom: 2rem;">
-
-<b>Feb 6, 2024</b>: Now available in public beta, with active development by six core maintainers. Try it today!
-
-</div>
 
 Pinpoint visual bugs in local development without leaving Storybook.
 
@@ -131,7 +125,7 @@ When you finish accepting changes as baselines in the addon, you're ready to pus
 ## FAQ
 
 <details>
-<summary>What’re "local" builds and how are they different than builds?</summary>
+<summary>What are "local" builds and how are they different from builds?</summary>
 
 A build is an automated visual test run. When you set up Chromatic in CI, a build runs every time you push a commit to your repository.
 
@@ -180,9 +174,7 @@ This is a [known issue](https://github.com/storybookjs/storybook/issues/22431#is
 <details>
 <summary>Does the addon affect snapshot usage?</summary>
 
-The addon will be free to use throughout the early access period (including public beta). If you are an existing Chromatic customer and receive overages from using the addon, we will credit those back to you after early access ends.
-
-When early access ends, snapshots will become billed and will count towards your snapshot usage. If you have any questions about snapshot costs or [billing](https://www.chromatic.com/pricing), please contact us <a class="intercom-concierge-bot"><b>via in-app chat</b></a>.
+The Visual Tests addon uses the same [pricing tiers as Chromatic](https://www.chromatic.com/pricing), providing the number of snapshots subscribed to in your plan. If you have any questions about snapshot costs or billing, please contact us <a class="intercom-concierge-bot"><b>via in-app chat</b></a>.
 
 </details>
 
