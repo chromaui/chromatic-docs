@@ -146,6 +146,6 @@ describe("My First Test", () => {
 <details>
 <summary id="turbosnap-support">Can I use TurboSnap with Cypress visual tests?</summary>
 
-No. Cypress is a "black box" tool that tests your fully built app UI in a browser. TurboSnap is incompatible with this testing methodology because it requires tracking code changes and git history to identify the UI that's likely to change. We would love to integrate TurboSnap and Cypress but it isn't technically feasible right now.
+No. Cypress is a form of black box testing, which means it tests your app after the code is built. TurboSnap works by monitoring which files changed in the code, this isn't possible with black box testing.
 
 </details>
