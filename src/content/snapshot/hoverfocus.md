@@ -20,7 +20,11 @@ If the hover behavior is triggered via JavaScript like tooltips or dropdowns, wr
 ```js
 // Form.stories.js|jsx
 
-import { userEvent, waitFor, within } from "@storybook/testing-library";
+/*
+ * Replace the @storybook/test package with the following if you are using a version of Storybook earlier than 8.0:
+ * import { userEvent, waitFor, within } from "@storybook/testing-library";
+ */
+import { userEvent, waitFor, within } from "@storybook/test";
 
 import { Form } from "./LoginForm";
 
