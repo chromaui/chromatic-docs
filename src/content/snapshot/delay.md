@@ -51,12 +51,15 @@ For finer-grained control over when a snapshot is captured, use [interactions](/
 
 Check for DOM elements using `getBy`, `findBy`, or `queryBy` (docs [here](https://testing-library.com/docs/dom-testing-library/cheatsheet/#queries)).
 
-```javascript
+```js
 // MyComponent.stories.js|jsx
 
-import { userEvent, waitFor, within } from "@storybook/testing-library";
-
-import { expect } from "@storybook/jest";
+/*
+ * Replace the @storybook/test package with the following if you are using a version of Storybook earlier than 8.0:
+ * import { waitFor, within } from "@storybook/testing-library";
+ * import { expect } from "@storybook/jest";
+ */
+import { expect, waitFor, within } from "@storybook/test";
 
 import { MyComponent } from "./MyComponent";
 
