@@ -5,6 +5,8 @@ description: Learn how to make Chromatic wait before capturing a snapshot
 sidebar: { order: 8 }
 ---
 
+import ParamsCallout from "../../components/ParamsCallout.astro";
+
 # Delay snapshots
 
 Components sometimes trigger custom interactions on render. For example, JavaScript-driven [animations](/docs/animations#javascript-animations) that cannot [otherwise be disabled](/docs/snapshots#improve-snapshot-consistency) or third-party functionality outside of your control.
@@ -21,6 +23,8 @@ The maximum time for snapshot capture is 15s. Your story should finish loading r
 ## Delay a story
 
 Use [story-level](https://storybook.js.org/docs/react/writing-stories/parameters#story-parameters) delay to ensure a minimum amount of time (in milliseconds) has passed before Chromatic takes a screenshot.
+
+<ParamsCallout name="delay" />
 
 ```js
 // MyComponent.stories.js|jsx

@@ -342,6 +342,34 @@ export const formatting = css`
     font-weight: 400;
   }
 
+  .callout {
+    font-size: 14px;
+    line-height: 20px;
+    color: #444;
+    border-radius: 4px;
+    padding: 1em;
+    background: #def2ff;
+    border: 1px solid rgba(2, 113, 182, 0.1);
+  }
+
+  .callout a {
+    color: #1ea7fd !important;
+    font-weight: 400;
+  }
+
+  .callout:has(+ pre[class*="language-"]) {
+    margin-bottom: -1.5rem;
+    border-bottom-left-radius: 0;
+    border-bottom-right-radius: 0;
+    border-bottom: none;
+  }
+
+  .callout + pre[class*="language-"] {
+    border-top-left-radius: 0;
+    border-top-right-radius: 0;
+    border: 1px solid rgba(2, 113, 182, 0.1);
+  }
+
   video {
     max-width: 100%;
   }
