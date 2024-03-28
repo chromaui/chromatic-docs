@@ -29,7 +29,8 @@ In your local Storybook, add a `refs` key to [`.storybook/main.js`](https://stor
 const config = {
   stories: ["../src/**/*.stories.@(js|jsx|ts|tsx)"],
   refs: {
-    "chromatic-published-Storybook": {
+    // 👇 Upper-case characters not supported in the refs key
+    "chromatic-published-storybook": {
       // The title of your Storybook
       title: "Design System",
       // The url provided by Chromatic when it was published
@@ -80,7 +81,7 @@ Add a `storybook` property in the `package.json`. Use the [permalink to a commit
 }
 ```
 
-When Storybook starts, it scans for external Storybooks referenced by your packages and loads them into the UI.
+Once the package is installed and Storybook starts, it scans for external Storybooks referenced by your packages and loads them into the UI.
 
 ### Versioning
 
