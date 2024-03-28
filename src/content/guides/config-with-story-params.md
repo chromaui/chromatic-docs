@@ -18,7 +18,7 @@ Parameters specified at the story level apply to that story only. They are defin
 ```ts
 // Button.stories.ts|tsx
 
-import type { Meta, StoryObj } from "@storybook/angular";
+import type { Meta, StoryObj } from "@storybook/your-framework";
 
 import { Button } from "./button.component";
 
@@ -42,12 +42,12 @@ export const Primary: Story = {
 
 ## Component level parameters (also known as Meta)
 
-Parameter's specified in a CSF file's meta configuration apply to all stories in that file. They are defined in the parameters property of the meta (default export):
+Parameters specified in a CSF file's meta configuration apply to all stories in that file. They are defined in the parameters property of the meta (default export):
 
 ```ts
 // Button.stories.ts|tsx
 
-import type { Meta, StoryObj } from "@storybook/angular";
+import type { Meta, StoryObj } from "@storybook/your-framework";
 
 import { Button } from "./button.component";
 
