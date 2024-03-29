@@ -502,7 +502,7 @@ Read our official [CLI documentation](/docs/cli#configuration-options).
 
 #### Skip Chromatic in a Monorepo when no UI files have changed
 
-Sometimes you might want to skip running Chromatic when no UI files have changed in a monorepo. This can be useful when you have multiple projects in a monorepo and only want to run Chromatic when UI files have changed in a specific project. To achieve this, you can use the GitHub Action tj-actions/changed-files to check if any UI files have changed.
+Sometimes you might want to skip running Chromatic when no UI files have changed in a monorepo. This can be useful when you have multiple projects in a monorepo and only want to run Chromatic when UI files have changed in a specific project. To achieve this, you can use the GitHub Action [tj-actions/changed-files](https://github.com/tj-actions/changed-files) to check if any UI files have changed.
 
 Here is an example configuration.
 
