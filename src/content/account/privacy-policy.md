@@ -7,7 +7,7 @@ sidebar: { order: 7 }
 
 # Privacy and Cookies Notice
 
-Chroma Software, Inc.®  
+Chroma Software, Inc.®
 Last Reviewed: Feb 20, 2024
 
 Chroma Software, Inc., a business corporation (herein “Chromatic”, “we”, “us” or “our”), based in the United States and headquartered at 548 Market St. #26384 San Francisco, CA 94104, is committed to protecting and respecting your privacy and personal information (herein, “personal information” refers to any information that identifies you or is about you as an individual).
@@ -205,6 +205,15 @@ Or, contact us by mail at the following postal address:
 Chroma Software, Inc. ATTN: Privacy Office, 548 Market St. #26384 San Francisco, CA 94104, USA
 
 EU residents can find the contact information for the EU Data Protection Authorities here: https://edpb.europa.eu/about-edpb/board/members_en.
+
+Individuals and the data protection supervisory authorities in the EU/EEA and individuals and the data protection supervisory authority (“ICO”) in the UK may also contact our data protection representatives according to Article 27 GDPR:
+
+EU: DP-Dock GmbH, Attn: Chroma Software, Inc., Ballindamm 39, 20095 Hamburg, Germany
+
+UK: DP Data Protection Services UK Ltd., Attn: Chroma Software, Inc., 16 Great Queen Street, Covent Garden, London, WC2B 5AH, United Kingdom
+
+website: [www.dp-dock.com](https://www.dp-dock.com/)
+email: [chromatic@gdpr-rep.com](mailto:chromatic@gdpr-rep.com)
 
 ## 14. Questions and Contacts
 
