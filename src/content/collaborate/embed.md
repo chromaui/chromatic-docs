@@ -11,6 +11,11 @@ Embed stories published to Chromatic in Medium articles, Notion pages, and count
 
 Before we begin, you'll need to figure out which embed format your platform supports: oEmbed or standard `<iframe>`s. From there, paste the URL of a published story in the given format.
 
+<div class="aside">
+    In order to embed stories, your published Storybook must be publicly accessible. 
+    Learn more about [project visibility](/docs/collaborators/#visibility).
+</div>
+
 ## Embed a story with the toolbar
 
 Embed a story with the toolbar by replacing the `<appid>`, `<uploadhash>`, and `<path-to-story>` with the details for your story. You can retrieve this URL by opening your Storybook from a Build or Library screen. Embedding Storybooks by their branch name or commit hash is not supported yet.
