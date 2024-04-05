@@ -13,7 +13,7 @@ Before we begin, you'll need to figure out which embed format your platform supp
 
 <div class="aside">
     In order to embed stories, your published Storybook must be publicly accessible. 
-    Learn more about [project visibility](/docs/collaborators/#visibility).
+    Learn more about [project visibility](/docs/collaborators#visibility).
 </div>
 
 ## Embed a story with the toolbar
