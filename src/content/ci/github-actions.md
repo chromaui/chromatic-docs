@@ -544,8 +544,8 @@ jobs:
             app/**
             .storybook/**
 
-  vrt:
-    name: Testing visual regression
+  chromatic:
+    name: Run visual tests
     needs: [changed-files]
     if: ${{ needs.changed-files.outputs.any_changed == 'true' }}
     uses: ./.github/workflows/vrt.yml
@@ -555,7 +555,7 @@ jobs:
 Once you have the changed files, you can use the output to determine if you should run Chromatic.
 
 ```yml
-# .github/workflows/vrt.yml
+# .github/workflows/chromatic.yml
 name: Chromatic
 
 on: workflow_call
