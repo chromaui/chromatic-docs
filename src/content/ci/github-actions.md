@@ -548,7 +548,7 @@ jobs:
     name: Run visual tests
     needs: [changed-files]
     if: ${{ needs.changed-files.outputs.any_changed == 'true' }}
-    uses: ./.github/workflows/vrt.yml
+    uses: ./.github/workflows/chromatic.yml
     secrets: inherit
 ```
 
