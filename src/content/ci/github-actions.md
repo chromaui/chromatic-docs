@@ -499,3 +499,119 @@ Read our official [CLI documentation](/docs/cli#configuration-options).
 
 [picomatch]: https://www.npmjs.com/package/picomatch#globbing-features
 [TurboSnap]: /docs/turbosnap
+
+#### Skip Chromatic in a Monorepo when no UI files have changed
+
+Sometimes you might want to skip running Chromatic when no UI files have changed in a monorepo. This can be useful when you have multiple projects in a monorepo and only want to run Chromatic when UI files have changed in a specific project. To achieve this, you can use the GitHub Action [tj-actions/changed-files](https://github.com/tj-actions/changed-files) to check if any UI files have changed.
+
+Here is an example configuration.
+
+```yml
+# .github/workflows/deploy.yml
+name: 🚀 Deploy
+
+on:
+  push:
+    branches:
+      - main
+      - dev
+  pull_request:
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+permissions:
+  actions: write
+  contents: read
+
+jobs:
+  changed-files:
+    runs-on: ubuntu-latest
+    name: changed-files
+    outputs:
+      all_changed_files: ${{ steps.changed-files.outputs.all_changed_files }}
+      any_changed: ${{ steps.changed-files.outputs.any_changed }}
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - name: Get changed files
+        id: changed-files
+        uses: tj-actions/changed-files@v44
+        with:
+          files: |
+            app/**
+            .storybook/**
+
+  chromatic:
+    name: Run visual tests
+    needs: [changed-files]
+    if: ${{ needs.changed-files.outputs.any_changed == 'true' }}
+    uses: ./.github/workflows/chromatic.yml
+    secrets: inherit
+```
+
+Once you have the changed files, you can use the output to determine if you should run Chromatic.
+
+```yml
+# .github/workflows/chromatic.yml
+name: Chromatic
+
+on: workflow_call
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}-chromatic
+  cancel-in-progress: true
+
+permissions:
+  actions: write
+  contents: read
+
+jobs:
+  chromatic:
+    name: Chromatic
+    runs-on: ubuntu-latest
+    steps:
+      - name: ⬇️ Checkout repo
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: ⎔ Setup node
+        uses: actions/setup-node@v3
+        with:
+          cache: npm
+          cache-dependency-path: ./package.json
+          node-version: 16
+
+      - name: 📥 Install deps
+        run: npm install
+
+      - name: Build Storybook
+        run: npm run build-storybook
+
+      - name: ⚡ Run chromatic
+        uses: chromaui/action@latest
+        # Chromatic GitHub Action options
+        with:
+          # 👇 Chromatic projectToken, refer to the manage page to obtain it.
+          exitZeroOnChanges: true
+          exitOnceUploaded: true
+          onlyChanged: true
+          skip: "@(renovate/**|dependabot/**)"
+```
+
+One final thought is that you if need to debug the changed-files workflow, you can add the following command after the `- name: Get changed files` step to print the changed files.
+
+```yml
+- name: List all changed files
+  env:
+    ALL_CHANGED_FILES: ${{ steps.changed-files.outputs.all_changed_files }}
+    ANY_CHANGED: ${{ steps.changed-files.outputs.any_changed }}
+  run: |
+    for file in ${ALL_CHANGED_FILES}; do
+      echo "$file was changed"
+      echo Did any files change: ${ANY_CHANGED}
+    done
+```
