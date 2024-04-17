@@ -110,6 +110,7 @@ const SidebarContainer = styled.div`
 `;
 
 type Item = (
+  | CollectionEntry<"overview">
   | CollectionEntry<"getStarted">
   | CollectionEntry<"workflow">
   | CollectionEntry<"configuration">
@@ -141,7 +142,6 @@ interface SidebarItem {
 interface SideNavProps {
   url?: string;
   sidebarItems?: SidebarItem[];
-  introduction: CollectionEntry<"getStarted">;
 }
 
 const withBase = (url: string) =>
@@ -149,14 +149,11 @@ const withBase = (url: string) =>
 
 const homeUrl = withBase("");
 
-export const SideNav = ({ introduction, url, sidebarItems }: SideNavProps) => {
+export const SideNav = ({ url, sidebarItems }: SideNavProps) => {
   const isHome = url === homeUrl;
 
   return (
     <SidebarContainer>
-      <IntroductionItem href={homeUrl} isActive={isHome}>
-        Introduction
-      </IntroductionItem>
       {sidebarItems &&
         sidebarItems.map((group, i) => {
           const isSomeActive = group.items.some(
@@ -175,7 +172,12 @@ export const SideNav = ({ introduction, url, sidebarItems }: SideNavProps) => {
               </Trigger>
               <ContentWrapper isTimeline={!!group.timeline}>
                 {group.items.map((item, j) => {
-                  const isActive = withBase(item.slug) === url;
+                  // const isActive = withBase(item.slug) === url;
+
+                  const isActive =
+                    isHome && item.data.isHome
+                      ? true
+                      : withBase(item.slug) === url;
 
                   return (
                     <Collapsible.Content key={j} asChild>

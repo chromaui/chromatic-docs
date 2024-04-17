@@ -51,6 +51,45 @@ All commands are run from the root of the project, from a terminal:
 
 Try to follow the conventions present.
 
+⚠️ Note: Prettier [doesn't yet support MDX v2](https://arc.net/l/quote/iwcytzrp) so, for now, you'll need to format nested code snippets manually and wrap them with `prettier-ignore`. For example:
+
+<!-- prettier-ignore-start -->
+
+```html
+{/* prettier-ignore-start */}
+
+<IntegrationSnippets>
+  <Fragment slot="storybook">
+    ```bash
+    # Use your project token and run the following command in your project directory
+    npx chromatic --project-token <YOUR_PROJECT_TOKEN>
+    ```
+  </Fragment>
+  <Fragment slot="playwright">
+    ```bash
+    # Run your Playwright tests as you normally would. For example:
+    $ npx playwright test
+
+    # Use your project token and run the following command in your project directory
+    $ npx chromatic --playwright -t=<TOKEN>
+    ```
+  </Fragment>
+  <Fragment slot="cypress">
+    ```bash
+    # Run your Cypress tests as you normally would along with the ELECTRON_EXTRA_LAUNCH_ARGS prefix
+    $ ELECTRON_EXTRA_LAUNCH_ARGS=--remote-debugging-port=9222 yarn cypress run
+
+    # Use your project token and run the following command in your project directory
+    $ npx chromatic --cypress -t=<TOKEN>
+    ```
+  </Fragment>
+</IntegrationSnippets>
+
+{/* prettier-ignore-end */}
+```
+
+<!-- prettier-ignore-end -->
+
 ### Content
 
 All content lives in `src/content`. Each file is a markdown file with frontmatter. The frontmatter is used to set the title, description, and other metadata. If you want to add a new page, create a new markdown file in the appropriate directory, and it will be automatically added to the site and linked in the sidebar. To prevent a page from being added to the sidebar, place it in `src/content/notInNavigation`.

@@ -6,11 +6,19 @@ sidebar: { order: 1 }
 isHome: true
 ---
 
+import { YouTubeCallout } from "../../components/YouTubeCallout";
+
 # Visual testing with Chromatic
 
 Chromatic is a visual testing tool that scans every possible UI state across browsers to catch bugs in appearance and functionality. It enables you to assign reviewers and resolve discussions to streamline team sign-off.
 
-Chromatic is made by the [team](https://www.chromatic.com/company/about) behind Storybook and integrates with Storybook, Playwright, and Cypress. Watch a [quick demo video](https://youtu.be/zhrboql8UuU) now or read on for the key features.
+Chromatic is made by the [team](https://www.chromatic.com/company/about) behind Storybook and integrates with Storybook, Playwright, and Cypress.
+
+<YouTubeCallout
+  client:load
+  id="zhrboql8UuU"
+  summary="Watch a quick demo video of Chromatic's key features"
+/>
 
 ## Why use visual testing?
 
@@ -20,16 +28,22 @@ For instance, buggy CSS might hide your app's “checkout” button behind a not
 
 ## How does visual testing work?
 
-You can think of Chromatic’s visual testing as "before-and-after" [snapshots](https://www.chromatic.com/docs/snapshots) of your app's interface. You begin by capturing a perfect "before" image—this becomes your [baseline](https://www.chromatic.com/docs/branching-and-baselines#whats-a-baseline). After any code changes, Chromatic compares a new "after" snapshot pixel-by-pixel against the baseline, revealing any visual differences.
+You can think of Chromatic’s visual testing as "before-and-after" [snapshots](/docs/snapshots) of your app's interface. You begin by capturing a perfect "before" image—this becomes your [baseline](/docs/branching-and-baselines#whats-a-baseline). After any code changes, Chromatic compares a new "after" snapshot pixel-by-pixel against the baseline, revealing any visual differences.
 
 Chromatic's streamlined workflow involves four steps:
 
-1. **Cloud Rendering:** Chromatic renders your UI components in a cloud-based browser.
-2. **Snapshot Capture:** Chromatic takes a snapshot for each test, with all tests running simultaneously to save you time.
-3. **Automated diffing:** Whenever you update your code, Chromatic generates new snapshots and compares them to the baselines.
-4. **Review and Verification:** When Chromatic detects changes, you’re prompted to review them to ensure they're intentional. Any unexpected changes trigger notifications so you can fix them quickly.
+1. **Cloud Rendering:** Chromatic renders your UI components in a cloud-based browser.
+2. **Snapshot Capture:** Chromatic takes a snapshot for each test, with all tests running simultaneously to save you time.
+3. **Automated diffing:** Whenever you update your code, Chromatic generates new snapshots and compares them to the baselines.
+4. **Review and Verification:** When Chromatic detects changes, you’re prompted to review them to ensure they're intentional. Any unexpected changes trigger notifications so you can fix them quickly.
 
-<video autoPlay muted playsInline loop style="margin-bottom: 1em; border: 1px solid rgba(0,0,0,0.1);">
+<video
+  autoPlay
+  muted
+  playsInline
+  loop
+  style="margin-bottom: 1em; border: 1px solid rgba(0,0,0,0.1);"
+>
   <source src="/docs/assets/visual-test-hero.mp4" type="video/mp4" />
 </video>
 
@@ -47,27 +61,27 @@ Storybook lets you define the different states and variations of components as [
 
 Chromatic integrates with Storybook via an [addon](https://www.chromatic.com/storybook) to unlock on-demand visual testing right from within your familiar Storybook environment. With a single click, you can run visual checks on all your stories simultaneously. Chromatic runs the tests in the cloud, notifying you directly in Storybook if any component's appearance deviates from expectations. In addition to this local workflow, you can also run these tests in CI.
 
-[**Get started with Storybook & Chromatic »**](https://www.chromatic.com/docs/storybook/setup/)
+[**Get started with Storybook & Chromatic »**](/docs/storybook/setup/)
 
 ### Visual testing with Playwright
 
-[Playwright](https://playwright.dev/) is an open source end-to-end (E2E) test runner developed by Microsoft. It verifies key app flows like "sign up" and "add to cart" by driving the browser to simulate user interactions.
+[Playwright](https://playwright.dev/) is an open source end-to-end (E2E) test runner developed by Microsoft. It verifies key app flows like "sign up" and "add to cart" by driving the browser to simulate user interactions.
 
 Chromatic integrates with Playwright by extending its test and expect utilities. While your Playwright tests run, Chromatic captures an archive of the page (including DOM, styling, and assets) and uploads it to the cloud. There, Chromatic generates snapshots and performs pixel diffing to identify any unintended visual changes.
 
 Playwright offers native visual testing capabilities, but Chromatic's unique snapshot approach and powerful diffing tools provide a more comprehensive testing experience.
 
-[**Get started with Playwright & Chromatic »**](https://www.chromatic.com/docs/playwright/setup/)
+[**Get started with Playwright & Chromatic »**](/docs/playwright/setup/)
 
 ![](../../images/workflow-e2e-visual-test.png)
 
 ### Visual testing with Cypress
 
-[Cypress](https://www.cypress.io/) is another popular E2E test runner like Playwright, but it lacks built-in visual testing features. While Cypress tests can verify your app's functionality, they won't detect visual regressions in the interface. This is where Chromatic becomes an essential tool for Cypress users.
+[Cypress](https://www.cypress.io/) is another popular E2E test runner like Playwright, but it lacks built-in visual testing features. While Cypress tests can verify your app's functionality, they won't detect visual regressions in the interface. This is where Chromatic becomes an essential tool for Cypress users.
 
 Chromatic integrates with Cypress via a plugin. While your Cypress tests execute, Chromatic captures complete archives of your test cases (DOM, styling, assets) and uploads them to the cloud. There, Chromatic generates snapshots and performs pixel diffing, enabling you to catch any unintended visual changes in your application.
 
-[**Get started with Cypress & Chromatic »**](https://www.chromatic.com/docs/cypress/setup/)
+[**Get started with Cypress & Chromatic »**](/docs/cypress/setup/)
 
 ## Benefits of visual testing with Chromatic
 
@@ -83,7 +97,7 @@ Chromatic’s visual regression testing lets you gain full confidence in your UI
 
 📲 **Responsive viewport testing**: Chromatic allows testing at all viewport sizes. You can adjust both width and height, and configure viewports globally or for individual tests.
 
-⚡ **Test only what's changed**: Chromatic’s [TurboSnap](https://www.chromatic.com/features/turbosnap) feature analyzes your project’s Git history and bundler dependency graph to identify component files and dependencies with changes. Then, Chromatic only snapshots tests related to those changes. This speeds up test runs and reduces the infrastructure costs by up to 80%.
+⚡ **Test only what's changed**: Chromatic’s [TurboSnap](https://www.chromatic.com/features/turbosnap) feature analyzes your project’s Git history and bundler dependency graph to identify component files and dependencies with changes. Then, Chromatic only snapshots tests related to those changes. This speeds up test runs and reduces the infrastructure costs by up to 80%.
 
 ---
 
