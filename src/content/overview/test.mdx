@@ -64,32 +64,41 @@ Once visual tests are enabled, you can establish baselines by running a Chromati
 
 <IntegrationSnippets>
   <Fragment slot="storybook">
-```bash
-# Use your project token and run the following command
-# in your project directory
-npx chromatic --project-token <YOUR_PROJECT_TOKEN>
-```
+    ```bash
+    # Install Chromatic
+    $ npm install --save-dev chromatic
+
+    # Use your project token and run the following command
+    # in your project directory
+    $ npx chromatic --project-token <YOUR_PROJECT_TOKEN>
+    ```
   </Fragment>
   <Fragment slot="playwright">
-```bash
-# Run your Playwright tests as you normally would. For example:
-$ npx playwright test
+  ```bash
+  # Install Chromatic dependencies
+  $ npm install --save-dev chromatic @chromatic-com/playwright
 
-# Use your project token and run the following command
-# in your project directory
-$ npx chromatic --playwright -t=<TOKEN>
-```
+  # Run your Playwright tests as you normally would. For example:
+  $ npx playwright test
+
+  # Use your project token and run the following command
+  # in your project directory
+  $ npx chromatic --playwright -t=<YOUR_PROJECT_TOKEN>
+  ```
   </Fragment>
   <Fragment slot="cypress">
-```bash
-# Run your Cypress tests as you normally would
-# along with the ELECTRON_EXTRA_LAUNCH_ARGS prefix
-$ ELECTRON_EXTRA_LAUNCH_ARGS=--remote-debugging-port=9222 yarn cypress run
+  ```bash
+  # Install Chromatic dependencies
+  $ npm install --save-dev chromatic @chromatic-com/cypress
 
-# Use your project token and run the following command
-# in your project directory
-$ npx chromatic --cypress -t=<TOKEN>
-```
+  # Run your Cypress tests as you normally would
+  # along with the ELECTRON_EXTRA_LAUNCH_ARGS prefix
+  $ ELECTRON_EXTRA_LAUNCH_ARGS=--remote-debugging-port=9222 yarn cypress run
+
+  # Use your project token and run the following command
+  # in your project directory
+  $ npx chromatic --cypress -t=<YOUR_PROJECT_TOKEN>
+  ```
   </Fragment>
 </IntegrationSnippets>
 
