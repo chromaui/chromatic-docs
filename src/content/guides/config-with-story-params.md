@@ -2,7 +2,7 @@
 layout: "../../layouts/Layout.astro"
 title: Configure Chromatic features via Storybook params
 description: Learn how to use Storybook parameters to configure Chromatic features at the project, component, and story level
-sidebar: { order: 5, label: Config via params }
+sidebar: { order: 6, label: Config via params }
 ---
 
 # Using Storybook parameters to configure Chromatic features
