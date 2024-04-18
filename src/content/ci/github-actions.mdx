@@ -5,6 +5,8 @@ description: Learn how to configure Chromatic with GitHub Actions
 sidebar: { order: 1, label: Github Actions }
 ---
 
+import IntegrationSnippets from "../../components/IntegrationSnippets.astro";
+
 # Automate Chromatic with GitHub Actions
 
 Chromatic provides a [GitHub Action](https://github.com/marketplace/actions/publish-to-chromatic) to help you automate your visual regression tests and publish Storybook.
@@ -13,34 +15,118 @@ Chromatic provides a [GitHub Action](https://github.com/marketplace/actions/publ
 
 In your `.github/workflows` directory, create a new file called `chromatic.yml` and add the following:
 
-```yml
-# .github/workflows/chromatic.yml
+{/* prettier-ignore-start */}
 
-name: "Chromatic"
+<IntegrationSnippets>
+  <Fragment slot="storybook">
+    ```yml
+    # .github/workflows/chromatic.yml
 
-on: push
+    name: "Chromatic"
 
-jobs:
-  chromatic:
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@v4
-        with:
-          fetch-depth: 0
+    on: push
 
-      - name: Install dependencies
-        # ⚠️ Pick one of these, matching the package manager for your project
-        run: npm ci
-        run: pnpm install
-        run: yarn install --immutable --immutable-cache --check-cache
+    jobs:
+      chromatic:
+        runs-on: ubuntu-latest
+        steps:
+          - name: Checkout code
+            uses: actions/checkout@v4
+            with:
+              fetch-depth: 0
 
-      - name: Run Chromatic
-        uses: chromaui/action@latest
-        with:
-          # ⚠️ Make sure to configure a `CHROMATIC_PROJECT_TOKEN` repository secret
-          projectToken: ${{ secrets.CHROMATIC_PROJECT_TOKEN }}
-```
+          - name: Install dependencies
+            # ⚠️ Pick one of these, matching the package manager for your project
+            run: npm ci
+            # run: pnpm install
+            # run: yarn install --immutable --immutable-cache --check-cache
+
+          - name: Run Chromatic
+            uses: chromaui/action@latest
+            with:
+              # ⚠️ Make sure to configure a `CHROMATIC_PROJECT_TOKEN` repository secret
+              projectToken: ${{ secrets.CHROMATIC_PROJECT_TOKEN }}
+    ```
+  </Fragment>
+  <Fragment slot="playwright">
+    ```yaml
+    # .github/workflows/chromatic.yml
+
+    name: "Chromatic"
+
+    on: push
+
+    jobs:
+      chromatic:
+        runs-on: ubuntu-latest
+        steps:
+          - name: Checkout code
+            uses: actions/checkout@v4
+            with:
+              fetch-depth: 0
+
+          - name: Install dependencies
+            # ⚠️ Pick one of these, matching the package manager for your project
+            run: npm ci
+            # run: pnpm install
+            # run: yarn install --immutable --immutable-cache --check-cache
+
+          # ...
+          # Your existing setup to run Playwright tests
+          # ...
+
+          - name: Run Chromatic
+            uses: chromaui/action@latest
+            with:
+              # ⚠️ enable playwright
+              playwright: true
+              # ⚠️ Make sure to configure a `CHROMATIC_PROJECT_TOKEN` repository secret
+              projectToken: ${{ secrets.CHROMATIC_PROJECT_TOKEN }}
+            # ⚠️ Optionally configure the archive loation with env vars
+            env: CHROMATIC_ARCHIVE_LOCATION=./custom/dir
+    ```
+  </Fragment>
+  <Fragment slot="cypress">
+    ```yaml
+    # .github/workflows/chromatic.yml
+
+    name: "Chromatic"
+
+    on: push
+
+    jobs:
+      chromatic:
+        runs-on: ubuntu-latest
+        steps:
+          - name: Checkout code
+            uses: actions/checkout@v4
+            with:
+              fetch-depth: 0
+
+          - name: Install dependencies
+            # ⚠️ Pick one of these, matching the package manager for your project
+            run: npm ci
+            # run: pnpm install
+            # run: yarn install --immutable --immutable-cache --check-cache
+
+          # ...
+          # Your existing setup to run Cypress tests
+          # ...
+
+          - name: Run Chromatic
+            uses: chromaui/action@latest
+            with:
+              # ⚠️ enable cypress
+              cypress: true
+              # ⚠️ Make sure to configure a `CHROMATIC_PROJECT_TOKEN` repository secret
+              projectToken: ${{ secrets.CHROMATIC_PROJECT_TOKEN }}
+            # ⚠️ Optionally configure the archive loation with env vars
+            env: CHROMATIC_ARCHIVE_LOCATION=./custom/dir
+    ```
+  </Fragment>
+</IntegrationSnippets>
+
+{/* prettier-ignore-end */}
 
 This is a fairly basic setup. More advanced options are explained below.
 

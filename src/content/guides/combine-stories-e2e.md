@@ -65,7 +65,7 @@ You can achieve this using Chromatic by using a sub-project setup. Here's how:
 
 Chromatic's sub-project functionality enables you to manage multiple testing environments within a single Git repository. By linking multiple Chromatic projects to the same repository, you'll maintain synchronized permissions and receive build status updates across all testing environments.
 
-For details on how to create sub-projects please refer to the documentation: [Run Chromatic for each subproject](https://www.chromatic.com/docs/monorepos#run-chromatic-for-each-subproject).
+For details on how to create sub-projects please refer to the documentation: [Run Chromatic for each subproject](/docs/monorepos#run-chromatic-for-each-subproject).
 
 ### Can I use Playwright or Cypress to interact with stories before running visual tests?
 
