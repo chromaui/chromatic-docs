@@ -154,3 +154,103 @@ After you merge your code, Chromatic will also apply accepted baselines to stori
 Chromatic adds a ‘UI Tests’ badge to the list of status checks for your pull/merge requests. The badge shows errors or changes that need to be reviewed. Require the check in [GitHub](https://help.github.com/en/github/administering-a-repository/enabling-required-status-checks), [GitLab](https://docs.gitlab.com/ee/api/commits.html#post-the-build-status-to-a-commit), or [Bitbucket](https://confluence.atlassian.com/bitbucket/suggest-or-require-checks-before-a-merge-856691474.html) to prevent accidental UI bugs from being merged.
 
 [**Integrate Chromatic into your CI pipeline »**](/docs/ci)
+
+---
+
+## Frequently asked questions
+
+<details>
+<summary>Can I disable UI Tests if I prefer not to use them?</summary>
+
+Yes. Go to the manage page for your project where you can disable UI Tests. Chromatic will no longer add status checks to your PRs for UI Tests once it is disabled.
+
+</details>
+
+<details>
+<summary>Can I rerun a build without running my whole CI workflow?</summary>
+
+Yes you can [rerun the latest build on any branch](/docs/snapshots#rerun-builds-to-retake-snapshots) outside of your CI workflow. Go to the build page to kick off a new build that uses identical settings and configuration as your old build.
+
+</details>
+
+<details>
+<summary>What&rsquo;s the difference between denied and unreviewed changes?</summary>
+
+The purpose of denying is to mark changes you’ve looked at but not accepted. When you’ve finished reviewing the build, the list of denied changes helps you track what needs fixing.
+
+When it comes to baselines, denying and leaving unreviewed have the same effect. In both cases, the original baseline is used for comparisons. This means in subsequent builds, Chromatic compares the latest build to the original baseline (not the previously denied snapshot).
+
+Denied changes will be marked as unreviewed in subsequent builds for you to review again.
+
+</details>
+
+<details>
+<summary>Speed up review with keyboard shortcuts</summary>
+
+Verify UI changes faster using keyboard shortcuts. Protip: Pressing 1 multiple times switches between the baseline and new snapshot in the 1up view.
+![Keyboard shortcuts](../../images/keyboard-shortcuts.png)
+
+</details>
+
+<details>
+<summary>What about baselines on other branches?</summary>
+
+Chromatic automatically changes the baseline snapshots that it uses for each build depending on your branch. Each branch has a separate set of baselines.
+
+This means you can update UI components on multiple feature branches in parallel without conflicts. When you merge branches, the most recent baseline takes precedence. [Learn about branching and baselines »](/docs/branching-and-baselines)
+
+</details>
+
+<details>
+<summary>How do I reproduce the snapshot?</summary>
+
+Sometimes you need a closer look to determine why a snapshot is rendering as it does. Along with pixel and DOM diffs, Chromatic displays the interactive page just as it appears in your app and E2E tests.
+
+Click “Inspect snapshot” to open the Inspector. Switch between the “Canvas” and “Snapshot” tabs to compare the live component to the snapshot. Learn more about snapshots [here](/docs/snapshots).
+
+![Reproduce snapshot](../../images/feature-component-inspect.png)
+
+</details>
+
+<details>
+<summary>Can I retake a snapshot?</summary>
+
+Yes, [rerun the latest build](/docs/snapshots#rerun-builds-to-retake-snapshots) on your branch to retake snapshots of unreviewed or denied changes.
+
+![Rerun button](../../images/build-detail-rerun-button.png)
+
+</details>
+
+<details>
+<summary>How are changes on builds different from those listed in the UI Review ‘Changeset’ tab?</summary>
+
+UI tests (shown on the build screen) detect changes between builds, specifically, between the last accepted baseline and the latest build. This is useful for detecting defects during the development process and when merging to the main branch to ship.
+
+In contrast, [UI Review](/docs/review) shows the changeset between the latest commit on the PR branch (head) and the ‘merge base’ (base). Think of it like code review, but for UI.
+
+</details>
+
+<details>
+<summary>Why is review disabled in the build page?</summary>
+
+Reviewing is only enabled for the latest build on a branch to ensure that only the most up-to-date UI gets accepted as baselines.
+
+</details>
+
+<details>
+<summary>Why is commenting disabled on old builds?</summary>
+
+Comments are disabled on old builds to ensure that discussions are always on topic and up to date with the latest UI. This prevents the situation where different reviewers comment on different versions of the code.
+
+</details>
+
+<details>
+<summary>Can I review the same commit on separate branches?</summary>
+
+Yes, but it‘s not a best practice.
+
+Every branch has independent baselines for each test until the branch gets merged. If two builds reference the same commit hash but are on _different branches_ it will be possible to review those builds separately so long as they're the latest build on their respective branches. We don't recommend this because you'll have to review the same change multiple times.
+
+Instead, we recommend you regularly review builds to keep feature branches 🟢&nbsp;passing.
+
+</details>

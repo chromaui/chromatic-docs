@@ -122,7 +122,7 @@ If you use a CI provider other than GitHub, you can still use an environment var
 
 ---
 
-### Frequently asked questions
+## Frequently asked questions
 
 <details>
 <summary>When should I ask for UI Review?</summary>

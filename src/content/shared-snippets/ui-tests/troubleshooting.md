@@ -49,17 +49,3 @@ However, this situation can arise due to the following:
 1. Something else happened, perhaps a bug at our end? Please contact us through our in app chat if this is the case.
 
 </details>
-
-<details>
-<summary>Can I disable UI Tests if I prefer not to use them?</summary>
-
-Yes. Go to the manage page for your project where you can disable UI Tests. Chromatic will no longer add status checks to your PRs for UI Tests once it is disabled.
-
-</details>
-
-<details>
-<summary>Can I rerun a build without running my whole CI workflow?</summary>
-
-Yes you can [rerun the latest build on any branch](/docs/snapshots#rerun-builds-to-retake-snapshots) outside of your CI workflow. Go to the build page to kick off a new build that uses identical settings and configuration as your old build.
-
-</details>
