@@ -42,36 +42,38 @@ const ContentWrapper = styled.div<{ isTimeline: boolean }>`
   display: flex;
   flex-direction: column;
   gap: 4px;
-  margin-left: ${({ isTimeline }) => (isTimeline ? "22px" : "35px")};
+  margin-left: 3px;
   position: relative;
 
   &:before {
     content: "";
-    display: ${({ isTimeline }) => (isTimeline ? "block" : "none")};
+    display: block;
     position: absolute;
-    top: 12px;
+    top: ${({ isTimeline }) => (isTimeline ? 12 : 0)}px;
     left: 4px;
     width: 1px;
-    height: calc(100% - 24px);
+    height: ${({ isTimeline }) => (isTimeline ? "calc(100% - 24px);" : "100%")};
     background-color: ${color.slate300};
     z-index: 0;
+    border-radius: 9999px;
   }
 `;
 
 const Line = styled.a`
   all: unset;
   display: flex;
-  gap: 16px;
+  gap: 12px;
   align-items: center;
   min-height: 32px;
 `;
 
-const ContentItem = styled.div<{ isActive: boolean }>`
+const ContentItem = styled.div<{ isActive: boolean; isTimeline?: boolean }>`
   ${typography.body16}
   color: ${({ isActive }) => (isActive ? color.blue500 : color.slate600)};
   font-weight: ${fontWeight.regular};
   cursor: pointer;
   transition: all 0.2s ease-in-out;
+  padding-left: ${({ isTimeline }) => (isTimeline ? 0 : 20)}px;
 
   &:hover {
     color: ${color.slate800};
@@ -87,15 +89,6 @@ const Bullet = styled.div<{ isActive: boolean }>`
     isActive ? color.blue500 : color.slate300};
   border-radius: 100%;
   box-shadow: white 0px 0px 0px 4px;
-`;
-
-const IntroductionItem = styled.a<{ isActive?: boolean }>`
-  all: unset;
-  cursor: pointer;
-  ${typography.body16}
-  color: ${({ isActive }) => (isActive ? color.blue500 : color.slate600)};
-  font-weight: ${fontWeight.semibold};
-  margin-left: 22px; /* to align with the text 14px icon + 8 px gap */
 `;
 
 const SidebarContainer = styled.div`
@@ -172,8 +165,6 @@ export const SideNav = ({ url, sidebarItems }: SideNavProps) => {
               </Trigger>
               <ContentWrapper isTimeline={!!group.timeline}>
                 {group.items.map((item, j) => {
-                  // const isActive = withBase(item.slug) === url;
-
                   const isActive =
                     isHome && item.data.isHome
                       ? true
@@ -183,7 +174,10 @@ export const SideNav = ({ url, sidebarItems }: SideNavProps) => {
                     <Collapsible.Content key={j} asChild>
                       <Line href={withBase(item.slug)}>
                         {!!group.timeline && <Bullet isActive={isActive} />}
-                        <ContentItem isActive={isActive}>
+                        <ContentItem
+                          isActive={isActive}
+                          isTimeline={!!group.timeline}
+                        >
                           {item.data.sidebar.label}
                         </ContentItem>
                       </Line>
