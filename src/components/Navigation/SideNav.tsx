@@ -112,7 +112,6 @@ const SidebarContainer = styled.div`
 type Item = (
   | CollectionEntry<"overview">
   | CollectionEntry<"getStarted">
-  | CollectionEntry<"workflow">
   | CollectionEntry<"configuration">
   | CollectionEntry<"modes">
   | CollectionEntry<"snapshot">
@@ -122,6 +121,7 @@ type Item = (
   | CollectionEntry<"ci">
   | CollectionEntry<"account">
   | CollectionEntry<"guides">
+  | CollectionEntry<"troubleshooting">
 ) & {
   data: {
     sidebar: {

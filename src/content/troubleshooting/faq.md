@@ -2,7 +2,7 @@
 layout: "../../layouts/Layout.astro"
 title: FAQ
 description: Frequently asked questions about Chromatic
-sidebar: { order: 10 }
+sidebar: { order: 1 }
 ---
 
 # Frequently asked questions
@@ -163,7 +163,7 @@ Folks often encounter naming issues when customizing their Storybook sidebar. In
 
 </details>
 
-#### Browsers
+### Browsers
 
 <details>
 <summary>Can I disable Chrome?</summary>
@@ -204,7 +204,7 @@ Supporting more browser/device combinations ends up having diminishing returns t
 
 </details>
 
-#### UI Tests and UI Review
+### UI Tests and UI Review
 
 <details>
 <summary>Do I use more snapshots when both UI Tests and UI Review are enabled?</summary>
@@ -220,7 +220,7 @@ As long as either the testing or review features are enabled, Chromatic will con
 
 </details>
 
-#### Continuous Integration
+### Continuous Integration
 
 <details>
 <summary>How to run Chromatic on a specific branch or only when merging to main?</summary>
@@ -263,7 +263,7 @@ Chromatic
 
 </details>
 
-#### TurboSnap
+### TurboSnap
 
 <details>
 <summary>Why isn’t TurboSnap working for me?</summary>
@@ -272,7 +272,7 @@ You may be missing one of the necessary [prerequisites](/docs/setup-turbosnap#pr
 
 </details>
 
-#### Storybook Connect Figma plugin
+### Storybook Connect Figma plugin
 
 <details>
 <summary>Can you choose which version of the design from a Storybook is shown in Figma?</summary>

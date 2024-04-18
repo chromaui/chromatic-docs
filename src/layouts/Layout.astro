@@ -30,7 +30,6 @@ const playwright = await getCollection("getStarted", ({ id }) => {
 const cypress = await getCollection("getStarted", ({ id }) => {
   return id.startsWith("cypress/");
 });
-const workflow = await getCollection("workflow");
 const configuration = await getCollection("configuration");
 const modes = await getCollection("modes");
 const snapshot = await getCollection("snapshot");
@@ -40,6 +39,7 @@ const plugins = await getCollection("plugins");
 const ci = await getCollection("ci");
 const account = await getCollection("account");
 const guides = await getCollection("guides");
+const troubleshooting = await getCollection("troubleshooting");
 
 const navItems = [
   {
@@ -65,9 +65,8 @@ const navItems = [
     timeline: true,
   },
   {
-    title: "Workflow",
-    items: workflow,
-    timeline: true,
+    title: "Guides",
+    items: guides,
   },
   {
     title: "Configuration",
@@ -102,8 +101,8 @@ const navItems = [
     items: account,
   },
   {
-    title: "Guides",
-    items: guides,
+    title: "Troubleshooting",
+    items: troubleshooting,
   },
 ];
 

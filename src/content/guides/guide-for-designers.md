@@ -2,7 +2,7 @@
 layout: "../../layouts/Layout.astro"
 title: Chromatic for designers
 description: How to use Chromatic for designers
-sidebar: { order: 1, label: For designers }
+sidebar: { order: 3, label: For designers }
 ---
 
 # Guide for designers

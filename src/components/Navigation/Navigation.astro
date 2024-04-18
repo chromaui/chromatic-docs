@@ -13,7 +13,6 @@ interface Props {
     items: (
       | CollectionEntry<"overview">
       | CollectionEntry<"getStarted">
-      | CollectionEntry<"workflow">
       | CollectionEntry<"configuration">
       | CollectionEntry<"modes">
       | CollectionEntry<"snapshot">
@@ -23,6 +22,7 @@ interface Props {
       | CollectionEntry<"ci">
       | CollectionEntry<"account">
       | CollectionEntry<"guides">
+      | CollectionEntry<"troubleshooting">
     )[];
     defaultOpen?: boolean;
     timeline?: boolean;
@@ -53,8 +53,8 @@ const navGroups = navItems
           p1.data.sidebar.order > p2.data.sidebar.order
             ? 1
             : p1.data.sidebar.order < p2.data.sidebar.order
-            ? -1
-            : 0,
+              ? -1
+              : 0,
         ),
     }))
   : [];

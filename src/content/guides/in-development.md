@@ -2,7 +2,7 @@
 layout: "../../layouts/Layout.astro"
 title: In development workflow
 description: How Chromatic helps teams develop applications
-sidebar: { order: 1, label: In development }
+sidebar: { order: 1, label: Dev Workflow }
 ---
 
 # In development workflow
