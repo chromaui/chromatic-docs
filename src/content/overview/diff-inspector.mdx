@@ -1,0 +1,115 @@
+---
+layout: "../../layouts/Layout.astro"
+title: Diff Inspector
+description: Learn how to analyze visual changes with Chromatic's Diff Inspector
+sidebar: { order: 3 }
+---
+
+import IntegrationSnippets from "../../components/IntegrationSnippets.astro";
+
+# Analyzing visual changes with Chromatic's Diff Inspector
+
+Diff Inspector is a tool in the Chromatic web app that helps you see what visually changed between a test baseline and new snapshot. Changed areas are automatically highlighted in neon green for immediate visibility.
+
+![](https://chromaticblog.ghost.io/content/images/downloaded_images/Diff-Detector-2-0/1-dB-pr5dfHUiQ76KtwoJlSA.png)
+
+## Diff view options
+
+Chromatic offers flexible ways to analyze visual changes:
+
+- **Unified view (1 Up):** See changes directly overlaid on top of your baseline for a focused comparison.
+- **Split view (2 Up):** Compare your baseline and new snapshot side-by-side, with changes clearly highlighted in the new version.
+
+![1up vs 2Up](https://placehold.co/600x400?text=1up+vs+2up)
+
+## Emphasize subtle changes
+
+Sometimes it can be tough to see subtle UI differences. For example, you might miss tweaks to properties like border-radius and font rendering. Chromatic offers two additional modes to help you pinpoint small UI changes faster.
+
+### Diff strobing
+
+Diff strobing, a.k.a, _party mode_, emphasizes the highlight even more by quickly toggling between the baseline and the new snapshot.
+
+![](https://chromaticblog.ghost.io/content/images/downloaded_images/Diff-Detector-2-0/1-CrOUFtW8-sndKXSKSS0eug.gif)
+
+### Autofocus
+
+Focus mode is designed to save you valuable time by spotlighting minor changes. For maximum convenience, focus mode activates automatically when it senses minimal pixel variations.
+
+![](https://chromaticblog.ghost.io/content/images/2020/10/autofocus-toggle.gif)
+
+### Zoom-in
+
+When in focus mode, hover over the new snapshot to activate a magnifying glass. This zooms into the snapshot diff to help you see the change in greater detail.
+
+![](https://chromaticblog.ghost.io/content/images/2020/10/autofocus-magnify.gif)
+
+## Configure diffing behavior
+
+### Adjust threshold for changes
+
+Customize how Chromatic identifies visual changes by adjusting the `diffThreshold` parameter. The default setting strikes a balance between accuracy and minimizing false positives caused by minor rendering variations. Tailor this threshold to your specific component or library's needs.
+
+[Learn more about diff threshold »](/docs/threshold)
+
+{/* prettier-ignore-start */}
+
+<IntegrationSnippets>
+  <Fragment slot="storybook">
+```js
+// MyComponent.stories.js|jsx
+
+import { MyComponent } from "./MyComponent";
+
+export default {
+  component: MyComponent,
+  title: "MyComponent",
+};
+
+export const StoryName = {
+  args: {
+    with: "props",
+  },
+  parameters: {
+    // Sets the diffThreshold for 0.2 for a specific story.
+    chromatic: { diffThreshold: 0.2 },
+  },
+};
+```
+  </Fragment>
+  <Fragment slot="playwright">
+```js
+// mytest.spec.js
+
+test.describe("some block", () => {
+  // 👇 your option overrides
+  test.use({ diffThreshold: 0.2 });
+
+  test("some test", async ({ page }) => {
+    // ...
+  });
+});
+```
+  </Fragment>
+  <Fragment slot="cypress">
+```js
+// some-test.cy.ts
+
+it("A test that does something", {
+  env: { diffThreshold: 0.2 }
+}, () => {
+  cy.visit("https://some-url.com");
+});
+```
+  </Fragment>
+</IntegrationSnippets>
+
+{/* prettier-ignore-end */}
+
+### Ignored regions
+
+You can configure Chromatic to ignore changes in certain parts of a snapshot by attaching the `chromatic-ignore` as a class or a data attribute to DOM elements. These ignored regions can then be easily highlighted within the Diff Inspector.
+
+[Learn more about ignoring elements »](/docs/ignoring-elements/#ignore-dom-elements)
+
+![1up vs 2Up](https://placehold.co/600x400?text=highlight+ignored+regions)

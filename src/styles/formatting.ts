@@ -168,6 +168,12 @@ export const formatting = css`
       margin-right: auto;
       margin-top: 1em;
     }
+
+    &.inline-icon {
+      padding: 0;
+      height: 1em;
+      width: auto;
+    }
   }
 
   blockquote {

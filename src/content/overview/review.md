@@ -1,21 +1,26 @@
 ---
 layout: "../../layouts/Layout.astro"
 title: Review
-description: Learn how to review changes for your component library
+description: Learn how to get approval and feedback on visual changes from designers, product managers, and other key stakeholders with Chromatic's UI Review workflow.
 sidebar: { order: 4, label: "UI Review" }
 ---
 
-# UI Review powered by stories
+# UI Review powered by snapshots
 
-UI Tests protect you from accidental regressions. But, before you ship, you’ll want to invite developers, designers, and PMs to review the UI, discuss changes, and get the final sign off.
+As Chromatic's second core workflow, UI Review streamlines the process of getting approval and feedback on visual changes from designers, product managers, and other key stakeholders. While [UI Tests](/docs/test/) safeguard you from unintentional bugs, UI Review is where you discuss intentional changes with your team, ensuring everyone aligns with their expectations before you ship.
 
-UI Review creates a changeset of the exact visual changes introduced on a new branch. You assign reviewers who can comment and request tweaks on changes that aren’t quite right. Think of it like a code review, but for your UI.
+Each UI Review is linked to a pull/merge request, streamlining the workflow. Here's how it works:
+
+- **Automated trigger:** When you open a pull request and run a Chromatic build via CI, Chromatic starts the UI Review workflow.
+- **Visual diffing:** Chromatic generates a changeset highlighting the exact visual differences between your feature branch and the main branch. You can use the same diffing tools from [UI Tests](/docs/test/) to evaluate these changes.
+- **Collaborative review:** Easily assign one or more reviewers to provide feedback on the visual changes.
+- **Checklist for clarity:** All change requests are tracked within a convenient checklist attached to the Review.
 
 ![UI Review](../../images/workflow-uireview.png)
 
 <div class="aside">
 
-👀 **Looking for Manual UI Reviews?** See [the documentation below](/docs/review#manual-ui-review).
+👀 **Manual UI reviews without a linked Git provider**<br/>UI Reviews are typically triggered by and linked to pull/merge requests. However, you can still conduct manual UI reviews even without a linked Git provider. [Learn More »](/docs/manual-ui-review)
 
 </div>
 
@@ -29,13 +34,13 @@ Once enabled, visit the Reviews tab in the web app sidebar. There you’ll be pr
 
 <div class="aside">
 
-ℹ️ You must [set up CI](/docs/storybook/ci) so that Chromatic is able to run builds for each commit on the PR branch.
+ℹ️ You must [set up CI](/docs/ci) so that Chromatic is able to run builds for each commit on the PR branch.
 
 </div>
 
 ## Understanding the Review
 
-Once a Review has been created—either manually or through CI—navigate to the Reviews tab and select the appropriate Review. You will then land on the Activity tab, which shows a timeline of [builds](/docs/setup#view-published-storybook), active discussions, and Review status. This showcases what needs to be done in the Review process.
+Once a Review has been created—either manually or through CI—navigate to the Reviews tab and select the appropriate Review. You will then land on the Activity tab, which shows a timeline of [builds](/docs/test), active discussions, and Review status. This showcases what needs to be done in the Review process.
 
 ![Activity tab](../../images/prscreen-activity.png)
 
@@ -45,13 +50,13 @@ Invite other developers, designers, PMs, and stakeholders to help review changes
 
 If you [linked your project](/docs/access#linked-projects) to GitHub, Bitbucket, or GitLab, your project permissions are synced so collaborators can sign in to review immediately. If your [project is unlinked](/docs/access#unlinked-projects), use the project invite code to add collaborators.
 
-#### Assign reviewers
+### Assign reviewers
 
 Use the Assign Reviewers link on the Review’s Activity screen to choose reviewers from the project’s collaborators. Reviewers will be emailed a link to the Review screen to begin their review.
 
 ![assign reviewers by picking from your list of collaborators](../../images/assign-reviewers.png)
 
-#### Default reviewers
+### Default reviewers
 
 If you find you’re always assigning the same reviewers, you can set default reviewers for your project. Default reviewers will be automatically assigned to new Review. You can also assign additional reviewers on a per-Review basis.
 
@@ -61,7 +66,47 @@ Add default reviewers on your project’s Manage page. Go to the Review section 
 
 Remove a default reviewer by clicking "Remove" beside their name. This will remove them as default reviewer but not from the project.
 
-#### Pull requests from forks
+## Review the changes
+
+The Review screen includes a Changeset tab showing a side-by-side view of all visual changes introduced on your head branch. It compares the UI on the head branch to the base branch.
+
+![Changeset tab](../../images/prscreen-changes.png)
+
+<div class="aside">
+
+💡 **Tip:** To hint at what UI changed, toggle the highlighted diff (in neon green) on and off.
+
+</div>
+
+### Discussions
+
+Reviewers can request updates to the implementation via the comment box beneath each change. Discussions are threaded and attached to the specific snapshot represented by the change.
+
+![Changeset Comments](../../images/ui-changes-comments.png)
+
+## UI checklist
+
+At the bottom of the Review screen’s [activity tab](/docs/review#ui-checklist) is a list of tasks that must be completed before UI is ready to be signed off on. If changes are found, the Review will enter the **🟡&nbsp;Pending** state. When changes are approved and checklist items are complete, the Review will be **🟢&nbsp;Passed**. Here’s how to resolve these tasks:
+
+1. Changeset must be approved &rarr; Assign reviewers or approve yourself.
+2. Outstanding discussions must be resolved &rarr; Click 'Resolve' on discussions.
+3. All assigned reviewers must approve &rarr; Click 'Approve' in the Review screen tab bar.
+
+<div class="aside">ℹ️ Step #3 is not required if you would like to close the Review.</div>
+
+![UI Checklist](../../images/prscreen-ui-checklist.png)
+
+---
+
+## PR check for "UI Review"
+
+![PR for UI Review](../../images/prbadge-review.png)
+
+You'll get a 'UI Review' status check for each PR that shows the state of the UI Checklist. Require the check in [GitHub](https://help.github.com/en/github/administering-a-repository/enabling-required-status-checks), [GitLab](https://docs.gitlab.com/ee/api/commits.html#post-the-build-status-to-a-commit), or [Bitbucket](https://confluence.atlassian.com/bitbucket/suggest-or-require-checks-before-a-merge-856691474.html) to ensure that impactful changes are considered by the team before merging.
+
+[**Integrate Chromatic into your CI pipeline »**](/docs/ci)
+
+## Pull requests from forks
 
 Chromatic supports UI Test and UI Review across forks, but there's some caveats. First, it only works with [CI integration](/docs/ci#configure-ci) configured to also build PR branches from forks. Secondly, you must expose your project token so that forks can use it. The easiest way to do that is to simply include it in in your `package.json`, for example:
 
@@ -75,113 +120,6 @@ Chromatic supports UI Test and UI Review across forks, but there's some caveats.
 
 If you use a CI provider other than GitHub, you can still use an environment variable. Just make sure your CI is configured to also build forked branches. The project token does not grant access to the project (it can only retrieve a strict set of insensitive data), but it does allow running new builds which count against your snapshot quota.
 
-## Review the changes
-
-The Review screen includes a Changeset tab showing a side-by-side view of all visual changes introduced on your head branch. It compares the UI on the head branch to the base branch. You’ll see each change’s component story before and after the head branch changes are applied to your base branch.
-
-![Changeset tab](../../images/prscreen-changes.png)
-
-<div class="aside">
-
-💡 **Tip:** To hint at what UI changed, toggle the highlighted diff (in neon green) on and off.
-
-</div>
-
-#### Discussions
-
-Reviewers can request updates to the implementation via the comment box beneath each change. Discussions are threaded and attached to the specific story represented by the change.
-
-![Changeset Comments](../../images/ui-changes-comments.png)
-
-## UI checklist
-
-At the bottom of the Review screen’s [activity tab](/docs/review#ui-checklist) is a list of tasks that must be completed before UI is ready to be signed off on. If changes are found, the Review will enter the **🟡&nbsp;Pending** state. When changes are approved and checklist items are complete, the Review will be **🟢&nbsp;Passed**. Here’s how to resolve these tasks:
-
-1. Changeset must be approved &rarr; Assign reviewers or approve yourself.
-2. Outstanding discussions must be resolved &rarr; Click 'Resolve' on discussions.
-3. All assigned reviewers must approve &rarr; Click 'Approve' in the Review screen tab bar.
-
-<div class="aside">
-
-ℹ️ Step #3 is not required if you would like to close the Review.
-
-</div>
-
-![UI Checklist](../../images/prscreen-ui-checklist.png)
-
-## PR check for "UI Review"
-
-You'll get a 'UI Review' status check for each PR that shows the state of the UI Checklist. Require the check in [GitHub](https://help.github.com/en/github/administering-a-repository/enabling-required-status-checks), [GitLab](https://docs.gitlab.com/ee/api/commits.html#post-the-build-status-to-a-commit), or [Bitbucket](https://confluence.atlassian.com/bitbucket/suggest-or-require-checks-before-a-merge-856691474.html) to ensure that impactful changes are considered by the team before merging.
-
-![PR for UI Review](../../images/prbadge-review.png)
-
----
-
-# Manual UI Review
-
-Manual UI Review helps you see the visual differences between any pair of branches - even if your project isn't connected to a git provider.
-
-## Enable UI Review
-
-Go to your project's Manage page to enable UI Review.
-
-![Enable UI Review](../../images/uireview-for-docs.png)
-
-## Create a Review
-
-![Create Review](../../images/create-review.png)
-Go to your project's Reviews page from the sidebar. Click the “Create review” button to pick the pair of branches you want to compare.
-
-![Create review branches](../../images/create-review-branches.png)
-
-If you’re familiar with creating pull or merge requests with git, this process will be very familiar:
-
-- Select the base branch, which is the branch that’s used as the source of truth for comparison. Typically, this will be your `main` branch.
-- Select the head branch, which is the branch that has changes that you want to compare with the source of truth. This is often a feature or bug fix branch you’re working on.
-- Enter a title for the Review.
-- Click the “Compare branches” button to generate your new Review
-
-Your Review is now ready for you and your team to discuss. Follow along from to the [Understanding the Review](#understanding-the-review) section on for more information on how to benefit the most from UI Review.
-
-<details>
-<summary>Glossary</summary>
-
-- <b>Base branch:</b> the branch you want to use as a baseline for the comparison
-- <b>Head branch:</b> the branch with the new changes that need to be compared against the base branch
-
-</details>
-
-## PR check for "UI Review"
-
-Manually created Reviews will not create a “UI Review” status check in GitHub, GitLab, or Bitbucket. To create a status check in your Git provider for manually created Reviews, you can use a [custom webhook](/docs/integrations#custom-webhooks).
-
-## Closing a Review
-
-Prune your completed manual UI Reviews by clicking the "Close review" menu item in the "Review now" button tooltip. Your review will be moved in the list of "Closed" Reviews on the Reviews page.
-
-![Close Review](../../images/close-review.png)
-
-<div class="aside">
-
-ℹ️ Reminder: closing a Review **does not** merge the branches in Git.
-
-</div>
-
-### Notes:
-
-- In order to create a Review, you will need to have at least two git branches with a build on each.
-- If you are trying to review the changes completed in a pull (merge) request, you will want to match the head and base branches of the Review with the respective branches of the pull (merge) request.
-- You can only have one open Review at a time with the same branch combination. For example, if your head branch is `new-changes` and your base branch is `main`, you cannot open another Review with `new-changes` as the head branch and `main` as the base branch.
-- You can manually create a review for a linked project as well. This feature is available to all projects.
-
----
-
-## Next: Learn about documenting reusable components
-
-Now that you’ve seen how to review the UI changeset before merging, learn how Chromatic makes sharing versioned and interactive component docs simple.
-
-<a class="btn primary round" href="/docs/storybook/document">Read next chapter</a>
-
 ---
 
 ### Frequently asked questions
@@ -189,7 +127,7 @@ Now that you’ve seen how to review the UI changeset before merging, learn how 
 <details>
 <summary>When should I ask for UI Review?</summary>
 
-You can initiate a UI Review at any time. However, we recommend doing it later in the development cycle, once baselines have been approved and UI Tests are green. Learn more about [UI review](/docs/storybook/review).
+You can initiate a UI Review at any time. However, we recommend doing it later in the development cycle, once baselines have been approved and UI Tests are green. Learn more about [PR workflow](/docs/in-pull-request).
 
 </details>
 
@@ -208,7 +146,7 @@ Similar to [GitHub code review](https://github.com/features/code-review/), Chrom
 The process might look something like:
 
 1. Create a new PR to `main` adding Chromatic to CI
-1. Merge that PR when everything works well.
-1. Update your existing feature PR(s) w/ the latest from `main` (either merge or rebase from main).
+2. Merge that PR when everything works well.
+3. Update your existing feature PR(s) w/ the latest from `main` (either merge or rebase from main).
 
 </details>
