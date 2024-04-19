@@ -1,6 +1,6 @@
 ---
 layout: "../../layouts/Layout.astro"
-title: Document
+title: Publish
 slug: "storybook/publish"
 description: Learn how Chromatic helps document components.
 sidebar: { order: 5 }
