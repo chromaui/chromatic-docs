@@ -2,7 +2,7 @@
 layout: "../../layouts/Layout.astro"
 title: Interaction tests
 description: Learn how interaction testing works with Chromatic
-sidebar: { order: 7 }
+sidebar: { order: 2 }
 ---
 
 # Interaction tests
@@ -89,7 +89,7 @@ Interaction tests are reported in the UI Tests pull request check. When a test f
 
 ---
 
-### Frequently asked questions
+## Frequently asked questions
 
 <details>
 <summary>My interactions aren't getting snapshotted consistently with external web fonts?</summary>

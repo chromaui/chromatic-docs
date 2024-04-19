@@ -220,6 +220,29 @@ As long as either the testing or review features are enabled, Chromatic will con
 
 </details>
 
+### Publish
+
+<details>
+<summary>Why is my Storybook failing to load in Chromatic's Canvas tab?</summary>
+
+**Mixed content**
+<br />
+If your stories make use of non-HTTPS content (for instance, images), the iframe rendering your stories will fail to load, as modern browsers do not allow [mixed content](https://developer.mozilla.org/en-US/docs/Web/Security/Mixed_content) (HTTP content sources included within HTTPS pages).
+
+To fix this, ensure all resources used by your stories are served via HTTPS.
+
+**CORS violation**
+<br />
+Chromatic renders your published stories in an iframe. Due to browser security restrictions, your components and stories cannot reference `window.parent` or `window.top`. In Storybook, those properties would reference the Storybook manager interface, which is located on the same domain as the iframe and therefore allowed. But when rendered on chromatic.com, those properties would reference a different (sub)domain and therefore violate CORS restrictions, causing a JavaScript error. There are three ways to mitigate this issue:
+
+1. Don’t reference `window.parent` or `window.top`. If you’re trying to communicate with the Storybook manager UI, it’s better to use “channels.” Storybook provides the [useChannel API](https://storybook.js.org/docs/react/addons/addons-api#usechannel) for this purpose.
+
+2. Conditionally avoid `window.parent` and `window.top` by checking `isChromatic()`. We provide the [`isChromatic` utility](/docs/ischromatic) to “detect” when a story is rendered inside of Chromatic.
+
+3. Wrap your `window.parent` and `window.top` references in a `try/catch` block. This will suppress the JavaScript error.
+
+</details>
+
 ### Continuous Integration
 
 <details>
@@ -309,7 +332,7 @@ You require a Figma `editor` role to both link and view stories with this plugin
 
 </details>
 
-## Compatability
+## Compatibility
 
 <details>
 <summary>Does Chromatic work with Azure DevOps?</summary>

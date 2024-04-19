@@ -2,7 +2,7 @@
 layout: "../../layouts/Layout.astro"
 title: Composition
 description: Learn to combine Storybooks through composition
-sidebar: { order: 6 }
+sidebar: { order: 4 }
 ---
 
 # Storybook Composition
