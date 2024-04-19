@@ -104,7 +104,9 @@ const SidebarContainer = styled.div`
 
 type Item = (
   | CollectionEntry<"overview">
-  | CollectionEntry<"getStarted">
+  | CollectionEntry<"storybook">
+  | CollectionEntry<"playwright">
+  | CollectionEntry<"cypress">
   | CollectionEntry<"configuration">
   | CollectionEntry<"modes">
   | CollectionEntry<"snapshot">

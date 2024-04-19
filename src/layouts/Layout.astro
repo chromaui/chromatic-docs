@@ -21,15 +21,9 @@ const {
 } = Astro.props;
 const { pathname } = Astro.url;
 const overview = await getCollection("overview");
-const storybook = await getCollection("getStarted", ({ id }) => {
-  return id.startsWith("storybook/");
-});
-const playwright = await getCollection("getStarted", ({ id }) => {
-  return id.startsWith("playwright/");
-});
-const cypress = await getCollection("getStarted", ({ id }) => {
-  return id.startsWith("cypress/");
-});
+const storybook = await getCollection("storybook");
+const playwright = await getCollection("playwright");
+const cypress = await getCollection("cypress");
 const configuration = await getCollection("configuration");
 const modes = await getCollection("modes");
 const snapshot = await getCollection("snapshot");

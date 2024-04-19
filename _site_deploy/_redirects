@@ -8,10 +8,11 @@
 # Getting started guides
 
 /docs/setup/ /docs/storybook/setup/
-/docs/test/ /docs/storybook/test/
-/docs/review/ /docs/storybook/review/
-/docs/document/ /docs/storybook/document/
-/docs/ci/ /docs/storybook/ci/
+/docs/document/ /docs/storybook/publish/
+
+/docs/storybook/setup /docs/storybook/
+/docs/playwright/setup /docs/playwright/
+/docs/cypress/setup /docs/cypress/
 
 # Plausible analytics
 

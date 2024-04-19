@@ -1,15 +1,16 @@
 ---
-layout: "../../../layouts/Layout.astro"
+layout: "../../layouts/Layout.astro"
 title: Document
+slug: "storybook/publish"
 description: Learn how Chromatic helps document components.
 sidebar: { order: 5 }
 ---
 
-# Document
+# Publish your Storybook
 
 Chromatic indexes and versions your components in a searchable library. You can browse components and stories across branches and past builds from the web app. That helps teams discover existing work to reuse and reference "prior art".
 
-![Document](../../../images/workflow-document.png)
+![Document](../../images/workflow-document.png)
 
 ## Browse library
 
@@ -19,7 +20,7 @@ The library screen visualizes the latest components on a branch-by-branch basis.
 - Share the library with teammates
 - Browse existing components for re-use
 
-![Component library](../../../images/library.png)
+![Component library](../../images/library.png)
 
 ## Demo components
 
@@ -28,7 +29,7 @@ Components and their stories are securely indexed each commit and branch. Use th
 - **Canvas**: Interact with the real component code to reproduce behavior
 - **Snapshot**: Verify the image [snapshots](/docs/snapshots) used for cross-browser [UI Tests](/docs/storybook/test)
 
-![Component screen](../../../images/component.png)
+![Component screen](../../images/component.png)
 
 ## Direct access to your Storybook
 
@@ -36,7 +37,7 @@ Your Storybook is published on our secure CDN. Published Storybooks are private 
 
 Chromatic generates a [permalink](/docs/permalinks) for the latest uploaded Storybook on a given branch. That makes it easy to share with your teammates or link to from docs. `https://<branch>--<appid>.chromatic.com`
 
-![Direct Storybook](../../../images/published-storybook.png)
+![Direct Storybook](../../images/published-storybook.png)
 
 ## Link to specific branches
 

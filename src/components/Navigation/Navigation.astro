@@ -1,5 +1,5 @@
 ---
-import { getEntry, type CollectionEntry } from "astro:content";
+import { type CollectionEntry } from "astro:content";
 import Search from "../Search.astro";
 import { Support } from "../Support";
 import { SideNav } from "./SideNav";
@@ -12,7 +12,9 @@ interface Props {
     title: string;
     items: (
       | CollectionEntry<"overview">
-      | CollectionEntry<"getStarted">
+      | CollectionEntry<"storybook">
+      | CollectionEntry<"playwright">
+      | CollectionEntry<"cypress">
       | CollectionEntry<"configuration">
       | CollectionEntry<"modes">
       | CollectionEntry<"snapshot">

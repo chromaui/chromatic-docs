@@ -6,6 +6,9 @@ export async function getStaticPaths() {
   const overview = await getCollection("overview", ({ slug }) => {
     return slug !== "introduction";
   });
+  const storybook = await getCollection("storybook");
+  const playwright = await getCollection("playwright");
+  const cypress = await getCollection("cypress");
   const configuration = await getCollection("configuration");
   const modes = await getCollection("modes");
   const snapshot = await getCollection("snapshot");
@@ -19,6 +22,9 @@ export async function getStaticPaths() {
   const notInNavigation = await getCollection("notInNavigation");
   const articles = [
     ...overview,
+    ...storybook,
+    ...playwright,
+    ...cypress,
     ...configuration,
     ...modes,
     ...snapshot,
@@ -39,7 +45,7 @@ export async function getStaticPaths() {
 }
 
 interface Props {
-  article: CollectionEntry<"getStarted">;
+  article: CollectionEntry<"overview">;
 }
 
 const { article } = Astro.props;

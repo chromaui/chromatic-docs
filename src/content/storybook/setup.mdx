@@ -1,19 +1,20 @@
 ---
-layout: "../../../layouts/Layout.astro"
+layout: "../../layouts/Layout.astro"
 title: Setup
+slug: storybook
 description: Learn how to setup Chromatic and publish Storybook
 sidebar: { order: 2 }
 ---
 
-import TroubleshootingSetup from "../../shared-snippets/setup/troubleshooting.mdx";
-import DemoChromaticUnlinked from "../../shared-snippets/demo-chromatic-unlinked.md";
-import { TabItem, Tabs } from "../../../components/Tabs";
+import TroubleshootingSetup from "../shared-snippets/setup/troubleshooting.mdx";
+import DemoChromaticUnlinked from "../shared-snippets/demo-chromatic-unlinked.md";
+import { TabItem, Tabs } from "../../components/Tabs";
 
 # Setup and publish Storybook
 
 The Chromatic CLI builds then publishes Storybook to a secure workspace in the cloud. That allows your team to access all your stories at [chromatic.com](https://www.chromatic.com/start).
 
-![Publish Storybook](../../../images/workflow-publish.png)
+![Publish Storybook](../../images/workflow-publish.png)
 
 ## Sign up
 
@@ -21,7 +22,7 @@ Before publishing, generate a unique project token for your Storybook by signing
 
 <DemoChromaticUnlinked />
 
-![Setup project](../../../images/setup.png)
+![Setup project](../../images/setup.png)
 
 ## Install
 
@@ -110,13 +111,13 @@ View it online at https://www.chromatic.com/build?appId=...&number=1.
 
 You published Storybook online! Every time you run the `chromatic` command you get a corresponding build in Chromatic's web app. You can now browse components, view [**UI Tests**](/docs/test) results (if enabled), and navigate to associated PR/MRs for [**UI Review**](/docs/review).
 
-![Build for publish](../../../images/build-publish-only.png)
+![Build for publish](../../images/build-publish-only.png)
 
 ## Get the PR check
 
 Chromatic posts a "Storybook Publish" status check in your pull/merge request that links to the latest published Storybook. This gives teams secure, convenient access to browse components and stories. Get the PR check by [automating Chromatic with CI](/docs/storybook/ci).
 
-![PR badge for publish](../../../images/prbadge-publish.png)
+![PR badge for publish](../../images/prbadge-publish.png)
 
 <div class="aside">
   During setup we recommend running <code>chromatic</code> on the command line

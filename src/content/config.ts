@@ -12,12 +12,22 @@ const schema = z.object({
   isHome: z.boolean().optional(),
 });
 
-const getStarted = defineCollection({
+const overview = defineCollection({
   type: "content",
   schema,
 });
 
-const workflow = defineCollection({
+const storybook = defineCollection({
+  type: "content",
+  schema,
+});
+
+const playwright = defineCollection({
+  type: "content",
+  schema,
+});
+
+const cypress = defineCollection({
   type: "content",
   schema,
 });
@@ -62,9 +72,16 @@ const guides = defineCollection({
   schema,
 });
 
+const turbosnap = defineCollection({
+  type: "content",
+  schema,
+});
+
 export const collections = {
-  getStarted,
-  workflow,
+  overview,
+  storybook,
+  playwright,
+  cypress,
   configuration,
   modes,
   snapshot,
@@ -73,4 +90,5 @@ export const collections = {
   ci,
   account,
   guides,
+  turbosnap,
 };
