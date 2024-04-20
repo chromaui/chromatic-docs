@@ -15,6 +15,6 @@ export const MainWrapper = styled.div`
   }
 
   ${minLg} {
-    grid-template-columns: 260px 1fr;
+    grid-template-columns: 240px 1fr;
   }
 `;

@@ -1,8 +1,9 @@
 ---
 layout: "../../layouts/Layout.astro"
 title: Configure
+slug: playwright/configure
 description: Learn about the various configuration options for visual tests for Playwright
-sidebar: { order: 4 }
+sidebar: { order: 3 }
 ---
 
 import { TabItem, Tabs } from "../../components/Tabs";
@@ -234,13 +235,3 @@ jobs:
           projectToken: ${{ secrets.CHROMATIC_PROJECT_TOKEN }}
           playwright: true
 ```
-
----
-
-## You're all set up
-
-Now that you've set up Chromatic, learn the recommended workflow in development and during the pull request
-
-<a class="btn primary round" href="/docs/in-development">
-  Learn workflow
-</a>
