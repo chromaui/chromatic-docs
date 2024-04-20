@@ -7,12 +7,20 @@
 
 # Getting started guides
 
-/docs/setup/ /docs/storybook/setup/
 /docs/document/ /docs/storybook/publish/
 
-/docs/storybook/setup /docs/storybook/
+/docs/storybook/setup/ /docs/storybook/
+/docs/storybook/test/ /docs/test/
+/docs/storybook/ci/ /docs/ci/
+/docs/storybook/document/ /docs/publish/
+
 /docs/playwright/setup /docs/playwright/
+/docs/playwright/test/ /docs/test/
+/docs/playwright/ci/ /docs/ci/
+
 /docs/cypress/setup /docs/cypress/
+/docs/cypress/test/ /docs/test/
+/docs/cypress/ci/ /docs/ci/
 
 # Plausible analytics
 

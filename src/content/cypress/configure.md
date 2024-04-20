@@ -1,11 +1,10 @@
 ---
 layout: "../../layouts/Layout.astro"
 title: Configure
+slug: cypress/configure
 description: Learn about the various configuration options for visual tests for Cypress
 sidebar: { order: 3 }
 ---
-
-import { TabItem, Tabs } from "../../components/Tabs";
 
 # Configure visual tests for Cypress
 
@@ -105,13 +104,3 @@ describe(
 <div class="aside">
   Note: Currently, setting the viewport using `cy.viewport()` is not supported.
 </div>
-
----
-
-## You're all set up
-
-Now that you've set up Chromatic, learn the recommended workflow in development and during the pull request
-
-<a class="btn primary round" href="/docs/in-development">
-  Learn workflow
-</a>

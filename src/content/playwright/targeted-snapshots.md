@@ -2,7 +2,7 @@
 layout: "../../layouts/Layout.astro"
 title: Targeted snapshots
 slug: playwright/targeted-snapshots
-description: Learn about the various configuration options for visual tests for Playwright
+description: Learn how to programmatically capture snapshots at specific points during your Playwright tests
 sidebar: { order: 2 }
 ---
 
