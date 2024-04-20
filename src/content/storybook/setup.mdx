@@ -76,12 +76,12 @@ Add visual tests to your project by installing `@chromatic-com/storybook`:
   </Fragment>
   <Fragment slot="yarn">
   ```shell
-  $ pnpm dlx storybook@latest add @chromatic-com/storybook
+  $ yarn dlx storybook@latest add @chromatic-com/storybook
   ```
   </Fragment>
   <Fragment slot="pnpm">
   ```shell
-  $ yarn dlx storybook@latest add @chromatic-com/storybook
+  $ pnpm dlx storybook@latest add @chromatic-com/storybook
   ```
   </Fragment>
 </InstallSnippets>
@@ -280,13 +280,11 @@ Once you accept all changes, your build is marked as passed 🟢. This updates t
 
 You're building robust components by uncovering bugs during development. Take your testing to the next level and safeguard against visual bugs by automating Chromatic whenever you push code.
 
-**[Automate Chromatic with CI](/docs/ci)**
+![PR badge for UI Tests](../../images/prbadge-test.png)
 
-Integrate Chromatic into your continuous integration (CI) pipeline to get notified about any visual changes introduced by a pull request. Chromatic runs test any time you push code and reports changes via the “UI Tests” badge for your pull request.
+[**Integrate Chromatic into your CI pipeline**](/docs/ci) to get notified about any visual changes introduced by a pull request. Chromatic runs test any time you push code and reports changes via the “UI Tests” badge for your pull request.
 
-![PR badge for publish](../../images/prbadge-publish.png)
-
-**Additional testing strategies**
+### Additional testing strategies
 
 You can further refine your testing process and guarantee polished UIs in all scenarios with these strategies:
 
