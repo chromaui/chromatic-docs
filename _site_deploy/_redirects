@@ -10,9 +10,10 @@
 /docs/document/ /docs/storybook/publish/
 
 /docs/storybook/setup/ /docs/storybook/
+/docs/storybook/review/ /docs/review/
 /docs/storybook/test/ /docs/test/
 /docs/storybook/ci/ /docs/ci/
-/docs/storybook/document/ /docs/publish/
+/docs/storybook/document/ /docs/storybook/publish/
 
 /docs/playwright/setup /docs/playwright/
 /docs/playwright/test/ /docs/test/
