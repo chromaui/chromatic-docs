@@ -8,7 +8,7 @@ sidebar: { order: 3 }
 
 # Publish your Storybook
 
-The Chromatic CLI builds and publishes your Storybook to a secure online workspace, making all your stories accessible to your team at [chromatic.com](https://www.chromatic.com/start). Chromatic also indexes and versions your stories, creating a searchable library within the web app. This allows teams to easily discover, reuse, and reference existing components.
+The Chromatic CLI builds and publishes your Storybook to a secure online workspace, making all your stories accessible to your team at [chromatic.com](https://www.chromatic.com/start). Chromatic also indexes and versions your stories, creating a searchable library within the web app. This allows teams to discover, reuse, and reference existing components easily.
 
 ![Chromatic's publishing feature enables you to browse your component library and demo live components in the browser](../../images/workflow-document.png)
 
@@ -22,7 +22,7 @@ Chromatic generates a [permalink](/docs/permalinks) for the latest uploaded Stor
 
 ## Link to specific branches
 
-When you're linking to a library or component on Chromatic, it can be useful to link to the latest version on a `branch` rather than a specific build. To do so, add the `branch=foo` query parameter the the url.
+When you're linking to a library or component on Chromatic, it can be useful to link to the latest version on a `branch` rather than a specific build. To do so, add the `branch=foo` query parameter to the URL.
 
 **Example**: `https://www.chromatic.com/library?appId=...&branch=main`.
 
@@ -44,7 +44,7 @@ The library screen within the Chromatic web app visualizes the latest components
 
 Components and their stories are securely indexed each commit and branch. Use the component screen to demo components without needing to switch branches, pull code, or Git. It's your window into the metadata and variations of the component. You can also share a link to this screen to get feedback.
 
-- **Canvas**: Interact with the real component code to reproduce behavior
+- **Canvas**: Interact with the real component code to reproduce the behavior
 - **Snapshot**: Verify the image [snapshots](/docs/snapshots) used for cross-browser [UI Tests](/docs/test)
 
 ![Component screen](../../images/component.png)

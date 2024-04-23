@@ -9,7 +9,7 @@ import IntegrationSnippets from "../../components/IntegrationSnippets.astro";
 
 # Automate visual tests with CI
 
-Configure CI to run your visual tests whenever you push code and get pull request badges to get notified about test and review results.
+Configure CI to run your visual tests whenever you push code and get pull request badges to get notified about the test and review results.
 
 ![Continuous integration](../../images/workflow-ci-e2e.png)
 
@@ -58,8 +58,8 @@ Integrate with popular CI tools like you would any other job. Run `npm run chrom
 
 Here's how we recommend configuring Chromatic for popular CI services:
 
-- [GitHub Actions](/docs/github-actions)
-- [GitLab Pipelines](/docs/gitlab)
+- [GitHub Actions](/docs/Github-actions)
+- [GitLab Pipelines](/docs/Gitlab)
 - [Bitbucket Pipelines](/docs/bitbucket-pipelines)
 - [CircleCI](/docs/circleci)
 - [Travis CI](/docs/travisci)
@@ -69,11 +69,11 @@ Here's how we recommend configuring Chromatic for popular CI services:
 
 ## Pull request checks
 
-When a build runs it will automatically add a PR status check to the current pull request indicating the state of the build. By default, you'll see UI Tests and Storybook Publish. If you enabled UI Review you'll also see a checks for it.
+When a build runs it will automatically add a PR status check to the current pull request indicating the state of the build. By default, you'll see UI Tests and Storybook Publish. If you enabled UI Review you'll also see a check for it.
 
 GitHub, Bitbucket, or GitLab projects that are [linked to a repository](/docs/access) get this feature out of the box. If you use other version control services to host your code, you can write a custom CI script to add a check for Chromatic (via your CI provider).
 
-Require checks in [GitHub](https://help.github.com/en/github/administering-a-repository/enabling-required-status-checks), [GitLab](https://docs.gitlab.com/ee/api/commits.html#post-the-build-status-to-a-commit), or [Bitbucket](https://confluence.atlassian.com/bitbucket/suggest-or-require-checks-before-a-merge-856691474.html) to ensure they are completed before merging.
+Require checks in [GitHub](https://help.Github.com/en/Github/administering-a-repository/enabling-required-status-checks), [GitLab](https://docs.Gitlab.com/ee/api/commits.html#post-the-build-status-to-a-commit), or [Bitbucket](https://confluence.atlassian.com/bitbucket/suggest-or-require-checks-before-a-merge-856691474.html) to ensure they are completed before merging.
 
 ![PR badges](../../images/prbadges-e2e.png)
 
@@ -91,21 +91,21 @@ If this is happening to you, prepend `CI=true` to your test command like so `CI=
 </details>
 
 <details>
-<summary>Why aren't pull request checks syncing with my git provider?</summary>
+<summary>Why aren't pull request checks syncing with my Git provider?</summary>
 
-Pull/merge request checks show the status of your UI Tests and UI Review in GitHub, Bitbucket, or GitLab. If you find that your status checks are out of sync between Chromatic and your git provider, try the solutions below.
+Pull/merge request checks show the status of your UI Tests and UI Review in GitHub, Bitbucket, or GitLab. If you find that your status checks are out of sync between Chromatic and your Git provider, try the solutions below.
 
-**1. Check that your project is linked to a git provider**
+**1. Check that your project is linked to a Git provider**
 
 Go to your Project » Manage » Configure tab under the "Connected Applications". Then confirm that there is a repository connected to your project and that the access token is valid.
 
 **2. Check whether commits are successfully linked to builds**
 
-Chromatic runs builds for each commit to power UI Tests and UI Review. We expect the build commit in Chromatic to match the commit in your repository. But some CI environments and git providers create an "ephemeral" merge commit if your feature branch is not up to date with your default base branch (master, main, develop, etc).
+Chromatic runs builds for each commit to power UI Tests and UI Review. We expect the build commit in Chromatic to match the commit in your repository. But some CI environments and Git providers create an "ephemeral" merge commit if your feature branch is not up to date with your default base branch (master, main, develop, etc).
 
-You can verify that you're in this situation by going to the Build page and noting the commit hash. If your project is "linked" to a git provider, you can also click on the commit to go straight to the git provider website. If you get a "Not Found" page indicating the commit doesn't exist then this issue applies to you.
+You can verify that you're in this situation by going to the Build page and noting the commit hash. If your project is "linked" to a Git provider, you can also click on the commit to go straight to the Git provider website. If you get a "Not Found" page indicating the commit doesn't exist then this issue applies to you.
 
-The way to fix this is to set the Chromatic [environment variables](/docs/cli/#environment-variables): `CHROMATIC_SHA`, `CHROMATIC_BRANCH`, `CHROMATIC_SLUG`. Note, you must set all three.
+The way to fix this is to set the Chromatic [environment variables](/docs/cli/#environment-variables): `CHROMATIC_SHA`, `CHROMATIC_BRANCH`, `CHROMATIC_SLUG`. Note that you must set all three.
 
 **3. Check if your environment variables are set correctly**
 

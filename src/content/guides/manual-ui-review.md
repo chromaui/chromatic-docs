@@ -7,7 +7,7 @@ sidebar: { order: 4, label: "Manual UI Review" }
 
 # Manual UI Review
 
-Manual UI Review helps you see the visual differences between any pair of branches - even if your project isn't connected to a git provider.
+Manual UI Review helps you see the visual differences between any pair of branches - even if your project isn't connected to a Git provider.
 
 ## Enable UI Review
 
@@ -22,14 +22,14 @@ Go to your project's Reviews page from the sidebar. Click the “Create review�
 
 ![Create review branches](../../images/create-review-branches.png)
 
-If you’re familiar with creating pull or merge requests with git, this process will be very familiar:
+If you’re familiar with creating pull or merge requests with Git, this process will be very familiar:
 
 - Select the base branch, which is the branch that’s used as the source of truth for comparison. Typically, this will be your `main` branch.
 - Select the head branch, which is the branch that has changes that you want to compare with the source of truth. This is often a feature or bug fix branch you’re working on.
 - Enter a title for the Review.
-- Click the “Compare branches” button to generate your new Review
+- Click the “Compare branches” button to generate your new Review.
 
-Your Review is now ready for you and your team to discuss. Follow along from to the [Understanding the Review](#understanding-the-review) section on for more information on how to benefit the most from UI Review.
+Your Review is now ready for you and your team to discuss. Check out the [Understanding the Review](/docs/review/#understanding-the-review) section for more information on how to benefit the most from UI Review.
 
 <details>
 <summary>Glossary</summary>
@@ -41,11 +41,11 @@ Your Review is now ready for you and your team to discuss. Follow along from to 
 
 ## PR check for "UI Review"
 
-Manually created Reviews will not create a “UI Review” status check in GitHub, GitLab, or Bitbucket. To create a status check in your Git provider for manually created Reviews, you can use a [custom webhook](/docs/integrations#custom-webhooks).
+Manually created Reviews will not create a “UI Review” status check in GitHub, GitLab, or Bitbucket. To create a status check in your Git provider for manually created Reviews, you can use a [custom webhook](/docs/custom-webhooks).
 
 ## Closing a Review
 
-Prune your completed manual UI Reviews by clicking the "Close review" menu item in the "Review now" button tooltip. Your review will be moved in the list of "Closed" Reviews on the Reviews page.
+Prune your completed manual UI Reviews by clicking the "Close review" menu item in the "Review now" button tooltip. Your review will be moved to the "Closed" Reviews list on the Reviews page.
 
 ![Close Review](../../images/close-review.png)
 

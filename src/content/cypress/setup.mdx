@@ -48,7 +48,7 @@ Generate a unique project token for your app by signing in to Chromatic and crea
 
 ![Setup project](../../images/setup-cypress.png)
 
-## Install
+### 2. Install Chromatic
 
 Install [chromatic](https://www.npmjs.com/package/chromatic) and `@chromatic-com/cypress` packages from npm.
 
@@ -83,7 +83,7 @@ Add the following to your `cypress/support/e2e.js` file:
 import "@chromatic-com/cypress/support";
 ```
 
-Then, install the Chromatic plugin in via the `cypress.config.js` file:
+Then, install the Chromatic plugin in your `cypress.config.js` file:
 
 ```js
 // cypress.config.js
@@ -139,7 +139,7 @@ npx chromatic --cypress -t=<TOKEN>
 
 ### 6. Review changes
 
-When complete, you’ll see the build status and a link to the review the changes. Click on that link to open Chromatic.
+When complete, you’ll see the build status and a link to review the changes. Click on that link to open Chromatic.
 
 ```shell
 ✔ Started build 1

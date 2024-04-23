@@ -102,5 +102,7 @@ describe(
 ```
 
 <div class="aside">
-  Note: Currently, setting the viewport using `cy.viewport()` is not supported.
+
+Note: Currently, setting the viewport using `cy.viewport()` is not supported.
+
 </div>

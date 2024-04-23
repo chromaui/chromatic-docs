@@ -2,15 +2,15 @@
 layout: "../../layouts/Layout.astro"
 title: Targeted snapshots
 slug: cypress/targeted-snapshots
-description: Learn how to programmatically capture snapshots at specific points during your Cypress tests
+description: Learn how to capture snapshots at specific points during your Cypress tests programmatically
 sidebar: { order: 2 }
 ---
 
 # Take targeted snapshots with Cypress
 
-By default, Chromatic takes a snapshot at the end of every Cypress test, whether is passes or fails. But you can also chose to programmatically take snapshots at specific points in your tests using the `takeSnapshot` function inside your test runs.
+By default, Chromatic takes a snapshot at the end of every Cypress test, whether it passes or fails. However, you can also choose to programmatically take snapshots at specific points in your tests using the `takeSnapshot` function inside your test runs.
 
-This is especially useful for getting the app UI into a desired state mid-test and capturing its appearance before taking one final snapshot at the end.
+`takeSnapshot` is especially useful for capturing a snapshot of your UI’s appearance when your UI reaches a specific state mid-test:
 
 ```js
 describe("My First Test", () => {

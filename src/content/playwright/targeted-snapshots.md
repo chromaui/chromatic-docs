@@ -2,15 +2,15 @@
 layout: "../../layouts/Layout.astro"
 title: Targeted snapshots
 slug: playwright/targeted-snapshots
-description: Learn how to programmatically capture snapshots at specific points during your Playwright tests
+description: Learn how to capture snapshots at specific points during your Playwright tests programmatically
 sidebar: { order: 2 }
 ---
 
 # Take targeted snapshots with Playwright
 
-By default, Chromatic takes a snapshot at the end of every Playwright test, whether the test passes or fails. However, you can also take snapshots programmatically at specific points in your tests by using Chromatic’s `takeSnapshot` function.
+By default, Chromatic takes a snapshot at the end of every Playwright test, whether it passes or fails. However, you can also choose to programmatically take snapshots at specific points in your tests using the `takeSnapshot` function inside your test runs.
 
-`takeSnapshot` is especially useful for capturing a snapshot of your UI’s appearance when your UI reaches a specific state:
+`takeSnapshot` is especially useful for capturing a snapshot of your UI’s appearance when your UI reaches a specific state mid-test:
 
 ```js
 import { test, expect, takeSnapshot } from "@chromatic-com/playwright";

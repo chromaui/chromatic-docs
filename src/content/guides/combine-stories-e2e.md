@@ -48,7 +48,7 @@ The ideal testing strategy often involves a strategic mix of component-level Sto
 - **Critical flows:** Validate essential user journeys (login, checkout, etc.) that span multiple components and pages.
 - **Unforeseen interactions:** Can reveal issues arising from unexpected component combinations or side effects.
 
-Most teams use Storybook to test a wide array of UI scenarios testing and employ E2E tests to safeguard key user journeys. Component-level tests offer greater stability due to their reliance on mocked data and APIs. This isolation also simplifies creating test cases for edge cases like failures and loading states. In contrast, E2E tests uncover integration issues and ensure the system functions cohesively.
+Most teams use Storybook to test a wide array of UI scenarios and employ E2E tests to safeguard key user journeys. Component-level tests offer greater stability due to their reliance on mocked data and APIs. This isolation also simplifies creating test cases for edge cases like failures and loading states. In contrast, E2E tests uncover integration issues and ensure the system functions cohesively.
 
 ## How to run visual tests with Storybook, Playwright, and Cypress in a single project?
 
@@ -65,7 +65,7 @@ You can achieve this using Chromatic by using a sub-project setup. Here's how:
 
 Chromatic's sub-project functionality enables you to manage multiple testing environments within a single Git repository. By linking multiple Chromatic projects to the same repository, you'll maintain synchronized permissions and receive build status updates across all testing environments.
 
-For details on how to create sub-projects please refer to the documentation: [Run Chromatic for each subproject](/docs/monorepos#run-chromatic-for-each-subproject).
+For details on creating sub-projects, please refer to the documentation: [Run Chromatic for each subproject](/docs/monorepos#run-chromatic-for-each-subproject).
 
 ### Can I use Playwright or Cypress to interact with stories before running visual tests?
 

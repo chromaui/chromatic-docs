@@ -78,11 +78,11 @@ In your `.github/workflows` directory, create a new file called `chromatic.yml` 
           - name: Run Chromatic
             uses: chromaui/action@latest
             with:
-              # ⚠️ enable playwright
+              # ⚠️ Enable Playwright
               playwright: true
               # ⚠️ Make sure to configure a `CHROMATIC_PROJECT_TOKEN` repository secret
               projectToken: ${{ secrets.CHROMATIC_PROJECT_TOKEN }}
-            # ⚠️ Optionally configure the archive loation with env vars
+            # ⚠️ Optionally configure the archive location with env vars
             env: CHROMATIC_ARCHIVE_LOCATION=./custom/dir
     ```
   </Fragment>
@@ -116,11 +116,11 @@ In your `.github/workflows` directory, create a new file called `chromatic.yml` 
           - name: Run Chromatic
             uses: chromaui/action@latest
             with:
-              # ⚠️ enable cypress
+              # ⚠️ Enable Cypress
               cypress: true
               # ⚠️ Make sure to configure a `CHROMATIC_PROJECT_TOKEN` repository secret
               projectToken: ${{ secrets.CHROMATIC_PROJECT_TOKEN }}
-            # ⚠️ Optionally configure the archive loation with env vars
+            # ⚠️ Optionally configure the archive location with env vars
             env: CHROMATIC_ARCHIVE_LOCATION=./custom/dir
     ```
   </Fragment>
