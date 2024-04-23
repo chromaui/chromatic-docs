@@ -11,7 +11,7 @@ import IntegrationSnippets from "../../components/IntegrationSnippets.astro";
 
 Diff Inspector is a tool in the Chromatic web app that helps you see what visually changed between the test baseline and the new snapshot. Changed areas are automatically highlighted in neon green for immediate visibility.
 
-![](https://chromaticblog.ghost.io/content/images/downloaded_images/Diff-Detector-2-0/1-dB-pr5dfHUiQ76KtwoJlSA.png)
+![](../../images/diff-inspector.png)
 
 ## Diff view options
 
@@ -20,7 +20,9 @@ Chromatic offers flexible ways to analyze visual changes:
 - **Unified view (1 Up):** See changes directly overlaid on top of your baseline for a focused comparison.
 - **Split view (2 Up):** Compare your baseline and new snapshot side-by-side, with changes clearly highlighted in the new version.
 
-![1up vs 2Up](https://placehold.co/600x400?text=1up+vs+2up)
+<video autoPlay muted playsInline loop width="542px" style="margin-bottom: 1em">
+  <source src="/docs/assets/1up-2up.mp4" type="video/mp4" />
+</video>
 
 ## Emphasize subtle changes
 
@@ -112,4 +114,6 @@ You can configure Chromatic to ignore changes in certain parts of a snapshot by 
 
 [Learn more about ignoring elements »](/docs/ignoring-elements/#ignore-dom-elements)
 
-![1up vs 2Up](https://placehold.co/600x400?text=highlight+ignored+regions)
+<video autoPlay muted playsInline loop width="542px" style="margin-bottom: 1em">
+  <source src="/docs/assets/ignored-regions.mp4" type="video/mp4" />
+</video>
