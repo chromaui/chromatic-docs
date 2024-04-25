@@ -19,9 +19,9 @@
     "check-links": "blc https://www.chromatic.com/docs/ -ro -e --filter-level 0 --exclude https://www.chromatic.com/company --exclude https://www.chromatic.com/blog --exclude https://www.chromatic.com/features --exclude https://www.chromatic.com/compare --exclude https://www.chromatic.com/library --exclude https://www.chromatic.com/component --exclude https://www.chromatic.com/builds --exclude https://www.chromatic.com/loading --exclude https://www.chromatic.com/customers --exclude https://www.chromatic.com/choose --exclude https://www.chromatic.com/solutions --exclude https://www.chromatic.com/notifications --exclude https://www.chromatic.com/reset-password --exclude https://www.chromatic.com/profile"
   },
   "dependencies": {
-    "@astrojs/mdx": "^2.0.3",
-    "@astrojs/react": "^3.0.9",
-    "@astrojs/sitemap": "^3.0.4",
+    "@astrojs/mdx": "^2.3.1",
+    "@astrojs/react": "^3.3.0",
+    "@astrojs/sitemap": "^3.1.4",
     "@chromaui/tetra": "^1.17.0",
     "@docsearch/css": "^3.5.2",
     "@radix-ui/react-collapsible": "^1.0.3",
@@ -32,7 +32,7 @@
     "@types/hast": "^3.0.3",
     "@types/react": "^18.2.21",
     "@types/react-dom": "^18.2.7",
-    "astro": "^4.1.1",
+    "astro": "^4.6.3",
     "framer-motion": "^11.0.5",
     "hast-util-select": "^6.0.2",
     "react": "^18.2.0",
@@ -48,7 +48,7 @@
     "broken-link-checker": "^0.7.8",
     "hast-util-to-string": "^3.0.0",
     "hastscript": "^8.0.0",
-    "prettier": "^3.0.3",
+    "prettier": "^3.2.5",
     "prettier-plugin-astro": "^0.12.0"
   }
 }

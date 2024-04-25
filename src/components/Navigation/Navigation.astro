@@ -1,5 +1,5 @@
 ---
-import { getEntry, type CollectionEntry } from "astro:content";
+import { type CollectionEntry } from "astro:content";
 import Search from "../Search.astro";
 import { Support } from "../Support";
 import { SideNav } from "./SideNav";
@@ -11,8 +11,10 @@ interface Props {
   navItems: {
     title: string;
     items: (
-      | CollectionEntry<"getStarted">
-      | CollectionEntry<"workflow">
+      | CollectionEntry<"overview">
+      | CollectionEntry<"storybook">
+      | CollectionEntry<"playwright">
+      | CollectionEntry<"cypress">
       | CollectionEntry<"configuration">
       | CollectionEntry<"modes">
       | CollectionEntry<"snapshot">
@@ -22,6 +24,7 @@ interface Props {
       | CollectionEntry<"ci">
       | CollectionEntry<"account">
       | CollectionEntry<"guides">
+      | CollectionEntry<"troubleshooting">
     )[];
     defaultOpen?: boolean;
     timeline?: boolean;
@@ -29,7 +32,6 @@ interface Props {
 }
 
 const { navItems, url } = Astro.props;
-const introduction = await getEntry("getStarted", "introduction");
 
 const navGroups = navItems
   ? navItems.map((group) => ({
@@ -53,8 +55,8 @@ const navGroups = navItems
           p1.data.sidebar.order > p2.data.sidebar.order
             ? 1
             : p1.data.sidebar.order < p2.data.sidebar.order
-            ? -1
-            : 0,
+              ? -1
+              : 0,
         ),
     }))
   : [];
@@ -63,11 +65,6 @@ const navGroups = navItems
 <Container>
   <Search />
   <DropdownNav client:only="react" groups={navGroups as any} url={url} />
-  <SideNav
-    client:load
-    introduction={introduction}
-    sidebarItems={navGroups}
-    url={url}
-  />
+  <SideNav client:load sidebarItems={navGroups} url={url} />
   <Support client:load />
 </Container>

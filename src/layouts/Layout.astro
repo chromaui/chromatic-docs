@@ -1,7 +1,7 @@
 ---
 import type { MarkdownLayoutProps } from "astro";
 import { Container } from "@chromaui/tetra";
-import { getCollection } from "astro:content";
+import { getCollection, getEntry } from "astro:content";
 import "@docsearch/css";
 import SEO from "../components/SEO.astro";
 import Scripts from "../components/Scripts.astro";
@@ -20,16 +20,10 @@ const {
   frontmatter: { title, description },
 } = Astro.props;
 const { pathname } = Astro.url;
-const storybook = await getCollection("getStarted", ({ id }) => {
-  return id.startsWith("storybook/");
-});
-const playwright = await getCollection("getStarted", ({ id }) => {
-  return id.startsWith("playwright/");
-});
-const cypress = await getCollection("getStarted", ({ id }) => {
-  return id.startsWith("cypress/");
-});
-const workflow = await getCollection("workflow");
+const overview = await getCollection("overview");
+const storybook = await getCollection("storybook");
+const playwright = await getCollection("playwright");
+const cypress = await getCollection("cypress");
 const configuration = await getCollection("configuration");
 const modes = await getCollection("modes");
 const snapshot = await getCollection("snapshot");
@@ -39,12 +33,19 @@ const plugins = await getCollection("plugins");
 const ci = await getCollection("ci");
 const account = await getCollection("account");
 const guides = await getCollection("guides");
+const troubleshooting = await getCollection("troubleshooting");
 
 const navItems = [
   {
+    title: "Overview",
+    items: overview,
+    defaultOpen: true,
+    timeline: true,
+  },
+  {
     title: "Storybook",
     items: storybook,
-    defaultOpen: true,
+    defaultOpen: false,
     timeline: true,
   },
   {
@@ -58,9 +59,8 @@ const navItems = [
     timeline: true,
   },
   {
-    title: "Workflow",
-    items: workflow,
-    timeline: true,
+    title: "Guides",
+    items: guides,
   },
   {
     title: "Configuration",
@@ -77,26 +77,27 @@ const navItems = [
   {
     title: "TurboSnap",
     items: turbosnap,
+    timeline: true,
   },
   {
     title: "Collaborate",
     items: collaborate,
   },
   {
-    title: "Plugins",
-    items: plugins,
-  },
-  {
     title: "CI",
     items: ci,
+  },
+  {
+    title: "Plugins",
+    items: plugins,
   },
   {
     title: "Account",
     items: account,
   },
   {
-    title: "Guides",
-    items: guides,
+    title: "Troubleshooting",
+    items: troubleshooting,
   },
 ];
 

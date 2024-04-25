@@ -22,6 +22,6 @@ Unlinked projects have certain drawbacks:
 - You won't get automatic PR checks, so pull requests will not be marked with our status messages. You'll need to set this up manually via your CI provider.
 - Authentication and access control must be handled manually through user invites.
 
-Now continue setting up Chromatic [as usual](/docs/setup#install).
+Now continue with the next step to complete setting up Chromatic
 
 </details>

@@ -1,0 +1,23 @@
+---
+import { TabItem, Tabs } from "./Tabs";
+
+interface Props {
+  storybook: string;
+  playwright: string;
+  cypress: string;
+}
+---
+
+<Tabs>
+  <TabItem label="npm">
+    <slot name="npm" />
+  </TabItem>
+
+  <TabItem label="yarn">
+    <slot name="yarn" />
+  </TabItem>
+
+  <TabItem label="pnpm">
+    <slot name="pnpm" />
+  </TabItem>
+</Tabs>

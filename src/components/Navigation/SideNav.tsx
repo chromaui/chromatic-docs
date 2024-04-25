@@ -42,36 +42,38 @@ const ContentWrapper = styled.div<{ isTimeline: boolean }>`
   display: flex;
   flex-direction: column;
   gap: 4px;
-  margin-left: ${({ isTimeline }) => (isTimeline ? "22px" : "35px")};
+  margin-left: 3px;
   position: relative;
 
   &:before {
     content: "";
-    display: ${({ isTimeline }) => (isTimeline ? "block" : "none")};
+    display: block;
     position: absolute;
-    top: 12px;
+    top: ${({ isTimeline }) => (isTimeline ? 12 : 0)}px;
     left: 4px;
     width: 1px;
-    height: calc(100% - 24px);
+    height: ${({ isTimeline }) => (isTimeline ? "calc(100% - 24px);" : "100%")};
     background-color: ${color.slate300};
     z-index: 0;
+    border-radius: 9999px;
   }
 `;
 
 const Line = styled.a`
   all: unset;
   display: flex;
-  gap: 16px;
+  gap: 12px;
   align-items: center;
   min-height: 32px;
 `;
 
-const ContentItem = styled.div<{ isActive: boolean }>`
+const ContentItem = styled.div<{ isActive: boolean; isTimeline?: boolean }>`
   ${typography.body16}
   color: ${({ isActive }) => (isActive ? color.blue500 : color.slate600)};
   font-weight: ${fontWeight.regular};
   cursor: pointer;
   transition: all 0.2s ease-in-out;
+  padding-left: ${({ isTimeline }) => (isTimeline ? 0 : 20)}px;
 
   &:hover {
     color: ${color.slate800};
@@ -89,15 +91,6 @@ const Bullet = styled.div<{ isActive: boolean }>`
   box-shadow: white 0px 0px 0px 4px;
 `;
 
-const IntroductionItem = styled.a<{ isActive?: boolean }>`
-  all: unset;
-  cursor: pointer;
-  ${typography.body16}
-  color: ${({ isActive }) => (isActive ? color.blue500 : color.slate600)};
-  font-weight: ${fontWeight.semibold};
-  margin-left: 22px; /* to align with the text 14px icon + 8 px gap */
-`;
-
 const SidebarContainer = styled.div`
   display: none;
 
@@ -110,8 +103,10 @@ const SidebarContainer = styled.div`
 `;
 
 type Item = (
-  | CollectionEntry<"getStarted">
-  | CollectionEntry<"workflow">
+  | CollectionEntry<"overview">
+  | CollectionEntry<"storybook">
+  | CollectionEntry<"playwright">
+  | CollectionEntry<"cypress">
   | CollectionEntry<"configuration">
   | CollectionEntry<"modes">
   | CollectionEntry<"snapshot">
@@ -121,6 +116,7 @@ type Item = (
   | CollectionEntry<"ci">
   | CollectionEntry<"account">
   | CollectionEntry<"guides">
+  | CollectionEntry<"troubleshooting">
 ) & {
   data: {
     sidebar: {
@@ -141,7 +137,6 @@ interface SidebarItem {
 interface SideNavProps {
   url?: string;
   sidebarItems?: SidebarItem[];
-  introduction: CollectionEntry<"getStarted">;
 }
 
 const withBase = (url: string) =>
@@ -149,14 +144,11 @@ const withBase = (url: string) =>
 
 const homeUrl = withBase("");
 
-export const SideNav = ({ introduction, url, sidebarItems }: SideNavProps) => {
+export const SideNav = ({ url, sidebarItems }: SideNavProps) => {
   const isHome = url === homeUrl;
 
   return (
     <SidebarContainer>
-      <IntroductionItem href={homeUrl} isActive={isHome}>
-        Introduction
-      </IntroductionItem>
       {sidebarItems &&
         sidebarItems.map((group, i) => {
           const isSomeActive = group.items.some(
@@ -175,13 +167,19 @@ export const SideNav = ({ introduction, url, sidebarItems }: SideNavProps) => {
               </Trigger>
               <ContentWrapper isTimeline={!!group.timeline}>
                 {group.items.map((item, j) => {
-                  const isActive = withBase(item.slug) === url;
+                  const isActive =
+                    isHome && item.data.isHome
+                      ? true
+                      : withBase(item.slug) === url;
 
                   return (
                     <Collapsible.Content key={j} asChild>
                       <Line href={withBase(item.slug)}>
                         {!!group.timeline && <Bullet isActive={isActive} />}
-                        <ContentItem isActive={isActive}>
+                        <ContentItem
+                          isActive={isActive}
+                          isTimeline={!!group.timeline}
+                        >
                           {item.data.sidebar.label}
                         </ContentItem>
                       </Line>

@@ -1,7 +1,7 @@
 ---
 import { getEntry } from "astro:content";
 
-const introduction = await getEntry("getStarted", "introduction");
+const introduction = await getEntry("overview", "introduction");
 const { Content } = await introduction.render();
 ---
 
