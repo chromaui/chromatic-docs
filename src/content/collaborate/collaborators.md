@@ -126,7 +126,7 @@ Open source projects are viewable to all users even if they're not listed as a c
 
 #### Roles for Single Sign-On (SSO)
 
-Chromatic syncs collaborators with your SSO provider. All collaborators are granted `owner` capabilities.
+Chromatic syncs collaborators with your SSO provider. All collaborators are granted `developer` capabilities.
 
 ### Visibility
 
