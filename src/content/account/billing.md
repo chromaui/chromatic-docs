@@ -27,7 +27,7 @@ For example, see how many snapshots are taken in different scenarios below.
 
 <div class="aside">
 
-If you use our free [Publish Storybook](/docs/setup) service only you will not be billed for snapshots.
+If you use our free [Publish Storybook](/docs/storybook/publish) service only you will not be billed for snapshots.
 
 </div>
 
