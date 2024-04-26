@@ -15,7 +15,7 @@ Chromatic serves as a library that maps every part of your UI. Use it as a share
 
 #### Keep everyone in sync with what's in production
 
-During the design and product process, you often need to reference what's in production. But it's time consuming to navigate to the right page in the right state. Chromatic builds and publishes your Storybook online whenever you push code. This keeps everyone in sync with the latest UI implementation. No fussing with dependencies, git, or local dev environments. [Learn more »](/docs/setup)
+During the design and product process, you often need to reference what's in production. But it's time consuming to navigate to the right page in the right state. Chromatic builds and publishes your Storybook online whenever you push code. This keeps everyone in sync with the latest UI implementation. No fussing with dependencies, git, or local dev environments. [Learn more »](/docs/storybook/setup)
 
 #### Integrate with Figma to reference the real UI as you design
 

@@ -1,5 +1,5 @@
 <details>
-<summary id="demo-chromatic-unlinked">How to continue setup if you require SSO, on-premises, or have a different Git provider.</summary>
+<summary id="demo-chromatic-unlinked">How to setup Chromatic if you require SSO, on-premises, or have a different Git provider.</summary>
 
 These instructions will teach you how to setup Chromatic with an ["unlinked" project](/docs/access#unlinked-projects). This can be useful in these situations:
 

@@ -17,7 +17,7 @@ Sign in to Chromatic via OAuth, email, or SSO.
 
 Chromatic supports the cloud versions of GitHub, GitLab, or Bitbucket on our [self-serve plans](https://www.chromatic.com/pricing).
 
-If you use the on-premise or enterprise versions of GitHub, GitLab, or Bitbucket, we can support you via our [enterprise plan](https://www.chromatic.com/pricing). We recommend trialing Chromatic first by following these [instructions](/docs/setup#demo-chromatic-unlinked).
+If you use the on-premise or enterprise versions of GitHub, GitLab, or Bitbucket, we can support you via our [enterprise plan](https://www.chromatic.com/pricing). We recommend trialing Chromatic first by following these [instructions](/docs/faq/#demo-chromatic-unlinked).
 
 <details>
     <summary>What OAuth scopes does Chromatic request?</summary>
@@ -103,7 +103,7 @@ If you're setting up Chromatic for your team as the account owner or administrat
 - [Collaborators](/docs/collaborators) are manually managed
 - [Pull request checks](/docs/ci#pull-request-checks) are manually setup via your CI system
 
-We recommend signing up with email for projects that **are not** on GitHub, Bitbucket, or GitLab. For example, projects on services like Azure DevOps, AWS, etc. Read the setup instructions for these types of projects [here](/docs/setup#demo-chromatic-unlinked).
+We recommend signing up with email for projects that **are not** on GitHub, Bitbucket, or GitLab. For example, projects on services like Azure DevOps, AWS, etc. Read the setup instructions for these types of projects [here](/docs/faq/#demo-chromatic-unlinked).
 
 #### Single Sign-On (SSO)
 
@@ -153,7 +153,7 @@ The characteristics of an unlinked project include:
 - PR badging is manually configured in your CI provider.
 - Notifications are manually setup via Chromatic's [custom webhooks](/docs/integrations#custom-webhooks).
 
-Learn how to create an unlinked project [here](/docs/setup#demo-chromatic-unlinked).
+Learn how to create an unlinked project [here](/docs/faq/#demo-chromatic-unlinked).
 
 ---
 
