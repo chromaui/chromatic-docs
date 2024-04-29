@@ -20,6 +20,10 @@ For questions, contact our security team [security@chromatic.com](mailto:securit
 
 Chromatic is grateful to the following individuals for responsibly disclosing security issues, allowing us to make Chromatic safer for everyone.
 
+#### 2024
+
+- [Harish Harishwar](https://x.com/Hari_harishwar)
+
 #### 2023
 
 - [Rohit Sharma](https://www.linkedin.com/in/r0x5r/)
