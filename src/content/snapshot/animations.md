@@ -81,7 +81,7 @@ MotionGlobalConfig.skipAnimations = isChromatic();
 
 ## GIFs and Videos
 
-Chromatic automatically pauses videos and animated GIFs at their first frame.
+Chromatic automatically pauses videos and animated GIFs at their first frame, ensuring consistent visual tests without the need for custom workarounds. For videos, if you specify a poster, Chromatic will use that image instead.
 
 ## Animations that cannot be disabled
 
