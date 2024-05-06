@@ -38,6 +38,7 @@ export const footerColumns: FooterProps["columns"] = [
       { title: "Netlify", href: "/customers/netlify" },
       { title: "Monday.com", href: "/customers/monday" },
       { title: "Collective.work", href: "/customers/collective" },
+      { title: "ezCater", href: "/customers/ezcater" },
     ],
   },
   {

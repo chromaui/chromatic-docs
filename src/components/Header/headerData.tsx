@@ -2,6 +2,7 @@ import {
   CollectiveIcon,
   color,
   CypressIcon,
+  EzCaterIcon,
   FigmaIcon,
   MondayIcon,
   NetlifyIcon,
@@ -115,6 +116,26 @@ const links: LinksProps = {
     icon: "lock",
     iconColor: "green500",
     href: "/security",
+  },
+  netlify: {
+    title: "Netlify",
+    customIcon: <NetlifyIcon />,
+    href: "/customers/netlify",
+  },
+  monday: {
+    title: "monday.com",
+    customIcon: <MondayIcon />,
+    href: "/customers/monday",
+  },
+  collective: {
+    title: "Collective.work",
+    customIcon: <CollectiveIcon />,
+    href: "/customers/collective",
+  },
+  ezcater: {
+    title: "ezCater",
+    customIcon: <EzCaterIcon />,
+    href: "/customers/ezcater",
   },
 };
 
@@ -247,26 +268,26 @@ export const desktopData: HeaderProps["desktopData"] = [
             title: "Customer Stories",
           },
           {
+            ...links.netlify,
             type: "link",
-            title: "Netlify",
             description: "How Netlify rebranded in six weeks without bugs",
-            customIcon: <NetlifyIcon />,
-            href: "/customers/netlify",
           },
           {
+            ...links.monday,
             type: "link",
-            title: "monday.com",
             description: "How 200 developers speed up their frontend velocity",
-            customIcon: <MondayIcon />,
-            href: "/customers/monday",
           },
           {
+            ...links.collective,
             type: "link",
-            title: "Collective.work",
             description:
               "How to deliver personalized UX across borders & devices",
-            customIcon: <CollectiveIcon />,
-            href: "/customers/collective",
+          },
+          {
+            ...links.ezcater,
+            type: "link",
+            description:
+              "How to simultaneously test UI appearance & functionality",
           },
         ],
         backgroundColor: "white",
@@ -363,66 +384,37 @@ export const mobileData: HeaderProps["mobileData"] = [
     name: "Integrations",
     collapsible: true,
     content: [
-      {
-        ...links.storybook,
-      },
-      {
-        ...links.playwright,
-      },
-      {
-        ...links.cypress,
-      },
+      { ...links.storybook },
+      { ...links.playwright },
+      { ...links.cypress },
     ],
   },
   {
     name: "Use cases",
     collapsible: true,
     content: [
-      {
-        ...links.frontendTeams,
-      },
-      {
-        ...links.designSystems,
-      },
-      {
-        ...links.digitalAgencies,
-      },
+      { ...links.frontendTeams },
+      { ...links.designSystems },
+      { ...links.digitalAgencies },
     ],
   },
   {
     name: "Customer Stories",
     collapsible: true,
     content: [
-      {
-        title: "Netlify",
-        customIcon: <NetlifyIcon />,
-        href: "/customers/netlify",
-      },
-      {
-        title: "monday.com",
-        customIcon: <MondayIcon />,
-        href: "/customers/monday",
-      },
-      {
-        title: "Collective.work",
-        customIcon: <CollectiveIcon />,
-        href: "/customers/collective",
-      },
+      { ...links.netlify },
+      { ...links.monday },
+      { ...links.collective },
+      { ...links.ezcater },
     ],
   },
   {
     name: "Company",
     collapsible: true,
     content: [
-      {
-        ...links.aboutChromatic,
-      },
-      {
-        ...links.careers,
-      },
-      {
-        ...links.security,
-      },
+      { ...links.aboutChromatic },
+      { ...links.careers },
+      { ...links.security },
     ],
   },
 ];
