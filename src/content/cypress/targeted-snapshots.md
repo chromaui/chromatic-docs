@@ -15,16 +15,21 @@ By default, Chromatic takes a snapshot at the end of every Cypress test, whether
 ```js
 describe("My First Test", () => {
   it("Visits the Kitchen Sink", () => {
-    // 👇 navigate to target page
+    // 👇 Navigate to target page
     cy.visit("https://example.cypress.io");
 
-    // 📸 tell Chromatic to take a snapshot of the initial page state
+    // 📸 Tell Chromatic to take a snapshot of the initial page state
     cy.takeSnapshot();
 
-    // 👇 finish the test by opening the dropdown menu
+    // 👇 Finish the test by opening the dropdown menu
     cy.get(".dropdown:first-of-type > .dropdown-toggle").click();
 
-    // 📸 Chromatic automatically takes a snapshot here, at the end of the test
+    // You can call takeSnapshot multiple times if necessary.
+    // To help disambiguate, you can give the snapshot a name, 
+    // which is passed as an argument to takeSnapshot.
+    cy.takeSnapshot("After opening dropdown");
+
+    // 📸 Chromatic automatically takes a snapshot here, at the end of the test. 
   });
 });
 ```
