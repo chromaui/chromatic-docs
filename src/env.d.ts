@@ -4,3 +4,7 @@
 interface Window {
   docsearch(any): boolean;
 }
+
+interface ImportMetaEnv {
+  readonly HYGRAPH_ENDPOINT: string;
+}
