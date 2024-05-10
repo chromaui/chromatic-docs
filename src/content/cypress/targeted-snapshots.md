@@ -26,8 +26,10 @@ describe("My First Test", () => {
 
     // You can call takeSnapshot multiple times if necessary.
     // To help disambiguate, you can give the snapshot a name, 
-    // which is passed as an argument to takeSnapshot.
+    // which is passed as an argument to cy.takeSnapshot.
     cy.takeSnapshot("After opening dropdown");
+
+     cy.contains("Files").click();
 
     // 📸 Chromatic automatically takes a snapshot here, at the end of the test. 
   });
