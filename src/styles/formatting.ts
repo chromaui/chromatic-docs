@@ -206,6 +206,16 @@ export const formatting = css`
     list-style-type: disc;
   }
 
+  /* nested list */
+  li {
+    ol,
+    ul {
+      list-style-type: revert;
+      margin-top: 0.5em;
+      margin-bottom: 0.5em;
+    }
+  }
+
   div[class*="language-"] {
     margin: 1.5em 0;
 

@@ -1,0 +1,160 @@
+---
+import { Container } from "@chromaui/tetra";
+import { getCollection } from "astro:content";
+import "@docsearch/css";
+import SEO from "../components/SEO.astro";
+import Scripts from "../components/Scripts.astro";
+import { Wrapper } from "../components/Wrapper";
+import { MarketingFooter } from "../components/Footer/MarketingFooter";
+import { MarketingHeader } from "../components/Header/MarketingHeader";
+import { MainWrapper } from "../components/MainWrapper";
+import Navigation from "../components/Navigation/Navigation.astro";
+
+type Props = {
+  title: string;
+  description: string;
+};
+
+const { title, description } = Astro.props;
+const { pathname } = Astro.url;
+const overview = await getCollection("overview");
+const storybook = await getCollection("storybook");
+const playwright = await getCollection("playwright");
+const cypress = await getCollection("cypress");
+const configuration = await getCollection("configuration");
+const modes = await getCollection("modes");
+const snapshot = await getCollection("snapshot");
+const turbosnap = await getCollection("turbosnap");
+const collaborate = await getCollection("collaborate");
+const plugins = await getCollection("plugins");
+const ci = await getCollection("ci");
+const account = await getCollection("account");
+const guides = await getCollection("guides");
+const troubleshooting = await getCollection("troubleshooting");
+
+const navItems = [
+  {
+    title: "Overview",
+    items: overview,
+    defaultOpen: true,
+    timeline: true,
+  },
+  {
+    title: "Storybook",
+    items: storybook,
+    defaultOpen: false,
+    timeline: true,
+  },
+  {
+    title: "Playwright",
+    items: playwright,
+    timeline: true,
+  },
+  {
+    title: "Cypress",
+    items: cypress,
+    timeline: true,
+  },
+  {
+    title: "Guides",
+    items: guides,
+  },
+  {
+    title: "Configuration",
+    items: configuration,
+  },
+  {
+    title: "Modes",
+    items: modes,
+  },
+  {
+    title: "Snapshot",
+    items: snapshot,
+  },
+  {
+    title: "TurboSnap",
+    items: turbosnap,
+    timeline: true,
+  },
+  {
+    title: "Collaborate",
+    items: collaborate,
+  },
+  {
+    title: "CI",
+    items: ci,
+  },
+  {
+    title: "Plugins",
+    items: plugins,
+  },
+  {
+    title: "Account",
+    items: account,
+  },
+  {
+    title: "Troubleshooting",
+    items: troubleshooting,
+  },
+];
+
+const baseUrl = import.meta.env.BASE_URL;
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <SEO title={title} description={description} />
+    <link rel="sitemap" href="/docs/sitemap-index.xml" />
+    <link rel="stylesheet" href={`${baseUrl}/prism.css`} />
+    <style is:global>
+      :root {
+        --accent: 136, 58, 234;
+        --accent-light: 224, 204, 250;
+        --accent-dark: 49, 10, 101;
+        --accent-gradient: linear-gradient(
+          45deg,
+          rgb(var(--accent)),
+          rgb(var(--accent-light)) 30%,
+          white 60%
+        );
+      }
+
+      * {
+        box-sizing: border-box;
+        -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+        -webkit-tap-highlight-color: transparent; /* For some Androids */
+      }
+
+      html {
+        outline: none;
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
+      }
+
+      html,
+      body {
+        font-family: "Nunito Sans", "Helvetica Neue", Helvetica, Arial,
+          sans-serif;
+        background: #fff;
+        margin: 0;
+        padding: 0;
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
+      }
+    </style>
+    <Scripts />
+  </head>
+  <body>
+    <MarketingHeader client:visible />
+    <Container>
+      <MainWrapper>
+        <Navigation url={pathname.replace(/\/$/g, "")} navItems={navItems} />
+        <Wrapper>
+          <slot />
+        </Wrapper>
+      </MainWrapper>
+    </Container>
+    <MarketingFooter />
+  </body>
+</html>

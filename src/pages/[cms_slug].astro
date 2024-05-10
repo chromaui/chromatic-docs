@@ -1,0 +1,52 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+
+interface DocPage {
+  title: string;
+  slug: string;
+  body: {
+    html: string;
+  };
+}
+
+export async function getStaticPaths() {
+  const query = {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({
+      query: `
+      {
+        docPages {
+          title
+          slug
+          body {
+            html
+          }
+        }
+      }`,
+    }),
+  };
+
+  const response = await fetch(import.meta.env.HYGRAPH_ENDPOINT, query);
+  const json = await response.json();
+  const pages: DocPage[] = json.data.docPages;
+
+  return pages.map((page) => {
+    return {
+      params: {
+        cms_slug: page.slug,
+      },
+      props: {
+        ...page,
+      },
+    };
+  });
+}
+
+const { title, body } = Astro.props;
+---
+
+<BaseLayout title={title} description="">
+  <h1>{title}</h1>
+  <div set:html={body.html} />
+</BaseLayout>
