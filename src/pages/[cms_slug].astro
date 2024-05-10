@@ -27,6 +27,7 @@ export async function getStaticPaths() {
     }),
   };
 
+  console.log(import.meta.env.HYGRAPH_ENDPOINT);
   const response = await fetch(import.meta.env.HYGRAPH_ENDPOINT, query);
   const json = await response.json();
   const pages: DocPage[] = json.data.docPages;
