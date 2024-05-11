@@ -29,7 +29,7 @@ describe("My First Test", () => {
     // which is passed as an argument to cy.takeSnapshot.
     cy.takeSnapshot("After opening dropdown");
 
-     cy.contains("Files").click();
+    cy.contains("Files").click();
 
     // 📸 Chromatic automatically takes a snapshot here, at the end of the test. 
   });
