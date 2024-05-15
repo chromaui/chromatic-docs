@@ -81,6 +81,7 @@ export const base = css`
 
     font-size: 85%; // Relative font size based on size of surrounding text
     line-height: 1;
+    -webkit-text-size-adjust: 100%;
 
     padding: 3px 5px;
     color: inherit;
