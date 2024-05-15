@@ -11,12 +11,14 @@ A snapshot is an image of a story plus some metadata captured by a standardized 
 
 ## Table of contents:
 
-- [View snapshots for a story](#view-snapshots-for-a-story)
-- [How are snapshots captured?](#how-are-snapshots-captured)
-- [Improve snapshot consistency](#improve-snapshot-consistency)
-- [Debug snapshot rendering](#debug-snapshot-rendering)
-- [Rerun builds to retake snapshots](#rerun-builds-to-retake-snapshots)
-- [Browser differences between snapshots](#browser-differences-between-snapshots)
+- [Snapshots](#snapshots)
+  - [Table of contents:](#table-of-contents)
+  - [View snapshots for a story](#view-snapshots-for-a-story)
+  - [How are snapshots captured?](#how-are-snapshots-captured)
+  - [Improve snapshot consistency](#improve-snapshot-consistency)
+  - [Debug snapshot rendering](#debug-snapshot-rendering)
+  - [Rerun builds to retake snapshots](#rerun-builds-to-retake-snapshots)
+  - [Browser differences between snapshots](#browser-differences-between-snapshots)
 
 <div class="aside">
 
@@ -99,6 +101,69 @@ Image and font rendering can be tricky. Resources that load from unpredictable o
 - Using a [placeholder service](https://placeholder.com/).
 
 If your resources are behind a firewall, whitelist our domain so we can load your resources.
+
+</details>
+
+<details>
+<summary>Why am I seeing inconsistent snapshots for a component using srcset?</summary>
+
+The `srcset` attribute is a useful mechanism that provides the browser with a list of potential images to display, based on specified conditions such as media queries.
+
+In most cases, Chromatic will capture the correct image from the `srcset` list. However, if multiple tests list the same image in their respective `srcset` lists, browser cache issues can result in inconsistent snapshots.
+
+In situations like this, the best workaround is to make the `srcset` URLs unique for each test by adding a random query parameter value.
+
+For instance, one test could have a srcset with a query parameter of `?cachebuster=1714593641616`.
+
+```html
+<picture>
+  <source
+    sizes="(max-width: 768px) 100vw, 50vw"
+    type="image/webp"
+    srcset="
+​      https://placehold.co/384x384.webp?cachebuster=1714593641616 384w,
+​      https://placehold.co/640x640.webp?cachebuster=1714593641616 640w,
+​      https://placehold.co/750x750.webp?cachebuster=1714593641616 750w"
+  />
+  <img
+    alt="Alt text"
+    loading="eager"
+    width="1500"
+    height="1500"
+    decoding="async"
+    sizes="(max-width: 768px) 100vw, 50vw"
+    src="https://placehold.co/3840x3840.jpeg"
+    style="color: transparent;"
+  />
+</picture>
+```
+
+If another test uses the same images, they can alter the query parameter in the URL to `?currenttime=1714593641620`.
+
+```html
+<picture>
+  <source
+    sizes="(max-width: 768px) 100vw, 50vw"
+    type="image/webp"
+    srcset="
+​      https://placehold.co/384x384.webp?currenttime=1714593641620 384w,
+​      https://placehold.co/640x640.webp?currenttime=1714593641620 640w,
+​      https://placehold.co/750x750.webp?currenttime=1714593641620 750w"
+  />
+  <img
+    alt="Alt text"
+    loading="eager"
+    width="1500"
+    height="1500"
+    decoding="async"
+    sizes="(max-width: 768px) 100vw, 50vw"
+    src="https://placehold.co/3840x3840.jpeg"
+    style="color: transparent;"
+  />
+</picture>
+```
+
+Any query parameter name can be used, just so long as the value is unique to each test.
 
 </details>
 
