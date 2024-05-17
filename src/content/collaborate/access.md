@@ -143,10 +143,11 @@ You can link a project during the project creation process or afterward on the p
 
 #### Unlinked projects
 
-An unlinked project is perfect for teams that self-host Git or have enterprise Git providers (that aren't on Chromatic's enterprise plan). Unlinked projects are not linked to a repository on GitHub, Bitbucket, or GitLab. They do not automatically [sync collaborators](/docs/collaborators#project-collaborators) or badge pull requests.
+An unlinked project is perfect for teams that self-host Git or have enterprise Git providers (that aren't on Chromatic's enterprise plan). Unlinked projects still require Git; they are just not linked to a repository on GitHub, Bitbucket, or GitLab. They do not automatically [sync collaborators](/docs/collaborators#project-collaborators) or badge pull requests.
 
 The characteristics of an unlinked project include:
 
+- Your code is in a local or self-hosted repository.
 - You're using an email/password account OR a personal OAuth account.
 - Chromatic runs as a [CI-only](/docs/ci) job.
 - Collaborators are [manually managed](/docs/collaborators#external-collaborators) via an invite list.
