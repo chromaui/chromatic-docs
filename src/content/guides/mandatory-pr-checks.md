@@ -33,6 +33,37 @@ For GitHub repositories, mandatory status checks are configured as branch protec
 9. Now all pull requests to the protected branch will require the Chromatic checks to pass before merging.
    ![](../../images/github-mandatory-checks.png)
 
+### Bitbucket
+
+With BitBucket, some merge checks are already in place by default for pull requests. You can adjust that behavior with a custom configuration. Check out the following links for more information:
+
+- [Default merge checks](https://confluence.atlassian.com/bitbucketserver/checks-for-merging-pull-requests-776640039.html)
+- [Merge checklist](https://support.atlassian.com/bitbucket-cloud/docs/merge-a-pull-request/#Merge-checklist)
+- [Branch permissions](https://support.atlassian.com/bitbucket-cloud/docs/use-branch-permissions/)
+- [Merging strategies](https://support.atlassian.com/bitbucket-cloud/docs/suggest-or-require-checks-before-a-merge/)
+
+To customize default settings, adjust the default configuration by following these steps:
+
+1. Go to the repository settings
+2. Click on the **Branch restrictions** item
+3. Click on the **Add a branch restriction** button
+4. Adjust the settings as needed for the **branch permissions**
+   ![](../../images/bitbucket-branch-permission.png)
+5. Click the **Merge settings** tab to adjust the merge checks
+   ![](../../images/bitbucket-merge-settings.png)
+
+<div class="aside">Note: The items marked with a star are only available for premium accounts.</div>
+
 ### GitLab
 
-### Bitbucket
+You can set up the basic merge checks for your repository by following these steps:
+
+1. Go to the repository settings
+2. Select the **Merge requests** item
+3. Scroll down to the **Merge checks** section
+4. Enable the checks you want to have in place for your repository. At least the "Pipelines must succeed" check is recommended.
+   ![gitlab-merge-checks](../../images/gitlab-merge-protection.png)
+5. Now all merge request in GitLab will require the Chromatic checks to pass before merging.
+   ![GitLab-mr-UI-block](../../images/gitlab-mandatory-checks.png)
+
+This can extended by enabling [branch protection](https://docs.gitlab.com/ee/user/project/protected_branches.html) for the repository. For GitLab paid plans, you can set up [additional rules](https://docs.gitlab.com/ee/user/project/merge_requests/authorization_for_merge_requests.html) for the repository.
