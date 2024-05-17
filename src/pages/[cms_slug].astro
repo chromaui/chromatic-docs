@@ -27,6 +27,11 @@ export async function getStaticPaths() {
     }),
   };
 
+  // Don't fetch data in development mode
+  if (process.env.NODE_ENV === "development") {
+    return [];
+  }
+
   const response = await fetch(import.meta.env.HYGRAPH_ENDPOINT, query);
   const json = await response.json();
   const pages: DocPage[] = json.data.docPages;
