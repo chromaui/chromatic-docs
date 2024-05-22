@@ -5,25 +5,98 @@ description: Learn how to configure Chromatic with a custom provider
 sidebar: { order: 8, label: Other CI providers }
 ---
 
+import IntegrationSnippets from "../../components/IntegrationSnippets.astro";
+
 # Automate Chromatic with a custom provider
 
 Chromatic automation can be included as part of any CI provider with relative ease. We're here for you. Contact us through our in-app chat for further assistance.
 
-### Setup
+## Setup
 
-To integrate Chromatic with your existing CI provider, you'll need to add the following:
+To integrate Chromatic with your existing CI provider, you'll need to add the following to your workflow:
 
-```yml
-# your-workflow
+{/* prettier-ignore-start */}
 
-- run:
-    command: npm install # Installs dependencies
-- run:
-    command: npm test # Run your unit tests
-- run:
-    # 👇 Publish Storybook and run visual tests in Chromatic
-    command: npm run chromatic
-```
+<IntegrationSnippets>
+  <Fragment slot="storybook">
+    ```yml
+    # your-workflow
+    
+    image: node:iron
+
+    - run:
+        # ⚠️ See your package manager's documentation for the correct command to install dependencies in a CI environment.
+        command: npm ci
+    - run:
+        command: npm test
+    - run:
+         # 👇 Publish Storybook and run visual tests in Chromatic
+        command: npx chromatic
+    ```
+  </Fragment>
+  <Fragment slot="playwright">
+    ```yml
+    # your-workflow
+
+    image: node:iron
+
+    - run:
+        # ⚠️ See your package manager's documentation for the correct command to install dependencies in a CI environment.
+        command: npm ci 
+    - run:
+        name: "Playwright"
+        displayName: "Run Playwright tests"
+        container: mcr.microsoft.com/playwright:v1.44.0-jammy
+        options:
+          artifacts:
+            # Chromatic automatically defaults to the test-results directory.
+            # Replace with the path to your custom directory and adjust the CHROMATIC_ARCHIVE_LOCATION environment variable accordingly.
+            - custom/dir
+        command: npx playwright test
+    - run:
+        name: "Chromatic"
+        displayName: "Run Chromatic"
+        requires: [Playwright]
+        environment:
+          CHROMATIC_ARCHIVE_LOCATION: "custom/dir"
+        command: npx chromatic --playwright
+    ```
+</Fragment>
+<Fragment slot="cypress">
+    ```yml
+    # your-workflow
+
+    image: node:iron
+
+    - run:
+        # ⚠️ See your package manager's documentation for the correct command to install dependencies in a CI environment.
+        command: npm ci 
+    - run:
+        name: "Cypress"
+        displayName: "Run Cypress tests"
+        container: cypress/browsers:node-20.9.0-chrome-118.0.5993.88-1-ff-118.0.2-edge-118.0.2088.46-1
+        environment:
+          ELECTRON_EXTRA_LAUNCH_ARGS: "--remote-debugging-port=9222"
+        options:
+          artifacts:
+            # Chromatic automatically defaults to the cypress/downloads directory.
+            # Replace with the path to your custom directory and adjust the CHROMATIC_ARCHIVE_LOCATION environment variable accordingly. 
+            - custom/dir
+        command:
+          - npm run dev &
+          - npx cypress run
+    - run:
+        name: "Chromatic"
+        displayName: "Run Chromatic"
+        requires: [Cypress]
+        environment:
+          CHROMATIC_ARCHIVE_LOCATION: "custom/dir"
+        command: npx chromatic --cypress
+    ```
+</Fragment>
+</IntegrationSnippets>
+
+{/* prettier-ignore-end */}
 
 <div class="aside">
 
@@ -42,8 +115,8 @@ Chromatic is prepared to handle large file uploads (with a limit of 5000 files, 
 ```yml
 # your-workflow
 - run:
-    # 👇 Runs Chromatic with the flag to compress the build output.
-    command: npm run chromatic --zip
+ # 👇 Runs Chromatic with the flag to compress the build output.
+ command: npx chromatic --zip
 ```
 
 ### Run Chromatic on monorepos
@@ -62,11 +135,11 @@ If you've already built your Storybook in a separate CI step, you can alternativ
 
 # 👇 Runs Chromatic sequentially for each monorepo subproject.
 - run:
-    command: cd packages/project_1 && npm run chromatic
+    command: cd packages/project_1 && npx chromatic
     environment:
       CHROMATIC_PROJECT_TOKEN: $CHROMATIC_PROJECT_TOKEN_1
 - run:
-    command: cd packages/project_2 && npm run chromatic
+    command: cd packages/project_2 && npx chromatic
     environment:
       CHROMATIC_PROJECT_TOKEN: $CHROMATIC_PROJECT_TOKEN_2
 ```
@@ -79,11 +152,11 @@ If you want to run Chromatic in parallel for each subproject, you can use this s
 # 👇 Runs Chromatic in parallel for each monorepo subproject.
 - parallel:
     - run:
-        command: cd packages/project_1 && npm run chromatic
+        command: cd packages/project_1 && npx chromatic
         environment:
           CHROMATIC_PROJECT_TOKEN: $CHROMATIC_PROJECT_TOKEN_1
     - run:
-        command: cd packages/project_2 && npm run chromatic
+        command: cd packages/project_2 && npx chromatic
         environment:
           CHROMATIC_PROJECT_TOKEN: $CHROMATIC_PROJECT_TOKEN_2
 ```
@@ -97,7 +170,7 @@ TurboSnap is an advanced Chromatic feature implemented to improve the build time
 
 - run:
     # 👇 Enables Chromatic's TurboSnap feature.
-    command: npm run chromatic --only-changed
+    command: npx chromatic --only-changed
 ```
 
 <div class="aside">
@@ -116,7 +189,7 @@ In this case, you can adjust your workflow and include the `--branch-name` flag.
 # your-workflow
 - run:
     # 👇 Runs the Chromatic CLI with the --branch-name flag to override the baseline branch
-    command: npm run chromatic --branch-name=${YOUR_BRANCH}
+    command: npx chromatic --branch-name=${YOUR_BRANCH}
 ```
 
 Chromatic will now detect the correct branch and run your workflow. You can also apply this when fixing cross-fork UI comparisons.
@@ -136,7 +209,7 @@ If you are using pull request statuses as required checks before merging, you ma
 
 - run:
     # 👇 Runs Chromatic with the flag to prevent stage failure
-    command: npm run chromatic --exit-zero-on-changes
+    command: npx chromatic --exit-zero-on-changes
 ```
 
 <div class="aside">
@@ -155,7 +228,7 @@ If you deny any change, you will need to make the necessary code changes to fix 
 
 #### Maintain a clean "main" branch
 
-A clean `main` branch is a development **best practice** and **highly recommended** for Chromatic. This means testing your `main` branch to ensure builds are passing.  It's important to note that baselines will not persist through branching and merging unless you test your `main` branch.
+A clean `main` branch is a development **best practice** and **highly recommended** for Chromatic. This means testing your `main` branch to ensure builds are passing. It's important to note that baselines will not persist through branching and merging unless you test your `main` branch.
 
 If the builds are a result of direct commits to `main`, you will need to accept changes to keep the main branch clean. If they're merged from `feature-branches`, you will need to make sure those branches are passing _before_ you merge into `main`.
 
@@ -173,10 +246,10 @@ If you’re using this functionality but notice the incoming changes were not ac
 - run:
     # 👇 Checks if the current branch is not main and runs Chromatic
     if: branch != main
-      command: npm run chromatic
+      command: npx chromatic
     # 👇 Checks if the current branch is main and accepts all changes in Chromatic
     else:
-      command: npm run chromatic --auto-accept-changes
+      command: npx chromatic --auto-accept-changes
 ```
 
 <div class="aside">
@@ -202,7 +275,7 @@ One use case for this feature is skipping builds for branches created by a bot. 
 To skip builds for `dependabot` branches, use the following:
 
 ```shell
-chromatic --skip 'dependabot/**'
+npx chromatic --skip 'dependabot/**'
 ```
 
 <div class="aside">
@@ -214,7 +287,7 @@ Read our official [CLI documentation](/docs/cli#configuration-options).
 To apply this to multiple branches, use an "extended glob". See [picomatch] for details.
 
 ```shell
-chromatic --skip '@(renovate/**|dependabot/**)'
+npx chromatic --skip '@(renovate/**|dependabot/**)'
 ```
 
 [picomatch]: https://www.npmjs.com/package/picomatch#globbing-features

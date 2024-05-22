@@ -5,36 +5,140 @@ description: Learn how to configure Chromatic with Jenkins
 sidebar: { order: 6, label: Jenkins }
 ---
 
+import IntegrationSnippets from "../../components/IntegrationSnippets.astro";
+
 # Automate Chromatic with Jenkins
 
 Chromatic’s automation can be included as part of your Jenkins pipeline with relative ease.
 
-### Setup
+## Setup
 
 To integrate Chromatic with your existing [multistage pipeline](https://www.jenkins.io/doc/tutorials/build-a-multibranch-pipeline-project/), you'll need to add the following:
 
-```groovy
-/* JenkinsFile */
+{/* prettier-ignore-start */}
 
-pipeline {
-  /* Other pipeline configuration. */
+<IntegrationSnippets>
+  <Fragment slot="storybook">
+    ```groovy
+    /* JenkinsFile */
 
-  stages {
-    /* Other pipeline stages */
+    pipeline {
+      /* Other pipeline configuration. */
 
-    /* 👇 Adds Chromatic as a stage */
-    stage('Run Chromatic') {
-      environment {
-        CHROMATIC_PROJECT_TOKEN = credentials('chromatic-project-token')
-      }
-      steps {
-        /* 👇 Runs the Chromatic CLI */
-        sh "yarn chromatic"
+      stages {
+        /* Other pipeline stages */ 
+
+        /* 👇 Adds Chromatic as a stage */
+        stage('Run Chromatic') {
+          environment {
+            CHROMATIC_PROJECT_TOKEN = credentials('chromatic-project-token')
+          }
+          steps {
+            /* 👇 Runs the Chromatic CLI */
+            sh "npx chromatic"
+          }
+        }
       }
     }
-  }
-}
-```
+    ```
+  </Fragment>
+  <Fragment slot="playwright">
+     ```groovy
+     /* JenkinsFile */
+
+     pipeline {
+       /* Other pipeline configuration. */
+
+       stages {
+         /* Other pipeline stages */ 
+         
+         stage('Playwright') {
+           agent {
+             docker {
+               image 'mcr.microsoft.com/playwright:v1.44.0-jammy'
+               reuseNode true
+             }
+           }
+           steps {
+             sh 'npm ci'
+             sh 'npx playwright test'
+           }
+           post {
+             always {
+              /* 
+               Chromatic automatically defaults to the test-results directory. 
+               Replace with the path to your custom directory and adjust the CHROMATIC_ARCHIVE_LOCATION environment variable accordingly.
+              */
+               archiveArtifacts 'custom/dir/**'
+             }
+           }
+         }
+         stage('Run Chromatic'){
+           environment {
+             CHROMATIC_PROJECT_TOKEN = credentials('chromatic-project-token')
+             CHROMATIC_ARCHIVE_LOCATION = 'custom/dir'
+           }
+           steps {
+             /* 👇 Runs the Chromatic CLI */
+             sh "npx chromatic --playwright"
+           }
+         }
+       }
+     }
+    ```
+  </Fragment>
+  <Fragment slot="cypress">
+     ```groovy
+     /* JenkinsFile */
+
+     pipeline {
+       /* Other pipeline configuration. */
+       
+       stages {
+         /* Other pipeline stages */ 
+         
+         stage('Cypress') {
+           agent {
+             docker {
+               image 'cypress/browsers:node-20.9.0-chrome-118.0.5993.88-1-ff-118.0.2-edge-118.0.2088.46-1'
+               reuseNode true
+             }
+           }
+           environment {
+             ELECTRON_EXTRA_LAUNCH_ARGS = '--remote-debugging-port=9222' 
+           }
+           steps {
+             sh 'npm ci'
+             sh 'npm run dev &'
+             sh 'npx cypress run'
+           }
+           post {
+             always {
+              /* 
+               Chromatic automatically defaults to the cypress/downloads directory. 
+               Replace with the path to your custom directory and adjust the CHROMATIC_ARCHIVE_LOCATION environment variable accordingly.
+              */
+               archiveArtifacts 'custom/dir/**'
+             }
+           }
+         }
+         stage('Run Chromatic'){
+           environment {
+             CHROMATIC_PROJECT_TOKEN = credentials('chromatic-project-token')
+             CHROMATIC_ARCHIVE_LOCATION = 'custom/dir'
+           }
+           steps {
+             /* 👇 Runs the Chromatic CLI */
+             sh "npx chromatic --cypress"
+           }
+         }
+       }
+     }
+    ```
+  </Fragment>
+</IntegrationSnippets>
+
+{/* prettier-ignore-end */}
 
 <div class="aside">
 
@@ -65,7 +169,7 @@ pipeline {
       }
       steps {
         /* 👇 Runs the Chromatic CLI */
-        sh "yarn chromatic"
+        sh "npx chromatic"
       }
     }
   }
@@ -100,7 +204,7 @@ pipeline {
       }
       steps {
         /* 👇 Runs Chromatic with the flag to compress the build output. */
-        sh "yarn chromatic --zip"
+        sh "npx chromatic --zip"
       }
     }
   }
@@ -136,10 +240,10 @@ pipeline {
       /* 👇 Runs Chromatic sequentially for each monorepo subproject. */
       steps {
         dir('packages/project_1/'){
-          sh "yarn chromatic --project-token=${CHROMATIC_PROJECT_TOKEN_1}"
+          sh "npx chromatic --project-token=${CHROMATIC_PROJECT_TOKEN_1}"
         }
         dir('packages/project_2/'){
-          sh "yarn chromatic --project-token=${CHROMATIC_PROJECT_TOKEN_2}"}"
+          sh "npx chromatic --project-token=${CHROMATIC_PROJECT_TOKEN_2}"}"
       }
     }
   }
@@ -167,7 +271,7 @@ pipeline {
           }
           steps {
             dir('packages/project_1/'){
-              sh "yarn chromatic --project-token=${CHROMATIC_PROJECT_TOKEN_1}"
+              sh "npx chromatic --project-token=${CHROMATIC_PROJECT_TOKEN_1}"
             }
           }
         }
@@ -177,12 +281,13 @@ pipeline {
           }
           steps {
             dir('packages/project_2/'){
-              sh "yarn chromatic --project-token=${CHROMATIC_PROJECT_TOKEN_2}"
+              sh "npx chromatic --project-token=${CHROMATIC_PROJECT_TOKEN_2}"
             }
           }
         }
       }
     }
+  }
 }
 ```
 
@@ -206,7 +311,7 @@ pipeline {
       }
       steps {
         /* 👇 Enables Chromatic's TurboSnap feature. */
-        sh "yarn chromatic --only-changed"
+        sh "npx chromatic --only-changed"
       }
     }
   }
@@ -242,7 +347,7 @@ pipeline {
       }
       steps {
         /* 👇 Runs the Chromatic CLI --branch-name flag to override the baseline branch */
-        sh "yarn chromatic --branch-name=${YOUR_BRANCH}"
+        sh "npx chromatic --branch-name=${YOUR_BRANCH}"
       }
     }
   }
@@ -288,7 +393,7 @@ pipeline {
       }
       steps {
         /* 👇 Runs Chromatic with the flag to prevent stage failure */
-        sh "yarn chromatic --exit-zero-on-changes"
+        sh "npx chromatic --exit-zero-on-changes"
       }
     }
   }
@@ -301,7 +406,7 @@ Read our official [CLI documentation](/docs/cli#configuration-options).
 
 </div>
 
-When using `--exit-zero-on-changes` your pipeline will still stop and fail if your Storybook contains stories that error. If you'd prefer Chromatic _never_ to block your pipeline, you can use `yarn chromatic || true`.
+When using `--exit-zero-on-changes` your pipeline will still stop and fail if your Storybook contains stories that error. If you'd prefer Chromatic _never_ to block your pipeline, you can use `npx chromatic || true`.
 
 #### Re-run failed builds after verifying UI test results
 
@@ -311,7 +416,7 @@ If you deny any change, you will need to make the necessary code changes to fix 
 
 #### Maintain a clean "main" branch
 
-A clean `main` branch is a development **best practice** and **highly recommended** for Chromatic. This means testing your `main` branch to ensure builds are passing.  It's important to note that baselines will not persist through branching and merging unless you test your `main` branch.
+A clean `main` branch is a development **best practice** and **highly recommended** for Chromatic. This means testing your `main` branch to ensure builds are passing. It's important to note that baselines will not persist through branching and merging unless you test your `main` branch.
 
 If the builds are a result of direct commits to `main`, you will need to accept changes to keep the main branch clean. If they're merged from `feature-branches`, you will need to make sure those branches are passing _before_ you merge into `main`.
 
@@ -341,7 +446,7 @@ pipeline {
         CHROMATIC_PROJECT_TOKEN = credentials('chromatic-project-token')
       }
       steps {
-        sh "yarn chromatic"
+        sh "npx chromatic"
       }
     }
     /* 👇 Checks if the current branch is main and runs Chromatic with the flag to accept all changes */
@@ -353,7 +458,7 @@ pipeline {
         CHROMATIC_PROJECT_TOKEN = credentials('chromatic-project-token')
       }
       steps {
-        sh "yarn chromatic --auto-accept-changes"
+        sh "npx chromatic --auto-accept-changes"
       }
     }
   }
@@ -386,7 +491,7 @@ pipeline {
       }
       steps {
         /* 👇 Option to skip the last build on target branch */
-        sh "yarn chromatic --ignore-last-build-on-branch=my-branch"
+        sh "npx chromatic --ignore-last-build-on-branch=my-branch"
       }
     }
   }
@@ -416,7 +521,7 @@ One use case for this feature is skipping builds for branches created by a bot. 
 To skip builds for `dependabot` branches, use the following:
 
 ```shell
-chromatic --skip 'dependabot/**'
+npx chromatic --skip 'dependabot/**'
 ```
 
 <div class="aside">
@@ -428,7 +533,7 @@ Read our official [CLI documentation](/docs/cli#configuration-options).
 To apply this to multiple branches, use an "extended glob". See [picomatch] for details.
 
 ```shell
-chromatic --skip '@(renovate/**|dependabot/**)'
+npx chromatic --skip '@(renovate/**|dependabot/**)'
 ```
 
 [picomatch]: https://www.npmjs.com/package/picomatch#globbing-features

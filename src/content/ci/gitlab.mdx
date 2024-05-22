@@ -5,54 +5,171 @@ description: Learn how to configure Chromatic with GitLab
 sidebar: { order: 2, label: Gitlab Pipelines }
 ---
 
+import IntegrationSnippets from "../../components/IntegrationSnippets.astro";
+
 # Automate Chromatic with GitLab Pipelines
 
 Chromatic’s automation can be included as part of your GitLab pipeline workflow with relative ease.
 
-### Setup
+## Setup
 
 To integrate Chromatic with your existing pipeline, you'll need to add the following:
 
-```yml
-# .gitlab-ci.yml
+{/* prettier-ignore-start */}
 
-# Sets the docker image for the job
-image: node:latest
+<IntegrationSnippets>
+  <Fragment slot="storybook">
+    ```yml
+    # .gitlab-ci.yml
 
-# Sets the stages for the pipeline
-stages:
-  - test
+    image: node:iron
 
-# Cache the dependencies
-cache:
-  key: $CI_COMMIT_REF_SLUG-$CI_PROJECT_DIR
-  paths:
-    - .yarn
+    stages:
+      - UI_Tests
+    
+    cache:
+      key: $CI_COMMIT_REF_SLUG-$CI_PROJECT_DIR
+      paths:
+        - .npm/
 
-# Installs the dependencies
-before_script:
-  - yarn install --frozen-lockfile --prefer-offline --cache-folder .yarn
+    before_script:
+      # ⚠️ See your package manager's documentation for the correct command to install dependencies in a CI environment.
+      - npm ci
+    
+    Chromatic:
+      stage: UI_Tests
+      script:
+        - npx chromatic
+    ```
+  </Fragment>
+  <Fragment slot="playwright">
+    ```yml
+    # .gitlab-ci.yml
 
-# 👇 Adds Chromatic as a job
-chromatic_publish:
-  stage: test
-  script:
-    - yarn chromatic
-  # Interruptible is optional, but recommended. It will save you build minutes.
-  # The external chromatic status checks won't cancel by default, so you'll
-  # end up with a lot of redundant builds that don't cancel each other.
-  interruptible: true
-```
+    image: node:iron
+
+    stages:
+      - UI_Tests
+
+    cache:
+      key: $CI_COMMIT_REF_SLUG-$CI_PROJECT_DIR
+      paths:
+        - .npm/
+    
+    before_script:
+      # ⚠️ See your package manager's documentation for the correct command to install dependencies in a CI environment.
+      - npm ci
+
+    Playwright:
+      stage: UI_Tests
+      needs: []
+      image: mcr.microsoft.com/playwright:v1.44.0-jammy
+      script:
+        - npx playwright test
+      allow_failure: true
+      artifacts:
+        when: always
+        paths:
+          # Chromatic automatically defaults to the cypress/downloads directory.
+          # Replace with the path to your custom directory and adjust the CHROMATIC_ARCHIVE_LOCATION environment variable accordingly. 
+          - "custom/dir/"
+        expire_in: 4 weeks
+    Chromatic:
+      stage: UI_Tests
+      needs: [Playwright]
+      variables:
+        CHROMATIC_ARCHIVE_LOCATION: "custom/dir/"
+      script:
+        - npx chromatic --playwright
+    ```
+  </Fragment>
+  <Fragment slot="cypress">
+    ```yml
+    # .gitlab-ci.yml
+
+    image: node:iron
+
+    stages:
+      - UI_Tests
+    
+    cache:
+      key: $CI_COMMIT_REF_SLUG-$CI_PROJECT_DIR
+      paths:
+        - .npm/
+        - cache/Cypress
+    
+    before_script:
+      # ⚠️ See your package manager's documentation for the correct command to install dependencies in a CI environment.
+      - npm ci
+
+    Cypress:
+      stage: UI_Tests
+      needs: []
+      image: cypress/browsers:node-20.9.0-chrome-118.0.5993.88-1-ff-118.0.2-edge-118.0.2088.46-1
+      variables:
+        ELECTRON_EXTRA_LAUNCH_ARGS: "--remote-debugging-port=9222"
+      script:
+        - npm run dev &
+        - npx cypress run
+      allow_failure: true
+      artifacts:
+        when: always
+        paths:
+          # Chromatic automatically defaults to the cypress/downloads directory.
+          # Replace with the path to your custom directory and adjust the CHROMATIC_ARCHIVE_LOCATION environment variable accordingly.
+          - "custom/dir/"
+        expire_in: 4 weeks
+    Chromatic:
+      stage: UI_Tests
+      needs: [Cypress]
+      variables:
+        CHROMATIC_ARCHIVE_LOCATION: "custom/dir/"
+      script:
+        - npx chromatic --cypress
+    ```
+  </Fragment>
+</IntegrationSnippets>
+
+{/* prettier-ignore-end */}
 
 <div class="aside">
-
-Use [interruptible](https://docs.gitlab.com/16.3/ee/ci/yaml/index.html#interruptible) if a job should be canceled when a newer pipeline starts before the job completes. This is the recommended strategy as the external status checks won't update by default, even if you create a new build for the same branch.
-
-This keyword has no effect if [automatic cancellation of redundant pipelines](https://docs.gitlab.com/16.3/ee/ci/pipelines/settings.html#auto-cancel-redundant-pipelines) is disabled. When enabled, a running job with interruptible: true is cancelled when starting a pipeline for a new change on the same branch.
 
 We recommend saving the project token as a masked environment variable named `CHROMATIC_PROJECT_TOKEN` for security reasons. When the Chromatic CLI is executed, it will read the environment variable automatically without any additional flags. Refer to the official GitLab [environment variables documentation](https://docs.gitlab.com/ee/ci/variables/index.html#mask-a-cicd-variable) to learn more about it.
 
 </div>
+
+### Performance optimization
+
+To improve the performance of your pipeline, you can use the [interruptible](https://docs.gitlab.com/ee/ci/yaml/#interruptible) option if a job should be canceled when a newer pipeline starts before the job completes. This is the recommended strategy as the external status checks won't update by default, even if you create a new build for the same branch.
+
+This keyword has no effect if [automatic cancellation of redundant pipelines](https://docs.gitlab.com/ee/ci/pipelines/settings.html#auto-cancel-redundant-pipelines) is disabled. When enabled, a running job with `interruptible: true` is canceled when starting a pipeline for a new change on the same branch.
+
+```yml
+# .gitlab-ci.yml
+
+image: node:iron
+
+stages:
+  - UI_Tests
+
+cache:
+  key: $CI_COMMIT_REF_SLUG-$CI_PROJECT_DIR
+  paths:
+    - .npm/
+
+before_script:
+  # ⚠️ See your package manager's documentation for the correct command to install dependencies in a CI environment.
+  - npm ci
+
+Chromatic:
+  stage: UI_Tests
+  script:
+    - npx chromatic
+
+  # The external Chromatic status checks won't be canceled when a newer pipeline starts before the job completes saving you build minutes
+  # You may get an increase in the number of builds, but they won't cancel each other.
+  interruptible: true
+```
 
 ### Run Chromatic on specific branches
 
@@ -65,13 +182,13 @@ If you need to customize your workflow to run Chromatic on specific branches, ad
 
 # Sets the stages for the pipeline
 stages:
-  - test
+  - UI_Tests
 
 # 👇 Adds Chromatic as a job
-chromatic_publish:
-  stage: test
+Chromatic:
+  stage: UI_Tests
   script:
-    - yarn chromatic
+    - npx chromatic
 
   #👇Filters the execution to run only on the main branch.
   rules:
@@ -98,14 +215,14 @@ Chromatic is prepared to handle large file uploads (with a limit of 5000 files, 
 
 # Sets the stages for the pipeline
 stages:
-  - test
+  - UI_Tests
 
 # 👇 Adds Chromatic as a job
-chromatic_publish:
-  stage: test
+Chromatic:
+  stage: UI_Tests
   # 👇 Runs Chromatic with the flag to compress the build output.
   script:
-    - yarn chromatic --zip
+    - npx chromatic --zip
 ```
 
 ### Run Chromatic on monorepos
@@ -119,6 +236,8 @@ Chromatic can be run on monorepos that have multiple subprojects. Each subprojec
 
 If you've already built your Storybook in a separate CI step, you can alternatively point the action at the build output using the `storybookBuildDir` parameter.
 
+{/* Check this and adjust */}
+
 ```yml
 # .gitlab-ci.yml
 
@@ -126,26 +245,26 @@ If you've already built your Storybook in a separate CI step, you can alternativ
 
 # Sets the stages for the pipeline
 stages:
-  - test
+  - UI_Tests
 
 # 👇 Runs Chromatic in parallel for each monorepo subproject.
-chromatic_publish_project_1:
-  stage: test
+Chromatic_publish_project_1:
+  stage: UI_Tests
   before_script:
     # Other steps
     - cd packages/project_1
   script:
-    - yarn chromatic
+    - npx chromatic
   variables:
     CHROMATIC_PROJECT_TOKEN: $CHROMATIC_PROJECT_TOKEN_1
 
 chromatic_publish_project_2:
-  stage: test
+  stage: UI_Tests
   before_script:
     # Other steps
     - cd packages/project_2
   script:
-    - yarn chromatic
+    - npx chromatic
   variables:
     CHROMATIC_PROJECT_TOKEN: $CHROMATIC_PROJECT_TOKEN_2
 ```
@@ -165,10 +284,6 @@ GitLab performs a shallow clone by default, which can lead to required patch bui
 
 # Additional pipeline configurations
 
-# Sets the stages for the pipeline
-stages:
-  - test
-
 # 👇 Sets the depth to fetch all git history
 variables:
   GIT_DEPTH: 0
@@ -185,14 +300,14 @@ TurboSnap is an advanced Chromatic feature implemented to improve the build time
 
 # Sets the stages for the pipeline
 stages:
-  - test
+  - UI_Tests
 
 # 👇 Adds Chromatic as a job
-chromatic_publish:
-  stage: test
+Chromatic:
+  stage: UI_Tests
   # 👇 Enables Chromatic's TurboSnap feature.
   script:
-    - yarn chromatic --only-changed
+    - npx chromatic --only-changed
 ```
 
 <div class="aside">
@@ -216,14 +331,14 @@ If you are using pull request statuses as required checks before merging, you ma
 
 # Sets the stages for the pipeline
 stages:
-  - test
+  - UI_Tests
 
 # 👇 Adds Chromatic as a job
-chromatic_publish:
-  stage: test
+Chromatic:
+  stage: UI_Tests
   # 👇 Runs Chromatic with the flag to prevent pipeline failure
   script:
-    - yarn chromatic --exit-zero-on-changes
+    - npx chromatic --exit-zero-on-changes
 ```
 
 <div class="aside">
@@ -232,7 +347,7 @@ Read our official [CLI documentation](/docs/cli#configuration-options).
 
 </div>
 
-When using `--exit-zero-on-changes` your pipeline execution still stop and fail if your Storybook contains stories that error. If you'd prefer Chromatic _never_ to block your pipeline, you can use `yarn chromatic || true`.
+When using `--exit-zero-on-changes` your pipeline execution still stop and fail if your Storybook contains stories that error. If you'd prefer Chromatic _never_ to block your pipeline, you can use `npx chromatic || true`.
 
 #### Re-run failed builds after verifying UI test results
 
@@ -242,7 +357,7 @@ If you deny any change, you will need to make the necessary code changes to fix 
 
 #### Maintain a clean "main" branch
 
-A clean `main` branch is a development **best practice** and **highly recommended** for Chromatic. This means testing your `main` branch to ensure builds are passing.  It's important to note that baselines will not persist through branching and merging unless you test your `main` branch.
+A clean `main` branch is a development **best practice** and **highly recommended** for Chromatic. This means testing your `main` branch to ensure builds are passing. It's important to note that baselines will not persist through branching and merging unless you test your `main` branch.
 
 If the builds are a result of direct commits to `main`, you will need to accept changes to keep the main branch clean. If they're merged from `feature-branches`, you will need to make sure those branches are passing _before_ you merge into `main`.
 
@@ -259,22 +374,22 @@ If you’re using this functionality but notice the incoming changes were not ac
 
 # Sets the stages for the pipeline
 stages:
-  - test
+  - UI_Tests
 
-  # 👇 Checks if the branch is main and runs Chromatic with the flag to accept all changes.
-chromatic_publish_auto_accept_changes:
-  stage: test
+# 👇 Checks if the branch is not main and runs Chromatic
+Chromatic_Auto_Accept_Changes:
+  stage: UI_Tests
   script:
-    - yarn chromatic --auto-accept-changes
+    - npx chromatic --auto-accept-changes
   rules:
     - if: $CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH
       when: always
 
   # 👇 Checks if the branch is not main and runs Chromatic
-chromatic_publish:
-  stage: test
+Chromatic:
+  stage: UI_Tests
   script:
-    - yarn chromatic
+    - npx chromatic
   rules:
     - if: '$CI_PIPELINE_SOURCE == "merge_request_event"'
       when: always
@@ -298,14 +413,14 @@ If you want to test the changes introduced by the rebased branch, you can adjust
 
 # Sets the stages for the pipeline
 stages:
-  - test
+  - UI_Tests
 
 # 👇 Adds Chromatic as a job
-chromatic_publish:
-  stage: test
+Chromatic:
+  stage: UI_Tests
   script:
     # 👇 Option to skip the last build on target branch
-    - yarn chromatic --ignore-last-build-on-branch=my-branch
+    - npx chromatic --ignore-last-build-on-branch=my-branch
 ```
 
 <div class="aside">
@@ -331,7 +446,7 @@ One use case for this feature is skipping builds for branches created by a bot. 
 To skip builds for `renovate` branches, use the following:
 
 ```shell
-chromatic --skip 'renovate/**'
+npx chromatic --skip 'renovate/**'
 ```
 
 <div class="aside">
@@ -343,7 +458,7 @@ Read our official [CLI documentation](/docs/cli#configuration-options).
 To apply this to multiple branches, use an "extended glob". See [picomatch] for details.
 
 ```shell
-chromatic --skip '@(renovate/**|your-custom-branch/**)'
+npx chromatic --skip '@(renovate/**|your-custom-branch/**)'
 ```
 
 [picomatch]: https://www.npmjs.com/package/picomatch#globbing-features

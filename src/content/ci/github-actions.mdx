@@ -28,19 +28,19 @@ In your `.github/workflows` directory, create a new file called `chromatic.yml` 
 
     jobs:
       chromatic:
+        name: Run Chromatic
         runs-on: ubuntu-latest
         steps:
           - name: Checkout code
             uses: actions/checkout@v4
             with:
               fetch-depth: 0
-
+          - uses: actions/setup-node@v4
+            with:
+              node-version: 20
           - name: Install dependencies
-            # ⚠️ Pick one of these, matching the package manager for your project
+            # ⚠️ See your package manager's documentation for the correct command to install dependencies in a CI environment.
             run: npm ci
-            # run: pnpm install
-            # run: yarn install --immutable --immutable-cache --check-cache
-
           - name: Run Chromatic
             uses: chromaui/action@latest
             with:
@@ -57,24 +57,51 @@ In your `.github/workflows` directory, create a new file called `chromatic.yml` 
     on: push
 
     jobs:
-      chromatic:
+      playwright:
         runs-on: ubuntu-latest
+        container:
+          image: mcr.microsoft.com/playwright:v1.44.0-jammy
         steps:
-          - name: Checkout code
-            uses: actions/checkout@v4
+          - uses: actions/checkout@v4
             with:
               fetch-depth: 0
-
+          - uses: actions/setup-node@v4
+            with:
+              node-version: 20    
           - name: Install dependencies
-            # ⚠️ Pick one of these, matching the package manager for your project
+            # ⚠️ See your package manager's documentation for the correct command to install dependencies in a CI environment.
             run: npm ci
-            # run: pnpm install
-            # run: yarn install --immutable --immutable-cache --check-cache
-
-          # ...
-          # Your existing setup to run Playwright tests
-          # ...
-
+          - name: Run Playwright tests
+            run: npx playwright test
+            env:
+              HOME: /root
+          - uses: actions/upload-artifact@v4
+            if: always()
+            with:
+              # Chromatic automatically defaults to the test-results directory. 
+              # Replace with the path to your custom directory and adjust the CHROMATIC_ARCHIVE_LOCATION environment variable accordingly. 
+              name: test-results
+              path: custom/dir
+              retention-days: 30
+      chromatic:
+        name: Run Chromatic
+        needs: playwright
+        runs-on: ubuntu-latest
+        steps:
+          - uses: actions/checkout@v4
+            with:
+              fetch-depth: 0
+          - uses: actions/setup-node@v4
+            with:
+              node-version: 20
+          - name: Install dependencies
+             # ⚠️ See your package manager's documentation for the correct command to install dependencies in a CI environment.
+            run: npm ci
+          - name: Download Playwright test results
+            uses: actions/download-artifact@v4
+            with:
+              name: test-results
+              path: custom/dir
           - name: Run Chromatic
             uses: chromaui/action@latest
             with:
@@ -95,24 +122,57 @@ In your `.github/workflows` directory, create a new file called `chromatic.yml` 
     on: push
 
     jobs:
+      cypress:
+        name: Run Cypress
+        runs-on: ubuntu-latest
+        container:
+          image: cypress/browsers:node-20.9.0-chrome-118.0.5993.88-1-ff-118.0.2-edge-118.0.2088.46-1
+          options: --user 1001
+        steps:
+          - uses: actions/checkout@v4
+            with:
+              fetch-depth: 0
+          - uses: actions/setup-node@v4
+            with:
+              node-version: 20
+          - name: Install dependencies
+            # ⚠️ See your package manager's documentation for the correct command to install dependencies in a CI environment.
+            run: npm ci
+          - name: Run Cypress tests
+            uses: cypress-io/github-action@v6
+            env:
+              ELECTRON_EXTRA_LAUNCH_ARGS: "--remote-debugging-port=9222"
+            with: 
+              start: npm run dev
+            with: 
+              start: npm run dev
+          - uses: actions/upload-artifact@v4
+            with:
+              # Chromatic automatically defaults to the cypress/downloads directory. 
+              # Replace with the path to your custom directory and adjust the CHROMATIC_ARCHIVE_LOCATION environment variable accordingly.
+              name: test-results
+              path: custom/dir
+              retention-days: 30
       chromatic:
+        name: Run Chromatic
+        needs: cypress
         runs-on: ubuntu-latest
         steps:
           - name: Checkout code
             uses: actions/checkout@v4
             with:
               fetch-depth: 0
-
+          - uses: actions/setup-node@v4
+            with:
+              node-version: 20
           - name: Install dependencies
-            # ⚠️ Pick one of these, matching the package manager for your project
+            # ⚠️ See your package manager's documentation for the correct command to install dependencies in a CI environment.
             run: npm ci
-            # run: pnpm install
-            # run: yarn install --immutable --immutable-cache --check-cache
-
-          # ...
-          # Your existing setup to run Cypress tests
-          # ...
-
+          - name: Download Cypress test results
+            uses: actions/download-artifact@v4
+            with:
+              name: test-results
+              path: custom/dir
           - name: Run Chromatic
             uses: chromaui/action@latest
             with:
@@ -484,7 +544,7 @@ If you deny any change, you will need to make the necessary code changes to fix 
 
 #### Maintain a clean "main" branch
 
-A clean `main` branch is a development **best practice** and **highly recommended** for Chromatic. This means testing your `main` branch to ensure builds are passing.  It's important to note that baselines will not persist through branching and merging unless you test your `main` branch.
+A clean `main` branch is a development **best practice** and **highly recommended** for Chromatic. This means testing your `main` branch to ensure builds are passing. It's important to note that baselines will not persist through branching and merging unless you test your `main` branch.
 
 If the builds result from direct commits to `main`, you must accept changes to keep the main branch clean. If they're merged from `feature-branches`, you must ensure those branches are passing _before_ you merge into `main`.
 
@@ -665,18 +725,15 @@ jobs:
           fetch-depth: 0
 
       - name: ⎔ Setup node
-        uses: actions/setup-node@v3
+        uses: actions/setup-node@v4
         with:
           cache: npm
           cache-dependency-path: ./package.json
-          node-version: 16
-
+          node-version: 20
       - name: 📥 Install deps
         run: npm install
-
       - name: Build Storybook
         run: npm run build-storybook
-
       - name: ⚡ Run chromatic
         uses: chromaui/action@latest
         # Chromatic GitHub Action options
