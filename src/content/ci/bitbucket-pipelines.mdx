@@ -5,34 +5,130 @@ description: Learn how to configure Chromatic with BitBucket Pipelines
 sidebar: { order: 3, label: Bitbucket Pipelines }
 ---
 
+import IntegrationSnippets from "../../components/IntegrationSnippets.astro";
+
 # Automate Chromatic with BitBucket Pipelines
 
 Chromatic’s automation can be included as part of your BitBucket pipeline workflow with relative ease.
 
-### Setup
+## Setup
 
 To integrate Chromatic with your existing pipeline, you'll need to add the following:
 
-```yml
-# bitbucket-pipelines.yml
+{/* prettier-ignore-start */}
 
-image: node:16
+<IntegrationSnippets>
+  <Fragment slot="storybook">
+    ```yml
+    # bitbucket-pipelines.yml
 
-# A sample pipeline implementation
-pipelines:
-  default:
-    # Other steps in the pipeline
+    image: node:iron
+    
+    definitions:
+      caches:
+        npm: $HOME/.npm
+    
+    pipelines:
+      default:
+        - stage:
+            name: "UI Tests"
+            steps:
+              - step:
+                  name: "Run Chromatic"
+                  caches:
+                    - npm
+                    - node
+                  script:
+                    # ⚠️ See your package manager's documentation for the correct command to install dependencies in a CI environment.
+                    - npm ci
+                    - npx chromatic
+    ```
+  </Fragment>
+  <Fragment slot="playwright">
+    ```yml
+    # bitbucket-pipelines.yml
 
-    # 👇 Adds Chromatic as a step
-    - step:
-        name: "Run Chromatic"
-        caches:
-          - node
-        script:
-          - yarn install
-            # 👇 Runs Chromatic
-          - yarn chromatic
-```
+    image: node:iron
+
+    definitions:
+      caches:
+        npm: $HOME/.npm
+
+    pipelines:
+      default:
+        - stage:
+            name: "UI Tests"
+            steps:
+              - step:
+                  name: "Playwright"
+                  image: mcr.microsoft.com/playwright:v1.44.0-jammy
+                  caches:
+                    - npm
+                    - node
+                  script:
+                    # ⚠️ See your package manager's documentation for the correct command to install dependencies in a CI environment.
+                    - npm ci
+                    - npx playwright test
+                  artifacts:
+                    # Chromatic automatically defaults to the test-results directory. 
+                    # Replace with the path to your custom directory and adjust the CHROMATIC_ARCHIVE_LOCATION environment variable accordingly. 
+                    - custom/dir/**
+              - step:
+                  name: "Run Chromatic"
+                  caches:
+                    - npm
+                    - node
+                  script:
+                    - npm ci
+                    - npx chromatic --playwright
+    ```
+  </Fragment>
+  <Fragment slot="cypress">
+    ```yml
+    # bitbucket-pipelines.yml
+    
+    image: node:iron
+
+    definitions:
+      caches:
+        npm: $HOME/.npm
+        cypress: $HOME/.cache/Cypress
+    
+    pipelines:
+      default:
+        - stage:
+            name: "UI Tests"
+            steps:
+              - step:
+                name: "Cypress"
+                # Configure the ELECTRON_EXTRA_LAUNCH_ARGS environment variable in your project settings to run Cypress tests with Chromatic.
+                image: cypress/browsers:node-20.9.0-chrome-118.0.5993.88-1-ff-118.0.2-edge-118.0.2088.46-1
+                caches:
+                  - npm
+                  - node
+                  - cypress
+                script:
+                  # ⚠️ See your package manager's documentation for the correct command to install dependencies in a CI environment.
+                  - npm ci
+                  - npm run dev &
+                  - npx cypress run
+                artifacts:
+                  # Chromatic automatically defaults to the cypress/downloads directory. 
+                  # Replace with the path to your custom directory and adjust the CHROMATIC_ARCHIVE_LOCATION environment variable accordingly. 
+                  - custom/dir/**
+              - step:
+                  name: "Run Chromatic"
+                  caches:
+                    - npm
+                    - node
+                  script:
+                    - npm ci
+                    - npx chromatic --cypress
+    ```
+  </Fragment>
+</IntegrationSnippets>
+
+{/* prettier-ignore-end */}
 
 <div class="aside">
 
@@ -57,7 +153,8 @@ pipelines:
     main:
       - step:
           script:
-            - yarn chromatic
+            - npm ci
+            - npx chromatic
 ```
 
 <div class="aside">
@@ -85,9 +182,9 @@ pipelines:
         name: "Run Chromatic"
         # Other pipeline configuration
         script:
-          - yarn install
+          - npm ci
             # 👇 Runs Chromatic with the flag to compress the build output.
-          - yarn chromatic --zip
+          - npx chromatic --zip
 ```
 
 ### Run Chromatic on monorepos
@@ -115,17 +212,17 @@ pipelines:
         # Other pipeline configuration
         script:
           - CHROMATIC_PROJECT_TOKEN=$CHROMATIC_PROJECT_TOKEN_1
-          - yarn install
+          - npm ci
           - cd packages/project_1
-          - yarn chromatic
+          - npx chromatic
     - step:
         name: "Publish Project 2 to Chromatic"
         # Other pipeline configuration
         script:
           - CHROMATIC_PROJECT_TOKEN=$CHROMATIC_PROJECT_TOKEN_2
-          - yarn install
+          - npm ci
           - cd packages/project_2
-          - yarn chromatic
+          - npx chromatic
 ```
 
 If you want to run Chromatic in parallel for each subproject, you can use this snippet below.
@@ -144,16 +241,16 @@ pipelines:
             name: "Publish Project 1 to Chromatic"
             # Other pipeline configuration
             script:
-              - yarn install
+              - npm ci
               - cd packages/project_1
-              - yarn chromatic --project-token $CHROMATIC_PROJECT_TOKEN_1
+              - npx chromatic --project-token $CHROMATIC_PROJECT_TOKEN_1
         - step:
             name: "Publish Project 2 to Chromatic"
             # Other pipeline configuration
             script:
-              - yarn install
+              - npm ci
               - cd packages/project_2
-              - yarn chromatic --project-token $CHROMATIC_PROJECT_TOKEN_2
+              - npx chromatic --project-token $CHROMATIC_PROJECT_TOKEN_2
 ```
 
 ### Enable TurboSnap
@@ -173,9 +270,9 @@ pipelines:
         name: "Run Chromatic"
         # Other pipeline configuration
         script:
-          - yarn install
+          - npm ci
             # 👇 Enables Chromatic's TurboSnap feature.
-          - yarn chromatic --only-changed
+          - npx chromatic --only-changed
 ```
 
 <div class="aside">
@@ -205,9 +302,9 @@ pipelines:
         name: "Run Chromatic"
         # Other pipeline configuration
         script:
-          - yarn install
+          - npm ci
             # 👇 Runs Chromatic with the flag to prevent pipeline failure
-          - yarn chromatic --exit-zero-on-changes
+          - npx chromatic --exit-zero-on-changes
 ```
 
 <div class="aside">
@@ -216,7 +313,7 @@ Read our [CLI documentation](/docs/cli#configuration-options).
 
 </div>
 
-When using `--exit-zero-on-changes` your pipeline execution still stop and fail if your Storybook contains stories that error. If you'd prefer Chromatic _never_ to block your pipeline, you can use `yarn chromatic || true`.
+When using `--exit-zero-on-changes` your pipeline execution still stop and fail if your Storybook contains stories that error. If you'd prefer Chromatic _never_ to block your pipeline, you can use `npx chromatic || true`.
 
 #### Re-run failed builds after verifying UI test results
 
@@ -226,7 +323,7 @@ If you deny any change, you will need to make the necessary code changes to fix 
 
 #### Maintain a clean "main" branch
 
-A clean `main` branch is a development **best practice** and **highly recommended** for Chromatic. This means testing your `main` branch to ensure builds are passing.  It's important to note that baselines will not persist through branching and merging unless you test your `main` branch.
+A clean `main` branch is a development **best practice** and **highly recommended** for Chromatic. This means testing your `main` branch to ensure builds are passing. It's important to note that baselines will not persist through branching and merging unless you test your `main` branch.
 
 If the builds are a result of direct commits to `main`, you will need to accept changes to keep the main branch clean. If they're merged from `feature-branches`, you will need to make sure those branches are passing _before_ you merge into `main`.
 
@@ -248,14 +345,16 @@ pipelines:
         caches:
           - node
         script:
-          - yarn chromatic --auto-accept-changes
+          - npm ci
+          - npx chromatic --auto-accept-changes
   pull-requests:
     # 👇 Checks if the branch is not main and runs Chromatic
     your-branch:
       - step:
           name: "Run Chromatic"
           script:
-            - yarn chromatic
+            - npm ci
+            - npx chromatic
 ```
 
 <div class="aside">
@@ -281,9 +380,9 @@ pipelines:
         name: "Run Chromatic"
         # Other pipeline configuration
         script:
-          - yarn install
+          - npm ci
             # 👇 Option to skip the last build on target branch
-          - yarn chromatic --ignore-last-build-on-branch=my-branch
+          - npx chromatic --ignore-last-build-on-branch=my-branch
 ```
 
 <div class="aside">
@@ -314,7 +413,8 @@ pipelines:
             # 👇 Brings over the changes from the BitBucket repo
             - git fetch origin main:main
               # 👇 Option to update the build based on the changes obtained
-            - yarn chromatic --patch-build=$your-branch...main
+            - npm ci
+            - npx chromatic --patch-build=$your-branch...main
 ```
 
 Including the `git` command prior to running Chromatic prevents unwanted build errors when Chromatic retrieves the information from your BitBucket repo.
@@ -344,7 +444,7 @@ One use case for this feature is skipping builds for branches created by a bot. 
 To skip builds for `renovate` branches, use the following:
 
 ```shell
-chromatic --skip 'renovate/**'
+npx chromatic --skip 'renovate/**'
 ```
 
 <div class="aside">
@@ -356,7 +456,7 @@ Read our [CLI documentation](/docs/cli#configuration-options).
 To apply this to multiple branches, use an "extended glob". See [picomatch] for details.
 
 ```shell
-chromatic --skip '@(renovate/**|your-custom-branch/**)'
+npx chromatic --skip '@(renovate/**|your-custom-branch/**)'
 ```
 
 [picomatch]: https://www.npmjs.com/package/picomatch#globbing-features

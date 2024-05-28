@@ -5,44 +5,213 @@ description: Learn how to configure Chromatic with CircleCI
 sidebar: { order: 4, label: Circle CI }
 ---
 
+import IntegrationSnippets from "../../components/IntegrationSnippets.astro";
+
 # Automate Chromatic with CircleCI
 
 Chromatic's automation can be included as part of your CircleCI job with relative ease.
 
-### Setup
+## Setup
 
 To integrate Chromatic with your existing workflow, you'll need to add the following:
 
-```yml
-# .circleci/config.yml
+{/* prettier-ignore-start */}
 
-# Other required configuration
+<IntegrationSnippets>
+  <Fragment slot="storybook">
+    ```yml
+    # .circleci/config.yml
 
-jobs:
-  # Other jobs
+    version: 2.1
 
-  # 👇 Adds Chromatic as a job
-  chromatic-deployment:
-    docker:
-      - image: circleci/node:16
-    working_directory: ~/repo
-    steps:
-      - checkout
-      - restore_cache:
-          keys:
-            - v1-dependencies-{{ checksum "package.json" }}
-            - v1-dependencies-
-        # 👇 Install dependencies with the same package manager used in the project (replace it as needed) e.g. yarn, npm, pnpm
-      - run: yarn install
-        # 👇 Runs the Chromatic CLI
-      - run: yarn chromatic
-
-workflows:
-  # 👇 Adds Chromatic to the workflow
-  chromatic-deploy:
+    executors:
+      chromatic-ui-testing:
+        docker:
+          - image: cimg/node:20.12.2
+        working_directory: ~/repo
+    
     jobs:
-      - chromatic-deployment # 👈 Runs the Chromatic job implemented above
-```
+      Chromatic:
+        executor: chromatic-ui-testing
+        steps:
+          - checkout
+          - restore_cache:
+              keys:
+                - v1-dependencies-{{ checksum "package.json" }}
+                - v1-dependencies-
+          # ⚠️ See your package manager's documentation for the correct command to install dependencies in a CI environment.
+          - run: npm ci
+          - run: npx chromatic
+          - save_cache:
+              name: Save NPM cache
+              paths:
+                - ~/.npm
+              key: v1-dependencies-{{ checksum "package.json" }}
+    
+    workflows:
+      UI_Tests:
+        jobs:
+          - Chromatic
+    ```
+  </Fragment>
+  <Fragment slot="playwright">
+    ```yml
+    # .circleci/config.yml
+
+    version: 2.1
+
+    executors:
+      pw-jammy-development:
+        docker:
+          - image: mcr.microsoft.com/playwright:v1.44.0-jammy
+        working_directory: ~/repo
+      chromatic-ui-testing:
+        docker:
+          - image: cimg/node:20.12.2
+        working_directory: ~/repo
+    
+    jobs:
+      Playwright:
+        executor: pw-jammy-development
+        steps:
+          - checkout
+          - restore_cache:
+              name: Restore NPM cache
+              keys:
+                - v1-dependencies-{{ checksum "package.json" }}
+                - v1-dependencies-
+          - run:
+              name: "Install Playwright dependencies"
+               # ⚠️ See your package manager's documentation for the correct command to install dependencies in a CI environment.
+              command: npm ci
+          - save_cache:
+              name: Save NPM cache
+              paths:
+                - ~/.npm
+              key: v1-dependencies-{{ checksum "package.json" }}
+          - run:
+              name: "Run Playwright tests"
+              command: npx playwright test
+              when: always
+          - store_artifacts:
+              # Chromatic automatically defaults to the test-results directory. 
+              # Replace with the path to your custom directory and adjust the CHROMATIC_ARCHIVE_LOCATION environment variable accordingly. 
+              path: ./custom/dir/
+          - persist_to_workspace:
+              root: .
+              paths:
+                - custom/dir/
+      Chromatic:
+        executor: chromatic-ui-testing
+        steps:
+          - checkout
+          - restore_cache:
+              name: Restore NPM cache
+              keys:
+                - v1-dependencies-{{ checksum "package.json" }}
+                - v1-dependencies-
+          - run: npm ci
+          - attach_workspace:
+              at: .
+          - run:
+              name: "Run Chromatic"
+              command: npx chromatic --playwright
+              environment:
+                CHROMATIC_ARCHIVE_LOCATION: "custom/dir/"
+      
+    workflows:
+      UI_Tests:
+        jobs:
+          - Playwright
+          - Chromatic:
+              requires:
+                - Playwright
+    ```
+  </Fragment>
+  <Fragment slot="cypress">
+    ```yml
+    # .circleci/config.yml
+
+    version: 2.1
+
+    executors:
+      cypress:
+        docker:
+          - image: cypress/browsers:node-20.9.0-chrome-118.0.5993.88-1-ff-118.0.2-edge-118.0.2088.46-1
+        working_directory: ~/repo
+      chromatic-ui-testing:
+        docker:
+          - image: cimg/node:20.12.2
+        working_directory: ~/repo
+
+    jobs:
+      Cypress:
+        executor: cypress
+        steps:
+          - checkout
+          - restore_cache:
+              name: Restore NPM cache
+              keys:
+                - v1-dependencies-{{ checksum "package.json" }}
+                - v1-dependencies-
+          - run:
+              name: "Install Cypress dependencies"
+              # ⚠️ See your package manager's documentation for the correct command to install dependencies in a CI environment.
+              command: npm ci
+          - save_cache:
+              name: Save NPM cache
+              paths:
+                - ~/.npm
+                - ~/.cache
+              key: v1-dependencies-{{ checksum "package.json" }}
+          - run:
+              name: "Run development server"
+              command: npm run dev
+              background: true
+          - run:
+              name: "Run Cypress tests"
+              command: npx cypress run
+              environment:
+                ELECTRON_EXTRA_LAUNCH_ARGS: "--remote-debugging-port=9222"
+              when: always
+          - store_artifacts:
+              # Chromatic automatically defaults to the cypress/downloads directory. 
+              # Replace with the path to your custom directory and adjust the CHROMATIC_ARCHIVE_LOCATION environment variable accordingly.
+              path: ./custom/dir/
+          - persist_to_workspace:
+              root: .
+              paths:
+                - custom/dir/
+      Chromatic:
+        executor: chromatic-ui-testing
+        steps:
+          - checkout
+          - restore_cache:
+              name: Restore NPM cache
+              keys:
+                - v1-dependencies-{{ checksum "package.json" }}
+                - v1-dependencies-
+          - run: npm ci
+          - attach_workspace:
+              at: .
+          - run:
+              name: "Run Chromatic"
+              command: npx chromatic --cypress
+              environment:
+                CHROMATIC_ARCHIVE_LOCATION: "custom/dir/"
+    
+    workflows:
+      UI_Tests:
+        jobs:
+          - Cypress
+          - Chromatic:
+              requires:
+                - Cypress
+    ```
+  </Fragment>
+</IntegrationSnippets>
+
+{/* prettier-ignore-end */}
 
 <div class="aside">
 
@@ -64,9 +233,9 @@ jobs:
 
 workflows:
   # 👇 Adds Chromatic to the workflow
-  chromatic-deploy:
+  UI_Tests:
     jobs:
-      - chromatic-deployment:
+      - Chromatic:
           filters: # 👈 Filters the execution to run only on the main branch
             branches:
               only: main
@@ -93,13 +262,13 @@ jobs:
   # Other jobs
 
   # 👇 Adds Chromatic as a job
-  chromatic-deployment:
+  Chromatic:
     # Other configuration
     steps:
       # Other job steps
 
       # 👇 Runs Chromatic with the flag to compress the build output.
-      - run: yarn chromatic --zip
+      - run: npx chromatic --zip
 # Workflows here
 ```
 
@@ -123,18 +292,18 @@ jobs:
   # Other jobs
 
   # 👇 Adds Chromatic as a job
-  chromatic-deployment:
+  Chromatic:
     # Other configuration
     steps:
       # Other job steps
 
       # 👇 Runs Chromatic sequentially for each monorepo subproject.
       - run:
-          command: cd packages/project_1 && yarn chromatic
+          command: cd packages/project_1 && npx chromatic
           environment:
             CHROMATIC_PROJECT_TOKEN: $CHROMATIC_PROJECT_TOKEN_1
       - run:
-          command: cd packages/project_2 && yarn chromatic
+          command: cd packages/project_2 && npx chromatic
           environment:
             CHROMATIC_PROJECT_TOKEN: $CHROMATIC_PROJECT_TOKEN_2
 # Workflows here
@@ -159,13 +328,13 @@ jobs:
   # Other jobs
 
   # 👇 Adds Chromatic as a job
-  chromatic-deployment:
+  Chromatic:
     # Other configuration
     steps:
       # Other job steps
 
       # 👇 Enables Chromatic's TurboSnap feature.
-      - run: yarn chromatic --only-changed
+      - run: npx chromatic --only-changed
 # Workflows here
 ```
 
@@ -202,13 +371,13 @@ jobs:
   # Other jobs
 
   # 👇 Adds Chromatic as a job
-  chromatic-deployment:
+  Chromatic:
     # Other configuration
     steps:
       # Other job steps
 
       # 👇 Runs Chromatic with the flag to prevent workflow failure
-      - run: yarn chromatic --exit-zero-on-changes
+      - run: npx chromatic --exit-zero-on-changes
 # Workflows here
 ```
 
@@ -218,7 +387,7 @@ Read our [CLI documentation](/docs/cli#configuration-options).
 
 </div>
 
-When using `--exit-zero-on-changes` your job will still stop and fail if your Storybook contains stories that error. If you'd prefer Chromatic _never_ to block your job, you can use `yarn chromatic || true`.
+When using `--exit-zero-on-changes` your job will still stop and fail if your Storybook contains stories that error. If you'd prefer Chromatic _never_ to block your job, you can use `npx chromatic || true`.
 
 #### Re-run failed builds after verifying UI test results
 
@@ -228,7 +397,7 @@ If you deny any change, you will need to make the necessary code changes to fix 
 
 #### Maintain a clean "main" branch
 
-A clean `main` branch is a development **best practice** and **highly recommended** for Chromatic. This means testing your `main` branch to ensure builds are passing.  It's important to note that baselines will not persist through branching and merging unless you test your `main` branch.
+A clean `main` branch is a development **best practice** and **highly recommended** for Chromatic. This means testing your `main` branch to ensure builds are passing. It's important to note that baselines will not persist through branching and merging unless you test your `main` branch.
 
 If the builds are a result of direct commits to `main`, you will need to accept changes to keep the main branch clean. If they're merged from `feature-branches`, you will need to make sure those branches are passing _before_ you merge into `main`.
 
@@ -246,10 +415,10 @@ If you’re using this functionality but notice the incoming changes were not ac
 # 👇 Checks if the current branch is not the main and runs Chromatic
 if [ "${CIRCLE_BRANCH}" != "main" ];
 then
-  yarn chromatic
+  npx chromatic
 else
   # 👇 Checks if the current branch is main and runs Chromatic with the flag to accept all changes
-  yarn chromatic --auto-accept-changes
+  npx chromatic --auto-accept-changes
 fi
 ```
 
@@ -272,13 +441,13 @@ jobs:
   # Other jobs
 
   # 👇 Adds Chromatic as a job
-  chromatic-deployment:
+  Chromatic:
     # Other configuration
     steps:
       # Other job steps
 
       # 👇 Option to skip the last build on target branch
-      - run: yarn chromatic --ignore-last-build-on-branch=my-branch
+      - run: npx chromatic --ignore-last-build-on-branch=my-branch
 # Workflows here
 ```
 
@@ -299,7 +468,7 @@ One use case for this feature is skipping builds for branches created by a bot. 
 To skip builds for `dependabot` branches, use the following:
 
 ```shell
-chromatic --skip 'dependabot/**'
+npx chromatic --skip 'dependabot/**'
 ```
 
 <div class="aside">
@@ -311,7 +480,7 @@ Read our [CLI documentation](/docs/cli#configuration-options).
 To apply this to multiple branches, use an "extended glob". See [picomatch] for details.
 
 ```shell
-chromatic --skip '@(renovate/**|dependabot/**)'
+npx chromatic --skip '@(renovate/**|dependabot/**)'
 ```
 
 [picomatch]: https://www.npmjs.com/package/picomatch#globbing-features
