@@ -51,6 +51,43 @@ export const StoryName = {
 };
 ```
 
+## Use in application or component code
+
+In rare instances, component behavior may need to be tailored for Chromatic testing environments. For example, disabling animations or lazy loading can improve test reliability. Use `isChromatic` in your component code for this customization.
+
+Note: install `chromatic` as a standard dependency in this scenario, not a dev-dependency.
+
+Exercise caution when using `isChromatic` directly in your component code. Our recommended practice is to make this behavior controllable via props so that you can utilize `isChromatic` within your Storybook configuration or stories. This offers a cleaner separation of concerns and keeps your component code agnostic to its testing environment.
+
+```js
+// LazyLoadedVideo.stories.js|jsx
+
+import isChromatic from "chromatic/isChromatic";
+
+export const LazyLoadedVideo = ({ posterUrl, srcUrl }) => {
+  let videoAttributes = {
+    muted: true,
+    loop: true,
+    playsInline: true,
+    disableRemotePlayback: true,
+  };
+
+  if (!isChromatic()) {
+    videoAttributes["autoPlay"] = true;
+  }
+
+  return (
+    <video
+      className="js-lazy-video"
+      {...videoAttributes}
+      poster={`${posterUrl}`}
+    >
+      <source data-src={srcUrl} type="video/mp4" />
+    </video>
+  );
+};
+```
+
 ## With an environment variable
 
 If you're working with Storybook 7.0 or later, you can also adjust your `chromatic` script and add the `IS_CHROMATIC` environment variable to allow you to control the story's behavior when rendered in Chromatic.
