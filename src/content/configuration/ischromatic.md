@@ -57,8 +57,6 @@ In rare instances, component behavior may need to be tailored for Chromatic test
 
 Note: ensure that `chromatic` is available as a dependency in production code in this scenario.
 
-Exercise caution when using `isChromatic` directly in your component code. Our recommended practice is to make this behavior controllable via props so that you can utilize `isChromatic` within your Storybook configuration or stories. This offers a cleaner separation of concerns and keeps your component code agnostic to its testing environment.
-
 ```js
 // LazyLoadedVideo.stories.js|jsx
 
@@ -87,6 +85,8 @@ export const LazyLoadedVideo = ({ posterUrl, srcUrl }) => {
   );
 };
 ```
+
+Exercise caution when using `isChromatic` directly in your component code. Our recommended practice is to make this behavior controllable via props so that you can utilize `isChromatic` within your Storybook configuration or stories. This offers a cleaner separation of concerns and keeps your component code agnostic to its testing environment.
 
 ## With an environment variable
 
