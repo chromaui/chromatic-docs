@@ -53,7 +53,7 @@ export const StoryName = {
 
 ## Use in application or component code
 
-In rare instances, component behavior may need to be tailored for Chromatic testing environments. For example, disabling animations or lazy loading can improve test reliability. Use `isChromatic` in your component code for this customization.
+In rare instances, component behavior may need to be tailored for Chromatic testing environments. For example, [disabling animations](../animations/#javascript-animations) or lazy loading can improve test reliability. You can use `isChromatic` in your component code to make Chromatic-specific changes.
 
 Note: ensure that `chromatic` is available as a dependency in production code in this scenario.
 
