@@ -55,7 +55,7 @@ export const StoryName = {
 
 In rare instances, component behavior may need to be tailored for Chromatic testing environments. For example, disabling animations or lazy loading can improve test reliability. Use `isChromatic` in your component code for this customization.
 
-Note: install `chromatic` as a standard dependency in this scenario, not a dev-dependency.
+Note: ensure that `chromatic` is available as a dependency in production code in this scenario.
 
 Exercise caution when using `isChromatic` directly in your component code. Our recommended practice is to make this behavior controllable via props so that you can utilize `isChromatic` within your Storybook configuration or stories. This offers a cleaner separation of concerns and keeps your component code agnostic to its testing environment.
 
