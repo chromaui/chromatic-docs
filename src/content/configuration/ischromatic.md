@@ -51,6 +51,14 @@ export const StoryName = {
 };
 ```
 
+## Use in application or component code
+
+In rare instances, component behavior may need to be tailored for Chromatic testing environments. For example, [disabling animations](../animations/#javascript-animations) or lazy loading can improve test reliability. You can use `isChromatic` in your component code to make Chromatic-specific changes.
+
+Note: ensure that `chromatic` is available as a dependency in production code in this scenario.
+
+Exercise caution when using `isChromatic` directly in your component code. Our recommended practice is to make this behavior controllable via props so that you can utilize `isChromatic` within your Storybook configuration or stories. This offers a cleaner separation of concerns and keeps your component code agnostic to its testing environment.
+
 ## With an environment variable
 
 If you're working with Storybook 7.0 or later, you can also adjust your `chromatic` script and add the `IS_CHROMATIC` environment variable to allow you to control the story's behavior when rendered in Chromatic.
