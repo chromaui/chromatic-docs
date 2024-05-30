@@ -57,35 +57,6 @@ In rare instances, component behavior may need to be tailored for Chromatic test
 
 Note: ensure that `chromatic` is available as a dependency in production code in this scenario.
 
-```js
-// LazyLoadedVideo.stories.js|jsx
-
-import isChromatic from "chromatic/isChromatic";
-
-export const LazyLoadedVideo = ({ posterUrl, srcUrl }) => {
-  let videoAttributes = {
-    muted: true,
-    loop: true,
-    playsInline: true,
-    disableRemotePlayback: true,
-  };
-
-  if (!isChromatic()) {
-    videoAttributes["autoPlay"] = true;
-  }
-
-  return (
-    <video
-      className="js-lazy-video"
-      {...videoAttributes}
-      poster={`${posterUrl}`}
-    >
-      <source data-src={srcUrl} type="video/mp4" />
-    </video>
-  );
-};
-```
-
 Exercise caution when using `isChromatic` directly in your component code. Our recommended practice is to make this behavior controllable via props so that you can utilize `isChromatic` within your Storybook configuration or stories. This offers a cleaner separation of concerns and keeps your component code agnostic to its testing environment.
 
 ## With an environment variable
