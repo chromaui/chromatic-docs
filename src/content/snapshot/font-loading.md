@@ -1,37 +1,17 @@
 ---
 layout: "../../layouts/Layout.astro"
-title: Resource loading
-description: Learn how to Chromatic loads resources and waits to screenshot.
-sidebar: { order: 3 }
+title: Font loading
+description: Learn how to preload fonts for the fast and consistent visual testing.
+sidebar: { order: 2 }
 ---
 
-# Resource loading
-
-Chromatic waits for resources like images and fonts to load before capturing a snapshot. When resources fail to load it leads to unintended UI changes.
-
-The maximum time to capture a snapshot is 15 seconds. If the resources fail to load in the allotted time, Chromatic will retry. After several retries, the snapshot will be captured anyway and a warning message will be displayed.
-
-## Avoid external resources
-
-It's tough to predict network stability third-party hosting reliability. These factors mean external resources might not load predictably and affect your snapshots.
-
-We recommend adding [resources to your Storybook](https://storybook.js.org/configurations/serving-static-files/) or using a reliable [placeholder service](https://placehold.co/). This also makes your builds run faster.
-
-## Asynchronous rendering
-
-Our browsers monitor network activity that occurs while your story renders. If your story renders after a delay (i.e. asynchronously), there is no way for us to tell what happened. Thus, we can't reliably wait for subsequent resources to be loaded asynchronously.
-
-If you know how long async rendering takes, you can add a [delay](/docs/delay) to avoid snapshotting until after that happens. But it can be difficult to reliably set a time that network resources will load within so you may have to add/subtract seconds to the delay.
-
-We are investigating ways to add first-class support to Storybook and Chromatic for asynchronous rendering. Let us know if you need this feature by chat or [email](mailto:support@chromatic.com?Subject=Asynchronous%20Rendering).
-
-## Loading custom fonts
+# Loading custom fonts
 
 Browsers can decide to render HTML in multiple passes when custom fonts are used. They do this to speed up the time-to-first-meaningful-paint.
 
 Unfortunately, this behavior can cause your story to render without the custom font. Or worse, render inconsistently. That triggers font rendering changes that you have to accept again and again. Here are ways to prevent that.
 
-#### Solution A: Preload fonts
+### Solution A: Preload fonts
 
 We recommend that you ensure fonts are always loaded prior to rendering the story. Preload fonts in Storybook by specifying them in `./storybook/preview-head.html`.
 
@@ -51,7 +31,53 @@ We recommend that you ensure fonts are always loaded prior to rendering the stor
 If you’re loading fonts from an external CDN service (like Google Fonts or Adobe Fonts), be careful that the font files you’re preloading match the fonts called for in your CSS.
 </div>
 
-#### Solution B: Check fonts have loaded in a loader
+### Solution B: Point font-face declarations at static files
+
+If you have global `@font-face` declarations that point to a CDN in your CSS, you may need to override them in order to ensure that your snapshots are always use assets that are loaded locally.
+
+For example, you might have a font CDN referenced in your stylesheets like so.
+
+```css
+/* yourglobalstyles.css */
+@font-face {
+  font-display: optional;
+  font-family: "YourFont";
+  font-style: normal;
+  font-weight: normal;
+  src: url("https://cdn.yoursite.com/yourfont.woff2") format("woff2");
+}
+```
+
+To serve the fonts statically, you first need to put your fonts in a static directory for Storybook.
+
+<!-- TK João, can you fill this out -->
+
+Next create a stylesheet `yourfontface.css` in the directory `./storybook` directory. We'll use the stylesheet to define a new local path for your font.
+
+```css
+/* ./storybook/yourfontface.css */
+@font-face {
+  font-display: optional;
+  font-family: "YourFont";
+  font-style: normal;
+  font-weight: normal;
+  /* 👇 Change this to point at the local font path */
+  src: url("/yourfont.woff2") format("woff2");
+}
+```
+
+Reference the stylesheet in your Storybook's `preview-head.html` configuration. When Storybook loads, it will load the font from the new local path.
+
+```js
+// ./storybook/preview-head.html
+
+// 👇 Add this
+<link rel="stylesheet" type="text/css" href="/yourfontface.css">
+```
+
+This technique loads a local font via Storybook's `preview-head.html` file during development and testing. Meanwhile your users still load the font from the CDN in production.
+
+### Solution C: Check fonts have loaded in a loader
 
 This alternate solution uses the browsers font load API and the [`isChromatic()`](/docs/ischromatic) helper function to verify that fonts load when in the Chromatic environment.
 

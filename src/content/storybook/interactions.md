@@ -96,6 +96,6 @@ Interaction tests are reported in the UI Tests pull request check. When a test f
 
 Interactions run as soon as the DOM loads. But external resources like web fonts can load before or after the interaction runs depending on network latency. This can cause dialogs, tooltips, and menus to change position.
 
-We recommend [preloading fonts](/docs/resource-loading#loading-custom-fonts) to ensure they're available when the DOM renders. If preloading is not possible, try adding a [delay before running interactions](/docs/delay#use-an-assertion-to-delay-snapshot-capture).
+We recommend [preloading fonts](/docs/font-loading) to ensure they're available when the DOM renders. If preloading is not possible, try adding a [delay before running interactions](/docs/delay#use-an-assertion-to-delay-snapshot-capture).
 
 </details>

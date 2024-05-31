@@ -2,7 +2,7 @@
 layout: "../../layouts/Layout.astro"
 title: Ignore stories and elements
 description: Learn how you can tell Chromatic to ignore changes for certain elements
-sidebar: { order: 3, label: Ignore elements }
+sidebar: { order: 4, label: Ignore elements }
 ---
 
 # Ignore stories and elements
