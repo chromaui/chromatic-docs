@@ -102,9 +102,3 @@ export const loaders = isChromatic() && document.fonts ? [fontLoader] : [];
 ### Solution D: Don't load fonts
 
 As a last resort, you can also disable custom fonts by setting `font-display: optional` in your CSS when running in Chromatic.
-
----
-
-#### A note on variable fonts in Safari
-
-Due to [a known WebKit bug](https://bugs.webkit.org/show_bug.cgi?id=177039), Safari is unable to load variable fonts correctly in our component snapshots. This issue only affects [variable fonts](https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_fonts/Variable_fonts_guide) and results in any CSS adjustments made to variable fonts, such as `font-weight: bold`, to not be properly applied. Full support for variable fonts will be included in the next version of [Chromatic Capture Cloud](https://www.chromatic.com/docs/infrastructure-upgrades#release-notes-for-infrastructure-upgrades). In the meantime, we recommend using a static font fallback.
