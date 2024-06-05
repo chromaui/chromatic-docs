@@ -101,6 +101,21 @@ While Chromatic’s default of choosing latest accepted baseline works for most 
 
 </details>
 
+<details>
+  <summary>What if you accidentally reset your baselines and are seeing only new stories?</summary>
+
+If you're revamping your Chromatic configuration, you may accidentally reset your baselines. This happens because the continuity of your baselines git history may break. For example, a build on `main` branch lost track of its ancestor causing all tests to appear as new in subsequent builds.
+
+You can use git to bring your old baselines back.
+
+1. Find a past build with the correct baselines.
+2. Check out the corresponding branch for that build in git (e.g., `feature-branch`).
+3. Make a new branch off of that (e.g., `feature-branch-baselines`).
+4. Create a new commit (empty ok) and run a build to make "more recent" baselines.
+5. Merge that commit into the current `main` branch.
+
+</details>
+
 ### How are baselines calculated?
 
 In Chromatic, a build contains of a set of snapshots, each of which is a snapshot of a single story in a single mode. The baseline is the last accepted snapshot on a given branch. Each branch has builds associated with it, so to find the baseline, we need to traverse git history for that branch to find the “ancestor” build.
