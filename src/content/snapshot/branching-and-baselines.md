@@ -101,6 +101,21 @@ While Chromatic’s default of choosing latest accepted baseline works for most 
 
 </details>
 
+<details>
+  <summary>What if you accidentally reset your baselines and are seeing only new stories?</summary>
+
+If you're revamping your Chromatic configuration, you may accidentally reset your baselines. This happens because the continuity of your baselines git history may break. For example, a build on `main` branch lost track of its ancestor causing all tests to appear as new in subsequent builds.
+
+You can use git to bring your old baselines back.
+
+1. Find a past build with the correct baselines.
+2. Check out the corresponding branch for that build in git (e.g., `feature-branch`).
+3. Make a new branch off of that (e.g., `feature-branch-baselines`).
+4. Create a new commit (empty ok) and run a build to make "more recent" baselines.
+5. Merge that commit into the current `main` branch.
+
+</details>
+
 ### How are baselines calculated?
 
 In Chromatic, a build contains of a set of snapshots, each of which is a snapshot of a single story in a single mode. The baseline is the last accepted snapshot on a given branch. Each branch has builds associated with it, so to find the baseline, we need to traverse git history for that branch to find the “ancestor” build.
@@ -258,19 +273,5 @@ The Chromatic CLI has a special option `--patch-build=$head...$base` which is in
 4. Put your repository back as it was before.
 
 Essentially we are retroactively creating the merge base build, so we have something to compare against.
-
-</details>
-
-<details>
-  <summary>What to do if you've accidentally run a build and break your baselines?</summary>
-
-An example of this is that one of your builds on `main` didn't have an ancestor and now all your builds are showing new stories.
-
-We suggest you use git to solve it.
-
-1. Pick the build with baselines you want.
-2. Make a branch off it (The feature branch tied to the build).
-3. Create a new commit (empty ok) and run a build to make “newer” baselines.
-4. Merge that commit into current `main`.
 
 </details>
