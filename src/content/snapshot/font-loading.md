@@ -33,7 +33,7 @@ If you’re loading fonts from an external CDN service (like Google Fonts or Ado
 
 ### Solution B: Point font-face declarations at static files
 
-If you have global `@font-face` declarations that point to a CDN in your CSS, you may need to override them in order to ensure that your snapshots are always use assets that are loaded locally.
+If you have global `@font-face` declarations that point to a CDN in your CSS, you may need to override them in order to ensure that your snapshots always use assets that are loaded locally.
 
 For example, you might have a font CDN referenced in your stylesheets like so.
 
@@ -48,11 +48,9 @@ For example, you might have a font CDN referenced in your stylesheets like so.
 }
 ```
 
-To serve the fonts statically, you first need to put your fonts in a static directory for Storybook.
+To serve the fonts statically, you first need to put your fonts in a static directory for Storybook. We recommend the `../public` directory.
 
-<!-- TK João, can you fill this out -->
-
-Next create a stylesheet `yourfontface.css` in the directory `./storybook` directory. We'll use the stylesheet to define a new local path for your font.
+Next create a stylesheet `yourfontface.css` in the directory `./storybook` directory. We'll use the stylesheet to specify the local path for your font in the `../public` directory.
 
 ```css
 /* ./storybook/yourfontface.css */
@@ -66,7 +64,7 @@ Next create a stylesheet `yourfontface.css` in the directory `./storybook` direc
 }
 ```
 
-Reference the stylesheet in your Storybook's `preview-head.html` configuration. When Storybook loads, it will load the font from the new local path.
+Reference the stylesheet in Storybook's `preview-head.html` configuration to load the font from the local path.
 
 ```js
 // ./storybook/preview-head.html
@@ -75,7 +73,7 @@ Reference the stylesheet in your Storybook's `preview-head.html` configuration. 
 <link rel="stylesheet" type="text/css" href="/yourfontface.css">
 ```
 
-This technique loads a local font via Storybook's `preview-head.html` file during development and testing. Meanwhile your users still load the font from the CDN in production.
+This technique loads a local font file during development and testing in Storybook. Meanwhile your users still load the font from the CDN in production.
 
 ### Solution C: Check fonts have loaded in a loader
 
@@ -101,10 +99,12 @@ const fontLoader = async () => ({
 export const loaders = isChromatic() && document.fonts ? [fontLoader] : [];
 ```
 
-#### Solution C: Don't load fonts
+### Solution D: Don't load fonts
 
 As a last resort, you can also disable custom fonts by setting `font-display: optional` in your CSS when running in Chromatic.
 
-### A note on variable fonts in Safari
+---
+
+#### A note on variable fonts in Safari
 
 Due to [a known WebKit bug](https://bugs.webkit.org/show_bug.cgi?id=177039), Safari is unable to load variable fonts correctly in our component snapshots. This issue only affects [variable fonts](https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_fonts/Variable_fonts_guide) and results in any CSS adjustments made to variable fonts, such as `font-weight: bold`, to not be properly applied. Full support for variable fonts will be included in the next version of [Chromatic Capture Cloud](https://www.chromatic.com/docs/infrastructure-upgrades#release-notes-for-infrastructure-upgrades). In the meantime, we recommend using a static font fallback.
