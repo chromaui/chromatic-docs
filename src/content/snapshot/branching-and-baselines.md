@@ -260,3 +260,17 @@ The Chromatic CLI has a special option `--patch-build=$head...$base` which is in
 Essentially we are retroactively creating the merge base build, so we have something to compare against.
 
 </details>
+
+<details>
+  <summary>What to do if you've accidentally run a build and break your baselines?</summary>
+
+An example of this is that one of your builds on `main` didn't have an ancestor and now all your builds are showing new stories.
+
+We suggest you use git to solve it.
+
+1. Pick the build with baselines you want.
+2. Make a branch off it (The feature branch tied to the build).
+3. Create a new commit (empty ok) and run a build to make “newer” baselines.
+4. Merge that commit into current `main`.
+
+</details>
