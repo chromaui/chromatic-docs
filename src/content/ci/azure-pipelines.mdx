@@ -5,62 +5,235 @@ description: Learn how to configure Chromatic with Azure
 sidebar: { order: 7, label: Azure Pipelines }
 ---
 
+import IntegrationSnippets from "../../components/IntegrationSnippets.astro";
+
 # Automate Chromatic with Azure Pipelines
 
 Chromatic’s automation can be included as part of your [multistage Azure Pipelines](https://docs.microsoft.com/en-us/azure/devops/pipelines/process/stages?view=azure-devops&tabs=yaml) workflow with relative ease.
 
-### Setup
+## Setup
 
 To integrate Chromatic with your existing pipeline, you'll need to add the following:
 
-```yml
-# azure-pipelines.yml
+{/* prettier-ignore-start */}
+<IntegrationSnippets>
+  <Fragment slot="storybook">
+    ```yml
+    # azure-pipelines.yml
 
-# 👇 Event to trigger pipeline execution
-trigger:
-  - main
+    trigger:
+      - main
+    
+    pool:
+      vmImage: 'ubuntu-latest'
+    
+    stages:
+      - stage: UI_Tests
+        displayName: "UI Tests"
+        jobs:
+          - job: Chromatic
+            variables:
+              npm_config_cache: $(Pipeline.Workspace)/.npm
+            steps:
+              - checkout: self
+                displayName: "Get Full Git History"
+                fetchDepth: 0
+              - task: NodeTool@0
+                displayName: "Install Node.js"
+                inputs:
+                  versionSpec: "20.12.2"
+              - task: Cache@2
+                displayName: "Install and cache dependencies"
+                inputs:
+                  key: 'npm | "$(Agent.OS)" | package-lock.json'
+                  restoreKeys: |
+                    npm | "$(Agent.OS)"
+                  path: $(npm_config_cache)
+              - script: npm ci
+                condition: ne(variables.CACHE_RESTORED, 'true')
+              - task: CmdLine@2
+                displayName: "Run Chromatic"
+                inputs:
+                  script: npx chromatic
+                env:
+                  CHROMATIC_PROJECT_TOKEN: $(CHROMATIC_PROJECT_TOKEN)
+    ```   
+  </Fragment>
+  <Fragment slot="playwright">
+    ```yml
+    # azure-pipelines.yml
 
-# Other configurations
+    trigger:
+      - main
+    
+    pool:
+      vmImage: 'ubuntu-latest'
+    
+    stages:
+      - stage: UI_Tests
+        displayName: "UI Tests"
+        jobs:
+          - job: Playwright
+            displayName: "Run Playwright"
+            container: mcr.microsoft.com/playwright:v1.44.0-jammy 
+            steps:
+              - checkout: self
+                displayName: "Get Full Git History"
+                fetchDepth: 0
+              - task: NodeTool@0
+                displayName: "Install Node.js"
+                inputs:
+                  versionSpec: "20.12.2"
+              - task: Cache@2
+                displayName: "Install and cache dependencies"
+                inputs:
+                  key: 'npm | "$(Agent.OS)" | package-lock.json'
+                  restoreKeys: |
+                    npm | "$(Agent.OS)"
+                  path: $(npm_config_cache)
+              - script: npm ci
+                condition: ne(variables.CACHE_RESTORED, 'true')
+              - task: CmdLine@2
+                displayName: "Run Playwright tests"
+                inputs:
+                  script: npx playwright test
+                env:
+                  CI: "true"
+              - task: PublishPipelineArtifact@1
+                inputs:
+                  # Chromatic automatically defaults to the test-results directory. 
+                  # Replace with the path to your custom directory and adjust the CHROMATIC_ARCHIVE_LOCATION environment variable accordingly. 
+                  targetPath: custom/dir
+                  artifact: test-results
+                  publishLocation: "pipeline"
+                condition: succeededOrFailed()
+          - job: Chromatic
+            dependsOn: Playwright
+            displayName: "Run Chromatic"
+            variables:
+              npm_config_cache: $(Pipeline.Workspace)/.npm
+            steps:
+              - checkout: self
+                displayName: "Get Full Git History"
+                fetchDepth: 0
+              - task: NodeTool@0
+                displayName: "Install Node.js"
+                inputs:
+                  versionSpec: "20.12.2"
+              - task: Cache@2
+                displayName: "Install and cache dependencies"
+                inputs:
+                  key: 'npm | "$(Agent.OS)" | package-lock.json'
+                  restoreKeys: |
+                    npm | "$(Agent.OS)"
+                  path: $(npm_config_cache)
+              - script: npm ci
+                condition: ne(variables.CACHE_RESTORED, 'true')
+              - task: DownloadPipelineArtifact@2
+                inputs:
+                  buildType: "current"
+                  artifactName: "test-results"
+                  targetPath: "$(System.DefaultWorkingDirectory)/custom/dir"
+              - task: CmdLine@2
+                displayName: "Run Chromatic"
+                inputs:
+                  script: npx chromatic --playwright
+                env:
+                  CHROMATIC_PROJECT_TOKEN: $(CHROMATIC_PROJECT_TOKEN)
+                  CHROMATIC_ARCHIVE_LOCATION: "custom/dir"
+    ```   
+  </Fragment>
+  <Fragment slot="cypress">
+    ```yml
+    # azure-pipelines.yml
+    
+    trigger:
+      - main
+    
+    pool:
+      vmImage: 'ubuntu-latest'
+    
+    stages:
+      - stage: UI_Tests
+        displayName: "UI Tests"
+        jobs:
+          - job: Cypress
+            displayName: "Run Cypress"
+            container: cypress/browsers:node-20.9.0-chrome-118.0.5993.88-1-ff-118.0.2-edge-118.0.2088.46-1
+            variables:
+              npm_config_cache: $(Pipeline.Workspace)/.npm
+            steps:
+              - checkout: self
+                displayName: "Get Full Git History"
+                fetchDepth: 0
+              - task: NodeTool@0
+                displayName: "Install Node.js"
+                inputs:
+                  versionSpec: "20.12.2"
+              - task: Cache@2
+                displayName: "Install and cache dependencies"
+                inputs:
+                  key: 'npm | "$(Agent.OS)" | package-lock.json'
+                  restoreKeys: |
+                    npm | "$(Agent.OS)"
+                  path: $(npm_config_cache)
+              - script: npm ci
+                condition: ne(variables.CACHE_RESTORED, 'true')
+              - task: CmdLine@2
+                displayName: "Run Cypress tests"
+                inputs:
+                  script: |
+                    npm run dev &
+                    npx cypress run
+                env:
+                  ELECTRON_EXTRA_LAUNCH_ARGS: --remote-debugging-port=9222
+              - task: PublishPipelineArtifact@1
+                inputs:
+                  # Chromatic automatically defaults to the cypress/downloads directory. 
+                  # Replace with the path to your custom directory and adjust the CHROMATIC_ARCHIVE_LOCATION environment variable accordingly. 
+                  targetPath: custom/dir
+                  artifact: test-results
+                  publishLocation: "pipeline"
+                condition: succeededOrFailed()
+          - job: Chromatic
+            dependsOn: Cypress
+            displayName: "Run Chromatic"
+            variables:
+              npm_config_cache: $(Pipeline.Workspace)/.npm
+            steps:
+              - checkout: self
+                displayName: "Get Full Git History"
+                fetchDepth: 0
+              - task: NodeTool@0
+                displayName: "Install Node.js"
+                inputs:
+                  versionSpec: "20.12.2"
+              - task: Cache@2
+                displayName: "Install and cache dependencies"
+                inputs:
+                  key: 'npm | "$(Agent.OS)" | package-lock.json'
+                  restoreKeys: |
+                    npm | "$(Agent.OS)"
+                  path: $(npm_config_cache)
+              - script: npm ci
+                condition: ne(variables.CACHE_RESTORED, 'true')
+              - task: DownloadPipelineArtifact@2
+                inputs:
+                  buildType: "current"
+                  artifactName: "test-results"
+                  targetPath: "$(System.DefaultWorkingDirectory)/custom/dir"
+              - task: CmdLine@2
+                displayName: "Run Chromatic"
+                inputs:
+                  script: npx chromatic --cypress
+                env:
+                  CHROMATIC_PROJECT_TOKEN: $(CHROMATIC_PROJECT_TOKEN)
+                  CHROMATIC_ARCHIVE_LOCATION: "custom/dir"
+    ```   
+  </Fragment>
+</IntegrationSnippets>
 
-# Pipeline stages
-stages:
-  - stage: Test
-    displayName: Chromatic Testing
-    # Job list
-    jobs:
-      - job: Chromatic_Deploy
-        displayName: Install packages and publishes to Chromatic
-        variables:
-          # Sets scoped environment variable to cache packages
-          npm_config_cache: $(Pipeline.Workspace)/.npm
-        # List of steps
-        steps:
-          - checkout: self
-            displayName: "Get full Git history"
-            fetchDepth: 0
-          # 👇 Installs and configures Node environment
-          - task: NodeTool@0
-            inputs:
-              versionSpec: "16.x"
-            displayName: "Install Node.js"
-          - task: Cache@2
-            displayName: Install and cache packages
-            inputs:
-              key: 'npm | "$(Agent.OS)" | package-lock.json'
-              restoreKeys: |
-                npm | "$(Agent.OS)"
-              path: $(npm_config_cache)
-          - script: npm ci
-            condition: ne(variables.CACHE_RESTORED, 'true')
-            # 👇 Adds Chromatic as a step
-          - task: CmdLine@2
-            displayName: Run Chromatic
-            inputs:
-              # 👇 Runs Chromatic
-              script: npx chromatic
-            env:
-              CHROMATIC_PROJECT_TOKEN: $(CHROMATIC_PROJECT_TOKEN)
-```
+{/* prettier-ignore-end */}
 
 <div class="aside">
 
@@ -112,18 +285,18 @@ Chromatic is prepared to handle large file uploads (with a limit of 5000 files, 
 
 # Pipeline stages
 stages:
-  - stage: Test
-    displayName: Chromatic Testing
+  - stage: UI_Tests
+    displayName: "UI Tests"
     # Job list
     jobs:
-      - job: Chromatic_Deploy
-        displayName: Run Chromatic
+      - job: Chromatic
+        displayName: "Run Chromatic"
         steps:
           # Other steps in the pipeline
 
           # 👇 Adds Chromatic as a step in the pipeline
           - task: CmdLine@2
-            displayName: Run Chromatic
+            displayName: "Run Chromatic"
             inputs:
               # 👇 Runs Chromatic with the flag to compress the build output.
               script: npx chromatic --zip
@@ -149,30 +322,28 @@ If you've already built your Storybook in a separate CI step, you can alternativ
 
 # Pipeline stages
 stages:
-  - stage: Test
-    displayName: Chromatic Testing
+  - stage: UI_Tests
+    displayName: "UI Tests"
 
     # 👇 Adds Chromatic as a step in the pipeline
     jobs:
       # 👇 Runs Chromatic sequentially for each monorepo subproject.
       - job: Chromatic_Deploy_1
-        displayName: Publish Project 1 to Chromatic
+        displayName: "Publish Project 1 to Chromatic"
         steps:
           # Other steps in the pipeline
-
           - task: CmdLine@2
-            displayName: Publish Project 1 to Chromatic
+            displayName: "Publish Project 1 to Chromatic"
             inputs:
               script: cd packages/project_1 && npx chromatic
             env:
               CHROMATIC_PROJECT_TOKEN: $(CHROMATIC_PROJECT_TOKEN_1)
       - job: Chromatic_Deploy_2
-        displayName: Publish Project 2 to Chromatic
+        displayName: "Publish Project 2 to Chromatic"
         steps:
           # Other steps in the pipeline
-
           - task: CmdLine@2
-            displayName: Publish Project 2 to Chromatic
+            displayName: "Publish Project 2 to Chromatic"
             inputs:
               script: cd packages/project_2 && npx chromatic
             env:
@@ -196,18 +367,18 @@ TurboSnap is an advanced Chromatic feature implemented to improve the build time
 
 # Pipeline stages
 stages:
-  - stage: Test
-    displayName: Chromatic Testing
+  - stage: UI_Tests
+    displayName: "UI Tests"
     # Job list
     jobs:
       - job: Chromatic_Deploy
-        displayName: Run Chromatic
+        displayName: "Run Chromatic"
         steps:
           # Other steps in the pipeline
 
           # 👇 Adds Chromatic as a step in the pipeline
           - task: CmdLine@2
-            displayName: Run Chromatic
+            displayName: "Run Chromatic"
             inputs:
               # 👇 Enables Chromatic's TurboSnap feature.
               script: npx chromatic --only-changed
@@ -234,11 +405,11 @@ In this case, you can adjust your workflow and include the `--branch-name` flag.
 
 # Pipeline stages
 stages:
-  - stage: Test
-    displayName: Chromatic Testing
+  - stage: UI_Tests
+    displayName: "UI Tests"
     # Job list
     jobs:
-      - job: Chromatic_Deploy
+      - job: Chromatic
         displayName: Run Chromatic
         steps:
           # Other steps in the pipeline
@@ -270,18 +441,18 @@ If you are using pull request statuses as required checks before merging, you ma
 
 # Pipeline stages
 stages:
-  - stage: Test
-    displayName: Chromatic Testing
+  - stage: UI_Tests
+    displayName: "UI Tests"
     # Job list
     jobs:
-      - job: Chromatic_Deploy
-        displayName: Run Chromatic
+      - job: Chromatic
+        displayName: "Run Chromatic"
         steps:
           # Other steps in the pipeline
 
           # 👇 Adds Chromatic as a step in the pipeline
           - task: CmdLine@2
-            displayName: Run Chromatic
+            displayName: "Run Chromatic"
             inputs:
               #👇Runs Chromatic with the flag to prevent pipeline failure
               script: npx chromatic --exit-zero-on-changes
@@ -305,7 +476,7 @@ If you deny any change, you will need to make the necessary code changes to fix 
 
 #### Maintain a clean "main" branch
 
-A clean `main` branch is a development **best practice** and **highly recommended** for Chromatic. This means testing your `main` branch to ensure builds are passing.  It's important to note that baselines will not persist through branching and merging unless you test your `main` branch.
+A clean `main` branch is a development **best practice** and **highly recommended** for Chromatic. This means testing your `main` branch to ensure builds are passing. It's important to note that baselines will not persist through branching and merging unless you test your `main` branch.
 
 If the builds are a result of direct commits to `main`, you will need to accept changes to keep the main branch clean. If they're merged from `feature-branches`, you will need to make sure those branches are passing _before_ you merge into `main`.
 
@@ -322,18 +493,18 @@ If you’re using this functionality but notice the incoming changes were not ac
 
 # Pipeline stages
 stages:
-  - stage: Test
-    displayName: Chromatic Testing
+  - stage: UI_Tests
+    displayName: "UI Tests"
     # Job list
     jobs:
-      - job: Chromatic_Deploy
-        displayName: Run Chromatic
+      - job: Chromatic
+        displayName: "Run Chromatic"
         steps:
           # Other steps in the pipeline
 
           # 👇 Checks if the branch is main and runs Chromatic with the flag to accept all changes.
           - task: CmdLine@2
-            displayName: Run Chromatic and auto accept changes
+            displayName: "Run Chromatic and auto accept changes"
             condition: and(succeeded(), eq(variables['build.sourceBranch'], 'refs/heads/main'))
             inputs:
               script: npx chromatic --auto-accept-changes
@@ -341,7 +512,7 @@ stages:
               CHROMATIC_PROJECT_TOKEN: $(CHROMATIC_PROJECT_TOKEN)
             # 👇 Checks if the branch is not main and runs Chromatic
           - task: CmdLine@2
-            displayName: Run Chromatic
+            displayName: "Run Chromatic"
             condition: eq(variables['Build.Reason'], 'PullRequest')
             inputs:
               script: npx chromatic
@@ -366,18 +537,18 @@ If you want to test the changes introduced by the rebased branch, you can adjust
 
 # Pipeline stages
 stages:
-  - stage: Test
-    displayName: Chromatic Testing
+  - stage: UI_Tests
+    displayName: "UI Tests"
     # Job list
     jobs:
-      - job: Chromatic_Deploy
-        displayName: Run Chromatic
+      - job: Chromatic
+        displayName: "Run Chromatic"
         steps:
           # Other steps in the pipeline
 
           # 👇 Option to skip the last build on target branch
           - task: CmdLine@2
-            displayName: Run Chromatic
+            displayName: "Run Chromatic"
             inputs:
               script: npx chromatic --ignore-last-build-on-branch=my-branch
             env:
@@ -407,7 +578,7 @@ One use case for this feature is skipping builds for branches created by a bot. 
 To skip builds for `renovate` branches, use the following:
 
 ```shell
-chromatic --skip 'renovate/**'
+npx chromatic --skip 'renovate/**'
 ```
 
 <div class="aside">
@@ -419,7 +590,7 @@ Read our [CLI documentation](/docs/cli#configuration-options).
 To apply this to multiple branches, use an "extended glob". See [picomatch] for details.
 
 ```shell
-chromatic --skip '@(renovate/**|your-custom-branch/**)'
+npx chromatic --skip '@(renovate/**|your-custom-branch/**)'
 ```
 
 [picomatch]: https://www.npmjs.com/package/picomatch#globbing-features

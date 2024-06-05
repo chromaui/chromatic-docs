@@ -5,31 +5,144 @@ description: Learn how to configure Chromatic with Travis CI
 sidebar: { order: 5, label: Travis CI }
 ---
 
+import IntegrationSnippets from "../../components/IntegrationSnippets.astro";
+
 # Automate Chromatic with Travis CI
 
 Chromatic's automation can be included as part of your Travis CI job with relative ease.
 
-### Setup
+## Setup
 
 To integrate Chromatic with your existing workflow, you’ll need to add the following:
 
-```yml
-# travis.yml
+{/* prettier-ignore-start */}
 
-language: node_js
-node_js:
-  - 16
+<IntegrationSnippets>
+  <Fragment slot="storybook">
+    ```yml
+    # .travis.yml
 
-# Other required configuration
+    language: node_js
+    os: linux
+    dist: jammy
 
-jobs:
-  include:
-    # Other jobs
+    node_js:
+      - 20
+    
+    before_script:
+      # ⚠️ See your package manager's documentation for the correct command to install dependencies in a CI environment.
+      - npm ci
 
-    # 👇 Adds Chromatic as a job
-    - name: "Run Chromatic"
-      script: yarn chromatic
-```
+    cache: npm
+
+    branches:
+      only:
+        - main
+    
+    jobs:
+      include:
+        - stage: "Chromatic"
+          name: "Run Chromatic"
+          script: npx chromatic
+    ```
+  </Fragment>
+  <Fragment slot="playwright">
+    ```yml
+    # .travis.yml
+
+    language: node_js
+    os: linux
+    dist: jammy
+
+    node_js:
+      - 20
+    
+    before_script:
+      # ⚠️ See your package manager's documentation for the correct command to install dependencies in a CI environment. 
+      - npm ci
+
+    cache: npm
+
+    branches:
+      only:
+        - main
+    
+    jobs:
+      include:
+        - stage: "Playwright"
+          name: "Run Playwright"
+          script:
+            - npx playwright install --with-deps
+            - npx playwright test
+          workspaces:
+            create:
+              name: playwright
+              paths:
+                # Chromatic automatically defaults to the test-results directory.
+                # Replace with the path to your custom directory and adjust the CHROMATIC_ARCHIVE_LOCATION environment variable accordingly. 
+                - custom/dir/
+        - stage: "Chromatic"
+          name: "Run Chromatic"
+          workspaces:
+            use: playwright
+          env:
+            - CHROMATIC_ARCHIVE_LOCATION="custom/dir/"
+          script: npx chromatic --playwright
+    ```
+  </Fragment>
+  <Fragment slot="cypress">
+    ```yml
+    # .travis.yml
+
+    language: node_js
+    os: linux
+    dist: jammy
+
+    node_js:
+      - 20
+    
+    before_script:
+      # ⚠️ See your package manager's documentation for the correct command to install dependencies in a CI environment.
+      - npm ci
+    
+    cache:
+      directories:
+        - ~/.npm
+        - ~/.cache
+
+    branches:
+      only:
+        - main
+    
+    jobs:
+      include:
+        - stage: "Cypress"
+          name: "Run Cypress"
+          env:
+            - ELECTRON_EXTRA_LAUNCH_ARGS="--remote-debugging-port=9222"
+          script:
+            - npm run dev &
+            - npx cypress run
+            - kill $(jobs -p) || true
+          workspaces:
+            create:
+              name: cypress
+              paths:
+                # Chromatic automatically defaults to the cypress/downloads directory.
+                # Replace with the path to your custom directory and adjust the CHROMATIC_ARCHIVE_LOCATION environment variable accordingly. 
+                - custom/dir/
+        - stage: "Chromatic"
+          name: "Run Chromatic"
+          workspaces:
+            use: cypress
+          env:
+            - CHROMATIC_ARCHIVE_LOCATION="custom/dir/"
+          script: npx chromatic --cypress
+    ```
+  </Fragment>
+</IntegrationSnippets>
+
+{/* prettier-ignore-end */}
 
 <div class="aside">
 
@@ -39,10 +152,10 @@ We recommend saving the project token as an encrypted environment variable named
 
 ### Run Chromatic on specific branches
 
-If you need to customize your workflow to run on specific branches, you can do so. Change your `travis.yml` to the following:
+If you need to customize your workflow to run on specific branches, you can do so. Change your `.travis.yml` to the following:
 
 ```yml
-# travis.yml
+# .travis.yml
 
 # Other required configuration
 
@@ -55,7 +168,7 @@ jobs:
 
     # 👇 Adds Chromatic as a job
     - name: "Run Chromatic"
-      script: yarn chromatic
+      script: npx chromatic
 ```
 
 <div class="aside">
@@ -69,7 +182,7 @@ Read the official Travis CI [conditional build documentation](https://docs.travi
 Chromatic is prepared to handle large file uploads (with a limit of 5000 files, including stories and assets). If your project exceeds this limit, we recommend adjusting your workflow and run the `chromatic` command with the `--zip` flag to compress your build before uploading it. For example:
 
 ```yml
-# travis.yml
+# .travis.yml
 
 # Other required configuration
 
@@ -79,8 +192,8 @@ jobs:
 
     # 👇 Adds Chromatic as a job
     - name: "Run Chromatic"
-      #👇Runs Chromatic with the flag to compress the build output.
-      script: yarn chromatic --zip
+      #👇 Runs Chromatic with the flag to compress the build output.
+      script: npx chromatic --zip
 ```
 
 ### Run Chromatic on monorepos
@@ -95,7 +208,7 @@ Chromatic can be run on monorepos that have multiple subprojects. Each subprojec
 If you've already built your Storybook in a separate CI step, you can alternatively point the action at the build output using the `storybookBuildDir` parameter.
 
 ```yml
-# travis.yml
+# .travis.yml
 
 # Other required configuration
 
@@ -107,13 +220,13 @@ jobs:
       before_script:
         # Other steps
         - cd packages/project_1
-      script: yarn chromatic
+      script: npx chromatic
       env: CHROMATIC_PROJECT_TOKEN=$CHROMATIC_PROJECT_TOKEN_1
     - name: "Publish Project 2 to Chromatic"
       before_script:
         # Other steps
         - cd packages/project_2
-      script: yarn chromatic
+      script: npx chromatic
       env: CHROMATIC_PROJECT_TOKEN=$CHROMATIC_PROJECT_TOKEN_2
 ```
 
@@ -128,7 +241,7 @@ Additional parallelization can be achieved when configuring your workflow to run
 TurboSnap is an advanced Chromatic feature implemented to improve the build time for large projects, disabled by default once you add Chromatic to your CI environment. To enable it, you'll need to adjust your existing workflow and run the `chromatic` command with the `--only-changed` flag as follows:
 
 ```yml
-# travis.yml
+# .travis.yml
 
 # Other required configuration
 
@@ -139,7 +252,7 @@ jobs:
     # 👇 Adds Chromatic as a job
     - name: "Run Chromatic"
       # 👇 Enables Chromatic's TurboSnap feature.
-      script: yarn chromatic --only-changed
+      script: npx chromatic --only-changed
 ```
 
 <div class="aside">
@@ -154,12 +267,12 @@ Travis CI like other CI systems offer the option of running builds for various t
 
 These specific types of commits (merge) don't persist in the history of your repository. That can cause Chromatic's baselines to be lost in certain situations.
 
-For internal pull requests (ie. pull requests that aren't from forks) we recommend disabling Chromatic on `pr` build events. Also make sure you have `push` builds enabled in your settings.
+For internal pull requests (i.e., pull requests that aren't from forks) we recommend disabling Chromatic on `pr` build events. Also make sure you have `push` builds enabled in your settings.
 
 Once these conditions are met, add the following code to your `.travis.yml`:
 
 ```yml
-# travis.yml
+# .travis.yml
 
 # Other required configuration
 
@@ -171,10 +284,10 @@ jobs:
     - name: "Run Chromatic"
       # 👇 Verifies the build event type or a if it's a forked repository
       if: (type = push OR head_repo != repo )
-      script: yarn chromatic
+      script: npx chromatic
 ```
 
-For external pull requests (i.e forked repositories), the above code will ensure Chromatic runs with the `pr` build event, because Travis will not trigger `push` events for these cases.
+For external pull requests (i.e., forked repositories), the above code will ensure Chromatic runs with the `pr` build event because Travis will not trigger `push` events for these cases.
 
 ### UI Test and UI Review
 
@@ -185,7 +298,7 @@ For external pull requests (i.e forked repositories), the above code will ensure
 If you are using pull request statuses as required checks before merging, you may not want your Travis build to fail if test snapshots render without errors (but with changes). To achieve this, pass the flag `--exit-zero-on-changes` to the `chromatic` command, and your job will continue in such cases. For example:
 
 ```yml
-# travis.yml
+# .travis.yml
 
 # Other required configuration
 
@@ -196,7 +309,7 @@ jobs:
     # 👇 Adds Chromatic as a job
     - name: "Run Chromatic"
       # 👇 Runs Chromatic with the flag to prevent workflow failure
-      script: yarn chromatic --exit-zero-on-changes
+      script: npx chromatic --exit-zero-on-changes
 ```
 
 <div class="aside">
@@ -205,7 +318,7 @@ Read our [CLI documentation](/docs/cli#configuration-options).
 
 </div>
 
-When using `--exit-zero-on-changes` your build will still stop and fail if your Storybook contains stories that error. If you'd prefer Chromatic _never_ to block the build, you can use `yarn chromatic || true`.
+When using `--exit-zero-on-changes` your build will still stop and fail if your Storybook contains stories that error. If you'd prefer Chromatic _never_ to block the build, you can use `npx chromatic || true`.
 
 #### Re-run failed builds after verifying UI test results
 
@@ -215,7 +328,7 @@ If you deny any change, you will need to make the necessary code changes to fix 
 
 #### Maintain a clean "main" branch
 
-A clean `main` branch is a development **best practice** and **highly recommended** for Chromatic. This means testing your `main` branch to ensure builds are passing.  It's important to note that baselines will not persist through branching and merging unless you test your `main` branch.
+A clean `main` branch is a development **best practice** and **highly recommended** for Chromatic. This means testing your `main` branch to ensure builds are passing. It's important to note that baselines will not persist through branching and merging unless you test your `main` branch.
 
 If the builds are a result of direct commits to `main`, you will need to accept changes to keep the main branch clean. If they're merged from `feature-branches`, you will need to make sure those branches are passing _before_ you merge into `main`.
 
@@ -226,7 +339,7 @@ We use GitHub, GitLab, and Bitbucket APIs respectively to detect squashing and r
 If you’re using this functionality but notice the incoming changes were not accepted as baselines in Chromatic, then you'll need to adjust the workflow and include a new Chromatic job with the `--auto-accept-changes` flag. For example:
 
 ```yml
-# travis.yml
+# .travis.yml
 
 # Other configuration here
 
@@ -235,11 +348,11 @@ jobs:
     # 👇 Checks if the branch is not main and runs Chromatic
     - name: "Run Chromatic"
       if: branch != main
-      script: yarn chromatic
+      script: npx chromatic
       # 👇 Checks if the branch is main and runs Chromatic with the flag to accept all changes
     - name: "Run Chromatic and auto accepts changes"
       if: branch = main
-      script: yarn chromatic --auto-accept-changes
+      script: npx chromatic --auto-accept-changes
 ```
 
 <div class="aside">
@@ -253,7 +366,7 @@ Including the `--auto-accept-changes` flag ensures all incoming changes will be 
 If you want to test the changes introduced by the rebased branch, you can adjust your workflow and include a new step with the `ignore-last-build-on-branch` flag. For example:
 
 ```yml
-# travis.yml
+# .travis.yml
 
 # Other required configuration
 
@@ -264,7 +377,7 @@ jobs:
     # 👇 Adds Chromatic as a job
     - name: "Run Chromatic"
       # 👇 Option to skip the last build on target branch
-      script: yarn chromatic --ignore-last-build-on-branch=my-branch
+      script: npx chromatic --ignore-last-build-on-branch=my-branch
 ```
 
 <div class="aside">
@@ -290,7 +403,7 @@ One use case for this feature is skipping builds for branches created by a bot. 
 To skip builds for `dependabot` branches, use the following:
 
 ```shell
-chromatic --skip 'dependabot/**'
+npx chromatic --skip 'dependabot/**'
 ```
 
 <div class="aside">
@@ -302,7 +415,7 @@ Read our [CLI documentation](/docs/cli#configuration-options).
 To apply this to multiple branches, use an "extended glob". See [picomatch] for details.
 
 ```shell
-chromatic --skip '@(renovate/**|dependabot/**)'
+npx chromatic --skip '@(renovate/**|dependabot/**)'
 ```
 
 [picomatch]: https://www.npmjs.com/package/picomatch#globbing-features
