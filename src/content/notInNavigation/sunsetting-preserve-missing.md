@@ -46,7 +46,7 @@ export default config;
 
 In which case you'd set the `STORYBOOK_PROJECT` environment variable to control which stories get included in your Storybook. **Do not do this** unless you target a different Chromatic project for each Storybook project (e.g. in a [monorepo](/docs/monorepos) setup).
 
-For the above, you might [configure your `stories`](https://storybook.js.org/docs/react/configure/overview#with-a-configuration-object) as follows:
+For the above, you might [configure your `stories`](https://storybook.js.org/docs/configure#with-a-configuration-object) as follows:
 
 ```js
 // .storybook/main.js
@@ -85,7 +85,9 @@ You may have to replace `build-storybook` (package script) or `storybook-static`
 Depending on your setup, you may have a `chromatic` script in your `package.json`, use `npx chromatic` in your CI script(s) or use the `chromaui/action` GitHub Action.
 
 <div class="aside">
+
 While updating your Chromatic configuration, be on the lookout for that `STORYBOOK_PROJECT` environment variable (or whatever it's called in your case). If you're no longer using it after step 1, you should probably remove it.
+
 </div>
 
 #### `chromatic` script
@@ -106,7 +108,7 @@ To avoid snapshotting irrelevant stories, you have several options. You can add 
 
 #### `--only-story-files` (`onlyStoryFiles`)
 
-To run only stories from "Project Alpha" described above, you can specify `--only-story-files="./projectA/**/*` (note this path is relative to your Storybook project, not the `.storybook` config dir). You can specify this flag multiple times to test multiple projects/directories, or use globs to do complex matching.
+To run only stories from "Project Alpha" described above, you can specify `--only-story-files="./projectA/**/*"` (note this path is relative to your Storybook project, not the `.storybook` config dir). You can specify this flag multiple times to test multiple projects/directories, or use globs to do complex matching.
 
 <div class="aside">
 This is the most straightforward replacement to the behavior illustrated in step 1, but it is also a relatively blunt weapon because you're still testing an entire subdirectory.
@@ -117,7 +119,9 @@ This is the most straightforward replacement to the behavior illustrated in step
 Depending on your Storybook setup and hierarchy, it may be convenient to filter stories by their story path/name instead of their filename. For example: `--only-story-names="Atoms/Button/*"`. You can specify the flag multiple times to test multiple stories, or use globbing to do complex matching.
 
 <div class="aside">
+
 This flag used to be called `--only`. If you happen to be using `--only`, you should change it to `--only-story-names`.
+
 </div>
 
 #### `--only-changed` (`onlyChanged: true`)
