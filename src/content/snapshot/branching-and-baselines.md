@@ -84,7 +84,11 @@ If you use the “squash” or “rebase” merge feature on Pull Requests, then
 
 This means Chromatic has no way to tell, using git, that baselines accepted during the PR should “come over” to the main branch. Instead, we use git provider APIs to detect this situation. When running the squash/rebase merge commit, we’ll use the accepted baselines of the _most recent_ commit on the head branch of the PR.
 
-If you are using GitHub, you need to enable our GitHub App (on the [Pull Request](/docs/review) screen) for this feature to work. Bitbucket and GitLab will work out of the box.
+To ensure that Chromatic uses the correct baseline with “squash” or “rebase”, we recommend the following:
+
+- **GitHub:** enable the Chromatic GitHub App (on the [Pull Request](/docs/review) screen)
+- **Bitbucket** will work out of the box
+- **GitLab or an unlinked project**, follow our process for [auto-accepting changes on main](/docs/branching-and-baselines/#how-do-i-auto-accept-changes-on-main).
 
 </details>
 
@@ -113,6 +117,13 @@ You can use git to bring your old baselines back.
 3. Make a new branch off of that (e.g., `feature-branch-baselines`).
 4. Create a new commit (empty ok) and run a build to make "more recent" baselines.
 5. Merge that commit into the current `main` branch.
+
+</details>
+
+<details>
+  <summary>How do I auto-accept changes on <code>main</code>?</summary>
+
+Use the `--auto-accept-changes` flag with the Chromatic CLI or the `autoAcceptChanges` option in your Chromatic config with the value as `"main"`. This will ensure that Chromatic will automatically accept any changes in your build on the `main` branch.
 
 </details>
 
