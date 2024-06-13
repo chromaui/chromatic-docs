@@ -33,7 +33,7 @@ If you’re loading fonts from an external CDN service (like Google Fonts or Ado
 
 ### Solution B: Point font-face declarations at static files
 
-If you have global `@font-face` declarations that point to a CDN in your CSS, you may need to override them in order to ensure that your snapshots always use assets that are loaded locally.
+If your CSS has global `@font-face` declarations that point to a CDN, you may need to override them to ensure that your snapshots always use assets loaded locally.
 
 For example, you might have a font CDN referenced in your stylesheets like so.
 
