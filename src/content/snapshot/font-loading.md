@@ -50,7 +50,7 @@ For example, you might have a font CDN referenced in your stylesheets like so.
 
 To serve the fonts statically, you first need to put your fonts in a static directory for Storybook. We recommend the `../public` directory.
 
-Next create a stylesheet `yourfontface.css` in the directory `./storybook` directory. We'll use the stylesheet to specify the local path for your font in the `../public` directory.
+Next, create a `yourfontface.css` CSS inside your Storybook configuration directory (i.e., `.storybook`). We'll use it to reference the local path for your font in the `../public` directory.
 
 ```css
 /* ./storybook/yourfontface.css */
