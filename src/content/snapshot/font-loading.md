@@ -39,6 +39,7 @@ For example, you might have a font CDN referenced in your stylesheets like so.
 
 ```css
 /* yourglobalstyles.css */
+
 @font-face {
   font-display: optional;
   font-family: "YourFont";
@@ -54,6 +55,7 @@ Next create a stylesheet `yourfontface.css` in the directory `./storybook` direc
 
 ```css
 /* ./storybook/yourfontface.css */
+
 @font-face {
   font-display: optional;
   font-family: "YourFont";
@@ -77,7 +79,7 @@ This technique loads a local font file during development and testing in Storybo
 
 ### Solution C: Check fonts have loaded in a loader
 
-This alternate solution uses the browsers font load API and the [`isChromatic()`](/docs/ischromatic) helper function to verify that fonts load when in the Chromatic environment.
+This alternate solution uses the browser's font load API and the [`isChromatic()`](/docs/ischromatic) helper function to verify that fonts load when in the Chromatic environment.
 
 ```js
 // .storybook/preview.js
