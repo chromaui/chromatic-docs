@@ -1,0 +1,106 @@
+---
+layout: "../../layouts/Layout.astro"
+title: Font loading
+description: Learn how to preload fonts for fast and consistent visual testing.
+sidebar: { order: 2 }
+---
+
+# Loading custom fonts
+
+Browsers can decide to render HTML in multiple passes when custom fonts are used. They do this to speed up the time-to-first-meaningful-paint.
+
+Unfortunately, this behavior can cause your story to render without the custom font. Or worse, render inconsistently. That triggers font rendering changes that you have to accept again and again. Here are ways to prevent that.
+
+### Solution A: Preload fonts
+
+We recommend that you ensure fonts are always loaded prior to rendering the story. Preload fonts in Storybook by specifying them in `./storybook/preview-head.html`.
+
+```js
+// ./storybook/preview-head.html
+
+<link
+  rel="preload"
+  href="path/to/font.woff2"
+  as="font"
+  type="font/woff2"
+  crossorigin="anonymous"
+/>
+```
+
+<div class="aside">
+If you’re loading fonts from an external CDN service (like Google Fonts or Adobe Fonts), be careful that the font files you’re preloading match the fonts called for in your CSS.
+</div>
+
+### Solution B: Point font-face declarations at static files
+
+If your CSS has global `@font-face` declarations that point to a CDN, you may need to override them to ensure that your snapshots always use assets loaded locally.
+
+For example, you might have a font CDN referenced in your stylesheets like so.
+
+```css
+/* yourglobalstyles.css */
+
+@font-face {
+  font-display: optional;
+  font-family: "YourFont";
+  font-style: normal;
+  font-weight: normal;
+  src: url("https://cdn.yoursite.com/yourfont.woff2") format("woff2");
+}
+```
+
+To serve the fonts statically, you first need to put your fonts in a static directory for Storybook. We recommend the `../public` directory.
+
+Next, create a `yourfontface.css` CSS inside your Storybook configuration directory (i.e., `.storybook`). We'll use it to reference the local path for your font in the `../public` directory.
+
+```css
+/* ./storybook/yourfontface.css */
+
+@font-face {
+  font-display: optional;
+  font-family: "YourFont";
+  font-style: normal;
+  font-weight: normal;
+  /* 👇 Change this to point at the local font path */
+  src: url("/yourfont.woff2") format("woff2");
+}
+```
+
+Reference the stylesheet in Storybook's `preview-head.html` configuration to load the font from the local path.
+
+```js
+// ./storybook/preview-head.html
+
+// 👇 Add this
+<link rel="stylesheet" type="text/css" href="/yourfontface.css">
+```
+
+This technique loads a local font file during development and testing in Storybook. Meanwhile your users still load the font from the CDN in production.
+
+### Solution C: Check fonts have loaded in a loader
+
+This alternate solution uses the browser's font load API and the [`isChromatic()`](/docs/ischromatic) helper function to verify that fonts load when in the Chromatic environment.
+
+```js
+// .storybook/preview.js
+
+import isChromatic from "chromatic/isChromatic";
+
+// Use the document.fonts API to check if fonts have loaded
+// https://developer.mozilla.org/en-US/docs/Web/API/Document/fonts API to
+const fontLoader = async () => ({
+  fonts: await Promise.all([document.fonts.load("400 1em Font Name")]),
+  // or
+  // fonts: await document.fonts.ready,
+});
+
+/* 👇 It's configured as a global loader
+ * See https://storybook.js.org/docs/react/writing-stories/loaders
+ * to learn more about loaders
+ */
+export const loaders = isChromatic() && document.fonts ? [fontLoader] : [];
+```
+
+### Solution D: Don't load fonts
+
+As a last resort, you can also disable custom fonts by setting `font-display: optional` in your CSS when running in Chromatic.
