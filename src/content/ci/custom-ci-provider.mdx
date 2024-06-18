@@ -46,19 +46,19 @@ To integrate Chromatic with your existing CI provider, you'll need to add the fo
     - run:
         name: "Playwright"
         displayName: "Run Playwright tests"
-        container: mcr.microsoft.com/playwright:v1.44.0-jammy
+        container: mcr.microsoft.com/playwright:v1.44.1-jammy
         options:
           artifacts:
             # Chromatic automatically defaults to the test-results directory.
             # Replace with the path to your custom directory and adjust the CHROMATIC_ARCHIVE_LOCATION environment variable accordingly.
-            - custom/dir
+            - test-results
         command: npx playwright test
     - run:
         name: "Chromatic"
         displayName: "Run Chromatic"
         requires: [Playwright]
         environment:
-          CHROMATIC_ARCHIVE_LOCATION: "custom/dir"
+          CHROMATIC_ARCHIVE_LOCATION: "test-results"
         command: npx chromatic --playwright
     ```
 </Fragment>
@@ -81,7 +81,7 @@ To integrate Chromatic with your existing CI provider, you'll need to add the fo
           artifacts:
             # Chromatic automatically defaults to the cypress/downloads directory.
             # Replace with the path to your custom directory and adjust the CHROMATIC_ARCHIVE_LOCATION environment variable accordingly. 
-            - custom/dir
+            - cypress/downloads
         command:
           - npm run dev &
           - npx cypress run
@@ -90,7 +90,7 @@ To integrate Chromatic with your existing CI provider, you'll need to add the fo
         displayName: "Run Chromatic"
         requires: [Cypress]
         environment:
-          CHROMATIC_ARCHIVE_LOCATION: "custom/dir"
+          CHROMATIC_ARCHIVE_LOCATION: "cypress/downloads"
         command: npx chromatic --cypress
     ```
 </Fragment>

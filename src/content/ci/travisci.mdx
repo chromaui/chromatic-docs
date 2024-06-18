@@ -80,13 +80,13 @@ To integrate Chromatic with your existing workflow, you’ll need to add the fol
               paths:
                 # Chromatic automatically defaults to the test-results directory.
                 # Replace with the path to your custom directory and adjust the CHROMATIC_ARCHIVE_LOCATION environment variable accordingly. 
-                - custom/dir/
+                - test-results
         - stage: "Chromatic"
           name: "Run Chromatic"
           workspaces:
             use: playwright
           env:
-            - CHROMATIC_ARCHIVE_LOCATION="custom/dir/"
+            - CHROMATIC_ARCHIVE_LOCATION="test-results"
           script: npx chromatic --playwright
     ```
   </Fragment>
@@ -130,13 +130,13 @@ To integrate Chromatic with your existing workflow, you’ll need to add the fol
               paths:
                 # Chromatic automatically defaults to the cypress/downloads directory.
                 # Replace with the path to your custom directory and adjust the CHROMATIC_ARCHIVE_LOCATION environment variable accordingly. 
-                - custom/dir/
+                - cypress/downloads
         - stage: "Chromatic"
           name: "Run Chromatic"
           workspaces:
             use: cypress
           env:
-            - CHROMATIC_ARCHIVE_LOCATION="custom/dir/"
+            - CHROMATIC_ARCHIVE_LOCATION="cypress/downloads"
           script: npx chromatic --cypress
     ```
   </Fragment>
