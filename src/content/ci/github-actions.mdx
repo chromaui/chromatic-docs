@@ -60,7 +60,7 @@ In your `.github/workflows` directory, create a new file called `chromatic.yml` 
       playwright:
         runs-on: ubuntu-latest
         container:
-          image: mcr.microsoft.com/playwright:v1.44.0-jammy
+          image: mcr.microsoft.com/playwright:v1.44.1-jammy
         steps:
           - uses: actions/checkout@v4
             with:
@@ -81,7 +81,7 @@ In your `.github/workflows` directory, create a new file called `chromatic.yml` 
               # Chromatic automatically defaults to the test-results directory. 
               # Replace with the path to your custom directory and adjust the CHROMATIC_ARCHIVE_LOCATION environment variable accordingly. 
               name: test-results
-              path: custom/dir
+              path: ./test-results
               retention-days: 30
       chromatic:
         name: Run Chromatic
@@ -101,7 +101,7 @@ In your `.github/workflows` directory, create a new file called `chromatic.yml` 
             uses: actions/download-artifact@v4
             with:
               name: test-results
-              path: custom/dir
+              path: ./test-results
           - name: Run Chromatic
             uses: chromaui/action@latest
             with:
@@ -110,7 +110,7 @@ In your `.github/workflows` directory, create a new file called `chromatic.yml` 
               # ⚠️ Make sure to configure a `CHROMATIC_PROJECT_TOKEN` repository secret
               projectToken: ${{ secrets.CHROMATIC_PROJECT_TOKEN }}
             # ⚠️ Optionally configure the archive location with env vars
-            env: CHROMATIC_ARCHIVE_LOCATION=./custom/dir
+            env: CHROMATIC_ARCHIVE_LOCATION=./test-results
     ```
   </Fragment>
   <Fragment slot="cypress">
@@ -151,7 +151,7 @@ In your `.github/workflows` directory, create a new file called `chromatic.yml` 
               # Chromatic automatically defaults to the cypress/downloads directory. 
               # Replace with the path to your custom directory and adjust the CHROMATIC_ARCHIVE_LOCATION environment variable accordingly.
               name: test-results
-              path: custom/dir
+              path: ./cypress/downloads
               retention-days: 30
       chromatic:
         name: Run Chromatic
@@ -172,7 +172,7 @@ In your `.github/workflows` directory, create a new file called `chromatic.yml` 
             uses: actions/download-artifact@v4
             with:
               name: test-results
-              path: custom/dir
+              path: ./cypress/downloads
           - name: Run Chromatic
             uses: chromaui/action@latest
             with:
@@ -181,7 +181,7 @@ In your `.github/workflows` directory, create a new file called `chromatic.yml` 
               # ⚠️ Make sure to configure a `CHROMATIC_PROJECT_TOKEN` repository secret
               projectToken: ${{ secrets.CHROMATIC_PROJECT_TOKEN }}
             # ⚠️ Optionally configure the archive location with env vars
-            env: CHROMATIC_ARCHIVE_LOCATION=./custom/dir
+            env: CHROMATIC_ARCHIVE_LOCATION=./cypress/downloads
     ```
   </Fragment>
 </IntegrationSnippets>

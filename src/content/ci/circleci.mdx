@@ -63,7 +63,7 @@ To integrate Chromatic with your existing workflow, you'll need to add the follo
     executors:
       pw-jammy-development:
         docker:
-          - image: mcr.microsoft.com/playwright:v1.44.0-jammy
+          - image: mcr.microsoft.com/playwright:v1.44.1-jammy
         working_directory: ~/repo
       chromatic-ui-testing:
         docker:
@@ -96,11 +96,11 @@ To integrate Chromatic with your existing workflow, you'll need to add the follo
           - store_artifacts:
               # Chromatic automatically defaults to the test-results directory. 
               # Replace with the path to your custom directory and adjust the CHROMATIC_ARCHIVE_LOCATION environment variable accordingly. 
-              path: ./custom/dir/
+              path: ./test-results
           - persist_to_workspace:
               root: .
               paths:
-                - custom/dir/
+                - test-results
       Chromatic:
         executor: chromatic-ui-testing
         steps:
@@ -117,7 +117,7 @@ To integrate Chromatic with your existing workflow, you'll need to add the follo
               name: "Run Chromatic"
               command: npx chromatic --playwright
               environment:
-                CHROMATIC_ARCHIVE_LOCATION: "custom/dir/"
+                CHROMATIC_ARCHIVE_LOCATION: "test-results"
       
     workflows:
       UI_Tests:
@@ -177,11 +177,11 @@ To integrate Chromatic with your existing workflow, you'll need to add the follo
           - store_artifacts:
               # Chromatic automatically defaults to the cypress/downloads directory. 
               # Replace with the path to your custom directory and adjust the CHROMATIC_ARCHIVE_LOCATION environment variable accordingly.
-              path: ./custom/dir/
+              path: ./cypress/downloads
           - persist_to_workspace:
               root: .
               paths:
-                - custom/dir/
+               - cypress/downloads
       Chromatic:
         executor: chromatic-ui-testing
         steps:
@@ -198,7 +198,7 @@ To integrate Chromatic with your existing workflow, you'll need to add the follo
               name: "Run Chromatic"
               command: npx chromatic --cypress
               environment:
-                CHROMATIC_ARCHIVE_LOCATION: "custom/dir/"
+                CHROMATIC_ARCHIVE_LOCATION: "cypress/downloads"
     
     workflows:
       UI_Tests:

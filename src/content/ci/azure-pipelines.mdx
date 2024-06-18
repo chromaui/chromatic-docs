@@ -75,7 +75,7 @@ To integrate Chromatic with your existing pipeline, you'll need to add the follo
         jobs:
           - job: Playwright
             displayName: "Run Playwright"
-            container: mcr.microsoft.com/playwright:v1.44.0-jammy 
+            container: mcr.microsoft.com/playwright:v1.44.1-jammy
             steps:
               - checkout: self
                 displayName: "Get Full Git History"
@@ -103,7 +103,7 @@ To integrate Chromatic with your existing pipeline, you'll need to add the follo
                 inputs:
                   # Chromatic automatically defaults to the test-results directory. 
                   # Replace with the path to your custom directory and adjust the CHROMATIC_ARCHIVE_LOCATION environment variable accordingly. 
-                  targetPath: custom/dir
+                  targetPath: test-results
                   artifact: test-results
                   publishLocation: "pipeline"
                 condition: succeededOrFailed()
@@ -133,14 +133,14 @@ To integrate Chromatic with your existing pipeline, you'll need to add the follo
                 inputs:
                   buildType: "current"
                   artifactName: "test-results"
-                  targetPath: "$(System.DefaultWorkingDirectory)/custom/dir"
+                  targetPath: "$(System.DefaultWorkingDirectory)/test-results"
               - task: CmdLine@2
                 displayName: "Run Chromatic"
                 inputs:
                   script: npx chromatic --playwright
                 env:
                   CHROMATIC_PROJECT_TOKEN: $(CHROMATIC_PROJECT_TOKEN)
-                  CHROMATIC_ARCHIVE_LOCATION: "custom/dir"
+                  CHROMATIC_ARCHIVE_LOCATION: "test-results"
     ```   
   </Fragment>
   <Fragment slot="cypress">
@@ -191,7 +191,7 @@ To integrate Chromatic with your existing pipeline, you'll need to add the follo
                 inputs:
                   # Chromatic automatically defaults to the cypress/downloads directory. 
                   # Replace with the path to your custom directory and adjust the CHROMATIC_ARCHIVE_LOCATION environment variable accordingly. 
-                  targetPath: custom/dir
+                  targetPath: cypress/downloads
                   artifact: test-results
                   publishLocation: "pipeline"
                 condition: succeededOrFailed()
@@ -221,14 +221,14 @@ To integrate Chromatic with your existing pipeline, you'll need to add the follo
                 inputs:
                   buildType: "current"
                   artifactName: "test-results"
-                  targetPath: "$(System.DefaultWorkingDirectory)/custom/dir"
+                  targetPath: "$(System.DefaultWorkingDirectory)/cypress/downloads"
               - task: CmdLine@2
                 displayName: "Run Chromatic"
                 inputs:
                   script: npx chromatic --cypress
                 env:
                   CHROMATIC_PROJECT_TOKEN: $(CHROMATIC_PROJECT_TOKEN)
-                  CHROMATIC_ARCHIVE_LOCATION: "custom/dir"
+                  CHROMATIC_ARCHIVE_LOCATION: "cypress/downloads"
     ```   
   </Fragment>
 </IntegrationSnippets>

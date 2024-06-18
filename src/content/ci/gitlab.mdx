@@ -63,22 +63,22 @@ To integrate Chromatic with your existing pipeline, you'll need to add the follo
     Playwright:
       stage: UI_Tests
       needs: []
-      image: mcr.microsoft.com/playwright:v1.44.0-jammy
+      image: mcr.microsoft.com/playwright:v1.44.1-jammy
       script:
         - npx playwright test
       allow_failure: true
       artifacts:
         when: always
         paths:
-          # Chromatic automatically defaults to the cypress/downloads directory.
+          # Chromatic automatically defaults to the test-results directory.
           # Replace with the path to your custom directory and adjust the CHROMATIC_ARCHIVE_LOCATION environment variable accordingly. 
-          - "custom/dir/"
+          - "test-results/"
         expire_in: 4 weeks
     Chromatic:
       stage: UI_Tests
       needs: [Playwright]
       variables:
-        CHROMATIC_ARCHIVE_LOCATION: "custom/dir/"
+        CHROMATIC_ARCHIVE_LOCATION: "test-results/"
       script:
         - npx chromatic --playwright
     ```
@@ -117,13 +117,13 @@ To integrate Chromatic with your existing pipeline, you'll need to add the follo
         paths:
           # Chromatic automatically defaults to the cypress/downloads directory.
           # Replace with the path to your custom directory and adjust the CHROMATIC_ARCHIVE_LOCATION environment variable accordingly.
-          - "custom/dir/"
+          - "cypress/downloads/"
         expire_in: 4 weeks
     Chromatic:
       stage: UI_Tests
       needs: [Cypress]
       variables:
-        CHROMATIC_ARCHIVE_LOCATION: "custom/dir/"
+        CHROMATIC_ARCHIVE_LOCATION: "cypress/downloads/"
       script:
         - npx chromatic --cypress
     ```

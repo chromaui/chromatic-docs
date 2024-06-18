@@ -29,7 +29,7 @@ jobs:
         shard: [1, 2]
     runs-on: ubuntu-latest
     container:
-      image: mcr.microsoft.com/playwright:v1.44.0-jammy
+      image: mcr.microsoft.com/playwright:v1.44.1-jammy
     steps:
       - uses: actions/checkout@v4
         with:
@@ -101,7 +101,7 @@ before_script:
 Playwright:
   stage: UI_Tests
   needs: []
-  image: mcr.microsoft.com/playwright:v1.44.0-jammy
+  image: mcr.microsoft.com/playwright:v1.44.1-jammy
   parallel: 2
   script:
     - npx playwright test --shard=$CI_NODE_INDEX/$CI_NODE_TOTAL
@@ -129,7 +129,7 @@ version: 2.1
 executors:
   pw-jammy-development:
     docker:
-      - image: mcr.microsoft.com/playwright:v1.44.0-jammy
+      - image: mcr.microsoft.com/playwright:v1.44.1-jammy
   chromatic-ui-testing:
     docker:
       - image: cimg/node:20.12.2
@@ -209,7 +209,7 @@ pipeline {
         stage('Shard #1') {
           agent {
             docker {
-              image 'mcr.microsoft.com/playwright:v1.44.0-jammy'
+              image 'mcr.microsoft.com/playwright:v1.44.1-jammy'
               reuseNode true
             }
           }
@@ -229,7 +229,7 @@ pipeline {
         stage('Shard #2') {
           agent {
             docker {
-              image 'mcr.microsoft.com/playwright:v1.44.0-jammy'
+              image 'mcr.microsoft.com/playwright:v1.44.1-jammy'
               reuseNode true
             }
           }
@@ -272,7 +272,7 @@ image: node:iron
 - run:
     name: "Playwright"
     displayName: "Run Playwright tests"
-    container: mcr.microsoft.com/playwright:v1.44.0-jammy
+    container: mcr.microsoft.com/playwright:v1.44.1-jammy
     options:
       parallel: 2
       artifacts:

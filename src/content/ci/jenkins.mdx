@@ -55,7 +55,7 @@ To integrate Chromatic with your existing [multistage pipeline](https://www.jenk
          stage('Playwright') {
            agent {
              docker {
-               image 'mcr.microsoft.com/playwright:v1.44.0-jammy'
+               image 'mcr.microsoft.com/playwright:v1.44.1-jammy'
                reuseNode true
              }
            }
@@ -69,14 +69,14 @@ To integrate Chromatic with your existing [multistage pipeline](https://www.jenk
                Chromatic automatically defaults to the test-results directory. 
                Replace with the path to your custom directory and adjust the CHROMATIC_ARCHIVE_LOCATION environment variable accordingly.
               */
-               archiveArtifacts 'custom/dir/**'
+               archiveArtifacts 'test-results/**'
              }
            }
          }
          stage('Run Chromatic'){
            environment {
              CHROMATIC_PROJECT_TOKEN = credentials('chromatic-project-token')
-             CHROMATIC_ARCHIVE_LOCATION = 'custom/dir'
+             CHROMATIC_ARCHIVE_LOCATION = 'test-results'
            }
            steps {
              /* 👇 Runs the Chromatic CLI */
@@ -118,14 +118,14 @@ To integrate Chromatic with your existing [multistage pipeline](https://www.jenk
                Chromatic automatically defaults to the cypress/downloads directory. 
                Replace with the path to your custom directory and adjust the CHROMATIC_ARCHIVE_LOCATION environment variable accordingly.
               */
-               archiveArtifacts 'custom/dir/**'
+               archiveArtifacts 'cypress/downloads/**'
              }
            }
          }
          stage('Run Chromatic'){
            environment {
              CHROMATIC_PROJECT_TOKEN = credentials('chromatic-project-token')
-             CHROMATIC_ARCHIVE_LOCATION = 'custom/dir'
+             CHROMATIC_ARCHIVE_LOCATION = 'cypress/downloads'
            }
            steps {
              /* 👇 Runs the Chromatic CLI */
