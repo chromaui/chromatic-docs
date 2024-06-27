@@ -13,17 +13,17 @@ Chromatic bills customers monthly based on their subscription date. For instance
 
 Chromatic charges based on [snapshots](/docs/snapshots) and browser coverage, respectively. Snapshots power [UI Tests](/docs/test) and [UI Review](/docs/review). They are only taken when you enable “UI Review” or “UI Tests” for your project.
 
-Every time you run a build, we take one snapshot for each story. If you have 50 stories, Chromatic will take 50 snapshots. In addition, testing multiple viewports and browsers are also considered snapshots.
+Every time you run a build, we take one snapshot for each test. If you have 50 tests, Chromatic will take 50 snapshots. In addition, testing multiple viewports and browsers are also considered snapshots.
 
 For example, see how many snapshots are taken in different scenarios below.
 
-| Story count | Builds    | Browsers   | Viewports   | Snapshots taken |
-| ----------- | --------- | ---------- | ----------- | --------------- |
-| 1 story     | 10 builds | 1 browser  | 1 viewport  | 10 snapshots    |
-| 1 story     | 10 builds | 2 browsers | 1 viewport  | 20 snapshots    |
-| 2 stories   | 10 builds | 1 browser  | 1 viewport  | 20 snapshots    |
-| 2 stories   | 10 builds | 2 browsers | 1 viewport  | 40 snapshots    |
-| 2 stories   | 10 builds | 2 browsers | 2 viewports | 80 snapshots    |
+| Test count | Builds    | Browsers   | Viewports   | Snapshots taken |
+| ---------- | --------- | ---------- | ----------- | --------------- |
+| 1 test     | 10 builds | 1 browser  | 1 viewport  | 10 snapshots    |
+| 1 test     | 10 builds | 2 browsers | 1 viewport  | 20 snapshots    |
+| 2 tests    | 10 builds | 1 browser  | 1 viewport  | 20 snapshots    |
+| 2 tests    | 10 builds | 2 browsers | 1 viewport  | 40 snapshots    |
+| 2 tests    | 10 builds | 2 browsers | 2 viewports | 80 snapshots    |
 
 <div class="aside">
 
@@ -31,7 +31,7 @@ If you use our free [Publish Storybook](/docs/storybook/publish) service only yo
 
 </div>
 
-### Snapshots with TurboSnap enabled
+### Snapshots with TurboSnap enabled (Storybook only)
 
 Chromatic's default behavior is to capture new a snapshot for every story in every build.
 
