@@ -101,17 +101,18 @@ const styles = css`
     margin-left: 2px;
   }
 `;
+const ALGOLIA_API_KEY = import.meta.env.PUBLIC_ALGOLIA_API_KEY;
 ---
 
 <Global styles={styles} />
 <div id="docsearch" style="height: 36px"></div>
 <script is:inline src="https://cdn.jsdelivr.net/npm/@docsearch/js@3"></script>
-<script is:inline>
+<script is:inline define:vars={{ ALGOLIA_API_KEY }}>
   window.docsearch({
     container: "#docsearch",
     appId: "I751GHI6QM",
     indexName: "chromatic",
-    apiKey: "47fb24662853f14569501e42986f2781",
+    apiKey: ALGOLIA_API_KEY,
   });
 </script>
 
