@@ -52,6 +52,7 @@ jobs:
         run: npm run build-deploy
         env:
           HYGRAPH_ENDPOINT: ${{ secrets.HYGRAPH_ENDPOINT }}
+          PUBLIC_ALGOLIA_API_KEY: ${{ secrets.PUBLIC_ALGOLIA_API_KEY }}
 
       - name: Create Deploy Message
         run: |
