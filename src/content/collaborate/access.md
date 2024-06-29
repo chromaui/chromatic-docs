@@ -93,6 +93,13 @@ If your GitHub organization requires an admin to approve apps, you'll need to re
 
 </details>
 
+<details>
+  <summary>Is my forked repository subject to access restrictions?</summary>
+
+When you have a fork of a private organization owned repository, that forked repository is going to be subject to that organization's access restrictions. For example, `org1/my-repo` is the original repository and you fork it to `org2/my-repo`. In this situation, the original repo `org1/my-repo` would need to approve Chromatic's OAuth App on their end. Once they do, you'll be able to use the forked repo `org2/my-repo` with Chromatic.
+
+</details>
+
 #### Email
 
 Email and password authentication is available on all accounts. It's a popular authentication method for [external collaborators](/docs/collaborators#external-collaborators) like designers, PMs, and other stakeholders.
