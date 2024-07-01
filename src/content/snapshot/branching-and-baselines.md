@@ -127,6 +127,15 @@ Use the `--auto-accept-changes` flag with the Chromatic CLI or the `autoAcceptCh
 
 </details>
 
+<details>
+  <summary>What if I accidentally accept unwanted changes. Can I delete a build?</summary>
+
+Chromatic does not currently support deleting individual builds within an app. Builds are integral to Chromatic's baseline algorithms, making deleting individual links in the chain complex and impossible at the moment.
+
+If you want to revert to a previous baseline, you can use Git to restore old baselines. Identify a past build with the correct baselines, create a new branch for these changes and merge them into the current `main` branch using the `--auto-accept-changes` flag.
+
+</details>
+
 ### How are baselines calculated?
 
 In Chromatic, a build contains of a set of snapshots, each of which is a snapshot of a single story in a single mode. The baseline is the last accepted snapshot on a given branch. Each branch has builds associated with it, so to find the baseline, we need to traverse git history for that branch to find the “ancestor” build.
