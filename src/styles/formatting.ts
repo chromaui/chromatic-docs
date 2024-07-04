@@ -176,6 +176,28 @@ export const formatting = css`
     }
   }
 
+  figure.mermaid {
+    width: 100%;
+    background: #f8f8f8;
+    border-radius: 4px;
+    position: relative;
+    margin: 1.5rem 0;
+    padding: 1rem;
+
+    svg {
+      display: block;
+      min-width: 300px;
+      height: auto;
+    }
+
+    & + .aside {
+      margin-top: -1.5rem;
+      border-top-left-radius: 0;
+      border-top-right-radius: 0;
+      border-top: 1px solid rgba(0, 0, 0, 0.1);
+    }
+  }
+
   blockquote {
     border-left: 2px solid #1ea7fd;
     color: #666;

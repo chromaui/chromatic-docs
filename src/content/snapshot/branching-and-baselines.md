@@ -12,10 +12,26 @@ This document describes how Chromatic decides what snapshots to compare when usi
 - [UI Tests](#ui-tests-verify-changes-on-one-branch): Verify changes on one branch (uses baselines)
 - [UI Review](#ui-review-compare-two-branches-for-changes): Compare two branches for changes (does not use baselines)
 
-```shell
+<!-- ```shell
 [M] - A - B - C [base branch]
     \
       D - E - [F] [head branch]
+``` -->
+
+```mermaid
+%%{
+  init: { 'gitGraph': { 'parallelCommits': true, 'rotateCommitLabel': false, 'mainBranchOrder': 2 }}
+}%%
+    gitGraph LR:
+       commit type: HIGHLIGHT id: "M"
+       branch new_feature
+       commit id: "D"
+       commit id: "E"
+       commit type: HIGHLIGHT id: "F"
+       checkout main
+       commit id: "A"
+       commit id: "B"
+       commit id: "C"
 ```
 
 <div class="aside">
@@ -137,30 +153,56 @@ When you create a new build for a new commit, Chromatic will calculate a baselin
 
 The ancestor build is the most recent ancestor (commit) in the git history that has had Chromatic run against it. Often, it is the previous commit:
 
-```shell
+<!-- ```shell
 x - Build N
 |
 y - Build N+1
+``` -->
+
+```mermaid
+
+gitGraph
+ commit id: "x (Build N)"
+ commit id: "y (Build N+1)"
 ```
 
 If you don’t run CI on every commit (which is common if you don’t push every single time you commit), there may be a gap:
 
-```shell
+<!-- ```shell
 x - Build N
 |
 y
 |
 z - Build N+1
+``` -->
+
+```mermaid
+
+gitGraph
+ commit id: "x (Build N)"
+ commit id: "y"
+ commit id: "z (Build N+1)"
 ```
 
 Also, it is possible there is more than one most recent ancestor, in particular if the commit we are looking at is a merge commit:
 
-```shell
+<!-- ```shell
 x - Build N
 |
 |    p - Build N+1
 |  /
 y - Build N+2
+``` -->
+
+```mermaid
+gitGraph TB:
+    commit id: "w"
+    commit id: "x" tag: "Build N"
+    branch new_feature
+    commit id: "p" tag: "Build N+1"
+    checkout main
+    merge new_feature id: "y" tag: "Build N+2"
+    commit id: "z"
 ```
 
 In this case, Build N+2 will have two ancestor builds (N, and N+1).
@@ -183,12 +225,19 @@ If there is, check the status of that snapshot:
 
 The last case bears thinking about a bit. Consider this scenario:
 
-```shell
+<!-- ```shell
 x - Build N
 |
 y - Build N+1
 |
 z - Build N+2
+``` -->
+
+```mermaid
+gitGraph LR:
+  commit id: "x (Build N)"
+  commit id: "y (Build N+1)"
+  commit id: "z (Build N+2)"
 ```
 
 Suppose then in commit y, we changed the color of our submit buttons to be orange rather than green. However, we realized this was a mistake and denied the change. Then in commit z we changed the colour back to green.
@@ -249,10 +298,28 @@ To find the merge base build in Chromatic, we need to track back from the curren
 
 Typically this leads to a situation like so:
 
-```shell
+<!-- ```shell
 x - y - z [base]
   \
     w - p - q [head]
+``` -->
+
+```mermaid
+%%{
+  init: {
+    'gitGraph': { 'parallelCommits': true, 'mainBranchName': 'base' }
+  }
+}%%
+gitGraph TB:
+  commit id: "x" type: HIGHLIGHT
+  branch head
+  checkout head
+  commit id: "w"
+  commit id: "p"
+  commit id: "q" type: HIGHLIGHT
+  checkout base
+  commit id: "y"
+  commit id: "z"
 ```
 
 Starting with the build corresponding to commit `q`, Chromatic walks back the commit and build history, through `p` and `w` until it reaches `x`. This is the “merge base” build (and also commit, which would be output from `git merge-base base head`).
@@ -261,10 +328,29 @@ Chromatic will now compare the stories from `q` to the corresponding stories in 
 
 If the head branch has been more recently updated from the base branch, the merge base can be a more recent commit than the point we branched off:
 
-```shell
+<!-- ```shell
 x - y - z [base]
   \       \
     w - p - q [head]
+``` -->
+
+```mermaid
+%%{
+  init: {
+    'gitGraph': { 'parallelCommits': true, 'mainBranchName': 'base' }
+  }
+}%%
+gitGraph TB:
+  commit id: "x"
+  branch head
+  checkout head
+  commit id: "w"
+  commit id: "p"
+  checkout base
+  commit id: "y"
+  commit id: "z" type: HIGHLIGHT
+  checkout head
+  merge base id: "q" type: HIGHLIGHT
 ```
 
 In this case the merge base starting at `q` will be `z`. It makes sense to use `z` as the point of comparison, otherwise (if we compared `q` to `x` as before) we would see a set of changes in the PR that were created by `y` and `z`, which would be confusing.
