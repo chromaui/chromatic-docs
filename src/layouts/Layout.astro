@@ -5,13 +5,20 @@ import BaseLayout from "./BaseLayout.astro";
 type Props = MarkdownLayoutProps<{
   title: string;
   description: string;
+  url: string;
 }>;
 
 const {
   frontmatter: { title, description },
+  url,
 } = Astro.props;
 ---
 
-<BaseLayout title={title} description={description}>
+<BaseLayout
+  title={title}
+  description={description}
+  url={url!}
+  file={Astro.props.file}
+>
   <slot />
 </BaseLayout>

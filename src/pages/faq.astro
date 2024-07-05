@@ -77,4 +77,4 @@ const FAQ = await getEntry("troubleshooting", "faq");
 const { Content } = await FAQ.render();
 ---
 
-<Content groupedFAQs={groupedFAQs} />
+<Content groupedFAQs={groupedFAQs} {...Astro.props} />

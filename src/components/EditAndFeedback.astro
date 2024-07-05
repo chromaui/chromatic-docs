@@ -1,0 +1,47 @@
+---
+import { Icon } from "@chromaui/tetra";
+
+const { editUrl } = Astro.props;
+
+const baseEditUrl = "https://github.com/chromaui/chromatic-docs/edit/main/src/";
+
+const url = `${baseEditUrl}${editUrl}`;
+---
+
+<p class="edit-feedback">
+  <a class="edit-link" href={url}>
+    <Icon name="edit" />
+     Edit page
+  </a>
+  <button class="btn small round outline submit-feedback"
+    >submit feedback</button
+  >
+</p>
+
+<script is:inline define:vars={{ editUrl }}>
+  const button = document.querySelector("button.submit-feedback");
+
+  button?.addEventListener("click", () => {
+    window.formbricks.track("js-formbricks-submit", {
+      hiddenFields: {
+        pageurl: editUrl,
+      },
+    });
+  });
+</script>
+
+<style>
+  .edit-feedback {
+    display: flex;
+    align-self: center;
+    justify-content: space-between;
+    margin-top: 4rem;
+  }
+
+  .edit-link {
+    color: #73828c !important;
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+  }
+</style>

@@ -3,6 +3,7 @@
 
 interface Window {
   docsearch(any): boolean;
+  formbricks: any;
 }
 
 interface ImportMetaEnv {
