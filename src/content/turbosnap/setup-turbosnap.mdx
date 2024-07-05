@@ -323,16 +323,6 @@ Therefore, if you use barrel files, you'll want to ensure that Webpack tree-shak
 1. Use ES2015 module syntax (i.e., import and export)
 2. Build using `production` mode (`NODE_ENV`) to enable [various optimizations](https://webpack.js.org/configuration/mode/#usage) including minification and tree-shaking.
 3. Make sure that compilers do not automatically convert your ES2015 module syntax into CommonJS modules. This is the default behavior of the popular Babel preset `@babel/preset-env`. See the [documentation](https://babeljs.io/docs/babel-preset-env#modules) for more details.
-4. Use [`sideEffects`](https://webpack.js.org/guides/tree-shaking/#clarifying-tree-shaking-and-sideeffects) to allow Webpack to optimize re-exports. There are trade-offs involved when using `sideEffects`, so it's important to read the Webpack documentation before enabling this feature.
-
-When encountering a barrel file, TurboSnap relies on Webpack's tree-shaking abilities to accurately identify changes. Otherwise, a modification in `@component-library/elements/table` would prompt changes in all files importing from the barrel file, meaning all files that import from `@component-library`.
-
-Therefore, if you use barrel files, you'll want to ensure that Webpack tree-shaking (dead-code-elimination) is working properly. Here are some tips:
-
-1. Use ES2015 module syntax (i.e. import and export)
-2. Build using `production` mode (`NODE_ENV`) to enable [various optimizations](https://webpack.js.org/configuration/mode/#usage) including minification and tree-shaking.
-3. Make sure that compilers do not automatically convert your ES2015 module syntax into CommonJS modules. This is the default behavior of the popular Babel preset `@babel/preset-env`. See the [documentation](https://babeljs.io/docs/babel-preset-env#modules) for more details.
-4. Use [`sideEffects`](https://webpack.js.org/guides/tree-shaking/#clarifying-tree-shaking-and-sideeffects) to allow Webpack to optimize re-exports. There are trade-offs involved when using `sideEffects`, so it's important to read the Webpack documentation before enabling this feature.
 
 </details>
 
