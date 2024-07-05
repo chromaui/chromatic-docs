@@ -10,6 +10,7 @@
     "directory": "docs"
   },
   "scripts": {
+    "postinstall": "pnpm dlx playwright install chromium",
     "dev": "astro dev",
     "start": "astro dev",
     "build": "astro build",
@@ -45,6 +46,7 @@
     "unist-util-visit": "^5.0.0"
   },
   "devDependencies": {
+    "@beoe/rehype-mermaid": "^0.0.1",
     "broken-link-checker": "^0.7.8",
     "hast-util-to-string": "^3.0.0",
     "hastscript": "^8.0.0",
