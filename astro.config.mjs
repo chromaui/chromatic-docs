@@ -23,6 +23,10 @@ export default defineConfig({
           strategy: "img-svg",
           mermaidConfig: {
             theme: "neutral",
+            themeVariables: {
+              commitLabelFontSize: "14px",
+              tagLabelFontSize: "14px",
+            },
           },
         },
       ],

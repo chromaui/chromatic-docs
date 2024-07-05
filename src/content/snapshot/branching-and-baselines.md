@@ -12,12 +12,6 @@ This document describes how Chromatic decides what snapshots to compare when usi
 - [UI Tests](#ui-tests-verify-changes-on-one-branch): Verify changes on one branch (uses baselines)
 - [UI Review](#ui-review-compare-two-branches-for-changes): Compare two branches for changes (does not use baselines)
 
-<!-- ```shell
-[M] - A - B - C [base branch]
-    \
-      D - E - [F] [head branch]
-``` -->
-
 ```mermaid
 %%{
   init: { 'gitGraph': { 'parallelCommits': true, 'rotateCommitLabel': false, 'mainBranchOrder': 2 }}
@@ -153,12 +147,6 @@ When you create a new build for a new commit, Chromatic will calculate a baselin
 
 The ancestor build is the most recent ancestor (commit) in the git history that has had Chromatic run against it. Often, it is the previous commit:
 
-<!-- ```shell
-x - Build N
-|
-y - Build N+1
-``` -->
-
 ```mermaid
 
 gitGraph
@@ -167,14 +155,6 @@ gitGraph
 ```
 
 If you don’t run CI on every commit (which is common if you don’t push every single time you commit), there may be a gap:
-
-<!-- ```shell
-x - Build N
-|
-y
-|
-z - Build N+1
-``` -->
 
 ```mermaid
 
@@ -185,14 +165,6 @@ gitGraph
 ```
 
 Also, it is possible there is more than one most recent ancestor, in particular if the commit we are looking at is a merge commit:
-
-<!-- ```shell
-x - Build N
-|
-|    p - Build N+1
-|  /
-y - Build N+2
-``` -->
 
 ```mermaid
 gitGraph TB:
@@ -224,14 +196,6 @@ If there is, check the status of that snapshot:
 - If it was _changed but denied or not yet accepted_, then we need to ignore it, and use _its baseline_ as the baseline for the new snapshot..
 
 The last case bears thinking about a bit. Consider this scenario:
-
-<!-- ```shell
-x - Build N
-|
-y - Build N+1
-|
-z - Build N+2
-``` -->
 
 ```mermaid
 gitGraph LR:
@@ -298,12 +262,6 @@ To find the merge base build in Chromatic, we need to track back from the curren
 
 Typically this leads to a situation like so:
 
-<!-- ```shell
-x - y - z [base]
-  \
-    w - p - q [head]
-``` -->
-
 ```mermaid
 %%{
   init: {
@@ -327,12 +285,6 @@ Starting with the build corresponding to commit `q`, Chromatic walks back the co
 Chromatic will now compare the stories from `q` to the corresponding stories in `x` to generate the UI changes for the PR.
 
 If the head branch has been more recently updated from the base branch, the merge base can be a more recent commit than the point we branched off:
-
-<!-- ```shell
-x - y - z [base]
-  \       \
-    w - p - q [head]
-``` -->
 
 ```mermaid
 %%{

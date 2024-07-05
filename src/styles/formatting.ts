@@ -186,8 +186,13 @@ export const formatting = css`
 
     svg {
       display: block;
-      min-width: 300px;
+      /* min-width: 300px; */
       height: auto;
+
+      .branch,
+      line[class^="branch"] {
+        opacity: 0;
+      }
     }
 
     & + .aside {
