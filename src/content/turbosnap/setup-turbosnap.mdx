@@ -116,12 +116,12 @@ A few common scenarios require additional configuration.
 
 ### TurboSnap with prebuilt Storybook
 
-If you're using `--storybook-build-dir` to provide a prebuilt Storybook, adjust your `build-storybook` script to include the `--webpack-stats-json` option. If Chromatic builds your Storybook for you, this is unnecessary, and will take care of it. For example:
+If you're using `--storybook-build-dir` to provide a prebuilt Storybook, adjust your `build-storybook` script to include the `--stats-json` option (or `--webpack-stats-json` option for Storybook projects that haven't migrated to Storybook 8+). If Chromatic builds your Storybook for you, this is unnecessary, and will take care of it. For example:
 
 ```json
 {
   "scripts": {
-    "build-storybook": "build-storybook --webpack-stats-json"
+    "build-storybook": "build-storybook --stats-json"
   }
 }
 ```
@@ -219,7 +219,48 @@ TurboSnap will make working in a monorepo more efficient. Because it detects aff
   summary="Configure Turbosnap in a Monorepo"
 />
 
-If your monorepo has stories from multiple subprojects coming together in one Storybook, you might currently [run Chromatic on a subset of your Storybook](/docs/monorepos#run-tests-on-a-subset-of-stories). With TurboSnap enabled, that happens automatically. You'll be able to build and publish your entire Storybook, but Chromatic won't test unchanged subprojects or take snapshots of those stories. You no longer need to build a subset of your Storybook manually.
+When configuring TurboSnap in a monorepo, it's important to ensure that Chromatic understands where your Storybook project is relative to where you're executing your `chromatic` script.  This is particularly important because TurboSnap relies on the correct file path resolution to determine which stories have changed and which stories can be skipped.  If you're running a subproject out of a monorepo, chances are that you're executing your script from the root of your repository, in which case there are extra considerations to take when configuring TurboSnap.
+
+Chromatic's suggested best practice when executing from your repo root is to set your `--storybook-base-dir` and `--storybook-config-dir` flags.  For example, when your Storybook project is located in the `packages/webapp` dir of your repo, you'd update your script to reflect the following:
+
+```json
+{
+  "scripts": {
+    "build-storybook": "build-storybook",
+    "chromatic": "chromatic --only-changed --storybook-base-dir packages/webapp --storybook-config-dir packages/webapp/.storybook"
+  }
+}
+```
+
+<div class="aside">
+
+If you're using a prebuilt Storybook as oppposed to having Chromatic build your Storybook, ensure that you are passing the `--storybook-build-dir` option in your `chromatic` script and [adjust your `build-storybook` script to include `--stats-json`](/docs/setup-turbosnap#turbosnap-with-prebuilt-storybook).
+
+</div>
+
+This would ensure we're checking `packages/webapp` for your Storybook project instead of your root directory, which may end up detecting unexpected package control files for other subprojects.  Even though the default config directory is being used, you'll want to ensure to set `--storybook-config-dir` as well since this path is relative to your current working directory.
+
+If you're using the `--externals` or `--untraced` flags in a monorepo, you'll want to be mindful that the paths specified are relative to your repository root.  For example, let's say you want to ignore some global decorators in your `packages/webapp` project:
+
+```shell
+chromatic --only-changed --untraced "packages/webapp/.storybook/decorators/*.js --storybook-base-dir packages/webapp --storybook-config-dir packages/webapp/.storybook"
+```
+
+Using the path from the project's root (`.storybook/decorators/*.js`) would result in the files still getting traced by TurboSnap.  Keep in mind you can use a pattern such as `--untraced "**/.storybook/decorators/*.js"`, this would work with TurboSnap and would result in changes to the directory going untraced.
+
+<div class="aside">
+
+Learn more about [using --untraced in a monorepo](/docs/monorepos/#with-turbosnap).
+
+</div>
+
+If your monorepo has stories from multiple subprojects coming together in one Storybook, you may consider [running Chromatic on a subset of your Storybook](/docs/monorepos#run-tests-on-a-subset-of-stories). With TurboSnap enabled, that happens automatically.  For more fine-tuned control over the subset of stories that get considered for testing, explore using the `--only-story-files` or `--only-story-names` options.
+
+<div class="aside">
+
+Learn more about using [onlyStoryFiles](/docs/monorepos/#with-onlystoryfiles) and [onlyStoryNames](/docs/monorepos/#with-onlystorynames) in your monorepo.
+
+</div>
 
 [picomatch]: https://www.npmjs.com/package/picomatch#globbing-features
 
