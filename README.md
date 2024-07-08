@@ -110,6 +110,14 @@ Any static images added to `src` directory will be optimized and copied to `publ
 
 Add the center css class to center media horizontally if they aren't full screen.
 
+## Adding an FAQ item
+
+All faqs are in `src/content/faq`. Each FAQ item is a markdown file with frontmatter. The frontmatter is slightly different to other pages. You need to specify which `section` the item belongs to and optionally what order it appears in the section list (`sectionOrder`).
+
+To add an FAQ item to an existing section, create a new `.md` or `.mdx` file. It'll automatically get added to the FAQ index page.
+
+To add a new section, include the section in the `groupedFAQs` array in `src/pages/faq.astro`.
+
 ### Search
 
 Algolia's Docsearch is integrated with the project. Every 24 hours it will crawl docs.chromatic.com and update it's index. The search input box is wired up to this index. You don't need to do anything special, whatever is pushed to docs.chromatic.com will be automatically indexed.

@@ -1,0 +1,15 @@
+---
+layout: "../../../layouts/Layout.astro"
+sidebar: { hide: true }
+title: How to run Chromatic on a specific branch or only when merging to main?
+section: ci
+---
+
+# How to run Chromatic on a specific branch or only when merging to main?
+
+How Chromatic is triggered depends on your Continuous Integration (CI) setup. You can configure your CI provider to run Chromatic on a specific branch or only when merging to your main branch. Please beware that changing which branches Chromatic runs on may affect test and review coverage because Chromatic uses Git history to [track baselines](/docs/branching-and-baselines).
+
+For example, here’s how GitHub Actions can be configured:
+
+- [Using filters](https://docs.github.com/en/actions/using-workflows/triggering-a-workflow#using-filters)
+- [Using conditions to control job execution](https://docs.github.com/en/actions/using-jobs/using-conditions-to-control-job-execution)

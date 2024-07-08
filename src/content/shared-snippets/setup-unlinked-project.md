@@ -1,6 +1,3 @@
-<details>
-<summary id="demo-chromatic-unlinked">How to setup Chromatic if you require SSO, on-premises, or have a different Git provider.</summary>
-
 ["Unlinked" projects](/docs/access#unlinked-projects) are the way to go if you use an OAuth provider or Git host that Chromatic doesn't support yet, or if you need an enterprise plan but wish to trial Chromatic with your project first.
 
 To setup Chromatic with an "unlinked" project:
@@ -19,5 +16,3 @@ Unlinked projects have certain drawbacks:
 
 - You won't get automatic PR checks, so pull requests will not be marked with our status messages. You'll need to set this up manually via your CI provider.
 - Authentication and access control must be handled manually through user invites.
-
-</details>

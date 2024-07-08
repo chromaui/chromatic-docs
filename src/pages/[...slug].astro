@@ -18,7 +18,9 @@ export async function getStaticPaths() {
   const ci = await getCollection("ci");
   const account = await getCollection("account");
   const guides = await getCollection("guides");
-  const troubleshooting = await getCollection("troubleshooting");
+  const troubleshooting = await getCollection("troubleshooting", ({ slug }) => {
+    return slug !== "faq";
+  });
   const notInNavigation = await getCollection("notInNavigation");
   const articles = [
     ...overview,
@@ -35,6 +37,7 @@ export async function getStaticPaths() {
     ...account,
     ...guides,
     ...troubleshooting,
+    // ...faqs,
     ...notInNavigation,
   ];
 

@@ -1,0 +1,80 @@
+---
+import { getCollection, getEntry } from "astro:content";
+
+interface FAQItem {
+  slug: string;
+  title: string;
+  section: string;
+  order: number;
+}
+
+const faqs = await getCollection("troubleshooting", ({ id }) => {
+  return id.startsWith("faq/");
+});
+
+const faqItems = faqs
+  .map((faq) => {
+    return {
+      slug: faq.slug,
+      title: faq.data.title,
+      section: faq.data.section!,
+      order: faq.data.sectionOrder || Infinity,
+    };
+  })
+  .reduce<Record<string, FAQItem[]>>((acc, item) => {
+    if (!acc[item.section]) {
+      acc[item.section] = [];
+    }
+    acc[item.section].push(item);
+    acc[item.section].sort((a, b) => a.order - b.order);
+    return acc;
+  }, {});
+
+const groupedFAQs = [
+  {
+    title: "Comparison with other tools",
+    items: faqItems.comparisons,
+  },
+  {
+    title: "Usage",
+    items: faqItems.usage,
+  },
+  {
+    title: "Browsers",
+    items: faqItems.browsers,
+  },
+  {
+    title: "UI Tests and UI Review",
+    items: faqItems.uiTestsAndReview,
+  },
+  {
+    title: "Publish",
+    items: faqItems.publish,
+  },
+  {
+    title: "Continuous Integration",
+    items: faqItems.ci,
+  },
+  {
+    title: "TurboSnap",
+    items: faqItems.turboSnap,
+  },
+  {
+    title: "Storybook Connect Figma plugin",
+    items: faqItems.figmaPlugin,
+  },
+  {
+    title: "Compatibility",
+    items: faqItems.compatibility,
+  },
+  {
+    title: "Your account",
+    items: faqItems.account,
+  },
+];
+
+const FAQ = await getEntry("troubleshooting", "faq");
+const { Content } = await FAQ.render();
+---
+
+<Content groupedFAQs={groupedFAQs} />

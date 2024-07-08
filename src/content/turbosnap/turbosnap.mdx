@@ -1,6 +1,6 @@
 ---
 layout: "../../layouts/Layout.astro"
-title: Introduction
+title: Introduction to TurboSnap
 description: Speed up tests by detecting file changes with Git
 sidebar: { order: 1 }
 ---
@@ -9,7 +9,7 @@ sidebar: { order: 1 }
 
 TurboSnap is an advanced Chromatic feature that speeds up [UI Tests](/docs/test). It analyzes your project's Git history and Webpack's [dependency graph](https://webpack.js.org/concepts/dependency-graph/) to identify which components and their dependencies have changed. It intelligently snapshots only the stories associated with those changes. For the rest, it copies over the snapshots from baselines that didn't change.
 
-<video autoPlay muted playsInline loop >
+<video autoPlay muted playsInline loop>
   <source src="/docs/assets/turbosnap-dep-tracking.mp4" type="video/mp4" />
 </video>
 

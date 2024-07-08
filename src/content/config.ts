@@ -77,6 +77,23 @@ const turbosnap = defineCollection({
   schema,
 });
 
+const troubleshooting = defineCollection({
+  type: "content",
+  schema: z.object({
+    title: z.string(),
+    sidebar: z
+      .object({
+        label: z.string().optional(),
+        order: z.number().optional(),
+        hide: z.boolean().optional(),
+      })
+      .optional(),
+    sectionOrder: z.number().optional(),
+    section: z.string().optional(),
+    isHome: z.boolean().optional(),
+  }),
+});
+
 export const collections = {
   overview,
   storybook,
@@ -91,4 +108,5 @@ export const collections = {
   account,
   guides,
   turbosnap,
+  troubleshooting,
 };
