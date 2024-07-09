@@ -3,7 +3,6 @@ import { css } from "@storybook/theming";
 export const link = css`
   a,
   .link {
-    display: inline-block;
     text-decoration: none;
 
     &:hover {
@@ -21,6 +20,8 @@ export const link = css`
   }
 
   .link {
+    display: inline-block;
+
     &.primary {
       color: #1ea7fd;
       &:link,
@@ -79,6 +80,12 @@ export const link = css`
       &:active {
         color: #ccc;
       }
+    }
+
+    &.with-icon {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.75rem;
     }
 
     > [class*="icon-"] {

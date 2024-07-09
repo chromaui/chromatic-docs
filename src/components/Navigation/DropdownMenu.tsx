@@ -91,6 +91,12 @@ interface DropdownMenuProps {
   groups: MenuGroup[];
 }
 
+const PopoverContent = styled(Popover.Content)`
+  margin: 1rem;
+  max-height: 75vh;
+  overflow: scroll;
+`;
+
 export const DropdownMenu: FC<DropdownMenuProps> = ({
   label,
   variant,
@@ -100,12 +106,12 @@ export const DropdownMenu: FC<DropdownMenuProps> = ({
   const [mobileMenuOpen, setMobileMenuOpen] = React.useState(false);
 
   return (
-    <Popover.Root open={mobileMenuOpen} onOpenChange={setMobileMenuOpen}>
+    <Popover.Root open={mobileMenuOpen} onOpenChange={setMobileMenuOpen} modal>
       <NavMenuDropdownTrigger {...props}>{label}</NavMenuDropdownTrigger>
       <AnimatePresence>
         {mobileMenuOpen && (
           <Popover.Portal forceMount>
-            <Popover.Content
+            <PopoverContent
               asChild
               aria-label="Docs Menu"
               onOpenAutoFocus={(e: Event) => e.preventDefault()}
@@ -128,7 +134,7 @@ export const DropdownMenu: FC<DropdownMenuProps> = ({
                   </DropdownGroup>
                 ))}
               </NavigationMenu>
-            </Popover.Content>
+            </PopoverContent>
           </Popover.Portal>
         )}
       </AnimatePresence>

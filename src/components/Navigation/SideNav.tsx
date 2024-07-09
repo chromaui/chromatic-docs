@@ -154,9 +154,17 @@ export const SideNav = ({ url, sidebarItems }: SideNavProps) => {
           const isSomeActive = group.items.some(
             (item) => withBase(item.slug) === url,
           );
+          const isHiddenGroupDescendantActive = group.items.some(
+            (item) => !item.data.isHome && url?.startsWith(withBase(item.slug)),
+          );
+
           return (
             <Collapsible.Root
-              defaultOpen={group.defaultOpen || isSomeActive}
+              defaultOpen={
+                group.defaultOpen ||
+                isSomeActive ||
+                isHiddenGroupDescendantActive
+              }
               key={i}
             >
               <Trigger>
@@ -172,12 +180,15 @@ export const SideNav = ({ url, sidebarItems }: SideNavProps) => {
                       ? true
                       : withBase(item.slug) === url;
 
+                  const isHiddenDescendantActive =
+                    !item.data.isHome && url?.startsWith(withBase(item.slug));
+
                   return (
                     <Collapsible.Content key={j} asChild>
                       <Line href={withBase(item.slug)}>
                         {!!group.timeline && <Bullet isActive={isActive} />}
                         <ContentItem
-                          isActive={isActive}
+                          isActive={isActive || !!isHiddenDescendantActive}
                           isTimeline={!!group.timeline}
                         >
                           {item.data.sidebar.label}

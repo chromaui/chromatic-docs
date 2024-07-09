@@ -18,6 +18,7 @@ interface DropdownNavGroup {
     label: string;
     href: string;
     isActive: boolean;
+    data: { isHome: boolean };
   }[];
 }
 
@@ -39,7 +40,9 @@ export const DropdownNav: FC<DropdownNavProps> = ({ groups, url }) => {
       breadcrumb: `${group.title} » ${item.label}`,
       label: item.label,
       href: withBase(item.slug),
-      isActive: withBase(item.slug) === url,
+      isActive:
+        withBase(item.slug) === url ||
+        (!item.data.isHome && url?.startsWith(withBase(item.slug))),
     })),
   }));
 

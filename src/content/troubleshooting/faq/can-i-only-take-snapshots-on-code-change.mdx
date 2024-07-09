@@ -1,0 +1,11 @@
+---
+layout: "../../../layouts/FAQLayout.astro"
+sidebar: { hide: true }
+title: Can I only take snapshots when a component's code changes?
+section: "usage"
+sectionOrder: 2
+---
+
+# Can I only take snapshots when a component's code changes?
+
+We recommend taking snapshots on every build because it's the most reliable way to catch UI regressions. Global dependencies, such as CSS or third-party APIs can affect the UI without the code changing.

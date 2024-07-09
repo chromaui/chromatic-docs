@@ -4,7 +4,6 @@ import mdx from "@astrojs/mdx";
 import sitemap from "@astrojs/sitemap";
 import rehypeAutolinkHeadings from "rehype-autolink-headings";
 import rehypeSlug from "rehype-slug";
-// import rehypeMermaid from "rehype-mermaid";
 import rehypeMermaid from "@beoe/rehype-mermaid";
 import { h, s } from "hastscript";
 

@@ -1,0 +1,23 @@
+---
+import type { MarkdownLayoutProps } from "astro";
+import BaseLayout from "./BaseLayout.astro";
+import { Icon } from "@chromaui/tetra";
+
+type Props = MarkdownLayoutProps<{
+  title: string;
+  description: string;
+}>;
+
+const {
+  frontmatter: { title, description },
+} = Astro.props;
+---
+
+<BaseLayout title={title} description={description}>
+  <p>
+    <a class="link primary with-icon" href="/docs/faq">
+      <Icon name="arrowleftalt" /> Back to all FAQs
+    </a>
+  </p>
+  <slot />
+</BaseLayout>

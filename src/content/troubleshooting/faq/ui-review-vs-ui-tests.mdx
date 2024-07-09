@@ -1,0 +1,18 @@
+---
+layout: "../../../layouts/FAQLayout.astro"
+sidebar: { hide: true }
+title: How is UI Review different from UI Tests?
+section: "usage"
+sectionOrder: 1
+---
+
+# How is UI Review different from UI Tests? How do I get the best functionality out of both?
+
+In a nutshell, [**UI Tests**](/docs/test) prevent regressions (bugs), while [**UI Review**](/docs/review) is for gathering qualitative feedback from your team.
+
+The modern development process moves quickly, and developers often fill in gaps according to their best guess. UI review is an opportunity for developers to sync with other teammates to get a final OK before shipping.
+
+Here's how we recommend using the workflows together:
+
+- **UI Tests (commit vs. commit):** Use like unit tests to catch UI regressions in components. Typically, a developer would be responsible for this. It ensures you don't introduce any bugs as you build new features. You'll get notified of bugs down to the commit.
+- **UI Review (branch vs. branch):** Once you've finished the first iteration of the implementation and think the PR is "done", it's now ready for review from stakeholders like your tech lead, designer, or PM. This workflow helps them review all the changes in a PR at once and gives them tools to give you precise feedback on stories.

@@ -1,0 +1,12 @@
+---
+layout: "../../../layouts/FAQLayout.astro"
+sidebar: { hide: true }
+title: Why can't the Chromatic CLI find git during CI?
+section: ci
+---
+
+# Why can't the Chromatic CLI find git during CI?
+
+Pipeline configurations allow you to specify the docker image that you'd like to use for your runners. To keep the image size small, lots of `*-slim` images do not come with git installed which Chromatic CLI requires to link builds to commits.
+
+To solve this you can install git as a step before running the Chromatic CLI or change your image to something that includes git.
