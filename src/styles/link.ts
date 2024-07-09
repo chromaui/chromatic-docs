@@ -82,6 +82,12 @@ export const link = css`
       }
     }
 
+    &.with-icon {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.75rem;
+    }
+
     > [class*="icon-"] {
       font-size: 80%;
       display: inline-block;
