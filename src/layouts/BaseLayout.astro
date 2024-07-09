@@ -104,13 +104,7 @@ const navItems = [
 
 const baseUrl = import.meta.env.BASE_URL;
 
-const editUrl = Astro.props.file?.replace(projectRoot, "");
-console.log(`
-###
-
-${editUrl}
-
-`);
+const editUrl = Astro.props.file?.replace(projectRoot, "").replace("src/", "");
 ---
 
 <!doctype html>
