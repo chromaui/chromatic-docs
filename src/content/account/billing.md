@@ -53,7 +53,7 @@ Note: your [billing page](/docs/billing#view-current-months-usage) will include 
 
 Snapshots are counted at the account level. If your account has multiple projects, we sum the number of snapshots each project uses to get your total usage. Chromatic doesn't break down billing per project.
 
-### View current months usage
+### View current month's usage
 
 Find the current month's usage in the Plan section of the Billing page.
 
