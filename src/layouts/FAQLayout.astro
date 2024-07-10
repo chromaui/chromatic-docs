@@ -6,14 +6,16 @@ import { Icon } from "@chromaui/tetra";
 type Props = MarkdownLayoutProps<{
   title: string;
   description: string;
+  url: string;
 }>;
 
 const {
   frontmatter: { title, description },
+  url,
 } = Astro.props;
 ---
 
-<BaseLayout title={title} description={description}>
+<BaseLayout title={title} description={description} url={url!}>
   <p>
     <a class="link primary with-icon" href="/docs/faq">
       <Icon name="arrowleftalt" /> Back to all FAQs

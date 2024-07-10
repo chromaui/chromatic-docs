@@ -1,0 +1,40 @@
+---
+import { Icon } from "@chromaui/tetra";
+
+const { editUrl } = Astro.props;
+
+const baseEditUrl = "https://github.com/chromaui/chromatic-docs/edit/main/src/";
+
+const url = `${baseEditUrl}${editUrl}`;
+---
+
+<div class="edit-feedback">
+  <a class="edit-link" href={url}>
+    <Icon name="edit" />
+     Edit page
+  </a>
+
+  <a href="https://github.com/chromaui/chromatic-docs/issues/new">
+    <Icon name="comment" />
+     Submit feedback
+  </a>
+</div>
+
+<style>
+  .edit-feedback {
+    color: #73828c !important;
+    display: flex;
+    align-self: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    margin-top: 5rem;
+    padding-top: 1rem;
+    border-top: 1px solid rgba(0, 0, 0, 0.1);
+
+    a {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+    }
+  }
+</style>
