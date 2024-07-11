@@ -5,7 +5,12 @@ import sitemap from "@astrojs/sitemap";
 import rehypeAutolinkHeadings from "rehype-autolink-headings";
 import rehypeSlug from "rehype-slug";
 import rehypeMermaid from "@beoe/rehype-mermaid";
+import { rehypeShiki } from "@astrojs/markdown-remark";
 import { h, s } from "hastscript";
+import {
+  transformerNotationHighlight,
+  transformerNotationDiff,
+} from "@shikijs/transformers";
 
 // https://astro.build/config
 export default defineConfig({
@@ -13,7 +18,7 @@ export default defineConfig({
   base: "/docs",
   trailingSlash: "never",
   markdown: {
-    syntaxHighlight: "prism",
+    syntaxHighlight: false,
     rehypePlugins: [
       rehypeSlug,
       [
@@ -27,6 +32,17 @@ export default defineConfig({
               tagLabelFontSize: "14px",
             },
           },
+        },
+      ],
+      // Manually configure shiki so that we can use mermaid alongside it
+      [
+        rehypeShiki,
+        {
+          theme: "github-light",
+          transformers: [
+            transformerNotationHighlight(),
+            transformerNotationDiff(),
+          ],
         },
       ],
       [

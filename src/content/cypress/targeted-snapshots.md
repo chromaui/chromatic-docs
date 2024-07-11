@@ -19,19 +19,19 @@ describe("My First Test", () => {
     cy.visit("https://example.cypress.io");
 
     // 📸 Tell Chromatic to take a snapshot of the initial page state
-    cy.takeSnapshot();
+    cy.takeSnapshot(); // [!code highlight]
 
     // 👇 Finish the test by opening the dropdown menu
     cy.get(".dropdown:first-of-type > .dropdown-toggle").click();
 
     // You can call takeSnapshot multiple times if necessary.
-    // To help disambiguate, you can give the snapshot a name, 
+    // To help disambiguate, you can give the snapshot a name,
     // which is passed as an argument to cy.takeSnapshot.
-    cy.takeSnapshot("After opening dropdown");
+    cy.takeSnapshot("After opening dropdown"); // [!code highlight]
 
     cy.contains("Files").click();
 
-    // 📸 Chromatic automatically takes a snapshot here, at the end of the test. 
+    // 📸 Chromatic automatically takes a snapshot here, at the end of the test.
   });
 });
 ```

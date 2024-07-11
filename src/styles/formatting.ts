@@ -243,46 +243,6 @@ export const formatting = css`
     }
   }
 
-  div[class*="language-"] {
-    margin: 1.5em 0;
-
-    & + .aside {
-      margin-top: -1.5rem;
-      border-top-left-radius: 0;
-      border-top-right-radius: 0;
-      border-top: 1px solid rgba(0, 0, 0, 0.1);
-    }
-  }
-
-  pre {
-    padding: 1.5em;
-    margin: 1.5em 0;
-
-    code {
-      display: inline-block;
-    }
-
-    & + .aside {
-      margin-top: -1.5rem;
-      border-top-left-radius: 0;
-      border-top-right-radius: 0;
-      border-top: 1px solid rgba(0, 0, 0, 0.1);
-    }
-  }
-
-  code-snippet-tabs {
-    pre {
-      margin-top: 0;
-    }
-
-    & + .aside {
-      margin-top: -1.5rem;
-      border-top-left-radius: 0;
-      border-top-right-radius: 0;
-      border-top: 1px solid rgba(0, 0, 0, 0.1);
-    }
-  }
-
   .table-scroll {
     overflow: auto;
     table {
@@ -398,19 +358,6 @@ export const formatting = css`
   .callout a {
     color: #1ea7fd !important;
     font-weight: 400;
-  }
-
-  .callout:has(+ pre[class*="language-"]) {
-    margin-bottom: -1.5rem;
-    border-bottom-left-radius: 0;
-    border-bottom-right-radius: 0;
-    border-bottom: none;
-  }
-
-  .callout + pre[class*="language-"] {
-    border-top-left-radius: 0;
-    border-top-right-radius: 0;
-    border: 1px solid rgba(2, 113, 182, 0.1);
   }
 
   video {
