@@ -3,6 +3,7 @@ import type { FC } from "react";
 import { styled } from "@storybook/theming";
 import { button } from "../../styles/button";
 import { formatting } from "../../styles/formatting";
+import { syntaxHighlighting } from "../../styles/syntax-highlighting";
 import { base } from "../../styles/base";
 import { link } from "../../styles/link";
 
@@ -18,6 +19,7 @@ const Content = styled.main`
   ${base}
   ${button}
   ${formatting}
+  ${syntaxHighlighting}
   ${link}
 `;
 

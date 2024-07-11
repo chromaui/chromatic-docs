@@ -90,10 +90,8 @@ Install **[chromatic](https://www.npmjs.com/package/chromatic)** and `@chromatic
 Update your Playwright tests to use the Chromatic specific testing utilities from `@chromatic-com/playwright`.
 
 ```js
-// ➖ Remove this line
-// import { test, expect } from '@playwright/test';
-// ➕ Add this line
-import { test, expect } from "@chromatic-com/playwright";
+import { test, expect } from "@playwright/test"; // [!code --]
+import { test, expect } from "@chromatic-com/playwright"; // [!code ++]
 
 // Then use as normal 👇
 test("Homepage", async ({ page }) => {

@@ -24,7 +24,7 @@ test("Can filter product", async ({ page }, testInfo) => {
   // Call takeSnapshot to take an archive "snapshot"
   // of the page at this point in the test.
   // 👇 Pass testInfo to takeSnapshot
-  await takeSnapshot(page, testInfo);
+  await takeSnapshot(page, testInfo); // [!code highlight]
 
   // Continue with the test.
   await page.getByRole("link", { name: "Add to cart" }).click();
@@ -32,7 +32,7 @@ test("Can filter product", async ({ page }, testInfo) => {
   // You can call takeSnapshot multiple times if necessary.
   // To help disambiguate, you can give the snapshot a name,
   // which is passed as the second argument to takeSnapshot.
-  await takeSnapshot(page, "After adding to cart", testInfo);
+  await takeSnapshot(page, "After adding to cart", testInfo); // [!code highlight]
 
   await expect(page).toHaveTitle(/Cart/);
 });`

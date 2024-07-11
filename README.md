@@ -110,7 +110,31 @@ Any static images added to `src` directory will be optimized and copied to `publ
 
 Add the center css class to center media horizontally if they aren't full screen.
 
-## Adding an FAQ item
+### Code
+
+This project uses Shiki for syntax highlighting with the [transformerNotationDiff](https://shiki.style/packages/transformers#transformernotationdiff) and [transformerNotationHighlight](https://shiki.style/packages/transformers#transformernotationhighlight) transformers enabled.
+
+Therefore, you can use Use `[!code ++]` and `[!code --]` to mark added and removed lines. For example:
+
+```js
+console.log("hewwo"); // [!code --]
+console.log("hello"); // [!code ++]
+console.log("goodbye");
+```
+
+And use `[!code highlight]` to highlight a line, like so:
+
+```js
+console.log("Not highlighted");
+console.log("Highlighted"); // [!code highlight]
+console.log("Not highlighted");
+```
+
+### Mermaid diagrams
+
+You can insert Mermaid diagrams in markdown & MDX files to visualize Git commits and actions. For syntax and usage instructions, refer to the Mermaid documentation: [Mermaid documentation](https://mermaid.js.org/syntax/gitgraph.html).
+
+### Adding an FAQ item
 
 All faqs are in `src/content/faq`. Each FAQ item is a markdown file with frontmatter. The frontmatter is slightly different to other pages. You need to specify which `section` the item belongs to and optionally what order it appears in the section list (`sectionOrder`).
 
