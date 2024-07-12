@@ -1,4 +1,4 @@
-import type { FooterProps } from "@chromaui/tetra";
+import type { FooterProps } from "@chromatic-com/tetra";
 
 export const footerColumns: FooterProps["columns"] = [
   {

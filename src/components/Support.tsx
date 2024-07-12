@@ -1,4 +1,4 @@
-import { Button, fontWeight, minMd, spacing } from "@chromaui/tetra";
+import { Button, fontWeight, minMd, spacing } from "@chromatic-com/tetra";
 import { styled } from "@storybook/theming";
 
 const Trigger = styled(Button)`

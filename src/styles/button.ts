@@ -1,5 +1,5 @@
 import { css } from "@storybook/theming";
-import { minMd } from "@chromaui/tetra";
+import { minMd } from "@chromatic-com/tetra";
 
 export const button = css`
   .btn {

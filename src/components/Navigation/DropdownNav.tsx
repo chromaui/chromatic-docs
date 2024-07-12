@@ -1,7 +1,7 @@
 import { type FC } from "react";
 import { DropdownMenu } from "./DropdownMenu";
 import { styled } from "@storybook/theming";
-import { minMd } from "@chromaui/tetra";
+import { minMd } from "@chromatic-com/tetra";
 
 const NavDropdownMenu = styled(DropdownMenu)`
   ${minMd} {

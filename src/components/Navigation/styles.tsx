@@ -1,6 +1,6 @@
 import { styled } from "@storybook/theming";
 import { Support } from "../Support";
-import { minMd, spacing } from "@chromaui/tetra";
+import { minMd, spacing } from "@chromatic-com/tetra";
 
 export const Container = styled.div`
   display: flex;

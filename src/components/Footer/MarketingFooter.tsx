@@ -1,12 +1,12 @@
-import { Footer } from '@chromaui/tetra';
+import { Footer } from "@chromatic-com/tetra";
 
-import { footerColumns, footerSocialLinks, homeLink } from './footerData';
+import { footerColumns, footerSocialLinks, homeLink } from "./footerData";
 
 interface MarketingFooterProps {
-  theme?: 'dark' | 'light';
+  theme?: "dark" | "light";
 }
 
-export const MarketingFooter = ({ theme = 'light' }: MarketingFooterProps) => (
+export const MarketingFooter = ({ theme = "light" }: MarketingFooterProps) => (
   <Footer
     theme={theme}
     columns={footerColumns}

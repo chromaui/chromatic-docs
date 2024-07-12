@@ -1,4 +1,4 @@
-import { minLg, minMd, minXl, spacing } from "@chromaui/tetra";
+import { minLg, minMd, minXl, spacing } from "@chromatic-com/tetra";
 import { styled } from "@storybook/theming";
 
 export const MainWrapper = styled.div`
