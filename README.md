@@ -140,7 +140,7 @@ All faqs are in `src/content/faq`. Each FAQ item is a markdown file with frontma
 
 To add an FAQ item to an existing section, create a new `.md` or `.mdx` file. It'll automatically get added to the FAQ index page.
 
-To add a new section, include the section in the `groupedFAQs` array in `src/pages/faq.astro`.
+To add a new section, include the section in the `groupedFAQs` array in `src/pages/faq.astro` and add a new section to `src/content/troubleshooting/faq.mdx`
 
 ### Search
 

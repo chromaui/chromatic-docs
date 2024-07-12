@@ -1,7 +1,7 @@
 import { minLg, minMd, minXl, spacing } from "@chromatic-com/tetra";
-import { styled } from "@storybook/theming";
+import { css, styled } from "@storybook/theming";
 
-export const MainWrapper = styled.div`
+export const MainWrapper = styled.div<{ showOnThisPage?: boolean }>`
   margin: ${spacing[10]} 0;
   display: flex;
   gap: ${spacing[10]};
@@ -18,11 +18,15 @@ export const MainWrapper = styled.div`
     grid-template-columns: 240px 1fr;
   }
 
-  ${minXl} {
-    .on-this-page {
-      display: block;
-    }
+  ${(props) =>
+    props.showOnThisPage &&
+    css`
+      ${minXl} {
+        .on-this-page {
+          display: block;
+        }
 
-    grid-template-columns: 240px 1fr 300px;
-  }
+        grid-template-columns: 240px 1fr 300px;
+      }
+    `}
 `;

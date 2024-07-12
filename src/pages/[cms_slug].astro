@@ -27,10 +27,10 @@ export async function getStaticPaths() {
     }),
   };
 
-  // Don't fetch data in development mode
-  if (process.env.NODE_ENV === "development") {
-    return [];
-  }
+  // // Don't fetch data in development mode
+  // if (process.env.NODE_ENV === "development") {
+  //   return [];
+  // }
 
   const response = await fetch(import.meta.env.HYGRAPH_ENDPOINT, query);
   const json = await response.json();
@@ -51,7 +51,7 @@ export async function getStaticPaths() {
 const { title, body } = Astro.props;
 ---
 
-<BaseLayout title={title} description="">
+<BaseLayout title={title} description="" url="/onboarding-guide" headings={[]}>
   <h1>{title}</h1>
   <div set:html={body.html} />
 </BaseLayout>
