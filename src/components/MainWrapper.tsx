@@ -23,6 +23,6 @@ export const MainWrapper = styled.div`
       display: block;
     }
 
-    grid-template-columns: 240px 1fr 240px;
+    grid-template-columns: 240px 1fr 300px;
   }
 `;
