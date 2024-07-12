@@ -7,8 +7,8 @@ import {
   MondayIcon,
   NetlifyIcon,
   PlaywrightIcon,
-} from "@chromaui/tetra";
-import type { HeaderProps, Icons } from "@chromaui/tetra";
+} from "@chromatic-com/tetra";
+import type { HeaderProps, Icons } from "@chromatic-com/tetra";
 import React from "react";
 
 interface LinksProps {

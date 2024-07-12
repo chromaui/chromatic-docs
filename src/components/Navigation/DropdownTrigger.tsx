@@ -1,6 +1,6 @@
 import { css, styled } from "@storybook/theming";
 import * as Popover from "@radix-ui/react-popover";
-import { color, fontWeight, spacing, typography } from "@chromaui/tetra";
+import { color, fontWeight, spacing, typography } from "@chromatic-com/tetra";
 
 export const buttonStyles = css`
   all: unset;

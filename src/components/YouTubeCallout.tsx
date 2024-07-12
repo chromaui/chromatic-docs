@@ -1,6 +1,6 @@
 import * as React from "react";
 import LiteYouTubeEmbed from "react-lite-youtube-embed";
-import { Icon, color, fontWeight, typography } from "@chromaui/tetra";
+import { Icon, color, fontWeight, typography } from "@chromatic-com/tetra";
 import { styled } from "@storybook/theming";
 
 interface YouTubeCalloutProps {

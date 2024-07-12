@@ -5,7 +5,7 @@ import {
   Link,
   spacing,
   typography,
-} from "@chromaui/tetra";
+} from "@chromatic-com/tetra";
 import { styled } from "@storybook/theming";
 import type { FC } from "react";
 
@@ -30,6 +30,7 @@ const HeaderCTAButton = styled(Button)`
 export const MarketingHeader: FC<Props> = ({ theme = "light" }) => {
   return (
     <Header
+      fullWidth
       desktopActiveId="docs"
       theme={theme}
       desktopData={desktopData}

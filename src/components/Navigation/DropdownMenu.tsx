@@ -9,7 +9,7 @@ import {
   minSm,
   fontWeight,
   minMd,
-} from "@chromaui/tetra";
+} from "@chromatic-com/tetra";
 import { DropdownTrigger } from "./DropdownTrigger";
 import { AnimatePresence, motion } from "framer-motion";
 import React from "react";

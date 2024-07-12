@@ -1,5 +1,6 @@
 ---
-import { Container } from "@chromaui/tetra";
+import type { MarkdownHeading } from "astro";
+import { FullWidthContainer } from "@chromatic-com/tetra";
 import { getCollection } from "astro:content";
 import "@docsearch/css";
 import SEO from "../components/SEO.astro";
@@ -11,12 +12,14 @@ import { MarketingHeader } from "../components/Header/MarketingHeader";
 import { MainWrapper } from "../components/MainWrapper";
 import Navigation from "../components/Navigation/Navigation.astro";
 import { projectRoot } from "../util";
+import OnThisPage from "../components/OnThisPage.astro";
 
 type Props = {
   title: string;
   description: string;
   url: string;
   file?: string;
+  headings: MarkdownHeading[];
 };
 
 const { title, description } = Astro.props;
@@ -152,15 +155,20 @@ const editUrl = Astro.props.file?.replace(projectRoot, "").replace("src/", "");
   </head>
   <body>
     <MarketingHeader client:visible />
-    <Container>
-      <MainWrapper>
+    <FullWidthContainer>
+      <MainWrapper showOnThisPage={Astro.props.headings.length > 0}>
         <Navigation url={pathname.replace(/\/$/g, "")} navItems={navItems} />
         <Wrapper>
           <slot />
           <EditAndFeedback editUrl={editUrl} />
         </Wrapper>
+        {
+          Astro.props.headings.length > 0 && (
+            <OnThisPage headings={Astro.props.headings} />
+          )
+        }
       </MainWrapper>
-    </Container>
+    </FullWidthContainer>
     <MarketingFooter />
     <script
       type="text/javascript"

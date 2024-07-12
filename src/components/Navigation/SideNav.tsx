@@ -7,7 +7,7 @@ import {
   fontWeight,
   spacing,
   minMd,
-} from "@chromaui/tetra";
+} from "@chromatic-com/tetra";
 import type { CollectionEntry } from "astro:content";
 
 const Trigger = styled(Collapsible.Trigger)`

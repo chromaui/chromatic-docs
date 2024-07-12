@@ -9,17 +9,102 @@ sidebar: { order: 1 }
 
 If you have a question not covered in our documentation, contact us via our in-app chat.
 
-<>
-  {props.groupedFAQs.map(({ title, items }) => (
-    <>
-      <h2>{title}</h2>
-      <ul>
-        {items.map((faq) => (
-          <li>
-            <a href={`/docs/${faq.slug}`}>{faq.title}</a>
-          </li>
-        ))}
-      </ul>
-    </>
+## Comparison with other tools
+
+<ul>
+  {props.groupedFAQs.comparisons.map((faq) => (
+    <li>
+      <a href={`/docs/${faq.slug}`}>{faq.title}</a>
+    </li>
   ))}
-</>
+</ul>
+
+## Usage
+
+<ul>
+  {props.groupedFAQs.usage.map((faq) => (
+    <li>
+      <a href={`/docs/${faq.slug}`}>{faq.title}</a>
+    </li>
+  ))}
+</ul>
+
+## Browsers
+
+<ul>
+  {props.groupedFAQs.browsers.map((faq) => (
+    <li>
+      <a href={`/docs/${faq.slug}`}>{faq.title}</a>
+    </li>
+  ))}
+</ul>
+
+## UI Tests and UI Review
+
+<ul>
+  {props.groupedFAQs.uiTestsAndReview.map((faq) => (
+    <li>
+      <a href={`/docs/${faq.slug}`}>{faq.title}</a>
+    </li>
+  ))}
+</ul>
+
+## Publish
+
+<ul>
+  {props.groupedFAQs.publish.map((faq) => (
+    <li>
+      <a href={`/docs/${faq.slug}`}>{faq.title}</a>
+    </li>
+  ))}
+</ul>
+
+## Continuous Integration
+
+<ul>
+  {props.groupedFAQs.ci.map((faq) => (
+    <li>
+      <a href={`/docs/${faq.slug}`}>{faq.title}</a>
+    </li>
+  ))}
+</ul>
+
+## TurboSnap
+
+<ul>
+  {props.groupedFAQs.turboSnap.map((faq) => (
+    <li>
+      <a href={`/docs/${faq.slug}`}>{faq.title}</a>
+    </li>
+  ))}
+</ul>
+
+## Storybook Connect Figma plugin
+
+<ul>
+  {props.groupedFAQs.figmaPlugin.map((faq) => (
+    <li>
+      <a href={`/docs/${faq.slug}`}>{faq.title}</a>
+    </li>
+  ))}
+</ul>
+
+## Compatibility
+
+<ul>
+  {props.groupedFAQs.compatibility.map((faq) => (
+    <li>
+      <a href={`/docs/${faq.slug}`}>{faq.title}</a>
+    </li>
+  ))}
+</ul>
+
+## Your account
+
+<ul>
+  {props.groupedFAQs.account.map((faq) => (
+    <li>
+      <a href={`/docs/${faq.slug}`}>{faq.title}</a>
+    </li>
+  ))}
+</ul>

@@ -1,0 +1,153 @@
+---
+import type { MarkdownHeading } from "astro";
+import { color, fontSize } from "@chromatic-com/tetra";
+
+type Props = {
+  headings: MarkdownHeading[];
+};
+
+const { headings } = Astro.props;
+
+const tocHeadings = headings.map((heading) => {
+  return heading.depth === 1 ? { ...heading, text: "Overview" } : heading;
+});
+---
+
+<aside>
+  <nav class="on-this-page">
+    <h2>On this page</h2>
+    <ul>
+      {
+        tocHeadings.map((heading) => (
+          <li style={`--depth: ${Math.max(0, heading.depth - 2)}`}>
+            <a
+              class="link primary"
+              href={`#${heading.slug}`}
+              data-hash={heading.slug}
+            >
+              {heading.text}
+            </a>
+          </li>
+        ))
+      }
+    </ul>
+  </nav>
+</aside>
+
+<script>
+  const links = [
+    ...document.querySelectorAll<HTMLAnchorElement>(".on-this-page a"),
+  ];
+
+  links[0].setAttribute("aria-current", "true");
+
+  const getElementHeading = (el: Element | null): HTMLHeadingElement | null => {
+    if (!el) return null;
+    const origin = el;
+    // while (el) {
+    //   if (isHeading(el)) return el;
+    //   // Assign the previous sibling’s last, most deeply nested child to el.
+    //   el = el.previousElementSibling;
+    //   while (el?.lastElementChild) {
+    //     el = el.lastElementChild;
+    //   }
+    //   // Look for headings amongst siblings.
+    //   const h = getElementHeading(el);
+    //   if (h) return h;
+    // }
+    // // Walk back up the parent.
+    return getElementHeading(origin.parentElement);
+  };
+
+  const setCurrent: IntersectionObserverCallback = (entries) => {
+    for (const { isIntersecting, target } of entries) {
+      if (!isIntersecting) continue;
+
+      const headingID = target.id;
+      if (!headingID) continue;
+
+      const link = links.find((link) => link.dataset.hash === headingID);
+
+      if (link && link !== current) {
+        if (current) current.removeAttribute("aria-current");
+
+        link.setAttribute("aria-current", "true");
+        current = link;
+
+        break;
+      }
+    }
+  };
+
+  const toObserve = document.querySelectorAll(
+    "h1[id], h2[id], h3[id], h4[id], h5[id], h6[id]",
+  );
+
+  let current: HTMLAnchorElement | null = null;
+
+  const height = document.documentElement.clientHeight;
+  const bottom = 64;
+
+  const observer = new IntersectionObserver(setCurrent, {
+    rootMargin: `0px 0px ${bottom - height}px 0px`,
+  });
+
+  toObserve.forEach((h) => observer!.observe(h));
+</script>
+
+<style
+  define:vars={{
+    slate600: color.slate600,
+    slate800: color.slate800,
+    fontSize: fontSize[14],
+  }}
+>
+  .on-this-page {
+    top: 1rem;
+    position: sticky;
+    font-size: var(--fontSize);
+    margin-left: 3rem;
+    display: none;
+  }
+
+  h2 {
+    font-size: var(--fontSize);
+    margin-top: 0;
+    margin-bottom: 0.25rem;
+  }
+
+  ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+
+  li {
+    margin-left: calc(var(--depth) * 0.75rem);
+    padding: 0.25rem 0;
+  }
+
+  a {
+    text-decoration: none;
+    color: var(--slate600);
+    transition:
+      transform 150ms ease-out,
+      color 150ms ease-out;
+
+    &[aria-current="true"] {
+      color: #1ea7fd;
+    }
+
+    &:hover {
+      color: #1ea7fd;
+    }
+
+    &:focus {
+      outline: none;
+    }
+
+    &:active {
+      color: var(--slate600);
+    }
+  }
+</style>

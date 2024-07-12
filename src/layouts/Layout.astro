@@ -11,6 +11,7 @@ type Props = MarkdownLayoutProps<{
 const {
   frontmatter: { title, description },
   url,
+  headings,
 } = Astro.props;
 ---
 
@@ -19,6 +20,7 @@ const {
   description={description}
   url={url!}
   file={Astro.props.file}
+  headings={headings}
 >
   <slot />
 </BaseLayout>
