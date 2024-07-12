@@ -1,0 +1,79 @@
+---
+import type { MarkdownHeading } from "astro";
+import { color, fontSize } from "@chromaui/tetra";
+
+type Props = {
+  headings: MarkdownHeading[];
+};
+
+const { headings } = Astro.props;
+
+const tocHeadings = headings.filter((heading) => heading.depth > 1);
+---
+
+<aside>
+  <nav class="on-this-page">
+    <h2>On this page</h2>
+    <ul>
+      {
+        tocHeadings.map((heading) => (
+          <li style={`--depth: ${heading.depth - 2}`}>
+            <a class="link primary" href={`#${heading.slug}`}>
+              {heading.text}
+            </a>
+          </li>
+        ))
+      }
+    </ul>
+  </nav>
+</aside>
+
+<style
+  define:vars={{
+    slate600: color.slate600,
+    slate800: color.slate800,
+    fontSize: fontSize[14],
+  }}
+>
+  .on-this-page {
+    top: 1rem;
+    position: sticky;
+    font-size: var(--fontSize);
+    margin-left: 4rem;
+    display: none;
+  }
+
+  h2 {
+    font-size: var(--fontSize);
+    margin-top: 0;
+    margin-bottom: 0.25rem;
+  }
+
+  ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+
+  li {
+    margin-left: calc(var(--depth) * 0.75rem);
+    padding: 0.25rem 0;
+  }
+
+  a {
+    text-decoration: none;
+    color: var(--slate600);
+
+    &:hover {
+      color: var(--slate800);
+    }
+
+    &:focus {
+      outline: none;
+    }
+
+    &:active {
+      color: var(--slate600);
+    }
+  }
+</style>

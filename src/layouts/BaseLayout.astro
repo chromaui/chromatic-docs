@@ -1,4 +1,5 @@
 ---
+import type { MarkdownHeading } from "astro";
 import { Container } from "@chromaui/tetra";
 import { getCollection } from "astro:content";
 import "@docsearch/css";
@@ -11,12 +12,14 @@ import { MarketingHeader } from "../components/Header/MarketingHeader";
 import { MainWrapper } from "../components/MainWrapper";
 import Navigation from "../components/Navigation/Navigation.astro";
 import { projectRoot } from "../util";
+import OnThisPage from "../components/OnThisPage.astro";
 
 type Props = {
   title: string;
   description: string;
   url: string;
   file?: string;
+  headings: MarkdownHeading[];
 };
 
 const { title, description } = Astro.props;
@@ -159,6 +162,7 @@ const editUrl = Astro.props.file?.replace(projectRoot, "").replace("src/", "");
           <slot />
           <EditAndFeedback editUrl={editUrl} />
         </Wrapper>
+        <OnThisPage headings={Astro.props.headings} />
       </MainWrapper>
     </Container>
     <MarketingFooter />

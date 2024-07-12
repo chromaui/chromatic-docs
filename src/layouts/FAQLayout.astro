@@ -12,10 +12,16 @@ type Props = MarkdownLayoutProps<{
 const {
   frontmatter: { title, description },
   url,
+  headings,
 } = Astro.props;
 ---
 
-<BaseLayout title={title} description={description} url={url!}>
+<BaseLayout
+  title={title}
+  description={description}
+  url={url!}
+  headings={headings}
+>
   <p>
     <a class="link primary with-icon" href="/docs/faq">
       <Icon name="arrowleftalt" /> Back to all FAQs
