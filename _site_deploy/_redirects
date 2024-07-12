@@ -24,6 +24,8 @@
 /docs/cypress/test/ /docs/test/
 /docs/cypress/ci/ /docs/ci/
 
+/docs/setup-turbosnap/ /docs/turbosnap/setup/
+
 # Plausible analytics
 
 /js/script.js https://plausible.io/js/script.js 200

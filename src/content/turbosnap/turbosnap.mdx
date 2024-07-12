@@ -40,12 +40,12 @@ Certain code changes have the potential to impact all stories. To avoid false po
 <details>
 <summary>How can I reduce the frequency of full rebuilds?</summary>
 
-1. Check your `preview.js` file: you may have a global decorator configured that's [imported from an index or barrel file](/docs/setup-turbosnap/#why-changes-are-not-being-detected-correctly), which itself imports a bunch of other files.  This can lead to *all* stories depending on a large swath of seemingly unrelated files.<br /><br />
+1. Check your `preview.js` file: you may have a global decorator configured that's [imported from an index or barrel file](/docs/turbosnap/setup/#why-changes-are-not-being-detected-correctly), which itself imports a bunch of other files.  This can lead to *all* stories depending on a large swath of seemingly unrelated files.<br /><br />
 Whenever a global Storybook file changes, we run a complete build because global Storybook files can change how *any* story renders.  If any of those files or their imports change, we will trace them as dependent changes.  If the file changes are frequent, you can utilize `--untraced` on these files to help ensure you're not triggering a complete rebuild each time the file changes.
 
 <div class="aside">
 
-Learn more about [how to avoid re-testing for certain files](/docs/setup-turbosnap/#avoid-re-testing-dependent-stories-when-certain-files-changed).
+Learn more about [how to avoid re-testing for certain files](/docs/turbosnap/setup/#avoid-re-testing-dependent-stories-when-certain-files-changed).
 
 </div>
 
@@ -53,7 +53,7 @@ Learn more about [how to avoid re-testing for certain files](/docs/setup-turbosn
 
 <div class="aside">
 
-Learn more about how to [avoid re-testing on changes to package control files](/docs/setup-turbosnap/#avoid-re-testing-on-changes-to-package-control-files).
+Learn more about how to [avoid re-testing on changes to package control files](/docs/turbosnap/setup/#avoid-re-testing-on-changes-to-package-control-files).
 
 </div>
 
@@ -87,7 +87,7 @@ gitGraph
 	merge feature-2 id: "M.2" tag: "rebuild"
 	checkout feature-1
 	merge main id: "F1.2" tag: "rebuild"
-```  
+```
 Suppose an update was made to `preview.js` on the `feature-2` branch, causing TurboSnap to trigger a full rebuild on build `F2.1`.  This is expected, since changes to `preview.js` require us to retest everything.
 
 The changes from `feature-2` are then merged into the `main` branch in build `M.2`, which now has ancestors from both sides of the merge - `M.1` from `main` and `F2.1` from `feature-2`.  The diff between both these ancestors and `M.2` contains the changes to `preview.js`, triggering a full rebuild.

@@ -36,7 +36,7 @@ jobs:
 
       - name: Check links
         id: check-links
-        run: yarn check-links
+        run: pnpm run check-links
 
       - name: Send failure status to slack
         if: ${{ failure() }}
