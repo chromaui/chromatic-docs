@@ -41,24 +41,6 @@ const tocHeadings = headings.map((heading) => {
 
   links[0].setAttribute("aria-current", "true");
 
-  const getElementHeading = (el: Element | null): HTMLHeadingElement | null => {
-    if (!el) return null;
-    const origin = el;
-    // while (el) {
-    //   if (isHeading(el)) return el;
-    //   // Assign the previous sibling’s last, most deeply nested child to el.
-    //   el = el.previousElementSibling;
-    //   while (el?.lastElementChild) {
-    //     el = el.lastElementChild;
-    //   }
-    //   // Look for headings amongst siblings.
-    //   const h = getElementHeading(el);
-    //   if (h) return h;
-    // }
-    // // Walk back up the parent.
-    return getElementHeading(origin.parentElement);
-  };
-
   const setCurrent: IntersectionObserverCallback = (entries) => {
     for (const { isIntersecting, target } of entries) {
       if (!isIntersecting) continue;
