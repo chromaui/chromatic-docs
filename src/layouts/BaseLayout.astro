@@ -13,7 +13,7 @@ import { MainWrapper } from "../components/MainWrapper";
 import Navigation from "../components/Navigation/Navigation.astro";
 import { projectRoot } from "../util";
 import OnThisPage from "../components/OnThisPage.astro";
-import SearchGroup from "../components/SearchGroup.astro";
+import SearchMeta from "../components/SearchMeta.astro";
 
 type Props = {
   title: string;
@@ -22,9 +22,10 @@ type Props = {
   file?: string;
   headings: MarkdownHeading[];
   slug: string;
+  sidebarOrder?: number;
 };
 
-const { title, description, slug } = Astro.props;
+const { title, description, slug, sidebarOrder } = Astro.props;
 const { pathname } = Astro.url;
 const overview = await getCollection("overview");
 const storybook = await getCollection("storybook");
@@ -160,7 +161,11 @@ const editUrl = Astro.props.file?.replace(projectRoot, "").replace("src/", "");
       <MainWrapper showOnThisPage={Astro.props.headings.length > 0}>
         <Navigation url={pathname.replace(/\/$/g, "")} navItems={navItems} />
         <Wrapper>
-          <SearchGroup slug={slug} navItems={navItems} />
+          <SearchMeta
+            slug={slug}
+            navItems={navItems}
+            sidebarOrder={sidebarOrder}
+          />
           <slot />
           <EditAndFeedback editUrl={editUrl} />
         </Wrapper>

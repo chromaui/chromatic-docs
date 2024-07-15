@@ -1,5 +1,5 @@
 ---
-const { navItems, slug } = Astro.props;
+const { navItems, slug, sidebarOrder } = Astro.props;
 
 interface NavItem {
   title: string;
@@ -15,4 +15,9 @@ const groupTitle = slug === "faq" ? "FAQs" : group ? group.title : "Docs";
 ---
 
 <!-- Used as lvl0 prop by algolia which helps categorize the search results  -->
-<span hidden id="toc-section-titles">{groupTitle}</span>
+<span hidden id="algolia-group-title">{groupTitle}</span>
+
+<!-- Used to specify page rank -->
+<span hidden id="algolia-sidebar-order"
+  >{sidebarOrder !== undefined ? sidebarOrder * -1 : 0}</span
+>

@@ -1,16 +1,18 @@
 ---
 import type { MarkdownLayoutProps } from "astro";
 import BaseLayout from "./BaseLayout.astro";
+import { Debug } from "astro:components";
 
 type Props = MarkdownLayoutProps<{
   title: string;
   description: string;
   url: string;
   slug?: string;
+  sidebar?: { order?: number };
 }>;
 
 const {
-  frontmatter: { title, description },
+  frontmatter: { title, description, sidebar },
   url,
   headings,
 } = Astro.props;
@@ -27,6 +29,7 @@ const slug = Astro.params.slug || Astro.props.frontmatter.slug || "";
   file={Astro.props.file}
   headings={headings}
   slug={slug}
+  sidebarOrder={sidebar?.order}
 >
   <slot />
 </BaseLayout>
