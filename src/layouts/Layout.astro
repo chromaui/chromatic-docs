@@ -6,6 +6,7 @@ type Props = MarkdownLayoutProps<{
   title: string;
   description: string;
   url: string;
+  slug?: string;
 }>;
 
 const {
@@ -13,6 +14,10 @@ const {
   url,
   headings,
 } = Astro.props;
+
+// For most pages slug comes from params (...slug page)
+// but index and faq are exceptions and their slugs are passed via frontmatter props
+const slug = Astro.params.slug || Astro.props.frontmatter.slug || "";
 ---
 
 <BaseLayout
@@ -21,6 +26,7 @@ const {
   url={url!}
   file={Astro.props.file}
   headings={headings}
+  slug={slug}
 >
   <slot />
 </BaseLayout>

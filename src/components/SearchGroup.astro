@@ -1,0 +1,18 @@
+---
+const { navItems, slug } = Astro.props;
+
+interface NavItem {
+  title: string;
+  items: any[];
+  defaultOpen?: boolean;
+  timeline?: boolean;
+}
+
+const group = navItems.find(({ items }: NavItem) =>
+  items.find((item) => item.slug === slug),
+);
+const groupTitle = slug === "faq" ? "FAQs" : group ? group.title : "Docs";
+---
+
+<!-- Used as lvl0 prop by algolia which helps categorize the search results  -->
+<span hidden id="toc-section-titles">{groupTitle}</span>
