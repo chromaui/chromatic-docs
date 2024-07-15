@@ -11,13 +11,6 @@ import ParamsCallout from "../../components/ParamsCallout.astro";
 
 CSS media features enable developers to create responsive designs and adapt layouts based on device characteristics, enhancing user experiences. With Chromatic, developers can test and refine CSS media features to ensure consistent and visually appealing designs across different devices and screen sizes.
 
-## Table of contents:
-
-- [`forced-colors`](#test-high-contrast-color-schemes)
-- [`prefers-reduced-motion`](#verify-reduced-motion-animations)
-- [`media: print`](#test-print-styles)
-- [Usage with Modes](#combine-media-features-with-modes)
-
 ## Test high-contrast color schemes
 
 The [`forced-colors`](https://developer.mozilla.org/en-US/docs/Web/CSS/@media/forced-colors) CSS media feature enables developers to create accessible websites for users with visual impairments. It detects high-contrast mode and color preferences ensuring that websites and applications are legible and accessible. To test it in Chromatic, add the `forcedColors` option to the `chromatic` parameter:
@@ -172,7 +165,7 @@ This would create two Chromatic snapshots, one with German locale mode and print
 
 ---
 
-### Troubleshooting
+## Troubleshooting
 
 <details>
 <summary>Can I define a media feature in Modes?</summary>

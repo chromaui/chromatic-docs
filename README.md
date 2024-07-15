@@ -145,3 +145,32 @@ To add a new section, include the section in the `groupedFAQs` array in `src/pag
 ### Search
 
 Algolia's Docsearch is integrated with the project. Every 24 hours it will crawl docs.chromatic.com and update it's index. The search input box is wired up to this index. You don't need to do anything special, whatever is pushed to docs.chromatic.com will be automatically indexed.
+
+**Promoting pages in search**
+
+If you want to promote a page in search results, you can set `promoted: true` to the object in Algolia index, via a script. For example:
+
+```js
+const algoliasearch = require('algoliasearch');
+
+const ALGOLIA_APP_ID = '...';
+const ALGOLIA_API_KEY = '...';
+const ALGOLIA_INDEX_NAME = '...';
+
+const client = algoliasearch(ALGOLIA_APP_ID, ALGOLIA_API_KEY);
+const index = client.initIndex(ALGOLIA_INDEX_NAME);
+
+index
+  .partialUpdateObjects([
+    {
+      objectID: 'xxxxxx',
+      promoted: true,
+    },
+  ])
+  .then(() => {
+    console.log('Record updated successfully!');
+  })
+  .catch((error) => {
+    console.error('Error updating record:', error);
+  });
+```
