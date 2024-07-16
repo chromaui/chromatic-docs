@@ -11,7 +11,30 @@ Browsers can decide to render HTML in multiple passes when custom fonts are used
 
 Unfortunately, this behavior can cause your story to render without the custom font. Or worse, render inconsistently. That triggers font rendering changes that you have to accept again and again. Here are ways to prevent that.
 
-### Solution A: Preload fonts
+## Best practice: Fallback to web-safe fonts
+
+Web font loading can vary between browsers, versions, and operating systems. Web-safe fonts are commonly installed by default on browsers and operating systems. We recommend you include a web-safe font in your font stack as a fallback in case your web font isn't available or doesn't load as expected.
+
+```css
+/* Fallback to "Courier New" for monospace fonts */
+
+code {
+  font-family: "Source Code Pro", "Courier New", monospace;
+}
+```
+
+</details>
+
+<details>
+<summary>Which web-safe fonts do you recommend for Chromatic?</summary>
+
+- Sans-serif: Arial, Verdana, Trebuchet MS
+- Serif: Georgia, Times New Roman
+- Monospace: Courier New, Courier,
+
+</details>
+
+## Solution A: Preload fonts
 
 We recommend that you ensure fonts are always loaded prior to rendering the story. Preload fonts in Storybook by specifying them in `./storybook/preview-head.html`.
 
@@ -31,7 +54,7 @@ We recommend that you ensure fonts are always loaded prior to rendering the stor
 If you’re loading fonts from an external CDN service (like Google Fonts or Adobe Fonts), be careful that the font files you’re preloading match the fonts called for in your CSS.
 </div>
 
-### Solution B: Point font-face declarations at static files
+## Solution B: Point font-face declarations at static files
 
 If your CSS has global `@font-face` declarations that point to a CDN, you may need to override them to ensure that your snapshots always use assets loaded locally.
 
@@ -77,7 +100,7 @@ Reference the stylesheet in Storybook's `preview-head.html` configuration to loa
 
 This technique loads a local font file during development and testing in Storybook. Meanwhile your users still load the font from the CDN in production.
 
-### Solution C: Check fonts have loaded in a loader
+## Solution C: Check fonts have loaded in a loader
 
 This alternate solution uses the browser's font load API and the [`isChromatic()`](/docs/ischromatic) helper function to verify that fonts load when in the Chromatic environment.
 
@@ -101,6 +124,6 @@ const fontLoader = async () => ({
 export const loaders = isChromatic() && document.fonts ? [fontLoader] : [];
 ```
 
-### Solution D: Don't load fonts
+## Solution D: Don't load fonts
 
 As a last resort, you can also disable custom fonts by setting `font-display: optional` in your CSS when running in Chromatic.
