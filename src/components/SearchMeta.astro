@@ -8,12 +8,17 @@ interface NavItem {
   timeline?: boolean;
 }
 
-const group = navItems.find(({ items }: NavItem) =>
+const groupIndex = navItems.findIndex(({ items }: NavItem) =>
   items.find((item) => item.slug === slug),
 );
+const group = navItems[groupIndex];
 const groupTitle = slug === "faq" ? "FAQs" : group ? group.title : "Docs";
 
-const order = sidebarOrder !== undefined ? sidebarOrder * -1 : -100;
+const globalOrder = -groupIndex * 10;
+
+// Use global and section order to determine the ranking of the page
+const order =
+  globalOrder + (sidebarOrder !== undefined ? sidebarOrder * -1 : -100);
 ---
 
 <!-- Used as lvl0 prop by algolia which helps categorize the search results  -->
