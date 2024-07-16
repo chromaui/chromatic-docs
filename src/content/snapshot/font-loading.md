@@ -30,7 +30,7 @@ code {
 
 - Sans-serif: Arial, Verdana, Trebuchet MS
 - Serif: Georgia, Times New Roman
-- Monospace: Courier New, Courier,
+- Monospace: Courier New, Courier
 
 </details>
 
