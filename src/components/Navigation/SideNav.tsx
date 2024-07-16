@@ -110,6 +110,7 @@ type Item = (
   | CollectionEntry<"configuration">
   | CollectionEntry<"modes">
   | CollectionEntry<"snapshot">
+  | CollectionEntry<"snapshotOptions">
   | CollectionEntry<"turbosnap">
   | CollectionEntry<"collaborate">
   | CollectionEntry<"plugins">
