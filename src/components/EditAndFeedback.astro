@@ -1,20 +1,23 @@
 ---
 import { Icon } from "@chromatic-com/tetra";
 
-const { editUrl } = Astro.props;
+const { editUrl, slug } = Astro.props;
 
 const baseEditUrl = "https://github.com/chromaui/chromatic-docs/edit/main/src/";
 
-const url = `${baseEditUrl}${editUrl}`;
+const fileUrl = `${baseEditUrl}${editUrl}`;
+const pageUrl = Astro.url;
 ---
 
 <div class="edit-feedback">
-  <a class="edit-link" href={url}>
+  <a class="edit-link" href={fileUrl}>
     <Icon name="edit" />
      Edit page
   </a>
 
-  <a href="https://github.com/chromaui/chromatic-docs/issues/new">
+  <a
+    href={`https://github.com/chromaui/chromatic-docs/issues/new?template=update_docs.yml&title=[Feedback]: ${slug}&url=${pageUrl}`}
+  >
     <Icon name="comment" />
      Submit feedback
   </a>
