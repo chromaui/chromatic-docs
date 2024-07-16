@@ -34,6 +34,7 @@ const cypress = await getCollection("cypress");
 const configuration = await getCollection("configuration");
 const modes = await getCollection("modes");
 const snapshot = await getCollection("snapshot");
+const snapshotOptions = await getCollection("snapshotOptions");
 const turbosnap = await getCollection("turbosnap");
 const collaborate = await getCollection("collaborate");
 const plugins = await getCollection("plugins");
@@ -82,6 +83,10 @@ const navItems = [
     items: snapshot,
   },
   {
+    title: "Snapshot options",
+    items: snapshotOptions,
+  },
+  {
     title: "TurboSnap",
     items: turbosnap,
     timeline: true,
@@ -107,8 +112,6 @@ const navItems = [
     items: troubleshooting,
   },
 ];
-
-const baseUrl = import.meta.env.BASE_URL;
 
 const editUrl = Astro.props.file?.replace(projectRoot, "").replace("src/", "");
 ---
@@ -167,7 +170,7 @@ const editUrl = Astro.props.file?.replace(projectRoot, "").replace("src/", "");
             sidebarOrder={sidebarOrder}
           />
           <slot />
-          <EditAndFeedback editUrl={editUrl} />
+          <EditAndFeedback title={title} editUrl={editUrl} />
         </Wrapper>
         {
           Astro.props.headings.length > 0 && (
