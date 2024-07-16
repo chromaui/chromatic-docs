@@ -12,12 +12,12 @@ const group = navItems.find(({ items }: NavItem) =>
   items.find((item) => item.slug === slug),
 );
 const groupTitle = slug === "faq" ? "FAQs" : group ? group.title : "Docs";
+
+const order = sidebarOrder !== undefined ? sidebarOrder * -1 : -100;
 ---
 
 <!-- Used as lvl0 prop by algolia which helps categorize the search results  -->
 <span hidden id="algolia-group-title">{groupTitle}</span>
 
 <!-- Used to specify page rank -->
-<span hidden id="algolia-sidebar-order"
-  >{sidebarOrder !== undefined ? sidebarOrder * -1 : 0}</span
->
+<span hidden id="algolia-sidebar-order">{order}</span>
