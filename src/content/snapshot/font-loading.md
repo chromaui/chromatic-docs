@@ -16,8 +16,11 @@ Unfortunately, this behavior can cause your story to render without the custom f
 Web font loading can vary between browsers, versions, and operating systems. Web-safe fonts are commonly installed by default on browsers and operating systems. We recommend you include a web-safe font in your font stack as a fallback in case your web font isn't available or doesn't load as expected.
 
 ```css
-/* Monospace font stack */
-font-family: "Source Code Pro", "Courier New", monospace;
+/* Fallback to "Courier New" */
+
+body {
+  font-family: "Source Code Pro", "Courier New", monospace;
+}
 ```
 
 </details>
