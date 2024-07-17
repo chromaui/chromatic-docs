@@ -1,0 +1,14 @@
+---
+layout: "../../../layouts/FAQLayout.astro"
+sidebar: { hide: true }
+title: Why is the 'Snapshot' different from the 'Canvas'?
+section: "uiTestsAndReview"
+---
+
+# Why is the 'Snapshot' different from the 'Canvas'?
+
+The `Canvas` is an interactive environment where you can see the real component code in action, and reproduce its behavior. It shows how Storybook renders on Chromatic, displaying the component in its *final state*. 
+
+The `Snapshot` refers to the image captured by Chromatic's cloud browser, which represents what the browser **saw** at the time it rendered the story. 
+
+This could be the component's *initial* or *intermediate* state, and it might differ from the `Canvas` due to various reasons, such as JavaScript execution being blocked during capture, which can prevent certain elements from being captured, or the use of the `isChromatic()` function to alter rendering on Chromatic.
