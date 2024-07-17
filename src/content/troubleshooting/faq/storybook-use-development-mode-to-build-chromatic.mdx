@@ -1,0 +1,14 @@
+---
+layout: "../../../layouts/FAQLayout.astro"
+sidebar: { hide: true }
+title: Can I use a Storybook build in development mode to build Chromatic?
+section: publish
+---
+
+# Can I use a Storybook build in development mode to build Chromatic?
+
+The behavior of Storybook in development and production mode is different: styles are applied differently, and development packages may be scrapped in production mode. Chromatic runs the `build-storybook` command during the build process (different from `start-storybook`).
+
+When you test Storybook locally, it's essential to mock the production mode by running: `npx http-server storybook-static -o`
+
+Passing a storybook dev built is possible, but we highly recommend not doing that.
