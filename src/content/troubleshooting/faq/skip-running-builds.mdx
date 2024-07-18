@@ -1,0 +1,11 @@
+---
+layout: "../../../layouts/FAQLayout.astro"
+sidebar: { hide: true }
+title: Can I skip running builds for the 'master/main' branch to save snapshots?
+section: "usage"
+sectionOrder: 3
+---
+
+# Can I skip running builds for the 'master/main' branch to save snapshots?
+
+Avoiding Chromatic runs on the main branch isn't practical as feature branches depend on it for baseline comparisons. Some users only run builds on the main branch after making changes on feature branches. This ensures the main branch's baseline always reflects the latest merged changes.
