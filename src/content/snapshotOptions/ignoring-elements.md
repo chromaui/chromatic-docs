@@ -118,12 +118,14 @@ export function MyComponent() {
 
 <details>
 
-  <summary>Why the element with the class `data-chromatic="ignore"` is not being ignored?</summary>
+<summary>Why isn't an element with <code>data-chromatic="ignore"</code> being ignored?</summary>
 
-Adding the `data-chromatic="ignore"` attribute tells the diffing algorithm to ignore pixels within the bounding box of ignored elements.
+Adding the `data-chromatic="ignore"` attribute instructs the diffing algorithm to disregard pixels within the bounding box of the ignored element. However, dimension changes of this element still trigger a change.
 
-Incoming changes with `data-chromatic="ignore"` still get captured when the element's dimensions change.
+Ensure that both the baseline and new snapshots maintain the same dimensions, such as width, height, and relative positioning.
 
-Ensure the baseline and new snapshots retain the same dimensions (e.g., *width*, *height*, and *relative positioning*).
+![Chromatic will not trigger a change because the dimensions of the ignored element remain the same, even though the contents have changed.](../../images/ignore-but-still-changes.png)
+
+![Chromatic will trigger a change because the dimensions of the ignored element have changed.](../../images/ignore-no-changes.png)
 
 </details>
