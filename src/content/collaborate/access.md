@@ -17,7 +17,7 @@ Sign in to Chromatic via OAuth, email, or SSO.
 
 Chromatic supports the cloud versions of GitHub, GitLab, or Bitbucket on our [self-serve plans](https://www.chromatic.com/pricing).
 
-If you use the on-premise or enterprise versions of GitHub, GitLab, or Bitbucket, we can support you via our [enterprise plan](https://www.chromatic.com/pricing). We recommend trialing Chromatic first by following these [instructions](/docs/faq/#demo-chromatic-unlinked).
+If you use the on-premise or enterprise versions of GitHub, GitLab, or Bitbucket, we can support you via our [enterprise plan](https://www.chromatic.com/pricing). We recommend trialing Chromatic first by following these [instructions](/docs/faq/chromatic-sso-on-premises-other-git).
 
 <details>
     <summary>What OAuth scopes does Chromatic request?</summary>
@@ -161,7 +161,7 @@ The characteristics of an unlinked project include:
 - PR badging is manually configured in your CI provider.
 - Notifications are manually setup via Chromatic's [custom webhooks](/docs/integrations#custom-webhooks).
 
-Learn how to create an unlinked project [here](/docs/faq/#demo-chromatic-unlinked).
+Learn how to create an unlinked project [here](/docs/faq/chromatic-sso-on-premises-other-git).
 
 ---
 
