@@ -116,7 +116,7 @@ If you are combining multiple Storybooks into one (see [above](#combine-multiple
 - Use [`--only-story-files`](/docs/cli#configuration-options) to only snapshot stories matching a glob pattern by story file name.
 - Use [`--only-story-names`](/docs/cli#configuration-options) to only snapshot stories matching a glob pattern by component/story name.
 
-In each case, stories that aren't tested are "inherited" from their baseline. You cannot use both `--only-story-files` and `--only-story-names` CLI flags directly from the CLI or your CI workflow.
+In each case, matching stories will not be captured again, instead we assume it has not changed, and copy the previous snapshot of the story (from one of the ancestor builds). Note you cannot use both `--only-story-files` and `--only-story-names` on the same build, as they conflict.
 
 #### With TurboSnap
 
