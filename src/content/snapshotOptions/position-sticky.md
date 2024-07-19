@@ -26,9 +26,8 @@ bottom: 0;
 
 <details>
 
-<summary>I set up `position: sticky;` with `bottom: 0;`, but it's not working. What could be the issue?</summary>
+<summary>I set an element to use sticky positioning, but it's not working. What could be the issue?</summary>
 
-The parent container's display settings might be the problem. Sticky elements can have issues if the Pparent uses `display: grid;`, `display: flex;`, or similar styles. Try wrapping the component in a [decorator](/docs/custom-decorators) div and set `display: initial;` to fix the issue.
-
+If the parent of your sticky element uses `display: grid;`, `display: flex;`, or similar styles, the layout might behave differently when rendering a story by itself. In such cases, we recommend wrapping the story with a [decorator](https://storybook.js.org/docs/writing-stories/decorators#wrap-stories-with-extra-markup) `div` and setting `display: initial;` to it.
 
 </details>
