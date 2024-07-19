@@ -19,3 +19,16 @@ bottom: 0;
 ```
 
 ![Position sticky snapshots](../../images/position-sticky-fixed.jpg)
+
+---
+
+## Troubleshooting
+
+<details>
+
+<summary>I set up `position: sticky;` with `bottom: 0;`, but it's not working. What could be the issue?</summary>
+
+The parent container's display settings might be the problem. Sticky elements can have issues if the Pparent uses `display: grid;`, `display: flex;`, or similar styles. Try wrapping the component in a [decorator](/docs/custom-decorators) div and set `display: initial;` to fix the issue.
+
+
+</details>
