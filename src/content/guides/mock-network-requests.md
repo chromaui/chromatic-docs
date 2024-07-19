@@ -7,7 +7,7 @@ sidebar: { order: 5, label: "Mocking APIs" }
 
 # Mocking APIs and Network Requests
 
-When testing components or Pages that make network requests, it's important to mock those requests to keep your tests isolated and predictable. Chromatic integrates with functional testing frameworks to enable visual testing of your UI. Therefore, APIs are mocked by your functional testing framework, not by Chromatic itself.
+When testing components or pages that make network requests, it's important to mock those requests to keep your tests isolated and predictable. Chromatic integrates with functional testing frameworks to enable visual testing of your UI. Therefore, APIs are mocked by your functional testing framework, not by Chromatic itself.
 
 ## Storybook
 
