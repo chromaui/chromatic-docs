@@ -2,7 +2,7 @@
 layout: "../../layouts/Layout.astro"
 title: Combine stories & E2E
 description: Learn how to use Storybook, E2E testing frameworks (Playwright or Cypress) and Chromatic together for functional and visual testing UIs.
-sidebar: { order: 5 }
+sidebar: { order: 6 }
 ---
 
 # Integrating Playwright or Cypress with Storybook and Chromatic

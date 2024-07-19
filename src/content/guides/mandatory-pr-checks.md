@@ -2,7 +2,7 @@
 layout: "../../layouts/Layout.astro"
 title: Mandatory PR checks
 description: Learn how to block pull requests that contain unapproved visual changes
-sidebar: { order: 6 }
+sidebar: { order: 8 }
 ---
 
 # Mandatory PR checks
