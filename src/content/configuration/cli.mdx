@@ -202,6 +202,9 @@ Some options can be configured through environment variables. You will typically
 | `6`       | `BUILD_WAS_CANCELED`         | Chromatic build was canceled                           |
 | `11`      | `ACCOUNT_QUOTA_REACHED`      | Chromatic account reached its snapshot quota           |
 | `12`      | `ACCOUNT_PAYMENT_REQUIRED`   | Chromatic account requires payment                     |
+| `21`      | `STORYBOOK_BUILD_FAILED`     | Storybook issue                                        |
+| `22`      | `STORYBOOK_START_FAILED`     | Storybook issue                                        |
+| `23`      | `STORYBOOK_BROKEN`           | Storybook issue                                        |
 | `101`     | `GIT_NOT_CLEAN`              | Git repository workspace not clean                     |
 | `102`     | `GIT_OUT_OF_DATE`            | Git repository not up-to-date with remote              |
 | `103`     | `GIT_NO_MERGE_BASE`          | Git branch has no merge base                           |
@@ -209,6 +212,8 @@ Some options can be configured through environment variables. You will typically
 | `105`     | `NPM_BUILD_STORYBOOK_FAILED` | npm or Yarn failed to run build-storybook script       |
 | `201`     | `FETCH_ERROR`                | HTTP fetch error                                       |
 | `202`     | `GRAPHQL_ERROR`              | GrahpQL API error                                      |
+| `210`     | `MISSING_DEPENDENCY`         | Dependency issue                                       |
+| `220`     | `VERIFICATION_TIMEOUT`       | Build verification timeout                             |
 | `254`     | `INVALID_OPTIONS`            | Invalid options (flags) provided                       |
 | `255`     | `UNKNOWN_ERROR`              | Unknown error                                          |
 
