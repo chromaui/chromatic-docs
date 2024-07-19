@@ -118,6 +118,15 @@ Single Sign-On (SSO) is available to enterprise customers. To sign-in, make sure
 
 If you don't know the Chromatic URL for your team, you may need to ask the account or project owner.
 
+<details>
+  <summary>What SSO providers are supported?</summary>
+
+OneLogin, Okta, Google Workspace, PingOne, Keycloak, SimpleSAMLphp-based Identity Providers, and Active Directory Federation Services. 
+
+If your provider is not on the list, please reach out to us at support@chromatic.com or use our **in-app chat**, and we will determine if it is possible to integrate with it.
+
+</details>
+
 ## Organizations
 
 A Chromatic organization mirrors its counterpart GitHub Organization, Bitbucket Group, or GitLab Team. Open the account menu to swap between organizations or add a new organization.
