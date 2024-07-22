@@ -1,0 +1,52 @@
+---
+import configOptions from "../chromatic-config/options.json";
+import { markdown } from "../markdown";
+
+const formatOption = ({ option, flag, shortFlag, restriction }: any) => {
+  const lead = option ? option : `<code>${flag}</code>`;
+  const hasBoth = option && flag;
+
+  return [
+    `<strong>${lead}</strong>`,
+    restriction ? ` (${restriction})` : "",
+    hasBoth ? "<br/>" : "",
+    hasBoth && flag ? `<code>${flag}</code>` : "",
+    shortFlag ? ` (<code>${shortFlag}</code>)` : "",
+  ].join("");
+};
+
+const formatType = (type: string | string[]) => {
+  if (Array.isArray(type)) {
+    return type.map((t) => `<code>${t}</code>`).join(" or ");
+  }
+
+  return `<code>${type}</code>`;
+};
+---
+
+<div class="table-scroll" style="overflow: scroll">
+  <table>
+    <thead>
+      <tr>
+        <th>Option / Flag</th>
+        <th>Description</th>
+        <th>Type</th>
+        <th>Example value</th>
+        <th>Default value</th>
+      </tr>
+    </thead>
+    <tbody>
+      {
+        configOptions.map(async (option) => (
+          <tr>
+            <td set:html={formatOption(option)} />
+            <td set:html={await markdown(option.description)} />
+            <td set:html={formatType(option.type)} />
+            <td set:html={await markdown(option.example)} />
+            <td set:html={await markdown(option.default)} />
+          </tr>
+        ))
+      }
+    </tbody>
+  </table>
+</div>
