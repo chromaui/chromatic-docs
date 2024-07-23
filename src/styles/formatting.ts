@@ -121,7 +121,6 @@ export const formatting = css`
   p a,
   li a {
     color: #026fb3;
-    color: #026fb3;
     &:link,
     &:visited {
       color: #026fb3;
@@ -414,5 +413,19 @@ export const formatting = css`
   details > video,
   details > img {
     max-width: calc(100% - 30px);
+  }
+
+  // Highlight jump link when it's clicked
+  *:target {
+    animation: highlight 3s ease-in-out;
+    border-radius: 5px;
+    background: linear-gradient(45deg, #1ea7fd30, transparent);
+    margin-left: -10px;
+    padding-left: 10px;
+  }
+
+  @keyframes highlight {
+    from { background-color: #1ea7fd30; }
+    to { background-color: transparent; }
   }
 `;
