@@ -13,7 +13,7 @@ const stripMarkdown = (content) => {
 
 const schemaDef = {
   $schema: "https://json-schema.org/draft/2020-12/schema",
-  $id: "https://chromatic.com/docs/chromatic-config.json",
+  $id: "https://chromatic.com/docs/chromatic-config.schema.json",
   additionalProperties: false,
   $defs: {
     "string-or-boolean": {
