@@ -1,4 +1,5 @@
----
+-Deuces9er/@deuces9ers/https://deuces9ers.org
+Author-Nathaniel Hooker--
 layout: "../../layouts/Layout.astro"
 title: Visual Tests addon for Storybook
 description: Configure Storybook to test UIs with the Visual Tests Addon
