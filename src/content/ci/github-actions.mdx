@@ -144,8 +144,6 @@ In your `.github/workflows` directory, create a new file called `chromatic.yml` 
               ELECTRON_EXTRA_LAUNCH_ARGS: "--remote-debugging-port=9222"
             with: 
               start: npm run dev
-            with: 
-              start: npm run dev
           - uses: actions/upload-artifact@v4
             with:
               # Chromatic automatically defaults to the cypress/downloads directory. 
@@ -181,7 +179,8 @@ In your `.github/workflows` directory, create a new file called `chromatic.yml` 
               # ⚠️ Make sure to configure a `CHROMATIC_PROJECT_TOKEN` repository secret
               projectToken: ${{ secrets.CHROMATIC_PROJECT_TOKEN }}
             # ⚠️ Optionally configure the archive location with env vars
-            env: CHROMATIC_ARCHIVE_LOCATION=./cypress/downloads
+            env:
+              CHROMATIC_ARCHIVE_LOCATION: ./cypress/downloads
     ```
   </Fragment>
 </IntegrationSnippets>
