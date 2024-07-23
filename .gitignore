@@ -29,3 +29,4 @@ _site_deploy/docs
 
 # local VSCode settings
 .vscode
+public/chromatic-config.schema.json

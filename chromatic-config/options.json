@@ -5,7 +5,7 @@
     "description": "If there are any changes to the build, automatically accept them. Only for given branch, if specified.",
     "type": ["glob", "boolean"],
     "example": "`\"main\"` or `true`",
-    "default": "`false`"
+    "default": false
   },
   {
     "option": "branchName",
@@ -13,7 +13,7 @@
     "description": "Override the branch name for certain CI providers or cross-fork PR comparisons.<br/>Also accepts `<owner>:<branch>`.",
     "type": "string",
     "example": "`\"my-branch\"`",
-    "default": "Inferred from CI or Git"
+    "defaultComment": "Inferred from CI or Git"
   },
   {
     "option": "buildScriptName",
@@ -22,7 +22,7 @@
     "description": "The npm script that builds your Storybook. Use this if your Storybook build script is named differently.",
     "type": "string",
     "example": "`\"build:storybook\"`",
-    "default": "`\"build-storybook\"`"
+    "default": "build-storybook"
   },
   {
     "option": "configFile",
@@ -31,7 +31,7 @@
     "description": "Path from where to load the Chromatic config JSON file.",
     "type": "string",
     "example": "`\"config/chromatic.json\"`",
-    "default": "`\"chromatic.config.json\"`"
+    "default": "chromatic.config.json"
   },
   {
     "option": "debug",
@@ -39,7 +39,7 @@
     "description": "Output verbose debugging information.<br/>This option implies `interactive: false`.",
     "type": "boolean",
     "example": "`true`",
-    "default": "`false`"
+    "default": false
   },
   {
     "option": "diagnosticsFile",
@@ -47,7 +47,7 @@
     "description": "When enabled, write process context information to a JSON file.<br/>Defaults to `chromatic-diagnostics.json`.",
     "type": ["string", "boolean"],
     "example": "`\"debug.json\"` or `true`",
-    "default": "`false`"
+    "default": false
   },
   {
     "option": "dryRun",
@@ -55,7 +55,7 @@
     "description": "Run without actually publishing to Chromatic.",
     "type": "boolean",
     "example": "`true`",
-    "default": "`false`"
+    "default": false
   },
   {
     "option": "exitOnceUploaded",
@@ -63,7 +63,7 @@
     "description": "Exit with status `0` (OK) once the built version has been published to Chromatic. Only for given branch, if specified.",
     "type": ["glob", "boolean"],
     "example": "`\"my-branch\"` or `true`",
-    "default": "`false`"
+    "default": false
   },
   {
     "option": "exitZeroOnChanges",
@@ -71,15 +71,14 @@
     "description": "If all snapshots render, but there are visual changes, exit with code `0` rather than the usual exit code `1`. Only for given branch, if specified.",
     "type": ["glob", "boolean"],
     "example": "`\"!(main)\"` or `true`",
-    "default": "`false`"
+    "default": false
   },
   {
     "option": "externals",
     "flag": "--externals",
     "description": "Disable [TurboSnap](/docs/turbosnap) when any of these files have changed since the baseline build.<br/>Requires `onlyChanged`.",
-    "type": ["glob", "array thereof"],
-    "example": "`\"my-folder/**\"`",
-    "default": ""
+    "type": "array of glob",
+    "example": "`\"my-folder/**\"`"
   },
   {
     "option": "forceRebuild",
@@ -87,7 +86,7 @@
     "description": "Do not skip build when a rebuild is detected. Only for given branch, if specified.",
     "type": ["glob", "boolean"],
     "example": "`\"my-branch\"` or `true`",
-    "default": "`false`"
+    "default": false
   },
   {
     "option": "fromCI",
@@ -95,15 +94,14 @@
     "description": "Mark the build as coming from CI.",
     "type": "boolean",
     "example": "`true`",
-    "default": "Inferred from CI"
+    "defaultComment": "Inferred from CI"
   },
   {
     "option": "ignoreLastBuildOnBranch",
     "flag": "--ignore-last-build-on-branch",
     "description": "Do not use the last build on this branch as a baseline if it is no longer in history (i.e., the branch was rebased).",
     "type": "glob",
-    "example": "`\"my-branch\"`",
-    "default": ""
+    "example": "`\"my-branch\"`"
   },
   {
     "option": "interactive: false",
@@ -111,7 +109,7 @@
     "description": "Don't ask interactive questions about your setup, and don't overwrite output. `true` in non-TTY environments.",
     "type": "boolean",
     "example": "`false`",
-    "default": "Inferred from TTY"
+    "defaultComment": "Inferred from TTY"
   },
   {
     "option": "isLocalBuild",
@@ -119,7 +117,7 @@
     "description": "Mark the build as \"local\".",
     "type": "boolean",
     "example": "`true`",
-    "default": "`false`"
+    "default": false
   },
   {
     "option": "junitReport",
@@ -127,7 +125,7 @@
     "description": "When enabled, write the build results to a JUnit XML file.<br/>Defaults to `chromatic-build-{buildNumber}.xml` where the `{buildNumber}` will be replaced with the actual build number.",
     "type": ["string", "boolean"],
     "example": "`\"report.xml\"` or `true`",
-    "default": "`false`"
+    "default": false
   },
   {
     "option": "list",
@@ -135,7 +133,7 @@
     "description": "Outputs the list of available stories in your Storybook.<br/>Useful for [debugging and diagnosing issues](#diagnosing-issues).",
     "type": "boolean",
     "example": "`true`",
-    "default": "`false`"
+    "default": false
   },
   {
     "option": "logFile",
@@ -143,7 +141,7 @@
     "description": "Write CLI logs to a file. Defaults to `chromatic.log`.",
     "type": ["string", "boolean"],
     "example": "`\"logs.txt\"` or `true`",
-    "default": "`false`"
+    "default": false
   },
   {
     "option": "fileHashing",
@@ -151,7 +149,7 @@
     "description": "Enabling this option will turn off the built-in file hashing mechanism, leading to all the files being uploaded to Chromatic on every build.",
     "type": "boolean",
     "example": "`true`",
-    "default": "`false`"
+    "default": false
   },
   {
     "option": "onlyChanged",
@@ -159,23 +157,21 @@
     "description": "Enables [TurboSnap](/docs/turbosnap).<br/>Runs Chromatic for stories affected by files and dependencies that have changed since the baseline build, including the specified branch if provided.",
     "type": ["glob", "boolean"],
     "example": "`true`",
-    "default": "`false`"
+    "default": false
   },
   {
     "option": "onlyStoryFiles",
     "flag": "--only-story-files",
     "description": "Only run a single story or a subset of stories by their filename(s). Specify the full path to the story file relative to the root of your Storybook project.",
-    "type": ["glob", "array thereof"],
-    "example": "`\"src/ui/**\"`",
-    "default": ""
+    "type": "array of glob",
+    "example": "`\"src/ui/**\"`"
   },
   {
     "option": "onlyStoryNames",
     "flag": "--only-story-names",
     "description": "Only run a single story or a subset of stories by their name.",
-    "type": ["glob", "array thereof"],
-    "example": "`\"Atoms/Button/*\"`",
-    "default": ""
+    "type": "array of glob",
+    "example": "`\"Atoms/Button/*\"`"
   },
   {
     "option": "outputDir",
@@ -184,21 +180,19 @@
     "description": "Relative path to target directory for building your Storybook. Use this if you want to preserve it for other tasks.",
     "type": "string",
     "example": "`\"storybook-static\"`",
-    "default": "Temporary directory"
+    "defaultComment": "Temporary directory"
   },
   {
     "flag": "--patch-build",
     "description": "Create a patch build to fix a missing PR comparison.",
     "type": "string",
-    "example": "`\"my-feature...main\"`",
-    "default": ""
+    "example": "`\"my-feature...main\"`"
   },
   {
     "option": "projectId",
     "description": "The unique identifier for your project, sometimes referred to as `appId`.",
     "type": "string",
-    "example": "`\"Project:5d67dc0374b2e300209c41e7\"`",
-    "default": ""
+    "example": "`\"Project:5d67dc0374b2e300209c41e7\"`"
   },
   {
     "option": "projectToken",
@@ -207,7 +201,7 @@
     "description": "The secret token for your project. Prefer to use `CHROMATIC_PROJECT_TOKEN` instead if you can.",
     "type": "string",
     "example": "`\"chpt_b2aef0123456789\"`",
-    "default": "Environment variable"
+    "defaultComment": "Environment variable"
   },
   {
     "option": "repositorySlug",
@@ -215,7 +209,7 @@
     "description": "Override the repository slug. This is mainly used to correctly handle cross-fork builds, where the owner deviates.",
     "type": "string",
     "example": "`\"owner/repositoryName\"`",
-    "default": "Inferred from CI or Git"
+    "defaultComment": "Inferred from CI or Git"
   },
   {
     "option": "skip",
@@ -223,7 +217,7 @@
     "description": "Skip Chromatic tests, but mark the commit as passing. It avoids blocking PRs due to required merge checks. Only for given branch, if specified.",
     "type": ["glob", "boolean"],
     "example": "`\"my-branch\"` or `true`",
-    "default": "`false`"
+    "default": false
   },
   {
     "option": "skipUpdateCheck",
@@ -231,15 +225,14 @@
     "description": "Skips Chromatic CLI update check.",
     "type": "boolean",
     "example": "`true`",
-    "default": "`false`"
+    "default": false
   },
   {
     "option": "storybookBaseDir",
     "flag": "--storybook-base-dir",
     "description": "Relative path from repository root to Storybook project root.<br/>Use with `onlyChanged` and `storybookBuildDir` when your Storybook is located in a subdirectory of your repository.",
     "type": "string",
-    "example": "`\"src/ui\"`",
-    "default": ""
+    "example": "`\"src/ui\"`"
   },
   {
     "option": "storybookBuildDir",
@@ -247,8 +240,7 @@
     "shortFlag": "-d",
     "description": "If you have already built your Storybook, provide the path to the static build directory.",
     "type": "string",
-    "example": "`\"dist/storybook\"`",
-    "default": ""
+    "example": "`\"dist/storybook\"`"
   },
   {
     "option": "storybookConfigDir",
@@ -256,7 +248,7 @@
     "description": "Relative path from where you run Chromatic to your Storybook config directory.<br/>Use with `onlyChanged` and `storybookBuildDir` when using a custom [`--config-dir`](https://storybook.js.org/docs/api/cli-options#build) flag for Storybook.",
     "type": "string",
     "example": "`\"storybook-config\"`",
-    "default": "`\".storybook\"`"
+    "default": ".storybook"
   },
   {
     "option": "storybookLogFile",
@@ -264,7 +256,7 @@
     "description": "Write Storybook build logs to a custom file path.",
     "type": ["string", "boolean"],
     "example": "`\"sb.txt\"` or `true`",
-    "default": "`\"build-storybook.log\"`"
+    "default": "build-storybook.log"
   },
   {
     "option": "traceChanged",
@@ -272,7 +264,7 @@
     "description": "Print dependency trace for changed files to affected story files. Set to \"expanded\" to list individual modules.<br/>Requires `onlyChanged`.",
     "type": ["string", "boolean"],
     "example": "`\"expanded\"` or `true`",
-    "default": "`false`"
+    "default": false
   },
   {
     "option": "workingDir",
@@ -280,15 +272,14 @@
     "description": "Provide the location of Storybook's `package.json` if installed in a subdirectory (i.e., monorepos).",
     "type": "string",
     "example": "`\"my-folder\"`",
-    "default": "`process.cwd()`"
+    "default": "process.cwd()"
   },
   {
     "option": "untraced",
     "flag": "--untraced",
     "description": "Disregard these files and their dependencies when tracing dependent stories for [TurboSnap](/docs/turbosnap).<br/>Requires `onlyChanged`.",
-    "type": ["glob", "array thereof"],
-    "example": "`\"my-folder/**\"`",
-    "default": ""
+    "type": "array of glob",
+    "example": "`\"my-folder/**\"`"
   },
   {
     "option": "uploadMetadata",
@@ -296,7 +287,7 @@
     "description": "Upload Chromatic metadata files as part of the published Storybook.<br/>This option implies `diagnosticsFile: true` and `logFile: true`.",
     "type": "boolean",
     "example": "`true`",
-    "default": "`false`"
+    "default": false
   },
   {
     "option": "zip",
@@ -304,7 +295,7 @@
     "description": "Publish your Storybook to Chromatic as a single zip file instead of individual content files.",
     "type": "boolean",
     "example": "`true`",
-    "default": "`false`"
+    "default": false
   },
   {
     "option": "playwright",
@@ -312,7 +303,7 @@
     "description": "Use your Playwright tests to power visual tests with Chromatic. [Learn more](/docs/playwright)",
     "type": "boolean",
     "example": "`true`",
-    "default": "`false`"
+    "default": false
   },
   {
     "option": "cypress",
@@ -320,6 +311,6 @@
     "description": "Use your Cypress tests to power visual tests with Chromatic. [Learn more](/docs/cypress)",
     "type": "boolean",
     "example": "`true`",
-    "default": "`false`"
+    "default": false
   }
 ]
