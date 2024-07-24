@@ -59,6 +59,9 @@ importers:
       framer-motion:
         specifier: ^11.0.5
         version: 11.0.5(react-dom@18.2.0(react@18.2.0))(react@18.2.0)
+      github-slugger:
+        specifier: ^2.0.0
+        version: 2.0.0
       hast-util-select:
         specifier: ^6.0.2
         version: 6.0.2
@@ -75,6 +78,9 @@ importers:
         specifier: ^13.0.1
         version: 13.0.1
       rehype-autolink-headings:
+        specifier: ^7.0.0
+        version: 7.0.0
+      rehype-raw:
         specifier: ^7.0.0
         version: 7.0.0
       rehype-slug:
@@ -8620,7 +8626,7 @@ snapshots:
 
   rehype-raw@7.0.0:
     dependencies:
-      '@types/hast': 3.0.3
+      '@types/hast': 3.0.4
       hast-util-raw: 9.0.1
       vfile: 6.0.1
 
