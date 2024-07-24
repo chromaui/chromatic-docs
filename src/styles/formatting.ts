@@ -70,8 +70,9 @@ export const formatting = css`
   h5,
   h6 {
     display: flex;
-    align-items: center;
+    align-items: baseline;
     gap: 0.5rem;
+    flex-wrap: wrap;
 
     a.autolink-header {
       width: 14px;
