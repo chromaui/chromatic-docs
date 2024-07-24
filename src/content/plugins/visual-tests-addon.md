@@ -122,7 +122,7 @@ When you finish accepting changes as baselines in the addon, you're ready to pus
 
 ---
 
-## FAQ
+## Frequently asked questions
 
 <details>
 <summary>What are "local" builds and how are they different from builds?</summary>
