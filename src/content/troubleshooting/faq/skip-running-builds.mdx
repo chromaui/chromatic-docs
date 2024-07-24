@@ -8,4 +8,6 @@ sectionOrder: 3
 
 # Can I skip running builds for the `main` branch to save snapshots?
 
-Avoiding Chromatic runs on the `main` branch isn't practical as feature branches depend on it for baseline comparisons. Some users only run builds on the main branch after making changes on feature branches. This ensures the main branch's baseline always reflects the latest merged changes.
+Skipping Chromatic builds on the `main` branch can lead to inaccurate visual comparisons. This is because feature branches fork off from main and rely on the main branch's baseline for comparison. 
+
+On the contrary, some users run builds only on the `main` branch after making changes on feature branches. This way the baseline on the `main` branch always compares against the new set of changes merged into it.
