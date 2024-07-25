@@ -1,114 +1,14 @@
 ---
 layout: "../../layouts/Layout.astro"
-title: CLI
-description: Learn about the Chromatic CLI options
-sidebar: { order: 2 }
+title: Configuration options
+description: Learn about the various Chromatic configuration options
+sidebar: { order: 3 }
 ---
 
 import { TabItem, Tabs } from "../../components/Tabs";
 import ConfigurationOptions from "../../components/ConfigurationOptions.astro";
 
-# Chromatic CLI
-
-The [Chromatic CLI](https://www.npmjs.com/package/chromatic) builds and publishes your Storybook. Run `chromatic` in your project directory.
-
-<video autoPlay muted playsInline loop width="560px" style="margin-bottom: 1em">
-  <source src="/docs/assets/chromatic-cli-optimized.mp4" type="video/mp4" />
-</video>
-
-## Quick Start
-
-```shell
-npx chromatic --project-token <your-project-token>
-```
-
-If you customize the way your Storybook runs, you may need to pass additional options.
-After the first run, the CLI will automatically ask you to add a script to your `package.json`.
-
-### Installing
-
-Optionally, you can install `chromatic` as a dependency while using the same script above.
-
-<Tabs>
-  <TabItem label="npm">
-    ```shell
-    npm install chromatic --save-dev
-    ```
-  </TabItem>
-
-  <TabItem label="yarn">
-    ```shell
-    yarn add --dev chromatic
-    ```
-  </TabItem>
-  <TabItem label="pnpm">
-    ```shell
-    pnpm add --save-dev chromatic
-    ```
-  </TabItem>
-</Tabs>
-
-If you don't install `chromatic` as a dependency, `npx` will automatically download and run the latest version. This has pros and cons:
-
-- 👍 You'll never be out of date, you'll use the latest version every time, never have to worry about upgrading Chromatic.
-- 👍 You won't need to install the package during local development if you're only running it in continuous integration.
-- 👎 It will be slower to run because the package has to be downloaded first.
-
-## Configuration
-
-Chromatic CLI can be configured through options in `./chromatic.config.json` file (recommended) placed at the root of your project folder, or by passing CLI flags.
-
-For use in CI, the only required option is the project token. Get your project token from the Chromatic website during onboarding or on your project's Manage page. Store your project token as the `CHROMATIC_PROJECT_TOKEN` environment variable or secret. The CLI automatically picks up the `CHROMATIC_PROJECT_TOKEN` environment variable so you won't have to explicitly provide it.
-
-For local builds with the [Visual Tests addon](/docs/visual-tests-addon/), your personal OAuth token (with which you authenticated the addon) is used instead of the project token.
-
-A full-featured `./chromatic.config.json` file in a CI workflow where all changes to `main` happen through a pull request may look like this:
-
-```json
-// ./chromatic.config.json
-
-{
-  "projectId": "Project:...",
-  "autoAcceptChanges": "main",
-  "exitOnceUploaded": true,
-  "externals": ["public/**"],
-  "onlyChanged": true,
-  "skip": "dependabot/**"
-}
-```
-
-For unlinked projects that rely on the CI script to report build results, the recommended setup looks like this:
-
-```json
-// ./chromatic.config.json
-
-{
-  "projectId": "Project:...",
-  "externals": ["public/**"],
-  "junitReport": true,
-  "onlyChanged": true
-}
-```
-
-If you aren't using CI (yet), you are better off with the minimum setup:
-
-```json
-// ./chromatic.config.json
-
-{
-  "projectId": "Project:..."
-}
-```
-
-You can use the `--config-file` flag to customize the Chromatic configuration file path.
-
-<div class="aside">
-
-Flags must be passed as `--kebab-case` whereas options are `camelCase`. Flags take precedence over configuration options. When passing a flag without value, it is treated as `true`. Where an array is accepted, specify the flag multiple times (once for each value).
-
-</div>
-
-### Configuration options
+# Chromatic Configuration options
 
 These options control how Chromatic behaves. See also [**branching docs**](/docs/branching-and-baselines) and [diagnosing issues](#diagnosing-issues) for when to use some of these flags. Some options are only available as a flag or as an input to the GitHub Action.
 
@@ -215,28 +115,3 @@ Getting your Chromatic CI script configured _just right_ can take some trial and
 
 [picomatch]: https://www.npmjs.com/package/picomatch#globbing-features
 [https-proxy-agent]: https://www.npmjs.com/package/https-proxy-agent
-
----
-
-## Troubleshooting
-
-<details>
-<summary> I see "Chromatic: Failed to publish. Reason: self signed certificate in certificate chain" when running the CLI on my machine.</summary>
-
-This isn't a Chromatic CLI issue. Check if your machine is using special security or network settings before running the CLI.
-
-</details>
-
-<details>
-<summary id="chromatic-dns-options"> I see "ENOTFOUND" when running the CLI on my machine</summary>
-
-By default, DNS resolution is handled by the environment system. If you are experiencing DNS issues (i.e. `ENOTFOUND`), the CLI will try and switch from the operating system DNS lookup (i.e., `dns.lookup`) to network DNS resolve (i.e., `dns.resolve`). If this also fails, the CLI will add `CHROMATIC_DNS_FAILOVER_SERVERS` to the list of available DNS servers and try again. For additional information regarding Node's DNS implementation, please refer to their [documentation](https://nodejs.org/docs/latest/api/dns.html#dns_implementation_considerations).
-
-</details>
-
-<details>
-<summary id="chromatic-git-options">Why are Git environment variables not working with the CLI?</summary>
-
-If you've configured the Chromatic CLI to run with one of the Git environment variables (i.e.,`CHROMATIC_SHA`, `CHROMATIC_BRANCH`, `CHROMATIC_SLUG`), you must configure all three. Otherwise, Chromatic will ignore them when running the build.
-
-</details>
