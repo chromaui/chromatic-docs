@@ -2,9 +2,9 @@ import fs from "fs";
 import { remark } from "remark";
 import strip from "strip-markdown";
 import RemarkLinkRewrite from "remark-link-rewrite";
-import configOptions from "./options.json" assert { type: "json" };
+import optionsJSON from "./options.json" assert { type: "json" };
 
-interface ConfigOption {
+export interface ConfigOption {
   option?: string;
   flag?: string;
   description: string;
@@ -66,70 +66,81 @@ const formatDescription = async (
   return String(descWithAbsLinks.value);
 };
 
-const schemaDef = {
-  $schema: "https://json-schema.org/draft/2020-12/schema",
-  $id: "https://chromatic.com/docs/chromatic-config.schema.json",
-  additionalProperties: false,
-  $defs: {
-    "string-or-boolean": {
-      anyOf: [{ type: "string" }, { type: "boolean" }],
-    },
-    "array-of-strings": {
-      type: "array",
-      items: {
-        type: "string",
+export async function createSchemaDef(configOptions: ConfigOption[]) {
+  const schemaDef = {
+    $schema: "https://json-schema.org/draft/2020-12/schema",
+    $id: "https://chromatic.com/docs/chromatic-config.schema.json",
+    additionalProperties: false,
+    $defs: {
+      "string-or-boolean": {
+        anyOf: [{ type: "string" }, { type: "boolean" }],
+      },
+      "array-of-strings": {
+        type: "array",
+        items: {
+          type: "string",
+        },
       },
     },
-  },
-  description: "Configuration schema for visual testing tool Chromatic",
-  title: "Chromatic Config File Schema",
-  type: "object",
-  properties: {
-    $schema: {
-      type: "string",
-      description:
-        "The schema file (https://www.chromatic.com/docs/chromatic-config.schema.json)",
+    description: "Configuration schema for visual testing tool Chromatic",
+    title: "Chromatic Config File Schema",
+    type: "object",
+    properties: {
+      $schema: {
+        type: "string",
+        description:
+          "The schema file (https://www.chromatic.com/docs/chromatic-config.schema.json)",
+      },
     },
-  },
-};
+  };
 
-const supportedOptions: ConfigOption[] = (
-  configOptions as ConfigOption[]
-).filter((option) => option.inConfigFileSchema);
+  const supportedOptions: ConfigOption[] = (
+    configOptions as ConfigOption[]
+  ).filter((option) => option.inConfigFileSchema);
 
-console.log("⚙️ Generating schema for chromatic.config.json file");
+  for (const prop of supportedOptions) {
+    if (prop.option) {
+      const isDeprecated =
+        prop.deprecated === "config-file" || prop.deprecated === "all";
 
-for (const prop of supportedOptions) {
-  if (prop.option) {
-    const isDeprecated = prop.deprecated === "config-file";
+      const description = await formatDescription(
+        prop.description,
+        isDeprecated,
+      );
+      const plainTextDescription = stripMarkdown(description);
 
-    const description = await formatDescription(prop.description, isDeprecated);
-    const plainTextDescription = stripMarkdown(description);
+      const type = (
+        Array.isArray(prop.type) ? prop.type.join("-") : prop.type
+      ) as PropertyType;
 
-    const type = (
-      Array.isArray(prop.type) ? prop.type.join("-") : prop.type
-    ) as PropertyType;
+      const propDef = {
+        ...propertyTypes[type],
+        ...(isDeprecated && { deprecated: true }),
+        description: plainTextDescription,
+        markdownDescription: description,
+        ...(prop.default &&
+          prop.default !== "" && {
+            default:
+              typeof prop.default === "string"
+                ? stripMarkdown(prop.default)
+                : prop.default,
+          }),
+      };
 
-    const propDef = {
-      ...propertyTypes[type],
-      ...(isDeprecated && { deprecated: true }),
-      description: plainTextDescription,
-      markdownDescription: description,
-      ...(prop.default &&
-        prop.default !== "" && {
-          default:
-            typeof prop.default === "string"
-              ? stripMarkdown(prop.default)
-              : prop.default,
-        }),
-    };
-
-    // @ts-ignore-next-line
-    schemaDef.properties[prop.option] = propDef;
+      // @ts-ignore-next-line
+      schemaDef.properties[prop.option] = propDef;
+    }
   }
+
+  return schemaDef;
 }
 
-fs.writeFileSync(
-  "public/chromatic-config.schema.json",
-  JSON.stringify(schemaDef, null, 2),
-);
+export async function generateSchema() {
+  console.log("⚙️ Generating schema for chromatic.config.json file");
+  const schema = await createSchemaDef(optionsJSON as ConfigOption[]);
+
+  fs.writeFileSync(
+    "public/chromatic-config.schema.json",
+    JSON.stringify(schema, null, 2),
+  );
+}
