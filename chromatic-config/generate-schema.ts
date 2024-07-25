@@ -1,6 +1,7 @@
 import fs from "fs";
 import { remark } from "remark";
 import strip from "strip-markdown";
+import RemarkLinkRewrite from "remark-link-rewrite";
 import configOptions from "./options.json" assert { type: "json" };
 
 interface ConfigOption {
@@ -37,11 +38,32 @@ const propertyTypes = {
 
 type PropertyType = keyof typeof propertyTypes;
 
-console.log("⚙️ Generating schema for chromatic.config.json file");
-
 const stripMarkdown = (content: string) => {
   const value = String(remark().use(strip).processSync(content));
   return value.trimEnd().replaceAll("\\", "");
+};
+
+const formatDescription = async (
+  description: string,
+  isDeprecated?: boolean,
+): Promise<string> => {
+  const descWithDeprecated = isDeprecated
+    ? `DEPRECATED ${description}`
+    : description;
+
+  const descWithAbsLinks = await remark()
+    // @ts-ignore-next-line
+    .use(RemarkLinkRewrite, {
+      replacer: (url: string) => {
+        if (url.startsWith("/docs/")) {
+          return url.replace("/docs/", "https://www.chromatic.com/docs/");
+        }
+        return url;
+      },
+    })
+    .process(descWithDeprecated);
+
+  return String(descWithAbsLinks.value);
 };
 
 const schemaDef = {
@@ -75,14 +97,14 @@ const supportedOptions: ConfigOption[] = (
   configOptions as ConfigOption[]
 ).filter((option) => option.inConfigFileSchema);
 
+console.log("⚙️ Generating schema for chromatic.config.json file");
+
 for (const prop of supportedOptions) {
   if (prop.option) {
     const isDeprecated = prop.deprecated === "config-file";
 
-    const description = isDeprecated
-      ? `DEPRECATED ${prop.description}`
-      : prop.description;
-    const plainTextDescription = await stripMarkdown(description);
+    const description = await formatDescription(prop.description, isDeprecated);
+    const plainTextDescription = stripMarkdown(description);
 
     const type = (
       Array.isArray(prop.type) ? prop.type.join("-") : prop.type

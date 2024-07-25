@@ -89,6 +89,9 @@ importers:
       remark:
         specifier: ^15.0.1
         version: 15.0.1
+      remark-link-rewrite:
+        specifier: ^1.0.7
+        version: 1.0.7
       sharp:
         specifier: ^0.33.1
         version: 0.33.1
@@ -3705,6 +3708,10 @@ packages:
 
   remark-gfm@4.0.0:
     resolution: {integrity: sha512-U92vJgBPkbw4Zfu/IiW2oTZLSL3Zpv+uI7My2eq8JxKgqraFdU8YUGicEJCEgSbeaG+QDFqIcwwfMTOEelPxuA==}
+
+  remark-link-rewrite@1.0.7:
+    resolution: {integrity: sha512-jfmXL8VL3O7Ca4g+Ya0A0S9LIpVhCUSqMHiei4N8Z8Mx9z/oEI1HDoa1ZcF9/tS0I7NwydGsPkw2zT4eeoD6+Q==}
+    engines: {node: '>=12.20'}
 
   remark-mdx@3.0.0:
     resolution: {integrity: sha512-O7yfjuC6ra3NHPbRVxfflafAj3LTwx3b73aBvkEFU5z4PsD6FD4vrqJAkE5iNGLz71GdjXfgRqm3SQ0h0VuE7g==}
@@ -8734,6 +8741,10 @@ snapshots:
       unified: 11.0.5
     transitivePeerDependencies:
       - supports-color
+
+  remark-link-rewrite@1.0.7:
+    dependencies:
+      unist-util-visit: 4.1.2
 
   remark-mdx@3.0.0:
     dependencies:
