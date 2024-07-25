@@ -3,6 +3,8 @@ import { remark } from "remark";
 import strip from "strip-markdown";
 import configOptions from "./options.json" assert { type: "json" };
 
+console.log("⚙️ Generating schema for chromatic.config.json file");
+
 const stripMarkdown = (content) => {
   return remark()
     .use(strip)

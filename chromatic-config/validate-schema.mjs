@@ -17,6 +17,8 @@ async function runValidation(label, content) {
   }
 }
 
+console.log("🚦 Validating schema for chromatic.config.json file");
+
 runValidation("Minimal", {
   projectId: "Project:...",
 });
