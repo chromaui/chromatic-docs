@@ -4,9 +4,16 @@ import { visit } from "unist-util-visit";
 
 const slugs = new GithubSlugger();
 
-function isSummary(node) {
+function isMdSummary(node) {
   const name = node.type === "element" ? node.tagName.toLowerCase() : "";
   return name === "summary";
+}
+
+function isMdxSummary(node) {
+  const name = node.type === "mdxJsxFlowElement" ? node.name.toLowerCase() : "";
+  return (
+    name === "summary" && !node.attributes.some((attr) => attr.name === "id")
+  );
 }
 
 /**
@@ -16,10 +23,22 @@ export function summarySlug() {
   return function (tree) {
     slugs.reset();
 
-    visit(tree, "element", function (node) {
-      if (isSummary(node) && !node.properties.id) {
-        node.properties.id = slugs.slug(toString(node));
-      }
-    });
+    visit(
+      tree,
+      ({ type }) => {
+        return type === "element" || type === "mdxJsxFlowElement";
+      },
+      function (node) {
+        if (isMdSummary(node) && !node.properties.id) {
+          node.properties.id = slugs.slug(toString(node));
+        } else if (isMdxSummary(node)) {
+          node.attributes.push({
+            type: "mdxJsxAttribute",
+            name: "id",
+            value: slugs.slug(toString(node)),
+          });
+        }
+      },
+    );
   };
 }

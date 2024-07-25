@@ -28,9 +28,9 @@ The component screen allows you to select between 'Canvas' and 'Snapshot'. Under
 Chromatic captures snapshots by following these steps:
 
 <details>
-<summary>1. Load each story in the designated <a href="/docs/browsers">browser</a> and <a href="/docs/viewports">viewport</a></summary>
+<summary>1. Load each story in the designated browser and viewport</summary>
 
-Capture Cloud navigates to your published Storybook. It loads all stories in parallel at your desired viewport using our fleet of standardized browsers.
+Capture Cloud navigates to your published Storybook. It loads all stories in parallel at your desired [viewport](/docs/viewports) using our fleet of standardized [browsers](/docs/browsers).
 
 </details>
 
