@@ -25,4 +25,4 @@ Post a message in a designated Slack channel when a build's [status changes](/do
 > Please note that Slack notifications are not posted for passed builds.
 
 The custom icon:
-![Chromatic Slack icon](../../images/chromatic-slack-icon.png)
+<img alt="Chromatic Slack icon" src="/docs/chromatic-slack-icon.png" style="max-width: 128px;" />
