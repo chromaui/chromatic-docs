@@ -110,3 +110,8 @@ runValidation("With deprecated projectToken", {
   logFile: "logs.txt",
   uploadMetadata: true,
 });
+
+runValidation("With schema defined inline", {
+  $schema: "https://chromatic.com/docs/chromatic-config.schema.json",
+  projectId: "Project:...",
+});

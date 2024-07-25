@@ -149,3 +149,9 @@ Algolia's Docsearch is integrated with the project. Every 24 hours it will crawl
 **Grouping and ranking of pages in search**
 
 The sidebar order is used to rank pages in search results. And the search results are grouped by the sidebar group.
+
+## Chromatic configuration options and schema
+
+The Chromatic configuration options and schema are maintained in the `chromatic-config/options.json` file. This file is used to generate the Chromatic configuration options docs and the schema file.
+
+Options are not included in the schema file by default, only the ones with `inConfigFileSchema` set to `true` are included. To deprecate an option, set `deprecated` to `config-file` or `all`.
