@@ -1,0 +1,10 @@
+---
+layout: "../../../layouts/FAQLayout.astro"
+sidebar: { hide: true }
+title: I hit the error Unrecognized key {X} in chromatic.config.json
+section: ci
+---
+
+# I hit the error `Unrecognized key {X}` in `chromatic.config.json`
+
+If you encounter the error `Unrecognized key {X}` in `chromatic.config.json`, you may be using a flag in the `chromatic.config.json` that is not supported. Not all CLI flags can be set through the file. Your configuration should work once you remove that flag.
