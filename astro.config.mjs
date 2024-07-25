@@ -11,6 +11,8 @@ import {
   transformerNotationHighlight,
   transformerNotationDiff,
 } from "@shikijs/transformers";
+import rehypeRaw from "rehype-raw";
+import { summarySlug } from "./src/summary-slug";
 
 // https://astro.build/config
 export default defineConfig({
@@ -75,6 +77,8 @@ export default defineConfig({
           ],
         },
       ],
+      rehypeRaw,
+      summarySlug,
     ],
   },
   integrations: [react(), mdx(), sitemap()],
