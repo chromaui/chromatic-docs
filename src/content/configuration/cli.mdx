@@ -10,28 +10,39 @@ import ConfigurationOptions from "../../components/ConfigurationOptions.astro";
 
 # Chromatic CLI
 
-The [Chromatic CLI](https://www.npmjs.com/package/chromatic) orchestrates the visual testing and review process. Run `chromatic` in your project directory.
+The [Chromatic CLI](https://www.npmjs.com/package/chromatic) manages the visual testing and review process.
 
 <video autoPlay muted playsInline loop width="560px" style="margin-bottom: 1em">
   <source src="/docs/assets/chromatic-cli-optimized.mp4" type="video/mp4" />
 </video>
 
-## Quick Start
+## Usage with Storybook
 
 ```shell
-npx chromatic --project-token <your-project-token>
+$ npx chromatic --project-token <your-project-token>
 ```
 
-The CLI defaults to running with Storybook. It builds and uploads your Storybook to the Chromatic cloud infrastructure and runs visual tests.
+The CLI defaults to running with Storybook. It builds and uploads your Storybook to Chromatic's cloud infrastructure, to start the [publish](/docs/storybook/publish) and [visual test](/docs/test) workflows.
 
-If you're using a different framework, you can pass the `--playwright` or `--cypress`. Chromatic captures an archive of your UI (DOM, styles, and assets) while Playwright or Cypress runs your E2E tests. The CLI uploads the archive to the Chromatic cloud infrastructure to run visual testing.
+If you customize the way your Storybook runs, you may need to pass additional options. After the first run, the CLI will automatically ask you to add a script to your `package.json`.
 
-If you customize the way your Storybook runs, you may need to pass additional options.
-After the first run, the CLI will automatically ask you to add a script to your `package.json`.
+If you don't install `chromatic` as a dependency, `npx` automatically downloads and runs the latest version. This means you'll always have the newest features but might experience slightly slower startup times due to the download.
 
-### Installing
+## Usage with Playwright or Cypress
 
-Optionally, you can install `chromatic` as a dependency while using the same script above.
+When pairing Chromatic with Playwright or Cypress, you have to pass the corresponding flag: `--playwright` or `--cypress`. Chromatic captures an archive of your UI (DOM, styles, and assets) while Playwright or Cypress runs your E2E tests. The CLI uploads the archive to the Chromatic cloud infrastructure to run visual testing.
+
+```shell
+# For Chromatic with Playwright
+$ npx chromatic --project-token <your-project-token> --playwright
+
+# For Chromatic with Cypress
+$ npx chromatic --project-token <your-project-token> --cypress
+```
+
+For Playwright and Cypress, we recommend installing the chromatic package as a dependency. This ensures that the CLI is in sync with the `@chromatic-com/playwright` or `@chromatic-com/cypress` package.
+
+## Installing
 
 <Tabs>
   <TabItem label="npm">
@@ -52,31 +63,69 @@ Optionally, you can install `chromatic` as a dependency while using the same scr
   </TabItem>
 </Tabs>
 
-If you don't install `chromatic` as a dependency, `npx` will automatically download and run the latest version. This has pros and cons:
-
-- 👍 You'll never be out of date, you'll use the latest version every time, never have to worry about upgrading Chromatic.
-- 👍 You won't need to install the package during local development if you're only running it in continuous integration.
-- 👎 It will be slower to run because the package has to be downloaded first.
-
 ## Configuring the CLI
 
-Chromatic CLI can be configured through options in `./chromatic.config.json` file (recommended) placed at the root of your project folder, or by passing CLI flags.
+Chromatic CLI can be configured through options in `./chromatic.config.json` file (recommended) placed at the root of your project folder and/or by passing CLI flags.
 
-For use in CI, the only required option is the project token. Get your project token from the Chromatic website during onboarding or on your project's Manage page. Store your project token as the `CHROMATIC_PROJECT_TOKEN` environment variable or secret. The CLI automatically picks up the `CHROMATIC_PROJECT_TOKEN` environment variable so you won't have to explicitly provide it.
-
-For local builds with the [Visual Tests addon](/docs/visual-tests-addon/), your personal OAuth token (with which you authenticated the addon) is used instead of the project token.
-
-You can use the `--config-file` flag to customize the Chromatic configuration file path.
-
-<div class="aside">
+Note: some options are only available as flags. For a full list of available options, please refer to the [configuration options](/configuration-options) page.
 
 Flags must be passed as `--kebab-case` whereas options are `camelCase`. Flags take precedence over configuration options. When passing a flag without value, it is treated as `true`. Where an array is accepted, specify the flag multiple times (once for each value).
 
-</div>
+### Chromatic Config File
 
-For a full list of available options, refer to the [configuration options](/configuration-options) page.
+The configuration file is stored in the root of your project folder as `./chromatic.config.json`. You can use the `--config-file` flag to customize the Chromatic configuration file name and path.
 
-### Exit codes
+If you aren't using CI (yet), you just need the minimum setup:
+
+```json
+// ./chromatic.config.json
+
+{
+  "projectId": "Project:..."
+}
+```
+
+A full-featured `./chromatic.config.json` file in a CI workflow where all changes to `main` happen through a pull request may look like this:
+
+```json
+// ./chromatic.config.json
+
+{
+  "projectId": "Project:...",
+  "autoAcceptChanges": "main",
+  "exitOnceUploaded": true,
+  "externals": ["public/**"],
+  "onlyChanged": true,
+  "skip": "dependabot/**"
+}
+```
+
+For unlinked projects that rely on the CI script to report build results, the recommended setup looks like this:
+
+```json
+// ./chromatic.config.json
+
+{
+  "projectId": "Project:...",
+  "externals": ["public/**"],
+  "junitReport": true,
+  "onlyChanged": true
+}
+```
+
+## Authentication
+
+Chromatic builds are authenticated using the secret `project-token` for your project. You can access you project token from the Chromatic website during onboarding or from your project's Manage page.
+
+#### Continuous Integration
+
+For setting up CI, store your project token as the `CHROMATIC_PROJECT_TOKEN` environment variable or secret. The CLI automatically picks up the `CHROMATIC_PROJECT_TOKEN` environment variable so you won't have to explicitly provide it.
+
+#### Visual Tests addon
+
+For local builds with the [Visual Tests addon](/docs/visual-tests-addon/), your personal OAuth token (with which you authenticated the addon) is used instead of the project token.
+
+## Exit codes
 
 | Exit code | Key                          | Description                                            |
 | --------- | ---------------------------- | ------------------------------------------------------ |
@@ -104,49 +153,6 @@ For a full list of available options, refer to the [configuration options](/conf
 | `254`     | `INVALID_OPTIONS`            | Invalid options (flags) provided                       |
 | `255`     | `UNKNOWN_ERROR`              | Unknown error                                          |
 
-### Deprecated options
-
-The following options are still supported but will be removed in a future version. If your project still uses them, we encourage you to remove them from your scripts or configuration at your earliest convenience.
-
-| CLI flag                 |                                                                                                                                                                               |
-| ------------------------ | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `--allow-console-errors` | Continue running Chromatic even if Storybook logs errors in the console.                                                                                                      |
-| `--app-code <token>`     | Renamed to `--project-token`.                                                                                                                                                 |
-| `--diagnostics`          | Replaced by `--diagnostics-file`.                                                                                                                                             |
-| `--only`                 | Replaced by `--only-story-names`.                                                                                                                                             |
-| `--preserve-missing`     | Replaced by `--only-*` based options.<br/>Refer to the following [documentation](/docs/sunsetting-preserve-missing) for more information on its deprecation and alternatives. |
-
-### Unsupported options
-
-The options listed below are no longer supported by our CLI and will not yield any result if you provide them in your project. We recommend removing them from your scripts and configuration.
-
-| CLI flag                   |                                                                                                                                               |
-| -------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------- |
-| `--do-not-start`           | Don't attempt to start or build Storybook. Use this if your Storybook is already running, for example, when part of a larger app. Alias: `-S` |
-| `--exec <command>`         | Alternatively, a shell command that starts your Storybook. Alias: `-e`                                                                        |
-| `--preserve-missing-specs` | Preserve missing stories when publishing a partial Storybook.                                                                                 |
-| `--script-name [name]`     | The npm script that starts your Storybook. Defaults to `storybook`. Alias: `-s`                                                               |
-| `--storybook-port <port>`  | What port is your Storybook running on. Auto detected from the npm script when using `--script-name`. Alias: `-p`                             |
-| `--storybook-https`        | Enable if Storybook runs on HTTPS (locally). Auto detected from the npm script when using `--script-name`.                                    |
-| `--storybook-cert <path>`  | Use with `--storybook-https`. Auto detected from the npm script when using `--script-name`.                                                   |
-| `--storybook-key <path>`   | Use with `--storybook-https`. Auto detected from the npm script when using `--script-name`.                                                   |
-| `--storybook-ca <ca>`      | Use with `--storybook-https`. Auto detected from the npm script when using `--script-name`.                                                   |
-| `--storybook-url <url>`    | Run against an online Storybook at some URL. This implies `--do-not-start`. Alias: `-u`                                                       |
-
-### Diagnosing issues
-
-Getting your Chromatic CI script configured _just right_ can take some trial and error. To help debug issues, you may want to consider using some of the debug flags:
-
-- `--no-interactive`: When running the CLI locally, use this flag to get logs like you would in CI, which are more elaborate than the interactive logs. This is automatically enabled in CI, so adding it to a CI script is useless.
-- `--diagnostics-file`: Before terminating the process, this dumps process context information to `chromatic-diagnostics.json`. This is the first place to look if you see things you didn't expect. In a CI system, you'll have to configure this file as a **build artifact** so you can download it. How to do this depends on your CI provider.
-- `--dry-run`: Use this if you want to debug the CLI without actually publishing your Storybook or running a Chromatic build. Typically you'd pair this with `--diagnostics-file`.
-- `--debug`: This enables verbose logging and `--no-interactive`. Use this if you want to see the nitty-gritty details. Primarily useful if you have issues publishing (uploading) your Storybook to Chromatic.
-- `--trace-changed`: Specifically for TurboSnap, you can use this flag to get a printed tree view of the dependencies between changed files (according to Git) and your story files.
-- `--only-story-names`: If you have some specific stories which are causing problems, you can use this flag to run a build for just those stories (one or more). If you don't know which stories are available, you can use `--list` to print a list of all stories in your Storybook, though it will require running a Chromatic build.
-
-[picomatch]: https://www.npmjs.com/package/picomatch#globbing-features
-[https-proxy-agent]: https://www.npmjs.com/package/https-proxy-agent
-
 ---
 
 ## Troubleshooting
@@ -169,5 +175,17 @@ By default, DNS resolution is handled by the environment system. If you are expe
 <summary id="chromatic-git-options">Why are Git environment variables not working with the CLI?</summary>
 
 If you've configured the Chromatic CLI to run with one of the Git environment variables (i.e.,`CHROMATIC_SHA`, `CHROMATIC_BRANCH`, `CHROMATIC_SLUG`), you must configure all three. Otherwise, Chromatic will ignore them when running the build.
+
+</details>
+
+<details>
+<summary>Flags to help diagnose build issues with the CLI</summary>
+
+- `--no-interactive`: When running the CLI locally, use this flag to get logs like you would in CI, which are more elaborate than the interactive logs. This is automatically enabled in CI, so adding it to a CI script is useless.
+- `--diagnostics-file`: Before terminating the process, this dumps process context information to `chromatic-diagnostics.json`. This is the first place to look if you see things you didn't expect. In a CI system, you'll have to configure this file as a **build artifact** so you can download it. How to do this depends on your CI provider.
+- `--dry-run`: Use this if you want to debug the CLI without actually publishing your Storybook or running a Chromatic build. Typically you'd pair this with `--diagnostics-file`.
+- `--debug`: This enables verbose logging and `--no-interactive`. Use this if you want to see the nitty-gritty details. Primarily useful if you have issues publishing (uploading) your Storybook to Chromatic.
+- `--trace-changed`: Specifically for TurboSnap, you can use this flag to get a printed tree view of the dependencies between changed files (according to Git) and your story files.
+- `--only-story-names`: If you have some specific stories which are causing problems, you can use this flag to run a build for just those stories (one or more). If you don't know which stories are available, you can use `--list` to print a list of all stories in your Storybook, though it will require running a Chromatic build.
 
 </details>
