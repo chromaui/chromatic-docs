@@ -67,12 +67,18 @@ Invite non-technical teammates like designers or PMs to your Chromatic project a
 
 Every Chromatic plan comes with unlimited collaborators and [fine-grained roles](/docs/collaborators#roles). There are no extra charges "per seat".
 
+
+---
+
+## Frequently asked questions
+
 <details>
 <summary>Want to incorporate Figma in Chromatic?</summary>
 
 Chromatic has [another integration with Figma](/docs/figma-in-chromatic) that brings code and design, side-by-side support into the web app. You’ll be able to view Figma components alongside their linked story right within Chromatic.
 
 </details>
+
 <details>
 <summary>What URLs are supported in the Figma plugin?</summary>
 
@@ -82,5 +88,12 @@ The plugin supports two url formats hosted on Chromatic:
 | -------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------ |
 | Story URL in published Storybook | `https://master--5ccbc373887ca40020446347.chromatic.com/?path=/story/button--basic`                                                                          |
 | Component URL in Chromatic       | `https://www.chromatic.com/component?appId=5ccbc373887ca40020446347&csfId=button&buildNumber=1242&k=64821b99eedbc52679c33cd6-1200-interactive-true&h=7&b=-1` |
+
+</details>
+
+<details>
+<summary>Can I trigger a Chromatic build from Figma?</summary>
+
+No, when you update your Figma project, you must update your code and run a Chromatic build to upgrade the baseline.
 
 </details>

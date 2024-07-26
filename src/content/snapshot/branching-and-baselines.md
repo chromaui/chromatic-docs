@@ -140,7 +140,7 @@ Use the `--auto-accept-changes` flag with the Chromatic CLI or the `autoAcceptCh
 <details>
   <summary>What if I accidentally accept unwanted changes. Can I delete a build?</summary>
 
-Chromatic does not currently support deleting individual builds within a proejct. Builds are integral to Chromatic's baseline algorithms, making deleting individual links in the chain complex and impossible at the moment.
+Chromatic does not currently support deleting individual builds within a project. Builds are integral to Chromatic's baseline algorithms, making deleting individual links in the chain complex and impossible at the moment.
 
 If you want to revert to a previous baseline, you can use Git to restore old baselines. Identify a past build with the correct baselines, create a new branch for these changes and merge them into the current `main` branch using the `--auto-accept-changes` flag.
 

@@ -60,7 +60,7 @@ In your `.github/workflows` directory, create a new file called `chromatic.yml` 
       playwright:
         runs-on: ubuntu-latest
         container:
-          image: mcr.microsoft.com/playwright:v1.44.1-jammy
+          image: mcr.microsoft.com/playwright:v1.45.3-jammy
         steps:
           - uses: actions/checkout@v4
             with:
@@ -126,7 +126,7 @@ In your `.github/workflows` directory, create a new file called `chromatic.yml` 
         name: Run Cypress
         runs-on: ubuntu-latest
         container:
-          image: cypress/browsers:node-20.9.0-chrome-118.0.5993.88-1-ff-118.0.2-edge-118.0.2088.46-1
+          image: cypress/browsers:node-20.15.1-chrome-126.0.6478.126-1-ff-128.0-edge-126.0.2592.102-1
           options: --user 1001
         steps:
           - uses: actions/checkout@v4
@@ -142,8 +142,6 @@ In your `.github/workflows` directory, create a new file called `chromatic.yml` 
             uses: cypress-io/github-action@v6
             env:
               ELECTRON_EXTRA_LAUNCH_ARGS: "--remote-debugging-port=9222"
-            with: 
-              start: npm run dev
             with: 
               start: npm run dev
           - uses: actions/upload-artifact@v4
@@ -181,7 +179,8 @@ In your `.github/workflows` directory, create a new file called `chromatic.yml` 
               # ⚠️ Make sure to configure a `CHROMATIC_PROJECT_TOKEN` repository secret
               projectToken: ${{ secrets.CHROMATIC_PROJECT_TOKEN }}
             # ⚠️ Optionally configure the archive location with env vars
-            env: CHROMATIC_ARCHIVE_LOCATION=./cypress/downloads
+            env:
+              CHROMATIC_ARCHIVE_LOCATION: ./cypress/downloads
     ```
   </Fragment>
 </IntegrationSnippets>
