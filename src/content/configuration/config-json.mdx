@@ -1,0 +1,46 @@
+---
+layout: "../../layouts/Layout.astro"
+title: The Chromatic Config File
+description: Learn about the various Chromatic configuration options
+sidebar: { order: 4 }
+---
+
+# The Chromatic Config File
+
+A full-featured `./chromatic.config.json` file in a CI workflow where all changes to `main` happen through a pull request may look like this:
+
+```json
+// ./chromatic.config.json
+
+{
+  "projectId": "Project:...",
+  "autoAcceptChanges": "main",
+  "exitOnceUploaded": true,
+  "externals": ["public/**"],
+  "onlyChanged": true,
+  "skip": "dependabot/**"
+}
+```
+
+For unlinked projects that rely on the CI script to report build results, the recommended setup looks like this:
+
+```json
+// ./chromatic.config.json
+
+{
+  "projectId": "Project:...",
+  "externals": ["public/**"],
+  "junitReport": true,
+  "onlyChanged": true
+}
+```
+
+If you aren't using CI (yet), you are better off with the minimum setup:
+
+```json
+// ./chromatic.config.json
+
+{
+  "projectId": "Project:..."
+}
+```
