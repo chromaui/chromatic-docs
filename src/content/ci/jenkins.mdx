@@ -55,7 +55,7 @@ To integrate Chromatic with your existing [multistage pipeline](https://www.jenk
          stage('Playwright') {
            agent {
              docker {
-               image 'mcr.microsoft.com/playwright:v1.44.1-jammy'
+               image 'mcr.microsoft.com/playwright:v1.45.3-jammy'
                reuseNode true
              }
            }
