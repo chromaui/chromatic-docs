@@ -7,7 +7,7 @@ sidebar: { order: 2 }
 
 # Interaction tests
 
-Interaction tests enable you to verify how a component responds to user behaviors like click, type, keyboard, and hover. It's powered by Storybook's [`play`](https://storybook.js.org/docs/react/writing-stories/play-function) function.
+Interaction tests enable you to verify how a component responds to user behaviors like click, type, keyboard, and hover. It's powered by Storybook's [`play`](https://storybook.js.org/docs/writing-stories/play-function) function.
 
 <div class="aside">
 
@@ -17,10 +17,13 @@ Interaction tests require Storybook 6.5.10+. Check which version you have in pac
 
 ## How to write interaction tests
 
-Add a [`play`](https://storybook.js.org/docs/react/writing-stories/play-function) function to your component's story to enable interaction tests. For example, if you want to validate a component's behavior write the following story:
+Add a [`play`](https://storybook.js.org/docs/writing-stories/play-function) function to your component's story to enable interaction tests. For example, if you want to validate a component's behavior write the following story:
 
-```js
-// RangeSlider.stories.js|jsx
+```ts
+// RangeSlider.stories.ts|tsx
+
+// Adjust this import to match your framework (e.g., nextjs, vue3-vite)
+import type { Meta, StoryObj } from "@storybook/your-framework";
 
 /*
  * Replace the @storybook/test package with the following if you are using a version of Storybook earlier than 8.0:
@@ -31,12 +34,15 @@ import { within, userEvent, expect } from "@storybook/test";
 
 import { RangeSlider } from "./RangeSlider";
 
-export default {
+const meta: Meta<typeof RangeSlider> = {
   component: RangeSlider,
   title: "Library/Charts/RangeSlider",
 };
 
-export const InputRange = {
+export default meta;
+type Story = StoryObj<typeof RangeSlider>;
+
+export const InputRange: Story = {
   play: async ({ canvasElement }) => {
     // Assigns canvas to the component root element
     const canvas = within(canvasElement);
@@ -53,7 +59,7 @@ export const InputRange = {
 
 <div class="aside">
 
-Read Storybook's interaction testing [docs](https://storybook.js.org/docs/react/writing-tests/interaction-testing). Get an API cheatsheet for user events [here](https://storybook.js.org/docs/react/writing-tests/interaction-testing#api-for-user-events).
+Read Storybook's interaction testing [docs](https://storybook.js.org/docs/writing-tests/interaction-testing). Get an API cheatsheet for user events [here](https://storybook.js.org/docs/writing-tests/interaction-testing#api-for-user-events).
 
 </div>
 

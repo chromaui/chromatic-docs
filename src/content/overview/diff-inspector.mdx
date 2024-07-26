@@ -58,17 +58,23 @@ Customize how Chromatic identifies visual changes by adjusting the `diffThreshol
 
 <IntegrationSnippets>
   <Fragment slot="storybook">
-```js
-// MyComponent.stories.js|jsx
+```ts
+// MyComponent.stories.ts|tsx
+
+// Replace your-framework with the framework you are using (e.g., nextjs, vue3-vite)
+import type { Meta, StoryObj } from "@storybook/your-framework";
 
 import { MyComponent } from "./MyComponent";
 
-export default {
+const meta: Meta<typeof MyComponent> = {
   component: MyComponent,
   title: "MyComponent",
 };
 
-export const StoryName = {
+export default meta;
+type Story = StoryObj<typeof MyComponent>;
+
+export const StoryName: Story = {
   args: {
     with: "props",
   },

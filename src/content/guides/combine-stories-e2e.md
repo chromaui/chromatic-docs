@@ -16,7 +16,7 @@ This complexity can lead to confusion about how these tools work together. This 
 Storybook provides an ideal environment for isolating and testing UI components. By representing different component states and variations as stories, you create a foundation for both visual and functional testing:
 
 - **Visual testing:** Chromatic integrates with Storybook, capturing snapshots of your stories to pinpoint any unintended visual changes.
-- **Functional testing:** Storybook's [play](https://storybook.js.org/docs/react/writing-stories/play-function) function enables you to simulate user interactions (clicks, typing, etc.) directly within a story. This allows you to write assertions and verify that your components behave as expected.
+- **Functional testing:** Storybook's [play](https://storybook.js.org/docs/writing-stories/play-function) function enables you to simulate user interactions (clicks, typing, etc.) directly within a story. This allows you to write assertions and verify that your components behave as expected.
 
 ## Playwright & Cypress are for verifying user flows
 
@@ -74,4 +74,4 @@ While it's technically possible to use Playwright or Cypress to interact with st
 - **Purpose mismatch:** Playwright and Cypress are designed primarily for E2E tests across a full application. Storybook excels at isolating components for focused testing.
 - **Storybook's play function is optimized:** The play function is specifically tailored for simulating interactions within the Storybook environment. Chromatic is able to wait for the play function to complete before capturing a snapshot.
 
-For the most effective visual testing of your components, use Storybook's [play](https://storybook.js.org/docs/react/writing-stories/play-function) function to simulate interactions.
+For the most effective visual testing of your components, use Storybook's [play](https://storybook.js.org/docs/writing-stories/play-function) function to simulate interactions.

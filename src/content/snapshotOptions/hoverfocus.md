@@ -11,7 +11,7 @@ Components can respond differently based on hover or focus events. Here are a fe
 
 ## Make your stories interactive
 
-Stories are capable of simulating user interactions via the [`play`](https://storybook.js.org/docs/react/writing-stories/play-function) function in Storybook 6.4 and above. Interactions allow you to verify how a component responds to user input (e.g., hover, focus, click, type). Chromatic awaits `play` function execution before taking a snapshot.
+Stories are capable of simulating user interactions via the [`play`](https://storybook.js.org/docs/writing-stories/play-function) function in Storybook 6.4 and above. Interactions allow you to verify how a component responds to user input (e.g., hover, focus, click, type). Chromatic awaits `play` function execution before taking a snapshot.
 
 ## JavaScript-triggered hover states
 
@@ -226,7 +226,7 @@ export const WithFocusState = {
 
 Snapshots can sometimes exclude outline and other focus styles because Chromatic trims each snapshot to the dimensions of the root node of the story.
 
-To capture those styles, wrap the story in a [decorator](https://storybook.js.org/docs/react/writing-stories/decorators#component-decorators) that adds slight padding.
+To capture those styles, wrap the story in a [decorator](https://storybook.js.org/docs/writing-stories/decorators#component-decorators) that adds slight padding.
 
 ```js
 // MyComponent.stories.js|jsx

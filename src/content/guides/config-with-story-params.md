@@ -18,16 +18,17 @@ Parameters specified at the story level apply to that story only. They are defin
 ```ts
 // Button.stories.ts|tsx
 
+// Replace your-framework with the framework you are using (e.g., nextjs, vue3-vite)
 import type { Meta, StoryObj } from "@storybook/your-framework";
 
 import { Button } from "./button.component";
 
-const meta: Meta<Button> = {
+const meta: Meta<typeof Button> = {
   component: Button,
 };
 
 export default meta;
-type Story = StoryObj<Button>;
+type Story = StoryObj<typeof Button>;
 
 export const Primary: Story = {
   args: {
@@ -47,11 +48,12 @@ Parameters specified in a CSF file's meta configuration apply to all stories in 
 ```ts
 // Button.stories.ts|tsx
 
+// Replace your-framework with the framework you are using (e.g., nextjs, vue3-vite)
 import type { Meta, StoryObj } from "@storybook/your-framework";
 
 import { Button } from "./button.component";
 
-const meta: Meta<Button> = {
+const meta: Meta<typeof Button> = {
   component: Button,
   parameters: {
     // Sets the diffThreshold for 0.2 for all stories in this file
@@ -60,7 +62,7 @@ const meta: Meta<Button> = {
 };
 
 export default meta;
-type Story = StoryObj<Button>;
+type Story = StoryObj<typeof Button>;
 
 export const Primary: Story = {
   args: {

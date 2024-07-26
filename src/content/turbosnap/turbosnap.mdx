@@ -30,7 +30,7 @@ Certain code changes have the potential to impact all stories. To avoid false po
 
 - Changes to dependency versions in `package.json`, if no valid lockfile is available
 - Changes to your Storybook's configuration
-- Changes in files that are imported by your [`preview.js`](https://storybook.js.org/docs/react/configure/overview#configure-story-rendering) (as this could affect any story)
+- Changes in files that are imported by your [`preview.js`](https://storybook.js.org/docs/configure#configure-story-rendering) (as this could affect any story)
 - Changes in your static folder (if specified using `--static-dir` / `-s`)
 - Changes to files specified by the `--externals` option (see below)
 - Re-run of the same build (commit and branch match the ancestor build)

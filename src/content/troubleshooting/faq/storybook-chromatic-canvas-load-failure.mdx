@@ -26,7 +26,7 @@ on chromatic.com, those properties would reference a different (sub)domain and t
 violate CORS restrictions, causing a JavaScript error. There are three ways to mitigate
 this issue:
 
-1. Don’t reference `window.parent` or `window.top`. If you’re trying to communicate with the Storybook manager UI, it’s better to use “channels.” Storybook provides the [useChannel API](https://storybook.js.org/docs/react/addons/addons-api#usechannel) for this purpose.
+1. Don’t reference `window.parent` or `window.top`. If you’re trying to communicate with the Storybook manager UI, it’s better to use “channels.” Storybook provides the [useChannel API](https://storybook.js.org/docs/addons/addons-api#usechannel) for this purpose.
 
 2. Conditionally avoid `window.parent` and `window.top` by checking `isChromatic()`. We provide the [`isChromatic` utility](/docs/ischromatic) to “detect” when a story is rendered inside of Chromatic.
 

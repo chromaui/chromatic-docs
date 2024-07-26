@@ -18,7 +18,7 @@ UI components can respond to device width. Chromatic makes it easy to visual tes
 
 ## Viewports for a story
 
-To set a viewport, specify one or more screen _widths_ to the `chromatic.viewports` [parameter](https://storybook.js.org/docs/react/writing-stories/parameters#story-parameters):
+To set a viewport, specify one or more screen _widths_ to the `chromatic.viewports` [parameter](https://storybook.js.org/docs/writing-stories/parameters#story-parameters):
 
 ```js
 // MyComponent.stories.js|jsx
@@ -45,7 +45,7 @@ When Chromatic captures your story, it will create _two_ snapshots on your build
 
 ## Viewports for all stories of a component
 
-Thanks to Storybook's built in [parameter](https://storybook.js.org/docs/react/writing-stories/parameters#component-parameters) API, you can also target viewport at a group of stories or even your entire Storybook. To apply a set of viewports to all component's stories, use:
+Thanks to Storybook's built in [parameter](https://storybook.js.org/docs/writing-stories/parameters#component-parameters) API, you can also target viewport at a group of stories or even your entire Storybook. To apply a set of viewports to all component's stories, use:
 
 ```js
 // MyComponent.stories.js|jsx
@@ -98,7 +98,7 @@ It is not possible to control height with this legacy API. However, you can achi
 
 Use modes and set a [project level mode](/docs/modes#stacking-modes).
 
-If you’re still using the legacy API, then assign viewports for the entire Storybook using [`parameters`](https://storybook.js.org/docs/react/writing-stories/parameters#global-parameters) in your [`.storybook/preview.js`](https://storybook.js.org/docs/react/configure/overview#configure-story-rendering):
+If you’re still using the legacy API, then assign viewports for the entire Storybook using [`parameters`](https://storybook.js.org/docs/writing-stories/parameters#global-parameters) in your [`.storybook/preview.js`](https://storybook.js.org/docs/configure#configure-story-rendering):
 
 ```js
 // .storybook/preview.js

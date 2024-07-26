@@ -23,7 +23,7 @@ pixels within the bounding rectangle of ignored elements.
 ## Ignore stories
 
 If you have a story you do not wish to snapshot in Chromatic, you can disable snapshotting with the
-`disableSnapshot` [story parameter](https://storybook.js.org/docs/react/writing-stories/parameters#story-parameters):
+`disableSnapshot` [story parameter](https://storybook.js.org/docs/writing-stories/parameters#story-parameters):
 
 ```js
 // MyComponent.stories.js|jsx
@@ -51,7 +51,7 @@ Using `disableSnapshot` stops Chromatic from capturing a snapshot of the story, 
 
 If you want to adopt snapshotting incrementally, you can use Storybook's parameter inheritance to whitelist stories.
 
-In your [`.storybook/preview.js`](https://storybook.js.org/docs/react/configure/overview#configure-story-rendering) add the `disableSnapshot` option in the [parameters](https://storybook.js.org/docs/react/writing-stories/parameters#global-parameters):
+In your [`.storybook/preview.js`](https://storybook.js.org/docs/configure#configure-story-rendering) add the `disableSnapshot` option in the [parameters](https://storybook.js.org/docs/writing-stories/parameters#global-parameters):
 
 ```js
 // .storybook/preview.js
