@@ -66,8 +66,19 @@ const formatDescription = async (
   return String(descWithAbsLinks.value);
 };
 
+interface Schema {
+  $schema: string;
+  $id: string;
+  additionalProperties: boolean;
+  $defs: any;
+  description: string;
+  title: string;
+  type: string;
+  properties: any;
+}
+
 export async function createSchemaDef(configOptions: ConfigOption[]) {
-  const schemaDef = {
+  const schemaDef: Schema = {
     $schema: "https://json-schema.org/draft/2020-12/schema",
     $id: "https://chromatic.com/docs/chromatic-config.schema.json",
     additionalProperties: false,
@@ -127,8 +138,13 @@ export async function createSchemaDef(configOptions: ConfigOption[]) {
           }),
       };
 
-      // @ts-ignore-next-line
-      schemaDef.properties[prop.option] = propDef;
+      if (schemaDef.properties[prop.option]) {
+        throw new Error(
+          `Duplicate property found: ${prop.option}. Skipping property.`,
+        );
+      } else {
+        schemaDef.properties[prop.option] = propDef;
+      }
     }
   }
 

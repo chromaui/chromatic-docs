@@ -107,6 +107,33 @@ describe("Generate Schema", () => {
     });
   });
 
+  test("Will throw an error if duplicate prop found", async () => {
+    const options: ConfigOption[] = [
+      {
+        option: "projectId",
+        flag: "--auto-accept-changes",
+        description:
+          "If there are any changes to the build, automatically accept them. Only for given branch, if specified.",
+        type: ["glob", "boolean"],
+        example: '`"main"` or `true`',
+        default: false,
+        inConfigFileSchema: true,
+      },
+      {
+        option: "projectId",
+        description:
+          "The unique identifier for your project, sometimes referred to as `appId`.",
+        type: "string",
+        example: '`"Project:5d67dc0374b2e300209c41e7"`',
+        inConfigFileSchema: true,
+      },
+    ];
+
+    await expect(() => createSchemaDef(options)).rejects.toThrowError(
+      /^Duplicate property found: projectId. Skipping property.$/,
+    );
+  });
+
   test("Handles when prop is deprecated for config file", async () => {
     const options: ConfigOption[] = [
       {
