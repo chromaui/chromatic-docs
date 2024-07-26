@@ -71,7 +71,7 @@ If you're working with Storybook 7.0 or later, you can also adjust your `chromat
 }
 ```
 
-Then in your component story file, set the options (e.g., [args](https://storybook.js.org/docs/react/writing-stories/args), [parameters](https://storybook.js.org/docs/react/writing-stories/parameters)) based on the environment variable as follows:
+Then in your component story file, set the options (e.g., [args](https://storybook.js.org/docs/writing-stories/args), [parameters](https://storybook.js.org/docs/writing-stories/parameters)) based on the environment variable as follows:
 
 ```js
 // MyComponent.stories.js|jsx

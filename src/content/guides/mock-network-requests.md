@@ -86,8 +86,7 @@ export const MockedError: Story = {
 };
 ```
 
-For more details, check out the [Mocking network requests
-](https://storybook.js.org/docs/writing-stories/mocking-data-and-modules/mocking-network-requests) page in the Storybook documentation.
+For more details, check out the [Mocking network requests](https://storybook.js.org/docs/writing-stories/mocking-data-and-modules/mocking-network-requests) page in the Storybook documentation.
 
 ## Playwright
 

@@ -7,7 +7,7 @@ sidebar: { order: 4 }
 
 # Storybook Composition
 
-Chromatic publishes your Storybook to a secure CDN. That means you can combine published Storybooks with your local Storybook using [Composition](https://storybook.js.org/docs/react/sharing/storybook-composition).
+Chromatic publishes your Storybook to a secure CDN. That means you can combine published Storybooks with your local Storybook using [Composition](https://storybook.js.org/docs/sharing/storybook-composition).
 
 <div class="aside">Chromatic does not snapshot externally composed Storybooks for UI Tests or UI Review.</div>
 
@@ -21,7 +21,7 @@ Chromatic generates a [permalink](/docs/permalinks) for published Storybooks to 
 
 ### Setup
 
-In your local Storybook, add a `refs` key to [`.storybook/main.js`](https://storybook.js.org/docs/react/configure/overview#configure-story-rendering). Paste the permalink in the `url` field.
+In your local Storybook, add a `refs` key to [`.storybook/main.js`](https://storybook.js.org/docs/configure#configure-story-rendering). Paste the permalink in the `url` field.
 
 ```js
 // .storybook/main.js
@@ -115,5 +115,5 @@ Use the `/metadata.json` endpoint to get additional information about the deploy
 
 ### Resources
 
-- [Storybook composition](https://storybook.js.org/docs/react/sharing/storybook-composition)
-- [Package composition with Storybook](https://storybook.js.org/docs/react/sharing/package-composition)
+- [Storybook composition](https://storybook.js.org/docs/sharing/storybook-composition)
+- [Package composition with Storybook](https://storybook.js.org/docs/sharing/package-composition)

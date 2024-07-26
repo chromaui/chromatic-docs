@@ -118,7 +118,7 @@ const fontLoader = async () => ({
 });
 
 /* 👇 It's configured as a global loader
- * See https://storybook.js.org/docs/react/writing-stories/loaders
+ * See https://storybook.js.org/docs/writing-stories/loaders
  * to learn more about loaders
  */
 export const loaders = isChromatic() && document.fonts ? [fontLoader] : [];

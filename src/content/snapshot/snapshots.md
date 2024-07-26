@@ -220,7 +220,7 @@ Portals allow components to render arbitrary elements outside the parent compone
 
 However, when using Chromatic to capture snapshots of your component, it relies on the "natural" height of your component's outermost DOM element (using Storybook's `#storybook-root` element in version 7 or higher, or the `#root` element for previous versions) to determine snapshot dimensions. As portals render outside of Storybook's DOM tree, their dimensions cannot be auto-detected by Chromatic, which can lead to cut-off snapshots.
 
-To capture snapshots of portaled elements, you can use a [decorator](https://storybook.js.org/docs/react/writing-stories/decorators#component-decorators) that wraps your stories in a fixed height container. You can adjust the height of the container to account for the total dimensions of your component and portal.
+To capture snapshots of portaled elements, you can use a [decorator](https://storybook.js.org/docs/writing-stories/decorators#component-decorators) that wraps your stories in a fixed height container. You can adjust the height of the container to account for the total dimensions of your component and portal.
 
 ```js
 // MyComponent.stories.js|jsx
@@ -275,7 +275,7 @@ export default {
 
 /*
  *👇 Render functions are a framework-specific feature to allow you control over how the component renders.
- * See https://storybook.js.org/docs/react/api/csf
+ * See https://storybook.js.org/docs/api/csf#custom-render-functions
  * to learn how to use render functions.
  */
 export const StoryWithDimensions = {
@@ -288,7 +288,7 @@ export const StoryWithDimensions = {
 <details>
 <summary>What if I have a modal component that doesn't define a width or height?</summary>
 
-If your component infers its dimensions from the layout of the surrounding DOM elements (e.g., it's a modal that uses `position:fixed`), you can set the height of that component's stories using a [decorator](https://storybook.js.org/docs/react/writing-stories/decorators#component-decorators).
+If your component infers its dimensions from the layout of the surrounding DOM elements (e.g., it's a modal that uses `position:fixed`), you can set the height of that component's stories using a [decorator](https://storybook.js.org/docs/writing-stories/decorators#component-decorators).
 
 ```js
 // MyComponent.stories.js|jsx
@@ -309,7 +309,7 @@ export default {
 
 /*
  *👇 Render functions are a framework-specific feature to allow you control over how the component renders.
- * See https://storybook.js.org/docs/react/api/csf
+ * See https://storybook.js.org/docs/api/csf#custom-render-functions
  * to learn how to use render functions.
  */
 export const StoryWithDimensions = {
@@ -356,7 +356,7 @@ Certain UI libraries like Material calculate the dimensions of each tab by measu
 
 However, this can lead to inconsistent snapshots in cases where you load a custom font. Fonts affect the dimensions of text within tabs. Since custom fonts can load before, during, or after the tab component itself loads, the dimensions calculated by the tab component can also vary.
 
-The solution we recommend is to use a `<link rel="preload">` in your [`.storybook/preview-head.html`](https://storybook.js.org/docs/react/configure/story-rendering#adding-to-head) to preload the font before the story renders. This ensures that the dimensions of the contents inside of the tab component remain consistent when measured.
+The solution we recommend is to use a `<link rel="preload">` in your [`.storybook/preview-head.html`](https://storybook.js.org/docs/configure/story-rendering#adding-to-head) to preload the font before the story renders. This ensures that the dimensions of the contents inside of the tab component remain consistent when measured.
 
 </details>
 
@@ -367,7 +367,7 @@ Certain charting libraries like Highcharts measure the available space to determ
 
 But this can lead to inconsistent snapshots in cases where you load a custom font. Fonts can load before, during, or after the component itself loads. And different fonts have different dimensions when rendered.
 
-The solution we recommend is to use a `<link rel="preload">` in your [`.storybook/preview-head.html`](https://storybook.js.org/docs/react/configure/story-rendering#adding-to-head) to preload the font before the story renders. This ensures that the dimensions and position of the fonts inside of the graph component remain consistent.
+The solution we recommend is to use a `<link rel="preload">` in your [`.storybook/preview-head.html`](https://storybook.js.org/docs/configure/story-rendering#adding-to-head) to preload the font before the story renders. This ensures that the dimensions and position of the fonts inside of the graph component remain consistent.
 
 </details>
 

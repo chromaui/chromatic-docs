@@ -13,7 +13,7 @@ Chromatic proactively pauses CSS animations/transitions, SVG animations, and vid
 
 Chromatic will pause CSS animations at their end state (last frame). This is particularly helpful for animations that are used to "animate in" visible elements.
 
-However, if you want to pause an animation at the first frame, set the `pauseAnimationAtEnd` [story parameter](https://storybook.js.org/docs/react/writing-stories/parameters#story-parameters) to `false`.
+However, if you want to pause an animation at the first frame, set the `pauseAnimationAtEnd` [story parameter](https://storybook.js.org/docs/writing-stories/parameters#story-parameters) to `false`.
 
 ```js
 // MyComponent.stories.js|jsx
@@ -39,7 +39,7 @@ Note: Before Capture Stack [version 6](/docs/infrastructure-release-notes#versio
 
 </div>
 
-You can also use Storybook's [parameter](https://storybook.js.org/docs/react/writing-stories/parameters#global-parameters) inheritance if you want to set the behavior for your entire app:
+You can also use Storybook's [parameter](https://storybook.js.org/docs/writing-stories/parameters#global-parameters) inheritance if you want to set the behavior for your entire app:
 
 ```js
 // .storybook/preview.js

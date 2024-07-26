@@ -29,7 +29,7 @@ It will build and test stories that may have been affected by the Git changes si
 - Chromatic CLI [10.0+](https://www.npmjs.com/package/chromatic)
 - Storybook 6.5+
 - Webpack (experimental Vite support is available for Storybook versions prior to 8, see [vite-plugin-turbosnap](https://github.com/IanVS/vite-plugin-turbosnap))
-- Stories correctly [configured](https://storybook.js.org/docs/react/configure/overview#configure-story-loading) in Storybook's `main.js`
+- Stories correctly [configured](https://storybook.js.org/docs/configure#configure-story-loading) in Storybook's `main.js`
 - 10 successful builds on CI with at least one accepted
 - For GitHub Actions: run on `push` rather than `pull_request` ([learn more](#github-pull_request-triggers))
 - [UI Tests](/docs/test/#enable) should be enabled
@@ -184,7 +184,7 @@ jobs:
             public/**
 ```
 
-> If you are using the [`staticDirs`](https://storybook.js.org/docs/react/configure/images-and-assets#serving-static-files-via-storybook-configuration) option in your main Storybook config (introduced in Storybook 6.4), you should flag those as externals as well. While the deprecated `--static-dir` (`-s`) Storybook CLI flag is auto-detected, the config option in `main.js` is not.
+> If you are using the [`staticDirs`](https://storybook.js.org/docs/configure/integration/images-and-assets#serving-static-files-via-storybook-configuration) option in your main Storybook config (introduced in Storybook 6.4), you should flag those as externals as well. While the deprecated `--static-dir` (`-s`) Storybook CLI flag is auto-detected, the config option in `main.js` is not.
 
 ### Avoid re-testing dependent stories when certain files changed
 

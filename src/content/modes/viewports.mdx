@@ -129,7 +129,7 @@ When Chromatic captures your story, it will create *two* snapshots on your bui
 
 ## Combining modes with viewports addon
 
-The Storybook [viewport addon](https://storybook.js.org/docs/react/essentials/viewport) enables you to adjust the dimensions of the story canvas. Developers use it to verify the responsive behavior of components when building UIs. With modes, you can easily reference the different viewport sizes that you have configured for the addon.
+The Storybook [viewport addon](https://storybook.js.org/docs/essentials/viewport) enables you to adjust the dimensions of the story canvas. Developers use it to verify the responsive behavior of components when building UIs. With modes, you can easily reference the different viewport sizes that you have configured for the addon.
 
 <video autoPlay muted playsInline loop width="600px" class="center">
   <source src="/docs/assets/addon-viewports-optimized.mp4" type="video/mp4" />
@@ -358,7 +358,7 @@ export default {
 
 We don’t recommend this in most cases because each viewport is treated independently and snapshots must be approved as such.
 
-But if you really want to assign project level modes, you can do so by setting the `chromatic.modes` parameter in [`.storybook/preview.js`](https://storybook.js.org/docs/react/configure/overview#configure-story-rendering):
+But if you really want to assign project level modes, you can do so by setting the `chromatic.modes` parameter in [`.storybook/preview.js`](https://storybook.js.org/docs/configure#configure-story-rendering):
 
 ```jsx
 // .storybook/preview.js

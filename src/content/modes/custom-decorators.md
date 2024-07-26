@@ -11,7 +11,7 @@ sidebar: { order: 4, label: Custom decorators }
 ℹ️&nbsp;&nbsp;This feature uses the modes API. Learn how to <a href="/docs/modes">get started</a>.
 </div>
 
-[Decorators](https://storybook.js.org/docs/react/writing-stories/decorators#page-top) are a Storybook mechanism that allows you to augment stories with extra rendering functionality. They enable you to provide mock context, translations, or any other project-level settings that a component depends on.
+[Decorators](https://storybook.js.org/docs/writing-stories/decorators) are a Storybook mechanism that allows you to augment stories with extra rendering functionality. They enable you to provide mock context, translations, or any other project-level settings that a component depends on.
 
 By combining decorators with [modes](/docs/modes), you can test a story with various project-level configurations.
 
@@ -21,7 +21,7 @@ Let's consider the following example that uses a decorator & globals to switch l
 
 <img src="/docs/assets/finished-switcher.gif" alt="Switching the locale between English, German and Arabic using the Storybook toolbar" />
 
-The locale values are defined using [global types](https://storybook.js.org/docs/react/essentials/toolbars-and-globals#global-types-and-the-toolbar-annotation). The `withI18next` decorator retrieves the value of the `locale` global and applies it to `I18nextProvider`, enabling us to test stories with different translations.
+The locale values are defined using [global types](https://storybook.js.org/docs/essentials/toolbars-and-globals#global-types-and-the-toolbar-annotation). The `withI18next` decorator retrieves the value of the `locale` global and applies it to `I18nextProvider`, enabling us to test stories with different translations.
 
 ```jsx
 // .storybook/preview.js

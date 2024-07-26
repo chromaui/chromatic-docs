@@ -15,7 +15,7 @@ The `diffThreshold` parameter allows you to fine-tune the threshold for visual c
 
 Chromatic's default threshold is `.063`, which balances high visual accuracy with low false positives (for example, from artifacts like anti-aliasing). `0` is the most accurate. `1` is the least accurate.
 
-Configure the `diffThreshold` with a Storybook [parameter](https://storybook.js.org/docs/react/writing-stories/parameters#story-parameters) like so:
+Configure the `diffThreshold` with a Storybook [parameter](https://storybook.js.org/docs/writing-stories/parameters#story-parameters) like so:
 
 <ParamsCallout name="diffThreshold" />
 
@@ -48,7 +48,7 @@ If you're unsure which value will be enough; we've created an [**interactive dif
 
 By default, Chromatic detects anti-aliased pixels and ignores them to prevent false positives. The `diffIncludeAntiAliasing` parameter allows you to override this behavior in instances where a single pixel change is not flagged by Chromatic but should be.
 
-Configure the `diffIncludeAntiAliasing` with a Storybook [parameter](https://storybook.js.org/docs/react/writing-stories/parameters#story-parameters) like so:
+Configure the `diffIncludeAntiAliasing` with a Storybook [parameter](https://storybook.js.org/docs/writing-stories/parameters#story-parameters) like so:
 
 <ParamsCallout name="diffIncludeAntiAliasing" />
 
