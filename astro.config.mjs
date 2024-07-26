@@ -13,6 +13,7 @@ import {
 } from "@shikijs/transformers";
 import rehypeRaw from "rehype-raw";
 import { summarySlug } from "./src/summary-slug";
+import { schemaIntegration } from "./chromatic-config/schema-integration";
 
 // https://astro.build/config
 export default defineConfig({
@@ -81,5 +82,5 @@ export default defineConfig({
       summarySlug,
     ],
   },
-  integrations: [react(), mdx(), sitemap()],
+  integrations: [react(), mdx(), sitemap(), schemaIntegration],
 });
