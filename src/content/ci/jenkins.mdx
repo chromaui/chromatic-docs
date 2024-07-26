@@ -100,7 +100,7 @@ To integrate Chromatic with your existing [multistage pipeline](https://www.jenk
          stage('Cypress') {
            agent {
              docker {
-               image 'cypress/browsers:node-20.9.0-chrome-118.0.5993.88-1-ff-118.0.2-edge-118.0.2088.46-1'
+               image 'cypress/browsers:node-20.15.1-chrome-126.0.6478.126-1-ff-128.0-edge-126.0.2592.102-1'
                reuseNode true
              }
            }
