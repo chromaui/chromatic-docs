@@ -61,7 +61,7 @@ To integrate Chromatic with your existing pipeline, you'll need to add the follo
             steps:
               - step:
                   name: "Playwright"
-                  image: mcr.microsoft.com/playwright:v1.44.1-jammy
+                  image: mcr.microsoft.com/playwright:v1.45.3-jammy
                   caches:
                     - npm
                     - node
@@ -102,7 +102,7 @@ To integrate Chromatic with your existing pipeline, you'll need to add the follo
               - step:
                 name: "Cypress"
                 # Configure the ELECTRON_EXTRA_LAUNCH_ARGS environment variable in your project settings to run Cypress tests with Chromatic.
-                image: cypress/browsers:node-20.9.0-chrome-118.0.5993.88-1-ff-118.0.2-edge-118.0.2088.46-1
+                image: cypress/browsers:node-20.15.1-chrome-126.0.6478.126-1-ff-128.0-edge-126.0.2592.102-1
                 caches:
                   - npm
                   - node
