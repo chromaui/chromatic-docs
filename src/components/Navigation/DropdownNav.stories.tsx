@@ -82,7 +82,7 @@ export const Collapsed: Story = {
 
 export const OneGroup: Story = {
   args: {
-    groups: mockSidebarItems,
+    groups: [mockSidebarItems[0]],
   },
   decorators: [(storyFn) => <div style={{ height: "800px" }}>{storyFn()}</div>],
   play: async ({ canvasElement }) => {
@@ -94,7 +94,7 @@ export const OneGroup: Story = {
 
 export const MultipleGroups: Story = {
   args: {
-    groups: [mockSidebarItems[0]],
+    groups: mockSidebarItems,
   },
   decorators: [(storyFn) => <div style={{ height: "800px" }}>{storyFn()}</div>],
   play: OneGroup.play,
@@ -103,7 +103,7 @@ export const MultipleGroups: Story = {
 export const ActiveUrlBreadcrumb: Story = {
   args: {
     url: "/docs/storybook",
-    groups: [{ ...mockSidebarItems[0] }, mockSidebarItems[1]],
+    groups: mockSidebarItems,
   },
   decorators: [(storyFn) => <div style={{ height: "800px" }}>{storyFn()}</div>],
   play: OneGroup.play,
