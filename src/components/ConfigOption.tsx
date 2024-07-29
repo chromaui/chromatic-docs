@@ -89,6 +89,7 @@ const Item = styled(HStack)`
 
 export const ConfigOption = ({
   option,
+  shortFlag,
   flag,
   description,
   type,
@@ -105,7 +106,14 @@ export const ConfigOption = ({
           <Text fontWeight="bold" variant="body16">
             CLI:
           </Text>
-          <code>{flag}</code>
+          <div>
+            <code>{flag}</code>{" "}
+            {shortFlag && (
+              <>
+                (<code>{shortFlag}</code>)
+              </>
+            )}
+          </div>
         </HStack>
         <HStack align="center">
           <Text fontWeight="bold" variant="body16">
@@ -118,7 +126,7 @@ export const ConfigOption = ({
             <Text fontWeight="bold" variant="body16">
               Default:
             </Text>
-            <code>{defaultValue?.toString()}</code>
+            <div dangerouslySetInnerHTML={{ __html: defaultValue }} />
           </HStack>
         )}
         {example && (
@@ -126,7 +134,7 @@ export const ConfigOption = ({
             <Text fontWeight="bold" variant="body16">
               Example:
             </Text>
-            <ExampleValue dangerouslySetInnerHTML={{ __html: example }} />
+            <div dangerouslySetInnerHTML={{ __html: example }} />
           </Item>
         )}
       </VStack>

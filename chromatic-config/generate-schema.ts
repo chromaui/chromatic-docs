@@ -7,6 +7,7 @@ import optionsJSON from "./options.json" assert { type: "json" };
 export interface ConfigOption {
   option?: string;
   flag?: string;
+  shortFlag?: string;
   description: string;
   type: string | string[];
   example?: string;
