@@ -1,0 +1,11 @@
+---
+layout: "../../../layouts/FAQLayout.astro"
+sidebar: { hide: true }
+title: Why is my build failing with the error message `Build verification timed out`?
+section: ci
+---
+
+# Why is my build failing with the error message `Build verification timed out`?
+
+As your project grows and you add more components to test, you may hit time-out errors. To resolve this issue, try compressing Storybook using the flag `--zip`. You can learn more about this here: https://www.chromatic.com/docs/github-actions/#run-chromatic-on-large-projects
+Another option is incrementing the building time using environment variables for Storybook and Chromatic: `STORYBOOK_BUILD_TIMEOUT` and `CHROMATIC_TIMEOUT`. You can learn more about these environment variables here: https://www.chromatic.com/docs/cli/#environment-variables
