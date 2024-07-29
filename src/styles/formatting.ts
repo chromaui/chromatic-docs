@@ -426,7 +426,11 @@ export const formatting = css`
   }
 
   @keyframes highlight {
-    from { background-color: #1ea7fd30; }
-    to { background-color: transparent; }
+    from {
+      background-color: #1ea7fd30;
+    }
+    to {
+      background-color: transparent;
+    }
   }
 `;

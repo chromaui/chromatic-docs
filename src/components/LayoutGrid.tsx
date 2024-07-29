@@ -1,7 +1,7 @@
 import { minLg, minMd, minXl, spacing } from "@chromatic-com/tetra";
 import { css, styled } from "@storybook/theming";
 
-export const MainWrapper = styled.div<{ showOnThisPage?: boolean }>`
+export const LayoutGrid = styled.div<{ showOnThisPage?: boolean }>`
   margin: ${spacing[10]} 0;
   display: flex;
   gap: ${spacing[10]};

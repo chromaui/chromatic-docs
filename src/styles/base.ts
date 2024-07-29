@@ -84,8 +84,8 @@ export const base = css`
     -webkit-text-size-adjust: 100%;
 
     padding: 3px 5px;
-    color: inherit;
-    background-color: rgba(0, 0, 0, 0.05);
+    color: var(--tetra-color-slate800);
+    background-color: var(--tetra-color-slate100);
     border-radius: 3px;
     border: 1px solid rgba(0, 0, 0, 0.1);
   }

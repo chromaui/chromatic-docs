@@ -6,14 +6,15 @@ import "@docsearch/css";
 import SEO from "../components/SEO.astro";
 import Scripts from "../components/Scripts.astro";
 import EditAndFeedback from "../components/EditAndFeedback.astro";
-import { Wrapper } from "../components/Wrapper";
+import { ContentContainer } from "../components/ContentContainer";
 import { MarketingFooter } from "../components/Footer/MarketingFooter";
 import { MarketingHeader } from "../components/Header/MarketingHeader";
-import { MainWrapper } from "../components/MainWrapper";
+import { LayoutGrid } from "../components/LayoutGrid";
 import Navigation from "../components/Navigation/Navigation.astro";
 import { projectRoot } from "../util";
 import OnThisPage from "../components/OnThisPage.astro";
 import SearchMeta from "../components/SearchMeta.astro";
+import { globalStyles } from "../styles/global";
 
 type Props = {
   title: string;
@@ -120,50 +121,15 @@ const editUrl = Astro.props.file?.replace(projectRoot, "").replace("src/", "");
   <head>
     <SEO title={title} description={description} />
     <link rel="sitemap" href="/docs/sitemap-index.xml" />
-    <style is:global>
-      :root {
-        --accent: 136, 58, 234;
-        --accent-light: 224, 204, 250;
-        --accent-dark: 49, 10, 101;
-        --accent-gradient: linear-gradient(
-          45deg,
-          rgb(var(--accent)),
-          rgb(var(--accent-light)) 30%,
-          white 60%
-        );
-      }
-
-      * {
-        box-sizing: border-box;
-        -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
-        -webkit-tap-highlight-color: transparent; /* For some Androids */
-      }
-
-      html {
-        outline: none;
-        -webkit-font-smoothing: antialiased;
-        -moz-osx-font-smoothing: grayscale;
-      }
-
-      html,
-      body {
-        font-family: "Nunito Sans", "Helvetica Neue", Helvetica, Arial,
-          sans-serif;
-        background: #fff;
-        margin: 0;
-        padding: 0;
-        -webkit-font-smoothing: antialiased;
-        -moz-osx-font-smoothing: grayscale;
-      }
-    </style>
+    <style is:global set:html={globalStyles}></style>
     <Scripts />
   </head>
   <body>
     <MarketingHeader client:visible />
     <FullWidthContainer>
-      <MainWrapper showOnThisPage={Astro.props.headings.length > 0}>
+      <LayoutGrid showOnThisPage={Astro.props.headings.length > 0}>
         <Navigation url={pathname.replace(/\/$/g, "")} navItems={navItems} />
-        <Wrapper>
+        <ContentContainer>
           <SearchMeta
             slug={slug}
             navItems={navItems}
@@ -171,13 +137,13 @@ const editUrl = Astro.props.file?.replace(projectRoot, "").replace("src/", "");
           />
           <slot />
           <EditAndFeedback title={title} editUrl={editUrl} />
-        </Wrapper>
+        </ContentContainer>
         {
           Astro.props.headings.length > 0 && (
             <OnThisPage headings={Astro.props.headings} />
           )
         }
-      </MainWrapper>
+      </LayoutGrid>
     </FullWidthContainer>
     <MarketingFooter />
     <script
