@@ -1,3 +1,4 @@
+import React from "react";
 import {
   color,
   fontFamily,
@@ -15,18 +16,12 @@ const Name = styled.h3`
   font-family: ${fontFamily.mono};
   color: ${color.slate800};
   && {
-    margin: 0;
+    margin: 0 0 ${spacing[1]} 0;
   }
 `;
-const Flag = styled.code`
-  ${typography.body14}
-  font-family: ${fontFamily.mono};
-  color: ${color.slate800};
-`;
+
 const Description = styled.div``;
-const Code = styled.code`
-  ${typography.body14}
-`;
+
 const ExampleValue = styled.div``;
 
 const formatOption = ({ option, flag, shortFlag, restriction }: any) => {
@@ -46,7 +41,7 @@ const FormattedType = ({ value }: { value: string | string[] }) => {
   if (value === "array of glob") {
     return (
       <>
-        <Code>string | string[]</Code>{" "}
+        <code>string | string[]</code>{" "}
         <Text as="span" variant="body14">
           (glob)
         </Text>
@@ -56,20 +51,20 @@ const FormattedType = ({ value }: { value: string | string[] }) => {
 
   if (Array.isArray(value)) {
     return (
-      <Code>
+      <code>
         {value.map((t, idx) => {
           return (
-            <>
+            <React.Fragment key={t}>
               {t}
               {idx < value.length - 1 && " | "}
-            </>
+            </React.Fragment>
           );
         })}
-      </Code>
+      </code>
     );
   }
 
-  return <Code>{value}</Code>;
+  return <code>{value}</code>;
 };
 
 function formatDefault(comment?: string, value?: string | boolean) {
@@ -82,6 +77,16 @@ function formatDefault(comment?: string, value?: string | boolean) {
   }
 }
 
+const ConfigOptionContainer = styled(VStack)`
+  max-width: 512px;
+  margin-top: ${spacing[6]};
+  margin-bottom: ${spacing[6]};
+`;
+
+const Item = styled(HStack)`
+  width: 60%;
+`;
+
 export const ConfigOption = ({
   option,
   flag,
@@ -93,32 +98,39 @@ export const ConfigOption = ({
   default: defaultValue,
 }: ConfigOptionType) => {
   return (
-    <VStack gap={3} marginTop={6} marginBottom={6}>
+    <ConfigOptionContainer gap={4} align="flex-start">
       <Name>{option}</Name>
-      <Flag>{flag}</Flag>
-      <HStack align="center">
-        <Text fontWeight="bold" variant="body14">
-          Type:
-        </Text>
-        <FormattedType value={type} />
-      </HStack>
-      {defaultValue && (
-        <div>
-          <Text fontWeight="bold" variant="body14">
-            Default:
-          </Text>
-          <Code>{defaultValue?.toString()}</Code>
-        </div>
-      )}
-      <Description dangerouslySetInnerHTML={{ __html: description }} />
-      {example && (
+      <VStack gap={1} style={{ width: "100%" }}>
         <HStack align="center">
-          <Text fontWeight="bold" variant="body14">
-            Example:
+          <Text fontWeight="bold" variant="body16">
+            CLI:
           </Text>
-          <ExampleValue dangerouslySetInnerHTML={{ __html: example }} />
+          <code>{flag}</code>
         </HStack>
-      )}
-    </VStack>
+        <HStack align="center">
+          <Text fontWeight="bold" variant="body16">
+            Type:
+          </Text>
+          <FormattedType value={type} />
+        </HStack>
+        {defaultValue && (
+          <HStack align="center">
+            <Text fontWeight="bold" variant="body16">
+              Default:
+            </Text>
+            <code>{defaultValue?.toString()}</code>
+          </HStack>
+        )}
+        {example && (
+          <Item align="center">
+            <Text fontWeight="bold" variant="body16">
+              Example:
+            </Text>
+            <ExampleValue dangerouslySetInnerHTML={{ __html: example }} />
+          </Item>
+        )}
+      </VStack>
+      <Description dangerouslySetInnerHTML={{ __html: description }} />
+    </ConfigOptionContainer>
   );
 };

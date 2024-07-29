@@ -48,9 +48,30 @@ export const ArrayOfGlobType: Story = {
   },
 };
 
-export const HasExample: Story = {
+export const HasDefaultValue: Story = {
+  args: {
+    ...Basic.args,
+    default: "build-storybook.log",
+  },
+};
+
+export const ExampleWithCode: Story = {
   args: {
     ...Basic.args,
     example: '<code>"report.xml"</code> or <code>true</code>',
+  },
+};
+
+export const ExampleNoCode: Story = {
+  args: {
+    ...Basic.args,
+    example: "Inferred from CI",
+  },
+};
+
+export const Everything: Story = {
+  args: {
+    ...ExampleWithCode.args,
+    default: "build-storybook.log",
   },
 };
