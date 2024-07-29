@@ -13,5 +13,9 @@ const config: StorybookConfig = {
     options: {},
   },
   staticDirs: ["../public", "../src/images"],
+  env: (config) => ({
+    ...config,
+    BASE_URL: "/docs",
+  }),
 };
 export default config;

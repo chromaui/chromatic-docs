@@ -103,21 +103,21 @@ const SidebarContainer = styled.div`
 `;
 
 type Item = (
-  | CollectionEntry<"overview">
-  | CollectionEntry<"storybook">
-  | CollectionEntry<"playwright">
-  | CollectionEntry<"cypress">
-  | CollectionEntry<"configuration">
-  | CollectionEntry<"modes">
-  | CollectionEntry<"snapshot">
-  | CollectionEntry<"snapshotOptions">
-  | CollectionEntry<"turbosnap">
-  | CollectionEntry<"collaborate">
-  | CollectionEntry<"plugins">
-  | CollectionEntry<"ci">
-  | CollectionEntry<"account">
-  | CollectionEntry<"guides">
-  | CollectionEntry<"troubleshooting">
+  | Omit<CollectionEntry<"overview">, "render" | "body">
+  | Omit<CollectionEntry<"storybook">, "render" | "body">
+  | Omit<CollectionEntry<"playwright">, "render" | "body">
+  | Omit<CollectionEntry<"cypress">, "render" | "body">
+  | Omit<CollectionEntry<"configuration">, "render" | "body">
+  | Omit<CollectionEntry<"modes">, "render" | "body">
+  | Omit<CollectionEntry<"snapshot">, "render" | "body">
+  | Omit<CollectionEntry<"snapshotOptions">, "render" | "body">
+  | Omit<CollectionEntry<"turbosnap">, "render" | "body">
+  | Omit<CollectionEntry<"collaborate">, "render" | "body">
+  | Omit<CollectionEntry<"plugins">, "render" | "body">
+  | Omit<CollectionEntry<"ci">, "render" | "body">
+  | Omit<CollectionEntry<"account">, "render" | "body">
+  | Omit<CollectionEntry<"guides">, "render" | "body">
+  | Omit<CollectionEntry<"troubleshooting">, "render" | "body">
 ) & {
   data: {
     sidebar: {
@@ -128,7 +128,7 @@ type Item = (
   };
 };
 
-interface SidebarItem {
+export interface SidebarItem {
   title: string;
   items: Item[];
   defaultOpen?: boolean;
