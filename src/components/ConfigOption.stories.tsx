@@ -16,7 +16,7 @@ const meta = {
 export default meta;
 type Story = StoryObj<typeof ConfigOption>;
 
-export const Basic = {
+export const Basic: Story = {
   args: {
     option: "autoAcceptChanges",
     flag: "--auto-accept-changes",
@@ -26,7 +26,7 @@ export const Basic = {
   },
 };
 
-export const WithHTMLDesc = {
+export const WithHTMLDesc: Story = {
   args: {
     ...Basic.args,
     description:
@@ -34,21 +34,21 @@ export const WithHTMLDesc = {
   },
 };
 
-export const UnionType = {
+export const UnionType: Story = {
   args: {
     ...Basic.args,
     type: ["glob", "boolean"],
   },
 };
 
-export const ArrayOfGlobType = {
+export const ArrayOfGlobType: Story = {
   args: {
     ...Basic.args,
     type: "array of glob",
   },
 };
 
-export const HasExample = {
+export const HasExample: Story = {
   args: {
     ...Basic.args,
     example: '<code>"report.xml"</code> or <code>true</code>',
