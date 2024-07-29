@@ -26,17 +26,6 @@ const Flag = styled.code`
 const Description = styled.div``;
 const Code = styled.code`
   ${typography.body14}
-  font-family: ${fontFamily.mono};
-  background: ${color.slate100};
-  color: ${color.slate800};
-  padding: ${spacing[0.5]} ${spacing[1]};
-
-  padding: 3px 5px;
-  display: inline-block;
-  vertical-align: baseline;
-  line-height: 1;
-  border-radius: 3px;
-  border: 1px solid rgba(0, 0, 0, 0.1);
 `;
 const ExampleValue = styled.div``;
 
@@ -57,8 +46,10 @@ const FormattedType = ({ value }: { value: string | string[] }) => {
   if (value === "array of glob") {
     return (
       <>
-        {/* <Value>glob</Value> or array of <Value>glob</Value> */}
-        <Code>string | string[]</Code> (glob)
+        <Code>string | string[]</Code>{" "}
+        <Text as="span" variant="body14">
+          (glob)
+        </Text>
       </>
     );
   }
