@@ -11,8 +11,6 @@ interface YouTubeCalloutProps {
   params?: string;
 }
 
-// const { color, typography, spacing } = styles;
-
 // `.yt-lite` styles from: https://github.com/ibrahimcesar/react-lite-youtube-embed#option-1
 // `.lty-playbtn` styles emulate YouTube's thumbnail play button
 const Details = styled.details`
