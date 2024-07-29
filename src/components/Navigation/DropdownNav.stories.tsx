@@ -96,6 +96,7 @@ export const MultipleGroups: Story = {
   args: {
     groups: [mockSidebarItems[0]],
   },
+  decorators: [(storyFn) => <div style={{ height: "800px" }}>{storyFn()}</div>],
   play: OneGroup.play,
 };
 
@@ -104,5 +105,6 @@ export const ActiveUrlBreadcrumb: Story = {
     url: "/docs/storybook",
     groups: [{ ...mockSidebarItems[0] }, mockSidebarItems[1]],
   },
+  decorators: [(storyFn) => <div style={{ height: "800px" }}>{storyFn()}</div>],
   play: OneGroup.play,
 };
