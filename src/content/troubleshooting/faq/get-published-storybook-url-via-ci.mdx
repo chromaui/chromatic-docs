@@ -1,0 +1,13 @@
+---
+layout: "../../../layouts/FAQLayout.astro"
+sidebar: { hide: true }
+title: How do I get the published Storybook output URL through the CI pipeline?
+section: ci
+---
+
+# How do I get the published Storybook output URL through the CI pipeline?
+
+1. Add the `--diagnostics` flag to your Chromatic command/script to generate the `chromatic-diagnostics.json` file.
+2. Store the diagnostics file in a **CI artifacts**, which should let you reference the JSON output and obtain the URL and other outputs needed.
+Refer to: [GitHub artifacts](https://docs.github.com/en/actions/using-workflows/storing-workflow-data-as-artifacts), [GitLab artifacts](https://docs.gitlab.com/ee/ci/jobs/job_artifacts.html), [BitBucket artifacts](https://support.atlassian.com/bitbucket-cloud/docs/use-artifacts-in-steps/), [CircleCI artifacts](https://circleci.com/docs/artifacts/), [TravisCI artifacts](https://docs.travis-ci.com/user/uploading-artifacts/) and [Jenkins artifacts](https://www.jenkins.io/doc/pipeline/tour/tests-and-artifacts/)
+3. Find the Storybook URL under `storybookUrl` and the Chromatic build URL under `webUrl` in the `chromatic-diagnostics.json` file.
