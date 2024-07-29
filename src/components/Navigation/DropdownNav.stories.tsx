@@ -6,6 +6,11 @@ import { DropdownNav } from "./DropdownNav";
 const meta = {
   title: "Components/DropdownNav",
   component: DropdownNav,
+  parameters: {
+    viewport: {
+      defaultViewport: "mobile2",
+    },
+  },
 } satisfies Meta<typeof DropdownNav>;
 
 export default meta;
