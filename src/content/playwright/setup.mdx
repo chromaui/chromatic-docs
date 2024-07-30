@@ -212,3 +212,10 @@ Take full control of your Chromatic and Playwright setup to match your team's sp
 No. Playwright is a "black box" tool that tests your fully built app UI in a browser. TurboSnap is incompatible with this testing methodology because it requires tracking code changes and git history to identify the UI that's likely to change. We would love to integrate TurboSnap and Playwright but it isn't technically feasible right now.
 
 </details>
+
+<details>
+<summary id="storybook-step">Why is there a `Build your Storybook` step when running Playwright visual tests?</summary>
+
+Chromatic creates and runs a Storybook archive based on your Playwright project, so the build Storybook step is required. Chromatic doesn't run Playwright directly.
+
+</details>
