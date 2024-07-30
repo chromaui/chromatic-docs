@@ -23,6 +23,7 @@ export const Basic: Story = {
     description:
       "If there are any changes to the build, automatically accept them. Only for given branch, if specified.",
     type: "string",
+    example: '<code>"my-folder/**"</code>',
   },
 };
 
@@ -59,13 +60,6 @@ export const DefaultValueComment: Story = {
   args: {
     ...Basic.args,
     default: "Inferred from CI or Git",
-  },
-};
-
-export const ExampleBasic: Story = {
-  args: {
-    ...Basic.args,
-    example: '<code>"my-folder/**"</code>',
   },
 };
 

@@ -10,8 +10,9 @@ export interface ConfigOption {
   shortFlag?: string;
   description: string;
   type: string | string[];
-  example?: string;
+  example: string;
   default?: string | boolean;
+  defaultComment?: string;
   inConfigFileSchema?: boolean;
   deprecated?: "config-file" | "all";
 }

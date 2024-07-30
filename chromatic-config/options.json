@@ -11,7 +11,7 @@
   {
     "option": "branchName",
     "flag": "--branch-name",
-    "description": "Override the branch name for certain CI providers or cross-fork PR comparisons.<br/>Also accepts `<owner>:<branch>`.",
+    "description": "Override the branch name for certain CI providers or cross-fork PR comparisons. Also accepts `<owner>:<branch>`",
     "type": "string",
     "example": "`\"my-branch\"`",
     "defaultComment": "Inferred from CI or Git"
@@ -38,7 +38,7 @@
   {
     "option": "debug",
     "flag": "--debug",
-    "description": "Output verbose debugging information.<br/>This option implies `interactive: false`.",
+    "description": "Output verbose debugging information. This option implies `interactive: false`",
     "type": "boolean",
     "example": "`true`",
     "default": false,
@@ -310,7 +310,7 @@
   {
     "option": "uploadMetadata",
     "flag": "--upload-metadata",
-    "description": "Upload Chromatic metadata files as part of the published Storybook.<br/>This option implies `diagnosticsFile: true` and `logFile: true`.",
+    "description": "Upload Chromatic metadata files as part of the published Storybook. This option implies `diagnosticsFile: true` and `logFile: true`",
     "type": "boolean",
     "example": "`true`",
     "default": false,

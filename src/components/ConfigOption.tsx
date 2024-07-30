@@ -12,7 +12,6 @@ import { styled } from "@storybook/theming";
 import type { ConfigOption as ConfigOptionType } from "../../chromatic-config/generate-schema";
 
 const Name = styled.h3`
-  ${typography.heading18}
   font-family: ${fontFamily.mono};
   color: ${color.slate800};
   && {
@@ -21,8 +20,6 @@ const Name = styled.h3`
 `;
 
 const Description = styled.div``;
-
-const ExampleValue = styled.div``;
 
 const formatOption = ({ option, flag, shortFlag, restriction }: any) => {
   const lead = option ? option : `<code>${flag}</code>`;
@@ -78,9 +75,8 @@ function formatDefault(comment?: string, value?: string | boolean) {
 }
 
 const ConfigOptionContainer = styled(VStack)`
-  max-width: 512px;
-  margin-top: ${spacing[6]};
-  margin-bottom: ${spacing[6]};
+  margin-top: ${spacing[12]};
+  margin-bottom: ${spacing[12]};
 `;
 
 const Item = styled(HStack)`
@@ -95,26 +91,27 @@ export const ConfigOption = ({
   type,
   example,
   inConfigFileSchema,
-  deprecated,
   default: defaultValue,
 }: ConfigOptionType) => {
   return (
     <ConfigOptionContainer gap={4} align="flex-start">
-      <Name>{option}</Name>
+      <Name className="config-option">{option}</Name>
       <VStack gap={1} style={{ width: "100%" }}>
-        <HStack align="center">
-          <Text fontWeight="bold" variant="body16">
-            CLI:
-          </Text>
-          <div>
-            <code>{flag}</code>{" "}
-            {shortFlag && (
-              <>
-                (<code>{shortFlag}</code>)
-              </>
-            )}
-          </div>
-        </HStack>
+        {flag && (
+          <HStack align="center">
+            <Text fontWeight="bold" variant="body16">
+              CLI:
+            </Text>
+            <div>
+              <code>{flag}</code>{" "}
+              {shortFlag && (
+                <>
+                  (<code>{shortFlag}</code>)
+                </>
+              )}
+            </div>
+          </HStack>
+        )}
         <HStack align="center">
           <Text fontWeight="bold" variant="body16">
             Type:
@@ -129,14 +126,12 @@ export const ConfigOption = ({
             <div dangerouslySetInnerHTML={{ __html: defaultValue }} />
           </HStack>
         )}
-        {example && (
-          <Item align="center">
-            <Text fontWeight="bold" variant="body16">
-              Example:
-            </Text>
-            <div dangerouslySetInnerHTML={{ __html: example }} />
-          </Item>
-        )}
+        <Item align="center">
+          <Text fontWeight="bold" variant="body16">
+            Example:
+          </Text>
+          <div dangerouslySetInnerHTML={{ __html: example }} />
+        </Item>
       </VStack>
       <Description dangerouslySetInnerHTML={{ __html: description }} />
     </ConfigOptionContainer>
