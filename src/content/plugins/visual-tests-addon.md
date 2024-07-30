@@ -144,6 +144,13 @@ The addon allows running tests on-demand to detect bugs earlier in development. 
 
 </details>
 
+<details>
+<summary>Why are Storybook Docs not reflected in the published Storybook for my local build??</summary>
+
+By default, [Docs](https://storybook.js.org/docs/writing-docs) are disabled in local builds. We don't recommend turning Docs on for local builds because this will cause the build time to increase considerably. You can easily re-enable Docs by setting the following flags: disableBlocks, disableAutoDocs, disableMDXEntries, and disableDocgen. Learn more about these flags [here](https://storybook.js.org/docs/api/main-config/main-config-build#test).
+
+</details>
+
 ---
 
 ## Troubleshooting
