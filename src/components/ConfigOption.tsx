@@ -2,10 +2,10 @@ import React from "react";
 import {
   color,
   fontFamily,
+  fontSize,
   HStack,
   spacing,
   Text,
-  typography,
   VStack,
 } from "@chromatic-com/tetra";
 import { styled } from "@storybook/theming";
@@ -17,22 +17,19 @@ const Name = styled.h3`
   && {
     margin: 0 0 ${spacing[1]} 0;
   }
+
+  > a.autolink-header {
+    width: 14px;
+    height: 14px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: opacity 0.2s ease-in-out;
+    opacity: 0;
+  }
 `;
 
-const Description = styled.div``;
-
-const formatOption = ({ option, flag, shortFlag, restriction }: any) => {
-  const lead = option ? option : `<code>${flag}</code>`;
-  const hasBoth = option && flag;
-
-  return [
-    `<strong>${lead}</strong>`,
-    restriction ? ` (${restriction})` : "",
-    hasBoth ? "<br/>" : "",
-    hasBoth && flag ? `<code>${flag}</code>` : "",
-    shortFlag ? ` (<code>${shortFlag}</code>)` : "",
-  ].join("");
-};
+export type SupportedType = "CI" | "CLI" | "config.json";
 
 const FormattedType = ({ value }: { value: string | string[] }) => {
   if (value === "array of glob") {
@@ -64,16 +61,6 @@ const FormattedType = ({ value }: { value: string | string[] }) => {
   return <code>{value}</code>;
 };
 
-function formatDefault(comment?: string, value?: string | boolean) {
-  if (comment) {
-    return comment;
-  }
-
-  if (value !== undefined) {
-    return `<code>${value}</code>`;
-  }
-}
-
 const ConfigOptionContainer = styled(VStack)`
   margin-top: ${spacing[12]};
   margin-bottom: ${spacing[12]};
@@ -83,6 +70,36 @@ const Item = styled(HStack)`
   width: 60%;
 `;
 
+const Tag = styled.div<{ type: SupportedType }>`
+  padding: ${spacing[1]} ${spacing[2]};
+  font-size: ${fontSize[14]};
+  font-family: ${fontFamily.mono};
+  line-height: 1;
+  border-radius: 4px;
+  color: ${({ type }) => {
+    if (type === "CI") {
+      return color.green600;
+    } else if (type === "CLI") {
+      return color.blue600;
+    }
+
+    return color.purple600;
+  }};
+  background-color: ${({ type }) => {
+    if (type === "CI") {
+      return color.green100;
+    } else if (type === "CLI") {
+      return color.blue100;
+    }
+
+    return color.purple100;
+  }};
+`;
+
+export interface ConfigOptionProps extends ConfigOptionType {
+  supports: SupportedType[];
+}
+
 export const ConfigOption = ({
   option,
   shortFlag,
@@ -90,17 +107,26 @@ export const ConfigOption = ({
   description,
   type,
   example,
-  inConfigFileSchema,
+  supports,
   default: defaultValue,
-}: ConfigOptionType) => {
+}: ConfigOptionProps) => {
   return (
     <ConfigOptionContainer gap={4} align="flex-start">
-      <Name className="config-option">{option}</Name>
+      <VStack gap={1} marginBottom={2}>
+        <Name className="config-option">{option}</Name>
+        <HStack align="center" gap={2}>
+          {supports.map((type) => (
+            <Tag key={type} type={type}>
+              {type}
+            </Tag>
+          ))}
+        </HStack>
+      </VStack>
       <VStack gap={1} style={{ width: "100%" }}>
         {flag && (
           <HStack align="center">
             <Text fontWeight="bold" variant="body16">
-              CLI:
+              Flag:
             </Text>
             <div>
               <code>{flag}</code>{" "}
@@ -133,7 +159,7 @@ export const ConfigOption = ({
           <div dangerouslySetInnerHTML={{ __html: example }} />
         </Item>
       </VStack>
-      <Description dangerouslySetInnerHTML={{ __html: description }} />
+      <div dangerouslySetInnerHTML={{ __html: description }} />
     </ConfigOptionContainer>
   );
 };

@@ -3,10 +3,30 @@ import type { ConfigOption as ConfigOptionType } from "../../chromatic-config/ge
 import configOptions from "../../chromatic-config/options.json";
 import { markdown } from "../markdown";
 import { ConfigOption } from "./ConfigOption";
+import type { SupportedType } from "./ConfigOption";
+
+const supports = (option: ConfigOptionType): SupportedType[] => {
+  const types: SupportedType[] = [];
+
+  if (option.flag) {
+    types.push("CLI");
+  }
+
+  if (option.option) {
+    types.push("CI");
+  }
+
+  if (option.inConfigFileSchema) {
+    types.push("config.json");
+  }
+
+  return types;
+};
 
 const formatOption = async (option: ConfigOptionType) => {
   return {
     ...option,
+    supports: supports(option),
     option: option.option || option.flag,
     description: await markdown(option.description),
     example: await markdown(option.example),

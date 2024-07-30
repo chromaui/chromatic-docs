@@ -1,5 +1,6 @@
 import type { Meta, StoryObj } from "@storybook/react";
 import { ConfigOption } from "./ConfigOption";
+import type { ConfigOptionProps } from "./ConfigOption";
 
 const meta = {
   title: "Components/ConfigOption",
@@ -11,13 +12,14 @@ const meta = {
       </div>
     ),
   ],
-} satisfies Meta<typeof ConfigOption>;
+} satisfies Meta<ConfigOptionProps>;
 
 export default meta;
-type Story = StoryObj<typeof ConfigOption>;
+type Story = StoryObj<ConfigOptionProps>;
 
 export const Basic: Story = {
   args: {
+    supports: ["CI", "CLI"],
     option: "autoAcceptChanges",
     flag: "--auto-accept-changes",
     description:
@@ -82,5 +84,37 @@ export const Everything: Story = {
   args: {
     ...ShortFlag.args,
     default: '<code>"build-storybook.log"</code>',
+    supports: ["CI", "CLI", "config.json"],
+  },
+};
+
+export const SupportsAll: Story = {
+  args: {
+    ...Basic.args,
+    supports: ["CI", "CLI", "config.json"],
+  },
+};
+
+export const OnlyCLI: Story = {
+  args: {
+    option: "--auto-accept-changes",
+    flag: "--auto-accept-changes",
+    description:
+      "If there are any changes to the build, automatically accept them. Only for given branch, if specified.",
+    type: "string",
+    example: '<code>"my-folder/**"</code>',
+    supports: ["CLI"],
+  },
+};
+
+export const OnlyCI: Story = {
+  args: {
+    option: "autoAcceptChanges",
+    flag: "--auto-accept-changes",
+    description:
+      "If there are any changes to the build, automatically accept them. Only for given branch, if specified.",
+    type: "string",
+    example: '<code>"my-folder/**"</code>',
+    supports: ["CI"],
   },
 };
