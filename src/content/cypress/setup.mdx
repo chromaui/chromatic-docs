@@ -179,7 +179,7 @@ Take full control of your Chromatic and Cypress setup to match your team's speci
 
 ---
 
-### Troubleshooting
+## Frequently asked questions
 
 <TroubleshootingSetup />
 
@@ -187,5 +187,12 @@ Take full control of your Chromatic and Cypress setup to match your team's speci
 <summary id="turbosnap-support">Can I use TurboSnap with Cypress visual tests?</summary>
 
 No. Cypress is a "black box" tool that tests your fully built app UI in a browser. TurboSnap is incompatible with this testing methodology because it requires tracking code changes and git history to identify the UI that's likely to change. We would love to integrate TurboSnap and Cypress but it isn't technically feasible right now.
+
+</details>
+
+<details>
+<summary id="storybook-step">Why is there a `Build your Storybook` step when running Cypress visual tests?</summary>
+
+Chromatic creates and runs a Storybook archive based on your Cypress project, so the build Storybook step is required. Chromatic doesn't run Cypress directly.
 
 </details>
