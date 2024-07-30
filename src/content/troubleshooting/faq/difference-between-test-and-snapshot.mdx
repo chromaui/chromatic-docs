@@ -1,0 +1,22 @@
+---
+layout: "../../../layouts/FAQLayout.astro"
+sidebar: { hide: true }
+title: What is the difference between a 'Test' and a 'Snapshot'?
+section: "uiTestsAndReview"
+---
+
+# What is the difference between a 'Test' and a 'Snapshot'??
+
+A test is when you compare a snapshot with an older snapshot (from the ancestor build) to find the comparison. We detect the changes on your tests for each build.
+
+A snapshot is a picture we take of the component. We compare snapshots from one build to its ancestor. In some cases, a build inherits the snapshot from an ancestor build. Learn more about ancestor builds here.
+
+There's a difference between TurboSnaps and snapshots. Let's review the following example:
+
+![](.././../../images/diff-between-test-and-snapshot.png)
+
+This project has 2897 tests. 11396 were TurboSnaps, and 192 were snapshots. TurboSnaps and snapshots are billed differently. The billing for this build would be:
+
+192 regular snapshots
+
+11396 TurboSnaps (calculated as 0.2 x 11396 = 2279.2 regular snapshots)
