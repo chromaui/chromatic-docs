@@ -4,7 +4,7 @@ import configOptions from "../../chromatic-config/options.json";
 import { markdown } from "../markdown";
 import { ConfigOption } from "./ConfigOption";
 
-const formatOption = async (option: ConfigOptionType) => {
+export const formatOption = async (option: ConfigOptionType) => {
   return {
     ...option,
     supports: option.supports,

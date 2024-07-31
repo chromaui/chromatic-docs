@@ -38,7 +38,7 @@
     "@types/hast": "^3.0.3",
     "@types/react": "^18.2.21",
     "@types/react-dom": "^18.2.7",
-    "astro": "^4.6.3",
+    "astro": "^4.12.3",
     "framer-motion": "^11.0.5",
     "github-slugger": "^2.0.0",
     "hast-util-select": "^6.0.2",
