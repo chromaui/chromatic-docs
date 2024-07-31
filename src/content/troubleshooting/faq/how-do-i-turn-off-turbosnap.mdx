@@ -1,0 +1,12 @@
+---
+layout: "../../../layouts/FAQLayout.astro"
+sidebar: { hide: true }
+title: How do I turn off TurboSnap?
+section: turbosnap
+---
+
+# How do I turn off TurboSnap?
+
+TurboSnap is an opt-in feature. You can't configure it through the Chromatic web app. Instead, it is controlled via the CLI and CI configuration.
+
+To turn off TurboSnap, you need to remove the `--only-changed` flag from your CLI command or the `onlyChanged` property from your CI workflow and/or `chromatic.config.json` file.
