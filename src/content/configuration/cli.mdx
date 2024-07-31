@@ -71,6 +71,20 @@ Note: some options are only available as flags. For a full list of available opt
 
 Flags must be passed as `--kebab-case` whereas options are `camelCase`. Flags take precedence over configuration options. When passing a flag without value, it is treated as `true`. Where an array is accepted, specify the flag multiple times (once for each value).
 
+### Flags
+
+- Flags take precedence over options specified in config file and Github Action.
+
+- When passing a flag without value, it is treated as `true`. e.g.:
+  ```sh
+  $ npx chromatic --dry-run -t <your-project-token>
+  ```
+- Where an `array` is accepted, specify the flag multiple times (once for each value). e.g.:
+  ```sh
+  $ npx chromatic --externals "my-folder/**" --externals "another-folder/**" -t <your-project-token>
+  ```
+
+
 ### Chromatic Config File
 
 The configuration file is stored in the root of your project folder as `./chromatic.config.json`. You can use the `--config-file` flag to customize the Chromatic configuration file name and path.
