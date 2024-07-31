@@ -6,7 +6,7 @@
     "type": ["glob", "boolean"],
     "example": "`\"main\"` or `true`",
     "default": false,
-    "inConfigFileSchema": true
+    "supports": ["CLI", "CI", "config.json"]
   },
   {
     "option": "branchName",
@@ -14,7 +14,8 @@
     "description": "Override the branch name for certain CI providers or cross-fork PR comparisons. Also accepts `<owner>:<branch>`",
     "type": "string",
     "example": "`\"my-branch\"`",
-    "defaultComment": "Inferred from CI or Git"
+    "defaultComment": "Inferred from CI or Git",
+    "supports": ["CLI", "CI"]
   },
   {
     "option": "buildScriptName",
@@ -24,16 +25,17 @@
     "type": "string",
     "example": "`\"build:storybook\"`",
     "default": "build-storybook",
-    "inConfigFileSchema": true
+    "supports": ["CLI", "CI", "config.json"]
   },
   {
     "option": "configFile",
-    "flag": "--config-file",
+    "flag": "--config.json",
     "restriction": "Node.js API only",
     "description": "Path from where to load the Chromatic config JSON file.",
     "type": "string",
     "example": "`\"config/chromatic.json\"`",
-    "default": "chromatic.config.json"
+    "default": "chromatic.config.json",
+    "supports": ["CLI", "CI"]
   },
   {
     "option": "debug",
@@ -42,16 +44,16 @@
     "type": "boolean",
     "example": "`true`",
     "default": false,
-    "inConfigFileSchema": true
+    "supports": ["CLI", "CI", "config.json"]
   },
   {
     "option": "diagnosticsFile",
     "flag": "--diagnostics-file",
-    "description": "When enabled, write process context information to a JSON file.<br/>Defaults to `chromatic-diagnostics.json`.",
+    "description": "When enabled, write process context information to a JSON file.<br/>Defaults to `chromatic-diagnostics.json`",
     "type": ["string", "boolean"],
     "example": "`\"debug.json\"` or `true`",
     "default": false,
-    "inConfigFileSchema": true
+    "supports": ["CLI", "CI", "config.json"]
   },
   {
     "option": "dryRun",
@@ -59,7 +61,8 @@
     "description": "Run without actually publishing to Chromatic.",
     "type": "boolean",
     "example": "`true`",
-    "default": false
+    "default": false,
+    "supports": ["CLI", "CI"]
   },
   {
     "option": "exitOnceUploaded",
@@ -68,7 +71,7 @@
     "type": ["glob", "boolean"],
     "example": "`\"my-branch\"` or `true`",
     "default": false,
-    "inConfigFileSchema": true
+    "supports": ["CLI", "CI", "config.json"]
   },
   {
     "option": "exitZeroOnChanges",
@@ -77,7 +80,7 @@
     "type": ["glob", "boolean"],
     "example": "`\"!(main)\"` or `true`",
     "default": false,
-    "inConfigFileSchema": true
+    "supports": ["CLI", "CI", "config.json"]
   },
   {
     "option": "externals",
@@ -85,7 +88,7 @@
     "description": "Disable [TurboSnap](/docs/turbosnap) when any of these files have changed since the baseline build.<br/>Requires `onlyChanged`.",
     "type": "array of glob",
     "example": "`\"my-folder/**\"`",
-    "inConfigFileSchema": true
+    "supports": ["CLI", "CI", "config.json"]
   },
   {
     "option": "forceRebuild",
@@ -93,7 +96,8 @@
     "description": "Do not skip build when a rebuild is detected. Only for given branch, if specified.",
     "type": ["glob", "boolean"],
     "example": "`\"my-branch\"` or `true`",
-    "default": false
+    "default": false,
+    "supports": ["CLI", "CI"]
   },
   {
     "option": "fromCI",
@@ -101,7 +105,8 @@
     "description": "Mark the build as coming from CI.",
     "type": "boolean",
     "example": "`true`",
-    "defaultComment": "Inferred from CI"
+    "defaultComment": "Inferred from CI",
+    "supports": ["CLI", "CI"]
   },
   {
     "option": "ignoreLastBuildOnBranch",
@@ -109,7 +114,7 @@
     "description": "Do not use the last build on this branch as a baseline if it is no longer in history (i.e., the branch was rebased).",
     "type": "glob",
     "example": "`\"my-branch\"`",
-    "inConfigFileSchema": true
+    "supports": ["CLI", "CI", "config.json"]
   },
   {
     "option": "interactive: false",
@@ -117,7 +122,8 @@
     "description": "Don't ask interactive questions about your setup, and don't overwrite output. `true` in non-TTY environments.",
     "type": "boolean",
     "example": "`false`",
-    "defaultComment": "Inferred from TTY"
+    "defaultComment": "Inferred from TTY",
+    "supports": ["CLI", "CI"]
   },
   {
     "option": "isLocalBuild",
@@ -125,7 +131,8 @@
     "description": "Mark the build as \"local\".",
     "type": "boolean",
     "example": "`true`",
-    "default": false
+    "default": false,
+    "supports": ["CLI", "CI"]
   },
   {
     "option": "junitReport",
@@ -134,7 +141,7 @@
     "type": ["string", "boolean"],
     "example": "`\"report.xml\"` or `true`",
     "default": false,
-    "inConfigFileSchema": true
+    "supports": ["CLI", "CI", "config.json"]
   },
   {
     "option": "list",
@@ -142,16 +149,17 @@
     "description": "Outputs the list of available stories in your Storybook.<br/>Useful for [debugging and diagnosing issues](#diagnosing-issues).",
     "type": "boolean",
     "example": "`true`",
-    "default": false
+    "default": false,
+    "supports": ["CLI", "CI"]
   },
   {
     "option": "logFile",
     "flag": "--log-file",
-    "description": "Write CLI logs to a file. Defaults to `chromatic.log`.",
+    "description": "Write CLI logs to a file. Defaults to `chromatic.log`",
     "type": ["string", "boolean"],
     "example": "`\"logs.txt\"` or `true`",
     "default": false,
-    "inConfigFileSchema": true
+    "supports": ["CLI", "CI", "config.json"]
   },
   {
     "option": "fileHashing",
@@ -160,7 +168,7 @@
     "type": "boolean",
     "example": "`true`",
     "default": false,
-    "inConfigFileSchema": true
+    "supports": ["CLI", "CI", "config.json"]
   },
   {
     "option": "onlyChanged",
@@ -169,7 +177,7 @@
     "type": ["glob", "boolean"],
     "example": "`true`",
     "default": false,
-    "inConfigFileSchema": true
+    "supports": ["CLI", "CI", "config.json"]
   },
   {
     "option": "onlyStoryFiles",
@@ -177,7 +185,7 @@
     "description": "Only run a single story or a subset of stories by their filename(s). Specify the full path to the story file relative to the root of your Storybook project.",
     "type": "array of glob",
     "example": "`\"src/ui/**\"`",
-    "inConfigFileSchema": true
+    "supports": ["CLI", "CI", "config.json"]
   },
   {
     "option": "onlyStoryNames",
@@ -185,7 +193,7 @@
     "description": "Only run a single story or a subset of stories by their name.",
     "type": "array of glob",
     "example": "`\"Atoms/Button/*\"`",
-    "inConfigFileSchema": true
+    "supports": ["CLI", "CI", "config.json"]
   },
   {
     "option": "outputDir",
@@ -195,20 +203,21 @@
     "type": "string",
     "example": "`\"storybook-static\"`",
     "defaultComment": "Temporary directory",
-    "inConfigFileSchema": true
+    "supports": ["CLI", "CI", "config.json"]
   },
   {
     "flag": "--patch-build",
     "description": "Create a patch build to fix a missing PR comparison.",
     "type": "string",
-    "example": "`\"my-feature...main\"`"
+    "example": "`\"my-feature...main\"`",
+    "supports": ["CLI", "CI"]
   },
   {
     "option": "projectId",
     "description": "The unique identifier for your project, sometimes referred to as `appId`.",
     "type": "string",
     "example": "`\"Project:5d67dc0374b2e300209c41e7\"`",
-    "inConfigFileSchema": true
+    "supports": ["config.json"]
   },
   {
     "option": "projectToken",
@@ -218,8 +227,8 @@
     "type": "string",
     "example": "`\"chpt_b2aef0123456789\"`",
     "defaultComment": "Environment variable",
-    "inConfigFileSchema": true,
-    "deprecated": "config-file"
+    "supports": ["CLI", "CI", "config.json"],
+    "deprecated": "config.json"
   },
   {
     "option": "repositorySlug",
@@ -227,7 +236,8 @@
     "description": "Override the repository slug. This is mainly used to correctly handle cross-fork builds, where the owner deviates.",
     "type": "string",
     "example": "`\"owner/repositoryName\"`",
-    "defaultComment": "Inferred from CI or Git"
+    "defaultComment": "Inferred from CI or Git",
+    "supports": ["CLI", "CI"]
   },
   {
     "option": "skip",
@@ -236,7 +246,7 @@
     "type": ["glob", "boolean"],
     "example": "`\"my-branch\"` or `true`",
     "default": false,
-    "inConfigFileSchema": true
+    "supports": ["CLI", "CI", "config.json"]
   },
   {
     "option": "skipUpdateCheck",
@@ -245,7 +255,7 @@
     "type": "boolean",
     "example": "`true`",
     "default": false,
-    "inConfigFileSchema": true
+    "supports": ["CLI", "CI", "config.json"]
   },
   {
     "option": "storybookBaseDir",
@@ -253,7 +263,7 @@
     "description": "Relative path from repository root to Storybook project root.<br/>Use with `onlyChanged` and `storybookBuildDir` when your Storybook is located in a subdirectory of your repository.",
     "type": "string",
     "example": "`\"src/ui\"`",
-    "inConfigFileSchema": true
+    "supports": ["CLI", "CI", "config.json"]
   },
   {
     "option": "storybookBuildDir",
@@ -262,7 +272,7 @@
     "description": "If you have already built your Storybook, provide the path to the static build directory.",
     "type": "string",
     "example": "`\"dist/storybook\"`",
-    "inConfigFileSchema": true
+    "supports": ["CLI", "CI", "config.json"]
   },
   {
     "option": "storybookConfigDir",
@@ -271,7 +281,7 @@
     "type": "string",
     "example": "`\"storybook-config\"`",
     "default": ".storybook",
-    "inConfigFileSchema": true
+    "supports": ["CLI", "CI", "config.json"]
   },
   {
     "option": "storybookLogFile",
@@ -280,7 +290,7 @@
     "type": ["string", "boolean"],
     "example": "`\"sb.txt\"` or `true`",
     "default": "build-storybook.log",
-    "inConfigFileSchema": true
+    "supports": ["CLI", "CI", "config.json"]
   },
   {
     "option": "traceChanged",
@@ -289,7 +299,7 @@
     "type": ["string", "boolean"],
     "example": "`\"expanded\"` or `true`",
     "default": false,
-    "inConfigFileSchema": true
+    "supports": ["CLI", "CI", "config.json"]
   },
   {
     "option": "workingDir",
@@ -297,7 +307,8 @@
     "description": "Provide the location of Storybook's `package.json` if installed in a subdirectory (i.e., monorepos).",
     "type": "string",
     "example": "`\"my-folder\"`",
-    "default": "process.cwd()"
+    "default": "process.cwd()",
+    "supports": ["CLI", "CI"]
   },
   {
     "option": "untraced",
@@ -305,7 +316,7 @@
     "description": "Disregard these files and their dependencies when tracing dependent stories for [TurboSnap](/docs/turbosnap).<br/>Requires `onlyChanged`.",
     "type": "array of glob",
     "example": "`\"my-folder/**\"`",
-    "inConfigFileSchema": true
+    "supports": ["CLI", "CI", "config.json"]
   },
   {
     "option": "uploadMetadata",
@@ -314,7 +325,7 @@
     "type": "boolean",
     "example": "`true`",
     "default": false,
-    "inConfigFileSchema": true
+    "supports": ["CLI", "CI", "config.json"]
   },
   {
     "option": "zip",
@@ -323,7 +334,7 @@
     "type": "boolean",
     "example": "`true`",
     "default": false,
-    "inConfigFileSchema": true
+    "supports": ["CLI", "CI", "config.json"]
   },
   {
     "option": "playwright",
@@ -332,7 +343,7 @@
     "type": "boolean",
     "example": "`true`",
     "default": false,
-    "inConfigFileSchema": true
+    "supports": ["CLI", "CI", "config.json"]
   },
   {
     "option": "cypress",
@@ -341,6 +352,6 @@
     "type": "boolean",
     "example": "`true`",
     "default": false,
-    "inConfigFileSchema": true
+    "supports": ["CLI", "CI", "config.json"]
   }
 ]

@@ -4,6 +4,8 @@ import strip from "strip-markdown";
 import RemarkLinkRewrite from "remark-link-rewrite";
 import optionsJSON from "./options.json" assert { type: "json" };
 
+export type SupportedType = "CI" | "CLI" | "config.json";
+
 export interface ConfigOption {
   option?: string;
   flag?: string;
@@ -13,8 +15,8 @@ export interface ConfigOption {
   example: string;
   default?: string | boolean;
   defaultComment?: string;
-  inConfigFileSchema?: boolean;
-  deprecated?: "config-file" | "all";
+  deprecated?: "config.json" | "all";
+  supports: SupportedType[];
 }
 
 const propertyTypes = {
@@ -109,12 +111,12 @@ export async function createSchemaDef(configOptions: ConfigOption[]) {
 
   const supportedOptions: ConfigOption[] = (
     configOptions as ConfigOption[]
-  ).filter((option) => option.inConfigFileSchema);
+  ).filter((option) => option.supports.includes("config.json"));
 
   for (const prop of supportedOptions) {
     if (prop.option) {
       const isDeprecated =
-        prop.deprecated === "config-file" || prop.deprecated === "all";
+        prop.deprecated === "config.json" || prop.deprecated === "all";
 
       const description = await formatDescription(
         prop.description,

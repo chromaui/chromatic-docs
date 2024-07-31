@@ -40,7 +40,7 @@ describe("Generate Schema", () => {
         type: ["glob", "boolean"],
         example: '`"main"` or `true`',
         default: false,
-        inConfigFileSchema: true,
+        supports: ["CLI", "CI", "config.json"],
       },
     ];
 
@@ -65,7 +65,7 @@ describe("Generate Schema", () => {
     });
   });
 
-  test("Only includes props with inConfigFileSchema set to true", async () => {
+  test("Only includes props when 'supports' contains 'config.json' set to true", async () => {
     const options: ConfigOption[] = [
       {
         option: "autoAcceptChanges",
@@ -75,7 +75,7 @@ describe("Generate Schema", () => {
         type: ["glob", "boolean"],
         example: '`"main"` or `true`',
         default: false,
-        inConfigFileSchema: true,
+        supports: ["CLI", "CI", "config.json"],
       },
       {
         option: "projectId",
@@ -83,6 +83,7 @@ describe("Generate Schema", () => {
           "The unique identifier for your project, sometimes referred to as `appId`.",
         type: "string",
         example: '`"Project:5d67dc0374b2e300209c41e7"`',
+        supports: ["CLI", "CI"],
       },
     ];
 
@@ -117,7 +118,7 @@ describe("Generate Schema", () => {
         type: ["glob", "boolean"],
         example: '`"main"` or `true`',
         default: false,
-        inConfigFileSchema: true,
+        supports: ["CLI", "CI", "config.json"],
       },
       {
         option: "projectId",
@@ -125,7 +126,7 @@ describe("Generate Schema", () => {
           "The unique identifier for your project, sometimes referred to as `appId`.",
         type: "string",
         example: '`"Project:5d67dc0374b2e300209c41e7"`',
-        inConfigFileSchema: true,
+        supports: ["CLI", "CI", "config.json"],
       },
     ];
 
@@ -144,8 +145,8 @@ describe("Generate Schema", () => {
         type: ["glob", "boolean"],
         example: '`"main"` or `true`',
         default: false,
-        inConfigFileSchema: true,
-        deprecated: "config-file",
+        supports: ["CLI", "CI", "config.json"],
+        deprecated: "config.json",
       },
     ];
 
@@ -181,7 +182,7 @@ describe("Generate Schema", () => {
         type: ["glob", "boolean"],
         example: '`"main"` or `true`',
         default: false,
-        inConfigFileSchema: true,
+        supports: ["CLI", "CI", "config.json"],
         deprecated: "all",
       },
     ];
@@ -215,7 +216,8 @@ describe("Generate Schema", () => {
         description:
           "If there are any changes to the [build](/docs/build), automatically accept them. Only for given branch, if specified.",
         type: "string",
-        inConfigFileSchema: true,
+        example: "",
+        supports: ["CLI", "CI", "config.json"],
       },
     ];
 

@@ -9,11 +9,17 @@ import ConfigurationOptions from "../../components/ConfigurationOptions.astro";
 
 # Configuration reference
 
-These options control how Chromatic behaves. See also [**branching docs**](/docs/branching-and-baselines) and [diagnosing issues](#diagnosing-issues) for when to use some of these flags. Some options are only available as a flag or as an input to the GitHub Action.
+These options control how Chromatic behaves via the [CLI](/docs/cli), [config file](/docs/cli#chromatic-config-file) and the [Github Action](/docs/github-actions).
 
-Flags must be passed as `--kebab-case` whereas options are `camelCase`. Flags take precedence over configuration options. When passing a flag without value, it is treated as true. Where an array is accepted, specify the flag multiple times (once for each value).
+Note that the config file only supports a subset of these options, while others are exclusive to either the CLI or the GitHub Action inputs. The following section tags each option with the appropriate context.
+
+Some options are only available as a flag or as an input to the GitHub Action.
+
+See also [branching docs](/docs/branching-and-baselines) and [diagnosing CLI issues](/docs/cli/#flags-to-help-diagnose-build-issues-with-the-cli) for when to use some of these flags.
 
 ## Options
+
+CLI flags must be passed as `--kebab-case` whereas options are `camelCase`. Flags take precedence over configuration options. When passing a flag without value, it is treated as true. Where an array is accepted, specify the flag multiple times (once for each value).
 
 <ConfigurationOptions />
 

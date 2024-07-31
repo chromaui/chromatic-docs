@@ -9,7 +9,10 @@ import {
   VStack,
 } from "@chromatic-com/tetra";
 import { styled } from "@storybook/theming";
-import type { ConfigOption as ConfigOptionType } from "../../chromatic-config/generate-schema";
+import type {
+  ConfigOption as ConfigOptionType,
+  SupportedType,
+} from "../../chromatic-config/generate-schema";
 
 const Name = styled.h3`
   font-family: ${fontFamily.mono};
@@ -18,18 +21,14 @@ const Name = styled.h3`
     margin: 0 0 ${spacing[1]} 0;
   }
 
-  > a.autolink-header {
+  & > a.anchorjs-link {
     width: 14px;
     height: 14px;
     display: flex;
     align-items: center;
     justify-content: center;
-    transition: opacity 0.2s ease-in-out;
-    opacity: 0;
   }
 `;
-
-export type SupportedType = "CI" | "CLI" | "config.json";
 
 const FormattedType = ({ value }: { value: string | string[] }) => {
   if (value === "array of glob") {
