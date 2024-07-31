@@ -11,9 +11,10 @@ export const formatOption = async (option: ConfigOptionType) => {
     option: option.option || option.flag,
     description: await markdown(option.description),
     example: await markdown(option.example),
-    default: option.default
-      ? `<code>${option.default}</code>`
-      : option.defaultComment,
+    default:
+      option.default !== undefined
+        ? `<code>${option.default}</code>`
+        : option.defaultComment,
   };
 };
 
