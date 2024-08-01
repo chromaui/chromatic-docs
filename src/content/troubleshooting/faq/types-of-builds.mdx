@@ -5,22 +5,25 @@ title: What type of builds are there?
 section: ci
 ---
 
-# What type of builds are there?
+# What are the different type of Chromatic builds?
 
-There are **infrastructure** builds, **local** builds, and **standard** builds.
+## Standard build
 
-An infrastructure build involves an infrastructure upgrade. 
-It snapshots your baselines and recent changes in the updated browser environment to prevent false positives. 
-You can read more about our infrastructure upgrades in our capture release notes here: https://www.chromatic.com/docs/infrastructure-release-notes/
+The standard Chromatic build triggered by the [CLI](/docs/cli) or via [CI](/docs/ci). Chromatic captures a snapshots of all your test and compares them to baselines.
+
+## Infrastructure build
+
+An infrastructure build involves an [infrastructure upgrade](/docs/infrastructure-upgrades/#infrastructure-upgrades). It snapshots your baselines and recent changes in the updated browser environment to prevent false positives. You can read more about our infrastructure upgrades in our [capture release notes](/docs/infrastructure-release-notes/).
 
 When a standard build goes through an infrastructure upgrade, Chromatic creates a duplication of the main branch.
 This is called an infrastructure build. Please note that the build number will remain the same.
 
 ![Infrastructure Build](../../../images/infrastructure-build.png)
 
-A local build is generated using the Visual Test Addon to run Chromatic on Storybook locally. 
-Updating the baselines in local builds only affects other local builds on a given branch. This allows you to iterate quickly in development without affecting teammates.
+## Local build
 
-You can learn more about the Visual Test Addon here: https://www.chromatic.com/docs/visual-tests-addon/#installation
+A local build is generated using the [Visual Test Addon](/docs/visual-tests-addon/) to run Chromatic from within Storybook.
+
+Updating the baselines in local builds only affects other local builds on a given branch. This allows you to iterate quickly in development without affecting teammates.
 
 ![Local Build](../../../images/local-build.png)
