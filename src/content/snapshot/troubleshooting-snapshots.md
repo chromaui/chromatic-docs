@@ -166,9 +166,9 @@ export default {
 </details>
 
 <details>
-<summary>Why are components that render in a portal (tooltip, modal, menu) getting cut off?</summary>
+<summary>Why are components that render in a portal (tooltip, modal, popover, menu) getting cut off?</summary>
 
-Portals allow components to render arbitrary elements outside the parent component's initial DOM hierarchy. For example, tooltips, modals, and menus can be triggered by a nested button, but render close to the top of the DOM hierarchy using portals.
+Portals allow components to render arbitrary elements outside the parent component's initial DOM hierarchy. For example, tooltips, modals, popovers, and menus can be triggered by a nested button, but render close to the top of the DOM hierarchy using portals.
 
 However, when using Chromatic to capture snapshots of your component, it relies on the "natural" height of your component's outermost DOM element (using Storybook's `#storybook-root` element in version 7 or higher, or the `#root` element for previous versions) to determine snapshot dimensions. As portals render outside of Storybook's DOM tree, their dimensions cannot be auto-detected by Chromatic, which can lead to cut-off snapshots.
 
