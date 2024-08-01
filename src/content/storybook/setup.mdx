@@ -342,3 +342,23 @@ For each detected issue, it offers detailed descriptions, references, and sugges
 You can add the Storybook [ESlint plugin](https://www.npmjs.com/package/eslint-plugin-storybook) to help you debug Storybook syntax issues and comply with best practices.
 
 </details>
+
+<details>
+<summary>Why is my build failing with the message <code>✖ Failed to build Storybook</code>?</summary>
+
+To debug an issue with your Storybook project, run the commands below locally and confirm all stories are loading correctly without console log errors and warnings.
+
+```shell
+​npm run build-storybook
+npx http-server storybook-static -o
+```
+
+Use the same method to debug the following errors:
+
+`✖ Failed to verify your Storybook`
+
+`✖ Failed to publish your built Storybook`
+
+`✖ Failed to publish build - Failed to extract stories from your Storybook`
+
+</details>
