@@ -1,27 +1,25 @@
 ---
-layout: "../../../layouts/FAQLayout.astro"
+layout: '../../../layouts/FAQLayout.astro'
 sidebar: { hide: true }
 title: What is the difference between a 'Test' and a 'Snapshot'?
-section: "uiTestsAndReview"
+section: 'uiTestsAndReview'
 ---
 
-# What's the difference between a 'Test' and a 'Snapshot'??
+# What is the difference between a 'Test' and a 'Snapshot'??
 
 A test is the expression of a piece of UI in a specific state. Chromatic uses tests to verify [visual appearance](/docs) and [UI functionality](/docs/interactions). By default, Chromatic uses your Storybook stories as tests. If you're integrating [Playwright](/docs/playwright) or [Cypress](/docs/cypress), Chromatic reuses your existing E2E tests for visual verification.
 
-A [snapshot](/docs/snapshots) is an image of a test that is captured by our Capture Cloud infrastructure. A test can have [multiple snapshots](/docs/billing/#snapshots) for dimensions like browsers, themes, and viewports. 
+A [snapshot](/docs/snapshots) is an image of a test that is captured by our Capture Cloud infrastructure. A test can have [multiple snapshots](/docs/billing/#snapshots) for dimensions like browsers, themes, and viewports.
 
 ## Snapshots vs TurboSnaps
+
 [TurboSnaps](/docs/turbosnap/#pricing) are snapshots we've copied over from existing baselines that have no code changes. Since TurboSnaps require fewer resouces, we bill them at 1/5th of the cost of a regular snapshot.
 
 If you've enabled TurboSnap, each build will show a count of snapshots and TurboSnaps used.
 ![TurboSnap indicator](../../../images/build-turbosnap.png)
 
-
 The scenario below shows how billable snapshots are calculated when your tests run across multiple browsers and include TurboSnaps and regular snapshots.
 
-| Test count |  Browsers   | Viewports   | TurboSnaps |  Snapshots | Billable Snapshots |
-| ---------- |  ---------- | ----------- | --------------- | --------------- | --------------- |
-| 10 tests     |  2 browsers  | 1 viewport  | 10 TurboSnaps    | 20 snapshots    | 22 billable snapshots |
-
-
+| Test count | Browsers   | Viewports  | TurboSnaps    | Snapshots    | Billable Snapshots    |
+| ---------- | ---------- | ---------- | ------------- | ------------ | --------------------- |
+| 10 tests   | 2 browsers | 1 viewport | 10 TurboSnaps | 20 snapshots | 22 billable snapshots |
