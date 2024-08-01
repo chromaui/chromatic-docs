@@ -7,4 +7,8 @@ section: "uiTestsAndReview"
 
 # How do we run an interaction test when snapshots are disabled for a story?
 
-The `disableSnapshot` parameter will prevent Chromatic from capturing the snapshot. When you disable the snapshots, the Interaction tests are automatically disabled. The interaction indicator on your builds page will only be relevant to the snapshotted stories.
+The `disableSnapshot` parameter disables snapshotting and interaction testing for a test. If you've disabled snapshotting for all your tests, Chromatic will no longer show an "Interaction" indicator beside the test table on the Build page. 
+
+![Confirm interaction test run in the build summary](../../../images/interaction-test-buildsummary-confirm.png)
+
+If you want to run Interaction tests without snapshotting, try setting up the [Storybook test-runner](https://storybook.js.org/docs/writing-tests/interaction-testing#execute-tests-with-the-test-runner) in CI. Note, this involves running your own browser infrastructure. 
