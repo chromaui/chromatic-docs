@@ -15,8 +15,10 @@ Note that the config file only supports a subset of these options. Some of the o
 file. The next section tags each option with the appropriate context.
 
 <div class="aside">
-  **Glob Types**: Where supported, globs are handled via [picomatch]. You can
-  verify your glob pattern using the
+  **Glob Types**: Where supported, globs are handled via
+  [picomatch](https://www.npmjs.com/package/picomatch#globbing-features). To
+  learn refer to our [guide on globs](/docs/globs) and to verify your glob
+  pattern use the
   [picomatch-playground](https://picomatch-playground-ebjlxm.csb.app/).
 </div>
 
@@ -78,5 +80,4 @@ The options listed below are no longer supported by our CLI and will not yield a
 | `--storybook-ca <ca>`      | Use with `--storybook-https`. Auto detected from the npm script when using `--script-name`.                                                   |
 | `--storybook-url <url>`    | Run against an online Storybook at some URL. This implies `--do-not-start`. Alias: `-u`                                                       |
 
-[picomatch]: https://www.npmjs.com/package/picomatch#globbing-features
 [https-proxy-agent]: https://www.npmjs.com/package/https-proxy-agent

@@ -23,10 +23,10 @@ To integrate Chromatic with your existing pipeline, you'll need to add the follo
 
     trigger:
       - main
-    
+
     pool:
       vmImage: 'ubuntu-latest'
-    
+
     stages:
       - stage: UI_Tests
         displayName: "UI Tests"
@@ -57,7 +57,7 @@ To integrate Chromatic with your existing pipeline, you'll need to add the follo
                   script: npx chromatic
                 env:
                   CHROMATIC_PROJECT_TOKEN: $(CHROMATIC_PROJECT_TOKEN)
-    ```   
+    ```
   </Fragment>
   <Fragment slot="playwright">
     ```yml
@@ -65,10 +65,10 @@ To integrate Chromatic with your existing pipeline, you'll need to add the follo
 
     trigger:
       - main
-    
+
     pool:
       vmImage: 'ubuntu-latest'
-    
+
     stages:
       - stage: UI_Tests
         displayName: "UI Tests"
@@ -101,8 +101,8 @@ To integrate Chromatic with your existing pipeline, you'll need to add the follo
                   CI: "true"
               - task: PublishPipelineArtifact@1
                 inputs:
-                  # Chromatic automatically defaults to the test-results directory. 
-                  # Replace with the path to your custom directory and adjust the CHROMATIC_ARCHIVE_LOCATION environment variable accordingly. 
+                  # Chromatic automatically defaults to the test-results directory.
+                  # Replace with the path to your custom directory and adjust the CHROMATIC_ARCHIVE_LOCATION environment variable accordingly.
                   targetPath: test-results
                   artifact: test-results
                   publishLocation: "pipeline"
@@ -141,18 +141,18 @@ To integrate Chromatic with your existing pipeline, you'll need to add the follo
                 env:
                   CHROMATIC_PROJECT_TOKEN: $(CHROMATIC_PROJECT_TOKEN)
                   CHROMATIC_ARCHIVE_LOCATION: "test-results"
-    ```   
+    ```
   </Fragment>
   <Fragment slot="cypress">
     ```yml
     # azure-pipelines.yml
-    
+
     trigger:
       - main
-    
+
     pool:
       vmImage: 'ubuntu-latest'
-    
+
     stages:
       - stage: UI_Tests
         displayName: "UI Tests"
@@ -189,8 +189,8 @@ To integrate Chromatic with your existing pipeline, you'll need to add the follo
                   ELECTRON_EXTRA_LAUNCH_ARGS: --remote-debugging-port=9222
               - task: PublishPipelineArtifact@1
                 inputs:
-                  # Chromatic automatically defaults to the cypress/downloads directory. 
-                  # Replace with the path to your custom directory and adjust the CHROMATIC_ARCHIVE_LOCATION environment variable accordingly. 
+                  # Chromatic automatically defaults to the cypress/downloads directory.
+                  # Replace with the path to your custom directory and adjust the CHROMATIC_ARCHIVE_LOCATION environment variable accordingly.
                   targetPath: cypress/downloads
                   artifact: test-results
                   publishLocation: "pipeline"
@@ -229,7 +229,7 @@ To integrate Chromatic with your existing pipeline, you'll need to add the follo
                 env:
                   CHROMATIC_PROJECT_TOKEN: $(CHROMATIC_PROJECT_TOKEN)
                   CHROMATIC_ARCHIVE_LOCATION: "cypress/downloads"
-    ```   
+    ```
   </Fragment>
 </IntegrationSnippets>
 
@@ -587,10 +587,10 @@ Read our [CLI documentation](/docs/cli#configuration-options).
 
 </div>
 
-To apply this to multiple branches, use an "extended glob". See [picomatch] for details.
+To apply this to multiple branches, use an "extended glob". See the [globs guide] for details.
 
 ```shell
 npx chromatic --skip '@(renovate/**|your-custom-branch/**)'
 ```
 
-[picomatch]: https://www.npmjs.com/package/picomatch#globbing-features
+[globs guide]: /docs/globs

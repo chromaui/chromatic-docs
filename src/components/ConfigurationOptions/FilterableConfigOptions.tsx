@@ -43,7 +43,7 @@ export const FilterableConfigOptions = ({
         <DropdownMenu
           label={
             <>
-              Filter based on platform
+              Filter by platform
               <Icon name="filter" aria-hidden size={12} />
             </>
           }
