@@ -95,6 +95,19 @@ External collaborators are added and removed manually. Once they create an accou
 
 External collaborator accounts cannot link the project to a repository on GitHub, Bitbucket, or GitLab.
 
+<details>
+<summary>How can I invite external collaborators to my SAML account?</summary>
+
+SAML accounts do not directly support **external collaborators**. However, we have an allowlist of email domains that can access Chromatic with SSO.
+
+We can add any email domain to the allowlist, as long as it is not a generic email address with `@gmail` or `@yahoo`. For example, if you have a contractor with an email like `person@storybook.org`, we can add `storybook.org` to the allowlist for your SAML account.
+
+Many companies add contractors as external users by creating specific domains for them, such as `person@chromatic-ext.com`, and then adding `chromatic-ext.com` to the allowlist.
+
+Send us the list of external collaborators via our **in-app chat** or email us at [support@chromatic.com](mailto:support@chromatic.com).
+
+</details>
+
 ### Roles
 
 Roles give you fine-grained control over who can do what. There are four roles that can be assigned to any collaborator.
