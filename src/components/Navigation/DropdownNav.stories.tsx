@@ -38,7 +38,7 @@ const mockSidebarItems: DropdownNavGroup[] = [
       {
         id: "ci.mdx",
         slug: "ci",
-        label: "CI",
+        label: "Github Action",
       },
       {
         id: "diff-inspector.mdx",

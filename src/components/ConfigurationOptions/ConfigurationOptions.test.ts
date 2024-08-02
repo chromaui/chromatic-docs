@@ -1,6 +1,6 @@
 import { expect, test, describe } from "vitest";
 import { formatOption } from "./ConfigurationOptions.astro";
-import type { ConfigOption } from "../../chromatic-config/generate-schema";
+import type { ConfigOption } from "../../../chromatic-config/generate-schema";
 
 const mockOption = {
   option: "projectToken",
@@ -10,8 +10,8 @@ const mockOption = {
     "The secret token for your project. Prefer to use `CHROMATIC_PROJECT_TOKEN` instead if you can. <br/>Use with `onlyChanged` and `storybookBuildDir` when using a custom [`--config-dir`](https://storybook.js.org/docs/api/cli-options#build) flag for Storybook.",
   type: "string",
   example: '`"chpt_b2aef0123456789"`',
-  supports: ["CLI", "CI", "config.json"],
-  deprecated: "config.json",
+  supports: ["CLI", "Github Action", "Config File"],
+  deprecated: "Config File",
 } as ConfigOption;
 
 describe("ConfigurationOptions: formatOption", () => {

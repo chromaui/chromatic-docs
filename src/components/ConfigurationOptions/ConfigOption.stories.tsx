@@ -19,7 +19,7 @@ type Story = StoryObj<ConfigOptionProps>;
 
 export const Basic: Story = {
   args: {
-    supports: ["CI", "CLI"],
+    supports: ["Github Action", "CLI"],
     option: "autoAcceptChanges",
     flag: "--auto-accept-changes",
     description:
@@ -84,14 +84,14 @@ export const Everything: Story = {
   args: {
     ...ShortFlag.args,
     default: '<code>"build-storybook.log"</code>',
-    supports: ["CI", "CLI", "config.json"],
+    supports: ["Github Action", "CLI", "Config File"],
   },
 };
 
 export const SupportsAll: Story = {
   args: {
     ...Basic.args,
-    supports: ["CI", "CLI", "config.json"],
+    supports: ["Github Action", "CLI", "Config File"],
   },
 };
 
@@ -115,6 +115,6 @@ export const OnlyCI: Story = {
       "If there are any changes to the build, automatically accept them. Only for given branch, if specified.",
     type: "string",
     example: '<code>"my-folder/**"</code>',
-    supports: ["CI"],
+    supports: ["Github Action"],
   },
 };

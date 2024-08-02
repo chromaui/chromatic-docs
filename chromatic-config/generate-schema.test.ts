@@ -40,7 +40,7 @@ describe("Generate Schema", () => {
         type: ["glob", "boolean"],
         example: '`"main"` or `true`',
         default: false,
-        supports: ["CLI", "CI", "config.json"],
+        supports: ["CLI", "Github Action", "Config File"],
       },
     ];
 
@@ -75,7 +75,7 @@ describe("Generate Schema", () => {
         type: ["glob", "boolean"],
         example: '`"main"` or `true`',
         default: false,
-        supports: ["CLI", "CI", "config.json"],
+        supports: ["CLI", "Github Action", "Config File"],
       },
       {
         option: "projectId",
@@ -83,7 +83,7 @@ describe("Generate Schema", () => {
           "The unique identifier for your project, sometimes referred to as `appId`.",
         type: "string",
         example: '`"Project:5d67dc0374b2e300209c41e7"`',
-        supports: ["CLI", "CI"],
+        supports: ["CLI", "Github Action"],
       },
     ];
 
@@ -118,7 +118,7 @@ describe("Generate Schema", () => {
         type: ["glob", "boolean"],
         example: '`"main"` or `true`',
         default: false,
-        supports: ["CLI", "CI", "config.json"],
+        supports: ["CLI", "Github Action", "Config File"],
       },
       {
         option: "projectId",
@@ -126,7 +126,7 @@ describe("Generate Schema", () => {
           "The unique identifier for your project, sometimes referred to as `appId`.",
         type: "string",
         example: '`"Project:5d67dc0374b2e300209c41e7"`',
-        supports: ["CLI", "CI", "config.json"],
+        supports: ["CLI", "Github Action", "Config File"],
       },
     ];
 
@@ -145,8 +145,8 @@ describe("Generate Schema", () => {
         type: ["glob", "boolean"],
         example: '`"main"` or `true`',
         default: false,
-        supports: ["CLI", "CI", "config.json"],
-        deprecated: "config.json",
+        supports: ["CLI", "Github Action", "Config File"],
+        deprecated: "Config File",
       },
     ];
 
@@ -182,7 +182,7 @@ describe("Generate Schema", () => {
         type: ["glob", "boolean"],
         example: '`"main"` or `true`',
         default: false,
-        supports: ["CLI", "CI", "config.json"],
+        supports: ["CLI", "Github Action", "Config File"],
         deprecated: "all",
       },
     ];
@@ -217,7 +217,7 @@ describe("Generate Schema", () => {
           "If there are any changes to the [build](/docs/build), automatically accept them. Only for given branch, if specified.",
         type: "string",
         example: "",
-        supports: ["CLI", "CI", "config.json"],
+        supports: ["CLI", "Github Action", "Config File"],
       },
     ];
 
