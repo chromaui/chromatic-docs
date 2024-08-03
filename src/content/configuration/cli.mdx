@@ -6,7 +6,6 @@ sidebar: { order: 2 }
 ---
 
 import { TabItem, Tabs } from "../../components/Tabs";
-import ConfigurationOptions from "../../components/ConfigurationOptions.astro";
 
 # Chromatic CLI
 
@@ -92,6 +91,7 @@ If you aren't using CI (yet), you just need the minimum setup:
 
 ```json title="chromatic.config.json"
 {
+  "$schema": "https://www.chromatic.com/config-file.schema.json",
   "projectId": "Project:..."
 }
 ```
@@ -100,6 +100,7 @@ A full-featured `./chromatic.config.json` file in a CI workflow where all change
 
 ```json title="chromatic.config.json"
 {
+  "$schema": "https://www.chromatic.com/config-file.schema.json",
   "projectId": "Project:...",
   "autoAcceptChanges": "main",
   "exitOnceUploaded": true,
@@ -113,10 +114,24 @@ For unlinked projects that rely on the CI script to report build results, the re
 
 ```json title="chromatic.config.json"
 {
+  "$schema": "https://www.chromatic.com/config-file.schema.json",
   "projectId": "Project:...",
   "externals": ["public/**"],
   "junitReport": true,
   "onlyChanged": true
+}
+```
+
+#### JSON schema for the config file
+
+We provide a JSON schema for the Chromatic config file at: https://www.chromatic.com/config-file.schema.json. You can use this schema to validate your configuration file directly in your editor. To enable this, add the following to your settings.json.
+
+This will give you IntelliSense suggestions as you type, and your editor will perform both structural and value verification.
+
+```json title="chromatic.config.json"
+{
+  "$schema": "https://www.chromatic.com/config-file.schema.json"
+  /* ... config options */
 }
 ```
 
