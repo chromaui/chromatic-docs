@@ -1,11 +1,30 @@
 ---
-const { name } = Astro.props;
+const { name, integration } = Astro.props;
 ---
 
 <div class="callout">
-  ℹ️ The <code>chromatic.{name}</code> parameter can be set at story, component,
-  and project levels. This enables you to set project wide defaults and override
-  them for specific components and/or stories. <a
-    href="/docs/config-with-story-params">Learn more »</a
-  >
+  {
+    integration === "storybook" ? (
+      <>
+        ℹ️ The <code>chromatic.{name}</code> parameter can be set at story,
+        component, and project levels. This enables you to set project wide
+        defaults and override them for specific components and/or stories.{" "}
+        <a href="/docs/config-with-story-params">Learn more »</a>
+      </>
+    ) : integration === "playwright" ? (
+      <>
+        ℹ️ The <code>{name}</code> configuration option can be set at the
+        project level or the test level. This enables you to set project wide
+        defaults and override them for specific tests.{" "}
+        <a href="/docs/playwright/configure">Learn more »</a>
+      </>
+    ) : integration === "cypress" ? (
+      <>
+        ℹ️ The <code>{name}</code> configuration option can be set at the
+        project level or the test level. This enables you to set project wide
+        defaults and override them for specific tests.{" "}
+        <a href="/docs/cypress/configure">Learn more »</a>
+      </>
+    ) : null
+  }
 </div>
