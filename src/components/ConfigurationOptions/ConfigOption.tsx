@@ -65,9 +65,7 @@ const ConfigOptionContainer = styled(VStack)`
   margin-bottom: ${spacing[12]};
 `;
 
-const Item = styled(HStack)`
-  width: 60%;
-`;
+const Item = styled(HStack)``;
 
 const Tag = styled.div<{ type: SupportedType }>`
   padding: ${spacing[1]} ${spacing[2]};
