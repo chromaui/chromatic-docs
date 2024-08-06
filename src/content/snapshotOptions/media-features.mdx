@@ -15,7 +15,7 @@ CSS media features enable developers to create responsive designs and adapt layo
 
 The [`forced-colors`](https://developer.mozilla.org/en-US/docs/Web/CSS/@media/forced-colors) CSS media feature enables developers to create accessible websites for users with visual impairments. It detects high-contrast mode and color preferences ensuring that websites and applications are legible and accessible. To test it in Chromatic, add the `forcedColors` option to the `chromatic` parameter:
 
-<ParamsCallout name="forcedColors" />
+<ParamsCallout name="forcedColors" integration="storybook" />
 
 ```js
 // MyComponent.stories.js|jsx
@@ -44,7 +44,7 @@ The `forcedColors` option supports the following values:
 
 The [`prefers-reduced-motion`](https://developer.mozilla.org/en-US/docs/Web/CSS/@media/prefers-reduced-motion) CSS media feature enables developers to check whether the user enabled a preference for reduced motion animations. Primarily used to create a more inclusive user experience for people who may experience discomfort or nausea when viewing animations that involve rapid movement. To test it in Chromatic, add the `prefersReducedMotion` option to the `chromatic` parameter:
 
-<ParamsCallout name="prefersReducedMotion" />
+<ParamsCallout name="prefersReducedMotion" integration="storybook" />
 
 ```js
 // MyComponent.stories.js|jsx
@@ -73,7 +73,7 @@ The `prefersReducedMotion` option supports the following values:
 
 The [`print`](https://developer.mozilla.org/en-US/docs/Web/CSS/@media/print) CSS media feature enables developers to create print styles for web pages. To test it in Chromatic, set the `media` option to `print` in the `chromatic` [parameter](https://storybook.js.org/docs/writing-stories/parameters):
 
-<ParamsCallout name="media" />
+<ParamsCallout name="media" integration="storybook" />
 
 ```js
 // MyComponent.stories.js|jsx
