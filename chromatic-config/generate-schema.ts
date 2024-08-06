@@ -84,7 +84,7 @@ interface Schema {
 export async function createSchemaDef(configOptions: ConfigOption[]) {
   const schemaDef: Schema = {
     $schema: "https://json-schema.org/draft/2020-12/schema",
-    $id: "https://chromatic.com/docs/chromatic-config.schema.json",
+    $id: "https://www.chromatic.com/config-file.schema.json",
     additionalProperties: false,
     $defs: {
       "string-or-boolean": {

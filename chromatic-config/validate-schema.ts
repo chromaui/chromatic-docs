@@ -112,6 +112,6 @@ runValidation("With deprecated projectToken", {
 });
 
 runValidation("With schema defined inline", {
-  $schema: "https://chromatic.com/docs/chromatic-config.schema.json",
+  $schema: "https://www.chromatic.com/config-file.schema.json",
   projectId: "Project:...",
 });
