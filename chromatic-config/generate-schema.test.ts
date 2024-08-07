@@ -85,6 +85,14 @@ describe("Generate Schema", () => {
         example: '`"Project:5d67dc0374b2e300209c41e7"`',
         supports: ["CLI", "Github Action"],
       },
+      {
+        option: "projectId",
+        description:
+          "The unique identifier for your project, sometimes referred to as `appId`.",
+        type: "string",
+        example: '`"Project:5d67dc0374b2e300209c41e7"`',
+        supports: [],
+      },
     ];
 
     const schema = await createSchemaDef(options);

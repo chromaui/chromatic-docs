@@ -66,15 +66,19 @@ For Playwright and Cypress, we recommend installing the chromatic package as a d
 
 Chromatic CLI can be configured through options in `./chromatic.config.json` file (recommended) placed at the root of your project folder and/or by passing CLI flags.
 
-Note: some options are only available as flags. For a full list of available options, please refer to the [configuration options](/configuration-options) page.
+<div class="aside">
+  Note: some options are only available as flags. For a full list of available
+  options, please refer to the [configuration options](/configuration-options)
+  page.
+</div>
 
 Flags must be passed as `--kebab-case` whereas options are `camelCase`. Flags take precedence over configuration options. When passing a flag without value, it is treated as `true`. Where an array is accepted, specify the flag multiple times (once for each value).
 
 ### Flags
 
-- Flags take precedence over options specified in config file and GitHub Action.
+- Flags take precedence over options specified in the config file and GitHub Action.
 
-- When passing a flag without value, it is treated as `true`. e.g.:
+- Passing a flag without value is treated as `true`. e.g.:
   ```sh
   $ npx chromatic --dry-run -t <your-project-token>
   ```
@@ -137,11 +141,11 @@ This will give you IntelliSense suggestions as you type, and your editor will pe
 
 ## Authentication
 
-Chromatic builds are authenticated using the secret `project-token` for your project. You can access you project token from the Chromatic website during onboarding or from your project's Manage page.
+Chromatic builds are authenticated using your project's secret `project token`. You can access your project token from the Chromatic website during onboarding or from your project's Manage page.
 
 #### Continuous Integration
 
-For setting up CI, store your project token as the `CHROMATIC_PROJECT_TOKEN` environment variable or secret. The CLI automatically picks up the `CHROMATIC_PROJECT_TOKEN` environment variable so you won't have to explicitly provide it.
+To set up CI, store your project token as the `CHROMATIC_PROJECT_TOKEN` environment variable or secret. The CLI automatically recognizes this variable, so you won't have to provide it explicitly.
 
 #### Visual Tests addon
 
@@ -208,6 +212,6 @@ If you've configured the Chromatic CLI to run with one of the Git environment va
 - `--dry-run`: Use this if you want to debug the CLI without actually publishing your Storybook or running a Chromatic build. Typically you'd pair this with `--diagnostics-file`.
 - `--debug`: This enables verbose logging and `--no-interactive`. Use this if you want to see the nitty-gritty details. Primarily useful if you have issues publishing (uploading) your Storybook to Chromatic.
 - `--trace-changed`: Specifically for TurboSnap, you can use this flag to get a printed tree view of the dependencies between changed files (according to Git) and your story files.
-- `--only-story-names`: If you have some specific stories which are causing problems, you can use this flag to run a build for just those stories (one or more). If you don't know which stories are available, you can use `--list` to print a list of all stories in your Storybook, though it will require running a Chromatic build.
+- `--only-story-names`: If you have specific stories causing problems, you can use this flag to run a build for just those stories (one or more). If you don't know which stories are available, you can use `--list` to print a list of all stories in your Storybook, though it will require running a Chromatic build.
 
 </details>

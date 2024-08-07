@@ -7,8 +7,14 @@ const meta = {
   title: "Components/DropdownNav",
   component: DropdownNav,
   parameters: {
-    viewport: {
-      defaultViewport: "mobile2",
+    chromatic: {
+      modes: {
+        largeMobile: {
+          viewport: {
+            width: 414,
+          },
+        },
+      },
     },
   },
 } satisfies Meta<typeof DropdownNav>;

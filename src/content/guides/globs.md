@@ -1,7 +1,7 @@
 ---
 layout: "../../layouts/Layout.astro"
 title: Globs
-description: Learn how to use Storybook parameters to configure Chromatic features at the project, component, and story level
+description: Learn how to use glob patterns with the Chromatic`, including examples of how to exclude specific files or directories from testing.
 sidebar: { order: 9 }
 ---
 
@@ -9,7 +9,7 @@ sidebar: { order: 9 }
 
 Chromatic options like `onlyStoryFiles` and `externals` allow you to include or exclude specific files or directories. You can specify a single file, a list using an array or by passing the CLI flag multiple times. Additionally, you can use wildcard characters known as [glob patterns](https://code.visualstudio.com/docs/editor/glob-patterns) to define sets of files or directories.
 
-Chromatic handles globs using [picomatch](https://www.npmjs.com/package/picomatch). Refer to the [picomatch documentation](https://github.com/micromatch/picomatch?tab=readme-ov-file#globbing-features) for a complete overview of the syntax.
+Chromatic handles globs using [picomatch](https://www.npmjs.com/package/picomatch). For a complete overview of the syntax, refer to the [picomatch documentation](https://github.com/micromatch/picomatch?tab=readme-ov-file#globbing-features).
 
 ## How to verify your glob pattern
 
@@ -65,7 +65,7 @@ src/core/api/design-desk-template-api/design-desk-template-api-fixtures/design-d
 src/core/api/report-definition-api/report-definition-api-fixtures.ts
 ```
 
-Below are different scenarios that demonstrate how to use globs to include or exclude files or directories. Try copy and pasting the examples into the `Glob string` text box of the playground to see the results.
+Below are different scenarios that demonstrate how to use globs to include or exclude files or directories. Try copying and pasting the examples into the `Glob string` text box of the playground to see the results.
 
 ### Scenario 1: Exclude all files in the `.stories` directory
 
