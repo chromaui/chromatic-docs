@@ -10,7 +10,7 @@ import type {
 } from "../../../chromatic-config/generate-schema";
 import { useMemo, useState } from "react";
 
-interface FilterableConfigOptionsProps {
+export interface FilterableConfigOptionsProps {
   options: ConfigOptionType[];
 }
 
@@ -21,6 +21,8 @@ type Filters = {
 export const FilterableConfigOptions = ({
   options,
 }: FilterableConfigOptionsProps) => {
+  console.log(options.slice(0, 4));
+
   const [filters, setFilters] = useState<Filters>({
     CLI: true,
     "Github Action": true,
@@ -74,6 +76,12 @@ export const FilterableConfigOptions = ({
           </DropdownMenuCheckboxItem>
         </DropdownMenu>
       </p>
+      {filteredOptions.length === 0 && (
+        <p className="callout">
+          No options found. Please make sure you've selected at least one
+          platform from the "Filter by platform" dropdown above.
+        </p>
+      )}
       {filteredOptions.map((option) => (
         <ConfigOption {...option} />
       ))}
