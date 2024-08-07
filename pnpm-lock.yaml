@@ -65,6 +65,9 @@ importers:
       hast-util-select:
         specifier: ^6.0.2
         version: 6.0.2
+      playwright-core:
+        specifier: ^1.46.0
+        version: 1.46.0
       react:
         specifier: ^18.2.0
         version: 18.2.0
@@ -3604,8 +3607,8 @@ packages:
     resolution: {integrity: sha512-HRDzbaKjC+AOWVXxAU/x54COGeIv9eb+6CkDSQoNTt4XyWoIJvuPsXizxu/Fr23EiekbtZwmh1IcIG/l/a10GQ==}
     engines: {node: '>=8'}
 
-  playwright-core@1.45.1:
-    resolution: {integrity: sha512-LF4CUUtrUu2TCpDw4mcrAIuYrEjVDfT1cHbJMfwnE2+1b8PZcFzPNgvZCvq2JfQ4aTjRCCHw5EJ2tmr2NSzdPg==}
+  playwright-core@1.46.0:
+    resolution: {integrity: sha512-9Y/d5UIwuJk8t3+lhmMSAJyNP1BUC/DqP3cQJDQQL/oWqAiuPTLgy7Q5dzglmTLwcBRdetzgNM/gni7ckfTr6A==}
     engines: {node: '>=18'}
     hasBin: true
 
@@ -8066,7 +8069,7 @@ snapshots:
     dependencies:
       '@fortawesome/fontawesome-free': 6.5.2
       mermaid: 10.9.1
-      playwright-core: 1.45.1
+      playwright-core: 1.46.0
     transitivePeerDependencies:
       - supports-color
 
@@ -8720,7 +8723,7 @@ snapshots:
     dependencies:
       find-up: 4.1.0
 
-  playwright-core@1.45.1: {}
+  playwright-core@1.46.0: {}
 
   postcss@8.4.38:
     dependencies:
