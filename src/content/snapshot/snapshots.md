@@ -7,7 +7,9 @@ sidebar: { order: 1 }
 
 # Snapshots
 
-A snapshot is an image of a story plus some metadata captured by a standardized browser in Chromatic's Capture Cloud infrastructure. Snapshots power [UI Tests](/docs/test) and [UI Review](/docs/review).
+A snapshot is an image of a test plus some metadata captured by a standardized browser in Chromatic's Capture Cloud infrastructure. Snapshots power [UI Tests](/docs/test) and [UI Review](/docs/review).
+
+By default, Chromatic uses your Storybook stories as tests. If you’re integrating Playwright or Cypress, Chromatic reuses your existing E2E tests for visual verification.
 
 <div class="aside">
 
