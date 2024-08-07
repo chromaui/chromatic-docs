@@ -9,15 +9,12 @@ const NavDropdownMenu = styled(DropdownMenu)`
   }
 `;
 
-interface DropdownNavGroup {
+export interface DropdownNavGroup {
   title: string;
   items: {
     id: string;
     slug: string;
-    breadcrumb: string;
     label: string;
-    href: string;
-    isActive: boolean;
   }[];
 }
 

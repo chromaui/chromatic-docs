@@ -1,6 +1,7 @@
 ---
 import Analytics from "./Analytics.astro";
 
+const baseUrl = import.meta.env.BASE_URL;
 const isProduction = import.meta.env.MODE === "production";
 ---
 
@@ -10,3 +11,14 @@ const isProduction = import.meta.env.MODE === "production";
   href="https://fonts.googleapis.com/css?family=Nunito+Sans:400,700,800&display=swap"
 />
 {isProduction && <Analytics />}
+<!--
+  Adds on-hover anchors to headings: see https://www.bryanbraun.com/anchorjs/
+  Only using it for summary tags.
+  Using rehype-autolink-headings for headings
+-->
+<script is:inline src={`${baseUrl}/anchor.min.js`}></script>
+<script is:inline>
+  window.onload = function () {
+    anchors.add("summary:not(.no-anchor), .config-option");
+  };
+</script>

@@ -154,4 +154,6 @@ The sidebar order is used to rank pages in search results. And the search result
 
 The Chromatic configuration options and schema are maintained in the `chromatic-config/options.json` file. This file is used to generate the Chromatic configuration options docs and the schema file.
 
-Options are not included in the schema file by default, only the ones with `inConfigFileSchema` set to `true` are included. To deprecate an option, set `deprecated` to `config-file` or `all`.
+Options are not included in the schema file by default. You have to add `"Config File"` to the `"supports"` array. eg: `"supports": ["CLI", "Github Action", "Config File"],`
+
+To deprecate an option, set `deprecated` to `config.json` or `all`.

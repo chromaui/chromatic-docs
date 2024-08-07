@@ -67,7 +67,7 @@ In your `.github/workflows` directory, create a new file called `chromatic.yml` 
               fetch-depth: 0
           - uses: actions/setup-node@v4
             with:
-              node-version: 20    
+              node-version: 20
           - name: Install dependencies
             # ⚠️ See your package manager's documentation for the correct command to install dependencies in a CI environment.
             run: npm ci
@@ -78,8 +78,8 @@ In your `.github/workflows` directory, create a new file called `chromatic.yml` 
           - uses: actions/upload-artifact@v4
             if: always()
             with:
-              # Chromatic automatically defaults to the test-results directory. 
-              # Replace with the path to your custom directory and adjust the CHROMATIC_ARCHIVE_LOCATION environment variable accordingly. 
+              # Chromatic automatically defaults to the test-results directory.
+              # Replace with the path to your custom directory and adjust the CHROMATIC_ARCHIVE_LOCATION environment variable accordingly.
               name: test-results
               path: ./test-results
               retention-days: 30
@@ -142,11 +142,11 @@ In your `.github/workflows` directory, create a new file called `chromatic.yml` 
             uses: cypress-io/github-action@v6
             env:
               ELECTRON_EXTRA_LAUNCH_ARGS: "--remote-debugging-port=9222"
-            with: 
+            with:
               start: npm run dev
           - uses: actions/upload-artifact@v4
             with:
-              # Chromatic automatically defaults to the cypress/downloads directory. 
+              # Chromatic automatically defaults to the cypress/downloads directory.
               # Replace with the path to your custom directory and adjust the CHROMATIC_ARCHIVE_LOCATION environment variable accordingly.
               name: test-results
               path: ./cypress/downloads
@@ -433,7 +433,7 @@ Multiple file patterns can also be provided as follows:
 
 <div class="aside">
 
-The `externals` option also accept additional glob patterns defined via [picomatch].
+The `externals` option also accept additional glob patterns defined via [picomatch](https://github.com/micromatch/picomatch?tab=readme-ov-file#globbing-features). See the [globs guide] for more info.
 
 </div>
 
@@ -630,7 +630,7 @@ jobs:
           skip: "dependabot/**" # 👈 Option to skip Chromatic for certain branches
 ```
 
-To apply this to multiple branches, use an "extended glob". See [picomatch] for details.
+To apply this to multiple branches, use an "extended glob". See the [globs guide] for details.
 
 ```yml
 skip: "@(renovate/**|dependabot/**)"
@@ -642,7 +642,7 @@ Read our official [CLI documentation](/docs/cli#configuration-options).
 
 </div>
 
-[picomatch]: https://www.npmjs.com/package/picomatch#globbing-features
+[globs guide]: /docs/globs
 [TurboSnap]: /docs/turbosnap
 
 #### Skip Chromatic in a Monorepo when no UI files have changed

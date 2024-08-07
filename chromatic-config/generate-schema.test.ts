@@ -4,7 +4,7 @@ import type { ConfigOption } from "./generate-schema";
 
 const schemaBase = {
   $schema: "https://json-schema.org/draft/2020-12/schema",
-  $id: "https://chromatic.com/docs/chromatic-config.schema.json",
+  $id: "https://www.chromatic.com/config-file.schema.json",
   additionalProperties: false,
   $defs: {
     "string-or-boolean": {
@@ -40,7 +40,7 @@ describe("Generate Schema", () => {
         type: ["glob", "boolean"],
         example: '`"main"` or `true`',
         default: false,
-        inConfigFileSchema: true,
+        supports: ["CLI", "Github Action", "Config File"],
       },
     ];
 
@@ -65,7 +65,7 @@ describe("Generate Schema", () => {
     });
   });
 
-  test("Only includes props with inConfigFileSchema set to true", async () => {
+  test("Only includes props when 'supports' contains 'config.json' set to true", async () => {
     const options: ConfigOption[] = [
       {
         option: "autoAcceptChanges",
@@ -75,7 +75,7 @@ describe("Generate Schema", () => {
         type: ["glob", "boolean"],
         example: '`"main"` or `true`',
         default: false,
-        inConfigFileSchema: true,
+        supports: ["CLI", "Github Action", "Config File"],
       },
       {
         option: "projectId",
@@ -83,6 +83,15 @@ describe("Generate Schema", () => {
           "The unique identifier for your project, sometimes referred to as `appId`.",
         type: "string",
         example: '`"Project:5d67dc0374b2e300209c41e7"`',
+        supports: ["CLI", "Github Action"],
+      },
+      {
+        option: "projectId",
+        description:
+          "The unique identifier for your project, sometimes referred to as `appId`.",
+        type: "string",
+        example: '`"Project:5d67dc0374b2e300209c41e7"`',
+        supports: [],
       },
     ];
 
@@ -117,7 +126,7 @@ describe("Generate Schema", () => {
         type: ["glob", "boolean"],
         example: '`"main"` or `true`',
         default: false,
-        inConfigFileSchema: true,
+        supports: ["CLI", "Github Action", "Config File"],
       },
       {
         option: "projectId",
@@ -125,7 +134,7 @@ describe("Generate Schema", () => {
           "The unique identifier for your project, sometimes referred to as `appId`.",
         type: "string",
         example: '`"Project:5d67dc0374b2e300209c41e7"`',
-        inConfigFileSchema: true,
+        supports: ["CLI", "Github Action", "Config File"],
       },
     ];
 
@@ -144,8 +153,8 @@ describe("Generate Schema", () => {
         type: ["glob", "boolean"],
         example: '`"main"` or `true`',
         default: false,
-        inConfigFileSchema: true,
-        deprecated: "config-file",
+        supports: ["CLI", "Github Action", "Config File"],
+        deprecated: "Config File",
       },
     ];
 
@@ -181,7 +190,7 @@ describe("Generate Schema", () => {
         type: ["glob", "boolean"],
         example: '`"main"` or `true`',
         default: false,
-        inConfigFileSchema: true,
+        supports: ["CLI", "Github Action", "Config File"],
         deprecated: "all",
       },
     ];
@@ -215,7 +224,8 @@ describe("Generate Schema", () => {
         description:
           "If there are any changes to the [build](/docs/build), automatically accept them. Only for given branch, if specified.",
         type: "string",
-        inConfigFileSchema: true,
+        example: "",
+        supports: ["CLI", "Github Action", "Config File"],
       },
     ];
 

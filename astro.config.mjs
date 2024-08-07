@@ -12,6 +12,7 @@ import {
   transformerNotationDiff,
 } from "@shikijs/transformers";
 import rehypeRaw from "rehype-raw";
+import codeTitle from "remark-code-title";
 import { summarySlug } from "./src/summary-slug";
 import { schemaIntegration } from "./chromatic-config/schema-integration";
 
@@ -22,6 +23,7 @@ export default defineConfig({
   trailingSlash: "never",
   markdown: {
     syntaxHighlight: false,
+    remarkPlugins: [codeTitle],
     rehypePlugins: [
       rehypeSlug,
       [

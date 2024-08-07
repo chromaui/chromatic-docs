@@ -1,6 +1,25 @@
 import { css } from "@storybook/theming";
 
 export const syntaxHighlighting = css`
+  [data-remark-code-title] {
+    margin-top: 2em;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+    padding: 1rem;
+    font-size: 14px;
+    font-family: monospace;
+    line-height: 1;
+    background: #f8f8f8;
+    color: #6a737d;
+    border-top-left-radius: 4px;
+    border-top-right-radius: 4px;
+
+    & + pre {
+      margin-top: 0;
+      border-top-left-radius: 0;
+      border-top-right-radius: 0;
+    }
+  }
+
   div[class*="language-"] {
     margin: 1.5em 0;
 

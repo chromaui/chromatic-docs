@@ -4,15 +4,19 @@ import strip from "strip-markdown";
 import RemarkLinkRewrite from "remark-link-rewrite";
 import optionsJSON from "./options.json" assert { type: "json" };
 
+export type SupportedType = "Github Action" | "CLI" | "Config File";
+
 export interface ConfigOption {
   option?: string;
   flag?: string;
+  shortFlag?: string;
   description: string;
   type: string | string[];
-  example?: string;
+  example: string;
   default?: string | boolean;
-  inConfigFileSchema?: boolean;
-  deprecated?: "config-file" | "all";
+  defaultComment?: string;
+  deprecated?: "Config File" | "all";
+  supports: SupportedType[];
 }
 
 const propertyTypes = {
@@ -80,7 +84,7 @@ interface Schema {
 export async function createSchemaDef(configOptions: ConfigOption[]) {
   const schemaDef: Schema = {
     $schema: "https://json-schema.org/draft/2020-12/schema",
-    $id: "https://chromatic.com/docs/chromatic-config.schema.json",
+    $id: "https://www.chromatic.com/config-file.schema.json",
     additionalProperties: false,
     $defs: {
       "string-or-boolean": {
@@ -107,12 +111,12 @@ export async function createSchemaDef(configOptions: ConfigOption[]) {
 
   const supportedOptions: ConfigOption[] = (
     configOptions as ConfigOption[]
-  ).filter((option) => option.inConfigFileSchema);
+  ).filter((option) => option.supports.includes("Config File"));
 
   for (const prop of supportedOptions) {
     if (prop.option) {
       const isDeprecated =
-        prop.deprecated === "config-file" || prop.deprecated === "all";
+        prop.deprecated === "Config File" || prop.deprecated === "all";
 
       const description = await formatDescription(
         prop.description,

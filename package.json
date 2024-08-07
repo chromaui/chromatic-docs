@@ -18,14 +18,16 @@
     "preview": "astro preview",
     "astro": "astro",
     "test": "vitest",
-    "check-links": "blc https://www.chromatic.com/docs/ -ro -e --filter-level 0 --exclude https://www.chromatic.com/company --exclude https://www.chromatic.com/blog --exclude https://www.chromatic.com/features --exclude https://www.chromatic.com/compare --exclude https://www.chromatic.com/library --exclude https://www.chromatic.com/component --exclude https://www.chromatic.com/builds --exclude https://www.chromatic.com/loading --exclude https://www.chromatic.com/customers --exclude https://www.chromatic.com/choose --exclude https://www.chromatic.com/solutions --exclude https://www.chromatic.com/notifications --exclude https://www.chromatic.com/reset-password --exclude https://www.chromatic.com/profile"
+    "check-links": "blc https://www.chromatic.com/docs/ -ro -e --filter-level 0 --exclude https://www.chromatic.com/company --exclude https://www.chromatic.com/blog --exclude https://www.chromatic.com/features --exclude https://www.chromatic.com/compare --exclude https://www.chromatic.com/library --exclude https://www.chromatic.com/component --exclude https://www.chromatic.com/builds --exclude https://www.chromatic.com/loading --exclude https://www.chromatic.com/customers --exclude https://www.chromatic.com/choose --exclude https://www.chromatic.com/solutions --exclude https://www.chromatic.com/notifications --exclude https://www.chromatic.com/reset-password --exclude https://www.chromatic.com/profile",
+    "storybook": "storybook dev -p 6006",
+    "build-storybook": "storybook build"
   },
   "dependencies": {
     "@astrojs/markdown-remark": "^5.1.1",
     "@astrojs/mdx": "^2.3.1",
     "@astrojs/react": "^3.3.0",
     "@astrojs/sitemap": "^3.1.4",
-    "@chromatic-com/tetra": "1.19.0",
+    "@chromatic-com/tetra": "1.19.2",
     "@docsearch/css": "^3.5.2",
     "@radix-ui/react-collapsible": "^1.0.3",
     "@radix-ui/react-dropdown-menu": "2.0.5",
@@ -36,7 +38,7 @@
     "@types/hast": "^3.0.3",
     "@types/react": "^18.2.21",
     "@types/react-dom": "^18.2.7",
-    "astro": "^4.6.3",
+    "astro": "^4.12.3",
     "framer-motion": "^11.0.5",
     "github-slugger": "^2.0.0",
     "hast-util-select": "^6.0.2",
@@ -49,6 +51,7 @@
     "rehype-raw": "^7.0.0",
     "rehype-slug": "^6.0.0",
     "remark": "^15.0.1",
+    "remark-code-title": "^0.2.5",
     "remark-link-rewrite": "^1.0.7",
     "sharp": "^0.33.1",
     "strip-markdown": "^6.0.0",
@@ -57,12 +60,21 @@
   },
   "devDependencies": {
     "@beoe/rehype-mermaid": "^0.0.1",
+    "@chromatic-com/storybook": "^1.6.1",
     "@hyperjump/json-schema": "^1.9.4",
+    "@storybook/addon-essentials": "^8.2.6",
+    "@storybook/addon-interactions": "^8.2.6",
+    "@storybook/addon-links": "^8.2.6",
+    "@storybook/blocks": "^8.2.6",
+    "@storybook/react": "^8.2.6",
+    "@storybook/react-vite": "^8.2.6",
+    "@storybook/test": "^8.2.6",
     "broken-link-checker": "^0.7.8",
     "hast-util-to-string": "^3.0.0",
     "hastscript": "^8.0.0",
     "prettier": "^3.2.5",
-    "prettier-plugin-astro": "^0.12.0"
+    "prettier-plugin-astro": "^0.12.0",
+    "storybook": "^8.2.6"
   },
   "packageManager": "pnpm@9.4.0+sha512.f549b8a52c9d2b8536762f99c0722205efc5af913e77835dbccc3b0b0b2ca9e7dc8022b78062c17291c48e88749c70ce88eb5a74f1fa8c4bf5e18bb46c8bd83a"
 }

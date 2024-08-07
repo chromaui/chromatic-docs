@@ -2,7 +2,7 @@
 layout: "../../layouts/Layout.astro"
 title: Browsers
 description: Enable visual testing with multiple browsers
-sidebar: { order: 2 }
+sidebar: { order: 1 }
 ---
 
 # Browser support
