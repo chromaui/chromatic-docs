@@ -65,6 +65,8 @@ Read Storybook's interaction testing [docs](https://storybook.js.org/docs/writin
 
 ![Storybook passed tests](../../images/interaction-test-storybook-passed-test.png)
 
+Chromatic waits for interactions to pass before capturing a snapshot.
+
 ### Confirm interaction tests are working
 
 Interaction tests run behind the scenes without you having to configure anything. To verify that they are working in Chromatic, publish your Storybook either via [CLI](/docs/cli) or [CI](/docs/ci). You can confirm that they’re running with the “Interaction” label in the Build page’s Tests section.
