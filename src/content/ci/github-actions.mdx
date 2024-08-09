@@ -19,9 +19,7 @@ In your `.github/workflows` directory, create a new file called `chromatic.yml` 
 
 <IntegrationSnippets>
   <Fragment slot="storybook">
-    ```yml
-    # .github/workflows/chromatic.yml
-
+    ```yml title=".github/workflows/chromatic.yml"
     name: "Chromatic"
 
     on: push
@@ -49,9 +47,7 @@ In your `.github/workflows` directory, create a new file called `chromatic.yml` 
     ```
   </Fragment>
   <Fragment slot="playwright">
-    ```yaml
-    # .github/workflows/chromatic.yml
-
+    ```yaml title=".github/workflows/chromatic.yml"
     name: "Chromatic"
 
     on: push
@@ -114,9 +110,7 @@ In your `.github/workflows` directory, create a new file called `chromatic.yml` 
     ```
   </Fragment>
   <Fragment slot="cypress">
-    ```yaml
-    # .github/workflows/chromatic.yml
-
+    ```yaml title=".github/workflows/chromatic.yml"
     name: "Chromatic"
 
     on: push
@@ -223,7 +217,7 @@ The full list of tags is [available on GitHub](https://github.com/chromaui/actio
 
 ## Configuration
 
-Refer to our [CLI documentation](/docs/cli#configuration-options) for configuration options.
+For more information on the available options, refer to our [configuration reference documentation](/docs/configure/#options).
 
 ### Outputs
 
@@ -248,9 +242,7 @@ Chromatic's GitHub Action returns some information about your build in the form 
 
 If you need to customize your workflow to run Chromatic on specific branches, adjust your workflow like so:
 
-```yml
-# .github/workflows/chromatic.yml
-
+```yml title=".github/workflows/chromatic.yml"
 name: "Chromatic"
 
 # 👇 Workflow event to trigger execution
@@ -274,9 +266,7 @@ Other branches, such as the ones created by the Renovate bot, can also be includ
 
 Chromatic is prepared to handle large file uploads (with a limit of 5000 files, including stories and assets). If your project exceeds this limit, we recommend enabling the `zip` option in your workflow to compress your build before uploading it. For example:
 
-```yml
-# .github/workflows/chromatic.yml
-
+```yml title=".github/workflows/chromatic.yml"
 jobs:
   chromatic:
     steps:
@@ -300,9 +290,7 @@ Chromatic can be run on monorepos that have multiple subprojects. Each subprojec
 
 If you've already built your Storybook in a separate CI step, you can alternatively point the action at the build output using the `storybookBuildDir` parameter.
 
-```yml
-# .github/workflows/chromatic.yml
-
+```yml title=".github/workflows/chromatic.yml"
 jobs:
   chromatic:
     runs-on: ubuntu-latest
@@ -326,9 +314,7 @@ jobs:
 
 If you want to run Chromatic in parallel for each subproject, you will need to create separate workflow files.
 
-```yml
-# .github/workflows/chromatic-1.yml
-
+```yml title=".github/workflows/chromatic-1.yml"
 # 👇 Customize the workflow name
 name: "Chromatic 1"
 
@@ -347,9 +333,7 @@ jobs:
           workingDir: packages/project_1
 ```
 
-```yml
-# .github/workflows/chromatic-2.yml
-
+```yml title=".github/workflows/chromatic-2.yml"
 # 👇 Customize the workflow name
 name: "Chromatic 2"
 
@@ -373,9 +357,7 @@ jobs:
 
 TurboSnap is an advanced Chromatic feature implemented to improve the build time for large projects. By default, it is disabled in your CI environment. To enable it, add the `onlyChanged` option to the workflow as follows:
 
-```yml
-# .github/workflows/chromatic.yml
-
+```yml title=".github/workflows/chromatic.yml"
 jobs:
   chromatic:
     steps:
@@ -398,9 +380,7 @@ TurboSnap is highly customizable and can be configured to fit your requirements.
 
 By default, TurboSnap relies on Webpack's dependency graph to determine which files changes since the last build. If you're working with files processed outside the scope of Webpack (e.g., fonts, images, CSS, external libraries), you can use the `externals` option to tell Chromatic to rebuild the entire project when a file matching the pattern is changed. For example:
 
-```yml
-# .github/workflows/chromatic.yml
-
+```yml title=".github/workflows/chromatic.yml"
 # Other necessary configuration
 
 jobs:
@@ -418,7 +398,7 @@ jobs:
 
 Multiple file patterns can also be provided as follows:
 
-```
+``` yml title=".github/workflows/chromatic.yml"
 # ... other config
 
 - name: Run Chromatic
@@ -439,23 +419,9 @@ The `externals` option also accept additional glob patterns defined via [picomat
 
 ### Support for environment variables
 
-Environment variables are supported in Chromatic. You can use them to customize your workflow execution or provide project-related variables (e.g., API URLs). Below is a table and condensed examples featuring the available Chromatic variables and how to set up a project-specific variable.
+Environment variables are supported in Chromatic. You can use them to customize your workflow execution or provide project-related variables (e.g., API URLs). Add the `env` key in the workflow file and provide the necessary variables to enable them. For example:
 
-| Environment variable          | Description                                                                                                                                                                           |
-| ----------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `CHROMATIC_PROJECT_TOKEN`     | Sets Chromatic's project token, used as an advanced case.<br/> See [setup](#setup) to learn how to configure the token.<br/> `env: CHROMATIC_PROJECT_TOKEN: 'Example-project-token'`  |
-| `CHROMATIC_POLL_INTERVAL`     | Configures a polling interval in milliseconds to wait for the build to finish. <br/> Default value: `1000`.<br/> `env: CHROMATIC_POLL_INTERVAL: 3000`                                 |
-| `CHROMATIC_RETRIES`           | Configures the number of attempts to upload to Chromatic.<br/> Default value: `5`.<br/> `env: CHROMATIC_RETRIES: 10`                                                                  |
-| `CHROMATIC_STORYBOOK_VERSION` | Overrides Storybook package/version detection. <br/> `env: CHROMATIC_STORYBOOK_VERSION: '@storybook/react@6.5.0-alpha.25'`                                                            |
-| `STORYBOOK_BUILD_TIMEOUT`     | Sets the waiting period in milliseconds for Storybook's build process to finish. <br/> Default value: `600000` (10 minutes).<br/> `env: STORYBOOK_BUILD_TIMEOUT: 30000`               |
-| `CI`                          | Marks the execution environment as CI.<br/> `env: CI: true`                                                                                                                           |
-| `LOG_LEVEL`                   | Configures the log level.<br/> Available options are: `silent`, `error`, `warn`, `info`, `debug`. <br/> `env: LOG_LEVEL:'info'`                                                       |
-| `DISABLE_LOGGING`             | Disables logging. Similar to setting `env: LOG_LEVEL: 'silent'`.<br/> `env: DISABLE_LOGGING: true`                                                                                    |
-| `HTTPS_PROXY` or `HTTP_PROXY` | Provides the proxy server's URL.<br/> Used to configure [https-proxy-agent](https://www.npmjs.com/package/https-proxy-agent).<br/> `env: HTTPS_PROXY: 'https://example-proxy-server'` |
-
-```yml
-# .github/workflows/chromatic.yml
-
+```yml title=".github/workflows/chromatic.yml"
 jobs:
   chromatic:
     steps:
@@ -470,11 +436,15 @@ jobs:
           LOG_LEVEL: "error"
 ```
 
+<div class="aside">
+
+For more information on the environment variables supported by Chromatic, refer to our [configuration reference documentation](/docs/configure/#environment-variables).
+
+</div>
+
 It comes with a caveat if you need to provide project-specific environment variables. We recommend that you prefix each variable with the `STORYBOOK` keyword and adjust your workflow to the following:
 
-```yml
-# .github/workflows/chromatic.yml
-
+```yml title=".github/workflows/chromatic.yml"
 jobs:
   chromatic:
     steps:
@@ -510,9 +480,7 @@ These specific types of commits (merge) don't persist in the history of your rep
 
 If you are using pull request statuses as required checks before merging, you may not want your workflow step to fail if test snapshots render without errors (but with changes). To achieve this, pass the option `exitZeroOnChanges` to the `with` clause, and your workflow will continue in such cases. For example:
 
-```yml
-# .github/workflows/chromatic.yml
-
+```yml title=".github/workflows/chromatic.yml"
 # Other necessary configuration
 
 jobs:
@@ -529,7 +497,7 @@ jobs:
 
 <div class="aside">
 
-Read about the [available options](/docs/cli/#configuration-options).
+Read about the [available options](/docs/configure/#options).
 
 </div>
 
@@ -553,9 +521,7 @@ GitHub's squash/rebase merge functionality creates new commits that have no asso
 
 If you’re using this functionality but notice the incoming changes were not accepted as baselines in Chromatic, then you'll need to adjust the workflow to include a new step with the `autoAcceptChanges` option. For example:
 
-```yml
-# .github/workflows/chromatic.yml
-
+```yml title=".github/workflows/chromatic.yml"
 jobs:
   chromatic:
     steps:
@@ -570,7 +536,7 @@ jobs:
 
 <div class="aside">
 
-Read about the [available options](/docs/cli/#configuration-options).
+Read about the [available options](/docs/configure/#options).
 
 </div>
 
@@ -578,9 +544,7 @@ Including the `autoAcceptChanges` option ensures all incoming changes will be ac
 
 If you want to test the changes introduced by the rebased branch, you can adjust your workflow and include a new step with the `ignoreLastBuildOnBranch` option. For example:
 
-```yml
-# .github/workflows/chromatic.yml
-
+```yml title=".github/workflows/chromatic.yml"
 jobs:
   chromatic:
     steps:
@@ -595,7 +559,7 @@ jobs:
 
 <div class="aside">
 
-Read about the [available options](/docs/cli/#configuration-options).
+Read about the [available options](/docs/configure/#options).
 
 </div>
 
@@ -615,9 +579,7 @@ For instance, Dependabot automatically updates the dependencies of a project. Al
 
 To skip builds for `dependabot` branches, use the following:
 
-```yml
-# .github/workflows/chromatic.yml
-
+```yml title=".github/workflows/chromatic.yml"
 jobs:
   chromatic:
     steps:
@@ -638,7 +600,7 @@ skip: "@(renovate/**|dependabot/**)"
 
 <div class="aside">
 
-Read our official [CLI documentation](/docs/cli#configuration-options).
+Read about the [available options](/docs/configure/#options).
 
 </div>
 
@@ -651,8 +613,7 @@ Sometimes you might want to skip running Chromatic when no UI files have changed
 
 Here is an example configuration.
 
-```yml
-# .github/workflows/deploy.yml
+```yml title=".github/workflows/deploy.yml"
 name: 🚀 Deploy
 
 on:
@@ -699,8 +660,7 @@ jobs:
 
 Once you have the changed files, you can use the output to determine if you should run Chromatic.
 
-```yml
-# .github/workflows/chromatic.yml
+```yml title=".github/workflows/chromatic.yml"
 name: Chromatic
 
 on: workflow_call
@@ -746,7 +706,7 @@ jobs:
 
 One final thought is that you if need to debug the changed-files workflow, you can add the following command after the `- name: Get changed files` step to print the changed files.
 
-```yml
+```yml title=".github/workflows/chromatic.yml"
 - name: List all changed files
   env:
     ALL_CHANGED_FILES: ${{ steps.changed-files.outputs.all_changed_files }}

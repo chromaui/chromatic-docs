@@ -14,9 +14,7 @@ When running your Playwright tests over multiple shared CI jobs, you'll need to 
 
 If you're working with GitHub Actions, you can configure a job [matrix](https://docs.github.com/en/actions/using-jobs/using-a-matrix-for-your-jobs) to run Playwright tests in parallel across multiple instances. Enabling this option will run a separate job for every combination of the provided values, merge the test results as a single artifact, and make them available to the Chromatic job when it runs.
 
-```yaml
-# .github/workflows/chromatic.yml
-
+```yaml title=".github/workflows/chromatic.yml"
 name: "UI Tests"
 
 on: push
@@ -82,9 +80,7 @@ jobs:
 
 To run Playwright tests in parallel across shared CI jobs in GitLab, you can use the [`parallel`](https://docs.gitlab.com/ee/ci/yaml/index.html#parallel) option in your GitLab CI workflow. The job will be split into multiple smaller jobs running in parallel sequentially named based on the values of the environment variables. The results will be saved as an artifact and accessible by the Chromatic job when it runs.
 
-```yaml
-# .gitlab-ci.yml
-
+```yaml title=".gitlab-ci.yml"
 image: node:iron
 
 stages:
@@ -121,9 +117,7 @@ Chromatic:
 
 To run Playwright tests in parallel across shared CI jobs in CircleCI, you can use the `parallelism` option in your CircleCI workflow to set the number of parallel jobs to run. You'll also need to override the default parallelization environment variables to allow the Playwright test runner to split the tests across the instances. When finished, the test results will be saved as an artifact and accessible by the Chromatic job when it runs.
 
-```yaml
-# .circleci/config.yml
-
+```yaml title=".circleci/config.yml"
 version: 2.1
 
 executors:
@@ -264,9 +258,7 @@ pipeline {
 
 If you’re using a different CI provider, you’ll need to adapt your workflow to run Playwright tests in parallel across shared CI jobs and enable Chromatic to run after all instances have finished. Here’s an example of how you might do this in a generic CI provider.
 
-```yml
-# your-workflow
-
+```yml title="your-workflow.yml"
 image: node:iron
 
 - run:

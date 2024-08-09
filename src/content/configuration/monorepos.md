@@ -19,12 +19,13 @@ You can have multiple linked subprojects in Chromatic for any given repository, 
 
 A common approach that works well for many teams is to combine multiple subproject's Storybooks into a single Storybook. When you run Chromatic on the principal Storybook, you test all stories in a single Chromatic project.
 
-For example, you could write in your `.storybook/main.js`:
+For example, you could write in your `.storybook/main.js|ts`:
 
-```js
-// .storybook/main.js
+```ts title=".storybook/main.ts"
+// Replace your-framework with the framework you are using (e.g., react-webpack5, vue3-vite)
+import type { StorybookConfig } from "@storybook/your-framework";
 
-const config = {
+const config: StorybookConfig = {
   stories: ["../project-1/**/*.stories.js", "../project-2/**/*.stories.js"],
 };
 
@@ -88,7 +89,7 @@ Please refer to the [lerna docs](https://github.com/lerna/lerna/tree/4fcac71c782
 2. Initialize Lerna: `lerna init`
 3. Configure `lerna.json` (replace `<your-branch-name>` with the branch name you want to skip):
 
-   ```json
+   ```json title="lerna.json"
    {
      "command": {
        "changed": {
@@ -113,8 +114,8 @@ For example: `lerna run build --ignore <package-name>`
 If you are combining multiple Storybooks into one (see [above](#combine-multiple-projects-into-a-single-storybook)), but detected that only a subset of projects has changed, you can instruct Chromatic to capture and test that particular subset of stories as follows:
 
 - Recommended: Use [TurboSnap](/docs/turbosnap) to automatically only snapshot stories for which related source files have changed.
-- Use [`--only-story-files`](/docs/cli#configuration-options) to only snapshot stories matching a glob pattern by story file name.
-- Use [`--only-story-names`](/docs/cli#configuration-options) to only snapshot stories matching a glob pattern by component/story name.
+- Use [`--only-story-files`](/docs/configure/#options) to only snapshot stories matching a glob pattern by story file name.
+- Use [`--only-story-names`](/docs/configure/#options) to only snapshot stories matching a glob pattern by component/story name.
 
 In each case, matching stories will not be captured again, instead we assume it has not changed, and copy the previous snapshot of the story (from one of the ancestor builds). Note you cannot use both `--only-story-files` and `--only-story-names` on the same build, as they conflict.
 

@@ -18,7 +18,7 @@ The `--preserve-missing` CLI flag (also known as the `preserveMissing` input to 
 
 ## Reducing snapshots
 
-`--preserve-missing` is often used in an effort to reduce the amount of snapshots taken by Chromatic. We provide [TurboSnap](/docs/turbosnap) as a way to intelligently skip snapshots automatically. Alternatively, you can use `--only-story-names` or `--only-story-files` to [manually control](/docs/cli#configuration-options) which stories are snapshotted.
+`--preserve-missing` is often used in an effort to reduce the amount of snapshots taken by Chromatic. We provide [TurboSnap](/docs/turbosnap) as a way to intelligently skip snapshots automatically. Alternatively, you can use `--only-story-names` or `--only-story-files` to [manually control](//docs/configure/#options) which stories are snapshotted.
 
 ## Migrating
 
@@ -104,7 +104,7 @@ If you use GitHub Actions, you're likely using `chromaui/action`. Look for `uses
 
 ### 3. Enable TurboSnap or manually specify stories to snapshot
 
-To avoid snapshotting irrelevant stories, you have several options. You can add `--only-changed` to enable [TurboSnap](/docs/turbosnap), or use either the `--only-story-files` or `--only-story-names` [CLI flag](/docs/cli#configuration-options) to manually define which stories to snapshot. These flags are also available as inputs to our GitHub Action (using camelCase).
+To avoid snapshotting irrelevant stories, you have several options. You can add `--only-changed` to enable [TurboSnap](/docs/turbosnap), or use either the `--only-story-files` or `--only-story-names` [CLI flag](/docs/configure/#options) to manually define which stories to snapshot. These flags are also available as inputs to our GitHub Action (using camelCase).
 
 #### `--only-story-files` (`onlyStoryFiles`)
 
