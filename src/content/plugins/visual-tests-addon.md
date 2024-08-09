@@ -25,10 +25,11 @@ Storybook 7.6 and higher required. Read the [migration guide](https://storybook.
 
 Update your Storybook configuration file `.storybook/main.js|ts` file to include the addon:
 
-```js
-// .storybook/main.js
+```ts title=".storybook/main.ts"
+// Replace your-framework with the framework you are using (e.g., react-webpack5, vue3-vite)
+import type { StorybookConfig } from "@storybook/your-framework";
 
-const config = {
+const config: StorybookConfig = {
   stories: ["../src/**/*.mdx", "../src/**/*.stories.@(js|jsx|mjs|ts|tsx)"],
   addons: [
     // Other Storybook addons
@@ -52,11 +53,11 @@ You'll see list of available projects that you have access to. Select a project 
 
 ## Configure
 
-Chromatic is configured using the [`./chromatic.config.json`](/docs/cli#configuration) file. By default, the recommended configuration for most projects is already applied. You can also customize the default behavior and provide additional options for full control.
+Chromatic is configured using the [`./chromatic.config.json`](/docs/cli#chromatic-config-file) file. By default, the recommended configuration for most projects is already applied. You can also customize the default behavior and provide additional options for full control.
 
 ### Addon configuration options
 
-The shortlist of options that are addon-specific are below. View the full list of [options](/docs/cli#configuration-options).
+The shortlist of options that are addon-specific are below. View the full list of [options](/docs/configure/#options).
 
 | Option            | Description                                                                                                                  |
 | ----------------- | ---------------------------------------------------------------------------------------------------------------------------- |
@@ -65,8 +66,7 @@ The shortlist of options that are addon-specific are below. View the full list o
 | `debug`           | Output verbose debugging information to the console <br/> `"debug": true`                                                    |
 | `zip`             | Recommended for large projects. Configures the addon to deploy your Storybook to Chromatic as a zip file <br/> `"zip": true` |
 
-```json
-// ./chromatic.config.json
+```json title="./chromatic.config.json"
 {
   "projectId": "Project:64cbcde96f99841e8b007d75",
   "buildScriptName": "deploy-storybook",
@@ -80,10 +80,11 @@ The shortlist of options that are addon-specific are below. View the full list o
 
 If you have separate config for different environments, use `configFile` to specify which file to load. Here's how you'd apply one config for `development` and another for `production`.
 
-```js
-// .storybook/main.js
+```ts title=".storybook/main.ts"
+// Replace your-framework with the framework you are using (e.g., react-webpack5, vue3-vite)
+import type { StorybookConfig } from "@storybook/your-framework";
 
-const config = {
+const config: StorybookConfig = {
   stories: ["../src/**/*.mdx", "../src/**/*.stories.@(js|jsx|mjs|ts|tsx)"],
   addons: [
     // Other Storybook addons
@@ -151,9 +152,7 @@ By default, [Docs](https://storybook.js.org/docs/writing-docs) are disabled in l
 
 You can enable Docs by setting the following flags: `disableBlocks`, `disableAutoDocs`, `disableMDXEntries`, and `disableDocgen` to `false` in your `.storybook/main.ts`. Learn more about these flags [here](https://storybook.js.org/docs/api/main-config/main-config-build#test).
 
-```ts
-// .storybook/main.ts
-
+```ts title=".storybook/main.ts"
 // Replace your-framework with the framework you are using (e.g., react-webpack5, vue3-vite)
 import type { StorybookConfig } from "@storybook/your-framework";
 
@@ -193,7 +192,7 @@ Error [ERR_REQUIRE_ESM]: require() of ES Module /my-project/node_modules/string-
 
 This is a [known issue](https://github.com/storybookjs/storybook/issues/22431#issuecomment-1630086092) when using an older version of the Yarn package manager (e.g., version 1.x). To solve this issue, you can upgrade to the latest stable version. However, if you cannot upgrade, adjust your `package.json` file and provide a resolution field to enable the Yarn package manager to install the correct dependencies. In doing so, you may be required to delete your `node_modules` directory and `yarn.lock` file before installing the dependencies again.
 
-```json
+```json title="package.json"
 {
   "resolutions": {
     "jackspeak": "2.1.1"
@@ -213,7 +212,7 @@ The Visual Tests addon uses the same [pricing tiers as Chromatic](https://www.ch
 <details>
 <summary id="turbosnap-support">Does the addon support TurboSnap?</summary>
 
-Yes. Visual Tests addon supports TurboSnap via the [`./chromatic.config.json`](/docs/cli#configuration) file.
+Yes. Visual Tests addon supports TurboSnap via the [`./chromatic.config.json`](/docs/cli#chromatic-config-file) file.
 
 </details>
 

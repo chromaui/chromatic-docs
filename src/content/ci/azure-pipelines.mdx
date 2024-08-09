@@ -18,9 +18,7 @@ To integrate Chromatic with your existing pipeline, you'll need to add the follo
 {/* prettier-ignore-start */}
 <IntegrationSnippets>
   <Fragment slot="storybook">
-    ```yml
-    # azure-pipelines.yml
-
+    ```yml title="azure-pipelines.yml"
     trigger:
       - main
 
@@ -60,9 +58,7 @@ To integrate Chromatic with your existing pipeline, you'll need to add the follo
     ```
   </Fragment>
   <Fragment slot="playwright">
-    ```yml
-    # azure-pipelines.yml
-
+    ```yml title="azure-pipelines.yml"
     trigger:
       - main
 
@@ -144,9 +140,7 @@ To integrate Chromatic with your existing pipeline, you'll need to add the follo
     ```
   </Fragment>
   <Fragment slot="cypress">
-    ```yml
-    # azure-pipelines.yml
-
+    ```yml title="azure-pipelines.yml"
     trigger:
       - main
 
@@ -245,9 +239,7 @@ We recommend saving the project token as a secret environment variable named `CH
 
 If you need to customize your workflow to run Chromatic on specific branches, adjust your pipeline like so:
 
-```yml
-# azure-pipelines.yml
-
+```yml title="azure-pipelines.yml"
 # 👇 Event to trigger pipeline execution
 trigger:
   branches:
@@ -278,9 +270,7 @@ Now your pipeline will only run Chromatic in the `main` branch.
 
 Chromatic is prepared to handle large file uploads (with a limit of 5000 files, including stories and assets). If your project exceeds this limit, we recommend adjusting your pipeline and run the `chromatic` command with the `--zip` flag to compress your build before uploading it. For example:
 
-```yml
-# azure-pipelines.yml
-
+```yml title="azure-pipelines.yml"
 # Other configurations
 
 # Pipeline stages
@@ -315,9 +305,7 @@ Chromatic can be run on monorepos that have multiple subprojects. Each subprojec
 
 If you've already built your Storybook in a separate CI step, you can alternatively point the action at the build output using the `storybookBuildDir` parameter.
 
-```yml
-# azure-pipelines.yml
-
+```yml title="azure-pipelines.yml"
 # Other configurations
 
 # Pipeline stages
@@ -360,9 +348,7 @@ Additional paralellization can be achieved when configuring your workflow to run
 
 TurboSnap is an advanced Chromatic feature implemented to improve the build time for large projects, disabled by default once you add Chromatic to your CI environment. To enable it, you'll need to adjust your existing workflow and run the `chromatic` command with the `--only-changed` flag as follows:
 
-```yml
-# azure-pipelines.yml
-
+```yml title="azure-pipelines.yml"
 # Other configurations
 
 # Pipeline stages
@@ -398,9 +384,7 @@ If your Azure pipeline includes a set of rules for branches (e.g., renames the b
 
 In this case, you can adjust your workflow and include the `--branch-name` flag. This flag overrides Chromatic's default branch detection in favor of the specified branch:
 
-```yml
-# azure-pipelines.yml
-
+```yml title="azure-pipelines.yml"
 # Other configurations
 
 # Pipeline stages
@@ -434,9 +418,7 @@ Chromatic will now detect the correct branch and run your workflow. You can also
 
 If you are using pull request statuses as required checks before merging, you may not want your pipeline to fail if test snapshots render without errors (but with changes). To achieve this, pass the flag `--exit-zero-on-changes` to the `chromatic` command, and your step will continue in such cases. For example:
 
-```yml
-# azure-pipelines.yml
-
+```yml title="azure-pipelines.yml"
 # Other configurations
 
 # Pipeline stages
@@ -462,7 +444,7 @@ stages:
 
 <div class="aside">
 
-Read our [CLI documentation](/docs/cli#configuration-options).
+Read our [configuration reference documentation](/docs/configure/#options).
 
 </div>
 
@@ -486,9 +468,7 @@ Azure's squash/rebase merge functionality creates new commits that have no assoc
 
 If you’re using this functionality but notice the incoming changes were not accepted as baselines in Chromatic, then you'll need to adjust the pipeline and include the `--auto-accept-changes` flag. For example:
 
-```yml
-# azure-pipelines.yml
-
+```yml title="azure-pipelines.yml"
 # Other configurations
 
 # Pipeline stages
@@ -522,7 +502,7 @@ stages:
 
 <div class="aside">
 
-Read our [CLI documentation](/docs/cli#configuration-options).
+Read our [configuration reference documentation](/docs/configure/#options).
 
 </div>
 
@@ -530,9 +510,7 @@ Including the `--auto-accept-changes` flag ensures all incoming changes will be 
 
 If you want to test the changes introduced by the rebased branch, you can adjust your workflow and include a new step with the `ignore-last-build-on-branch` flag. For example:
 
-```yml
-# azure-pipelines.yml
-
+```yml title="azure-pipelines.yml"
 # Other configurations
 
 # Pipeline stages
@@ -557,7 +535,7 @@ stages:
 
 <div class="aside">
 
-Read our [CLI documentation](/docs/cli#configuration-options).
+Read our [configuration reference documentation](/docs/configure/#options).
 
 </div>
 
@@ -583,7 +561,7 @@ npx chromatic --skip 'renovate/**'
 
 <div class="aside">
 
-Read our [CLI documentation](/docs/cli#configuration-options).
+Read our [configuration reference documentation](/docs/configure/#options).
 
 </div>
 

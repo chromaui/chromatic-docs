@@ -19,9 +19,7 @@ To integrate Chromatic with your existing [multistage pipeline](https://www.jenk
 
 <IntegrationSnippets>
   <Fragment slot="storybook">
-    ```groovy
-    /* JenkinsFile */
-
+    ```groovy title="JenkinsFile"
     pipeline {
       /* Other pipeline configuration. */
 
@@ -43,9 +41,7 @@ To integrate Chromatic with your existing [multistage pipeline](https://www.jenk
     ```
   </Fragment>
   <Fragment slot="playwright">
-     ```groovy
-     /* JenkinsFile */
-
+     ```groovy title="JenkinsFile"
      pipeline {
        /* Other pipeline configuration. */
 
@@ -88,9 +84,7 @@ To integrate Chromatic with your existing [multistage pipeline](https://www.jenk
     ```
   </Fragment>
   <Fragment slot="cypress">
-     ```groovy
-     /* JenkinsFile */
-
+     ```groovy title="JenkinsFile"
      pipeline {
        /* Other pipeline configuration. */
        
@@ -150,9 +144,7 @@ We recommend saving the project token as a secret text environment variable name
 
 If you need to customize your workflow to run Chromatic on specific branches, adjust your `Jenkinsfile` like so:
 
-```groovy
-/* JenkinsFile */
-
+```groovy title="JenkinsFile"
 pipeline {
   /* Other pipeline configuration. */
 
@@ -188,9 +180,7 @@ Now your pipeline will only run Chromatic in the `example` branch.
 
 Chromatic is prepared to handle large file uploads (with a limit of 5000 files, including stories and assets). If your project exceeds this limit, we recommend adjusting your workflow and run the `chromatic` command with the `--zip` flag to compress your build before uploading it. For example:
 
-```groovy
-/* JenkinsFile */
-
+```groovy title="JenkinsFile"
 pipeline {
   /* Other pipeline configuration. */
 
@@ -222,9 +212,7 @@ Chromatic can be run on monorepos that have multiple subprojects. Each subprojec
 
 If you've already built your Storybook in a separate CI step, you can alternatively point the action at the build output using the `storybookBuildDir` parameter.
 
-```groovy
-/* JenkinsFile */
-
+```groovy title="JenkinsFile"
 pipeline {
   /* Other pipeline configuration. */
 
@@ -252,9 +240,7 @@ pipeline {
 
 If you want to run Chromatic in parallel for each subproject, you can use this snippet below.
 
-```groovy
-/* JenkinsFile */
-
+```groovy title="JenkinsFile"
 pipeline {
   /* Other pipeline configuration. */
   stages {
@@ -295,9 +281,7 @@ pipeline {
 
 TurboSnap is an advanced Chromatic feature implemented to improve the build time for large projects, disabled by default once you add Chromatic to your CI environment. To enable it, you'll need to adjust your existing workflow and run the `chromatic` command with the `--only-changed` flag as follows:
 
-```groovy
-/* JenkinsFile */
-
+```groovy title="JenkinsFile"
 pipeline {
   /* Other pipeline configuration. */
 
@@ -330,9 +314,7 @@ If your Jenkins pipeline includes a set of rules for branches (e.g., renames the
 
 In this case, you can adjust your workflow and include the `--branch-name` flag. This flag overrides Chromatic's default branch detection in favor of the specified branch:
 
-```groovy
-/* JenkinsFile */
-
+```groovy title="JenkinsFile"
 pipeline {
   /* Other pipeline configuration. */
 
@@ -377,9 +359,7 @@ If you're using other Jenkins plugins in your pipeline, refer to this [documenta
 
 If you are using pull request statuses as required checks before merging, you may not want your pipeline to fail if test snapshots render without errors (but with changes). To achieve this, pass the flag `--exit-zero-on-changes` to the `chromatic` command, and your pipeline will continue in such cases. For example:
 
-```groovy
-/* JenkinsFile */
-
+```groovy title="JenkinsFile"
 pipeline {
   /* Other pipeline configuration. */
 
@@ -402,7 +382,7 @@ pipeline {
 
 <div class="aside">
 
-Read our official [CLI documentation](/docs/cli#configuration-options).
+Read our [configuration reference documentation](/docs/configure/#options).
 
 </div>
 
@@ -426,9 +406,7 @@ We use GitHub, GitLab, and Bitbucket APIs respectively to detect squashing and r
 
 If you’re using this functionality but notice the incoming changes were not accepted as baselines in Chromatic, then you'll need to adjust the pipeline and include a new Chromatic stage using the `--auto-accept-changes` flag. For example:
 
-```groovy
-/* JenkinsFile */
-
+```groovy title="JenkinsFile"
 pipeline {
   /* Other pipeline configuration. */
 
@@ -467,7 +445,7 @@ pipeline {
 
 <div class="aside">
 
-Read our official [CLI documentation](/docs/cli#configuration-options).
+Read our [configuration reference documentation](/docs/configure/#options).
 
 </div>
 
@@ -475,9 +453,7 @@ Including the `--auto-accept-changes` flag ensures all incoming changes will be 
 
 If you want to test the changes introduced by the rebased branch, you can adjust your workflow and include a new step with the `ignore-last-build-on-branch` flag. For example:
 
-```groovy
-/* JenkinsFile */
-
+```groovy title="JenkinsFile"
 pipeline {
   /* Other pipeline configuration. */
 
@@ -500,7 +476,7 @@ pipeline {
 
 <div class="aside">
 
-Read our official [CLI documentation](/docs/cli#configuration-options).
+Read our [configuration reference documentation](/docs/configure/#options).
 
 </div>
 
@@ -526,7 +502,7 @@ npx chromatic --skip 'dependabot/**'
 
 <div class="aside">
 
-Read our official [CLI documentation](/docs/cli#configuration-options).
+Read our [configuration reference documentation](/docs/configure/#options).
 
 </div>
 

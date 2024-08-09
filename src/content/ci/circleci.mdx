@@ -19,9 +19,7 @@ To integrate Chromatic with your existing workflow, you'll need to add the follo
 
 <IntegrationSnippets>
   <Fragment slot="storybook">
-    ```yml
-    # .circleci/config.yml
-
+    ```yml title=".circleci/config.yml"
     version: 2.1
 
     executors:
@@ -55,9 +53,7 @@ To integrate Chromatic with your existing workflow, you'll need to add the follo
     ```
   </Fragment>
   <Fragment slot="playwright">
-    ```yml
-    # .circleci/config.yml
-
+    ```yml title=".circleci/config.yml"
     version: 2.1
 
     executors:
@@ -129,9 +125,7 @@ To integrate Chromatic with your existing workflow, you'll need to add the follo
     ```
   </Fragment>
   <Fragment slot="cypress">
-    ```yml
-    # .circleci/config.yml
-
+    ```yml title=".circleci/config.yml"
     version: 2.1
 
     executors:
@@ -223,9 +217,7 @@ We recommend saving the project token as an environment variable named `CHROMATI
 
 If you need to customize your workflow to run Chromatic on specific branches, adjust your workflow like so:
 
-```yml
-# .circleci/config.yml
-
+```yml title=".circleci/config.yml"
 # Other required configuration
 
 jobs:
@@ -253,9 +245,7 @@ Now Chromatic will only run in the `main` branch.
 
 Chromatic is prepared to handle large file uploads (with a limit of 5000 files, including stories and assets). If your project exceeds this limit, we recommend adjusting your workflow and run the `chromatic` command with the `--zip` flag to compress your build before uploading it. For example:
 
-```yml
-# .circleci/config.yml
-
+```yml title=".circleci/config.yml"
 # Other required configuration
 
 jobs:
@@ -283,9 +273,7 @@ Chromatic can be run on monorepos that have multiple subprojects. Each subprojec
 
 If you've already built your Storybook in a separate CI step, you can alternatively point the action at the build output using the `storybookBuildDir` parameter.
 
-```yml
-# .circleci/config.yml
-
+```yml title=".circleci/config.yml"
 # Other required configuration
 
 jobs:
@@ -319,9 +307,7 @@ Additional paralellization can be achieved when configuring your workflow to run
 
 TurboSnap is an advanced Chromatic feature implemented to improve the build time for large projects, disabled by default once you add Chromatic to your CI environment. To enable it, you'll need to adjust your existing workflow and run the `chromatic` command with the `--only-changed` flag as follows:
 
-```yml
-# .circleci/config.yml
-
+```yml title=".circleci/config.yml"
 # Other required configuration
 
 jobs:
@@ -362,9 +348,7 @@ In there you'll find various scenarios that you can use depending on your needs.
 
 If you are using pull request statuses as required checks before merging, you may not want your Circle CI job to fail if test snapshots render without errors (but with changes). To achieve this, pass the flag `--exit-zero-on-changes` to the `chromatic` command, and your job will continue in such cases. For example:
 
-```yml
-# .circleci/config.yml
-
+```yml title=".circleci/config.yml"
 # Other required configuration
 
 jobs:
@@ -383,7 +367,7 @@ jobs:
 
 <div class="aside">
 
-Read our [CLI documentation](/docs/cli#configuration-options).
+Read our [configuration reference documentation](/docs/configure/#options).
 
 </div>
 
@@ -407,9 +391,7 @@ We use GitHub, GitLab, and Bitbucket APIs respectively to detect squashing and r
 
 If you’re using this functionality but notice the incoming changes were not accepted as baselines in Chromatic, then you'll need to adjust the `chromatic` command and include the `--auto-accept-changes` flag. For example:
 
-```shell
-# .circleci/config.yml
-
+```shell title=".circleci/config.yml"
 # Other required configuration
 
 # 👇 Checks if the current branch is not the main and runs Chromatic
@@ -424,7 +406,7 @@ fi
 
 <div class="aside">
 
-Read our [CLI documentation](/docs/cli#configuration-options).
+Read our [configuration reference documentation](/docs/configure/#options).
 
 </div>
 
@@ -432,9 +414,7 @@ Including the `--auto-accept-changes` flag ensures all incoming changes will be 
 
 If you want to test the changes introduced by the rebased branch, you can adjust your workflow and include a new step with the `ignore-last-build-on-branch` flag. For example:
 
-```yml
-# .circleci/config.yml
-
+```yml title=".circleci/config.yml"
 # Other required configuration
 
 jobs:
@@ -473,7 +453,7 @@ npx chromatic --skip 'dependabot/**'
 
 <div class="aside">
 
-Read our [CLI documentation](/docs/cli#configuration-options).
+Read our [configuration reference documentation](/docs/configure/#options).
 
 </div>
 

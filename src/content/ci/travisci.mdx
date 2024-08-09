@@ -19,9 +19,7 @@ To integrate Chromatic with your existing workflow, you’ll need to add the fol
 
 <IntegrationSnippets>
   <Fragment slot="storybook">
-    ```yml
-    # .travis.yml
-
+    ```yml title=".travis.yml"
     language: node_js
     os: linux
     dist: jammy
@@ -47,9 +45,7 @@ To integrate Chromatic with your existing workflow, you’ll need to add the fol
     ```
   </Fragment>
   <Fragment slot="playwright">
-    ```yml
-    # .travis.yml
-
+    ```yml title=".travis.yml"
     language: node_js
     os: linux
     dist: jammy
@@ -91,9 +87,7 @@ To integrate Chromatic with your existing workflow, you’ll need to add the fol
     ```
   </Fragment>
   <Fragment slot="cypress">
-    ```yml
-    # .travis.yml
-
+    ```yml title=".travis.yml"
     language: node_js
     os: linux
     dist: jammy
@@ -154,9 +148,7 @@ We recommend saving the project token as an encrypted environment variable named
 
 If you need to customize your workflow to run on specific branches, you can do so. Change your `.travis.yml` to the following:
 
-```yml
-# .travis.yml
-
+```yml title=".travis.yml"
 # Other required configuration
 
 branches:
@@ -181,9 +173,7 @@ Read the official Travis CI [conditional build documentation](https://docs.travi
 
 Chromatic is prepared to handle large file uploads (with a limit of 5000 files, including stories and assets). If your project exceeds this limit, we recommend adjusting your workflow and run the `chromatic` command with the `--zip` flag to compress your build before uploading it. For example:
 
-```yml
-# .travis.yml
-
+```yml title=".travis.yml"
 # Other required configuration
 
 jobs:
@@ -207,9 +197,7 @@ Chromatic can be run on monorepos that have multiple subprojects. Each subprojec
 
 If you've already built your Storybook in a separate CI step, you can alternatively point the action at the build output using the `storybookBuildDir` parameter.
 
-```yml
-# .travis.yml
-
+```yml title=".travis.yml"
 # Other required configuration
 
 # 👇 Runs Chromatic in parallel for each monorepo subproject
@@ -240,9 +228,7 @@ Additional parallelization can be achieved when configuring your workflow to run
 
 TurboSnap is an advanced Chromatic feature implemented to improve the build time for large projects, disabled by default once you add Chromatic to your CI environment. To enable it, you'll need to adjust your existing workflow and run the `chromatic` command with the `--only-changed` flag as follows:
 
-```yml
-# .travis.yml
-
+```yml title=".travis.yml"
 # Other required configuration
 
 jobs:
@@ -271,9 +257,7 @@ For internal pull requests (i.e., pull requests that aren't from forks) we recom
 
 Once these conditions are met, add the following code to your `.travis.yml`:
 
-```yml
-# .travis.yml
-
+```yml title=".travis.yml"
 # Other required configuration
 
 jobs:
@@ -297,9 +281,7 @@ For external pull requests (i.e., forked repositories), the above code will ensu
 
 If you are using pull request statuses as required checks before merging, you may not want your Travis build to fail if test snapshots render without errors (but with changes). To achieve this, pass the flag `--exit-zero-on-changes` to the `chromatic` command, and your job will continue in such cases. For example:
 
-```yml
-# .travis.yml
-
+```yml title=".travis.yml"
 # Other required configuration
 
 jobs:
@@ -314,7 +296,7 @@ jobs:
 
 <div class="aside">
 
-Read our [CLI documentation](/docs/cli#configuration-options).
+Read our [configuration reference documentation](/docs/configure/#options).
 
 </div>
 
@@ -338,9 +320,7 @@ We use GitHub, GitLab, and Bitbucket APIs respectively to detect squashing and r
 
 If you’re using this functionality but notice the incoming changes were not accepted as baselines in Chromatic, then you'll need to adjust the workflow and include a new Chromatic job with the `--auto-accept-changes` flag. For example:
 
-```yml
-# .travis.yml
-
+```yml title=".travis.yml"
 # Other configuration here
 
 jobs:
@@ -357,7 +337,7 @@ jobs:
 
 <div class="aside">
 
-Read our [CLI documentation](/docs/cli#configuration-options).
+Read our [configuration reference documentation](/docs/configure/#options).
 
 </div>
 
@@ -365,7 +345,7 @@ Including the `--auto-accept-changes` flag ensures all incoming changes will be 
 
 If you want to test the changes introduced by the rebased branch, you can adjust your workflow and include a new step with the `ignore-last-build-on-branch` flag. For example:
 
-```yml
+```yml title=".travis.yml"
 # .travis.yml
 
 # Other required configuration
@@ -382,7 +362,7 @@ jobs:
 
 <div class="aside">
 
-Read our [CLI documentation](/docs/cli#configuration-options).
+Read our [configuration reference documentation](/docs/configure/#options).
 
 </div>
 
@@ -408,7 +388,7 @@ npx chromatic --skip 'dependabot/**'
 
 <div class="aside">
 
-Read our [CLI documentation](/docs/cli#configuration-options).
+Read our [configuration reference documentation](/docs/configure/#options).
 
 </div>
 

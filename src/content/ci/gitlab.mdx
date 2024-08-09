@@ -19,9 +19,7 @@ To integrate Chromatic with your existing pipeline, you'll need to add the follo
 
 <IntegrationSnippets>
   <Fragment slot="storybook">
-    ```yml
-    # .gitlab-ci.yml
-
+    ```yml title=".gitlab-ci.yml"
     image: node:iron
 
     stages:
@@ -43,9 +41,7 @@ To integrate Chromatic with your existing pipeline, you'll need to add the follo
     ```
   </Fragment>
   <Fragment slot="playwright">
-    ```yml
-    # .gitlab-ci.yml
-
+    ```yml title=".gitlab-ci.yml"
     image: node:iron
 
     stages:
@@ -84,9 +80,7 @@ To integrate Chromatic with your existing pipeline, you'll need to add the follo
     ```
   </Fragment>
   <Fragment slot="cypress">
-    ```yml
-    # .gitlab-ci.yml
-
+    ```yml title=".gitlab-ci.yml"
     image: node:iron
 
     stages:
@@ -144,9 +138,7 @@ To improve the performance of your pipeline, you can use the [interruptible](htt
 
 This keyword has no effect if [automatic cancellation of redundant pipelines](https://docs.gitlab.com/ee/ci/pipelines/settings.html#auto-cancel-redundant-pipelines) is disabled. When enabled, a running job with `interruptible: true` is canceled when starting a pipeline for a new change on the same branch.
 
-```yml
-# .gitlab-ci.yml
-
+```yml title=".gitlab-ci.yml"
 image: node:iron
 
 stages:
@@ -175,9 +167,7 @@ Chromatic:
 
 If you need to customize your workflow to run Chromatic on specific branches, adjust your pipeline like so:
 
-```yml
-# .gitlab-ci.yml
-
+```yml title=".gitlab-ci.yml"
 # Additional pipeline configurations
 
 # Sets the stages for the pipeline
@@ -208,9 +198,7 @@ Now your pipeline will only run Chromatic in the `main` branch.
 
 Chromatic is prepared to handle large file uploads (with a limit of 5000 files, including stories and assets). If your project exceeds this limit, we recommend adjusting your pipeline and run the `chromatic` command with the `--zip` flag to compress your build before uploading it. For example:
 
-```yml
-# .gitlab-ci.yml
-
+```yml title=".gitlab-ci.yml"
 # Additional pipeline configurations
 
 # Sets the stages for the pipeline
@@ -236,9 +224,7 @@ Chromatic can be run on monorepos that have multiple subprojects. Each subprojec
 
 If you've already built your Storybook in a separate CI step, you can alternatively point the action at the build output using the `storybookBuildDir` parameter.
 
-{/* Check this and adjust */}
-
-```yml
+```yml title=".gitlab-ci.yml"
 # .gitlab-ci.yml
 
 # Additional pipeline configurations
@@ -279,9 +265,7 @@ Additional paralellization can be achieved when configuring your workflow to run
 
 GitLab performs a shallow clone by default, which can lead to required patch builds depending on how frequently you run builds between commits. In order to avoid this, adjust your workflow to include a `GIT_DEPTH` of `0`. This ensures Chromatic can fetch your entire git history, without having to adjust your general `Git strategy` settings within GitLab:
 
-```yml
-# .gitlab-ci.yml
-
+```yml title=".gitlab-ci.yml"
 # Additional pipeline configurations
 
 # 👇 Sets the depth to fetch all git history
@@ -293,9 +277,7 @@ variables:
 
 TurboSnap is an advanced Chromatic feature implemented to improve the build time for large projects, disabled by default once you add Chromatic to your CI environment. To enable it, you'll need to adjust your existing workflow and run the `chromatic` command with the `--only-changed` flag as follows:
 
-```yml
-# .gitlab-ci.yml
-
+```yml title=".gitlab-ci.yml"
 # Additional pipeline configurations
 
 # Sets the stages for the pipeline
@@ -324,9 +306,7 @@ TurboSnap is highly customizable and can be configured to fit your requirements.
 
 If you are using pull request statuses as required checks before merging, you may not want your pipeline to fail if test snapshots render without errors (but with changes). To achieve this, pass the flag `--exit-zero-on-changes` to the `chromatic` command, and your step will continue in such cases. For example:
 
-```yml
-# .gitlab-ci.yml
-
+```yml title=".gitlab-ci.yml"
 # Additional pipeline configurations
 
 # Sets the stages for the pipeline
@@ -343,7 +323,7 @@ Chromatic:
 
 <div class="aside">
 
-Read our official [CLI documentation](/docs/cli#configuration-options).
+Read our [configuration reference documentation](/docs/configure/#options).
 
 </div>
 
@@ -367,9 +347,7 @@ GitLab's squash/rebase merge functionality creates new commits that have no asso
 
 If you’re using this functionality but notice the incoming changes were not accepted as baselines in Chromatic, then you'll need to adjust the pipeline and include the `--auto-accept-changes` flag. For example:
 
-```yml
-# .gitlab-ci.yml
-
+```yml title=".gitlab-ci.yml"
 # Additional pipeline configurations
 
 # Sets the stages for the pipeline
@@ -398,7 +376,7 @@ Chromatic:
 
 <div class="aside">
 
-Read our official [CLI documentation](/docs/cli#configuration-options).
+Read our [configuration reference documentation](/docs/configure/#options).
 
 </div>
 
@@ -406,9 +384,7 @@ Including the `--auto-accept-changes` flag ensures all incoming changes will be 
 
 If you want to test the changes introduced by the rebased branch, you can adjust your workflow and include a new step with the `ignore-last-build-on-branch` flag. For example:
 
-```yml
-# .gitlab-ci.yml
-
+```yml title=".gitlab-ci.yml"
 # Additional pipeline configurations
 
 # Sets the stages for the pipeline
@@ -425,7 +401,7 @@ Chromatic:
 
 <div class="aside">
 
-Read our official [CLI documentation](/docs/cli#configuration-options).
+Read our [configuration reference documentation](/docs/configure/#options).
 
 </div>
 
@@ -451,7 +427,7 @@ npx chromatic --skip 'renovate/**'
 
 <div class="aside">
 
-Read our official [CLI documentation](/docs/cli#configuration-options).
+Read our [configuration reference documentation](/docs/configure/#options).
 
 </div>
 
