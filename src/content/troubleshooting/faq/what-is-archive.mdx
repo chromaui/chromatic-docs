@@ -1,0 +1,14 @@
+---
+layout: "../../../layouts/FAQLayout.astro"
+sidebar: { hide: true }
+title: What is an archive?
+section: "uiTestsAndReview"
+---
+
+# What is an archive?
+
+An **archive** is a self-contained, re-renderable HTML “snapshot” of your UI captured during Playwright or Cypress tests. It contains all the assets and data required to re-render your app UI for Chromatic’s [**Visual Tests**](/docs/test) and [**UI Review**](/docs/review) features.
+
+The archives generated during each test run can be accessed through the Chromatic web app and are fully inspectable, enabling you to troubleshoot changes and errors in your own browser (without needing to run Playwright or Cypress again).
+
+Note, when you run Chromatic with Playwright or Cypress you'll notice a "Building your Storybook" step. This is because Chromatic utilizes [Storybook](https://storybook.js.org/) behind the scenes to render these archives in its cloud browser and capture snapshots. However, there's no need for you to manually install or configure Storybook. Chromatic takes care of that for you.

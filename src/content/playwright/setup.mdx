@@ -28,13 +28,13 @@ Playwright enables you to write E2E tests that drive the browser to simulate and
 
 ## How does Chromatic work?
 
-Chromatic works alongside your E2E tests. During your E2E test, Chromatic captures an archive of each page and uploads it to Chromatic’s cloud. There, Chromatic generates snapshots and performs pixel diffing to identify any unintended visual changes.
+Chromatic works alongside your E2E tests. During your E2E test, Chromatic captures an [**archive**](/docs/faq/what-is-archive) of each page and uploads it to Chromatic’s cloud. There, Chromatic generates snapshots and performs pixel diffing to identify any unintended visual changes.
 
 ### How does Chromatic’s visual testing differ from Playwright’s?
 
 While Playwright offers a basic ability to capture and visually compare screenshots of UI. Chromatic’s difference is that it provides a significantly more robust and developer-friendly visual testing solution:
 
-- **Robustness:** Chromatic captures full-page archives (including DOM, styling, and assets) of your test cases, which you can debug interactively in the Chromatic app, using browser dev tools. This eliminates the need to run further tests to troubleshoot errors.
+- **Robustness:** Chromatic captures full-page [archives](/docs/faq/what-is-archive) (including DOM, styling, and assets) of your test cases, which you can debug interactively in the Chromatic app, using browser dev tools. This eliminates the need to run further tests to troubleshoot errors.
 - **Workflow:** Chromatic removes the need to manage snapshots locally in your repo. Chromatic’s snapshots are indexed automatically, linked to git commits, and stored in the cloud for easy access.
 - **Parallelized testing:** Chromatic's cloud infrastructure automatically scales to run all tests simultaneously, eliminating the need for you to configure multiple workers on your CI.
 - **Dedicated review app:** Chromatic offers a suite of visual diffing tools to spot regressions fast. Features include unified and split diffs, highlighting ignored regions, spotlight mode to focus and zoom in on changes, and strobe diff to pinpoint subtle changes.
@@ -218,6 +218,6 @@ No. Playwright is a "black box" tool that tests your fully built app UI in a bro
 <details>
 <summary id="storybook-step">Why is there a `Build your Storybook` step when running Playwright visual tests?</summary>
 
-Chromatic creates and runs a Storybook archive based on your Playwright project, so the build Storybook step is required. Chromatic doesn't run Playwright directly.
+Chromatic creates and runs a Storybook [archive](/docs/faq/what-is-archive) based on your Playwright project, so the build Storybook step is required. Chromatic doesn't run Playwright directly.
 
 </details>

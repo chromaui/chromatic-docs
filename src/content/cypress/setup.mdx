@@ -23,11 +23,11 @@ Cypress enables you to write E2E tests that drive the browser to simulate key us
 
 ## How does Chromatic work?
 
-Chromatic communicates with Cypress via the devtools protocol. While your Cypress E2E tests run, Chromatic captures an archive of the page and uploads it to the cloud. There, Chromatic generates snapshots and performs pixel diffing to identify any unintended visual changes.
+Chromatic communicates with Cypress via the devtools protocol. While your Cypress E2E tests run, Chromatic captures an [**archive**](/docs/faq/what-is-archive) of the page and uploads it to the cloud. There, Chromatic generates snapshots and performs pixel diffing to identify any unintended visual changes.
 
 Key advantages of Chromatic's Cypress integration:
 
-- **Robustness:** Chromatic saves full page archives (DOM, styling, assets) of every test case. This lets you interactively debug the UI within the Chromatic app, eliminating the need to run tests locally for troubleshooting.
+- **Robustness:** Chromatic saves full page [archives](/docs/faq/what-is-archive) (DOM, styling, assets) of every test case. This lets you interactively debug the UI within the Chromatic app, eliminating the need to run tests locally for troubleshooting.
 - **Workflow:** Chromatic streamlines visual testing by removing the need to manually manage screenshots in your repo. Snapshots are indexed, linked to git commits, and stored in the cloud for easy access.
 - **Parallelized testing:** Chromatic's cloud infrastructure automatically scales to run all tests simultaneously, eliminating the need for you to configure multiple workers on your CI.
 - **Dedicated review app:** Chromatic offers a suite of visual diffing tools to spot regressions fast. Features include unified and split diffs, highlighting ignored regions, spotlight mode to focus and zoom in on changes, and strobe diff to pinpoint subtle changes.
@@ -195,6 +195,6 @@ No. Cypress is a "black box" tool that tests your fully built app UI in a browse
 <details>
 <summary id="storybook-step">Why is there a `Build your Storybook` step when running Cypress visual tests?</summary>
 
-Chromatic creates and runs a Storybook archive based on your Cypress project, so the build Storybook step is required. Chromatic doesn't run Cypress directly.
+Chromatic creates and runs a Storybook [archive](/docs/faq/what-is-archive) based on your Cypress project, so the build Storybook step is required. Chromatic doesn't run Cypress directly.
 
 </details>
