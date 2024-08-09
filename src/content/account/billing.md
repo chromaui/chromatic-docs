@@ -33,7 +33,7 @@ If you use our free [Publish Storybook](/docs/storybook/publish) service only yo
 
 ### Snapshots with TurboSnap enabled (Storybook only)
 
-Chromatic's default behavior is to capture new a snapshot for every story in every build.
+Chromatic's default behavior is to capture a new snapshot for every story in every build.
 
 With [TurboSnap](/docs/turbosnap) enabled, Chromatic first analyzes the Git history and the dependency graph of your project to identify stories that have no code changes within them or their dependencies. Instead of capturing new snapshots, it copies over the snapshots from existing baselines that didn't change. These duplicated snapshots are referred to as **TurboSnaps**, billed at 1/5th the cost of a regular snapshot.
 
@@ -85,20 +85,58 @@ You can generate detailed usage reports for your own bookkeeping. Monthly and ye
 
 The downloaded CSV includes the following columns:
 
-| Column                      | Description                                                                                                       |
-| --------------------------- | ----------------------------------------------------------------------------------------------------------------- |
-| Date                        | Creation date and time of the build (ISO 8601)                                                                    |
-| App ID                      | Unique Chromatic project identifier                                                                               |
-| Build ID                    | Unique Chromatic build identifier                                                                                 |
-| Repository slug             | Owner and name of the Git repository linked to the project (`<ownerName>:<repoName>`)                             |
-| Branch name                 | Git branch name for which the build was created, prefixed with `<ownerName>:` if the build originates from a fork |
-| Build number                | The incremental number for this build                                                                             |
-| Skipped snapshots           | Number of snapshots that you saved (not got billed for) thanks to [TurboSnap](/docs/turbosnap)                    |
-| Chrome snapshots            | Number of billed snapshots captured in Chrome                                                                     |
-| Firefox snapshots           | Number of billed snapshots captured in Firefox                                                                    |
-| Safari snapshots            | Number of billed snapshots captured in Safari                                                                     |
-| Edge snapshots              | Number of billed snapshots captured in Edge                                                                       |
-| Internet Explorer snapshots | Phasing out in 2023. Number of billed snapshots captured in Internet Explorer.                                    |
+<dl>
+  <dt>Date</dt>
+  <dd>Creation date and time of the build (ISO 8601)</dd>
+
+  <dt>App ID</dt>
+  <dd>Unique Chromatic project identifier</dd>
+
+  <dt>Build ID</dt>
+  <dd>Unique Chromatic build identifier</dd>
+
+  <dt>Repository slug</dt>
+  <dd>Owner and name of the Git repository linked to the project (<code><ownerName>:<repoName></code>)</dd>
+
+  <dt>Branch name</dt>
+  <dd>Git branch name for which the build was created, prefixed with <code><ownerName>:</code> if the build originates from a fork</dd>
+
+  <dt>Build number</dt>
+  <dd>...</dd>
+
+  <dt>TurboSnaps</dt>
+  <dd>...</dd>
+
+  <dt>Chrome snapshots</dt>
+  <dd>...</dd>
+
+  <dt>Firefox snapshots</dt>
+  <dd>...</dd>
+
+  <dt>Safari snapshots</dt>
+  <dd>...</dd>
+
+  <dt>Edge snapshots</dt>
+  <dd>...</dd>
+
+  <dt>Internet Explorer snapshots</dt>
+  <dd>...</dd>
+</dl>
+
+| Column                      | Description                                                                                                                                                                      |
+| --------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Date                        | Creation date and time of the build (ISO 8601)                                                                                                                                   |
+| App ID                      | Unique Chromatic project identifier                                                                                                                                              |
+| Build ID                    | Unique Chromatic build identifier                                                                                                                                                |
+| Repository slug             | Owner and name of the Git repository linked to the project (`<ownerName>:<repoName>`)                                                                                            |
+| Branch name                 | Git branch name for which the build was created, prefixed with `<ownerName>:` if the build originates from a fork                                                                |
+| Build number                | The incremental number for this build                                                                                                                                            |
+| TurboSnaps                  | Number of snapshots identified by [TurboSnap](#snapshots-with-turbosnap-enabled-storybook-only) with no associated code changes. Billed at 1/5th the cost of a regular snapshot. |
+| Chrome snapshots            | Number of billed snapshots captured in Chrome                                                                                                                                    |
+| Firefox snapshots           | Number of billed snapshots captured in Firefox                                                                                                                                   |
+| Safari snapshots            | Number of billed snapshots captured in Safari                                                                                                                                    |
+| Edge snapshots              | Number of billed snapshots captured in Edge                                                                                                                                      |
+| Internet Explorer snapshots | Phasing out in 2023. Number of billed snapshots captured in Internet Explorer.                                                                                                   |
 
 ![Setup usage report](../../images/billing-usage-report.png)
 
@@ -127,3 +165,27 @@ If you aren’t happy with Chromatic, we’ll refund your money. We want custome
 If it’s not working out for you, contact us via our in-app chat or [email](mailto:support@chromatic.com) to get a refund for your current month's usage.
 
 Subsequent refunds will be credited to your account for use in future invoices.
+
+## Usage reports
+
+Breakdown by projects
+
+- Snapshots
+- TurboSnaps
+
+Total:
+
+- Snapshots
+- TurboSnaps
+
+Billing
+Standard plan
+Base snapshots
+TurboSnaps
+Extra snapshot (including TurboSnaps)
+
+Does extra snapshot include TurboSnaps????
+
+Current billing period usage
+Previous period usage reports
+Usage data is not available for billing periods prior to July 25, 2024. Have questions? Contact support
