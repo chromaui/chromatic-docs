@@ -9,7 +9,7 @@ sidebar: { order: 2 }
 
 The fastest way to get help is to search the docs and browse our [FAQ](/docs/FAQ).
 
-Our team is spread across timezones for a quick turnaround time. Use our **in-app chat** to get in touch. Please provide details like version numbers, logs, and screenshots, to speed up troubleshooting.
+Our team is spread across timezones for a quick turnaround time. Use our **in-app chat** to get in touch, but please note that responses may not be immediate as chat is asynchronous rather than real-time. Please provide details like version numbers, logs, and screenshots, to speed up troubleshooting.
 
 Go to our [Status page](https://status.chromatic.com/) to check uptime and get updates on outages.
 
