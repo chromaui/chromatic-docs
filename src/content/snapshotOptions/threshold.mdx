@@ -74,7 +74,7 @@ If you need to customize how Chromatic identifies visual changes in your UI, add
     <ParamsCallout name="diffThreshold" integration="playwright" />
   </Fragment>
   <Fragment slot="cypress">
-    ```ts title="cypress/e2e/auth.cy.js|ts"
+    ```ts title="cypress/e2e/UserProfile.cy.js|ts"
     describe("User Profile Page", () => {
        // Sets the threshold for 0.2 for this test.
       it("Successfully authenticates user", { env: { diffThreshold: 0.2 } }, () => {
@@ -154,7 +154,7 @@ To enable this feature and allow Chromatic to automatically detect anti-aliased 
     <ParamsCallout name="diffIncludeAntiAliasing" integration="playwright" />
   </Fragment>
   <Fragment slot="cypress">
-    ```ts title="cypress/e2e/auth.cy.js|ts"
+    ```ts title="cypress/e2e/UserProfile.cy.js|ts"
     describe("User Profile Page", () => {
       // Configures this to include anti-aliasing in the diff calculation.
       it("Successfully loads the user information", { env: { diffIncludeAntiAliasing: true } }, () => {
