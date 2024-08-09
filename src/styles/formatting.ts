@@ -251,7 +251,7 @@ export const formatting = css`
   }
 
   dl {
-    padding-left: 30px;
+    padding-left: 15px;
     margin: 0;
 
     &:not(:last-of-type) {
