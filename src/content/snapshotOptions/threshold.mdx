@@ -176,8 +176,6 @@ To enable this feature and allow Chromatic to automatically detect anti-aliased 
 
 Chromatic uses a threshold to determine how much must change between snapshots before they get flagged as visual changes. This prevents false positives due to anti-aliasing and other non-deterministic rendering artifacts.
 
-Chromatic uses a threshold to determine how much needs to visually change between snapshots before they get flagged as changes. This prevents false positives due to anti-aliasing and other non-deterministic rendering artifacts.
-
 However, our default threshold may miss subtle changes, such as nuanced changes to a background's shade of gray. In this case, you may want to adjust the `diffThreshold` to be more accurate (lower value).
 
 Find the suitable threshold for your UI using our [**interactive diff tool**](https://6262c53f521620003ac2ff49-ukmsdlppcb.chromatic.com/?path=/story/stories-diff-threshold-check--test-yours-out).
