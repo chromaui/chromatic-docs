@@ -19,9 +19,7 @@ To integrate Chromatic with your existing CI provider, you'll need to add the fo
 
 <IntegrationSnippets>
   <Fragment slot="storybook">
-    ```yml
-    # your-workflow
-    
+    ```yml title="your-workflow.yml"
     image: node:iron
 
     - run:
@@ -35,9 +33,7 @@ To integrate Chromatic with your existing CI provider, you'll need to add the fo
     ```
   </Fragment>
   <Fragment slot="playwright">
-    ```yml
-    # your-workflow
-
+    ```yml title="your-workflow.yml"
     image: node:iron
 
     - run:
@@ -63,9 +59,7 @@ To integrate Chromatic with your existing CI provider, you'll need to add the fo
     ```
 </Fragment>
 <Fragment slot="cypress">
-    ```yml
-    # your-workflow
-
+    ```yml title="your-workflow.yml"
     image: node:iron
 
     - run:
@@ -112,8 +106,7 @@ Depending on the CI provider you're using, running Chromatic from a specific bra
 
 Chromatic is prepared to handle large file uploads (with a limit of 5000 files, including stories and assets). If your project exceeds this limit, we recommend adjusting your workflow and run the `chromatic` command with the `--zip` flag to compress your build before uploading it. For example:
 
-```yml
-# your-workflow
+```yml title="your-workflow.yml"
 - run:
  # 👇 Runs Chromatic with the flag to compress the build output.
  command: npx chromatic --zip
@@ -130,9 +123,7 @@ Chromatic can be run on monorepos that have multiple subprojects. Each subprojec
 
 If you've already built your Storybook in a separate CI step, you can alternatively point the action at the build output using the `storybookBuildDir` parameter.
 
-```yml
-# your-workflow
-
+```yml title="your-workflow.yml"
 # 👇 Runs Chromatic sequentially for each monorepo subproject.
 - run:
     command: cd packages/project_1 && npx chromatic
@@ -146,9 +137,7 @@ If you've already built your Storybook in a separate CI step, you can alternativ
 
 If you want to run Chromatic in parallel for each subproject, you can use this snippet below.
 
-```yml
-# your-workflow
-
+```yml title="your-workflow.yml"
 # 👇 Runs Chromatic in parallel for each monorepo subproject.
 - parallel:
     - run:
@@ -165,9 +154,7 @@ If you want to run Chromatic in parallel for each subproject, you can use this s
 
 TurboSnap is an advanced Chromatic feature implemented to improve the build time for large projects, disabled by default once you add Chromatic to your CI environment. To enable it, you'll need to adjust your existing workflow and run the `chromatic` command with the `--only-changed` flag as follows:
 
-```yml
-# your-workflow
-
+```yml title="your-workflow.yml"
 - run:
     # 👇 Enables Chromatic's TurboSnap feature.
     command: npx chromatic --only-changed
@@ -185,8 +172,7 @@ If your worflow includes a set of rules for branches (e.g., renames the branch, 
 
 In this case, you can adjust your workflow and include the `--branch-name` flag. This flag overrides Chromatic's default branch detection in favor of the specified branch:
 
-```yml
-# your-workflow
+```yml title="your-workflow.yml"
 - run:
     # 👇 Runs the Chromatic CLI with the --branch-name flag to override the baseline branch
     command: npx chromatic --branch-name=${YOUR_BRANCH}
@@ -202,9 +188,7 @@ Chromatic will now detect the correct branch and run your workflow. You can also
 
 If you are using pull request statuses as required checks before merging, you may not want your build to fail if test snapshots render without errors (but with changes). To achieve this, pass the flag `--exit-zero-on-changes` to the `chromatic` command, and your job will continue in such cases. For example:
 
-```yml
-# your-workflow
-
+```yml title="your-workflow.yml"
 # Your custom CI implementation
 
 - run:
@@ -214,7 +198,7 @@ If you are using pull request statuses as required checks before merging, you ma
 
 <div class="aside">
 
-Read our official [CLI documentation](/docs/cli#configuration-options).
+Read our [configuration reference documentation](/docs/configure/#options).
 
 </div>
 
@@ -238,9 +222,7 @@ We use GitHub, GitLab, and Bitbucket APIs respectively to detect squashing and r
 
 If you’re using this functionality but notice the incoming changes were not accepted as baselines in Chromatic, then you'll need to adjust the `chromatic` command and include the `--auto-accept-changes` flag. For example:
 
-```yml
-# your-workflow
-
+```yml title="your-workflow.yml"
 # Your custom CI implementation
 
 - run:
@@ -254,7 +236,7 @@ If you’re using this functionality but notice the incoming changes were not ac
 
 <div class="aside">
 
-Read our official [CLI documentation](/docs/cli#configuration-options).
+Read our [configuration reference documentation](/docs/configure/#options).
 
 </div>
 
@@ -280,7 +262,7 @@ npx chromatic --skip 'dependabot/**'
 
 <div class="aside">
 
-Read our official [CLI documentation](/docs/cli#configuration-options).
+Read our [configuration reference documentation](/docs/configure/#options).
 
 </div>
 
