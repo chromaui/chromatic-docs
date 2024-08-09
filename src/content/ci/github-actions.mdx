@@ -496,11 +496,13 @@ Read the official [Storybook environment variable's documentation](https://story
 
 ### Recommended configuration for build events
 
-GitHub's Actions, like other CI systems, can run based on any type of event. Our recommendation is to run Chromatic's step on `push` events. All other event types except `pull-request` will not work.
+GitHub's Actions, like other CI systems, can run based on any type of event. Our recommendation is to run Chromatic's step on `push` events.
 
-The `pull-request` event requires special consideration. Like other CI systems, GitHub allows workflow execution on either commits pushed to a branch in a pull request. Or for "merge" commits between that branch and the base branch (main).
+All other event types except `pull_request` will not work. However, using the `pull_request` event might cause Chromatic's baselines to be lost in certain scenarios.
 
-These specific types of commits (merge) don't persist in the history of your repository. That can cause Chromatic's baselines to be lost in certain situations. Hence why we recommend running Chromatic's step on `push`.
+GitHub allows workflows to execute on commits pushed to a branch in a pull request or on "merge" commits between that branch and the base branch (main). These merge commits do not persist in your repository's history. When a GitHub action is triggered on `pull_request`, GitHub creates an ephemeral branch and merges the PR branch into the latest from `main`. For details, refer to the [pull request workflow docs](https://docs.github.com/en/actions/using-workflows/events-that-trigger-workflows#pull_request) to understand what `GITHUB_SHA` and `GITHUB_REF` are set to.
+
+This means the latest build on main will be an ancestor of this ephemeral branch, even though it is not an ancestor of the actual PR branch. Therefore, it'll use the incorrect baseline for comparison. That's why we recommend running Chromatic using the `push` event.
 
 ### UI Test and UI Review
 
@@ -529,7 +531,7 @@ jobs:
 
 <div class="aside">
 
-Read about the [available options](/docs/cli/#configuration-options).
+Read about the [available options](/docs/configure/#options).
 
 </div>
 
@@ -570,7 +572,7 @@ jobs:
 
 <div class="aside">
 
-Read about the [available options](/docs/cli/#configuration-options).
+Read about the [available options](/docs/configure/#options).
 
 </div>
 
@@ -595,7 +597,7 @@ jobs:
 
 <div class="aside">
 
-Read about the [available options](/docs/cli/#configuration-options).
+Read about the [available options](/docs/configure/#options).
 
 </div>
 
