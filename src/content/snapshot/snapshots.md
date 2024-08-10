@@ -75,7 +75,7 @@ Other factors that impact when a snapshot is captured include:
 
 #### Animations and videos
 
-Chromatic [proactively pauses](docs/animations) CSS animations/transitions, videos and GIFs to prevent false positives. However, Chromatic cannot disable JavaScript-driven animations, so you are responsible for [pausing them](/docs/animations/#javascript-animations).
+Chromatic [proactively pauses](/docs/animations) CSS animations/transitions, videos and GIFs to prevent false positives. However, Chromatic cannot disable JavaScript-driven animations, so you are responsible for [pausing them](/docs/animations/#javascript-animations).
 
 If not paused during testing, the snapshot will be captured mid-animation and trigger false positives.
 
