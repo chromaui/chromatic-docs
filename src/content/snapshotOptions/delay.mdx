@@ -7,133 +7,202 @@ sidebar: { order: 9 }
 
 import ParamsCallout from "../../components/ParamsCallout.astro";
 
+import IntegrationSnippets from "../../components/IntegrationSnippets.astro";
+
 # Delay snapshots
 
-Components sometimes trigger custom interactions on render. For example, JavaScript-driven [animations](/docs/animations#javascript-animations) that cannot [otherwise be disabled](/docs/snapshots#improve-snapshot-consistency) or third-party functionality outside of your control.
+Components sometimes trigger custom interactions on render. For example, JavaScript-driven [animations](/docs/animations#javascript-animations) that cannot [otherwise be disabled](/docs/troubleshooting-snapshots) or third-party functionality outside of your control. The `delay` configuration option enables you to define a fixed minimum time to wait before capturing a snapshot, allowing your tests to get into the intended state before Chromatic snapshots it.
 
-You can delay capture for a fixed time to allow your story to get into the intended state. Using delay requires Storybook 4.0 or later.
+## Customizing snapshot delays
 
-<details>
-<summary>How long can I set delay?</summary>
+Chromatic's maximum wait time before capturing a snapshot is 15 seconds, providing a balance for your tests to load resources and be ready for snapshotting. If you need to customize the wait time for Chromatic to capture a snapshot, add the `delay` configuration option to your tests. For example:
 
-The maximum time for snapshot capture is 15s. Your story should finish loading resources and be ready to capture in 15s.
+<IntegrationSnippets>
+  <Fragment slot="storybook">
+  ```ts title="src/components/Categories.stories.ts|tsx"
+  // Adjust this import to match your framework (e.g., nextjs, vue3-vite)
+  import type { Meta, StoryObj } from "@storybook/your-framework";
 
-</details>
+  /*
+   * Replace the @storybook/test package with the following if you are using a version of Storybook earlier than 8.0:
+   * import { within } from "@storybook/testing-library";
+   * import { expect } from "@storybook/jest";
+   */
+  import { expect, within } from "@storybook/test";
 
-## Delay a story
+  import { Categories } from "./Categories";
 
-Use [story-level](https://storybook.js.org/docs/writing-stories/parameters#story-parameters) delay to ensure a minimum amount of time (in milliseconds) has passed before Chromatic takes a screenshot.
+  const meta: Meta<typeof Categories> = {
+    component: Categories,
+    title: "Categories",
+    parameters: {
+      // Sets the delay (in milliseconds) at the component level for all stories.
+      chromatic: { delay: 300 },
+    },
+  };
 
-<ParamsCallout name="delay" integration="storybook" />
+  export default meta;
+  type Story = StoryObj<typeof Categories>;
 
-```js
-// MyComponent.stories.js|jsx
+  export const Default: Story = {
+    play: async ({ canvasElement }) => {
+      const canvas = within(canvasElement);
+      await expect(canvas.getByText("Available Categories")).toBeInTheDocument();
+    },
+  };
+  ```
+  <ParamsCallout name="delay" integration="storybook" />
+  </Fragment>
+  <Fragment slot="playwright">
+    ```ts title="tests/Categories.test.js|ts"
+    import { test, expect } from "@chromatic-com/playwright";
+  
+    test.describe("Categories Page", () => {
+      // Configures the delay (in milliseconds) for this test
+      test.use({ delay: 300 });
 
-import { MyComponent } from "./MyComponent";
-
-export default {
-  component: MyComponent,
-  title: "MyComponent",
-};
-
-export const StoryName = {
-  args: {
-    with: "props",
-  },
-  parameters: {
-    // Sets the delay (in milliseconds) for a specific story.
-    chromatic: { delay: 300 },
-  },
-};
-```
-
-This technique is intended for interactions and animations that end after a certain period of time (e.g., "animate in"). If your animation is continuous and you cannot disable it, you may need to use an [ignore region](/docs/ignoring-elements) to stop Chromatic from considering such parts of your component.
-
-### Use an assertion to delay snapshot capture
-
-For finer-grained control over when a snapshot is captured, use [interactions](/docs/interactions) and the [`play`](https://storybook.js.org/docs/writing-stories/play-function) function to write assertions that check for DOM elements or set timeouts. Chromatic waits for interactions to pass before capturing a snapshot.
-
-Check for DOM elements using `getBy`, `findBy`, or `queryBy` (docs [here](https://testing-library.com/docs/dom-testing-library/cheatsheet/#queries)).
-
-```js
-// MyComponent.stories.js|jsx
-
-/*
- * Replace the @storybook/test package with the following if you are using a version of Storybook earlier than 8.0:
- * import { waitFor, within } from "@storybook/testing-library";
- * import { expect } from "@storybook/jest";
- */
-import { expect, waitFor, within } from "@storybook/test";
-
-import { MyComponent } from "./MyComponent";
-
-export default {
-  component: MyComponent,
-  title: "MyComponent",
-};
-
-export const StoryName = {
-  play: async ({ canvasElement }) => {
-    // Assigns canvas to the component root element
-    const canvas = within(canvasElement);
-    //   Wait for the below assertion not throwing an error anymore (default timeout is 1000ms)
-    //👇 This is especially useful when you have an asynchronous action or component that you want to wait for
-    await waitFor(async () => {
-      //👇 This assertion will pass if a DOM element with the matching id exists
-      await expect(canvas.getByTestId("button")).toBeInTheDocument();
+      test("Renders the categories page", async ({ page }) => {
+        await page.goto("/categories");
+        await expect(page.getByText("Available Categories")).toBeVisible();
+      });
     });
-  },
-};
-```
+  ```
+  <ParamsCallout name="delay" integration="playwright" />
+  </Fragment>
+  <Fragment slot="cypress">
+    ```ts title="cypress/e2e/Categories.cy.js|ts"
+    describe("Categories Page", () => {
+      // Configures the delay (in milliseconds) for this test
+      it("Renders the categories page", { env: { delay: 300 } }, () => {
+        cy.visit("/categories");
+        cy.get("h2").contains("Available Categories");
+      });
+    });
+   ```
+  <ParamsCallout name="delay" integration="cypress" />
+  </Fragment>
+</IntegrationSnippets>
 
-If your UI requires extra time to paint after the DOM loads, consider setting a timeout by adding this step to your `play` function:
+Enabling the `delay` configuration in your tests is especially useful when you have an asynchronous action or animations that end after a specific time (e.g., "animate in") to ensure that your component is in the intended state before Chromatic captures a snapshot. However, if you're working with a continuous animation or a third-party element you cannot deactivate, you may need to use an [ignore region](/docs/ignoring-elements) to prevent Chromatic from considering such parts of the UI.
 
-```javascript
-// MyComponent.stories.js|jsx
+### Use assertions to delay snapshot capture
 
-import { MyComponent } from "./MyComponent";
+If you need additional control when Chromatic captures a snapshot, you can adjust your tests to rely on [interaction testing](/docs/interactions) via Storybook's [`play`](https://storybook.js.org/docs/writing-stories/play-function) function, use custom assertions and timeouts with the E2E integration (i.e., [Playwright](/docs/playwright), or [Cypress](/docs/cypress)), verifying that the UI is in the required state before the snapshot is taken. Chromatic waits for the assertions to pass before capturing the snapshot.
 
-export default {
-  component: MyComponent,
-  title: "MyComponent",
-};
+<IntegrationSnippets>
+  <Fragment slot="storybook">
+  ```ts title="src/components/Categories.stories.ts|tsx"
+  // Adjust this import to match your framework (e.g., nextjs, vue3-vite)
+  import type { Meta, StoryObj } from "@storybook/your-framework";
 
-export const StoryName = {
-  play: async ({ canvasElement }) => {
-    // Assigns canvas to the component root element
-    const canvas = within(canvasElement);
-    //👇 This sets a timeout of 2s
-    await new Promise((resolve) => setTimeout(resolve, 2000));
-  },
-};
-```
+  /*
+  * Replace the @storybook/test package with the following if you are using a version of Storybook earlier than 8.0:
+  * import { userEvent, waitFor, within } from "@storybook/testing-library";
+  * import { expect } from "@storybook/jest";
+  */
+  import { expect, userEvent, waitFor, within } from "@storybook/test";
 
-## Delay all stories of a component
+  import { Categories } from "./Categories";
 
-Chromatic uses Storybook’s built in [parameter](https://storybook.js.org/docs/writing-stories/parameters#component-parameters) API to make it straightforward to set delay on a group of stories:
+  const meta: Meta<typeof Categories> = {
+    component: Categories,
+    title: "Categories",
+  };
 
-```js
-// MyComponent.stories.js|jsx
+  export default meta;
+  type Story = StoryObj<typeof Categories>;
 
-import { MyComponent } from "./MyComponent";
+  export const Default: Story = {
+    play: async ({ canvasElement }) => {
+      // Assigns canvas to the component root element
+      const canvas = within(canvasElement);
 
-export default {
-  component: MyComponent,
-  title: "MyComponent",
-  parameters: {
-    // Sets a delay for the component's stories
-    chromatic: { delay: 300 },
-  },
-};
+      const LoadMoreButton = await canvas.getByRole("button", { name: "Load more" });
 
-export const StoryName = {
-  args: {
-    with: "props",
-  },
-};
-export const SecondStoryName = {
-  args: {
-    with: "other-props",
-  },
-};
-```
+      await userEvent.click(LoadMoreButton);
+
+      // Wait for the below assertion not throwing an error (default timeout is 1000ms)
+      // This is especially useful when you have an asynchronous action or component that you want to wait for before taking a snapshot 
+      await waitFor(async () => {
+        const ItemList = await canvas.getByLabelText("listitems");
+    
+        const numberOfItems = await within(categories).findAllByRole("link");
+
+        expect(numberOfItems).toHaveLength(0);
+      });
+    },
+  };
+
+  // Emulates a delayed story by setting a timeout of 10 seconds to allow the component to load the items and ensure that the list has 20 items rendered in the DOM
+  export const WithManualTimeout: Story = {
+    play: async ({ canvasElement }) => {
+      // Assigns canvas to the component root element
+      const canvas = within(canvasElement);
+      const LoadMoreButton = await canvas.getByTestId("button");
+
+      await userEvent.click(LoadMoreButton);
+      // This sets a timeout of 10 seconds and verifies that there are 20 items in the list 
+      await new Promise((resolve) => setTimeout(resolve, 10000));
+
+      const ItemList = await canvas.getByLabelText("listitems");
+    
+      const numberOfItems = await within(categories).findAllByRole("link");
+
+      expect(numberOfItems).toHaveLength(20);
+    },
+  };
+  ```
+
+  <div class="aside">
+  
+  ℹ️ For more information about querying elements, see the [DOM Testing Library cheatsheet](https://testing-library.com/docs/dom-testing-library/cheatsheet/#queries).
+
+  </div>
+
+  </Fragment>
+  <Fragment slot="playwright">
+   ```ts title="tests/Categories.test.js|ts"
+   import { test, expect } from "@chromatic-com/playwright";
+
+    test.describe("Categories Page", () => {
+      test("Renders the categories page with additional items", async ({ page }) => {
+        await page.goto("/categories");
+       
+        const loadMoreButton = await page.getByRole("button", { name: "Load more" });
+
+        await loadMoreButton.click();
+      
+        // Verifies that there are 20 items in the list after waiting for 10 seconds
+        expect(await page.locator(".listItems")).toHaveCount(20, {
+          timeout: 10000
+        });
+
+     });
+   });
+   ```
+
+   <div class="aside">
+
+    ℹ️ Playwright's [locators](https://playwright.dev/docs/locators) include additional methods to find elements in the DOM and interact with them in your tests. However, when writing tests, you may need additional control over the timing of your assertions. For more information, see the Playwright documentation on [timeouts](https://playwright.dev/docs/test-timeouts).
+
+   </div>
+
+  </Fragment>
+  <Fragment slot="cypress">
+   ```ts title="cypress/e2e/Categories.cy.js|ts"
+   describe("Categories Page", () => {
+     it("Renders the categories page with additional items", () => {
+        cy.visit("/categories");
+        cy.get("button").contains("Load more").click();
+
+        // Verifies that there are 20 items in the list after waiting for 10 seconds
+        cy.get(".listItems", { timeout: 10000 }).should("have.length", 20);
+     });
+   });
+   ```
+
+   <div class="aside">
+    ℹ️ The Cypress [API](https://docs.cypress.io/api/table-of-contents#Queries) includes additional methods to find elements in the DOM and interact with them in your tests. However, when writing tests, you may need additional control over the timing of your assertions. For more information, see the Cypress documentation on [timeouts](https://docs.cypress.io/guides/references/configuration#Timeouts).
+   </div>
+  </Fragment>
+</IntegrationSnippets>
