@@ -15,11 +15,11 @@ It's essential that your components and stories render in a **consistent** fashi
 
 - **Animations**: Chromatic will attempt to pause all animations. However, you may need to [configure](/docs/animations) Chromatic's exact behavior. Chromatic's exact behavior.
 
-- **Unpredictable resource hosts**: Resources that load from unpredictable or flaky sources may not load in time (15s) to capture. Work around this by serving resources as [static files in Storybook](https://storybook.js.org/configurations/serving-static-files/) or using a [placeholder service](https://placehold.co/). Learn more about how we [load resources](/docs/resource-loading).
+- **Unpredictable resource hosts**: Resources that load from unpredictable or flaky sources may not load in time (15s) to capture.To work around this, serve resources as [static files](#serving-static-files) or use a [placeholder service](https://placehold.co/). Learn more about how we [load resources](/docs/resource-loading).
 
-- **Image CDNs & compression algorithms**: Image CDNs optimize for image weight and size, which affect how it renders. Since this happens upstream of Chromatic, any changes to those images in your components will be caught as visual changes. Work around this by ensuring the served images are identical every time and using consistent compression settings. Also consider serving images as [static files in Storybook](https://storybook.js.org/configurations/serving-static-files/) or using a [placeholder service](https://placehold.co/).
+- **Image CDNs & compression algorithms**: Image CDNs optimize for image weight and size, which affect how it renders. Since this happens upstream of Chromatic, any changes to those images in your components will be caught as visual changes. Work around this by ensuring the served images are identical every time and using consistent compression settings. Also consider serving images as [static files](#serving-static-files) or use a [placeholder service](https://placehold.co/)
 
-- **Web font loading**: Web fonts can load at different times which will impact snapshot consistency, especially when combined with [interactions](/docs/interactions). Serve web fonts as [static files in Storybook](https://storybook.js.org/configurations/serving-static-files/) and make sure to [preload](/docs/font-loading) them.
+- **Web font loading**: Web fonts can load at different times which will impact snapshot consistency, especially when combined with [interactions](/docs/interactions). Serve web fonts as [static files](#serving-static-files) and make sure to [preload](/docs/font-loading) them.
 
 - **Iframes rendering out of the viewport**: Some browsers only visually render iframes when they are inside of the viewport, despite the fact that they have loaded with all of their resources. For this reason, if you have an iframe that is placed below the viewport of a tall story, it will appear blank. You may want to [ignore that element](/docs/ignoring-elements) and also test it in isolation so that it fits inside of the viewport.
 
@@ -30,6 +30,12 @@ It's essential that your components and stories render in a **consistent** fashi
 - **Intentional randomness**: Some stories may render unpredictably intentionally. If this is the case you may want to [ignore the story](/docs/ignoring-elements) from UI Tests and move on.
   If you still need inconsistent elements for local development purposes inside Storybook, you can use `isChromatic()` exported from [our package](/docs/ischromatic) to apply the solutions above only when in the Chromatic environment.
 
+### Serving static files
+
+When using Playwright or Cypress, you can serve static files like fonts, images, and videos through your app server. This ensures that resources load consistently across all snapshots.
+
+For Storybook, use the [staticDirs](https://storybook.js.org/docs/configure/integration/images-and-assets#serving-static-files-via-storybook-configuration) option to load static files for your stories.
+
 ## Debug snapshot rendering
 
 <details>
@@ -39,7 +45,7 @@ Image and font rendering can be tricky. Resources that load from unpredictable o
 
 - Ensure fonts load [reliably fast in Chromatic](/docs/font-loading)
 - Ensure resources load [reliably fast in Chromatic](/docs/resource-loading)
-- Serve resources as [static files in Storybook](https://storybook.js.org/configurations/serving-static-files/) (this also improves your test speed)
+- Serve resources as [static files](#serving-static-files) (this also improves your test speed)
 - Using a [placeholder service](https://placeholder.com/).
 
 If your resources are behind a firewall, whitelist our domain so we can load your resources.
@@ -121,7 +127,7 @@ Chromatic captures Chrome and Firefox snapshots in a Linux environment. It inclu
 <details>
 <summary>Where are my videos?</summary>
 
-Videos are interactive and time-based which introduces inconsistencies in snapshots. Chromatic hides videos by default to prevent false positives. You'll see a blank space where the video is supposed to render.
+Videos are interactive and time-based which introduces inconsistencies in snapshots. Chromatic hides videos by default to prevent false positives. You'll see the poster image (if specified) or a blank space where the video is supposed to render.
 
 </details>
 
