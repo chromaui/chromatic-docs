@@ -1,4 +1,5 @@
 import { css } from "@storybook/theming";
+import { fontFamily } from "@chromatic-com/tetra";
 
 export const base = css`
   button,
@@ -79,6 +80,7 @@ export const base = css`
     display: inline-block;
     vertical-align: baseline;
 
+    font-family: ${fontFamily.mono};
     font-size: 85%; // Relative font size based on size of surrounding text
     line-height: 1;
     -webkit-text-size-adjust: 100%;

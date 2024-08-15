@@ -1,4 +1,5 @@
 import { css } from "@storybook/theming";
+import { fontFamily } from "@chromatic-com/tetra";
 
 export const syntaxHighlighting = css`
   [data-remark-code-title] {
@@ -6,7 +7,7 @@ export const syntaxHighlighting = css`
     border-bottom: 1px solid rgba(0, 0, 0, 0.1);
     padding: 1rem;
     font-size: 14px;
-    font-family: monospace;
+    font-family: ${fontFamily.mono};
     line-height: 1;
     background: #f8f8f8;
     color: #6a737d;
