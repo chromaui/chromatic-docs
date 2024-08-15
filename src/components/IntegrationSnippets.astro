@@ -9,15 +9,25 @@ interface Props {
 ---
 
 <Tabs>
-  <TabItem label="Storybook">
-    <slot name="storybook" />
-  </TabItem>
-
-  <TabItem label="Playwright">
-    <slot name="playwright" />
-  </TabItem>
-
-  <TabItem label="Cypress">
-    <slot name="cypress" />
-  </TabItem>
+  {
+    Astro.slots.has("storybook") && (
+      <TabItem label="Storybook">
+        <slot name="storybook" />
+      </TabItem>
+    )
+  }
+  {
+    Astro.slots.has("playwright") && (
+      <TabItem label="Playwright">
+        <slot name="playwright" />
+      </TabItem>
+    )
+  }
+  {
+    Astro.slots.has("cypress") && (
+      <TabItem label="Cypress">
+        <slot name="cypress" />
+      </TabItem>
+    )
+  }
 </Tabs>
