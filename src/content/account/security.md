@@ -16,6 +16,8 @@ For questions, contact our security team [security@chromatic.com](mailto:securit
 
 ## Responsible disclosure
 
+Before submitting a vulnerability request, download the **Responsible Disclosure Policy** from [security.chromatic.com](https://security.chromatic.com/) for submission instructions.
+
 ### Acknowledgments
 
 Chromatic is grateful to the following individuals for responsibly disclosing security issues, allowing us to make Chromatic safer for everyone.
