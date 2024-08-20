@@ -25,7 +25,7 @@ export const FilterableConfigOptions = ({
 
   const [filters, setFilters] = useState<Filters>({
     CLI: true,
-    "Github Action": true,
+    "GitHub Action": true,
     "Config File": true,
   });
 
@@ -59,12 +59,12 @@ export const FilterableConfigOptions = ({
             CLI
           </DropdownMenuCheckboxItem>
           <DropdownMenuCheckboxItem
-            checked={filters["Github Action"]}
+            checked={filters["GitHub Action"]}
             onCheckedChange={(checked: boolean) =>
-              setFilters({ ...filters, "Github Action": checked })
+              setFilters({ ...filters, "GitHub Action": checked })
             }
           >
-            Github Action
+            GitHub Action
           </DropdownMenuCheckboxItem>
           <DropdownMenuCheckboxItem
             checked={filters["Config File"]}

@@ -75,7 +75,7 @@ No, Chromatic only uses the static Storybook build or Storybook source code (if 
 
 **For linked projects:** Chromatic requests data from your git provider without accessing your source code.
 
-For Github, Chromatic only has access to repository metadata and merge request information.
+For GitHub, Chromatic only has access to repository metadata and merge request information.
 
 However, GitLab and Bitbucket don't offer repository metadata and merge request information without full API access. Therefore, Chromatic has permission to access the source code on GitLab, but it doesn't actually access it.
 

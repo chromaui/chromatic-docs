@@ -1,8 +1,8 @@
-import GithubSlugger from "github-slugger";
+import GitHubSlugger from "github-slugger";
 import { toString } from "hast-util-to-string";
 import { visit } from "unist-util-visit";
 
-const slugs = new GithubSlugger();
+const slugs = new GitHubSlugger();
 
 function isMdSummary(node) {
   const name = node.type === "element" ? node.tagName.toLowerCase() : "";

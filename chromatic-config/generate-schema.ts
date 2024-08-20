@@ -4,7 +4,7 @@ import strip from "strip-markdown";
 import RemarkLinkRewrite from "remark-link-rewrite";
 import optionsJSON from "./options.json" assert { type: "json" };
 
-export type SupportedType = "Github Action" | "CLI" | "Config File";
+export type SupportedType = "GitHub Action" | "CLI" | "Config File";
 
 export interface ConfigOption {
   option?: string;
