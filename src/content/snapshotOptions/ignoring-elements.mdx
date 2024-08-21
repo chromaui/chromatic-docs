@@ -56,7 +56,7 @@ export const Default: Story = {
 
 <ParamsCallout name="disableSnapshot" integration="storybook" />
 
-### With Playwright and Cypress
+### With Playwright or Cypress
 
 By default, Chromatic's Playwright and Cypress integrations run tests and captures a snapshot at the end of each E2E test; either it passes or fails. However, if you've enabled targeted snapshots with [Playwright](/docs/playwright/targeted-snapshots) or [Cypress](/docs/cypress/targeted-snapshots) to pinpoint visual changes when the test reaches a specific point, you can opt out of the automated snapshotting process by enabling the `disableAutoSnapshot` configuration option. This is useful when capturing snapshots at specific points in your test, such as when a particular element is visible or when a specific action is performed.
 
