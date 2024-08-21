@@ -27,7 +27,7 @@ It's essential that your components and stories render in a **consistent** fashi
 
 - **UI takes time to render**: UI can take extra time to "settle" into it's final orientation. Add a [delay](/docs/delay) to take a snapshot after waiting a period of time. Note that this technique can make the UI rendering inconsistency less obvious in snapshots, but it won't eliminate the underlying issue in how UI renders.
 
-- **Intentional randomness**: Some stories may render unpredictably intentionally. If this is the case you may want to [ignore the story](/docs/ignoring-elements) from UI Tests and move on.
+- **Intentional randomness**: Some stories may render unpredictably intentionally. If this is the case you may want to [ignore the story](/docs/ignoring-elements#with-storybook) from UI Tests and move on.
   If you still need inconsistent elements for local development purposes inside Storybook, you can use `isChromatic()` exported from [our package](/docs/ischromatic) to apply the solutions above only when in the Chromatic environment.
 
 ## Debug snapshot rendering
