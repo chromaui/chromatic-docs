@@ -28,7 +28,7 @@ const mockOptions = [
     type: ["glob", "boolean"],
     example: '<code>"main"</code> or <code>true</code>',
     default: "<code>false</code>",
-    supports: ["CLI", "Github Action", "Config File"],
+    supports: ["CLI", "GitHub Action", "Config File"],
   },
   {
     option: "branchName",
@@ -38,7 +38,7 @@ const mockOptions = [
     type: "string",
     example: '<code>"my- branch"</code>',
     defaultComment: "Inferred from CI or Git",
-    supports: ["CLI", "Github Action"],
+    supports: ["CLI", "GitHub Action"],
     default: "Inferred from CI or Git",
   },
   {
@@ -50,7 +50,7 @@ const mockOptions = [
     type: "string",
     example: '<code>"build: storybook"</code>',
     default: "<code>build-storybook</code>",
-    supports: ["CLI", "Github Action", "Config File"],
+    supports: ["CLI", "GitHub Action", "Config File"],
   },
   {
     option: "configFile",
@@ -60,7 +60,7 @@ const mockOptions = [
     type: "string",
     example: '<code>"config / chromatic.json"</code>',
     default: "<code>chromatic.config.json</code>",
-    supports: ["CLI", "Github Action"],
+    supports: ["CLI", "GitHub Action"],
   },
 ] as ConfigOptionType[];
 
@@ -97,7 +97,7 @@ export const FilterOptions: Story = {
 
     await userEvent.click(FilterButton);
     await userEvent.click(
-      await screen.findByRole("menuitemcheckbox", { name: "Github Action" }),
+      await screen.findByRole("menuitemcheckbox", { name: "GitHub Action" }),
     );
   },
 };
@@ -118,7 +118,7 @@ export const NoOptions: Story = {
 
     await userEvent.click(FilterButton);
     await userEvent.click(
-      await screen.findByRole("menuitemcheckbox", { name: "Github Action" }),
+      await screen.findByRole("menuitemcheckbox", { name: "GitHub Action" }),
     );
 
     await userEvent.click(FilterButton);

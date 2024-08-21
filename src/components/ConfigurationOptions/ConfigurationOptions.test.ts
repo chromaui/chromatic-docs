@@ -10,7 +10,7 @@ const mockOption = {
     "The secret token for your project. Prefer to use `CHROMATIC_PROJECT_TOKEN` instead if you can. <br/>Use with `onlyChanged` and `storybookBuildDir` when using a custom [`--config-dir`](https://storybook.js.org/docs/api/cli-options#build) flag for Storybook.",
   type: "string",
   example: '`"chpt_b2aef0123456789"`',
-  supports: ["CLI", "Github Action", "Config File"],
+  supports: ["CLI", "GitHub Action", "Config File"],
   deprecated: "Config File",
 } as ConfigOption;
 
