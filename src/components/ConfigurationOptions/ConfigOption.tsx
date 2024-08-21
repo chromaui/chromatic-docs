@@ -74,7 +74,7 @@ const Tag = styled.div<{ type: SupportedType }>`
   line-height: 1;
   border-radius: 4px;
   color: ${({ type }) => {
-    if (type === "Github Action") {
+    if (type === "GitHub Action") {
       return color.green600;
     } else if (type === "CLI") {
       return color.blue600;
@@ -83,7 +83,7 @@ const Tag = styled.div<{ type: SupportedType }>`
     return color.purple600;
   }};
   background-color: ${({ type }) => {
-    if (type === "Github Action") {
+    if (type === "GitHub Action") {
       return color.green100;
     } else if (type === "CLI") {
       return color.blue100;

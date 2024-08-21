@@ -6,7 +6,7 @@
     "type": ["glob", "boolean"],
     "example": "`\"main\"` or `true`",
     "default": false,
-    "supports": ["CLI", "Github Action", "Config File"]
+    "supports": ["CLI", "GitHub Action", "Config File"]
   },
   {
     "option": "branchName",
@@ -15,7 +15,7 @@
     "type": "string",
     "example": "`\"my-branch\"`",
     "defaultComment": "Inferred from CI or Git",
-    "supports": ["CLI", "Github Action"]
+    "supports": ["CLI", "GitHub Action"]
   },
   {
     "option": "buildScriptName",
@@ -25,7 +25,7 @@
     "type": "string",
     "example": "`\"build:storybook\"`",
     "default": "build-storybook",
-    "supports": ["CLI", "Github Action", "Config File"]
+    "supports": ["CLI", "GitHub Action", "Config File"]
   },
   {
     "option": "configFile",
@@ -35,7 +35,7 @@
     "type": "string",
     "example": "`\"config/chromatic.json\"`",
     "default": "chromatic.config.json",
-    "supports": ["CLI", "Github Action"]
+    "supports": ["CLI", "GitHub Action"]
   },
   {
     "option": "debug",
@@ -44,7 +44,7 @@
     "type": "boolean",
     "example": "`true`",
     "default": false,
-    "supports": ["CLI", "Github Action", "Config File"]
+    "supports": ["CLI", "GitHub Action", "Config File"]
   },
   {
     "option": "diagnosticsFile",
@@ -53,7 +53,7 @@
     "type": ["string", "boolean"],
     "example": "`\"debug.json\"` or `true`",
     "default": false,
-    "supports": ["CLI", "Github Action", "Config File"]
+    "supports": ["CLI", "GitHub Action", "Config File"]
   },
   {
     "option": "dryRun",
@@ -62,7 +62,7 @@
     "type": "boolean",
     "example": "`true`",
     "default": false,
-    "supports": ["CLI", "Github Action"]
+    "supports": ["CLI", "GitHub Action"]
   },
   {
     "option": "exitOnceUploaded",
@@ -71,7 +71,7 @@
     "type": ["glob", "boolean"],
     "example": "`\"my-branch\"` or `true`",
     "default": false,
-    "supports": ["CLI", "Github Action", "Config File"]
+    "supports": ["CLI", "GitHub Action", "Config File"]
   },
   {
     "option": "exitZeroOnChanges",
@@ -80,7 +80,7 @@
     "type": ["glob", "boolean"],
     "example": "`\"!(main)\"` or `true`",
     "default": false,
-    "supports": ["CLI", "Github Action", "Config File"]
+    "supports": ["CLI", "GitHub Action", "Config File"]
   },
   {
     "option": "externals",
@@ -88,7 +88,7 @@
     "description": "Disable [TurboSnap](/docs/turbosnap) when any of these files have changed since the baseline build.<br/>Requires `onlyChanged`.",
     "type": "array of glob",
     "example": "`\"my-folder/**\"`",
-    "supports": ["CLI", "Github Action", "Config File"]
+    "supports": ["CLI", "GitHub Action", "Config File"]
   },
   {
     "option": "forceRebuild",
@@ -97,7 +97,7 @@
     "type": ["glob", "boolean"],
     "example": "`\"my-branch\"` or `true`",
     "default": false,
-    "supports": ["CLI", "Github Action"]
+    "supports": ["CLI", "GitHub Action"]
   },
   {
     "option": "fromCI",
@@ -106,7 +106,7 @@
     "type": "boolean",
     "example": "`true`",
     "defaultComment": "Inferred from CI",
-    "supports": ["CLI", "Github Action"]
+    "supports": ["CLI", "GitHub Action"]
   },
   {
     "option": "ignoreLastBuildOnBranch",
@@ -114,7 +114,7 @@
     "description": "Do not use the last build on this branch as a baseline if it is no longer in history (i.e., the branch was rebased).",
     "type": "glob",
     "example": "`\"my-branch\"`",
-    "supports": ["CLI", "Github Action", "Config File"]
+    "supports": ["CLI", "GitHub Action", "Config File"]
   },
   {
     "option": "interactive: false",
@@ -123,7 +123,7 @@
     "type": "boolean",
     "example": "`false`",
     "defaultComment": "Inferred from TTY",
-    "supports": ["CLI", "Github Action"]
+    "supports": ["CLI", "GitHub Action"]
   },
   {
     "option": "isLocalBuild",
@@ -132,7 +132,7 @@
     "type": "boolean",
     "example": "`true`",
     "default": false,
-    "supports": ["CLI", "Github Action"]
+    "supports": ["CLI", "GitHub Action"]
   },
   {
     "option": "junitReport",
@@ -141,7 +141,7 @@
     "type": ["string", "boolean"],
     "example": "`\"report.xml\"` or `true`",
     "default": false,
-    "supports": ["CLI", "Github Action", "Config File"]
+    "supports": ["CLI", "GitHub Action", "Config File"]
   },
   {
     "option": "list",
@@ -150,7 +150,7 @@
     "type": "boolean",
     "example": "`true`",
     "default": false,
-    "supports": ["CLI", "Github Action"]
+    "supports": ["CLI", "GitHub Action"]
   },
   {
     "option": "logFile",
@@ -159,7 +159,7 @@
     "type": ["string", "boolean"],
     "example": "`\"logs.txt\"` or `true`",
     "default": false,
-    "supports": ["CLI", "Github Action", "Config File"]
+    "supports": ["CLI", "GitHub Action", "Config File"]
   },
   {
     "option": "fileHashing",
@@ -168,7 +168,7 @@
     "type": "boolean",
     "example": "`true`",
     "default": false,
-    "supports": ["CLI", "Github Action", "Config File"]
+    "supports": ["CLI", "GitHub Action", "Config File"]
   },
   {
     "option": "onlyChanged",
@@ -177,7 +177,7 @@
     "type": ["glob", "boolean"],
     "example": "`true`",
     "default": false,
-    "supports": ["CLI", "Github Action", "Config File"]
+    "supports": ["CLI", "GitHub Action", "Config File"]
   },
   {
     "option": "onlyStoryFiles",
@@ -185,7 +185,7 @@
     "description": "Only run a single story or a subset of stories by their filename(s). Specify the full path to the story file relative to the root of your Storybook project.",
     "type": "array of glob",
     "example": "`\"src/ui/**\"`",
-    "supports": ["CLI", "Github Action", "Config File"]
+    "supports": ["CLI", "GitHub Action", "Config File"]
   },
   {
     "option": "onlyStoryNames",
@@ -193,7 +193,7 @@
     "description": "Only run a single story or a subset of stories by their name.",
     "type": "array of glob",
     "example": "`\"Atoms/Button/*\"`",
-    "supports": ["CLI", "Github Action", "Config File"]
+    "supports": ["CLI", "GitHub Action", "Config File"]
   },
   {
     "option": "outputDir",
@@ -203,14 +203,14 @@
     "type": "string",
     "example": "`\"storybook-static\"`",
     "defaultComment": "Temporary directory",
-    "supports": ["CLI", "Github Action", "Config File"]
+    "supports": ["CLI", "GitHub Action", "Config File"]
   },
   {
     "flag": "--patch-build",
     "description": "Create a patch build to fix a missing PR comparison.",
     "type": "string",
     "example": "`\"my-feature...main\"`",
-    "supports": ["CLI", "Github Action"]
+    "supports": ["CLI", "GitHub Action"]
   },
   {
     "option": "projectId",
@@ -227,7 +227,7 @@
     "type": "string",
     "example": "`\"chpt_b2aef0123456789\"`",
     "defaultComment": "Environment variable",
-    "supports": ["CLI", "Github Action", "Config File"],
+    "supports": ["CLI", "GitHub Action", "Config File"],
     "deprecated": "Config File"
   },
   {
@@ -237,7 +237,7 @@
     "type": "string",
     "example": "`\"owner/repositoryName\"`",
     "defaultComment": "Inferred from CI or Git",
-    "supports": ["CLI", "Github Action"]
+    "supports": ["CLI", "GitHub Action"]
   },
   {
     "option": "skip",
@@ -246,7 +246,7 @@
     "type": ["glob", "boolean"],
     "example": "`\"my-branch\"` or `true`",
     "default": false,
-    "supports": ["CLI", "Github Action", "Config File"]
+    "supports": ["CLI", "GitHub Action", "Config File"]
   },
   {
     "option": "skipUpdateCheck",
@@ -255,7 +255,7 @@
     "type": "boolean",
     "example": "`true`",
     "default": false,
-    "supports": ["CLI", "Github Action", "Config File"]
+    "supports": ["CLI", "GitHub Action", "Config File"]
   },
   {
     "option": "storybookBaseDir",
@@ -263,7 +263,7 @@
     "description": "Relative path from repository root to Storybook project root.<br/>Use with `onlyChanged` and `storybookBuildDir` when your Storybook is located in a subdirectory of your repository.",
     "type": "string",
     "example": "`\"src/ui\"`",
-    "supports": ["CLI", "Github Action", "Config File"]
+    "supports": ["CLI", "GitHub Action", "Config File"]
   },
   {
     "option": "storybookBuildDir",
@@ -272,7 +272,7 @@
     "description": "If you have already built your Storybook, provide the path to the static build directory.",
     "type": "string",
     "example": "`\"dist/storybook\"`",
-    "supports": ["CLI", "Github Action", "Config File"]
+    "supports": ["CLI", "GitHub Action", "Config File"]
   },
   {
     "option": "storybookConfigDir",
@@ -281,7 +281,7 @@
     "type": "string",
     "example": "`\"storybook-config\"`",
     "default": ".storybook",
-    "supports": ["CLI", "Github Action", "Config File"]
+    "supports": ["CLI", "GitHub Action", "Config File"]
   },
   {
     "option": "storybookLogFile",
@@ -290,7 +290,7 @@
     "type": ["string", "boolean"],
     "example": "`\"sb.txt\"` or `true`",
     "default": "build-storybook.log",
-    "supports": ["CLI", "Github Action", "Config File"]
+    "supports": ["CLI", "GitHub Action", "Config File"]
   },
   {
     "option": "traceChanged",
@@ -299,7 +299,7 @@
     "type": ["string", "boolean"],
     "example": "`\"expanded\"` or `true`",
     "default": false,
-    "supports": ["CLI", "Github Action", "Config File"]
+    "supports": ["CLI", "GitHub Action", "Config File"]
   },
   {
     "option": "workingDir",
@@ -308,7 +308,7 @@
     "type": "string",
     "example": "`\"my-folder\"`",
     "default": "process.cwd()",
-    "supports": ["CLI", "Github Action"]
+    "supports": ["CLI", "GitHub Action"]
   },
   {
     "option": "untraced",
@@ -316,7 +316,7 @@
     "description": "Disregard these files and their dependencies when tracing dependent stories for [TurboSnap](/docs/turbosnap).<br/>Requires `onlyChanged`.",
     "type": "array of glob",
     "example": "`\"my-folder/**\"`",
-    "supports": ["CLI", "Github Action", "Config File"]
+    "supports": ["CLI", "GitHub Action", "Config File"]
   },
   {
     "option": "uploadMetadata",
@@ -325,7 +325,7 @@
     "type": "boolean",
     "example": "`true`",
     "default": false,
-    "supports": ["CLI", "Github Action", "Config File"]
+    "supports": ["CLI", "GitHub Action", "Config File"]
   },
   {
     "option": "zip",
@@ -334,7 +334,7 @@
     "type": "boolean",
     "example": "`true`",
     "default": false,
-    "supports": ["CLI", "Github Action", "Config File"]
+    "supports": ["CLI", "GitHub Action", "Config File"]
   },
   {
     "option": "playwright",
@@ -343,7 +343,7 @@
     "type": "boolean",
     "example": "`true`",
     "default": false,
-    "supports": ["CLI", "Github Action", "Config File"]
+    "supports": ["CLI", "GitHub Action", "Config File"]
   },
   {
     "option": "cypress",
@@ -352,6 +352,6 @@
     "type": "boolean",
     "example": "`true`",
     "default": false,
-    "supports": ["CLI", "Github Action", "Config File"]
+    "supports": ["CLI", "GitHub Action", "Config File"]
   }
 ]

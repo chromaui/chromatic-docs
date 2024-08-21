@@ -75,7 +75,7 @@ No, Chromatic only uses the static Storybook build or Storybook source code (if 
 
 **For linked projects:** Chromatic requests data from your git provider without accessing your source code.
 
-For Github, Chromatic only has access to repository metadata and merge request information.
+For GitHub, Chromatic only has access to repository metadata and merge request information.
 
 However, GitLab and Bitbucket don't offer repository metadata and merge request information without full API access. Therefore, Chromatic has permission to access the source code on GitLab, but it doesn't actually access it.
 
@@ -121,7 +121,7 @@ If you don't know the Chromatic URL for your team, you may need to ask the accou
 <details>
   <summary>What SSO providers are supported?</summary>
 
-OneLogin, Okta, Google Workspace, PingOne, Keycloak, SimpleSAMLphp-based Identity Providers, and Active Directory Federation Services. 
+OneLogin, Okta, Google Workspace, PingOne, Keycloak, SimpleSAMLphp-based Identity Providers, and Active Directory Federation Services.
 
 If your provider is not on the list, please reach out to us at support@chromatic.com or use our **in-app chat**, and we will determine if it is possible to integrate with it.
 

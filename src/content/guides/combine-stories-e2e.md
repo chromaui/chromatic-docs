@@ -59,7 +59,7 @@ You can achieve this using Chromatic by using a sub-project setup. Here's how:
 3. Configure your CI to run Chromatic twice, once with each of the two project-specific tokens created in Step 1.
 4. Upon initiating a pull request, you'll receive status checks from all Chromatic projects linked to that repository.
 
-![Github pull request that shows status checks from multiple Chromatic projects](../../images/monorepo-commit-status.png)
+![GitHub pull request that shows status checks from multiple Chromatic projects](../../images/monorepo-commit-status.png)
 
 ### Understanding sub-projects
 
