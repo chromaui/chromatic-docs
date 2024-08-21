@@ -9,7 +9,7 @@ sidebar: { order: 7, label: Config via params }
 
 When using Chromatic with Storybook, you can control the snapshot capturing behavior through Storybook parameters. [Parameters](https://storybook.js.org/docs/api/parameters#story-parameters) are static metadata that can be attached at the story, component (meta), and project (global) levels.
 
-This guide will show you how to configure Chromatic features like [`diffThreshold`](/docs/threshold), [`forcedColors`](/docs/media-features), [`disableSnapshot`](/docs/ignoring-elements), and more using Storybook parameters.
+This guide will show you how to configure Chromatic features like [`diffThreshold`](/docs/threshold), [`forcedColors`](/docs/media-features), [`disableSnapshot`](/docs/ignoring-elements#ignore-tests), and more using Storybook parameters.
 
 ## Story level parameters
 
