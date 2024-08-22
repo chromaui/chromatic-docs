@@ -30,11 +30,44 @@ It's essential that your components and stories render in a **consistent** fashi
 - **Intentional randomness**: Some stories may render unpredictably intentionally. If this is the case you may want to [ignore the story](/docs/ignoring-elements) from UI Tests and move on.
   If you still need inconsistent elements for local development purposes inside Storybook, you can use `isChromatic()` exported from [our package](/docs/ischromatic) to apply the solutions above only when in the Chromatic environment.
 
-### Serving static files
+### Serve static files
 
 When using Playwright or Cypress, you can serve static files like fonts, images, and videos through your app server. This ensures that resources load consistently across all snapshots.
 
 For Storybook, use the [staticDirs](https://storybook.js.org/docs/configure/integration/images-and-assets#serving-static-files-via-storybook-configuration) option to load static files for your stories.
+
+### Use fixed-height wrappers for portal components
+
+Portals allow components to render arbitrary elements outside the parent component's initial DOM hierarchy. For example, tooltips, modals, popovers, and menus can be triggered by a nested button, but render close to the top of the DOM hierarchy using portals.
+
+With Playwright and Cypress, Chromatic snapshots the entire page, including modals, dialogs, and other portaled elements. However, with Storybook, portals render outside of Storybook’s DOM tree which can lead to cut-off snapshots.
+
+<details>
+<summary>Why are snapshots of portal components (tooltip, modal, popover, menu) cut off?</summary>
+
+For stories, Chromatic relies on the "natural" height of your component's outermost DOM element (using Storybook's `#storybook-root` element in version 7 or higher, or the `#root` element for previous versions) to determine snapshot dimensions. As portals render outside of Storybook's DOM tree, their dimensions cannot be auto-detected by Chromatic, which can lead to cut-off snapshots.
+
+</details>
+
+To capture snapshots of portaled elements, you can use a [decorator](https://storybook.js.org/docs/writing-stories/decorators#component-decorators) that wraps your stories in a fixed height container. You can adjust the height of the container to account for the total dimensions of your component and portal.
+
+```js
+// MyComponent.stories.js|jsx
+
+import { MyComponent } from "./MyComponent";
+
+export default {
+  component: MyComponent,
+  title: "Example Story",
+  decorators: [
+    (Story) => (
+      <div style={{ height: "300px" }}>
+        <Story />
+      </div>
+    ),
+  ],
+};
+```
 
 ## Debug snapshot rendering
 
@@ -134,7 +167,7 @@ Videos are interactive and time-based which introduces inconsistencies in snapsh
 <details>
 <summary>Why am I getting cross-origin errors with my stories?</summary>
 
-Most likely you are calling into `window.parent` somewhere in your code. As we serve your Storybook preview iframe inside our `www.chromatic.com` domain this leads to a x-origin error as your code doesn't have access to our frame (with good reason!).
+Most likely you are calling into `window.parent` somewhere in your code. As we serve your test preview iframe inside our `www.chromatic.com` domain this leads to a x-origin error as your code doesn't have access to our frame (with good reason!).
 
 Generally speaking it is a good idea to wrap calls like that in a `try { } catch` in case the code is running in a context where that's not possible (e.g., Chromatic).
 
@@ -162,35 +195,6 @@ export default {
   decorators: [
     (Story) => (
       <div style={{ margin: "3em" }}>
-        <Story />
-      </div>
-    ),
-  ],
-};
-```
-
-</details>
-
-<details>
-<summary>Why are components that render in a portal (tooltip, modal, popover, menu) getting cut off?</summary>
-
-Portals allow components to render arbitrary elements outside the parent component's initial DOM hierarchy. For example, tooltips, modals, popovers, and menus can be triggered by a nested button, but render close to the top of the DOM hierarchy using portals.
-
-However, when using Chromatic to capture snapshots of your component, it relies on the "natural" height of your component's outermost DOM element (using Storybook's `#storybook-root` element in version 7 or higher, or the `#root` element for previous versions) to determine snapshot dimensions. As portals render outside of Storybook's DOM tree, their dimensions cannot be auto-detected by Chromatic, which can lead to cut-off snapshots.
-
-To capture snapshots of portaled elements, you can use a [decorator](https://storybook.js.org/docs/writing-stories/decorators#component-decorators) that wraps your stories in a fixed height container. You can adjust the height of the container to account for the total dimensions of your component and portal.
-
-```js
-// MyComponent.stories.js|jsx
-
-import { MyComponent } from "./MyComponent";
-
-export default {
-  component: MyComponent,
-  title: "Example Story",
-  decorators: [
-    (Story) => (
-      <div style={{ height: "300px" }}>
         <Story />
       </div>
     ),
@@ -299,7 +303,7 @@ Learn more about [debugging snapshots](#improve-snapshot-consistency).
 </details>
 
 <details>
-<summary>Why am I getting a failing build when ignoring an element?</summary>
+<summary>Why are ignored elements still causing diffs?</summary>
 
 By default, Chromatic's diffing algorithm skips the DOM elements marked with either a `.chromatic-ignore` CSS class or `data-chromatic="ignore"` attribute.
 
