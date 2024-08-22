@@ -362,3 +362,19 @@ Use the same method to debug the following errors:
 `✖ Failed to publish build - Failed to extract stories from your Storybook`
 
 </details>
+
+<details>
+<summary>Why are styles not applied correctly in stories?</summary>
+
+If styles are not rendering correctly, there could be several reasons behind that:
+
+1. **The order in which stylesheets are loaded.**
+
+   - In development mode, styles from the preview might be imported earlier than component styles, while in production mode, this order could be reversed. This affects the specificity and, ultimately, the rendering of styles. If this is the case, the styles render but are overwritten by others.
+   - In Storybook 6 and earlier, stylesheets were loaded upfront, while from Storybook 7 onwards, stylesheets are loaded on-demand when the story is viewed. This affects how styles load.
+
+2. **Browser compatibility.** If the browser version does not support certain CSS features, styles may not apply correctly. Find browser versions supported by our Capture Infrastructure [here](/docs/infrastructure-release-notes).
+
+If you have additional questions, use our **in-app chat** to contact or email us at [support@chromatic.com](mailto:support@chromatic.com).
+
+</details>
