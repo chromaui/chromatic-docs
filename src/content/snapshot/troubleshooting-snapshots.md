@@ -13,13 +13,13 @@ It's essential that your components and stories render in a **consistent** fashi
 
 - **Randomness in tests**: Components sometimes use random number generators to generate data for complex inputs. To avoid this, you can hard-code the input data, but often a more convenient solution is to use a tool like [seedrandom](https://github.com/davidbau/seedrandom) which you can use to make your "random" number generator consistent.
 
-- **Animations**: Chromatic will attempt to pause all animations. However, you may need to [configure](/docs/animations) Chromatic's exact behavior. Chromatic's exact behavior.
+- **Animations**: Chromatic will attempt to pause all animations. However, you may need to [configure](/docs/animations) Chromatic's exact behavior.
 
-- **Unpredictable resource hosts**: Resources that load from unpredictable or flaky sources may not load in time (15s) to capture.To work around this, serve resources as [static files](#serving-static-files) or use a [placeholder service](https://placehold.co/). Learn more about how we [load resources](/docs/resource-loading).
+- **Unpredictable resource hosts**: Resources that load from unpredictable or flaky sources may not load in time (15s) to capture. To work around this, serve resources as [static files](#serve-static-files) or use a [placeholder service](https://placehold.co/). Learn more about how we [load resources](/docs/resource-loading).
 
-- **Image CDNs & compression algorithms**: Image CDNs optimize for image weight and size, which affect how it renders. Since this happens upstream of Chromatic, any changes to those images in your components will be caught as visual changes. Work around this by ensuring the served images are identical every time and using consistent compression settings. Also consider serving images as [static files](#serving-static-files) or use a [placeholder service](https://placehold.co/)
+- **Image CDNs & compression algorithms**: Image CDNs optimize for image weight and size, which affect how it renders. Since this happens upstream of Chromatic, any changes to those images in your components will be caught as visual changes. Work around this by ensuring the served images are identical every time and using consistent compression settings. Also consider serving images as [static files](#serve-static-files) or use a [placeholder service](https://placehold.co/)
 
-- **Web font loading**: Web fonts can load at different times which will impact snapshot consistency, especially when combined with [interactions](/docs/interactions). Serve web fonts as [static files](#serving-static-files) and make sure to [preload](/docs/font-loading) them.
+- **Web font loading**: Web fonts can load at different times impacting snapshot consistency, especially when combined with [interactions](/docs/interactions). Serve web fonts as [static files](#serve-static-files) and make sure to [preload](/docs/font-loading) them.
 
 - **Iframes rendering out of the viewport**: Some browsers only visually render iframes when they are inside of the viewport, despite the fact that they have loaded with all of their resources. For this reason, if you have an iframe that is placed below the viewport of a tall story, it will appear blank. You may want to [ignore that element](/docs/ignoring-elements) and also test it in isolation so that it fits inside of the viewport.
 
@@ -34,7 +34,7 @@ It's essential that your components and stories render in a **consistent** fashi
 
 When using Playwright or Cypress, you can serve static files like fonts, images, and videos through your app server. This ensures that resources load consistently across all snapshots.
 
-For Storybook, use the [staticDirs](https://storybook.js.org/docs/configure/integration/images-and-assets#serving-static-files-via-storybook-configuration) option to load static files for your stories.
+For Storybook, use the [staticDirs](https://storybook.js.org/docs/configure/integration/images-and-assets#serving-stae-files-via-storybook-configuration) option to load static files for your stories.
 
 ### Use fixed-height wrappers for portal components
 
@@ -45,15 +45,13 @@ With Playwright and Cypress, Chromatic snapshots the entire page, including moda
 <details>
 <summary>Why are snapshots of portal components (tooltip, modal, popover, menu) cut off?</summary>
 
-For stories, Chromatic relies on the "natural" height of your component's outermost DOM element (using Storybook's `#storybook-root` element in version 7 or higher, or the `#root` element for previous versions) to determine snapshot dimensions. As portals render outside of Storybook's DOM tree, their dimensions cannot be auto-detected by Chromatic, which can lead to cut-off snapshots.
+For stories, Chromatic relies on the "natural" height of your component's outermost DOM element (using Storybook's `#storybook-root` element in version 7 or higher or the `#root` element for previous versions) to determine snapshot dimensions. As portals render outside of Storybook's DOM tree, Chromatic cannot auto-detect their dimensions, which can lead to cut-off snapshots.
 
 </details>
 
-To capture snapshots of portaled elements, you can use a [decorator](https://storybook.js.org/docs/writing-stories/decorators#component-decorators) that wraps your stories in a fixed height container. You can adjust the height of the container to account for the total dimensions of your component and portal.
+To capture snapshots of portaled elements, you can use a [decorator](https://storybook.js.org/docs/writing-stories/decorators#component-decorators) that wraps your stories in a fixed-height container. You can adjust the container's height to account for the total dimensions of your component and portal.
 
-```js
-// MyComponent.stories.js|jsx
-
+```js title="MyComponent.stories.js|jsx"
 import { MyComponent } from "./MyComponent";
 
 export default {
@@ -78,7 +76,7 @@ Image and font rendering can be tricky. Resources that load from unpredictable o
 
 - Ensure fonts load [reliably fast in Chromatic](/docs/font-loading)
 - Ensure resources load [reliably fast in Chromatic](/docs/resource-loading)
-- Serve resources as [static files](#serving-static-files) (this also improves your test speed)
+- Serve resources as [static files](#serve-static-files) (this also improves your test speed)
 - Using a [placeholder service](https://placeholder.com/).
 
 If your resources are behind a firewall, whitelist our domain so we can load your resources.
@@ -167,7 +165,7 @@ Videos are interactive and time-based which introduces inconsistencies in snapsh
 <details>
 <summary>Why am I getting cross-origin errors with my stories?</summary>
 
-Most likely you are calling into `window.parent` somewhere in your code. As we serve your test preview iframe inside our `www.chromatic.com` domain this leads to a x-origin error as your code doesn't have access to our frame (with good reason!).
+Most likely, you are calling into `window.parent` somewhere in your code. As we serve your test preview iframe inside our `www.chromatic.com` domain, this leads to an `x-origin` error as your code doesn't have access to our frame (with good reason!).
 
 Generally speaking it is a good idea to wrap calls like that in a `try { } catch` in case the code is running in a context where that's not possible (e.g., Chromatic).
 
