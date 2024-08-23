@@ -26,6 +26,8 @@
 
 /docs/setup-turbosnap/ /docs/turbosnap/setup/
 
+/docs/test#troubleshooting /docs/troubleshooting-snapshots/
+
 # Plausible analytics
 
 /js/script.js https://plausible.io/js/script.js 200
