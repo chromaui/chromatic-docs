@@ -107,3 +107,11 @@ Interactions run as soon as the DOM loads. But external resources like web fonts
 We recommend [preloading fonts](/docs/font-loading) to ensure they're available when the DOM renders. If preloading is not possible, try adding a [delay before running interactions](/docs/delay#use-an-assertion-to-delay-snapshot-capture).
 
 </details>
+
+<details>
+
+<summary>What happens when an interaction test fails?</summary>
+
+When interaction tests fail, the story will be badged with “Failed test.” You will not be able to “pass” a build that has failed tests. Fix interaction tests in Storybook and run the build again.
+
+</details>
