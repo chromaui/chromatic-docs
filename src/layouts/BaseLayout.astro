@@ -53,9 +53,14 @@ const navItems = [
   },
   {
     title: "Storybook",
-    items: storybook,
+    items: [
+      ...storybook,
+      {
+        title: "Modes",
+        items: modes,
+      },
+    ],
     defaultOpen: false,
-    timeline: true,
   },
   {
     title: "Playwright",
@@ -74,10 +79,6 @@ const navItems = [
   {
     title: "Configuration",
     items: configuration,
-  },
-  {
-    title: "Modes",
-    items: modes,
   },
   {
     title: "Snapshot",

@@ -114,6 +114,7 @@ const ALGOLIA_API_KEY = import.meta.env.PUBLIC_ALGOLIA_API_KEY;
     indexName: "chromatic",
     apiKey: ALGOLIA_API_KEY,
     insights: true,
+    attributesToHighlight: ["hierarchy.lvl0"],
   });
 </script>
 

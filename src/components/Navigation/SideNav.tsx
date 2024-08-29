@@ -32,17 +32,15 @@ const IconWrapper = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 14px;
-  height: 14px;
+  width: 10px;
+  height: 10px;
   transition: all 0.2s ease-in-out;
-  margin-top: -2px;
 `;
 
 const ContentWrapper = styled.div<{ isTimeline: boolean }>`
   display: flex;
   flex-direction: column;
   gap: 4px;
-  margin-left: 3px;
   position: relative;
 
   &:before {
@@ -80,6 +78,11 @@ const ContentItem = styled.div<{ isActive: boolean; isTimeline?: boolean }>`
   }
 `;
 
+const NestedContent = styled(Collapsible.Content)`
+  padding-left: 20px;
+  margin-top: 4px;
+`;
+
 const Bullet = styled.div<{ isActive: boolean }>`
   position: relative;
   z-index: 1;
@@ -93,6 +96,8 @@ const Bullet = styled.div<{ isActive: boolean }>`
 
 const SidebarContainer = styled.div`
   display: none;
+  width: 100%;
+  padding: 0 ${spacing[8]} 0 ${spacing[2]};
 
   ${minMd} {
     display: flex;
@@ -128,9 +133,14 @@ type Item = (
   };
 };
 
-export interface SidebarItem {
+interface NestedItem {
   title: string;
   items: Item[];
+}
+
+export interface SidebarItem {
+  title: string;
+  items: (Item | NestedItem)[];
   defaultOpen?: boolean;
   timeline?: boolean;
 }
@@ -145,6 +155,84 @@ const withBase = (url: string) =>
 
 const homeUrl = withBase("");
 
+function isNestedItem(item: Item | NestedItem): item is NestedItem {
+  return (item as NestedItem).items !== undefined;
+}
+
+const CollapsibleItem = ({
+  item,
+  url,
+  timeline,
+  isHome,
+}: {
+  item: Item;
+  url?: string;
+  timeline?: boolean;
+  isHome?: boolean;
+}) => {
+  const isActive =
+    isHome && item.data.isHome ? true : withBase(item.slug) === url;
+
+  return (
+    <Collapsible.Content asChild>
+      <Line href={withBase(item.slug)}>
+        {!!timeline && <Bullet isActive={isActive} />}
+        <ContentItem isActive={isActive} isTimeline={!!timeline}>
+          {item.data.sidebar.label}
+        </ContentItem>
+      </Line>
+    </Collapsible.Content>
+  );
+};
+
+const CollapsibleGroup = ({
+  group,
+  url,
+  isHome,
+}: {
+  group: SidebarItem;
+  url?: string;
+  isHome?: boolean;
+}) => {
+  const isSomeActive = group.items.some((item) => {
+    if (isNestedItem(item)) {
+      return item.items.some((nestedItem) => withBase(nestedItem.slug) === url);
+    } else {
+      return withBase(item.slug) === url;
+    }
+  });
+
+  return (
+    <Collapsible.Root defaultOpen={group.defaultOpen || isSomeActive}>
+      <Trigger>
+        {group.title}
+        <IconWrapper className="icon-wrapper">
+          <Icon size={10} name="arrowright" />
+        </IconWrapper>
+      </Trigger>
+      <ContentWrapper isTimeline={!!group.timeline}>
+        {group.items.map((item, j) => {
+          if (isNestedItem(item)) {
+            return (
+              <NestedContent>
+                <CollapsibleGroup group={item} url={url} isHome={isHome} />
+              </NestedContent>
+            );
+          }
+          return (
+            <CollapsibleItem
+              item={item}
+              url={url}
+              timeline={group.timeline}
+              isHome={isHome}
+            />
+          );
+        })}
+      </ContentWrapper>
+    </Collapsible.Root>
+  );
+};
+
 export const SideNav = ({ url, sidebarItems }: SideNavProps) => {
   const isHome = url === homeUrl;
 
@@ -152,44 +240,8 @@ export const SideNav = ({ url, sidebarItems }: SideNavProps) => {
     <SidebarContainer>
       {sidebarItems &&
         sidebarItems.map((group, i) => {
-          const isSomeActive = group.items.some(
-            (item) => withBase(item.slug) === url,
-          );
-
           return (
-            <Collapsible.Root
-              defaultOpen={group.defaultOpen || isSomeActive}
-              key={i}
-            >
-              <Trigger>
-                <IconWrapper className="icon-wrapper">
-                  <Icon name="arrowright" />
-                </IconWrapper>
-                {group.title}
-              </Trigger>
-              <ContentWrapper isTimeline={!!group.timeline}>
-                {group.items.map((item, j) => {
-                  const isActive =
-                    isHome && item.data.isHome
-                      ? true
-                      : withBase(item.slug) === url;
-
-                  return (
-                    <Collapsible.Content key={j} asChild>
-                      <Line href={withBase(item.slug)}>
-                        {!!group.timeline && <Bullet isActive={isActive} />}
-                        <ContentItem
-                          isActive={isActive}
-                          isTimeline={!!group.timeline}
-                        >
-                          {item.data.sidebar.label}
-                        </ContentItem>
-                      </Line>
-                    </Collapsible.Content>
-                  );
-                })}
-              </ContentWrapper>
-            </Collapsible.Root>
+            <CollapsibleGroup group={group} url={url} isHome={isHome} key={i} />
           );
         })}
     </SidebarContainer>

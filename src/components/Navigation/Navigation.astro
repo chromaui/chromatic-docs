@@ -5,6 +5,7 @@ import { Support } from "../Support";
 import { SideNav } from "./SideNav";
 import { Container } from "./styles";
 import { DropdownNav } from "./DropdownNav";
+import { transformNavGroups } from "./transform-nav-groups";
 
 interface Props {
   url?: string;
@@ -34,33 +35,7 @@ interface Props {
 
 const { navItems, url } = Astro.props;
 
-const navGroups = navItems
-  ? navItems.map((group) => ({
-      ...group,
-      items: group.items
-        .map((item) => ({
-          ...item,
-          label: item.data?.sidebar?.label || item.data.title,
-          slug: item.data?.isHome ? "" : (item.slug as any),
-          data: {
-            ...item.data,
-            sidebar: {
-              label: item.data?.sidebar?.label || item.data.title,
-              order: item.data?.sidebar?.order || 999,
-              hide: item.data?.sidebar?.hide || false,
-            },
-          },
-        }))
-        .filter((item) => !item.data.sidebar.hide)
-        .sort((p1, p2) =>
-          p1.data.sidebar.order > p2.data.sidebar.order
-            ? 1
-            : p1.data.sidebar.order < p2.data.sidebar.order
-              ? -1
-              : 0,
-        ),
-    }))
-  : [];
+const navGroups = navItems ? transformNavGroups(navItems) : [];
 ---
 
 <Container>

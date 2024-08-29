@@ -141,6 +141,82 @@ const mockSidebarItems: SidebarItem[] = [
   },
 ];
 
+const mockSidebarItemsWithNestedItems: SidebarItem = {
+  ...mockSidebarItems[1],
+  items: mockSidebarItems[1].items.concat([
+    {
+      title: "Modes",
+      items: [
+        {
+          id: "modes.mdx",
+          slug: "modes",
+          collection: "modes",
+          data: {
+            title: "Story Modes",
+            sidebar: {
+              label: "Story Modes",
+              order: 1,
+              hide: false,
+            },
+          },
+        },
+        {
+          id: "viewports.mdx",
+          slug: "viewports",
+          collection: "modes",
+          data: {
+            title: "Viewports",
+            sidebar: {
+              label: "Viewports",
+              order: 2,
+              hide: false,
+            },
+          },
+        },
+        {
+          id: "themes.md",
+          slug: "themes",
+          collection: "modes",
+          data: {
+            title: "Themes",
+            sidebar: {
+              label: "Themes",
+              order: 3,
+              hide: false,
+            },
+          },
+        },
+        {
+          id: "custom-decorators.md",
+          slug: "custom-decorators",
+          collection: "modes",
+          data: {
+            title: "Custom decorators and globals",
+            sidebar: {
+              label: "Custom decorators",
+              order: 4,
+              hide: false,
+            },
+          },
+        },
+        {
+          id: "legacy-viewports.md",
+          slug: "legacy-viewports",
+          collection: "modes",
+          data: {
+            title: "Viewports (legacy)",
+            sidebar: {
+              label: "Viewports (legacy)",
+              order: 5,
+              hide: false,
+            },
+          },
+        },
+      ],
+    },
+  ]),
+};
+
 export const Default: Story = {
   args: {
     sidebarItems: mockSidebarItems,
@@ -152,6 +228,24 @@ export const DefaultOpen: Story = {
     sidebarItems: [
       { ...mockSidebarItems[0], defaultOpen: true },
       mockSidebarItems[1],
+    ],
+  },
+};
+
+export const Nested: Story = {
+  args: {
+    sidebarItems: [
+      { ...mockSidebarItems[0], defaultOpen: true },
+      mockSidebarItemsWithNestedItems,
+    ],
+  },
+};
+
+export const NestedOpen: Story = {
+  args: {
+    sidebarItems: [
+      { ...mockSidebarItems[0], defaultOpen: true },
+      mockSidebarItemsWithNestedItems,
     ],
   },
 };
