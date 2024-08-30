@@ -128,9 +128,9 @@ function checkIfSomeActive(group: TransformedNavGroup, url: string): boolean {
     if (isNestedTransformedGroup(item)) {
       return item.items.some((nestedItem) => {
         if (isNestedTransformedGroup(nestedItem)) {
-          return checkIfSomeActive(group, url);
+          return checkIfSomeActive(nestedItem, url);
         } else {
-          isUrlActive(nestedItem.slug, url);
+          return isUrlActive(nestedItem.slug, url);
         }
       });
     } else {
@@ -149,6 +149,7 @@ export const CollapsibleGroup = ({
   url: string;
   isHome?: boolean;
   nested?: boolean;
+  open?: boolean;
 }) => {
   const isSomeActive = checkIfSomeActive(group, url);
 
