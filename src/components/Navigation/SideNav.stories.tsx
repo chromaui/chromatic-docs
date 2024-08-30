@@ -194,3 +194,72 @@ export const NestedDeepActive = {
     url: "/docs/themes",
   },
 } satisfies Story;
+
+const mockWithMultiLevelNestedGroups: TransformedNavGroup = {
+  ...mockSidebarGroups[1],
+  items: mockSidebarGroups[1].items.concat([
+    {
+      hide: false,
+      items: [
+        {
+          hide: false,
+          label: "Story Modes",
+          order: 1,
+          slug: "modes",
+          isHome: false,
+        },
+        {
+          hide: false,
+          label: "Themes",
+          order: 3,
+          slug: "themes",
+          isHome: false,
+        },
+        {
+          hide: false,
+          label: "Custom decorators",
+          order: 4,
+          slug: "custom-decorators",
+          isHome: false,
+        },
+        {
+          hide: false,
+          label: "Viewports (legacy)",
+          order: 5,
+          slug: "legacy-viewports",
+          isHome: false,
+        },
+        {
+          hide: false,
+          items: [
+            {
+              hide: false,
+              label: "Overview",
+              order: 1,
+              slug: "turbosnap",
+              isHome: false,
+            },
+            {
+              hide: false,
+              label: "Setup",
+              order: 3,
+              slug: "turbosnap/setup",
+              isHome: false,
+            },
+          ],
+          order: 999,
+          title: "TurboSnap",
+        },
+      ],
+      order: 999,
+      title: "Modes",
+    },
+  ]),
+};
+
+export const MultiLevelNesting = {
+  args: {
+    sidebarGroups: [mockSidebarGroups[0], mockWithMultiLevelNestedGroups],
+    url: "/docs/turbosnap/setup",
+  },
+} satisfies Story;
