@@ -64,7 +64,7 @@ By default, Chromatic's Playwright and Cypress integrations run tests and captur
 
 <IntegrationSnippets>
   <Fragment slot="playwright" visible="true">
-    ```ts title="tests/NotFound.test.js|ts"
+    ```ts title="tests/NotFound.spec.js|ts"
     import { expect, takeSnapshot, test } from "@chromatic-com/playwright";
 
     test.describe("Not found", () => {
@@ -88,7 +88,7 @@ By default, Chromatic's Playwright and Cypress integrations run tests and captur
     <ParamsCallout name="disableAutoSnapshot" integration="playwright" />
   </Fragment>
   <Fragment slot="cypress" visible="true">
-    ```ts title="cypress/e2e/NotFound.spec.js|ts"
+    ```ts title="cypress/e2e/NotFound.cy.js|ts"
     describe("Not found", () => {
       it("should show a 404 page", { env: { 
         disableAutoSnapshot: true // Disables the automated snapshot generated at the end of the test

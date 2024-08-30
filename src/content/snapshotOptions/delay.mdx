@@ -54,7 +54,7 @@ Chromatic's maximum wait time before capturing a snapshot is 15 seconds, providi
   <ParamsCallout name="delay" integration="storybook" />
   </Fragment>
   <Fragment slot="playwright">
-    ```ts title="tests/Categories.test.js|ts"
+    ```ts title="tests/Categories.spec.js|ts"
     import { test, expect } from "@chromatic-com/playwright";
   
     test.describe("Categories Page", () => {
@@ -161,7 +161,7 @@ If you need additional control when Chromatic captures a snapshot, you can adjus
 
   </Fragment>
   <Fragment slot="playwright">
-   ```ts title="tests/Categories.test.js|ts"
+   ```ts title="tests/Categories.spec.js|ts"
    import { test, expect } from "@chromatic-com/playwright";
 
     test.describe("Categories Page", () => {

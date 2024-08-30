@@ -1,0 +1,127 @@
+---
+layout: "../../layouts/Layout.astro"
+title: Animations
+description: Learn how Chromatic pauses animations and how to control the behavior
+sidebar: { order: 6 }
+---
+
+import ParamsCallout from "../../components/ParamsCallout.astro";
+
+import IntegrationSnippets from "../../components/IntegrationSnippets.astro";
+
+# Animations
+
+Chromatic proactively pauses CSS animations/transitions, SVG animations, and videos to prevent false positives. We do this because multiple variables outside of our control make it impossible to guarantee consistent animation painting down to the millisecond.
+
+## CSS animations
+
+By default, CSS animations are paused at the end of their animation cycle (i.e., the last frame) when your tests run in Chromatic. This behavior is useful, specifically when working with animations that are used to "animate in" visible elements. If you want to override this behavior and pause the animation at the first frame, add the `pauseAnimationAtEnd` configuration option to your tests. For example:
+
+{/* prettier-ignore-start */}
+
+<IntegrationSnippets>
+  <Fragment slot="storybook">
+    ```ts title="src/components/Product.stories.ts|tsx"
+    // Adjust this import to match your framework (e.g., nextjs, vue3-vite)
+    import type { Meta, StoryObj } from "@storybook/your-framework";
+
+    /*
+     * Replace the @storybook/test package with the following if you are using a version of Storybook earlier than 8.0:
+     * import { within } from "@storybook/testing-library";
+     * import { expect } from "@storybook/jest";
+    */
+    import { expect, within } from "@storybook/test";
+
+    import { Product } from "./Product";
+
+    const meta: Meta<typeof Product> = {
+      component: Product,
+      title: "Product",
+      parameters: {
+        // Overrides the default behavior and pauses the animation at the first frame at the component level for all stories.
+        chromatic: { pauseAnimationAtEnd: false },
+      },
+    };
+
+    export default meta;
+    type Story = StoryObj<typeof Product>;
+
+    export const Default: Story = {
+      play: async ({ canvasElement }) => {
+        const canvas = within(canvasElement);
+        await expect(canvas.getByText("Product details")).toBeInTheDocument();
+      },
+    };
+    ```
+  <ParamsCallout name="pauseAnimationAtEnd" integration="storybook" />
+  </Fragment>
+  <Fragment slot="playwright">
+    ```ts title="tests/Product.spec.js|ts"
+    import { test, expect } from "@chromatic-com/playwright";
+
+    test.describe("Products Page", () => {
+      // Overrides the default behavior and pauses the animation at the first frame for this test.
+      test.use({ pauseAnimationAtEnd: false });
+
+      test("Successfully loads the page", async ({ page }) => {
+        await page.goto("/products");
+        await expect(page.getByText("Product details")).toBeVisible();
+      });
+    });
+    ```
+  <ParamsCallout name="pauseAnimationAtEnd" integration="playwright" />
+  </Fragment>
+  <Fragment slot="cypress">
+    ```ts title="cypress/e2e/Product.cy.js|ts"
+    describe("Not found", () => {
+      it("Successfully loads the page", { env: { 
+        pauseAnimationAtEnd: false // Overrides the default behavior and pauses the animation at the first frame for this test.
+      }}, () => {
+        cy.visit("/products");
+        cy.get("h3").should("contain", "Product details");
+      });
+    });
+    ```
+  <ParamsCallout name="pauseAnimationAtEnd" integration="cypress" />
+  </Fragment>
+</IntegrationSnippets>
+
+{/* prettier-ignore-end */}
+
+## JavaScript animations
+
+If you're working with JavaScript animations libraries (e.g., [framer-motion](https://www.framer.com/motion/)), Chromatic will not have the same level of control over the animations as CSS animations and will not disable them by default. We recommend toggling off the animation library when running in Chromatic to ensure consistent visual tests and avoid false positives. You can do this via the [`isChromatic()`](/docs/ischromatic) utility function. For example, to turn off animations globally in framer-motion (v10.17.0 and above), you can set the `MotionGlobalConfig.skipAnimations` option as follows:
+
+```ts title=".storybook/preview.js|ts"
+import { MotionGlobalConfig } from "framer-motion";
+import isChromatic from "chromatic/isChromatic";
+
+MotionGlobalConfig.skipAnimations = isChromatic();
+```
+
+<div class="aside">
+
+ ℹ️ For more information on disabling animations in other libraries, refer to the library's documentation or community resources to learn how to achieve this.
+
+</div>
+
+
+## GIFs and Videos
+
+Chromatic automatically pauses videos and animated GIFs at their first frame, ensuring consistent visual tests without the need for custom workarounds. If you specify a [poster](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/video#poster) attribute for videos, Chromatic will use that image instead.
+
+## Animations that cannot be disabled
+
+If you cannot turn off animations (for example, if disabling JavaScript animations is complex or your library doesn't support it), you can use a [delay](/docs/delay) to allow the animation to complete before taking the snapshot.
+
+Alternatively, [ignore an element](/docs/ignoring-elements) to omit a visible area of your component when comparing snapshots.
+
+
+## Troubleshooting
+
+<details>
+<summary>Why are my animations working differently in Chromatic?</summary>
+
+If you're experiencing issues with animations not being paused as expected, it is likely due to an infrastructure update. With Capture Stack's [version 6](/docs/infrastructure-release-notes#version-6) general availability (released in February 2024), the `pauseAnimationAtEnd` feature was enabled by default, leading to a change in behavior. If your tests relied on the previous behavior, you need to update your tests and configure the `pauseAnimationAtEnd` option to `false`.
+
+</details>
