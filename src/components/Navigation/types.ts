@@ -32,17 +32,17 @@ export function isNestedGroup(item: NavGroupItem): item is NavGroup {
   return (item as NavGroup).items !== undefined;
 }
 
-export type TransformedNavGroupItem =
-  | {
-      label: string;
-      slug: string;
-      order: number;
-      hide: boolean;
-      isHome?: boolean;
-    }
-  | TransformedNavGroup;
+export type TransformedItem = {
+  label: string;
+  slug: string;
+  order: number;
+  hide: boolean;
+  isHome?: boolean;
+};
 
-export interface TransformedNavGroup {
+export type TransformedNavGroupItem = TransformedItem | NestedTransformedGroup;
+
+export interface NestedTransformedGroup {
   title: string;
   items: TransformedNavGroupItem[];
   defaultOpen?: boolean;
@@ -51,8 +51,15 @@ export interface TransformedNavGroup {
   hide: boolean;
 }
 
+export interface TransformedNavGroup {
+  title: string;
+  items: TransformedNavGroupItem[];
+  defaultOpen?: boolean;
+  timeline?: boolean;
+}
+
 export function isNestedTransformedGroup(
   item: TransformedNavGroupItem,
-): item is TransformedNavGroup {
-  return (item as TransformedNavGroup).items !== undefined;
+): item is NestedTransformedGroup {
+  return (item as NestedTransformedGroup).items !== undefined;
 }

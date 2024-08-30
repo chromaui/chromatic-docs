@@ -8,11 +8,10 @@ import {
   spacing,
   minMd,
 } from "@chromatic-com/tetra";
-import type { CollectionEntry } from "astro:content";
 import {
   isNestedTransformedGroup,
+  type TransformedItem,
   type TransformedNavGroup,
-  type TransformedNavGroupItem,
 } from "./types";
 
 const Trigger = styled(Collapsible.Trigger)`
@@ -112,44 +111,6 @@ const SidebarContainer = styled.div`
   }
 `;
 
-type Item = (
-  | Omit<CollectionEntry<"overview">, "render" | "body">
-  | Omit<CollectionEntry<"storybook">, "render" | "body">
-  | Omit<CollectionEntry<"playwright">, "render" | "body">
-  | Omit<CollectionEntry<"cypress">, "render" | "body">
-  | Omit<CollectionEntry<"configuration">, "render" | "body">
-  | Omit<CollectionEntry<"modes">, "render" | "body">
-  | Omit<CollectionEntry<"snapshot">, "render" | "body">
-  | Omit<CollectionEntry<"snapshotOptions">, "render" | "body">
-  | Omit<CollectionEntry<"turbosnap">, "render" | "body">
-  | Omit<CollectionEntry<"collaborate">, "render" | "body">
-  | Omit<CollectionEntry<"plugins">, "render" | "body">
-  | Omit<CollectionEntry<"ci">, "render" | "body">
-  | Omit<CollectionEntry<"account">, "render" | "body">
-  | Omit<CollectionEntry<"guides">, "render" | "body">
-  | Omit<CollectionEntry<"troubleshooting">, "render" | "body">
-) & {
-  data: {
-    sidebar: {
-      label: string;
-      order: number;
-      hide: boolean;
-    };
-  };
-};
-
-interface NestedItem {
-  title: string;
-  items: Item[];
-}
-
-export interface SidebarItem {
-  title: string;
-  items: (Item | NestedItem)[];
-  defaultOpen?: boolean;
-  timeline?: boolean;
-}
-
 interface SideNavProps {
   url?: string;
   sidebarGroups?: TransformedNavGroup[];
@@ -160,17 +121,13 @@ const withBase = (url: string) =>
 
 const homeUrl = withBase("");
 
-function isNestedItem(item: Item | NestedItem): item is NestedItem {
-  return (item as NestedItem).items !== undefined;
-}
-
 const CollapsibleItem = ({
   item,
   url,
   timeline,
   isHome,
 }: {
-  item: TransformedNavGroupItem;
+  item: TransformedItem;
   url?: string;
   timeline?: boolean;
   isHome?: boolean;
@@ -199,6 +156,7 @@ const CollapsibleGroup = ({
   isHome?: boolean;
 }) => {
   const isSomeActive = group.items.some((item) => {
+    // TODO: Recursively check nested items
     if (isNestedTransformedGroup(item)) {
       return item.items.some((nestedItem) => withBase(nestedItem.slug) === url);
     } else {
@@ -216,7 +174,7 @@ const CollapsibleGroup = ({
       </Trigger>
       <ContentWrapper isTimeline={!!group.timeline}>
         {group.items.map((item, j) => {
-          if (isNestedItem(item)) {
+          if (isNestedTransformedGroup(item)) {
             return (
               <NestedContent key={j}>
                 <CollapsibleGroup group={item} url={url} isHome={isHome} />
