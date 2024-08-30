@@ -1,6 +1,6 @@
 import type { CollectionEntry } from "astro:content";
 
-type CollectionEntryItem =
+export type CollectionEntryItem =
   | Omit<CollectionEntry<"overview">, "render" | "body">
   | Omit<CollectionEntry<"storybook">, "render" | "body">
   | Omit<CollectionEntry<"playwright">, "render" | "body">

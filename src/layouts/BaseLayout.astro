@@ -59,6 +59,10 @@ const navItems = [
         title: "Modes",
         items: modes,
       },
+      {
+        title: "TurboSnap",
+        items: turbosnap,
+      },
     ],
     defaultOpen: false,
   },
@@ -87,11 +91,6 @@ const navItems = [
   {
     title: "Snapshot options",
     items: snapshotOptions,
-  },
-  {
-    title: "TurboSnap",
-    items: turbosnap,
-    timeline: true,
   },
   {
     title: "Collaborate",
@@ -129,7 +128,7 @@ const editUrl = Astro.props.file?.replace(projectRoot, "").replace("src/", "");
     <MarketingHeader client:visible />
     <FullWidthContainer>
       <LayoutGrid showOnThisPage={Astro.props.headings.length > 0}>
-        <Navigation url={pathname.replace(/\/$/g, "")} navItems={navItems} />
+        <Navigation url={pathname.replace(/\/$/g, "")} navGroups={navItems} />
         <ContentContainer>
           <SearchMeta
             slug={slug}

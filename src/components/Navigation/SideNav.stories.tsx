@@ -51,6 +51,39 @@ const mockSidebarGroups: TransformedNavGroup[] = [
       },
     ],
   },
+  {
+    title: "Storybook",
+    items: [
+      {
+        hide: false,
+        label: "Setup",
+        order: 1,
+        slug: "storybook",
+        isHome: false,
+      },
+      {
+        hide: false,
+        label: "Interaction tests",
+        order: 2,
+        slug: "interactions",
+        isHome: false,
+      },
+      {
+        hide: false,
+        label: "Publish",
+        order: 3,
+        slug: "storybook/publish",
+        isHome: false,
+      },
+      {
+        hide: false,
+        label: "Composition",
+        order: 4,
+        slug: "composition",
+        isHome: false,
+      },
+    ],
+  },
 ];
 
 const mockWithNestedGroups: TransformedNavGroup = {
@@ -94,40 +127,22 @@ const mockWithNestedGroups: TransformedNavGroup = {
   ]),
 };
 
-export const Default: Story = {
+export const Default = {
   args: {
     sidebarGroups: mockSidebarGroups,
   },
-};
+} satisfies Story;
 
-export const DefaultOpen: Story = {
+export const DefaultOpen = {
   args: {
     sidebarGroups: [
       { ...mockSidebarGroups[0], defaultOpen: true },
       mockSidebarGroups[1],
     ],
   },
-};
+} satisfies Story;
 
-export const Nested: Story = {
-  args: {
-    sidebarGroups: [
-      { ...mockSidebarGroups[0], defaultOpen: true },
-      mockWithNestedGroups,
-    ],
-  },
-};
-
-export const NestedOpen: Story = {
-  args: {
-    sidebarGroups: [
-      { ...mockSidebarGroups[0], defaultOpen: true },
-      mockWithNestedGroups,
-    ],
-  },
-};
-
-export const WithActiveUrl: Story = {
+export const WithActiveUrl = {
   args: {
     url: "/docs/test",
     sidebarGroups: [
@@ -135,9 +150,9 @@ export const WithActiveUrl: Story = {
       mockSidebarGroups[1],
     ],
   },
-};
+} satisfies Story;
 
-export const WithActiveUrlInClosedGroup: Story = {
+export const WithActiveUrlInClosedGroup = {
   args: {
     url: "/docs/storybook",
     sidebarGroups: [
@@ -145,9 +160,9 @@ export const WithActiveUrlInClosedGroup: Story = {
       mockSidebarGroups[1],
     ],
   },
-};
+} satisfies Story;
 
-export const Timeline: Story = {
+export const Timeline = {
   args: {
     url: "/docs/test",
     sidebarGroups: [
@@ -155,4 +170,27 @@ export const Timeline: Story = {
       mockSidebarGroups[1],
     ],
   },
-};
+} satisfies Story;
+
+export const Nested = {
+  args: {
+    sidebarGroups: [
+      { ...mockSidebarGroups[0], defaultOpen: true },
+      mockWithNestedGroups,
+    ],
+  },
+} satisfies Story;
+
+export const NestedActive = {
+  args: {
+    sidebarGroups: Nested.args.sidebarGroups,
+    url: "/docs/storybook",
+  },
+} satisfies Story;
+
+export const NestedDeepActive = {
+  args: {
+    sidebarGroups: Nested.args.sidebarGroups,
+    url: "/docs/themes",
+  },
+} satisfies Story;

@@ -6,41 +6,30 @@ import { SideNav } from "./SideNav";
 import { Container } from "./styles";
 import { DropdownNav } from "./DropdownNav";
 import { transformNavGroups } from "./transform-nav-groups";
+import type { NavGroupItem } from "./types";
 
 interface Props {
-  url?: string;
-  navItems: {
+  url: string;
+  navGroups: {
     title: string;
-    items: (
-      | CollectionEntry<"overview">
-      | CollectionEntry<"storybook">
-      | CollectionEntry<"playwright">
-      | CollectionEntry<"cypress">
-      | CollectionEntry<"configuration">
-      | CollectionEntry<"modes">
-      | CollectionEntry<"snapshot">
-      | CollectionEntry<"snapshotOptions">
-      | CollectionEntry<"turbosnap">
-      | CollectionEntry<"collaborate">
-      | CollectionEntry<"plugins">
-      | CollectionEntry<"ci">
-      | CollectionEntry<"account">
-      | CollectionEntry<"guides">
-      | CollectionEntry<"troubleshooting">
-    )[];
+    items: NavGroupItem[];
     defaultOpen?: boolean;
     timeline?: boolean;
   }[];
 }
 
-const { navItems, url } = Astro.props;
+const { navGroups: navItems, url } = Astro.props;
 
-const navGroups = navItems ? transformNavGroups(navItems) : [];
+const transformedNavGroups = navItems ? transformNavGroups(navItems) : [];
 ---
 
 <Container>
   <Search />
-  <DropdownNav client:only="react" groups={navGroups as any} url={url} />
-  <SideNav client:load sidebarGroups={navGroups} url={url} />
+  <DropdownNav
+    client:only="react"
+    groups={transformedNavGroups as any}
+    url={url}
+  />
+  <SideNav client:load sidebarGroups={transformedNavGroups} url={url} />
   <Support client:load />
 </Container>
