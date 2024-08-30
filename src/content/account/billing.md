@@ -89,7 +89,7 @@ This is a new feature that is rolling out in phases. If you don't see it yet, do
 
 Access usage reports for each billing period on the billing page. These reports offer a detailed breakdown of usage and display the invoice statement.
 
-The **usage section** provides a per-project summary of Snapshots and TurboSnaps utilized (only available for billing periods after July 25th 2024).
+The **usage section** provides a per-project summary of Snapshots and TurboSnaps utilized (only available for billing periods starting in August 2024).
 
 The **invoice** includes details of the active plan for the billing period, the base number of snapshots included, any overage charges for additional snapshots, and a link to download a PDF copy of the invoice (available for all billing periods).
 
@@ -140,6 +140,13 @@ Git branch name for which the build was created, prefixed with `<ownerName>:` if
   <dd>
 
 Number of snapshots identified by [TurboSnap](#snapshots-with-turbosnap-enabled-storybook-only) with no associated code changes. Billed at 1/5th the cost of a regular snapshot.
+
+  </dd>
+
+  <dt>TurboSnaps Bail Reason</dt>
+  <dd>
+
+Explains why a TurboSnap triggered a full rebuild. For more details, check out the [TurboSnap docs](/docs/turbosnap/#full-rebuilds).
 
   </dd>
 
