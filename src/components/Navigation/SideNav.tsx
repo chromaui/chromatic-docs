@@ -9,6 +9,11 @@ import {
   minMd,
 } from "@chromatic-com/tetra";
 import type { CollectionEntry } from "astro:content";
+import {
+  isNestedTransformedGroup,
+  type TransformedNavGroup,
+  type TransformedNavGroupItem,
+} from "./types";
 
 const Trigger = styled(Collapsible.Trigger)`
   all: unset;
@@ -147,7 +152,7 @@ export interface SidebarItem {
 
 interface SideNavProps {
   url?: string;
-  sidebarItems?: SidebarItem[];
+  sidebarGroups?: TransformedNavGroup[];
 }
 
 const withBase = (url: string) =>
@@ -165,20 +170,19 @@ const CollapsibleItem = ({
   timeline,
   isHome,
 }: {
-  item: Item;
+  item: TransformedNavGroupItem;
   url?: string;
   timeline?: boolean;
   isHome?: boolean;
 }) => {
-  const isActive =
-    isHome && item.data.isHome ? true : withBase(item.slug) === url;
+  const isActive = isHome && item.isHome ? true : withBase(item.slug) === url;
 
   return (
     <Collapsible.Content asChild>
       <Line href={withBase(item.slug)}>
         {!!timeline && <Bullet isActive={isActive} />}
         <ContentItem isActive={isActive} isTimeline={!!timeline}>
-          {item.data.sidebar.label}
+          {item.label}
         </ContentItem>
       </Line>
     </Collapsible.Content>
@@ -190,12 +194,12 @@ const CollapsibleGroup = ({
   url,
   isHome,
 }: {
-  group: SidebarItem;
+  group: TransformedNavGroup;
   url?: string;
   isHome?: boolean;
 }) => {
   const isSomeActive = group.items.some((item) => {
-    if (isNestedItem(item)) {
+    if (isNestedTransformedGroup(item)) {
       return item.items.some((nestedItem) => withBase(nestedItem.slug) === url);
     } else {
       return withBase(item.slug) === url;
@@ -214,13 +218,14 @@ const CollapsibleGroup = ({
         {group.items.map((item, j) => {
           if (isNestedItem(item)) {
             return (
-              <NestedContent>
+              <NestedContent key={j}>
                 <CollapsibleGroup group={item} url={url} isHome={isHome} />
               </NestedContent>
             );
           }
           return (
             <CollapsibleItem
+              key={j}
               item={item}
               url={url}
               timeline={group.timeline}
@@ -233,15 +238,15 @@ const CollapsibleGroup = ({
   );
 };
 
-export const SideNav = ({ url, sidebarItems }: SideNavProps) => {
+export const SideNav = ({ url, sidebarGroups }: SideNavProps) => {
   const isHome = url === homeUrl;
 
   return (
     <SidebarContainer>
-      {sidebarItems &&
-        sidebarItems.map((group, i) => {
+      {sidebarGroups &&
+        sidebarGroups.map((group, i) => {
           return (
-            <CollapsibleGroup group={group} url={url} isHome={isHome} key={i} />
+            <CollapsibleGroup key={i} group={group} url={url} isHome={isHome} />
           );
         })}
     </SidebarContainer>

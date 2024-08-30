@@ -38,7 +38,7 @@ export type TransformedNavGroupItem =
       slug: string;
       order: number;
       hide: boolean;
-      items?: TransformedNavGroupItem[];
+      isHome?: boolean;
     }
   | TransformedNavGroup;
 
@@ -49,4 +49,10 @@ export interface TransformedNavGroup {
   timeline?: boolean;
   order: number;
   hide: boolean;
+}
+
+export function isNestedTransformedGroup(
+  item: TransformedNavGroupItem,
+): item is TransformedNavGroup {
+  return (item as TransformedNavGroup).items !== undefined;
 }

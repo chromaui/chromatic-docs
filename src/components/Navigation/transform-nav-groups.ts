@@ -20,6 +20,7 @@ export function transformNavItem(item: NavGroupItem): TransformedNavGroupItem {
     slug: item.data?.isHome ? "" : item.slug,
     order: item.data?.sidebar?.order || 999,
     hide: item.data?.sidebar?.hide || false,
+    isHome: item.data?.isHome || false,
   };
 }
 
