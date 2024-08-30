@@ -352,6 +352,54 @@ describe("transformNavGroups", () => {
     ]);
   });
 
+  test("Sets nested group's order to 999 when not specified", () => {
+    expect(
+      transformNavGroups([
+        {
+          title: "Storybook",
+          items: [
+            {
+              title: "Modes",
+              items: [
+                {
+                  id: "modes.mdx",
+                  slug: "modes",
+                  collection: "modes",
+                  data: {
+                    title: "Story Modes",
+                    sidebar: {
+                      label: "Story Modes",
+                      hide: false,
+                    },
+                  },
+                },
+              ],
+            },
+          ],
+        },
+      ]),
+    ).toEqual([
+      {
+        title: "Storybook",
+        items: [
+          {
+            hide: false,
+            title: "Modes",
+            order: 999,
+            items: [
+              {
+                hide: false,
+                label: "Story Modes",
+                order: 999,
+                slug: "modes",
+              },
+            ],
+          },
+        ],
+      },
+    ]);
+  });
+
   test("Sets hide to false when not specified", () => {
     expect(
       transformNavGroups([
@@ -382,6 +430,53 @@ describe("transformNavGroups", () => {
             label: "UI Tests",
             order: 2,
             slug: "test",
+          },
+        ],
+      },
+    ]);
+  });
+
+  test("Sets nested group's hide to false when not specified", () => {
+    expect(
+      transformNavGroups([
+        {
+          title: "Storybook",
+          items: [
+            {
+              title: "Modes",
+              items: [
+                {
+                  id: "modes.mdx",
+                  slug: "modes",
+                  collection: "modes",
+                  data: {
+                    title: "Story Modes",
+                    sidebar: {
+                      label: "Story Modes",
+                    },
+                  },
+                },
+              ],
+            },
+          ],
+        },
+      ]),
+    ).toEqual([
+      {
+        title: "Storybook",
+        items: [
+          {
+            hide: false,
+            title: "Modes",
+            order: 999,
+            items: [
+              {
+                hide: false,
+                label: "Story Modes",
+                order: 999,
+                slug: "modes",
+              },
+            ],
           },
         ],
       },
