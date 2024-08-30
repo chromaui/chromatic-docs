@@ -44,7 +44,7 @@ const account = await getCollection("account");
 const guides = await getCollection("guides");
 const troubleshooting = await getCollection("troubleshooting");
 
-const navItems = [
+const navGroups = [
   {
     title: "Overview",
     items: overview,
@@ -128,11 +128,11 @@ const editUrl = Astro.props.file?.replace(projectRoot, "").replace("src/", "");
     <MarketingHeader client:visible />
     <FullWidthContainer>
       <LayoutGrid showOnThisPage={Astro.props.headings.length > 0}>
-        <Navigation url={pathname.replace(/\/$/g, "")} navGroups={navItems} />
+        <Navigation url={pathname.replace(/\/$/g, "")} navGroups={navGroups} />
         <ContentContainer>
           <SearchMeta
             slug={slug}
-            navItems={navItems}
+            navItems={navGroups}
             sidebarOrder={sidebarOrder}
           />
           <slot />

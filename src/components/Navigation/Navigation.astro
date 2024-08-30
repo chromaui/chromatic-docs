@@ -1,21 +1,15 @@
 ---
-import { type CollectionEntry } from "astro:content";
 import Search from "../Search.astro";
 import { Support } from "../Support";
 import { SideNav } from "./SideNav";
 import { Container } from "./styles";
 import { DropdownNav } from "./DropdownNav";
 import { transformNavGroups } from "./transform-nav-groups";
-import type { NavGroupItem } from "./types";
+import type { NavGroup } from "./types";
 
 interface Props {
   url: string;
-  navGroups: {
-    title: string;
-    items: NavGroupItem[];
-    defaultOpen?: boolean;
-    timeline?: boolean;
-  }[];
+  navGroups: NavGroup[];
 }
 
 const { navGroups: navItems, url } = Astro.props;

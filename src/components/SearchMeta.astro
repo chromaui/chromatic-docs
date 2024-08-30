@@ -1,15 +1,36 @@
 ---
+import { Debug } from "astro:components";
+import {
+  type NavGroup,
+  type NavGroupItem,
+  isNestedGroup,
+} from "./Navigation/types";
+
 const { navItems, slug, sidebarOrder } = Astro.props;
 
-interface NavItem {
-  title: string;
-  items: any[];
-  defaultOpen?: boolean;
-  timeline?: boolean;
-}
+// interface NavItem {
+//   title: string;
+//   items: NavGroupItem[];
+//   defaultOpen?: boolean;
+//   timeline?: boolean;
+// }
 
-const groupIndex = navItems.findIndex(({ items }: NavItem) =>
-  items.find((item) => item.slug === slug),
+const findItem = (
+  items: NavGroup[] | NavGroupItem[],
+  slug: string,
+): NavGroupItem | undefined =>
+  items.find((item) =>
+    isNestedGroup(item) ? findItem(item.items, slug) : item.slug === slug,
+  );
+
+const groupIndex = navItems.findIndex(({ items }: NavGroup) =>
+  items.find(
+    (item) =>
+      isNestedGroup(item)
+        ? item.items.some((nestedItem) => nestedItem.slug === slug)
+        : item.slug === slug,
+    // item.items ? items.find((item) => item.slug === slug) : item.slug === slug,
+  ),
 );
 const group = navItems[groupIndex];
 const groupTitle = slug === "faq" ? "FAQs" : group ? group.title : "Docs";
@@ -21,8 +42,10 @@ const order =
   globalOrder + (sidebarOrder !== undefined ? sidebarOrder * -1 : -100);
 ---
 
+<Debug {groupIndex} />
+
 <!-- Used as lvl0 prop by algolia which helps categorize the search results  -->
-<span hidden id="algolia-group-title">{groupTitle}</span>
+<span id="algolia-group-title">{groupTitle}</span>
 
 <!-- Used to specify page rank -->
 <span hidden id="algolia-sidebar-order">{order}</span>
