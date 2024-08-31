@@ -1,7 +1,6 @@
 ---
 import type { MarkdownHeading } from "astro";
 import { FullWidthContainer } from "@chromatic-com/tetra";
-import { getCollection } from "astro:content";
 import "@docsearch/css";
 import SEO from "../components/SEO.astro";
 import Scripts from "../components/Scripts.astro";
@@ -15,6 +14,10 @@ import { projectRoot } from "../util";
 import OnThisPage from "../components/OnThisPage.astro";
 import SearchMeta from "../components/SearchMeta.astro";
 import { globalStyles } from "../styles/global";
+import {
+  navGroups,
+  flattenedNavItems,
+} from "../components/Navigation/nav-groups";
 
 type Props = {
   title: string;
@@ -23,96 +26,10 @@ type Props = {
   file?: string;
   headings: MarkdownHeading[];
   slug: string;
-  sidebarOrder?: number;
 };
 
-const { title, description, slug, sidebarOrder } = Astro.props;
+const { title, description, slug } = Astro.props;
 const { pathname } = Astro.url;
-const overview = await getCollection("overview");
-const storybook = await getCollection("storybook");
-const playwright = await getCollection("playwright");
-const cypress = await getCollection("cypress");
-const configuration = await getCollection("configuration");
-const modes = await getCollection("modes");
-const snapshot = await getCollection("snapshot");
-const snapshotOptions = await getCollection("snapshotOptions");
-const turbosnap = await getCollection("turbosnap");
-const collaborate = await getCollection("collaborate");
-const plugins = await getCollection("plugins");
-const ci = await getCollection("ci");
-const account = await getCollection("account");
-const guides = await getCollection("guides");
-const troubleshooting = await getCollection("troubleshooting");
-
-const navGroups = [
-  {
-    title: "Overview",
-    items: overview,
-    defaultOpen: true,
-    timeline: true,
-  },
-  {
-    title: "Storybook",
-    items: [
-      ...storybook,
-      {
-        title: "Modes",
-        items: modes,
-      },
-      {
-        title: "TurboSnap",
-        items: turbosnap,
-      },
-    ],
-    defaultOpen: false,
-  },
-  {
-    title: "Playwright",
-    items: playwright,
-    timeline: true,
-  },
-  {
-    title: "Cypress",
-    items: cypress,
-    timeline: true,
-  },
-  {
-    title: "Guides",
-    items: guides,
-  },
-  {
-    title: "Configuration",
-    items: configuration,
-  },
-  {
-    title: "Snapshot",
-    items: snapshot,
-  },
-  {
-    title: "Snapshot options",
-    items: snapshotOptions,
-  },
-  {
-    title: "Collaborate",
-    items: collaborate,
-  },
-  {
-    title: "CI",
-    items: ci,
-  },
-  {
-    title: "Plugins",
-    items: plugins,
-  },
-  {
-    title: "Account",
-    items: account,
-  },
-  {
-    title: "Troubleshooting",
-    items: troubleshooting,
-  },
-];
 
 const editUrl = Astro.props.file?.replace(projectRoot, "").replace("src/", "");
 ---
@@ -130,11 +47,7 @@ const editUrl = Astro.props.file?.replace(projectRoot, "").replace("src/", "");
       <LayoutGrid showOnThisPage={Astro.props.headings.length > 0}>
         <Navigation url={pathname.replace(/\/$/g, "")} navGroups={navGroups} />
         <ContentContainer>
-          <SearchMeta
-            slug={slug}
-            navItems={navGroups}
-            sidebarOrder={sidebarOrder}
-          />
+          <SearchMeta slug={slug} flattenedNavItems={flattenedNavItems} />
           <slot />
           <EditAndFeedback title={title} editUrl={editUrl} />
         </ContentContainer>

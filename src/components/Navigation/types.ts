@@ -38,6 +38,7 @@ export type TransformedItem = {
   order: number;
   hide: boolean;
   isHome?: boolean;
+  breadcrumb: string;
 };
 
 export type TransformedNavGroupItem = TransformedItem | NestedTransformedGroup;

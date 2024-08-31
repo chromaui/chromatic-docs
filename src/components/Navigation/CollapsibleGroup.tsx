@@ -7,7 +7,9 @@ import {
   type TransformedNavGroup,
 } from "./types";
 
-const Trigger = styled(Collapsible.Trigger)<{ nested?: boolean }>`
+const Trigger = styled(Collapsible.Trigger, {
+  shouldForwardProp: (prop) => prop !== "nested",
+})<{ nested?: boolean }>`
   all: unset;
   display: flex;
   align-items: center;
@@ -15,9 +17,9 @@ const Trigger = styled(Collapsible.Trigger)<{ nested?: boolean }>`
   ${typography.body16}
   color: ${color.slate600};
   font-weight: ${fontWeight.semibold};
-  ${({ nested }) => !nested && `margin-bottom: 8px`}
-
   cursor: pointer;
+
+  ${({ nested }) => !nested && `margin-bottom: 8px`}
 
   &[data-state="open"] .icon-wrapper {
     transform: rotate(90deg);

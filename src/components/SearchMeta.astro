@@ -1,51 +1,22 @@
 ---
-import { Debug } from "astro:components";
-import {
-  type NavGroup,
-  type NavGroupItem,
-  isNestedGroup,
-} from "./Navigation/types";
+import { type TransformedItem } from "./Navigation/types";
 
-const { navItems, slug, sidebarOrder } = Astro.props;
+const { flattenedNavItems, slug } = Astro.props;
 
-// interface NavItem {
-//   title: string;
-//   items: NavGroupItem[];
-//   defaultOpen?: boolean;
-//   timeline?: boolean;
-// }
+interface Props {
+  slug: string;
+  flattenedNavItems: TransformedItem[];
+}
 
-const findItem = (
-  items: NavGroup[] | NavGroupItem[],
-  slug: string,
-): NavGroupItem | undefined =>
-  items.find((item) =>
-    isNestedGroup(item) ? findItem(item.items, slug) : item.slug === slug,
-  );
-
-const groupIndex = navItems.findIndex(({ items }: NavGroup) =>
-  items.find(
-    (item) =>
-      isNestedGroup(item)
-        ? item.items.some((nestedItem) => nestedItem.slug === slug)
-        : item.slug === slug,
-    // item.items ? items.find((item) => item.slug === slug) : item.slug === slug,
-  ),
-);
-const group = navItems[groupIndex];
-const groupTitle = slug === "faq" ? "FAQs" : group ? group.title : "Docs";
-
-const globalOrder = -groupIndex * 10;
-
-// Use global and section order to determine the ranking of the page
-const order =
-  globalOrder + (sidebarOrder !== undefined ? sidebarOrder * -1 : -100);
+const itemIndex = flattenedNavItems.findIndex((i) => i.slug === slug);
+const item = flattenedNavItems[itemIndex];
+const breadcrumb = item?.breadcrumb || "Docs";
+// Order is reversed so that the first item is the most relevant
+const order = -(itemIndex + 1);
 ---
 
-<Debug {groupIndex} />
-
 <!-- Used as lvl0 prop by algolia which helps categorize the search results  -->
-<span id="algolia-group-title">{groupTitle}</span>
+<span hidden id="algolia-group-title">{breadcrumb}</span>
 
 <!-- Used to specify page rank -->
 <span hidden id="algolia-sidebar-order">{order}</span>
