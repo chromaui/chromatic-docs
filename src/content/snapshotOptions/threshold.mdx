@@ -58,7 +58,7 @@ If you need to customize how Chromatic identifies visual changes in your UI, add
     <ParamsCallout name="diffThreshold" integration="storybook" />
   </Fragment>
   <Fragment slot="playwright">
-    ```ts title="tests/UserProfile.test.js|ts"
+    ```ts title="tests/UserProfile.spec.js|ts"
     import { test, expect } from "@chromatic-com/playwright";
 
     test.describe("User Profile Page", () => {
@@ -138,7 +138,7 @@ To enable this feature and allow Chromatic to automatically detect anti-aliased 
     <ParamsCallout name="diffIncludeAntiAliasing" integration="storybook" />
   </Fragment>
   <Fragment slot="playwright">
-    ```ts title="tests/UserProfile.test.js|ts"
+    ```ts title="tests/UserProfile.spec.js|ts"
     import { test, expect } from "@chromatic-com/playwright";
 
     test.describe("User Profile Page", () => {
