@@ -1,22 +1,28 @@
 ---
 import Search from "../Search.astro";
 import { Support } from "../Support";
-import { SideNav } from "./SideNav";
+import { SideNav } from "./SideNav/SideNav";
 import { Container } from "./styles";
-import { DropdownNav } from "./DropdownNav";
-import type { TransformedNavGroup } from "./types";
+import { CompactNav } from "./CompactNav/CompactNav";
+import type { TransformedNavGroup, TransformedItem } from "./types";
 
 interface Props {
   url: string;
   navGroups: TransformedNavGroup[];
+  flatNavItems: TransformedItem[];
 }
 
-const { navGroups, url } = Astro.props;
+const { navGroups, flatNavItems, url } = Astro.props;
 ---
 
 <Container>
   <Search />
-  <DropdownNav client:only="react" groups={navGroups as any} url={url} />
+  <CompactNav
+    client:only="react"
+    groups={navGroups}
+    flatItems={flatNavItems}
+    url={url}
+  />
   <SideNav client:load sidebarGroups={navGroups} url={url} />
   <Support client:load />
 </Container>

@@ -1,22 +1,22 @@
 import type { Meta, StoryObj } from "@storybook/react";
 import { within, userEvent } from "@storybook/test";
-import type { DropdownNavGroup } from "./DropdownNav";
-import { DropdownNav } from "./DropdownNav";
+import { CompactNav } from "./CompactNav";
+import type { TransformedNavGroup } from "../types";
 
 const meta = {
-  title: "Components/DropdownNav",
-  component: DropdownNav,
+  title: "Components/CompactNav",
+  component: CompactNav,
   parameters: {
     viewport: {
       defaultViewport: "mobile2",
     },
   },
-} satisfies Meta<typeof DropdownNav>;
+} satisfies Meta<typeof CompactNav>;
 
 export default meta;
-type Story = StoryObj<typeof DropdownNav>;
+type Story = StoryObj<typeof CompactNav>;
 
-const mockSidebarItems: DropdownNavGroup[] = [
+const mockSidebarItems: TransformedNavGroup[] = [
   {
     title: "Overview",
     items: [
@@ -74,13 +74,13 @@ const mockSidebarItems: DropdownNavGroup[] = [
   },
 ];
 
-export const Collapsed: Story = {
+export const Collapsed = {
   args: {
     groups: mockSidebarItems,
   },
-};
+} satisfies Story;
 
-export const OneGroup: Story = {
+export const OneGroup = {
   args: {
     groups: [mockSidebarItems[0]],
   },
@@ -90,21 +90,21 @@ export const OneGroup: Story = {
     const MenuButton = await canvas.findByRole("button");
     await userEvent.click(MenuButton);
   },
-};
+} satisfies Story;
 
-export const MultipleGroups: Story = {
+export const MultipleGroups = {
   args: {
     groups: mockSidebarItems,
   },
   decorators: [(storyFn) => <div style={{ height: "800px" }}>{storyFn()}</div>],
   play: OneGroup.play,
-};
+} satisfies Story;
 
-export const ActiveUrlBreadcrumb: Story = {
+export const ActiveUrlBreadcrumb = {
   args: {
     url: "/docs/storybook",
     groups: mockSidebarItems,
   },
   decorators: [(storyFn) => <div style={{ height: "800px" }}>{storyFn()}</div>],
   play: OneGroup.play,
-};
+} satisfies Story;

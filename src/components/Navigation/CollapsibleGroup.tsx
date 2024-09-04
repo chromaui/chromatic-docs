@@ -6,6 +6,7 @@ import {
   type TransformedItem,
   type TransformedNavGroup,
 } from "./types";
+import { isChildActive, withBase } from "./nav-utils";
 
 const Trigger = styled(Collapsible.Trigger, {
   shouldForwardProp: (prop) => prop !== "nested",
@@ -14,17 +15,17 @@ const Trigger = styled(Collapsible.Trigger, {
   display: flex;
   align-items: center;
   gap: 8px;
-  ${typography.body16}
+  ${typography.body14}
   color: ${color.slate600};
   font-weight: ${fontWeight.semibold};
   cursor: pointer;
-
-  ${({ nested }) => !nested && `margin-bottom: 8px`}
 
   &[data-state="open"] .icon-wrapper {
     transform: rotate(90deg);
     transform-origin: center;
   }
+
+  ${({ nested }) => !nested && `margin-bottom: 8px;`}
 `;
 
 const IconWrapper = styled.div`
@@ -65,7 +66,7 @@ const Line = styled.a`
 `;
 
 const ContentItem = styled.div<{ isActive: boolean; isTimeline?: boolean }>`
-  ${typography.body16}
+  ${typography.body14}
   color: ${({ isActive }) => (isActive ? color.blue500 : color.slate600)};
   font-weight: ${fontWeight.regular};
   cursor: pointer;
@@ -93,9 +94,6 @@ const Bullet = styled.div<{ isActive: boolean }>`
   box-shadow: white 0px 0px 0px 4px;
 `;
 
-const withBase = (url: string) =>
-  url === "" ? import.meta.env.BASE_URL : `${import.meta.env.BASE_URL}/${url}`;
-
 const CollapsibleItem = ({
   item,
   url,
@@ -121,26 +119,6 @@ const CollapsibleItem = ({
   );
 };
 
-function isUrlActive(slug: string, url: string) {
-  return withBase(slug) === url;
-}
-
-function checkIfSomeActive(group: TransformedNavGroup, url: string): boolean {
-  return group.items.some((item) => {
-    if (isNestedTransformedGroup(item)) {
-      return item.items.some((nestedItem) => {
-        if (isNestedTransformedGroup(nestedItem)) {
-          return checkIfSomeActive(nestedItem, url);
-        } else {
-          return isUrlActive(nestedItem.slug, url);
-        }
-      });
-    } else {
-      return isUrlActive(item.slug, url);
-    }
-  });
-}
-
 export const CollapsibleGroup = ({
   group,
   url,
@@ -153,7 +131,7 @@ export const CollapsibleGroup = ({
   nested?: boolean;
   open?: boolean;
 }) => {
-  const isSomeActive = checkIfSomeActive(group, url);
+  const isSomeActive = isChildActive(group, url);
 
   return (
     <Collapsible.Root defaultOpen={group.defaultOpen || isSomeActive}>

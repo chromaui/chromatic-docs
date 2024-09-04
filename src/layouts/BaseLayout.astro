@@ -45,7 +45,11 @@ const editUrl = Astro.props.file?.replace(projectRoot, "").replace("src/", "");
     <MarketingHeader client:visible />
     <FullWidthContainer>
       <LayoutGrid showOnThisPage={Astro.props.headings.length > 0}>
-        <Navigation url={pathname.replace(/\/$/g, "")} navGroups={navGroups} />
+        <Navigation
+          url={pathname.replace(/\/$/g, "")}
+          navGroups={navGroups}
+          flatNavItems={flattenedNavItems}
+        />
         <ContentContainer>
           <SearchMeta slug={slug} flattenedNavItems={flattenedNavItems} />
           <slot />

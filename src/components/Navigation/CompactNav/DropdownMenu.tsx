@@ -1,4 +1,3 @@
-import type { ElementType, FC } from "react";
 import { styled } from "@storybook/theming";
 import * as Popover from "@radix-ui/react-popover";
 import * as RadixDropdownMenu from "@radix-ui/react-dropdown-menu";
@@ -9,10 +8,13 @@ import {
   minSm,
   fontWeight,
   minMd,
+  VStack,
 } from "@chromatic-com/tetra";
 import { DropdownTrigger } from "./DropdownTrigger";
 import { AnimatePresence, motion } from "framer-motion";
 import React from "react";
+import type { TransformedNavGroup } from "../types";
+import { CollapsibleGroup } from "../CollapsibleGroup";
 
 const NavigationMenu = styled(motion.div)`
   position: relative;
@@ -25,46 +27,13 @@ const NavigationMenu = styled(motion.div)`
   min-width: calc(100vw - 32px);
   margin-left: ${spacing[4]};
   margin-right: ${spacing[4]};
-  padding: 12px;
+  padding: ${spacing[6]};
   z-index: 100;
 
   ${minSm} {
     margin-right: ${spacing[12]};
-    min-width: 320px;
+    min-width: 560px;
   }
-`;
-
-const DropdownGroup = styled.div``;
-
-const DropdownMenuLabel = styled(RadixDropdownMenu.Label)`
-  height: ${spacing[8]};
-  padding: ${spacing[2]};
-  ${typography.subheading}
-  color: ${color.slate500};
-`;
-
-const DropdownMenuLink = styled.a`
-  ${typography.body14};
-  font-weight: ${fontWeight.bold};
-  line-height: ${spacing[8]};
-  height: ${spacing[8]};
-  color: ${color.slate800};
-  display: block;
-  text-decoration: none;
-  padding: 0 ${spacing[2]};
-  border-radius: 4px;
-
-  &:focus {
-    box-shadow: 0 0 0 2px rgba(30, 167, 253, 0.3);
-    outline: none;
-  }
-`;
-
-const Divider = styled.div`
-  height: 1px;
-  background-color: ${color.slate300};
-  margin: ${spacing[4]} ${spacing[2]};
-  width: calc(100% - ${spacing[4]});
 `;
 
 const NavMenuDropdownTrigger = styled(DropdownTrigger)`
@@ -73,22 +42,11 @@ const NavMenuDropdownTrigger = styled(DropdownTrigger)`
   }
 `;
 
-interface MenuItem {
-  id: string;
-  label: string;
-  LinkWrapper?: ElementType;
-  href: string;
-}
-
-interface MenuGroup {
-  label: string;
-  items: MenuItem[];
-}
-
 interface DropdownMenuProps {
   variant?: "light" | "dark";
   label: string;
-  groups: MenuGroup[];
+  groups: TransformedNavGroup[];
+  url: string;
 }
 
 const PopoverContent = styled(Popover.Content)`
@@ -97,12 +55,13 @@ const PopoverContent = styled(Popover.Content)`
   overflow: scroll;
 `;
 
-export const DropdownMenu: FC<DropdownMenuProps> = ({
+export const DropdownMenu = ({
   label,
   variant,
   groups,
+  url,
   ...props
-}) => {
+}: DropdownMenuProps) => {
   const [mobileMenuOpen, setMobileMenuOpen] = React.useState(false);
 
   return (
@@ -122,17 +81,15 @@ export const DropdownMenu: FC<DropdownMenuProps> = ({
                 exit={{ opacity: 0, y: -8 }}
                 transition={{ ease: "easeOut", duration: 0.14 }}
               >
-                {groups.map((group, index) => (
-                  <DropdownGroup key={group.label}>
-                    <DropdownMenuLabel>{group.label}</DropdownMenuLabel>
-                    {group.items.map((item) => (
-                      <DropdownMenuLink key={item.id} href={item.href}>
-                        {item.label}
-                      </DropdownMenuLink>
-                    ))}
-                    {index < groups.length - 1 && <Divider />}
-                  </DropdownGroup>
-                ))}
+                <VStack gap={4}>
+                  {groups.map((group) => (
+                    <CollapsibleGroup
+                      key={group.title}
+                      group={group}
+                      url={url}
+                    />
+                  ))}
+                </VStack>
               </NavigationMenu>
             </PopoverContent>
           </Popover.Portal>

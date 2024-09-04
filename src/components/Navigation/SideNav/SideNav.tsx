@@ -1,7 +1,7 @@
 import { styled } from "@storybook/theming";
 import { spacing, minMd } from "@chromatic-com/tetra";
-import { type TransformedNavGroup } from "./types";
-import { CollapsibleGroup } from "./CollapsibleGroup";
+import { type TransformedNavGroup } from "../types";
+import { CollapsibleGroup } from "../CollapsibleGroup";
 
 const SidebarContainer = styled.div`
   display: none;

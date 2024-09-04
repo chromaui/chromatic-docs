@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from "@storybook/react";
 import { SideNav } from "./SideNav";
-import type { TransformedNavGroup, TransformedNavGroupItem } from "./types";
+import type { TransformedNavGroup } from "../types";
 
 const meta = {
   title: "Components/SideNav",
@@ -20,6 +20,7 @@ const mockSidebarGroups: TransformedNavGroup[] = [
         order: 1,
         slug: "",
         isHome: true,
+        breadcrumb: "Overview",
       },
       {
         hide: false,
@@ -27,6 +28,7 @@ const mockSidebarGroups: TransformedNavGroup[] = [
         order: 2,
         slug: "test",
         isHome: false,
+        breadcrumb: "Overview",
       },
       {
         hide: false,
@@ -34,6 +36,7 @@ const mockSidebarGroups: TransformedNavGroup[] = [
         order: 3,
         slug: "review",
         isHome: false,
+        breadcrumb: "Overview",
       },
       {
         hide: false,
@@ -41,6 +44,7 @@ const mockSidebarGroups: TransformedNavGroup[] = [
         order: 4,
         slug: "ci",
         isHome: false,
+        breadcrumb: "Overview",
       },
       {
         hide: false,
@@ -48,6 +52,7 @@ const mockSidebarGroups: TransformedNavGroup[] = [
         order: 5,
         slug: "diff-inspector",
         isHome: false,
+        breadcrumb: "Overview",
       },
     ],
   },
@@ -60,6 +65,7 @@ const mockSidebarGroups: TransformedNavGroup[] = [
         order: 1,
         slug: "storybook",
         isHome: false,
+        breadcrumb: "Storybook",
       },
       {
         hide: false,
@@ -67,6 +73,7 @@ const mockSidebarGroups: TransformedNavGroup[] = [
         order: 2,
         slug: "interactions",
         isHome: false,
+        breadcrumb: "Storybook",
       },
       {
         hide: false,
@@ -74,6 +81,7 @@ const mockSidebarGroups: TransformedNavGroup[] = [
         order: 3,
         slug: "storybook/publish",
         isHome: false,
+        breadcrumb: "Storybook",
       },
       {
         hide: false,
@@ -81,6 +89,7 @@ const mockSidebarGroups: TransformedNavGroup[] = [
         order: 4,
         slug: "composition",
         isHome: false,
+        breadcrumb: "Storybook",
       },
     ],
   },
@@ -98,6 +107,7 @@ const mockWithNestedGroups: TransformedNavGroup = {
           order: 1,
           slug: "modes",
           isHome: false,
+          breadcrumb: "Storybook » Modes",
         },
         {
           hide: false,
@@ -105,6 +115,7 @@ const mockWithNestedGroups: TransformedNavGroup = {
           order: 3,
           slug: "themes",
           isHome: false,
+          breadcrumb: "Storybook » Modes",
         },
         {
           hide: false,
@@ -112,6 +123,7 @@ const mockWithNestedGroups: TransformedNavGroup = {
           order: 4,
           slug: "custom-decorators",
           isHome: false,
+          breadcrumb: "Storybook » Modes",
         },
         {
           hide: false,
@@ -119,6 +131,7 @@ const mockWithNestedGroups: TransformedNavGroup = {
           order: 5,
           slug: "legacy-viewports",
           isHome: false,
+          breadcrumb: "Storybook » Modes",
         },
       ],
       order: 999,
@@ -207,6 +220,7 @@ const mockWithMultiLevelNestedGroups: TransformedNavGroup = {
           order: 1,
           slug: "modes",
           isHome: false,
+          breadcrumb: "Storybook » Modes",
         },
         {
           hide: false,
@@ -214,6 +228,7 @@ const mockWithMultiLevelNestedGroups: TransformedNavGroup = {
           order: 3,
           slug: "themes",
           isHome: false,
+          breadcrumb: "Storybook » Modes",
         },
         {
           hide: false,
@@ -221,6 +236,7 @@ const mockWithMultiLevelNestedGroups: TransformedNavGroup = {
           order: 4,
           slug: "custom-decorators",
           isHome: false,
+          breadcrumb: "Storybook » Modes",
         },
         {
           hide: false,
@@ -228,6 +244,7 @@ const mockWithMultiLevelNestedGroups: TransformedNavGroup = {
           order: 5,
           slug: "legacy-viewports",
           isHome: false,
+          breadcrumb: "Storybook » Modes",
         },
         {
           hide: false,
@@ -238,6 +255,7 @@ const mockWithMultiLevelNestedGroups: TransformedNavGroup = {
               order: 1,
               slug: "turbosnap",
               isHome: false,
+              breadcrumb: "Storybook » Modes » TurboSnap",
             },
             {
               hide: false,
@@ -245,6 +263,7 @@ const mockWithMultiLevelNestedGroups: TransformedNavGroup = {
               order: 3,
               slug: "turbosnap/setup",
               isHome: false,
+              breadcrumb: "Storybook » Modes » TurboSnap",
             },
           ],
           order: 999,
