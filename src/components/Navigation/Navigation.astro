@@ -5,6 +5,7 @@ import { SideNav } from "./SideNav/SideNav";
 import { Container } from "./styles";
 import { CompactNav } from "./CompactNav/CompactNav";
 import type { TransformedNavGroup, TransformedItem } from "./types";
+import { withBase } from "./nav-utils";
 
 interface Props {
   url: string;
@@ -13,6 +14,9 @@ interface Props {
 }
 
 const { navGroups, flatNavItems, url } = Astro.props;
+
+const activeItem =
+  flatNavItems.find((item) => withBase(item.slug) === url) || flatNavItems[0];
 ---
 
 <Container>
@@ -20,7 +24,7 @@ const { navGroups, flatNavItems, url } = Astro.props;
   <CompactNav
     client:only="react"
     groups={navGroups}
-    flatItems={flatNavItems}
+    activeItem={activeItem}
     url={url}
   />
   <SideNav client:load sidebarGroups={navGroups} url={url} />

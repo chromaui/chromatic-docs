@@ -42,12 +42,10 @@ const rawNavGroups = [
   {
     title: "Playwright",
     items: playwright,
-    timeline: true,
   },
   {
     title: "Cypress",
     items: cypress,
-    timeline: true,
   },
   {
     title: "Guides",

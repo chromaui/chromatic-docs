@@ -1,10 +1,15 @@
 import type { Meta, StoryObj } from "@storybook/react";
 import { within, userEvent } from "@storybook/test";
 import { CompactNav } from "./CompactNav";
-import type { TransformedNavGroup } from "../types";
+import type { TransformedItem } from "../types";
+import {
+  mockGroupOverview,
+  mockGroupStorybook,
+  mockGroupWithNested,
+} from "../CollapsibleGroup.stories";
 
 const meta = {
-  title: "Components/CompactNav",
+  title: "Components/Navigation/CompactNav",
   component: CompactNav,
   parameters: {
     viewport: {
@@ -16,73 +21,18 @@ const meta = {
 export default meta;
 type Story = StoryObj<typeof CompactNav>;
 
-const mockSidebarItems: TransformedNavGroup[] = [
-  {
-    title: "Overview",
-    items: [
-      {
-        id: "introduction.mdx",
-        slug: "introduction",
-        label: "Introduction",
-      },
-      {
-        id: "test.mdx",
-        slug: "test",
-        label: "UI Test",
-      },
-      {
-        id: "review.md",
-        slug: "review",
-        label: "UI Review",
-      },
-      {
-        id: "ci.mdx",
-        slug: "ci",
-        label: "GitHub Action",
-      },
-      {
-        id: "diff-inspector.mdx",
-        slug: "diff-inspector",
-        label: "Diff Inspector",
-      },
-    ],
-  },
-  {
-    title: "Storybook",
-    items: [
-      {
-        id: "setup.mdx",
-        slug: "storybook",
-        label: "Setup",
-      },
-      {
-        id: "interactions.md",
-        slug: "interactions",
-        label: "Interaction tests",
-      },
-      {
-        id: "publish.md",
-        slug: "storybook/publish",
-        label: "Publish",
-      },
-      {
-        id: "composition.md",
-        slug: "composition",
-        label: "Composition",
-      },
-    ],
-  },
-];
-
 export const Collapsed = {
   args: {
-    groups: mockSidebarItems,
+    groups: [mockGroupOverview, mockGroupStorybook],
+    activeItem: mockGroupOverview.items[0] as TransformedItem,
   },
 } satisfies Story;
 
 export const OneGroup = {
   args: {
-    groups: [mockSidebarItems[0]],
+    groups: [mockGroupOverview],
+    activeItem: mockGroupOverview.items[0] as TransformedItem,
+    url: "/docs/test",
   },
   decorators: [(storyFn) => <div style={{ height: "800px" }}>{storyFn()}</div>],
   play: async ({ canvasElement }) => {
@@ -94,16 +44,19 @@ export const OneGroup = {
 
 export const MultipleGroups = {
   args: {
-    groups: mockSidebarItems,
+    groups: [mockGroupOverview, mockGroupStorybook],
+    activeItem: mockGroupStorybook.items[0] as TransformedItem,
+    url: "/docs/storybook",
   },
   decorators: [(storyFn) => <div style={{ height: "800px" }}>{storyFn()}</div>],
   play: OneGroup.play,
 } satisfies Story;
 
-export const ActiveUrlBreadcrumb = {
+export const NestedGroups = {
   args: {
-    url: "/docs/storybook",
-    groups: mockSidebarItems,
+    groups: [mockGroupOverview, mockGroupWithNested],
+    activeItem: mockGroupWithNested.items[0] as TransformedItem,
+    url: "/docs/themes",
   },
   decorators: [(storyFn) => <div style={{ height: "800px" }}>{storyFn()}</div>],
   play: OneGroup.play,
