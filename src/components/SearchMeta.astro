@@ -1,28 +1,22 @@
 ---
-const { navItems, slug, sidebarOrder } = Astro.props;
+import { type TransformedItem } from "./Navigation/types";
 
-interface NavItem {
-  title: string;
-  items: any[];
-  defaultOpen?: boolean;
-  timeline?: boolean;
+const { flattenedNavItems, slug } = Astro.props;
+
+interface Props {
+  slug: string;
+  flattenedNavItems: TransformedItem[];
 }
 
-const groupIndex = navItems.findIndex(({ items }: NavItem) =>
-  items.find((item) => item.slug === slug),
-);
-const group = navItems[groupIndex];
-const groupTitle = slug === "faq" ? "FAQs" : group ? group.title : "Docs";
-
-const globalOrder = -groupIndex * 10;
-
-// Use global and section order to determine the ranking of the page
-const order =
-  globalOrder + (sidebarOrder !== undefined ? sidebarOrder * -1 : -100);
+const itemIndex = flattenedNavItems.findIndex((i) => i.slug === slug);
+const item = flattenedNavItems[itemIndex];
+const breadcrumb = item?.breadcrumb || "Docs";
+// Order is reversed so that the first item is the most relevant
+const order = -(itemIndex + 1);
 ---
 
 <!-- Used as lvl0 prop by algolia which helps categorize the search results  -->
-<span hidden id="algolia-group-title">{groupTitle}</span>
+<span hidden id="algolia-group-title">{breadcrumb}</span>
 
 <!-- Used to specify page rank -->
 <span hidden id="algolia-sidebar-order">{order}</span>

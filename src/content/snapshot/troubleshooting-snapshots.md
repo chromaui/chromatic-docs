@@ -2,7 +2,7 @@
 layout: "../../layouts/Layout.astro"
 title: Troubleshooting Snapshots
 description: Tips for debugging and improving snapshot consistency
-sidebar: { order: 3 }
+sidebar: { order: 3, label: "Troubleshooting" }
 ---
 
 # Troubleshooting Snapshots

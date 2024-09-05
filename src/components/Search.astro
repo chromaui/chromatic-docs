@@ -1,11 +1,17 @@
 ---
-import { color, minMd, spacing } from "@chromatic-com/tetra";
+import { color, maxSm, minMd, minSm, spacing } from "@chromatic-com/tetra";
 import { css, Global } from "@storybook/theming";
 
 const styles = css`
   :root {
     --docsearch-primary-color: ${color.blue500};
     --docsearch-muted-color: ${color.slate600};
+  }
+
+  ${maxSm} {
+    #docsearch {
+      width: 36px;
+    }
   }
 
   ${minMd} {
@@ -18,12 +24,11 @@ const styles = css`
     background: ${color.white};
     box-shadow: ${color.blackTr10} 0 0 0 1px inset;
     color: ${color.slate500};
+    justify-content: center;
 
     line-height: 16px;
     margin: 0;
     padding: 10px 14px;
-    min-width: ${spacing[36]};
-    max-width: ${spacing[48]};
     width: 100%;
 
     &:focus,
@@ -43,7 +48,6 @@ const styles = css`
   .DocSearch-Button .DocSearch-Search-Icon {
     color: currentColor;
     height: 1em;
-    margin-right: 8px;
     width: 1em;
   }
 
@@ -58,7 +62,24 @@ const styles = css`
 
   .DocSearch-Button-Keys,
   .DocSearch-Button-Placeholder {
-    display: initial;
+    display: none;
+  }
+
+  ${minSm} {
+    .DocSearch-Button {
+      min-width: ${spacing[36]};
+      max-width: ${spacing[48]};
+      justify-content: space-between;
+    }
+
+    .DocSearch-Button .DocSearch-Search-Icon {
+      margin-right: 8px;
+    }
+
+    .DocSearch-Button-Keys,
+    .DocSearch-Button-Placeholder {
+      display: initial;
+    }
   }
 
   // Using an id here to overcome specificity of global input styles
@@ -114,6 +135,7 @@ const ALGOLIA_API_KEY = import.meta.env.PUBLIC_ALGOLIA_API_KEY;
     indexName: "chromatic",
     apiKey: ALGOLIA_API_KEY,
     insights: true,
+    attributesToHighlight: ["hierarchy.lvl0"],
   });
 </script>
 
