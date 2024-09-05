@@ -135,43 +135,43 @@ const mockModes: NestedTransformedGroup = {
   title: "Modes",
 };
 
-export const mockGroupWithNested: TransformedNavGroup = {
-  ...mockGroupStorybook,
-  items: mockGroupStorybook.items.concat([mockModes]),
-};
-
 const mockTS = {
-  ...mockModes,
-  items: mockModes.items.concat([
+  hide: false,
+  items: [
     {
       hide: false,
-      items: [
-        {
-          hide: false,
-          label: "Overview",
-          order: 1,
-          slug: "turbosnap",
-          isHome: false,
-          breadcrumb: "Storybook » Modes » TurboSnap",
-        },
-        {
-          hide: false,
-          label: "Setup",
-          order: 3,
-          slug: "turbosnap/setup",
-          isHome: false,
-          breadcrumb: "Storybook » Modes » TurboSnap",
-        },
-      ],
-      order: 999,
-      title: "TurboSnap",
+      label: "Overview",
+      order: 1,
+      slug: "turbosnap",
+      isHome: false,
+      breadcrumb: "Storybook » Modes » TurboSnap",
     },
-  ]),
+    {
+      hide: false,
+      label: "Setup",
+      order: 3,
+      slug: "turbosnap/setup",
+      isHome: false,
+      breadcrumb: "Storybook » Modes » TurboSnap",
+    },
+  ],
+  order: 999,
+  title: "TurboSnap",
+};
+
+export const mockGroupWithNested: TransformedNavGroup = {
+  ...mockGroupStorybook,
+  items: mockGroupStorybook.items.concat([mockModes, mockTS]),
+};
+
+const TSInModes = {
+  ...mockModes,
+  items: mockModes.items.concat([mockTS]),
 };
 
 export const mockGroupWithMultiLevelNested: TransformedNavGroup = {
   ...mockGroupStorybook,
-  items: mockGroupStorybook.items.concat(mockTS),
+  items: mockGroupStorybook.items.concat(TSInModes),
 };
 
 export const Default = {

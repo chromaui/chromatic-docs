@@ -1,6 +1,12 @@
 import * as Collapsible from "@radix-ui/react-collapsible";
-import { styled } from "@storybook/theming";
-import { typography, Icon, color, fontWeight } from "@chromatic-com/tetra";
+import { css, styled } from "@storybook/theming";
+import {
+  typography,
+  Icon,
+  color,
+  fontWeight,
+  spacing,
+} from "@chromatic-com/tetra";
 import {
   isNestedTransformedGroup,
   type TransformedItem,
@@ -17,7 +23,6 @@ const Trigger = styled(Collapsible.Trigger, {
   gap: 8px;
   ${typography.body14}
   color: ${color.slate600};
-  font-weight: ${fontWeight.semibold};
   cursor: pointer;
 
   &[data-state="open"] .icon-wrapper {
@@ -25,7 +30,15 @@ const Trigger = styled(Collapsible.Trigger, {
     transform-origin: center;
   }
 
-  ${({ nested }) => !nested && `margin-bottom: 8px;`}
+  ${({ nested }) =>
+    nested
+      ? css`
+          height: ${spacing[8]};
+        `
+      : css`
+          margin-bottom: 8px;
+          font-weight: ${fontWeight.semibold};
+        `}
 `;
 
 const IconWrapper = styled.div`
@@ -40,8 +53,10 @@ const IconWrapper = styled.div`
 const ContentWrapper = styled.div<{ isTimeline: boolean }>`
   display: flex;
   flex-direction: column;
-  gap: 4px;
   position: relative;
+  /* Makes the spacing between trigger and content
+  visually the same as non-timeline content */
+  ${({ isTimeline }) => isTimeline && `margin-top: -6px;`}
 
   &:before {
     content: "";
@@ -57,12 +72,12 @@ const ContentWrapper = styled.div<{ isTimeline: boolean }>`
   }
 `;
 
-const Line = styled.a`
+const Link = styled.a`
   all: unset;
   display: flex;
   gap: 12px;
   align-items: center;
-  min-height: 32px;
+  height: ${spacing[8]};
 `;
 
 const ContentItem = styled.div<{ isActive: boolean; isTimeline?: boolean }>`
@@ -80,7 +95,6 @@ const ContentItem = styled.div<{ isActive: boolean; isTimeline?: boolean }>`
 
 const NestedContent = styled(Collapsible.Content)`
   padding-left: 20px;
-  margin-top: 4px;
 `;
 
 const Bullet = styled.div<{ isActive: boolean }>`
@@ -109,12 +123,12 @@ const CollapsibleItem = ({
 
   return (
     <Collapsible.Content asChild>
-      <Line href={withBase(item.slug)}>
+      <Link href={withBase(item.slug)}>
         {!!timeline && <Bullet isActive={isActive} />}
         <ContentItem isActive={isActive} isTimeline={!!timeline}>
           {item.label}
         </ContentItem>
-      </Line>
+      </Link>
     </Collapsible.Content>
   );
 };
