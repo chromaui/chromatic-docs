@@ -59,7 +59,7 @@ To integrate Chromatic with your existing workflow, you'll need to add the follo
     executors:
       pw-jammy-development:
         docker:
-          - image: mcr.microsoft.com/playwright:v1.45.3-jammy
+          - image: mcr.microsoft.com/playwright:v1.46.0-jammy
         working_directory: ~/repo
       chromatic-ui-testing:
         docker:
@@ -131,7 +131,7 @@ To integrate Chromatic with your existing workflow, you'll need to add the follo
     executors:
       cypress:
         docker:
-          - image: cypress/browsers:node-20.15.1-chrome-126.0.6478.126-1-ff-128.0-edge-126.0.2592.102-1
+          - image: cypress/browsers:node-20.17.0-chrome-128.0.6613.119-1-ff-130.0-edge-128.0.2739.63-1
         working_directory: ~/repo
       chromatic-ui-testing:
         docker:

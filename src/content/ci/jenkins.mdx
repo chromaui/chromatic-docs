@@ -51,7 +51,7 @@ To integrate Chromatic with your existing [multistage pipeline](https://www.jenk
          stage('Playwright') {
            agent {
              docker {
-               image 'mcr.microsoft.com/playwright:v1.45.3-jammy'
+               image 'mcr.microsoft.com/playwright:v1.46.0-jammy'
                reuseNode true
              }
            }
@@ -94,7 +94,7 @@ To integrate Chromatic with your existing [multistage pipeline](https://www.jenk
          stage('Cypress') {
            agent {
              docker {
-               image 'cypress/browsers:node-20.15.1-chrome-126.0.6478.126-1-ff-128.0-edge-126.0.2592.102-1'
+               image 'cypress/browsers:node-20.17.0-chrome-128.0.6613.119-1-ff-130.0-edge-128.0.2739.63-1'
                reuseNode true
              }
            }
