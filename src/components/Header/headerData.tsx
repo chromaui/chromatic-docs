@@ -143,7 +143,7 @@ export const desktopData: HeaderProps["desktopData"] = [
   {
     id: "features",
     name: "Features",
-    leftPosition: -220,
+    leftPosition: -120,
     menu: [
       {
         content: [
