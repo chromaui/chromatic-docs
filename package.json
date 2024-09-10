@@ -42,7 +42,7 @@
     "framer-motion": "^11.0.5",
     "github-slugger": "^2.0.0",
     "hast-util-select": "^6.0.2",
-    "playwright-core": "^1.46.0",
+    "playwright-core": "^1.47.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-lite-youtube-embed": "^2.3.52",
