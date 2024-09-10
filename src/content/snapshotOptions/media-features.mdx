@@ -7,110 +7,222 @@ sidebar: { order: 8 }
 
 import ParamsCallout from "../../components/ParamsCallout.astro";
 
+import IntegrationSnippets from "../../components/IntegrationSnippets.astro";
+
 # Media features
 
 CSS media features enable developers to create responsive designs and adapt layouts based on device characteristics, enhancing user experiences. With Chromatic, developers can test and refine CSS media features to ensure consistent and visually appealing designs across different devices and screen sizes.
 
 ## Test high-contrast color schemes
 
-The [`forced-colors`](https://developer.mozilla.org/en-US/docs/Web/CSS/@media/forced-colors) CSS media feature enables developers to create accessible websites for users with visual impairments. It detects high-contrast mode and color preferences ensuring that websites and applications are legible and accessible. To test it in Chromatic, add the `forcedColors` option to the `chromatic` parameter:
+The [`forced-colors`](https://developer.mozilla.org/en-US/docs/Web/CSS/@media/forced-colors) CSS media feature enables developers to create accessible websites for visually impaired users. It detects high-contrast mode and color preferences, ensuring that websites and applications are legible and accessible. To test it in Chromatic, add the `forcedColors` configuration option to your tests:
 
-<ParamsCallout name="forcedColors" integration="storybook" />
+{/* prettier-ignore-start */}
 
-```js
-// MyComponent.stories.js|jsx
+<IntegrationSnippets>
+  <Fragment slot="storybook">
+    ```ts title="src/components/Auth.stories.ts|tsx"
+    // Adjust this import to match your framework (e.g., nextjs, vue3-vite)
+    import type { Meta, StoryObj } from "@storybook/your-framework";
 
-import { MyComponent } from "./MyComponent";
+    /*
+     * Replace the @storybook/test package with the following if you are using a version of Storybook earlier than 8.0:
+     * import { userEvent, within } from "@storybook/testing-library";
+    */
+    import { userEvent, within } from "@storybook/test";
 
-export default {
-  component: MyComponent,
-  title: "MyComponent",
-};
+    import { LoginForm } from "./LoginForm";
 
-export const WithForcedColors = {
-  parameters: {
-    // Sets the forced-colors media feature for a specific story.
-    chromatic: { forcedColors: "active" },
-  },
-};
-```
+    const meta: Meta<typeof LoginForm> = {
+      component: LoginForm,
+      title: "LoginForm",
+      parameters: {
+        // Enables the forcedColors option at the component level for all stories.
+        chromatic: { forcedColors: "active" },
+      },
+    };
 
-The `forcedColors` option supports the following values:
+    export default meta;
+    type Story = StoryObj<typeof LoginForm>;
+    
+    export const WithForcedColors: Story = {
+      play: async ({ canvasElement }) => {
+        const canvas = within(canvasElement);
+
+        await userEvent.type(canvas.getByLabelText("email"), "test@email.com");
+        await userEvent.type(canvas.getByLabelText("password"), "KC@2N6^?vsV+)w1t");
+        await canvas.getByRole("button", { name: "Login" }).click();
+      },
+    };
+    ```
+    <ParamsCallout name="forcedColors" integration="storybook" />
+  </Fragment>
+  <Fragment slot="playwright">
+    ```ts title="tests/Auth.spec.js|ts"
+    import { test } from "@chromatic-com/playwright";
+
+    test.describe("Authentication", () => {
+      // Enables the forcedColors option for this test.
+      test.use({ forcedColors: "active" });
+
+      test("Authenticates a user with high contrast mode enabled", async ({ page }) => {
+        await page.goto("/auth");
+
+        await page.locator('input[name="email"]').fill("test@email.com");
+        await page.locator('input[name="password"]').fill("KC@2N6^?vsV+)w1t");
+        await page.getByRole("button", { name: "Login" }).click();
+      });
+    });
+    ```
+    <ParamsCallout name="forcedColors" integration="playwright" />
+  </Fragment>
+  <Fragment slot="cypress">
+    ```ts title="cypress/e2e/Auth.cy.js|ts"
+    describe("Authentication", () => {
+      // Enables the forcedColors option for this test.
+      it("Authenticates a user with high contrast mode enabled", { env: { forcedColors: "active" } }, () => {
+        cy.visit("/auth");
+
+        cy.get('input[name="email"]').type("test@email.com");
+        cy.get('input[name="password"]').type("KC@2N6^?vsV+)w1t");
+        cy.get("button[type=submit]").click();
+      });
+    });
+    ```
+    <ParamsCallout name="forcedColors" integration="cypress" />
+  </Fragment>
+</IntegrationSnippets>
+
+{/* prettier-ignore-end */}
+
+The `forcedColors` configuration option supports the following values:
 
 - `none` - Indicating that the user has not enabled a forced color mode or does not have a preference for high-contrast colors.
 - `active` - Indicating that the user has enabled a forced color mode or prefers high-contrast colors.
 
 ## Verify reduced motion animations
 
-The [`prefers-reduced-motion`](https://developer.mozilla.org/en-US/docs/Web/CSS/@media/prefers-reduced-motion) CSS media feature enables developers to check whether the user enabled a preference for reduced motion animations. Primarily used to create a more inclusive user experience for people who may experience discomfort or nausea when viewing animations that involve rapid movement. To test it in Chromatic, add the `prefersReducedMotion` option to the `chromatic` parameter:
+The [`prefers-reduced-motion`](https://developer.mozilla.org/en-US/docs/Web/CSS/@media/prefers-reduced-motion) CSS media feature enables developers to check whether the user enabled a preference for reduced motion animations. Primarily used to create a more inclusive user experience for people who may experience discomfort or nausea when viewing animations that involve rapid movement. To test it in Chromatic, add the `prefersReducedMotion` configuration option to your tests:
 
-<ParamsCallout name="prefersReducedMotion" integration="storybook" />
+{/* prettier-ignore-start */}
 
-```js
-// MyComponent.stories.js|jsx
+<IntegrationSnippets>
+  <Fragment slot="storybook">
+    ```ts title="src/components/Auth.stories.ts|tsx"
+    // Adjust this import to match your framework (e.g., nextjs, vue3-vite)
+    import type { Meta, StoryObj } from "@storybook/your-framework";
 
-import { MyComponent } from "./MyComponent";
+    /*
+     * Replace the @storybook/test package with the following if you are using a version of Storybook earlier than 8.0:
+     * import { userEvent, within } from "@storybook/testing-library";
+    */
+    import { userEvent, within } from "@storybook/test";
 
-export default {
-  component: MyComponent,
-  title: "MyComponent",
-};
+    import { LoginForm } from "./LoginForm";
 
-export const WithReducedMotion = {
-  parameters: {
-    // Sets the prefers-reduced-motion media feature for a specific story.
-    chromatic: { prefersReducedMotion: "reduce" },
-  },
-};
-```
+    const meta: Meta<typeof LoginForm> = {
+      component: LoginForm,
+      title: "LoginForm",
+      parameters: {
+        // Enables the prefersReducedMotion option at the component level for all stories.
+        chromatic: { prefersReducedMotion: "reduce" },
+      },
+    };
 
-The `prefersReducedMotion` option supports the following values:
+    export default meta;
+    type Story = StoryObj<typeof LoginForm>;
+    
+    export const WithReducedMotion: Story = {
+      play: async ({ canvasElement }) => {
+        const canvas = within(canvasElement);
+
+        await userEvent.type(canvas.getByLabelText("email"), "test@email.com");
+        await userEvent.type(canvas.getByLabelText("password"), "KC@2N6^?vsV+)w1t");
+        await canvas.getByRole('button', { name: "Login" }).click();
+      },
+    };
+    ```
+    <ParamsCallout name="prefersReducedMotion" integration="storybook" />
+  </Fragment>
+  <Fragment slot="playwright">
+    ```ts title="tests/Auth.spec.js|ts"
+    import { test } from "@chromatic-com/playwright";
+
+    test.describe("Authentication", () => {
+      // Enables the prefersReducedMotion option for this test.
+      test.use({ prefersReducedMotion: "reduce" });
+
+      test("Authenticates a user with reduced motion mode enabled", async ({ page }) => {
+        await page.goto("/auth");
+
+        await page.locator('input[name="email"]').fill("test@email.com");
+        await page.locator('input[name="password"]').fill("KC@2N6^?vsV+)w1t");
+        await page.getByRole('button', { name: 'Login' }).click();
+      });
+    });
+    ```
+    <ParamsCallout name="prefersReducedMotion" integration="playwright" />
+  </Fragment>
+  <Fragment slot="cypress">
+    ```ts title="cypress/e2e/Auth.cy.js|ts"
+    describe("Authentication", () => {
+      // Enables the prefersReducedMotion option for this test.
+      it("Authenticates a user with reduced motion mode enabled", { env: { prefersReducedMotion: "reduce" } }, () => {
+        cy.visit("/auth");
+
+        cy.get('input[name="email"]').type("test@email.com");
+        cy.get('input[name="password"]').type("KC@2N6^?vsV+)w1t");
+        cy.get("button[type=submit]").click();
+      });
+    });
+    ```
+    <ParamsCallout name="prefersReducedMotion" integration="cypress" />
+  </Fragment>
+</IntegrationSnippets>
+
+{/* prettier-ignore-end */}
+
+The `prefersReducedMotion` configuration option supports the following values:
 
 - `reduce` - Indicating that the user has defined a preference for reduced motion,
-- `no-preference` - Indicating that the user has not preferred reduced motion, and animations display normally.
+- `no-preference` - This indicates that the user does not prefer reduced motion, and animations display normally.
 
 ## Test print styles
 
-The [`print`](https://developer.mozilla.org/en-US/docs/Web/CSS/@media/print) CSS media feature enables developers to create print styles for web pages. To test it in Chromatic, set the `media` option to `print` in the `chromatic` [parameter](https://storybook.js.org/docs/writing-stories/parameters):
+The [`print`](https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_media_queries/Printing) CSS media feature enables developers to create print styles for web pages. If you're running tests with Storybook, you can set the `media` configuration option to `print`, allowing Chromatic to test print styles defined in your UI components.
+
+```ts title="src/components/UserAccount.stories.ts|tsx"
+// Adjust this import to match your framework (e.g., nextjs, vue3-vite)
+import type { Meta, StoryObj } from "@storybook/your-framework";
+
+import { UserAccount } from "./UserAccount";
+
+const meta: Meta<typeof UserAccount> = {
+  component: UserAccount,
+  title: "UserAccount",
+  parameters: {
+    chromatic: {
+      // Sets the print media feature at the component level for all stories.
+      media: "print",
+    },
+  },
+};
+
+export default meta;
+type Story = StoryObj<typeof UserAccount>;
+
+export const Default: Story = {};
+```
 
 <ParamsCallout name="media" integration="storybook" />
 
-```js
-// MyComponent.stories.js|jsx
-
-import { MyComponent } from "./MyComponent";
-
-export default {
-  component: MyComponent,
-  title: "MyComponent",
-};
-
-export const Base = {
-  args: {
-    //...
-  },
-};
-
-export const WithPrintStyles = {
-  args: {
-    //...
-  },
-  // 👇 Sets media to "print" for this story
-  parameters: {
-    chromatic: { media: "print" },
-  },
-};
-```
-
 ## Combine media features with Modes
 
-You can add media features to existing [Modes](/docs/modes), but you can't define media features in the Mode itself.
+You can add media features to existing [Modes](/docs/modes) but can't define media features in the Mode itself.
 
-For example, if you have existing modes for German and American English locales, you can write a story combining those modes with `chromatic.media` parameter like so:
+For example, if you have existing Modes for German and American English locales, you can write a test combining those modes with the `media` configuration option like so:
 
-```js
-// .storybook/modes.js
-
+```js title=".storybook/modes.js|ts"
 // Define modes
 export const allModes = {
   german: {
@@ -119,34 +231,35 @@ export const allModes = {
   american: {
     locale: "en-us",
   },
-  // {...  other modes}
+  // {...  Other modes}
 };
 ```
 
-Then apply the mode and the media feature to your stories.
+Then, apply the Modes and the media feature to your tests.
 
-```js
-// MyComponent.stories.js|jsx
+```ts title="src/components/UserAccount.stories.ts|tsx"
+// Adjust this import to match your framework (e.g., nextjs, vue3-vite)
+import type { Meta, StoryObj } from "@storybook/your-framework";
 
-import { allModes } from "../.storybook/modes";
-import { MyComponent } from "./MyComponent";
+import { allModes } from "../../.storybook/modes";
 
-export default {
-  component: MyComponent,
-  title: "MyComponent",
+import { UserAccount } from "./UserAccount";
+
+const meta: Meta<typeof UserAccount> = {
+  component: UserAccount,
+  title: "UserAccount",
 };
 
-export const Base = {
-  args: {
-    //...
-  },
-};
+export default meta;
+type Story = StoryObj<typeof UserAccount>;
 
-// 👇 Combines modes with print media styles
-// 1️⃣ Set the `media` option to `print`
-// 2️⃣ Set the `modes` to use the desired locales
-// 👀 Note: These modes keys (eg, "german print") will be used in the Chromatic UI
-export const WithPrintStyles = {
+/*
+ * Combines modes with print media styles
+ * 1️⃣ Set the `media` option to `print`
+ * 2️⃣ Set the `modes` to use the desired locales
+ * 👀 Note: These modes keys (e.g., "german print") will be used in the Chromatic UI
+ */
+export const WithPrintStyles: Story = {
   parameters: {
     chromatic: {
       // 1️⃣
@@ -161,7 +274,7 @@ export const WithPrintStyles = {
 };
 ```
 
-This would create two Chromatic snapshots, one with German locale mode and print styles, and another with American English locale mode and print styles.
+This would create two Chromatic snapshots, one with German locale mode and print styles and another with American English locale mode and print styles.
 
 ---
 
@@ -172,9 +285,7 @@ This would create two Chromatic snapshots, one with German locale mode and print
 
 No, setting media features in [Modes](/docs/modes/) is not supported.
 
-```js
-// .storybook/modes.js
-
+```js title=".storybook/modes.js|ts"
 export const allModes = {
   // 🚨 THESE WILL NOT WORK 🚨
   mode: {
@@ -182,7 +293,7 @@ export const allModes = {
     forcedColors: "active",
     prefersReducedMotion: "reduce",
   },
-  // {...  other modes}
+  // {...  Other modes}
 };
 ```
 
