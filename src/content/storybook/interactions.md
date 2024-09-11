@@ -116,10 +116,12 @@ When interaction tests fail, the story will be badged with “Failed test.” Yo
 
 </details>
 
-<details> 
+<details>
 
-<summary>Does Chromatic take snapshots of every step of an Interaction test?</summary>
+<summary>Does Chromatic capture snapshots of every step of an interaction test?</summary>
 
-No, Chromatic does not take snapshots of every step of an Interaction test. Instead, Chromatic captures a snapshot only at the end of all the defined steps. If you need a snapshot of a specific step, ensure the Interaction test ends at that step.
+No, Chromatic waits for the entire play function to execute and captures a snapshot only at the end.
+
+If you need a snapshot of a specific step, we recommend breaking your story into multiple stories and using [play function composition](https://storybook.js.org/docs/writing-stories/play-function#composing-stories).
 
 </details>
