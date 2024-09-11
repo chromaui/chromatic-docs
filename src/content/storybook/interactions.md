@@ -115,3 +115,13 @@ We recommend [preloading fonts](/docs/font-loading) to ensure they're available 
 When interaction tests fail, the story will be badged with “Failed test.” You will not be able to “pass” a build that has failed tests. Fix interaction tests in Storybook and run the build again.
 
 </details>
+
+<details>
+
+<summary>Does Chromatic capture snapshots of every step of an interaction test?</summary>
+
+No, Chromatic waits for the entire play function to execute and captures a snapshot only at the end.
+
+If you need a snapshot of a specific step, we recommend breaking your story into multiple stories and using [play function composition](https://storybook.js.org/docs/writing-stories/play-function#composing-stories).
+
+</details>
