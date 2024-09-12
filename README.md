@@ -136,7 +136,7 @@ You can insert Mermaid diagrams in markdown & MDX files to visualize Git commits
 
 ### Adding an FAQ item
 
-All faqs are in `src/content/faq`. Each FAQ item is a markdown file with frontmatter. The frontmatter is slightly different to other pages. You need to specify which `section` the item belongs to and optionally what order it appears in the section list (`sectionOrder`).
+All faqs are in `src/content/troubleshooting/faq` directory. Each FAQ item is a markdown file with frontmatter. The frontmatter is slightly different to other pages. You need to specify which `section` the item belongs to and optionally what order it appears in the section list (`sectionOrder`).
 
 To add an FAQ item to an existing section, create a new `.md` or `.mdx` file. It'll automatically get added to the FAQ index page.
 
