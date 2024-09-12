@@ -28,6 +28,15 @@
     "supports": ["CLI", "GitHub Action", "Config File"]
   },
   {
+    "option": "ci",
+    "flag": "--ci",
+    "description": "Mark the build as coming from CI.",
+    "type": "boolean",
+    "example": "`true`",
+    "defaultComment": "Inferred from CI",
+    "supports": ["CLI"]
+  },
+  {
     "option": "configFile",
     "flag": "--config.json",
     "restriction": "Node.js API only",
@@ -97,15 +106,6 @@
     "type": ["glob", "boolean"],
     "example": "`\"my-branch\"` or `true`",
     "default": false,
-    "supports": ["CLI", "GitHub Action"]
-  },
-  {
-    "option": "fromCI",
-    "flag": "--ci",
-    "description": "Mark the build as coming from CI.",
-    "type": "boolean",
-    "example": "`true`",
-    "defaultComment": "Inferred from CI",
     "supports": ["CLI", "GitHub Action"]
   },
   {
