@@ -150,3 +150,12 @@ The process might look something like:
 3. Update your existing feature PR(s) w/ the latest from `main` (either merge or rebase from main).
 
 </details>
+
+<details>
+<summary>Can I prevent people from auto-approving their own Review</summary>
+
+No, you can't prevent people from auto-approving their own review.
+
+However, you can [assign default reviewers](/docs/review#default-reviewers) to ensure that other teammates must approve of the review. Enable [mandatory pull request checks](/docs/mandatory-pr-checks/) for UI Review to require the reviewers you assign to approve.
+
+</details>
