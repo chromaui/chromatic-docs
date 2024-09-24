@@ -33,7 +33,7 @@ Email and password accounts don't have the concept of organization-level collabo
 
 However, projects _within_ an organization do support [project-level collaborators](#project-collaborators).
 
-#### Single Sign-On (SSO)
+#### Single Sign-On (SSO) for organizations
 
 Single Sign-On (SSO) is available to enterprise customers. Chromatic syncs access permissions with your SSO provider. At the organization-level, contact us via in-app chat or email to manage or remove collaborators.
 
@@ -74,7 +74,7 @@ Manually override the mirrored permissions by adjusting collaborator [roles](#ro
 
 If you signed up via email and password, Chromatic won't have a Git repo to sync with. You'll need to manage project collaborators manually via external collaborators [below](#external-collaborators).
 
-#### Single Sign-On (SSO)
+#### Single Sign-On (SSO) for projects
 
 Chromatic syncs access permissions with your SSO provider. At the project-level, all collaborators who have access via SSO will also get access to every Chromatic project within your organization's account.
 
