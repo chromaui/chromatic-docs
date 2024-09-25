@@ -26,3 +26,8 @@ Chromatic offers a free plan (35k snapshots per month, Chrome only) to open-sour
 - UI library or design system built for Government organizations:
   - Over 5 contributors
   - Must be a national-level or higher organization (e.g., European Union, Gov.UK, US Digital Service), not a local or municipal organization (e.g., State of Massachusetts).
+
+## Considerations
+
+The (visibility)[https://www.chromatic.com/docs/collaborators/#visibility] of Open Source Storybooks is <strong>public</strong>.
+Custom domains can be set for Open Source accounts, even for (free accounts)[https://www.chromatic.com/docs/permalinks/#prerequisites].
