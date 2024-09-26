@@ -11,12 +11,12 @@ import IntegrationSnippets from "../../components/IntegrationSnippets.astro";
 
 # Test how UIs look & function
 
-UI Tests are a powerful tool for catching visual regressions and ensuring that your app functions as expected. They work by capturing [snapshots](/docs/snapshots) of every test within a cloud browser environment. Then, whenever you push code, Chromatic compares your new snapshots to [baseline versions](/docs/branching-and-baselines#whats-a-baseline) to identify visual changes. If changes are detected, you will be prompted to verify that they are intentional or fix any errors.
+UI Tests are a powerful tool for catching visual regressions and ensuring your app functions as expected. They work by capturing [snapshots](/docs/snapshots) of every test within a cloud browser environment. Then, whenever you push code, Chromatic compares your new snapshots to [baseline versions](/docs/branching-and-baselines#whats-a-baseline) to identify visual changes. If changes are detected, you will be prompted to verify that they are intentional or fix any errors.
 
 Chromatic executes two types of UI Tests:
 
 - [**Visual tests**](/docs): Pinpoint changes in appearance, layout, fonts, and colors
-- [**Interaction tests**](/docs/interactions) (Storybook only): Simulate user actions such as click, type, hovering, drag, etc., to confirm your app behaves as expected
+- [**Interaction tests**](/docs/interactions) (Storybook only): Simulate user actions such as clicking, typing, hovering, dragging, etc., to confirm your app behaves as expected
 
 ![UI Tests](../../images/workflow-uitest.png)
 
@@ -38,7 +38,7 @@ Chromatic handles the entire test process, including building and uploading your
 
 #### <img src="/docs/assets/playwright.svg" class="inline-icon" alt="" /> Playwright and <img src="/docs/assets/cypress.svg" class="inline-icon" alt="" /> Cypress
 
-Run your E2E tests as usual. While those tests run, Chromatic collects a complete archive of your UI (DOM, styles, and assets). It then renders that archived UI in cloud browsers, captures visual snapshots, and identifies visual regressions through pixel diffing.
+Run your E2E tests as usual. While those tests run, Chromatic collects a complete archive of your UI (DOM, styles, and assets). It then renders that archived UI in cloud browsers captures visual snapshots, and identifies visual regressions through pixel diffing.
 
 ### Sign up
 
@@ -123,7 +123,7 @@ Chromatic detects UI changes, but it’s up to you to verify if those changes ar
 
 ### Discussions
 
-Reviewers can point out bugs or ask questions by creating discussions. Discussions are shown within the same interface as Chromatic’s detected UI changes, so all collaborators have the same reference point.
+Reviewers can create discussions to point out bugs or ask questions. Discussions are shown within the same interface as Chromatic’s detected UI changes, so all collaborators have the same reference point.
 
 Alternatively, you can click on a snapshot to create a discussion pinned to a specific change and provide precise feedback on the issue. Pair discussions with denying a change to block merging until bugs are resolved.
 
@@ -171,21 +171,21 @@ Chromatic adds a ‘UI Tests’ badge to the list of status checks for your pull
 <details>
 <summary>Can I disable UI Tests if I prefer not to use them?</summary>
 
-Yes. Go to the manage page for your project where you can disable UI Tests. Chromatic will no longer add status checks to your PRs for UI Tests once it is disabled.
+Yes. Go to your project's manage page, where you can disable UI Tests. Once disabled, Chromatic will no longer add status checks to your PRs for UI Tests.
 
 </details>
 
 <details>
 <summary>Can I rerun a build without running my whole CI workflow?</summary>
 
-Yes you can [rerun the latest build on any branch](/docs/snapshots#rerun-builds-to-retake-snapshots) outside of your CI workflow. Go to the build page to kick off a new build that uses settings and configurations identical to your old build.
+Yes, you can [rerun the latest build on any branch](/docs/snapshots#rerun-builds-to-retake-snapshots) outside your CI workflow. Go to the build page to kick off a new build that uses settings and configurations identical to your old build.
 
 </details>
 
 <details>
 <summary>What&rsquo;s the difference between denied and unreviewed changes?</summary>
 
-The purpose of denying is to mark changes you’ve looked at but not accepted. When you’ve finished reviewing the build, the list of denied changes helps you track what needs fixing.
+The purpose of denying is to mark changes you’ve looked at but not accepted. After reviewing the build, the list of denied changes helps you track what needs fixing.
 
 When it comes to baselines, denying and leaving unreviewed have the same effect. In both cases, the original baseline is used for comparisons. This means in subsequent builds, Chromatic compares the latest build to the original baseline (not the previously denied snapshot).
 
@@ -196,7 +196,7 @@ Denied changes will be marked as unreviewed in subsequent builds for you to revi
 <details>
 <summary>Speed up review with keyboard shortcuts</summary>
 
-Verify UI changes faster using keyboard shortcuts. Protip: Pressing 1 multiple times switches between the baseline and new snapshot in the 1up view.
+Use keyboard shortcuts to verify UI changes faster. Protip: Pressing 1 multiple times switches between the baseline and the new snapshot in the 1up view.
 ![Keyboard shortcuts](../../images/keyboard-shortcuts.png)
 
 </details>
@@ -204,7 +204,7 @@ Verify UI changes faster using keyboard shortcuts. Protip: Pressing 1 multiple t
 <details>
 <summary>What about baselines on other branches?</summary>
 
-Chromatic automatically changes the baseline snapshots that it uses for each build depending on your branch. Each branch has a separate set of baselines.
+Chromatic automatically changes the baseline snapshots used for each build, depending on your branch. Each branch has a separate set of baselines.
 
 This means you can update UI components on multiple feature branches in parallel without conflicts. When you merge branches, the most recent baseline takes precedence. [Learn about branching and baselines »](/docs/branching-and-baselines)
 
@@ -213,7 +213,7 @@ This means you can update UI components on multiple feature branches in parallel
 <details>
 <summary>How do I reproduce the snapshot?</summary>
 
-Sometimes you need a closer look to determine why a snapshot is rendering as it does. Along with pixel and DOM diffs, Chromatic displays the interactive page just as it appears in your app and E2E tests.
+Sometimes, you need to look closer to determine why a snapshot is rendering as it does. Along with pixel and DOM diffs, Chromatic displays the interactive page just as it appears in your app and E2E tests.
 
 Click “Inspect snapshot” to open the Inspector. Switch between the “Canvas” and “Snapshot” tabs to compare the live component to the snapshot. Learn more about snapshots [here](/docs/snapshots).
 
@@ -233,23 +233,58 @@ Yes, [rerun the latest build](/docs/snapshots#rerun-builds-to-retake-snapshots) 
 <details>
 <summary>How are changes on builds different from those listed in the UI Review ‘Changeset’ tab?</summary>
 
-UI tests (shown on the build screen) detect changes between builds, specifically, between the last accepted baseline and the latest build. This is useful for detecting defects during the development process and when merging to the main branch to ship.
+UI tests (shown on the build screen) detect changes between builds, specifically between the last accepted baseline and the latest build. This is useful for detecting defects during development and when merging to the main branch to ship.
 
-In contrast, [UI Review](/docs/review) shows the changeset between the latest commit on the PR branch (head) and the ‘merge base’ (base). Think of it like code review, but for UI.
+In contrast, [UI Review](/docs/review) shows the changeset between the latest commit on the PR branch (head) and the ‘merge base’ (base). Think of it as a code review but for UI.
 
 </details>
 
 <details>
-<summary>Why is review disabled in the build page?</summary>
+<summary>Why is review disabled on the build page?</summary>
 
-Reviewing is only enabled for the latest build on a branch to ensure that only the most up-to-date UI gets accepted as baselines.
+Reviewing is only enabled for the latest build on a branch to ensure that only the most up-to-date UI is accepted as a baseline.
 
 </details>
 
 <details>
 <summary>Why is commenting disabled on old builds?</summary>
 
-Comments are disabled on old builds to ensure that discussions are always on topic and up to date with the latest UI. This prevents the situation where different reviewers comment on different versions of the code.
+Comments are turned off on old builds to ensure that discussions are always on topic and up to date with the latest UI. This prevents the situation where different reviewers comment on different versions of the code.
+
+</details>
+
+<details>
+<summary id="chromatic-build-no-commits">Why do I see "Didn't find any commits in this Git repository in the last X builds"?</summary>
+
+If you run into this situation, it is likely because across the number of unique commits across all builds connected to your project, Chromatic could not find a single one that exists in the repository. This can happen for various reasons (i.e., rebasing, squash merging). However, something has likely gone wrong if all previous X builds' commits are missing.
+
+If you see this message and can't resolve the issue, please get in touch with us via our in-app chat or email us at support@chromatic.com.
+
+</details>
+
+<details>
+<summary>Why do I see "Failed to find common ancestors with most recent builds within X commits"?</summary>
+
+This is an uncommon issue that may happen only in specific cases due to some unusual configuration in your repository. If you see this message, it means that although we found a recent build connected to your repository history (see the item [above](#chromatic-build-no-commits)), we couldn't find any common history between your checked-out build and any other build in the latest number of commits.
+
+We recommend contacting us via our in-app chat or email us at support@chromatic.com for further assistance.
+
+</details>
+
+<details>
+<summary>Why do I see "Build X is based on a commit without ancestor builds"?</summary>
+
+Unless you're creating the first build to establish baselines, when you generate a new build, Chromatic searches your repository history for the most recent build based on an ancestor commit (i.e., commits that are part of the history of the current commit). If it can't find any, it will show this message. However, this is an uncommon issue that may happen due to the following reasons:
+
+1. You switched between branches and re-ran Chromatic without checking out the changes that installed Chromatic in the first place. In this situation, you can safely ignore the message and continue your workflow.
+
+2. Your repository's Git history was rewritten via a rebase or squash merge (e.g., via GitHub's "Squash and Merge" or "Rebase and Merge" options), which you can quickly solve by referring to our CI documentation based on your CI provider.
+
+3. You're working with a shallow clone of your repository to generate builds. Chromatic needs access to the entire Git history to establish baselines (or at least the history until the previous build), which you can address via our [baselines documentation](/docs/branching-and-baselines).
+
+4. Some other unusual configuration in your repository is causing the issue, or there is an issue (e.g., an outage) on our end.
+
+If you are in this situation and having trouble resolving the issue, contact us via our in-app chat or email us at support@chromatic.com.
 
 </details>
 
@@ -260,6 +295,6 @@ Yes, but it‘s not a best practice.
 
 Every branch has independent baselines for each test until the branch gets merged. If two builds reference the same commit hash but are on _different branches_ it will be possible to review those builds separately so long as they're the latest build on their respective branches. We don't recommend this because you'll have to review the same change multiple times.
 
-Instead, we recommend you regularly review builds to keep feature branches 🟢&nbsp;passing.
+Instead, we recommend regularly reviewing builds to keep feature branches 🟢&nbsp;passing.
 
 </details>
