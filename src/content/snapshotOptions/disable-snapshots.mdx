@@ -1,0 +1,118 @@
+---
+layout: "../../layouts/Layout.astro"
+title: Disable snapshots
+description: Learn how you can tell Chromatic to skip snapshots for certain tests
+sidebar: { order: 5 }
+---
+
+import ParamsCallout from "../../components/ParamsCallout.astro";
+
+import IntegrationSnippets from "../../components/IntegrationSnippets.astro";
+
+# Disable snapshots for specific tests
+
+By default, Chromatic captures snapshots for all your UI components, whether you're testing with Storybook, [Playwright](/docs/playwright) or [Cypress](/docs/cypress), ensuring your UI remains consistent at all times. However, you can disable specific tests that are irrelevant or cause false positives.
+
+## With Storybook
+
+If you're running tests with Storybook, you can enable the `disableSnapshot` option to configure Chromatic to ignore stories and prevent them from being snapshotted. This is useful if you're adopting Chromatic incrementally and want to turn off snapshotting for specific stories or work with components that could contain dynamic content or animations that may trigger unwanted visual changes.
+
+```ts title="src/components/NotFound.stories.ts|tsx"
+// Adjust this import to match your framework (e.g., nextjs, vue3-vite)
+import type { Meta, StoryObj } from "@storybook/your-framework";
+
+/*
+ * Replace the @storybook/test package with the following if you are using a version of Storybook earlier than 8.0:
+ * import { within } from "@storybook/testing-library";
+ * import { expect } from "@storybook/jest";
+ */
+import { expect, within } from "@storybook/test";
+
+import { NotFound } from "./NotFound";
+
+const meta: Meta<typeof NotFound> = {
+  component: NotFound,
+  title: "NotFound",
+  parameters: {
+    // Disables Chromatic's snapshotting on a component level
+    chromatic: { disableSnapshot: true },
+  },
+};
+
+export default meta;
+type Story = StoryObj<typeof NotFound>;
+
+export const Default: Story = {
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    await expect(canvas.getByText("Page not found")).toBeInTheDocument();
+  },
+};
+```
+
+<ParamsCallout name="disableSnapshot" integration="storybook" />
+
+## With Playwright or Cypress
+
+By default, Chromatic's Playwright and Cypress integrations run tests and captures a snapshot at the end of each E2E test; either it passes or fails. However, if you've enabled targeted snapshots with [Playwright](/docs/playwright/targeted-snapshots) or [Cypress](/docs/cypress/targeted-snapshots) to pinpoint visual changes when the test reaches a specific point, you can opt out of the automated snapshotting process by enabling the `disableAutoSnapshot` configuration option. This is useful when capturing snapshots at specific points in your test, such as when a particular element is visible or when a specific action is performed.
+
+{/* prettier-ignore-start */}
+
+<IntegrationSnippets>
+  <Fragment slot="playwright" visible="true">
+    ```ts title="tests/NotFound.spec.js|ts"
+    import { expect, takeSnapshot, test } from "@chromatic-com/playwright";
+
+    test.describe("Not found", () => {
+      test.use({
+        disableAutoSnapshot: true, // Disables the automated snapshot generated at the end of the test
+      })
+      test("should show a 404 page", async ({ page }, testInfo) => {
+        await page.goto("/404");
+
+        await expect(page).toHaveTitle("Page not found");
+
+        await takeSnapshot(page, 'Initial 404 page', testInfo);
+
+        // Interacts with the page by clicking the "Go back" button
+        await page.getByRole("button", { name: "Go back" }).click();
+
+        await takeSnapshot(page, 'Home page loaded', testInfo);
+      });
+    });
+    ```
+    <ParamsCallout name="disableAutoSnapshot" integration="playwright" />
+  </Fragment>
+  <Fragment slot="cypress" visible="true">
+    ```ts title="cypress/e2e/NotFound.cy.js|ts"
+    describe("Not found", () => {
+      it("should show a 404 page", { env: {
+        disableAutoSnapshot: true // Disables the automated snapshot generated at the end of the test
+      }}, () => {
+        cy.visit("/404");
+
+        cy.title().should("equal", "Page not found");
+
+        cy.takeSnapshot('Initial 404 page');
+
+         // Interacts with the page by clicking the "Go back" button
+        cy.get("button").contains("Go back").click()
+
+        cy.takeSnapshot('Home page loaded');
+      });
+    });
+    ```
+    <ParamsCallout name="disableAutoSnapshot" integration="cypress" />
+  </Fragment>
+</IntegrationSnippets>
+
+{/* prettier-ignore-end */}
+
+## Frequently asked questions
+
+<details>
+<summary>Why are disabled stories still listed?</summary>
+
+If you enable the `disabledSnapshot` configuration option to prevent your stories from being snapshotted, Chromatic will continue to index them and display them in the Library view. However, the "Snapshot" tab will no longer be visible in the UI for these stories. To remove the story altogether, you will need to delete it from your Storybook.
+
+</details>

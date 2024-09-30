@@ -74,7 +74,7 @@ By default, CSS animations are paused at the end of their animation cycle (i.e.,
   <Fragment slot="cypress">
     ```ts title="cypress/e2e/Product.cy.js|ts"
     describe("Not found", () => {
-      it("Successfully loads the page", { env: { 
+      it("Successfully loads the page", { env: {
         pauseAnimationAtEnd: false // Overrides the default behavior and pauses the animation at the first frame for this test.
       }}, () => {
         cy.visit("/products");
@@ -101,10 +101,9 @@ MotionGlobalConfig.skipAnimations = isChromatic();
 
 <div class="aside">
 
- ℹ️ For more information on disabling animations in other libraries, refer to the library's documentation or community resources to learn how to achieve this.
+ℹ️ For more information on disabling animations in other libraries, refer to the library's documentation or community resources to learn how to achieve this.
 
 </div>
-
 
 ## GIFs and Videos
 
@@ -115,7 +114,6 @@ Chromatic automatically pauses videos and animated GIFs at their first frame, en
 If you cannot turn off animations (for example, if disabling JavaScript animations is complex or your library doesn't support it), you can use a [delay](/docs/delay) to allow the animation to complete before taking the snapshot.
 
 Alternatively, [ignore an element](/docs/ignoring-elements) to omit a visible area of your component when comparing snapshots.
-
 
 ## Troubleshooting
 
