@@ -65,7 +65,7 @@ To ignore multiple elements at once, you can specify a list of selectors in the 
       component: Product,
       title: "Product",
       parameters: {
-        // Overrides the default behavior and pauses the animation at the first frame at the component level for all stories.
+        // Ignores the diff for elements targeted by the specified list of selectors
         chromatic: { ignoreSelectors: ['.product-price'] },
       },
     };
@@ -87,7 +87,7 @@ To ignore multiple elements at once, you can specify a list of selectors in the 
     import { test, expect } from "@chromatic-com/playwright";
 
     test.describe("Products Page", () => {
-      // Overrides the default behavior and pauses the animation at the first frame for this test.
+      // Ignores the diff for elements targeted by the specified list of selectors
       test.use({ ignoreSelectors: ['.product-price'] });
 
       test("Successfully loads the page", async ({ page }) => {
@@ -102,6 +102,7 @@ To ignore multiple elements at once, you can specify a list of selectors in the 
     ```ts title="cypress/e2e/Product.cy.js|ts"
     describe("Products Page", () => {
       it("Successfully loads the page", { env: {
+        // Ignores the diff for elements targeted by the specified list of selectors
         ignoreSelectors: ['.product-price']
       }}, () => {
         cy.visit("/products");
