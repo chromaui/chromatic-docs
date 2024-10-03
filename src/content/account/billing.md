@@ -81,12 +81,6 @@ For example, if you want to get a notification when you use 90% of the 35,000 sn
 
 ## Usage reports
 
-<div class="callout">
-
-This is a new feature that is rolling out in phases. If you don't see it yet, don't worry—it's coming soon. Meanwhile, you can access the [monthly and yearly CSV exports](#export-monthly-and-yearly-usage-data-as-csv).
-
-</div>
-
 Access usage reports for each billing period on the billing page. These reports offer a detailed breakdown of usage and display the invoice statement.
 
 The **usage section** provides a per-project summary of Snapshots and TurboSnaps utilized (only available for billing periods starting in August 2024).
