@@ -15,7 +15,7 @@ Double-check whether a visual change is real or caused by inconsistencies in you
 
 ![Rerun button](../../images/build-detail-rerun-button.png)
 
-Debug inconsistent snapshots by looking at the set of changes between the original build and rerun build. You might encounter these common scenarios:
+Debug inconsistent snapshots by looking at the set of changes between the original build and the rerun build. You might encounter these common scenarios:
 
 - Identical changes between builds: This means the snapshots are accurately showing bonafide UI changes that need your verification. Continue the [UI Tests workflow](/docs/test#verify-ui-changes) as usual.
 
