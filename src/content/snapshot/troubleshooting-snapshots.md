@@ -57,7 +57,7 @@ Check for missing elements, incorrect styles, or unexpected layout changes. If s
 When Chromatic captures a screenshot, it includes metadata like viewport information and clip rectangle dimensions, providing context for the capture. Use this data to identify issues such as:
 
 - **Responsive design issues**: Viewport information reveals the screen size used for the capture. Compare this with your breakpoints to ensure that the correct styles are applied.
-- **Element positioning problems**: The clip rectangle shows precisely what was captured. If an element is missing from the snapshot, verify if it falls within the expected clip area. For instance, Chromatic only captures DOM elements within the `#storybook-root` element for stories. Modal and dropdown components might not be captured if they fall outside the "natural" dimensions of this root element. Use [fixed-height wrappers](#use-fixed-height-wrappers-for-portal-components) to capture these portal components.
+- **Element positioning problems**: The clip rectangle shows precisely what was captured. If an element is missing from the snapshot, verify if it falls within the expected clip area. For instance, Chromatic only captures DOM elements within the `#storybook-root` element for stories. Modal and dropdown components might not be captured if they fall outside this root element's "natural" dimensions. Use [fixed-height wrappers](#use-fixed-height-wrappers-for-portal-components) to capture these portal components.
 
 ![Example of screenshot metadata for a story of a dropdown component](../../images/trace-screenshot-metadata.png)
 
