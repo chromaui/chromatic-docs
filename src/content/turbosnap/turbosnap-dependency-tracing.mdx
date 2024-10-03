@@ -6,100 +6,148 @@ sidebar: { order: 4, label: "Dependency Tracing" }
 slug: "turbosnap/dependency-tracing"
 ---
 
-# TurboSnap Dependency Tracing
-TurboSnap analyzes both a project's git history and Webpack's dependency graph to identify which stories have been potentially impacted by changes.  But what is Webpack's dependency graph and how does TurboSnap use it to trace dependency changes?  How does this work for projects built with Vite?  This overview will answer these questions and help you better understand dependency tracing for TurboSnap.
+# TurboSnap dependency tracing
+
+TurboSnap examines your project's Git history and Webpack's dependency graph to determine which stories might be affected by changes. If you're new to these concepts, then this guide is for you.
+
+It'll help you better understand dependency tracing, enabling you to use TurboSnap more effectively. You'll also learn how to trace dependencies in projects using Vite.
 
 ## Tracing dependencies with Webpack
+
 To start, let's visit [Webpack's dependency graph concept](https://webpack.js.org/concepts/dependency-graph/):
 
 > ❝ Any time one file depends on another, webpack treats this as a dependency. This allows webpack to take non-code assets, such as images or web fonts, and also provide them as dependencies for your application.
-> 
+>
 > When webpack processes your application, it starts from a list of modules defined on the command line or in its configuration file. Starting from these [entry points](https://webpack.js.org/concepts/entry-points/), webpack recursively builds a dependency graph that includes every module your application needs, then bundles all of those modules into a small number of bundles - often, only one - to be loaded by the browser. ❞
 
-TurboSnap uses [Webpack's Stats Data API](https://webpack.js.org/api/stats) to generate a JSON file containing statistics about the modules for a project. These statistics are how TurboSnap analyzes a project's dependency graph, as it gives the details about the asset objects, any related chunks (or grouped modules), and the module dependencies that rely on the asset.
+TurboSnap leverages [Webpack's Stats Data API](https://webpack.js.org/api/stats) to generate a JSON file with detailed statistics about a project's modules. These statistics allow TurboSnap to analyze a project's dependency graph by providing information on asset objects, related chunks (or grouped modules), and module dependencies linked to the assets.
 
-This file is generated when a customer adds `--stats-json` (or `--webpack-stats-json` for SB versions < v8). Chromatic has an option called `trim-stats-file` that can be used to make the file more human-readable, since it can be a bit confusing to read through. Here's an example of the command used to run it, but a customer can add a path at the end if they want the stats file to built to a custom directory:
+The stats file is generated when you add `--stats-json` (or `--webpack-stats-json` for Storybook versions 7 and lower) to the `build-storybook` command. For example:
+
+```json
+{
+  "scripts": {
+    "build-storybook": "build-storybook --stats-json"
+  }
+}
+```
+
+The stats file can be a bit challenging to read. Therefore, the Chromatic CLI offers a `trim-stats-file` option to make the file more human-readable. Use it like so:
 
 ```shell
 npx chromatic trim-stats-file
 ```
 
+Or, if you're using a custom build directory:
+
+```shell
+npx chromatic trim-stats-file ./path/to/preview-stats.json
+```
+
 ### Reading the trimmed stats file
-After running the above `trim-stats-file` command, Chromatic will output a `preview-stats.trimmed.json` file. While this file is more human-readable, it can still be a bit more confusing (though much less daunting than the non-trimmed file).
 
-Let's break down an example from the file!
-
-```json
-    {
-      "id": "./src/inputs/PinInput/PinInput.tsx",
-      "name": "./src/inputs/PinInput/PinInput.tsx + 4 modules",
-      "modules": [
-        { "name": "./src/inputs/PinInput/PinInput.tsx" },
-        { "name": "./src/inputs/PinInput/SeparatedPinInput.tsx" },
-        { "name": "./src/inputs/PinInput/SinglePinInput.tsx" },
-        { "name": "./src/inputs/utils.ts" },
-        { "name": "./src/inputs/PinInput/PinCaret.tsx" }
-      ],
-      "reasons": [
-        { "moduleName": "./src/data/DataGrid/cells/EditablePinInput.tsx" },
-        { "moduleName": "./src/inputs/PinInput/index.ts" }
-      ]
-    },
-```
-
-In the above example, we have an asset with the `chunkName` of `./src/inputs/PinInput/PinInput.tsx + 4 modules`. There's a total of five modules within this chunk (which we could likely gather from the name):
-
- 1. `./src/inputs/PinInput/PinInput.tsx`
- 2. `./src/inputs/PinInput/SeparatedPinInput.tsx`
- 3. `./src/inputs/PinInput/SinglePinInput.tsx`
- 4. `./src/inputs/utils.ts`
- 5. `./src/inputs/PinInput/PinCaret.tsx`
-
-Using the above information, we can identify that we have an asset that is one chunk containing five modules.
-
-Below the information that identifies the chunk, we see another set of modules under `reasons`. These are the modules that are part of the asset's dependency graph. In the above example, we have two modules that are dependent on this asset:
-
- 1. `./src/data/DataGrid/cells/EditablePinInput.tsx`
- 2. `./src/inputs/PinInput/index.ts`
-
-Using the modules `reasons`, we can identify that any changes to the asset chunk's modules may have an impact on the dependent modules.
-
-What's the asset object look like when it comes to story files? Usually a bit different:
+After running the `trim-stats-file` command, Chromatic will output a `preview-stats.trimmed.json` file. While this file is more readable, it can still be a bit daunting, so let's break it down with an example.
 
 ```json
-    {
-      "id": "./src/inputs/PinInput/stories/PinInput.stories.tsx",
-      "name": "./src/inputs/PinInput/stories/PinInput.stories.tsx + 4 modules",
-      "modules": [
-        { "name": "./src/inputs/PinInput/stories/PinInput.stories.tsx" },
-        { "name": "./src/inputs/PinInput/stories/PinInputWithNoCopyPaste.storyfile.tsx" },
-        { "name": "./src/inputs/PinInput/stories/PinInputWithNoCopyPaste.storyfile.tsx?raw" },
-        { "name": "./src/inputs/PinInput/stories/PinInputWithValidation.storyfile.tsx" },
-        { "name": "./src/inputs/PinInput/stories/PinInputWithValidation.storyfile.tsx?raw" }
-      ],
-      "reasons": [
-        { "moduleName": "./src/ lazy ^\\.\\/.*$ include: (?%21.*node_modules)(?:\\/src(?:\\/(?%21\\.)(?:(?:(?%21(?:^%7C\\/)\\.).)*?)\\/%7C\\/%7C$)(?%21\\.)(?=.)[^/]*?\\.stories\\.(js%7Cjsx%7Cts%7Ctsx))$ chunkName: [request] namespace object" }
-      ]
-    },
+{
+  "id": "./src/inputs/PinInput/PinInput.tsx",
+  "name": "./src/inputs/PinInput/PinInput.tsx + 4 modules",
+  "modules": [
+    { "name": "./src/inputs/PinInput/PinInput.tsx" },
+    { "name": "./src/inputs/PinInput/SeparatedPinInput.tsx" },
+    { "name": "./src/inputs/PinInput/SinglePinInput.tsx" },
+    { "name": "./src/inputs/utils.ts" },
+    { "name": "./src/inputs/PinInput/PinCaret.tsx" }
+  ],
+  "reasons": [
+    { "moduleName": "./src/data/DataGrid/cells/EditablePinInput.tsx" },
+    { "moduleName": "./src/inputs/PinInput/index.ts" }
+  ]
+}
 ```
 
-Under `reasons`, we see a `moduleName` that looks like a path pattern.  If you were to look at the non-trimmed file, you'd see the `issuerPath`'s are `"./storybook-config-entry.js"` and `"./storybook-stories.js"` because the dependency is the project's Storybook config:
+In this example, we have an asset with the `chunkName` of `./src/inputs/PinInput/PinInput.tsx + 4 modules`. There's a total of five modules within this chunk:
 
-```js
-// main.js
+```
+./src/inputs/PinInput/PinInput.tsx
+./src/inputs/PinInput/SeparatedPinInput.tsx
+./src/inputs/PinInput/SinglePinInput.tsx
+./src/inputs/utils.ts
+./src/inputs/PinInput/PinCaret.tsx
+```
 
+The `"reasons"` key provides information about the asset's dependency graph. In other words, modules that depend on this asset. Any changes to the asset chunk's modules may have an impact on its dependent modules:
+
+```
+./src/data/DataGrid/cells/EditablePinInput.tsx
+./src/inputs/PinInput/index.ts
+```
+
+### Asset object for a story file
+
+The asset object for a story file usually looks a bit different:
+
+```json
+{
+  "id": "./src/inputs/PinInput/stories/PinInput.stories.tsx",
+  "name": "./src/inputs/PinInput/stories/PinInput.stories.tsx + 4 modules",
+  "modules": [
+    { "name": "./src/inputs/PinInput/stories/PinInput.stories.tsx" },
+    {
+      "name": "./src/inputs/PinInput/stories/PinInputWithNoCopyPaste.storyfile.tsx"
+    },
+    {
+      "name": "./src/inputs/PinInput/stories/PinInputWithNoCopyPaste.storyfile.tsx?raw"
+    },
+    {
+      "name": "./src/inputs/PinInput/stories/PinInputWithValidation.storyfile.tsx"
+    },
+    {
+      "name": "./src/inputs/PinInput/stories/PinInputWithValidation.storyfile.tsx?raw"
+    }
+  ],
+  "reasons": [
+    {
+      "moduleName": "./src/ lazy ^\\.\\/.*$ include: (?%21.*node_modules)(?:\\/src(?:\\/(?%21\\.)(?:(?:(?%21(?:^%7C\\/)\\.).)*?)\\/%7C\\/%7C$)(?%21\\.)(?=.)[^/]*?\\.stories\\.(js%7Cjsx%7Cts%7Ctsx))$ chunkName: [request] namespace object"
+    }
+  ]
+}
+```
+
+Under `reasons`, you'll see a `moduleName` that looks like a path pattern. If you were to look at the non-trimmed file, you'd see the `issuerPath`'s are `"./storybook-config-entry.js"` and `"./storybook-stories.js"` because the dependency is the project's Storybook config:
+
+Under "reasons," you'll notice a `moduleName` resembling a path pattern. In the full, untrimmed file, the `issuerPath`'s are `"./storybook-config-entry.js"` and `"./storybook-stories.js"`. That's because the dependency is related to this project's Storybook configuration:
+
+```js title=".storybook/main.js"
 /** @type { import('@storybook/react-webpack5').StorybookConfig } */
 const config = {
-  stories: [{
-    directory: '../',
-    files: '**/*.@(mdx|stories.@(js|jsx|ts|tsx))',
-  }],
+  stories: [
+    {
+      directory: "../",
+      files: "**/*.@(mdx|stories.@(js|jsx|ts|tsx))",
+    },
+  ],
   // ...
 };
 export default config;
 ```
 
-Using the trimmed stats file, you can [search for a file path](/docs/turbosnap/troubleshooting/#why-are-no-changes-being-detected) to see whether it's part of the dependency graph for another module. 
+### Use the trimmed stats file to trace dependencies
+
+If you're trying to understand why a story file is being detected as changed, you can [search for its file path](/docs/turbosnap/troubleshooting/#why-are-no-changes-being-detected) in the trimmed stats file and trace its dependencies to see which modules were affected.
 
 ## Tracing dependencies with Vite
-Prior to Storybook v8, Vite was supported via the [`vite-plugin-turbosnap` by IanVS](https://github.com/IanVS/vite-plugin-turbosnap).  Starting in v8, the plugin has been integrated and TurboSnap supports Vite out-of-the-box.  The plugin does this by generating a `preview-stats.json` file after collecting information about each module being built and constructing a mapping between each file and all of the files which import it.  This mimics the file that is created by Webpack, with only the information that Chromatic's CLI needs to perform checks using TurboSnap.
+
+Before Storybook 8, Vite support for TurboSnap was available through the [vite-plugin-turbosnap](https://github.com/IanVS/vite-plugin-turbosnap). Starting with version 8.0, this plugin has been integrated into Storybook, so TurboSnap now supports Vite natively.
+
+With Storybook 8.0+, you can can generate a stats file for Vite based projects by adding `--stats-json` to the `build-storybook` command:
+
+```json
+{
+  "scripts": {
+    "build-storybook": "build-storybook --stats-json"
+  }
+}
+```
+
+Whether using the plugin or Storybook 8.0+, the process is the same. When you run the `build-storybook` command, a `preview-stats.json` file is generated. This file collects information about each module being built and creates a mapping between each file and all the files that import it. It mimics the file created by Webpack but includes only the information that TurboSnap needs to perform dependency checks.
