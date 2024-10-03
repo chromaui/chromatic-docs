@@ -132,48 +132,56 @@ TurboSnap is compatible with squash and merge rebasing as of version 6.6+. Pleas
 
 ## What do the TurboSnap bail reasons in my usage report mean?
 
-The usage report can help you faster identify opportunities to improve your TurboSnap configuration.  However, the bail reasons may not be clear when trying to understand what's causing the issue or which next steps you should take to help mitigate the bails.
+The [usage report](/docs/billing/#usage-reports) can help you faster identify opportunities to improve your TurboSnap configuration. However, the bail reasons may not be clear when trying to understand what's causing the issue or which next steps you should take to help mitigate the bails.
 
 You can hover over the TurboSnap tooltip on your builds to find out more specific information, but below is an at-a-glance breakdown of the bail reasons to reference when analyzing your usage report.
 
 ### `changedExternalFiles`
+
 TurboSnap bailed due to matching `externals`.
 
 You may need to check your glob pattern or revisit the paths you're including with `externals` if these changes are unexpected.
 
 ### `changedPackageFiles`
+
 TurboSnap bailed due to one or more package file changes (`package.json`, `package-lock.json`, `yarn.lock`).
 
-This bail should be expected from time to time as dependencies are updated, but can become more of an issue if you run out of a monorepo or have dependencies in subdirectories.  If you find this happening frequently, consider using `untraced` to [avoid re-testing on changes to your package control files](/docs/turbosnap/setup/#avoid-re-testing-on-changes-to-package-control-files).
+This bail should be expected from time to time as dependencies are updated, but can become more of an issue if you run out of a monorepo or have dependencies in subdirectories. If you find this happening frequently, consider using `untraced` to [avoid re-testing on changes to your package control files](/docs/turbosnap/setup/#avoid-re-testing-on-changes-to-package-control-files).
 
 ### `changedStaticFiles`
+
 TurboSnap bailed due to matching static file (`--static-dir`).
 
-This message should only present to customers using TurboSnap with older Storybook versions, since `--static-dir` was deprecated in Storybook 8.  Customers on Storybook 8+ need to add their static dirs using `externals`.  This error may indicate that you need to check the value you've configured for `--static-dir`.
+This message should only present to customers using TurboSnap with older Storybook versions, since `--static-dir` was deprecated in Storybook 8. Customers on Storybook 8+ need to add their static dirs using `externals`. This error may indicate that you need to check the value you've configured for `--static-dir`.
 
 ### `changedStorybookFiles`
+
 TurboSnap bailed due to a change in Storybook config (`.storybook` dir files, such as `main.js|ts` and `preview.js|ts`).
 
-You may have made changes to one of the files within your Storybook configuration, or to a dependency that is being imported by your configuration.  It's important to keep in mind that second part, since it's common practice ot import decorators into the `preview.js` config.
+You may have made changes to one of the files within your Storybook configuration, or to a dependency that is being imported by your configuration. It's important to keep in mind that second part, since it's common practice ot import decorators into the `preview.js` config.
 
 Additionally, if you're utilizing barrel/index files (whether directly importing in your `preview.js` or in a file that `preview.js` is dependent on), it's likely to cause more bails since [a change to any of these modules would cause any file that imports the index file to be considered "dirty"](/docs/turbosnap/setup/#avoid-re-testing-dependent-stories-when-certain-files-changed), even if it's not using the changed module.
 
 ### `invalidChangedFiles`
+
 TurboSnap bailed due to missing git history.
 
-TurboSnap is having issues retrieving your git history.  This commonly happens when a repo is shallow cloning, which can be fixed by setting your fetch depth to `0` in your `.yml` workflow file.  Another common cause of this issue is when customers use GitHub Actions with the `pull_request` event.  If this is the case, you'll want to make sure you [set the correct `ref` in your checkout step](/docs/github-actions/#recommended-configuration-for-build-events).
+TurboSnap is having issues retrieving your git history. This commonly happens when a repo is shallow cloning, which can be fixed by setting your fetch depth to `0` in your `.yml` workflow file. Another common cause of this issue is when customers use GitHub Actions with the `pull_request` event. If this is the case, you'll want to make sure you [set the correct `ref` in your checkout step](/docs/github-actions/#recommended-configuration-for-build-events).
 
 ### `missingStatsFile`
+
 TurboSnap bailed due to missing stats file.
 
 Since the stats file is needed for TurboSnap to analyze your dependencies, make sure your Storybook script includes `--stats-json`.
 
 ### `noAncestorBuild`
+
 TurboSnap bailed due to not finding an ancestor build for the commit.
 
-This bail reason is reserved for when no ancestor build is found at all for a commit.  This can be due to rebasing, squash-merging, force-pushing, or running against ephemeral merge commits.  If it's happening on builds that don't fit those categories, it may indicate an issue with fetching your git history.
+This bail reason is reserved for when no ancestor build is found at all for a commit. This can be due to rebasing, squash-merging, force-pushing, or running against ephemeral merge commits. If it's happening on builds that don't fit those categories, it may indicate an issue with fetching your git history.
 
 ### `rebuild`
+
 TurboSnap bailed because the commit is a rerun of a previous build, based on the baseline build having the same commit and branch name.
 
 Most reruns are intentional, but if you weren't expecting the ones you're seeing, this may indicate you need to check your CI workflow to see what could be kicking off an additional build for the same commit.
