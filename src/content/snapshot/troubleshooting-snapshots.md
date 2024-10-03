@@ -7,67 +7,67 @@ sidebar: { order: 3, label: "Troubleshooting" }
 
 # Troubleshooting Snapshots
 
-## Improve snapshot consistency
+Did you encounter inconsistent, blank, or other rendering issues in your snapshots? This guide helps you identify common causes and improve snapshot consistency.
 
-It's essential that your components and stories render in a **consistent** fashion to prevent false positives. Below are common reasons stories render inconsistently and ways to improve consistency:
+## Rerun build to identify inconsistencies
 
-- **Randomness in tests**: Components sometimes use random number generators to generate data for complex inputs. To avoid this, you can hard-code the input data, but often a more convenient solution is to use a tool like [seedrandom](https://github.com/davidbau/seedrandom) which you can use to make your "random" number generator consistent.
+Double-check whether a visual change is real or caused by inconsistencies in your app code by retaking snapshots. Click the "rerun" button to kick off a new build that uses identical settings and configuration as your original build. Only snapshots for denied, unreviewed, or errored changes will be captured. Any changes you accepted in the original build will not be snapshotted again in a rerun build.
 
-- **Animations**: Chromatic will attempt to pause all animations. However, you may need to [configure](/docs/animations) Chromatic's exact behavior.
+![Rerun button](../../images/build-detail-rerun-button.png)
 
-- **Unpredictable resource hosts**: Resources that load from unpredictable or flaky sources may not load in time (15s) to capture. To work around this, serve resources as [static files](#serve-static-files) or use a [placeholder service](https://placehold.co/). Learn more about how we [load resources](/docs/resource-loading).
+Debug inconsistent snapshots by looking at the set of changes between the original build and the rerun build. You might encounter these common scenarios:
 
-- **Image CDNs & compression algorithms**: Image CDNs optimize for image weight and size, which affect how it renders. Since this happens upstream of Chromatic, any changes to those images in your components will be caught as visual changes. Work around this by ensuring the served images are identical every time and using consistent compression settings. Also consider serving images as [static files](#serve-static-files) or use a [placeholder service](https://placehold.co/)
+- Identical changes between builds: This means the snapshots are accurately showing bonafide UI changes that need your verification. Continue the [UI Tests workflow](/docs/test#verify-ui-changes) as usual.
 
-- **Web font loading**: Web fonts can load at different times impacting snapshot consistency, especially when combined with [interactions](/docs/interactions). Serve web fonts as [static files](#serve-static-files) and make sure to [preload](/docs/font-loading) them.
+Different changes between builds: This means inconsistent snapshots are introducing false positives to your visual tests. Learn how to use the [Snapshot Tracer Viewer](#debug-snapshots-with-trace-viewer-beta) to identify the root cause and check out our recommendations for [improving snapshot consistency](#improve-snapshot-consistency).
 
-- **Iframes rendering out of the viewport**: Some browsers only visually render iframes when they are inside of the viewport, despite the fact that they have loaded with all of their resources. For this reason, if you have an iframe that is placed below the viewport of a tall story, it will appear blank. You may want to [ignore that element](/docs/ignoring-elements) and also test it in isolation so that it fits inside of the viewport.
+When there are potential rendering inconsistencies in a rerun build, Chromatic will call them out in a message.
+![Inconsistent snapshot detection](../../images/build-detail-inconsistent-snapshot-detection.png)
 
-- **Use of the current date/time**: Dates and times are a testers bane! To get consistency in components or tests that use the current time, you can use a tool to also "seed" the time, like [mockdate](https://www.npmjs.com/package/mockdate) for the `Date` object.
+## Debug snapshots with Trace Viewer (beta)
 
-- **UI takes time to render**: UI can take extra time to "settle" into it's final orientation. Add a [delay](/docs/delay) to take a snapshot after waiting a period of time. Note that this technique can make the UI rendering inconsistency less obvious in snapshots, but it won't eliminate the underlying issue in how UI renders.
+The Snapshot Trace Viewer lets you explore recorded traces of tests rendered and snapshotted in the Chromatic Capture Cloud. It captures network requests, console logs, and other debugging information, helping you identify the root cause of rendering issues.
 
-- **Intentional randomness**: Some stories may render unpredictably intentionally. If this is the case you may want to [ignore the story](/docs/disable-snapshots#with-storybook) from UI Tests and move on.
-  If you still need inconsistent elements for local development purposes inside Storybook, you can use `isChromatic()` exported from [our package](/docs/ischromatic) to apply the solutions above only when in the Chromatic environment.
+Once you rerun a build, the subsequent build will feature a "Traces" column. This column links to the Trace Viewer for each snapshot in the build, with one link per enabled browser. Click on one of the browser buttons to open the Trace Viewer.
 
-### Serve static files
+![Build 2 was a rerun build so it has an additional "traces" column](../../images/view-trace.png)
 
-When using Playwright or Cypress, you can serve static files like fonts, images, and videos through your app server. This ensures that resources load consistently across all snapshots.
+### How to use the snapshot trace?
 
-For Storybook, use the [staticDirs](https://storybook.js.org/docs/configure/integration/images-and-assets#serving-stae-files-via-storybook-configuration) option to load static files for your stories.
+Chromatic uses Playwright to render and capture snapshots in its [Capture Cloud](/docs/infrastructure-release-notes), even if your tests are written using Cypress or Storybook. Therefore, it's able to leverage Playwright's [built-in capability](https://playwright.dev/docs/trace-viewer#network) to generate these traces. These traces capture network activity, console logs, DOM snapshots, and other debugging information.
 
-### Use fixed-height wrappers for portal components
+![Example of a Playwright trace capturing network requests and displaying the final DOM structure](../../images/trace-example.png)
 
-Portals allow components to render arbitrary elements outside the parent component's initial DOM hierarchy. For example, tooltips, modals, popovers, and menus can be triggered by a nested button, but render close to the top of the DOM hierarchy using portals.
+Below are some common scenarios where the Trace Viewer can help you debug snapshot issues:
 
-With Playwright and Cypress, Chromatic snapshots the entire page, including modals, dialogs, and other portaled elements. However, with Storybook, portals render outside of Storybook’s DOM tree which can lead to cut-off snapshots.
+#### Network tab analysis
 
-<details>
-<summary>Why are snapshots of portal components (tooltip, modal, popover, menu) cut off?</summary>
+The network tab displays the resources loaded during capture, including fonts, stylesheets, scripts, and other assets. Check for resources that failed to load or took a long time. For example, if fonts aren't incorrect or styles are missing, ensure that the font or CSS files have loaded successfully with the correct MIME type. Consider loading slow assets [statically](#serve-static-files).
 
-For stories, Chromatic relies on the "natural" height of your component's outermost DOM element (using Storybook's `#storybook-root` element in version 7 or higher or the `#root` element for previous versions) to determine snapshot dimensions. As portals render outside of Storybook's DOM tree, Chromatic cannot auto-detect their dimensions, which can lead to cut-off snapshots.
+<div class="aside">
 
-</details>
+For a detailed list of trace viewer features, see the [Playwright documentation](https://playwright.dev/docs/trace-viewer#trace-viewer-features).
 
-To capture snapshots of portaled elements, you can use a [decorator](https://storybook.js.org/docs/writing-stories/decorators#component-decorators) that wraps your stories in a fixed-height container. You can adjust the container's height to account for the total dimensions of your component and portal.
+</div>
 
-```js title="MyComponent.stories.js|jsx"
-import { MyComponent } from "./MyComponent";
+#### Inspect the DOM
 
-export default {
-  component: MyComponent,
-  title: "Example Story",
-  decorators: [
-    (Story) => (
-      <div style={{ height: "300px" }}>
-        <Story />
-      </div>
-    ),
-  ],
-};
-```
+The Trace archives the DOM for each step or action executed, allowing you to inspect the DOM at the time of capture. Use this tab to verify the DOM structure is as expected.
 
-## Debug snapshot rendering
+Check for missing elements, incorrect styles, or unexpected layout changes. If styles are missing but the CSS file has loaded, ensure the styles are applied correctly.
+
+![Use browser devtools to inspecting the DOM archived by the trace](../../images/trace-inspect-dom.png)
+
+#### Screenshot metadata
+
+When Chromatic captures a screenshot, it includes metadata like viewport information and clip rectangle dimensions, providing context for the capture. Use this data to identify issues such as:
+
+- **Responsive design issues**: Viewport information reveals the screen size used for the capture. Compare this with your breakpoints to ensure that the correct styles are applied.
+- **Element positioning problems**: The clip rectangle shows precisely what was captured. If an element is missing from the snapshot, verify if it falls within the expected clip area. For instance, Chromatic only captures DOM elements within the `#storybook-root` element for stories. Modal and dropdown components might not be captured if they fall outside this root element's "natural" dimensions. Use [fixed-height wrappers](#use-fixed-height-wrappers-for-portal-components) to capture these portal components.
+
+![Example of screenshot metadata for a story of a dropdown component](../../images/trace-screenshot-metadata.png)
+
+## Common snapshot rendering issues
 
 <details>
 <summary>Where are my images and fonts?</summary>
@@ -331,20 +331,65 @@ The solution we recommend is to use a `<link rel="preload">` in your [`.storyboo
 
 </details>
 
-## Rerun builds to retake snapshots
+## Improve snapshot consistency
 
-Double-check whether a visual change is real or caused by inconsistencies in your app code by retaking snapshots. Click the "rerun" button to kick off a new build that uses identical settings and configuration as your original build. Only snapshots for denied, unreviewed, or errored changes will be captured. Any changes you accepted in the original build will not be snapshotted again in a rerun build.
+It's essential that your components and stories render in a **consistent** fashion to prevent false positives. Below are common reasons stories render inconsistently and ways to improve consistency:
 
-![Rerun button](../../images/build-detail-rerun-button.png)
+- **Randomness in tests**: Components sometimes use random number generators to generate data for complex inputs. To avoid this, you can hard-code the input data, but often a more convenient solution is to use a tool like [seedrandom](https://github.com/davidbau/seedrandom) which you can use to make your "random" number generator consistent.
 
-Debug inconsistent snapshots by looking at the set of changes between the original build and rerun build. You might encounter these common scenarios:
+- **Animations**: Chromatic will attempt to pause all animations. However, you may need to [configure](/docs/animations) Chromatic's exact behavior.
 
-- Identical changes between builds: This means the snapshots are accurately showing bonafide UI changes that need your verification. Continue the [UI Tests workflow](/docs/test#verify-ui-changes) as usual.
+- **Unpredictable resource hosts**: Resources that load from unpredictable or flaky sources may not load in time (15s) to capture. To work around this, serve resources as [static files](#serve-static-files) or use a [placeholder service](https://placehold.co/). Learn more about how we [load resources](/docs/resource-loading).
 
-- Different changes between builds: This means there are inconsistent snapshots which are introducing false positives to your visual tests. Learn how to [improve snapshot consistency](#improve-snapshot-consistency).
+- **Image CDNs & compression algorithms**: Image CDNs optimize for image weight and size, which affect how it renders. Since this happens upstream of Chromatic, any changes to those images in your components will be caught as visual changes. Work around this by ensuring the served images are identical every time and using consistent compression settings. Also consider serving images as [static files](#serve-static-files) or use a [placeholder service](https://placehold.co/)
 
-When there are potential rendering inconsistencies in a rerun build, Chromatic will call them out in a message.
-![Inconsistent snapshot detection](../../images/build-detail-inconsistent-snapshot-detection.png)
+- **Web font loading**: Web fonts can load at different times impacting snapshot consistency, especially when combined with [interactions](/docs/interactions). Serve web fonts as [static files](#serve-static-files) and make sure to [preload](/docs/font-loading) them.
+
+- **Iframes rendering out of the viewport**: Some browsers only visually render iframes when they are inside of the viewport, despite the fact that they have loaded with all of their resources. For this reason, if you have an iframe that is placed below the viewport of a tall story, it will appear blank. You may want to [ignore that element](/docs/ignoring-elements) and also test it in isolation so that it fits inside of the viewport.
+
+- **Use of the current date/time**: Dates and times are a testers bane! To get consistency in components or tests that use the current time, you can use a tool to also "seed" the time, like [mockdate](https://www.npmjs.com/package/mockdate) for the `Date` object.
+
+- **UI takes time to render**: UI can take extra time to "settle" into it's final orientation. Add a [delay](/docs/delay) to take a snapshot after waiting a period of time. Note that this technique can make the UI rendering inconsistency less obvious in snapshots, but it won't eliminate the underlying issue in how UI renders.
+
+- **Intentional randomness**: Some stories may render unpredictably intentionally. If this is the case you may want to [ignore the story](/docs/disable-snapshots#with-storybook) from UI Tests and move on.
+  If you still need inconsistent elements for local development purposes inside Storybook, you can use `isChromatic()` exported from [our package](/docs/ischromatic) to apply the solutions above only when in the Chromatic environment.
+
+### Serve static files
+
+When using Playwright or Cypress, you can serve static files like fonts, images, and videos through your app server. This ensures that resources load consistently across all snapshots.
+
+For Storybook, use the [staticDirs](https://storybook.js.org/docs/configure/integration/images-and-assets#serving-stae-files-via-storybook-configuration) option to load static files for your stories.
+
+### Use fixed-height wrappers for portal components
+
+Portals allow components to render arbitrary elements outside the parent component's initial DOM hierarchy. For example, tooltips, modals, popovers, and menus can be triggered by a nested button, but render close to the top of the DOM hierarchy using portals.
+
+With Playwright and Cypress, Chromatic snapshots the entire page, including modals, dialogs, and other portaled elements. However, with Storybook, portals render outside of Storybook’s DOM tree which can lead to cut-off snapshots.
+
+<details>
+<summary>Why are snapshots of portal components (tooltip, modal, popover, menu) cut off?</summary>
+
+For stories, Chromatic relies on the "natural" height of your component's outermost DOM element (using Storybook's `#storybook-root` element in version 7 or higher or the `#root` element for previous versions) to determine snapshot dimensions. As portals render outside of Storybook's DOM tree, Chromatic cannot auto-detect their dimensions, which can lead to cut-off snapshots.
+
+</details>
+
+To capture snapshots of portaled elements, you can use a [decorator](https://storybook.js.org/docs/writing-stories/decorators#component-decorators) that wraps your stories in a fixed-height container. You can adjust the container's height to account for the total dimensions of your component and portal.
+
+```js title="MyComponent.stories.js|jsx"
+import { MyComponent } from "./MyComponent";
+
+export default {
+  component: MyComponent,
+  title: "Example Story",
+  decorators: [
+    (Story) => (
+      <div style={{ height: "300px" }}>
+        <Story />
+      </div>
+    ),
+  ],
+};
+```
 
 ## Browser differences between snapshots
 
