@@ -19,7 +19,7 @@ Debug inconsistent snapshots by looking at the set of changes between the origin
 
 - Identical changes between builds: This means the snapshots are accurately showing bonafide UI changes that need your verification. Continue the [UI Tests workflow](/docs/test#verify-ui-changes) as usual.
 
-- Different changes between builds: This means there are inconsistent snapshots which are introducing false positives to your visual tests. Learn how to use the [Snapshot Tracer Viewer](#debug-inconsistent-snapshots-with-trace-viewer) to identify the root cause and checkout our recommendations for [improving snapshot consistency](#improve-snapshot-consistency).
+Different changes between builds: This means inconsistent snapshots are introducing false positives to your visual tests. Learn how to use the [Snapshot Tracer Viewer](#debug-snapshots-with-trace-viewer-beta) to identify the root cause and check out our recommendations for [improving snapshot consistency](#improve-snapshot-consistency).
 
 When there are potential rendering inconsistencies in a rerun build, Chromatic will call them out in a message.
 ![Inconsistent snapshot detection](../../images/build-detail-inconsistent-snapshot-detection.png)
