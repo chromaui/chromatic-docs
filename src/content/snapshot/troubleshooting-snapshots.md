@@ -28,7 +28,7 @@ When there are potential rendering inconsistencies in a rerun build, Chromatic w
 
 The Snapshot Trace Viewer lets you explore recorded traces of tests rendered and snapshotted in the Chromatic Capture Cloud. It captures network requests, console logs, and other debugging information, helping you identify the root cause of rendering issues.
 
-Once you rerun a build, the subsequent build will feature a "Traces" column. This column links to the Trace Viewer for each snapshot in the build, with one link per enabled browser. Clicking on one of the browser buttons to open the Trace Viewer.
+Once you rerun a build, the subsequent build will feature a "Traces" column. This column links to the Trace Viewer for each snapshot in the build, with one link per enabled browser. Click on one of the browser buttons to open the Trace Viewer.
 
 ![Build 2 was a rerun build so it has an additional "traces" column](../../images/view-trace.png)
 
