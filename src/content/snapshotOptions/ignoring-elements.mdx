@@ -42,7 +42,7 @@ export const VideoPlayer: React.FC<VideoPlayerProps> = ({
 
 ## Ignoring elements via test configuration
 
-To ignore multiple elements at once, you can specify a list of selectors in the `ignoreSelectors` parameter. This support any valid CSS selector, such as `.any-selector-the-browser-supports`, `#even-really-weird-ones`, or `a[href$=".zip" i]:after`
+You can specify a list of CSS selectors with the `ignoreSelectors` option to ignore multiple elements simultaneously. This option supports valid CSS selectors, such as `.any-selector-the-browser-supports`, `#even-really-weird-ones`, or `a[href$=".zip" i]:after`.
 
 {/* prettier-ignore-start */}
 
@@ -118,7 +118,7 @@ To ignore multiple elements at once, you can specify a list of selectors in the 
 
 ## Dimension changes in ignored elements still trigger diffs
 
-Adding the `data-chromatic="ignore"` attribute or specifying a selector in `ignoreSelectors` param instructs the diffing algorithm to disregard pixels within the bounding box of the ignored element. However, dimension changes of this element still trigger a change.
+Adding the `data-chromatic="ignore"` attribute or specifying a selector with the `ignoreSelectors` option instructs the diffing algorithm to disregard pixels within the bounding box of the ignored element. However, dimension changes of this element still trigger a change.
 
 Ensure that both the baseline and new snapshots maintain the exact dimensions, such as width, height, and relative positioning.
 

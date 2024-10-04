@@ -12,27 +12,31 @@ You can enhance your Cypress and Chromatic tests further by configuring them usi
 
 ## Cypress options
 
-Cypress can be configured with [Cypress environment variables](https://docs.cypress.io/guides/guides/environment-variables).
+Cypress can be configured with [Cypress environment variables](https://docs.cypress.io/guides/guides/environment-variables). You can set the available options globally in your Cypress configuration file as follows:
 
-Setting options globally can be done in your Cypress config file as follows:
 
-```ts
-// cypress.config.ts
+```ts title="cypress.config.js|ts"
 export default defineConfig({
   env: {
+    // 👇 Sets the option at the project level.
     disableAutoSnapshot: true,
   },
-
-  // other setup...
+  // Other project configuration options
 });
 ```
 
-Options can also be overridden at the test level:
+You can also override them for specific tests using via the [`env`](https://docs.cypress.io/guides/guides/environment-variables#Suite-of-test-configuration) option in the test configuration:
 
-```ts
-// some-test.cy.ts
-it("A test that does something", { env: { disableAutoSnapshot: true } }, () => {
-  cy.visit("https://some-url.com");
+```ts title="cypress/e2e/HomePage.cy.js|ts"
+describe("HomePage", () => {
+  it("Loads the page with auto snapshotting disabled", {
+    env: {
+      // 👇 Overrides the option in the test.
+      disableAutoSnapshot: true,
+    },
+  }, () => {
+    cy.visit("/");
+  })
 });
 ```
 
@@ -40,24 +44,25 @@ it("A test that does something", { env: { disableAutoSnapshot: true } }, () => {
 
 These options control how the Chromatic archive fixture behaves.
 
-| Option                   | Type            | Description                                                                                                                                                                          |
-| ------------------------ | --------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| `disableAutoSnapshot`    | `boolean`       | When `true`, will disable the snapshot that happens automatically at the end of a test when using the Chromatic test fixture.                                                        |
-| `resourceArchiveTimeout` | `number`        | Maximum amount of time that each test will wait for the network to be idle while archiving resources.                                                                                |
-| `assetDomains`           | `array[string]` | A list of domains external to the test location that you want Chromatic to also capture assets from, e.g., <code style="display: inline;">['other-domain.com','our-cdn.com']</code>. |
+| Option                   | Type            | Description                                                                                                                                                                            |
+| ------------------------ | --------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `disableAutoSnapshot`    | `boolean`       | When `true`, it will disable the snapshot that happens automatically at the end of a test when using the Chromatic test fixture.                                                       |
+| `resourceArchiveTimeout` | `number`        | Maximum amount of time each test will wait for the network to be idle while archiving resources.                                                                                       |
+| `assetDomains`           | `array[string]` | A list of domains external to the test location that you want Chromatic to also capture assets from, e.g., <code style="display: inline;">['other-domain.com','our-cdn.com']</code>.   |
 
 ### Chromatic options
 
 These options control how Chromatic behaves when capturing snapshots of your pages.
 
-| Option                    | Type      | Chromatic Docs                                                          |
-| ------------------------- | --------- | ----------------------------------------------------------------------- |
-| `delay`                   | `number`  | [Delay](/docs/delay/)                                                   |
-| `diffIncludeAntiAliasing` | `boolean` | [Threshold for changes](/docs/threshold#anti-aliasing)                  |
-| `diffThreshold`           | `number`  | [Threshold for changes](/docs/threshold#setting-the-threshold)          |
-| `forcedColors`            | `string`  | [Media Features](/docs/media-features#test-high-contrast-color-schemes) |
-| `pauseAnimationAtEnd`     | `boolean` | [Animations](/docs/animations#css-animations)                           |
-| `prefersReducedMotion`    | `string`  | [Media Features](/docs/media-features#verify-reduced-motion-animations) |
+| Option                    | Type            | Chromatic Docs                                                                      |
+| ------------------------- | --------------- | ----------------------------------------------------------------------------------- |
+| `delay`                   | `number`        | [Delay](/docs/delay/)                                                               |
+| `diffIncludeAntiAliasing` | `boolean`       | [Threshold for changes](/docs/threshold#anti-aliasing)                              |
+| `diffThreshold`           | `number`        | [Threshold for changes](/docs/threshold#setting-the-threshold)                      |
+| `ignoreSelectors`         | `array[string]` | [Ignore elements](/docs/ignoring-elements#ignoring-elements-via-test-configuration) |
+| `forcedColors`            | `string`        | [Media Features](/docs/media-features#test-high-contrast-color-schemes)             |
+| `pauseAnimationAtEnd`     | `boolean`       | [Animations](/docs/animations#css-animations)                                       |
+| `prefersReducedMotion`    | `string`        | [Media Features](/docs/media-features#verify-reduced-motion-animations)             |
 
 ### Environment variables
 
@@ -71,11 +76,11 @@ Some options can be configured through environment variables.
 
 ## Viewports
 
-Chromatic will capture the DOM and take snapshots at each viewport size a test is configured to run in.
+Chromatic will capture the DOM and take snapshots at each viewport size in which a test is configured to run.
 
-[Viewports in Cypress](https://docs.cypress.io/api/commands/viewport) can be configured [globally in you main cypress config file](https://docs.cypress.io/api/commands/viewport#Default-sizing) as follows:
+[Viewports in Cypress](https://docs.cypress.io/api/commands/viewport) can be configured [globally in your main Cypress configuration file](https://docs.cypress.io/api/commands/viewport#Default-sizing) as follows:
 
-```javascript
+```ts title="cypress.config.js|ts"
 import { defineConfig } from "cypress";
 
 export default defineConfig({
@@ -86,16 +91,17 @@ export default defineConfig({
 
 Or using [configuration at the test level](https://docs.cypress.io/api/commands/viewport#Set-viewport-in-the-test-configuration):
 
-```javascript
+```ts title="cypress/e2e/Viewports.cy.js|ts"
 describe(
-  "page display on medium size screen",
+  "Page display on medium size screen",
   {
+    // 👇 Overrides the option in the test.
     viewportHeight: 1000,
     viewportWidth: 400,
   },
   () => {
-    it("does not display sidebar", () => {
-      // ...
+    it("Does not display sidebar", () => {
+      cy.visit("/");
     });
   },
 );
@@ -103,6 +109,6 @@ describe(
 
 <div class="aside">
 
-Note: Currently, setting the viewport using `cy.viewport()` is not supported.
+ℹ️ Currently, setting the viewport using `cy.viewport()` is not supported.
 
 </div>
