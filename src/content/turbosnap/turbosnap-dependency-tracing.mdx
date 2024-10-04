@@ -106,8 +106,6 @@ The asset object for a story file usually looks a bit different:
 }
 ```
 
-Under `reasons`, you'll see a `moduleName` that looks like a path pattern. If you were to look at the non-trimmed file, you'd see the `issuerPath`'s are `"./storybook-config-entry.js"` and `"./storybook-stories.js"` because the dependency is the project's Storybook config:
-
 Under "reasons," you'll notice a `moduleName` resembling a path pattern. In the full, untrimmed file, the `issuerPath`'s are `"./storybook-config-entry.js"` and `"./storybook-stories.js"`. That's because the dependency is related to this project's Storybook configuration:
 
 ```js title=".storybook/main.js"
