@@ -24,7 +24,7 @@ TurboSnap leverages [Webpack's Stats Data API](https://webpack.js.org/api/stats)
 
 If Chromatic builds your Storybook, it will automatically generate the stats file. But if you provide Chromatic with a prebuilt Storybook, you must add the `--stats-json` (or `--webpack` for Storybook versions 7 and lower) flag to the `build-storybook` command.
 
-The stats file can be a bit challenging to read. Therefore, the Chromatic CLI offers a `trim-stats-file` option to make the file more human-readable. Use it like so:
+The stats file can be a bit challenging to read. Therefore, the Chromatic CLI offers a [`trim-stats-file`](/docs/configure/) option to make the file more human-readable. Use it like so:
 
 ```shell
 npx chromatic trim-stats-file
