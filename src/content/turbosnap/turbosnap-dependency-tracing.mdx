@@ -22,7 +22,7 @@ To start, let's visit [Webpack's dependency graph concept](https://webpack.js.or
 
 TurboSnap leverages [Webpack's Stats Data API](https://webpack.js.org/api/stats) to generate a JSON file with detailed statistics about a project's modules. These statistics allow TurboSnap to analyze a project's dependency graph by providing information on asset objects, related chunks (or grouped modules), and module dependencies linked to the assets.
 
-If Chromatic builds your Storybook for you, it will generate the stats file for you. But if you provide a prebuilt Storybook to Chromatic then you'll need add `--stats-json` (or `--webpack-stats-json` for Storybook versions 7 and lower) to the `build-storybook` command.
+If Chromatic builds your Storybook, it will automatically generate the stats file. But if you provide Chromatic with a prebuilt Storybook, you must add the `--stats-json` (or `--webpack` for Storybook versions 7 and lower) flag to the `build-storybook` command.
 
 The stats file can be a bit challenging to read. Therefore, the Chromatic CLI offers a `trim-stats-file` option to make the file more human-readable. Use it like so:
 
