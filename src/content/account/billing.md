@@ -146,7 +146,7 @@ Number of snapshots identified by [TurboSnap](#snapshots-with-turbosnap-enabled-
   <dt>TurboSnaps Bail Reason</dt>
   <dd>
 
-Explains why a TurboSnap triggered a full rebuild. For more details, check out the [TurboSnap docs](/docs/turbosnap/#full-rebuilds).
+Explains why a TurboSnap triggered a full rebuild. For more details, check out the [TurboSnap docs](/docs/turbosnap/troubleshooting#what-do-the-turbosnap-bail-reasons-in-my-usage-report-mean).
 
   </dd>
 
