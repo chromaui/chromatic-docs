@@ -40,7 +40,7 @@ npx chromatic trim-stats-file ./path/to/preview-stats.json
 
 After running the `trim-stats-file` command, Chromatic will output a `preview-stats.trimmed.json` file. While this file is more readable, it can still be a bit daunting, so let's break it down with an example.
 
-```json
+```json title="preview-stats.trimmed"
 {
   "id": "./src/inputs/PinInput/PinInput.tsx",
   "name": "./src/inputs/PinInput/PinInput.tsx + 4 modules",
@@ -79,7 +79,7 @@ The `"reasons"` key provides information about the asset's dependency graph. In 
 
 The asset object for a story file usually looks a bit different:
 
-```json
+```json title="preview-stats.trimmed"
 {
   "id": "./src/inputs/PinInput/stories/PinInput.stories.tsx",
   "name": "./src/inputs/PinInput/stories/PinInput.stories.tsx + 4 modules",
