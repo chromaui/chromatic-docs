@@ -139,7 +139,7 @@ For projects using Storybook versions prior to 8, use the [vite-plugin-turbosnap
 
 Vite is natively supported for Storybook 8 and later. To generate the stats file, use the `--stats-json` flag with the `build-storybook` command.
 
-```json
+```json title="package.json"
 {
   "scripts": {
     "build-storybook": "build-storybook --stats-json"
@@ -151,7 +151,7 @@ Vite is natively supported for Storybook 8 and later. To generate the stats file
 
 If you're using a prebuilt Storybook, and your `build-storybook` script was not executed from the same directory where you're running `chromatic`, you'll have to specify the relative path to the Storybook project root (where you run `build-storybook` from). For example, when your Storybook lives at `./services/webapp` in your Git repository:
 
-```json
+```json title="package.json"
 {
   "scripts": {
     // This would be a different package.json than the one with `build-storybook`
@@ -246,7 +246,7 @@ When configuring TurboSnap in a monorepo, it's important to ensure that Chromati
 
 Chromatic's suggested best practice when executing from your repo root is to set your `--storybook-base-dir` and `--storybook-config-dir` flags. For example, when your Storybook project is located in the `packages/webapp` dir of your repo, you'd update your script to reflect the following:
 
-```json
+```json title="package.json"
 {
   "scripts": {
     "build-storybook": "build-storybook",
