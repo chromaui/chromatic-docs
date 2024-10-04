@@ -22,15 +22,7 @@ To start, let's visit [Webpack's dependency graph concept](https://webpack.js.or
 
 TurboSnap leverages [Webpack's Stats Data API](https://webpack.js.org/api/stats) to generate a JSON file with detailed statistics about a project's modules. These statistics allow TurboSnap to analyze a project's dependency graph by providing information on asset objects, related chunks (or grouped modules), and module dependencies linked to the assets.
 
-The stats file is generated when you add `--stats-json` (or `--webpack-stats-json` for Storybook versions 7 and lower) to the `build-storybook` command. For example:
-
-```json
-{
-  "scripts": {
-    "build-storybook": "build-storybook --stats-json"
-  }
-}
-```
+If Chromatic builds your Storybook for you, it will generate the stats file for you. But if you provide a prebuilt Storybook to Chromatic then you'll need add `--stats-json` (or `--webpack-stats-json` for Storybook versions 7 and lower) to the `build-storybook` command.
 
 The stats file can be a bit challenging to read. Therefore, the Chromatic CLI offers a `trim-stats-file` option to make the file more human-readable. Use it like so:
 
@@ -140,14 +132,6 @@ If you're trying to understand why a story file is being detected as changed, yo
 
 Before Storybook 8, Vite support for TurboSnap was available through the [vite-plugin-turbosnap](https://github.com/IanVS/vite-plugin-turbosnap). Starting with version 8.0, this plugin has been integrated into Storybook, so TurboSnap now supports Vite natively.
 
-With Storybook 8.0+, you can can generate a stats file for Vite based projects by adding `--stats-json` to the `build-storybook` command:
-
-```json
-{
-  "scripts": {
-    "build-storybook": "build-storybook --stats-json"
-  }
-}
-```
+With Storybook 8.0+, if Chromatic builds your Storybook for you, it will generate the stats file for you. But if you provide a prebuilt Storybook to Chromatic then you'll need add `--stats-json` to the `build-storybook` command.
 
 Whether using the plugin or Storybook 8.0+, the process is the same. When you run the `build-storybook` command, a `preview-stats.json` file is generated. This file collects information about each module being built and creates a mapping between each file and all the files that import it. It mimics the file created by Webpack but includes only the information that TurboSnap needs to perform dependency checks.

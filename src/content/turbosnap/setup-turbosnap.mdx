@@ -28,7 +28,7 @@ It will build and test stories that may have been affected by the Git changes si
 
 - Chromatic CLI [10.0+](https://www.npmjs.com/package/chromatic)
 - Storybook 6.5+
-- Webpack (experimental Vite support is available for Storybook versions prior to 8, see [vite-plugin-turbosnap](https://github.com/IanVS/vite-plugin-turbosnap))
+- Webpack or Vite based project (Vite is natively supported with Storybook 8+ and can be used in earlier versions with the [vite-plugin-turbosnap](https://github.com/IanVS/vite-plugin-turbosnap))
 - Stories correctly [configured](https://storybook.js.org/docs/configure#configure-story-loading) in Storybook's `main.js`
 - 10 successful builds on CI with at least one accepted
 - For GitHub Actions: run on `push` rather than `pull_request` ([learn more](#github-pull_request-triggers))
@@ -66,11 +66,7 @@ You may need additional config in the following situations:
 - You have files that should never trigger a re-test (e.g., in a monorepo)
 - You want to enable or disable TurboSnap for specific branches
 
-<div class="aside">
-
-ℹ️ You can verify your glob pattern using the [picomatch-playground](https://picomatch-playground-ebjlxm.csb.app/).
-
-</div>
+Jump to the [recipes](#recipes) section for more information.
 
 ### Verify that TurboSnap is working
 
@@ -115,9 +111,9 @@ Once TurboSnap is activated, all subsequent builds will display an indicator wit
 
 A few common scenarios require additional configuration.
 
-### TurboSnap with prebuilt Storybook
+### TurboSnap with prebuilt Storybook using Webpack
 
-If you're using `--storybook-build-dir` to provide a prebuilt Storybook, adjust your `build-storybook` script to include the `--stats-json` option (or `--webpack-stats-json` option for Storybook projects that haven't migrated to Storybook 8+). If Chromatic builds your Storybook for you, this is unnecessary, and will take care of it. For example:
+If you're using `--storybook-build-dir` to provide a prebuilt Storybook, adjust your `build-storybook` script to include the `--stats-json` option (or `--webpack-stats-json` option for projects that haven't migrated to Storybook 8+). If Chromatic builds your Storybook for you, this is unnecessary, and will take care of it. For example:
 
 ```json
 {
@@ -137,7 +133,21 @@ You must pass `webpackStatsJson` as a [prop to options](https://nx.dev/nx-api/st
 
 </details>
 
-#### Specify a deviating Storybook base directory
+### TurboSnap with prebuilt Storybook using Vite
+
+For projects using Storybook versions prior to 8, use the [vite-plugin-turbosnap](https://github.com/IanVS/vite-plugin-turbosnap). The plugin will automatically generate a stats file when you run the `build-storybook` command.
+
+For Storybook 8 and later, Vite is natively supported. Use the `--stats-json` flag with the `build-storybook` command to generate the stats file.
+
+```json
+{
+  "scripts": {
+    "build-storybook": "build-storybook --stats-json"
+  }
+}
+```
+
+### Specify a deviating Storybook base directory
 
 If you're using a prebuilt Storybook, and your `build-storybook` script was not executed from the same directory where you're running `chromatic`, you'll have to specify the relative path to the Storybook project root (where you run `build-storybook` from). For example, when your Storybook lives at `./services/webapp` in your Git repository:
 
@@ -192,7 +202,11 @@ jobs:
             public/**
 ```
 
-> If you are using the [`staticDirs`](https://storybook.js.org/docs/configure/integration/images-and-assets#serving-static-files-via-storybook-configuration) option in your main Storybook config (introduced in Storybook 6.4), you should flag those as externals as well. While the deprecated `--static-dir` (`-s`) Storybook CLI flag is auto-detected, the config option in `main.js` is not.
+#### Add `staticDirs` to external files
+
+If you are using the [`staticDirs`](https://storybook.js.org/docs/configure/integration/images-and-assets#serving-static-files-via-storybook-configuration) option in your main Storybook config (introduced in Storybook 6.4), you should flag those as externals as well.
+
+Whereas, the deprecated `--static-dir` (`-s`) Storybook CLI flag is auto-detected, the config option in `main.js` is not.
 
 ### Avoid re-testing dependent stories when certain files changed
 
