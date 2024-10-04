@@ -128,8 +128,6 @@ If you're trying to understand why a story file is being detected as changed, yo
 
 ## Tracing dependencies with Vite
 
-Before Storybook 8, Vite support for TurboSnap was available through the [vite-plugin-turbosnap](https://github.com/IanVS/vite-plugin-turbosnap). Starting with version 8.0, this plugin has been integrated into Storybook, so TurboSnap now supports Vite natively.
+Vite support for TurboSnap is available out of the box, starting with Storybook 8.0 and later, and does not require any additional configuration. However, if you're using an older version of Storybook, you must install the [vite-plugin-turbosnap](https://github.com/IanVS/vite-plugin-turbosnap) plugin to enable TurboSnap support with Vite. 
 
-With Storybook 8.0+, if Chromatic builds your Storybook for you, it will generate the stats file for you. But if you provide a prebuilt Storybook to Chromatic then you'll need add `--stats-json` to the `build-storybook` command.
-
-Whether using the plugin or Storybook 8.0+, the process is the same. When you run the `build-storybook` command, a `preview-stats.json` file is generated. This file collects information about each module being built and creates a mapping between each file and all the files that import it. It mimics the file created by Webpack but includes only the information that TurboSnap needs to perform dependency checks.
+Similar to Webpack, when you run the `build-storybook` command, the `preview-stats.json` file is automatically generated. It contains information about each module being built and a mapping between each file and all the imported files. This structure mirrors that used by Wepack but only includes the information TurboSnap needs to perform dependency checks. 
