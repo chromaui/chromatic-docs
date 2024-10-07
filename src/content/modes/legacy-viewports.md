@@ -5,7 +5,7 @@ description: chromatic.viewports feature is now being replaced by the new Modes 
 sidebar: { order: 5 }
 ---
 
-# Viewports (legacy) for responsive UIs
+# Viewports (legacy Storybook API)
 
 <div class="aside" style="margin-bottom: 2rem;">
 

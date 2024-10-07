@@ -1,0 +1,107 @@
+---
+layout: "../../layouts/Layout.astro"
+title: Viewports
+description: Configure Chromatic to test responsive UIs at various viewports and breakpoints.
+sidebar: { order: 2 }
+---
+
+import { TabItem, Tabs } from "../../components/Tabs";
+
+# Viewports for responsive UIs with breakpoints
+
+UI components respond and adapt to different device widths. Chromatic streamlines the process for visual testing by enabling you to capture each test at multiple viewport sizes.
+
+## Storybook
+
+For Storybook, viewports are configured using the [Modes API](/docs/modes), which allows you to set global configurations that affect how a component renders (e.g., viewport size, theme & locale).
+
+Chromatic also integrates with Storybook's viewport feature. You can specify viewports by the names configured in Storybook's `.storybook/preview.js` file. And if a story has a `defaultViewport` set, Chromatic will automatically use that to capture the snapshot.
+
+For detailed usage instructions, refer to the [**configure viewports for stories**](/docs/storybook/viewports) page.
+
+<video autoPlay muted playsInline loop width="600px" class="center">
+  <source src="/docs/assets/addon-viewports-optimized.mp4" type="video/mp4" />
+</video>
+
+## Playwright
+
+Chromatic will capture the DOM and take snapshots at the viewport size in which a test is configured to run.
+
+[Viewports in Playwright](https://playwright.dev/docs/emulation#viewport) can be configured globally in your main Playwright configuration file as follows:
+
+```ts title="playwright.config.js|ts"
+import { defineConfig } from "@playwright/test";
+
+export default defineConfig({
+  projects: [
+    {
+      name: "chromium",
+      use: {
+        ...devices["Desktop Chrome"],
+        viewport: { width: 1280, height: 720 },
+      },
+    },
+    {
+      name: "Mobile",
+      use: {
+        ...devices["Desktop Chrome"],
+        viewport: { width: 500, height: 600 },
+      },
+    },
+  ],
+});
+```
+
+Or at the test level:
+
+```ts title="Viewports.spec.js|ts"
+test.describe("Page display on medium size screen", () => {
+  // 👇 Overrides the option in the test.
+  test.use({
+    viewport: { width: 1600, height: 1200 },
+  });
+
+  test("Does not display sidebar", async ({ page }) => {
+    await page.goto("/");
+  });
+});
+```
+
+## Cypress
+
+Chromatic will capture the DOM and take snapshots at the viewport size in which a test is configured to run.
+
+[Viewports in Cypress](https://docs.cypress.io/api/commands/viewport) can be configured [globally in your main Cypress configuration file](https://docs.cypress.io/api/commands/viewport#Default-sizing) as follows:
+
+```ts title="cypress.config.js|ts"
+import { defineConfig } from "cypress";
+
+export default defineConfig({
+  viewportWidth: 1000,
+  viewportHeight: 660,
+});
+```
+
+Or using [configuration at the test level](https://docs.cypress.io/api/commands/viewport#Set-viewport-in-the-test-configuration):
+
+```ts title="cypress/e2e/Viewports.cy.js|ts"
+describe(
+  "Page display on medium size screen",
+  {
+    // 👇 Overrides the option in the test.
+    viewportHeight: 1000,
+    viewportWidth: 400,
+  },
+  () => {
+    it("Does not display sidebar", () => {
+      cy.visit("/");
+    });
+  },
+);
+```
+
+<div class="aside">
+
+ℹ️ Currently, setting the viewport using `cy.viewport()` is not supported.
+
+</div>
