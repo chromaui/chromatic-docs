@@ -20,7 +20,7 @@ Key highlights on this release:
 - Edge version updated to version 121
 - Automatically pause videos and animated GIFs at their first frame
 - [`pauseAnimationAtEnd`](/docs/animations#css-animations) is now enabled by default
-- Adds support for [`parameters.viewport.defaultViewport`](/docs/viewports#using-defaultviewport)
+- Adds support for [`parameters.viewport.defaultViewport`](/docs/storybook/viewports#using-defaultviewport)
 
 ### Supported browsers versions
 
