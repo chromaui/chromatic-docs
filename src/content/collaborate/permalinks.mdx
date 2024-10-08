@@ -51,10 +51,12 @@ If your project's repository is a fork, it will appear in Chromatic with the for
 
 Subdomains have character and length limitations. Only letters and dash characters are supported, that means any unsupported characters in your branch name will be replaced with dashes. Multiple dashes will be replaced with one. If your branch name is longer than 37 characters it will be truncated.
 
-| Branch                                                 | Example Permalink                                                      |
-| ------------------------------------------------------ | ---------------------------------------------------------------------- |
-| feature---dashboard/fix-bug                            | `https://feature-dashboard-fix-bug--<appid>.chromatic.com`             |
-| thisisareallysuperduperextralongbranchname             | `https://thisisareallysuperduperextralongbranc--<appid>.chromatic.com` |
+| Branch                                     | Example Permalink                                                      |
+| ------------------------------------------ | ---------------------------------------------------------------------- |
+| feature/fix-bug                            | `https://feature-fix-bug--<appid>.chromatic.com`                       |
+| feature----fix-bug                         | `https://feature-fix-bug--<appid>.chromatic.com`                       |
+| feature---dashboard/fix-bug                | `https://feature-dashboard-fix-bug--<appid>.chromatic.com`             |
+| thisisareallysuperduperextralongbranchname | `https://thisisareallysuperduperextralongbranc--<appid>.chromatic.com` |
 
 ### Custom domain for your Storybook
 
