@@ -144,13 +144,12 @@
     "supports": ["CLI", "GitHub Action", "Config File"]
   },
   {
-    "option": "list",
     "flag": "--list",
     "description": "Outputs the list of available stories in your Storybook.<br/>Useful for [debugging and diagnosing issues](#diagnosing-issues).",
     "type": "boolean",
     "example": "`true`",
     "default": false,
-    "supports": ["CLI", "GitHub Action"]
+    "supports": ["CLI"]
   },
   {
     "option": "logFile",
