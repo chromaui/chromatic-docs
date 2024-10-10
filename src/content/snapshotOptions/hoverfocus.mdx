@@ -197,32 +197,9 @@ export const WithHoverState = {
 
 ## Focusing DOM elements
 
-Enabling focus states in your UI components is essential for ensuring usability, specifically for users navigating with a keyboard or other assistive technologies to interact with the UI seamlessly. Chromatic enables  
-
-Chromatic enables you to test how your UI components respond when a specific element receives focus, ensuring that they meet the required accessibility standards.
-
-When testing UIs, verifying how they respond when a specific element receives focus is essential. This is especially important for ensuring your UI is accessible and meets the required standards.
-
-enables you to test how your UI components respond when a specific element receives focus, ensuring that they meet the required accessibility standards.
-
-When testing UIs, verifying how they respond when a specific element receives focus is essential. This is especially important for ensuring your UI is accessible and meets the required standards. 
-
-
-{/* 
-To test how your UI components respond when a specific element receives focus, you can use Chromatic to capture the focused element in the snapshot, ensuring that your UI meets the required accessibility standards.
-
-When testing UIs, verifying how they respond when a specific element receives focus is essential. This is especially important for ensuring your UI is accessible and meets the required standards.
-
-
-By focusing on specific elements, you can test how your UI components respond to the focus state, ensuring that they are accessible and usable for all users. Chromatic enables pinpointing focus states in your UI components, allowing you to test how they respond to focus events and ensuring that they meet the required accessibility standards.
-
-. By enabling them in your UI, you're allowing users, specifically those navigating with a keyboard or other assistive technologies, to interact with the UI seamlessly and efficiently. 
-
-When testing UIs, verifying how they respond when a specific element receives focus is essential. This is especially important for ensuring your UI is accessible and meets the required standards. By focusing on specific elements, you can test how your UI components respond to the focus state, ensuring that they are accessible and usable for all users. Chromatic enables pinpointing focus states in your UI components, allowing you to test how they respond to focus events and ensuring that they meet the required accessibility standards. */}
-
 ### With Storybook
 
-If you're working with a UI element that provides a visual response to the user focusing on a specific element, whether with CSS or JavaScript, you can emulate this behavior by adjusting your tests to include a [`play`](https://storybook.js.org/docs/writing-stories/play-function) function that mirrors the user's interaction. For example:
+If you're working with a UI component that provides a visual response to the user focusing on a specific element, whether with CSS or JavaScript, you can simulate this behavior by adjusting your tests to include a [`play`](https://storybook.js.org/docs/writing-stories/play-function) function that mirrors the user's interaction. For example:
 
 ```ts title="src/components/Auth.stories.ts|tsx"
 // Adjust this import to match your framework (e.g., nextjs, vue3-vite)
@@ -257,54 +234,10 @@ export const Default: Story = {
   },
 };
 ```
-{/* , you can emulate this behavior by adjusting your story to include a `play` function that mirrors the user's interaction with the component. This function should focus on the element you want to test.
-
-
-If you're running tests with Storybook, you can emulate the user focusing on a specific element by adjusting your tests to include a [`play`]() function that mirrors the user's interaction with the component wh
-
-you can emulate the user focusing on a specific element by adjusting your story's to include an interaction test that */}
-
 
 ### With Playwright or Cypress
 
-To emulate the user focusing on a specific element in your Playwright or Cypress tests, you can use the built-in methods and verify how the UI responds when a specific element receives focus (e.g., buttons, inputs). When Chromatic runs your tests, it snapshots the focused element, enabling you to test JavaScript-based interactions that trigger focus events in your UI elements.
-
-{/* 
-This allows you to test JavaScript-based interactions that trigger focus events. When Chromatic runs your tests, it will capture the focused element in the snapshot.
-
-
-To emulate the user focusing on a specific element in your Playwright or Cypress tests, you can use the built-in `focus` methods and verify how the UI responds when a specific element receives focus (e.g., buttons, input fields). This allows you to test JavaScript-based interactions that trigger focus events. When Chromatic runs your tests, it will capture the focused element in the snapshot.
-
-
-
-To emulate the user focusing on a specific element in your Playwright or Cypress tests, you can use the built-in `focus` methods and verify how the UI responds when a specific element receives focus (e.g., buttons, input fields). This allows you to test JavaScript interactions that trigger focus events. When Chromatic runs your tests, it will capture the focused element in the snapshot. */}
-
-{/* to interact with UI elements and test JavaScript based interactions that trigger focus events.
-
-
- simulating how the UI responds when focused. 
-
- UI. When Chromatic runs your tests, it will 
-
-, enabling you to test JavaScript interactions that trigger focus events. 
-
-This method triggers the focus event on the element, allowing you to test how your component responds to the focus state.
-
-
-Caveat about css */}
-
-
-{/* To emulate the user focusing on a specific element in your Playwright or Cypress tests, you can you use the built-in `focus` methods and verify how the UI responds when a specific element recieves focus (e.g., buttons, input fields). When Chromatic runs your tests it will capture the focused element in the snapshot, enabling you to test J
-
-
-To emulate the user focusing on a specific element in your Playwright or Cypress tests, you can you use the built-in `focus` methods and verify how the UI responds when a specific element recieves focus (e.g., buttons, input fields), alowing you to test JavaScript interactions that trigger focus events. When Chromatic runs your tests it will capture the focused element in the snapshot.
-
-and verify how the UI responds when a specific element recieves focus (e.g., buttons, input fields). When Chromatic runs your tests it will capture the focused element in the snapshot, enabling you to test J
-
-To emulate the user focusing on a specific element in your Playwright or Cypress tests, you can use the Playwright's `focus` locator or Cypress's `focus` commands to verify how the UI behaves when the element is focused. When Chromatic runs your tests, it will capture the focused element in the snapshot, enabling you to test JavaScript interactions that trigger focus events.
-
-To emulate the user focusing on a specific element in your Playwright or Cypress tests, you can use the Playwright's [`focus`]() locator or Cypress's [`focus` command]() to test JavaScript interactions that trigger focus events in your UI elements. When Chromatic runs your tests, it will capture the focused element in the snapshot, enabling you to test JavaScript interactions that trigger focus events. */}
-
+If you're running tests with Playwright or Cypress, you can simulate JavaScript-based focus events using Playwright's `focus` [locator](https://playwright.dev/docs/next/api/class-locator#locator-focus) or Cypress's [`focus`](https://docs.cypress.io/api/commands/focus) command to verify how the UI responds when a specific element receives focus. For example:
 
 {/* prettier-ignore-start */}
 
@@ -350,7 +283,7 @@ To emulate the user focusing on a specific element in your Playwright or Cypress
 ## Frequently asked questions
 
 <details>
-<summary>Why are focused states visible in Storybook but not captured in a snapshot?</summary>
+<summary>Why are focus states visible in Storybook but not captured in a snapshot?</summary>
 
 By default, when Chromatic snapshots a Storybook story, it will trim the snapshot to the dimensions of the root node of the story. However, this behavior can lead to some inconsistencies, such as excluding outlined elements and other focus styles from the snapshot. 
 
@@ -377,3 +310,6 @@ const meta: Meta<typeof LoginForm> = {
 export default meta;
 ```
 </details>
+
+
+
