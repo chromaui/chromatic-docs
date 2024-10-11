@@ -9,7 +9,7 @@ sidebar: { order: 7 }
 
 Chromatic captures `position:sticky` and `position:fixed` elements in their initial positions once per snapshot.
 
-We do this because sticky and fixed elements can persist in the viewport even when content extends beyond the viewport. Since these elements can change with scroll, we use the initial position of the element when the browser loads to anchor where it appears in your snapshot.
+We do this because sticky and fixed elements can persist in the viewport even when content extends beyond it. Since these elements can change with scroll, we use the element's initial position when the browser loads to anchor it where it appears in your snapshot.
 
 For example, if your UI has a bottom positioned element the sticky element will appear in the bottom position when the browser loads, the remaining content will flow under it.
 
