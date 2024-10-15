@@ -13,6 +13,8 @@ Components can respond differently based on hover or focus events. Here are a fe
 
 ## JavaScript-triggered hover states
 
+If you're working with a component that relies on JavaScript to trigger hover states (e.g., tooltips, dropdowns), you can adjust your tests and include Storybook's [play](https://storybook.js.org/docs/writing-stories/play-function) function or [Playwright's](https://playwright.dev/docs/api/class-locator#locator-hover) and [Cypress's](https://docs.cypress.io/api/commands/hover) APIs to simulate the state and verify the component's behavior.
+
 {/* prettier-ignore-start */}
 
 <IntegrationSnippets>
@@ -26,7 +28,7 @@ Components can respond differently based on hover or focus events. Here are a fe
     * import { userEvent, waitFor, within } from "@storybook/testing-library";
     * import { expect } from "@storybook/jest";
     */
-    import { expect, userEvent, waitFor, within } from '@storybook/test'
+    import { expect, userEvent, waitFor, within } from "@storybook/test";
     
     import { LoginForm } from "./LoginForm";
 
@@ -38,17 +40,17 @@ Components can respond differently based on hover or focus events. Here are a fe
     export default meta;
     type Story = StoryObj<typeof LoginForm>;
     
-    export const WithInvalidCredentials: Story = {
+    export const Default: Story = {
       play: async ({ canvasElement }) => {
         const canvas = within(canvasElement);
-
         await userEvent.type(canvas.getByLabelText("email"), "test@email.com");
-        await userEvent.type(canvas.getByLabelText('password'), 'password');
-
-        await userEvent.hover(canvas.getByLabelText('password'));
+        
+        await userEvent.type(canvas.getByLabelText('password'), "password");
+        // Triggers the hover state
+        await userEvent.hover(canvas.getByLabelText("password"));
 
         await waitFor(async () => {
-          await expect(canvas.getByText('Must be at least 16 characters long')).toBeVisible();
+          await expect(canvas.getByText("Must be at least 16 characters long")).toBeVisible();
         };
       },
     };
@@ -62,12 +64,12 @@ Components can respond differently based on hover or focus events. Here are a fe
       test("Attempts to authenticate the user with invalid credentials", async ({ page }) => {
         await page.goto("/auth");
 
-        await page.locator('input[name="email"]').fill('test@email.com');
-        await page.locator('input[name="password"]').fill('password');
+        await page.locator('input[name="email"]').fill("test@email.com");
+        await page.locator('input[name="password"]').fill("password");
 
         await page.locator('input[name="password"]').hover();
-        await expect(page.getByText('Must be at least 16 characters long')).toBeVisible();
-      });
+        await expect(page.getByText("Must be at least 16 characters long")).toBeVisible();
+       });
     });
     ```
   </Fragment>
@@ -76,14 +78,12 @@ Components can respond differently based on hover or focus events. Here are a fe
     describe("Authentication", () => {
       it("Attempts to authenticate the user with invalid credentials", () => {
         cy.visit("/auth");
-
-        cy.get('input[type="email"]').type('test@email.com');
+        cy.get('input[type="email"]').type("test@email.com");
         cy.get('input[name="password"]').type("password");
 
-        cy.get('input[name="password"]').trigger('mouseover');
-        cy.get('span').contains('Enter a valid email address').should('be.visible');
-
-      });
+        cy.get('input[name="password"]').trigger("mouseover");
+        cy.get('span').contains("Enter a valid email address").should("be.visible");
+       });
     });
     ```
   </Fragment>
@@ -93,11 +93,11 @@ Components can respond differently based on hover or focus events. Here are a fe
 
 ## CSS :hover state
 
-The [`:hover`](https://developer.mozilla.org/en-US/docs/Web/CSS/:hover) pseudo-class in CSS allows precise styling on cursor hover. It's considered a "trusted event" for web browsers mainly because it's directly initiated by the user's interaction, making it difficult to simulate programmatically in a testing environment. Listed below are some recommendations for testing this state in Chromatic.
+The [`:hover`](https://developer.mozilla.org/en-US/docs/Web/CSS/:hover) pseudo-class in CSS allows precise styling on cursor hover. It's considered a "trusted event" for web browsers mainly because it's directly initiated by the user's interaction, making it difficult to simulate programmatically in a testing environment. Listed below are some recommendations for testing this state with Chromatic.
 
 ### With the Pseudo States addon
 
-The [`@storybook/addon-pseudo-states`](https://storybook.js.org/addons/storybook-addon-pseudo-states) addon allows you to toggle between different pseudo-classes (e.g., `hover`, `active`), allowing you to test these states. When enabled, the addon attempts to override the existing styles and apply a custom class to every element that contains any of the available pseudo-classes. To test the element's hover state, adjust your stories to include the `hover` option. For example:
+The [`@storybook/addon-pseudo-states`](https://storybook.js.org/addons/storybook-addon-pseudo-states) addon allows you to emulate different pseudo-classes (e.g., `hover`, `active`) by overriding the existing styles and applying a custom class selector to every element that contains any pseudo-classes. You can adjust your Storybook tests and include the `hover` option to test the component's hover state.
 
 ```ts title="src/components/Auth.stories.ts|tsx"
 // Adjust this import to match your framework (e.g., nextjs, vue3-vite)
@@ -125,35 +125,35 @@ export const Default: Story = {
 
 ### Using CSS class names
 
-If you're working with a component that relies on CSS classes to apply hover styles, you can adjust your component's styles to include class names that mirror the states you're trying to test. 
+If you're working with a component that relies on CSS classes to apply hover styles, you can adjust the component's styles to include class names that mirror the states you're trying to test. To do so, change your CSS file to include the required class names as follows:
 
-```css title="src/components/Auth.css"
-LoginForm:hover,
-LoginForm.hover {
+```css title="src/components/MyComponent.css"
+MyComponent:hover,
+MyComponent.hover {
   background: purple;
 }
 
-LoginForm:active,
-LoginForm.active {
+MyComponent:active,
+MyComponent.active {
   background: green;
 }
 ```
 
-Then, add a test that toggles the class names in your tests to simulate the hover state.
+Then, add a test that toggles the class name to simulate the hover state.
 
-```ts title="src/components/Auth.stories.ts|tsx"
+```ts title="src/components/MyComponent.stories.ts|tsx"
 // Adjust this import to match your framework (e.g., nextjs, vue3-vite)
 import type { Meta, StoryObj } from "@storybook/your-framework";
 
-import { LoginForm } from "./LoginForm";
+import { MyComponent } from "./MyComponent";
 
-const meta: Meta<typeof LoginForm> = {
-  component: LoginForm,
-  title: "LoginForm",
+const meta: Meta<typeof MyComponent> = {
+  component: MyComponent,
+  title: "MyComponent",
 };
 
 export default meta;
-type Story = StoryObj<typeof LoginForm>;
+type Story = StoryObj<typeof MyComponent>;
 
 export const HoverStatewithClass: Story = {
   args: {
@@ -248,7 +248,7 @@ If you're running tests with Playwright or Cypress, you can simulate JavaScript-
         cy.get('input[name="password"]').type("KC@2N6^?vsV+)w1t");
 
         cy.get('button[type="submit"]').focus();
-        cy.get('button[type="submit"]').should('have.focus');
+        cy.get('button[type="submit"]').should("have.focus");
       });
     });
     ```
@@ -276,9 +276,9 @@ import type { Meta, StoryObj } from "@storybook/your-framework";
 import { LoginForm } from "./LoginForm";
 
 const meta: Meta<typeof LoginForm> = {
-  component: LoginForm,
-  title: "LoginForm",
-  decorators: [
+ component: LoginForm,
+ title: "LoginForm",
+ decorators: [
     (Story) => (
       <div style={{ padding: "1em" }}>
         <Story />
@@ -290,5 +290,3 @@ const meta: Meta<typeof LoginForm> = {
 export default meta;
 ```
 </details>
-
-{/* TODO add CSS question */}
