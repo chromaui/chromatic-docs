@@ -7,91 +7,106 @@ sidebar: { order: 9 }
 
 # Check for Chromatic
 
-`isChromatic()` gives you full control over what code is executed in the Chromatic environment. Use it in your Storybook to omit/include behavior that will be captured in Chromatic's snapshots.
+The `isChromatic` method allows you to control how your Storybook tests run in the Chromatic environment. Use it to configure what features and behaviors are available when testing.
 
-## Use in .storybook/preview.js
+<div class="aside">
 
-This is useful when you want to change behavior of all stories when rendered in Chromatic.
+ℹ️  The `isChromatic` helper function is specific to Storybook tests. If you need to control what code is executed in your Playwright or Cypress tests, you can use environment variables or other mechanisms provided by those tools to achieve similar results.
 
-```js
-// .storybook/preview.js
+</div>
 
+## Global configuration
+
+If you're working with a framework-specific feature or library that prevents it from running in your tests, you can adjust your configuration file (i.e.,[`.storybook/preview.js|ts`](https://storybook.js.org/docs/configure#configure-story-rendering)) and add the `isChromatic` helper function, enabling you to configure how your tests run in Chromatic across your entire project. For example:
+
+```js title=".storybook/preview.js|ts"
 import isChromatic from "chromatic/isChromatic";
 
-// Disable animation
+// Disables animation in Chromatic
 if (isChromatic()) {
-  // The exact method to do this will depend on your animation techniques.
+  // The exact method depends on your animation techniques.
   AnimationLibrary.disable = true;
 }
 
-// Disable lazyloading
+// Disables lazyloading
 LazyLoad.disabled = isChromatic();
 ```
 
-## Use in \*.stories.js
+## Test-specific configuration
 
-This is useful when you want to change behavior of one component's stories when rendered in Chromatic.
+If you need more granular control over how your tests run in Chromatic, you can add the `isChromatic` helper function and set the available options accordingly. For example:
 
-```js
-// MyComponent.stories.js|jsx
-
-import { MyComponent } from "./MyComponent";
+```ts title="MyComponent.stories.ts|tsx"
+// Adjust this import to match your framework (e.g., nextjs, vue3-vite)
+import type { Meta, StoryObj } from "@storybook/your-framework";
 
 import isChromatic from "chromatic/isChromatic";
 
-export default {
+import { MyComponent } from "./MyComponent";
+
+const meta: Meta<typeof MyComponent> = {
   component: MyComponent,
   title: "MyComponent",
 };
 
-export const StoryName = {
+export default meta;
+type Story = StoryObj<typeof MyComponent>;
+
+export const Default: Story = {
   args: {
-    label: isChromatic() ? `I'm in Chromatic` : `Not in Chromatic`,
+    label: isChromatic() ? "I'm in Chromatic" : "Not in Chromatic",
   },
 };
 ```
 
-## Use in application or component code
+## Environment variables
 
-In rare instances, component behavior may need to be tailored for Chromatic testing environments. For example, [disabling animations](../animations/#javascript-animations) or lazy loading can improve test reliability. You can use `isChromatic` in your component code to make Chromatic-specific changes.
+If you're running Storybook tests with version 7.6 or higher, you can also use the `IS_CHROMATIC` environment variable to control how your tests run in Chromatic. To do so, adjust your `chromatic` script in your `package.json` file to include the environment variable as follows:
 
-Note: ensure that `chromatic` is available as a dependency in production code in this scenario.
-
-Exercise caution when using `isChromatic` directly in your component code. Our recommended practice is to make this behavior controllable via props so that you can utilize `isChromatic` within your Storybook configuration or stories. This offers a cleaner separation of concerns and keeps your component code agnostic to its testing environment.
-
-## With an environment variable
-
-If you're working with Storybook 7.0 or later, you can also adjust your `chromatic` script and add the `IS_CHROMATIC` environment variable to allow you to control the story's behavior when rendered in Chromatic.
-
-```json
+```json title="package.json"
 {
   "scripts": {
     "chromatic": "IS_CHROMATIC=true chromatic"
-  }
+ }
 }
 ```
 
-Then in your component story file, set the options (e.g., [args](https://storybook.js.org/docs/writing-stories/args), [parameters](https://storybook.js.org/docs/writing-stories/parameters)) based on the environment variable as follows:
+Then, in your tests, you can check for the `IS_CHROMATIC` environment variable and set the available options accordingly (e.g., [args](https://storybook.js.org/docs/writing-stories/args), [parameters](https://storybook.js.org/docs/writing-stories/parameters)).
 
-```js
-// MyComponent.stories.js|jsx
+```ts title="MyComponent.stories.ts|tsx"
+// Adjust this import to match your framework (e.g., nextjs, vue3-vite)
+import type { Meta, StoryObj } from "@storybook/your-framework";
 
 import { MyComponent } from "./MyComponent";
 
-export default {
+const meta: Meta<typeof MyComponent> = {
   component: MyComponent,
   title: "MyComponent",
 };
 
-export const StoryName = {
+export default meta;
+type Story = StoryObj<typeof MyComponent>;
+
+export const Default: Story = {
   args: {
-    label: process.env.IS_CHROMATIC ? `I'm in Chromatic` : `Not in Chromatic`,
+    label: process.env.IS_CHROMATIC ? "I'm in Chromatic" : "Not in Chromatic",
   },
 };
 ```
 
 <div class="aside">
 
-ℹ️ For Vite-based environments, you may be required to adjust your story to allow it to access the environment variable. See the [Vite documentation](https://vitejs.dev/guide/env-and-mode.html) for more information.
+ℹ️ For Vite-based environments, you may be required to adjust your test to allow it to access the environment variable. See the [Vite documentation](https://vitejs.dev/guide/env-and-mode.html) for more information.
 
 </div>
+
+## Using `isChromatic` in your application
+
+Under specific circumstances, your components may require different behavior when running in Chromatic (e.g., [disabling animations](/docs/animations/#javascript-animations), lazy loading). In these cases, you can use `isChromatic` directly in your components to control their behavior when tested. However, this approach can lead to unexpected behavior. We recommend using `isChromatic` only in your tests or via configuration to ensure a clear separation of concerns and make the code agnostic to the environment in which it's running.
+
+<div class="aside">
+
+ 💡 If you're attempting to make code-specific changes in your project with `isChromatic`, the Chromatic package must be installed as a dependency instead of a development dependency.
+
+</div>
+
