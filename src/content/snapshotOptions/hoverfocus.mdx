@@ -1,0 +1,292 @@
+---
+layout: "../../layouts/Layout.astro"
+title: Hover and focus states
+description: Learn how to capture hover and focus states
+sidebar: { order: 5, label: Hover and focus }
+---
+
+import IntegrationSnippets from "../../components/IntegrationSnippets.astro";
+
+# Hover and focus states
+
+Components can respond differently based on hover or focus events. Here are a few techniques for capturing the result of these user events Chromatic.
+
+## JavaScript-triggered hover states
+
+If you're working with a component that relies on JavaScript to trigger hover states (e.g., tooltips, dropdowns), you can adjust your tests and include Storybook's [play](https://storybook.js.org/docs/writing-stories/play-function) function or [Playwright's](https://playwright.dev/docs/api/class-locator#locator-hover) and [Cypress's](https://docs.cypress.io/api/commands/hover) APIs to simulate the state and verify the component's behavior.
+
+{/* prettier-ignore-start */}
+
+<IntegrationSnippets>
+  <Fragment slot="storybook">
+    ```ts title="src/components/Auth.stories.ts|tsx"
+    // Adjust this import to match your framework (e.g., nextjs, vue3-vite)
+    import type { Meta, StoryObj } from "@storybook/your-framework";
+
+    /*
+    * Replace the @storybook/test package with the following if you are using a version of Storybook earlier than 8.0:
+    * import { userEvent, waitFor, within } from "@storybook/testing-library";
+    * import { expect } from "@storybook/jest";
+    */
+    import { expect, userEvent, waitFor, within } from "@storybook/test";
+    
+    import { LoginForm } from "./LoginForm";
+
+    const meta: Meta<typeof LoginForm> = {
+      component: LoginForm,
+      title: "LoginForm",
+    };
+
+    export default meta;
+    type Story = StoryObj<typeof LoginForm>;
+    
+    export const Default: Story = {
+      play: async ({ canvasElement }) => {
+        const canvas = within(canvasElement);
+        await userEvent.type(canvas.getByLabelText("email"), "test@email.com");
+        
+        await userEvent.type(canvas.getByLabelText('password'), "password");
+        // Triggers the hover state
+        await userEvent.hover(canvas.getByLabelText("password"));
+
+        await waitFor(async () => {
+          await expect(canvas.getByText("Must be at least 16 characters long")).toBeVisible();
+        };
+      },
+    };
+    ```
+  </Fragment>
+  <Fragment slot="playwright">
+    ```ts title="tests/Auth.spec.js|ts"
+    import { expect, test } from "@chromatic-com/playwright";
+
+    test.describe("Authentication", () => {
+      test("Attempts to authenticate the user with invalid credentials", async ({ page }) => {
+        await page.goto("/auth");
+
+        await page.locator('input[name="email"]').fill("test@email.com");
+        await page.locator('input[name="password"]').fill("password");
+
+        await page.locator('input[name="password"]').hover();
+        await expect(page.getByText("Must be at least 16 characters long")).toBeVisible();
+       });
+    });
+    ```
+  </Fragment>
+  <Fragment slot="cypress">
+    ```ts title="cypress/e2e/Auth.cy.js|ts"
+    describe("Authentication", () => {
+      it("Attempts to authenticate the user with invalid credentials", () => {
+        cy.visit("/auth");
+        cy.get('input[type="email"]').type("test@email.com");
+        cy.get('input[name="password"]').type("password");
+
+        cy.get('input[name="password"]').trigger("mouseover");
+        cy.get('span').contains("Enter a valid email address").should("be.visible");
+       });
+    });
+    ```
+  </Fragment>
+</IntegrationSnippets>
+
+{/* prettier-ignore-end */}
+
+## CSS :hover state
+
+The [`:hover`](https://developer.mozilla.org/en-US/docs/Web/CSS/:hover) pseudo-class in CSS allows precise styling on cursor hover. It's considered a "trusted event" for web browsers mainly because it's directly initiated by the user's interaction, making it difficult to simulate programmatically in a testing environment. Listed below are some recommendations for testing this state with Chromatic.
+
+### With the Pseudo States addon
+
+The [`@storybook/addon-pseudo-states`](https://storybook.js.org/addons/storybook-addon-pseudo-states) addon allows you to emulate different pseudo-classes (e.g., `hover`, `active`) by overriding the existing styles and applying a custom class selector to every element that contains any pseudo-classes. You can adjust your Storybook tests and include the `hover` option to test the component's hover state.
+
+```ts title="src/components/Auth.stories.ts|tsx"
+// Adjust this import to match your framework (e.g., nextjs, vue3-vite)
+import type { Meta, StoryObj } from "@storybook/your-framework";
+
+import { LoginForm } from "./LoginForm";
+
+const meta: Meta<typeof LoginForm> = {
+  component: LoginForm,
+  title: "LoginForm",
+};
+
+export default meta;
+type Story = StoryObj<typeof LoginForm>;
+
+export const Default: Story = {
+  parameters: {
+    pseudo: {
+      // The hover option can be toggled for selected elements. For more information see the addon's documentation.
+      hover: true,
+    },
+  },
+}
+```
+
+### Using CSS class names
+
+If you're working with a component that relies on CSS classes to apply hover styles, you can adjust the component's styles to include class names that mirror the states you're trying to test. To do so, change your CSS file to include the required class names as follows:
+
+```css title="src/components/MyComponent.css"
+MyComponent:hover,
+MyComponent.hover {
+  background: purple;
+}
+
+MyComponent:active,
+MyComponent.active {
+  background: green;
+}
+```
+
+Then, add a test that toggles the class name to simulate the hover state.
+
+```ts title="src/components/MyComponent.stories.ts|tsx"
+// Adjust this import to match your framework (e.g., nextjs, vue3-vite)
+import type { Meta, StoryObj } from "@storybook/your-framework";
+
+import { MyComponent } from "./MyComponent";
+
+const meta: Meta<typeof MyComponent> = {
+  component: MyComponent,
+  title: "MyComponent",
+};
+
+export default meta;
+type Story = StoryObj<typeof MyComponent>;
+
+export const HoverStatewithClass: Story = {
+  args: {
+    className: "hover",
+  },
+};
+
+export const ActiveStatewithClass: Story = {
+  args: {
+    className: "active",
+  },
+};
+```
+
+<div class="aside">
+ℹ️ This approach requires manually toggling the class names in your component's test to simulate the necessary states. If you're using a CSS-in-JS framework, you can [automate](https://github.com/Workday/canvas-kit/pull/377/files) this process by creating a JavaScript wrapper that adds the class names programmatically.
+</div>
+
+## Focusing DOM elements
+
+Interacting with components often involves focusing on specific elements, such as form fields, buttons, or links. This state is essential in providing visual feedback to the user, primarily when relying on keyboard navigation. Chromatic allows you to verify how components react when a specific element receives focus, ensuring that your UI is accessible and provides a seamless user experience across different devices and browsers.
+
+### With Storybook
+
+If you're working with a component that provides a visual response to the user focusing on a specific element, whether with CSS or JavaScript, you can simulate this behavior by adjusting your tests to include a [`play`](https://storybook.js.org/docs/writing-stories/play-function) function that mirrors the user's interaction. For example:
+
+```ts title="src/components/Auth.stories.ts|tsx"
+// Adjust this import to match your framework (e.g., nextjs, vue3-vite)
+import type { Meta, StoryObj } from "@storybook/your-framework";
+
+/*
+* Replace the @storybook/test package with the following if you are using a version of Storybook earlier than 8.0:
+* import { userEvent, within } from "@storybook/testing-library";
+* import { expect } from "@storybook/jest";
+*/
+import { expect, userEvent, within } from "@storybook/test";
+
+import { LoginForm } from "./LoginForm";
+
+const meta: Meta<typeof LoginForm> = {
+  component: LoginForm,
+  title: "LoginForm",
+};
+
+export default meta;
+type Story = StoryObj<typeof LoginForm>;
+
+export const Default: Story = {
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    await userEvent.type(canvas.getByLabelText("email"), "test@email.com");
+    await userEvent.type(canvas.getByLabelText("password"), "KC@2N6^?vsV+)w1t");
+
+    const SubmitButton = canvas.getByRole("button", { name: "Login" });
+    await SubmitButton.focus();
+    await expect(SubmitButton).toHaveFocus();
+  },
+};
+```
+
+### With Playwright or Cypress
+
+If you're running tests with Playwright or Cypress, you can simulate JavaScript-based focus events using Playwright's `focus` [locator](https://playwright.dev/docs/next/api/class-locator#locator-focus) or Cypress's `focus` [command](https://docs.cypress.io/api/commands/focus) to verify how the UI responds when a specific element receives focus. For example:
+
+{/* prettier-ignore-start */}
+
+<IntegrationSnippets>
+  <Fragment slot="playwright" visible="true">
+    ```ts title="tests/Auth.spec.js|ts"
+    import { test, expect } from "@chromatic-com/playwright";
+
+    test.describe("Authentication", () => {
+      test("Verifies the authentication works with keyboard navigation", async ({ page }) => {
+        await page.goto("/auth");
+
+        await page.locator('input[name="email"]').fill("test@email.com");
+        await page.locator('input[name="password"]').fill("KC@2N6^?vsV+)w1t");
+
+        await page.getByRole("button", {name: "Login"}).focus();
+        await expect(page.getByRole("button")).toBeFocused();
+      });
+    });
+    ```
+  </Fragment>
+  <Fragment slot="cypress" visible="true">
+    ```ts title="cypress/e2e/Auth.cy.js|ts"
+    describe("Authentication", () => {
+      it("Verifies the authentication works with keyboard navigation", () => {
+        cy.visit("/auth");
+
+        cy.get('input[name="email"]').type("test@email.com");
+        cy.get('input[name="password"]').type("KC@2N6^?vsV+)w1t");
+
+        cy.get('button[type="submit"]').focus();
+        cy.get('button[type="submit"]').should("have.focus");
+      });
+    });
+    ```
+  </Fragment>
+</IntegrationSnippets>
+
+{/* prettier-ignore-end */}
+
+---
+
+## Frequently asked questions
+
+<details>
+<summary>Why are focus states visible in Storybook but not captured in a snapshot?</summary>
+
+By default, when Chromatic snapshots a Storybook story, it trims the snapshot to the dimensions of the story's root node. However, this behavior can lead to inconsistencies, such as excluding outlined elements and other focus styles from the snapshot. 
+
+To solve it, you can adjust your story and provide a [decorator](https://storybook.js.org/docs/writing-stories/decorators#component-decorators) that introduces some padding to the story, enabling it to be snapshotted correctly.
+
+
+```ts title="src/components/Login.stories.ts|tsx"
+// Adjust this import to match your framework (e.g., nextjs, vue3-vite)
+import type { Meta, StoryObj } from "@storybook/your-framework";
+
+import { LoginForm } from "./LoginForm";
+
+const meta: Meta<typeof LoginForm> = {
+ component: LoginForm,
+ title: "LoginForm",
+ decorators: [
+    (Story) => (
+      <div style={{ padding: "1em" }}>
+        <Story />
+      </div>
+    ),
+  ],
+};
+
+export default meta;
+```
+</details>
