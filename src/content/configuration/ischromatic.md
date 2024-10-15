@@ -9,6 +9,12 @@ sidebar: { order: 9 }
 
 The `isChromatic` method allows you to control how your Storybook tests run in the Chromatic environment. Use it to configure what features and behaviors are available when testing.
 
+<div class="aside">
+
+ℹ️  The `isChromatic` helper function is specific to Storybook tests. If you need to control what code is executed in your Playwright or Cypress tests, you can use environment variables or other mechanisms provided by those tools to achieve similar results.
+
+</div>
+
 ## Global configuration
 
 If you're working with a framework-specific feature or library that prevents it from running in your tests, you can adjust your configuration file (i.e.,[`.storybook/preview.js|ts`](https://storybook.js.org/docs/configure#configure-story-rendering)) and add the `isChromatic` helper function, enabling you to configure how your tests run in Chromatic across your entire project. For example:
@@ -104,13 +110,3 @@ Under specific circumstances, your components may require different behavior whe
 
 </div>
 
----
-
-## Frequently asked questions
-
-<details>
-<summary>Can I use isChromatic with Playwright or Cypress tests?</summary>
-
-No. The `isChromatic` helper function is specific to Storybook tests. If you need to control what code is executed in your Playwright or Cypress tests, you can use environment variables or other mechanisms provided by those tools to achieve similar results.
-
-</details>
