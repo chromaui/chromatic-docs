@@ -1,0 +1,25 @@
+---
+layout: "../../../layouts/FAQLayout.astro"
+sidebar: { hide: true }
+title: Override the branch name for certain CI providers
+section: ci
+---
+
+# Override the branch name if Chromatic is unable to identify the correct one on CI?
+
+In some cases, Chromatic's automatic CI detection is unable to figure out the branch name associated with a build. You'll see a message like this in your build logs:
+
+```bash
+Removing unknown owner prefix from branch name. You may wish to set the branch directly to avoid incorrect values.
+```
+
+In this case, set the branch name directly by configuring the `CHROMATIC_SHA`, `CHROMATIC_BRANCH`, and `CHROMATIC_SLUG` environment variables. For example, in a GitHub Actions workflow:
+
+```yaml
+- name: Chromatic
+  env:
+    CHROMATIC_SHA: ${{ github.sha }}
+    CHROMATIC_BRANCH: ${{ github.ref }}
+    CHROMATIC_SLUG: ${{ github.repository }}
+  run: npx chromatic --project-token=$CHROMATIC_PROJECT_TOKEN
+```
