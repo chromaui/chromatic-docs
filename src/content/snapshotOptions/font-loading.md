@@ -9,7 +9,7 @@ sidebar: { order: 2 }
 
 Browsers can decide to render HTML in multiple passes when custom fonts are used. They do this to speed up the time-to-first-meaningful-paint.
 
-Unfortunately, this behavior can cause your story to render without the custom font. Or worse, render inconsistently. That triggers font rendering changes that you have to accept again and again. Here are ways to prevent that.
+Unfortunately, this behavior can cause your tests to render without the custom font or, worse, render inconsistently. That triggers font rendering changes that you have to accept again and again. Here are ways to prevent that.
 
 ## Best practice: Fallback to web-safe fonts
 
