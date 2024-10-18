@@ -126,15 +126,6 @@
     "supports": ["CLI", "GitHub Action"]
   },
   {
-    "option": "isLocalBuild",
-    "restriction": "Node.js API only",
-    "description": "Mark the build as \"local\".",
-    "type": "boolean",
-    "example": "`true`",
-    "default": false,
-    "supports": ["CLI", "GitHub Action"]
-  },
-  {
     "option": "junitReport",
     "flag": "--junit-report",
     "description": "When enabled, write the build results to a JUnit XML file.<br/>Defaults to `chromatic-build-{buildNumber}.xml` where the `{buildNumber}` will be replaced with the actual build number.",
