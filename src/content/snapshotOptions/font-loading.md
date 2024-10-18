@@ -15,7 +15,7 @@ Unfortunately, this behavior can cause your story to render without the custom f
 
 Web font loading can vary between browsers, versions, and operating systems. Web-safe fonts are commonly installed by default on browsers and operating systems. We recommend you include a web-safe font in your font stack as a fallback in case your web font isn't available or doesn't load as expected.
 
-```css
+```css title="src/index.css"
 /* Fallback to "Courier New" for monospace fonts */
 
 code {
@@ -36,11 +36,9 @@ code {
 
 ## Solution A: Preload fonts
 
-We recommend that you ensure fonts are always loaded prior to rendering the story. Preload fonts in Storybook by specifying them in `./storybook/preview-head.html`.
+We recommend that you always ensure fonts are loaded before your tests are executed. With Storybook, you can preload fonts by specifying them in [`./storybook/preview-head.html`](https://storybook.js.org/docs/configure/story-rendering#adding-to-head).
 
-```js
-// ./storybook/preview-head.html
-
+```js title="./storybook/preview-head.html"
 <link
   rel="preload"
   href="path/to/font.woff2"
@@ -60,9 +58,7 @@ If your CSS has global `@font-face` declarations that point to a CDN, you may ne
 
 For example, you might have a font CDN referenced in your stylesheets like so.
 
-```css
-/* yourglobalstyles.css */
-
+```css title="src/index.css"
 @font-face {
   font-display: optional;
   font-family: "YourFont";
@@ -76,9 +72,7 @@ To serve the fonts statically, you first need to put your fonts in a static dire
 
 Next, create a `yourfontface.css` CSS inside your Storybook configuration directory (i.e., `.storybook`). We'll use it to reference the local path for your font in the `../public` directory.
 
-```css
-/* ./storybook/yourfontface.css */
-
+```css title="./storybook/yourfontface.css"
 @font-face {
   font-display: optional;
   font-family: "YourFont";
@@ -89,24 +83,19 @@ Next, create a `yourfontface.css` CSS inside your Storybook configuration direct
 }
 ```
 
-Reference the stylesheet in Storybook's `preview-head.html` configuration to load the font from the local path.
+Reference the stylesheet in Storybook's [`preview-head.html`](https://storybook.js.org/docs/configure/story-rendering#adding-to-head) configuration file to load the font from the local path.
 
-```js
-// ./storybook/preview-head.html
-
-// 👇 Add this
+```js title="./storybook/preview-head.html"
 <link rel="stylesheet" type="text/css" href="/yourfontface.css">
 ```
 
-This technique loads a local font file during development and testing in Storybook. Meanwhile your users still load the font from the CDN in production.
+This technique loads a local font file during development and testing in Storybook. Meanwhile, your users are still loading the font from the CDN in production.
 
 ## Solution C: Check fonts have loaded in a loader
 
 This alternate solution uses the browser's font load API and the [`isChromatic()`](/docs/ischromatic) helper function to verify that fonts load when in the Chromatic environment.
 
-```js
-// .storybook/preview.js
-
+```js title="./storybook/preview.js|ts"
 import isChromatic from "chromatic/isChromatic";
 
 // Use the document.fonts API to check if fonts have loaded
