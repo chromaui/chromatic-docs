@@ -111,7 +111,7 @@ MotionGlobalConfig.skipAnimations = isChromatic();
 
 ### Playwright and Cypress
 
-When using Playwright or Cypress, you can assert that specific elements are visible in the DOM to confirm an animation has finished. Alternatively, use `wait` or `waitForTimeout` functions to wait for the animation to complete.
+When using Playwright or Cypress, you can assert that specific elements are visible in the DOM to confirm an animation has finished. Alternatively, use the `wait` or `waitForTimeout` functions to wait for the animation to complete.
 
 Another strategy is to inject a variable into the window object to disable animations. For example, in your E2E test, set the `disableAnimations` property on the `window` object to `true`.
 
