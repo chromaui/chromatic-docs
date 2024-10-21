@@ -90,7 +90,11 @@ By default, CSS animations are paused at the end of their animation cycle (i.e.,
 
 ## JavaScript animations
 
-If you're working with JavaScript animations libraries (e.g., [framer-motion](https://www.framer.com/motion/)), Chromatic will not have the same level of control over the animations as CSS animations and will not disable them by default. We recommend toggling off the animation library when running in Chromatic to ensure consistent visual tests and avoid false positives. You can do this via the [`isChromatic()`](/docs/ischromatic) utility function. For example, to turn off animations globally in framer-motion (v10.17.0 and above), you can set the `MotionGlobalConfig.skipAnimations` option as follows:
+If you're working with JavaScript animations libraries (e.g., [framer-motion](https://www.framer.com/motion/)), Chromatic will not have the same level of control over the animations as CSS animations and will not disable them by default. We recommend toggling off the animation library when running in Chromatic to ensure consistent visual tests and avoid false positives.
+
+### Storybook
+
+You can conditionally disable animations using the [`isChromatic()`](/docs/ischromatic) utility function. For example, to turn off animations globally in framer-motion (v10.17.0 and above), you can set the `MotionGlobalConfig.skipAnimations` option as follows:
 
 ```ts title=".storybook/preview.js|ts"
 import { MotionGlobalConfig } from "framer-motion";
@@ -104,6 +108,60 @@ MotionGlobalConfig.skipAnimations = isChromatic();
 ℹ️ For more information on disabling animations in other libraries, refer to the library's documentation or community resources to learn how to achieve this.
 
 </div>
+
+### Playwright and Cypress
+
+When using Playwright or Cypress, you can assert that specific elements are visible in the DOM to confirm an animation has finished. Alternatively, use the `wait` or `waitForTimeout` functions to wait for the animation to complete.
+
+Another strategy is to inject a variable into the window object to disable animations. For example, in your E2E test, set the `disableAnimations` property on the `window` object to `true`.
+
+{/* prettier-ignore-start */}
+
+<IntegrationSnippets>
+  <Fragment slot="playwright">
+    ```ts title="tests/Product.spec.js|ts"
+    import { test, expect } from "@chromatic-com/playwright";
+
+    test.describe("Products Page", () => {
+      test("Successfully loads the page", async ({ page }) => {
+        // Set a property on the the window object to disable animations.
+        await page.addInitScript(() => {
+          window.disableAnimations = true
+        });
+
+        await page.goto("/products");
+        await expect(page.getByText("Product details")).toBeVisible();
+      });
+    });
+    ```
+  </Fragment>
+  <Fragment slot="cypress">
+    ```ts title="cypress/e2e/Product.cy.js|ts"
+    describe("Not found", () => {
+        // Set a property on the the window object to disable animations.
+        Cypress.on('window:before:load', (win) => {
+          win.disableAnimations = true
+        })
+
+      it("Successfully loads the page", () => {
+        cy.visit("/products");
+        cy.get("h3").should("contain", "Product details");
+      });
+    });
+    ```
+  </Fragment>
+</IntegrationSnippets>
+
+{/* prettier-ignore-end */}
+
+Then read the value of the `disableAnimations` property in your application code to conditionally disable animations.
+
+```js
+// @ts-ignore
+if (window.disableAnimations) {
+  MotionGlobalConfig.skipAnimations = true;
+}
+```
 
 ## GIFs and Videos
 
