@@ -143,9 +143,7 @@ Another strategy is to inject a variable into the window object to disable anima
           win.disableAnimations = true
         })
 
-      it("Successfully loads the page", { env: {
-        pauseAnimationAtEnd: false // Overrides the default behavior and pauses the animation at the first frame for this test.
-      }}, () => {
+      it("Successfully loads the page", () => {
         cy.visit("/products");
         cy.get("h3").should("contain", "Product details");
       });
