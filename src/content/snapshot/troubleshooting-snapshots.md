@@ -32,6 +32,13 @@ Once you rerun a build, the subsequent build will feature a "Traces" column. Thi
 
 ![Build 2 was a rerun build so it has an additional "traces" column](../../images/view-trace.png)
 
+<details>
+  <summary>Why does the Trace Viewer indicate that Chromatic captured multiple screenshots for a test?</summary>
+
+During the capture process, Chromatic continually takes screenshots until it either reaches the maximum allowed timeout or it captures two matching screenshots, indicating that the page has settled. This ensures the snapshot is consistent and that UI is in its final state.
+
+</details>
+
 ### How to use the snapshot trace?
 
 Chromatic uses Playwright to render and capture snapshots in its [Capture Cloud](/docs/infrastructure-release-notes), even if your tests are written using Cypress or Storybook. Therefore, it's able to leverage Playwright's [built-in capability](https://playwright.dev/docs/trace-viewer#network) to generate these traces. These traces capture network activity, console logs, DOM snapshots, and other debugging information.
