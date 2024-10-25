@@ -18,6 +18,14 @@
     "supports": ["CLI", "GitHub Action"]
   },
   {
+    "option": "buildCommand",
+    "flag": "--build-command",
+    "description": "The command that builds your Storybook. Use this if your Storybook build command does not exist in the \"scripts\" field of your package.json.<br/>Requires `--output-dir`.",
+    "type": "string",
+    "example": "`\"nx run my-app:build-storybook\"`",
+    "supports": ["CLI", "GitHub Action", "Config File"]
+  },
+  {
     "option": "buildScriptName",
     "flag": "--build-script-name",
     "shortFlag": "-b",
