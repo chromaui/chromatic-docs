@@ -1,34 +1,34 @@
 ---
 layout: "../../../layouts/FAQLayout.astro"
 sidebar: { hide: true }
-title: How do I link my Git user to my Chromatic user?
+title: How do I link my Git account to my Chromatic account?
 section: account
 ---
 
-# How do I connect my Git user to my Chromatic user?
+# Link Git account to Chromatic account
 
-If you have an email/password user, you can link it to your Git account.
+## Link your Git account to your Chromatic account
 
-Open the Profile page: https://www.chromatic.com/profile
+If you registered your Chromatic account using an email and password, you can link it to a Git provider like GitHub or BitBucket.
 
-Below `Connect`, tab the Git provider of your choise and follow the steps on Git side to authorize Chromatic to link both users. 
+1. Open the Profile page: https://www.chromatic.com/profile
+2. Below `Connect`, tab the Git provider of your choise and follow the steps on Git side to authorize Chromatic to link both users. 
 
-To disconnect your Git user, press `Disconnect`. 
+You can connect to more than one Git provider.
 
-One user can be connected to more than 1 Git user.
+### Error when trying to connect a Git account
 
+If you encounter an `Authentication error: Failed to login as OAuth user` while trying to connect to a Git account, it means a Chromatic account already exists with that particular Git account. You probably created that account by mistake, so you can delete it:
 
-### I hit error `Authentication error. Failed to login as OAuth user` when I try to connect my Git user
+1. Log out of your current account
+2. Go to the login page: https://www.chromatic.com/start
+3. Press Connect with the Git provider. Pick of your choice and access the second account.
+4. Open the Profile page: https://www.chromatic.com/profile
+5. Scroll down and [remove the user](/docs/faq/delete-my-profile/).
 
-This error means the Git user already exists. If you created it by mistake, log out from the current account.
+Then go back to the initial account and try to connect the Git account via the profile page.
 
-Go to the login page: https://www.chromatic.com/start
+## Unlink your Git account
 
-Press Connect with the Git provider of your choise and access the second account.
-
-Open the Profile page: https://www.chromatic.com/profile
-
-Scroll down and [remove the user](docs/faq/delete-my-profile/).
-
-Then go back to the initial account and try to connect the Git user in the Profile page.
-
+1. Open the Profile page: https://www.chromatic.com/profile
+2. Press `Disconnect`
