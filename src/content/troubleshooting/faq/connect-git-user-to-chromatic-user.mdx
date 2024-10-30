@@ -1,0 +1,34 @@
+---
+layout: "../../../layouts/FAQLayout.astro"
+sidebar: { hide: true }
+title: How do I link my Git account to my Chromatic account?
+section: account
+---
+
+# Link Git account to Chromatic account
+
+## Link your Git account to your Chromatic account
+
+If you registered your Chromatic account using an email and password, you can link it to a Git provider like GitHub or BitBucket.
+
+1. Open the Profile page: https://www.chromatic.com/profile
+2. Below `Connect`, tab the Git provider of your choise and follow the steps on Git side to authorize Chromatic to link both users. 
+
+You can connect to more than one Git provider.
+
+### Error when trying to connect a Git account
+
+If you encounter an `Authentication error: Failed to login as OAuth user` while trying to connect to a Git account, it means a Chromatic account already exists with that particular Git account. You probably created that account by mistake, so you can delete it:
+
+1. Log out of your current account
+2. Go to the login page: https://www.chromatic.com/start
+3. Press Connect with the Git provider. Pick of your choice and access the second account.
+4. Open the Profile page: https://www.chromatic.com/profile
+5. Scroll down and [remove the user](/docs/faq/delete-my-profile/).
+
+Then go back to the initial account and try to connect the Git account via the profile page.
+
+## Unlink your Git account
+
+1. Open the Profile page: https://www.chromatic.com/profile
+2. Press `Disconnect`
