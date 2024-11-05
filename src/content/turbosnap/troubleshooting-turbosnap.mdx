@@ -114,7 +114,13 @@ Full rebuilds can be required for various reasons (see the list in [how it works
 
 ## Why is my build failing with an <code>Out of memory error</code>?
 
-If you have a large dependency tree, the build process may fail due to an out of memory error. Re-run Chromatic's CLI with the `NODE_OPTIONS=--max_old_space_size=4096` (or higher) environment variable to increase the amount of available memory. Your CI provider may require additional configuration to allow more memory usage.
+An `Out of Memory` error typically happens when the Node.js process runs out of allocated memory, especially if your project has a large dependency tree or TurboSnap is enabled. Here are a few steps that can help resolve this issue:
+
+- **Increase Node.js memory allocation:** Try rerunning Chromatic’s CLI with a higher memory limit by setting `NODE_OPTIONS=--max_old_space_size=4096` (4GB) or higher. This provides more memory to Node.js, which can help with larger builds.
+
+- **Adjust CI runner memory settings:** Make sure your CI runner has sufficient memory. Chromatic recommends a minimum of 4GB, and if needed, up to 8GB. Some CI providers may require specific configurations to allocate more memory to certain steps or to the entire runner environment.
+
+Builds are split between your environment and Chromatic’s. Processes that require access to your code (like dependency tracing) run in your environment, while tasks like the Capture process run on Chromatic’s end.
 
 ## Why do merge commits test more changes than I expect?
 
