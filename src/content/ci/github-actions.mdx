@@ -120,7 +120,7 @@ In your `.github/workflows` directory, create a new file called `chromatic.yml` 
         name: Run Cypress
         runs-on: ubuntu-latest
         container:
-          image: cypress/browsers:node-20.17.0-chrome-128.0.6613.119-1-ff-130.0-edge-128.0.2739.63-1
+          image: cypress/browsers:node-20.18.0-chrome-130.0.6723.69-1-ff-131.0.3-edge-130.0.2849.52-1
           options: --user 1001
         steps:
           - uses: actions/checkout@v4

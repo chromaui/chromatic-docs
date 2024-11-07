@@ -153,7 +153,7 @@ To integrate Chromatic with your existing pipeline, you'll need to add the follo
         jobs:
           - job: Cypress
             displayName: "Run Cypress"
-            container: cypress/browsers:node-20.17.0-chrome-128.0.6613.119-1-ff-130.0-edge-128.0.2739.63-1
+            container: cypress/browsers:node-20.18.0-chrome-130.0.6723.69-1-ff-131.0.3-edge-130.0.2849.52-1
             variables:
               npm_config_cache: $(Pipeline.Workspace)/.npm
             steps:
