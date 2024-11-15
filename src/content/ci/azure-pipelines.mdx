@@ -572,3 +572,184 @@ npx chromatic --skip '@(renovate/**|your-custom-branch/**)'
 ```
 
 [globs guide]: /docs/globs
+
+### Configure Status checks for PRs within Azure Pipelines
+
+#### The Flow of Azure Pipelines with Chromatic
+
+1. Create a Pull Request
+2. Chromatic runs UI Tests
+3. The status of the build is reported through a webhook connection.
+
+- The webhook connection is used to:
+  - Get the build info and updates, including the webUrl
+  - Confirm whether the build status is green (read more on the build statuses [here](/docs/custom-webhooks/#build-result-and-status-codes))
+
+#### Setup UI Test Status Checks
+
+1. Create an Azure Function
+2. Configure the Webhook to push to the endpoint - read more about Chromatic webhooks [here](/docs/custom-webhooks)
+3. Take the Chromatic Webhook response and translate the response for the Azure Pipeline
+
+One of the fields in the Chromatic Webhook is called branch which you can use to get the specific PR and search for any open PRs attached to the branch. This helps to figure out what Azure Pipeline build corresponds to the commit in GitHub
+
+We have a sample implementation for Azure Functions that I'm more than happy to share below:
+
+```js title="azure-function"
+const azureDevOps = require("azure-devops-node-api");
+const {
+  GitStatusState,
+} = require("azure-devops-node-api/interfaces/GitInterfaces");
+const azureStorage = require("azure-storage");
+
+const orgUrl = "https://dev.azure.com/org-id/";
+const repositoryId = "xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx";
+const azStorageAccountName = "your-storage-account-name";
+const azStorageAccessKey = "your-storage-account-access-key";
+
+module.exports = async function (context, req) {
+  context.log("Starting Chromatic Webhook Handler Execution");
+  context.log("Azure Function Input:", req.body);
+
+  let token;
+
+  try {
+    // We use Azure Storage to store the token provided in order to authenticate with the Azure DevOps API
+    context.log("Trying to get Azure DevOps API token from Azure Storage");
+    const blobService = azureStorage.createBlobService(
+      azStorageAccountName,
+      azStorageAccessKey,
+    );
+    const secretBlob = await new Promise((resolve, reject) => {
+      blobService.getBlobToText(
+        "your-secret-blob-container",
+        "your-secret-blob-name",
+        (error, result) => {
+          if (error) {
+            reject(error);
+          } else {
+            resolve(result);
+          }
+        },
+      );
+    });
+    token = JSON.parse(secretBlob).chromaticAzureToken;
+    context.log("Token successfully retrieved from Azure Storage");
+    if (!token) throw new Error("Token retrieved but not set to a value");
+  } catch (error) {
+    context.log.error("Failed to retrieve token from Azure Storage", error);
+    return { status: 500, body: error.message };
+  }
+
+  const { commit, webUrl, branch, status } = req.body.build;
+
+  const authHandler = azureDevOps.getPersonalAccessTokenHandler(token);
+  const connection = new azureDevOps.WebApi(orgUrl, authHandler);
+
+  try {
+    context.log("Attempting to get API");
+    const azdevGit = await connection.getGitApi();
+
+    const prs = await azdevGit.getPullRequests(repositoryId, {
+      sourceRefName: `refs/heads/${branch}`,
+    });
+    // TODO: account for multiple PRs open on same branch
+    const pr = prs[0];
+
+    if (!pr) {
+      // If there are no PRs open on the branch, then there is no need to update the status. Return Success code.
+      context.res = {
+        status: 200,
+        body: `No PR found open for branch ${branch}`,
+      };
+      return;
+    }
+
+    const prId = pr.pullRequestId;
+
+    // Mapping for the Chromatic Webhook status to the Azure DevOps GitStatusState
+    const prStatuses = {
+      DENIED: {
+        state: GitStatusState.Failed,
+        description: "Chromatic Visual Tests Denied",
+      },
+      PENDING: {
+        state: GitStatusState.Pending,
+        description: "Chromatic Visual Tests Pending Review",
+      },
+      ACCEPTED: {
+        state: GitStatusState.Succeeded,
+        description: "Chromatic Visual Tests Changes Approved",
+      },
+      PASSED: {
+        state: GitStatusState.Succeeded,
+        description: "Chromatic Visual Tests Passed",
+      },
+      FAILED: {
+        state: GitStatusState.Failed,
+        description: "Chromatic Visual Tests Failed",
+      },
+    };
+
+    const prStatus = prStatuses[status];
+
+    context.log("Trying to create PR status with Azure DevOps API");
+    const result = await azdevGit.createPullRequestStatus(
+      {
+        ...prStatus,
+        context: {
+          genre: "chromatic",
+          name: "visual-tests",
+        },
+        // Make sure to include this webUrl from the webhook body to allow the status to be clicked on to navigate to the storybook
+        targetUrl: webUrl,
+      },
+      repositoryId,
+      prId,
+    );
+
+    return {
+      status: 200,
+      body: {
+        message: `Git status created: ${JSON.stringify(result)}`,
+      },
+    };
+  } catch (error) {
+    context.log.error("Error creating PR status with Azure DevOps API", error);
+    return { status: 500, body: error.message };
+  }
+};
+```
+
+If you want to also create status checks for UI Review, you can use the same Azure Function and modify the status mapping to include the UI Review statuses.
+
+```js title="azure-function"
+// ...The previous code
+context.log("Trying to create PR status with Azure DevOps API");
+    const result = await azdevGit.createPullRequestStatus(
+      {
+        ...prStatus,
+        context: {
+          genre: "chromatic",
+          name: "visual-ui-review",
+        },
+        // Make sure to include this webUrl from the webhook body to allow the status to be clicked on to navigate to the storybook
+        targetUrl: webUrl,
+      },
+      repositoryId,
+      prId
+    );
+
+    return {
+      status: 200,
+      body: {
+        message: `Git status created: ${JSON.stringify(result)}`,
+      },
+    };
+  } catch (error) {
+    context.log.error("Error creating PR status with Azure DevOps API", error);
+    return { status: 500, body: error.message };
+  }
+```
+
+The webUrl obtained from the POST request body is what you would want to use in the above function to ensure the status can be clicked on in order to navigate to the Storybook for the specific build.
