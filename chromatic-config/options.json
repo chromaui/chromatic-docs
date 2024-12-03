@@ -96,7 +96,7 @@
     "description": "If all snapshots render, but there are visual changes, exit with code `0` rather than the usual exit code `1`. Only for given branch, if specified.",
     "type": ["glob", "boolean"],
     "example": "`\"!(main)\"` or `true`",
-    "default": false,
+    "defaultComment": "`true` in the GitHub Action, otherwise `false`",
     "supports": ["CLI", "GitHub Action", "Config File"]
   },
   {
