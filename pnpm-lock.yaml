@@ -21,8 +21,8 @@ importers:
         specifier: ^3.1.4
         version: 3.1.4
       '@chromatic-com/tetra':
-        specifier: ^2.0.4
-        version: 2.0.4(@emotion/react@11.13.5(@types/react@18.2.21)(react@18.2.0))(@emotion/styled@11.13.5(@emotion/react@11.13.5(@types/react@18.2.21)(react@18.2.0))(@types/react@18.2.21)(react@18.2.0))(@types/react-dom@18.2.7)(@types/react@18.2.21)(framer-motion@11.0.5(react-dom@18.2.0(react@18.2.0))(react@18.2.0))(react-dom@18.2.0(react@18.2.0))(react@18.2.0)
+        specifier: ^2.0.5
+        version: 2.0.5(@emotion/react@11.13.5(@types/react@18.2.21)(react@18.2.0))(@emotion/styled@11.13.5(@emotion/react@11.13.5(@types/react@18.2.21)(react@18.2.0))(@types/react@18.2.21)(react@18.2.0))(@types/react-dom@18.2.7)(@types/react@18.2.21)(framer-motion@11.0.5(react-dom@18.2.0(react@18.2.0))(react@18.2.0))(react-dom@18.2.0(react@18.2.0))(react@18.2.0)
       '@docsearch/css':
         specifier: ^3.5.2
         version: 3.5.2
@@ -1044,8 +1044,8 @@ packages:
     resolution: {integrity: sha512-x1x1NB3j4xpfeSWKr96emc+7ZvfsvH+/WVb3XCjkB24PPbT8VZXb3mJSAQMrSzuQ8+eQE9kDogYHH9Fj3tb/Cw==}
     engines: {node: '>=16.0.0', yarn: '>=1.22.18'}
 
-  '@chromatic-com/tetra@2.0.4':
-    resolution: {integrity: sha512-Ejsw0aerOhHef5zmRKP1C9mjorrTDDOVx4exZRL+Jt/b/TJEq1umah7DGwwyqJQ9q/5tRzA6T0KQnOOnZVp3Hg==}
+  '@chromatic-com/tetra@2.0.5':
+    resolution: {integrity: sha512-xtap8L55eIfo7/+btgpowRIEOffQZsjUFJvtzAMaA8Ybzz2wWV25UOnh2N9MiNUP9pl+IdpzOcim+QribC3Pfg==}
     engines: {node: '>=14.0.0'}
     peerDependencies:
       '@emotion/react': ^11.13.3
@@ -8102,7 +8102,7 @@ snapshots:
       - '@chromatic-com/playwright'
       - react
 
-  '@chromatic-com/tetra@2.0.4(@emotion/react@11.13.5(@types/react@18.2.21)(react@18.2.0))(@emotion/styled@11.13.5(@emotion/react@11.13.5(@types/react@18.2.21)(react@18.2.0))(@types/react@18.2.21)(react@18.2.0))(@types/react-dom@18.2.7)(@types/react@18.2.21)(framer-motion@11.0.5(react-dom@18.2.0(react@18.2.0))(react@18.2.0))(react-dom@18.2.0(react@18.2.0))(react@18.2.0)':
+  '@chromatic-com/tetra@2.0.5(@emotion/react@11.13.5(@types/react@18.2.21)(react@18.2.0))(@emotion/styled@11.13.5(@emotion/react@11.13.5(@types/react@18.2.21)(react@18.2.0))(@types/react@18.2.21)(react@18.2.0))(@types/react-dom@18.2.7)(@types/react@18.2.21)(framer-motion@11.0.5(react-dom@18.2.0(react@18.2.0))(react@18.2.0))(react-dom@18.2.0(react@18.2.0))(react@18.2.0)':
     dependencies:
       '@emotion/react': 11.13.5(@types/react@18.2.21)(react@18.2.0)
       '@emotion/styled': 11.13.5(@emotion/react@11.13.5(@types/react@18.2.21)(react@18.2.0))(@types/react@18.2.21)(react@18.2.0)
