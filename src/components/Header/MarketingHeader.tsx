@@ -1,31 +1,31 @@
-import {
-  Button,
-  fontWeight,
-  Header,
-  Link,
-  spacing,
-  typography,
-} from "@chromatic-com/tetra";
-import { styled } from "@storybook/theming";
+import { Header } from "@chromatic-com/tetra";
 import type { FC } from "react";
 
-import { desktopData, mobileData } from "./headerData";
+import { links } from "./headerData";
+import { styled } from "@storybook/theming";
 
 interface Props {
   theme?: "dark" | "light";
 }
 
-const MobileButtons = styled.div`
-  display: flex;
-  flex-direction: column;
-  gap: ${spacing[3]};
+const Wrapper = styled.span`
+  display: contents;
 `;
 
-const HeaderCTAButton = styled(Button)`
-  height: ${spacing[8]};
-  ${typography.body14};
-  font-weight: ${fontWeight.bold};
-`;
+// Used for tracking sign up links and log which page the conversion happened
+export const TrackSignUp = ({ children }: { children: React.ReactNode }) => {
+  return (
+    <Wrapper
+      onClick={() => {
+        if (window.plausible) {
+          window.plausible("sign_up");
+        }
+      }}
+    >
+      {children}
+    </Wrapper>
+  );
+};
 
 export const MarketingHeader: FC<Props> = ({ theme = "light" }) => {
   return (
@@ -33,48 +33,8 @@ export const MarketingHeader: FC<Props> = ({ theme = "light" }) => {
       fullWidth
       desktopActiveId="docs"
       theme={theme}
-      desktopData={desktopData}
-      mobileData={mobileData}
-      desktopRight={
-        <>
-          <Link
-            size="md"
-            weight="bold"
-            color={theme === "dark" ? "white" : "blue500"}
-            href="https://www.chromatic.com/start"
-          >
-            Sign in
-          </Link>
-          <HeaderCTAButton
-            size="sm"
-            variant="outline"
-            color={theme === "dark" ? "white" : "blue"}
-            href="https://www.chromatic.com/start?startWithSignup=true"
-          >
-            Sign up
-          </HeaderCTAButton>
-        </>
-      }
-      mobileBottom={
-        <MobileButtons>
-          <Button
-            size="sm"
-            variant="outline"
-            color="blue"
-            href="https://www.chromatic.com/start"
-          >
-            Sign in
-          </Button>
-          <Button
-            size="sm"
-            variant="solid"
-            color="blue"
-            href="https://www.chromatic.com/start?startWithSignup=true"
-          >
-            Sign up
-          </Button>
-        </MobileButtons>
-      }
+      links={links}
+      TrackSignUp={TrackSignUp}
     />
   );
 };

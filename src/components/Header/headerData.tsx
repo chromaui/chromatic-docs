@@ -1,6 +1,5 @@
 import {
   CollectiveIcon,
-  color,
   CypressIcon,
   EzCaterIcon,
   FigmaIcon,
@@ -8,27 +7,25 @@ import {
   NetlifyIcon,
   PlaywrightIcon,
 } from "@chromatic-com/tetra";
-import type { HeaderProps, Icons } from "@chromatic-com/tetra";
-import React from "react";
 
-interface LinksProps {
-  [key: string]: {
-    title: string;
-    icon?: Icons; // Replace by iconProps when tetra is updated
-    iconColor?: keyof typeof color;
-    customIcon?: React.ReactNode;
-    href: string;
-  };
-}
+import type { HeaderProps } from "@chromatic-com/tetra";
 
-const links: LinksProps = {
-  UITest: {
+export const links: HeaderProps["links"] = {
+  signin: {
+    title: "Sign in",
+    href: "/start",
+  },
+  signup: {
+    title: "Sign up",
+    href: "/start?startWithSignup=true",
+  },
+  uiTest: {
     title: "UI Tests",
     icon: "contrast",
     iconColor: "cyan500",
     href: "/features/test",
   },
-  VisualTest: {
+  visualTest: {
     title: "Visual test",
     icon: "eye",
     iconColor: "purple500",
@@ -64,13 +61,13 @@ const links: LinksProps = {
     iconColor: "blue500",
     href: "/features/turbosnap",
   },
-  UIReview: {
+  uiReview: {
     title: "UI Review",
     icon: "batchaccept",
     iconColor: "green500",
     href: "/features/review",
   },
-  Publish: {
+  publish: {
     title: "Publish",
     icon: "document",
     iconColor: "pink500",
@@ -117,6 +114,12 @@ const links: LinksProps = {
     iconColor: "green500",
     href: "/security",
   },
+  enterprise: {
+    title: "Enterprise",
+    icon: "admin",
+    iconColor: "green500",
+    href: "/enterprise",
+  },
   netlify: {
     title: "Netlify",
     customIcon: <NetlifyIcon />,
@@ -137,284 +140,38 @@ const links: LinksProps = {
     customIcon: <EzCaterIcon />,
     href: "/customers/ezcater",
   },
-};
-
-export const desktopData: HeaderProps["desktopData"] = [
-  {
-    id: "features",
-    name: "Features",
-    leftPosition: -120,
-    menu: [
-      {
-        content: [
-          {
-            type: "separator",
-            title: "Test",
-          },
-          {
-            ...links.UITest,
-            type: "link",
-            description: "Test how UIs look & function",
-          },
-          {
-            ...links.VisualTest,
-            type: "link",
-            description:
-              "Pinpoint bugs down to the browser, viewport, and pixel",
-          },
-          {
-            ...links.interactionTest,
-            type: "link",
-            description: "Verify behavior of all screens and components",
-          },
-          {
-            ...links.turboSnap,
-            type: "link",
-            description:
-              "Track changed components to only test what's necessary",
-          },
-        ],
-        backgroundColor: "white",
-      },
-      {
-        content: [
-          {
-            type: "separator",
-            title: "Review",
-          },
-          {
-            ...links.UIReview,
-            type: "link",
-            description: "Speed up team sign-off and manage change requests",
-          },
-          {
-            ...links.Publish,
-            type: "link",
-            description: "Index & version components to reuse existing work",
-          },
-          {
-            ...links.figmaPlugin,
-            type: "link",
-            description: "Embed your stories right next to designs in Figma",
-          },
-        ],
-        backgroundColor: "white",
-      },
-      {
-        content: [
-          {
-            type: "separator",
-            title: "Integrations",
-          },
-          {
-            ...links.storybook,
-            type: "link",
-            description: "Run visual tests directly inside Storybook",
-          },
-          {
-            ...links.playwright,
-            type: "link",
-            description:
-              "Visual tests for every page in your Playwright E2E suite",
-          },
-          {
-            ...links.cypress,
-            type: "link",
-            description:
-              "Visual tests for every page in your Cypress E2E suite",
-          },
-        ],
-        backgroundColor: "white",
-      },
-    ],
-  },
-  {
-    id: "pricing",
-    name: "Pricing",
-    href: "/pricing",
-  },
-  {
-    id: "customers",
-    name: "Customers",
-    leftPosition: -120,
-    menu: [
-      {
-        content: [
-          {
-            type: "separator",
-            title: "Use cases",
-          },
-          {
-            ...links.frontendTeams,
-            type: "link",
-            description: "Boost efficiency by streamlining review and QA",
-          },
-          {
-            ...links.designSystems,
-            type: "link",
-            description: "Ensure UI consistency and quality every commit",
-          },
-          {
-            ...links.digitalAgencies,
-            type: "link",
-            description: "Increase margins by speeding up client sign-off",
-          },
-        ],
-      },
-      {
-        content: [
-          {
-            type: "separator",
-            title: "Customer Stories",
-          },
-          {
-            ...links.netlify,
-            type: "link",
-            description: "How Netlify rebranded in six weeks without bugs",
-          },
-          {
-            ...links.monday,
-            type: "link",
-            description: "How 200 developers speed up their frontend velocity",
-          },
-          {
-            ...links.collective,
-            type: "link",
-            description:
-              "How to deliver personalized UX across borders & devices",
-          },
-          {
-            ...links.ezcater,
-            type: "link",
-            description:
-              "How to simultaneously test UI appearance & functionality",
-          },
-        ],
-        backgroundColor: "white",
-      },
-    ],
-  },
-  {
-    id: "docs",
-    name: "Docs",
-    href: "/docs",
-  },
-  {
-    id: "blog",
-    name: "Blog",
+  blog: {
+    title: "Blog",
+    icon: "starhollow",
+    iconColor: "purple500",
     href: "/blog",
   },
-  {
-    id: "company",
-    name: "Company",
-    leftPosition: -20,
-    menu: [
-      {
-        content: [
-          {
-            ...links.aboutChromatic,
-            type: "link",
-            description: "Our mission is to improve the UX of the internet",
-          },
-          {
-            ...links.careers,
-            type: "link",
-            title: "Careers",
-            description: "Opportunities and culture. Join our team.",
-            icon: "user",
-            iconColor: "purple500",
-            href: "/company/careers",
-          },
-          {
-            ...links.security,
-            type: "link",
-            title: "Security",
-            description: "Security report and overview of compliance",
-          },
-        ],
-        backgroundColor: "white",
-      },
-    ],
+  changelog: {
+    title: "Changelog",
+    icon: "book",
+    iconColor: "green500",
+    href: "/blog/releases",
   },
-];
-
-export const mobileData: HeaderProps["mobileData"] = [
-  {
-    name: "Features",
-    maxItems: 3,
-    content: [
-      links.UITest,
-      links.UIReview,
-      links.Publish,
-      links.VisualTest,
-      links.interactionTest,
-      links.turboSnap,
-      links.figmaPlugin,
-    ],
+  frontendTestingGuide: {
+    title: "Frontend testing guide",
+    href: "/frontend-testing-guide",
   },
-  {
-    content: [
-      {
-        title: "Pricing",
-        icon: "starhollow",
-        iconColor: "yellow500",
-        href: "/pricing",
-      },
-      {
-        title: "Docs",
-        icon: "browser",
-        iconColor: "orange500",
-        href: "/docs",
-      },
-      {
-        title: "Blog",
-        icon: "grow",
-        iconColor: "purple500",
-        href: "/blog",
-      },
-      {
-        title: "Contact sales",
-        icon: "email",
-        iconColor: "blue500",
-        href: "/sales",
-      },
-    ],
+  docs: {
+    title: "Docs",
+    icon: "browser",
+    iconColor: "orange500",
+    href: "/docs",
   },
-  {
-    name: "Integrations",
-    collapsible: true,
-    content: [
-      { ...links.storybook },
-      { ...links.playwright },
-      { ...links.cypress },
-    ],
+  pricing: {
+    title: "Pricing",
+    href: "/pricing",
+    icon: "starhollow",
+    iconColor: "yellow500",
   },
-  {
-    name: "Use cases",
-    collapsible: true,
-    content: [
-      { ...links.frontendTeams },
-      { ...links.designSystems },
-      { ...links.digitalAgencies },
-    ],
+  sales: {
+    title: "Contact sales",
+    icon: "email",
+    iconColor: "blue500",
+    href: "/sales",
   },
-  {
-    name: "Customer Stories",
-    collapsible: true,
-    content: [
-      { ...links.netlify },
-      { ...links.monday },
-      { ...links.collective },
-      { ...links.ezcater },
-    ],
-  },
-  {
-    name: "Company",
-    collapsible: true,
-    content: [
-      { ...links.aboutChromatic },
-      { ...links.careers },
-      { ...links.security },
-    ],
-  },
-];
+};

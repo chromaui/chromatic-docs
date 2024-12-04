@@ -3,6 +3,7 @@
 
 interface Window {
   docsearch(any): boolean;
+  plausible(any): boolean;
 }
 
 interface ImportMetaEnv {
