@@ -464,6 +464,37 @@ Read the official [Storybook environment variable's documentation](https://story
 
 </div>
 
+### Fail workflow if changes are found
+
+If you are using pull request statuses as required checks before merging, you may want your workflow step to fail if test snapshots show changes. By default, Chromatic exits with code `0` if changes are detected. We expect users to review these changes and decide whether to accept or reject them. However, if you prefer the workflow to fail when changes are found, you can use the `exitZeroOnChanges` option. For example:
+
+```yml title=".github/workflows/chromatic.yml"
+# Other necessary configuration
+
+jobs:
+  chromatic:
+    steps:
+      # ... other steps
+
+      - name: Run Chromatic
+        uses: chromaui/action@latest
+        with:
+          projectToken: ${{ secrets.CHROMATIC_PROJECT_TOKEN }}
+          exitZeroOnChanges: false # 👈 Fail workflow if changes are found
+```
+
+<div class="aside">
+
+Read about the [available options](/docs/configure/#options).
+
+</div>
+
+#### Re-run failed builds after verifying UI test results
+
+Builds that contain visual changes need to be [verified](/docs/test#verify-ui-changes). The task will fail if `exitZeroOnChanges` option is set to false. Once you accept all the changes, re-run the workflow, and the `chromatic` job will pass.
+
+If you deny any change, you will need to make the necessary code changes to fix the test (and thus start a new run) to get Chromatic to pass again.
+
 ### Recommended configuration for build events
 
 GitHub's Actions, like other CI systems, can run based on any type of event. Our recommendation is to run Chromatic's step on `push` events.
@@ -487,39 +518,6 @@ If you decide to use the `pull_request` event, we recommend creating a separate 
 ### UI Test and UI Review
 
 [UI Tests](/docs/test) and [UI Review](/docs/review) rely on [branch and baseline](/docs/branching-and-baselines) detection to keep track of [snapshots](/docs/snapshots). We recommend the following configuration.
-
-#### Command exit code for "required" checks
-
-If you are using pull request statuses as required checks before merging, you may not want your workflow step to fail if test snapshots render without errors (but with changes). To achieve this, pass the option `exitZeroOnChanges` to the `with` clause, and your workflow will continue in such cases. For example:
-
-```yml title=".github/workflows/chromatic.yml"
-# Other necessary configuration
-
-jobs:
-  chromatic:
-    steps:
-      # ... other steps
-
-      - name: Run Chromatic
-        uses: chromaui/action@latest
-        with:
-          projectToken: ${{ secrets.CHROMATIC_PROJECT_TOKEN }}
-          exitZeroOnChanges: true # 👈 Option to prevent the workflow from failing
-```
-
-<div class="aside">
-
-Read about the [available options](/docs/configure/#options).
-
-</div>
-
-When using `exitZeroOnChanges`, your workflow will still stop and fail if your Storybook contains stories that error.
-
-#### Re-run failed builds after verifying UI test results
-
-Builds that contain visual changes need to be [verified](/docs/test#verify-ui-changes). They will fail if you are not using the `exitZeroOnChanges` option. Once you accept all the changes, re-run the workflow, and the `chromatic` job will pass.
-
-If you deny any change, you will need to make the necessary code changes to fix the test (and thus start a new run) to get Chromatic to pass again.
 
 #### Maintain a clean "main" branch
 
