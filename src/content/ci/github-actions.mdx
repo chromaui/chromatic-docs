@@ -513,6 +513,10 @@ If you decide to use the `pull_request` event, we recommend creating a separate 
     fetch-depth: 0
     # 👇 Tells the checkout which commit hash to reference
     ref: ${{ github.event.pull_request.head.ref }}
+  env:
+    CHROMATIC_BRANCH: ${{ github.event.pull_request.head.ref || github.ref_name }}
+    CHROMATIC_SHA: ${{ github.event.pull_request.head.sha || github.ref }}
+    CHROMATIC_SLUG: ${{ github.repository }}
 ```
 
 ### UI Test and UI Review
