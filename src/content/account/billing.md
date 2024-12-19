@@ -9,6 +9,20 @@ sidebar: { order: 2, label: Billing & invoices }
 
 Chromatic bills customers monthly based on their subscription date. For instance, if you subscribed on February 14th, you'll be billed on the 14th of each month. Any additional overages will be attached to the current billing period. Similarly, snapshots are allocated within the same time frame and reset following the same cadence.
 
+<details>
+<summary>Why am I not receiving invoices?</summary>
+
+Ensure that the Chromatic invoice email (`invoice+statements@chromatic.com`) and `chromatic.com` domain is added to your approved list.
+
+</details>
+
+<details>
+<summary>Can we pay annually for our self-serve subscription?</summary>
+
+Not at this time. We currently only support monthly payments for our self-serve customers. If you're interested in annual payments, consider upgrading to an [Enterprise plan](https://www.chromatic.com/enterprise).
+
+</details>
+
 ## Snapshots
 
 Chromatic charges based on [snapshots](/docs/snapshots) and browser coverage, respectively. Snapshots power [UI Tests](/docs/test) and [UI Review](/docs/review). They are only taken when you enable “UI Review” or “UI Tests” for your project.
