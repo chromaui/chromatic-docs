@@ -89,3 +89,32 @@ Chromatic builds upon Storybook's accessibility testing by providing automated t
 No, automated testing catches a subset of accessibility issues. Manual testing is still recommended for comprehensive accessibility compliance.
 
 </details>
+
+<details>
+<summary>Why don't the accessibility results show violations, even though I know there are some?</summary>
+
+Modern React components often use asynchronous techniques like [Suspense](https://react.dev/reference/react/Suspense) or [React Server Components (RSC)](https://react.dev/reference/rsc/server-components) to handle complex data fetching and rendering. These components don’t immediately render their final UI state. Storybook doesn’t inherently know when an async component has fully rendered. As a result, the a11y checks sometimes run too early, before the component finishes rendering, leading to false negatives (no reported violations even if they exist).
+
+This only impacts users using:
+* Storybook 8.5+
+* Async components (RSC, or using Suspense or similar)
+* Stories without a play function that awaits for the final component state
+
+To address this issue, enable the `developmentModeForBuild` feature flag. This sets `process.env.NODE_ENV` to `development` when building your Storybooks. This ensures that React’s `act` utility is used, which helps ensure that all updates related to a test are processed and applied before making assertions.
+
+```ts title=".storybook/main.ts"
+// Replace your-framework with the framework you are using (e.g., react-webpack5, vue3-vite)
+import type { StorybookConfig } from '@storybook/your-framework';
+
+const config: StorybookConfig = {
+  framework: '@storybook/your-framework',
+  stories: ['../src/**/*.mdx', '../src/**/*.stories.@(js|jsx|mjs|ts|tsx)'],
+  features: {
+    developmentModeForBuild: true,
+  },
+};
+
+export default config;
+```
+
+</details>
