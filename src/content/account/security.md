@@ -25,6 +25,7 @@ Chromatic is grateful to the following individuals for responsibly disclosing se
 #### 2024
 
 - [Harish Harishwar](https://x.com/Hari_harishwar)
+- [James Zeilenga](https://www.linkedin.com/in/james-zeilenga)
 
 #### 2023
 
