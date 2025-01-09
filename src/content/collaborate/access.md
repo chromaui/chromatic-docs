@@ -157,6 +157,17 @@ By creating a linked project in Chromatic, you automatically have at your dispos
 
 You can link a project during the project creation process or afterward on the project's Manage page within the Collaborators tab.
 
+<details>
+<summary>Why is my linked project showing up as <code>unknown</code>?</summary>
+
+If you encounter an `<unknown>` project, this means Chromatic can no longer connect it to your Git repository.
+
+To refresh the Git access token and reconnect the `<unknown>` project, request one of the account owners to log out and log back into Chromatic.
+
+Alternatively, replace the Git token from the `Configure` tab on the `Manage` page of your project.
+
+</details>
+
 #### Unlinked projects
 
 An unlinked project is perfect for teams that self-host Git or have enterprise Git providers (that aren't on Chromatic's enterprise plan). Unlinked projects still require Git; they are just not linked to a repository on GitHub, Bitbucket, or GitLab. They do not automatically [sync collaborators](/docs/collaborators#project-collaborators) or badge pull requests.
