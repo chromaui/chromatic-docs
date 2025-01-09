@@ -25,7 +25,7 @@ To integrate Chromatic with your existing workflow, you'll need to add the follo
     executors:
       chromatic-ui-testing:
         docker:
-          - image: cimg/node:20.12.2
+          - image: cimg/node:22.12.0
         working_directory: ~/repo
     
     jobs:
@@ -35,7 +35,7 @@ To integrate Chromatic with your existing workflow, you'll need to add the follo
           - checkout
           - restore_cache:
               keys:
-                - v1-dependencies-{{ checksum "package.json" }}
+                - v1-dependencies-{{ checksum "package-lock.json" }}
                 - v1-dependencies-
           # ⚠️ See your package manager's documentation for the correct command to install dependencies in a CI environment.
           - run: npm ci
@@ -44,7 +44,7 @@ To integrate Chromatic with your existing workflow, you'll need to add the follo
               name: Save NPM cache
               paths:
                 - ~/.npm
-              key: v1-dependencies-{{ checksum "package.json" }}
+              key: v1-dependencies-{{ checksum "package-lock.json" }}
     
     workflows:
       UI_Tests:
@@ -57,24 +57,24 @@ To integrate Chromatic with your existing workflow, you'll need to add the follo
     version: 2.1
 
     executors:
-      pw-jammy-development:
+      pw-noble-development:
         docker:
-          - image: mcr.microsoft.com/playwright:v1.49.0-jammy
+          - image: mcr.microsoft.com/playwright:v1.49.0-noble
         working_directory: ~/repo
       chromatic-ui-testing:
         docker:
-          - image: cimg/node:20.12.2
+          - image: cimg/node:22.12.0
         working_directory: ~/repo
     
     jobs:
       Playwright:
-        executor: pw-jammy-development
+        executor: pw-noble-development
         steps:
           - checkout
           - restore_cache:
               name: Restore NPM cache
               keys:
-                - v1-dependencies-{{ checksum "package.json" }}
+                - v1-dependencies-{{ checksum "package-lock.json" }}
                 - v1-dependencies-
           - run:
               name: "Install Playwright dependencies"
@@ -84,7 +84,7 @@ To integrate Chromatic with your existing workflow, you'll need to add the follo
               name: Save NPM cache
               paths:
                 - ~/.npm
-              key: v1-dependencies-{{ checksum "package.json" }}
+              key: v1-dependencies-{{ checksum "package-lock.json" }}
           - run:
               name: "Run Playwright tests"
               command: npx playwright test
@@ -104,7 +104,7 @@ To integrate Chromatic with your existing workflow, you'll need to add the follo
           - restore_cache:
               name: Restore NPM cache
               keys:
-                - v1-dependencies-{{ checksum "package.json" }}
+                - v1-dependencies-{{ checksum "package-lock.json" }}
                 - v1-dependencies-
           - run: npm ci
           - attach_workspace:
@@ -131,11 +131,11 @@ To integrate Chromatic with your existing workflow, you'll need to add the follo
     executors:
       cypress:
         docker:
-          - image: cypress/browsers:node-20.18.0-chrome-130.0.6723.69-1-ff-131.0.3-edge-130.0.2849.52-1
+          - image: cypress/browsers:node-22.12.0-chrome-131.0.6778.139-1-ff-133.0.3-edge-131.0.2903.99-1
         working_directory: ~/repo
       chromatic-ui-testing:
         docker:
-          - image: cimg/node:20.12.2
+          - image: cimg/node:22.12.0
         working_directory: ~/repo
 
     jobs:
@@ -146,7 +146,7 @@ To integrate Chromatic with your existing workflow, you'll need to add the follo
           - restore_cache:
               name: Restore NPM cache
               keys:
-                - v1-dependencies-{{ checksum "package.json" }}
+                - v1-dependencies-{{ checksum "package-lock.json" }}
                 - v1-dependencies-
           - run:
               name: "Install Cypress dependencies"
@@ -157,7 +157,7 @@ To integrate Chromatic with your existing workflow, you'll need to add the follo
               paths:
                 - ~/.npm
                 - ~/.cache
-              key: v1-dependencies-{{ checksum "package.json" }}
+              key: v1-dependencies-{{ checksum "package-lock.json" }}
           - run:
               name: "Run development server"
               command: npm run dev
@@ -183,7 +183,7 @@ To integrate Chromatic with your existing workflow, you'll need to add the follo
           - restore_cache:
               name: Restore NPM cache
               keys:
-                - v1-dependencies-{{ checksum "package.json" }}
+                - v1-dependencies-{{ checksum "package-lock.json" }}
                 - v1-dependencies-
           - run: npm ci
           - attach_workspace:

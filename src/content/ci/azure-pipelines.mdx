@@ -36,10 +36,10 @@ To integrate Chromatic with your existing pipeline, you'll need to add the follo
               - checkout: self
                 displayName: "Get Full Git History"
                 fetchDepth: 0
-              - task: NodeTool@0
+              - task: UseNode@1
                 displayName: "Install Node.js"
                 inputs:
-                  versionSpec: "20.12.2"
+                  version: "22.12.0"
               - task: Cache@2
                 displayName: "Install and cache dependencies"
                 inputs:
@@ -71,15 +71,15 @@ To integrate Chromatic with your existing pipeline, you'll need to add the follo
         jobs:
           - job: Playwright
             displayName: "Run Playwright"
-            container: mcr.microsoft.com/playwright:v1.49.0-jammy
+            container: mcr.microsoft.com/playwright:v1.49.0-noble
             steps:
               - checkout: self
                 displayName: "Get Full Git History"
                 fetchDepth: 0
-              - task: NodeTool@0
+              - task: UseNode@1
                 displayName: "Install Node.js"
                 inputs:
-                  versionSpec: "20.12.2"
+                  version: "22.12.0"
               - task: Cache@2
                 displayName: "Install and cache dependencies"
                 inputs:
@@ -112,10 +112,10 @@ To integrate Chromatic with your existing pipeline, you'll need to add the follo
               - checkout: self
                 displayName: "Get Full Git History"
                 fetchDepth: 0
-              - task: NodeTool@0
+              - task: UseNode@1
                 displayName: "Install Node.js"
                 inputs:
-                  versionSpec: "20.12.2"
+                  version: "22.12.0"
               - task: Cache@2
                 displayName: "Install and cache dependencies"
                 inputs:
@@ -153,17 +153,17 @@ To integrate Chromatic with your existing pipeline, you'll need to add the follo
         jobs:
           - job: Cypress
             displayName: "Run Cypress"
-            container: cypress/browsers:node-20.18.0-chrome-130.0.6723.69-1-ff-131.0.3-edge-130.0.2849.52-1
+            container: cypress/browsers:node-22.12.0-chrome-131.0.6778.139-1-ff-133.0.3-edge-131.0.2903.99-1
             variables:
               npm_config_cache: $(Pipeline.Workspace)/.npm
             steps:
               - checkout: self
                 displayName: "Get Full Git History"
                 fetchDepth: 0
-              - task: NodeTool@0
+              - task: UseNode@1
                 displayName: "Install Node.js"
                 inputs:
-                  versionSpec: "20.12.2"
+                  version: "22.12.0"
               - task: Cache@2
                 displayName: "Install and cache dependencies"
                 inputs:
@@ -198,10 +198,10 @@ To integrate Chromatic with your existing pipeline, you'll need to add the follo
               - checkout: self
                 displayName: "Get Full Git History"
                 fetchDepth: 0
-              - task: NodeTool@0
+              - task: UseNode@1
                 displayName: "Install Node.js"
                 inputs:
-                  versionSpec: "20.12.2"
+                  version: "22.12.0"
               - task: Cache@2
                 displayName: "Install and cache dependencies"
                 inputs:

@@ -35,7 +35,7 @@ In your `.github/workflows` directory, create a new file called `chromatic.yml` 
               fetch-depth: 0
           - uses: actions/setup-node@v4
             with:
-              node-version: 20
+              node-version: 22.12.0
           - name: Install dependencies
             # ⚠️ See your package manager's documentation for the correct command to install dependencies in a CI environment.
             run: npm ci
@@ -56,14 +56,14 @@ In your `.github/workflows` directory, create a new file called `chromatic.yml` 
       playwright:
         runs-on: ubuntu-latest
         container:
-          image: mcr.microsoft.com/playwright:v1.49.0-jammy
+          image: mcr.microsoft.com/playwright:v1.49.0-noble
         steps:
           - uses: actions/checkout@v4
             with:
               fetch-depth: 0
           - uses: actions/setup-node@v4
             with:
-              node-version: 20
+              node-version: 22.12.0
           - name: Install dependencies
             # ⚠️ See your package manager's documentation for the correct command to install dependencies in a CI environment.
             run: npm ci
@@ -89,7 +89,7 @@ In your `.github/workflows` directory, create a new file called `chromatic.yml` 
               fetch-depth: 0
           - uses: actions/setup-node@v4
             with:
-              node-version: 20
+              node-version: 22.12.0
           - name: Install dependencies
              # ⚠️ See your package manager's documentation for the correct command to install dependencies in a CI environment.
             run: npm ci
@@ -120,7 +120,7 @@ In your `.github/workflows` directory, create a new file called `chromatic.yml` 
         name: Run Cypress
         runs-on: ubuntu-latest
         container:
-          image: cypress/browsers:node-20.18.0-chrome-130.0.6723.69-1-ff-131.0.3-edge-130.0.2849.52-1
+          image: cypress/browsers:node-22.12.0-chrome-131.0.6778.139-1-ff-133.0.3-edge-131.0.2903.99-1
           options: --user 1001
         steps:
           - uses: actions/checkout@v4
@@ -128,7 +128,7 @@ In your `.github/workflows` directory, create a new file called `chromatic.yml` 
               fetch-depth: 0
           - uses: actions/setup-node@v4
             with:
-              node-version: 20
+              node-version: 22.12.0
           - name: Install dependencies
             # ⚠️ See your package manager's documentation for the correct command to install dependencies in a CI environment.
             run: npm ci
@@ -156,7 +156,7 @@ In your `.github/workflows` directory, create a new file called `chromatic.yml` 
               fetch-depth: 0
           - uses: actions/setup-node@v4
             with:
-              node-version: 20
+              node-version: 22.12.0
           - name: Install dependencies
             # ⚠️ See your package manager's documentation for the correct command to install dependencies in a CI environment.
             run: npm ci
@@ -508,7 +508,7 @@ This means the latest build on main will be an ancestor of this ephemeral branch
 If you decide to use the `pull_request` event, we recommend creating a separate workflow for Chromatic using the following strategy for the checkout step:
 
 ```yml
-- uses: actions/checkout@v3
+- uses: actions/checkout@v4
   with:
     fetch-depth: 0
     # 👇 Tells the checkout which commit hash to reference
@@ -696,13 +696,12 @@ jobs:
         uses: actions/checkout@v4
         with:
           fetch-depth: 0
-
       - name: ⎔ Setup node
         uses: actions/setup-node@v4
         with:
           cache: npm
           cache-dependency-path: ./package.json
-          node-version: 20
+          node-version: 22.12.0
       - name: 📥 Install deps
         run: npm install
       - name: Build Storybook
