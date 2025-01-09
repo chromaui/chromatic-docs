@@ -158,13 +158,13 @@ By creating a linked project in Chromatic, you automatically have at your dispos
 You can link a project during the project creation process or afterward on the project's Manage page within the Collaborators tab.
 
 <details>
-<summary>Why is my linked project `<unknown>`?</summary>
+<summary>Why is my linked project showing up as <code>unknown</code>?</summary>
 
-If you have an `<unknown>` project, this means Chromatic can no longer connect it to your Git repository.
+If you encounter an `<unknown>` project, this means Chromatic can no longer connect it to your Git repository.
 
-To refresh the access token to Git and reconnect the `<unknown>` project, ask one of the owners on the account to log out and log in back to Chromatic.
+To refresh the Git access token and reconnect the `<unknown>` project, request one of the account owners to log out and log back into Chromatic.
 
-Another option will be replacing the Git token in the `Configure` tab of the `Manage` page.
+Alternatively, replace the Git token from the `Configure` tab on the `Manage` page of your project.
 
 </details>
 
