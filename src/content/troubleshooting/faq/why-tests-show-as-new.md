@@ -43,5 +43,5 @@ If **any** of these elements change—file name, `describe` block name, or `it` 
 To prevent tests from showing as new unintentionally:
 
 - **Keep naming consistent**: Avoid renaming files, `describe` blocks, or `it` blocks unless necessary.
-- **Refactor carefully**: If changes are needed, be aware that the story name will change, and Chromatic will treat it as a new story.
+- **Refactor carefully**: If changes are needed, be aware that the story name will change, and Chromatic will treat it as new.
 - **Review build diffs**: If a test appears as new, check whether the naming structure has been altered.
