@@ -128,6 +128,66 @@ If you're trying to understand why a story file is being detected as changed, yo
 
 ## Tracing dependencies with Vite
 
-Vite support for TurboSnap is available out of the box, starting with Storybook 8.0 and later, and does not require any additional configuration. However, if you're using an older version of Storybook, you must install the [vite-plugin-turbosnap](https://github.com/IanVS/vite-plugin-turbosnap) plugin to enable TurboSnap support with Vite. 
+Vite support for TurboSnap is available out of the box, starting with Storybook 8.0 and later, and does not require any additional configuration. However, if you're using an older version of Storybook, you must install the [vite-plugin-turbosnap](https://github.com/IanVS/vite-plugin-turbosnap) plugin to enable TurboSnap support with Vite.
 
-Similar to Webpack, when you run the `build-storybook` command, the `preview-stats.json` file is automatically generated. It contains information about each module being built and a mapping between each file and all the imported files. This structure mirrors that used by Wepack but only includes the information TurboSnap needs to perform dependency checks. 
+Similar to Webpack, when you run the `build-storybook` command, the `preview-stats.json` file is automatically generated. It contains information about each module being built and a mapping between each file and all the imported files. This structure mirrors that used by Wepack but only includes the information TurboSnap needs to perform dependency checks.
+
+---
+
+### Troubleshooting
+
+<details>
+<summary>How do circular dependencies impact tracing?</summary>
+
+TurboSnap uses _tree-shaking_ to efficiently identify which files in your project have changed and how those changes propagate through your dependency graph. Tree-shaking may not work as intended when circular dependencies exist because the loop can obscure the true "consequences" of changes. Circular dependencies occur when two or more files depend on each other directly or indirectly, creating a loop. For example:
+
+- `Button/index.ts` exports `Button.tsx`.
+
+- If `Button.tsx` imports something from `Card/index.ts` (directly or indirectly), and `Card.tsx` imports something from `Button/index.ts`, a Circular Dependency is created.
+
+When TurboSnap flags unchanged files as changed, you can use the [`--untraced`](https://www.chromatic.com/docs/turbosnap/setup/#avoid-re-testing-dependent-stories-when-certain-files-changed) flag to correct its behavior by excluding certain files. However, restructuring your project to avoid circular dependencies may be a better, long-lasting solution.
+
+</details>
+
+<details>
+<summary>Why transitive dependencies are not tracked?</summary>
+
+_Transitive dependencies_ occur when a module indirectly depends on another through other modules. Here, module `C` is a transitive dependency of module `A` because it is imported into module `B`:
+
+```
+// Module A
+import B from './B';
+
+// Module B
+import C from './C';
+```
+
+Sometimes, Webpack struggles to handle transitive dependencies effectively due to standard configurations, specific project structures, or dependency patterns, making it hard to identify the root cause of dependency tracking issues.
+
+#### Using the `sideEffects` Property
+
+Set the `sideEffects` property in your `package.json` to prevent accidental removal of dependencies and track side effects in third files. There are two ways to set it:
+
+1. Set `sideEffects` to `true` to track all transitive dependencies:
+
+```
+"sideEffects": true
+```
+
+2. Specify `sideEffects` as an _array_ to explicitly list files or patterns:
+
+```
+"sideEffects": [
+"**/*.css",
+"**/*.scss",
+"./src/global.js"
+]
+```
+
+#### Testing the Configuration
+
+To verify this solution, add a specific file with transitive imports to the `sideEffects` array and observe whether it behaves as expected.
+
+Adjusting the `sideEffects` property can cause other unexpected consequences, so we recommend reviewing the [Webpack Documentation on Tree-Shaking](https://webpack.js.org/guides/tree-shaking/).
+
+</details>
