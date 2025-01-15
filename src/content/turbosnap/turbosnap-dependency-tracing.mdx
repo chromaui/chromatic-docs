@@ -145,7 +145,7 @@ TurboSnap uses _tree-shaking_ to efficiently identify which files in your projec
 
 - If `Button.tsx` imports something from `Card/index.ts` (directly or indirectly), and `Card.tsx` imports something from `Button/index.ts`, a Circular Dependency is created.
 
-When TurboSnap flags unchanged files as changed, you can use the `--untraced` flag to correct its behavior by including certain files. However, restructuring your project to avoid circular dependencies may be a better, long-lasting solution.
+When TurboSnap flags unchanged files as changed, you can use the [`--untraced`](https://www.chromatic.com/docs/turbosnap/setup/#avoid-re-testing-dependent-stories-when-certain-files-changed) flag to correct its behavior by excluding certain files. However, restructuring your project to avoid circular dependencies may be a better, long-lasting solution.
 
 </details>
 
@@ -155,8 +155,10 @@ When TurboSnap flags unchanged files as changed, you can use the `--untraced` fl
 _Transitive dependencies_ occur when a module indirectly depends on another through other modules. Here, module `C` is a transitive dependency of module `A` because it is imported into module `B`:
 
 ```
-// Module B
+// Module A
 import B from './B';
+
+// Module B
 import C from './C';
 ```
 
