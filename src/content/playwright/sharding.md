@@ -252,6 +252,62 @@ pipeline {
 }
 ```
 
+## Semaphore
+
+To run Playwright tests in parallel across shared CI jobs in Semaphore, you can use the [`parallelism`](https://docs.semaphoreci.com/reference/pipeline-yaml#parallelism-in-jobs) option in your workflow. The job will be split into multiple smaller jobs running in parallel sequentially named based on the values of the environment variables. The results will be saved as an artifact and accessible by the Chromatic job when it runs.
+
+```yml title=".semaphore/semaphore.yml"
+version: v1.0
+name: UI Tests
+agent:
+  machine:
+    type: e2-standard-2
+    os_image: ubuntu2204
+
+global_job_config:
+  prologue:
+    commands:
+      - checkout
+
+blocks:
+  - name: Playwright
+    dependencies: []
+    task:
+      agent:
+        machine:
+          type: e2-standard-2
+          os_image: ubuntu2204
+        containers:
+          - name: Plawyright
+            image: mcr.microsoft.com/playwright:v1.49.0-noble
+      jobs:
+        - name: Run Playwright
+          commands:
+            - cache restore npm-$SEMAPHORE_GIT_BRANCH-$(checksum package-lock.json)-$(checksum .semaphore/semaphore.yml)
+            - npm ci
+            - cache store npm-$SEMAPHORE_GIT_BRANCH-$(checksum package-lock.json)-$(checksum .semaphore/semaphore.yml) ~/.npm
+            - npx playwright test --shard=$SEMAPHORE_JOB_INDEX/$SEMAPHORE_JOB_COUNT
+          parallelism: 2
+      epilogue:
+        always:
+          commands:
+            - artifact push workflow --force test-results
+  - name: Run Chromatic
+    dependencies: ["Playwright"]
+    task:
+      prologue:
+        commands:
+          - artifact pull workflow test-results
+      secrets:
+        - name: CHROMATIC_PROJECT_TOKEN
+      jobs:
+        - name: Chromatic
+          commands:
+            - cache restore npm-$SEMAPHORE_GIT_BRANCH-$(checksum package-lock.json)-$(checksum .semaphore/semaphore.yml)
+            - npm ci
+            - npx chromatic --playwright
+```
+
 ## Other CI providers
 
 If you’re using a different CI provider, you’ll need to adapt your workflow to run Playwright tests in parallel across shared CI jobs and enable Chromatic to run after all instances have finished. Here’s an example of how you might do this in a generic CI provider.
