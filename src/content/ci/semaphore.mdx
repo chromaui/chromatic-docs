@@ -1,0 +1,542 @@
+---
+layout: "../../layouts/Layout.astro"
+title: Automate Chromatic with Semaphore
+description: Learn how to configure Chromatic with Semaphore
+sidebar: { order: 8, label: Semaphore }
+---
+
+import IntegrationSnippets from "../../components/IntegrationSnippets.astro";
+
+# Automate Chromatic with Semaphore
+
+Chromatic's automation can be included as part of your Semaphore workflow with relative ease.
+
+## Setup
+
+To integrate Chromatic with your existing workflow, you'll need to add the following:
+
+{/* prettier-ignore-start */}
+
+<IntegrationSnippets>
+  <Fragment slot="storybook">
+    ```yml title=".semaphore/semaphore.yml"
+    version: v1.0
+    
+    name: UI Tests
+
+    agent:
+      machine:
+        type: e2-standard-2
+        os_image: ubuntu2204
+
+    global_job_config:
+      prologue:
+        commands:
+          - checkout
+
+    blocks:
+      - name: Chromatic
+        task:
+          secrets:
+            - name: CHROMATIC_PROJECT_TOKEN
+          jobs:
+            - name: Run Chromatic
+              commands:
+                - cache restore npm-$SEMAPHORE_GIT_BRANCH-$(checksum package-lock.json)-$(checksum .semaphore/semaphore.yml)
+                # ⚠️ See your package manager's documentation for the correct command to install dependencies in a CI environment.
+                - npm ci
+                - npx chromatic
+  ```
+  </Fragment>
+  <Fragment slot="playwright">
+    ```yml title=".semaphore/semaphore.yml"
+    version: v1.0
+
+    name: UI Tests
+
+    agent:
+      machine:
+        type: e2-standard-2
+        os_image: ubuntu2204
+
+    global_job_config:
+      prologue:
+        commands:
+          - checkout
+
+    blocks:
+      - name: Playwright
+        dependencies: []
+        task:
+          agent:
+            machine:
+              type: e2-standard-2
+              os_image: ubuntu2204
+            containers:
+              - name: Plawyright
+                image: mcr.microsoft.com/playwright:v1.49.0-noble
+          jobs:
+            - name: Run Playwright
+              commands:
+                - cache restore npm-$SEMAPHORE_GIT_BRANCH-$(checksum package-lock.json)-$(checksum .semaphore/semaphore.yml)
+                # ⚠️ See your package manager's documentation for the correct command to install dependencies in a CI environment.
+                - npm ci
+                - cache store npm-$SEMAPHORE_GIT_BRANCH-$(checksum package-lock.json)-$(checksum .semaphore/semaphore.yml) ~/.npm
+                - npx playwright test
+          epilogue:
+            always:
+              commands:
+                # Chromatic automatically defaults to the test-results directory. 
+                # Replace with the path to your custom directory and adjust the CHROMATIC_ARCHIVE_LOCATION environment variable accordingly.
+                - artifact push workflow test-results
+      - name: Chromatic
+        dependencies: ["Playwright"]
+        task:
+          prologue:
+            commands:
+              - artifact pull workflow test-results
+          secrets:
+            - name: CHROMATIC_PROJECT_TOKEN
+          env_vars:
+            - name: CHROMATIC_ARCHIVE_LOCATION
+              value: test-results
+          jobs:
+            - name: Run Chromatic
+              commands:
+                - cache restore npm-$SEMAPHORE_GIT_BRANCH-$(checksum package-lock.json)-$(checksum .semaphore/semaphore.yml)
+                - npm ci
+                - npx chromatic --playwright
+    ```
+  </Fragment>
+  <Fragment slot="cypress">
+    ```yml title=".semaphore/semaphore.yml"
+    version: v1.0
+
+    name: UI Tests
+
+    agent:
+      machine:
+        type: e2-standard-2
+        os_image: ubuntu2204
+
+    global_job_config:
+      prologue:
+        commands:
+          - checkout
+
+    blocks:
+      - name: Cypress
+        dependencies: []
+        task:
+          env_vars:
+            - name: ELECTRON_EXTRA_LAUNCH_ARGS
+              value: "--remote-debugging-port=9222"
+          jobs:
+            - name: Run Cypress tests
+              commands:
+                - cache restore npm-$SEMAPHORE_GIT_BRANCH-$(checksum package-lock.json)-$(checksum .semaphore/semaphore.yml)
+                - cache restore cypress-$SEMAPHORE_GIT_BRANCH-$(checksum package-lock.json)-$(checksum .semaphore/semaphore.yml)
+                # ⚠️ See your package manager's documentation for the correct command to install dependencies in a CI environment.
+                - npm ci
+                - cache store npm-$SEMAPHORE_GIT_BRANCH-$(checksum package-lock.json)-$(checksum .semaphore/semaphore.yml) ~/.npm
+                - cache store cypress-$SEMAPHORE_GIT_BRANCH-$(checksum package-lock.json)-$(checksum .semaphore/semaphore.yml) ~/.cache/Cypress
+                - npm run dev &
+                - npx cypress run
+          epilogue:
+            always:
+              commands:
+                # Chromatic automatically defaults to the cypress/downloads directory. 
+                # Replace with the path to your custom directory and adjust the CHROMATIC_ARCHIVE_LOCATION environment variable accordingly.
+                - artifact push workflow cypress/downloads
+      - name: Chromatic
+        dependencies: ["Cypress"]
+        task:
+          prologue:
+            commands:
+              # You can omit the destination flag if you're using a root-level directory.
+              - artifact pull workflow downloads --destination cypress/downloads
+          secrets:
+            - name: CHROMATIC_PROJECT_TOKEN
+          env_vars:
+            - name: CHROMATIC_ARCHIVE_LOCATION
+              value: cypress/downloads
+          jobs:
+            - name: Run Chromatic
+              commands:
+                - cache restore npm-$SEMAPHORE_GIT_BRANCH-$(checksum package-lock.json)-$(checksum .semaphore/semaphore.yml)
+                - npm ci
+                - npx chromatic --cypress
+    ```
+  </Fragment>
+</IntegrationSnippets>
+
+{/* prettier-ignore-end */}
+
+<div class="aside">
+
+We recommend saving the project token as an secret named `CHROMATIC_PROJECT_TOKEN` for security reasons. When the Chromatic CLI is executed, it will read the value automatically without any additional flags. Refer to the official Semaphore [secrets documentation](https://docs.semaphoreci.com/using-semaphore/secrets) to learn more about it.
+
+</div>
+
+### Run Chromatic on specific branches
+
+If you need to customize your workflow to run Chromatic on specific branches, adjust your workflow like so:
+
+```yml title=".semaphore/semaphore.yml"
+# Other required configuration
+
+blocks:
+  # Other jobs implemented in the workflow
+
+  # 👇 Adds Chromatic as a job
+  - name: Chromatic
+    run:
+      when: branch = 'main' # 👈 Filters the execution to run only on the main branch
+    task:
+      jobs:
+        - name: Run Chromatic
+          commands:
+            - npx chromatic
+```
+
+<div class="aside">
+
+Read the official Semaphore [conditional job execution documentation](https://docs.semaphoreci.com/using-semaphore/jobs#skip-run).
+
+</div>
+
+Now Chromatic will only run in the `main` branch.
+
+### Run Chromatic on large projects
+
+Chromatic is prepared to handle large file uploads (with a limit of 5000 files, including stories and assets). If your project exceeds this limit, we recommend adjusting your workflow and run the `chromatic` command with the `--zip` flag to compress your build before uploading it. For example:
+
+```yml title=".semaphore/semaphore.yml"
+# Other required configuration
+
+blocks:
+  # Other jobs
+
+  # 👇 Adds Chromatic as a job
+  - name: Chromatic
+    # Other configuration
+    task:
+      jobs:
+        - name: Run Chromatic
+          commands:
+            # Other job steps
+
+            # 👇 Runs Chromatic with the flag to compress the build output.
+            - npx chromatic --zip
+```
+
+### Run Chromatic on monorepos
+
+Chromatic can be run on monorepos that have multiple subprojects. Each subproject will need it's own project token stored as an environment variable.
+
+#### Prerequisites
+
+1. Ensure that you're in the correct working directory for the subproject.
+2. Have `build-storybook` npm script in the subproject's `package.json` file OR explicitly name the script using the `--build-script-name` CLI flag and make sure the script is listed in the subproject's `package.json` file.
+
+If you've already built your Storybook in a separate CI step, you can adjust your workflow to include the [`--storybook-build-dir`](/docs/configure/#options) CLI flag to point to the build output directory.
+
+```yml title=".semaphore/semaphore.yml"
+# Other required configuration
+
+# 👇 Adds Chromatic for for each monorepo subproject
+blocks:
+  - name: Run Chromatic on Project 1
+    task:
+      prologue:
+        commands:
+          - checkout
+          - cd apps/frontend
+          # Other job steps
+      secrets:
+        - name: CHROMATIC_PROJECT_TOKEN_1
+      jobs:
+        - name: Publish Project 1 to Chromatic
+          commands:
+            - npx chromatic --project-token=$CHROMATIC_PROJECT_TOKEN_1
+  - name: Run Chromatic on Project 2
+    task:
+      prologue:
+        commands:
+          - checkout
+          - cd packages/ui
+            # Other job steps
+      secrets:
+        - name: CHROMATIC_PROJECT_TOKEN_2
+      jobs:
+        - name: Publish Project 2 to Chromatic
+          commands:
+            - npx chromatic --project-token=$CHROMATIC_PROJECT_TOKEN_2
+```
+
+If you want to run Chromatic in parallel for each subproject, you can adjust your workflow as follows:
+
+```yml title=".semaphore/semaphore.yml"
+# Other required configuration
+
+blocks:
+  # Other jobs
+
+  # 👇 Runs Chromatic in parallel for each monorepo subproject
+  - name: Run Chromatic on Project 1
+    dependencies: []
+    task:
+      prologue:
+        commands:
+          - checkout
+          - cd apps/frontend
+          # Other job steps
+      secrets:
+        - name: CHROMATIC_PROJECT_TOKEN_1
+      jobs:
+        - name: Publish Project 1 to Chromatic
+          commands:
+            - npx chromatic --project-token=$CHROMATIC_PROJECT_TOKEN_1
+  - name: Run Chromatic on Project 2
+    dependencies: []
+    task:
+      prologue:
+        commands:
+          - checkout
+          - cd packages/ui
+          # Other job steps
+      secrets:
+        - name: CHROMATIC_PROJECT_TOKEN_2
+      jobs:
+        - name: Publish Project 2 to Chromatic
+          commands:
+            - npx chromatic --project-token=$CHROMATIC_PROJECT_TOKEN_2
+```
+
+You can also run Chromatic conditionally for each subproject when a specific change is detected. For example:
+
+{/* prettier-ignore-start */}
+
+```yml title=".semaphore/semaphore.yml"
+# Other required configuration
+
+blocks:
+  # Other jobs
+  
+  # 👇 Adds Chromatic as a conditional job for each subproject
+  - name: Run Chromatic on Project 1
+    dependencies: []
+    run:
+      # 👇 Checks for changes in the apps/frontend directory, excluding any MDX files and triggers the worflow execution
+      when: 'change_in(''/apps/frontend'', {exclude: ''/apps/frontend/**/*.mdx'', default_branch: ''main''})'
+    task:
+      prologue:
+        commands:
+          - checkout
+          - cd apps/frontend
+          # Other job steps
+      secrets:
+        - name: CHROMATIC_PROJECT_TOKEN_1
+      jobs:
+        - name: Publish Project 1 to Chromatic
+          commands:
+            - npx chromatic --project-token=$CHROMATIC_PROJECT_TOKEN_1
+  - name: Run Chromatic on Project 2
+    dependencies: []
+    run:
+     # 👇 Checks for changes in the packages/ui directory, excluding any MDX files and triggers the worflow execution
+      when: 'change_in(''/packages/ui'', {exclude: ''/packages/ui/**/*.mdx'', default_branch: ''main''})'
+    task:
+      prologue:
+        commands:
+          - checkout
+          - cd packages/ui
+          # Other job steps
+      secrets:
+        - name: CHROMATIC_PROJECT_TOKEN_2
+      jobs:
+        - name: Publish Project 2 to Chromatic
+          commands:
+            - npx chromatic --project-token=$CHROMATIC_PROJECT_TOKEN_2
+```
+
+{/* prettier-ignore-end */}
+
+<div class="aside">
+
+Read the official Semaphore [monorepo documentation](https://docs.semaphoreci.com/using-semaphore/monorepo) to learn more about configuring your workflow.
+
+</div>
+
+### Enable TurboSnap
+
+TurboSnap is an advanced Chromatic feature implemented to improve the build time for large projects, disabled by default once you add Chromatic to your CI environment. To enable it, you'll need to adjust your existing workflow and run the `chromatic` command with the `--only-changed` flag as follows:
+
+```yml title=".semaphore/semaphore.yml"
+# Other required configuration
+
+blocks:
+  # Other jobs
+
+  # 👇 Adds Chromatic as a job
+  - name: Chromatic
+    task:
+      jobs:
+        - name: Run Chromatic
+          commands:
+            # Other job steps
+
+            # 👇 Enables Chromatic's TurboSnap feature.
+            - npx chromatic --only-changed
+```
+
+<div class="aside">
+
+TurboSnap is highly customizable and can be configured to fit your requirements. For more information, read our [documentation](/docs/turbosnap).
+
+</div>
+
+### External Pull Requests
+
+By default, Semaphore allows external pull requests to run on your workflow. If you want to restrict this behavior, refer to the official Semaphore [documentation](https://docs.semaphoreci.com/using-semaphore/workflows#pr) to learn more about it.
+
+### UI Test and UI Review
+
+[UI Tests](/docs/test) and [UI Review](/docs/review) rely on [branch and baseline](/docs/branching-and-baselines) detection to keep track of [snapshots](/docs/snapshots). We recommend the following configuration.
+
+#### Command exit code for "required" checks
+
+If you are using pull request statuses as required checks before merging, you may not want your Semaphore job to fail if test snapshots render without errors (but with changes). To achieve this, pass the flag `--exit-zero-on-changes` to the `chromatic` command, and your job will continue in such cases. For example:
+
+```yml title=".semaphore/semaphore.yml"
+# Other required configuration
+
+# 👇 Adds Chromatic as a job
+blocks:
+  - name: Chromatic
+    task:
+      jobs:
+        - name: Runs Chromatic
+          commands:
+            # Other job steps
+
+            # 👇 Runs Chromatic with the flag to prevent workflow failure
+            - npx chromatic --exit-zero-on-changes
+```
+
+<div class="aside">
+
+Read our [configuration reference documentation](/docs/configure/#options).
+
+</div>
+
+When using `--exit-zero-on-changes` your build will still stop and fail if your Storybook contains stories that error. If you'd prefer Chromatic _never_ to block the build, you can use `npx chromatic || true`.
+
+#### Re-run failed builds after verifying UI test results
+
+Builds that contain visual changes need to be [verified](/docs/test#verify-ui-changes). They will fail if you are not using `--exit-zero-on-changes`. Once you accept all the changes, re-run the workflow and the `Chromatic` job will pass.
+
+If you deny any change, you will need to make the necessary code changes to fix the test (and thus start a new build) to get Chromatic to pass again.
+
+#### Maintain a clean "main" branch
+
+A clean `main` branch is a development **best practice** and **highly recommended** for Chromatic. This means testing your `main` branch to ensure builds are passing. It's important to note that baselines will not persist through branching and merging unless you test your `main` branch.
+
+If the builds are a result of direct commits to `main`, you will need to accept changes to keep the main branch clean. If they're merged from `feature-branches`, you will need to make sure those branches are passing _before_ you merge into `main`.
+
+#### Squash/rebase merge and the "main" branch
+
+We use GitHub, GitLab, and Bitbucket APIs respectively to detect squashing and rebasing so your baselines match your expectations no matter your Git workflow (see [Branching and Baselines](/docs/branching-and-baselines#how-do-baselines-get-preserved-during-squash-and-rebase-merging) for more details).
+
+If you’re using this functionality but notice the incoming changes were not accepted as baselines in Chromatic, then you'll need to adjust the `chromatic` command and include the `--auto-accept-changes` flag. For example:
+
+```yml title=".semaphore/semaphore.yml"
+# Other configuration here
+
+blocks:
+  # 👇 Checks if the branch is not main and runs Chromatic
+  - name: Chromatic
+    run:
+      when: branch != 'main'
+    task:
+      jobs:
+        - name: Run Chromatic
+          commands:
+            # Other job steps
+
+            - npx chromatic
+
+  # 👇 Checks if the branch is main and runs Chromatic with the flag to accept all changes
+  - name: Runs Chromatic and and auto accept changes
+    run:
+      when: branch = 'main'
+    task:
+      jobs:
+        - name: Run Chromatic
+          commands:
+            # Other job steps
+
+            - npx chromatic --auto-accept-changes
+```
+
+<div class="aside">
+
+Read our [configuration reference documentation](/docs/configure/#options).
+
+</div>
+
+Including the `--auto-accept-changes` flag ensures all incoming changes will be accepted as baselines. Additionally, you'll maintain a clean `main` branch.
+
+If you want to test the changes introduced by the rebased branch, you can adjust your workflow and include a new step with the `ignore-last-build-on-branch` flag. For example:
+
+```yml title=".semaphore/semaphore.yml"
+# Other required configuration
+
+blocks:
+  # Other jobs
+
+  # 👇 Adds Chromatic as a job
+  - name: Chromatic
+    task:
+      jobs:
+        - name: Run Chromatic
+          commands:
+            # Other job steps
+
+            # 👇 Option to skip the last build on target branch
+            - npx chromatic --ignore-last-build-on-branch=my-branch
+```
+
+Including the `--ignore-last-build-on-branch` flag ensures the latest build for the specific branch is not used as a baseline.
+
+#### Run Chromatic on external forks of open source projects
+
+You can enable PR checks for external forks by sharing your project token where you configured the Chromatic command (often in `package.json` or in the pipeline step).
+
+Sharing project tokens allows contributors and others to run Chromatic builds on your project, consuming your snapshot quota. They cannot access your account, settings, or accept baselines. This can be an acceptable tradeoff for open source projects that value community contributions.
+
+#### Skipping builds for certain branches
+
+Sometimes you might want to skip running a build for a certain branch, but still have Chromatic mark the latest commit on that branch as "passed". Otherwise pull requests could be blocked due to required checks that remain pending. To avoid this issue, you can run `chromatic` with the `--skip` flag. This flag accepts a branch name or glob pattern.
+
+One use case for this feature is skipping builds for branches created by a bot. For instance, Dependabot automatically updates a projects dependencies. Although some dependencies can result in UI changes, you might not find it worthwhile to run Chromatic for every single dependency update. Instead, you could rely on Chromatic running against the `main` or `develop` branch.
+
+To skip builds for `dependabot` branches, use the following:
+
+```shell
+npx chromatic --skip 'dependabot/**'
+```
+
+<div class="aside">
+
+Read our [configuration reference documentation](/docs/configure/#options).
+
+</div>
+
+To apply this to multiple branches, use an "extended glob". See the [globs guide] for details.
+
+```shell
+npx chromatic --skip '@(renovate/**|dependabot/**)'
+```
+
+[globs guide]: /docs/globs
