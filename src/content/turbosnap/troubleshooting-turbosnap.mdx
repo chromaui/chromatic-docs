@@ -120,6 +120,8 @@ An `Out of Memory` error typically happens when the Node.js process runs out of 
 
 - **Adjust CI runner memory settings:** Make sure your CI runner has sufficient memory. Chromatic recommends a minimum of 4GB, and if needed, up to 8GB. Some CI providers may require specific configurations to allocate more memory to certain steps or to the entire runner environment.
 
+- **Force full rebuilds on lock file changes:** Set the `MAX_LOCK_FILE_SIZE` environment variable to 1 to ensure a full rebuild occurs whenever the lock file changes. This can help prevent OOM errors. 
+
 Builds are split between your environment and Chromatic’s. Processes that require access to your code (like dependency tracing) run in your environment, while tasks like the Capture process run on Chromatic’s end.
 
 ## Why do merge commits test more changes than I expect?
