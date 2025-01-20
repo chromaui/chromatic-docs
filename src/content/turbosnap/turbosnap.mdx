@@ -190,6 +190,12 @@ Things get a little more complicated when TurboSnap tries to locate the commit f
 
 ## Pricing
 
+<div class="aside" style="margin-bottom: 2rem;">
+  👀 Snapshots skipped by flags [`OnlyStoryNames`](../configure/#onlystorynames)
+  and [`OnlyStoryFiles`](../configure/#onlystoryfiles) are charged as
+  TurboSnaps.
+</div>
+
 By enabling TurboSnap, Chromatic performs a check to identify stories that have no code changes associated with them. Instead of capturing new snapshots, it duplicates snapshots from existing baselines in such cases. We refer to these duplicated snapshots as **TurboSnaps**.
 
 TurboSnaps not only speed up the test runs, they also require less infrastructure resources. We pass these savings on to you by billing them at 1/5th of the cost of a regular snapshot.
