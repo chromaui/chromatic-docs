@@ -101,6 +101,10 @@ Therefore, if you use barrel files, you'll want to ensure that Webpack tree-shak
 2. Build using `production` mode (`NODE_ENV`) to enable [various optimizations](https://webpack.js.org/configuration/mode/#usage) including minification and tree-shaking.
 3. Make sure that compilers do not automatically convert your ES2015 module syntax into CommonJS modules. This is the default behavior of the popular Babel preset `@babel/preset-env`. See the [documentation](https://babeljs.io/docs/babel-preset-env#modules) for more details.
 
+## Why is TurboSnap testing more stories than the ones I changed?
+
+TurboSnap identifies **updated files** to test their stories. For instance, if you modify a single story in the `Button.stories.js` file, TurboSnap will test all stories in that file because it cannot pinpoint changes to an individual story.
+
 ## Why are full rebuilds required?
 
 Full rebuilds can be required for various reasons (see the list in [how it works](/docs/turbosnap#how-it-works)). Another scenario where a full rebuild will also be required is due to a change to a `package.json` or lock file for a subproject that doesn't affect the Storybook (we need to be very conservative as we cannot tell if a change to a lock file could affect `node_modules` imported by Storybook).
