@@ -1,0 +1,22 @@
+---
+layout: "../../layouts/Layout.astro"
+title: Page Shift Detection
+description: Learn how to use media features in Chromatic Capture
+sidebar: { order: 11 }
+---
+
+# Page Shift Detection (beta)
+
+When elements are added to the UI, the surrounding content shifts vertically. This shift is detected by Chromatic's capture system as a visual difference. Since the rest of the content remains unchanged, it becomes challenging to pinpoint what exactly was altered. Moreover, if there's a genuine change further down the page, this vertical shift makes it difficult for you to identify the actual diff.
+
+Page Shift Detection enhances the visual diff review process by detecting vertical content shifts and excluding them from the diff. This makes it easier to see what has been added to the UI.
+
+In the example below, a banner is added to the page, causing the content beneath it to shift down. With Page Shift Detection enabled, the banner is highlighted as the only change in the visual diff.
+
+![On the left is the baseline image and on the right is the new snapshot with only the banner highlighted in green](../../images/page-shift-detection.png)
+
+Page Shift Detection is triggered when all of the following conditions are met:
+
+- There is an addition from the baseline image to the head image (i.e., head image is taller than the baseline image).
+- There is a _single_ block of added content between the baseline and head image.
+- The added content is at least 30px tall.
