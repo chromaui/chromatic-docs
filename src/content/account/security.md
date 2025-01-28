@@ -22,6 +22,11 @@ Before submitting a vulnerability request, download the **Responsible Disclosure
 
 Chromatic is grateful to the following individuals for responsibly disclosing security issues, allowing us to make Chromatic safer for everyone.
 
+
+#### 2025
+
+- [Mridul Rastogi](https://www.linkedin.com/in/mridul-rastogi-532726292/)
+
 #### 2024
 
 - [Harish Harishwar](https://x.com/Hari_harishwar)
