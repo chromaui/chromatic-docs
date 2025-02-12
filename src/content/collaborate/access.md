@@ -17,7 +17,7 @@ Sign in to Chromatic via OAuth, email, or SSO.
 
 Chromatic supports the cloud versions of GitHub, GitLab, or Bitbucket on our [self-serve plans](https://www.chromatic.com/pricing).
 
-If you use the on-premise or enterprise versions of GitHub, GitLab, or Bitbucket, we can support you via our [enterprise plan](https://www.chromatic.com/pricing). We recommend trialing Chromatic first by following these [instructions](/docs/faq/chromatic-sso-on-premises-other-git).
+If you use the on-premise or self-managed versions of GitHub, GitLab, or Bitbucket, we can support you via our [enterprise plan](https://www.chromatic.com/pricing). We recommend trialing Chromatic first by following these [instructions](/docs/faq/chromatic-sso-on-premises-other-git).
 
 <details>
     <summary>What OAuth scopes does Chromatic request?</summary>
