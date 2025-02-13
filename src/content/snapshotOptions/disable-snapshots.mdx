@@ -20,14 +20,6 @@ If you're running tests with Storybook, you can enable the `disableSnapshot` opt
 ```ts title="src/components/NotFound.stories.ts|tsx"
 // Adjust this import to match your framework (e.g., nextjs, vue3-vite)
 import type { Meta, StoryObj } from "@storybook/your-framework";
-
-/*
- * Replace the @storybook/test package with the following if you are using a version of Storybook earlier than 8.0:
- * import { within } from "@storybook/testing-library";
- * import { expect } from "@storybook/jest";
- */
-import { expect, within } from "@storybook/test";
-
 import { NotFound } from "./NotFound";
 
 const meta: Meta<typeof NotFound> = {
@@ -41,13 +33,6 @@ const meta: Meta<typeof NotFound> = {
 
 export default meta;
 type Story = StoryObj<typeof NotFound>;
-
-export const Default: Story = {
-  play: async ({ canvasElement }) => {
-    const canvas = within(canvasElement);
-    await expect(canvas.getByText("Page not found")).toBeInTheDocument();
-  },
-};
 ```
 
 <ParamsCallout name="disableSnapshot" integration="storybook" />
