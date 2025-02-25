@@ -39,7 +39,7 @@ export default {
 
 ## Device Pointer
 
-Simulates touch events which is useful for testing components that rely on touch interactions such as tap and swipe.
+It simulates touch events, which is useful for testing components that rely on touch interactions, such as taps and swipes.
 
 ```js
 // ArticleCard.stories.js
