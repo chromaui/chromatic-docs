@@ -19,7 +19,7 @@ Key highlights on this release:
 - **Improved video support:** Some video services, like BrightCove and Wistia, use ephemeral source URLs that cause encoding errors in snapshots when `autoplay` is enabled. Chromatic now handles these cases correctly by displaying a poster or a blank video if no poster exists.
 - **Better Redirect Detection:** Chromatic now alerts you when a story reloads the page, causing a snapshot error. Previously, these stories would fail silently. Now, you'll know what caused the error so you can fix the story.
 - **New capture region:** Previously, Chromatic based the story size on the `#storybook-root` element. Now, it will base it on the `<body>` element. This means modals, dialogs, and other portal-based elements will be captured without needing to wrap stories in a fixed-height decorator.
-- **New options for Modes:** you can now configure color scheme, touch events and locale for each mode. [Learn more »](/docs/storybook/modes#configuring-modes)
+- [**New options for Modes:**](/docs/modes/browser-options) you can now configure color scheme, touch events and locale for each mode.
 
 ### Supported browsers versions
 
