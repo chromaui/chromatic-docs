@@ -14,8 +14,7 @@ Components adapt styling and layouts based on device characteristics. With Chrom
 
 Sets [prefers-color-scheme](https://developer.mozilla.org/en-US/docs/Web/CSS/@media/prefers-color-scheme) to `light` or `dark` to test how your components look in different color schemes.
 
-```jsx
-// ArticleCard.stories.js
+```jsx title="ArticleCard.stories.js|jsx"
 
 import { allModes } from "../.storybook/modes";
 import { ArticleCard } from "./ArticleCard";
