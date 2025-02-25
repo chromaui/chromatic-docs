@@ -6,6 +6,32 @@ description: Chromatic's browser infrastructure release notes
 
 # Chromatic Capture Cloud release notes
 
+## Version 7
+
+Welcome to `Chromatic Capture Cloud version 7` released February 2025.
+
+**Status**: Beta ([opt in for upgrade](/docs/infrastructure-upgrades#opt-in-to-upgrade))
+
+Key highlights on this release:
+
+- **Handle clipped elements:** Previously Chromatic calculated the snapshot size without accounting for `overflow: clipped` elements, those are now clipped.
+- `Intl.ListFormat` now works in Safari thanks to the version upgrade.
+- **Improved video support:** Some video services, like BrightCove and Wistia, use ephemeral source URLs that cause encoding errors in snapshots when `autoplay` is enabled. Chromatic now handles these cases correctly by displaying a poster or a blank video if no poster exists.
+- **Better Redirect Detection:** Chromatic now alerts you when a story reloads the page, causing a snapshot error. Previously, these stories would fail silently. Now, you'll know what caused the error so you can fix the story.
+- **New capture region:** Previously, Chromatic based the story size on the `#storybook-root` element. Now, it will base it on the `<body>` element. This means modals, dialogs, and other portal-based elements will be captured without needing to wrap stories in a fixed-height decorator.
+- **New options for Modes:** you can now configure color scheme, touch events and locale for each mode. [Learn more »](/docs/storybook/modes#configuring-modes)
+
+### Supported browsers versions
+
+| Browser | Version |
+| ------- | ------- |
+| Chrome  | 132     |
+| Firefox | 134.0   |
+| Safari  | 18.2    |
+| Edge    | 132     |
+
+---
+
 ## Version 6
 
 Welcome to `Chromatic Capture Cloud version 6` released February 2024.
