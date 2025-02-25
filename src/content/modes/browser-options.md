@@ -64,7 +64,7 @@ export default {
 
 ## Device Locale
 
-Emulate the user locale. Note that this will also change `navigator.language` and `Accept-Language` request headers.  This is essential for testing internationalization, date/number formatting, and right-to-left layouts.
+Emulate the user locale. Enabling this option will also change the `navigator.language` and `Accept-Language` request headers, common when testing internationalization features (e.g., date formatting, number formatting, and right-to-left layouts).
 
 ```js
 // ArticleCard.stories.js
