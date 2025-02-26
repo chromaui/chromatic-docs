@@ -15,7 +15,6 @@ Components adapt styling and layouts based on device characteristics. With Chrom
 Sets [prefers-color-scheme](https://developer.mozilla.org/en-US/docs/Web/CSS/@media/prefers-color-scheme) to `light` or `dark` to test how your components look in different color schemes.
 
 ```jsx title="ArticleCard.stories.js|jsx"
-
 import { allModes } from "../.storybook/modes";
 import { ArticleCard } from "./ArticleCard";
 
@@ -26,10 +25,10 @@ export default {
     chromatic: {
       modes: {
         Light: {
-          colorScheme: 'light'
+          colorScheme: "light",
         },
         Dark: {
-          colorScheme: 'dark'
+          colorScheme: "dark",
         },
       },
     },
@@ -37,13 +36,11 @@ export default {
 };
 ```
 
-## Device Pointer
+## Device Pointer
 
 It simulates touch events, which is useful for testing components that rely on touch interactions, such as taps and swipes.
 
-```js
-// ArticleCard.stories.js
-
+```js title="ArticleCard.stories.js|jsx"
 import { allModes } from "../.storybook/modes";
 import { ArticleCard } from "./ArticleCard";
 
@@ -54,11 +51,11 @@ export default {
     chromatic: {
       modes: {
         Mobile: {
-          hasTouch: true
+          hasTouch: true,
         },
       },
     },
-  }
+  },
 };
 ```
 
@@ -66,9 +63,7 @@ export default {
 
 Emulate the user locale. Enabling this option will also change the `navigator.language` and `Accept-Language` request headers, common when testing internationalization features (e.g., date formatting, number formatting, and right-to-left layouts).
 
-```js
-// ArticleCard.stories.js
-
+```js title="ArticleCard.stories.js|jsx"
 import { allModes } from "../.storybook/modes";
 import { ArticleCard } from "./ArticleCard";
 
@@ -79,14 +74,14 @@ export default {
     chromatic: {
       modes: {
         "United States": {
-          locale: "en-US"
+          locale: "en-US",
         },
         France: {
-          locale: "fr-FR"
-        }
+          locale: "fr-FR",
+        },
       },
     },
-  }
+  },
 };
 ```
 
@@ -94,9 +89,7 @@ export default {
 
 You can combine multiple browser options within a mode for comprehensive testing:
 
-```js
-// ArticleCard.stories.js
-
+```js title="ArticleCard.stories.js|jsx"
 import { allModes } from "../.storybook/modes";
 import { ArticleCard } from "./ArticleCard";
 
@@ -110,10 +103,10 @@ export default {
           viewport: "small",
           colorScheme: "dark",
           hasTouch: true,
-          locale: "fr-FR"
-        }
+          locale: "fr-FR",
+        },
       },
     },
-  }
+  },
 };
 ```
