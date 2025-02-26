@@ -17,7 +17,7 @@ Key highlights on this release:
 - **Handle clipped elements:** Previously Chromatic calculated the snapshot size without accounting for `overflow: clipped` elements, those are now clipped.
 - `Intl.ListFormat` now works in Safari thanks to the version upgrade.
 - **Improved video support:** Some video services, like BrightCove and Wistia, use ephemeral source URLs that cause encoding errors in snapshots when `autoplay` is enabled. Chromatic now handles these cases correctly by displaying a poster or a blank video if no poster exists.
-- **Better Redirect Detection:** Chromatic now alerts you when a story reloads the page, causing a snapshot error. Previously, these stories would fail silently. Now, you'll know what caused the error so you can fix the story.
+- **Better Redirect Detection:** Chromatic now alerts you when a story reloads the page, causing a snapshot error. Previously, these stories would throw an error without providing enough context to understand the cause. Now, you'll know what caused the error so you can fix the story.
 - **New capture region:** Previously, Chromatic based the story size on the `#storybook-root` element. Now, it will base it on the `<body>` element. This means modals, dialogs, and other portal-based elements will be captured without needing to wrap stories in a fixed-height decorator.
 - [**New options for Modes:**](/docs/modes/browser-options) You can now configure each mode's color scheme, touch events, and locale.
 
