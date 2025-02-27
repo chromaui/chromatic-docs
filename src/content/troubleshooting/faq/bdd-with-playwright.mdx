@@ -1,0 +1,86 @@
+---
+layout: "../../../layouts/FAQLayout.astro"
+sidebar: { hide: true }
+title: Can I use BDD with Playwright?
+section: "uiTestsAndReview"
+---
+
+import { TabItem, Tabs } from "../../../components/Tabs";
+
+# Can I use BDD with Playwright?
+
+Testing with Behavior-Driven Development (BDD) is not supported by default with the Playwright integration, and you'll have to rely on a third-party integration such as [Playwright BDD](https://github.com/vitalets/playwright-bdd). To enable it, you'll need to adjust your [fixture](https://vitalets.github.io/playwright-bdd/#/getting-started/add-fixtures) file to compose the Playwright BDD API with Chromatic via the [`mergeTests`](https://playwright.dev/docs/test-fixtures#combine-custom-fixtures-from-multiple-modules) function.
+
+```ts title="features/steps/fixtures.ts"
+import { test as chromaticTest } from "@chromatic-com/playwright";
+
+import { test as base, createBdd } from "playwright-bdd";
+
+import { mergeTests } from "@playwright/test";
+
+const FIXTURES = {
+  // Custom fixtures go here
+} as const;
+
+export const test = mergeTests(chromaticTest, base).extend<typeof FIXTURES>(
+  FIXTURES,
+);
+
+export const { Given, When, Then } = createBdd(test);
+```
+
+## Configure Playwright BDD with Chromatic
+
+If you need to include any of the available [configuration options](/docs/playwright/configure/) supported by Chromatic in your BDD tests, you'll need to provide a custom tag to the feature file and adjust your fixture file to override the required option as needed.
+
+<Tabs>
+  <TabItem label="feature">
+    ```plaintext title="features/Homepage.feature"
+    @noAutoSnapshot
+    Feature: Homepage
+
+      Scenario: Homepage loads
+        Given I am on the homepage
+        Then I see the title "Welcome"
+    ```
+
+  </TabItem>
+    <TabItem label="steps">
+    ```ts title="features/steps/fixtures.ts"
+    import { test as chromaticTest } from "@chromatic-com/playwright";
+
+    import { test as base, createBdd } from "playwright-bdd";
+
+    import { mergeTests } from "@playwright/test";
+
+    export const test = mergeTests(chromaticTest, base).extend({
+      disableAutoSnapshot: async ({ $tags }, use) => {
+        await use($tags.includes('@noAutoSnapshot'));
+      },
+      // Add additional options here
+    });
+
+    export const { Given, When, Then } = createBdd(test);
+    ```
+
+  </TabItem>
+</Tabs>
+
+## Enabling targeted snapshots with BDD
+
+To enable [targeted snapshots](/docs/playwright/targeted-snapshots) with BDD, adjust your test steps file to use the `$testInfo` fixture to pass the test information to the `takeSnapshot` function allowing you to take a snapshot of the page at a specific point in the test.
+
+```ts title="features/steps/Homepage.steps.ts"
+import { expect, takeSnapshot } from "@chromatic-com/playwright";
+
+import { Given, Then } from "./fixtures";
+
+Given("I am on the homepage", async ({ page }) => {
+  await page.goto("/");
+});
+
+Then("I see the title {string}", async ({ page }, keyword: string) => {
+  await expect(page).toHaveTitle(new RegExp(keyword));
+  await takeSnapshot(page, "Page Loaded", $testInfo);
+});
+```
