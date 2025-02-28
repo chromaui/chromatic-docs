@@ -171,7 +171,7 @@ Alternatively, replace the Git token from the `Configure` tab on the `Manage` pa
 <details>
 <summary>I hit the error <code>Could not retrieve repository ID</code> when trying to link a repo.</summary>
 
-If your project is part of an organization, you need to have your access request approved by an admin at the organization level.
+If your project is part of an organization, you need to have [your access request](#how-do-i-request-access-from-my-github-organization-admin) approved by an admin at the organization level.
 Approval from a repository-level admin alone will not be sufficient. The actual scopes we request are listed [here](#what-oauth-scopes-does-chromatic-request).
 
 </details>
