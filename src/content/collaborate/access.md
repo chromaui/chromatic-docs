@@ -168,6 +168,15 @@ Alternatively, replace the Git token from the `Configure` tab on the `Manage` pa
 
 </details>
 
+<details>
+<summary>Why am I getting <code>Could not retrieve repository ID</code> error when trying to link a repository?</summary>
+
+If your project is part of an organization, you need to have [your access request](#how-do-i-request-access-from-my-github-organization-admin) approved by an admin at the organization level.
+Approval from a repository-level admin alone will not be sufficient. The actual scopes that Chromatic requires are listed [here](#what-oauth-scopes-does-chromatic-request).
+
+</details>
+
+
 #### Unlinked projects
 
 An unlinked project is perfect for teams that self-host Git or have enterprise Git providers (that aren't on Chromatic's enterprise plan). Unlinked projects still require Git; they are just not linked to a repository on GitHub, Bitbucket, or GitLab. They do not automatically [sync collaborators](/docs/collaborators#project-collaborators) or badge pull requests.
