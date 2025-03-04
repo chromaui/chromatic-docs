@@ -2,7 +2,7 @@
 layout: "../../layouts/Layout.astro"
 title: Viewports (legacy)
 description: chromatic.viewports feature is now being replaced by the new Modes API
-sidebar: { order: 5 }
+sidebar: { order: 6 }
 ---
 
 # Viewports (legacy Storybook API)
