@@ -96,6 +96,16 @@ A custom domain gives you a memorable URL to share with stakeholders and teammat
 </details>
 
 <details>
+<summary><b>How to setup a custom wildcard subdomain</b></summary>
+
+1. Go to the DNS management interface provided by your domain registrar or web hosting provider. Find the section where you can add DNS records.
+2. Add a CNAME record for the subdomain you would like to use, such as `*.storybook.example.com`, then enter `domains.chromatic.com` as the value.
+3. Back in Chromatic, enter the full domain name you’d like to use and choose a target branch. The domain will link to the most recent build on that branch.
+4. If you've setup a custom wildcard subdomain for another project, get in touch and ask for the domain to be whitelisted, in order to complete the configuration.
+
+</details>
+
+<details>
 <summary><b>My domain remains in the "Issuing certificate" state</b></summary>
 
 Your DNS may be configured with [CAA records](https://en.wikipedia.org/wiki/DNS_Certification_Authority_Authorization) that only allow certain authorities to issue certificates for your domain names. The Chromatic custom domain relies on Let's Encrypt and ZeroSSL (either one may be used). In order to allow Let's Encrypt or ZeroSSL to issue a certificate for your Chromatic custom domain, add a `CAA` record for `letsencrypt.org` and `sectigo.com`. For example:
