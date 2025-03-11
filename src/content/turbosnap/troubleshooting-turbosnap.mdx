@@ -169,7 +169,7 @@ This message should only present to customers using TurboSnap with older Storybo
 
 TurboSnap bailed due to a change in Storybook config (`.storybook` dir files, such as `main.js|ts` and `preview.js|ts`).
 
-You may have made changes to one of the files within your Storybook configuration, or to a dependency that is being imported by your configuration. It's important to keep in mind that second part, since it's common practice ot import decorators into the `preview.js` config.
+You may have made changes to one of the files within your Storybook configuration, or to a dependency that is being imported by your configuration. It's important to keep in mind that second part, since it's common practice to import decorators into the `preview.js` config.
 
 Additionally, if you're utilizing barrel/index files (whether directly importing in your `preview.js` or in a file that `preview.js` is dependent on), it's likely to cause more bails since [a change to any of these modules would cause any file that imports the index file to be considered "dirty"](/docs/turbosnap/setup/#avoid-re-testing-dependent-stories-when-certain-files-changed), even if it's not using the changed module.
 
