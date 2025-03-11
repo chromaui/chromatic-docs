@@ -31,6 +31,12 @@ export const links: HeaderProps["links"] = {
     iconColor: "purple500",
     href: "/features/visual-test",
   },
+  accessibilityTest: {
+    title: "Accessibility test",
+    icon: "accessibility",
+    iconColor: "green500",
+    href: "/features/accessibility-test",
+  },
   interactionTest: {
     title: "Interaction test",
     icon: "pointerhand",
