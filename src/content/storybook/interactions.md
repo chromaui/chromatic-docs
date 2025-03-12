@@ -73,6 +73,95 @@ Interaction tests run behind the scenes without you having to configure anything
 
 ![Confirm interaction test run in the build summary](../../images/interaction-test-buildsummary-confirm.png)
 
+## Composing stories with the `play()` function
+
+Similarly to `args`, `play()` functions can be [composed](https://storybook.js.org/docs/writing-stories/play-function#composing-stories) to reuse and reduce the amount of code being written. This can be helpful for instances where you are looking to snapshot multiple states of a longer interaction, or if you have interactions that can be reused to further compose other states of your component.
+
+There is an important caveat to remember when invoking a `play()` function from another story: it is necessary to pass the _full context_ as an argument to the `play()` function. The below code uses the correct code for this rule, with `canvasContext` being used as context.
+
+```jsx
+// MyComponent.stories.jsx|tsx
+
+import { MyComponent } from "./MyComponent";
+import { userEvent, within, waitFor, screen } from "@storybook/testing-library";
+import { expect } from "@storybook/jest";
+
+export default {
+  component: MyComponent,
+  title: "My Component",
+};
+
+export const FirstStory = {
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    const dropdownButton = canvas.getByRole("button");
+    await userEvent.click(dropdownButton);
+  },
+};
+
+export const SecondStory = {
+  play: async (canvasContext) => {
+    const canvas = within(canvasContext.canvasElement);
+    //  👇 Pass the full context as an argument to the play function:
+    await FirstStory.play(canvasContext);
+    const findText = canvas.getByText("some text");
+    await userEvent.hover(findText);
+    await waitFor(() => expect(findText.focus()));
+  },
+};
+
+export const ThirdStory = {
+  play: async (canvasContext) => {
+    //  👇 SecondStory.play will execute the play functions from FirstStory.play since this is part of the SecondStory.play function:
+    await SecondStory.play(canvasContext);
+    const searchbox = screen.getByRole("searchbox", { label: "Search" });
+    await userEvent.type(searchbox, "text for searchbox");
+  },
+};
+```
+
+Additionally, you can stack multiple `play()` functions within a story. Below is a quick pseudocode example.
+
+```jsx
+// MyComponent.stories.jsx|tsx
+
+import { MyComponent } from "./MyComponent";
+import { userEvent, within, waitFor, screen } from "@storybook/testing-library";
+import { expect } from "@storybook/jest";
+
+export default {
+  component: MyComponent,
+  title: "My Component",
+};
+
+export const FirstStory = {
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    await userEvent.type(canvas.getByTestId("an-element"), "some text");
+  },
+};
+
+export const SecondStory = {
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    await userEvent.type(
+      canvas.getByTestId("another-element"),
+      "some more text",
+    );
+  },
+};
+
+export const CombinedStories = {
+  play: async (canvasContext) => {
+    const canvas = within(canvasContext.canvasElement);
+    //  👇 This executes FirstStory.play and SecondStory.play before executing the story's play function:
+    await FirstStory.play(canvasContext);
+    await SecondStory.play(canvasContext);
+    await userEvent.type(canvas.getByTestId("another-one"), "even more text");
+  },
+};
+```
+
 ## Debug test failures
 
 Chromatic notifies you when an interaction errors or an assertion fails. We designate these as critical failures that need immediate attention. You won’t be able to pass the build until the test is fixed.
