@@ -18,7 +18,7 @@ export const TrackSignUp = ({ children }: { children: React.ReactNode }) => {
     <Wrapper
       onClick={() => {
         if (window.plausible) {
-          window.plausible("sign_up");
+          window.plausible("Click Sign Up");
         }
       }}
     >
