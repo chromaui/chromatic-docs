@@ -12,7 +12,7 @@ type Props = MarkdownLayoutProps<{
 }>;
 
 const {
-  frontmatter: { title, description, sidebar },
+  frontmatter: { title, description },
   url,
   headings,
 } = Astro.props;
@@ -29,7 +29,6 @@ const slug = Astro.params.slug || Astro.props.frontmatter.slug || "";
   file={Astro.props.file}
   headings={headings}
   slug={slug}
-  sidebarOrder={sidebar?.order}
 >
   <slot />
 </BaseLayout>

@@ -42,6 +42,15 @@ const editUrl = Astro.props.file?.replace(projectRoot, "").replace("src/", "");
     <Scripts />
   </head>
   <body>
+    <!-- Google Tag Manager (noscript) -->
+    <noscript
+      ><iframe
+        src="https://www.googletagmanager.com/ns.html?id=GTM-K35MZQHR"
+        height="0"
+        width="0"
+        style="display:none;visibility:hidden"></iframe></noscript
+    >
+    <!-- End Google Tag Manager (noscript) -->
     <MarketingHeader client:visible />
     <FullWidthContainer>
       <LayoutGrid showOnThisPage={Astro.props.headings.length > 0}>
