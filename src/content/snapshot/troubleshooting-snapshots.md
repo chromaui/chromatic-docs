@@ -70,7 +70,7 @@ Check for missing elements, incorrect styles, or unexpected layout changes. If s
 When Chromatic captures a screenshot, it includes metadata like viewport information and clip rectangle dimensions, providing context for the capture. Use this data to identify issues such as:
 
 - **Responsive design issues**: Viewport information reveals the screen size used for the capture. Compare this with your breakpoints to ensure that the correct styles are applied.
-- **Element positioning problems**: The clip rectangle shows precisely what was captured. If an element is missing from the snapshot, verify if it falls within the expected clip area. For instance, Chromatic only captures DOM elements within the `#storybook-root` element for stories. Modal and dropdown components might not be captured if they fall outside this root element's "natural" dimensions. Use [fixed-height wrappers](#use-fixed-height-wrappers-for-portal-components) to capture these portal components.
+- **Element positioning problems**: The clip rectangle shows precisely what was captured. If an element is missing from the snapshot, verify if it falls within the expected clip area.
 
 ![Example of screenshot metadata for a story of a dropdown component](../../images/trace-screenshot-metadata.png)
 
@@ -217,73 +217,11 @@ Scrollable divs constrain the height of their children. Change the height of the
 </details>
 
 <details>
-<summary>Why isn’t my modal or dialog captured?</summary>
+<summary>Why isn’t my portal component (modal, dialog, popover, tooltip or menu) captured? Or why is its snapshot cut off</summary>
 
 If you use an “animateIn” effect set [delay](/docs/delay) to ensure we snapshot when the animation completes.
 
-If your component infers its dimensions from the layout of the surrounding DOM elements (e.g., it's a modal that uses `position:fixed`), you'll need to set the height of that component's stories using a decorator.
-
-```js
-// MyComponent.stories.js|jsx
-
-import { MyComponent } from "./MyComponent";
-
-export default {
-  component: MyComponent,
-  title: "Example Story",
-  decorators: [
-    (storyFn) => (
-      <div style={{ width: "1200px", height: "800px" }}>
-        This is a decorator for modals and such {storyFn()}
-      </div>
-    ),
-  ],
-};
-
-/*
- *👇 Render functions are a framework-specific feature to allow you control over how the component renders.
- * See https://storybook.js.org/docs/api/csf#custom-render-functions
- * to learn how to use render functions.
- */
-export const StoryWithDimensions = {
-  render: () => <MyComponent />,
-};
-```
-
-</details>
-
-<details>
-<summary>What if I have a modal component that doesn't define a width or height?</summary>
-
-If your component infers its dimensions from the layout of the surrounding DOM elements (e.g., it's a modal that uses `position:fixed`), you can set the height of that component's stories using a [decorator](https://storybook.js.org/docs/writing-stories/decorators#component-decorators).
-
-```js
-// MyComponent.stories.js|jsx
-
-import { MyComponent } from "./MyComponent";
-
-export default {
-  component: MyComponent,
-  title: "Example Story",
-  decorators: [
-    (storyFn) => (
-      <div style={{ width: "1200px", height: "800px" }}>
-        This is a decorator for modals and such {storyFn()}
-      </div>
-    ),
-  ],
-};
-
-/*
- *👇 Render functions are a framework-specific feature to allow you control over how the component renders.
- * See https://storybook.js.org/docs/api/csf#custom-render-functions
- * to learn how to use render functions.
- */
-export const StoryWithDimensions = {
-  render: () => <MyComponent />,
-  args: {},
-};
-```
+Your component might be rendering outside of the viewport. Either reposition the component or adjust the [viewport size](/docs/storybook/viewports/).
 
 </details>
 
@@ -367,36 +305,6 @@ When using Playwright or Cypress, you can serve static files like fonts, images,
 
 For Storybook, use the [staticDirs](https://storybook.js.org/docs/configure/integration/images-and-assets#serving-stae-files-via-storybook-configuration) option to load static files for your stories.
 
-### Use fixed-height wrappers for portal components
-
-Portals allow components to render arbitrary elements outside the parent component's initial DOM hierarchy. For example, tooltips, modals, popovers, and menus can be triggered by a nested button, but render close to the top of the DOM hierarchy using portals.
-
-With Playwright and Cypress, Chromatic snapshots the entire page, including modals, dialogs, and other portaled elements. However, with Storybook, portals render outside of Storybook’s DOM tree which can lead to cut-off snapshots.
-
-<details>
-<summary>Why are snapshots of portal components (tooltip, modal, popover, menu) cut off?</summary>
-
-For stories, Chromatic relies on the "natural" height of your component's outermost DOM element (using Storybook's `#storybook-root` element in version 7 or higher or the `#root` element for previous versions) to determine snapshot dimensions. As portals render outside of Storybook's DOM tree, Chromatic cannot auto-detect their dimensions, which can lead to cut-off snapshots.
-
-</details>
-
-To capture snapshots of portaled elements, you can use a [decorator](https://storybook.js.org/docs/writing-stories/decorators#component-decorators) that wraps your stories in a fixed-height container. You can adjust the container's height to account for the total dimensions of your component and portal.
-
-```js title="MyComponent.stories.js|jsx"
-import { MyComponent } from "./MyComponent";
-
-export default {
-  component: MyComponent,
-  title: "Example Story",
-  decorators: [
-    (Story) => (
-      <div style={{ height: "300px" }}>
-        <Story />
-      </div>
-    ),
-  ],
-};
-```
 
 ## Browser differences between snapshots
 
