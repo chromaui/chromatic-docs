@@ -203,6 +203,42 @@ This is a [known issue](https://github.com/storybookjs/storybook/issues/22431#is
 </details>
 
 <details>
+<summary>I hit the error `Login Error: Failed to fetch initial project list`. Why?</summary>
+
+This error typically means Chromatic's Visual Tests Addon cannot retrieve your list of projects during the login or authentication step. Here are the most common causes and how to resolve them:
+
+#### 1. Missing or invalid `chromatic.config.json` file
+
+Ensure your project has a `chromatic.config.json file` in the root directory with a valid `projectId`. Example:
+
+```json title="chromatic.config.json"
+{
+  "$schema": "https://www.chromatic.com/config-file.schema.json",
+  "projectId": "Project:your_project_id_here"
+}
+```
+
+- This file must be committed to your repository.
+- The `projectId` is different from your `projectToken`. It's the number from the Chromatic link.
+
+#### 2. Insufficient GitHub permissions
+
+If Chromatic cannot retrieve your projects, your <b>GitHub</b> account may not have the necessary access. Check:
+
+- You granted access to the correct <b>GitHub</b> organization when authorizing Chromatic.
+- You're logged in with the same <b>GitHub</b> account with access to the target project.
+- Try signing in via an <i>incognito/private browser window</i> to avoid caching or token issues.
+
+#### 3. Blocked network requests
+
+If your network blocks requests to Chromatic’s API, the Visual Tests Addon may not work properly. Check your network:
+
+- Confirm you can access https://www.chromatic.com/api and https://index.chromatic.com/graphql from your browser.
+- If you use a corporate <b>proxy</b>, <b>VPN</b>, <b>firewall</b>, or <b>SSL</b> inspection, they might be interfering with the request.
+
+</details>
+
+<details>
 <summary>Does the addon affect snapshot usage?</summary>
 
 The Visual Tests addon uses the same [pricing tiers as Chromatic](https://www.chromatic.com/pricing), providing the number of snapshots subscribed to in your plan. If you have any questions about snapshot costs or billing, please contact us <a class="intercom-concierge-bot"><b>via in-app chat</b></a>.
