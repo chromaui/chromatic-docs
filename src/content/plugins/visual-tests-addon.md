@@ -203,7 +203,7 @@ This is a [known issue](https://github.com/storybookjs/storybook/issues/22431#is
 </details>
 
 <details>
-<summary>I hit the error `Login Error: Failed to fetch initial project list`. Why?</summary>
+<summary>Why am I seeing the <code>Login Error: Failed to fetch initial project list</code> error?</summary>
 
 This error typically means Chromatic's Visual Tests Addon cannot retrieve your list of projects during the login or authentication step. Here are the most common causes and how to resolve them:
 
@@ -223,11 +223,11 @@ Ensure your project has a `chromatic.config.json file` in the root directory wit
 
 #### 2. Insufficient GitHub permissions
 
-If Chromatic cannot retrieve your projects, your <b>GitHub</b> account may not have the necessary access. Check:
+If Chromatic cannot retrieve your projects, your <b>git provider</b> account may not have the necessary access. Check:
 
-- You granted access to the correct <b>GitHub</b> organization when authorizing Chromatic.
-- You're logged in with the same <b>GitHub</b> account with access to the target project.
-- Try signing in via an <i>incognito/private browser window</i> to avoid caching or token issues.
+- You granted access to the correctgit provider organization when authorizing Chromatic.
+- You're logged in with the same git provider account with access to the target project.
+- Try signing in via an incognito or private browser window to avoid caching or token issues.
 
 #### 3. Blocked network requests
 
