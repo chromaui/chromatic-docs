@@ -203,7 +203,7 @@ This is a [known issue](https://github.com/storybookjs/storybook/issues/22431#is
 </details>
 
 <details>
-<summary>Why am I seeing the <code>Login Error: Failed to fetch initial project list</code> error?</summary>
+<summary>Why am I seeing the "Login Error: Failed to fetch initial project list" error?</summary>
 
 This error typically means Chromatic's Visual Tests Addon cannot retrieve your list of projects during the login or authentication step. Here are the most common causes and how to resolve them:
 
