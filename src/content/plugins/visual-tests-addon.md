@@ -233,7 +233,7 @@ If Chromatic cannot retrieve your projects, your <b>git provider</b> account may
 
 If your network blocks requests to Chromatic’s API, the Visual Tests Addon may not work properly. Check your network:
 
-- Confirm you can access https://www.chromatic.com/api and https://index.chromatic.com/graphql from your browser.
+- Confirm you can access `https://www.chromatic.com/api` and `https://index.chromatic.com/graphql` from your browser.
 - If you use a corporate <b>proxy</b>, <b>VPN</b>, <b>firewall</b>, or <b>SSL</b> inspection, they might be interfering with the request.
 
 </details>
