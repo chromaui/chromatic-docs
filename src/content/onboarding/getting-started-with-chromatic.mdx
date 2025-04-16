@@ -17,7 +17,7 @@ We recommend you follow this guide in order, but feel free to skip around if you
 - If you don't have the ability to use a git account, you can sign up for Chromatic using an email address and password.
   - Read more about unlinked accounts [here](/docs/access/#unlinked-projects) and how to setup an unlinked account [here](/docs/faq/chromatic-sso-on-premises-other-git/)
 - If you are using SSO configured via your enterprise plan, you will visit your dedicated subdomain instead.
-  - Reach out to your Chromatic CSM, Account Executive, or Solutions Engineer if you are unsure of your subdomain.
+  - Reach out to your Chromatic CSM, Account Executive, or Technical Support if you are unsure of your subdomain.
 
 ## 2. Create a Project within Chromatic
 
@@ -36,8 +36,11 @@ We recommend you follow this guide in order, but feel free to skip around if you
 ## 4. Confirm that Chromatic is integrated with a git provider
 
 - [Linked Projects](/docs/access/#linked-projects)
-- [On-prem GitHub or GitLab](/docs/access/#how-do-i-link-my-project-to-github-enterprise-server-or-gitlab-self-managed)
-- Confirm that [Mandatory Status Checks](/docs/mandatory-pr-checks/#github) are configured
+- [On-prem GitHub or GitLab (Enterprise Only)](/docs/access/#how-do-i-link-my-project-to-github-enterprise-server-or-gitlab-self-managed)
+  - Reach out to your Chromatic CSM, Account Executive, or Technical Support if you are interested in setting up on-prem git.
+- Confirm that [Mandatory Status Checks](/docs/mandatory-pr-checks/#github) are configured.
+  - This is a best practice to ensure that all PRs pass visual regression testing before they are merged.
+    - This is setup via branch protection rules for GitHub and a default requirement to pass with GitLab and Bitbucket pipelines.
 
 ## 5. Upgrade your Storybook
 
@@ -48,15 +51,16 @@ We have a [guide](https://storybook.js.org/docs/migration-guide/index) to help y
 If you are using Storybook 8 or later, it's much more straightforward to upgrade.
 
 - You can run `npx storybook@latest upgrade` and the CLI and automigrations will handle the rest.
+- We also have a [Storybook 9 Migration Guide](https://github.com/storybookjs/storybook/blob/next/MIGRATION.md#from-version-8x-to-900)
 
-## 6. Go over Setup and Flags for CI
+## 6. Setup and Flags for CI
 
 There are many options to configure your CI to work optimally with your project.
 Here are some resources to help you get started:
 
     - [Configuration Options](/docs/configure/#options)
-    - [Chromatic on Monorepos](/docs/custom-ci-provider/#run-chromatic-on-monorepos)
-    - [Chromatic on GitHub Actions](/docs/github-actions)
+    - [Chromatic with Monorepos](/docs/custom-ci-provider/#run-chromatic-on-monorepos)
+    - [Chromatic using GitHub Actions](/docs/github-actions)
 
 If you use a different CI provider, we have many others listed in the CI section.
 

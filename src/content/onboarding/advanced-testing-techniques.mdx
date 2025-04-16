@@ -42,10 +42,10 @@ Visual testing is a powerful way to catch UI regressions:
 - [VTA](/docs/visual-tests-addon/) - This Storybook addon is an integral part of greatly reducing the
   feedback loop for engineers when making UI changes, and allows you to run Chromatic inside of Storybook.
   The typical workflow is:
-  - Engineer makes UI changes
-  - Reviews the changes in Storybook
-  - Potentially makes additional changes based on a manual review of the story
-  - Run the VTA and get feedback quickly on potential visual changes or regressions
+  - An engineer makes UI changes.
+  - The engineer then reviews the changes in Storybook.
+  - Potentially makes additional changes based on a manual review of the story.
+  - Run the VTA and get feedback quickly on potential visual changes or regressions.
   - The VTA saves on time, CI build minutes, and context switching.
   - Requires Storybook 8.0 or higher for the best experience.
 
@@ -58,18 +58,10 @@ Ensure your components are accessible and well-tested:
 - Review the [Code Implementation](https://github.com/storybookjs/storybook/tree/next/code/core/src/test) - See how to implement comprehensive testing in your project.
 - [Accessibility Testing](https://www.chromatic.com/features/accessibility-test) - Learn how to test your components for accessibility in an automated fashion with Chromatic.
 
-## Data Mocking and Consistency
+### Automated Component Validation in Storybook with Vitest
 
-### Mock Service Worker (MSW)
-
-MSW helps you create reliable tests by controlling network requests and module behavior.
-Storybook is designed to build your components in isolation, for rapid iteration and consistent tests in Chromatic.
-
-- [Network Requests](https://storybook.js.org/docs/writing-stories/mocking-data-and-modules/mocking-network-requests) - Learn how to mock API calls and network requests for consistent testing.
-- [Module Mocking](https://storybook.js.org/docs/writing-stories/mocking-data-and-modules/mocking-modules) - Understand how to mock external dependencies and modules.
-- [Storybook RSC Example](https://github.com/storybookjs/storybook-rsc-demo/blob/main/package.json) - See how to implement mocking in a React Server Components environment.
-  - [Straightforward Session Mock](https://github.com/storybookjs/storybook-rsc-demo/blob/main/lib/session.mock.ts)
-  - [More Complex DB Mock](https://github.com/storybookjs/storybook-rsc-demo/blob/main/lib/db.mock.ts)
+- [Storybook Test](https://storybook.js.org/docs/writing-tests/test-addon)
+  - This will no longer be experimental in Storybook 9.
 
 ### Test Coverage
 

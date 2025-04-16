@@ -15,3 +15,19 @@ Full page testing allows you to verify entire user flows and page layouts:
 - [Building Full Pages in Storybook](https://storybook.js.org/docs/writing-stories/build-pages-with-storybook) - Learn how to create and test complete page layouts in Storybook.
 - Best practices for full page testing - Understand how to structure your stories for comprehensive page testing.
 - Handling complex page states - Learn techniques for managing and testing complex page interactions and states.
+
+## Data Mocking and Consistency
+
+### Mock Service Worker (MSW)
+
+MSW helps you create reliable tests by controlling network requests and module behavior.
+Storybook is designed to build your components in isolation, for rapid iteration and consistent tests in Chromatic.
+
+- [Network Requests](https://storybook.js.org/docs/writing-stories/mocking-data-and-modules/mocking-network-requests) - Learn how to mock API calls and network requests for consistent testing.
+
+### Storybook Module Mocking
+
+- [Module Mocking](https://storybook.js.org/docs/writing-stories/mocking-data-and-modules/mocking-modules) - Understand how to mock external dependencies and modules.
+- [Storybook RSC Example](https://github.com/storybookjs/storybook-rsc-demo/blob/main/package.json) - See how to implement mocking in a React Server Components environment.
+  - [Straightforward Session Mock](https://github.com/storybookjs/storybook-rsc-demo/blob/main/lib/session.mock.ts)
+  - [More Complex DB Mock](https://github.com/storybookjs/storybook-rsc-demo/blob/main/lib/db.mock.ts)
