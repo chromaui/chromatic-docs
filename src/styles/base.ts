@@ -105,4 +105,20 @@ export const base = css`
       font-size: 90%;
     }
   }
+
+  kbd {
+    vertical-align: baseline;
+
+    font-family: ${fontFamily.mono};
+    font-size: 85%; // Relative font size based on size of surrounding text
+    line-height: 1;
+    -webkit-text-size-adjust: 100%;
+  }
+
+  kbd:not(:has(kbd)) {
+    padding: 3px 5px;
+    background-color: var(--tetra-color-slate100);
+    border-radius: 3px;
+    border: 1px solid rgba(0, 0, 0, 0.1);
+  }
 `;

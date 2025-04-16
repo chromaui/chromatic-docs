@@ -1,0 +1,56 @@
+<script>
+  export const isMacLike = () =>
+    typeof window !== "undefined" && window.navigator.userAgent.includes("Mac");
+  export const optionOrAltSymbol = () => (isMacLike() ? "⌥" : "alt");
+
+  document.querySelectorAll("[data-alt-or-option]").forEach((el) => {
+    el.textContent = optionOrAltSymbol();
+  });
+</script>
+
+<table>
+  <thead>
+    <tr>
+      <th>Action</th>
+      <th>Shortcut</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Next</td>
+      <td><kbd><kbd data-alt-or-option>⌥</kbd> + <kbd>→</kbd></kbd></td>
+    </tr>
+    <tr>
+      <td>Previous</td>
+      <td><kbd><kbd data-alt-or-option>⌥</kbd> + <kbd>←</kbd></kbd></td>
+    </tr>
+    <tr>
+      <td>Accept</td>
+      <td><kbd>a</kbd></td>
+    </tr>
+    <tr>
+      <td>Deny</td>
+      <td><kbd>d</kbd></td>
+    </tr>
+    <tr>
+      <td>1up view</td>
+      <td><kbd>1</kbd></td>
+    </tr>
+    <tr>
+      <td>Switch</td>
+      <td><kbd>s</kbd> or <kbd>1</kbd></td>
+    </tr>
+    <tr>
+      <td>2up view</td>
+      <td><kbd>2</kbd></td>
+    </tr>
+    <tr>
+      <td>Toggle diff</td>
+      <td><kbd>3</kbd></td>
+    </tr>
+    <tr>
+      <td>Back to build</td>
+      <td><kbd>Esc</kbd></td>
+    </tr>
+  </tbody>
+</table>
