@@ -23,6 +23,7 @@ export async function getStaticPaths() {
     return slug !== "faq";
   });
   const notInNavigation = await getCollection("notInNavigation");
+  const onboarding = await getCollection("onboarding");
   const articles = [
     ...overview,
     ...storybook,
@@ -40,6 +41,7 @@ export async function getStaticPaths() {
     ...guides,
     ...troubleshooting,
     ...notInNavigation,
+    ...onboarding,
   ];
 
   return articles.map((article) => ({

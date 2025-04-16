@@ -99,6 +99,11 @@ const troubleshooting = defineCollection({
   }),
 });
 
+const onboarding = defineCollection({
+  type: "content",
+  schema,
+});
+
 export const collections = {
   overview,
   storybook,
@@ -115,4 +120,5 @@ export const collections = {
   guides,
   turbosnap,
   troubleshooting,
+  onboarding,
 };

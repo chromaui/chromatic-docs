@@ -16,6 +16,7 @@ const ci = await getCollection("ci");
 const account = await getCollection("account");
 const guides = await getCollection("guides");
 const troubleshooting = await getCollection("troubleshooting");
+const onboarding = await getCollection("onboarding");
 
 const rawNavGroups = [
   {
@@ -82,6 +83,10 @@ const rawNavGroups = [
   {
     title: "Troubleshooting",
     items: troubleshooting,
+  },
+  {
+    title: "Onboarding",
+    items: onboarding,
   },
 ];
 

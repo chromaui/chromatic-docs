@@ -1,0 +1,76 @@
+---
+layout: "../../layouts/Layout.astro"
+title: Onboarding Guide - Getting Started
+description: Learn how to get started with Chromatic and set up your first project.
+tags: onboarding
+sidebar: { order: 1, label: Getting Started }
+---
+
+# Onboarding Guide - Getting Started
+
+We've worked with many teams to help them get started with Chromatic. This guide is designed to help you onboard your team and get the most out of Chromatic.
+We recommend you follow this guide in order, but feel free to skip around if you already have some of these steps completed.
+
+## 1. Create a Chromatic Account
+
+- [Sign up for Chromatic](https://www.chromatic.com/signup) using your GitHub, Bitbucket, or GitLab account.
+- If you don't have the ability to use a git account, you can sign up for Chromatic using an email address and password.
+  - Read more about unlinked accounts [here](/docs/access/#unlinked-projects) and how to setup an unlinked account [here](/docs/faq/chromatic-sso-on-premises-other-git/)
+- If you are using SSO configured via your enterprise plan, you will visit your dedicated subdomain instead.
+  - Reach out to your Chromatic CSM, Account Executive, or Solutions Engineer if you are unsure of your subdomain.
+
+## 2. Create a Project within Chromatic
+
+- Create your first project.
+  - You can either create a Storybook, Playwright, or Cypress project.
+- Follow the on-screen prompts to set up your project.
+  - Chromatic will guide you through the process of setting up your project and installing the Chromatic CLI.
+  - You can also set up Chromatic as a GitHub Action.
+  - If you are using a monorepo, you can set up Chromatic to work with your [Monorepo](/docs/github-actions#run-chromatic-on-monorepos).
+
+## 3. Install the Chromatic CLI and Run a Build
+
+- Confirm that you have run your First Build.
+  - You can do this by following the on screen prompt and then running the build locally via `npx chromatic --project-token <your-project-token>`.
+
+## 4. Confirm that Chromatic is integrated with a git provider
+
+- [Linked Projects](/docs/access/#linked-projects)
+- [On-prem GitHub or GitLab](/docs/access/#how-do-i-link-my-project-to-github-enterprise-server-or-gitlab-self-managed)
+- Confirm that [Mandatory Status Checks](/docs/mandatory-pr-checks/#github) are configured
+
+## 5. Upgrade your Storybook
+
+Storybook is constantly improving, and so is Chromatic. We recommend you keep your Storybook version up to date to take advantage of the latest features and improvements.
+This also ensures stability and reliability for snapshots within Chromatic.
+We have a [guide](https://storybook.js.org/docs/migration-guide/index) to help you upgrade your Storybook version to version 8.
+
+If you are using Storybook 8 or later, it's much more straightforward to upgrade.
+
+- You can run `npx storybook@latest upgrade` and the CLI and automigrations will handle the rest.
+
+## 6. Go over Setup and Flags for CI
+
+There are many options to configure your CI to work optimally with your project.
+Here are some resources to help you get started:
+
+    - [Configuration Options](/docs/configure/#options)
+    - [Chromatic on Monorepos](/docs/custom-ci-provider/#run-chromatic-on-monorepos)
+    - [Chromatic on GitHub Actions](/docs/github-actions)
+
+If you use a different CI provider, we have many others listed in the CI section.
+
+## 7. Introduction to TurboSnap
+
+TurboSnap is a feature of Chromatic that allows you to snapshot your components in a more efficient way.
+TurboSnap is available for Storybook-based projects and uses a dependency graph to only snapshot the components that have changed.
+
+- [TurboSnap](/docs/turbosnap)
+
+## Next: Reporting, Customization, and Best Practices
+
+Learn about Chromatic Reporting, Storybook Customization, and Chromatic Best Practices.
+
+<a class="btn primary round" href="/docs/best-practices">
+  Read next chapter
+</a>

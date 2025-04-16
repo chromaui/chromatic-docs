@@ -1,0 +1,86 @@
+---
+layout: "../../layouts/Layout.astro"
+title: Onboarding Guide - Advanced Testing Techniques
+description: Learn about Story Modes, cross-browser testing, and data mocking in Chromatic.
+tags: onboarding
+sidebar: { order: 3, label: Advanced Testing }
+---
+
+# Onboarding Guide - Advanced Testing Techniques
+
+## Story Modes and Viewports
+
+### Story Modes
+
+Story Modes allow you to test your components in different states and variants, making your testing more comprehensive:
+
+- [Story Modes](/docs/modes/) - Configure different states and variants for your stories. This powerful feature lets you test components in various contexts like dark mode, RTL, or different viewports.
+- [Video Walkthrough](https://www.loom.com/share/f37e471a3e364c94a20a29df5772808c?sid=80540d7b-9222-4027-833c-2d20104593f4) - Watch a detailed demonstration of how to set up and use Story Modes effectively.
+
+### Cross-Browser Testing
+
+Ensure your components work consistently across different browsers:
+
+- [Cross-Browser Testing Guide](https://www.chromatic.com/blog/cross-browser-testing/) - Learn how to test your components across multiple browsers and platforms, and when it makes sense.
+
+## Interactive Testing Demo
+
+### Interaction Tests
+
+Interactive testing allows you to verify that your components behave correctly when users interact with them.
+These are your functional tests, and are a great compliment to your visual tests.
+Here's how to get started:
+
+- Learn about [Storybook Interactions](https://storybook.js.org/docs/essentials/interactions) - Understand how to write and run interaction tests for your components.
+- Explore the [Example App](https://main--5f84c5baa35bdd0022a7684f.chromatic.com/?path=/story/userflows-app--to-checkout-page&globals=viewport:responsive) - See a real-world example of interaction testing in action.
+- Review the [Code Implementation](https://github.com/yannbf/mealdrop/blob/main/src/pages/UserFlows.stories.tsx) - Study the code patterns used in a production application.
+
+### Visual Test Addon (VTA)
+
+Visual testing is a powerful way to catch UI regressions:
+
+- [VTA](/docs/visual-tests-addon/) - This Storybook addon is an integral part of greatly reducing the
+  feedback loop for engineers when making UI changes, and allows you to run Chromatic inside of Storybook.
+  The typical workflow is:
+  - Engineer makes UI changes
+  - Reviews the changes in Storybook
+  - Potentially makes additional changes based on a manual review of the story
+  - Run the VTA and get feedback quickly on potential visual changes or regressions
+  - The VTA saves on time, CI build minutes, and context switching.
+  - Requires Storybook 8.0 or higher for the best experience.
+
+### Accessibility and Coverage
+
+Ensure your components are accessible and well-tested:
+
+- Be ready for The European Accessibility Act (EEA)
+- [Experimental Addon Test](https://www.npmjs.com/package/@storybook/experimental-addon-test) - A powerful tool for testing component behavior and accessibility within Storybook.
+- Review the [Code Implementation](https://github.com/storybookjs/storybook/tree/next/code/core/src/test) - See how to implement comprehensive testing in your project.
+- [Accessibility Testing](https://www.chromatic.com/features/accessibility-test) - Learn how to test your components for accessibility in an automated fashion with Chromatic.
+
+## Data Mocking and Consistency
+
+### Mock Service Worker (MSW)
+
+MSW helps you create reliable tests by controlling network requests and module behavior.
+Storybook is designed to build your components in isolation, for rapid iteration and consistent tests in Chromatic.
+
+- [Network Requests](https://storybook.js.org/docs/writing-stories/mocking-data-and-modules/mocking-network-requests) - Learn how to mock API calls and network requests for consistent testing.
+- [Module Mocking](https://storybook.js.org/docs/writing-stories/mocking-data-and-modules/mocking-modules) - Understand how to mock external dependencies and modules.
+- [Storybook RSC Example](https://github.com/storybookjs/storybook-rsc-demo/blob/main/package.json) - See how to implement mocking in a React Server Components environment.
+  - [Straightforward Session Mock](https://github.com/storybookjs/storybook-rsc-demo/blob/main/lib/session.mock.ts)
+  - [More Complex DB Mock](https://github.com/storybookjs/storybook-rsc-demo/blob/main/lib/db.mock.ts)
+
+### Test Coverage
+
+Comprehensive test coverage ensures your components are well-tested:
+
+- [Test Coverage](https://storybook.js.org/docs/writing-tests/test-coverage) - Understand how to measure and improve your test coverage.
+
+## Next: Design Integration
+
+Learn about designer workflows, Figma integration, and collaboration in Chromatic.
+
+<a class="btn primary round" href="/docs/design-integration">
+  Read next chapter
+</a>

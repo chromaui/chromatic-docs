@@ -1,0 +1,61 @@
+---
+layout: "../../layouts/Layout.astro"
+title: Onboarding Guide - Reporting, Customization, and Best Practices
+description: Learn about Chromatic Reporting, Storybook Customization, Chromatic and Storybook best practices.
+tags: onboarding
+sidebar: { order: 2, label: Best Practices }
+---
+
+# Onboarding Guide - Reporting, Customization, and Best Practices
+
+## Chromatic Overview
+
+### Billing and Usage
+
+Understanding your Chromatic usage and managing your billing is crucial for effective project management. Here's what you need to know:
+
+- [Usage Reports](/docs/billing/#usage-reports) - Access usage reports for each billing period on the billing page.
+- [Usage Alerts](/docs/billing/#usage-alerts) - Set up notifications for usage thresholds. Get proactive alerts when you're approaching your plan limits.
+- [Notifications](/docs/notifications/#notifications) - Configure and manage your notification preferences. Stay informed about build statuses, review requests, and more.
+
+### Handling False Positives
+
+False positives can be frustrating, but Chromatic provides tools to help you manage them effectively:
+
+- [Troubleshoot Snapshots](/docs/troubleshooting-snapshots/) - Learn how to identify and fix common snapshot issues.
+- Use the [Trace Viewer](/docs/troubleshooting-snapshots/#debug-snapshots-with-trace-viewer-beta) - Debug snapshot issues with a visual timeline of component rendering.
+  - The trace viewer is available within the Chromatic UI when you re-run a build after denying the inconsistent snapshot.
+  - NOTE: The trace viewer will not appear for `Component Errors`, `Story Errors`, or `Infrastructure Errors`.
+
+### Asset Loading Best Practices
+
+Proper asset management is crucial for consistent snapshots:
+
+- [Best Practices](https://github.com/yannbf/storybook-image-loading-best-practices) for handling:
+  - Videos - Learn how to handle video content without causing flaky tests
+  - Images - Optimize image loading for reliable snapshots
+  - Fonts - Ensure consistent font rendering across builds
+- Reduce inconsistent snapshots through proper asset management - Implement strategies to maintain test stability.
+
+## Storybook Customization and Best Practices
+
+### Theming and Branding
+
+Customize your Storybook to match your brand and design system:
+
+- Customize your Storybook theme:
+  - [Mealdrop Example](https://github.com/yannbf/mealdrop/blob/main/.storybook/manager.ts) - Learn from a real-world implementation of Storybook customization
+
+### Storybook Examples
+
+Get inspired by seeing how others use Storybook:
+
+- Explore [Storybook Examples and Best Practices](https://storybook.js.org/showcase) - Discover innovative ways teams are using Storybook in production
+
+## Next: Reporting, Customization, and Best Practices
+
+Learn about Story Modes, cross-browser testing, and data mocking in Chromatic.
+
+<a class="btn primary round" href="/docs/advanced-testing-techniques">
+  Read next chapter
+</a>

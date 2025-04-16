@@ -15,7 +15,8 @@ export type CollectionEntryItem =
   | Omit<CollectionEntry<"ci">, "render" | "body">
   | Omit<CollectionEntry<"account">, "render" | "body">
   | Omit<CollectionEntry<"guides">, "render" | "body">
-  | Omit<CollectionEntry<"troubleshooting">, "render" | "body">;
+  | Omit<CollectionEntry<"troubleshooting">, "render" | "body">
+  | Omit<CollectionEntry<"onboarding">, "render" | "body">;
 
 export type NavGroupItem = CollectionEntryItem | NavGroup;
 
