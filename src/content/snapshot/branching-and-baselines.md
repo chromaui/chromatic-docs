@@ -111,7 +111,7 @@ Consider a busy repository where many people are working on the same UI. An issu
 
 As Chromatic picks the latest accepted changes, that can often mean it picks your baselines instead of incoming baselines. This results in you having to re-accept the changes the other person made which you might not have the context on.
 
-Chromatic’s default of choosing latest accepted baseline works for most teams. If you want Chromatic to always prefer the “incoming” baselines to avoid re-accepting changes, please [email](mailto:support@chromatic.com) support to express your interest in the feature request for the `preferMergedBaselines` feature.
+Chromatic’s default of choosing latest accepted baseline works for most teams. If you want Chromatic to always prefer the “incoming” baselines to avoid re-accepting changes, please [email](mailto:support@chromatic.com) support and request the `preferMergedBaselines` feature be enabled for your account.
 
 </details>
 
