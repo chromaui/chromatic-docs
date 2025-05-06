@@ -8,8 +8,10 @@ sectionOrder: 3
 
 # Can I skip running builds for the `main` branch to save snapshots?
 
-Skipping Chromatic builds on the `main` branch can lead to inaccurate visual comparisons. This is because feature branches fork off from main and rely on the main branch's baseline for comparison.
+In many cases (such as GitHub with the Chromatic app or Bitbucket), baseline history will still be preserved through merges if you skip builds on the `main` branch. However, skipping builds on `main` comes with trade-offs that may affect the reliability of your visual testing workflow.
 
-On the contrary, some users run builds only on the `main` branch after making changes on feature branches. This way the baseline on the `main` branch always compares against the new set of changes merged into it.
+Running UI Tests on `main` helps maintain a consistent and traceable visual baseline for your production-ready UI. It ensures that future branches have a clean baseline ancestor, reducing false positives and reapprovals. It also gives your team a reliable audit trail of accepted visual changes and helps catch regressions that only appear after merging multiple changes.
 
-When builds are skipped on `main`, each feature branch develops independently, with baselines diverging over time. This leads to more diffs because multiple independent changes accumulate before being reconciled.
+If you skip builds on `main`, you risk breaking baseline continuity, especially in cases where pull requests are merged without Chromatic builds, or when using GitLab, unlinked projects, or GitHub without the Chromatic app. In these situations, Chromatic may be unable to connect your branch’s visual history correctly, leading to all stories showing as new or missing diffs.
+
+The TL;DR: you can skip `main` builds in some cases, but **doing so may lead to broken baselines, noisy test results, and reduced visibility**. Most teams benefit from keeping Chromatic enabled on `main`, especially when using features like `--auto-accept-changes` or when maintaining a strong audit trail is important.
