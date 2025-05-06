@@ -9,7 +9,7 @@ sidebar: { order: 7 }
 
 Chroma Software, Inc.®
 
-Updated: March 11, 2025
+Updated: May 5, 2025
 
 Chroma Software, Inc., a business corporation (herein “Chromatic”, “we”, “us” or “our”), based in the United States and headquartered at 548 Market St. \#26384 San Francisco, CA 94104, is committed to protecting and respecting your privacy and personal information (herein, “personal information” refers to any information that identifies you or is about you as an individual). This Privacy Notice describes how we collect, use and share personal information through your (herein, “you” or “your” refers to the person accessing our products and services) interaction with our website: [https://www.chromatic.com/](https://www.chromatic.com/), (herein, “Website”).
 
@@ -176,13 +176,13 @@ For tracking purposes, we use web beacons on our Website along with other techni
 
 We use the following types of cookies for the following purposes:
 
-**Strictly Necessary Cookies**: These cookies are essential for you to browse our Website and use its intended functionality, including accessing secure areas of our Website. These cookies cannot be opted-in or out of.
+- **Strictly Necessary Cookies**: These cookies are essential for you to browse our Website and use its intended functionality, including accessing secure areas of our Website. These cookies cannot be opted-in or out of.
 
-**Performance Cookies**: These cookies allow us to count visits and traffic sources so we can measure and improve the performance of our Website. They help us to know which pages are the most and least popular and see how visitors move around our Website. All information these cookies collect is aggregated and therefore anonymous. If you do not allow these cookies, we will not know when you have visited our site.
+- **Performance Cookies**: These cookies allow us to count visits and traffic sources so we can measure and improve the performance of our Website. They help us to know which pages are the most and least popular and see how visitors move around our Website. All information these cookies collect is aggregated and therefore anonymous. If you do not allow these cookies, we will not know when you have visited our site.
 
-**Functional Cookies**: These cookies enable the Websites to provide enhanced functionality. They may be set by us or by third-party service providers whose services we have added to our pages (for example, embedding videos on webpages).
+- **Functional Cookies**: These cookies enable the Websites to provide enhanced functionality. They may be set by us or by third-party service providers whose services we have added to our pages (for example, embedding videos on webpages).
 
-**Marketing Cookies**: These cookies may be set on our Website by our advertising and marketing service providers. They may be used by those companies to build a profile of your interests and show you relevant advertisements on other sites. They are based on uniquely identifying your browser and internet device. This recognition is used to serve relevant adverts, links, or other information about our products and services to users visiting other websites after having previously visited our Website or interacted with our products and services. If you consent to these cookies, you may experience targeted advertising.
+- **Marketing Cookies**: These cookies may be set on our Website by our advertising and marketing service providers. They may be used by those companies to build a profile of your interests and show you relevant advertisements on other sites. They are based on uniquely identifying your browser and internet device. This recognition is used to serve relevant adverts, links, or other information about our products and services to users visiting other websites after having previously visited our Website or interacted with our products and services. If you consent to these cookies, you may experience targeted advertising.
 
 ## 13. Your Privacy Rights
 
@@ -199,6 +199,15 @@ The information provided in this “Notice to European Users” section applies 
 **Personal information**.  References to “personal information” in this Privacy Policy are equivalent to “personal data” governed by European data protection legislation.
 
 **Controller.**  We are the controller of your personal information covered by this Privacy Policy for the purposes of European data protection legislation, except to the extent that we process your personal information on behalf of our customer, including personal information that we process on behalf of our Clients, in which case our customer is the controller of your personal information, and we are the processor.
+
+We have appointed a Data Protection Officer, whose contact information is:
+```
+DP Dock DPO Services GmbH
+Grüffkamp 10
+24159 Kiel
+Germany
+chromatic@dp-officer.com 
+```
 
 **Legal bases for processing**.  We use your personal information only as permitted by law.  Our legal bases for processing the personal information described in this Privacy Policy are described in the table below.
 
@@ -252,12 +261,23 @@ You may contact us at [privacy@chromatic.com](mailto:privacy@chromatic.com) or
 
 DP-Dock has been appointed as our representative in the European Union for data protection matters, pursuant to Article 27 of the GDPR. If you are in the [European Economic Area](https://verasafe.com/public-resources/eea-members/), DP-Dock can be contacted in addition to [privacy@chromatic.com](mailto:privacy@chromatic.com), only on matters related to the processing of personal data. To make such an inquiry, please contact DP-Dock at:
 
-EU: DP-Dock GmbH, Attn: Chroma Software, Inc., Ballindamm 39, 20095 Hamburg, Germany
+Website: [www.dp-dock.com](https://www.dp-dock.com/) 
+Email: [chromatic@gdpr-rep.com](mailto:chromatic@gdpr-rep.com)
 
-UK: DP Data Protection Services UK Ltd., Attn: Chroma Software, Inc., 16 Great Queen Street, Covent Garden, London, WC2B 5AH, United Kingdom
+ ```
+EU:
+DP-Dock GmbH, Attn: Chroma Software, Inc., 
+Ballindamm 39, 20095 
+Hamburg, Germany
+```
+ 
+```
+UK:
+DP Data Protection Services UK Ltd., Attn: Chroma Software, Inc., 
+16 Great Queen Street, Covent Garden, 
+London, WC2B 5AH, United Kingdom
+```
 
-website: [www.dp-dock.com](https://www.dp-dock.com/) 
-email: [chromatic@gdpr-rep.com](mailto:chromatic@gdpr-rep.com)
 
 ## 15. Notice to Canadian Users
 
