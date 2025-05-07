@@ -111,7 +111,7 @@ If you find yourself needing more fine-tuned control over your git environment v
     CHROMATIC_SLUG: ${{ github.repository }}
 ```
 
-<div class="aside>
+<div class="aside">
 
 These values match what you'd want TurboSnap and Chromatic to see, but _only if the correct code is checked out_. If you're not using `ref` to ensure the correct commit is checked out, setting your git environment variables _will not help_. Without `ref`, your env variables could describle one commit, while the git workspace contains another, causing TurboSnap to have unpredictable results.
 
