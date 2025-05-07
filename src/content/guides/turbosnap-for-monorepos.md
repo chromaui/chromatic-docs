@@ -15,8 +15,8 @@ In this guide, we’ll break down practical strategies for managing `dependencie
 
 <div class="aside">
 
-🎉 **TurboSnap Helper has leveled up!**
-Configure faster, optimize smarter, and cut down your rebuilds—now with monorepo support and new analysis features! [Click here to read more about the TurboSnap Helper utility.](/docs/turbosnap/setup#update-your-configuration-using-turbosnap-helper)
+🎉 **Try TurboSnap Helper!**
+Run our helper utility to accurately configure TurboSnap, even in monorepos—no more guess work! [Read how you can run the utility and get instant help with your config.](/docs/turbosnap/setup#update-your-configuration-using-turbosnap-helper)
 
 </div>
 
