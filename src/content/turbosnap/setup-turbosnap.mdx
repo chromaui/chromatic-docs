@@ -58,6 +58,16 @@ steps:
       onlyChanged: true
 ```
 
+TurboSnap can also be enabled through your `chromatic.config.json` file:
+
+```json
+{
+  "$schema": "https://www.chromatic.com/config-file.schema.json",
+  "projectId": "Project:...",
+  "onlyChanged": true
+}
+```
+
 You may need additional config in the following situations:
 
 - You're using `--storybook-build-dir` or `-d` to let Chromatic use a prebuilt Storybook
@@ -67,6 +77,43 @@ You may need additional config in the following situations:
 - You want to enable or disable TurboSnap for specific branches
 
 Jump to the [recipes](#recipes) section for more information.
+
+### Update your configuration using TurboSnap Helper
+
+Having TurboSnap properly configured is essential when trying to optimize build performance. If you're working in a monorepo, or even just a large project with a complex setup, setting up TurboSnap efficiently can feel overwhelming. That's where the TurboSnap helper comes in! We've introduced the `@chromatic-com/turbosnap-helper` CLI utility to simplify the process of managing your configuration.
+
+The TurboSnap Helper utility is designed to assist with properly configuring TurboSnap for Chromatic. It's especially helpful in monorepos, where managing directories, static assets, and build optimizations across multiple projects can get tricky.
+
+Run the utility from the root of your repo using:
+
+```sh
+npx @chromatic-com/turbosnap-helper
+```
+
+<div class="aside">
+
+❓ **Why run the utility from the repo root rather than the project root?**
+TurboSnap Helper supports monorepos. By starting from the root, it can scan across all of your projects, so you're not accidentally missing assets or settings that could cause full rebuilds. If you run the utility from your project root, not a problem. The utility will still work just fine.
+
+</div>
+
+#### Helper modes to give you a deeper analysis
+
+The utility can run in three modes:
+
+- `init` (default) - walks you through creating or updating your TurboSnap config
+- `analyze` - reviews your story and component files for dynamic imports
+- `preview` - analyzes your preview file for shared dependencies that could cause full rebuilds
+
+Running `init` mode not only prints out configuration options in the CLI, but **automatically adds the correct config options** to your Chromatic config file. We've enhanced the utility to take it beyond directory config help and introduced static asset detection, allowing you to easily add static assets to your `externals` config to ensure you don't miss changes. Don't have an existing Chromatic config file? No worries—the utility will create one for you!
+
+To help further optimize your builds, the utility has an `analyze` mode that scans both story and components files to detect and surface dynamic imports. Dynamic imports are a hidden culprit for confusing TurboSnap behavior that can result in missed regressions or unnecessary rebuilds. `analyze` mode helps you track them down early.
+
+And last is the `preview` mode, which displays an analysis of your Storybook preview file. Use the analysis to help keep your preview file clean and efficient, as a messy preview file can turn small changes into **full rebuilds**. The analysis provides:
+
+- Warnings if your import count is too high (the higher the imports, the more likely you'll see frequent rebuilds)
+- Lists shared wrappers/themes that could trigger global rebuilds
+- Prints any dynamic imports inside your preview file
 
 ### Verify that TurboSnap is working
 
