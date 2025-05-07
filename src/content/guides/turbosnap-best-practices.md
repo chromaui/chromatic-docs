@@ -68,6 +68,55 @@ Run `npx @chromatic-com/turbosnap-helper` from the root of your repo to have the
 
 </div>
 
+## Run with caution when using the `pull_request` event
+
+TurboSnap is not compatible with the `pull_request` event trigger because the workflow runs against an ephemeral merge commit, which can result in issues with being able to properly track baselines and find earlier builds. While we recommend running Chromatic on `push` events, we also have recommendations that have been successfully implemented if you want to trigger Chromatic with TurboSnap on `pull_request` events.
+
+For starters, create a separate workflow for Chromatic using the following strategy for the checkout step:
+
+```yaml
+- uses: actions/checkout@v4
+  with:
+    # 👇 Ensures Chromatic can read your full git history
+    fetch-depth: 0
+    # 👇 Tells the checkout which commit hash to reference
+    ref: ${{ github.event.pull_request.head.ref }}
+```
+
+In your workflow, how much of your git history is downloaded when you check out a repo is determined by `fetch-depth`. By default, it's set to `1`, which fetches only the latest commit. It's best to set this to `0` (or a very high number) to ensure Chromatic has access to your full git history. This is crucial for TurboSnap, as it relies on comparing the current commit to the base branch or previous commits. Without the full history, Chromatic may not be able to determine what's changed and could miscalculate what to test.
+
+Setting `ref` is one of the most critical parts to using the `pull_request` event, as the `ref` parameter defines what gets checked out into the workspace. This has a huge impact on how Chromatic is able to analyze your build. By setting `ref` to `${{ github.event.pull_request.head.ref }}`, this makes sure GitHub checks out the correct branch and that Chromatic automatically detects your correct git information.
+
+There are edge use cases where it may be beneficial to include the git environment variables (`CHROMATIC_BRANCH`, `CHROMATIC_SHA`, `CHROMATIC_SLUG`) in your Chromatic step:
+
+- You're using a monorepo with multiple projects and find that you need tighter control across builds.
+- You use `actions/checkout` in detached mode (not recommended), or with custom scripts that mutate the git state, and you want to guarantee that Chromatic receives a stable SHA.
+
+Otherwise, if you're using `ref` correctly, Chromatic will pick up the right commit via git and optimize with TurboSnap as expected.
+
+If you find yourself needing more fine-tuned control over your git environment variables, set all three of the git environment variables using this env block strategy:
+
+```yaml
+- name: Publish to Chromatic
+  uses: chromaui/action@latest
+  with:
+    projectToken: ${{ secrets.CHROMATIC_PROJECT_TOKEN}}
+    onlyChanged: true
+  env:
+    # 👇 Set to the PR branch if it's a PR; otherwise, falls back to the pushed branch name
+    CHROMATIC_BRANCH: ${{ github.event.pull_request.head.ref || github.ref_name }}
+    # 👇 Set to the PR head commit if it's a PR; otherwise to the ref (which typically resolves to the latest commit SHA)
+    CHROMATIC_SHA: ${{ github.event.pull_request.head.sha || github.ref }}
+    # 👇 Makes sure this is always set to the corect owner/repo
+    CHROMATIC_SLUG: ${{ github.repository }}
+```
+
+<div class="aside>
+
+These values match what you'd want TurboSnap and Chromatic to see, but _only if the correct code is checked out_. If you're not using `ref` to ensure the correct commit is checked out, setting your git environment variables _will not help_. Without `ref`, your env variables could describle one commit, while the git workspace contains another, causing TurboSnap to have unpredictable results.
+
+</div>
+
 ## Avoid excessive dynamic imports
 
 Dynamic imports (`import()` or `require()` with variables or conditions) inside your stories, decorators, preview file, or any of the files they import can break the chain TurboSnap relies on to determine which stories are affected, resulting in missed visual changes or unexpected rebuilds. To help ensure full traceability, consider reducing dynamic imports. If the behavior is _essential_, move the logic into story-level decorators or within the component and avoid dynamic behavior in the preview file.
@@ -85,7 +134,6 @@ TurboSnap relies on lockfiles to get actual version numbers rather than semver r
 - Make sure you have a valid lockfile checked in and that it's not out of sync with your `package.json`.
 - Avoid unnecessary version bumps in unrelated dependencies.
 - Help reduce noise in lockfile changes by using exact versions.
-- If you're using multiple `package.json` files, only the one associated with the Storybook project should typically affect rebuilds. Excessive rebuilds from `package.json` files outside your project can be reduced by ensuring you scope TurboSnap with the correct `storybookBaseDir`.
 
 ## Optimize shared configs and theming
 
