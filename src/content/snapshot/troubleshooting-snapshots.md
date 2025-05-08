@@ -236,7 +236,7 @@ Yes, check out the Chromatic's [modes feature](/docs/modes) is simplifies the pr
 
   <summary>Why is my mocked data not being snapshotted correctly?</summary>
 
-Chromatic snapshots sometimes show the initial or intermediate loading state of the UI, instead of the final state with the mocked data. This can lead to visual tests failing, even though the Storybook renders correctly locally or passes without the mocked data shown. To debug this issue, follow these steps:
+Chromatic snapshots sometimes show the initial or intermediate loading state of the UI, instead of the final state with the mocked data. This can lead to visual tests failing, even though the Storybook renders correctly locally. To debug this issue, follow these steps:
 
 1.  Ensure that MSW (Mock Service Worker) is correctly initialized in your Storybook configuration. Follow the instructions in the MSW documentation: [here](https://github.com/mswjs/msw-storybook-addon?tab=readme-ov-file#configure-the-addon).
 
