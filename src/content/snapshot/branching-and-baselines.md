@@ -51,7 +51,15 @@ Conceptually, this is akin to storing a snapshot file in your repository with ea
 <details>
 <summary>What happens to baselines when there are multiple branches?</summary>
 
-When you are developing in a branch, the baseline snapshot is chosen from previous commits on the branch. This means if your team is developing on multiple branches in parallel, changes to the approved component snapshots on one branch will not affect the others.
+In a multi-branch development workflow, each branch maintains its own baseline — a snapshot of the approved component states at that point in time.
+
+When you’re working on a feature branch, Chromatic selects a baseline from a previous commit on that same branch. For a newly created branch, the baseline is inherited from the commit it was branched off from.
+
+Even if someone merges approved visual changes into the `main` branch, other branches won’t automatically reflect those updates in their baselines. Each branch’s baseline remains unchanged until it's explicitly updated. That’s why, when working across multiple branches, it's important to periodically sync with the `main` branch to pick up the latest approved changes.
+
+If your branch is using an outdated baseline, you might see false positives in visual tests — changes that look “new” but were already approved and merged elsewhere. This can lead to unnecessary review work and confusion.
+
+To avoid that, make it a habit to regularly merge or rebase from the `main` branch into your feature branches. It helps keep your baseline up to date and reduces noise in your visual diffs. Encouraging this practice across the team can keep things aligned and workflows smooth.
 
 </details>
 
