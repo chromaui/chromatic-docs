@@ -15,7 +15,7 @@ Components sometimes trigger custom interactions on render. For example, JavaScr
 
 ## Customizing snapshot delays
 
-Chromatic's maximum wait time before capturing a snapshot is 15 seconds, providing a balance for your tests to load resources and be ready for snapshotting. If you need to customize the wait time for Chromatic to capture a snapshot, add the `delay` configuration option to your tests. For example:
+Chromatic has a multistage timeout for capturing a snapshot: 15 seconds to render a story and an additional 15 seconds to execute interaction tests, if present. This timing provides a balance for your tests to load resources and be ready for snapshotting. If you need to customize the wait time for Chromatic to capture a snapshot, add the `delay` configuration option to your tests. For example:
 
 <IntegrationSnippets>
   <Fragment slot="storybook">
@@ -56,7 +56,7 @@ Chromatic's maximum wait time before capturing a snapshot is 15 seconds, providi
   <Fragment slot="playwright">
     ```ts title="tests/Categories.spec.js|ts"
     import { test, expect } from "@chromatic-com/playwright";
-  
+
     test.describe("Categories Page", () => {
       // Configures the delay (in milliseconds) for this test
       test.use({ delay: 300 });
@@ -122,10 +122,10 @@ If you need additional control when Chromatic captures a snapshot, you can adjus
       await userEvent.click(LoadMoreButton);
 
       // Wait for the below assertion not throwing an error (default timeout is 1000ms)
-      // This is especially useful when you have an asynchronous action or component that you want to wait for before taking a snapshot 
+      // This is especially useful when you have an asynchronous action or component that you want to wait for before taking a snapshot
       await waitFor(async () => {
         const ItemList = await canvas.getByLabelText("listitems");
-    
+
         const numberOfItems = await within(categories).findAllByRole("link");
 
         expect(numberOfItems).toHaveLength(0);
@@ -141,11 +141,11 @@ If you need additional control when Chromatic captures a snapshot, you can adjus
       const LoadMoreButton = await canvas.getByTestId("button");
 
       await userEvent.click(LoadMoreButton);
-      // This sets a timeout of 10 seconds and verifies that there are 20 items in the list 
+      // This sets a timeout of 10 seconds and verifies that there are 20 items in the list
       await new Promise((resolve) => setTimeout(resolve, 10000));
 
       const ItemList = await canvas.getByLabelText("listitems");
-    
+
       const numberOfItems = await within(categories).findAllByRole("link");
 
       expect(numberOfItems).toHaveLength(20);
@@ -154,7 +154,7 @@ If you need additional control when Chromatic captures a snapshot, you can adjus
   ```
 
   <div class="aside">
-  
+
   ℹ️ For more information about querying elements, see the [DOM Testing Library cheatsheet](https://testing-library.com/docs/dom-testing-library/cheatsheet/#queries).
 
   </div>
@@ -167,11 +167,11 @@ If you need additional control when Chromatic captures a snapshot, you can adjus
     test.describe("Categories Page", () => {
       test("Renders the categories page with additional items", async ({ page }) => {
         await page.goto("/categories");
-       
+
         const loadMoreButton = await page.getByRole("button", { name: "Load more" });
 
         await loadMoreButton.click();
-      
+
         // Verifies that there are 20 items in the list after waiting for 10 seconds
         expect(await page.locator(".listItems")).toHaveCount(20, {
           timeout: 10000

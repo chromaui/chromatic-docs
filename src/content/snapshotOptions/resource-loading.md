@@ -9,7 +9,7 @@ sidebar: { order: 3 }
 
 Chromatic waits for resources like images and fonts to load before capturing a snapshot. When resources fail to load, this can lead to unintended UI changes.
 
-The maximum time to capture a snapshot is 15 seconds. If the resources fail to load in time, Chromatic will retry. After several retries, the snapshot will be captured, and a warning message will be displayed.
+Chromatic has a multistage timeout for capturing a snapshot: 15 seconds to render a story and an additional 15 seconds to execute interaction tests, if present. If the resources fail to load in time, Chromatic will retry. After several retries, the snapshot will be captured, and a warning message will be displayed.
 
 ## Avoid external resources
 
