@@ -519,6 +519,29 @@ If you decide to use the `pull_request` event, we recommend creating a separate 
     CHROMATIC_SLUG: ${{ github.repository }}
 ```
 
+**NOTE:** The `ref` on the checkout step is required for TurboSnap to correctly detect changed files.
+
+The pull_request event makes an ephemeral commit between latest main and the commit you have created.
+This means our git diff will include everything that's happened on main since you branched. That's what the ref solution solves for.
+
+Here is the scenario:
+
+```
+A - B - C - D      main
+ \           \
+   P          \    branch
+    \          \
+      --------- P'
+```
+
+What's happened:
+
+The user creates `P (8f289c4fafb5a2aeb23041b36497473967a27fe9)` off `A (main)` with 2 files changed.
+
+When GH runs the action it merges that commit into latest `main (D, 780170476808b09c6268fd109177974c412bbb71)` to create a new commit `P' (4c39d853)`.
+
+When we take the git diff between `P' 4c39d853` and the baseline from `main (A)` we are not going to just get the changes in `P` but also all the changes in `B`, `C` and `D`.
+
 ### UI Test and UI Review
 
 [UI Tests](/docs/test) and [UI Review](/docs/review) rely on [branch and baseline](/docs/branching-and-baselines) detection to keep track of [snapshots](/docs/snapshots). We recommend the following configuration.
