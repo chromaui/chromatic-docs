@@ -9,7 +9,7 @@ sidebar: { order: 7 }
 
 Chroma Software, Inc.®
 
-Updated: May 5, 2025
+Updated: May 20, 2025
 
 Chroma Software, Inc., a business corporation (herein “Chromatic”, “we”, “us” or “our”), based in the United States and headquartered at 548 Market St. \#26384 San Francisco, CA 94104, is committed to protecting and respecting your privacy and personal information (herein, “personal information” refers to any information that identifies you or is about you as an individual). This Privacy Notice describes how we collect, use and share personal information through your (herein, “you” or “your” refers to the person accessing our products and services) interaction with our website: [https://www.chromatic.com/](https://www.chromatic.com/), (herein, “Website”).
 
@@ -17,30 +17,31 @@ Please read this Privacy Notice carefully so you can make an informed decision a
 
 ## Contents
 
-- [Privacy and Cookies Notice](#privacy-and-cookies-notice)
-  - [Contents](#contents)
-  - [1. Scope of This Privacy Notice](#1-scope-of-this-privacy-notice)
-  - [2. How We Collect Personal Information](#2-how-we-collect-personal-information)
-  - [3. Categories of Personal Information We Collect](#3-categories-of-personal-information-we-collect)
-  - [4. How We Use Personal Information](#4-how-we-use-personal-information)
-  - [6. Links to Third-party Websites](#6-links-to-third-party-websites)
-  - [7. Collection of Personal Information From Minors](#7-collection-of-personal-information-from-minors)
-  - [8. Sharing and Sale of Your Personal Information](#8-sharing-and-sale-of-your-personal-information)
-  - [9. Protection of Personal Information](#9-protection-of-personal-information)
-  - [10. How Long We Keep Your Personal Information](#10-how-long-we-keep-your-personal-information)
-  - [11. Where We Transfer Your Personal Information](#11-where-we-transfer-your-personal-information)
-  - [12. Cookies Notice](#12-cookies-notice)
-  - [13. Your Privacy Rights](#13-your-privacy-rights)
-  - [14.  Notice to European Users](#14--notice-to-european-users)
-  - [15. Notice to Canadian Users](#15-notice-to-canadian-users)
-  - [16. Notice to Australian Users](#16-notice-to-australian-users)
-  - [17. Do Not Track Signals and Third-Party Tracking](#17-do-not-track-signals-and-third-party-tracking)
-  - [18. Questions and Contacts](#18-questions-and-contacts)
-  - [19. Changes to Our Privacy Notice](#19-changes-to-our-privacy-notice)
+- [Privacy and Cookies Notice](https://www.chromatic.com/docs/privacy-policy/#privacy-and-cookies-notice)
+  - [Contents](https://www.chromatic.com/docs/privacy-policy/#contents)
+  - [1. Scope of This Privacy Notice](https://www.chromatic.com/docs/privacy-policy/#1-scope-of-this-privacy-notice)
+  - [2. How We Collect Personal Information](https://www.chromatic.com/docs/privacy-policy/#2-how-we-collect-personal-information)
+  - [3. Categories of Personal Information We Collect](https://www.chromatic.com/docs/privacy-policy/#3-categories-of-personal-information-we-collect)
+  - [4. How We Use Personal Information](https://www.chromatic.com/docs/privacy-policy/#4-how-we-use-personal-information)
+  - [5. Legal Basis for Collecting and Using Your Personal Information](https://www.chromatic.com/docs/privacy-policy/#5-legal-basis-for-collecting-and-using-your-personal-information)
+  - [6. Links to Third-party Websites](https://www.chromatic.com/docs/privacy-policy/#6-links-to-third-party-websites)
+  - [7. Collection of Personal Information From Minors](https://www.chromatic.com/docs/privacy-policy/#7-collection-of-personal-information-from-minors)
+  - [8. Sharing and Sale of Your Personal Information](https://www.chromatic.com/docs/privacy-policy/#8-sharing-and-sale-of-your-personal-information)
+  - [9. Protection of Personal Information](https://www.chromatic.com/docs/privacy-policy/#9-protection-of-personal-information)
+  - [10. How Long We Keep Your Personal Information](https://www.chromatic.com/docs/privacy-policy/#10-how-long-we-keep-your-personal-information)
+  - [11. Where We Transfer Your Personal Information](https://www.chromatic.com/docs/privacy-policy/#11-where-we-transfer-your-personal-information)
+  - [12. Cookies Notice](https://www.chromatic.com/docs/privacy-policy/#12-cookies-notice)
+  - [13. Your Privacy Rights](https://www.chromatic.com/docs/privacy-policy/#13-your-privacy-rights)
+  - [14. Notice to European Users](#bookmark=id.b90wax22vg0r)
+  - [15. Notice to Canadian Users](#bookmark=id.lz0oywk62iks)
+  - [16. Notice to Australian Users](#bookmark=id.o30kvkojmo7g)
+  - [17. Do Not Track Signals and Third-Party Tracking](#bookmark=id.vz3876g51x20)
+  - [18. Questions and Contacts](https://www.chromatic.com/docs/privacy-policy/#14-questions-and-contacts)
+  - [19. Changes to Our Privacy Notice](https://www.chromatic.com/docs/privacy-policy/#15-changes-to-our-privacy-notice)
 
 ## 1. Scope of This Privacy Notice
 
-This Privacy Notice applies to anyone who interacts with us through our Website, which manages our product and service offerings. This Privacy Notice provides details about the personal information we collect about you, how we use it, and how we protect and safeguard your personal information. This Privacy Notice also provides information about your rights as an individual, in relation to the personal information that we collect from you.
+This Privacy Notice applies to anyone who interacts with us through our Website, which manages our product and service offerings. This Privacy Notice provides details about the personal information we collect about you, how we use it, and how we protect and safeguard your personal information. This Privacy Notice also provides information about your rights as an individual, in relation to the personal information that we collect from you. These rights may commonly be referred to as your “Consumer Rights” under the California Consumer Privacy Act (“CCPA”) or your “Data Subject Rights” under the European Union General Data Protection Regulation (“GDPR”).
 
 ## 2. How We Collect Personal Information
 
@@ -123,9 +124,16 @@ We may disclose, and may have already disclosed, personal information to the fol
 * **Our service providers** - Our business partners, suppliers and sub-contractors who help us provide our Website, products and services. This includes, for example, our e-commerce platform providers, analytics providers, marketing and advertising service providers, website development and troubleshooting service providers.  Our service providers may include, but are not limited to:
 
   * **Intercom.**  Intercom assists us in providing a unified customer communications platform for customer interaction and experience management.  For more information about Intercom’s privacy practices, visit [https://www.intercom.com/legal/privacy](https://www.intercom.com/legal/privacy).
+  * **Cloudflare.**  Cloudflare assists us in analyzing the performance of the Site and the Services.  For more information about Cloudflare’s privacy practices, visit https://www.cloudflare.com/privacypolicy/.
   * **Stripe.**  Stripe assists us in processing your payments.  For more information about Stripe’s privacy practices, visit [https://stripe.com/privacy](https://stripe.com/privacy).
-  * **Google Analytics/Ads.**  Google helps us better understand your use of our Website and services. Google Analytics collects information such as how often users visit our Website, what pages are visited, and what other sites may have been used prior to visiting. Google uses the data collected to track and examine website usage, to prepare reports on its activities and share them with other Google services, and to contextualize and personalize the ads of its own advertising network. Google’s ability to use and share information collected by Google Analytics about your visits to our Website is restricted by the [Google Analytics Terms of Use](https://marketingplatform.google.com/about/analytics/terms/us/) and the [Google Privacy Policy](https://policies.google.com/privacy). You can also opt-out of and manage your preferences for Google’s use of personalized advertising and related cookies by visiting Google’s [Ad Settings](https://support.google.com/accounts/answer/2662856?co=GENIE.Platform%3DDesktop&hl=en), and Google Analytics also offers an opt-out mechanism for the web available [here](https://tools.google.com/dlpage/gaoptout/).
+  * **Google Analytics/Ads.**  Google helps us better understand your use of our Website and services. Google Analytics collects information such as how often users visit our Website, what pages are visited, and what other sites may have been used prior to visiting. We also use Doubleclick by Google in order to serve ad based on a user’s prior visit to websites, and YouTube Ads in order to help us advertise the Services.  Google’s ability to use and share information collected by Google Analytics about your visits to our Website is restricted by the [Google Analytics Terms of Use](https://marketingplatform.google.com/about/analytics/terms/us/) and the [Google Privacy Policy](https://policies.google.com/privacy). You can also opt-out of and manage your preferences for Google’s use of personalized advertising and related cookies by visiting Google’s [Ad Settings](https://support.google.com/accounts/answer/2662856?co=GENIE.Platform%3DDesktop&hl=en), and Google Analytics also offers an opt-out mechanism for the web available [here](https://tools.google.com/dlpage/gaoptout/).
   * **HubSpot.**  HubSpot is an analytics provider that utilizes cookie and usage data collected to track and examine the use of the Site and the Services, analyze demographic information, and to prepare reports on user activities and share them with other HubSpot services.  HubSpot may use the data collected to contextualize and personalize the ads of its own advertising network.  You can find out more information about HubSpot and the data it collects at [https://legal.hubspot.com/privacy-policy](https://legal.hubspot.com/privacy-policy).
+  * **Microsoft Clarity.**  Microsoft Clarity assists us in capturing information regarding how you use and interact with the Site through behavioral metrics, heatmaps, and session replay.  We use this information to improve and market our products and services and fraud prevention/security.  You can find out more information about Microsoft Clarity and the data it collects at [https://privacy.microsoft.com/en-US/privacystatement](https://privacy.microsoft.com/en-US/privacystatement).
+  * **Twilio Segment.**  We use Twilio Segment to help analyze how users use the Site.  Twilio Segment uses Cookies to collect information such as how often users visit the Site, what pages they visit, and what other sites they used prior to coming to the Site.  To view the Twilio privacy policy, click here:  [https://www.twilio.com/en-us/legal/privacy](https://www.twilio.com/en-us/legal/privacy).
+  * **Gatsby.**  Gatsby helps us provide functionality for the Site.  You can view Gatsby’s privacy policy here:  [https://www.gatsbyjs.com/privacy-policy](https://www.gatsbyjs.com/privacy-policy).
+  * **Meta/Facebook.**  Meta helps us to customize our advertising and to serve you ads on your social media based on your browsing behavior.  This allows your behavior to be tracked after you have been redirected to one of our Websites by clicking on the Meta/Facebook ad. The Meta Pixel stores a cookie on your device to enable us to measure the effectiveness of Facebook ads for statistical and market research purposes. We do not have access to the information collected through the Meta Pixel. However, the information collected via the Meta Pixel is also stored and processed by Facebook.  You can learn more about Meta’s privacy preferences by visiting [https://www.facebook.com/privacy/policy/](https://www.facebook.com/privacy/policy/).
+  * **Adobe Analytics.**  Adobe Analytics helps us to understand your use of our Website and services.  Adobe uses cookies or other tracking technologies to help us analyze how users interact with the Sites and Services, compile reports on their activity, and provide other services related to their activity and usage. The technologies used by Adobe may collect information such as your IP address, time of visit, whether you are a returning visitor, and any referring website.  You can opt out of the use of Adobe Analytics by visiting https://www.adobe.com/privacy/opt-out.html.
+  * **Common Room.**  We utilize Common Room in order to aid us with understanding your use of our Website and services.  You have view Common Room’s privacy policy by visiting https://www.commonroom.io/privacy-policy/.
 
 
 * **Our professional advisers** - Including accountants, lawyers and other professional advisers that assist us in carrying out our business activities;
@@ -140,9 +148,11 @@ We may also disclose your personal information to other third-parties, for examp
 * If we are under a duty to disclose or share your personal information in order to comply with any legal obligation.
 
 
+While we do not sell personal information in exchange for monetary consideration, we do share, and may have already shared, personal information for other benefits that could be deemed a “Sale,” as defined by the CCPA in the California Civil Code 1798.140 section (t)(1). This includes sharing of identifiers (such as IP address or email address), commercial information (such as product interest), and internet or other electronic network activity usage data with advertising partners and networks, and our Website’s analytics companies. You have the right to direct us to not sell your personal information. Please see section 13 “Your Privacy Rights” for further details on how to exercise this right.
+
 ## 9. Protection of Personal Information
 
-We are committed to protecting the security of your personal information.  We use a variety of security technologies and procedures to help protect your personal information from unauthorized access, use, or disclosure.  No method of transmission over the internet, or method of electronic storage, is 100% secure, however.  Therefore, while we use reasonable efforts to protect your personal information, we cannot guarantee its absolute security.
+We are committed to protecting the security of your personal information.  We use a variety of security technologies and procedures to help protect your personal information from unauthorized access, use, or disclosure.  No method of transmission over the internet, or method of electronic storage, is 100% secure, however.  Therefore, while we use reasonable efforts to protect your personal information, we cannot guarantee its absolute security.We use reasonable administrative, technical, and physical safeguards to protect your personal information, taking care of its integrity and availability and avoiding its damage, loss, alteration, destruction, or unauthorized use. Although we will do our best to protect your personal information, we cannot guarantee the security of your personal information transmitted to or via our Website and any transmission is at your own risk.
 
 ## 10. How Long We Keep Your Personal Information
 
@@ -172,25 +182,88 @@ The pages of our Website contain images (called a “single-pixel gif” or “w
 
 For tracking purposes, we use web beacons on our Website along with other technical methods. We also employ third-party services (e.g., Twitter) that collect data remotely through the use of web beacons. This service then returns the completely anonymous data to us as site traffic reports.
 
+**Google Analytics**
+
+In addition to the cookies detailed below, we use Google Analytics to better understand your use of our Website and services. Google Analytics collects information such as how often users visit our Website, what pages are visited, and what other sites may have been used prior to visiting. Google uses the data collected to track and examine website usage, to prepare reports on its activities and share them with other Google services, and to contextualize and personalize the ads of its own advertising network. More information about how Google Analytics collects and processes data can be found [here](https://policies.google.com/technologies/partner-sites).
+
+Google’s ability to use and share information collected by Google Analytics about your visits to our Website is restricted by the [Google Analytics Terms of Use](https://marketingplatform.google.com/about/analytics/terms/us/) and the [Google Privacy Policy](https://policies.google.com/privacy). You can also opt-out of and manage your preferences for Google’s use of personalized advertising and related cookies by visiting Google’s [Ad Settings](https://support.google.com/accounts/answer/2662856?co=GENIE.Platform%3DDesktop&hl=en), and Google Analytics also offers an opt-out mechanism for the web available [here](https://tools.google.com/dlpage/gaoptout/).
+
 **Types of Cookies on Our Website**
 
 We use the following types of cookies for the following purposes:
 
-- **Strictly Necessary Cookies**: These cookies are essential for you to browse our Website and use its intended functionality, including accessing secure areas of our Website. These cookies cannot be opted-in or out of.
+**Strictly Necessary Cookies**: These cookies are essential for you to browse our Website and use its intended functionality, including accessing secure areas of our Website. These cookies cannot be opted-in or out of.
 
-- **Performance Cookies**: These cookies allow us to count visits and traffic sources so we can measure and improve the performance of our Website. They help us to know which pages are the most and least popular and see how visitors move around our Website. All information these cookies collect is aggregated and therefore anonymous. If you do not allow these cookies, we will not know when you have visited our site.
+**Performance Cookies**: These cookies allow us to count visits and traffic sources so we can measure and improve the performance of our Website. They help us to know which pages are the most and least popular and see how visitors move around our Website. All information these cookies collect is aggregated and therefore anonymous. If you do not allow these cookies, we will not know when you have visited our site.
 
-- **Functional Cookies**: These cookies enable the Websites to provide enhanced functionality. They may be set by us or by third-party service providers whose services we have added to our pages (for example, embedding videos on webpages).
+**Functional Cookies**: These cookies enable the Websites to provide enhanced functionality. They may be set by us or by third-party service providers whose services we have added to our pages (for example, embedding videos on webpages).
 
-- **Marketing Cookies**: These cookies may be set on our Website by our advertising and marketing service providers. They may be used by those companies to build a profile of your interests and show you relevant advertisements on other sites. They are based on uniquely identifying your browser and internet device. This recognition is used to serve relevant adverts, links, or other information about our products and services to users visiting other websites after having previously visited our Website or interacted with our products and services. If you consent to these cookies, you may experience targeted advertising.
+**Marketing Cookies**: These cookies may be set on our Website by our advertising and marketing service providers. They may be used by those companies to build a profile of your interests and show you relevant advertisements on other sites. They are based on uniquely identifying your browser and internet device. This recognition is used to serve relevant adverts, links, or other information about our products and services to users visiting other websites after having previously visited our Website or interacted with our products and services. If you consent to these cookies, you may experience targeted advertising.
+
+**Do Not Track and Third-party Tracking Disclosure**
+
+Certain mechanisms may allow you to send web browser signals, known as “Do Not Track” (“DNT”) signals, indicating your choice to disable tracking on our Website. We do not respond to browser DNT signals at this time. We may not be aware of or be able to respond to every such mechanism.
+
+Third-parties, other than our service providers (such as our Website’s analytics provider), do not have authorization from us to track which website you visited prior to and after visiting our Website. That said, we cannot control third-party tracking; therefore, there may be some third-party tracking that occurs without our knowledge or consent.
 
 ## 13. Your Privacy Rights
 
 You have several choices regarding the use of your personal information on the Site and our Services.  Depending on the jurisdiction you reside in, you may have certain additional rights in relation to the personal information we have collected about you, which are detailed in jurisdiction-specific sections of this Privacy Policy below.
 
-**Email Communications.**  We may periodically send you free newsletters and e-mails that directly promote the use of our Site or Services.  When you receive newsletters or promotional communications from us, you may indicate a preference to stop receiving further communications from us and you will have the opportunity to “opt-out” by following the unsubscribe instructions provided in the e-mail you receive or by contacting us directly (please see [contact information](#18-questions-and-contacts) below).  Despite your indicated e-mail preferences, we may send you Service-related communications, including notices of any updates to our Privacy Policy or terms of service/terms of use.
+**Email Communications.**  We may periodically send you free newsletters and e-mails that directly promote the use of our Site or Services.  When you receive newsletters or promotional communications from us, you may indicate a preference to stop receiving further communications from us and you will have the opportunity to “opt-out” by following the unsubscribe instructions provided in the e-mail you receive or by contacting us directly (please see [contact information](#bookmark=id.wweztxfv8j8e) below).  Despite your indicated e-mail preferences, we may send you Service-related communications, including notices of any updates to our Privacy Policy or terms of service/terms of use.
 
 **Cookies.**  If you decide at any time that you no longer wish to accept cookies from our Site for any of the purposes described above, then you can instruct your browser, by changing its settings, to stop accepting cookies or to prompt you before accepting a cookie from the websites you visit.  Consult your browser’s technical information.  If you do not accept cookies, however, you may not be able to use all portions of the Site or all functionality of the Services.  If you have any questions about how to disable or modify cookies, visit [https://www.allaboutcookies.org/](https://www.allaboutcookies.org/).
+Depending on the jurisdiction you reside in, you may have certain rights in relation to the personal information we have collected about you. These rights are not absolute and do not apply in all cases. We will never discriminate against or provide discriminatory treatment to any individuals exercising their privacy rights under applicable regulations. If we are not able to meet your privacy rights request, we will explain why, and provide details of any further action you may take.
+
+Your privacy rights are detailed below:
+
+* Right of Access/Right to Know: You may have the right to make a request for details of your personal information and a copy of that personal information. Depending on your residency (e.g., for California residents), this may also include rights to know:
+
+  * The categories and specific pieces of personal information that we have collected about you;
+
+  * The categories of sources from which the personal information is collected;
+
+  * The business or commercial purpose for collecting or sharing your personal information;
+
+  * The categories of third-parties with whom we share your personal information;
+
+  * The categories of personal information that we have “sold” about you, as well as the categories of third-parties to whom we sold the information.
+
+* Right to Rectification: You may have the right to have inaccurate information about you corrected or removed;
+
+* Right to Deletion/Right to Erasure: You may have the right to have certain personal information about you deleted from our records;
+
+* Right to Restriction of Processing: You may have the right to ask us to use your personal information for certain restricted or specified purposes only; Right to Object to Processing: You may have the right to object to us collecting, using, sharing, or storing (collectively “processing”) your personal information in certain cases;
+
+* Right to Portability: You may have the right to ask us to transfer your personal information to another company or individual in a computer-readable format;
+
+* Right to Withdraw Consent: You may have the right to withdraw any permission (or “consent”) you have given us to handle your personal information;
+
+* Right in Relation to Automated Decision Making: You may have the right to not be subject to automated decision making, or the right to have a manual review of the decision, as well as be informed of information regarding the logic used to make any automated decisions;
+
+* Right to Complain or File a Dispute to the Relevant Data Protection Authority: You have the right to complain to the relevant data protection authority where you think we have not used your personal information or met your rights in accordance with relevant data protection law.
+
+* If you are a California resident, you have the right to direct us to not sell your personal information.
+
+  * While we do not sell personal information in exchange for monetary consideration, we do share, and over the preceding twelve months may have shared, personal information for other benefits that could be deemed a “Sale,” as defined by the California Consumer Privacy Act in the California Civil Code 1798.140 section (t)(1). This includes sharing of identifiers (such as IP address or email address), commercial information (such as product interest), and internet or other electronic network activity usage data with advertising partners and networks, and website analytics companies.
+
+  * With respect to our use of third-party marketing cookies, you can always customize your settings at any time. See Section 12 “Cookies Notice” for further information on how to do this.
+
+
+To make a request related to the above privacy rights, please contact us via email at [privacy@chromatic.com](mailto:privacy@chromatic.com), providing us with details on the request type you wish to make.
+
+Or, contact us by mail at the following postal address:
+
+Chroma Software, Inc. ATTN: Privacy Office, 548 Market St. \#26384 San Francisco, CA 94104, USA
+
+EU residents can find the contact information for the EU Data Protection Authorities here: [https://edpb.europa.eu/about-edpb/board/members\_en](https://edpb.europa.eu/about-edpb/board/members_en).
+
+Individuals and the data protection supervisory authorities in the EU/EEA and individuals and the data protection supervisory authority (“ICO”) in the UK may also contact our data protection representatives according to Article 27 GDPR:
+
+EU: DP-Dock GmbH, Attn: Chroma Software, Inc., Ballindamm 39, 20095 Hamburg, Germany
+UK: DP Data Protection Services UK Ltd., Attn: Chroma Software, Inc., 16 Great Queen Street, Covent Garden, London, WC2B 5AH, United Kingdom
+
+website: [www.dp-dock.com](https://www.dp-dock.com/) email: [chromatic@gdpr-rep.com](mailto:chromatic@gdpr-rep.com)
 
 ## 14.  Notice to European Users
 
@@ -200,23 +273,20 @@ The information provided in this “Notice to European Users” section applies 
 
 **Controller.**  We are the controller of your personal information covered by this Privacy Policy for the purposes of European data protection legislation, except to the extent that we process your personal information on behalf of our customer, including personal information that we process on behalf of our Clients, in which case our customer is the controller of your personal information, and we are the processor.
 
-We have appointed a Data Protection Officer, whose contact information is:
-```
+We have appointed a Data Protection Officer, whose contact information is: 
 DP Dock DPO Services GmbH
 Grüffkamp 10
 24159 Kiel
 Germany
-chromatic@dp-officer.com 
-```
 
 **Legal bases for processing**.  We use your personal information only as permitted by law.  Our legal bases for processing the personal information described in this Privacy Policy are described in the table below.
 
-| Processing Purpose                                                                                                                                                                                                                                                                                                                                                                                                  | Legal basis                                                                                                                                                                                                                                                                                                                              |
-| :------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | :--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| **To operate the services**                                                                                                                                                                                                                                                                                                                                                                                         | Processing is necessary to perform the contract governing our provision of the services or to take steps that you request prior to signing up for the services. If we have not entered into a contract with you, we process your personal information based on our legitimate interest in providing the services you access and request. |
-| **To communicate with you Notify you of changes to our products/services To manage affiliate, distributor and customer relationships To market, or advertise our products/services For administer promotions** **To improve the services** **To provide security** **For compliance, fraud prevention and safety** **To act in the public interest**  **For employment purposes To post customer product comments** | These activities constitute our legitimate interests. We do not use your personal information for these activities where our interests are overridden by the impact on you (unless we have your consent or are otherwise permitted to by law).                                                                                           |
-| **To comply with law To audit our transactions and interactions**                                                                                                                                                                                                                                                                                                                                                   | Processing is necessary to comply with our legal obligations.                                                                                                                                                                                                                                                                            |
-| **With your consent**                                                                                                                                                                                                                                                                                                                                                                                               | Processing is based on your consent. Where we rely on your consent you have the right to withdraw it at any time in the manner indicated when you consent or in the services.                                                                                                                                                            |
+| Processing Purpose                                                                                                                                                                                                                                                                                                                                                                                                      | Legal basis                                                                                                                                                                                                                                                                                                                              |
+| :---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | :--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| **To operate the services**                                                                                                                                                                                                                                                                                                                                                                                             | Processing is necessary to perform the contract governing our provision of the services or to take steps that you request prior to signing up for the services. If we have not entered into a contract with you, we process your personal information based on our legitimate interest in providing the services you access and request. |
+| **To communicate with you Notify you of changes to our products/services To manage affiliate, distributor and customer relationships To market, or advertise our products/services For administer promotions****To improve the services****To provide security****For compliance, fraud prevention and safety****To act in the public interest**  **For employment purposes To post customer product comments** | These activities constitute our legitimate interests. We do not use your personal information for these activities where our interests are overridden by the impact on you (unless we have your consent or are otherwise permitted to by law).                                                                                           |
+| **To comply with law To audit our transactions and interactions**                                                                                                                                                                                                                                                                                                                                                       | Processing is necessary to comply with our legal obligations.                                                                                                                                                                                                                                                                            |
+| **With your consent**                                                                                                                                                                                                                                                                                                                                                                                                   | Processing is based on your consent. Where we rely on your consent you have the right to withdraw it at any time in the manner indicated when you consent or in the services.                                                                                                                                                            |
 
 **Use for new purposes.**  We may use your personal information for reasons not described in this Privacy Policy where permitted by law and the reason is compatible with the purpose for which we collected it.  If we need to use your personal information for an unrelated purpose, we will notify you and explain the applicable legal basis.
 
@@ -236,12 +306,12 @@ When we no longer require the personal information we have collected about you, 
 
 European data protection laws give you certain rights regarding your personal information.  If you are located within the European Economic Area, the United Kingdom or Switzerland, you may ask us to take the following actions in relation to your personal information that we hold:
 
-* **Access.** Provide you with information about our processing of your personal information and give you access to your personal information.
-* **Correct.** Update or correct inaccuracies in your personal information. 
-* **Delete.** Delete your personal information.
-* **Transfer.** Transfer a machine-readable copy of your personal information to a third party of your choice.
-* **Restrict.** Restrict processing of your personal information.
-* **Object.** Object to our reliance on our legitimate interests as a legal basis of our processing of your personal information that impacts your rights.
+* **Access. ** Provide you with information about our processing of your personal information and give you access to your personal information.
+* **Correct.  **Update or correct inaccuracies in your personal information. 
+* **Delete.  **Delete your personal information.
+* **Transfer.  **Transfer a machine-readable copy of your personal information to a third party of your choice.
+* **Restrict.  **Restrict processing of your personal information.
+* **Object.  **Object to our reliance on our legitimate interests as a legal basis of our processing of your personal information that impacts your rights.
 
 
 You may submit these requests by email to [privacy@chromatic.com](mailto:privacy@chromatic.com) or our postal address provided below.  We may request specific information from you to help us confirm your identity and process your request.  Applicable law may require or permit us to decline your request.  If we decline your request, we will tell you why, subject to legal restrictions.  If you would like to submit a complaint about our use of your personal information or our response to your requests regarding your personal information, you may contact us or submit a complaint to the data protection regulator in your jurisdiction.  You can find your data protection regulator [here](https://edpb.europa.eu/about-edpb/about-edpb/members_en).
@@ -264,20 +334,19 @@ DP-Dock has been appointed as our representative in the European Union for data 
 Website: [www.dp-dock.com](https://www.dp-dock.com/) 
 Email: [chromatic@gdpr-rep.com](mailto:chromatic@gdpr-rep.com)
 
- ```
+```
 EU:
-DP-Dock GmbH, Attn: Chroma Software, Inc., 
-Ballindamm 39, 20095 
+DP-Dock GmbH, Attn: Chroma Software, Inc.,
+Ballindamm 39, 20095
 Hamburg, Germany
 ```
- 
+
 ```
 UK:
-DP Data Protection Services UK Ltd., Attn: Chroma Software, Inc., 
-16 Great Queen Street, Covent Garden, 
+DP Data Protection Services UK Ltd., Attn: Chroma Software, Inc.,
+16 Great Queen Street, Covent Garden,
 London, WC2B 5AH, United Kingdom
 ```
-
 
 ## 15. Notice to Canadian Users
 
