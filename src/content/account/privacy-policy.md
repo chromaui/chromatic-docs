@@ -9,7 +9,7 @@ sidebar: { order: 7 }
 
 Chroma Software, Inc.®
 
-Updated: May 5, 2025
+Updated: May 21, 2025
 
 Chroma Software, Inc., a business corporation (herein “Chromatic”, “we”, “us” or “our”), based in the United States and headquartered at 548 Market St. \#26384 San Francisco, CA 94104, is committed to protecting and respecting your privacy and personal information (herein, “personal information” refers to any information that identifies you or is about you as an individual). This Privacy Notice describes how we collect, use and share personal information through your (herein, “you” or “your” refers to the person accessing our products and services) interaction with our website: [https://www.chromatic.com/](https://www.chromatic.com/), (herein, “Website”).
 
@@ -120,17 +120,17 @@ We may disclose your personal information to service providers and other third-p
 
 We may disclose, and may have already disclosed, personal information to the following categories of third-parties:
 
-* **Our service providers** - Our business partners, suppliers and sub-contractors who help us provide our Website, products and services. This includes, for example, our e-commerce platform providers, analytics providers, marketing and advertising service providers, website development and troubleshooting service providers.  Our service providers may include, but are not limited to:
+* **Our service providers** - Our business partners, suppliers and sub-contractors who help us provide our Website, products and services. This includes, for example, our e-commerce platform providers, analytics providers, marketing and advertising service providers, website development and troubleshooting service providers.  Our service providers may include, but are not limited to:
 
   * **Intercom.**  Intercom assists us in providing a unified customer communications platform for customer interaction and experience management.  For more information about Intercom’s privacy practices, visit [https://www.intercom.com/legal/privacy](https://www.intercom.com/legal/privacy).
   * **Stripe.**  Stripe assists us in processing your payments.  For more information about Stripe’s privacy practices, visit [https://stripe.com/privacy](https://stripe.com/privacy).
-  * **Google Analytics/Ads.**  Google helps us better understand your use of our Website and services. Google Analytics collects information such as how often users visit our Website, what pages are visited, and what other sites may have been used prior to visiting. Google uses the data collected to track and examine website usage, to prepare reports on its activities and share them with other Google services, and to contextualize and personalize the ads of its own advertising network. Google’s ability to use and share information collected by Google Analytics about your visits to our Website is restricted by the [Google Analytics Terms of Use](https://marketingplatform.google.com/about/analytics/terms/us/) and the [Google Privacy Policy](https://policies.google.com/privacy). You can also opt-out of and manage your preferences for Google’s use of personalized advertising and related cookies by visiting Google’s [Ad Settings](https://support.google.com/accounts/answer/2662856?co=GENIE.Platform%3DDesktop&hl=en), and Google Analytics also offers an opt-out mechanism for the web available [here](https://tools.google.com/dlpage/gaoptout/).
+  * **Google Analytics/Ads.**  Google helps us better understand your use of our Website and services. Google Analytics collects information such as how often users visit our Website, what pages are visited, and what other sites may have been used prior to visiting. Google uses the data collected to track and examine website usage, to prepare reports on its activities and share them with other Google services, and to contextualize and personalize the ads of its own advertising network. Google’s ability to use and share information collected by Google Analytics about your visits to our Website is restricted by the [Google Analytics Terms of Use](https://marketingplatform.google.com/about/analytics/terms/us/) and the [Google Privacy Policy](https://policies.google.com/privacy). You can also opt-out of and manage your preferences for Google’s use of personalized advertising and related cookies by visiting Google’s [Ad Settings](https://support.google.com/accounts/answer/2662856?co=GENIE.Platform%3DDesktop&hl=en), and Google Analytics also offers an opt-out mechanism for the web available [here](https://tools.google.com/dlpage/gaoptout/).
   * **HubSpot.**  HubSpot is an analytics provider that utilizes cookie and usage data collected to track and examine the use of the Site and the Services, analyze demographic information, and to prepare reports on user activities and share them with other HubSpot services.  HubSpot may use the data collected to contextualize and personalize the ads of its own advertising network.  You can find out more information about HubSpot and the data it collects at [https://legal.hubspot.com/privacy-policy](https://legal.hubspot.com/privacy-policy).
 
 
-* **Our professional advisers** - Including accountants, lawyers and other professional advisers that assist us in carrying out our business activities;
+* **Our professional advisers** - Including accountants, lawyers and other professional advisers that assist us in carrying out our business activities;
 
-* **Government authorities and third-parties involved in legal or regulatory action** - External agencies and organizations (including the police and the relevant local authority) for the purpose of complying with applicable legal and regulatory obligations.
+* **Government authorities and third-parties involved in legal or regulatory action** \- External agencies and organizations (including the police and the relevant local authority) for the purpose of complying with applicable legal and regulatory obligations.
 
 
 We may also disclose your personal information to other third-parties, for example:
@@ -138,7 +138,6 @@ We may also disclose your personal information to other third-parties, for examp
 * In the event that we sell or buy any business or assets, or restructure our business or assets, we may disclose your personal information to the prospective affiliate, seller or buyer of such business or assets;
 
 * If we are under a duty to disclose or share your personal information in order to comply with any legal obligation.
-
 
 ## 9. Protection of Personal Information
 
@@ -266,15 +265,15 @@ Email: [chromatic@gdpr-rep.com](mailto:chromatic@gdpr-rep.com)
 
  ```
 EU:
-DP-Dock GmbH, Attn: Chroma Software, Inc., 
-Ballindamm 39, 20095 
+DP-Dock GmbH, Attn: Chroma Software, Inc.,
+Ballindamm 39, 20095
 Hamburg, Germany
 ```
- 
+
 ```
 UK:
-DP Data Protection Services UK Ltd., Attn: Chroma Software, Inc., 
-16 Great Queen Street, Covent Garden, 
+DP Data Protection Services UK Ltd., Attn: Chroma Software, Inc.,
+16 Great Queen Street, Covent Garden,
 London, WC2B 5AH, United Kingdom
 ```
 
