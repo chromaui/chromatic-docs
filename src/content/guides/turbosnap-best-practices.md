@@ -1,13 +1,13 @@
 ---
 layout: "../../layouts/Layout.astro"
-title: TurboSnap Configuration Best Practices
-description: Learn TurboSnap configuration best practices to optimize your builds for faster visual testing
+title: TurboSnap best practices
+description: TurboSnap best practices to optimize your builds for faster testing
 sidebar: { order: 10, label: "Configuring TurboSnap" }
 ---
 
-# TurboSnap Configuration Best Practices: Tips for Faster Visual Testing
+# TurboSnap best practices
 
-Most everyone agrees it's important to test your UI, but it's even more important to make sure you're testing the _right parts_ of your UI at the _right time_. Meet TurboSnap: one of Chromatic's most powerful tools for accelerating visual testing in CI. By using your git history and dependency graph to intelligently detect what's changed in your Storybook project, it helps Chromatic better test the components impacted by your changes—saving you time and CI resources while keeping your tests valuable.
+Most everyone agrees it's important to test your UI, but it's even more important to make sure you're testing the _right parts_ of your UI at the _right time_. Meet TurboSnap: one of Chromatic's most powerful tools for accelerating UI testing in CI. By using your git history and dependency graph to intelligently detect what's changed in your Storybook project so that Chromatic only tests components affected by your updates, saving time and CI resources while maintaining the value of your tests.
 
 Whether you're working in a single-project repository or have a more complex setup (such as a monorepo), following best practices ensures TurboSnap works efficiently to help surface _meaningful_ visual regressions. Here are some essential tips to keep your TurboSnap running fast, reliably, and accurately.
 
@@ -15,19 +15,17 @@ Whether you're working in a single-project repository or have a more complex set
 
 Once you've met the [prerequisites](/docs/turbosnap/setup#prerequisites) and started using TurboSnap, it should show as enabled when you visit the "Manage" page of your project. TurboSnap is enabled through the `onlyChanged` option. You can make sure it's enabled for your builds by verifying it's listed within your Chromatic script:
 
-```json
-// package.json
+```json title="package.json"
 {
-	"scripts": {
-		"chromatic": "chromatic --only-changed
-	}
+  "scripts": {
+    "chromatic": "chromatic --only-changed"
+  }
 }
 ```
 
 If you have a Chromatic configuration file (ex. `chromatic.config.json`), check the file to make sure `onlyChanged` is set to `true`:
 
-```json
-// chromatic.config.json
+```json title="chromatic.config.json"
 {
   "$schema": "https://www.chromatic.com/config-file.schema.json",
   "projectId": "Project:...",
@@ -37,9 +35,7 @@ If you have a Chromatic configuration file (ex. `chromatic.config.json`), check 
 
 Alternatively, it may be in your CI workflow directly:
 
-```yaml
-# .github/workflows/chromatic.yml
-
+```yaml title=".github/workflows/chromatic.yml"
 jobs:
   chromatic:
     steps:
@@ -70,9 +66,11 @@ Run `npx @chromatic-com/turbosnap-helper` from the root of your repo to have the
 
 ## Run with caution when using the `pull_request` event
 
-TurboSnap is not compatible with the `pull_request` event trigger because the workflow runs against an ephemeral merge commit, which can result in issues with being able to properly track baselines and find earlier builds. While we recommend running Chromatic on `push` events, we also have recommendations that have been successfully implemented if you want to trigger Chromatic with TurboSnap on `pull_request` events.
+TurboSnap is not compatible with the `pull_request` event trigger. This is because the workflow runs against an ephemeral merge commit, which can result in issues with being able to properly track baselines and find earlier builds.
 
-For starters, create a separate workflow for Chromatic using the following strategy for the checkout step:
+We recommend running Chromatic on `push` events. However, if you wish to trigger Chromatic with TurboSnap on `pull_request` events, we've had success with an alternative strategy outlined below.
+
+Create a separate workflow for Chromatic using the following strategy for the checkout step:
 
 ```yaml
 - uses: actions/checkout@v4
@@ -85,16 +83,16 @@ For starters, create a separate workflow for Chromatic using the following strat
 
 In your workflow, how much of your git history is downloaded when you check out a repo is determined by `fetch-depth`. By default, it's set to `1`, which fetches only the latest commit. It's best to set this to `0` (or a very high number) to ensure Chromatic has access to your full git history. This is crucial for TurboSnap, as it relies on comparing the current commit to the base branch or previous commits. Without the full history, Chromatic may not be able to determine what's changed and could miscalculate what to test.
 
-Setting `ref` is one of the most critical parts to using the `pull_request` event, as the `ref` parameter defines what gets checked out into the workspace. This has a huge impact on how Chromatic is able to analyze your build. By setting `ref` to `${{ github.event.pull_request.head.ref }}`, this makes sure GitHub checks out the correct branch and that Chromatic automatically detects your correct git information.
+Setting `ref` is one of the most critical parts to using the `pull_request` event, as the `ref` parameter defines what gets checked out into the workspace, which in turn impacts how Chromatic analyses your build. By setting `ref` to `${{ github.event.pull_request.head.ref }}` ensures that GitHub checks out the correct branch and that Chromatic automatically detects accurate git information.
 
-There are edge use cases where it may be beneficial to include the git environment variables (`CHROMATIC_BRANCH`, `CHROMATIC_SHA`, `CHROMATIC_SLUG`) in your Chromatic step:
+There are edge cases where it may be beneficial to include the git environment variables (`CHROMATIC_BRANCH`, `CHROMATIC_SHA`, `CHROMATIC_SLUG`) in your Chromatic step, for example:
 
-- You're using a monorepo with multiple projects and find that you need tighter control across builds.
-- You use `actions/checkout` in detached mode (not recommended), or with custom scripts that mutate the git state, and you want to guarantee that Chromatic receives a stable SHA.
+- If you're using a monorepo with multiple projects and find that you need tighter control across builds.
+- If you use `actions/checkout` in detached mode (not recommended), or with custom scripts that mutate the git state, and you want to guarantee that Chromatic receives a stable SHA.
 
 Otherwise, if you're using `ref` correctly, Chromatic will pick up the right commit via git and optimize with TurboSnap as expected.
 
-If you find yourself needing more fine-tuned control over your git environment variables, set all three of the git environment variables using this env block strategy:
+If you find yourself needing more fine-tuned control over your git environment variables, set all three of the git environment variables using the following env block strategy:
 
 ```yaml
 - name: Publish to Chromatic
@@ -119,35 +117,38 @@ These values match what you'd want TurboSnap and Chromatic to see, but _only if 
 
 ## Avoid excessive dynamic imports
 
-Dynamic imports (`import()` or `require()` with variables or conditions) inside your stories, decorators, preview file, or any of the files they import can break the chain TurboSnap relies on to determine which stories are affected, resulting in missed visual changes or unexpected rebuilds. To help ensure full traceability, consider reducing dynamic imports. If the behavior is _essential_, move the logic into story-level decorators or within the component and avoid dynamic behavior in the preview file.
+Dynamic imports, such as `import()` or `require()` with variables or conditions, within your stories, decorators, preview files, or any files they import, can disrupt the chain TurboSnap uses to identify affected stories. This can lead to missed visual changes or unexpected rebuilds. To maintain full traceability, consider minimizing dynamic imports. If dynamic behavior is necessary, incorporate the logic into story-level decorators or within the component itself, and avoid using dynamic imports in the preview file.
 
 When it's possible, convert dynamic imports to static imports:
-❌ `const ThemeProvider = require('../themes/default/ThemeProvider');`
-✅ `import { ThemeProvider } from '../themes/default/ThemeProvider';`
+* ❌ `const ThemeProvider = require('../themes/default/ThemeProvider');`
+* ✅ `import { ThemeProvider } from '../themes/default/ThemeProvider';`
 
 ## Mind your package control files
 
 TurboSnap relies on lockfiles to get actual version numbers rather than semver ranges to attempt to determine an exact set of changed dependencies for more accurate tracing. If your lockfile is missing or out of sync with `package.json`, this prevents TurboSnap from being able to compute the changes and results in a full rebuild.
 
-📦 Package file tips:
+Package file tips:
 
-- Make sure you have a valid lockfile checked in and that it's not out of sync with your `package.json`.
-- Avoid unnecessary version bumps in unrelated dependencies.
-- Help reduce noise in lockfile changes by using exact versions.
+- Make sure you have a valid lockfile checked in and that it's not out of sync with your `package.json`
+- Avoid unnecessary version bumps in unrelated dependencies
+- Help reduce noise in lockfile changes by using exact versions
 
 ## Optimize shared configs and theming
 
-Your Storybook preview file—where you define global decorators, parameters, and theming—is one of the most sensitive files for TurboSnap rebuilds. Why? _Any change_ to the file _or anything it imports_ can impact any story in the project, even if only one component was affected. This means changes to theme object definitions, global decorators, context providers, mock setups, and global parameters will result in an _expected_ full rebuild.
+Your Storybook preview file (`.storybook/preview.js|ts`), where you define global decorators, parameters, and theming, is crucial for TurboSnap rebuilds. Any change to this file or its imports can affect the rendering of stories in your project, even if only a single component is impacted. This means changes to theme object definitions, global decorators, context providers, mock setups, and global parameters will trigger a full rebuild.
 
-While you **can’t avoid full rebuilds** when changing anything imported by `preview.js|ts` (or changing the file itself), here are some best practices to reduce the impact of `preview.js|ts` changes:
+While you **can’t avoid full rebuilds** when changing anything imported by `.storybook/preview.js|ts` (or changing the file itself), here are some best practices to reduce the impact of the preview file changes:
 
 - Minimize imports in your preview file. Avoid importing large libraries or full theme objects, and move large objects (like your full theme config) to separate files that don't change often.
 - Use stable, versioned theme objects. If your project has a design system or uses a component library with theming, import the theme object from a package or file that rarely changes. Importing the theme from a package means changes to the theme require a package release, encouraging discipline and reducing change noise.
 - Split decorators and providers by scope. If all stories don't need the same decorators, consider moving the logic into story-level decorators when feasible.
 
-## Catch changes that don't pass through your builder with `externals`
+## Catch changes that don't pass through your bundler with `externals`
 
-TurboSnap relies on what your bundler processes, not just what's in the codebase. Making sure impactful files processed externally to your bundler trigger tests is a critical, but often overlooked part of ensuring TurboSnap works correctly and efficiently. It also keeps you from accidentally introducing regressions that could have been caught during visual testing. That's where the `externals` option comes in: it tells TurboSnap to manually watch the specified files or globs for changes, and triggers a rebuild when they change.
+TurboSnap depends on the files processed by your bundler. Therefore, it's crucial that files not processed by your bundler also trigger tests. This helps prevent accidental regressions that could have been caught during testing.
+
+The `externals` feature was designed specifically for this purpose. It directs TurboSnap to monitor specified files or globs patterns for changes, triggering a rebuild whenever they are modified.
+
 
 Follow these tips to help keep your testing meaningful:
 
@@ -157,11 +158,7 @@ Follow these tips to help keep your testing meaningful:
 
 ## Trace what matters, untrace what doesn't, and scope when possible
 
-TurboSnap works by tracing all files that a story depends on, starting from that story's code and walking the import graph. You may find yourself in a situation where some files or folders are:
-
-- frequently updated
-- causing widespread rebuilds when changed
-- not truly impactful to story behavior
+TurboSnap works by tracing all files that a story depends on, starting from that story's code and walking the import graph. You may find yourself in a situation where some files or folders are frequently updated, causing widespread rebuilds when changed, and not truly impactful to story behavior
 
 In these cases, you can tell TurboSnap to exclude paths from being traced using the `untraced` option. You can safely untrace files that:
 
@@ -169,13 +166,13 @@ In these cases, you can tell TurboSnap to exclude paths from being traced using 
 - Are never imported (directly or indirectly) by your stories.
 - Exist solely for documentation, CI scripts, metadata, or non-runtime assets.
 
-❌ There are times where it's dangerous to untrace as it compromises your test coverage. You should avoid adding any files to `untraced` that:
+That said, in some scenarios untracing is dangerous as it compromises your test coverage. You should avoid adding any files to `untraced` that:
 
 - Are imported by story files, component files, or decorators.
 - Contain theme definitions, configuration, or wrapper logic.
 - Affect how components are rendered—whether directly or indirectly.
 
-If a file or folder is frequently updated and has a broad but legitimate impact on your stories, consider scoping it into a dedicated package or Storybook project to reduce blast radius and increase control. This allows TurboSnap to trace only stories affected by the package, which can be tested through Storybook and Chromatic in isolation. Consider these basic guidelines for when to split:
+If a file or folder is frequently updated and has a broad but legitimate impact on your stories, consider scoping it into a dedicated package or a separate Storybook project to reduce its impact radius. This allows TurboSnap to trace only stories affected by the package, which can be tested through Storybook and Chromatic in isolation. Here are few basic guidelines to help you decide when to split:
 
 - Theme file changing daily? Move it to it's own package and project.
 - Global wrapper being used across stories? Extract and import only where needed.
@@ -186,41 +183,30 @@ If a file or folder is frequently updated and has a broad but legitimate impact 
 
 If you're unsure why a change to a file caused a full rebuild, analyzing your `preview-stats.json` file can help you trace the changes in your dependency graph. This gives you a better visualization of the rebuild scope and helps you determine which stories are affected by your changes. The file is generated locally during Storybook builds, so you can easily inspect it to debug before sending anything through CI.
 
-Chromatic provides a [`trace` utility](/docs/turbosnap/troubleshooting#why-are-no-changes-being-detected) that reads your `preview-stats.json` file to trace changed file paths to their dependent story files. This can help you determine:
+Chromatic provides a [trace utility](/docs/turbosnap/troubleshooting#why-are-no-changes-being-detected) that reads your `preview-stats.json` file to trace changed file paths to their dependent story files. This can help you determine things like:
 
 - Whether a small change to a theme file will trigger rebuilds in all stories.
 - Whether changes to another package will impact your stories.
-- The actual dependency footprint or blast radius of a given file.
+- The actual dependency footprint of a given file.
 
 ## How to know what to expect from performance
 
-With proper TurboSnap configuration, you should expect around 80-90% of your Chromatic builds to skip a full rebuild and test only what's changed. For large projects, this often translates to hundreds of files skipped per build, saving both time and snapshot review overhead. If you're still seeing 50% or more of your builds trigger a full rebuild of all stories, it's a sign that your configuration may need tuning or you have shared code that's being modified too often.
+With TurboSnap configured appropriately, you should expect around 80-90% of your Chromatic builds to skip a full rebuild and test only what's changed. For large projects, this often translates to hundreds of files skipped per build, saving both time and snapshots. If you're still seeing 50% or more of your builds trigger a full rebuild of all stories, it's a sign that your configuration may need adjustments or you have shared code that's being modified too often.
 
-| Optimization level   | Example                                                                                        | Expected full rebuilds (%) |
-| -------------------- | ---------------------------------------------------------------------------------------------- | -------------------------- |
-| No optimization      | default config, shared preview file, barrel files, dynamic imports                             | **~60-100%**               |
-| Partial optimization | baseDir set but noisy preview file                                                             | **~30-60%**                |
-| Well-optimized       | scoped preview file, proper externals, modular stories                                         | **5-25%**                  |
-| Gold standard        | monorepo with isolated apps, per-package SB projects, clean preview files, optimized externals | **1-5%**                   |
-
-TurboSnap can help reduce build time and snapshot volume substantially, but those gains _don't come automatically_. It's not just a feature you toggle on—it's an advanced feature that depends on your setup and proper configuration.
+| Optimization level   | Example                                                                                                | Expected full rebuilds (%) |
+| -------------------- | ------------------------------------------------------------------------------------------------------ | -------------------------- |
+| No optimization      | Default config, shared preview file, barrel files, dynamic imports                                     | **~60-100%**               |
+| Partial optimization | `baseDir` set but noisy preview file                                                                   | **~30-60%**                |
+| Well-optimized       | Scoped preview file, proper externals & modular stories                                                | **5-25%**                  |
+| Gold standard        | Monorepo with isolated apps, per-package Storybook projects, clean preview files & optimized externals | **1-5%**                   |
 
 ## Conclusion
 
-TurboSnap is designed to help your builds be fast out of the box, but small configuration decisions can make a big difference in performance. Ultimately, performance is your responsibility, but we're here to give you the tools to help configure TurboSnap efficiently. Your actual results with TurboSnap depend on how your team:
+TurboSnap can significantly reduce build times and snapshot volumes, but small configuration choices can greatly impact its performance. It's an advanced feature that requires proper setup and configuration.
 
-- Structures shared configuration
-- Handles themes and decorators
-- Writes and organizes stories
-- Audits and maintains the dependency graph
+The best practices outlined above will help you achieve consistent and fast builds with minimal overhead and without sacrificing test coverage.
 
-By following best practices like:
-
-- Scoping changes to only what needs to change
-- Modularizing global code
-- Declaring externals for non-bundled assets
-- Auditing your `preview-stats.json` file with the `trace` utility
-  ...you can achieve consistent, super-fast builds with minimal overhead and without compromising your test coverage.
+In summary, limit changes to only necessary updates. Modularize global code, declare externals for non-bundled assets, and audit your `preview-stats.json` file using the [trace utility](/docs/turbosnap/troubleshooting#why-are-no-changes-being-detected).
 
 ## Next: Optimizing TurboSnap for Monorepos
 
