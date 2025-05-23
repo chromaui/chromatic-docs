@@ -15,7 +15,7 @@ The `diffThreshold` configuration option allows you to fine-tune the threshold f
 
 ## Setting the threshold
 
-Chromatic's default threshold is `.063`, which balances high visual accuracy with low false positives (for example, from artifacts like anti-aliasing). `0` is the most accurate. `1` is the least accurate.
+Diff threshold values closer to `0` are more sensitive, but more likely to have false positives, while values closer to `1` are less sensitive, but less likely to have false positives. Chromatic's default threshold is `.063`, which balances high visual accuracy with low false positives (for example, from artifacts like anti-aliasing).
 
 If you need to customize how Chromatic identifies visual changes in your UI, add the `diffThreshold` configuration option to your tests. For example:
 
@@ -47,7 +47,7 @@ If you need to customize how Chromatic identifies visual changes in your UI, add
 
     export default meta;
     type Story = StoryObj<typeof UserAccount>;
-    
+
     export const Default: Story = {
       play: async ({ canvasElement }) => {
         const canvas = within(canvasElement);
@@ -127,7 +127,7 @@ To enable this feature and allow Chromatic to automatically detect anti-aliased 
 
     export default meta;
     type Story = StoryObj<typeof UserAccount>;
-    
+
     export const Default: Story = {
       play: async ({ canvasElement }) => {
         const canvas = within(canvasElement);
