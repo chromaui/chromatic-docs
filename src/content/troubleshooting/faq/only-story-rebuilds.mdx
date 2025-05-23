@@ -1,0 +1,13 @@
+---
+layout: "../../../layouts/FAQLayout.astro"
+sidebar: { hide: true }
+title: Do the onlyStoryNames and onlyStoryFiles options have similar retest logic to TurboSnap?
+section: turboSnap
+sectionOrder: 2
+---
+
+# Do the `onlyStoryNames` and `onlyStoryFiles` options have similar retest logic to TurboSnap?
+
+While TurboSnap avoids false positives by [retesting impactful situations](/docs/turbosnap/#full-rebuilds), the `onlyStoryNames` and `onlyStoryFiles` options assume that you're relying on monorepo tooling (such as `Nx affected`, `lerna changed`, or similar) or other logic to configure an appropriate glob pattern. Both options explicitly limit which stories or files are tested, and do not infer changes or decide what needs to be tested.
+
+You can think of these options as manual filters that assume you're managing your own dependencies and file changes independently. TurboSnap is an _automated smart filter_ based on dependency and file change analysis. If you're trying to optimize builds automatically, use TurboSnap. If you're using another tool to help analyze what's changed and want to manually control what's tested, use `onlyStoryNames` or `onlyStoryFiles`.
