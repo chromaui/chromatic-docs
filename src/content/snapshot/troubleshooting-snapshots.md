@@ -234,13 +234,13 @@ Yes, check out the Chromatic's [modes feature](/docs/modes) is simplifies the pr
 
 <details>
 
-  <summary>Why is my mocked data not being snapshotted correctly?</summary>
+  <summary>Why are stories with mocked data not being snapshotted correctly?</summary>
 
 Chromatic snapshots sometimes show the initial or intermediate loading state of the UI, instead of the final state with the mocked data. This can lead to visual tests failing, even though the Storybook renders correctly locally. To debug this issue, follow these steps:
 
-1.  Ensure that MSW (Mock Service Worker) is correctly initialized in your Storybook configuration. Follow the instructions in the MSW documentation: [here](https://github.com/mswjs/msw-storybook-addon?tab=readme-ov-file#configure-the-addon).
+1.  Ensure that MSW (Mock Service Worker) is correctly initialized in your Storybook configuration: [here](https://github.com/mswjs/msw-storybook-addon?tab=readme-ov-file#configure-the-addon).
 
-2.  Confirm that the versions of `msw`, `msw-storybook-addon`, or any other community add-ons you are using are not outdated.
+2.  Confirm that the you're not using outdated versions of `msw`, `msw-storybook-addon`, or any other community add-ons.
 
 3.  Run `npm run build-storybook` and `npx http-server storybook-static -o` locally to check for console output and address any MSW warnings or errors. Even if warnings pass locally, they may not work on the Chromatic side.
 
@@ -248,11 +248,11 @@ Chromatic snapshots sometimes show the initial or intermediate loading state of 
 
 5.  For Interaction tests on Vite, use the Storybook Test addon; on Webpack, use the Storybook Test Runner. Both provide the Test Hook API to help you wait for mocked data and control snapshot timing. This makes debugging mocks easier and avoids capturing loading states. Learn more about the [Test Addon](https://storybook.js.org/docs/writing-tests/test-addon) and [Storybook Test Runner](https://storybook.js.org/docs/writing-tests/test-runner#test-hook-api).
 
-6.  Ensure all necessary assets (e.g., CSS files) are loaded correctly in your stories. Consider preloading them in your [`(.storybook/preview-head.html)`](https://storybook.js.org/docs/configure/story-rendering#adding-to-head).
+6.  Ensure all necessary assets (e.g., CSS files) are loading correctly in your stories. Consider preloading them in [`(.storybook/preview-head.html)`](https://storybook.js.org/docs/configure/story-rendering#adding-to-head).
 
-7.  Use [delays](/docs/delay) to ensure that mocked data is fully available before Chromatic takes a snapshot. Consider converting stories to [Interaction tests](/docs/interactions) by adding an expression that confirms the mocked data is present and the component is in the expected state before the test concludes.
+7.  Use [delays](/docs/delay) to ensure that mocked data is fully available before Chromatic takes a snapshot. Consider converting stories to [interaction tests](/docs/interactions) by adding an assertion that confirms the mocked data is present and the component is in the expected state before the test concludes.
 
- </details>
+</details>
 
 <details>
 <summary>Why am I seeing a blank snapshot?</summary>
