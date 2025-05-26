@@ -246,7 +246,7 @@ Chromatic snapshots sometimes show the initial or intermediate loading state of 
 
 4.  Pay close attention to how you define MSW handlers, especially for API requests with query parameters. MSW recommends matching only the path in the handler URL and accessing query parameters inside the resolver function using `req.url.searchParams.get()`.
 
-5.  For Interaction tests, use the Storybook Test Runner to gain more insight into mock behavior. The Test Runner provides CI logs as pre-render and post-render information. Learn more [here](https://storybook.js.org/docs/writing-tests/test-runner#test-hook-api).
+5.  For Interaction tests on Vite, use the Storybook Test addon; on Webpack, use the Storybook Test Runner. Both provide the Test Hook API to help you wait for mocked data and control snapshot timing. This makes debugging mocks easier and avoids capturing loading states. Learn more about the [Test Addon](https://storybook.js.org/docs/writing-tests/test-addon) and [Storybook Test Runner](https://storybook.js.org/docs/writing-tests/test-runner#test-hook-api).
 
 6.  Ensure all necessary assets (e.g., CSS files) are loaded correctly in your stories. Consider preloading them in your [`(.storybook/preview-head.html)`](https://storybook.js.org/docs/configure/story-rendering#adding-to-head).
 
