@@ -248,7 +248,9 @@ Chromatic snapshots sometimes show the initial or intermediate loading state of 
 
 5.  Ensure all necessary assets (e.g., CSS files) are loading correctly in your stories. Consider preloading them in [`(.storybook/preview-head.html)`](https://storybook.js.org/docs/configure/story-rendering#adding-to-head).
 
-6.  Use [delays](/docs/delay) to ensure that mocked data is fully available before Chromatic takes a snapshot. Consider converting stories to [interaction tests](/docs/interactions) by adding an assertion that confirms the mocked data is present and the component is in the expected state before the test concludes.
+6. Add an [interaction test](/docs/interactions) to your story to assert that mocked data is present and the component is in the expected state before the test concludes.
+
+7. Use [delays](/docs/delay) to ensure that mocked data is fully available before Chromatic takes a snapshot.
 
 </details>
 
