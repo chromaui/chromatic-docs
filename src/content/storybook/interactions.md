@@ -184,6 +184,105 @@ Interaction tests are reported in the UI Tests pull request check. When a test f
 
 ![Failed interaction tests in CI](../../images/interaction-pr-check-failed-test.png)
 
+## Testing Shadow DOM with Storybook and Chromatic
+
+Storybook makes it easier to write component tests using the `play()` function, but what about components that use shadow DOM like Web Components? With the help of `shadow-dom-testing-library`, you can write tests that query elements inside the shadow root just like you would with standard DOM elements. This approach is fully compatible with Chromatic, which will accurately capture the UI state by waiting for interactions to complete.
+
+### Configure Shadow DOM Queries in Storybook Preview
+
+In your preview file, inject shadow-aware query methods into the `canvas` object using `beforeEach()`.
+
+```ts title=".storybook/preview.ts"
+import type { Preview } from "@storybook/web-components";
+import { within as withinShadow } from "shadow-dom-testing-library";
+
+const preview: Preview = {
+  beforeEach({ canvasElement, canvas }) {
+    Object.assign(canvas, { ...withinShadow(canvasElement) });
+  },
+};
+
+// extend TypeScript types for safety
+export type ShadowQueries = ReturnType<typeof withinShadow>;
+
+declare module "storybook/internal/csf" {
+  // since 8.6
+  interface Canvas extends ShadowQueries {}
+}
+
+export default preview;
+```
+
+This adds methods like `findByShadowRole`, `findAllByShadowRole`, etc., directly to the `canvas` object in `play()` functions.
+
+### Querying Shadow DOM within Stories
+
+With the above adjustments in place, you can use shadow root queries directly in your `play()` function.
+
+```tsx
+const Story = {
+  async play({ canvas }) {
+    const button = await canvas.findByShadowRole("button", { name: /Reset/i });
+    await userEvent.click(button);
+  },
+};
+```
+
+Using `shadow-dom-testing-library` provides DOM querying methods that mirror the familiar API of `@testing-library/dom`, but they're able to traverse shadow roots. By extending Storybook's `canvas` object, you can access methods that help ensure your tests are clean, intuitive, and maintainable.
+
+### Example Story: Testing Shadw DOM for CheckboxGroup
+
+Let's say you're testing a Web Component `<checkbox-group>` that renders shadow-root-contained checkboxes.
+
+```tsx title="CheckboxGroup.stories.tsx"
+import { Meta, StoryObj } from "@storybook/web-components";
+import { expect, userEvent } from "@storybook/test";
+import { Checkbox } from "../src/checkbox";
+import { CheckboxGroup } from "../src/checkbox-group";
+
+Checkbox.register();
+CheckboxGroup.register();
+
+const meta: Meta = {
+  component: CheckboxGroup,
+  title: "Checkbox",
+};
+
+export default meta;
+type Story = StoryObj;
+
+export const Required: Story = {
+  render: () => html`
+    <checkbox-group
+      required
+      setCustomValidityValueMissing="Please select an option"
+    >
+      <span slot="legend">Form label</span>
+      <checkbox value="value1" name="required" id="checkbox-required1"
+        >Checkbox option</checkbox
+      >
+      <checkbox value="value2" name="required" id="checkbox-required2"
+        >Checkbox option</checkbox
+      >
+      <checkbox value="value3" name="required" id="checkbox-required3"
+        >Checkbox option</checkbox
+      >
+      <checkbox value="value4" name="required" id="checkbox-required4"
+        >Checkbox option</checkbox
+      >
+    </checkbox-group>
+  `,
+  async play({ canvas }) {
+    const checkboxes = await canvas.findAllByShadowRole("checkbox");
+    const firstCheckbox = checkboxes[0];
+    await userEvent.click(firstCheckbox); // select
+    await userEvent.click(firstCheckbox); // deselect
+  },
+};
+```
+
+Now you can simulate and test user interactions with deeply nested shadow elements from the `play()` function, without needing to manually reach into `shadowRoot`!
+
 ---
 
 ## Frequently asked questions
