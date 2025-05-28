@@ -186,11 +186,11 @@ Interaction tests are reported in the UI Tests pull request check. When a test f
 
 ## Testing Shadow DOM with Storybook and Chromatic
 
-Storybook makes it easier to write component tests using the `play()` function, but what about components that use shadow DOM like Web Components? With the help of `shadow-dom-testing-library`, you can write tests that query elements inside the shadow root just like you would with standard DOM elements. This approach is fully compatible with Chromatic, which will accurately capture the UI state by waiting for interactions to complete.
+With the help of [shadow-dom-testing-library](https://github.com/konnorrogers/shadow-dom-testing-library), you can write tests that query elements inside the shadow root just like you would with standard DOM elements. This approach is fully compatible with Chromatic, which will accurately capture the UI state by waiting for interactions to complete.
 
 ### Configure Shadow DOM Queries in Storybook Preview
 
-In your preview file, inject shadow-aware query methods into the `canvas` object using `beforeEach()`.
+Install `shadow-dom-testing-library` and then in your preview file, inject shadow-aware query methods into the `canvas` object using `beforeEach()`.
 
 ```ts title=".storybook/preview.ts"
 import type { Preview } from "@storybook/web-components";
@@ -217,7 +217,7 @@ This adds methods like `findByShadowRole`, `findAllByShadowRole`, etc., directly
 
 ### Querying Shadow DOM within Stories
 
-With the above adjustments in place, you can use shadow root queries directly in your `play()` function.
+Use shadow root queries directly in your `play()` function, like so:
 
 ```tsx
 const Story = {
@@ -230,7 +230,7 @@ const Story = {
 
 Using `shadow-dom-testing-library` provides DOM querying methods that mirror the familiar API of `@testing-library/dom`, but they're able to traverse shadow roots. By extending Storybook's `canvas` object, you can access methods that help ensure your tests are clean, intuitive, and maintainable.
 
-### Example Story: Testing Shadw DOM for CheckboxGroup
+### Shadow DOM test Example
 
 Let's say you're testing a Web Component `<checkbox-group>` that renders shadow-root-contained checkboxes.
 
@@ -281,7 +281,7 @@ export const Required: Story = {
 };
 ```
 
-Now you can simulate and test user interactions with deeply nested shadow elements from the `play()` function, without needing to manually reach into `shadowRoot`!
+Now you can simulate and test user interactions with deeply nested shadow elements from the `play()` function, without needing to manually reach into `shadowRoot`.
 
 ---
 
