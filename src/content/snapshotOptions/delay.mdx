@@ -17,62 +17,58 @@ Components sometimes trigger custom interactions on render. For example, JavaScr
 
 Chromatic has a multistage timeout for capturing a snapshot: 15 seconds to render a story and an additional 15 seconds to execute interaction tests, if present. This timing provides a balance for your tests to load resources and be ready for snapshotting. If you need to customize the wait time for Chromatic to capture a snapshot, add the `delay` configuration option to your tests. For example:
 
+{/* prettier-ignore-start */}
+
 <IntegrationSnippets>
   <Fragment slot="storybook">
   ```ts title="src/components/Categories.stories.ts|tsx"
   // Adjust this import to match your framework (e.g., nextjs, vue3-vite)
   import type { Meta, StoryObj } from "@storybook/your-framework";
 
-/\*
+  /*
+   * Replace the @storybook/test package with the following if you are using a version of Storybook earlier than 8.0:
+   * import { within } from "@storybook/testing-library";
+   * import { expect } from "@storybook/jest";
+   */
+  import { expect, within } from "@storybook/test";
 
-- Replace the @storybook/test package with the following if you are using a version of Storybook earlier than 8.0:
-- import { within } from "@storybook/testing-library";
-  ;
-- import { expect } from "@storybook/jest";
- */
-import { expect, within } from "@storybook/test"
+  import { Categories } from "./Categories";
 
-  ;
+  const meta: Meta<typeof Categories> = {
+    component: Categories,
+    title: "Categories",
+    parameters: {
+      // Sets the delay (in milliseconds) at the component level for all stories.
+      chromatic: { delay: 300 },
+    },
+  };
 
-import { Categories } from "./Categories";
+  export default meta;
+  type Story = StoryObj<typeof Categories>;
 
-const meta: Meta<typeof Categories> = {
-component: Categories,
-title: "Categories",
-parameters: {
-// Sets the delay (in milliseconds) at the component level for all stories.
-chromatic: { delay: 300 },
-},
-};
+  export const Default: Story = {
+    play: async ({ canvasElement }) => {
+      const canvas = within(canvasElement);
+      await expect(canvas.getByText("Available Categories")).toBeInTheDocument();
+    },
+  };
+  ```
+  <ParamsCallout name="delay" integration="storybook" />
+  </Fragment>
+  <Fragment slot="playwright">
+    ```ts title="tests/Categories.spec.js|ts"
+    import { test, expect } from "@chromatic-com/playwright";
 
-export default meta;
-type Story = StoryObj<typeof Categories>;
+    test.describe("Categories Page", () => {
+      // Configures the delay (in milliseconds) for this test
+      test.use({ delay: 300 });
 
-export const Default: Story = {
-play: async ({ canvasElement }) => {
-const canvas = within(canvasElement);
-await expect(canvas.getByText("Available Categories")).toBeInTheDocument();
-},
-};
-
-````
-<ParamsCallout name="delay" integration="storybook" />
-</Fragment>
-<Fragment slot="playwright">
-  ```ts title="tests/Categories.spec.js|ts"
-  import { test, expect } from "@chromatic-com/playwright";
-
-  test.describe("Categories Page", () => {
-    // Configures the delay (in milliseconds) for this test
-    test.use({ delay: 300 });
-
-    test("Renders the categories page", async ({ page }) => {
-      await page.goto("/categories");
-      await expect(page.getByText("Available Categories")).toBeVisible();
+      test("Renders the categories page", async ({ page }) => {
+        await page.goto("/categories");
+        await expect(page.getByText("Available Categories")).toBeVisible();
+      });
     });
-  });
-````
-
+  ```
   <ParamsCallout name="delay" integration="playwright" />
   </Fragment>
   <Fragment slot="cypress">
@@ -89,11 +85,15 @@ await expect(canvas.getByText("Available Categories")).toBeInTheDocument();
   </Fragment>
 </IntegrationSnippets>
 
+{/* prettier-ignore-end */}
+
 Enabling the `delay` configuration in your tests is especially useful when you have an asynchronous action or animations that end after a specific time (e.g., "animate in") to ensure that your component is in the intended state before Chromatic captures a snapshot. However, if you're working with a continuous animation or a third-party element you cannot deactivate, you may need to use an [ignore region](/docs/ignoring-elements) to prevent Chromatic from considering such parts of the UI.
 
 ### Use assertions to delay snapshot capture
 
 If you need additional control when Chromatic captures a snapshot, you can adjust your tests to rely on [interaction testing](/docs/interactions) via Storybook's [`play`](https://storybook.js.org/docs/writing-stories/play-function) function, use custom assertions and timeouts with the E2E integration (i.e., [Playwright](/docs/playwright), or [Cypress](/docs/cypress)), verifying that the UI is in the required state before the snapshot is taken. Chromatic waits for the assertions to pass before capturing the snapshot.
+
+{/* prettier-ignore-start */}
 
 <IntegrationSnippets>
   <Fragment slot="storybook">
@@ -101,31 +101,27 @@ If you need additional control when Chromatic captures a snapshot, you can adjus
   // Adjust this import to match your framework (e.g., nextjs, vue3-vite)
   import type { Meta, StoryObj } from "@storybook/your-framework";
 
-/\*
+  /*
+  * Replace the @storybook/test package with the following if you are using a version of Storybook earlier than 8.0:
+  * import { userEvent, waitFor, within } from "@storybook/testing-library";
+  * import { expect } from "@storybook/jest";
+  */
+  import { expect, userEvent, waitFor, within } from "@storybook/test";
 
-- Replace the @storybook/test package with the following if you are using a version of Storybook earlier than 8.0:
-- import { userEvent, waitFor, within } from "@storybook/testing-library";
-  ;
-- import { expect } from "@storybook/jest";
-*/
-import { expect, userEvent, waitFor, within } from "@storybook/test"
+  import { Categories } from "./Categories";
 
-  ;
+  const meta: Meta<typeof Categories> = {
+    component: Categories,
+    title: "Categories",
+  };
 
-import { Categories } from "./Categories";
+  export default meta;
+  type Story = StoryObj<typeof Categories>;
 
-const meta: Meta<typeof Categories> = {
-component: Categories,
-title: "Categories",
-};
-
-export default meta;
-type Story = StoryObj<typeof Categories>;
-
-export const Default: Story = {
-play: async ({ canvasElement }) => {
-// Assigns canvas to the component root element
-const canvas = within(canvasElement);
+  export const Default: Story = {
+    play: async ({ canvasElement }) => {
+      // Assigns canvas to the component root element
+      const canvas = within(canvasElement);
 
       const LoadMoreButton = await canvas.getByRole("button", { name: "Load more" });
 
@@ -141,15 +137,14 @@ const canvas = within(canvasElement);
         expect(numberOfItems).toHaveLength(0);
       });
     },
+  };
 
-};
-
-// Emulates a delayed story by setting a timeout of 10 seconds to allow the component to load the items and ensure that the list has 20 items rendered in the DOM
-export const WithManualTimeout: Story = {
-play: async ({ canvasElement }) => {
-// Assigns canvas to the component root element
-const canvas = within(canvasElement);
-const LoadMoreButton = await canvas.getByTestId("button");
+  // Emulates a delayed story by setting a timeout of 10 seconds to allow the component to load the items and ensure that the list has 20 items rendered in the DOM
+  export const WithManualTimeout: Story = {
+    play: async ({ canvasElement }) => {
+      // Assigns canvas to the component root element
+      const canvas = within(canvasElement);
+      const LoadMoreButton = await canvas.getByTestId("button");
 
       await userEvent.click(LoadMoreButton);
       // This sets a timeout of 10 seconds and verifies that there are 20 items in the list
@@ -161,38 +156,36 @@ const LoadMoreButton = await canvas.getByTestId("button");
 
       expect(numberOfItems).toHaveLength(20);
     },
+  };
+  ```
 
-};
+  <div class="aside">
 
-````
+  ℹ️ For more information about querying elements, see the [DOM Testing Library cheatsheet](https://testing-library.com/docs/dom-testing-library/cheatsheet/#queries).
 
-<div class="aside">
+  </div>
 
-ℹ️ For more information about querying elements, see the [DOM Testing Library cheatsheet](https://testing-library.com/docs/dom-testing-library/cheatsheet/#queries).
+  </Fragment>
+  <Fragment slot="playwright">
+   ```ts title="tests/Categories.spec.js|ts"
+   import { test, expect } from "@chromatic-com/playwright";
 
-</div>
+    test.describe("Categories Page", () => {
+      test("Renders the categories page with additional items", async ({ page }) => {
+        await page.goto("/categories");
 
-</Fragment>
-<Fragment slot="playwright">
- ```ts title="tests/Categories.spec.js|ts"
- import { test, expect } from "@chromatic-com/playwright";
+        const loadMoreButton = await page.getByRole("button", { name: "Load more" });
 
-  test.describe("Categories Page", () => {
-    test("Renders the categories page with additional items", async ({ page }) => {
-      await page.goto("/categories");
+        await loadMoreButton.click();
 
-      const loadMoreButton = await page.getByRole("button", { name: "Load more" });
+        // Verifies that there are 20 items in the list after waiting for 10 seconds
+        expect(await page.locator(".listItems")).toHaveCount(20, {
+          timeout: 10000
+        });
 
-      await loadMoreButton.click();
-
-      // Verifies that there are 20 items in the list after waiting for 10 seconds
-      expect(await page.locator(".listItems")).toHaveCount(20, {
-        timeout: 10000
-      });
-
+     });
    });
- });
-````
+   ```
 
    <div class="aside">
 
@@ -211,111 +204,13 @@ const LoadMoreButton = await canvas.getByTestId("button");
         // Verifies that there are 20 items in the list after waiting for 10 seconds
         cy.get(".listItems", { timeout: 10000 }).should("have.length", 20);
      });
+   });
+   ```
 
-});
-
-````
-
-<div class="aside">
- ℹ️ The Cypress [API](https://docs.cypress.io/api/table-of-contents#Queries) includes additional methods to find elements in the DOM and interact with them in your tests. However, when writing tests, you may need additional control over the timing of your assertions. For more information, see the Cypress documentation on [timeouts](https://docs.cypress.io/guides/references/configuration#Timeouts).
-</div>
-</Fragment>
+   <div class="aside">
+    ℹ️ The Cypress [API](https://docs.cypress.io/api/table-of-contents#Queries) includes additional methods to find elements in the DOM and interact with them in your tests. However, when writing tests, you may need additional control over the timing of your assertions. For more information, see the Cypress documentation on [timeouts](https://docs.cypress.io/guides/references/configuration#Timeouts).
+   </div>
+  </Fragment>
 </IntegrationSnippets>
 
-### Use the `play()` function to delay animated snapshots
-
-While Chromatic automatically pauses CSS animations at the last frame for stable snapshots, Chromatic doesn't have the same control over JavaScript-driven animations (ex. [framer-motion](https://www.framer.com/motion/)) and doesn't know when the animation is complete.  Adding `parameters.chromatic.delay` still leaves a possibility for flakes since the timing is arbitrary.  Maybe one test takes `200ms` for an animation to complete, and the next it takes `215ms`.  The result is often setting a higher delay than what may be needed for each build to account for asynchronous rendering.  To limit unnecessary delays, use the `play()` function to assert your UI is ready for a snapshot.
-
-In order to do this, you'll need to add a property to the element you're testing once the animation is completed.  You can then use that logic in your `play()` function to assert that Chromatic waits for your animation to complete before capturing the visual state of your test.
-
-Here's a quick example of how you can accomplish this within your component using a React hook that manages the state of your animation.  The hook should add a data attribute for the animation state along with a `testid` making it easy to access.
-
-```tsx title="useAnimatedState.tsx"
-export const useAnimatedState = () => {
-const [isComplete, setIsComplete] = useState(false);
-
-const handleAnimationComplete = useCallback(() => {
- setIsComplete(true);
-}, [setIsComplete]);
-
-return {
- isComplete,
- animationProps: {
-   onAnimationComplete: handleAnimationComplete,
-   'data-animation': isComplete ? 'complete' : 'playing',
-   'data-testid': 'animated-element',
- },
-};
-};
-````
-
-Use the hook in your component to add the needed data attributes when your animation is finished.
-
-```tsx title="MyComponent.tsx"
-import { motion } from "framer-motion";
-import { useAnimatedState } from "./useAnimatedState";
-
-export const Button = () => {
-  const { animationProps } = useAnimatedState();
-
-  return (
-    <motion.button
-      initial={{ scale: 0 }}
-      animate={{ scale: 2 }}
-      transition={{ duration: 4 }}
-      // the animation props will add the necessary data attributes when animation is completed
-      {...animationProps}
-    >
-      Animated element...
-    </motion.button>
-  );
-};
-```
-
-Within the story file, you'll add an assertion to the story's `play()` function that the animation is completed.
-
-```tsx title="MyComponent.stories.tsx"
-await waitFor(
-  async () => {
-    await expect(canvas.getByTestId("animated-element")).toHaveAttribute(
-      "data-animation",
-      "complete",
-    );
-  },
-  // Default timeout is 1s, but you
-  // can pass options if it take longer
-  { timeout: 5000 },
-);
-```
-
-Additionally, you can turn this into a utility in order to reuse in other stories. If you happen to have multiple animated elements, there's some adjustments you can do to make this work. Here's an example below that both incorporates multiple animated elements and creates a utility for reuse in other stories.
-
-```tsx title="MyComponent.stories.tsx"
-import { screen } from "@storybook/test";
-
-const waitForAllAnimationsToComplete = async () => {
-  return waitFor(
-    () => {
-      // Find all elements with animated-element testid added by the hook
-      const elements = screen.getByTestId("animated-element");
-
-      // Make sure they all finish their animation
-      elements.forEach((element) => {
-        expect(element).toHaveAttribute("data-animation", "complete");
-      });
-    },
-    // Default timeout is 1s, but you
-    // can pass options if it takes longer
-    { timeout: 5000 },
-  );
-};
-
-export const MultipleAnimationExample: Story = {
-  play: async () => {
-    // 👇 Call the utility in your play() function
-    await waitForAllAnimationsToComplete();
-  },
-};
-```
-
-Here's a [playground with a working example](https://stackblitz.com/edit/github-y4kx5ttm?file=src%2Fstories%2FButton.tsx,src%2Fstories%2FuseAnimatedState.ts,src%2Fstories%2FButton.stories.ts&preset=node) using this method created by one of our Storybook engineers.
+{/* prettier-ignore-end */}
