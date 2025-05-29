@@ -325,7 +325,7 @@ It's essential that your components and stories render in a **consistent** fashi
 
 When using Playwright or Cypress, you can serve static files like fonts, images, and videos through your app server. This ensures that resources load consistently across all snapshots.
 
-For Storybook, use the [staticDirs](https://storybook.js.org/docs/configure/integration/images-and-assets#serving-stae-files-via-storybook-configuration) option to load static files for your stories.
+For Storybook, use the [staticDirs](https://storybook.js.org/docs/configure/integration/images-and-assets#serving-static-files-via-storybook-configuration) option to load static files for your stories.
 
 ## Browser differences between snapshots
 

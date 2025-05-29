@@ -95,7 +95,6 @@ You can change whether each check is required separately.
 You finished touring all the ways Chromatic contributes to your UI development workflow. We look forward to the incredible UIs you’ll build. Continue exploring with our most popular guides and articles:
 
 - [Intro to Storybook](https://storybook.js.org/tutorials/intro-to-storybook/) is the essential guide to learning Storybook.
-- [Design Systems for Developers](https://storybook.js.org/tutorials/design-systems-for-developers/) shares how to build production infrastructure for design systems.
 - [Visual Testing Handbook](https://storybook.js.org/tutorials/visual-testing-handbook/) details how professional frontend teams visual test with Storybook.
 - [Component-Driven Development](https://www.componentdriven.org/) is a "bottoms up" process for building modular UIs starting from components and ending with screens.
 - [UI Testing Handbook](https://storybook.js.org/tutorials/ui-testing-handbook/) highlights testing strategies used by scaled front-end teams

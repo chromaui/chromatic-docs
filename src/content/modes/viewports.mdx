@@ -117,9 +117,9 @@ export const MembersOnly = {
 
 When Chromatic captures your story, it will create *two* snapshots on your build, with the browser set at each viewport. These modes will be treated separately, with independent baselines and distinct approvals.
 
-## Combining modes with viewports addon
+## Combining modes with the viewports feature
 
-The Storybook [viewport addon](https://storybook.js.org/docs/essentials/viewport) enables you to adjust the dimensions of the story canvas. Developers use it to verify the responsive behavior of components when building UIs. With modes, you can easily reference the different viewport sizes that you have configured for the addon.
+The Storybook [viewport feature](https://storybook.js.org/docs/essentials/viewport) enables you to adjust the dimensions of the story canvas. Developers use it to verify the responsive behavior of components when building UIs. With modes, you can easily reference the different viewport sizes configured with the feature.
 
 <video autoPlay muted playsInline loop width="600px" class="center">
   <source src="/docs/assets/addon-viewports-optimized.mp4" type="video/mp4" />
@@ -130,7 +130,7 @@ The Storybook [viewport addon](https://storybook.js.org/docs/essentials/viewport
 You start by configuring your desired set of viewports in `.storybook/preview.js`. For example:
 
 <div class="aside">
-  ⚠️&nbsp;&nbsp;While the viewport addon allows you to specify dimensions using
+  ⚠️&nbsp;&nbsp;While the viewport feature allows you to specify dimensions using
   any valid CSS unit (such as px, rem, calc, etc.), Chromatic modes only support
   whole numbers or strings with a "px" suffix.
 </div>
@@ -188,7 +188,7 @@ export const allModes = {
 
 Within Storybook, you have the ability to configure the default viewport for stories at different levels: project, component, or story. This can be done by setting the `parameters.viewport` value. By adjusting this setting, you can control the dimensions of the story canvas when viewing it in the browser using Storybook. Chromatic will respect the `defaultViewport` setting when capturing snapshots.
 
-`defaultViewport` can ve set via a named viewport from the viewport addon:
+`defaultViewport` can be set via a named viewport from the viewport feature:
 
 <Tabs>
   <TabItem label="preview.js">
