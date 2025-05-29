@@ -163,6 +163,133 @@ if (window.disableAnimations) {
 }
 ```
 
+### Use a play function to wait for animations to complete
+
+If your animation library doesn't support disabling animations, you can use a [play function](https://storybook.js.org/docs/writing-stories/play-function) to assert that animation is complete before taking a snapshot.
+
+To accomplish this, add a property (ID, class or data attribute) to the element you’re testing once the animation finishes. Then, in the `play()` function, check for this property's presence. This ensures that the UI is in a stable state and ready for Chromatic to capture a snapshot.
+
+Here's a quick example that demonstrates this approach using a React hook that tracks the state of your animation and adds a `testid` data attribute on completion.
+
+```tsx title="useAnimatedState.tsx"
+export const useAnimatedState = () => {
+  const [isComplete, setIsComplete] = useState(false);
+
+  const handleAnimationComplete = useCallback(() => {
+    setIsComplete(true);
+  }, [setIsComplete]);
+
+  return {
+    isComplete,
+    animationProps: {
+      onAnimationComplete: handleAnimationComplete,
+      "data-animation": isComplete ? "complete" : "playing",
+      "data-testid": "animated-element",
+    },
+  };
+};
+```
+
+Then use the hook within the component that contains animated elements.
+
+```tsx title="Button.tsx"
+import { motion } from "framer-motion";
+import { useAnimatedState } from "./useAnimatedState";
+
+export const Button = () => {
+  const { animationProps } = useAnimatedState();
+
+  return (
+    <motion.button
+      initial={{ scale: 0 }}
+      animate={{ scale: 2 }}
+      transition={{ duration: 4 }}
+      // the animation props will add the necessary data attributes when animation is completed
+      {...animationProps}
+    >
+      Animated element...
+    </motion.button>
+  );
+};
+```
+
+Lastly, add a `play()` function to the story file that asserts that the animation is complete.
+
+```tsx title="MyComponent.stories.tsx"
+  // Adjust this import to match your framework (e.g., nextjs, vue3-vite)
+  import type { Meta, StoryObj } from "@storybook/your-framework";
+
+  /*
+    * Replace the @storybook/test package with the following if you are using a version of Storybook earlier than 8.0:
+    * import { within } from "@storybook/testing-library";
+    * import { expect } from "@storybook/jest";
+  */
+  import { expect, within, waitFor } from "@storybook/test";
+
+  import { Button } from "./Button";
+
+  const meta: Meta<typeof Button> = {
+    component: Button,
+    title: "Button",
+  };
+
+  export default meta;
+  type Story = StoryObj<typeof Button>;
+
+  export const Default: Story = {
+    play: async ({ canvasElement }) => {
+      const canvas = within(canvasElement);
+      await waitFor(
+        async () => {
+          await expect(canvas.getByTestId("animated-element")).toHaveAttribute(
+            "data-animation",
+            "complete",
+          );
+        },
+        // Default timeout is 1s, but you
+        // can pass options if it take longer
+        { timeout: 5000 },
+      );
+    },
+  };
+```
+
+<div class="aside">
+
+✨ Here's a [live demo](https://stackblitz.com/edit/github-y4kx5ttm?file=src%2Fstories%2FButton.tsx,src%2Fstories%2FuseAnimatedState.ts,src%2Fstories%2FButton.stories.ts&preset=node) that you can experiment with.
+
+</div>
+
+Additionally, you can turn this into a utility in order to reuse in other stories. If you happen to have multiple animated elements, there's some adjustments you can do to make this work. Here's an example below that both incorporates multiple animated elements and creates a utility for reuse in other stories.
+
+```tsx title="MyComponent.stories.tsx"
+import { screen } from "@storybook/test";
+
+const waitForAllAnimationsToComplete = async () => {
+  return waitFor(
+    () => {
+      // Find all elements with animated-element testid added by the hook
+      const elements = screen.getByTestId("animated-element");
+
+      // Make sure they all finish their animation
+      elements.forEach((element) => {
+        expect(element).toHaveAttribute("data-animation", "complete");
+      });
+    },
+    // Default timeout is 1s, but you
+    // can pass options if it takes longer
+    { timeout: 5000 },
+  );
+};
+
+export const MultipleAnimationExample: Story = {
+  play: async () => {
+    // 👇 Call the utility in your play() function
+    await waitForAllAnimationsToComplete();
+  },
+};
+```
+
 ## GIFs and Videos
 
 Chromatic automatically pauses videos and animated GIFs at their first frame, ensuring consistent visual tests without the need for custom workarounds. If you specify a [poster](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/video#poster) attribute for videos, Chromatic will use that image instead.

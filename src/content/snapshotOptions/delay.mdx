@@ -17,6 +17,8 @@ Components sometimes trigger custom interactions on render. For example, JavaScr
 
 Chromatic has a multistage timeout for capturing a snapshot: 15 seconds to render a story and an additional 15 seconds to execute interaction tests, if present. This timing provides a balance for your tests to load resources and be ready for snapshotting. If you need to customize the wait time for Chromatic to capture a snapshot, add the `delay` configuration option to your tests. For example:
 
+{/* prettier-ignore-start */}
+
 <IntegrationSnippets>
   <Fragment slot="storybook">
   ```ts title="src/components/Categories.stories.ts|tsx"
@@ -83,11 +85,15 @@ Chromatic has a multistage timeout for capturing a snapshot: 15 seconds to rende
   </Fragment>
 </IntegrationSnippets>
 
+{/* prettier-ignore-end */}
+
 Enabling the `delay` configuration in your tests is especially useful when you have an asynchronous action or animations that end after a specific time (e.g., "animate in") to ensure that your component is in the intended state before Chromatic captures a snapshot. However, if you're working with a continuous animation or a third-party element you cannot deactivate, you may need to use an [ignore region](/docs/ignoring-elements) to prevent Chromatic from considering such parts of the UI.
 
 ### Use assertions to delay snapshot capture
 
 If you need additional control when Chromatic captures a snapshot, you can adjust your tests to rely on [interaction testing](/docs/interactions) via Storybook's [`play`](https://storybook.js.org/docs/writing-stories/play-function) function, use custom assertions and timeouts with the E2E integration (i.e., [Playwright](/docs/playwright), or [Cypress](/docs/cypress)), verifying that the UI is in the required state before the snapshot is taken. Chromatic waits for the assertions to pass before capturing the snapshot.
+
+{/* prettier-ignore-start */}
 
 <IntegrationSnippets>
   <Fragment slot="storybook">
@@ -206,3 +212,5 @@ If you need additional control when Chromatic captures a snapshot, you can adjus
    </div>
   </Fragment>
 </IntegrationSnippets>
+
+{/* prettier-ignore-end */}
