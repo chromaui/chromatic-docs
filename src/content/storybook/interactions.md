@@ -59,7 +59,7 @@ export const InputRange: Story = {
 
 <div class="aside">
 
-Read Storybook's interaction testing [docs](https://storybook.js.org/docs/writing-tests/interaction-testing). Get an API cheatsheet for user events [here](https://storybook.js.org/docs/writing-tests/interaction-testing#api-for-user-events).
+Read Storybook's interaction testing [docs](https://storybook.js.org/docs/writing-tests/interaction-testing).
 
 </div>
 
