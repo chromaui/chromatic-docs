@@ -181,23 +181,23 @@ Approval from a repository-level admin alone will not be sufficient. The actual 
 
 **For linked accounts**
 
-There’s no automation (yet!) for switching Git providers for Git-linked accounts. Here’s how to migrate your Chromatic projects to the new Git provider account:
+To migrate your Chromatic projects to the new Git provider:
 
-1. Connect your user to the new Git provider via the [Profile](https://www.chromatic.com/profile). Under “Connected accounts,” link your new git provider. Ensure your team members link their users to the new Git provider too. **Important:** Do not disconnect the old git provider yet. You may lose access to your other account if you do.
+1. Connect your user account to the new git provider via the [Profile page](https://www.chromatic.com/profile). Under “Connected accounts,” link your new git provider. Ensure that everyone on your team does the same. *Warning:* do not disconnect the old git provider yet since you may lose access.
 ![Connect to Git provider](../../images/connect-profile-to-git.png)
 
-2. In the upper-right corner of the dashboard, open the menu and click `Add` to create a new Chromatic entity for your new Git provider. Now you'll see both accounts in your list, each linked to 1 Git provider.
+1. In the upper-right corner of the dashboard, open the menu and click "Add" to create a new Chromatic organization account for your new Git provider. You'll now see both accounts in that list, each linked to different Git providers.
 
 3. Unlink all existing projects from the old Git provider through the `Manage` tab.
 ![Unlink project](../../images/unlink-project.png)
 
-4. Link all projects to new repositories from your new Git provider. Note that projects will automatically move to the new Chromatic entity.
+1. Then link all projects to repositories from the new Git provider. Note that projects will automatically move to the new Chromatic organization level account.
 
 If you have a paid account, use our in-app chat to get in touch, or email us at support@chromatic.com to move your subscription to the new Chromatic entity.
 
 **For unlinked accounts**
 
-Creating a new Chromatic entity is not necessary. You can follow steps 1, 3 and 4 from the guide above and that'll do the trick.
+Follow steps 1, 3, and 4 from the guide above, but you don't need to create a new Chromatic organization level account.
 
 **Important**
 
