@@ -2,6 +2,7 @@ import { getCollection } from "astro:content";
 import { transformNavGroups, flattenGroups } from "./transform-nav-groups";
 
 const overview = await getCollection("overview");
+const visualTests = await getCollection("visualTests");
 const storybook = await getCollection("storybook");
 const playwright = await getCollection("playwright");
 const cypress = await getCollection("cypress");
@@ -24,9 +25,8 @@ const rawNavGroups = [
     timeline: true,
   },
   {
-    title: "Storybook",
+    title: "Visual Tests",
     items: [
-      ...storybook,
       {
         title: "Modes",
         items: modes,
@@ -35,7 +35,13 @@ const rawNavGroups = [
         title: "TurboSnap",
         items: turbosnap,
       },
+      ...visualTests,
     ],
+    defaultOpen: false,
+  },
+  {
+    title: "Storybook",
+    items: storybook,
     defaultOpen: false,
   },
   {

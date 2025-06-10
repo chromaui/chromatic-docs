@@ -17,6 +17,11 @@ const overview = defineCollection({
   schema,
 });
 
+const visualTests = defineCollection({
+  type: "content",
+  schema,
+});
+
 const storybook = defineCollection({
   type: "content",
   schema,
@@ -96,6 +101,7 @@ const troubleshooting = defineCollection({
 
 export const collections = {
   overview,
+  visualTests,
   storybook,
   playwright,
   cypress,

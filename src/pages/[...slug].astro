@@ -6,6 +6,7 @@ export async function getStaticPaths() {
   const overview = await getCollection("overview", ({ slug }) => {
     return slug !== "introduction";
   });
+  const visualTests = await getCollection("visualTests");
   const storybook = await getCollection("storybook");
   const playwright = await getCollection("playwright");
   const cypress = await getCollection("cypress");
@@ -24,6 +25,7 @@ export async function getStaticPaths() {
   const notInNavigation = await getCollection("notInNavigation");
   const articles = [
     ...overview,
+    ...visualTests,
     ...storybook,
     ...playwright,
     ...cypress,
