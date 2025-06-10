@@ -130,9 +130,9 @@ The Storybook [viewport feature](https://storybook.js.org/docs/essentials/viewpo
 You start by configuring your desired set of viewports in `.storybook/preview.js`. For example:
 
 <div class="aside">
-  ⚠️&nbsp;&nbsp;While the viewport feature allows you to specify dimensions using
-  any valid CSS unit (such as px, rem, calc, etc.), Chromatic modes only support
-  whole numbers or strings with a "px" suffix.
+  ⚠️&nbsp;&nbsp;While the viewport feature allows you to specify dimensions
+  using any valid CSS unit (such as px, rem, calc, etc.), Chromatic modes only
+  support whole numbers or strings with a "px" suffix.
 </div>
 
 ```js
@@ -304,6 +304,8 @@ parameters: {
 <summary>Are there any constraints on the viewport size that I can choose?</summary>
 
 A width or height can be any whole number between 200 and 2560 pixels. The maximum number of pixels per snapshot is 25,000,000.
+
+Safari and Firefox can't capture pages taller or wider than 32,767 pixels due to rendering engine limitations.
 
 </details>
 
