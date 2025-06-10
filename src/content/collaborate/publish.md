@@ -3,7 +3,7 @@ layout: "../../layouts/Layout.astro"
 title: Publish
 slug: "storybook/publish"
 description: Learn how Chromatic helps document components.
-sidebar: { order: 3 }
+sidebar: { order: 7 }
 ---
 
 # Publish your Storybook

@@ -57,11 +57,6 @@ const collaborate = defineCollection({
   schema,
 });
 
-const plugins = defineCollection({
-  type: "content",
-  schema,
-});
-
 const ci = defineCollection({
   type: "content",
   schema,
@@ -109,7 +104,6 @@ export const collections = {
   modes,
   snapshot,
   collaborate,
-  plugins,
   ci,
   account,
   guides,

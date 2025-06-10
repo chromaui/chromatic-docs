@@ -11,7 +11,6 @@ const modes = await getCollection("modes");
 const snapshot = await getCollection("snapshot");
 const turbosnap = await getCollection("turbosnap");
 const collaborate = await getCollection("collaborate");
-const plugins = await getCollection("plugins");
 const ci = await getCollection("ci");
 const account = await getCollection("account");
 const guides = await getCollection("guides");
@@ -71,10 +70,6 @@ const rawNavGroups = [
   {
     title: "CI",
     items: ci,
-  },
-  {
-    title: "Plugins",
-    items: plugins,
   },
   {
     title: "Account",

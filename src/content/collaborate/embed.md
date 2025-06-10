@@ -2,7 +2,7 @@
 layout: "../../layouts/Layout.astro"
 title: Embed stories
 description: Embed your Storybook on Medium, Notion, and other platforms
-sidebar: { order: 3, label: Embed }
+sidebar: { order: 4, label: Embed }
 ---
 
 # Embed stories
@@ -13,9 +13,9 @@ Before we begin, you'll need to figure out which embed format your platform supp
 
 <div class="aside">
 
-In order to embed stories, your published Storybook must be publicly accessible. 
+In order to embed stories, your published Storybook must be publicly accessible.
 Learn more about [project visibility](/docs/collaborators#visibility).
-    
+
 </div>
 
 ## Embed a story with the toolbar
