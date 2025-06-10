@@ -2,7 +2,7 @@
 layout: "../../layouts/Layout.astro"
 title: Media features
 description: Learn how to use media features in Chromatic Capture
-sidebar: { order: 8 }
+sidebar: { order: 12 }
 ---
 
 import ParamsCallout from "../../components/ParamsCallout.astro";
@@ -44,7 +44,7 @@ The [`forced-colors`](https://developer.mozilla.org/en-US/docs/Web/CSS/@media/fo
 
     export default meta;
     type Story = StoryObj<typeof LoginForm>;
-    
+
     export const WithForcedColors: Story = {
       play: async ({ canvasElement }) => {
         const canvas = within(canvasElement);
@@ -131,7 +131,7 @@ The [`prefers-reduced-motion`](https://developer.mozilla.org/en-US/docs/Web/CSS/
 
     export default meta;
     type Story = StoryObj<typeof LoginForm>;
-    
+
     export const WithReducedMotion: Story = {
       play: async ({ canvasElement }) => {
         const canvas = within(canvasElement);

@@ -47,11 +47,6 @@ const snapshot = defineCollection({
   schema,
 });
 
-const snapshotOptions = defineCollection({
-  type: "content",
-  schema,
-});
-
 const collaborate = defineCollection({
   type: "content",
   schema,
@@ -107,7 +102,6 @@ export const collections = {
   configuration,
   modes,
   snapshot,
-  snapshotOptions,
   collaborate,
   plugins,
   ci,

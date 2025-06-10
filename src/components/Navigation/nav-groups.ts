@@ -8,7 +8,6 @@ const cypress = await getCollection("cypress");
 const configuration = await getCollection("configuration");
 const modes = await getCollection("modes");
 const snapshot = await getCollection("snapshot");
-const snapshotOptions = await getCollection("snapshotOptions");
 const turbosnap = await getCollection("turbosnap");
 const collaborate = await getCollection("collaborate");
 const plugins = await getCollection("plugins");
@@ -58,10 +57,6 @@ const rawNavGroups = [
   {
     title: "Snapshot",
     items: snapshot,
-  },
-  {
-    title: "Snapshot options",
-    items: snapshotOptions,
   },
   {
     title: "Collaborate",

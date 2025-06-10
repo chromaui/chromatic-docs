@@ -8,7 +8,6 @@ export type CollectionEntryItem =
   | Omit<CollectionEntry<"configuration">, "render" | "body">
   | Omit<CollectionEntry<"modes">, "render" | "body">
   | Omit<CollectionEntry<"snapshot">, "render" | "body">
-  | Omit<CollectionEntry<"snapshotOptions">, "render" | "body">
   | Omit<CollectionEntry<"turbosnap">, "render" | "body">
   | Omit<CollectionEntry<"collaborate">, "render" | "body">
   | Omit<CollectionEntry<"plugins">, "render" | "body">

@@ -2,7 +2,7 @@
 layout: "../../layouts/Layout.astro"
 title: Animations
 description: Learn how Chromatic pauses animations and how to control the behavior
-sidebar: { order: 6 }
+sidebar: { order: 10 }
 ---
 
 import ParamsCallout from "../../components/ParamsCallout.astro";
@@ -216,42 +216,42 @@ export const Button = () => {
 Lastly, add a `play()` function to the story file that asserts that the animation is complete.
 
 ```tsx title="MyComponent.stories.tsx"
-  // Adjust this import to match your framework (e.g., nextjs, vue3-vite)
-  import type { Meta, StoryObj } from "@storybook/your-framework";
+// Adjust this import to match your framework (e.g., nextjs, vue3-vite)
+import type { Meta, StoryObj } from "@storybook/your-framework";
 
-  /*
-    * Replace the @storybook/test package with the following if you are using a version of Storybook earlier than 8.0:
-    * import { within } from "@storybook/testing-library";
-    * import { expect } from "@storybook/jest";
-  */
-  import { expect, within, waitFor } from "@storybook/test";
+/*
+ * Replace the @storybook/test package with the following if you are using a version of Storybook earlier than 8.0:
+ * import { within } from "@storybook/testing-library";
+ * import { expect } from "@storybook/jest";
+ */
+import { expect, within, waitFor } from "@storybook/test";
 
-  import { Button } from "./Button";
+import { Button } from "./Button";
 
-  const meta: Meta<typeof Button> = {
-    component: Button,
-    title: "Button",
-  };
+const meta: Meta<typeof Button> = {
+  component: Button,
+  title: "Button",
+};
 
-  export default meta;
-  type Story = StoryObj<typeof Button>;
+export default meta;
+type Story = StoryObj<typeof Button>;
 
-  export const Default: Story = {
-    play: async ({ canvasElement }) => {
-      const canvas = within(canvasElement);
-      await waitFor(
-        async () => {
-          await expect(canvas.getByTestId("animated-element")).toHaveAttribute(
-            "data-animation",
-            "complete",
-          );
-        },
-        // Default timeout is 1s, but you
-        // can pass options if it take longer
-        { timeout: 5000 },
-      );
-    },
-  };
+export const Default: Story = {
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    await waitFor(
+      async () => {
+        await expect(canvas.getByTestId("animated-element")).toHaveAttribute(
+          "data-animation",
+          "complete",
+        );
+      },
+      // Default timeout is 1s, but you
+      // can pass options if it take longer
+      { timeout: 5000 },
+    );
+  },
+};
 ```
 
 <div class="aside">
