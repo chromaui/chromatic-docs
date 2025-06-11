@@ -44,16 +44,8 @@ const rawNavGroups = [
     defaultOpen: false,
   },
   {
-    title: "Playwright",
-    items: playwright,
-  },
-  {
-    title: "Cypress",
-    items: cypress,
-  },
-  {
-    title: "Guides",
-    items: guides,
+    title: "CI",
+    items: ci,
   },
   {
     title: "Configuration",
@@ -64,12 +56,20 @@ const rawNavGroups = [
     items: snapshot,
   },
   {
+    title: "Guides",
+    items: guides,
+  },
+  {
     title: "Collaborate",
     items: collaborate,
   },
   {
-    title: "CI",
-    items: ci,
+    title: "Playwright",
+    items: playwright,
+  },
+  {
+    title: "Cypress",
+    items: cypress,
   },
   {
     title: "Account",
