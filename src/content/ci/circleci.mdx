@@ -2,7 +2,7 @@
 layout: "../../layouts/Layout.astro"
 title: Automate Chromatic with CircleCI
 description: Learn how to configure Chromatic with CircleCI
-sidebar: { order: 4, label: Circle CI }
+sidebar: { order: 5, label: Circle CI }
 ---
 
 import IntegrationSnippets from "../../components/IntegrationSnippets.astro";
@@ -27,7 +27,7 @@ To integrate Chromatic with your existing workflow, you'll need to add the follo
         docker:
           - image: cimg/node:22.12.0
         working_directory: ~/repo
-    
+
     jobs:
       Chromatic:
         executor: chromatic-ui-testing
@@ -45,7 +45,7 @@ To integrate Chromatic with your existing workflow, you'll need to add the follo
               paths:
                 - ~/.npm
               key: v1-dependencies-{{ checksum "package-lock.json" }}
-    
+
     workflows:
       UI_Tests:
         jobs:
@@ -65,7 +65,7 @@ To integrate Chromatic with your existing workflow, you'll need to add the follo
         docker:
           - image: cimg/node:22.12.0
         working_directory: ~/repo
-    
+
     jobs:
       Playwright:
         executor: pw-noble-development
@@ -90,8 +90,8 @@ To integrate Chromatic with your existing workflow, you'll need to add the follo
               command: npx playwright test
               when: always
           - store_artifacts:
-              # Chromatic automatically defaults to the test-results directory. 
-              # Replace with the path to your custom directory and adjust the CHROMATIC_ARCHIVE_LOCATION environment variable accordingly. 
+              # Chromatic automatically defaults to the test-results directory.
+              # Replace with the path to your custom directory and adjust the CHROMATIC_ARCHIVE_LOCATION environment variable accordingly.
               path: ./test-results
           - persist_to_workspace:
               root: .
@@ -114,7 +114,7 @@ To integrate Chromatic with your existing workflow, you'll need to add the follo
               command: npx chromatic --playwright
               environment:
                 CHROMATIC_ARCHIVE_LOCATION: "test-results"
-      
+
     workflows:
       UI_Tests:
         jobs:
@@ -169,7 +169,7 @@ To integrate Chromatic with your existing workflow, you'll need to add the follo
                 ELECTRON_EXTRA_LAUNCH_ARGS: "--remote-debugging-port=9222"
               when: always
           - store_artifacts:
-              # Chromatic automatically defaults to the cypress/downloads directory. 
+              # Chromatic automatically defaults to the cypress/downloads directory.
               # Replace with the path to your custom directory and adjust the CHROMATIC_ARCHIVE_LOCATION environment variable accordingly.
               path: ./cypress/downloads
           - persist_to_workspace:
@@ -193,7 +193,7 @@ To integrate Chromatic with your existing workflow, you'll need to add the follo
               command: npx chromatic --cypress
               environment:
                 CHROMATIC_ARCHIVE_LOCATION: "cypress/downloads"
-    
+
     workflows:
       UI_Tests:
         jobs:

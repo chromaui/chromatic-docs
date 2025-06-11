@@ -2,7 +2,7 @@
 layout: "../../layouts/Layout.astro"
 title: Automate Chromatic with your custom CI provider
 description: Learn how to configure Chromatic with a custom provider
-sidebar: { order: 9, label: Other CI providers }
+sidebar: { order: 10, label: Other CI providers }
 ---
 
 import IntegrationSnippets from "../../components/IntegrationSnippets.astro";
@@ -38,7 +38,7 @@ To integrate Chromatic with your existing CI provider, you'll need to add the fo
 
     - run:
         # ⚠️ See your package manager's documentation for the correct command to install dependencies in a CI environment.
-        command: npm ci 
+        command: npm ci
     - run:
         name: "Playwright"
         displayName: "Run Playwright tests"
@@ -64,7 +64,7 @@ To integrate Chromatic with your existing CI provider, you'll need to add the fo
 
     - run:
         # ⚠️ See your package manager's documentation for the correct command to install dependencies in a CI environment.
-        command: npm ci 
+        command: npm ci
     - run:
         name: "Cypress"
         displayName: "Run Cypress tests"
@@ -74,7 +74,7 @@ To integrate Chromatic with your existing CI provider, you'll need to add the fo
         options:
           artifacts:
             # Chromatic automatically defaults to the cypress/downloads directory.
-            # Replace with the path to your custom directory and adjust the CHROMATIC_ARCHIVE_LOCATION environment variable accordingly. 
+            # Replace with the path to your custom directory and adjust the CHROMATIC_ARCHIVE_LOCATION environment variable accordingly.
             - cypress/downloads
         command:
           - npm run dev &

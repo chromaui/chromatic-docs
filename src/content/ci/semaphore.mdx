@@ -2,7 +2,7 @@
 layout: "../../layouts/Layout.astro"
 title: Automate Chromatic with Semaphore
 description: Learn how to configure Chromatic with Semaphore
-sidebar: { order: 8, label: Semaphore }
+sidebar: { order: 9, label: Semaphore }
 ---
 
 import IntegrationSnippets from "../../components/IntegrationSnippets.astro";
@@ -21,7 +21,7 @@ To integrate Chromatic with your existing workflow, you'll need to add the follo
   <Fragment slot="storybook">
     ```yml title=".semaphore/semaphore.yml"
     version: v1.0
-    
+
     name: UI Tests
 
     agent:
@@ -86,7 +86,7 @@ To integrate Chromatic with your existing workflow, you'll need to add the follo
           epilogue:
             always:
               commands:
-                # Chromatic automatically defaults to the test-results directory. 
+                # Chromatic automatically defaults to the test-results directory.
                 # Replace with the path to your custom directory and adjust the CHROMATIC_ARCHIVE_LOCATION environment variable accordingly.
                 - artifact push workflow test-results
       - name: Chromatic
@@ -145,7 +145,7 @@ To integrate Chromatic with your existing workflow, you'll need to add the follo
           epilogue:
             always:
               commands:
-                # Chromatic automatically defaults to the cypress/downloads directory. 
+                # Chromatic automatically defaults to the cypress/downloads directory.
                 # Replace with the path to your custom directory and adjust the CHROMATIC_ARCHIVE_LOCATION environment variable accordingly.
                 - artifact push workflow cypress/downloads
       - name: Chromatic
@@ -322,7 +322,7 @@ You can also run Chromatic conditionally for each subproject when a specific cha
 
 blocks:
   # Other jobs
-  
+
   # 👇 Adds Chromatic as a conditional job for each subproject
   - name: Run Chromatic on Project 1
     dependencies: []

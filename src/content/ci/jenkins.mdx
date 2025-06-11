@@ -2,7 +2,7 @@
 layout: "../../layouts/Layout.astro"
 title: Automate Chromatic with Jenkins
 description: Learn how to configure Chromatic with Jenkins
-sidebar: { order: 6, label: Jenkins }
+sidebar: { order: 7, label: Jenkins }
 ---
 
 import IntegrationSnippets from "../../components/IntegrationSnippets.astro";
@@ -24,7 +24,7 @@ To integrate Chromatic with your existing [multistage pipeline](https://www.jenk
       /* Other pipeline configuration. */
 
       stages {
-        /* Other pipeline stages */ 
+        /* Other pipeline stages */
 
         /* 👇 Adds Chromatic as a stage */
         stage('Run Chromatic') {
@@ -46,8 +46,8 @@ To integrate Chromatic with your existing [multistage pipeline](https://www.jenk
        /* Other pipeline configuration. */
 
        stages {
-         /* Other pipeline stages */ 
-         
+         /* Other pipeline stages */
+
          stage('Playwright') {
            agent {
              docker {
@@ -61,8 +61,8 @@ To integrate Chromatic with your existing [multistage pipeline](https://www.jenk
            }
            post {
              always {
-              /* 
-               Chromatic automatically defaults to the test-results directory. 
+              /*
+               Chromatic automatically defaults to the test-results directory.
                Replace with the path to your custom directory and adjust the CHROMATIC_ARCHIVE_LOCATION environment variable accordingly.
               */
                archiveArtifacts 'test-results/**'
@@ -87,10 +87,10 @@ To integrate Chromatic with your existing [multistage pipeline](https://www.jenk
      ```groovy title="JenkinsFile"
      pipeline {
        /* Other pipeline configuration. */
-       
+
        stages {
-         /* Other pipeline stages */ 
-         
+         /* Other pipeline stages */
+
          stage('Cypress') {
            agent {
              docker {
@@ -99,7 +99,7 @@ To integrate Chromatic with your existing [multistage pipeline](https://www.jenk
              }
            }
            environment {
-             ELECTRON_EXTRA_LAUNCH_ARGS = '--remote-debugging-port=9222' 
+             ELECTRON_EXTRA_LAUNCH_ARGS = '--remote-debugging-port=9222'
            }
            steps {
              sh 'npm ci'
@@ -108,8 +108,8 @@ To integrate Chromatic with your existing [multistage pipeline](https://www.jenk
            }
            post {
              always {
-              /* 
-               Chromatic automatically defaults to the cypress/downloads directory. 
+              /*
+               Chromatic automatically defaults to the cypress/downloads directory.
                Replace with the path to your custom directory and adjust the CHROMATIC_ARCHIVE_LOCATION environment variable accordingly.
               */
                archiveArtifacts 'cypress/downloads/**'
