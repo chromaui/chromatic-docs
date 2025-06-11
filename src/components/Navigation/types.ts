@@ -3,7 +3,7 @@ import type { CollectionEntry } from "astro:content";
 export type CollectionEntryItem =
   | Omit<CollectionEntry<"overview">, "render" | "body">
   | Omit<CollectionEntry<"visualTests">, "render" | "body">
-  | Omit<CollectionEntry<"storybook">, "render" | "body">
+  | Omit<CollectionEntry<"interactionTests">, "render" | "body">
   | Omit<CollectionEntry<"playwright">, "render" | "body">
   | Omit<CollectionEntry<"cypress">, "render" | "body">
   | Omit<CollectionEntry<"configuration">, "render" | "body">

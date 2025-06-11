@@ -1,17 +1,20 @@
 ---
 layout: "../../layouts/Layout.astro"
 title: Introduction
-description: Chromatic is a cloud-based toolchain that integrates with Storybook, Playwright, and Cypress to help teams test and review UI components.
+description: Chromatic is a cloud-based toolchain that integrates with Storybook, Playwright, and Cypress to help teams test and review UIs.
 sidebar: { order: 1 }
 isHome: true
 slug: introduction
 ---
 
 import { YouTubeCallout } from "../../components/YouTubeCallout";
+import DemoChromaticUnlinked from "../shared-snippets/demo-chromatic-unlinked.mdx";
+import IntegrationSnippets from "../../components/IntegrationSnippets.astro";
+import KeyboardShortcuts from "../../components/KeyboardShortcuts.astro";
 
-# Visual testing with Chromatic
+# Test how UIs look & function with Chromatic
 
-Chromatic is a visual testing tool that scans every possible UI state across browsers to catch bugs in appearance and functionality. It enables you to assign reviewers and resolve discussions to streamline team sign-off.
+Chromatic is a UI testing tool that scans every possible UI state across browsers to catch bugs in appearance and functionality, and accessibility violations. It enables you to assign reviewers and resolve discussions to streamline team sign-off.
 
 Chromatic is made by the [team](https://www.chromatic.com/company/about) behind Storybook and integrates with Storybook, Playwright, and Cypress.
 
@@ -21,105 +24,294 @@ Chromatic is made by the [team](https://www.chromatic.com/company/about) behind 
   summary="Watch a quick demo video of Chromatic's key features"
 />
 
-## Why use visual testing?
+Chromatic executes three types of UI Tests:
 
-Functional UI tests excel at ensuring your app _works_, but they often fail to catch bugs in UI appearance. This is because functional tests don’t validate the pixels rendered by your application UI. Instead, they only verify the logic and behavior of components and pages.
+- [**Visual tests**](/docs): Pinpoint changes in appearance, layout, fonts, and colors
+- [**Interaction tests**](/docs/interactions) (Storybook only): Simulate user actions such as clicking, typing, hovering, dragging, etc., to confirm your app behaves as expected
+- [**Accessibility tests**](/docs/interactions) (coming soon): runs Axe on each component to capture accessibility violations and their corresponding DOM nodes
 
-For instance, buggy CSS might hide your app's “checkout” button behind a notification banner. Your [functional test](https://www.chromatic.com/blog/functional-testing/) might indicate that the button is clickable—because, technically, it is, even though it’s now inaccessible to your users. Visual testing catches such bugs and safeguards your app’s user experience.
+find regressions instantly, making compliance a natural part of your team’s workflow.
 
-## How does visual testing work?
+![UI Tests](../../images/workflow-uitest.png)
 
-You can think of Chromatic’s visual testing as "before-and-after" [snapshots](/docs/snapshots) of your app's interface. You begin by capturing a perfect "before" image—this becomes your [baseline](/docs/branching-and-baselines#whats-a-baseline). After any code changes, Chromatic compares a new "after" snapshot pixel-by-pixel against the baseline, revealing any visual differences.
+Every time you push code, Chromatic runs a suite of UI Tests on your code to pinpoint bugs instantly. All tests run in parallel, including testing across your chosen combinations of viewports and browsers.
 
-Chromatic's streamlined workflow involves four steps:
+<div class="aside">
 
-1. **Cloud Rendering:** Chromatic renders your UI components in a cloud-based browser.
-2. **Snapshot Capture:** Chromatic takes a snapshot for each test, with all tests running simultaneously to save you time.
-3. **Automated diffing:** Whenever you update your code, Chromatic generates new snapshots and compares them to the baselines.
-4. **Review and Verification:** When Chromatic detects changes, you’re prompted to review them to ensure they're intentional. Any unexpected changes trigger notifications so you can fix them quickly.
+**How to use this guide?**<br />This guide explains the fundamentals of Chromatic's UI Test workflow. You can read through for a basic understanding or, for a more hands-on learning experience, clone one of our demo projects and follow along: [learnstorybook-code](https://github.com/chromaui/learnstorybook-code), [e2e-demo-playwright](https://github.com/chromaui-demo/e2e-demo-playwright) or [e2e-demo-cypress](https://github.com/chromaui-demo/e2e-demo-cypress).
+
+</div>
+
+## Workflow
+
+Chromatic integrates with your existing functional testing framework to enable visual testing of your UI. Here's how Chromatic works, depending on your setup:
+
+#### <img src="/docs/assets/storybook.svg" class="inline-icon" alt="" /> Storybook
+
+Chromatic handles the entire test process, including building and uploading your Storybook to the Chromatic cloud infrastructure. Chromatic renders your stories in cloud browsers, runs any interaction tests attached to them, captures snapshots of each story, and detects visual changes using pixel diffing.
+
+#### <img src="/docs/assets/playwright.svg" class="inline-icon" alt="" /> Playwright and <img src="/docs/assets/cypress.svg" class="inline-icon" alt="" /> Cypress
+
+Run your E2E tests as usual. While those tests run, Chromatic collects a complete archive of your UI (DOM, styles, and assets). It then renders that archived UI in cloud browsers, captures visual snapshots, and identifies visual regressions through pixel diffing.
+
+### Sign up
+
+Generate a unique project token for your app by signing in to [Chromatic](https://www.chromatic.com/start) and creating a project. Sign in with your GitHub, GitLab, Bitbucket, or email.
+
+<DemoChromaticUnlinked />
+
+![Setup project](../../images/setup-cypress.png)
+
+### Enable
+
+Enable visual tests for your project on the manage page. If your stories have [interaction tests](/docs/interactions), they’ll run automatically when visual tests are enabled.
+
+All snapshots are taken in Chrome by default. Select additional browsers to expand test coverage.
+
+![Enable UI Tests](../../images/uitests-for-docs.png)
+
+### Run your first build to establish baselines
+
+Once visual tests are enabled, you can establish baselines by running a Chromatic build in a new project. This captures a snapshot of each test in a cloud browser and sets it as the baseline. Subsequent builds will generate new snapshots that are compared against existing baselines to detect UI changes.
+
+{/* prettier-ignore-start */}
+
+<IntegrationSnippets>
+  <Fragment slot="storybook">
+    ```bash
+    # Install Chromatic
+    $ npm install --save-dev chromatic
+
+    # Use your project token and run the following command
+    # in your project directory
+    $ npx chromatic --project-token <YOUR_PROJECT_TOKEN>
+    ```
+  </Fragment>
+  <Fragment slot="playwright">
+  ```bash
+  # Install Chromatic dependencies
+  $ npm install --save-dev chromatic @chromatic-com/playwright
+
+  # Run your Playwright tests as you normally would. For example:
+  $ npx playwright test
+
+  # Use your project token and run the following command
+  # in your project directory
+  $ npx chromatic --playwright -t=<YOUR_PROJECT_TOKEN>
+  ```
+  </Fragment>
+  <Fragment slot="cypress">
+  ```bash
+  # Install Chromatic dependencies
+  $ npm install --save-dev chromatic @chromatic-com/cypress
+
+  # Run your Cypress tests as you normally would
+  # along with the ELECTRON_EXTRA_LAUNCH_ARGS prefix
+  $ ELECTRON_EXTRA_LAUNCH_ARGS=--remote-debugging-port=9222 npx cypress run
+
+  # Use your project token and run the following command
+  # in your project directory
+  $ npx chromatic --cypress -t=<YOUR_PROJECT_TOKEN>
+  ```
+  </Fragment>
+</IntegrationSnippets>
+
+{/* prettier-ignore-end */}
+
+### View changes between baselines
+
+On each build, Chromatic compares new snapshots to existing baselines from previous builds. Try modifying the UI a bit and running another Chromatic build.
+
+The list of changes is shown on the build page in the web app. The build will be marked “unreviewed” and the changes will be listed in the “Tests” table.
+
+![Build with unreviewed tests](../../images/build-test-unreviewed.png)
+
+### Verify UI changes
+
+Chromatic detects UI changes, but it’s up to you to verify if those changes are intentional. For intentional changes, you need to update the baseline so future tests will be compared to the _latest baseline_ for the story. If a change is unintentional, it will need to be fixed.
+
+- ✅ **Accept change**: This updates the story baseline. When a snapshot is accepted, it won’t need to be re-accepted until it changes, even through git branches or merges.
+- ❌ **Deny change**: This marks the change as “denied”, indicating a regression and immediately failing the build. You can deny multiple changes per build. Denying a change will force a re-capture on the next build, even if [TurboSnap](/docs/turbosnap) would otherwise skip it.
+
+![A snapshot that’s unreviewed](../../images/snapshot-unreviewed.png)
+
+### Discussions
+
+Reviewers can create discussions to point out bugs or ask questions. Discussions are shown within the same interface as Chromatic’s detected UI changes, so all collaborators have the same reference point.
+
+Alternatively, you can click on a snapshot to create a discussion pinned to a specific change and provide precise feedback on the issue. Pair discussions with denying a change to block merging until bugs are resolved.
 
 <video
   autoPlay
   muted
   playsInline
   loop
-  style="margin-bottom: 1em; border: 1px solid rgba(0,0,0,0.1);"
+  width="560px"
+  class="center"
+  style="pointer-events: none;"
 >
-  <source src="/docs/assets/visual-test-hero.mp4" type="video/mp4" />
+  <source
+    src="/docs/assets/testscreen-comment-pinned-optimized.mp4"
+    type="video/mp4"
+  />
 </video>
 
-## How does Chromatic fit into my stack?
+### Merge
 
-Chromatic leverages your existing setup—configuration, mocking, and tests—to enable visual testing of your application's UI. That means you can verify how UIs look and function simultaneously.
+If you accept all the changes, the build will **🟢 Pass**. Future builds whose stories have the same appearance will pass.
 
-### <img src="/docs/assets/storybook.svg" style="align-self: center;" class="inline-icon" alt="" /> Visual testing with Storybook
+If you deny any of the changes, the build will **🔴 Fail**. You will need to make code changes (and thus start a new build) to get the build to pass.
 
-[Storybook](https://storybook.js.org) is an open source workshop for developing components and pages in isolation. Chromatic is built and maintained by the team behind Storybook, ensuring a seamless integration.
+When your build is passed (all changes accepted), you’re ready to merge visual changes with confidence, knowing that your UI is bug-free. Chromatic will update the PR check for “UI Tests” to reflect the build status.
 
-Storybook lets you define the different states and variations of components as [stories](https://storybook.js.org/docs/get-started/whats-a-story). This gives you an ideal setup for functional testing. Attach a [play function](https://storybook.js.org/docs/writing-stories/play-function) to mimic how users interact with your components and include assertions to verify the expected behavior. Chromatic uses these stories to power visual tests.
+After you merge your code, Chromatic will also apply accepted baselines to stories on the target branch. That means you’ll only need to accept baselines a single time.
 
-![](../../images/workflow-addon.png)
-
-Chromatic integrates with Storybook via an [addon](https://www.chromatic.com/storybook) to unlock on-demand visual testing right from within your familiar Storybook environment. With a single click, you can run visual checks on all your stories simultaneously. Chromatic runs the tests in the cloud, notifying you directly in Storybook if any component's appearance deviates from expectations. In addition to this local workflow, you can also run these tests in CI.
-
-[**Get started with Storybook & Chromatic »**](/docs/storybook)
-
-### <img src="/docs/assets/playwright.svg" style="align-self: center;" class="inline-icon" alt="" /> Visual testing with Playwright
-
-[Playwright](https://playwright.dev/) is an open source end-to-end (E2E) test runner developed by Microsoft. It verifies key app flows like "sign up" and "add to cart" by driving the browser to simulate user interactions.
-
-Chromatic integrates with Playwright by extending its test and expect utilities. While your Playwright tests run, Chromatic captures an archive of the page (including DOM, styling, and assets) and uploads it to the cloud. There, Chromatic generates snapshots and performs pixel diffing to identify any unintended visual changes.
-
-Playwright offers native visual testing capabilities, but Chromatic's unique snapshot approach and powerful diffing tools provide a more comprehensive testing experience.
-
-[**Get started with Playwright & Chromatic »**](/docs/playwright)
-
-![](../../images/workflow-e2e-visual-test.png)
-
-### <img src="/docs/assets/cypress.svg" style="align-self: center;" class="inline-icon" alt="" /> Visual testing with Cypress
-
-[Cypress](https://www.cypress.io/) is another popular E2E test runner like Playwright, but it lacks built-in visual testing features. While Cypress tests can verify your app's functionality, they won't detect visual regressions in the interface. This is where Chromatic becomes an essential tool for Cypress users.
-
-Chromatic integrates with Cypress via a plugin. While your Cypress tests execute, Chromatic captures complete archives of your test cases (DOM, styling, and assets) and uploads them to the cloud. There, Chromatic generates snapshots and performs pixel diffing, enabling you to catch any unintended visual changes in your application.
-
-[**Get started with Cypress & Chromatic »**](/docs/cypress)
-
-## Benefits of visual testing with Chromatic
-
-Chromatic’s visual regression testing lets you gain full confidence in your UI’s visual fidelity on every commit and code change.
-
-🎛️ **Test the real UI**: Chromatic takes pixel-perfect snapshots of real code, styling, and assets. Your tests reflect exactly what your users see.
-
-✅ **No test flake**: Chromatic tests run in a standardized environment to eliminate flake. We auto-detect when UI finishes loading, painting, and reflowing before taking a snapshot.
-
-🏎️ **Run tests in parallel by default**: Chromatic tests run on as many machines as required to deliver results in the least time possible. Parallelization is automatic with no extra configuration or cost required.
-
-🌐 **Cross-browser testing**: Chromatic test coverage extends to Chrome, Firefox, Safari, and Edge. All browser tests run in parallel so your test suite stays fast.
-
-📲 **Responsive viewport testing**: Chromatic allows testing at all viewport sizes. You can adjust both width and height, and configure viewports globally or for individual tests.
-
-⚡ **Test only what's changed**: Chromatic’s [TurboSnap](https://www.chromatic.com/features/turbosnap) feature speeds up test runs and reduces usage costs by up to 80%. It works by analyzing your project’s Git history and bundler dependency graph to identify component files and dependencies with changes, then it snapshots only the tests related to those changes.
+![Build with reviewed tests](../../images/build-test-reviewed.png)
 
 ---
 
-## Next: Master the basics
+## PR check for “UI Tests”
 
-Explore Chromatic's UI testing workflow, where visual and functional testing merge into a seamless process. Learn how to generate baselines, review changes, and collaborate using discussions.
+![PR badge for UI Tests](../../images/prbadge-test.png)
 
-<a class="btn primary round" href="/docs/test">
-  Read next chapter
-</a>
+Chromatic adds a ‘UI Tests’ badge to the list of status checks for your pull/merge requests. The badge shows errors or changes that need to be reviewed. Require the check in [GitHub](https://help.github.com/en/github/administering-a-repository/enabling-required-status-checks), [GitLab](https://docs.gitlab.com/ee/api/commits.html#post-the-build-status-to-a-commit), or [Bitbucket](https://confluence.atlassian.com/bitbucket/suggest-or-require-checks-before-a-merge-856691474.html) to prevent accidental UI bugs from being merged.
 
-**Eager to get started?** Experience the power of Chromatic firsthand! Setup takes just two minutes. Pick your testing tool of choice and get started.
+[**Integrate Chromatic into your CI pipeline »**](/docs/ci)
 
-<div class="btn-integration-group">
-  <a class="btn-integration" href="/docs/storybook" title="Storybook">
-    <img src="/docs/assets/storybook.svg" alt="" />
-  </a>
-  <a class="btn-integration" href="/docs/playwright" title="Playwright">
-    <img src="/docs/assets/playwright.svg" alt="" />
-  </a>
-  <a class="btn-integration" href="/docs/cypress" title="Cypress">
-    <img src="/docs/assets/cypress.svg" alt="" />
-  </a>
-</div>
+---
+
+## Frequently asked questions
+
+<details>
+<summary>Can I disable UI Tests if I prefer not to use them?</summary>
+
+Yes. Go to your project's manage page, where you can disable UI Tests. Once disabled, Chromatic will no longer add status checks to your PRs for UI Tests.
+
+</details>
+
+<details>
+<summary>Can I rerun a build without running my whole CI workflow?</summary>
+
+Yes, you can [rerun the latest build on any branch](/docs/troubleshooting-snapshots#rerun-build-to-identify-inconsistencies) outside your CI workflow. Go to the build page to kick off a new build that uses settings and configurations identical to your old build.
+
+</details>
+
+<details>
+<summary>What&rsquo;s the difference between denied and unreviewed changes?</summary>
+
+The purpose of denying is to mark changes you’ve looked at but not accepted. After reviewing the build, the list of denied changes helps you track what needs fixing.
+
+When it comes to baselines, denying and leaving unreviewed have the same effect. In both cases, the original baseline is used for comparisons. This means in subsequent builds, Chromatic compares the latest build to the original baseline (not the previously denied snapshot).
+
+Denied changes will be marked as unreviewed in subsequent builds for you to review again.
+
+</details>
+
+<details>
+<summary>Speed up review with keyboard shortcuts</summary>
+
+Use keyboard shortcuts to verify UI changes faster. Protip: Pressing 1 multiple times switches between the baseline and the new snapshot in the 1up view.
+
+<KeyboardShortcuts />
+
+![Keyboard shortcuts](../../images/keyboard-shortcuts.png)
+
+</details>
+
+<details>
+<summary>What about baselines on other branches?</summary>
+
+Chromatic automatically changes the baseline snapshots used for each build, depending on your branch. Each branch has a separate set of baselines.
+
+This means you can update UI components on multiple feature branches in parallel without conflicts. When you merge branches, the most recent baseline takes precedence. [Learn about branching and baselines »](/docs/branching-and-baselines)
+
+</details>
+
+<details>
+<summary>How do I reproduce the snapshot?</summary>
+
+Sometimes, you need to look closer to determine why a snapshot is rendering as it does. Along with pixel and DOM diffs, Chromatic displays the interactive page just as it appears in your app and E2E tests.
+
+Click “Inspect snapshot” to open the Inspector. Switch between the “Canvas” and “Snapshot” tabs to compare the live component to the snapshot. Learn more about snapshots [here](/docs/snapshots).
+
+![Reproduce snapshot](../../images/feature-component-inspect.png)
+
+</details>
+
+<details>
+<summary>Can I retake a snapshot?</summary>
+
+Yes, [rerun the latest build](/docs/troubleshooting-snapshots#rerun-build-to-identify-inconsistencies) on your branch to retake snapshots of unreviewed or denied changes.
+
+![Rerun button](../../images/build-detail-rerun-button.png)
+
+</details>
+
+<details>
+<summary>How are changes on builds different from those listed in the UI Review ‘Changeset’ tab?</summary>
+
+UI tests (shown on the build screen) detect changes between builds, specifically between the last accepted baseline and the latest build. This is useful for detecting defects during development and when merging to the main branch to ship.
+
+In contrast, [UI Review](/docs/review) shows the changeset between the latest commit on the PR branch (head) and the ‘merge base’ (base). Think of it as a code review but for UI.
+
+</details>
+
+<details>
+<summary>Why is review disabled on the build page?</summary>
+
+Reviewing is only enabled for the latest build on a branch to ensure that only the most up-to-date UI is accepted as a baseline.
+
+</details>
+
+<details>
+<summary>Why is commenting disabled on old builds?</summary>
+
+Comments are turned off on old builds to ensure that discussions are always on topic and up to date with the latest UI. This prevents the situation where different reviewers comment on different versions of the code.
+
+</details>
+
+<details>
+<summary id="chromatic-build-no-commits">Why do I see "Didn't find any commits in this Git repository in the last X builds"?</summary>
+
+If you run into this situation, it is likely because across the number of unique commits across all builds connected to your project, Chromatic could not find a single one that exists in the repository. This can happen for various reasons (i.e., rebasing, squash merging). However, something has likely gone wrong if all previous X builds' commits are missing.
+
+If you see this message and can't resolve the issue, please get in touch with us via our in-app chat or email us at support@chromatic.com.
+
+</details>
+
+<details>
+<summary>Why do I see "Failed to find common ancestors with most recent builds within X commits"?</summary>
+
+This is an uncommon issue that may happen only in specific cases due to some unusual configuration in your repository. If you see this message, it means that although we found a recent build connected to your repository history (see the item [above](#chromatic-build-no-commits)), we couldn't find any common history between your checked-out build and any other build in the latest number of commits.
+
+We recommend contacting us via our in-app chat or email us at support@chromatic.com for further assistance.
+
+</details>
+
+<details>
+<summary>Why do I see "Build X is based on a commit without ancestor builds"?</summary>
+
+Unless you're creating the first build to establish baselines, when you generate a new build, Chromatic searches your repository history for the most recent build based on an ancestor commit (i.e., commits that are part of the history of the current commit). If it can't find any, it will show this message. However, this is an uncommon issue that may happen due to the following reasons:
+
+1. You switched between branches and re-ran Chromatic without checking out the changes that installed Chromatic in the first place. In this situation, you can safely ignore the message and continue your workflow.
+
+2. Your repository's Git history was rewritten via a rebase or squash merge (e.g., via GitHub's "Squash and Merge" or "Rebase and Merge" options), which you can quickly solve by referring to our CI documentation based on your CI provider.
+
+3. You're working with a shallow clone of your repository to generate builds. Chromatic needs access to the entire Git history to establish baselines (or at least the history until the previous build), which you can address via our [baselines documentation](/docs/branching-and-baselines).
+
+4. Some other unusual configuration in your repository is causing the issue, or there is an issue (e.g., an outage) on our end.
+
+If you are in this situation and having trouble resolving the issue, contact us via our in-app chat or email us at support@chromatic.com.
+
+</details>
+
+<details>
+<summary>Can I review the same commit on separate branches?</summary>
+
+Yes, but it‘s not a best practice.
+
+Every branch has independent baselines for each test until the branch gets merged. If two builds reference the same commit hash but are on _different branches_ it will be possible to review those builds separately so long as they're the latest build on their respective branches. We don't recommend this because you'll have to review the same change multiple times.
+
+Instead, we recommend regularly reviewing builds to keep feature branches 🟢&nbsp;passing.
+
+</details>

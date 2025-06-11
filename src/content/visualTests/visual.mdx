@@ -1,25 +1,15 @@
 ---
 layout: "../../layouts/Layout.astro"
-title: Introduction
+title: Visual tests
 description: Chromatic is a cloud-based toolchain that integrates with Storybook, Playwright, and Cypress to help teams test and review UI components.
 sidebar: { order: 1 }
-isHome: true
-slug: introduction
 ---
 
 import { YouTubeCallout } from "../../components/YouTubeCallout";
 
 # Visual testing with Chromatic
 
-Chromatic is a visual testing tool that scans every possible UI state across browsers to catch bugs in appearance and functionality. It enables you to assign reviewers and resolve discussions to streamline team sign-off.
-
-Chromatic is made by the [team](https://www.chromatic.com/company/about) behind Storybook and integrates with Storybook, Playwright, and Cypress.
-
-<YouTubeCallout
-  client:load
-  id="zhrboql8UuU"
-  summary="Watch a quick demo video of Chromatic's key features"
-/>
+Visual Tests are a powerful tool for catching visual regressions and ensuring your app functions as expected. They work by capturing [snapshots](/docs/snapshots) of every test within a cloud browser environment. Then, whenever you push code, Chromatic compares your new snapshots to [baseline versions](/docs/branching-and-baselines#whats-a-baseline) to identify visual changes. If changes are detected, you will be prompted to verify that they are intentional or fix any errors.
 
 ## Why use visual testing?
 
