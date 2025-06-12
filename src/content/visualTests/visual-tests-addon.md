@@ -9,6 +9,92 @@ sidebar: { order: 2, label: Storybook addon }
 
 Pinpoint visual bugs in local development without leaving Storybook.
 
+
+## Set up Visual Tests Addon for Storybook
+
+Visual Tests Addon ensures that the dev-to-test feedback loop is as fast as possible by allowing you to run visual tests on demand. It lets you uncover visual bugs in local development without leaving Storybook.
+
+### 1. Install the addon
+
+Add visual tests to your project by installing `@chromatic-com/storybook`:
+
+{/* prettier-ignore-start */}
+
+<InstallSnippets>
+  <Fragment slot="npm">
+  ```shell
+  $ npx storybook@latest add @chromatic-com/storybook
+  ```
+  </Fragment>
+  <Fragment slot="yarn">
+  ```shell
+  $ yarn dlx storybook@latest add @chromatic-com/storybook
+  ```
+  </Fragment>
+  <Fragment slot="pnpm">
+  ```shell
+  $ pnpm dlx storybook@latest add @chromatic-com/storybook
+  ```
+  </Fragment>
+</InstallSnippets>
+
+{/* prettier-ignore-end */}
+
+<div class="aside">
+
+Storybook 7.6 and higher required. Read the [migration guide](https://storybook.js.org/docs/migration-guide) for help migrating Storybook versions.
+
+</div>
+
+When you start Storybook, you'll see a new addon panel for Visual Tests where you can run tests and view results.
+
+![Once the addon is installed, you should see the Visual Tests Addon panel in your Storybook](../../images/visual-tests-enable.png)
+
+<div class="aside">
+
+🤖 **Need help or more customization?**<br/>
+If you're experiencing issues with the `storybook@latest add` command or want to explore advanced configuration for the Visual Tests addon, be sure to check the [Visual Test addon page »](/docs/visual-tests-addon)
+
+</div>
+
+### 2. Authenticate
+
+Sign in to Chromatic to create a new project or link an existing project.
+
+You’ll see list of available projects that you have access to. Select a project to finish setup. The addon will automatically adjust the configuration file, add the necessary project identifiers, and retrieve any existing baselines if available.
+
+Select a project from your project list to finish setup. If you're setting up the addon for the first time, the configuration files and necessary project identifiers will be added for you automatically.
+
+![Once authenticated, you should see a menu to select an existing project or create a new one](../../images/visual-tests-project-selection.png)
+
+### 3. Run tests
+
+Click the ▶️ Play button in the Storybook sidebar to run visual tests. This will send your stories to the cloud to take snapshots and detect visual changes.
+
+![Storybook running visual tests with the addon. The play button displays a progress indicator](../../images/visual-tests-tests-running.png)
+
+### 4. Review changes
+
+If there are visual changes in your stories, they will be 🟡 highlighted in the sidebar. Click the story and go to the Visual Tests addon panel to see which pixels changed.
+
+If the changes are intentional, ✅ accept them as baselines locally. If the changes aren't intentional, fix the story and rerun the tests using the ▶️ Play button.
+
+![Approve or reject the UI changes in Storybook](../../images/visual-tests-accept-all.png)
+
+### Chromatic automatically syncs baselines to the cloud
+
+When you accept changes in the addon, your baselines automatically sync to the cloud. Your local-only baselines will graduate to standard baselines.
+
+What that means:
+
+- These baselines will be available for anyone who checks out your branch.
+- [TurboSnap](/docs/turbosnap) will skip the stories that haven’t changed.
+- Tests with accepted baselines don't need to be rerun or reviewed again, speeding up your pull request process.
+
+![Visual Test addon confirms when a baseline is updated](../../images/visual-tests-approved.png)
+
+---
+
 ## Installation
 
 Run the following command to install the addon:
