@@ -1,6 +1,6 @@
 ---
 layout: "../../layouts/Layout.astro"
-title: Why Chromatic?
+title: Overview
 description: Chromatic is a cloud-based toolchain that integrates with Storybook, Playwright, and Cypress to help teams test and review UIs.
 sidebar: { order: 1 }
 isHome: true
@@ -8,10 +8,8 @@ slug: introduction
 ---
 
 import { YouTubeCallout } from "../../components/YouTubeCallout";
-import DemoChromaticUnlinked from "../shared-snippets/demo-chromatic-unlinked.mdx";
-import IntegrationSnippets from "../../components/IntegrationSnippets.astro";
 
-# Why Chromatic?
+# Introduction to Chromatic
 
 Chromatic is a testing platform that scans every possible UI state across browsers to catch bugs in appearance, functionality, and accessibility. It enables you to assign reviewers and resolve discussions to streamline team sign-off.
 
@@ -23,27 +21,19 @@ Chromatic is made by the [team](https://www.chromatic.com/company/about) behind 
   summary="Watch a quick demo video of Chromatic's key features"
 />
 
-## Powered by your Storybook
-
-Your existing Storybook stories power Chromatic’s visual tests – no setup required. Capture all your UI states, test them automatically, and keep bugs out of your workflow. It’s that easy.
-
 ## Test how UIs look & function
 
 Every time you push code, Chromatic runs the suite of UI Tests on your code to pinpoint bugs instantly. All tests run in parallel, including testing across your chosen combinations of viewports and browsers.
 
 - [**Visual tests**](/docs): Pinpoint changes in appearance, layout, fonts, and colors
 - [**Interaction tests**](/docs/interactions): Simulate user actions such as clicking, typing, hovering, dragging, etc., to confirm your app behaves as expected
-- [**Accessibility tests**](/docs/accessibility) (coming soon): run Axe on each component to identify accessibility violations and get remediation tips.
+- [**Accessibility tests**](/docs/accessibility) (beta): run Axe on each component to identify accessibility violations and get remediation tips.
 
 ![UI Tests](../../images/workflow-uitest.png)
 
 ## Benefits of testing with Chromatic
 
 Chromatic’s UI Tests lets you gain full confidence in your UIs on every commit and code change.
-
-- **Story-driven testing:** Eliminate the hassle of writing separate tests. Chromatic automatically converts your stories into visual tests.
-- [**Zero-config interaction tests:**](/docs/interactions/#interaction-tests) If you use Storybook's [play functions](https://storybook.js.org/docs/writing-stories/play-function) for functional testing, Chromatic intelligently waits for their completion before capturing snapshots.
-- [**Effortless variant testing:**](/docs/modes/) Chromatic harnesses the power of [Storybook Globals](https://storybook.js.org/docs/essentials/toolbars-and-globals#globals) to comprehensively test UI variations across themes, viewports, locales, and media features.
 
 🎛️ **Test the real UI**: Chromatic takes pixel-perfect snapshots of real code, styling, and assets. Your tests reflect exactly what your users see.
 
@@ -57,11 +47,14 @@ Chromatic’s UI Tests lets you gain full confidence in your UIs on every commit
 
 ⚡ **Test only what's changed**: Chromatic’s [TurboSnap](https://www.chromatic.com/features/turbosnap) feature speeds up test runs and reduces usage costs by up to 80%. It works by analyzing your project’s Git history and bundler dependency graph to identify component files and dependencies with changes, then it snapshots only the tests related to those changes.
 
-## Integrations
+## Powered by your existing tests
 
-Chromatic integrates with your existing functional testing framework to enable visual testing of your UI. Here's how Chromatic works, depending on your setup:
+Chromatic's UI Tests build on the Storybook, Playwright, and Cypress tests you’ve already written. This dramatically reduces maintenance burden and setup.
+
 
 ### <img src="/docs/assets/storybook.svg" class="inline-icon" alt="" /> Storybook
+
+Storybook lets you capture every component state and variation as stories. Chromatic then automatically converts them into tests, catching any unexpected changes and guaranteeing a flawless UX for your users.
 
 <details>
 <summary>Why use Storybook?</summary>
@@ -74,13 +67,20 @@ New to Storybook? Check out our hands-on tutorials at [storybook.js.org/tutorial
 
 </details>
 
-Chromatic handles the entire test process, including building and uploading your Storybook to the Chromatic cloud infrastructure. Chromatic renders your stories in cloud browsers, runs any interaction tests attached to them, captures snapshots of each story, and detects visual changes using pixel diffing.
+Chromatic manages the entire testing process for you. Everything from building and publishing your Storybook to running tests in cloud browsers.
 
-![Storybook Storybook: build components in Storybook and then test them with Chromatic](../../images/workflow-publish.png)
+![Storybook workflow: build components in Storybook and then test them with Chromatic](../../images/workflow-publish.png)
+
+[**Zero-config interaction tests:**](/docs/interactions/#interaction-tests) If you use Storybook's [play functions](https://storybook.js.org/docs/writing-stories/play-function) for functional testing, Chromatic intelligently waits for their completion before capturing snapshots.
+
+[**Effortless variant testing:**](/docs/modes/) Chromatic harnesses the power of [Storybook Globals](https://storybook.js.org/docs/essentials/toolbars-and-globals#globals) to comprehensively test UI variations across themes, viewports, locales, and media features.
 
 ### <img src="/docs/assets/playwright.svg" class="inline-icon" alt="" /> Playwright and <img src="/docs/assets/cypress.svg" class="inline-icon" alt="" /> Cypress
 
 Run your E2E tests as usual. While those tests run, Chromatic collects a complete archive of your UI (DOM, styles, and assets). It then renders that archived UI in cloud browsers, captures visual snapshots, and identifies visual regressions through pixel diffing.
+
+![E2E workflow: Run e2e tests, snapshot pages and then detect visual bugs with Chromatic](../../images/workflow-e2e-test.png)
+
 
 ## Get started
 

@@ -173,6 +173,7 @@ export const formatting = css`
       padding: 0;
       height: 1em;
       width: auto;
+      align-self: center;
     }
   }
 
