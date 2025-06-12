@@ -2,7 +2,7 @@
 layout: "../../layouts/Layout.astro"
 title: Font loading
 description: Learn how to preload fonts for fast and consistent visual testing.
-sidebar: { order: 2 }
+sidebar: { order: 4 }
 ---
 
 # Loading custom fonts

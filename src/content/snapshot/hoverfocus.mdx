@@ -2,7 +2,7 @@
 layout: "../../layouts/Layout.astro"
 title: Hover and focus states
 description: Learn how to capture hover and focus states
-sidebar: { order: 5, label: Hover and focus }
+sidebar: { order: 9, label: Hover and focus }
 ---
 
 import IntegrationSnippets from "../../components/IntegrationSnippets.astro";
@@ -29,7 +29,7 @@ If you're working with a component that relies on JavaScript to trigger hover st
     * import { expect } from "@storybook/jest";
     */
     import { expect, userEvent, waitFor, within } from "@storybook/test";
-    
+
     import { LoginForm } from "./LoginForm";
 
     const meta: Meta<typeof LoginForm> = {
@@ -39,12 +39,12 @@ If you're working with a component that relies on JavaScript to trigger hover st
 
     export default meta;
     type Story = StoryObj<typeof LoginForm>;
-    
+
     export const Default: Story = {
       play: async ({ canvasElement }) => {
         const canvas = within(canvasElement);
         await userEvent.type(canvas.getByLabelText("email"), "test@email.com");
-        
+
         await userEvent.type(canvas.getByLabelText('password'), "password");
         // Triggers the hover state
         await userEvent.hover(canvas.getByLabelText("password"));
@@ -120,7 +120,7 @@ export const Default: Story = {
       hover: true,
     },
   },
-}
+};
 ```
 
 ### Using CSS class names
@@ -169,7 +169,11 @@ export const ActiveStatewithClass: Story = {
 ```
 
 <div class="aside">
-ℹ️ This approach requires manually toggling the class names in your component's test to simulate the necessary states. If you're using a CSS-in-JS framework, you can [automate](https://github.com/Workday/canvas-kit/pull/377/files) this process by creating a JavaScript wrapper that adds the class names programmatically.
+  ℹ️ This approach requires manually toggling the class names in your
+  component's test to simulate the necessary states. If you're using a CSS-in-JS
+  framework, you can
+  [automate](https://github.com/Workday/canvas-kit/pull/377/files) this process
+  by creating a JavaScript wrapper that adds the class names programmatically.
 </div>
 
 ## Focusing DOM elements
@@ -185,10 +189,10 @@ If you're working with a component that provides a visual response to the user f
 import type { Meta, StoryObj } from "@storybook/your-framework";
 
 /*
-* Replace the @storybook/test package with the following if you are using a version of Storybook earlier than 8.0:
-* import { userEvent, within } from "@storybook/testing-library";
-* import { expect } from "@storybook/jest";
-*/
+ * Replace the @storybook/test package with the following if you are using a version of Storybook earlier than 8.0:
+ * import { userEvent, within } from "@storybook/testing-library";
+ * import { expect } from "@storybook/jest";
+ */
 import { expect, userEvent, within } from "@storybook/test";
 
 import { LoginForm } from "./LoginForm";
@@ -264,10 +268,9 @@ If you're running tests with Playwright or Cypress, you can simulate JavaScript-
 <details>
 <summary>Why are focus states visible in Storybook but not captured in a snapshot?</summary>
 
-By default, when Chromatic snapshots a Storybook story, it trims the snapshot to the dimensions of the story's root node. However, this behavior can lead to inconsistencies, such as excluding outlined elements and other focus styles from the snapshot. 
+By default, when Chromatic snapshots a Storybook story, it trims the snapshot to the dimensions of the story's root node. However, this behavior can lead to inconsistencies, such as excluding outlined elements and other focus styles from the snapshot.
 
 To solve it, you can adjust your story and provide a [decorator](https://storybook.js.org/docs/writing-stories/decorators#component-decorators) that introduces some padding to the story, enabling it to be snapshotted correctly.
-
 
 ```ts title="src/components/Login.stories.ts|tsx"
 // Adjust this import to match your framework (e.g., nextjs, vue3-vite)
@@ -289,4 +292,5 @@ const meta: Meta<typeof LoginForm> = {
 
 export default meta;
 ```
+
 </details>

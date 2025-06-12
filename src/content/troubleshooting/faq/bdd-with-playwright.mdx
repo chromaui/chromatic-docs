@@ -9,7 +9,7 @@ import { TabItem, Tabs } from "../../../components/Tabs";
 
 # Can I use BDD with Playwright?
 
-Testing with Behavior-Driven Development (BDD) is not supported by default with the Playwright integration, and you'll have to rely on a third-party integration such as [Playwright BDD](https://github.com/vitalets/playwright-bdd). To enable it, you'll need to adjust your [fixture](https://vitalets.github.io/playwright-bdd/#/getting-started/add-fixtures) file to compose the Playwright BDD API with Chromatic via the [`mergeTests`](https://playwright.dev/docs/test-fixtures#combine-custom-fixtures-from-multiple-modules) function.
+Testing with Behavior-Driven Development (BDD) is not supported by default with the Playwright integration, and you'll have to rely on a third-party integration such as [Playwright BDD](https://github.com/vitalets/playwright-bdd). To enable it, you'll need to adjust your [fixture](https://vitalets.github.io/playwright-bdd/#/getting-started/add-fixtures) file to compose the Playwright BDD API with Chromatic via the [`mergeTests`](https://playwright.dev/docs-fixtures#combine-custom-fixtures-from-multiple-modules) function.
 
 ```ts title="features/steps/fixtures.ts"
 import { test as chromaticTest } from "@chromatic-com/playwright";

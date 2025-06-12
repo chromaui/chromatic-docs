@@ -11,7 +11,7 @@ sidebar: { order: 6 }
 
 <p>🚨&nbsp;&nbsp;The <code>chromatic.viewports</code> feature is now replaced by the new <a href="/docs/modes">Modes API</a>. With Modes, you can test your stories in various viewports and customize global settings. Additionally, you have the flexibility to define specific viewport heights for testing purposes.</p>
 
-<p style="margin-bottom: 0;">To transition to the new API, please consult the <a href="/docs/storybook/viewports#migration-from-viewports-legacy-to-modes">migration guide</a>.</p>
+<p style="margin-bottom: 0;">To transition to the new API, please consult the <a href="/docs/modes/viewports#migration-from-viewports-legacy-to-modes">migration guide</a>.</p>
 </div>
 
 UI components can respond to device width. Chromatic makes it easy to visual test these cases with the `viewports` parameter. This helps you define one or more viewport sizes to capture. Using viewports requires Storybook 4.0 or later.
@@ -58,7 +58,7 @@ export default {
   parameters: {
     //👇 Defines a list of viewport widths applied to all stories of a component to be captured in Chromatic.
     // Note only widths are supported, to control width and height, use the modes api
-    // https://www.chromatic.com/docs/storybook/viewports
+    // https://www.chromatic.com/docs/modes/viewports
     chromatic: { viewports: [320, 1200] },
   },
 };
@@ -88,7 +88,7 @@ A viewport can be any whole number between 200 and 2560 pixels. The maximum numb
 
 <details><summary>Can I control the height of the viewport?</summary>
 
-It is not possible to control height with this legacy API. However, you can achieve it using the <a href="/docs/storybook/viewports">Modes API</a>.
+It is not possible to control height with this legacy API. However, you can achieve it using the <a href="/docs/modes/viewports">Modes API</a>.
 
 </details>
 
@@ -107,7 +107,7 @@ const preview = {
   parameters: {
     //👇 Defines a list of viewport widths applied globally to all stories.
     // Note only widths are supported, to control width and height, use the modes api
-    // https://www.chromatic.com/docs/storybook/viewports
+    // https://www.chromatic.com/docs/modes/viewports
     chromatic: { viewports: [320, 1200] },
   },
 };

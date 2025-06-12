@@ -2,16 +2,15 @@ import { getCollection } from "astro:content";
 import { transformNavGroups, flattenGroups } from "./transform-nav-groups";
 
 const overview = await getCollection("overview");
-const storybook = await getCollection("storybook");
+const visualTests = await getCollection("visualTests");
+const interactionTests = await getCollection("interactionTests");
 const playwright = await getCollection("playwright");
 const cypress = await getCollection("cypress");
 const configuration = await getCollection("configuration");
 const modes = await getCollection("modes");
 const snapshot = await getCollection("snapshot");
-const snapshotOptions = await getCollection("snapshotOptions");
 const turbosnap = await getCollection("turbosnap");
 const collaborate = await getCollection("collaborate");
-const plugins = await getCollection("plugins");
 const ci = await getCollection("ci");
 const account = await getCollection("account");
 const guides = await getCollection("guides");
@@ -25,9 +24,8 @@ const rawNavGroups = [
     timeline: true,
   },
   {
-    title: "Storybook",
+    title: "Visual Tests",
     items: [
-      ...storybook,
       {
         title: "Modes",
         items: modes,
@@ -36,20 +34,18 @@ const rawNavGroups = [
         title: "TurboSnap",
         items: turbosnap,
       },
+      ...visualTests,
     ],
     defaultOpen: false,
   },
   {
-    title: "Playwright",
-    items: playwright,
+    title: "Interaction Tests",
+    items: interactionTests,
+    defaultOpen: false,
   },
   {
-    title: "Cypress",
-    items: cypress,
-  },
-  {
-    title: "Guides",
-    items: guides,
+    title: "CI",
+    items: ci,
   },
   {
     title: "Configuration",
@@ -60,20 +56,20 @@ const rawNavGroups = [
     items: snapshot,
   },
   {
-    title: "Snapshot options",
-    items: snapshotOptions,
+    title: "Guides",
+    items: guides,
   },
   {
     title: "Collaborate",
     items: collaborate,
   },
   {
-    title: "CI",
-    items: ci,
+    title: "Playwright",
+    items: playwright,
   },
   {
-    title: "Plugins",
-    items: plugins,
+    title: "Cypress",
+    items: cypress,
   },
   {
     title: "Account",

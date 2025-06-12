@@ -40,11 +40,11 @@ UI Tests serve as visual regression tests between builds, similar to snapshot te
 
 ### What’s a baseline?
 
-A baseline is the last known “good” state of the story in a given [mode](/docs/modes). [UI Tests](/docs/test) take snapshots and compare them to baselines to detect changes.
+A baseline is the last known “good” state of the story in a given [mode](/docs/modes). [UI Tests](/docs) take snapshots and compare them to baselines to detect changes.
 
 Chromatic’s objective is to maintain an up to date “baseline” for each story. Baselines live alongside the git history and persist through git branching and merging.
 
-Baselines only update when changes are [accepted](/docs/test#verify-ui-changes) by you or your team. Since baselines are tracked independently for each branch, when you merge that branch into another (for instance back into `main`), the baseline comes with it.
+Baselines only update when changes are [accepted](/docs#verify-ui-changes) by you or your team. Since baselines are tracked independently for each branch, when you merge that branch into another (for instance back into `main`), the baseline comes with it.
 
 Conceptually, this is akin to storing a snapshot file in your repository with each accepted change, though Chromatic does not actually do this.
 
@@ -242,7 +242,7 @@ In the case that there are multiple ancestor builds, the algorithm to calculate 
 <details>
 <summary>How do I visualize baseline history for a story?</summary>
 
-When you [verify UI Test changes on Chromatic](/docs/test#verify-ui-changes), you’ll see a historical set of baselines that correspond to the algorithm above. This helps you understand when the baseline changed, by who, and in which commit.
+When you [verify UI Test changes on Chromatic](/docs#verify-ui-changes), you’ll see a historical set of baselines that correspond to the algorithm above. This helps you understand when the baseline changed, by who, and in which commit.
 
 <video autoPlay muted playsInline loop width="600px" class="center" style="pointer-events: none;">
   <source src="/docs/assets/testscreen-baseline-history-detail-optimized.mp4" type="video/mp4" />
@@ -335,7 +335,7 @@ The Chromatic CLI has a special option `--patch-build=$head...$base` which is in
 
 1. Figure out what the merge base commit between head and base is in your git repo.
 2. Check out that commit and update dependencies
-3. Run a Chromatic build for that commit, flagging to the server that is is a special “patch” build (so it doesn’t affect [UI Tests](/docs/test) baselines).
+3. Run a Chromatic build for that commit, flagging to the server that is is a special “patch” build (so it doesn’t affect [UI Tests](/docs) baselines).
 4. Put your repository back as it was before.
 
 Essentially we are retroactively creating the merge base build, so we have something to compare against.
