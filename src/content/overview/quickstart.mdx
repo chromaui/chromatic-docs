@@ -210,8 +210,6 @@ You can further refine your testing process and guarantee polished UIs in all sc
 
 ## Frequently asked questions
 
-<TroubleshootingSetup />
-
 <details>
 <summary>Can I disable UI Tests if I prefer not to use them?</summary>
 
@@ -301,6 +299,23 @@ Comments are turned off on old builds to ensure that discussions are always on t
 </details>
 
 <details>
+<summary>Can I review the same commit on separate branches?</summary>
+
+Yes, but it‘s not a best practice.
+
+Every branch has independent baselines for each test until the branch gets merged. If two builds reference the same commit hash but are on _different branches_ it will be possible to review those builds separately so long as they're the latest build on their respective branches. We don't recommend this because you'll have to review the same change multiple times.
+
+Instead, we recommend regularly reviewing builds to keep feature branches 🟢&nbsp;passing.
+
+</details>
+
+---
+
+## Troubleshooting
+
+<TroubleshootingSetup />
+
+<details>
 <summary id="chromatic-build-no-commits">Why do I see "Didn't find any commits in this Git repository in the last X builds"?</summary>
 
 If you run into this situation, it is likely because across the number of unique commits across all builds connected to your project, Chromatic could not find a single one that exists in the repository. This can happen for various reasons (i.e., rebasing, squash merging). However, something has likely gone wrong if all previous X builds' commits are missing.
@@ -332,17 +347,6 @@ Unless you're creating the first build to establish baselines, when you generate
 4. Some other unusual configuration in your repository is causing the issue, or there is an issue (e.g., an outage) on our end.
 
 If you are in this situation and having trouble resolving the issue, contact us via our in-app chat or email us at support@chromatic.com.
-
-</details>
-
-<details>
-<summary>Can I review the same commit on separate branches?</summary>
-
-Yes, but it‘s not a best practice.
-
-Every branch has independent baselines for each test until the branch gets merged. If two builds reference the same commit hash but are on _different branches_ it will be possible to review those builds separately so long as they're the latest build on their respective branches. We don't recommend this because you'll have to review the same change multiple times.
-
-Instead, we recommend regularly reviewing builds to keep feature branches 🟢&nbsp;passing.
 
 </details>
 
