@@ -7,7 +7,7 @@ sidebar: { order: 1, label: "Overview" }
 
 # Introduction to TurboSnap
 
-TurboSnap is an advanced Chromatic feature that speeds up [UI Tests](/docs/test). It analyzes your project's Git history and Webpack's [dependency graph](https://webpack.js.org/concepts/dependency-graph/) to identify which components and their dependencies have changed. It intelligently snapshots only the stories associated with those changes. For the rest, it copies over the snapshots from baselines that didn't change.
+TurboSnap is an advanced Chromatic feature that speeds up [UI Tests](/docs). It analyzes your project's Git history and Webpack's [dependency graph](https://webpack.js.org/concepts/dependency-graph/) to identify which components and their dependencies have changed. It intelligently snapshots only the stories associated with those changes. For the rest, it copies over the snapshots from baselines that didn't change.
 
 <video autoPlay muted playsInline loop>
   <source src="/docs/assets/turbosnap-dep-tracking.mp4" type="video/mp4" />
@@ -22,7 +22,7 @@ TurboSnap is an advanced Chromatic feature that speeds up [UI Tests](/docs/test)
 
 Chromatic will not capture a new snapshot for stories that do not have associated code changes. In most cases, this results in faster test runs and reduces the number of billable snapshots.
 
-If you denied any [UI Tests](/docs/test#verify-ui-changes) on the ancestor build, Chromatic will always re-capture those stories even if TurboSnap would otherwise skip them. This is particularly useful for handling [inconsistent snapshots](/docs/snapshots#improve-snapshot-consistency).
+If you denied any [UI Tests](/docs#verify-ui-changes) on the ancestor build, Chromatic will always re-capture those stories even if TurboSnap would otherwise skip them. This is particularly useful for handling [inconsistent snapshots](/docs/snapshots#improve-snapshot-consistency).
 
 ### Full rebuilds
 

@@ -1,7 +1,6 @@
 ---
 layout: "../../layouts/Layout.astro"
 title: Publish
-slug: "storybook/publish"
 description: Learn how Chromatic helps document components.
 sidebar: { order: 7 }
 ---
@@ -45,6 +44,6 @@ The library screen within the Chromatic web app visualizes the latest components
 Components and their stories are securely indexed each commit and branch. Use the component screen to demo components without needing to switch branches, pull code, or Git. It's your window into the metadata and variations of the component. You can also share a link to this screen to get feedback.
 
 - **Canvas**: Interact with the real component code to reproduce the behavior
-- **Snapshot**: Verify the image [snapshots](/docs/snapshots) used for cross-browser [UI Tests](/docs/test)
+- **Snapshot**: Verify the image [snapshots](/docs/snapshots) used for cross-browser [UI Tests](/docs)
 
 ![Component screen](../../images/component.png)

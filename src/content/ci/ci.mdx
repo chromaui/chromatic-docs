@@ -45,7 +45,7 @@ Before we begin, make sure you set the `CHROMATIC_PROJECT_TOKEN` environment var
 
 {/* prettier-ignore-end */}
 
-Integrate with popular CI tools like you would any other job. Run `npm run chromatic` to start a Chromatic build. If [UI Test](/docs/test) or [UI Review](/docs/review) are enabled, it will return a non-zero exit code when there are changes. For example:
+Integrate with popular CI tools like you would any other job. Run `npm run chromatic` to start a Chromatic build. If [UI Test](/docs) or [UI Review](/docs/review) are enabled, it will return a non-zero exit code when there are changes. For example:
 
 ```yml
 - run:
@@ -89,7 +89,7 @@ Require checks in [GitHub](https://docs.github.com/en/repositories/configuring-b
 
 Chromatic detects CI test runs for most services. But it's not possible for every system, which results in users seeing persistent "Setup CI / Automation" messages in the UI.
 
-If this is happening to you, prepend `CI=true` to your test command like so `CI=true yarn chromatic...` to hide the "Setup CI" messages in Chromatic. [Learn more](/docs/test).
+If this is happening to you, prepend `CI=true` to your test command like so `CI=true yarn chromatic...` to hide the "Setup CI" messages in Chromatic. [Learn more](/docs).
 
 </details>
 

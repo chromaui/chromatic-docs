@@ -139,7 +139,7 @@ There are two types of Chromatic projects: linked and unlinked.
 
 #### Linked projects
 
-Linked projects are associated with a repository on GitHub, Bitbucket, or GitLab. That allows Chromatic to [sync collaborators](/docs/collaborators#project-collaborators), badge pull requests, get pull request metadata for [UI Review](/docs/review), and keep track of [UI Test](/docs/test) baselines.
+Linked projects are associated with a repository on GitHub, Bitbucket, or GitLab. That allows Chromatic to [sync collaborators](/docs/collaborators#project-collaborators), badge pull requests, get pull request metadata for [UI Review](/docs/review), and keep track of [UI Test](/docs) baselines.
 
 By creating a linked project in Chromatic, you automatically have at your disposal:
 

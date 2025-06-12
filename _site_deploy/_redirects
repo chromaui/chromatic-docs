@@ -4,6 +4,11 @@
 /docs/visual-testing-addon/ /docs/visual-tests-addon/
 /docs/e2e-visual-tests/ /docs/playwright/
 /docs/integrations/ /docs/slack/
+/docs/storybook/ /docs/quickstart/
+/docs/test/ /docs/
+/docs/storybook/viewports/ /docs/modes/viewports/
+/docs/storybook/publish/ /docs/publish/
+
 
 # Getting started guides
 
