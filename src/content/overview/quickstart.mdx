@@ -7,14 +7,16 @@ sidebar: { order: 2 }
 
 import TroubleshootingSetup from "../shared-snippets/setup/troubleshooting.mdx";
 import DemoChromaticUnlinked from "../shared-snippets/demo-chromatic-unlinked.mdx";
-import { TabItem, Tabs } from "../../components/Tabs";
 import InstallSnippets from "../../components/InstallSnippets.astro";
-import IntegrationSnippets from "../../components/IntegrationSnippets.astro";
 import KeyboardShortcuts from "../../components/KeyboardShortcuts.astro";
 
 # Chromatic for Storybook
 
 Chromatic, created by the team behind Storybook, seamlessly integrates visual testing into your UI development workflow. Storybook lets you capture every component state and variation as [stories](https://storybook.js.org/docs/get-started/whats-a-story). Then, Chromatic automatically executes visual, interaction and accessibility tests on those stories.
+
+<div class="aside">
+  ℹ️ Not using Storybook? Chromatic integrates with [Playwright](/docs/playwright) and [Cypress](/docs/cypress) transform your E2E tests into visual regression tests.
+</div>
 
 ## Set up Chromatic for Storybook
 
