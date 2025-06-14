@@ -2,7 +2,7 @@
 layout: "../../layouts/Layout.astro"
 title: Disable snapshots
 description: Learn how you can tell Chromatic to skip snapshots for certain tests
-sidebar: { order: 5 }
+sidebar: { order: 8 }
 ---
 
 import ParamsCallout from "../../components/ParamsCallout.astro";
@@ -35,7 +35,6 @@ export default meta;
 type Story = StoryObj<typeof NotFound>;
 
 export const Default: Story = {};
-
 ```
 
 <ParamsCallout name="disableSnapshot" integration="storybook" />

@@ -13,11 +13,6 @@ import InstallSnippets from "../../components/InstallSnippets.astro";
 
 # Chromatic for Playwright
 
-<div class="aside" style="margin-bottom: 2rem;">
-  👀 If you're unfamiliar with visual testing, check out our [introductory
-  guide](/docs) first.
-</div>
-
 Chromatic’s visual tests integrate with Playwright by extending Playwright’s `test` and `expect` utilities. That means you can transform your existing Playwright end-to-end (E2E) tests into visual regression tests with a single import change. Start capturing interactive snapshots within your Playwright E2E tests, and review visual changes in Chromatic’s cloud environment.
 
 ![Run Playwright tests and snapshot pages with Chromatic to detect visual bugs](../../images/workflow-playwright-visual-test.png)
@@ -225,6 +220,6 @@ Chromatic creates and runs a Storybook [archive](/docs/faq/what-is-archive) base
 <details>
 <summary id="third-party-integrations">Can I use custom fixtures with Playwright visual tests?</summary>
 
-Chromatic’s Playwright integration is designed to work with third-party integrations and tools. It allows you to combine your existing fixtures via the [`mergeTests`](https://playwright.dev/docs/test-fixtures#combine-custom-fixtures-from-multiple-modules) option. See our FAQ on [BDD support with Playwright](/docs/faq/bdd-with-playwright) to learn more.
+Chromatic’s Playwright integration is designed to work with third-party integrations and tools. It allows you to combine your existing fixtures via the [`mergeTests`](https://playwright.dev/docs-fixtures#combine-custom-fixtures-from-multiple-modules) option. See our FAQ on [BDD support with Playwright](/docs/faq/bdd-with-playwright) to learn more.
 
 </details>

@@ -8,7 +8,7 @@ import {
   type TransformedNavGroupItem,
 } from "./types";
 
-function generateBreadcrumb(path: string[], slug: string): string {
+function generateBreadcrumb(path: string[]): string {
   return path.join(" » ");
 }
 
@@ -31,7 +31,7 @@ function transformNavItem(
     order: item.data?.sidebar?.order || 999,
     hide: item.data?.sidebar?.hide || false,
     isHome: item.data?.isHome || false,
-    breadcrumb: generateBreadcrumb(path, item.slug),
+    breadcrumb: generateBreadcrumb(path),
   };
 }
 
