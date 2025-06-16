@@ -40,7 +40,7 @@ Certain code changes have the potential to impact all stories. To avoid false po
 <details>
 <summary>How can I reduce the frequency of full rebuilds?</summary>
 
-1. Check your `preview.js` file: you may have a global decorator configured that's [imported from an index or barrel file](/docs/turbosnap/setup/#why-changes-are-not-being-detected-correctly), which itself imports a bunch of other files. This can lead to _all_ stories depending on a large swath of seemingly unrelated files.<br /><br />
+1. Check your `preview.js` file: you may have a global decorator configured that's [imported from an index or barrel file](/docs/turbosnap/troubleshooting#why-are-changes-not-being-detected-correctly), which itself imports a bunch of other files. This can lead to _all_ stories depending on a large swath of seemingly unrelated files.<br /><br />
    Whenever a global Storybook file changes, we run a complete build because global Storybook files can change how _any_ story renders. If any of those files or their imports change, we will trace them as dependent changes. If the file changes are frequent, you can utilize `--untraced` on these files to help ensure you're not triggering a complete rebuild each time the file changes.
 
 <div class="aside">
