@@ -32,15 +32,15 @@ If you're a seasoned Storybook user, most teams choose a [Component-Driven](http
 3. Assemble pages by combining composite components.
 4. Integrate pages into your project by hooking up data and business logic.
 
-<!-- Uncomment when E2EVT lands <details>
+<details>
 <summary>Chromatic also integrates with Playwright and Cypress</summary>
 
 Developers test user flows end-to-end by navigating between pages with Playwright or Cypress. This methodology allows you to simulate how users behave. Chromatic uses these E2E tests as visual test cases by automatically snapshotting key moments in the test.
 
-[TK Learn how to setup Playwright](/docs/)
-[TK Learn how to setup Cypress](/docs/)
+* [Learn how to setup Playwright »](/docs/playwright)
+* [Learn how to setup Cypress »](/docs/cypress)
 
-</details> -->
+</details>
 
 ### Verify each story in multiple dimensions
 

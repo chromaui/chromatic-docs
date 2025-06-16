@@ -7,12 +7,12 @@ sidebar: { order: 1, label: "UI Review" }
 
 # UI Review powered by snapshots
 
-As Chromatic's second core workflow, UI Review streamlines the process of getting approval and feedback on visual changes from designers, product managers, and other key stakeholders. While [UI Tests](/docs/) safeguard you from unintentional bugs, UI Review is where you discuss intentional changes with your team, ensuring everyone aligns with their expectations before you ship.
+As Chromatic's second core workflow, UI Review streamlines the process of getting approval and feedback on visual changes from designers, product managers, and other key stakeholders. While [UI Tests](/docs) safeguard you from unintentional bugs, UI Review is where you discuss intentional changes with your team, ensuring everyone aligns with their expectations before you ship.
 
 Each UI Review is linked to a pull/merge request, streamlining the workflow. Here's how it works:
 
 - **Automated trigger:** When you open a pull request and run a Chromatic build via CI, Chromatic starts the UI Review workflow.
-- **Visual diffing:** Chromatic generates a changeset highlighting the exact visual differences between your feature branch and the main branch. You can use the same diffing tools from [UI Tests](/docs/) to evaluate these changes.
+- **Visual diffing:** Chromatic generates a changeset highlighting the exact visual differences between your feature branch and the main branch. You can use the same diffing tools from [UI Tests](/docs) to evaluate these changes.
 - **Collaborative review:** Easily assign one or more reviewers to provide feedback on the visual changes.
 - **Checklist for clarity:** All change requests are tracked within a convenient checklist attached to the Review.
 
