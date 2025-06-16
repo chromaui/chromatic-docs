@@ -25,7 +25,7 @@ Not at this time. We currently only support monthly payments for our self-serve 
 
 ## Snapshots
 
-Chromatic charges based on [snapshots](/docs/snapshots) and browser coverage, respectively. Snapshots power [UI Tests](/docs) and [UI Review](/docs/review). They are only taken when you enable “UI Review” or “UI Tests” for your project.
+Chromatic charges based on [snapshots](/docs/snapshots) and browser coverage, respectively. Snapshots power [UI Tests](/docs#test-how-uis-look--function) and [UI Review](/docs/review). They are only taken when you enable “UI Review” or “UI Tests” for your project.
 
 Every time you run a build, we take one snapshot for each test. If you have 50 tests, Chromatic will take 50 snapshots. In addition, testing multiple viewports and browsers are also considered snapshots.
 

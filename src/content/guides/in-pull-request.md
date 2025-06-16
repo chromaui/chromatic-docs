@@ -13,7 +13,7 @@ Chromatic serves as a single hub that allows you to test, approve PRs, and share
 
 ### UI Tests catch bugs automatically
 
-[UI Tests](/docs) prevent visual and functional bugs. They're similar to other types of testing (unit, E2E, etc.), in that they enable developers to catch and fix regressions. UI Tests run in CI automatically when you push code so you can see the impact of code changes on the user interface while you develop.
+[UI Tests](/docs#test-how-uis-look--function) prevent visual and functional bugs. They're similar to other types of testing (unit, E2E, etc.), in that they enable developers to catch and fix regressions. UI Tests run in CI automatically when you push code so you can see the impact of code changes on the user interface while you develop.
 
 | UI Tests     | What dimensions are tested                                                                                                                                       |
 | ------------ | ---------------------------------------------------------------------------------------------------------------------------------------------------------------- |

@@ -40,7 +40,7 @@ UI Tests serve as visual regression tests between builds, similar to snapshot te
 
 ### What’s a baseline?
 
-A baseline is the last known “good” state of the story in a given [mode](/docs/modes). [UI Tests](/docs) take snapshots and compare them to baselines to detect changes.
+A baseline is the last known “good” state of the story in a given [mode](/docs/modes). [UI Tests](/docs#test-how-uis-look--function) take snapshots and compare them to baselines to detect changes.
 
 Chromatic’s objective is to maintain an up to date “baseline” for each story. Baselines live alongside the git history and persist through git branching and merging.
 
@@ -335,7 +335,7 @@ The Chromatic CLI has a special option `--patch-build=$head...$base` which is in
 
 1. Figure out what the merge base commit between head and base is in your git repo.
 2. Check out that commit and update dependencies
-3. Run a Chromatic build for that commit, flagging to the server that is is a special “patch” build (so it doesn’t affect [UI Tests](/docs) baselines).
+3. Run a Chromatic build for that commit, flagging to the server that is is a special “patch” build (so it doesn’t affect [UI Tests](/docs#test-how-uis-look--function) baselines).
 4. Put your repository back as it was before.
 
 Essentially we are retroactively creating the merge base build, so we have something to compare against.
