@@ -2,7 +2,7 @@
 layout: "../../layouts/Layout.astro"
 title: TurboSnap best practices
 description: TurboSnap best practices to optimize your builds for faster testing
-sidebar: { order: 10, label: "Configuring TurboSnap" }
+sidebar: { order: 10, label: "TurboSnap best practices" }
 ---
 
 # TurboSnap best practices
