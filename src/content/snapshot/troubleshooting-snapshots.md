@@ -17,7 +17,7 @@ Double-check whether a visual change is real or caused by inconsistencies in you
 
 Debug inconsistent snapshots by looking at the set of changes between the original build and the rerun build. You might encounter these common scenarios:
 
-- Identical changes between builds: This means the snapshots are accurately showing bonafide UI changes that need your verification. Continue the [UI Tests workflow](/docs#verify-ui-changes) as usual.
+- Identical changes between builds: This means the snapshots are accurately showing bonafide UI changes that need your verification. Continue the [UI Tests workflow](/docs/quickstart#4-review-changes) as usual.
 
 Different changes between builds: This means inconsistent snapshots are introducing false positives to your visual tests. Learn how to use the [Snapshot Tracer Viewer](#debug-snapshots-with-trace-viewer-beta) to identify the root cause and check out our recommendations for [improving snapshot consistency](#improve-snapshot-consistency).
 

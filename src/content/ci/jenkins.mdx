@@ -390,7 +390,7 @@ When using `--exit-zero-on-changes` your pipeline will still stop and fail if yo
 
 #### Re-run failed builds after verifying UI test results
 
-Builds that contain visual changes need to be [verified](/docs#verify-ui-changes). They will fail if you are not using `--exit-zero-on-changes`. Once you accept all the changes, re-run the build and the `Run Chromatic` pipeline stage will pass.
+Builds that contain visual changes need to be [verified](/docs/quickstart#4-review-changes). They will fail if you are not using `--exit-zero-on-changes`. Once you accept all the changes, re-run the build and the `Run Chromatic` pipeline stage will pass.
 
 If you deny any change, you will need to make the necessary code changes to fix the test (and thus start a new build) to get Chromatic to pass again.
 
