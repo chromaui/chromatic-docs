@@ -2,7 +2,7 @@
 layout: "../../layouts/Layout.astro"
 title: Automate Chromatic with GitHub Actions
 description: Learn how to configure Chromatic with GitHub Actions
-sidebar: { order: 1, label: GitHub Actions }
+sidebar: { order: 2, label: GitHub Actions }
 ---
 
 import IntegrationSnippets from "../../components/IntegrationSnippets.astro";
@@ -491,7 +491,7 @@ Read about the [available options](/docs/configure/#options).
 
 #### Re-run failed builds after verifying UI test results
 
-Builds that contain visual changes need to be [verified](/docs/test#verify-ui-changes). The task will fail if `exitZeroOnChanges` option is set to false. Once you accept all the changes, re-run the workflow, and the `chromatic` job will pass.
+Builds that contain visual changes need to be [verified](/docs/quickstart#4-review-changes). The task will fail if `exitZeroOnChanges` option is set to false. Once you accept all the changes, re-run the workflow, and the `chromatic` job will pass.
 
 If you deny any change, you will need to make the necessary code changes to fix the test (and thus start a new run) to get Chromatic to pass again.
 
@@ -555,7 +555,7 @@ When we take the git diff between `P'` and the baseline from `main (A)` we are n
 
 ### UI Test and UI Review
 
-[UI Tests](/docs/test) and [UI Review](/docs/review) rely on [branch and baseline](/docs/branching-and-baselines) detection to keep track of [snapshots](/docs/snapshots). We recommend the following configuration.
+[UI Tests](/docs#test-how-uis-look--function) and [UI Review](/docs/review) rely on [branch and baseline](/docs/branching-and-baselines) detection to keep track of [snapshots](/docs/snapshots). We recommend the following configuration.
 
 #### Maintain a clean "main" branch
 

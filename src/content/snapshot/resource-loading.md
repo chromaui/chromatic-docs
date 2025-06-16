@@ -2,7 +2,7 @@
 layout: "../../layouts/Layout.astro"
 title: Resource loading
 description: Learn how Chromatic loads resources and waits to screenshot.
-sidebar: { order: 3 }
+sidebar: { order: 6 }
 ---
 
 # Resource loading

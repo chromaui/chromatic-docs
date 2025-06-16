@@ -2,7 +2,7 @@
 layout: "../../layouts/Layout.astro"
 title: Automate with CI
 description: Learn how to configure Chromatic with your continuous integration service
-sidebar: { order: 4 }
+sidebar: { order: 1 }
 ---
 
 import IntegrationSnippets from "../../components/IntegrationSnippets.astro";
@@ -45,7 +45,7 @@ Before we begin, make sure you set the `CHROMATIC_PROJECT_TOKEN` environment var
 
 {/* prettier-ignore-end */}
 
-Integrate with popular CI tools like you would any other job. Run `npm run chromatic` to start a Chromatic build. If [UI Test](/docs/test) or [UI Review](/docs/review) are enabled, it will return a non-zero exit code when there are changes. For example:
+Integrate with popular CI tools like you would any other job. Run `npm run chromatic` to start a Chromatic build. If [UI Test](/docs) or [UI Review](/docs/review) are enabled, it will return a non-zero exit code when there are changes. For example:
 
 ```yml
 - run:
@@ -59,7 +59,7 @@ Integrate with popular CI tools like you would any other job. Run `npm run chrom
 Here's how we recommend configuring Chromatic for popular CI services:
 
 - [GitHub Actions](/docs/github-actions)
-- [GitLab Pipelines](/docs/Gitlab)
+- [GitLab Pipelines](/docs/gitlab)
 - [Bitbucket Pipelines](/docs/bitbucket-pipelines)
 - [CircleCI](/docs/circleci)
 - [Travis CI](/docs/travisci)
@@ -89,7 +89,7 @@ Require checks in [GitHub](https://docs.github.com/en/repositories/configuring-b
 
 Chromatic detects CI test runs for most services. But it's not possible for every system, which results in users seeing persistent "Setup CI / Automation" messages in the UI.
 
-If this is happening to you, prepend `CI=true` to your test command like so `CI=true yarn chromatic...` to hide the "Setup CI" messages in Chromatic. [Learn more](/docs/test).
+If this is happening to you, prepend `CI=true` to your test command like so `CI=true yarn chromatic...` to hide the "Setup CI" messages in Chromatic. [Learn more](/docs).
 
 </details>
 

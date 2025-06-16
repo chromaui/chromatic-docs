@@ -1,11 +1,11 @@
 ---
 layout: "../../layouts/Layout.astro"
-title: Figma Plugin
+title: Storybook Figma plugin
 description: Connect stories to variants
-sidebar: { order: 2 }
+sidebar: { order: 5 }
 ---
 
-# Figma plugin
+# Storybook Connect (Figma) plugin
 
 Storybook Connect is a Figma plugin that allows you to link stories to Figma components. Once linked, you can view your live stories in the design workspace without leaving Figma.
 

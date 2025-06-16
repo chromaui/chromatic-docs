@@ -6,16 +6,15 @@ export async function getStaticPaths() {
   const overview = await getCollection("overview", ({ slug }) => {
     return slug !== "introduction";
   });
-  const storybook = await getCollection("storybook");
+  const visualTests = await getCollection("visualTests");
+  const interactionTests = await getCollection("interactionTests");
   const playwright = await getCollection("playwright");
   const cypress = await getCollection("cypress");
   const configuration = await getCollection("configuration");
   const modes = await getCollection("modes");
   const snapshot = await getCollection("snapshot");
-  const snapshotOptions = await getCollection("snapshotOptions");
   const turbosnap = await getCollection("turbosnap");
   const collaborate = await getCollection("collaborate");
-  const plugins = await getCollection("plugins");
   const ci = await getCollection("ci");
   const account = await getCollection("account");
   const guides = await getCollection("guides");
@@ -25,16 +24,15 @@ export async function getStaticPaths() {
   const notInNavigation = await getCollection("notInNavigation");
   const articles = [
     ...overview,
-    ...storybook,
+    ...visualTests,
+    ...interactionTests,
     ...playwright,
     ...cypress,
     ...configuration,
     ...modes,
     ...snapshot,
-    ...snapshotOptions,
     ...turbosnap,
     ...collaborate,
-    ...plugins,
     ...ci,
     ...account,
     ...guides,

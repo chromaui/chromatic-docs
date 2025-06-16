@@ -5,17 +5,9 @@ description: Configure Chromatic to test themes, viewports, locales and more sim
 sidebar: { order: 1 }
 ---
 
-import { YouTubeCallout } from "../../components/YouTubeCallout";
-
 # Modes for testing themes, viewports, locales & more
 
 Global-level configurations (globals) such as viewport size, theme (light/dark), and locale impact how a component renders. Chromatic simplifies the process of visually testing your stories with different global configs.
-
-<YouTubeCallout
-  client:load
-  id="BDuQb8jdz-c"
-  summary="Watch a quick demo of how modes work"
-/>
 
 You can save combinations of globals as a unique "mode" and apply one or multiple modes to a story using the `chromatic.modes` parameter. When Chromatic tests your story, it will capture a snapshot for each applied mode. These modes are treated separately, with independent baselines and distinct approvals.
 

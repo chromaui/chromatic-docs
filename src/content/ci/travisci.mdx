@@ -2,7 +2,7 @@
 layout: "../../layouts/Layout.astro"
 title: Automate Chromatic with Travis CI
 description: Learn how to configure Chromatic with Travis CI
-sidebar: { order: 5, label: Travis CI }
+sidebar: { order: 6, label: Travis CI }
 ---
 
 import IntegrationSnippets from "../../components/IntegrationSnippets.astro";
@@ -26,7 +26,7 @@ To integrate Chromatic with your existing workflow, you’ll need to add the fol
 
     node_js:
       - 20
-    
+
     before_script:
       # ⚠️ See your package manager's documentation for the correct command to install dependencies in a CI environment.
       - npm ci
@@ -36,7 +36,7 @@ To integrate Chromatic with your existing workflow, you’ll need to add the fol
     branches:
       only:
         - main
-    
+
     jobs:
       include:
         - stage: "Chromatic"
@@ -52,9 +52,9 @@ To integrate Chromatic with your existing workflow, you’ll need to add the fol
 
     node_js:
       - 20
-    
+
     before_script:
-      # ⚠️ See your package manager's documentation for the correct command to install dependencies in a CI environment. 
+      # ⚠️ See your package manager's documentation for the correct command to install dependencies in a CI environment.
       - npm ci
 
     cache: npm
@@ -62,7 +62,7 @@ To integrate Chromatic with your existing workflow, you’ll need to add the fol
     branches:
       only:
         - main
-    
+
     jobs:
       include:
         - stage: "Playwright"
@@ -75,7 +75,7 @@ To integrate Chromatic with your existing workflow, you’ll need to add the fol
               name: playwright
               paths:
                 # Chromatic automatically defaults to the test-results directory.
-                # Replace with the path to your custom directory and adjust the CHROMATIC_ARCHIVE_LOCATION environment variable accordingly. 
+                # Replace with the path to your custom directory and adjust the CHROMATIC_ARCHIVE_LOCATION environment variable accordingly.
                 - test-results
         - stage: "Chromatic"
           name: "Run Chromatic"
@@ -94,11 +94,11 @@ To integrate Chromatic with your existing workflow, you’ll need to add the fol
 
     node_js:
       - 20
-    
+
     before_script:
       # ⚠️ See your package manager's documentation for the correct command to install dependencies in a CI environment.
       - npm ci
-    
+
     cache:
       directories:
         - ~/.npm
@@ -107,7 +107,7 @@ To integrate Chromatic with your existing workflow, you’ll need to add the fol
     branches:
       only:
         - main
-    
+
     jobs:
       include:
         - stage: "Cypress"
@@ -123,7 +123,7 @@ To integrate Chromatic with your existing workflow, you’ll need to add the fol
               name: cypress
               paths:
                 # Chromatic automatically defaults to the cypress/downloads directory.
-                # Replace with the path to your custom directory and adjust the CHROMATIC_ARCHIVE_LOCATION environment variable accordingly. 
+                # Replace with the path to your custom directory and adjust the CHROMATIC_ARCHIVE_LOCATION environment variable accordingly.
                 - cypress/downloads
         - stage: "Chromatic"
           name: "Run Chromatic"
@@ -275,7 +275,7 @@ For external pull requests (i.e., forked repositories), the above code will ensu
 
 ### UI Test and UI Review
 
-[UI Tests](/docs/test) and [UI Review](/docs/review) rely on [branch and baseline](/docs/branching-and-baselines) detection to keep track of [snapshots](/docs/snapshots). We recommend the following configuration.
+[UI Tests](/docs#test-how-uis-look--function) and [UI Review](/docs/review) rely on [branch and baseline](/docs/branching-and-baselines) detection to keep track of [snapshots](/docs/snapshots). We recommend the following configuration.
 
 #### Command exit code for "required" checks
 
@@ -304,7 +304,7 @@ When using `--exit-zero-on-changes` your build will still stop and fail if your 
 
 #### Re-run failed builds after verifying UI test results
 
-Builds that contain visual changes need to be [verified](/docs/test#verify-ui-changes). They will fail if you are not using `--exit-zero-on-changes`. Once you accept all the changes, re-run the build and the `Run Chromatic` job will pass.
+Builds that contain visual changes need to be [verified](/docs/quickstart#4-review-changes). They will fail if you are not using `--exit-zero-on-changes`. Once you accept all the changes, re-run the build and the `Run Chromatic` job will pass.
 
 If you deny any change, you will need to make the necessary code changes to fix the test (and thus start a new build) to get Chromatic to pass again.
 

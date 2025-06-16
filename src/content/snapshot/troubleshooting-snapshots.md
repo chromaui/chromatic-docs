@@ -2,7 +2,7 @@
 layout: "../../layouts/Layout.astro"
 title: Troubleshooting Snapshots
 description: Tips for debugging and improving snapshot consistency
-sidebar: { order: 3, label: "Troubleshooting" }
+sidebar: { order: 15, label: "Troubleshooting" }
 ---
 
 # Troubleshooting Snapshots
@@ -17,7 +17,7 @@ Double-check whether a visual change is real or caused by inconsistencies in you
 
 Debug inconsistent snapshots by looking at the set of changes between the original build and the rerun build. You might encounter these common scenarios:
 
-- Identical changes between builds: This means the snapshots are accurately showing bonafide UI changes that need your verification. Continue the [UI Tests workflow](/docs/test#verify-ui-changes) as usual.
+- Identical changes between builds: This means the snapshots are accurately showing bonafide UI changes that need your verification. Continue the [UI Tests workflow](/docs/quickstart#4-review-changes) as usual.
 
 Different changes between builds: This means inconsistent snapshots are introducing false positives to your visual tests. Learn how to use the [Snapshot Tracer Viewer](#debug-snapshots-with-trace-viewer-beta) to identify the root cause and check out our recommendations for [improving snapshot consistency](#improve-snapshot-consistency).
 
@@ -221,7 +221,7 @@ Scrollable divs constrain the height of their children. Change the height of the
 
 If you use an “animateIn” effect set [delay](/docs/delay) to ensure we snapshot when the animation completes.
 
-Your component might be rendering outside of the viewport. Either reposition the component or adjust the [viewport size](/docs/storybook/viewports/).
+Your component might be rendering outside of the viewport. Either reposition the component or adjust the [viewport size](/docs/modes/viewports/).
 
 </details>
 

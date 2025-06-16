@@ -17,7 +17,12 @@ const overview = defineCollection({
   schema,
 });
 
-const storybook = defineCollection({
+const visualTests = defineCollection({
+  type: "content",
+  schema,
+});
+
+const interactionTests = defineCollection({
   type: "content",
   schema,
 });
@@ -47,17 +52,7 @@ const snapshot = defineCollection({
   schema,
 });
 
-const snapshotOptions = defineCollection({
-  type: "content",
-  schema,
-});
-
 const collaborate = defineCollection({
-  type: "content",
-  schema,
-});
-
-const plugins = defineCollection({
   type: "content",
   schema,
 });
@@ -101,15 +96,14 @@ const troubleshooting = defineCollection({
 
 export const collections = {
   overview,
-  storybook,
+  visualTests,
+  interactionTests,
   playwright,
   cypress,
   configuration,
   modes,
   snapshot,
-  snapshotOptions,
   collaborate,
-  plugins,
   ci,
   account,
   guides,

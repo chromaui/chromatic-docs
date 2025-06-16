@@ -2,7 +2,7 @@
 layout: "../../layouts/Layout.astro"
 title: Interaction tests
 description: Learn how interaction testing works with Chromatic
-sidebar: { order: 2 }
+sidebar: { order: 1 }
 ---
 
 # Interaction tests
@@ -19,18 +19,16 @@ Interaction tests require Storybook 6.5.10+. Check which version you have in pac
 
 Add a [`play`](https://storybook.js.org/docs/writing-stories/play-function) function to your component's story to enable interaction tests. For example, if you want to validate a component's behavior write the following story:
 
-```ts
-// RangeSlider.stories.ts|tsx
-
+```ts title="RangeSlider.stories.ts|tsx"
 // Adjust this import to match your framework (e.g., nextjs, vue3-vite)
 import type { Meta, StoryObj } from "@storybook/your-framework";
 
 /*
  * Replace the @storybook/test package with the following if you are using a version of Storybook earlier than 8.0:
- * import { within, userEvent } from "@storybook/testing-library";
+ * import { userEvent } from "@storybook/testing-library";
  * import { expect } from "@storybook/jest";
  */
-import { within, userEvent, expect } from "@storybook/test";
+import { userEvent, expect } from "@storybook/test";
 
 import { RangeSlider } from "./RangeSlider";
 
@@ -43,10 +41,7 @@ export default meta;
 type Story = StoryObj<typeof RangeSlider>;
 
 export const InputRange: Story = {
-  play: async ({ canvasElement }) => {
-    // Assigns canvas to the component root element
-    const canvas = within(canvasElement);
-
+  play: async ({ canvas }) => {
     // 🔢 Type into input field
     await userEvent.type(canvas.getByTestId("input-max-range"), "15");
 
@@ -79,11 +74,9 @@ Similarly to `args`, `play()` functions can be [composed](https://storybook.j
 
 There is an important caveat to remember when invoking a `play()` function from another story: it is necessary to pass the _full context_ as an argument to the `play()` function. The below code uses the correct code for this rule, with `canvasContext` being used as context.
 
-```jsx
-// MyComponent.stories.jsx|tsx
-
+```jsx title="MyComponent.stories.jsx|tsx"
 import { MyComponent } from "./MyComponent";
-import { userEvent, within, waitFor, screen } from "@storybook/testing-library";
+import { userEvent, waitFor, screen } from "@storybook/testing-library";
 import { expect } from "@storybook/jest";
 
 export default {
@@ -92,8 +85,7 @@ export default {
 };
 
 export const FirstStory = {
-  play: async ({ canvasElement }) => {
-    const canvas = within(canvasElement);
+  play: async ({ canvas }) => {
     const dropdownButton = canvas.getByRole("button");
     await userEvent.click(dropdownButton);
   },
@@ -101,7 +93,7 @@ export const FirstStory = {
 
 export const SecondStory = {
   play: async (canvasContext) => {
-    const canvas = within(canvasContext.canvasElement);
+    const canvas = canvas;
     //  👇 Pass the full context as an argument to the play function:
     await FirstStory.play(canvasContext);
     const findText = canvas.getByText("some text");
@@ -122,11 +114,9 @@ export const ThirdStory = {
 
 Additionally, you can stack multiple `play()` functions within a story. Below is a quick pseudocode example.
 
-```jsx
-// MyComponent.stories.jsx|tsx
-
+```jsx title="MyComponent.stories.jsx|tsx"
 import { MyComponent } from "./MyComponent";
-import { userEvent, within, waitFor, screen } from "@storybook/testing-library";
+import { userEvent, waitFor, screen } from "@storybook/testing-library";
 import { expect } from "@storybook/jest";
 
 export default {
@@ -135,15 +125,13 @@ export default {
 };
 
 export const FirstStory = {
-  play: async ({ canvasElement }) => {
-    const canvas = within(canvasElement);
+  play: async ({ canvas }) => {
     await userEvent.type(canvas.getByTestId("an-element"), "some text");
   },
 };
 
 export const SecondStory = {
-  play: async ({ canvasElement }) => {
-    const canvas = within(canvasElement);
+  play: async ({ canvas }) => {
     await userEvent.type(
       canvas.getByTestId("another-element"),
       "some more text",
@@ -153,7 +141,7 @@ export const SecondStory = {
 
 export const CombinedStories = {
   play: async (canvasContext) => {
-    const canvas = within(canvasContext.canvasElement);
+    const canvas = canvasContext.canvas;
     //  👇 This executes FirstStory.play and SecondStory.play before executing the story's play function:
     await FirstStory.play(canvasContext);
     await SecondStory.play(canvasContext);
@@ -183,105 +171,6 @@ Go to your published Storybook to reproduce the exact state of your story when t
 Interaction tests are reported in the UI Tests pull request check. When a test fails, you'll see a "Failed tests" status message prompting you to fix the test before moving on.
 
 ![Failed interaction tests in CI](../../images/interaction-pr-check-failed-test.png)
-
-## Testing Shadow DOM with Storybook and Chromatic
-
-With the help of [shadow-dom-testing-library](https://github.com/konnorrogers/shadow-dom-testing-library), you can write tests that query elements inside the shadow root just like you would with standard DOM elements. This approach is fully compatible with Chromatic, which will accurately capture the UI state by waiting for interactions to complete.
-
-### Configure Shadow DOM Queries in Storybook Preview
-
-Install `shadow-dom-testing-library` and then in your preview file, inject shadow-aware query methods into the `canvas` object using `beforeEach()`.
-
-```ts title=".storybook/preview.ts"
-import type { Preview } from "@storybook/web-components";
-import { within as withinShadow } from "shadow-dom-testing-library";
-
-const preview: Preview = {
-  beforeEach({ canvasElement, canvas }) {
-    Object.assign(canvas, { ...withinShadow(canvasElement) });
-  },
-};
-
-// extend TypeScript types for safety
-export type ShadowQueries = ReturnType<typeof withinShadow>;
-
-declare module "storybook/internal/csf" {
-  // since 8.6
-  interface Canvas extends ShadowQueries {}
-}
-
-export default preview;
-```
-
-This adds methods like `findByShadowRole`, `findAllByShadowRole`, etc., directly to the `canvas` object in `play()` functions.
-
-### Querying Shadow DOM within Stories
-
-Use shadow root queries directly in your `play()` function, like so:
-
-```tsx
-const Story = {
-  async play({ canvas }) {
-    const button = await canvas.findByShadowRole("button", { name: /Reset/i });
-    await userEvent.click(button);
-  },
-};
-```
-
-Using `shadow-dom-testing-library` provides DOM querying methods that mirror the familiar API of `@testing-library/dom`, but they're able to traverse shadow roots. By extending Storybook's `canvas` object, you can access methods that help ensure your tests are clean, intuitive, and maintainable.
-
-### Shadow DOM test Example
-
-Let's say you're testing a Web Component `<checkbox-group>` that renders shadow-root-contained checkboxes.
-
-```tsx title="CheckboxGroup.stories.tsx"
-import { Meta, StoryObj } from "@storybook/web-components";
-import { expect, userEvent } from "@storybook/test";
-import { Checkbox } from "../src/checkbox";
-import { CheckboxGroup } from "../src/checkbox-group";
-
-Checkbox.register();
-CheckboxGroup.register();
-
-const meta: Meta = {
-  component: CheckboxGroup,
-  title: "Checkbox",
-};
-
-export default meta;
-type Story = StoryObj;
-
-export const Required: Story = {
-  render: () => html`
-    <checkbox-group
-      required
-      setCustomValidityValueMissing="Please select an option"
-    >
-      <span slot="legend">Form label</span>
-      <checkbox value="value1" name="required" id="checkbox-required1"
-        >Checkbox option</checkbox
-      >
-      <checkbox value="value2" name="required" id="checkbox-required2"
-        >Checkbox option</checkbox
-      >
-      <checkbox value="value3" name="required" id="checkbox-required3"
-        >Checkbox option</checkbox
-      >
-      <checkbox value="value4" name="required" id="checkbox-required4"
-        >Checkbox option</checkbox
-      >
-    </checkbox-group>
-  `,
-  async play({ canvas }) {
-    const checkboxes = await canvas.findAllByShadowRole("checkbox");
-    const firstCheckbox = checkboxes[0];
-    await userEvent.click(firstCheckbox); // select
-    await userEvent.click(firstCheckbox); // deselect
-  },
-};
-```
-
-Now you can simulate and test user interactions with deeply nested shadow elements from the `play()` function, without needing to manually reach into `shadowRoot`.
 
 ---
 

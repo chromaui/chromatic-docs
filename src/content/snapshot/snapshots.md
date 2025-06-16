@@ -7,7 +7,7 @@ sidebar: { order: 1 }
 
 # Snapshots
 
-A **snapshot** is an image of the UI rendered by a test, along with metadata captured in Chromatic’s Capture Cloud infrastructure. Snapshots power Chromatic's [UI Tests](/docs/test) and [UI Review](/docs/review) features.
+A **snapshot** is an image of the UI rendered by a test, along with metadata captured in Chromatic’s Capture Cloud infrastructure. Snapshots power Chromatic's [UI Tests](/docs#test-how-uis-look--function) and [UI Review](/docs/review) features.
 
 <div class="aside">
 

@@ -2,7 +2,7 @@
 layout: "../../layouts/Layout.astro"
 title: Automate Chromatic with Azure
 description: Learn how to configure Chromatic with Azure
-sidebar: { order: 7, label: Azure Pipelines }
+sidebar: { order: 8, label: Azure Pipelines }
 ---
 
 import IntegrationSnippets from "../../components/IntegrationSnippets.astro";
@@ -412,7 +412,7 @@ Chromatic will now detect the correct branch and run your workflow. You can also
 
 ### UI Test and UI Review
 
-[UI Tests](/docs/test) and [UI Review](/docs/review) rely on [branch and baseline](/docs/branching-and-baselines) detection to keep track of [snapshots](/docs/snapshots). We recommend the following configuration.
+[UI Tests](/docs#test-how-uis-look--function) and [UI Review](/docs/review) rely on [branch and baseline](/docs/branching-and-baselines) detection to keep track of [snapshots](/docs/snapshots). We recommend the following configuration.
 
 #### Command exit code for "required" checks
 
@@ -452,7 +452,7 @@ When using `--exit-zero-on-changes` your pipeline execution still stop and fail 
 
 #### Re-run failed builds after verifying UI test results
 
-Builds that contain visual changes need to be [verified](/docs/test#verify-ui-changes). They will fail if you are not using `--exit-zero-on-changes`. Once you accept all the changes, re-run the pipeline and the `Run Chromatic` step will pass.
+Builds that contain visual changes need to be [verified](/docs/quickstart#4-review-changes). They will fail if you are not using `--exit-zero-on-changes`. Once you accept all the changes, re-run the pipeline and the `Run Chromatic` step will pass.
 
 If you deny any change, you will need to make the necessary code changes to fix the test (and thus start a new build) to get Chromatic to pass again.
 

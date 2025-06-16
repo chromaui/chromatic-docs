@@ -2,7 +2,7 @@
 layout: "../../layouts/Layout.astro"
 title: Automate Chromatic with BitBucket
 description: Learn how to configure Chromatic with BitBucket Pipelines
-sidebar: { order: 3, label: Bitbucket Pipelines }
+sidebar: { order: 4, label: Bitbucket Pipelines }
 ---
 
 import IntegrationSnippets from "../../components/IntegrationSnippets.astro";
@@ -21,11 +21,11 @@ To integrate Chromatic with your existing pipeline, you'll need to add the follo
   <Fragment slot="storybook">
     ```yml title="bitbucket-pipelines.yml"
     image: node:jod
-    
+
     definitions:
       caches:
         npm: $HOME/.npm
-    
+
     pipelines:
       default:
         - stage:
@@ -66,8 +66,8 @@ To integrate Chromatic with your existing pipeline, you'll need to add the follo
                     - npm ci
                     - npx playwright test
                   artifacts:
-                    # Chromatic automatically defaults to the test-results directory. 
-                    # Replace with the path to your custom directory and adjust the CHROMATIC_ARCHIVE_LOCATION environment variable accordingly. 
+                    # Chromatic automatically defaults to the test-results directory.
+                    # Replace with the path to your custom directory and adjust the CHROMATIC_ARCHIVE_LOCATION environment variable accordingly.
                     - test-results/**
               - step:
                   name: "Run Chromatic"
@@ -80,14 +80,14 @@ To integrate Chromatic with your existing pipeline, you'll need to add the follo
     ```
   </Fragment>
   <Fragment slot="cypress">
-    ```yml title="bitbucket-pipelines.yml"    
+    ```yml title="bitbucket-pipelines.yml"
     image: node:jod
 
     definitions:
       caches:
         npm: $HOME/.npm
         cypress: $HOME/.cache/Cypress
-    
+
     pipelines:
       default:
         - stage:
@@ -107,8 +107,8 @@ To integrate Chromatic with your existing pipeline, you'll need to add the follo
                   - npm run dev &
                   - npx cypress run
                 artifacts:
-                  # Chromatic automatically defaults to the cypress/downloads directory. 
-                  # Replace with the path to your custom directory and adjust the CHROMATIC_ARCHIVE_LOCATION environment variable accordingly. 
+                  # Chromatic automatically defaults to the cypress/downloads directory.
+                  # Replace with the path to your custom directory and adjust the CHROMATIC_ARCHIVE_LOCATION environment variable accordingly.
                   - cypress/downloads/**
               - step:
                   name: "Run Chromatic"
@@ -267,7 +267,7 @@ TurboSnap is highly customizable and can be configured to fit your requirements.
 
 ### UI Test and UI Review
 
-[UI Tests](/docs/test) and [UI Review](/docs/review) rely on [branch and baseline](/docs/branching-and-baselines) detection to keep track of [snapshots](/docs/snapshots). We recommend the following configuration.
+[UI Tests](/docs#test-how-uis-look--function) and [UI Review](/docs/review) rely on [branch and baseline](/docs/branching-and-baselines) detection to keep track of [snapshots](/docs/snapshots). We recommend the following configuration.
 
 #### Command exit code for "required" checks
 
@@ -299,7 +299,7 @@ When using `--exit-zero-on-changes` your pipeline execution still stop and fail 
 
 #### Re-run failed builds after verifying UI test results
 
-Builds that contain visual changes need to be [verified](/docs/test#verify-ui-changes). They will fail if you are not using `--exit-zero-on-changes`. Once you accept all the changes, re-run the pipeline and the `Run Chromatic` step will pass.
+Builds that contain visual changes need to be [verified](/docs/quickstart#4-review-changes). They will fail if you are not using `--exit-zero-on-changes`. Once you accept all the changes, re-run the pipeline and the `Run Chromatic` step will pass.
 
 If you deny any change, you will need to make the necessary code changes to fix the test (and thus start a new build) to get Chromatic to pass again.
 
