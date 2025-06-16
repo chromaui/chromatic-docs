@@ -2,7 +2,7 @@
 layout: "../../layouts/Layout.astro"
 title: Figma in Chromatic
 description: View Figma components next to their stories in Chromatic
-sidebar: { order: 5 }
+sidebar: { order: 4 }
 ---
 
 # Figma in Chromatic

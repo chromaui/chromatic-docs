@@ -2,7 +2,7 @@
 layout: "../../layouts/Layout.astro"
 title: Publish
 description: Learn how Chromatic helps document components.
-sidebar: { order: 7 }
+sidebar: { order: 6 }
 ---
 
 # Publish your Storybook

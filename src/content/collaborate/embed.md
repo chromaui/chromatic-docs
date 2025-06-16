@@ -2,7 +2,7 @@
 layout: "../../layouts/Layout.astro"
 title: Embed stories
 description: Embed your Storybook on Medium, Notion, and other platforms
-sidebar: { order: 4, label: Embed }
+sidebar: { order: 9, label: Embed }
 ---
 
 # Embed stories

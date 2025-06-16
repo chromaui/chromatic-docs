@@ -2,7 +2,7 @@
 layout: "../../layouts/Layout.astro"
 title: Storybook Figma plugin
 description: Connect stories to variants
-sidebar: { order: 6 }
+sidebar: { order: 5 }
 ---
 
 # Storybook Connect (Figma) plugin
