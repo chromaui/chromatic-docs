@@ -57,10 +57,6 @@ The following options are still supported but will be removed in a future versio
 
 | CLI flag                 |                                                                                                                                                                               |
 | ------------------------ | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `--allow-console-errors` | Continue running Chromatic even if Storybook logs errors in the console.                                                                                                      |
-| `--app-code <token>`     | Renamed to `--project-token`.                                                                                                                                                 |
-| `--diagnostics`          | Replaced by `--diagnostics-file`.                                                                                                                                             |
-| `--only`                 | Replaced by `--only-story-names`.                                                                                                                                             |
 | `--preserve-missing`     | Replaced by `--only-*` based options.<br/>Refer to the following [documentation](/docs/sunsetting-preserve-missing) for more information on its deprecation and alternatives. |
 
 ## Unsupported options
@@ -69,15 +65,19 @@ The options listed below are no longer supported by our CLI and will not yield a
 
 | CLI flag                   |                                                                                                                                               |
 | -------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------- |
+| `--allow-console-errors`   | Continue running Chromatic even if Storybook logs errors in the console.                                                                                                      |
+| `--app-code <token>`       | Renamed to `--project-token`.                                                                                                                                                 |
+| `--diagnostics`            | Replaced by `--diagnostics-file`.                                                                                                                                             |
 | `--do-not-start`           | Don't attempt to start or build Storybook. Use this if your Storybook is already running, for example, when part of a larger app. Alias: `-S` |
 | `--exec <command>`         | Alternatively, a shell command that starts your Storybook. Alias: `-e`                                                                        |
+| `--only`                   | Replaced by `--only-story-names`.                                                                                                                                             |
 | `--preserve-missing-specs` | Preserve missing stories when publishing a partial Storybook.                                                                                 |
 | `--script-name [name]`     | The npm script that starts your Storybook. Defaults to `storybook`. Alias: `-s`                                                               |
-| `--storybook-port <port>`  | What port is your Storybook running on. Auto detected from the npm script when using `--script-name`. Alias: `-p`                             |
-| `--storybook-https`        | Enable if Storybook runs on HTTPS (locally). Auto detected from the npm script when using `--script-name`.                                    |
-| `--storybook-cert <path>`  | Use with `--storybook-https`. Auto detected from the npm script when using `--script-name`.                                                   |
-| `--storybook-key <path>`   | Use with `--storybook-https`. Auto detected from the npm script when using `--script-name`.                                                   |
 | `--storybook-ca <ca>`      | Use with `--storybook-https`. Auto detected from the npm script when using `--script-name`.                                                   |
+| `--storybook-cert <path>`  | Use with `--storybook-https`. Auto detected from the npm script when using `--script-name`.                                                   |
+| `--storybook-https`        | Enable if Storybook runs on HTTPS (locally). Auto detected from the npm script when using `--script-name`.                                    |
+| `--storybook-key <path>`   | Use with `--storybook-https`. Auto detected from the npm script when using `--script-name`.                                                   |
+| `--storybook-port <port>`  | What port is your Storybook running on. Auto detected from the npm script when using `--script-name`. Alias: `-p`                             |
 | `--storybook-url <url>`    | Run against an online Storybook at some URL. This implies `--do-not-start`. Alias: `-u`                                                       |
 
 [https-proxy-agent]: https://www.npmjs.com/package/https-proxy-agent
