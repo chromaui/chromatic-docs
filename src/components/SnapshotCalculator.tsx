@@ -7,9 +7,6 @@ import {
   minSm,
   fontWeight,
   Stat,
-  typography,
-  fontFamily,
-  Icon,
 } from "@chromatic-com/tetra";
 
 export function calculateSnapshots(
@@ -92,21 +89,6 @@ const Checkbox = styled.div`
   gap: ${spacing[2]};
 `;
 
-const Formula = styled.div`
-  ${typography.body14}
-  font-size: 12px;
-  font-family: ${fontFamily.mono};
-  color: ${color.slate600};
-  display: flex;
-  align-items: center;
-  gap: ${spacing[2]};
-  border-top: 1px solid ${color.blackTr10};
-  padding: ${spacing[4]};
-  margin-top: ${spacing[4]};
-  margin-left: -${spacing[4]};
-  margin-right: -${spacing[4]};
-`;
-
 const InfoStat = styled(Stat)`
   padding: ${spacing[2]};
   background: #f8f8f8;
@@ -163,7 +145,7 @@ export const SnapshotCalculator = () => {
 
   return (
     <Container>
-      <VStack gap={4}>
+      <VStack gap={4} marginBottom={4}>
         <Field>
           <label htmlFor="sc-tests">Number of tests</label>
           <input
@@ -242,11 +224,6 @@ export const SnapshotCalculator = () => {
           </VStack>
         </VStack>
       </VStack>
-
-      <Formula>
-        <Icon size={12} name="info" /> Snapshot = Tests x Builds x Browsers x
-        Viewports
-      </Formula>
 
       <Result>
         <InfoStat
