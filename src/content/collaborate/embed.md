@@ -30,7 +30,7 @@ https://<appid>-<uploadhash>.chromatic.com/?path=<path-to-story>
 <iframe src="https://<appid>-<uploadhash>.chromatic.com/?path=<path-to-story>&full=1&shortcuts=false&singleStory=true" width="800" height="400"></iframe>
 ```
 
-![Full Storybook embed on Medium](../../images/embed-story-toolbar.png)
+<iframe src="https://5ccbc373887ca40020446347-idzavsdems.chromatic.com/?path=/story/shadowboxcta--default&full=1&shortcuts=false&singleStory=true" width="100%" height="260" style="border: none;"/>
 
 ## Embed a plain story
 
@@ -44,7 +44,7 @@ https://<appid>-<uploadhash>.chromatic.com/iframe.html?<path-to-story>&viewMode=
 <iframe src="<appid>-<uploadhash>.chromatic.com/?path=<path-to-story>&viewMode=story&shortcuts=false&singleStory=true" width="800" height="400"></iframe>
 ```
 
-![Plain canvas embed on Medium](../../images/embed-story.png)
+<iframe src="https://5ccbc373887ca40020446347-idzavsdems.chromatic.com/iframe.html?id=shadowboxcta--default&viewMode=story&shortcuts=false&singleStory=true" width="100%"height="200" style="border: none;"/>
 
 ## Embed a docs page
 
@@ -58,7 +58,7 @@ https://<appid>-<uploadhash>.chromatic.com/iframe.html?<path-to-story>&viewMode=
 <iframe src="https://<appid>-<uploadhash>.chromatic.com/?path=<path-to-story>&viewMode=docs&shortcuts=false&singleStory=true" width="800" height="400"></iframe>
 ```
 
-![Docs page embed on Medium](../../images/embed-docs.png)
+<iframe src="https://5ccbc373887ca40020446347-idzavsdems.chromatic.com/iframe.html?id=shadowboxcta--docs&viewMode=docs&shortcuts=false&singleStory=true" width="100%" height="260" style="border: none;"/>
 
 ---
 
