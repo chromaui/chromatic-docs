@@ -22,6 +22,11 @@ const visualTests = defineCollection({
   schema,
 });
 
+const accessibilityTests = defineCollection({
+  type: "content",
+  schema,
+});
+
 const interactionTests = defineCollection({
   type: "content",
   schema,
@@ -97,6 +102,7 @@ const troubleshooting = defineCollection({
 export const collections = {
   overview,
   visualTests,
+  accessibilityTests,
   interactionTests,
   playwright,
   cypress,

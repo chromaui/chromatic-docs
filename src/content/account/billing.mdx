@@ -5,6 +5,8 @@ description: Chromatic billing information
 sidebar: { order: 2, label: Billing & invoices }
 ---
 
+import { SnapshotCalculator } from "../../components/SnapshotCalculator/SnapshotCalculator";
+
 # Billing and invoices
 
 Chromatic bills customers monthly based on their subscription date. For instance, if you subscribed on February 14th, you'll be billed on the 14th of each month. Any additional overages will be attached to the current billing period. Similarly, snapshots are allocated within the same time frame and reset following the same cadence.
@@ -29,7 +31,9 @@ Chromatic charges based on [snapshots](/docs/snapshots) and browser coverage, re
 
 Every time you run a build, we take one snapshot for each test. If you have 50 tests, Chromatic will take 50 snapshots. In addition, testing multiple viewports and browsers are also considered snapshots.
 
-For example, see how many snapshots are taken in different scenarios below.
+Running an [accessibility test](/docs/accessibility) counts as one extra snapshot per test. However, you are not charged for [interaction](/docs/interactions) tests.
+
+See the table below for examples of how many snapshots are taken in different scenarios. Or use the [snapshot calculator](/docs/billing#snapshot-calculator) to estimate your usage.
 
 | Test count | Builds    | Browsers   | Viewports   | Snapshots taken |
 | ---------- | --------- | ---------- | ----------- | --------------- |
@@ -53,15 +57,23 @@ With [TurboSnap](/docs/turbosnap) enabled, Chromatic first analyzes the Git hist
 
 For the remaining stories, Chromatic captures new snapshots as usual and bills them at the regular rate.
 
-| Story count | Browsers | Viewports | Stories w/ changes | Snapshots | TurboSnaps | Billed snapshots |
-| ----------- | -------- | --------- | ------------------ | --------- | ---------- | ---------------- |
-| 50 stories  | 1        | 1         | 50                 | 50        | 0          | 50               |
-| 50 stories  | 1        | 1         | 10                 | 10        | 40         | 18               |
-| 50 stories  | 2        | 1         | 50                 | 100       | 0          | 100              |
-| 50 stories  | 2        | 1         | 10                 | 20        | 80         | 36               |
-| 50 stories  | 2        | 2         | 10                 | 40        | 160        | 72               |
+If you're running both accessibility and visual tests for a story—with no associated code changes—you'll only be charged one TurboSnap for that story.
+
+Refer to the examples below or jump to the [snapshot calculator](/docs/billing#snapshot-calculator) to estimate your usage.
+
+| Test count | Browsers | Viewports | Tests w/ changes | Snapshots | TurboSnaps | Billed snapshots |
+| ---------- | -------- | --------- | ---------------- | --------- | ---------- | ---------------- |
+| 50         | 1        | 1         | 50               | 50        | 0          | 50               |
+| 50         | 1        | 1         | 10               | 10        | 40         | 18               |
+| 50         | 2        | 1         | 50               | 100       | 0          | 100              |
+| 50         | 2        | 1         | 10               | 20        | 80         | 36               |
+| 50         | 2        | 2         | 10               | 40        | 160        | 72               |
 
 Note: your [billing page](/docs/billing#view-current-months-usage) will include a breakdown of regular snapshots vs TurboSnaps.
+
+### Snapshot calculator
+
+<SnapshotCalculator client:load />
 
 ### How we count snapshots
 
@@ -121,28 +133,24 @@ The CSV file provides a granular breakdown of usage and includes the following c
   <dt>Date</dt>
   <dd>Creation date and time of the build (ISO 8601)</dd>
 
-  <dt>App ID</dt>
-  <dd>Unique Chromatic project identifier</dd>
+<dt>App ID</dt>
+<dd>Unique Chromatic project identifier</dd>
 
-  <dt>Build ID</dt>
-  <dd>Unique Chromatic build identifier</dd>
+<dt>Build ID</dt>
+<dd>Unique Chromatic build identifier</dd>
 
   <dt>Repository slug</dt>
   <dd>
-
-Owner and name of the Git repository linked to the project (`<ownerName>:<repoName>`)
-
+    Owner and name of the Git repository linked to the project (`<ownerName>:<repoName>`)
   </dd>
 
   <dt>Branch name</dt>
   <dd>
-
-Git branch name for which the build was created, prefixed with `<ownerName>:` if the build originates from a fork
-
+    Git branch name for which the build was created, prefixed with `<ownerName>:` if the build originates from a fork
   </dd>
 
-  <dt>Build number</dt>
-  <dd>The incremental number for this build</dd>
+<dt>Build number</dt>
+<dd>The incremental number for this build</dd>
 
   <dt>TurboSnaps</dt>
   <dd>
@@ -158,17 +166,17 @@ Explains why a TurboSnap triggered a full rebuild. For more details, check out t
 
   </dd>
 
-  <dt>Chrome snapshots</dt>
-  <dd>Number of billed snapshots captured in Chrome</dd>
+<dt>Chrome snapshots</dt>
+<dd>Number of billed snapshots captured in Chrome</dd>
 
-  <dt>Firefox snapshots</dt>
-  <dd>Number of billed snapshots captured in Firefox</dd>
+<dt>Firefox snapshots</dt>
+<dd>Number of billed snapshots captured in Firefox</dd>
 
-  <dt>Safari snapshots</dt>
-  <dd>Number of billed snapshots captured in Safari</dd>
+<dt>Safari snapshots</dt>
+<dd>Number of billed snapshots captured in Safari</dd>
 
-  <dt>Edge snapshots</dt>
-  <dd>Number of billed snapshots captured in Edge</dd>
+<dt>Edge snapshots</dt>
+<dd>Number of billed snapshots captured in Edge</dd>
 
   <dt>Internet Explorer snapshots</dt>
   <dd>Phased out in 2023. Number of billed snapshots captured in Internet Explorer.</dd>

@@ -3,6 +3,7 @@ import { transformNavGroups, flattenGroups } from "./transform-nav-groups";
 
 const overview = await getCollection("overview");
 const visualTests = await getCollection("visualTests");
+const accessibilityTests = await getCollection("accessibilityTests");
 const interactionTests = await getCollection("interactionTests");
 const playwright = await getCollection("playwright");
 const cypress = await getCollection("cypress");
@@ -36,6 +37,11 @@ const rawNavGroups = [
       },
       ...visualTests,
     ],
+    defaultOpen: false,
+  },
+  {
+    title: "Accessibility Tests",
+    items: accessibilityTests,
     defaultOpen: false,
   },
   {

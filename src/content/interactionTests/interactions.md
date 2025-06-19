@@ -5,7 +5,7 @@ description: Learn how interaction testing works with Chromatic
 sidebar: { order: 1 }
 ---
 
-# Interaction tests
+# Interaction testing with Chromatic
 
 Interaction tests enable you to verify how a component responds to user behaviors like click, type, keyboard, and hover. It's powered by Storybook's [`play`](https://storybook.js.org/docs/writing-stories/play-function) function.
 
