@@ -7,50 +7,10 @@ import {
   minSm,
   fontWeight,
   Stat,
+  typography,
+  fontFamily,
 } from "@chromatic-com/tetra";
-
-export function calculateSnapshots(
-  tests: number,
-  builds: number,
-  browsers: number,
-  viewports: number,
-  accessibility: boolean,
-  turboSnapEnabled: boolean,
-  changedTests: number = 0,
-): {
-  snapshots: number;
-  turboSnaps: number;
-  billedSnapshots: number;
-} {
-  const baseSnapshots = tests * builds * browsers * viewports;
-  const accessibilitySnapshots = accessibility ? baseSnapshots : 0;
-  const totalSnapshots = baseSnapshots + accessibilitySnapshots;
-
-  if (!turboSnapEnabled) {
-    return {
-      snapshots: totalSnapshots,
-      turboSnaps: 0,
-      billedSnapshots: totalSnapshots,
-    };
-  }
-
-  const unchangedTests = tests - changedTests;
-
-  const regularSnapshots = changedTests * builds * browsers * viewports;
-  const regularA11ySnapshots = accessibility ? regularSnapshots : 0;
-  const totalRegularSnapshots = regularSnapshots + regularA11ySnapshots;
-
-  const turboSnaps = unchangedTests * builds * browsers * viewports;
-
-  // Total billed snapshots is the sum of regular and turbo snapshots
-  const billedSnapshots = totalRegularSnapshots + 0.2 * turboSnaps;
-
-  return {
-    snapshots: totalRegularSnapshots,
-    turboSnaps,
-    billedSnapshots: Math.round(billedSnapshots),
-  };
-}
+import { calculateSnapshots } from "./calculateSnapshots";
 
 const Container = styled.div`
   padding: ${spacing[4]};
@@ -79,6 +39,9 @@ const Field = styled.div`
     min-width: auto;
     border: 1px solid ${color.blackTr10};
     border-radius: 4px;
+  }
+
+  input[type="number"] {
     padding: ${spacing[1]};
   }
 `;
@@ -87,6 +50,24 @@ const Checkbox = styled.div`
   display: flex;
   align-items: center;
   gap: ${spacing[2]};
+
+  label {
+    font-weight: ${fontWeight.bold};
+  }
+`;
+
+const Fieldset = styled(VStack)`
+  border: 0;
+  padding-top: 0;
+  padding-bottom: 0;
+  border-top: 1px solid ${color.blackTr10};
+  margin-left: -${spacing[4]};
+  margin-right: -${spacing[4]};
+`.withComponent("fieldset");
+
+const Legend = styled.legend`
+  ${typography.heading16}
+  margin-bottom: ${spacing[2]};
 `;
 
 const InfoStat = styled(Stat)`
@@ -111,6 +92,29 @@ const Result = styled.div`
 
   > * {
     flex: 1;
+  }
+`;
+
+const Formula = styled.div`
+  ${typography.body14}
+  font-size: 12px;
+  font-family: ${fontFamily.mono};
+  color: ${color.slate600};
+  display: flex;
+  align-items: center;
+  gap: ${spacing[2]};
+  border-top: 1px solid ${color.blackTr10};
+  padding: ${spacing[6]} ${spacing[4]};
+  margin-top: ${spacing[4]};
+  margin-left: -${spacing[4]};
+  margin-right: -${spacing[4]};
+
+  code {
+    display: block;
+    background: unset;
+    padding: 0;
+    border: none;
+    font-size: inherit;
   }
 `;
 
@@ -187,44 +191,65 @@ export const SnapshotCalculator = () => {
             min="1"
           />
         </Field>
+        <Checkbox>
+          <input
+            id="sc-accessibility"
+            type="checkbox"
+            checked={accessibility}
+            onChange={(e) => setAccessibility(e.target.checked)}
+          />
+          <label htmlFor="sc-accessibility">Accessibility tests</label>
+        </Checkbox>
 
-        <VStack gap={1}>
+        <Fieldset marginTop={2} gap={2}>
+          <Legend>TurboSnap</Legend>
           <Checkbox>
             <input
-              id="sc-accessibility"
+              id="sc-turboSnap"
               type="checkbox"
-              checked={accessibility}
-              onChange={(e) => setAccessibility(e.target.checked)}
+              checked={turboSnap}
+              onChange={(e) => setTurboSnap(e.target.checked)}
             />
-            <label htmlFor="sc-accessibility">Accessibility tests</label>
+            <label htmlFor="sc-turboSnap">Enabled</label>
           </Checkbox>
-          <VStack gap={2}>
-            <Checkbox>
-              <input
-                id="sc-turboSnap"
-                type="checkbox"
-                checked={turboSnap}
-                onChange={(e) => setTurboSnap(e.target.checked)}
-              />
-              <label htmlFor="sc-turboSnap">TurboSnap</label>
-            </Checkbox>
-            {turboSnap && (
+          {turboSnap && (
+            <>
               <Field>
                 <label htmlFor="sc-test-changed">Tests with changes</label>
                 <input
+                  id="sc-test-changed"
+                  type="range"
+                  value={changedTests}
+                  onChange={(e) => setChangedTests(Number(e.target.value))}
+                  step="1"
+                  min="0"
+                  max={tests}
+                />
+                {/* <input
                   id="sc-test-changed"
                   type="number"
                   value={changedTests}
                   onChange={(e) => setChangedTests(Number(e.target.value))}
                   min="0"
                   max={tests}
-                />
+                /> */}
               </Field>
-            )}
-          </VStack>
-        </VStack>
+            </>
+          )}
+        </Fieldset>
       </VStack>
 
+      <Formula>
+        <VStack gap={4}>
+          <code>
+            Snapshots ={" "}
+            {accessibility
+              ? "(Tests x Builds x Browsers x Viewports) x 2"
+              : "Tests x Builds x Browsers x Viewports"}
+          </code>
+          {turboSnap && <code>TurboSnaps = Tests - Tests with changes</code>}
+        </VStack>
+      </Formula>
       <Result>
         <InfoStat
           unit={`${toPlural(results.snapshots, "Snapshot")} taken`}

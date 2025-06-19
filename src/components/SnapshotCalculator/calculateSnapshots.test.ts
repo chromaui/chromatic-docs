@@ -1,5 +1,5 @@
 import { expect, test, describe } from "vitest";
-import { calculateSnapshots } from "./SnapshotCalculator";
+import { calculateSnapshots } from "./calculateSnapshots";
 
 const examples = [
   {
