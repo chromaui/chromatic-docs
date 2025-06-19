@@ -8,15 +8,16 @@ import {
   fontWeight,
   Stat,
   typography,
+  Accordion,
   fontFamily,
 } from "@chromatic-com/tetra";
 import { calculateSnapshots } from "./calculateSnapshots";
 
 const Container = styled.div`
   padding: ${spacing[4]};
-  border-radius: 4px;
-  margin-bottom: 1.5em;
+  border-radius: 4px 4px 0 0;
   border: 1px solid ${color.blackTr10};
+  border-bottom: 0;
 `;
 
 const Field = styled.div`
@@ -95,26 +96,28 @@ const Result = styled.div`
   }
 `;
 
-const Formula = styled.div`
-  ${typography.body14}
-  font-size: 12px;
-  font-family: ${fontFamily.mono};
-  color: ${color.slate600};
-  display: flex;
-  align-items: center;
-  gap: ${spacing[2]};
-  border-top: 1px solid ${color.blackTr10};
-  padding: ${spacing[6]} ${spacing[4]};
-  margin-top: ${spacing[4]};
-  margin-left: -${spacing[4]};
-  margin-right: -${spacing[4]};
+const Formulas = styled(Accordion)`
+  margin-bottom: 1.5em;
 
-  code {
+  .accordion-item {
+    border-top-right-radius: 0 !important;
+    border-top-left-radius: 0 !important;
+  }
+
+  && code {
+    font-size: 12px;
+    line-height: 1.5;
+    font-family: ${fontFamily.mono};
+    color: ${color.slate600};
     display: block;
     background: unset;
     padding: 0;
     border: none;
-    font-size: inherit;
+  }
+
+  hr {
+    margin: ${spacing[1]} 0;
+    border-top-style: dashed;
   }
 `;
 
@@ -130,10 +133,10 @@ export const SnapshotCalculator = () => {
   useEffect(() => {
     // Reset changed tests when turboSnap is disabled
     if (!turboSnap) {
-      setChangedTests(0);
+      setChangedTests(tests);
     } else {
       // Start with all tests changed if turboSnap is enabled
-      setChangedTests(tests);
+      setChangedTests(Math.floor(tests / 2));
     }
   }, [turboSnap, setChangedTests]);
 
@@ -148,131 +151,157 @@ export const SnapshotCalculator = () => {
   );
 
   return (
-    <Container>
-      <VStack gap={4} marginBottom={4}>
-        <Field>
-          <label htmlFor="sc-tests">Number of tests</label>
-          <input
-            id="sc-tests"
-            type="number"
-            value={tests}
-            onChange={(e) => setTests(Number(e.target.value))}
-            min="1"
-          />
-        </Field>
-        <Field>
-          <label htmlFor="sc-builds">Builds</label>
-          <input
-            id="sc-builds"
-            type="number"
-            value={builds}
-            onChange={(e) => setBuilds(Number(e.target.value))}
-            min="1"
-          />
-        </Field>
-        <Field>
-          <label htmlFor="sc-browsers">Browsers</label>
-          <input
-            id="sc-browsers"
-            type="number"
-            value={browsers}
-            onChange={(e) => setBrowsers(Number(e.target.value))}
-            min="1"
-            max="4"
-          />
-        </Field>
-        <Field>
-          <label htmlFor="sc-viewports">Viewports</label>
-          <input
-            id="sc-viewports"
-            type="number"
-            value={viewports}
-            onChange={(e) => setViewports(Number(e.target.value))}
-            min="1"
-          />
-        </Field>
-        <Checkbox>
-          <input
-            id="sc-accessibility"
-            type="checkbox"
-            checked={accessibility}
-            onChange={(e) => setAccessibility(e.target.checked)}
-          />
-          <label htmlFor="sc-accessibility">Accessibility tests</label>
-        </Checkbox>
-
-        <Fieldset marginTop={2} gap={2}>
-          <Legend>TurboSnap</Legend>
+    <>
+      <Container>
+        <VStack gap={4} marginBottom={4}>
+          <Field>
+            <label htmlFor="sc-tests">Test count</label>
+            <input
+              id="sc-tests"
+              type="number"
+              value={tests}
+              onChange={(e) => setTests(Number(e.target.valueAsNumber))}
+              min="1"
+            />
+          </Field>
+          <Field>
+            <label htmlFor="sc-builds">Builds</label>
+            <input
+              id="sc-builds"
+              type="number"
+              value={builds}
+              onChange={(e) => setBuilds(Number(e.target.valueAsNumber))}
+              min="1"
+            />
+          </Field>
+          <Field>
+            <label htmlFor="sc-browsers">Browsers</label>
+            <input
+              id="sc-browsers"
+              type="number"
+              value={browsers}
+              onChange={(e) => setBrowsers(Number(e.target.valueAsNumber))}
+              min="1"
+              max="4"
+            />
+          </Field>
+          <Field>
+            <label htmlFor="sc-viewports">Viewports</label>
+            <input
+              id="sc-viewports"
+              type="number"
+              value={viewports}
+              onChange={(e) => setViewports(Number(e.target.valueAsNumber))}
+              min="1"
+            />
+          </Field>
           <Checkbox>
             <input
-              id="sc-turboSnap"
+              id="sc-accessibility"
               type="checkbox"
-              checked={turboSnap}
-              onChange={(e) => setTurboSnap(e.target.checked)}
+              checked={accessibility}
+              onChange={(e) => setAccessibility(e.target.checked)}
             />
-            <label htmlFor="sc-turboSnap">Enabled</label>
+            <label htmlFor="sc-accessibility">Accessibility tests</label>
           </Checkbox>
-          {turboSnap && (
-            <>
-              <Field>
-                <label htmlFor="sc-test-changed">Tests with changes</label>
-                <input
-                  id="sc-test-changed"
-                  type="range"
-                  value={changedTests}
-                  onChange={(e) => setChangedTests(Number(e.target.value))}
-                  step="1"
-                  min="0"
-                  max={tests}
-                />
-                {/* <input
-                  id="sc-test-changed"
-                  type="number"
-                  value={changedTests}
-                  onChange={(e) => setChangedTests(Number(e.target.value))}
-                  min="0"
-                  max={tests}
-                /> */}
-              </Field>
-            </>
-          )}
-        </Fieldset>
-      </VStack>
 
-      <Formula>
-        <VStack gap={4}>
-          <code>
-            Snapshots ={" "}
-            {accessibility
-              ? "(Tests x Builds x Browsers x Viewports) x 2"
-              : "Tests x Builds x Browsers x Viewports"}
-          </code>
-          {turboSnap && <code>TurboSnaps = Tests - Tests with changes</code>}
+          <Fieldset marginTop={2} gap={2}>
+            <Legend>TurboSnap</Legend>
+            <Checkbox>
+              <input
+                id="sc-turboSnap"
+                type="checkbox"
+                checked={turboSnap}
+                onChange={(e) => setTurboSnap(e.target.checked)}
+              />
+              <label htmlFor="sc-turboSnap">Enabled</label>
+            </Checkbox>
+            {turboSnap && (
+              <>
+                <Field>
+                  <label htmlFor="sc-test-changed">Tests with changes</label>
+                  <input
+                    id="sc-test-changed"
+                    type="range"
+                    value={changedTests}
+                    onChange={(e) =>
+                      setChangedTests(Number(e.target.valueAsNumber))
+                    }
+                    step="1"
+                    min="0"
+                    max={tests}
+                  />
+                  <span>{changedTests}</span>
+                </Field>
+              </>
+            )}
+          </Fieldset>
         </VStack>
-      </Formula>
-      <Result>
-        <InfoStat
-          unit={`${toPlural(results.snapshots, "Snapshot")} taken`}
-          dimension=""
-          value={results.snapshots.toLocaleString()}
-          size="large"
-        />
-        {turboSnap && (
+        <Result>
           <InfoStat
-            unit={toPlural(results.turboSnaps, "TurboSnap")}
+            unit={toPlural(results.snapshots, "Snapshot")}
             dimension=""
-            value={results.turboSnaps.toLocaleString()}
+            value={results.snapshots.toLocaleString()}
             size="large"
           />
-        )}
-        <BillingStat
-          unit={toPlural(results.billedSnapshots, "Billed snapshot")}
-          dimension=""
-          value={results.billedSnapshots.toLocaleString()}
-          size="large"
-        />
-      </Result>
-    </Container>
+          {turboSnap && (
+            <InfoStat
+              unit={toPlural(results.turboSnaps, "TurboSnap")}
+              dimension=""
+              value={results.turboSnaps.toLocaleString()}
+              size="large"
+            />
+          )}
+          <BillingStat
+            unit={toPlural(results.billedSnapshots, "Billed snapshot")}
+            dimension=""
+            value={results.billedSnapshots.toLocaleString()}
+            size="large"
+          />
+        </Result>
+      </Container>
+      <Formulas>
+        <Accordion.Item className="formula-item">
+          <Accordion.Trigger>How are these calculated?</Accordion.Trigger>
+          <Accordion.Panel>
+            <VStack gap={4} marginTop={2} className="formula-inner">
+              {accessibility ? (
+                <>
+                  <code>
+                    Visual Snapshots = Tests x Builds x Browsers x Viewports
+                  </code>
+                  <code>
+                    Accessibility Snapshots = Tests x Builds x Viewports
+                  </code>
+                  <hr />
+                  <code>
+                    Snapshots = Visual Snapshots + Accessibility Snapshots
+                  </code>
+                </>
+              ) : (
+                <>
+                  <code>
+                    Snapshots = (Tests x Builds x Browsers x Viewports)
+                  </code>
+                </>
+              )}
+              <hr />
+              {turboSnap ? (
+                <>
+                  <code>TurboSnaps = Tests - Tests with changes</code>
+                  <hr />
+                  <code>Billed Snapshots = Snapshots + 0.2 * TurboSnaps</code>
+                </>
+              ) : (
+                <>
+                  <code>Billed Snapshots = Snapshots</code>
+                </>
+              )}
+            </VStack>
+          </Accordion.Panel>
+        </Accordion.Item>
+      </Formulas>
+    </>
   );
 };
 

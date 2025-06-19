@@ -110,9 +110,9 @@ describe("calculateSnapshots", () => {
       expect(
         calculateSnapshots(tests, builds, browsers, viewports, true, false),
       ).toEqual({
-        snapshots: snapshots * 2,
+        snapshots: snapshots + tests * builds * viewports,
         turboSnaps: 0,
-        billedSnapshots: snapshots * 2,
+        billedSnapshots: snapshots + tests * builds * viewports,
       });
     });
   });
@@ -150,8 +150,8 @@ describe("calculateSnapshots", () => {
 
   test("Calculates snapshots with TurboSnap enabled", () => {
     expect(calculateSnapshots(50, 1, 2, 2, true, true, 10)).toEqual({
-      billedSnapshots: 112,
-      snapshots: 80,
+      billedSnapshots: 92,
+      snapshots: 60,
       turboSnaps: 160,
     });
   });

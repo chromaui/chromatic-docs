@@ -11,8 +11,17 @@ export function calculateSnapshots(
   turboSnaps: number;
   billedSnapshots: number;
 } {
+  // Validate inputs
+  if (isNaN(tests) || isNaN(builds) || isNaN(browsers) || isNaN(viewports)) {
+    return {
+      snapshots: 0,
+      turboSnaps: 0,
+      billedSnapshots: 0,
+    };
+  }
+
   const baseSnapshots = tests * builds * browsers * viewports;
-  const accessibilitySnapshots = accessibility ? baseSnapshots : 0;
+  const accessibilitySnapshots = accessibility ? tests * builds * viewports : 0;
   const totalSnapshots = baseSnapshots + accessibilitySnapshots;
 
   if (!turboSnapEnabled) {
@@ -26,7 +35,9 @@ export function calculateSnapshots(
   const unchangedTests = tests - changedTests;
 
   const regularSnapshots = changedTests * builds * browsers * viewports;
-  const regularA11ySnapshots = accessibility ? regularSnapshots : 0;
+  const regularA11ySnapshots = accessibility
+    ? changedTests * builds * viewports
+    : 0;
   const totalRegularSnapshots = regularSnapshots + regularA11ySnapshots;
 
   const turboSnaps = unchangedTests * builds * browsers * viewports;
