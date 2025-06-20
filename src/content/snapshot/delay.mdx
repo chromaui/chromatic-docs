@@ -34,17 +34,17 @@ Chromatic has a multistage timeout for capturing a snapshot: 15 seconds to rende
 
   import { Categories } from "./Categories";
 
-  const meta: Meta<typeof Categories> = {
+  const meta = {
     component: Categories,
     title: "Categories",
     parameters: {
       // Sets the delay (in milliseconds) at the component level for all stories.
       chromatic: { delay: 300 },
     },
-  };
+  } satisfies Meta<typeof Categories>;
 
   export default meta;
-  type Story = StoryObj<typeof Categories>;
+  type Story = StoryObj<typeof meta>;
 
   export const Default: Story = {
     play: async ({ canvasElement }) => {
@@ -110,13 +110,13 @@ If you need additional control when Chromatic captures a snapshot, you can adjus
 
   import { Categories } from "./Categories";
 
-  const meta: Meta<typeof Categories> = {
+  const meta = {
     component: Categories,
     title: "Categories",
-  };
+  } satisfies Meta<typeof Categories>;
 
   export default meta;
-  type Story = StoryObj<typeof Categories>;
+  type Story = StoryObj<typeof meta>;
 
   export const Default: Story = {
     play: async ({ canvasElement }) => {

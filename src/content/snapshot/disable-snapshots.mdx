@@ -20,19 +20,20 @@ If you're running tests with Storybook, you can enable the `disableSnapshot` opt
 ```ts title="src/components/NotFound.stories.ts|tsx"
 // Adjust this import to match your framework (e.g., nextjs, vue3-vite)
 import type { Meta, StoryObj } from "@storybook/your-framework";
+
 import { NotFound } from "./NotFound";
 
-const meta: Meta<typeof NotFound> = {
+const meta = {
   component: NotFound,
   title: "NotFound",
   parameters: {
     // Disables Chromatic's snapshotting on a component level
     chromatic: { disableSnapshot: true },
   },
-};
+} satisfies Meta<typeof NotFound>;
 
 export default meta;
-type Story = StoryObj<typeof NotFound>;
+type Story = StoryObj<typeof meta>;
 
 export const Default: Story = {};
 ```

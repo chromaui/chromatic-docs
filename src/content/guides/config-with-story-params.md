@@ -15,20 +15,18 @@ This guide will show you how to configure Chromatic features like [`diffThreshol
 
 Parameters specified at the story level apply to that story only. They are defined in the parameters property of the story (named export):
 
-```ts
-// Button.stories.ts|tsx
-
+```ts title="Button.stories.ts|tsx"
 // Replace your-framework with the framework you are using (e.g., nextjs, vue3-vite)
 import type { Meta, StoryObj } from "@storybook/your-framework";
 
-import { Button } from "./button.component";
+import { Button } from "./Button";
 
-const meta: Meta<typeof Button> = {
+const meta = {
   component: Button,
-};
+} satisfies Meta<typeof Button>;
 
 export default meta;
-type Story = StoryObj<typeof Button>;
+type Story = StoryObj<typeof meta>;
 
 export const Primary: Story = {
   args: {
@@ -45,24 +43,22 @@ export const Primary: Story = {
 
 Parameters specified in a CSF file's meta configuration apply to all stories in that file. They are defined in the parameters property of the meta (default export):
 
-```ts
-// Button.stories.ts|tsx
-
+```ts title="Button.stories.ts|tsx"
 // Replace your-framework with the framework you are using (e.g., nextjs, vue3-vite)
 import type { Meta, StoryObj } from "@storybook/your-framework";
 
-import { Button } from "./button.component";
+import { Button } from "./Button";
 
-const meta: Meta<typeof Button> = {
+const meta = {
   component: Button,
   parameters: {
     // Sets the diffThreshold for 0.2 for all stories in this file
     chromatic: { diffThreshold: 0.2 },
   },
-};
+} satisfies Meta<typeof Button>;
 
 export default meta;
-type Story = StoryObj<typeof Button>;
+type Story = StoryObj<typeof meta>;
 
 export const Primary: Story = {
   args: {
@@ -82,8 +78,8 @@ export const Secondary: Story = {
 Parameters specified at the project (global) level apply to all stories in your Storybook. They are defined in the parameters property of the default export in your `.storybook/preview.js|ts` file:
 
 ```ts
-// Replace your-renderer with the renderer you are using (e.g., react, vue3)
-import { Preview } from "@storybook/your-renderer";
+// Replace your-framework with the framework you are using (e.g., react-vite, vue3-vite) if you're using Storybook 9, or with the appropriate renderer otherwise.
+import { Preview } from "@storybook/your-framework";
 
 const preview: Preview = {
   parameters: {

@@ -61,17 +61,17 @@ You can specify a list of CSS selectors with the `ignoreSelectors` option to ign
 
     import { Product } from "./Product";
 
-    const meta: Meta<typeof Product> = {
+    const meta = {
       component: Product,
       title: "Product",
       parameters: {
         // Ignores the diff for elements targeted by the specified list of selectors
         chromatic: { ignoreSelectors: ['.product-price'] },
       },
-    };
+    } satisfies Meta<typeof Product>;
 
     export default meta;
-    type Story = StoryObj<typeof Product>;
+    type Story = StoryObj<typeof meta>;
 
     export const Default: Story = {
       play: async ({ canvasElement }) => {

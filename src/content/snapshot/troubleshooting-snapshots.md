@@ -189,12 +189,13 @@ When Chromatic takes a screenshot for an element that has a viewport-relative he
 
 To set the height, you can add a decorator for stories that wraps them in a container with a fixed height:
 
-```js
-// MyComponent.stories.js|jsx
+```ts title="MyComponent.stories.js|jsx"
+// Adjust this import to match your framework (e.g., nextjs, vue3-vite)
+import type { Meta, StoryObj } from "@storybook/your-framework";
 
 import { MyComponent } from "./MyComponent";
 
-export default {
+const meta = {
   component: MyComponent,
   title: "Example Story",
   decorators: [
@@ -204,7 +205,7 @@ export default {
       </div>
     ),
   ],
-};
+} satisfies Meta<typeof MyComponent>;
 ```
 
 </details>

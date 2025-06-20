@@ -11,7 +11,7 @@ The `isChromatic` method allows you to control how your Storybook tests run in t
 
 <div class="aside">
 
-ℹ️  The `isChromatic` helper function is specific to Storybook tests. If you need to control what code is executed in your Playwright or Cypress tests, you can use environment variables or other mechanisms provided by those tools to achieve similar results.
+ℹ️ The `isChromatic` helper function is specific to Storybook tests. If you need to control what code is executed in your Playwright or Cypress tests, you can use environment variables or other mechanisms provided by those tools to achieve similar results.
 
 </div>
 
@@ -44,13 +44,13 @@ import isChromatic from "chromatic/isChromatic";
 
 import { MyComponent } from "./MyComponent";
 
-const meta: Meta<typeof MyComponent> = {
+const meta = {
   component: MyComponent,
   title: "MyComponent",
-};
+} satisfies Meta<typeof MyComponent>;
 
 export default meta;
-type Story = StoryObj<typeof MyComponent>;
+type Story = StoryObj<typeof meta>;
 
 export const Default: Story = {
   args: {
@@ -67,7 +67,7 @@ If you're running Storybook tests with version 7.6 or higher, you can also use t
 {
   "scripts": {
     "chromatic": "IS_CHROMATIC=true chromatic"
- }
+  }
 }
 ```
 
@@ -79,13 +79,13 @@ import type { Meta, StoryObj } from "@storybook/your-framework";
 
 import { MyComponent } from "./MyComponent";
 
-const meta: Meta<typeof MyComponent> = {
+const meta = {
   component: MyComponent,
   title: "MyComponent",
-};
+} satisfies Meta<typeof Button>;
 
 export default meta;
-type Story = StoryObj<typeof MyComponent>;
+type Story = StoryObj<typeof meta>;
 
 export const Default: Story = {
   args: {
@@ -106,7 +106,6 @@ Under specific circumstances, your components may require different behavior whe
 
 <div class="aside">
 
- 💡 If you're attempting to make code-specific changes in your project with `isChromatic`, the Chromatic package must be installed as a dependency instead of a development dependency.
+💡 If you're attempting to make code-specific changes in your project with `isChromatic`, the Chromatic package must be installed as a dependency instead of a development dependency.
 
 </div>
-

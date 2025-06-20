@@ -24,21 +24,21 @@ Add a [`play`](https://storybook.js.org/docs/writing-stories/play-function) func
 import type { Meta, StoryObj } from "@storybook/your-framework";
 
 /*
- * Replace the @storybook/test package with the following if you are using a version of Storybook earlier than 8.0:
+ * Replace storybook/test package with the following if you are using a version of Storybook earlier than 8.0:
  * import { userEvent } from "@storybook/testing-library";
  * import { expect } from "@storybook/jest";
  */
-import { userEvent, expect } from "@storybook/test";
+import { userEvent, expect } from "storybook/test";
 
 import { RangeSlider } from "./RangeSlider";
 
-const meta: Meta<typeof RangeSlider> = {
+const meta = {
   component: RangeSlider,
   title: "Library/Charts/RangeSlider",
-};
+} satisfies Meta<typeof RangeSlider>;
 
 export default meta;
-type Story = StoryObj<typeof RangeSlider>;
+type Story = StoryObj<typeof meta>;
 
 export const InputRange: Story = {
   play: async ({ canvas }) => {
@@ -74,24 +74,30 @@ Similarly to `args`, `play()` functions can be [composed](https://storybook.j
 
 There is an important caveat to remember when invoking a `play()` function from another story: it is necessary to pass the _full context_ as an argument to the `play()` function. The below code uses the correct code for this rule, with `canvasContext` being used as context.
 
-```jsx title="MyComponent.stories.jsx|tsx"
+```jsx title="MyComponent.stories.ts|tsx"
+// Adjust this import to match your framework (e.g., nextjs, vue3-vite)
+import type { Meta, StoryObj } from "@storybook/your-framework";
+
 import { MyComponent } from "./MyComponent";
-import { userEvent, waitFor, screen } from "@storybook/testing-library";
+import { screen, userEvent, waitFo  } from "@storybook/testing-library";
 import { expect } from "@storybook/jest";
 
-export default {
+const meta = {
   component: MyComponent,
   title: "My Component",
-};
+} satisfies Meta<typeof MyComponent>;
 
-export const FirstStory = {
+export default meta;
+type Story = StoryObj<typeof meta>;
+
+export const FirstStory: Story = {
   play: async ({ canvas }) => {
     const dropdownButton = canvas.getByRole("button");
     await userEvent.click(dropdownButton);
   },
 };
 
-export const SecondStory = {
+export const SecondStory: Story = {
   play: async (canvasContext) => {
     const canvas = canvas;
     //  👇 Pass the full context as an argument to the play function:
@@ -102,7 +108,7 @@ export const SecondStory = {
   },
 };
 
-export const ThirdStory = {
+export const ThirdStory: Story = {
   play: async (canvasContext) => {
     //  👇 SecondStory.play will execute the play functions from FirstStory.play since this is part of the SecondStory.play function:
     await SecondStory.play(canvasContext);

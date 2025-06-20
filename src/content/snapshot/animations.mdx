@@ -34,17 +34,17 @@ By default, CSS animations are paused at the end of their animation cycle (i.e.,
 
     import { Product } from "./Product";
 
-    const meta: Meta<typeof Product> = {
+    const meta = {
       component: Product,
       title: "Product",
       parameters: {
         // Overrides the default behavior and pauses the animation at the first frame at the component level for all stories.
         chromatic: { pauseAnimationAtEnd: false },
       },
-    };
+    } satisfies Meta<typeof Product>;
 
     export default meta;
-    type Story = StoryObj<typeof Product>;
+    type Story = StoryObj<typeof meta>;
 
     export const Default: Story = {
       play: async ({ canvasElement }) => {
@@ -228,13 +228,13 @@ import { expect, within, waitFor } from "@storybook/test";
 
 import { Button } from "./Button";
 
-const meta: Meta<typeof Button> = {
+const meta = {
   component: Button,
   title: "Button",
-};
+} satisfies Meta<typeof Button>;
 
 export default meta;
-type Story = StoryObj<typeof Button>;
+type Story = StoryObj<typeof meta>;
 
 export const Default: Story = {
   play: async ({ canvasElement }) => {

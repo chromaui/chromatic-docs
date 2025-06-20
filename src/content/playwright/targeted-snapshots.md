@@ -12,7 +12,7 @@ By default, Chromatic takes a snapshot at the end of every Playwright test, whet
 
 `takeSnapshot` is especially useful for capturing a snapshot of your UI’s appearance when your UI reaches a specific state mid-test:
 
-```js
+```js title="tests/Example.spec.js|ts"
 import { test, expect, takeSnapshot } from "@chromatic-com/playwright";
 
 // 👇 Add testInfo parameter

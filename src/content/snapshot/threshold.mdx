@@ -36,17 +36,17 @@ If you need to customize how Chromatic identifies visual changes in your UI, add
 
     import { UserAccount } from "./UserAccount";
 
-    const meta: Meta<typeof UserAccount> = {
+    const meta = {
       component: UserAccount,
       title: "UserAccount",
       parameters: {
         // Sets the threshold for 0.2 at the component level for all stories.
         chromatic: { diffThreshold: 0.2 },
       },
-    };
+    } satisfies Meta<typeof UserAccount>;
 
     export default meta;
-    type Story = StoryObj<typeof UserAccount>;
+    type Story = StoryObj<typeof meta>;
 
     export const Default: Story = {
       play: async ({ canvasElement }) => {
@@ -116,17 +116,17 @@ To enable this feature and allow Chromatic to automatically detect anti-aliased 
 
     import { UserAccount } from "./UserAccount";
 
-    const meta: Meta<typeof UserAccount> = {
+    const meta = {
       component: UserAccount,
       title: "UserAccount",
       parameters: {
         // Configures the component to include anti-aliasing in the diff calculation.
         chromatic: { diffIncludeAntiAliasing: true },
       },
-    };
+    } satisfies Meta<typeof UserAccount>;
 
     export default meta;
-    type Story = StoryObj<typeof UserAccount>;
+    type Story = StoryObj<typeof meta>;
 
     export const Default: Story = {
       play: async ({ canvasElement }) => {
