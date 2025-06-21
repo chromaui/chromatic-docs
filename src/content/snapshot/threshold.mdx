@@ -28,11 +28,10 @@ If you need to customize how Chromatic identifies visual changes in your UI, add
     import type { Meta, StoryObj } from "@storybook/your-framework";
 
     /*
-     * Replace the @storybook/test package with the following if you are using a version of Storybook earlier than 8.0:
-     * import { within } from "@storybook/testing-library";
-     * import { expect } from "@storybook/jest";
+     * Replace the storybook/test import with `@storybook/test` and adjust the stories accordingly if you're not using Storybook 9.0.
+     * Refer to the Storybook documentation for the correct package and imports for earlier versions.
     */
-    import { expect, within } from "@storybook/test";
+    import { expect } from "storybook/test";
 
     import { UserAccount } from "./UserAccount";
 
@@ -49,8 +48,7 @@ If you need to customize how Chromatic identifies visual changes in your UI, add
     type Story = StoryObj<typeof meta>;
 
     export const Default: Story = {
-      play: async ({ canvasElement }) => {
-        const canvas = within(canvasElement);
+      play: async ({ canvas }) => {
         await expect(canvas.getByText("Welcome, username")).toBeInTheDocument();
       },
     };
@@ -108,11 +106,10 @@ To enable this feature and allow Chromatic to automatically detect anti-aliased 
     import type { Meta, StoryObj } from "@storybook/your-framework";
 
     /*
-     * Replace the @storybook/test package with the following if you are using a version of Storybook earlier than 8.0:
-     * import { within } from "@storybook/testing-library";
-     * import { expect } from "@storybook/jest";
+     * Replace the storybook/test import with `@storybook/test` and adjust the stories accordingly if you're not using Storybook 9.0.
+     * Refer to the Storybook documentation for the correct package and imports for earlier versions.
     */
-    import { expect, within } from "@storybook/test";
+    import { expect } from "storybook/test";
 
     import { UserAccount } from "./UserAccount";
 
@@ -129,8 +126,7 @@ To enable this feature and allow Chromatic to automatically detect anti-aliased 
     type Story = StoryObj<typeof meta>;
 
     export const Default: Story = {
-      play: async ({ canvasElement }) => {
-        const canvas = within(canvasElement);
+      play: async ({ canvas }) => {
         await expect(canvas.getByText("Welcome, username")).toBeInTheDocument();
       },
     };

@@ -26,10 +26,10 @@ The [`forced-colors`](https://developer.mozilla.org/en-US/docs/Web/CSS/@media/fo
     import type { Meta, StoryObj } from "@storybook/your-framework";
 
     /*
-     * Replace the @storybook/test package with the following if you are using a version of Storybook earlier than 8.0:
-     * import { userEvent, within } from "@storybook/testing-library";
+     * Replace the storybook/test import with `@storybook/test` and adjust the stories accordingly if you're not using Storybook 9.0.
+     * Refer to the Storybook documentation for the correct package and imports for earlier versions.
     */
-    import { userEvent, within } from "@storybook/test";
+    import { userEvent } from "storybook/test";
 
     import { LoginForm } from "./LoginForm";
 
@@ -46,9 +46,7 @@ The [`forced-colors`](https://developer.mozilla.org/en-US/docs/Web/CSS/@media/fo
     type Story = StoryObj<typeof meta>;
 
     export const WithForcedColors: Story = {
-      play: async ({ canvasElement }) => {
-        const canvas = within(canvasElement);
-
+      play: async ({ canvas }) => {
         await userEvent.type(canvas.getByLabelText("email"), "test@email.com");
         await userEvent.type(canvas.getByLabelText("password"), "KC@2N6^?vsV+)w1t");
         await canvas.getByRole("button", { name: "Login" }).click();
@@ -113,10 +111,10 @@ The [`prefers-reduced-motion`](https://developer.mozilla.org/en-US/docs/Web/CSS/
     import type { Meta, StoryObj } from "@storybook/your-framework";
 
     /*
-     * Replace the @storybook/test package with the following if you are using a version of Storybook earlier than 8.0:
-     * import { userEvent, within } from "@storybook/testing-library";
+     * Replace the storybook/test import with `@storybook/test` and adjust the stories accordingly if you're not using Storybook 9.0.
+     * Refer to the Storybook documentation for the correct package and imports for earlier versions.
     */
-    import { userEvent, within } from "@storybook/test";
+    import { userEvent } from "storybook/test";
 
     import { LoginForm } from "./LoginForm";
 
@@ -133,9 +131,7 @@ The [`prefers-reduced-motion`](https://developer.mozilla.org/en-US/docs/Web/CSS/
     type Story = StoryObj<typeof meta>;
 
     export const WithReducedMotion: Story = {
-      play: async ({ canvasElement }) => {
-        const canvas = within(canvasElement);
-
+      play: async ({ canvas }) => {
         await userEvent.type(canvas.getByLabelText("email"), "test@email.com");
         await userEvent.type(canvas.getByLabelText("password"), "KC@2N6^?vsV+)w1t");
         await canvas.getByRole('button', { name: "Login" }).click();

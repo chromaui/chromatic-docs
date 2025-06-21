@@ -77,9 +77,9 @@ export const Secondary: Story = {
 
 Parameters specified at the project (global) level apply to all stories in your Storybook. They are defined in the parameters property of the default export in your `.storybook/preview.js|ts` file:
 
-```ts
+```ts title=".storybook/preview.ts"
 // Replace your-framework with the framework you are using (e.g., react-vite, vue3-vite) if you're using Storybook 9, or with the appropriate renderer otherwise.
-import { Preview } from "@storybook/your-framework";
+import type { Preview } from "@storybook/your-framework";
 
 const preview: Preview = {
   parameters: {

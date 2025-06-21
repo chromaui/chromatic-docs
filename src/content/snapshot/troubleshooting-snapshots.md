@@ -191,7 +191,7 @@ To set the height, you can add a decorator for stories that wraps them in a cont
 
 ```ts title="MyComponent.stories.js|jsx"
 // Adjust this import to match your framework (e.g., nextjs, vue3-vite)
-import type { Meta, StoryObj } from "@storybook/your-framework";
+import type { Meta } from "@storybook/your-framework";
 
 import { MyComponent } from "./MyComponent";
 

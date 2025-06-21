@@ -24,11 +24,10 @@ Add a [`play`](https://storybook.js.org/docs/writing-stories/play-function) func
 import type { Meta, StoryObj } from "@storybook/your-framework";
 
 /*
- * Replace storybook/test package with the following if you are using a version of Storybook earlier than 8.0:
- * import { userEvent } from "@storybook/testing-library";
- * import { expect } from "@storybook/jest";
+ * Replace the storybook/test import with `@storybook/test` and adjust the stories accordingly if you're not using Storybook 9.0.
+ * Refer to the Storybook documentation for the correct package and imports for earlier versions.
  */
-import { userEvent, expect } from "storybook/test";
+import { expect } from "storybook/test";
 
 import { RangeSlider } from "./RangeSlider";
 
@@ -41,7 +40,7 @@ export default meta;
 type Story = StoryObj<typeof meta>;
 
 export const InputRange: Story = {
-  play: async ({ canvas }) => {
+  play: async ({ canvas, userEvent }) => {
     // 🔢 Type into input field
     await userEvent.type(canvas.getByTestId("input-max-range"), "15");
 
@@ -72,15 +71,19 @@ Interaction tests run behind the scenes without you having to configure anything
 
 Similarly to `args`, `play()` functions can be [composed](https://storybook.js.org/docs/writing-stories/play-function#composing-stories) to reuse and reduce the amount of code being written. This can be helpful for instances where you are looking to snapshot multiple states of a longer interaction, or if you have interactions that can be reused to further compose other states of your component.
 
-There is an important caveat to remember when invoking a `play()` function from another story: it is necessary to pass the _full context_ as an argument to the `play()` function. The below code uses the correct code for this rule, with `canvasContext` being used as context.
+An important caveat to remember when invoking a `play()` function from another story is that you must pass the _full context_ as an argument to the `play()` function. The example below shows how to do this correctly.
 
-```jsx title="MyComponent.stories.ts|tsx"
+```ts title="MyComponent.stories.ts|tsx"
 // Adjust this import to match your framework (e.g., nextjs, vue3-vite)
 import type { Meta, StoryObj } from "@storybook/your-framework";
 
+/*
+ * Replace the storybook/test import with `@storybook/test` and adjust the stories accordingly if you're not using Storybook 9.0.
+ * Refer to the Storybook documentation for the correct package and imports for earlier versions.
+ */
+import { expect, screen, waitFor } from "storybook/test";
+
 import { MyComponent } from "./MyComponent";
-import { screen, userEvent, waitFo  } from "@storybook/testing-library";
-import { expect } from "@storybook/jest";
 
 const meta = {
   component: MyComponent,
@@ -91,17 +94,16 @@ export default meta;
 type Story = StoryObj<typeof meta>;
 
 export const FirstStory: Story = {
-  play: async ({ canvas }) => {
+  play: async ({ canvas, userEvent }) => {
     const dropdownButton = canvas.getByRole("button");
     await userEvent.click(dropdownButton);
   },
 };
 
 export const SecondStory: Story = {
-  play: async (canvasContext) => {
-    const canvas = canvas;
+  play: async ({ canvas, context, userEvent }) => {
     //  👇 Pass the full context as an argument to the play function:
-    await FirstStory.play(canvasContext);
+    await FirstStory.play(context);
     const findText = canvas.getByText("some text");
     await userEvent.hover(findText);
     await waitFor(() => expect(findText.focus()));
@@ -109,9 +111,9 @@ export const SecondStory: Story = {
 };
 
 export const ThirdStory: Story = {
-  play: async (canvasContext) => {
+   play: async ({ context, userEvent }) => {
     //  👇 SecondStory.play will execute the play functions from FirstStory.play since this is part of the SecondStory.play function:
-    await SecondStory.play(canvasContext);
+    await SecondStory.play(context);
     const searchbox = screen.getByRole("searchbox", { label: "Search" });
     await userEvent.type(searchbox, "text for searchbox");
   },
@@ -120,24 +122,34 @@ export const ThirdStory: Story = {
 
 Additionally, you can stack multiple `play()` functions within a story. Below is a quick pseudocode example.
 
-```jsx title="MyComponent.stories.jsx|tsx"
-import { MyComponent } from "./MyComponent";
-import { userEvent, waitFor, screen } from "@storybook/testing-library";
-import { expect } from "@storybook/jest";
+```ts title="MyComponent.stories.ts|tsx"
+// Adjust this import to match your framework (e.g., nextjs, vue3-vite)
+import type { Meta, StoryObj } from "@storybook/your-framework";
 
-export default {
+/*
+ * Replace the storybook/test import with `@storybook/test` and adjust the stories accordingly if you're not using Storybook 9.0.
+ * Refer to the Storybook documentation for the correct package and imports for earlier versions.
+ */
+import { screen } from "storybook/test";
+
+import { MyComponent } from "./MyComponent";
+
+const meta = {
   component: MyComponent,
   title: "My Component",
-};
+} satisfies Meta<typeof MyComponent>;
 
-export const FirstStory = {
-  play: async ({ canvas }) => {
+export default meta;
+type Story = StoryObj<typeof meta>;
+
+export const FirstStory: Story = {
+  play: async ({ canvas, userEvent }) => {
     await userEvent.type(canvas.getByTestId("an-element"), "some text");
   },
 };
 
-export const SecondStory = {
-  play: async ({ canvas }) => {
+export const SecondStory: Story = {
+  play: async ({ canvas, userEvent }) => {
     await userEvent.type(
       canvas.getByTestId("another-element"),
       "some more text",
@@ -145,12 +157,11 @@ export const SecondStory = {
   },
 };
 
-export const CombinedStories = {
-  play: async (canvasContext) => {
-    const canvas = canvasContext.canvas;
+export const CombinedStories: Story = {
+  play: async ({ canvas, context }) => {
     //  👇 This executes FirstStory.play and SecondStory.play before executing the story's play function:
-    await FirstStory.play(canvasContext);
-    await SecondStory.play(canvasContext);
+    await FirstStory.play(context);
+    await SecondStory.play(context);
     await userEvent.type(canvas.getByTestId("another-one"), "even more text");
   },
 };
@@ -187,7 +198,7 @@ Interaction tests are reported in the UI Tests pull request check. When a test f
 
 Interactions run as soon as the DOM loads. But external resources like web fonts can load before or after the interaction runs depending on network latency. This can cause dialogs, tooltips, and menus to change position.
 
-We recommend [preloading fonts](/docs/font-loading) to ensure they're available when the DOM renders. If preloading is not possible, try adding a [delay before running interactions](/docs/delay#use-an-assertion-to-delay-snapshot-capture).
+We recommend [preloading fonts](/docs/font-loading) to ensure they're available when the DOM renders. If preloading is not possible, try adding a [delay before running interactions](/docs/delay#use-assertions-to-delay-snapshot-capture).
 
 </details>
 
@@ -205,6 +216,6 @@ When interaction tests fail, the story will be badged with “Failed test.” Yo
 
 No, Chromatic waits for the entire play function to execute and captures a snapshot only at the end.
 
-If you need a snapshot of a specific step, we recommend breaking your story into multiple stories and using [play function composition](https://storybook.js.org/docs/writing-stories/play-function#composing-stories).
+If you need a snapshot of a specific step, we recommend breaking your story into multiple stories and using [play function composition](#composing-stories-with-the-play-function).
 
 </details>
