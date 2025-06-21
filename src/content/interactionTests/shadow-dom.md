@@ -15,7 +15,9 @@ With the help of [shadow-dom-testing-library](https://github.com/konnorrogers/sh
 Install `shadow-dom-testing-library` and then in your preview file, inject shadow-aware query methods into the `canvas` object using `beforeEach()`.
 
 ```ts title=".storybook/preview.ts"
-import type { Preview } from "@storybook/web-components";
+// Replace the @storybook/web-components-vite package with @storybook/web-components if you're not using Storybook 9.0
+import type { Preview } from "@storybook/web-components-vite";
+
 import { within as withinShadow } from "shadow-dom-testing-library";
 
 const preview: Preview = {
@@ -24,11 +26,11 @@ const preview: Preview = {
   },
 };
 
-// extend TypeScript types for safety
+// Extend TypeScript types for safety
 export type ShadowQueries = ReturnType<typeof withinShadow>;
 
 declare module "storybook/internal/csf" {
-  // since 8.6
+  // Since 8.6
   interface Canvas extends ShadowQueries {}
 }
 
@@ -41,9 +43,9 @@ This adds methods like `findByShadowRole`, `findAllByShadowRole`, etc., directly
 
 Use shadow root queries directly in your `play()` function, like so:
 
-```tsx
-const Story = {
-  async play({ canvas }) {
+```ts title="Button.stories.ts"
+const Story: Story = {
+  play: async ({ canvas, userEvent }) => {
     const button = await canvas.findByShadowRole("button", { name: /Reset/i });
     await userEvent.click(button);
   },
@@ -56,9 +58,18 @@ Using `shadow-dom-testing-library` provides DOM querying methods that mirror the
 
 Let's say you're testing a Web Component `<checkbox-group>` that renders shadow-root-contained checkboxes.
 
-```tsx title="CheckboxGroup.stories.tsx"
-import { Meta, StoryObj } from "@storybook/web-components";
-import { expect, userEvent } from "@storybook/test";
+```tsx title="CheckboxGroup.stories.ts"
+// Replace the @storybook/web-components-vite package with @storybook/web-components if you're not using Storybook 9.0
+import { Meta, StoryObj } from "@storybook/web-components-vite";
+
+import { html } from 'lit';
+
+/*
+ * Replace the storybook/test import with `@storybook/test` and adjust the stories accordingly if you're not using Storybook 9.0.
+ * Refer to the Storybook documentation for the correct package and imports for earlier versions.
+ */
+import { expect } from "storybook/test";
+
 import { Checkbox } from "../src/checkbox";
 import { CheckboxGroup } from "../src/checkbox-group";
 
@@ -94,7 +105,7 @@ export const Required: Story = {
       >
     </checkbox-group>
   `,
-  async play({ canvas }) {
+  play: async ({ canvas, userEvent }) => {
     const checkboxes = await canvas.findAllByShadowRole("checkbox");
     const firstCheckbox = checkboxes[0];
     await userEvent.click(firstCheckbox); // select

@@ -26,29 +26,27 @@ By default, CSS animations are paused at the end of their animation cycle (i.e.,
     import type { Meta, StoryObj } from "@storybook/your-framework";
 
     /*
-     * Replace the @storybook/test package with the following if you are using a version of Storybook earlier than 8.0:
-     * import { within } from "@storybook/testing-library";
-     * import { expect } from "@storybook/jest";
+     * Replace the storybook/test import with `@storybook/test` and adjust the stories accordingly if you're not using Storybook 9.0.
+     * Refer to the Storybook documentation for the correct package and imports for earlier versions.
     */
-    import { expect, within } from "@storybook/test";
+    import { expect } from "storybook/test";
 
     import { Product } from "./Product";
 
-    const meta: Meta<typeof Product> = {
+    const meta = {
       component: Product,
       title: "Product",
       parameters: {
         // Overrides the default behavior and pauses the animation at the first frame at the component level for all stories.
         chromatic: { pauseAnimationAtEnd: false },
       },
-    };
+    } satisfies Meta<typeof Product>;
 
     export default meta;
-    type Story = StoryObj<typeof Product>;
+    type Story = StoryObj<typeof meta>;
 
     export const Default: Story = {
-      play: async ({ canvasElement }) => {
-        const canvas = within(canvasElement);
+      play: async ({ canvas }) => {
         await expect(canvas.getByText("Product details")).toBeInTheDocument();
       },
     };
@@ -220,25 +218,23 @@ Lastly, add a `play()` function to the story file that asserts that the animatio
 import type { Meta, StoryObj } from "@storybook/your-framework";
 
 /*
- * Replace the @storybook/test package with the following if you are using a version of Storybook earlier than 8.0:
- * import { within } from "@storybook/testing-library";
- * import { expect } from "@storybook/jest";
+ * Replace the storybook/test import with `@storybook/test` and adjust the stories accordingly if you're not using Storybook 9.0.
+ * Refer to the Storybook documentation for the correct package and imports for earlier versions.
  */
-import { expect, within, waitFor } from "@storybook/test";
+import { expect, waitFor } from "storybook/test";
 
 import { Button } from "./Button";
 
-const meta: Meta<typeof Button> = {
+const meta = {
   component: Button,
   title: "Button",
-};
+} satisfies Meta<typeof Button>;
 
 export default meta;
-type Story = StoryObj<typeof Button>;
+type Story = StoryObj<typeof meta>;
 
 export const Default: Story = {
-  play: async ({ canvasElement }) => {
-    const canvas = within(canvasElement);
+  play: async ({ canvas }) => {
     await waitFor(
       async () => {
         await expect(canvas.getByTestId("animated-element")).toHaveAttribute(
@@ -263,7 +259,11 @@ export const Default: Story = {
 Additionally, you can turn this into a utility in order to reuse in other stories. If you happen to have multiple animated elements, there's some adjustments you can do to make this work. Here's an example below that both incorporates multiple animated elements and creates a utility for reuse in other stories.
 
 ```tsx title="MyComponent.stories.tsx"
-import { screen } from "@storybook/test";
+/* 
+* Replace the storybook/test import with `@storybook/test` and adjust the stories accordingly if you're not using Storybook 9.0.
+* Refer to the Storybook documentation for the correct package and imports for earlier versions.
+*/
+import { screen, waitFor } from "storybook/test";
 
 const waitForAllAnimationsToComplete = async () => {
   return waitFor(

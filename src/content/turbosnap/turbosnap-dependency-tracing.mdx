@@ -108,9 +108,10 @@ The asset object for a story file usually looks a bit different:
 
 Under "reasons," you'll notice a `moduleName` resembling a path pattern. In the full, untrimmed file, the `issuerPath`'s are `"./storybook-config-entry.js"` and `"./storybook-stories.js"`. That's because the dependency is related to this project's Storybook configuration:
 
-```js title=".storybook/main.js"
-/** @type { import('@storybook/react-webpack5').StorybookConfig } */
-const config = {
+```ts title=".storybook/main.ts"
+import type { StorybookConfig } from "@storybook/react-webpack5";
+
+const config: StorybookConfig = {
   stories: [
     {
       directory: "../",

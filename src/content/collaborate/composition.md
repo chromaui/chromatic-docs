@@ -21,12 +21,14 @@ Chromatic generates a [permalink](/docs/permalinks) for published Storybooks to 
 
 ### Setup
 
-In your local Storybook, add a `refs` key to [`.storybook/main.js`](https://storybook.js.org/docs/configure#configure-story-rendering). Paste the permalink in the `url` field.
+In your local Storybook, add a `refs` key to [`.storybook/main.js|ts`](https://storybook.js.org/docs/configure#configure-story-rendering). Paste the permalink in the `url` field.
 
-```js
-// .storybook/main.js
+```js title="storybook/main.ts"
+// Replace your-framework with the framework you are using, e.g. react-vite, nextjs, vue3-vite, etc.
+import type { StorybookConfig } from "@storybook/your-framework";
 
-const config = {
+const config: StorybookConfig = {
+  framework: '@storybook/your-framework',
   stories: ["../src/**/*.stories.@(js|jsx|ts|tsx)"],
   refs: {
     // 👇 Upper-case characters not supported in the refs key

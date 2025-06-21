@@ -24,25 +24,23 @@ If you're working with a component that relies on JavaScript to trigger hover st
     import type { Meta, StoryObj } from "@storybook/your-framework";
 
     /*
-    * Replace the @storybook/test package with the following if you are using a version of Storybook earlier than 8.0:
-    * import { userEvent, waitFor, within } from "@storybook/testing-library";
-    * import { expect } from "@storybook/jest";
+    * Replace the storybook/test import with `@storybook/test` and adjust the stories accordingly if you're not using Storybook 9.0.
+    * Refer to the Storybook documentation for the correct package and imports for earlier versions.
     */
-    import { expect, userEvent, waitFor, within } from "@storybook/test";
+    import { expect, waitFor } from "storybook/test";
 
     import { LoginForm } from "./LoginForm";
 
-    const meta: Meta<typeof LoginForm> = {
+    const meta = {
       component: LoginForm,
       title: "LoginForm",
-    };
+    } satisfies Meta<typeof LoginForm>;
 
     export default meta;
-    type Story = StoryObj<typeof LoginForm>;
+    type Story = StoryObj<typeof meta>;
 
     export const Default: Story = {
-      play: async ({ canvasElement }) => {
-        const canvas = within(canvasElement);
+      play: async ({ canvas, userEvent }) => {
         await userEvent.type(canvas.getByLabelText("email"), "test@email.com");
 
         await userEvent.type(canvas.getByLabelText('password'), "password");
@@ -105,13 +103,13 @@ import type { Meta, StoryObj } from "@storybook/your-framework";
 
 import { LoginForm } from "./LoginForm";
 
-const meta: Meta<typeof LoginForm> = {
+const meta = {
   component: LoginForm,
   title: "LoginForm",
-};
+} satisfies Meta<typeof LoginForm>;
 
 export default meta;
-type Story = StoryObj<typeof LoginForm>;
+type Story = StoryObj<typeof meta>;
 
 export const Default: Story = {
   parameters: {
@@ -147,13 +145,13 @@ import type { Meta, StoryObj } from "@storybook/your-framework";
 
 import { MyComponent } from "./MyComponent";
 
-const meta: Meta<typeof MyComponent> = {
+const meta = {
   component: MyComponent,
   title: "MyComponent",
-};
+} satisfies Meta<typeof MyComponent>;
 
 export default meta;
-type Story = StoryObj<typeof MyComponent>;
+type Story = StoryObj<typeof meta>;
 
 export const HoverStatewithClass: Story = {
   args: {
@@ -169,11 +167,7 @@ export const ActiveStatewithClass: Story = {
 ```
 
 <div class="aside">
-  ℹ️ This approach requires manually toggling the class names in your
-  component's test to simulate the necessary states. If you're using a CSS-in-JS
-  framework, you can
-  [automate](https://github.com/Workday/canvas-kit/pull/377/files) this process
-  by creating a JavaScript wrapper that adds the class names programmatically.
+  ℹ️ This approach requires manually toggling the class names in your component's test to simulate the necessary states. If you're using a CSS-in-JS framework, you can [automate](https://github.com/Workday/canvas-kit/pull/377/files) this process by creating a JavaScript wrapper that adds the class names programmatically.
 </div>
 
 ## Focusing DOM elements
@@ -189,25 +183,23 @@ If you're working with a component that provides a visual response to the user f
 import type { Meta, StoryObj } from "@storybook/your-framework";
 
 /*
- * Replace the @storybook/test package with the following if you are using a version of Storybook earlier than 8.0:
- * import { userEvent, within } from "@storybook/testing-library";
- * import { expect } from "@storybook/jest";
+ * Replace the storybook/test import with `@storybook/test` and adjust the stories accordingly if you're not using Storybook 9.0.
+ * Refer to the Storybook documentation for the correct package and imports for earlier versions.
  */
-import { expect, userEvent, within } from "@storybook/test";
+import { expect } from "storybook/test";
 
 import { LoginForm } from "./LoginForm";
 
-const meta: Meta<typeof LoginForm> = {
+const meta = {
   component: LoginForm,
   title: "LoginForm",
-};
+} satisfies Meta<typeof LoginForm>;
 
 export default meta;
-type Story = StoryObj<typeof LoginForm>;
+type Story = StoryObj<typeof meta>;
 
 export const Default: Story = {
-  play: async ({ canvasElement }) => {
-    const canvas = within(canvasElement);
+  play: async ({ canvas, userEvent }) => {
     await userEvent.type(canvas.getByLabelText("email"), "test@email.com");
     await userEvent.type(canvas.getByLabelText("password"), "KC@2N6^?vsV+)w1t");
 
@@ -278,7 +270,7 @@ import type { Meta, StoryObj } from "@storybook/your-framework";
 
 import { LoginForm } from "./LoginForm";
 
-const meta: Meta<typeof LoginForm> = {
+const meta = {
  component: LoginForm,
  title: "LoginForm",
  decorators: [
@@ -288,7 +280,7 @@ const meta: Meta<typeof LoginForm> = {
       </div>
     ),
   ],
-};
+} satisfies Meta<typeof LoginForm>;
 
 export default meta;
 ```

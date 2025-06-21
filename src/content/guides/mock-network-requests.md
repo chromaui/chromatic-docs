@@ -13,9 +13,7 @@ When testing components or pages that make network requests, it's important to m
 
 Storybook offers [several addons](https://storybook.js.org/addons/tag/api) for mocking APIs (e.g. fetching data from a REST or GraphQL API). We recommend using the [MSW addon](https://storybook.js.org/addons/msw-storybook-addon). Mock Service Worker (MSW) is an API mocking library that uses service workers to capture network requests and provide mocked data in response. The MSW addon integrates this functionality into Storybook. Here’s a basic example:
 
-```tsx
-// DocumentScreen.stories.ts|tsx
-
+```tsx title="DocumentScreen.stories.tsx"
 // Replace your-framework with the name of your framework (e.g. nextjs, vue3-vite)
 import type { Meta, StoryObj } from "@storybook/your-framework";
 
@@ -23,12 +21,12 @@ import { http, HttpResponse, delay } from "msw";
 
 import { DocumentScreen } from "./DocumentScreen";
 
-const meta: Meta<typeof DocumentScreen> = {
+const meta = {
   component: DocumentScreen,
-};
+} satisfies Meta<typeof DocumentScreen>;
 
 export default meta;
-type Story = StoryObj<typeof DocumentScreen>;
+type Story = StoryObj<typeof meta>;
 
 // 👇 The mocked data that will be used in the story
 const mockDocuments = [
@@ -92,7 +90,7 @@ For more details, check out the [Mocking network requests](https://storybook.js.
 
 Playwright allows you to mock network requests, including XHRs and fetch requests. You can also use HAR files to mock multiple network requests made by the page. Check out the [Playwright documentation](https://playwright.dev/docs/mock#mock-api-requests) for more details.
 
-```js
+```js title="tests/DocumentScreen.spec.js|ts"
 test("mocks documents api", async ({ page }) => {
   // Mock the api call before navigating
   await page.route("*/**/api/documents", async (route) => {
@@ -136,7 +134,7 @@ test("mocks documents api", async ({ page }) => {
 
 Cypress allows you to stub API responses with the `cy.intercept()` method, letting you define the body, HTTP status code, headers, and other response characteristics. You can also use `cy.fixture()` to load mock data from a file. For more details, check out the [Cypress documentation](https://docs.cypress.io/guides/guides/network-requests#Stubbing).
 
-```js
+```js title="cypress/e2e/DocumentScreen.cy.js|ts"
 cy.intercept(
   {
     method: "GET", // Route all GET requests

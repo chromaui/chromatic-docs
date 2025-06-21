@@ -26,29 +26,27 @@ The [`forced-colors`](https://developer.mozilla.org/en-US/docs/Web/CSS/@media/fo
     import type { Meta, StoryObj } from "@storybook/your-framework";
 
     /*
-     * Replace the @storybook/test package with the following if you are using a version of Storybook earlier than 8.0:
-     * import { userEvent, within } from "@storybook/testing-library";
+     * Replace the storybook/test import with `@storybook/test` and adjust the stories accordingly if you're not using Storybook 9.0.
+     * Refer to the Storybook documentation for the correct package and imports for earlier versions.
     */
-    import { userEvent, within } from "@storybook/test";
+    import { userEvent } from "storybook/test";
 
     import { LoginForm } from "./LoginForm";
 
-    const meta: Meta<typeof LoginForm> = {
+    const meta = {
       component: LoginForm,
       title: "LoginForm",
       parameters: {
         // Enables the forcedColors option at the component level for all stories.
         chromatic: { forcedColors: "active" },
       },
-    };
+    } satisfies Meta<typeof LoginForm>;
 
     export default meta;
-    type Story = StoryObj<typeof LoginForm>;
+    type Story = StoryObj<typeof meta>;
 
     export const WithForcedColors: Story = {
-      play: async ({ canvasElement }) => {
-        const canvas = within(canvasElement);
-
+      play: async ({ canvas }) => {
         await userEvent.type(canvas.getByLabelText("email"), "test@email.com");
         await userEvent.type(canvas.getByLabelText("password"), "KC@2N6^?vsV+)w1t");
         await canvas.getByRole("button", { name: "Login" }).click();
@@ -113,29 +111,27 @@ The [`prefers-reduced-motion`](https://developer.mozilla.org/en-US/docs/Web/CSS/
     import type { Meta, StoryObj } from "@storybook/your-framework";
 
     /*
-     * Replace the @storybook/test package with the following if you are using a version of Storybook earlier than 8.0:
-     * import { userEvent, within } from "@storybook/testing-library";
+     * Replace the storybook/test import with `@storybook/test` and adjust the stories accordingly if you're not using Storybook 9.0.
+     * Refer to the Storybook documentation for the correct package and imports for earlier versions.
     */
-    import { userEvent, within } from "@storybook/test";
+    import { userEvent } from "storybook/test";
 
     import { LoginForm } from "./LoginForm";
 
-    const meta: Meta<typeof LoginForm> = {
+    const meta = {
       component: LoginForm,
       title: "LoginForm",
       parameters: {
         // Enables the prefersReducedMotion option at the component level for all stories.
         chromatic: { prefersReducedMotion: "reduce" },
       },
-    };
+    } satisfies Meta<typeof LoginForm>;
 
     export default meta;
-    type Story = StoryObj<typeof LoginForm>;
+    type Story = StoryObj<typeof meta>;
 
     export const WithReducedMotion: Story = {
-      play: async ({ canvasElement }) => {
-        const canvas = within(canvasElement);
-
+      play: async ({ canvas }) => {
         await userEvent.type(canvas.getByLabelText("email"), "test@email.com");
         await userEvent.type(canvas.getByLabelText("password"), "KC@2N6^?vsV+)w1t");
         await canvas.getByRole('button', { name: "Login" }).click();
@@ -197,7 +193,7 @@ import type { Meta, StoryObj } from "@storybook/your-framework";
 
 import { UserAccount } from "./UserAccount";
 
-const meta: Meta<typeof UserAccount> = {
+const meta = {
   component: UserAccount,
   title: "UserAccount",
   parameters: {
@@ -206,10 +202,10 @@ const meta: Meta<typeof UserAccount> = {
       media: "print",
     },
   },
-};
+} satisfies Meta<typeof UserAccount>;
 
 export default meta;
-type Story = StoryObj<typeof UserAccount>;
+type Story = StoryObj<typeof meta>;
 
 export const Default: Story = {};
 ```
@@ -245,13 +241,13 @@ import { allModes } from "../../.storybook/modes";
 
 import { UserAccount } from "./UserAccount";
 
-const meta: Meta<typeof UserAccount> = {
+const meta = {
   component: UserAccount,
   title: "UserAccount",
-};
+} satisfies Meta<typeof UserAccount>;
 
 export default meta;
-type Story = StoryObj<typeof UserAccount>;
+type Story = StoryObj<typeof meta>;
 
 /*
  * Combines modes with print media styles

@@ -80,15 +80,13 @@ Install [chromatic](https://www.npmjs.com/package/chromatic) and `@chromatic-com
 
 Add the following to your `cypress/support/e2e.js` file:
 
-```js
-// cypress/support/e2e.js
+```js title="cypress/support/e2e.js"
 import "@chromatic-com/cypress/support";
 ```
 
 Then, install the Chromatic plugin in your `cypress.config.js` file:
 
-```js
-// cypress.config.js
+```js title="cypress.config.js"
 const { defineConfig } = require("cypress");
 const { installPlugin } = require("@chromatic-com/cypress");
 

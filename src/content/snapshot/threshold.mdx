@@ -28,29 +28,27 @@ If you need to customize how Chromatic identifies visual changes in your UI, add
     import type { Meta, StoryObj } from "@storybook/your-framework";
 
     /*
-     * Replace the @storybook/test package with the following if you are using a version of Storybook earlier than 8.0:
-     * import { within } from "@storybook/testing-library";
-     * import { expect } from "@storybook/jest";
+     * Replace the storybook/test import with `@storybook/test` and adjust the stories accordingly if you're not using Storybook 9.0.
+     * Refer to the Storybook documentation for the correct package and imports for earlier versions.
     */
-    import { expect, within } from "@storybook/test";
+    import { expect } from "storybook/test";
 
     import { UserAccount } from "./UserAccount";
 
-    const meta: Meta<typeof UserAccount> = {
+    const meta = {
       component: UserAccount,
       title: "UserAccount",
       parameters: {
         // Sets the threshold for 0.2 at the component level for all stories.
         chromatic: { diffThreshold: 0.2 },
       },
-    };
+    } satisfies Meta<typeof UserAccount>;
 
     export default meta;
-    type Story = StoryObj<typeof UserAccount>;
+    type Story = StoryObj<typeof meta>;
 
     export const Default: Story = {
-      play: async ({ canvasElement }) => {
-        const canvas = within(canvasElement);
+      play: async ({ canvas }) => {
         await expect(canvas.getByText("Welcome, username")).toBeInTheDocument();
       },
     };
@@ -108,29 +106,27 @@ To enable this feature and allow Chromatic to automatically detect anti-aliased 
     import type { Meta, StoryObj } from "@storybook/your-framework";
 
     /*
-     * Replace the @storybook/test package with the following if you are using a version of Storybook earlier than 8.0:
-     * import { within } from "@storybook/testing-library";
-     * import { expect } from "@storybook/jest";
+     * Replace the storybook/test import with `@storybook/test` and adjust the stories accordingly if you're not using Storybook 9.0.
+     * Refer to the Storybook documentation for the correct package and imports for earlier versions.
     */
-    import { expect, within } from "@storybook/test";
+    import { expect } from "storybook/test";
 
     import { UserAccount } from "./UserAccount";
 
-    const meta: Meta<typeof UserAccount> = {
+    const meta = {
       component: UserAccount,
       title: "UserAccount",
       parameters: {
         // Configures the component to include anti-aliasing in the diff calculation.
         chromatic: { diffIncludeAntiAliasing: true },
       },
-    };
+    } satisfies Meta<typeof UserAccount>;
 
     export default meta;
-    type Story = StoryObj<typeof UserAccount>;
+    type Story = StoryObj<typeof meta>;
 
     export const Default: Story = {
-      play: async ({ canvasElement }) => {
-        const canvas = within(canvasElement);
+      play: async ({ canvas }) => {
         await expect(canvas.getByText("Welcome, username")).toBeInTheDocument();
       },
     };

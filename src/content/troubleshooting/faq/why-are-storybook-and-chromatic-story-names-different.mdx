@@ -9,22 +9,19 @@ section: "usage"
 
 Chromatic follows Storybook's [naming best practice](https://storybook.js.org/docs/writing-stories/naming-components-and-hierarchy). The last level in the hierarchy is tracked as the component name.
 
-```tsx
-// Button.stories.ts|tsx
-
+```tsx title="Button.stories.ts|tsx"
 // Replace your-framework with the framework you are using (e.g., nextjs, vue3-vite)
 import type { Meta, StoryObj } from '@storybook/your-framework';
 
 import { Button } from "./Button";
 
-const meta: Meta<typeof Button> = {
+const meta = {
   title: "App/Components/Button",
   component: Button,
-};
+} satisfies Meta<typeof Button>;
 
 export default meta;
-type Story = StoryObj<typeof Button>;
-
+type Story = StoryObj<typeof meta>;
 
 /*
  *👇 Render functions are a framework-specific feature to allow you control over how the component renders.
