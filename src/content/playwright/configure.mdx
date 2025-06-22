@@ -50,7 +50,7 @@ The Chromatic [Playwright Fixture](https://playwright.dev/docs-fixtures) can be 
 
 You can also override them for specific tests by adding the [`test.use()`](https://playwright.dev/docs/api/class-test#test-use) method in your test file and provide the required options:
 
-```ts title="HomePage.spec.js|ts"
+```ts title="tests/HomePage.spec.js|ts"
 test.describe("HomePage", () => {
   // 👇 Overrides the option in the test.
   test.use({ disableAutoSnapshot: true });

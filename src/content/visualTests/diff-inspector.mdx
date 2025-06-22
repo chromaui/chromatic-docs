@@ -58,57 +58,54 @@ Customize how Chromatic identifies visual changes by adjusting the `diffThreshol
 
 <IntegrationSnippets>
   <Fragment slot="storybook">
-```ts
-// MyComponent.stories.ts|tsx
+    ```ts title="MyComponent.stories.ts|tsx"
 
-// Replace your-framework with the framework you are using (e.g., nextjs, vue3-vite)
-import type { Meta, StoryObj } from "@storybook/your-framework";
+    // Replace your-framework with the framework you are using (e.g., nextjs, vue3-vite)
+    import type { Meta, StoryObj } from "@storybook/your-framework";
 
-import { MyComponent } from "./MyComponent";
+    import { MyComponent } from "./MyComponent";
 
-const meta: Meta<typeof MyComponent> = {
-  component: MyComponent,
-  title: "MyComponent",
-};
+    const meta = {
+      component: MyComponent,
+      title: "MyComponent",
+    } satisfies Meta<typeof MyComponent>;
 
-export default meta;
-type Story = StoryObj<typeof MyComponent>;
+    export default meta;
+    type Story = StoryObj<typeof meta>;
 
-export const StoryName: Story = {
-  args: {
-    with: "props",
-  },
-  parameters: {
-    // Sets the diffThreshold for 0.2 for a specific story.
-    chromatic: { diffThreshold: 0.2 },
-  },
-};
-```
+    export const StoryName: Story = {
+      args: {
+        with: "props",
+      },
+      parameters: {
+        // Sets the diffThreshold for 0.2 for a specific story.
+        chromatic: { diffThreshold: 0.2 },
+      },
+    };
+    ```
   </Fragment>
   <Fragment slot="playwright">
-```js
-// mytest.spec.js
+    ```js title="tests/mytest.spec.js"
+    test.describe("some block", () => {
+      // 👇 your option overrides
+      test.use({ diffThreshold: 0.2 });
 
-test.describe("some block", () => {
-  // 👇 your option overrides
-  test.use({ diffThreshold: 0.2 });
-
-  test("some test", async ({ page }) => {
-    // ...
-  });
-});
-```
+      test("some test", async ({ page }) => {
+        await page.goto("https://some-url.com");
+        // ... your test code
+      });
+    });
+    ```
   </Fragment>
   <Fragment slot="cypress">
-```js
-// some-test.cy.ts
-
-it("A test that does something", {
-  env: { diffThreshold: 0.2 }
-}, () => {
-  cy.visit("https://some-url.com");
-});
-```
+    ```js title="cypress/e2e/some-test.cy.js|ts"
+    it("A test that does something", {
+      env: { diffThreshold: 0.2 }
+    }, () => {
+      cy.visit("https://some-url.com");
+      // ... your test code
+    });
+    ```
   </Fragment>
 </IntegrationSnippets>
 

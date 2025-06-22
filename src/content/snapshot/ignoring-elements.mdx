@@ -53,29 +53,27 @@ You can specify a list of CSS selectors with the `ignoreSelectors` option to ign
     import type { Meta, StoryObj } from "@storybook/your-framework";
 
     /*
-    * Replace the @storybook/test package with the following if you are using a version of Storybook earlier than 8.0:
-    * import { within } from "@storybook/testing-library";
-    * import { expect } from "@storybook/jest";
+    * Replace the storybook/test import with `@storybook/test` and adjust the stories accordingly if you're not using Storybook 9.0.
+    * Refer to the Storybook documentation for the correct package and imports for earlier versions.
     */
-    import { expect, within } from "@storybook/test";
+    import { expect } from "storybook/test";
 
     import { Product } from "./Product";
 
-    const meta: Meta<typeof Product> = {
+    const meta = {
       component: Product,
       title: "Product",
       parameters: {
         // Ignores the diff for elements targeted by the specified list of selectors
         chromatic: { ignoreSelectors: ['.product-price'] },
       },
-    };
+    } satisfies Meta<typeof Product>;
 
     export default meta;
-    type Story = StoryObj<typeof Product>;
+    type Story = StoryObj<typeof meta>;
 
     export const Default: Story = {
-      play: async ({ canvasElement }) => {
-        const canvas = within(canvasElement);
+      play: async ({ canvas }) => {
         await expect(canvas.getByText("Product details")).toBeInTheDocument();
       },
     };

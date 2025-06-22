@@ -12,7 +12,7 @@ By default, Chromatic takes a snapshot at the end of every Cypress test, whether
 
 `takeSnapshot` is especially useful for capturing a snapshot of your UI’s appearance when your UI reaches a specific state mid-test:
 
-```js
+```js title="cypress/e2e/Example.cy.js|ts"
 describe("My First Test", () => {
   it("Visits the Kitchen Sink", () => {
     // 👇 Navigate to target page

@@ -26,29 +26,27 @@ Chromatic has a multistage timeout for capturing a snapshot: 15 seconds to rende
   import type { Meta, StoryObj } from "@storybook/your-framework";
 
   /*
-   * Replace the @storybook/test package with the following if you are using a version of Storybook earlier than 8.0:
-   * import { within } from "@storybook/testing-library";
-   * import { expect } from "@storybook/jest";
+   * Replace the storybook/test import with `@storybook/test` and adjust the stories accordingly if you're not using Storybook 9.0.
+   * Refer to the Storybook documentation for the correct package and imports for earlier versions.
    */
-  import { expect, within } from "@storybook/test";
+  import { expect } from "storybook/test";
 
   import { Categories } from "./Categories";
 
-  const meta: Meta<typeof Categories> = {
+  const meta = {
     component: Categories,
     title: "Categories",
     parameters: {
       // Sets the delay (in milliseconds) at the component level for all stories.
       chromatic: { delay: 300 },
     },
-  };
+  } satisfies Meta<typeof Categories>;
 
   export default meta;
-  type Story = StoryObj<typeof Categories>;
+  type Story = StoryObj<typeof meta>;
 
   export const Default: Story = {
-    play: async ({ canvasElement }) => {
-      const canvas = within(canvasElement);
+    play: async ({ canvas }) => {
       await expect(canvas.getByText("Available Categories")).toBeInTheDocument();
     },
   };
@@ -102,38 +100,31 @@ If you need additional control when Chromatic captures a snapshot, you can adjus
   import type { Meta, StoryObj } from "@storybook/your-framework";
 
   /*
-  * Replace the @storybook/test package with the following if you are using a version of Storybook earlier than 8.0:
-  * import { userEvent, waitFor, within } from "@storybook/testing-library";
-  * import { expect } from "@storybook/jest";
+  * Replace the storybook/test import with `@storybook/test` and adjust the stories accordingly if you're not using Storybook 9.0.
+  * Refer to the Storybook documentation for the correct package and imports for earlier versions.
   */
-  import { expect, userEvent, waitFor, within } from "@storybook/test";
+  import { expect, waitFor, within } from "storybook/test";
 
   import { Categories } from "./Categories";
 
-  const meta: Meta<typeof Categories> = {
+  const meta = {
     component: Categories,
     title: "Categories",
-  };
+  } satisfies Meta<typeof Categories>;
 
   export default meta;
-  type Story = StoryObj<typeof Categories>;
+  type Story = StoryObj<typeof meta>;
 
   export const Default: Story = {
-    play: async ({ canvasElement }) => {
-      // Assigns canvas to the component root element
-      const canvas = within(canvasElement);
-
+    play: async ({ canvas, userEvent }) => {
       const LoadMoreButton = await canvas.getByRole("button", { name: "Load more" });
-
       await userEvent.click(LoadMoreButton);
 
       // Wait for the below assertion not throwing an error (default timeout is 1000ms)
       // This is especially useful when you have an asynchronous action or component that you want to wait for before taking a snapshot
       await waitFor(async () => {
         const ItemList = await canvas.getByLabelText("listitems");
-
-        const numberOfItems = await within(categories).findAllByRole("link");
-
+        const numberOfItems = await within(ItemList).findAllByRole("link");
         expect(numberOfItems).toHaveLength(0);
       });
     },
@@ -141,19 +132,15 @@ If you need additional control when Chromatic captures a snapshot, you can adjus
 
   // Emulates a delayed story by setting a timeout of 10 seconds to allow the component to load the items and ensure that the list has 20 items rendered in the DOM
   export const WithManualTimeout: Story = {
-    play: async ({ canvasElement }) => {
-      // Assigns canvas to the component root element
-      const canvas = within(canvasElement);
+    play: async ({ canvas, userEvent }) => {
       const LoadMoreButton = await canvas.getByTestId("button");
-
       await userEvent.click(LoadMoreButton);
+
       // This sets a timeout of 10 seconds and verifies that there are 20 items in the list
       await new Promise((resolve) => setTimeout(resolve, 10000));
 
       const ItemList = await canvas.getByLabelText("listitems");
-
-      const numberOfItems = await within(categories).findAllByRole("link");
-
+      const numberOfItems = await within(ItemList).findAllByRole("link");
       expect(numberOfItems).toHaveLength(20);
     },
   };
