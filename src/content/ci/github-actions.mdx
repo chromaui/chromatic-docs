@@ -56,7 +56,7 @@ In your `.github/workflows` directory, create a new file called `chromatic.yml` 
       playwright:
         runs-on: ubuntu-latest
         container:
-          image: mcr.microsoft.com/playwright:v1.52.0-noble
+          image: mcr.microsoft.com/playwright:v1.53.1-noble
         steps:
           - uses: actions/checkout@v4
             with:
@@ -120,7 +120,7 @@ In your `.github/workflows` directory, create a new file called `chromatic.yml` 
         name: Run Cypress
         runs-on: ubuntu-latest
         container:
-          image: cypress/browsers:node-22.14.0-chrome-135.0.7049.95-1-ff-137.0.2-edge-135.0.3179.85-1
+          image: cypress/browsers:node-22.16.0-chrome-137.0.7151.119-1-ff-139.0.4-edge-137.0.3296.62-1
           options: --user 1001
         steps:
           - uses: actions/checkout@v4
