@@ -25,7 +25,7 @@ Chromatic runs accessibility tests at the component-level, where issues are easi
 
 Axe has long been the industry standard for running automated accessibility tests on HTML-based interfaces. These tests audit the rendered DOM against a set of heuristics based on [WCAG](https://www.w3.org/WAI/standards-guidelines/wcag/) rules and widely accepted best practices. They act as the first line of QA to catch blatant accessibility violations.
 
-When you run axe, it gives you a list of *all* violations detected across the UI being tested. While this is incredibly helpful, it's unlikely you'll address all issues immediately. Teams often inherit accessibility debt that can't be resolved overnight. They want to address these issues incrementally while releasing new features without adding more debt.
+When you run axe, it gives you a list of _all_ violations detected across the UI being tested. While this is incredibly helpful, it's unlikely you'll address all issues immediately. Teams often inherit accessibility debt that can't be resolved overnight. They want to address these issues incrementally while releasing new features without adding more debt.
 
 By tracking violations against a story's baseline, Chromatic helps prevent regressions in pull requests while tracking debt so you can fix it separately at your own pace.
 
@@ -63,6 +63,7 @@ After making code changes, you run Build #2. Chromatic finds 10 additional viola
 If you accept this snapshot, these 10 new violations will be added to the baseline.
 
 ![Build 2 with two types of violations: missing form labels and images lack alt text. The three previously accepted rules are hidden by default.](../../images/a11y/build-2.png)
+
 </details>
 
 In subsequent builds, Chromatic takes a new snapshot of accessibility violations for each story and compares them against the baselines. If there are new or altered violations, Chromatic flags them for your review.
@@ -81,7 +82,7 @@ In subsequent builds, Chromatic takes a new snapshot of accessibility violations
 
 **Single run (Storybook)** shows all violations at a specific point in time, offering a comprehensive view of your component's current state. However, reviewing these results can be overwhelming, especially in large codebases with accessibility debt.
 
-**Regression tracking (Chromatic)** tracks violations from commit to commit and only flags [new or changed violations](/docs/accessibility/usage#how-does-chromatic-track-each-unique-violation). This makes it easier to fix issues incrementally and visualizes progress over time.
+**Regression tracking (Chromatic)** [tracks violations from commit to commit](/docs/accessibility#how-does-chromatic-track-each-unique-violation) and only flags new or changed violations. This makes it easier to fix issues incrementally and visualizes progress over time.
 
 For example, Build #1 identifies several violations for a story. By accepting the baseline, 17 violations across 3 rules are added to the story's baseline.
 
@@ -125,6 +126,7 @@ TL;DR: You’ll want to accept violations if they're part of necessary structura
 When you run axe, it lists all accessibility violations found in the story. However in some cases, addressing all issues immediately may not be feasible. In that case, you’d accept the violations and fix them incrementally.
 
 Baselines help track accessibility issues from commit to commit as you make code changes, showing what was fixed and identifying any new issues introduced.
+
 </details>
 
 <details>
@@ -137,6 +139,7 @@ Chromatic identifies unique violations using three characteristics:
 3. Bounding box of this DOM node (e.g., x/y coordinates plus width and height)
 
 This approach prevents false positives caused by inconsequential DOM structure changes.
+
 </details>
 
 <details>
@@ -230,10 +233,10 @@ Ensure that the rule is enabled in your Storybook [A11y addon configuration](htt
 While you might expect a violation, the check could actually be passing. For example, consider:
 
 ```html
-<input type="text" placeholder="something"/>
+<input type="text" placeholder="something" />
 ```
 
-You might expect a "missing form input labels" violation, but the [placeholder attribute can provide text inputs with an accessible name](https://dequeuniversity.com/rules/axe/4.10/label?application=RuleDescription#:~:text=Lastly%20a%20placeholder%20attribute%20may%20be%20used%20to%20give%20text%20inputs%20an%20accessible%20name.%20This%20is%20not%20a%20recommended%20solution%20as%20the%20visual%20label%20(the%20placeholder%20text)%20will%20be%20removed%20once%20the%20user%20enters%20text%20into%20the%20input%2C%20causing%20them%20to%20not%20know%20what%20the%20input%20is%20for.). Similarly, table header rules only apply if the table has more than three rows or columns.
+You might expect a "missing form input labels" violation, but the [placeholder attribute can provide text inputs with an accessible name](<https://dequeuniversity.com/rules/axe/4.10/label?application=RuleDescription#:~:text=Lastly%20a%20placeholder%20attribute%20may%20be%20used%20to%20give%20text%20inputs%20an%20accessible%20name.%20This%20is%20not%20a%20recommended%20solution%20as%20the%20visual%20label%20(the%20placeholder%20text)%20will%20be%20removed%20once%20the%20user%20enters%20text%20into%20the%20input%2C%20causing%20them%20to%20not%20know%20what%20the%20input%20is%20for.>). Similarly, table header rules only apply if the table has more than three rows or columns.
 
 </details>
 
