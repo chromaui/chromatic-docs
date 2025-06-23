@@ -122,7 +122,7 @@ Accessibility violation refers to an issue detected within a story where an elem
 
 TL;DR: You’ll want to accept violations if they're part of necessary structural changes leading to an eventual fix.
 
-When you run Axe, it lists all accessibility violations found in the story. However in some cases, addressing all issues immediately may not be feasible. In that case, you’d accept the violations and fix them incrementally.
+When you run axe, it lists all accessibility violations found in the story. However in some cases, addressing all issues immediately may not be feasible. In that case, you’d accept the violations and fix them incrementally.
 
 Baselines help track accessibility issues from commit to commit as you make code changes, showing what was fixed and identifying any new issues introduced.
 </details>

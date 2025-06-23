@@ -24,7 +24,7 @@ The Accessibility addon is configured via the `a11y` parameter which accepts the
 
 - **`element` (optional):** the selector to inspect. Defaults to `body`.
 - **`config`:** Options passed to `axe.configure`. See [axe.configure API docs](https://github.com/dequelabs/axe-core/blob/develop/doc/API.md#api-name-axeconfigure) to learn more about the available options.
-- **`options`:** Axe's options parameter. See [options parameter API docs](https://github.com/dequelabs/axe-core/blob/develop/doc/API.md#options-parameter) to learn more about the available options.
+- **`options`:** axe's options parameter. See [options parameter API docs](https://github.com/dequelabs/axe-core/blob/develop/doc/API.md#options-parameter) to learn more about the available options.
 
 Here's an example configuration for the Accessibility addon in Storybook:
 
@@ -57,7 +57,7 @@ const preview: Preview = {
         ],
       },
       /*
-       * Axe's options parameter
+       * axe's options parameter
        * See https://github.com/dequelabs/axe-core/blob/develop/doc/API.md#options-parameter
        * to learn more about the available options.
        */
