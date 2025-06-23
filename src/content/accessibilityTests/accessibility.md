@@ -84,15 +84,9 @@ In subsequent builds, Chromatic takes a new snapshot of accessibility violations
 
 **Regression tracking (Chromatic)** [tracks violations from commit to commit](/docs/accessibility#how-does-chromatic-track-each-unique-violation) and only flags new or changed violations. This makes it easier to fix issues incrementally and visualizes progress over time.
 
-For example, Build #1 identifies several violations for a story. By accepting the baseline, 17 violations across 3 rules are added to the story's baseline.
+![The accessibility tab highlights new violations detected in a particular build. Previously accepted violations are hidden but can be accessed by clicking the button at the bottom of this section.](../../images/a11y/accessibility-tab.png)
 
-![Build one with three types of violations: insufficient color contrast, links need discernable text and invalid ARIA values ](../../images/a11y/build-1.png)
-
-After making code changes, you run Build #2. Chromatic will only highlight the 10 new violations (across 2 rules) introduced in your latest changes, allowing you to focus on what's most relevant to your current work.
-
-![Build 2 with two types of violations: missing form labels and images lack alt text. The three previously accepted rules are hidden by default.](../../images/a11y/build-2.png)
-
-However, if you run accessibility checks within Storybook, you'll see 27 violations across 5 rules.
+For a complete example of regression tracking, see the [What is an accessibility baseline](/docs/accessibility#what-is-an-accessibility-baseline) section above.
 
 ### Accountability and team workflow
 
