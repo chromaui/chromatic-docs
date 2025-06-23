@@ -167,7 +167,7 @@ export const Default: Story = {
     ...restaurants[0],
     name: "Burger Kingdom",
   },
-} satisfies StoryObj<typeof RestaurantCard>;
+} satisfies Story;
 ```
 
 ## Disable accessibility tests
@@ -195,7 +195,7 @@ export const NonA11yStory: Story = {
       manual: true,
     },
   },
-};
+} satisfies Story;
 ```
 
 <div class="aside">
