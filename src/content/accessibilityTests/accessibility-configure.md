@@ -174,7 +174,7 @@ export const Default: Story = {
 
 ### Both in Storybook and Chromatic
 
-For Storybook 8+, use the [a11y global](https://storybook.js.org/docs/writing-tests/accessibility-testing#turn-off-automated-a11y-tests) to disable accessibility tests for a Story and/or Component, both in Storybook and Chromatic.
+For Storybook 8+, use the [a11y global](https://storybook.js.org/docs/writing-tests/accessibility-testing#turn-off-automated-a11y-tests) to disable accessibility tests for a story and/or component, both in Storybook and Chromatic.
 
 ```tsx title="MyComponent.stories.ts|tsx"
 // Adjust this import to match your framework (e.g., nextjs, vue3-vite)
