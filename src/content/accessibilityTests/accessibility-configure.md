@@ -116,8 +116,9 @@ export default preview;
 
 Axe allows you to add custom [rules and checks](https://github.com/dequelabs/axe-core/blob/64d409dc5862e9fdebcec87a0a269ab3f3e71ad2/doc/rule-development.md). You can configure these rules via the `a11y.config.rules` property. Chromatic will also run these custom rules and report any violations within the web app.
 
-```tsx title="RestaurantCard.stories.tsx|jsx"
-import type { Meta, StoryObj } from "@storybook/react";
+```tsx title="RestaurantCard.stories.ts|js"
+// Replace your-framework with the framework you are using (e.g., nextjs, vue3-vite)
+import type { Meta, StoryObj } from "@storybook/your-framework";
 import { restaurants } from "../../stub/restaurants";
 import { RestaurantCard } from "./RestaurantCard";
 
@@ -166,7 +167,7 @@ export const Default: Story = {
     ...restaurants[0],
     name: "Burger Kingdom",
   },
-};
+} satisfies StoryObj<typeof RestaurantCard>;
 ```
 
 ## Disable accessibility tests
