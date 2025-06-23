@@ -14,7 +14,7 @@ You can configure Chromatic's accessibility tests to match your project's specif
 - [WCAG 2.1 Level A & AA Rules](https://github.com/dequelabs/axe-core/blob/develop/doc/rule-descriptions.md#wcag-21-level-a--aa-rules)
 - [Best Practices Rules](https://github.com/dequelabs/axe-core/blob/develop/doc/rule-descriptions.md#best-practices-rules)
 
-The [region rule](https://dequeuniversity.com/rules/axe/4.1/region) *is* disabled because you're testing individual stories, not entire pages, so the story will likely lack the HTML5 landmark element.
+The [region rule](https://dequeuniversity.com/rules/axe/4.1/region) _is_ disabled because you're testing individual stories, not entire pages, so the story will likely lack the HTML5 landmark element.
 
 ## How do I configure the Accessibility addon?
 
@@ -31,13 +31,13 @@ Here's an example configuration for the Accessibility addon in Storybook:
 ```tsx title=".storybook/preview.ts"
 // Replace your-framework with the framework you are using (e.g., react-vite, vue3-vite)
 // if you're using Storybook 9, or with the appropriate renderer otherwise.
-import { Preview } from '@storybook/your-framework';
+import { Preview } from "@storybook/your-framework";
 
 const preview: Preview = {
   parameters: {
     a11y: {
       // Optional selector to inspect
-      element: 'body',
+      element: "body",
       /*
        * Options passed to axe.configure
        * See https://github.com/dequelabs/axe-core/blob/develop/doc/API.md#api-name-axeconfigure
@@ -47,12 +47,12 @@ const preview: Preview = {
         rules: [
           {
             // The autocomplete rule will not run based on the CSS selector provided
-            id: 'autocomplete-valid',
+            id: "autocomplete-valid",
             selector: '*:not([autocomplete="nope"])',
           },
           {
             // Setting the enabled option to false will disable checks for this particular rule on all stories.
-            id: 'image-alt',
+            id: "image-alt",
             enabled: false,
           },
         ],
@@ -88,20 +88,28 @@ For more on configuring the Accessibility addon, refer to the [Storybook docs](h
 
 You can use tags to run rules specific to a standard, such as `WCAG 2.2 Level AA`, `EN-301-549` (European Accessibility Act), etc. For example:
 
-```jsx
-export const parameters = {
-  a11y: {
-    configure: {},
-    options: {
-      runOnly: {
-        type: 'tag',
-        // eg: If you wanted to specifically meet the standards of European Accessibility Act
-        // Full list of available tags: https://github.com/dequelabs/axe-core/blob/develop/doc/API.md#axe-core-tags
-        values: ['EN-301-549']
-      }
+```tsx title=".storybook/preview.ts"
+// Replace your-framework with the framework you are using (e.g., react-vite, vue3-vite)
+// if you're using Storybook 9, or with the appropriate renderer otherwise.
+import { Preview } from "@storybook/your-framework";
+
+const preview: Preview = {
+  parameters: {
+    a11y: {
+      configure: {},
+      options: {
+        runOnly: {
+          type: "tag",
+          // eg: If you wanted to specifically meet the standards of European Accessibility Act
+          // Full list of available tags: https://github.com/dequelabs/axe-core/blob/develop/doc/API.md#axe-core-tags
+          values: ["EN-301-549"],
+        },
+      },
     },
-  }
+  },
 };
+
+export default preview;
 ```
 
 ## Custom rules
@@ -109,54 +117,56 @@ export const parameters = {
 Axe allows you to add custom [rules and checks](https://github.com/dequelabs/axe-core/blob/64d409dc5862e9fdebcec87a0a269ab3f3e71ad2/doc/rule-development.md). You can configure these rules via the `a11y.config.rules` property. Chromatic will also run these custom rules and report any violations within the web app.
 
 ```tsx title="RestaurantCard.stories.tsx|jsx"
-import type { Meta, StoryObj } from '@storybook/react'
-import { restaurants } from '../../stub/restaurants'
-import { RestaurantCard } from './RestaurantCard'
+import type { Meta, StoryObj } from "@storybook/react";
+import { restaurants } from "../../stub/restaurants";
+import { RestaurantCard } from "./RestaurantCard";
 
 const meta = {
-  title: 'Components/RestaurantCard',
+  title: "Components/RestaurantCard",
   component: RestaurantCard,
   parameters: {
     a11y: {
       config: {
         rules: [
           {
-            id: 'minimum-paragraph-length',
-            selector: 'p',
-            impact: 'critical',
-            all: ['paragraph-minimum-text'],
+            id: "minimum-paragraph-length",
+            selector: "p",
+            impact: "critical",
+            all: ["paragraph-minimum-text"],
             any: [],
             none: [],
             metadata: {
-              description: 'Ensures paragraphs have meaningful content',
-              help: 'Paragraphs should contain at least 5 characters',
+              description: "Ensures paragraphs have meaningful content",
+              help: "Paragraphs should contain at least 5 characters",
             },
           },
         ],
         checks: [
           {
-            id: 'paragraph-minimum-text',
+            id: "paragraph-minimum-text",
             evaluate: function evaluate(node: HTMLParagraphElement) {
-              const textContent = node.textContent?.trim()
-              return textContent && textContent.length > 0 ? textContent.length > 50 : false
+              const textContent = node.textContent?.trim();
+              return textContent && textContent.length > 0
+                ? textContent.length > 50
+                : false;
             },
           },
         ],
       },
     },
   },
-} satisfies Meta<typeof RestaurantCard>
+} satisfies Meta<typeof RestaurantCard>;
 
-export default meta
+export default meta;
 
-type Story = StoryObj<typeof meta>
+type Story = StoryObj<typeof meta>;
 
 export const Default: Story = {
   args: {
     ...restaurants[0],
-    name: 'Burger Kingdom',
+    name: "Burger Kingdom",
   },
-}
+};
 ```
 
 ## Disable accessibility tests
@@ -168,7 +178,7 @@ For Storybook 8+, use the [a11y global](https://storybook.js.org/docs/writing-te
 ```tsx title="MyComponent.stories.ts|tsx"
 // Adjust this import to match your framework (e.g., nextjs, vue3-vite)
 import type { Meta, StoryObj } from "@storybook/your-framework";
-import { MyComponent } from './MyComponent';
+import { MyComponent } from "./MyComponent";
 
 const meta: Meta<typeof MyComponent> = {
   component: MyComponent,
