@@ -29,3 +29,7 @@ Download a CSV file containing all accessibility violations, associated componen
 The dashboard dynamically updates to reflect accessibility data for your currently selected branch. You can configure your default branch from the manage page of your project.
 
 ![Manage page for a project with the "Configure Tab" selected. The default branch configuration is in the project section.](../../images/a11y/default-branch.png)
+
+## Plan-based limits
+
+Chromatic provides **seven days of data history** with access limited to the default branch (typically `main`). Enterprise plans with the accessibility package enabled offer full historical data with multi-branch accessibility tracking.
