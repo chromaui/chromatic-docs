@@ -23,7 +23,7 @@ export const AccessibilityEnabled = {
 export const TurbosnapEnabled = {
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
-    const checkbox = await canvas.findByLabelText("TurboSnap");
+    const checkbox = await canvas.findByLabelText("Enabled");
     await userEvent.click(checkbox);
   },
 } satisfies Story;
@@ -31,7 +31,7 @@ export const TurbosnapEnabled = {
 export const AccessibilityAndTurbosnapEnabled = {
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
-    const tsCheckbox = await canvas.findByLabelText("TurboSnap");
+    const tsCheckbox = await canvas.findByLabelText("Enabled");
     await userEvent.click(tsCheckbox);
     const a11yCheckbox = await canvas.findByLabelText("Accessibility tests");
     await userEvent.click(a11yCheckbox);
