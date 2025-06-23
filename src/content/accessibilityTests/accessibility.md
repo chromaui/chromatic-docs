@@ -79,7 +79,7 @@ In subsequent builds, Chromatic takes a new snapshot of accessibility violations
 
 ### Single run vs Regression tracking
 
-**Single run (Storybook)** shows all violations at a specific point in time, offering a comprehensive view of your components' current state  of your components. However, these results can be overwhelming to review, especially in large codebases with accessibility debt.
+**Single run (Storybook)** shows all violations at a specific point in time, offering a comprehensive view of your component's current state. However, reviewing these results can be overwhelming, especially in large codebases with accessibility debt.
 
 **Regression tracking (Chromatic)** tracks violations from commit to commit and only flags [new or changed violations](/docs/accessibility/usage#how-does-chromatic-track-each-unique-violation). This makes it easier to fix issues incrementally and visualizes progress over time.
 
