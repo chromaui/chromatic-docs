@@ -41,7 +41,7 @@ Storybook’s [Accessibility addon](https://storybook.js.org/docs/writing-tests
 
 ### In CI: Regression-checks with Chromatic
 
-When you run Chromatic, it creates a static build of your Storybook and uploads it to  our Capture Cloud. From there, Chromatic spins up a fleet of standardized browsers to load all your stories in parallel and run accessibility tests.
+When you run Chromatic, it creates a static build of your Storybook and uploads it to our Capture Cloud. From there, Chromatic spins up a fleet of standardized browsers to load all your stories in parallel and run accessibility tests.
 
 Chromatic tracks accessibility violations over time, establishing a baseline for each story. This helps separate pre-existing issues from new ones.
 
