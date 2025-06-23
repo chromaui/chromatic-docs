@@ -202,7 +202,7 @@ Yes. Similar to how it works for visual tests, if you've set up viewports for a 
 </details>
 
 <details>
-<summary>Does Chromatic check for `prefers-reduced-motion` violations?</summary>
+<summary>Does Chromatic check for prefers-reduced-motion violations?</summary>
 
 Not yet
 
