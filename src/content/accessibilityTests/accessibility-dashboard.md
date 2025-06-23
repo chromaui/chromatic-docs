@@ -22,7 +22,7 @@ The data table ranks components by violation count in descending order, immediat
 
 ## Export reports
 
-Download a CSV file containing all accessibility violations, associated components, and story details. This report streamlines compliance documentation and support regulatory requirements such as Voluntary Product Accessibility Template (VPAT) submissions.
+Download a CSV file containing all accessibility violations, associated components, and story details. This report streamlines compliance documentation and supports regulatory requirements such as Voluntary Product Accessibility Template (VPAT) submissions.
 
 ## Branch-specific monitoring
 
