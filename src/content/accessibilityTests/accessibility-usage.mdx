@@ -74,7 +74,6 @@ You can also scroll down to the accessibility tab for more information on each s
 
 Click on **Go to Storybook** to navigate to the published Storybook in your own browser to debug with devtools. Share **permalinks** to specific violations to collaborate on a fix.
 
-
 ## 5. Verify changes
 
 Go through each snapshot to review the diff and approve or reject the change.
@@ -86,8 +85,8 @@ Go through each snapshot to review the diff and approve or reject the change.
 By accepting expected violations into the baseline, you establish a new reference point for future comparisons.
 
 ### Fixes are automatically accepted
-Only new or changed violations need to be reviewed. If a build has no new accessibility violations but you resolve several existing issues, that build will pass, baselines will update, and no review will be required.
 
+Only new or changed violations need to be reviewed. If a build has no new accessibility violations but you resolve several existing issues, that build will pass, baselines will update, and no review will be required.
 
 ### Accessibility-only changes
 
@@ -106,4 +105,3 @@ Some accessibility violations do not have a visible DOM node associated with the
 ![PR badge for UI Tests](../../images/prbadge-test.png)
 
 If you have already integrated Chromatic in your CI setup, no changes are needed for accessibility tests to work. Otherwise, [integrate Chromatic into your CI pipeline](/docs/ci) to automatically run accessibility tests on every pull request. If new violations are detected, the PR will be marked as "unreviewed" until you review and accept or fix them.
-
