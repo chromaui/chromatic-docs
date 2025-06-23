@@ -14,7 +14,7 @@ You can configure Chromatic's accessibility tests to match your project's specif
 - [WCAG 2.1 Level A & AA Rules](https://github.com/dequelabs/axe-core/blob/develop/doc/rule-descriptions.md#wcag-21-level-a--aa-rules)
 - [Best Practices Rules](https://github.com/dequelabs/axe-core/blob/develop/doc/rule-descriptions.md#best-practices-rules)
 
-The [region rule](https://dequeuniversity.com/rules/axe/4.1/region) *is* disabled is because you're testing individual stories, not entire pages, so the story will likely lack the HTML5 landmark element.
+The [region rule](https://dequeuniversity.com/rules/axe/4.1/region) *is* disabled because you're testing individual stories, not entire pages, so the story will likely lack the HTML5 landmark element.
 
 ## How do I configure the Accessibility addon?
 
