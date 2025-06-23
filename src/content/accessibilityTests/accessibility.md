@@ -31,7 +31,7 @@ By tracking violations against a story's baseline, Chromatic helps prevent regre
 
 ## Accessibility testing workflow
 
-By combining Chromatic and Storybook you get instant accessibility feedback at every phase of development from development through to running checks on CI. Here’s how it works:
+By combining Chromatic and Storybook, you get instant accessibility feedback at every phase, from development to running checks on CI. Here’s how it works:
 
 ### During development: Fast feedback in Storybook
 
