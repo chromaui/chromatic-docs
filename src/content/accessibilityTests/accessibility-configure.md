@@ -29,7 +29,8 @@ The Accessibility addon is configured via the `a11y` parameter which accepts the
 Here's an example configuration for the Accessibility addon in Storybook:
 
 ```tsx title=".storybook/preview.ts"
-// Replace your-framework with the framework you are using (e.g., react, vue3)
+// Replace your-framework with the framework you are using (e.g., react-vite, vue3-vite)
+// if you're using Storybook 9, or with the appropriate renderer otherwise.
 import { Preview } from '@storybook/your-framework';
 
 const preview: Preview = {
