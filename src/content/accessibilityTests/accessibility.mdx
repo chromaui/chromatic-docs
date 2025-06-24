@@ -5,7 +5,11 @@ description: Catch accessibility issues early with automated testing for your co
 sidebar: { order: 1 }
 ---
 
+import A11yBeta from "../../components/A11yBeta.astro";
+
 # Accessibility testing with Chromatic
+
+<A11yBeta />
 
 Chromatic builds on Storybook and [axe](https://github.com/dequelabs/axe-core) to seamlessly integrate accessibility testing into your development workflow. You write stories to create test cases for your components and run accessibility checks locally within Storybook.
 
@@ -15,7 +19,10 @@ Then when you're ready to merge, Chromatic automatically runs accessibility regr
 
 Traditional page-level tests fail to address accessibility at its source. For decades, the best practice was to navigate page by page and run accessibility scans along the way to compile an audit report. This method is too noisy. When issues are identified at the page level, the root cause often lies deep within a component. You have to sift through thousands of violations to determine which component caused the problem.
 
-<img src="/docs/assets/component-pages.gif" alt="One component impacts countless pages" />
+<img
+  src="/docs/assets/component-pages.gif"
+  alt="One component impacts countless pages"
+/>
 
 What’s more, page-level tests occur too late in the development cycle. Developers first build components and then assemble them into pages. One flawed component can spread issues throughout your app, making problems harder to identify and more time-consuming to fix.
 
