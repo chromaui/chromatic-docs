@@ -183,7 +183,7 @@ Yes. TurboSnap analyzes your project’s Git history and [dependency graph](htt
 <details>
 <summary>Do accessibility tests support modes?</summary>
 
-Yes. If you’ve configured modes for a Story. Chromatic will run accessibility tests on each mode too.
+Yes, if you've configured modes for a story, Chromatic will run accessibility tests on each mode too."
 
 </details>
 
