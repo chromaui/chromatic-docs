@@ -190,7 +190,7 @@ Yes. TurboSnap analyzes your project’s Git history and [dependency graph](htt
 <details>
 <summary>Do accessibility tests support modes?</summary>
 
-Yes, if you've configured modes for a story, Chromatic will run accessibility tests on each mode too."
+Yes, if you've configured modes for a story, Chromatic will run accessibility tests on each mode too.
 
 </details>
 
@@ -209,13 +209,18 @@ Yes. Similar to how it works for visual tests, if you've set up viewports for a 
 </details>
 
 <details>
+<summary>Do accessibility tests support custom rules?</summary>
+
+Not yet. This means that if you have custom [rules and checks](https://github.com/dequelabs/axe-core/blob/64d409dc5862e9fdebcec87a0a269ab3f3e71ad2/doc/rule-development.md) defined in your Storybook configuration, they will not run with accessibility tests.
+
+</details>
+
+<details>
 <summary>Does Chromatic check for prefers-reduced-motion violations?</summary>
 
 Not yet
 
 </details>
-
----
 
 ## Troubleshooting
 
