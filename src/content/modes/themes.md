@@ -13,13 +13,13 @@ sidebar: { order: 3 }
 
 Themes control the visual characteristics of UI—color palette, typography, white space, border styles, shadows, radii, etc. Using modes enables Chromatic to test the same story with multiple themes.
 
-<video autoPlay muted playsInline loop width="600px" class="center">
+<video autoPlay muted playsInline loop style="pointer-events: none;">
   <source src="/docs/assets/theme-switcher.mp4" type="video/mp4" />
 </video>
 
 ## Configure CSS and theme in your Storybook
 
-There are various ways to configure Storybook for loading CSS and applying themes. Our recommendation is to use [@storybook/addon-themes](https://github.com/storybookjs/storybook/tree/next/code/addons/themes), which is a framework-agnostic solution compatible with most popular tools.
+There are various ways to configure Storybook to load CSS and apply themes. Our recommendation is to use [@storybook/addon-themes](https://github.com/storybookjs/storybook/tree/next/code/addons/themes), which is a framework-agnostic solution compatible with most popular tools.
 For tool-specific setup instructions, please refer to the recipes provided below:
 
 - [Emotion](https://github.com/storybookjs/storybook/tree/next/code/addons/themes/docs/getting-started/emotion.md)
@@ -33,24 +33,23 @@ Don't see your favorite tool listed? No worries! You can check out the "Writing 
 
 For this example, let's assume that the themes addon has been configured with a light theme and a dark theme:
 
-```jsx
-// .storybook/preview.js
+```ts title=".storybook/preview.ts"
+// Replace your-framework with the framework you are using (e.g., react-vite, vue3-vite)
+// if you're using Storybook 9, or with the appropriate renderer otherwise.
+import type { Preview } from "@storybook/your-framework";
 
 import { withThemeByClassName } from '@storybook/addon-themes';
 
 import '../src/index.css';
 
 const preview: Preview = {
-  parameters: {
-    /* ... */
-  },
   decorators: [
     withThemeByClassName({
       themes: {
-        light: 'light',
-        dark: 'dark',
+        light: "light",
+        dark: "dark",
       },
-      defaultTheme: 'light',
+      defaultTheme: "light",
     }),
   ],
 };
@@ -60,11 +59,9 @@ export default preview;
 
 ## Define theme modes
 
-Modes are defined in the `.storybook/modes.js` file. If your project doesn't have this file yet, go ahead and create it. To enable a theme within a mode, specify the theme name using the `chromatic[mode_name].theme` parameter.
+Modes are defined in the `.storybook/modes.js|ts` file. If your project doesn't have this file yet, go ahead and create it. To enable a theme within a mode, specify the theme name using the `chromatic[mode_name].theme` parameter.
 
-```jsx
-// .storybook/modes.js
-
+```ts title=".storybook/modes.ts"
 export const allModes = {
   light: {
     theme: "light",
@@ -72,7 +69,7 @@ export const allModes = {
   dark: {
     theme: "dark",
   },
-};
+} as const;
 ```
 
 ## Apply modes to enable themes
@@ -81,13 +78,15 @@ Modes can be applied at various levels: project, component, or story. If a mode 
 
 With the above set of modes, we can apply them as follows:
 
-```jsx
-// ArticleCard.stories.js
+```ts title="ArticleCard.stories.ts|tsx"
+// Adjust this import to match your framework (e.g., nextjs, vue3-vite)
+import type { Meta } from "@storybook/your-framework";
 
 import { allModes } from "../.storybook/modes";
+
 import { ArticleCard } from "./ArticleCard";
 
-export default {
+const meta = {
   component: ArticleCard,
   title: "ArticleCard",
   parameters: {
@@ -99,13 +98,7 @@ export default {
       },
     },
   },
-};
-
-export const Base = {
-  args: {
-    //...
-  },
-};
+} satisfies Meta<typeof ArticleCard>;
 ```
 
-When Chromatic captures your story, it will capture *two* snapshots during the build, with the corresponding theme enabled. Each mode will have an independent baselines and require distinct approval.
+When Chromatic captures your story, it will capture *two* snapshots during the build, with the corresponding theme enabled. Each mode will have independent baselines and require distinct approval.

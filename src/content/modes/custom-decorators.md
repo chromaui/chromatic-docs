@@ -17,21 +17,24 @@ By combining decorators with [modes](/docs/modes), you can test a story with var
 
 ## Configure your decorator
 
-Let's consider the following example that uses a decorator & globals to switch locale of a story. It uses the [react-i18next](https://react.i18next.com/) library to provide translations.
+Let's consider the following example that uses a decorator & globals to switch the locale of a story. It uses the [react-i18next](https://react.i18next.com/) library to provide translations.
 
-<img src="/docs/assets/finished-switcher.gif" alt="Switching the locale between English, German and Arabic using the Storybook toolbar" />
+<video autoPlay muted playsInline loop style="pointer-events: none;">
+  <source src="/docs/assets/finished-switcher.mp4" type="video/mp4" />
+</video>
 
 The locale values are defined using [global types](https://storybook.js.org/docs/essentials/toolbars-and-globals#global-types-and-the-toolbar-annotation). The `withI18next` decorator retrieves the value of the `locale` global and applies it to `I18nextProvider`, enabling us to test stories with different translations.
 
-```jsx
-// .storybook/preview.js
+```tsx title=".storybook/preview.tsx"
+import type { Preview } from "@storybook/react-vite";
 
-import React, { Suspense } from "react";
+import React, { Suspense, useEffect } from "react";
+
 import { I18nextProvider } from "react-i18next";
 import i18n from "../src/i18n";
 
 // Wrap your stories in the I18nextProvider component
-const withI18next = (Story, context) => {
+const WithI18next = (Story, context) => {
   const { locale } = context.globals;
 
   // When the locale global changes
@@ -51,11 +54,10 @@ const withI18next = (Story, context) => {
   );
 };
 
-const preview = {
+const preview: Preview = {
   decorators: [withI18next],
   globalTypes: {
     locale: {
-      name: "Locale",
       description: "Internationalization locale",
       toolbar: {
         icon: "globe",
@@ -64,9 +66,11 @@ const preview = {
           { value: "de", title: "Deutsch" },
           { value: "ar", title: "عربي" },
         ],
-        showName: true,
       },
     },
+  },
+  initialGlobals: {
+    locale: "en", // Sets the default locale to English
   },
 };
 
@@ -75,11 +79,9 @@ export default preview;
 
 ## Define decorator specific modes
 
-Modes are defined in the `.storybook/modes.js` file. If your project doesn't have this file yet, go ahead and create it. Set the value for the global associated with your decorator using the `chromatic[mode_name].[global_name]` parameter. For example:
+Modes are defined in the `.storybook/modes.js|ts` file. If your project doesn't have this file yet, go ahead and create it. Set the value for the global associated with your decorator using the `chromatic[mode_name].[global_name]` parameter. For example:
 
-```jsx
-// .storybook/modes.js
-
+```ts title=".storybook/modes.ts"
 export const allModes = {
   english: {
     locale: "en",
@@ -90,20 +92,22 @@ export const allModes = {
   arabic: {
     locale: "ar",
   },
-};
+} as const;
 ```
 
 ## Apply modes to enable your decorator
 
 With the above set of modes, we can apply them as follows:
 
-```jsx
-// ArticleCard.stories.js
+```ts title="MyComponent.stories.ts|tsx"
+// Adjust this import to match your framework (e.g., nextjs, vue3-vite)
+import type { Meta } from "@storybook/your-framework";
 
 import { allModes } from "../.storybook/modes";
+
 import { MyComponent } from "./MyComponent";
 
-export default {
+const meta = {
   component: MyComponent,
   title: "MyComponent",
   parameters: {
@@ -116,13 +120,7 @@ export default {
       },
     },
   },
-};
-
-export const Base = {
-  args: {
-    //...
-  },
-};
+} satisfies Meta<typeof MyComponent>;
 ```
 
-When Chromatic captures your story, it will create *three* snapshots on your build, with the corresponding global/decorator enabled. Each mode will have an independent baselines and require distinct approval.
+When Chromatic captures your story, it will create *three* snapshots on your build with the corresponding global/decorator enabled. Each mode will have independent baselines and require distinct approval.
