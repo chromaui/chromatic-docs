@@ -14,11 +14,15 @@ Components adapt styling and layouts based on device characteristics. With Chrom
 
 Sets [prefers-color-scheme](https://developer.mozilla.org/en-US/docs/Web/CSS/@media/prefers-color-scheme) to `light` or `dark` to test how your components look in different color schemes.
 
-```jsx title="ArticleCard.stories.js|jsx"
+```ts title="ArticleCard.stories.ts|tsx"
+// Adjust this import to match your framework (e.g., nextjs, vue3-vite)
+import type { Meta } from "@storybook/your-framework";
+
 import { allModes } from "../.storybook/modes";
+
 import { ArticleCard } from "./ArticleCard";
 
-export default {
+const meta = {
   component: ArticleCard,
   title: "ArticleCard",
   parameters: {
@@ -33,18 +37,22 @@ export default {
       },
     },
   },
-};
+} satisfies Meta<typeof ArticleCard>;
 ```
 
 ## Device Pointer
 
-It simulates touch events, which is useful for testing components that rely on touch interactions, such as taps and swipes.
+It simulates touch events, which are useful for testing components that rely on touch interactions, such as taps and swipes.
 
-```js title="ArticleCard.stories.js|jsx"
+```ts title="ArticleCard.stories.ts|tsx"
+// Adjust this import to match your framework (e.g., nextjs, vue3-vite)
+import type { Meta } from "@storybook/your-framework";
+
 import { allModes } from "../.storybook/modes";
+
 import { ArticleCard } from "./ArticleCard";
 
-export default {
+const meta = {
   component: ArticleCard,
   title: "ArticleCard",
   parameters: {
@@ -56,18 +64,22 @@ export default {
       },
     },
   },
-};
+} satisfies Meta<typeof ArticleCard>;
 ```
 
 ## Device Locale
 
 Emulate the user locale. Enabling this option will also change the `navigator.language` and `Accept-Language` request headers, common when testing internationalization features (e.g., date formatting, number formatting, and right-to-left layouts).
 
-```js title="ArticleCard.stories.js|jsx"
+```ts title="ArticleCard.stories.ts|tsx"
+// Adjust this import to match your framework (e.g., nextjs, vue3-vite)
+import type { Meta } from "@storybook/your-framework";
+
 import { allModes } from "../.storybook/modes";
+
 import { ArticleCard } from "./ArticleCard";
 
-export default {
+const meta = {
   component: ArticleCard,
   title: "ArticleCard",
   parameters: {
@@ -82,18 +94,22 @@ export default {
       },
     },
   },
-};
+} satisfies Meta<typeof ArticleCard>;
 ```
 
 ## Combining Options
 
 You can combine multiple browser options within a mode for comprehensive testing:
 
-```js title="ArticleCard.stories.js|jsx"
+```ts title="ArticleCard.stories.ts|tsx"
+// Adjust this import to match your framework (e.g., nextjs, vue3-vite)
+import type { Meta } from "@storybook/your-framework";
+
 import { allModes } from "../.storybook/modes";
+
 import { ArticleCard } from "./ArticleCard";
 
-export default {
+const meta = {
   component: ArticleCard,
   title: "ArticleCard",
   parameters: {
@@ -108,5 +124,5 @@ export default {
       },
     },
   },
-};
+} satisfies Meta<typeof ArticleCard>;
 ```

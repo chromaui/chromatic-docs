@@ -20,20 +20,21 @@ UI components can respond to device width. Chromatic makes it easy to visual tes
 
 To set a viewport, specify one or more screen _widths_ to the `chromatic.viewports` [parameter](https://storybook.js.org/docs/writing-stories/parameters#story-parameters):
 
-```js
-// MyComponent.stories.js|jsx
+```ts title="MyComponent.stories.ts|tsx"
+// Adjust this import to match your framework (e.g., nextjs, vue3-vite)
+import type { Meta, StoryObj } from "@storybook/your-framework";
 
 import { MyComponent } from "./MyComponent";
 
-export default {
+const meta = {
   component: MyComponent,
   title: "MyComponent",
-};
+} satisfies Meta<typeof MyComponent>;
 
-export const StoryName = {
-  args: {
-    with: "props",
-  },
+export default meta;
+type Story = StoryObj<typeof meta>;
+
+export const StoryName: Story = {
   parameters: {
     //👇 Defines a list of viewport widths for a single story to be captured in Chromatic.
     chromatic: { viewports: [320, 1200] },
@@ -41,18 +42,19 @@ export const StoryName = {
 };
 ```
 
-When Chromatic captures your story, it will create _two_ snapshots on your build, with the browser set at each viewports. These viewports will be treated separately, with independent baselines and distinct approvals.
+When Chromatic captures your story, it will create _two_ snapshots on your build, with the browser set at each viewport. These viewports will be treated separately, with independent baselines and distinct approvals.
 
 ## Viewports for all stories of a component
 
-Thanks to Storybook's built in [parameter](https://storybook.js.org/docs/writing-stories/parameters#component-parameters) API, you can also target viewport at a group of stories or even your entire Storybook. To apply a set of viewports to all component's stories, use:
+Thanks to Storybook's built-in [parameter](https://storybook.js.org/docs/writing-stories/parameters#component-parameters) API, you can also target the viewport at a group of stories or even your entire Storybook. To apply a set of viewports to all components' stories, use:
 
-```js
-// MyComponent.stories.js|jsx
+```ts title="MyComponent.stories.ts|tsx"
+// Adjust this import to match your framework (e.g., nextjs, vue3-vite)
+import type { Meta } from "@storybook/your-framework";
 
 import { MyComponent } from "./MyComponent";
 
-export default {
+const meta = {
   component: MyComponent,
   title: "MyComponent",
   parameters: {
@@ -61,19 +63,7 @@ export default {
     // https://www.chromatic.com/docs/modes/viewports
     chromatic: { viewports: [320, 1200] },
   },
-};
-
-export const StoryName = {
-  args: {
-    with: "props",
-  },
-};
-
-export const SecondStoryName = {
-  args: {
-    with: "other-props",
-  },
-};
+} satisfies Meta<typeof MyComponent>;
 ```
 
 ---
@@ -98,12 +88,14 @@ It is not possible to control height with this legacy API. However, you can achi
 
 Use modes and set a [project level mode](/docs/modes#stacking-modes).
 
-If you’re still using the legacy API, then assign viewports for the entire Storybook using [`parameters`](https://storybook.js.org/docs/writing-stories/parameters#global-parameters) in your [`.storybook/preview.js`](https://storybook.js.org/docs/configure#configure-story-rendering):
+If you’re still using the legacy API, then assign viewports for the entire Storybook using [`parameters`](https://storybook.js.org/docs/writing-stories/parameters#global-parameters) in your [`.storybook/preview.js|ts`](https://storybook.js.org/docs/configure#configure-story-rendering):
 
-```js
-// .storybook/preview.js
+```ts title=".storybook/preview.ts"
+// Replace your-framework with the framework you are using (e.g., react-vite, vue3-vite)
+// if you're using Storybook 9, or with the appropriate renderer otherwise.
+import type { Preview } from "@storybook/your-framework";
 
-const preview = {
+const preview: Preview = {
   parameters: {
     //👇 Defines a list of viewport widths applied globally to all stories.
     // Note only widths are supported, to control width and height, use the modes api

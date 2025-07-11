@@ -35,7 +35,7 @@ Here's an example configuration for the Accessibility addon in Storybook:
 ```tsx title=".storybook/preview.ts"
 // Replace your-framework with the framework you are using (e.g., react-vite, vue3-vite)
 // if you're using Storybook 9, or with the appropriate renderer otherwise.
-import { Preview } from "@storybook/your-framework";
+import type { Preview } from "@storybook/your-framework";
 
 const preview: Preview = {
   parameters: {
@@ -95,7 +95,7 @@ You can use tags to run rules specific to a standard, such as `WCAG 2.2 Level AA
 ```tsx title=".storybook/preview.ts"
 // Replace your-framework with the framework you are using (e.g., react-vite, vue3-vite)
 // if you're using Storybook 9, or with the appropriate renderer otherwise.
-import { Preview } from "@storybook/your-framework";
+import type { Preview } from "@storybook/your-framework";
 
 const preview: Preview = {
   parameters: {
@@ -125,14 +125,15 @@ For Storybook 8+, use the [a11y global](https://storybook.js.org/docs/writing-te
 ```tsx title="MyComponent.stories.ts|tsx"
 // Adjust this import to match your framework (e.g., nextjs, vue3-vite)
 import type { Meta, StoryObj } from "@storybook/your-framework";
+
 import { MyComponent } from "./MyComponent";
 
-const meta: Meta<typeof MyComponent> = {
+const meta = {
   component: MyComponent,
-};
+} satisfies Meta<typeof MyComponent>;
 
 export default meta;
-type Story = StoryObj<typeof MyComponent>;
+type Story = StoryObj<typeof meta>;
 
 export const NonA11yStory: Story = {
   globals: {
@@ -157,19 +158,20 @@ To disable Accessibility Tests only within Chromatic you can use the [`chromatic
 ```tsx title="MyComponent.stories.ts|tsx"
 // Adjust this import to match your framework (e.g., nextjs, vue3-vite)
 import type { Meta, StoryObj } from "@storybook/your-framework";
+
 import { MyComponent } from "./MyComponent";
 
-const meta: Meta<typeof MyComponent> = {
+const meta = {
   component: MyComponent,
   title: "MyComponent",
   parameters: {
     // Disables Chromatic tests on a component level
     chromatic: { disableSnapshot: true },
   },
-};
+} satisfies Meta<typeof MyComponent>;
 
 export default meta;
-type Story = StoryObj<typeof MyComponent>;
+type Story = StoryObj<typeof meta>;
 
 export const Default: Story = {};
 ```
