@@ -27,7 +27,7 @@ jobs:
         shard: [1, 2]
     runs-on: ubuntu-latest
     container:
-      image: mcr.microsoft.com/playwright:v1.53.1-noble
+      image: mcr.microsoft.com/playwright:v1.54.1-noble
     steps:
       - uses: actions/checkout@v4
         with:
@@ -97,7 +97,7 @@ before_script:
 Playwright:
   stage: UI_Tests
   needs: []
-  image: mcr.microsoft.com/playwright:v1.53.1-noble
+  image: mcr.microsoft.com/playwright:v1.54.1-noble
   parallel: 2
   script:
     - npx playwright test --shard=$CI_NODE_INDEX/$CI_NODE_TOTAL
@@ -123,7 +123,7 @@ version: 2.1
 executors:
   pw-noble-development:
     docker:
-      - image: mcr.microsoft.com/playwright:v1.53.1-noble
+      - image: mcr.microsoft.com/playwright:v1.54.1-noble
   chromatic-ui-testing:
     docker:
       - image: cimg/node:22.12.0
@@ -201,7 +201,7 @@ pipeline {
         stage('Shard #1') {
           agent {
             docker {
-              image 'mcr.microsoft.com/playwright:v1.53.1-noble'
+              image 'mcr.microsoft.com/playwright:v1.54.1-noble'
               reuseNode true
             }
           }
@@ -221,7 +221,7 @@ pipeline {
         stage('Shard #2') {
           agent {
             docker {
-              image 'mcr.microsoft.com/playwright:v1.53.1-noble'
+              image 'mcr.microsoft.com/playwright:v1.54.1-noble'
               reuseNode true
             }
           }
@@ -279,7 +279,7 @@ blocks:
           os_image: ubuntu2204
         containers:
           - name: Plawyright
-            image: mcr.microsoft.com/playwright:v1.53.1-noble
+            image: mcr.microsoft.com/playwright:v1.54.1-noble
       jobs:
         - name: Run Playwright
           commands:
@@ -318,7 +318,7 @@ image: node:jod
 - run:
     name: "Playwright"
     displayName: "Run Playwright tests"
-    container: mcr.microsoft.com/playwright:v1.53.1-noble
+    container: mcr.microsoft.com/playwright:v1.54.1-noble
     options:
       parallel: 2
       artifacts:
