@@ -1,5 +1,5 @@
 import React from "react";
-import type { Preview } from "@storybook/react";
+import type { Preview } from "@storybook/react-vite";
 import { ContentContainer } from "../src/components/ContentContainer";
 import { Global } from "@emotion/react";
 import { globalStyles } from "../src/styles/global";

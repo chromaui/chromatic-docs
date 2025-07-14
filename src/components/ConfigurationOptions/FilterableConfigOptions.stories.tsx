@@ -1,5 +1,5 @@
-import type { Meta, StoryObj } from "@storybook/react";
-import { within, userEvent, waitFor, screen } from "@storybook/test";
+import type { Meta, StoryObj } from "@storybook/react-vite";
+import { within, userEvent, waitFor, screen } from "storybook/test";
 import { FilterableConfigOptions } from "./FilterableConfigOptions";
 import type { FilterableConfigOptionsProps } from "./FilterableConfigOptions";
 import type { ConfigOption as ConfigOptionType } from "../../../chromatic-config/generate-schema";

@@ -1,4 +1,4 @@
-import type { Meta, StoryObj } from "@storybook/react";
+import type { Meta, StoryObj } from "@storybook/react-vite";
 import { LayoutGrid } from "./LayoutGrid";
 import styled from "@emotion/styled";
 
