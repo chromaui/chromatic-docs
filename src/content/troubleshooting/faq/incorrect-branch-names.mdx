@@ -1,0 +1,14 @@
+---
+layout: "../../../layouts/FAQLayout.astro"
+sidebar: { hide: true }
+title: Why are my branch names different in Chromatic?
+section: ci
+---
+
+# Why are my branch names different in Chromatic?
+
+Chromatic depends on your CI system to pass Git details like branch names and commit SHAs. Some CI tools, including _CloudBuild_, don’t automatically set this information in a way Chromatic can detect. As a result, you might see branch names in Chromatic that don’t match what appears in your Git provider.
+
+Accurate branch names help Chromatic connect builds to pull requests, update UI Review status checks, and keep your visual history clean. If this data isn’t set correctly, you might notice missing diffs, incorrect status checks, or builds showing under the wrong branch.
+
+To fix this, set Chromatic [environment variables](/docs/configure/#environment-variables) in your CI workflow so it can pick up the correct branch name. If issues persist, feel free to reach out to our support team for help.
