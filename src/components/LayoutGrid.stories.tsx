@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from "@storybook/react";
 import { LayoutGrid } from "./LayoutGrid";
-import { styled } from "@storybook/theming";
+import styled from "@emotion/styled";
 
 const Navigation = styled.div`
   background: var(--tetra-color-blue100);

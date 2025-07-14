@@ -1,4 +1,5 @@
-import { css, styled } from "@storybook/theming";
+import styled from "@emotion/styled";
+import { css } from "@emotion/react";
 import * as Popover from "@radix-ui/react-popover";
 import { color, fontWeight, spacing, typography } from "@chromatic-com/tetra";
 

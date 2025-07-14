@@ -8,7 +8,7 @@ import {
   Text,
   VStack,
 } from "@chromatic-com/tetra";
-import { styled } from "@storybook/theming";
+import styled from "@emotion/styled";
 import type {
   ConfigOption as ConfigOptionType,
   SupportedType,

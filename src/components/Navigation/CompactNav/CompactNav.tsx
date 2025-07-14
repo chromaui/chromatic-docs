@@ -1,5 +1,5 @@
 import { DropdownMenu } from "./DropdownMenu";
-import { styled } from "@storybook/theming";
+import styled from "@emotion/styled";
 import { minMd } from "@chromatic-com/tetra";
 import type { TransformedNavGroup, TransformedItem } from "../types";
 

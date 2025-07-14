@@ -1,6 +1,6 @@
 ---
-import { color, maxSm, minMd, minSm, spacing } from "@chromatic-com/tetra";
-import { css, Global } from "@storybook/theming";
+import { color, maxSm, minMd, minSm, spacing } from '@chromatic-com/tetra';
+import { css, Global } from '@emotion/react';
 
 const styles = css`
   :root {
@@ -130,13 +130,13 @@ const ALGOLIA_API_KEY = import.meta.env.PUBLIC_ALGOLIA_API_KEY;
 <script is:inline src="https://cdn.jsdelivr.net/npm/@docsearch/js@3"></script>
 <script is:inline define:vars={{ ALGOLIA_API_KEY }}>
   window.docsearch({
-    container: "#docsearch",
-    appId: "I751GHI6QM",
-    indexName: "chromatic",
+    container: '#docsearch',
+    appId: 'I751GHI6QM',
+    indexName: 'chromatic',
     apiKey: ALGOLIA_API_KEY,
     insights: true,
     searchParameters: {
-      attributesToHighlight: ["hierarchy.lvl0"],
+      attributesToHighlight: ['hierarchy.lvl0'],
     },
   });
 </script>

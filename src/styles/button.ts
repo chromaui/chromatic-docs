@@ -1,4 +1,4 @@
-import { css } from "@storybook/theming";
+import { css } from "@emotion/react";
 import { minMd } from "@chromatic-com/tetra";
 
 export const button = css`

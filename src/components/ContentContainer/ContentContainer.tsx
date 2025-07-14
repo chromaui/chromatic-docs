@@ -1,4 +1,4 @@
-import { styled } from "@storybook/theming";
+import styled from "@emotion/styled";
 import { button } from "../../styles/button";
 import { formatting } from "../../styles/formatting";
 import { syntaxHighlighting } from "../../styles/syntax-highlighting";
