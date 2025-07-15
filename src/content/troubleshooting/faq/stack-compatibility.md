@@ -1,5 +1,4 @@
 ---
-layout: "../../../layouts/FAQLayout.astro"
 sidebar: { hide: true }
 title: Is my stack compatible with Chromatic?
 section: compatibility

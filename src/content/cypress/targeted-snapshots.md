@@ -1,5 +1,4 @@
 ---
-layout: "../../layouts/Layout.astro"
 title: Targeted snapshots
 slug: cypress/targeted-snapshots
 description: Learn how to capture snapshots at specific points during your Cypress tests programmatically

@@ -1,5 +1,4 @@
 ---
-layout: "../../layouts/Layout.astro"
 title: Sunsetting `--preserve-missing`
 description: We are removing the --preserve-missing flag and will start to fail builds that use it
 ---

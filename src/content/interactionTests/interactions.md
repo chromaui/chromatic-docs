@@ -1,5 +1,4 @@
 ---
-layout: "../../layouts/Layout.astro"
 title: Interaction tests
 description: Learn how interaction testing works with Chromatic
 sidebar: { order: 1 }
@@ -111,7 +110,7 @@ export const SecondStory: Story = {
 };
 
 export const ThirdStory: Story = {
-   play: async ({ context, userEvent }) => {
+  play: async ({ context, userEvent }) => {
     //  👇 SecondStory.play will execute the play functions from FirstStory.play since this is part of the SecondStory.play function:
     await SecondStory.play(context);
     const searchbox = screen.getByRole("searchbox", { label: "Search" });

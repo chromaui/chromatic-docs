@@ -1,5 +1,4 @@
 ---
-layout: "../../layouts/Layout.astro"
 title: Publish
 description: Learn how Chromatic helps document components.
 sidebar: { order: 6 }

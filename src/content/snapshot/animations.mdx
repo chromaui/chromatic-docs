@@ -1,5 +1,4 @@
 ---
-layout: "../../layouts/Layout.astro"
 title: Animations
 description: Learn how Chromatic pauses animations and how to control the behavior
 sidebar: { order: 10 }
@@ -259,10 +258,10 @@ export const Default: Story = {
 Additionally, you can turn this into a utility in order to reuse in other stories. If you happen to have multiple animated elements, there's some adjustments you can do to make this work. Here's an example below that both incorporates multiple animated elements and creates a utility for reuse in other stories.
 
 ```tsx title="MyComponent.stories.tsx"
-/* 
-* Replace the storybook/test import with `@storybook/test` and adjust the stories accordingly if you're not using Storybook 9.0.
-* Refer to the Storybook documentation for the correct package and imports for earlier versions.
-*/
+/*
+ * Replace the storybook/test import with `@storybook/test` and adjust the stories accordingly if you're not using Storybook 9.0.
+ * Refer to the Storybook documentation for the correct package and imports for earlier versions.
+ */
 import { screen, waitFor } from "storybook/test";
 
 const waitForAllAnimationsToComplete = async () => {

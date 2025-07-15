@@ -1,5 +1,4 @@
 ---
-layout: "../../layouts/Layout.astro"
 title: Support
 description: Chromatic's support guidelines
 sidebar: { order: 2 }

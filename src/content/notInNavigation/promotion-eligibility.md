@@ -1,5 +1,4 @@
 ---
-layout: "../../layouts/Layout.astro"
 title: Promotion code eligibility
 description: Chromatic promotion code rules and redemption
 ---

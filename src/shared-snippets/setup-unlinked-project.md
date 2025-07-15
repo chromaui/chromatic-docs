@@ -6,7 +6,7 @@ To setup Chromatic with an "unlinked" project:
 2. Sign in using your _personal_ account via any of the supported providers. We'll use this to authenticate you as a user only so the account doesn't have to be associated with your work.
 3. Select "Create a project" and type your project name to create an unlinked project.
 
-![Setup unlinked project](../../images/chromatic-setup-unlinked-project.png)
+![Setup unlinked project](../images/chromatic-setup-unlinked-project.png)
 
 Nice! You created an unlinked project. This will allow you to get started with [UI Testing](/docs) workflow regardless of the underlying git provider. You can then configure your CI system to automatically run a Chromatic build on push.
 

@@ -1,8 +1,17 @@
 ---
-import { getEntry } from "astro:content";
+import { getEntry, render } from 'astro:content';
+import BaseLayout from '../layouts/BaseLayout.astro';
 
-const introduction = await getEntry("overview", "introduction");
-const { Content } = await introduction.render();
+const introduction = await getEntry('overview', 'introduction')!;
+const { Content, headings } = await render(introduction);
 ---
 
-<Content />
+<BaseLayout
+  title={introduction.data.title}
+  description={introduction.data.description}
+  id={introduction.id}
+  file={introduction.filePath}
+  headings={headings}
+>
+  <Content />
+</BaseLayout>

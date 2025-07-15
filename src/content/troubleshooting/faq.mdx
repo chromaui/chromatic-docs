@@ -1,5 +1,4 @@
 ---
-layout: "../../layouts/Layout.astro"
 title: FAQs
 description: Frequently asked questions about Chromatic
 sidebar: { order: 1 }
@@ -15,7 +14,7 @@ If you have a question not covered in our documentation, contact us via our in-a
 <ul class="faq-section-toc">
   {props.groupedFAQs.comparisons.map((faq) => (
     <li>
-      <a href={`/docs/${faq.slug}`}>{faq.title}</a>
+      <a href={`/docs/${faq.id}`}>{faq.title}</a>
     </li>
   ))}
 </ul>
@@ -25,7 +24,7 @@ If you have a question not covered in our documentation, contact us via our in-a
 <ul class="faq-section-toc">
   {props.groupedFAQs.usage.map((faq) => (
     <li>
-      <a href={`/docs/${faq.slug}`}>{faq.title}</a>
+      <a href={`/docs/${faq.id}`}>{faq.title}</a>
     </li>
   ))}
 </ul>
@@ -35,7 +34,7 @@ If you have a question not covered in our documentation, contact us via our in-a
 <ul class="faq-section-toc">
   {props.groupedFAQs.browsers.map((faq) => (
     <li>
-      <a href={`/docs/${faq.slug}`}>{faq.title}</a>
+      <a href={`/docs/${faq.id}`}>{faq.title}</a>
     </li>
   ))}
 </ul>
@@ -45,7 +44,7 @@ If you have a question not covered in our documentation, contact us via our in-a
 <ul class="faq-section-toc">
   {props.groupedFAQs.uiTestsAndReview.map((faq) => (
     <li>
-      <a href={`/docs/${faq.slug}`}>{faq.title}</a>
+      <a href={`/docs/${faq.id}`}>{faq.title}</a>
     </li>
   ))}
 </ul>
@@ -55,7 +54,7 @@ If you have a question not covered in our documentation, contact us via our in-a
 <ul class="faq-section-toc">
   {props.groupedFAQs.publish.map((faq) => (
     <li>
-      <a href={`/docs/${faq.slug}`}>{faq.title}</a>
+      <a href={`/docs/${faq.id}`}>{faq.title}</a>
     </li>
   ))}
 </ul>
@@ -65,7 +64,7 @@ If you have a question not covered in our documentation, contact us via our in-a
 <ul class="faq-section-toc">
   {props.groupedFAQs.ci.map((faq) => (
     <li>
-      <a href={`/docs/${faq.slug}`}>{faq.title}</a>
+      <a href={`/docs/${faq.id}`}>{faq.title}</a>
     </li>
   ))}
 </ul>
@@ -75,7 +74,7 @@ If you have a question not covered in our documentation, contact us via our in-a
 <ul class="faq-section-toc">
   {props.groupedFAQs.turboSnap.map((faq) => (
     <li>
-      <a href={`/docs/${faq.slug}`}>{faq.title}</a>
+      <a href={`/docs/${faq.id}`}>{faq.title}</a>
     </li>
   ))}
 </ul>
@@ -85,7 +84,7 @@ If you have a question not covered in our documentation, contact us via our in-a
 <ul class="faq-section-toc">
   {props.groupedFAQs.figmaPlugin.map((faq) => (
     <li>
-      <a href={`/docs/${faq.slug}`}>{faq.title}</a>
+      <a href={`/docs/${faq.id}`}>{faq.title}</a>
     </li>
   ))}
 </ul>
@@ -95,7 +94,7 @@ If you have a question not covered in our documentation, contact us via our in-a
 <ul class="faq-section-toc">
   {props.groupedFAQs.figmaInChromatic.map((faq) => (
     <li>
-      <a href={`/docs/${faq.slug}`}>{faq.title}</a>
+      <a href={`/docs/${faq.id}`}>{faq.title}</a>
     </li>
   ))}
 </ul>
@@ -105,7 +104,7 @@ If you have a question not covered in our documentation, contact us via our in-a
 <ul class="faq-section-toc">
   {props.groupedFAQs.compatibility.map((faq) => (
     <li>
-      <a href={`/docs/${faq.slug}`}>{faq.title}</a>
+      <a href={`/docs/${faq.id}`}>{faq.title}</a>
     </li>
   ))}
 </ul>
@@ -115,7 +114,7 @@ If you have a question not covered in our documentation, contact us via our in-a
 <ul class="faq-section-toc">
   {props.groupedFAQs.account.map((faq) => (
     <li>
-      <a href={`/docs/${faq.slug}`}>{faq.title}</a>
+      <a href={`/docs/${faq.id}`}>{faq.title}</a>
     </li>
   ))}
 </ul>

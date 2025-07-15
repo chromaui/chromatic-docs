@@ -1,5 +1,4 @@
 ---
-layout: "../../layouts/Layout.astro"
 title: Chromatic Markdown syntax
 description: Learn how to use markdown in discussions
 sidebar: { order: 10, label: Markdown }

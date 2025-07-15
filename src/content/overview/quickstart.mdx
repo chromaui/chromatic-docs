@@ -1,12 +1,11 @@
 ---
-layout: "../../layouts/Layout.astro"
 title: Quickstart
 description: Learn how to setup Chromatic for Storybook and run tests
 sidebar: { order: 2 }
 ---
 
-import TroubleshootingSetup from "../shared-snippets/setup/troubleshooting.mdx";
-import DemoChromaticUnlinked from "../shared-snippets/demo-chromatic-unlinked.mdx";
+import TroubleshootingSetup from "../../shared-snippets/setup/troubleshooting.mdx";
+import DemoChromaticUnlinked from "../../shared-snippets/demo-chromatic-unlinked.mdx";
 import InstallSnippets from "../../components/InstallSnippets.astro";
 import KeyboardShortcuts from "../../components/KeyboardShortcuts.astro";
 
@@ -15,7 +14,9 @@ import KeyboardShortcuts from "../../components/KeyboardShortcuts.astro";
 Chromatic, created by the team behind Storybook, seamlessly integrates visual testing into your UI development workflow. Storybook lets you capture every component state and variation as [stories](https://storybook.js.org/docs/get-started/whats-a-story). Then, Chromatic automatically executes visual, interaction and accessibility tests on those stories.
 
 <div class="aside">
-  ℹ️ Not using Storybook? Chromatic integrates with [Playwright](/docs/playwright) and [Cypress](/docs/cypress) to transform your E2E tests into visual regression tests.
+  ℹ️ Not using Storybook? Chromatic integrates with
+  [Playwright](/docs/playwright) and [Cypress](/docs/cypress) to transform your
+  E2E tests into visual regression tests.
 </div>
 
 ## Set up Chromatic for Storybook
@@ -187,7 +188,6 @@ When your build is passed (all changes accepted), you’re ready to merge with c
 After you merge your code, Chromatic will also apply accepted baselines to stories on the target branch. That means you’ll only need to accept baselines a single time.
 
 ![Build with reviewed tests](../../images/build-test-reviewed.png)
-
 
 ### 7. PR check for “UI Tests”
 

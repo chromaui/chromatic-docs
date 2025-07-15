@@ -1,5 +1,4 @@
 ---
-layout: "../../layouts/Layout.astro"
 title: Configuration reference
 description: Learn about the various configuration options for Chromatic
 sidebar: { order: 3 }
@@ -55,9 +54,9 @@ Some options can be configured through environment variables. You will typically
 
 The following options are still supported but will be removed in a future version. If your project still uses them, we encourage you to remove them from your scripts or configuration at your earliest convenience.
 
-| CLI flag                 |                                                                                                                                                                               |
-| ------------------------ | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `--preserve-missing`     | Replaced by `--only-*` based options.<br/>Refer to the following [documentation](/docs/sunsetting-preserve-missing) for more information on its deprecation and alternatives. |
+| CLI flag             |                                                                                                                                                                               |
+| -------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `--preserve-missing` | Replaced by `--only-*` based options.<br/>Refer to the following [documentation](/docs/sunsetting-preserve-missing) for more information on its deprecation and alternatives. |
 
 ## Unsupported options
 
@@ -65,12 +64,12 @@ The options listed below are no longer supported by our CLI and will not yield a
 
 | CLI flag                   |                                                                                                                                               |
 | -------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------- |
-| `--allow-console-errors`   | Continue running Chromatic even if Storybook logs errors in the console.                                                                                                      |
-| `--app-code <token>`       | Renamed to `--project-token`.                                                                                                                                                 |
-| `--diagnostics`            | Replaced by `--diagnostics-file`.                                                                                                                                             |
+| `--allow-console-errors`   | Continue running Chromatic even if Storybook logs errors in the console.                                                                      |
+| `--app-code <token>`       | Renamed to `--project-token`.                                                                                                                 |
+| `--diagnostics`            | Replaced by `--diagnostics-file`.                                                                                                             |
 | `--do-not-start`           | Don't attempt to start or build Storybook. Use this if your Storybook is already running, for example, when part of a larger app. Alias: `-S` |
 | `--exec <command>`         | Alternatively, a shell command that starts your Storybook. Alias: `-e`                                                                        |
-| `--only`                   | Replaced by `--only-story-names`.                                                                                                                                             |
+| `--only`                   | Replaced by `--only-story-names`.                                                                                                             |
 | `--preserve-missing-specs` | Preserve missing stories when publishing a partial Storybook.                                                                                 |
 | `--script-name [name]`     | The npm script that starts your Storybook. Defaults to `storybook`. Alias: `-s`                                                               |
 | `--storybook-ca <ca>`      | Use with `--storybook-https`. Auto detected from the npm script when using `--script-name`.                                                   |

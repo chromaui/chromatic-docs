@@ -1,5 +1,4 @@
 ---
-layout: "../../layouts/Layout.astro"
 title: Snapshots
 description: What is a Snapshot in Chromatic
 sidebar: { order: 1 }

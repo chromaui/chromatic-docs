@@ -1,5 +1,4 @@
 ---
-layout: "../../../layouts/FAQLayout.astro"
 sidebar: { hide: true }
 title: Why is my build failing with component errors?
 section: "uiTestsAndReview"

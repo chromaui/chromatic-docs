@@ -1,6 +1,6 @@
 ---
-import type { MarkdownHeading } from "astro";
-import { color, fontSize } from "@chromatic-com/tetra";
+import type { MarkdownHeading } from 'astro';
+import { color, fontSize } from '@chromatic-com/tetra';
 
 type Props = {
   headings: MarkdownHeading[];
@@ -9,7 +9,7 @@ type Props = {
 const { headings } = Astro.props;
 
 const tocHeadings = headings.map((heading) => {
-  return heading.depth === 1 ? { ...heading, text: "Overview" } : heading;
+  return heading.depth === 1 ? { ...heading, text: 'Overview' } : heading;
 });
 ---
 
@@ -22,8 +22,8 @@ const tocHeadings = headings.map((heading) => {
           <li style={`--depth: ${Math.max(0, heading.depth - 2)}`}>
             <a
               class="link primary"
-              href={`#${heading.slug}`}
-              data-hash={heading.slug}
+              href={`#${heading.id}`}
+              data-hash={heading.id}
             >
               {heading.text}
             </a>
@@ -36,10 +36,10 @@ const tocHeadings = headings.map((heading) => {
 
 <script>
   const links = [
-    ...document.querySelectorAll<HTMLAnchorElement>(".on-this-page a"),
+    ...document.querySelectorAll<HTMLAnchorElement>('.on-this-page a'),
   ];
 
-  links[0].setAttribute("aria-current", "true");
+  links[0].setAttribute('aria-current', 'true');
 
   const setCurrent: IntersectionObserverCallback = (entries) => {
     for (const { isIntersecting, target } of entries) {
@@ -51,9 +51,9 @@ const tocHeadings = headings.map((heading) => {
       const link = links.find((link) => link.dataset.hash === headingID);
 
       if (link && link !== current) {
-        if (current) current.removeAttribute("aria-current");
+        if (current) current.removeAttribute('aria-current');
 
-        link.setAttribute("aria-current", "true");
+        link.setAttribute('aria-current', 'true');
         current = link;
 
         break;
@@ -62,7 +62,7 @@ const tocHeadings = headings.map((heading) => {
   };
 
   const toObserve = document.querySelectorAll(
-    "h1[id], h2[id], h3[id], h4[id], h5[id], h6[id]",
+    'h1[id], h2[id], h3[id], h4[id], h5[id], h6[id]'
   );
 
   let current: HTMLAnchorElement | null = null;
@@ -116,7 +116,7 @@ const tocHeadings = headings.map((heading) => {
       transform 150ms ease-out,
       color 150ms ease-out;
 
-    &[aria-current="true"] {
+    &[aria-current='true'] {
       color: #1ea7fd;
     }
 

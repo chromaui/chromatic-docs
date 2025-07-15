@@ -28,7 +28,7 @@ This project uses Astro. Inside, you'll see the following folders and files:
 │   ├── components/
 │   │   └── Card.astro
 │   ├── layouts/
-│   │   └── Layout.astro
+│   │   └── BaseLayout.astro
 │   └── pages/
 │       └── index.astro
 └── package.json

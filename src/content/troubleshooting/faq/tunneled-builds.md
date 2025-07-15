@@ -1,5 +1,4 @@
 ---
-layout: "../../../layouts/FAQLayout.astro"
 sidebar: { hide: true }
 title: Why are my tunneled builds failing?
 section: "usage"

@@ -120,11 +120,11 @@ const CollapsibleItem = ({
   timeline?: boolean;
   isHome?: boolean;
 }) => {
-  const isActive = isHome && item.isHome ? true : withBase(item.slug) === url;
+  const isActive = isHome && item.isHome ? true : withBase(item.id) === url;
 
   return (
     <Collapsible.Content asChild>
-      <Link href={withBase(item.slug)}>
+      <Link href={withBase(item.id)}>
         {!!timeline && <Bullet isActive={isActive} />}
         <ContentItem isActive={isActive} isTimeline={!!timeline}>
           {item.label}

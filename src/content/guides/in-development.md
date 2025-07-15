@@ -1,5 +1,4 @@
 ---
-layout: "../../layouts/Layout.astro"
 title: In development workflow
 description: How Chromatic helps teams develop applications
 sidebar: { order: 1, label: Dev workflow }
@@ -37,8 +36,8 @@ If you're a seasoned Storybook user, most teams choose a [Component-Driven](http
 
 Developers test user flows end-to-end by navigating between pages with Playwright or Cypress. This methodology allows you to simulate how users behave. Chromatic uses these E2E tests as visual test cases by automatically snapshotting key moments in the test.
 
-* [Learn how to setup Playwright »](/docs/playwright)
-* [Learn how to setup Cypress »](/docs/cypress)
+- [Learn how to setup Playwright »](/docs/playwright)
+- [Learn how to setup Cypress »](/docs/cypress)
 
 </details>
 

@@ -1,5 +1,4 @@
 ---
-layout: "../../layouts/Layout.astro"
 title: Targeted snapshots
 slug: playwright/targeted-snapshots
 description: Learn how to capture snapshots at specific points during your Playwright tests programmatically

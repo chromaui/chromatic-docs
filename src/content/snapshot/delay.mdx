@@ -1,5 +1,4 @@
 ---
-layout: "../../layouts/Layout.astro"
 title: Delay
 description: Learn how to make Chromatic wait before capturing a snapshot
 sidebar: { order: 13 }
@@ -99,26 +98,27 @@ If you need additional control when Chromatic captures a snapshot, you can adjus
   // Adjust this import to match your framework (e.g., nextjs, vue3-vite)
   import type { Meta, StoryObj } from "@storybook/your-framework";
 
-  /*
-  * Replace the storybook/test import with `@storybook/test` and adjust the stories accordingly if you're not using Storybook 9.0.
-  * Refer to the Storybook documentation for the correct package and imports for earlier versions.
-  */
+/\*
+
+- Replace the storybook/test import with `@storybook/test` and adjust the stories accordingly if you're not using Storybook 9.0.
+- Refer to the Storybook documentation for the correct package and imports for earlier versions.
+  \*/
   import { expect, waitFor, within } from "storybook/test";
 
-  import { Categories } from "./Categories";
+import { Categories } from "./Categories";
 
-  const meta = {
-    component: Categories,
-    title: "Categories",
-  } satisfies Meta<typeof Categories>;
+const meta = {
+component: Categories,
+title: "Categories",
+} satisfies Meta<typeof Categories>;
 
-  export default meta;
-  type Story = StoryObj<typeof meta>;
+export default meta;
+type Story = StoryObj<typeof meta>;
 
-  export const Default: Story = {
-    play: async ({ canvas, userEvent }) => {
-      const LoadMoreButton = await canvas.getByRole("button", { name: "Load more" });
-      await userEvent.click(LoadMoreButton);
+export const Default: Story = {
+play: async ({ canvas, userEvent }) => {
+const LoadMoreButton = await canvas.getByRole("button", { name: "Load more" });
+await userEvent.click(LoadMoreButton);
 
       // Wait for the below assertion not throwing an error (default timeout is 1000ms)
       // This is especially useful when you have an asynchronous action or component that you want to wait for before taking a snapshot
@@ -128,13 +128,14 @@ If you need additional control when Chromatic captures a snapshot, you can adjus
         expect(numberOfItems).toHaveLength(0);
       });
     },
-  };
 
-  // Emulates a delayed story by setting a timeout of 10 seconds to allow the component to load the items and ensure that the list has 20 items rendered in the DOM
-  export const WithManualTimeout: Story = {
-    play: async ({ canvas, userEvent }) => {
-      const LoadMoreButton = await canvas.getByTestId("button");
-      await userEvent.click(LoadMoreButton);
+};
+
+// Emulates a delayed story by setting a timeout of 10 seconds to allow the component to load the items and ensure that the list has 20 items rendered in the DOM
+export const WithManualTimeout: Story = {
+play: async ({ canvas, userEvent }) => {
+const LoadMoreButton = await canvas.getByTestId("button");
+await userEvent.click(LoadMoreButton);
 
       // This sets a timeout of 10 seconds and verifies that there are 20 items in the list
       await new Promise((resolve) => setTimeout(resolve, 10000));
@@ -143,36 +144,38 @@ If you need additional control when Chromatic captures a snapshot, you can adjus
       const numberOfItems = await within(ItemList).findAllByRole("link");
       expect(numberOfItems).toHaveLength(20);
     },
-  };
-  ```
 
-  <div class="aside">
+};
 
-  ℹ️ For more information about querying elements, see the [DOM Testing Library cheatsheet](https://testing-library.com/docs/dom-testing-library/cheatsheet/#queries).
+````
 
-  </div>
+<div class="aside">
 
-  </Fragment>
-  <Fragment slot="playwright">
-   ```ts title="tests/Categories.spec.js|ts"
-   import { test, expect } from "@chromatic-com/playwright";
+ℹ️ For more information about querying elements, see the [DOM Testing Library cheatsheet](https://testing-library.com/docs/dom-testing-library/cheatsheet/#queries).
 
-    test.describe("Categories Page", () => {
-      test("Renders the categories page with additional items", async ({ page }) => {
-        await page.goto("/categories");
+</div>
 
-        const loadMoreButton = await page.getByRole("button", { name: "Load more" });
+</Fragment>
+<Fragment slot="playwright">
+ ```ts title="tests/Categories.spec.js|ts"
+ import { test, expect } from "@chromatic-com/playwright";
 
-        await loadMoreButton.click();
+  test.describe("Categories Page", () => {
+    test("Renders the categories page with additional items", async ({ page }) => {
+      await page.goto("/categories");
 
-        // Verifies that there are 20 items in the list after waiting for 10 seconds
-        expect(await page.locator(".listItems")).toHaveCount(20, {
-          timeout: 10000
-        });
+      const loadMoreButton = await page.getByRole("button", { name: "Load more" });
 
-     });
+      await loadMoreButton.click();
+
+      // Verifies that there are 20 items in the list after waiting for 10 seconds
+      expect(await page.locator(".listItems")).toHaveCount(20, {
+        timeout: 10000
+      });
+
    });
-   ```
+ });
+````
 
    <div class="aside">
 
@@ -191,13 +194,16 @@ If you need additional control when Chromatic captures a snapshot, you can adjus
         // Verifies that there are 20 items in the list after waiting for 10 seconds
         cy.get(".listItems", { timeout: 10000 }).should("have.length", 20);
      });
-   });
-   ```
 
-   <div class="aside">
-    ℹ️ The Cypress [API](https://docs.cypress.io/api/table-of-contents#Queries) includes additional methods to find elements in the DOM and interact with them in your tests. However, when writing tests, you may need additional control over the timing of your assertions. For more information, see the Cypress documentation on [timeouts](https://docs.cypress.io/guides/references/configuration#Timeouts).
-   </div>
-  </Fragment>
+});
+
+```
+
+<div class="aside">
+ ℹ️ The Cypress [API](https://docs.cypress.io/api/table-of-contents#Queries) includes additional methods to find elements in the DOM and interact with them in your tests. However, when writing tests, you may need additional control over the timing of your assertions. For more information, see the Cypress documentation on [timeouts](https://docs.cypress.io/guides/references/configuration#Timeouts).
+</div>
+</Fragment>
 </IntegrationSnippets>
 
 {/* prettier-ignore-end */}
+```

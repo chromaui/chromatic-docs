@@ -1,5 +1,4 @@
 ---
-layout: "../../layouts/Layout.astro"
 title: isChromatic
 description: Learn how to control what executes in the Chromatic environment
 sidebar: { order: 9 }

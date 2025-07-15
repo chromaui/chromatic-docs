@@ -1,5 +1,4 @@
 ---
-layout: "../../layouts/Layout.astro"
 title: Chromatic for designers
 description: How to use Chromatic for designers
 sidebar: { order: 3, label: For designers }

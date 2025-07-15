@@ -1,5 +1,4 @@
 ---
-layout: "../../layouts/Layout.astro"
 title: Mocking APIs and Network Requests
 description: Learn how to mock APIs and network requests in your tests (Storybook, Playwright and Cypress)
 sidebar: { order: 5, label: "Mocking APIs" }

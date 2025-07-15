@@ -23,12 +23,15 @@
     "build-storybook": "storybook build"
   },
   "dependencies": {
-    "@astrojs/markdown-remark": "^5.1.1",
-    "@astrojs/mdx": "^2.3.1",
-    "@astrojs/react": "^3.3.0",
-    "@astrojs/sitemap": "^3.1.4",
+    "@astrojs/markdown-remark": "^6.3.2",
+    "@astrojs/mdx": "^4.3.0",
+    "@astrojs/react": "^4.3.0",
+    "@astrojs/sitemap": "^3.4.1",
     "@chromatic-com/tetra": "^2.2.0",
     "@docsearch/css": "^3.5.2",
+    "@emotion/react": "^11.13.3",
+    "@emotion/server": "^11.11.0",
+    "@emotion/styled": "^11.13.0",
     "@radix-ui/react-collapsible": "^1.0.3",
     "@radix-ui/react-dropdown-menu": "2.0.5",
     "@radix-ui/react-popover": "1.1.1",
@@ -36,10 +39,7 @@
     "@types/hast": "^3.0.3",
     "@types/react": "^18.2.21",
     "@types/react-dom": "^18.2.7",
-    "astro": "^4.12.3",
-    "@emotion/react": "^11.13.3",
-    "@emotion/server": "^11.11.0",
-    "@emotion/styled": "^11.13.0",
+    "astro": "^5.11.1",
     "framer-motion": "^11.0.5",
     "github-slugger": "^2.0.0",
     "hast-util-select": "^6.0.2",
@@ -63,6 +63,7 @@
     "@beoe/rehype-mermaid": "^0.0.1",
     "@chromatic-com/storybook": "^4.0.1",
     "@hyperjump/json-schema": "^1.9.4",
+    "@storybook/addon-docs": "^9.0.16",
     "@storybook/addon-links": "^9.0.16",
     "@storybook/react-vite": "^9.0.16",
     "broken-link-checker": "^0.7.8",
@@ -70,8 +71,7 @@
     "hastscript": "^8.0.0",
     "prettier": "^3.2.5",
     "prettier-plugin-astro": "^0.12.0",
-    "storybook": "^9.0.16",
-    "@storybook/addon-docs": "^9.0.16"
+    "storybook": "^9.0.16"
   },
   "packageManager": "pnpm@9.4.0+sha512.f549b8a52c9d2b8536762f99c0722205efc5af913e77835dbccc3b0b0b2ca9e7dc8022b78062c17291c48e88749c70ce88eb5a74f1fa8c4bf5e18bb46c8bd83a"
 }

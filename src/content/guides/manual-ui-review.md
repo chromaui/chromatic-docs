@@ -1,5 +1,4 @@
 ---
-layout: "../../layouts/Layout.astro"
 title: Manual UI Review
 description: Learn how to manually trigger a UI review
 sidebar: { order: 4, label: "Manual UI Review" }

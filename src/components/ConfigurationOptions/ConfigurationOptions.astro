@@ -1,8 +1,8 @@
 ---
-import type { ConfigOption as ConfigOptionType } from "../../../chromatic-config/generate-schema";
-import configOptions from "../../../chromatic-config/options.json";
-import { markdown } from "../../markdown";
-import { FilterableConfigOptions } from "./FilterableConfigOptions";
+import type { ConfigOption as ConfigOptionType } from '../../../chromatic-config/generate-schema';
+import configOptions from '../../../chromatic-config/options.json';
+import { markdown } from '../../markdown';
+import { FilterableConfigOptions } from './FilterableConfigOptions';
 
 export const formatOption = async (option: ConfigOptionType) => {
   return {
@@ -14,12 +14,12 @@ export const formatOption = async (option: ConfigOptionType) => {
     default:
       option.default !== undefined
         ? `<code>${option.default}</code>`
-        : await markdown(option.defaultComment),
+        : await markdown(option.defaultComment || ''),
   };
 };
 
 const formattedOptions = await Promise.all(
-  (configOptions as ConfigOptionType[]).map(formatOption),
+  (configOptions as ConfigOptionType[]).map(formatOption)
 );
 ---
 

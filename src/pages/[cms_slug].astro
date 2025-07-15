@@ -1,5 +1,5 @@
 ---
-import BaseLayout from "../layouts/BaseLayout.astro";
+import BaseLayout from '../layouts/BaseLayout.astro';
 
 interface DocPage {
   title: string;
@@ -11,8 +11,8 @@ interface DocPage {
 
 export async function getStaticPaths() {
   const query = {
-    method: "POST",
-    headers: { "Content-Type": "application/json" },
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify({
       query: `
       {
@@ -28,7 +28,7 @@ export async function getStaticPaths() {
   };
 
   // Don't fetch data in development mode
-  if (process.env.NODE_ENV === "development") {
+  if (process.env.NODE_ENV === 'development') {
     return [];
   }
 
@@ -39,7 +39,7 @@ export async function getStaticPaths() {
   return pages.map((page) => {
     return {
       params: {
-        cms_slug: page.slug,
+        cms_slug: page.id,
       },
       props: {
         ...page,
