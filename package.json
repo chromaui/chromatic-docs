@@ -57,7 +57,7 @@
     "sharp": "^0.33.1",
     "strip-markdown": "^6.0.0",
     "unist-util-visit": "^5.0.0",
-    "vitest": "^2.0.4"
+    "vitest": "^2.1.9"
   },
   "devDependencies": {
     "@beoe/rehype-mermaid": "^0.0.1",
