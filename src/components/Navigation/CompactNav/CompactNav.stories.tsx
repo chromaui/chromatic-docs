@@ -10,9 +10,9 @@ import {
 const meta = {
   title: "Components/Navigation/CompactNav",
   component: CompactNav,
-  parameters: {
+  globals: {
     viewport: {
-      defaultViewport: "mobile2",
+      value: "mobile2",
     },
   },
 } satisfies Meta<typeof CompactNav>;
