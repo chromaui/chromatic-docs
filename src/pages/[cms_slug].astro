@@ -39,7 +39,7 @@ export async function getStaticPaths() {
   return pages.map((page) => {
     return {
       params: {
-        cms_slug: page.id,
+        cms_slug: page.slug,
       },
       props: {
         ...page,
@@ -48,10 +48,18 @@ export async function getStaticPaths() {
   });
 }
 
-const { title, body } = Astro.props;
+interface Props {
+  title: string;
+  body: {
+    html: string;
+  };
+  cms_slug: string;
+}
+
+const { title, body, cms_slug } = Astro.props;
 ---
 
-<BaseLayout title={title} description="" url="/onboarding-guide" headings={[]}>
+<BaseLayout title={title} description="" headings={[]} id={cms_slug}>
   <h1>{title}</h1>
   <div set:html={body.html} />
 </BaseLayout>
