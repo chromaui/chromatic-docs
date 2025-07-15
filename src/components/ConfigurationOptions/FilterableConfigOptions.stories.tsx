@@ -1,5 +1,5 @@
-import type { Meta, StoryObj } from "@storybook/react";
-import { within, userEvent, waitFor, screen } from "@storybook/test";
+import type { Meta, StoryObj } from "@storybook/react-vite";
+import { screen } from "storybook/test";
 import { FilterableConfigOptions } from "./FilterableConfigOptions";
 import type { FilterableConfigOptionsProps } from "./FilterableConfigOptions";
 import type { ConfigOption as ConfigOptionType } from "../../../chromatic-config/generate-schema";
@@ -74,8 +74,7 @@ export const OpenFilter: Story = {
   args: {
     options: mockOptions,
   },
-  play: async ({ canvasElement }) => {
-    const canvas = within(canvasElement);
+  play: async ({ canvas, userEvent }) => {
     const FilterButton = await canvas.findByRole("button");
     await userEvent.click(FilterButton);
   },
@@ -85,8 +84,7 @@ export const FilterOptions: Story = {
   args: {
     options: mockOptions,
   },
-  play: async ({ canvasElement }) => {
-    const canvas = within(canvasElement);
+  play: async ({ canvas, userEvent }) => {
     const FilterButton = await canvas.findByRole("button");
 
     await userEvent.click(FilterButton);
@@ -106,8 +104,7 @@ export const NoOptions: Story = {
   args: {
     options: mockOptions,
   },
-  play: async ({ canvasElement }) => {
-    const canvas = within(canvasElement);
+  play: async ({ canvas, userEvent }) => {
     const FilterButton = await canvas.findByRole("button");
 
     await userEvent.click(FilterButton);

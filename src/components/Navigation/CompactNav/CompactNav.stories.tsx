@@ -1,5 +1,4 @@
-import type { Meta, StoryObj } from "@storybook/react";
-import { within, userEvent } from "@storybook/test";
+import type { Meta, StoryObj } from "@storybook/react-vite";
 import { CompactNav } from "./CompactNav";
 import type { TransformedItem } from "../types";
 import {
@@ -11,9 +10,9 @@ import {
 const meta = {
   title: "Components/Navigation/CompactNav",
   component: CompactNav,
-  parameters: {
+  globals: {
     viewport: {
-      defaultViewport: "mobile2",
+      value: "mobile2",
     },
   },
 } satisfies Meta<typeof CompactNav>;
@@ -35,8 +34,7 @@ export const OneGroup = {
     url: "/docs/test",
   },
   decorators: [(storyFn) => <div style={{ height: "800px" }}>{storyFn()}</div>],
-  play: async ({ canvasElement }) => {
-    const canvas = within(canvasElement);
+  play: async ({ canvas, userEvent }) => {
     const MenuButton = await canvas.findByRole("button");
     await userEvent.click(MenuButton);
   },

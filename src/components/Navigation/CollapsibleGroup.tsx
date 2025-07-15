@@ -1,5 +1,6 @@
 import * as Collapsible from "@radix-ui/react-collapsible";
-import { css, styled } from "@storybook/theming";
+import styled from "@emotion/styled";
+import { css } from "@emotion/react";
 import {
   typography,
   Icon,

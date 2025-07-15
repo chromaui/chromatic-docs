@@ -1,4 +1,4 @@
-import { styled } from "@storybook/theming";
+import styled from "@emotion/styled";
 import { spacing, minMd } from "@chromatic-com/tetra";
 import { type TransformedNavGroup } from "../types";
 import { CollapsibleGroup } from "../CollapsibleGroup";

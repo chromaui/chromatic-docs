@@ -1,5 +1,5 @@
 import { Button, fontWeight, minMd, spacing } from "@chromatic-com/tetra";
-import { styled } from "@storybook/theming";
+import styled from "@emotion/styled";
 
 const Trigger = styled(Button)`
   align-self: flex-start;

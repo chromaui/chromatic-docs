@@ -1,4 +1,4 @@
-import { styled } from "@storybook/theming";
+import styled from "@emotion/styled";
 import * as Popover from "@radix-ui/react-popover";
 import * as RadixDropdownMenu from "@radix-ui/react-dropdown-menu";
 import {

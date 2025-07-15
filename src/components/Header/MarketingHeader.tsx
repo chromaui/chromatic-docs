@@ -2,7 +2,7 @@ import { Header } from "@chromatic-com/tetra";
 import type { FC } from "react";
 
 import { links } from "./headerData";
-import { styled } from "@storybook/theming";
+import styled from "@emotion/styled";
 
 interface Props {
   theme?: "dark" | "light";

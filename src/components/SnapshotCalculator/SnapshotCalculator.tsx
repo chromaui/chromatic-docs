@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { styled } from "@storybook/theming";
+import styled from "@emotion/styled";
 import {
   spacing,
   color,

@@ -1,4 +1,4 @@
-import { css } from "@storybook/theming";
+import { css } from "@emotion/react";
 
 export const formatting = css`
   font-size: 16px;
