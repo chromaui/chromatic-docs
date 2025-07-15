@@ -12,9 +12,9 @@ const preview: Preview = {
         date: /Date$/i,
       },
     },
-    viewport: {
-      defaultViewport: "responsive",
-    },
+  },
+  initialGlobals: {
+    viewport: { value: "responsive" },
   },
   decorators: [
     (StoryFn) => (

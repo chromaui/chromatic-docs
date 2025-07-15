@@ -63,7 +63,6 @@
     "@beoe/rehype-mermaid": "^0.0.1",
     "@chromatic-com/storybook": "^4.0.1",
     "@hyperjump/json-schema": "^1.9.4",
-    "@storybook/api": "^7.6.17",
     "@storybook/addon-links": "^9.0.16",
     "@storybook/react-vite": "^9.0.16",
     "broken-link-checker": "^0.7.8",
