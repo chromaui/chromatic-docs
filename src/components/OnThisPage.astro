@@ -22,8 +22,8 @@ const tocHeadings = headings.map((heading) => {
           <li style={`--depth: ${Math.max(0, heading.depth - 2)}`}>
             <a
               class="link primary"
-              href={`#${heading.id}`}
-              data-hash={heading.id}
+              href={`#${heading.slug}`}
+              data-hash={heading.slug}
             >
               {heading.text}
             </a>
