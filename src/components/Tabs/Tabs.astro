@@ -1,8 +1,8 @@
 ---
-import { color } from "@chromatic-com/tetra";
-import { processPanels } from "./rehype-tabs";
+import { color } from '@chromatic-com/tetra';
+import { processPanels } from './rehype-tabs';
 
-const panelHtml = await Astro.slots.render("default");
+const panelHtml = await Astro.slots.render('default');
 
 const { html, panels } = processPanels(panelHtml);
 ---
@@ -16,9 +16,9 @@ const { html, panels } = processPanels(panelHtml);
             <li role="presentation" class="tab">
               <a
                 role="tab"
-                href={"#" + panelId}
+                href={'#' + panelId}
                 id={tabId}
-                aria-selected={idx === 0 && "true"}
+                aria-selected={idx === 0 ? 'true' : 'false'}
                 tabindex={idx !== 0 ? -1 : 0}
               >
                 {label}
@@ -47,7 +47,7 @@ const { html, panels } = processPanels(panelHtml);
     overflow-x: auto;
   }
 
-  [role="tablist"] {
+  [role='tablist'] {
     display: flex;
     list-style: none;
     box-shadow: var(--blackTr10) 0 -1px 0px 0px inset;
@@ -58,7 +58,7 @@ const { html, panels } = processPanels(panelHtml);
   .tab {
     margin: 0;
   }
-  .tab > [role="tab"] {
+  .tab > [role='tab'] {
     display: flex;
     align-items: center;
     height: 2.5rem;
@@ -67,11 +67,11 @@ const { html, panels } = processPanels(panelHtml);
     color: var(--slate500);
     font-weight: 700;
   }
-  .tab [role="tab"][aria-selected] {
+  .tab [role='tab'][aria-selected='true'] {
     color: var(--blue500);
     box-shadow: var(--blue500) 0 -3px 0 0 inset;
   }
-  .tab > [role="tab"]:focus-visible {
+  .tab > [role='tab']:focus-visible {
     background-color: rgba(30, 167, 253, 0.14);
   }
 </style>
@@ -93,27 +93,27 @@ const { html, panels } = processPanels(panelHtml);
 
       this.tabs.forEach((tab, i) => {
         // Handle clicks for mouse users
-        tab.addEventListener("click", (e) => {
+        tab.addEventListener('click', (e) => {
           e.preventDefault();
-          const currentTab = tablist.querySelector("[aria-selected]");
+          const currentTab = tablist.querySelector('[aria-selected]');
           if (e.currentTarget !== currentTab) {
             this.switchTab(e.currentTarget as HTMLAnchorElement, i);
           }
         });
 
         // Handle keyboard input
-        tab.addEventListener("keydown", (e) => {
+        tab.addEventListener('keydown', (e) => {
           const index = this.tabs.indexOf(e.currentTarget as any);
           // Work out which key the user is pressing and
           // Calculate the new tab's index where appropriate
           const nextIndex =
-            e.key === "ArrowLeft"
+            e.key === 'ArrowLeft'
               ? index - 1
-              : e.key === "ArrowRight"
+              : e.key === 'ArrowRight'
                 ? index + 1
-                : e.key === "Home"
+                : e.key === 'Home'
                   ? 0
-                  : e.key === "End"
+                  : e.key === 'End'
                     ? this.tabs.length - 1
                     : null;
           if (nextIndex === null) return;
@@ -130,8 +130,8 @@ const { html, panels } = processPanels(panelHtml);
 
       // Mark all tabs as unselected and hide all tab panels.
       this.tabs.forEach((tab) => {
-        tab.removeAttribute("aria-selected");
-        tab.setAttribute("tabindex", "-1");
+        tab.removeAttribute('aria-selected');
+        tab.setAttribute('tabindex', '-1');
       });
       this.panels.forEach((oldPanel) => {
         oldPanel.hidden = true;
@@ -141,11 +141,11 @@ const { html, panels } = processPanels(panelHtml);
       const newPanel = this.panels[index];
       if (newPanel) newPanel.hidden = false;
       // Restore active tab to the default tab order.
-      newTab.removeAttribute("tabindex");
-      newTab.setAttribute("aria-selected", "true");
+      newTab.removeAttribute('tabindex');
+      newTab.setAttribute('aria-selected', 'true');
       newTab.focus();
     }
   }
 
-  customElements.define("code-snippet-tabs", CodeSnippetTabs);
+  customElements.define('code-snippet-tabs', CodeSnippetTabs);
 </script>
