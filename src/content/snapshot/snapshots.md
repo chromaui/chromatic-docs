@@ -22,7 +22,7 @@ A **test** represents a piece of UI rendered in a specific state. Chromatic can 
 
 - **End-to-End (E2E) tests:** Chromatic captures snapshots of your Playwright or Cypress E2E tests by first creating a self-contained [archive](/docs/faq/what-is-archive). This archive, generated during Playwright/Cypress test runs, contains all the assets and data required to re-render your app UI for visual testing.
 
-Each test can generate [multiple snapshots](/docs/billing/#snapshots), varying by [browser](/docs/browsers/#browser-support), [theme](/docs/themes), [viewport size](/docs/viewports), and other configurations you define. This ensures comprehensive coverage of your UI's visual appearance.
+Each test can generate [multiple snapshots](/docs/billing#snapshots), varying by [browser](/docs/browsers#browser-support), [theme](/docs/themes), [viewport size](/docs/viewports), and other configurations you define. This ensures comprehensive coverage of your UI's visual appearance.
 
 With Playwright and Cypress, you can even capture snapshots at [specific moments within a single test](/docs/playwright/targeted-snapshots) for even more granular analysis.
 
@@ -74,7 +74,7 @@ Other factors that impact when a snapshot is captured include:
 
 #### Animations and videos
 
-Chromatic [proactively pauses](/docs/animations) CSS animations/transitions, videos and GIFs to prevent false positives. However, Chromatic cannot disable JavaScript-driven animations, so you are responsible for [pausing them](/docs/animations/#javascript-animations).
+Chromatic [proactively pauses](/docs/animations) CSS animations/transitions, videos and GIFs to prevent false positives. However, Chromatic cannot disable JavaScript-driven animations, so you are responsible for [pausing them](/docs/animations#javascript-animations).
 
 If not paused during testing, the snapshot will be captured mid-animation and trigger false positives.
 
@@ -86,7 +86,7 @@ If you are using [Storybook interaction tests](/docs/interactions/), Chromatic w
 
 #### Delays
 
-[Delays](/docs/delay/#delay-snapshots) ensure that a minimum amount of time (in milliseconds) has passed before Chromatic takes a screenshot. The delay is applied after the network quiescent phase.
+[Delays](/docs/delay#delay-snapshots) ensure that a minimum amount of time (in milliseconds) has passed before Chromatic takes a screenshot. The delay is applied after the network quiescent phase.
 
 ![snapshot with delay](../../images/snapshot-with-delay.png)
 

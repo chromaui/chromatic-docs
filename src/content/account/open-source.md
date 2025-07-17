@@ -28,4 +28,4 @@ Chromatic offers a free plan (35k snapshots per month, Chrome only) to open-sour
 
 ## Considerations
 
-Open Source Storybooks are [**publicly visible**](https://www.chromatic.com/docs/collaborators/#visibility). Custom domains can be set up for Open Source accounts, even for [free ones](https://www.chromatic.com/docs/permalinks/#prerequisites).
+Open Source Storybooks are [**publicly visible**](/docs/collaborators#visibility). Custom domains can be set up for Open Source accounts, even for [free ones](/docs/permalinks#prerequisites).

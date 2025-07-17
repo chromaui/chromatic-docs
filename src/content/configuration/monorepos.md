@@ -113,8 +113,8 @@ For example: `lerna run build --ignore <package-name>`
 If you are combining multiple Storybooks into one (see [above](#combine-multiple-projects-into-a-single-storybook)), but detected that only a subset of projects has changed, you can instruct Chromatic to capture and test that particular subset of stories as follows:
 
 - Recommended: Use [TurboSnap](/docs/turbosnap) to automatically only snapshot stories for which related source files have changed.
-- Use [`--only-story-files`](/docs/configure/#options) to only snapshot stories matching a glob pattern by story file name.
-- Use [`--only-story-names`](/docs/configure/#options) to only snapshot stories matching a glob pattern by component/story name.
+- Use [`--only-story-files`](/docs/configure#options) to only snapshot stories matching a glob pattern by story file name.
+- Use [`--only-story-names`](/docs/configure#options) to only snapshot stories matching a glob pattern by component/story name.
 
 In each case, matching stories will not be captured again, instead we assume it has not changed, and copy the previous snapshot of the story (from one of the ancestor builds). Note you cannot use both `--only-story-files` and `--only-story-names` on the same build, as they conflict.
 

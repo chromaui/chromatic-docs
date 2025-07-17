@@ -44,7 +44,7 @@ Certain code changes have the potential to impact all stories. To avoid false po
 
 <div class="aside">
 
-Learn more about [how to avoid re-testing for certain files](/docs/turbosnap/setup/#avoid-re-testing-dependent-stories-when-certain-files-changed).
+Learn more about [how to avoid re-testing for certain files](/docs/turbosnap/setup#avoid-re-testing-dependent-stories-when-certain-files-changed).
 
 </div>
 
@@ -52,7 +52,7 @@ Learn more about [how to avoid re-testing for certain files](/docs/turbosnap/set
 
 <div class="aside">
 
-Learn more about how to [avoid re-testing on changes to package control files](/docs/turbosnap/setup/#avoid-re-testing-on-changes-to-package-control-files).
+Learn more about how to [avoid re-testing on changes to package control files](/docs/turbosnap/setup#avoid-re-testing-on-changes-to-package-control-files).
 
 </div>
 
@@ -190,9 +190,9 @@ Things get a little more complicated when TurboSnap tries to locate the commit f
 ## Pricing
 
 <div class="aside" style="margin-bottom: 2rem;">
-  👀 Snapshots skipped by flags [`OnlyStoryNames`](../configure/#onlystorynames)
-  and [`OnlyStoryFiles`](../configure/#onlystoryfiles) are charged as
-  TurboSnaps.
+  👀 Snapshots skipped by flags
+  [`OnlyStoryNames`](/docs/configure#onlystorynames) and
+  [`OnlyStoryFiles`](/docs/configure#onlystoryfiles) are charged as TurboSnaps.
 </div>
 
 By enabling TurboSnap, Chromatic performs a check to identify stories that have no code changes associated with them. Instead of capturing new snapshots, it duplicates snapshots from existing baselines in such cases. We refer to these duplicated snapshots as **TurboSnaps**.

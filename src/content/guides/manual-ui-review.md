@@ -28,7 +28,7 @@ If you’re familiar with creating pull or merge requests with Git, this process
 - Enter a title for the Review.
 - Click the “Compare branches” button to generate your new Review.
 
-Your Review is now ready for you and your team to discuss. Check out the [Understanding the Review](/docs/review/#understanding-the-review) section for more information on how to benefit the most from UI Review.
+Your Review is now ready for you and your team to discuss. Check out the [Understanding the Review](/docs/review#understanding-the-review) section for more information on how to benefit the most from UI Review.
 
 <details>
 <summary>Glossary</summary>

@@ -109,7 +109,7 @@ If you're setting up Chromatic for your team as the account owner or administrat
 - [Collaborators](/docs/collaborators) are manually managed
 - [Pull request checks](/docs/ci#pull-request-checks) are manually setup via your CI system
 
-We recommend signing up with email for projects that **are not** on GitHub, Bitbucket, or GitLab. For example, projects on services like Azure DevOps, AWS, etc. Read the setup instructions for these types of projects [here](/docs/faq/#demo-chromatic-unlinked).
+We recommend signing up with email for projects that **are not** on GitHub, Bitbucket, or GitLab. For example, projects on services like Azure DevOps, AWS, etc. Read the setup instructions for these types of projects [here](/docs/faq/chromatic-sso-on-premises-other-git).
 
 #### Single Sign-On (SSO)
 
