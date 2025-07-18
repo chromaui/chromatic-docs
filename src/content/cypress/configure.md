@@ -1,5 +1,4 @@
 ---
-layout: "../../layouts/Layout.astro"
 title: Configure
 slug: cypress/configure
 description: Learn about the various configuration options for visual tests for Cypress

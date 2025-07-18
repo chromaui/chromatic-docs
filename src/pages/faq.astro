@@ -1,20 +1,21 @@
 ---
-import { getCollection, getEntry } from "astro:content";
+import { getCollection, getEntry, render } from 'astro:content';
+import FAQLayout from '../layouts/FAQLayout.astro';
 
 interface FAQItem {
-  slug: string;
+  id: string;
   title: string;
   section: string;
   order: number;
 }
 
-const faqs = await getCollection("troubleshooting", ({ id }) => {
-  return id.startsWith("faq/");
+const faqs = await getCollection('troubleshooting', ({ id }) => {
+  return id.startsWith('faq/');
 });
 
 const faqItems = faqs.map((faq) => {
   return {
-    slug: faq.slug,
+    id: faq.id,
     title: faq.data.title,
     section: faq.data.section!,
     order: faq.data.sectionOrder || Infinity,
@@ -30,8 +31,16 @@ const groupedFAQs = faqItems.reduce<Record<string, FAQItem[]>>((acc, item) => {
   return acc;
 }, {});
 
-const FAQ = await getEntry("troubleshooting", "faq");
-const { Content, headings } = await FAQ.render();
+const FAQ = await getEntry('troubleshooting', 'faq')!;
+const { Content, headings } = await render(FAQ);
 ---
 
-<Content groupedFAQs={groupedFAQs} headings={headings} />
+<FAQLayout
+  title={FAQ.data.title}
+  description={FAQ.data.description || FAQ.data.title}
+  file={FAQ.filePath!}
+  id={FAQ.id}
+  headings={headings}
+>
+  <Content groupedFAQs={groupedFAQs} headings={headings} />
+</FAQLayout>

@@ -27,7 +27,7 @@ function transformNavItem(
 
   return {
     label: item.data?.sidebar?.label || item.data.title,
-    slug: item.data?.isHome ? "" : item.slug,
+    id: item.data?.isHome ? "" : item.id,
     order: item.data?.sidebar?.order || 999,
     hide: item.data?.sidebar?.hide || false,
     isHome: item.data?.isHome || false,

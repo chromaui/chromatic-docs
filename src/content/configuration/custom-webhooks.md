@@ -1,5 +1,4 @@
 ---
-layout: "../../layouts/Layout.astro"
 title: Custom webhooks
 description: Connect Chromatic to other services with webhooks
 sidebar: { order: 4 }

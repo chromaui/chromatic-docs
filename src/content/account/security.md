@@ -1,5 +1,4 @@
 ---
-layout: "../../layouts/Layout.astro"
 title: Security
 description: Security overview and responsible disclosure
 sidebar: { order: 5 }
@@ -21,7 +20,6 @@ Before submitting a vulnerability request, download the **Responsible Disclosure
 ### Acknowledgments
 
 Chromatic is grateful to the following individuals for responsibly disclosing security issues, allowing us to make Chromatic safer for everyone.
-
 
 #### 2025
 

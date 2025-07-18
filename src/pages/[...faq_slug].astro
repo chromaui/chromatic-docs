@@ -1,0 +1,33 @@
+---
+import { getCollection, render } from 'astro:content';
+import type { CollectionEntry } from 'astro:content';
+import FAQLayout from '../layouts/FAQLayout.astro';
+
+export async function getStaticPaths() {
+  const faqs = await getCollection('troubleshooting', ({ id }) => {
+    return id.startsWith('faq/');
+  });
+
+  return faqs.map((faq) => ({
+    params: { faq_slug: faq.id },
+    props: { faq },
+  }));
+}
+
+interface Props {
+  faq: CollectionEntry<'troubleshooting'>;
+}
+
+const { faq } = Astro.props;
+const { Content, headings } = await render(faq);
+---
+
+<FAQLayout
+  title={faq.data.title}
+  description={faq.data.description || faq.data.title}
+  id={faq.id}
+  file={faq.filePath}
+  headings={headings}
+>
+  <Content />
+</FAQLayout>

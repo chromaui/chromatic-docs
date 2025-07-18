@@ -1,5 +1,4 @@
 ---
-layout: "../../layouts/Layout.astro"
 title: Configure browser options in Modes
 description: Learn how to configure browser options such as colorScheme and locale in Modes
 sidebar: { order: 5, label: Browser options }

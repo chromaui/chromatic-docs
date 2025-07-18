@@ -1,5 +1,4 @@
 ---
-layout: "../../layouts/Layout.astro"
 title: Terms of Service
 description: Chromatic Terms of Service
 sidebar: { order: 6 }

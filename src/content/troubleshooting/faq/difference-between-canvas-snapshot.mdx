@@ -1,5 +1,4 @@
 ---
-layout: "../../../layouts/FAQLayout.astro"
 sidebar: { hide: true }
 title: What is the difference between 'Snapshot' and 'Canvas'?
 section: "uiTestsAndReview"
@@ -7,6 +6,6 @@ section: "uiTestsAndReview"
 
 # What is the difference between 'Snapshot' and 'Canvas'?
 
-**Canvas** is an interactive environment that renders your test code live in the browser. With Storybook, it displays the story, and with Playwright or Cypress, it shows the archive of your E2E test. It visualizes the *final state* of the test UI.
+**Canvas** is an interactive environment that renders your test code live in the browser. With Storybook, it displays the story, and with Playwright or Cypress, it shows the archive of your E2E test. It visualizes the _final state_ of the test UI.
 
-A **Snapshot** is the image captured by Chromatic's cloud browser, showing what the browser *saw* when it rendered the test. This could be the component's *initial* or *intermediate* state, and it might differ from the `Canvas` due to various reasons, such as JavaScript execution being blocked during capture, which can prevent certain elements from being captured, or the use of the `isChromatic()` function to alter rendering on Chromatic.
+A **Snapshot** is the image captured by Chromatic's cloud browser, showing what the browser _saw_ when it rendered the test. This could be the component's _initial_ or _intermediate_ state, and it might differ from the `Canvas` due to various reasons, such as JavaScript execution being blocked during capture, which can prevent certain elements from being captured, or the use of the `isChromatic()` function to alter rendering on Chromatic.

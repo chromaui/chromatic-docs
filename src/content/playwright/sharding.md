@@ -1,5 +1,4 @@
 ---
-layout: "../../layouts/Layout.astro"
 title: Sharding
 slug: playwright/sharding
 description: Learn how to run Playwright tests in parallel across shared CI jobs

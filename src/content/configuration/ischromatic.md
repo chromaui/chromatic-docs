@@ -1,5 +1,4 @@
 ---
-layout: "../../layouts/Layout.astro"
 title: isChromatic
 description: Learn how to control what executes in the Chromatic environment
 sidebar: { order: 9 }
@@ -102,7 +101,7 @@ export const Default: Story = {
 
 ## Using `isChromatic` in your application
 
-Under specific circumstances, your components may require different behavior when running in Chromatic (e.g., [disabling animations](/docs/animations/#javascript-animations), lazy loading). In these cases, you can use `isChromatic` directly in your components to control their behavior when tested. However, this approach can lead to unexpected behavior. We recommend using `isChromatic` only in your tests or via configuration to ensure a clear separation of concerns and make the code agnostic to the environment in which it's running.
+Under specific circumstances, your components may require different behavior when running in Chromatic (e.g., [disabling animations](/docs/animations#javascript-animations), lazy loading). In these cases, you can use `isChromatic` directly in your components to control their behavior when tested. However, this approach can lead to unexpected behavior. We recommend using `isChromatic` only in your tests or via configuration to ensure a clear separation of concerns and make the code agnostic to the environment in which it's running.
 
 <div class="aside">
 

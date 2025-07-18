@@ -1,5 +1,4 @@
 ---
-layout: "../../../layouts/FAQLayout.astro"
 sidebar: { hide: true }
 title: Why do tests show as new in builds?
 section: "uiTestsAndReview"

@@ -1,5 +1,4 @@
 ---
-layout: "../../../layouts/FAQLayout.astro"
 sidebar: { hide: true }
 title: How can I automatically trigger a UI Review?
 section: "uiTestsAndReview"

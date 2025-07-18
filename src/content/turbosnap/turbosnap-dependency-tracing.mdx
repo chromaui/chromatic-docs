@@ -1,5 +1,4 @@
 ---
-layout: "../../layouts/Layout.astro"
 title: TurboSnap Dependency Tracing
 description: Speed up tests by detecting file changes with Git
 sidebar: { order: 4, label: "Dependency Tracing" }
@@ -125,7 +124,7 @@ export default config;
 
 ### Use the trimmed stats file to trace dependencies
 
-If you're trying to understand why a story file is being detected as changed, you can [search for its file path](/docs/turbosnap/troubleshooting/#why-are-no-changes-being-detected) in the trimmed stats file and trace its dependencies to see which modules were affected.
+If you're trying to understand why a story file is being detected as changed, you can [search for its file path](/docs/turbosnap/troubleshooting#why-are-no-changes-being-detected) in the trimmed stats file and trace its dependencies to see which modules were affected.
 
 ## Tracing dependencies with Vite
 
@@ -146,7 +145,7 @@ TurboSnap uses _tree-shaking_ to efficiently identify which files in your projec
 
 - If `Button.tsx` imports something from `Card/index.ts` (directly or indirectly), and `Card.tsx` imports something from `Button/index.ts`, a Circular Dependency is created.
 
-When TurboSnap flags unchanged files as changed, you can use the [`--untraced`](https://www.chromatic.com/docs/turbosnap/setup/#avoid-re-testing-dependent-stories-when-certain-files-changed) flag to correct its behavior by excluding certain files. However, restructuring your project to avoid circular dependencies may be a better, long-lasting solution.
+When TurboSnap flags unchanged files as changed, you can use the [`--untraced`](/docs/turbosnap/setup#avoid-re-testing-dependent-stories-when-certain-files-changed) flag to correct its behavior by excluding certain files. However, restructuring your project to avoid circular dependencies may be a better, long-lasting solution.
 
 </details>
 

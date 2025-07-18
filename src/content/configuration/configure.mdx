@@ -1,5 +1,4 @@
 ---
-layout: "../../layouts/Layout.astro"
 title: Configuration reference
 description: Learn about the various configuration options for Chromatic
 sidebar: { order: 3 }
@@ -9,7 +8,7 @@ import ConfigurationOptions from "../../components/ConfigurationOptions/Configur
 
 # Configuration reference
 
-These options control how Chromatic behaves via the [CLI](/docs/cli), [config file](/docs/cli#chromatic-config-file) and the [GitHub Action](/docs/github-actions). Refer to [branching docs](/docs/branching-and-baselines) and [diagnosing CLI issues](/docs/cli/#flags-to-help-diagnose-build-issues-with-the-cli) for more context on when to use some of these flags.
+These options control how Chromatic behaves via the [CLI](/docs/cli), [config file](/docs/cli#chromatic-config-file) and the [GitHub Action](/docs/github-actions). Refer to [branching docs](/docs/branching-and-baselines) and [diagnosing CLI issues](/docs/cli#flags-to-help-diagnose-build-issues-with-the-cli) for more context on when to use some of these flags.
 
 Note that the config file only supports a subset of these options. Some options are exclusive to the CLI or the config file. The next section tags each option with the appropriate context.
 
@@ -32,21 +31,21 @@ Some options can be configured through environment variables. You will typically
 | Environment variable             | Description                                                                                                                                                                      |
 | -------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | `CHROMATIC_PROJECT_TOKEN`        | Project token, see `--project-token`                                                                                                                                             |
-| `CHROMATIC_SHA`                  | Git commit hash. See [troubleshooting guide for issues](/docs/cli/#chromatic-git-options)                                                                                        |
-| `CHROMATIC_BRANCH`               | Git branch name. See `--branch-name` for additional options and [troubleshooting guide for issues](/docs/cli/#chromatic-git-options)                                             |
-| `CHROMATIC_SLUG`                 | Git repository slug (e.g., `chromaui/chromatic-cli`). See [troubleshooting guide for issues](/docs/cli/#chromatic-git-options)                                                   |
+| `CHROMATIC_SHA`                  | Git commit hash. See [troubleshooting guide for issues](/docs/cli#chromatic-git-options)                                                                                         |
+| `CHROMATIC_BRANCH`               | Git branch name. See `--branch-name` for additional options and [troubleshooting guide for issues](/docs/cli#chromatic-git-options)                                              |
+| `CHROMATIC_SLUG`                 | Git repository slug (e.g., `chromaui/chromatic-cli`). See [troubleshooting guide for issues](/docs/cli#chromatic-git-options)                                                    |
 | `CHROMATIC_POLL_INTERVAL`        | Polling interval when waiting for the build to finish (default: `1000`)                                                                                                          |
 | `CHROMATIC_OUTPUT_INTERVAL`      | Frequency of progress output while polling or uploading (default: `10000`)                                                                                                       |
 | `CHROMATIC_RETRIES`              | Number of times to retry file upload (default: `5`)                                                                                                                              |
 | `CHROMATIC_STORYBOOK_VERSION`    | Overrides Storybook package/version detection (e.g. `@storybook/react@7.0.1-alpha.25`)                                                                                           |
 | `CHROMATIC_TIMEOUT`              | Number of ms before giving up on `storybook dev` (default: `300000` (5 minutes))                                                                                                 |
 | `STORYBOOK_BUILD_TIMEOUT`        | Number of ms before giving up on `storybook build` (default: `600000` (10 minutes))                                                                                              |
-| `CHROMATIC_DNS_SERVERS`          | Overrides the DNS server IP address(es) used by node-fetch, comma-separated. See [troubleshooting guide for issues](/docs/cli/#chromatic-dns-options)                            |
-| `CHROMATIC_DNS_FAILOVER_SERVERS` | Fallback DNS server IPs (default: `1.1.1.1`, `8.8.8.8` (Cloudflare, Google)). See [troubleshooting guide for issues](/docs/cli/#chromatic-dns-options)                           |
+| `CHROMATIC_DNS_SERVERS`          | Overrides the DNS server IP address(es) used by node-fetch, comma-separated. See [troubleshooting guide for issues](/docs/cli#chromatic-dns-options)                             |
+| `CHROMATIC_DNS_FAILOVER_SERVERS` | Fallback DNS server IPs (default: `1.1.1.1`, `8.8.8.8` (Cloudflare, Google)). See [troubleshooting guide for issues](/docs/cli#chromatic-dns-options)                            |
 | `CI`                             | See `--ci`                                                                                                                                                                       |
 | `LOG_LEVEL`                      | One of: `silent`, `error`, `warn`, `info`, `debug`                                                                                                                               |
 | `DISABLE_LOGGING`                | Set to `true` to disable logging. Equal to `LOG_LEVEL=silent`                                                                                                                    |
-| `HTTPS_PROXY` or `HTTP_PROXY`    | Used to configure [https-proxy-agent]. See [troubleshooting guide for issues](/docs/cli/#chromatic-dns-options)                                                                  |
+| `HTTPS_PROXY` or `HTTP_PROXY`    | Used to configure [https-proxy-agent]. See [troubleshooting guide for issues](/docs/cli#chromatic-dns-options)                                                                   |
 | `CHROMATIC_ARCHIVE_LOCATION`     | Change the default location for archives generated by Playwright or Cypress tests                                                                                                |
 | `STORYBOOK_NODE_ENV`             | Specify a different environment for building Storybook in (default is `production`). Note that changing this value might slow down your builds or even alter the build behavior. |
 | `MAX_LOCK_FILE_SIZE`             | Overrides default allowed lock file size (default: `10485760` (10 MB)). See [troubleshooting guide for issues](/docs/turbosnap/troubleshooting/)                                 |
@@ -55,9 +54,9 @@ Some options can be configured through environment variables. You will typically
 
 The following options are still supported but will be removed in a future version. If your project still uses them, we encourage you to remove them from your scripts or configuration at your earliest convenience.
 
-| CLI flag                 |                                                                                                                                                                               |
-| ------------------------ | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `--preserve-missing`     | Replaced by `--only-*` based options.<br/>Refer to the following [documentation](/docs/sunsetting-preserve-missing) for more information on its deprecation and alternatives. |
+| CLI flag             |                                                                                                                                                                               |
+| -------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `--preserve-missing` | Replaced by `--only-*` based options.<br/>Refer to the following [documentation](/docs/sunsetting-preserve-missing) for more information on its deprecation and alternatives. |
 
 ## Unsupported options
 
@@ -65,12 +64,12 @@ The options listed below are no longer supported by our CLI and will not yield a
 
 | CLI flag                   |                                                                                                                                               |
 | -------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------- |
-| `--allow-console-errors`   | Continue running Chromatic even if Storybook logs errors in the console.                                                                                                      |
-| `--app-code <token>`       | Renamed to `--project-token`.                                                                                                                                                 |
-| `--diagnostics`            | Replaced by `--diagnostics-file`.                                                                                                                                             |
+| `--allow-console-errors`   | Continue running Chromatic even if Storybook logs errors in the console.                                                                      |
+| `--app-code <token>`       | Renamed to `--project-token`.                                                                                                                 |
+| `--diagnostics`            | Replaced by `--diagnostics-file`.                                                                                                             |
 | `--do-not-start`           | Don't attempt to start or build Storybook. Use this if your Storybook is already running, for example, when part of a larger app. Alias: `-S` |
 | `--exec <command>`         | Alternatively, a shell command that starts your Storybook. Alias: `-e`                                                                        |
-| `--only`                   | Replaced by `--only-story-names`.                                                                                                                                             |
+| `--only`                   | Replaced by `--only-story-names`.                                                                                                             |
 | `--preserve-missing-specs` | Preserve missing stories when publishing a partial Storybook.                                                                                 |
 | `--script-name [name]`     | The npm script that starts your Storybook. Defaults to `storybook`. Alias: `-s`                                                               |
 | `--storybook-ca <ca>`      | Use with `--storybook-https`. Auto detected from the npm script when using `--script-name`.                                                   |

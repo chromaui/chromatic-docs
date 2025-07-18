@@ -1,5 +1,4 @@
 ---
-layout: "../../layouts/Layout.astro"
 title: Custom decorators and globals
 description: Wire up custom decorators with modes to test different variants of a component
 sidebar: { order: 4, label: Custom decorators }

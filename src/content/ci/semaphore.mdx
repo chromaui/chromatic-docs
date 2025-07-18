@@ -1,5 +1,4 @@
 ---
-layout: "../../layouts/Layout.astro"
 title: Automate Chromatic with Semaphore
 description: Learn how to configure Chromatic with Semaphore
 sidebar: { order: 9, label: Semaphore }
@@ -239,7 +238,7 @@ Chromatic can be run on monorepos that have multiple subprojects. Each subprojec
 1. Ensure that you're in the correct working directory for the subproject.
 2. Have `build-storybook` npm script in the subproject's `package.json` file OR explicitly name the script using the `--build-script-name` CLI flag and make sure the script is listed in the subproject's `package.json` file.
 
-If you've already built your Storybook in a separate CI step, you can adjust your workflow to include the [`--storybook-build-dir`](/docs/configure/#options) CLI flag to point to the build output directory.
+If you've already built your Storybook in a separate CI step, you can adjust your workflow to include the [`--storybook-build-dir`](/docs/configure#options) CLI flag to point to the build output directory.
 
 ```yml title=".semaphore/semaphore.yml"
 # Other required configuration
@@ -426,7 +425,7 @@ blocks:
 
 <div class="aside">
 
-Read our [configuration reference documentation](/docs/configure/#options).
+Read our [configuration reference documentation](/docs/configure#options).
 
 </div>
 
@@ -481,7 +480,7 @@ blocks:
 
 <div class="aside">
 
-Read our [configuration reference documentation](/docs/configure/#options).
+Read our [configuration reference documentation](/docs/configure#options).
 
 </div>
 
@@ -529,7 +528,7 @@ npx chromatic --skip 'dependabot/**'
 
 <div class="aside">
 
-Read our [configuration reference documentation](/docs/configure/#options).
+Read our [configuration reference documentation](/docs/configure#options).
 
 </div>
 

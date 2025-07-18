@@ -1,5 +1,4 @@
 ---
-layout: "../../layouts/Layout.astro"
 title: Storybook Figma plugin
 description: Connect stories to variants
 sidebar: { order: 5 }
@@ -66,7 +65,6 @@ When a story is linked to a Figma component, that link persists across teams and
 Invite non-technical teammates like designers or PMs to your Chromatic project as [external collaborators](/docs/collaborators#external-collaborators). That gives them permissions to view and manage linked components.
 
 Every Chromatic plan comes with unlimited collaborators and [fine-grained roles](/docs/collaborators#roles). There are no extra charges "per seat".
-
 
 ---
 

@@ -1,25 +1,11 @@
 ---
-import type { ConfigOption as ConfigOptionType } from "../../../chromatic-config/generate-schema";
-import configOptions from "../../../chromatic-config/options.json";
-import { markdown } from "../../markdown";
-import { FilterableConfigOptions } from "./FilterableConfigOptions";
-
-export const formatOption = async (option: ConfigOptionType) => {
-  return {
-    ...option,
-    supports: option.supports,
-    option: option.option || option.flag,
-    description: await markdown(option.description),
-    example: await markdown(option.example),
-    default:
-      option.default !== undefined
-        ? `<code>${option.default}</code>`
-        : await markdown(option.defaultComment),
-  };
-};
+import type { ConfigOption as ConfigOptionType } from '../../../chromatic-config/generate-schema';
+import configOptions from '../../../chromatic-config/options.json';
+import { FilterableConfigOptions } from './FilterableConfigOptions';
+import { formatOption } from './formatOptions';
 
 const formattedOptions = await Promise.all(
-  (configOptions as ConfigOptionType[]).map(formatOption),
+  (configOptions as ConfigOptionType[]).map(formatOption)
 );
 ---
 

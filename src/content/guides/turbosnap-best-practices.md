@@ -1,5 +1,4 @@
 ---
-layout: "../../layouts/Layout.astro"
 title: TurboSnap best practices
 description: TurboSnap best practices to optimize your builds for faster testing
 sidebar: { order: 10, label: "TurboSnap best practices" }
@@ -120,8 +119,9 @@ These values match what you'd want TurboSnap and Chromatic to see, but _only if 
 Dynamic imports, such as `import()` or `require()` with variables or conditions, within your stories, decorators, preview files, or any files they import, can disrupt the chain TurboSnap uses to identify affected stories. This can lead to missed visual changes or unexpected rebuilds. To maintain full traceability, consider minimizing dynamic imports. If dynamic behavior is necessary, incorporate the logic into story-level decorators or within the component itself, and avoid using dynamic imports in the preview file.
 
 When it's possible, convert dynamic imports to static imports:
-* ❌ `const ThemeProvider = require('../themes/default/ThemeProvider');`
-* ✅ `import { ThemeProvider } from '../themes/default/ThemeProvider';`
+
+- ❌ `const ThemeProvider = require('../themes/default/ThemeProvider');`
+- ✅ `import { ThemeProvider } from '../themes/default/ThemeProvider';`
 
 ## Mind your package control files
 
@@ -148,7 +148,6 @@ While you **can’t avoid full rebuilds** when changing anything imported by `.s
 TurboSnap depends on the files processed by your bundler. Therefore, it's crucial that files not processed by your bundler also trigger tests. This helps prevent accidental regressions that could have been caught during testing.
 
 The `externals` feature was designed specifically for this purpose. It directs TurboSnap to monitor specified files or globs patterns for changes, triggering a rebuild whenever they are modified.
-
 
 Follow these tips to help keep your testing meaningful:
 

@@ -1,28 +1,25 @@
 ---
-import type { MarkdownLayoutProps } from "astro";
-import BaseLayout from "./BaseLayout.astro";
-import { Icon } from "@chromatic-com/tetra";
+import { Icon } from '@chromatic-com/tetra';
+import type { MarkdownHeading } from 'astro';
+import BaseLayout from './BaseLayout.astro';
 
-type Props = MarkdownLayoutProps<{
+interface Props {
   title: string;
   description: string;
-  url: string;
-}>;
+  id: string;
+  file?: string;
+  headings: MarkdownHeading[];
+}
 
-const {
-  frontmatter: { title, description },
-  url,
-  headings,
-} = Astro.props;
+const { id, title, description, headings, file } = Astro.props;
 ---
 
 <BaseLayout
   title={`FAQ | ${title}`}
   description={description}
-  url={url!}
   headings={headings}
-  slug="faq"
-  file={Astro.props.file}
+  file={file}
+  id={id}
 >
   <p>
     <a class="link primary with-icon" href="/docs/faq">

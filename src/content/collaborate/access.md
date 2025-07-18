@@ -1,5 +1,4 @@
 ---
-layout: "../../layouts/Layout.astro"
 title: Access control
 description: Learn how to control who has access to your Chromatic project
 sidebar: { order: 2 }
@@ -110,7 +109,7 @@ If you're setting up Chromatic for your team as the account owner or administrat
 - [Collaborators](/docs/collaborators) are manually managed
 - [Pull request checks](/docs/ci#pull-request-checks) are manually setup via your CI system
 
-We recommend signing up with email for projects that **are not** on GitHub, Bitbucket, or GitLab. For example, projects on services like Azure DevOps, AWS, etc. Read the setup instructions for these types of projects [here](/docs/faq/#demo-chromatic-unlinked).
+We recommend signing up with email for projects that **are not** on GitHub, Bitbucket, or GitLab. For example, projects on services like Azure DevOps, AWS, etc. Read the setup instructions for these types of projects [here](/docs/faq/chromatic-sso-on-premises-other-git).
 
 #### Single Sign-On (SSO)
 
@@ -183,13 +182,13 @@ Approval from a repository-level admin alone will not be sufficient. The actual 
 
 To migrate your Chromatic projects to the new Git provider:
 
-1. Connect your user account to the new git provider via the [Profile page](https://www.chromatic.com/profile). Under “Connected accounts,” link your new git provider. Ensure that everyone on your team does the same. *Warning:* do not disconnect the old git provider yet since you may lose access.
-![Connect to Git provider](../../images/connect-profile-to-git.png)
+1. Connect your user account to the new git provider via the [Profile page](https://www.chromatic.com/profile). Under “Connected accounts,” link your new git provider. Ensure that everyone on your team does the same. _Warning:_ do not disconnect the old git provider yet since you may lose access.
+   ![Connect to Git provider](../../images/connect-profile-to-git.png)
 
 1. In the upper-right corner of the dashboard, open the menu and click "Add" to create a new Chromatic organization account for your new Git provider. You'll now see both accounts in that list, each linked to different Git providers.
 
-3. Unlink all existing projects from the old Git provider through the `Manage` tab.
-![Unlink project](../../images/unlink-project.png)
+1. Unlink all existing projects from the old Git provider through the `Manage` tab.
+   ![Unlink project](../../images/unlink-project.png)
 
 1. Then link all projects to repositories from the new Git provider. Note that projects will automatically move to the new Chromatic organization level account.
 
@@ -203,10 +202,7 @@ Follow steps 1, 3, and 4 from the guide above, but you don't need to create a ne
 
 Connecting one Chromatic entity to multiple Git providers is not yet supported.
 
-
-
 </details>
-
 
 #### Unlinked projects
 

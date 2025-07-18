@@ -1,5 +1,4 @@
 ---
-layout: "../../../layouts/FAQLayout.astro"
 sidebar: { hide: true }
 title: Can I use my Storybook in development mode to run a Chromatic build?
 section: "usage"
@@ -12,5 +11,6 @@ Although you can use a development build of your Storybook with Chromatic, we re
 Chromatic generates the production build by running the `build-storybook` command (different from `start-storybook`) during the build process.
 
 To view a production build locally, run:
+
 1. `npm run build-storybook`
 2. `npx http-server storybook-static -o`

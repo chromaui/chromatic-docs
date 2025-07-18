@@ -1,37 +1,36 @@
 ---
-import type { MarkdownHeading } from "astro";
-import { FullWidthContainer } from "@chromatic-com/tetra";
-import "@docsearch/css";
-import SEO from "../components/SEO.astro";
-import Scripts from "../components/Scripts.astro";
-import EditAndFeedback from "../components/EditAndFeedback.astro";
-import { ContentContainer } from "../components/ContentContainer";
-import { MarketingFooter } from "../components/Footer/MarketingFooter";
-import { MarketingHeader } from "../components/Header/MarketingHeader";
-import { LayoutGrid } from "../components/LayoutGrid";
-import Navigation from "../components/Navigation/Navigation.astro";
-import { projectRoot } from "../util";
-import OnThisPage from "../components/OnThisPage.astro";
-import SearchMeta from "../components/SearchMeta.astro";
-import { globalStyles } from "../styles/global";
+import type { MarkdownHeading } from 'astro';
+import { FullWidthContainer } from '@chromatic-com/tetra';
+import '@docsearch/css';
+import SEO from '../components/SEO.astro';
+import Scripts from '../components/Scripts.astro';
+import EditAndFeedback from '../components/EditAndFeedback.astro';
+import { ContentContainer } from '../components/ContentContainer';
+import { MarketingFooter } from '../components/Footer/MarketingFooter';
+import { MarketingHeader } from '../components/Header/MarketingHeader';
+import { LayoutGrid } from '../components/LayoutGrid';
+import Navigation from '../components/Navigation/Navigation.astro';
+import { projectRoot } from '../util';
+import OnThisPage from '../components/OnThisPage.astro';
+import SearchMeta from '../components/SearchMeta.astro';
+import { globalStyles } from '../styles/global';
 import {
   navGroups,
   flattenedNavItems,
-} from "../components/Navigation/nav-groups";
+} from '../components/Navigation/nav-groups';
 
 type Props = {
   title: string;
   description: string;
-  url: string;
+  id: string;
   file?: string;
   headings: MarkdownHeading[];
-  slug: string;
 };
 
-const { title, description, slug } = Astro.props;
+const { title, description, id } = Astro.props;
 const { pathname } = Astro.url;
 
-const editUrl = Astro.props.file?.replace(projectRoot, "").replace("src/", "");
+const editUrl = Astro.props.file?.replace(projectRoot, '').replace('src/', '');
 ---
 
 <html lang="en">
@@ -55,12 +54,12 @@ const editUrl = Astro.props.file?.replace(projectRoot, "").replace("src/", "");
     <FullWidthContainer>
       <LayoutGrid showOnThisPage={Astro.props.headings.length > 0}>
         <Navigation
-          url={pathname.replace(/\/$/g, "")}
+          url={pathname.replace(/\/$/g, '')}
           navGroups={navGroups}
           flatNavItems={flattenedNavItems}
         />
         <ContentContainer>
-          <SearchMeta slug={slug} flattenedNavItems={flattenedNavItems} />
+          <SearchMeta id={id} flattenedNavItems={flattenedNavItems} />
           <slot />
           <EditAndFeedback title={title} editUrl={editUrl} />
         </ContentContainer>

@@ -1,5 +1,4 @@
 ---
-layout: "../../layouts/Layout.astro"
 title: Themes
 description: Configure Chromatic to test components with different themes
 sidebar: { order: 3 }
@@ -38,9 +37,9 @@ For this example, let's assume that the themes addon has been configured with a 
 // if you're using Storybook 9, or with the appropriate renderer otherwise.
 import type { Preview } from "@storybook/your-framework";
 
-import { withThemeByClassName } from '@storybook/addon-themes';
+import { withThemeByClassName } from "@storybook/addon-themes";
 
-import '../src/index.css';
+import "../src/index.css";
 
 const preview: Preview = {
   decorators: [
@@ -101,4 +100,4 @@ const meta = {
 } satisfies Meta<typeof ArticleCard>;
 ```
 
-When Chromatic captures your story, it will capture *two* snapshots during the build, with the corresponding theme enabled. Each mode will have independent baselines and require distinct approval.
+When Chromatic captures your story, it will capture _two_ snapshots during the build, with the corresponding theme enabled. Each mode will have independent baselines and require distinct approval.

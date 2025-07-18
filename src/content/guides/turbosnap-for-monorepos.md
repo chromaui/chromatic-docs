@@ -1,5 +1,4 @@
 ---
-layout: "../../layouts/Layout.astro"
 title: Optimizing TurboSnap for monorepos
 description: Tips to optimize your TurboSnap configuration when working with a monorepo
 sidebar: { order: 11, label: "TurboSnap for monorepos" }

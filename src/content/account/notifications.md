@@ -1,5 +1,4 @@
 ---
-layout: "../../layouts/Layout.astro"
 title: Notifications
 description: Control when and how you receive activity notifications
 sidebar: { order: 3 }

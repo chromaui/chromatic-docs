@@ -1,5 +1,4 @@
 ---
-layout: "../../layouts/Layout.astro"
 title: Testing Shadow DOM
 description: Learn how write interaction tests for components that use Shadow DOM
 slug: "interactions/shadow-dom"
@@ -62,7 +61,7 @@ Let's say you're testing a Web Component `<checkbox-group>` that renders shadow-
 // Replace the @storybook/web-components-vite package with @storybook/web-components if you're not using Storybook 9.0
 import { Meta, StoryObj } from "@storybook/web-components-vite";
 
-import { html } from 'lit';
+import { html } from "lit";
 
 /*
  * Replace the storybook/test import with `@storybook/test` and adjust the stories accordingly if you're not using Storybook 9.0.

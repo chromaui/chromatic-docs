@@ -1,5 +1,4 @@
 ---
-layout: "../../layouts/Layout.astro"
 title: Branches and baselines
 description: How Chromatic decides what snapshots to compare when using UI Tests and UI Review
 sidebar: { order: 2, label: "Branches & baselines" }
@@ -106,7 +105,7 @@ To ensure that Chromatic uses the correct baseline with “squash” or “rebas
 
 - **GitHub:** enable the Chromatic GitHub App (on the [Pull Request](/docs/review) screen)
 - **Bitbucket** will work out of the box
-- **GitLab or an unlinked project**, follow our process for [auto-accepting changes on main](/docs/branching-and-baselines/#how-do-i-auto-accept-changes-on-main).
+- **GitLab or an unlinked project**, follow our process for [auto-accepting changes on main](/docs/branching-and-baselines#how-do-i-auto-accept-changes-on-main).
 
 </details>
 

@@ -1,5 +1,4 @@
 ---
-layout: "../../layouts/Layout.astro"
 title: Upgrading webhooks to the latest version
 description: How to upgrade from an older custom webhooks integration
 ---

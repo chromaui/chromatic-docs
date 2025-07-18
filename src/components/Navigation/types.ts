@@ -34,7 +34,7 @@ export function isNestedGroup(item: NavGroupItem): item is NavGroup {
 
 export type TransformedItem = {
   label: string;
-  slug: string;
+  id: string;
   order: number;
   hide: boolean;
   isHome?: boolean;

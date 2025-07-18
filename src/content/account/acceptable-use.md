@@ -1,5 +1,4 @@
 ---
-layout: "../../layouts/Layout.astro"
 title: Acceptable Use Policy
 description: Chromatic Acceptable Use Policy
 sidebar: { order: 8 }

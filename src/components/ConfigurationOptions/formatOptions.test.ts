@@ -1,5 +1,5 @@
 import { expect, test, describe } from "vitest";
-import { formatOption } from "./ConfigurationOptions.astro";
+import { formatOption } from "./formatOptions";
 import type { ConfigOption } from "../../../chromatic-config/generate-schema";
 
 const mockOption = {

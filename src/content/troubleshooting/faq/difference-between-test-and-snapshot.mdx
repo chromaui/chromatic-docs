@@ -1,19 +1,18 @@
 ---
-layout: '../../../layouts/FAQLayout.astro'
 sidebar: { hide: true }
 title: What is the difference between a 'Test' and a 'Snapshot'?
-section: 'uiTestsAndReview'
+section: "uiTestsAndReview"
 ---
 
 # What is the difference between a 'Test' and a 'Snapshot'?
 
 A test is the expression of a piece of UI in a specific state. Chromatic uses tests to verify [visual appearance](/docs) and [UI functionality](/docs/interactions). By default, Chromatic uses your Storybook stories as tests. If you're integrating [Playwright](/docs/playwright) or [Cypress](/docs/cypress), Chromatic reuses your existing E2E tests for visual verification.
 
-A [snapshot](/docs/snapshots) is an image of a test that is captured by our Capture Cloud infrastructure. A test can have [multiple snapshots](/docs/billing/#snapshots) for dimensions like browsers, themes, and viewports.
+A [snapshot](/docs/snapshots) is an image of a test that is captured by our Capture Cloud infrastructure. A test can have [multiple snapshots](/docs/billing#snapshots) for dimensions like browsers, themes, and viewports.
 
 ## Snapshots vs TurboSnaps
 
-[TurboSnaps](/docs/turbosnap/#pricing) are snapshots we've copied over from existing baselines that have no code changes. Since TurboSnaps require fewer resouces, we bill them at 1/5th of the cost of a regular snapshot.
+[TurboSnaps](/docs/turbosnap#pricing) are snapshots we've copied over from existing baselines that have no code changes. Since TurboSnaps require fewer resouces, we bill them at 1/5th of the cost of a regular snapshot.
 
 If you've enabled TurboSnap, each build will show a count of snapshots and TurboSnaps used.
 ![TurboSnap indicator](../../../images/build-turbosnap.png)

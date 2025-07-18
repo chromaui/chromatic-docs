@@ -1,5 +1,4 @@
 ---
-layout: "../../layouts/Layout.astro"
 title: Troubleshooting TurboSnap
 description: Speed up tests by detecting file changes with Git
 sidebar: { order: 2, label: "Troubleshooting" }
@@ -26,7 +25,7 @@ import { YouTubeCallout } from "../../components/YouTubeCallout";
 
 If the build output shows no story files being detected by changes, there might be an issue matching the git changes with the files in your Storybook build. Use the `--debug` flag for more information about what Chromatic is doing.
 
-Another reason that changes may be missed is if the changed files aren't directly included in the webpack build; use the [`externals` flag](/docs/turbosnap/setup/#specify-external-files-to-trigger-a-full-re-test-when-they-change) to tell Chromatic about this.
+Another reason that changes may be missed is if the changed files aren't directly included in the webpack build; use the [`externals` flag](/docs/turbosnap/setup#specify-external-files-to-trigger-a-full-re-test-when-they-change) to tell Chromatic about this.
 
 If you're trying to figure out why certain stories are being re-tested, you can pass the `--trace-changed` flag, which will print a visual report of how changed files link to your story files:
 
@@ -125,7 +124,7 @@ An `Out of Memory` error typically happens when the Node.js process runs out of 
 
 - **Adjust CI runner memory settings:** Make sure your CI runner has sufficient memory. Chromatic recommends a minimum of 4GB, and if needed, up to 8GB. Some CI providers may require specific configurations to allocate more memory to certain steps or to the entire runner environment.
 
-- **Force full rebuilds on lock file changes:** Set the `MAX_LOCK_FILE_SIZE` environment variable to 1 to ensure a full rebuild occurs whenever the lock file changes. This can help prevent OOM errors. 
+- **Force full rebuilds on lock file changes:** Set the `MAX_LOCK_FILE_SIZE` environment variable to 1 to ensure a full rebuild occurs whenever the lock file changes. This can help prevent OOM errors.
 
 Builds are split between your environment and Chromatic’s. Processes that require access to your code (like dependency tracing) run in your environment, while tasks like the Capture process run on Chromatic’s end.
 
@@ -145,7 +144,7 @@ TurboSnap is compatible with squash and merge rebasing as of version 6.6+. Pleas
 
 ## What do the TurboSnap bail reasons in my usage report mean?
 
-Your [usage data (CSV report)](/docs/billing/#export-usage-data-as-a-csv) can help you faster identify opportunities to improve your TurboSnap configuration. The "TurboSnaps Bail Reason" column tells you what caused TurboSnap triggered a full rebuild. Here's what each reason means:
+Your [usage data (CSV report)](/docs/billing#export-usage-data-as-a-csv) can help you faster identify opportunities to improve your TurboSnap configuration. The "TurboSnaps Bail Reason" column tells you what caused TurboSnap triggered a full rebuild. Here's what each reason means:
 
 ### `changedExternalFiles`
 
@@ -157,7 +156,7 @@ You may need to check your glob pattern or revisit the paths you're including wi
 
 TurboSnap bailed due to one or more package file changes (`package.json`, `package-lock.json`, `yarn.lock`).
 
-This bail should be expected from time to time as dependencies are updated, but can become more of an issue if you run out of a monorepo or have dependencies in subdirectories. If you find this happening frequently, consider using `untraced` to [avoid re-testing on changes to your package control files](/docs/turbosnap/setup/#avoid-re-testing-on-changes-to-package-control-files).
+This bail should be expected from time to time as dependencies are updated, but can become more of an issue if you run out of a monorepo or have dependencies in subdirectories. If you find this happening frequently, consider using `untraced` to [avoid re-testing on changes to your package control files](/docs/turbosnap/setup#avoid-re-testing-on-changes-to-package-control-files).
 
 ### `changedStaticFiles`
 
@@ -171,13 +170,13 @@ TurboSnap bailed due to a change in Storybook config (`.storybook` dir files, su
 
 You may have made changes to one of the files within your Storybook configuration, or to a dependency that is being imported by your configuration. It's important to keep in mind that second part, since it's common practice to import decorators into the `preview.js` config.
 
-Additionally, if you're utilizing barrel/index files (whether directly importing in your `preview.js` or in a file that `preview.js` is dependent on), it's likely to cause more bails since [a change to any of these modules would cause any file that imports the index file to be considered "dirty"](/docs/turbosnap/setup/#avoid-re-testing-dependent-stories-when-certain-files-changed), even if it's not using the changed module.
+Additionally, if you're utilizing barrel/index files (whether directly importing in your `preview.js` or in a file that `preview.js` is dependent on), it's likely to cause more bails since [a change to any of these modules would cause any file that imports the index file to be considered "dirty"](/docs/turbosnap/setup#avoid-re-testing-dependent-stories-when-certain-files-changed), even if it's not using the changed module.
 
 ### `invalidChangedFiles`
 
 TurboSnap bailed due to missing git history.
 
-TurboSnap is having issues retrieving your git history. This commonly happens when a repo is shallow cloning, which can be fixed by setting your fetch depth to `0` in your `.yml` workflow file. Another common cause of this issue is when customers use GitHub Actions with the `pull_request` event. If this is the case, you'll want to make sure you [set the correct `ref` in your checkout step](/docs/github-actions/#recommended-configuration-for-build-events).
+TurboSnap is having issues retrieving your git history. This commonly happens when a repo is shallow cloning, which can be fixed by setting your fetch depth to `0` in your `.yml` workflow file. Another common cause of this issue is when customers use GitHub Actions with the `pull_request` event. If this is the case, you'll want to make sure you [set the correct `ref` in your checkout step](/docs/github-actions#recommended-configuration-for-build-events).
 
 ### `missingStatsFile`
 

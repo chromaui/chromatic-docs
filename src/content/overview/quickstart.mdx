@@ -1,12 +1,11 @@
 ---
-layout: "../../layouts/Layout.astro"
 title: Quickstart
 description: Learn how to setup Chromatic for Storybook and run tests
 sidebar: { order: 2 }
 ---
 
-import TroubleshootingSetup from "../shared-snippets/setup/troubleshooting.mdx";
-import DemoChromaticUnlinked from "../shared-snippets/demo-chromatic-unlinked.mdx";
+import TroubleshootingSetup from "../../shared-snippets/setup/troubleshooting.mdx";
+import DemoChromaticUnlinked from "../../shared-snippets/demo-chromatic-unlinked.mdx";
 import InstallSnippets from "../../components/InstallSnippets.astro";
 import KeyboardShortcuts from "../../components/KeyboardShortcuts.astro";
 
@@ -15,7 +14,9 @@ import KeyboardShortcuts from "../../components/KeyboardShortcuts.astro";
 Chromatic, created by the team behind Storybook, seamlessly integrates visual testing into your UI development workflow. Storybook lets you capture every component state and variation as [stories](https://storybook.js.org/docs/get-started/whats-a-story). Then, Chromatic automatically executes visual, interaction and accessibility tests on those stories.
 
 <div class="aside">
-  ℹ️ Not using Storybook? Chromatic integrates with [Playwright](/docs/playwright) and [Cypress](/docs/cypress) to transform your E2E tests into visual regression tests.
+  ℹ️ Not using Storybook? Chromatic integrates with
+  [Playwright](/docs/playwright) and [Cypress](/docs/cypress) to transform your
+  E2E tests into visual regression tests.
 </div>
 
 ## Set up Chromatic for Storybook
@@ -188,7 +189,6 @@ After you merge your code, Chromatic will also apply accepted baselines to stori
 
 ![Build with reviewed tests](../../images/build-test-reviewed.png)
 
-
 ### 7. PR check for “UI Tests”
 
 ![PR badge for UI Tests](../../images/prbadge-test.png)
@@ -203,7 +203,7 @@ Chromatic adds a ‘UI Tests’ badge to the list of status checks for your pull
 
 You can further refine your testing process and guarantee polished UIs in all scenarios with these strategies:
 
-- [**Test component functionality with the play function:**](/docs/interactions/#how-to-write-interaction-tests) Simulate clicks, hovers, and more to simultaneously test how components look & function.
+- [**Test component functionality with the play function:**](/docs/interactions#how-to-write-interaction-tests) Simulate clicks, hovers, and more to simultaneously test how components look & function.
 - [**Test dark mode and other component variations:**](/docs/modes/) Make sure your UI adapts perfectly to different themes, locales and viewport sizes.
 - [**Test for flexible user preferences:**](/docs/media-features/) Guarantee your components adapt seamlessly to media features like `forced-colors` and `prefers-reduced-motion`.
 - [**Speed up tests & optimize usage:**](/docs/turbosnap/) Learn how to use Chromatic’s TurboSnap to only test stories that have code changes associated with them.

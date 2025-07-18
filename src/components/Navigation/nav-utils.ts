@@ -6,8 +6,8 @@ export function withBase(url: string): string {
     : `${import.meta.env.BASE_URL}/${url}`;
 }
 
-export function isUrlActive(slug: string, url: string) {
-  return withBase(slug) === url;
+export function isUrlActive(id: string, url: string) {
+  return withBase(id) === url;
 }
 
 export function isChildActive(
@@ -20,11 +20,11 @@ export function isChildActive(
         if (isNestedTransformedGroup(nestedItem)) {
           return isChildActive(nestedItem, url);
         } else {
-          return isUrlActive(nestedItem.slug, url);
+          return isUrlActive(nestedItem.id, url);
         }
       });
     } else {
-      return isUrlActive(item.slug, url);
+      return isUrlActive(item.id, url);
     }
   });
 }

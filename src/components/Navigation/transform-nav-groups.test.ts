@@ -7,11 +7,11 @@ const mockGroups: NavGroup[] = [
     title: "Overview",
     items: [
       {
-        id: "diff-inspector.mdx",
-        slug: "diff-inspector",
+        id: "diff-inspector",
         collection: "overview",
         data: {
           title: "Diff Inspector",
+          description: "Diff Inspector",
           sidebar: {
             label: "Diff Inspector",
             order: 5,
@@ -20,11 +20,11 @@ const mockGroups: NavGroup[] = [
         },
       },
       {
-        id: "introduction.mdx",
-        slug: "introduction",
+        id: "introduction",
         collection: "overview",
         data: {
           title: "Introduction",
+          description: "Introduction",
           sidebar: {
             label: "Introduction",
             order: 1,
@@ -34,11 +34,11 @@ const mockGroups: NavGroup[] = [
         },
       },
       {
-        id: "test.mdx",
-        slug: "test",
+        id: "test",
         collection: "overview",
         data: {
           title: "Test",
+          description: "Test",
           sidebar: {
             label: "UI Tests",
             order: 2,
@@ -47,11 +47,11 @@ const mockGroups: NavGroup[] = [
         },
       },
       {
-        id: "ci.mdx",
-        slug: "ci",
+        id: "ci",
         collection: "overview",
         data: {
           title: "Automate with CI",
+          description: "Automate with CI",
           sidebar: {
             label: "Automate with CI",
             order: 4,
@@ -60,11 +60,11 @@ const mockGroups: NavGroup[] = [
         },
       },
       {
-        id: "review.md",
-        slug: "review",
+        id: "review",
         collection: "overview",
         data: {
           title: "Review",
+          description: "Review",
           sidebar: {
             label: "UI Review",
             order: 3,
@@ -78,11 +78,11 @@ const mockGroups: NavGroup[] = [
     title: "Storybook",
     items: [
       {
-        id: "setup.mdx",
-        slug: "storybook",
-        collection: "storybook",
+        id: "storybook",
+        collection: "troubleshooting",
         data: {
           title: "Setup",
+          description: "Setup",
           sidebar: {
             label: "Setup",
             order: 1,
@@ -91,11 +91,11 @@ const mockGroups: NavGroup[] = [
         },
       },
       {
-        id: "interactions.md",
-        slug: "interactions",
-        collection: "storybook",
+        id: "interactions",
+        collection: "troubleshooting",
         data: {
           title: "Interaction tests",
+          description: "Interaction tests",
           sidebar: {
             label: "Interaction tests",
             order: 2,
@@ -104,11 +104,11 @@ const mockGroups: NavGroup[] = [
         },
       },
       {
-        id: "publish.md",
-        slug: "storybook/publish",
-        collection: "storybook",
+        id: "storybook/publish",
+        collection: "troubleshooting",
         data: {
           title: "Publish",
+          description: "Publish",
           sidebar: {
             label: "Publish",
             order: 3,
@@ -117,11 +117,11 @@ const mockGroups: NavGroup[] = [
         },
       },
       {
-        id: "composition.md",
-        slug: "composition",
-        collection: "storybook",
+        id: "composition",
+        collection: "troubleshooting",
         data: {
           title: "Composition",
+          description: "Composition",
           sidebar: {
             label: "Composition",
             order: 4,
@@ -134,11 +134,11 @@ const mockGroups: NavGroup[] = [
         title: "Modes",
         items: [
           {
-            id: "modes.mdx",
-            slug: "modes",
+            id: "modes",
             collection: "modes",
             data: {
               title: "Story Modes",
+              description: "Story Modes",
               sidebar: {
                 label: "Story Modes",
                 order: 1,
@@ -147,11 +147,11 @@ const mockGroups: NavGroup[] = [
             },
           },
           {
-            id: "legacy-viewports.md",
-            slug: "legacy-viewports",
+            id: "legacy-viewports",
             collection: "modes",
             data: {
               title: "Viewports (legacy)",
+              description: "Viewports (legacy)",
               sidebar: {
                 label: "Viewports (legacy)",
                 order: 5,
@@ -160,11 +160,11 @@ const mockGroups: NavGroup[] = [
             },
           },
           {
-            id: "themes.md",
-            slug: "themes",
+            id: "themes",
             collection: "modes",
             data: {
               title: "Themes",
+              description: "Themes",
               sidebar: {
                 label: "Themes",
                 order: 3,
@@ -173,11 +173,11 @@ const mockGroups: NavGroup[] = [
             },
           },
           {
-            id: "custom-decorators.md",
-            slug: "custom-decorators",
+            id: "custom-decorators",
             collection: "modes",
             data: {
               title: "Custom decorators and globals",
+              description: "Custom decorators and globals",
               sidebar: {
                 label: "Custom decorators",
                 order: 4,
@@ -186,11 +186,11 @@ const mockGroups: NavGroup[] = [
             },
           },
           {
-            id: "viewports.mdx",
-            slug: "viewports",
+            id: "viewports",
             collection: "modes",
             data: {
               title: "Viewports",
+              description: "Viewports",
               sidebar: {
                 label: "Viewports",
                 order: 2,
@@ -212,11 +212,11 @@ describe("transformNavGroups > Defaults", () => {
           title: "Overview",
           items: [
             {
-              id: "test.mdx",
-              slug: "test",
+              id: "test",
               collection: "overview",
               data: {
                 title: "Test",
+                description: "Test",
                 sidebar: {
                   label: "UI Tests",
                   order: 2,
@@ -235,7 +235,7 @@ describe("transformNavGroups > Defaults", () => {
             hide: false,
             label: "UI Tests",
             order: 2,
-            slug: "test",
+            id: "test",
             isHome: false,
             breadcrumb: "Overview",
           },
@@ -251,11 +251,11 @@ describe("transformNavGroups > Defaults", () => {
           title: "Overview",
           items: [
             {
-              id: "test.mdx",
-              slug: "test",
+              id: "test",
               collection: "overview",
               data: {
                 title: "Test",
+                description: "Test",
                 sidebar: {
                   order: 2,
                   hide: false,
@@ -274,7 +274,7 @@ describe("transformNavGroups > Defaults", () => {
             hide: false,
             label: "Test",
             order: 2,
-            slug: "test",
+            id: "test",
             isHome: false,
             breadcrumb: "Overview",
           },
@@ -290,11 +290,11 @@ describe("transformNavGroups > Defaults", () => {
           title: "Overview",
           items: [
             {
-              id: "introduction.mdx",
-              slug: "introduction",
+              id: "introduction",
               collection: "overview",
               data: {
                 title: "Introduction",
+                description: "Introduction",
                 sidebar: {
                   label: "Introduction",
                   order: 1,
@@ -314,7 +314,7 @@ describe("transformNavGroups > Defaults", () => {
             hide: false,
             label: "Introduction",
             order: 1,
-            slug: "",
+            id: "",
             isHome: true,
             breadcrumb: "Overview",
           },
@@ -330,11 +330,11 @@ describe("transformNavGroups > Defaults", () => {
           title: "Overview",
           items: [
             {
-              id: "test.mdx",
-              slug: "test",
+              id: "test",
               collection: "overview",
               data: {
                 title: "Test",
+                description: "Test",
                 sidebar: {
                   label: "UI Tests",
                   hide: false,
@@ -352,7 +352,7 @@ describe("transformNavGroups > Defaults", () => {
             hide: false,
             label: "UI Tests",
             order: 999,
-            slug: "test",
+            id: "test",
             isHome: false,
             breadcrumb: "Overview",
           },
@@ -368,11 +368,11 @@ describe("transformNavGroups > Defaults", () => {
           title: "Overview",
           items: [
             {
-              id: "test.mdx",
-              slug: "test",
+              id: "test",
               collection: "overview",
               data: {
                 title: "Test",
+                description: "Test",
                 sidebar: {
                   label: "UI Tests",
                   order: 2,
@@ -390,7 +390,7 @@ describe("transformNavGroups > Defaults", () => {
             hide: false,
             label: "UI Tests",
             order: 2,
-            slug: "test",
+            id: "test",
             isHome: false,
             breadcrumb: "Overview",
           },
@@ -411,11 +411,11 @@ describe("transformNavGroups > Nested defaults", () => {
               title: "Modes",
               items: [
                 {
-                  id: "modes.mdx",
-                  slug: "modes",
+                  id: "modes",
                   collection: "modes",
                   data: {
                     title: "Story Modes",
+                    description: "Story Modes",
                     sidebar: {
                       label: "Story Modes",
                       hide: false,
@@ -440,7 +440,7 @@ describe("transformNavGroups > Nested defaults", () => {
                 hide: false,
                 label: "Story Modes",
                 order: 999,
-                slug: "modes",
+                id: "modes",
                 isHome: false,
                 breadcrumb: "Storybook » Modes",
               },
@@ -461,11 +461,11 @@ describe("transformNavGroups > Nested defaults", () => {
               title: "Modes",
               items: [
                 {
-                  id: "modes.mdx",
-                  slug: "modes",
+                  id: "modes",
                   collection: "modes",
                   data: {
                     title: "Story Modes",
+                    description: "Story Modes",
                     sidebar: {
                       label: "Story Modes",
                     },
@@ -489,7 +489,7 @@ describe("transformNavGroups > Nested defaults", () => {
                 hide: false,
                 label: "Story Modes",
                 order: 999,
-                slug: "modes",
+                id: "modes",
                 isHome: false,
                 breadcrumb: "Storybook » Modes",
               },
@@ -511,7 +511,7 @@ describe("transformNavGroups > Sorting & filtering", () => {
             hide: false,
             label: "Introduction",
             order: 1,
-            slug: "",
+            id: "",
             isHome: true,
             breadcrumb: "Overview",
           },
@@ -519,7 +519,7 @@ describe("transformNavGroups > Sorting & filtering", () => {
             hide: false,
             label: "UI Tests",
             order: 2,
-            slug: "test",
+            id: "test",
             isHome: false,
             breadcrumb: "Overview",
           },
@@ -527,7 +527,7 @@ describe("transformNavGroups > Sorting & filtering", () => {
             hide: false,
             label: "UI Review",
             order: 3,
-            slug: "review",
+            id: "review",
             isHome: false,
             breadcrumb: "Overview",
           },
@@ -535,7 +535,7 @@ describe("transformNavGroups > Sorting & filtering", () => {
             hide: false,
             label: "Automate with CI",
             order: 4,
-            slug: "ci",
+            id: "ci",
             isHome: false,
             breadcrumb: "Overview",
           },
@@ -543,7 +543,7 @@ describe("transformNavGroups > Sorting & filtering", () => {
             hide: false,
             label: "Diff Inspector",
             order: 5,
-            slug: "diff-inspector",
+            id: "diff-inspector",
             isHome: false,
             breadcrumb: "Overview",
           },
@@ -559,11 +559,11 @@ describe("transformNavGroups > Sorting & filtering", () => {
           title: "Overview",
           items: [
             {
-              id: "diff-inspector.mdx",
-              slug: "diff-inspector",
+              id: "diff-inspector",
               collection: "overview",
               data: {
                 title: "Diff Inspector",
+                description: "Diff Inspector",
                 sidebar: {
                   label: "Diff Inspector",
                   order: 5,
@@ -572,11 +572,11 @@ describe("transformNavGroups > Sorting & filtering", () => {
               },
             },
             {
-              id: "ci.mdx",
-              slug: "ci",
+              id: "ci",
               collection: "overview",
               data: {
                 title: "Automate with CI",
+                description: "Automate with CI",
                 sidebar: {
                   label: "Automate with CI",
                   order: 4,
@@ -585,11 +585,11 @@ describe("transformNavGroups > Sorting & filtering", () => {
               },
             },
             {
-              id: "introduction.mdx",
-              slug: "introduction",
+              id: "introduction",
               collection: "overview",
               data: {
                 title: "Introduction",
+                description: "Introduction",
                 sidebar: {
                   label: "Introduction",
                   order: 1,
@@ -609,7 +609,7 @@ describe("transformNavGroups > Sorting & filtering", () => {
             hide: false,
             label: "Introduction",
             order: 1,
-            slug: "",
+            id: "",
             isHome: true,
             breadcrumb: "Overview",
           },
@@ -617,7 +617,7 @@ describe("transformNavGroups > Sorting & filtering", () => {
             hide: false,
             label: "Diff Inspector",
             order: 5,
-            slug: "diff-inspector",
+            id: "diff-inspector",
             isHome: false,
             breadcrumb: "Overview",
           },
@@ -635,7 +635,7 @@ describe("transformNavGroups > Sorting & filtering", () => {
             hide: false,
             label: "Setup",
             order: 1,
-            slug: "storybook",
+            id: "storybook",
             isHome: false,
             breadcrumb: "Storybook",
           },
@@ -643,7 +643,7 @@ describe("transformNavGroups > Sorting & filtering", () => {
             hide: false,
             label: "Interaction tests",
             order: 2,
-            slug: "interactions",
+            id: "interactions",
             isHome: false,
             breadcrumb: "Storybook",
           },
@@ -651,7 +651,7 @@ describe("transformNavGroups > Sorting & filtering", () => {
             hide: false,
             label: "Publish",
             order: 3,
-            slug: "storybook/publish",
+            id: "storybook/publish",
             isHome: false,
             breadcrumb: "Storybook",
           },
@@ -659,7 +659,7 @@ describe("transformNavGroups > Sorting & filtering", () => {
             hide: false,
             label: "Composition",
             order: 4,
-            slug: "composition",
+            id: "composition",
             isHome: false,
             breadcrumb: "Storybook",
           },
@@ -670,7 +670,7 @@ describe("transformNavGroups > Sorting & filtering", () => {
                 hide: false,
                 label: "Story Modes",
                 order: 1,
-                slug: "modes",
+                id: "modes",
                 isHome: false,
                 breadcrumb: "Storybook » Modes",
               },
@@ -678,7 +678,7 @@ describe("transformNavGroups > Sorting & filtering", () => {
                 hide: false,
                 label: "Themes",
                 order: 3,
-                slug: "themes",
+                id: "themes",
                 isHome: false,
                 breadcrumb: "Storybook » Modes",
               },
@@ -686,7 +686,7 @@ describe("transformNavGroups > Sorting & filtering", () => {
                 hide: false,
                 label: "Custom decorators",
                 order: 4,
-                slug: "custom-decorators",
+                id: "custom-decorators",
                 isHome: false,
                 breadcrumb: "Storybook » Modes",
               },
@@ -694,7 +694,7 @@ describe("transformNavGroups > Sorting & filtering", () => {
                 hide: false,
                 label: "Viewports (legacy)",
                 order: 5,
-                slug: "legacy-viewports",
+                id: "legacy-viewports",
                 isHome: false,
                 breadcrumb: "Storybook » Modes",
               },
@@ -716,11 +716,11 @@ describe("transformNavGroups > Breadcrumbs", () => {
           title: "Storybook",
           items: [
             {
-              id: "setup.mdx",
-              slug: "storybook",
-              collection: "storybook",
+              id: "storybook",
+              collection: "troubleshooting",
               data: {
                 title: "Setup",
+                description: "Setup",
                 sidebar: {
                   label: "Setup",
                   order: 1,
@@ -729,11 +729,11 @@ describe("transformNavGroups > Breadcrumbs", () => {
               },
             },
             {
-              id: "interactions.md",
-              slug: "interactions",
-              collection: "storybook",
+              id: "interactions",
+              collection: "troubleshooting",
               data: {
                 title: "Interaction tests",
+                description: "Interaction tests",
                 sidebar: {
                   label: "Interaction tests",
                   order: 2,
@@ -752,7 +752,7 @@ describe("transformNavGroups > Breadcrumbs", () => {
             hide: false,
             label: "Setup",
             order: 1,
-            slug: "storybook",
+            id: "storybook",
             isHome: false,
             breadcrumb: "Storybook",
           },
@@ -760,7 +760,7 @@ describe("transformNavGroups > Breadcrumbs", () => {
             hide: false,
             label: "Interaction tests",
             order: 2,
-            slug: "interactions",
+            id: "interactions",
             isHome: false,
             breadcrumb: "Storybook",
           },
@@ -776,11 +776,11 @@ describe("transformNavGroups > Breadcrumbs", () => {
           title: "Storybook",
           items: [
             {
-              id: "composition.md",
-              slug: "composition",
-              collection: "storybook",
+              id: "composition",
+              collection: "troubleshooting",
               data: {
                 title: "Composition",
+                description: "Composition",
                 sidebar: {
                   label: "Composition",
                   order: 4,
@@ -793,11 +793,11 @@ describe("transformNavGroups > Breadcrumbs", () => {
               title: "Modes",
               items: [
                 {
-                  id: "modes.mdx",
-                  slug: "modes",
+                  id: "modes",
                   collection: "modes",
                   data: {
                     title: "Story Modes",
+                    description: "Story Modes",
                     sidebar: {
                       label: "Story Modes",
                       order: 1,
@@ -818,7 +818,7 @@ describe("transformNavGroups > Breadcrumbs", () => {
             hide: false,
             label: "Composition",
             order: 4,
-            slug: "composition",
+            id: "composition",
             isHome: false,
             breadcrumb: "Storybook",
           },
@@ -829,7 +829,7 @@ describe("transformNavGroups > Breadcrumbs", () => {
                 hide: false,
                 label: "Story Modes",
                 order: 1,
-                slug: "modes",
+                id: "modes",
                 isHome: false,
                 breadcrumb: "Storybook » Modes",
               },
@@ -849,11 +849,11 @@ describe("transformNavGroups > Breadcrumbs", () => {
           title: "Storybook",
           items: [
             {
-              id: "setup.mdx",
-              slug: "storybook",
-              collection: "storybook",
+              id: "storybook",
+              collection: "troubleshooting",
               data: {
                 title: "Setup",
+                description: "Setup",
                 sidebar: {
                   label: "Setup",
                   order: 1,
@@ -865,11 +865,11 @@ describe("transformNavGroups > Breadcrumbs", () => {
               title: "Modes",
               items: [
                 {
-                  id: "modes.mdx",
-                  slug: "modes",
+                  id: "modes",
                   collection: "modes",
                   data: {
                     title: "Story Modes",
+                    description: "Story Modes",
                     sidebar: {
                       label: "Story Modes",
                       order: 1,
@@ -881,11 +881,11 @@ describe("transformNavGroups > Breadcrumbs", () => {
                   title: "Something",
                   items: [
                     {
-                      id: "interactions.md",
-                      slug: "interactions",
-                      collection: "storybook",
+                      id: "interactions",
+                      collection: "troubleshooting",
                       data: {
                         title: "Interaction tests",
+                        description: "Interaction tests",
                         sidebar: {
                           label: "Interaction tests",
                           order: 2,
@@ -894,11 +894,11 @@ describe("transformNavGroups > Breadcrumbs", () => {
                       },
                     },
                     {
-                      id: "publish.md",
-                      slug: "storybook/publish",
-                      collection: "storybook",
+                      id: "storybook/publish",
+                      collection: "troubleshooting",
                       data: {
                         title: "Publish",
+                        description: "Publish",
                         sidebar: {
                           label: "Publish",
                           order: 3,
@@ -921,7 +921,7 @@ describe("transformNavGroups > Breadcrumbs", () => {
             hide: false,
             label: "Setup",
             order: 1,
-            slug: "storybook",
+            id: "storybook",
             isHome: false,
             breadcrumb: "Storybook",
           },
@@ -932,7 +932,7 @@ describe("transformNavGroups > Breadcrumbs", () => {
                 hide: false,
                 label: "Story Modes",
                 order: 1,
-                slug: "modes",
+                id: "modes",
                 isHome: false,
                 breadcrumb: "Storybook » Modes",
               },
@@ -944,7 +944,7 @@ describe("transformNavGroups > Breadcrumbs", () => {
                     isHome: false,
                     label: "Interaction tests",
                     order: 2,
-                    slug: "interactions",
+                    id: "interactions",
                     breadcrumb: "Storybook » Modes » Something",
                   },
                   {
@@ -952,7 +952,7 @@ describe("transformNavGroups > Breadcrumbs", () => {
                     isHome: false,
                     label: "Publish",
                     order: 3,
-                    slug: "storybook/publish",
+                    id: "storybook/publish",
                     breadcrumb: "Storybook » Modes » Something",
                   },
                 ],
@@ -980,7 +980,7 @@ describe("flattenNavGroups", () => {
               hide: false,
               label: "Setup",
               order: 1,
-              slug: "storybook",
+              id: "storybook",
               isHome: false,
               breadcrumb: "Storybook",
             },
@@ -991,7 +991,7 @@ describe("flattenNavGroups", () => {
                   hide: false,
                   label: "Story Modes",
                   order: 1,
-                  slug: "modes",
+                  id: "modes",
                   isHome: false,
                   breadcrumb: "Storybook » Modes",
                 },
@@ -1003,7 +1003,7 @@ describe("flattenNavGroups", () => {
                       isHome: false,
                       label: "Interaction tests",
                       order: 2,
-                      slug: "interactions",
+                      id: "interactions",
                       breadcrumb: "Storybook » Modes » Something",
                     },
                     {
@@ -1011,7 +1011,7 @@ describe("flattenNavGroups", () => {
                       isHome: false,
                       label: "Publish",
                       order: 3,
-                      slug: "storybook/publish",
+                      id: "storybook/publish",
                       breadcrumb: "Storybook » Modes » Something",
                     },
                   ],
@@ -1030,7 +1030,7 @@ describe("flattenNavGroups", () => {
         hide: false,
         label: "Setup",
         order: 1,
-        slug: "storybook",
+        id: "storybook",
         isHome: false,
         breadcrumb: "Storybook",
       },
@@ -1038,7 +1038,7 @@ describe("flattenNavGroups", () => {
         hide: false,
         label: "Story Modes",
         order: 1,
-        slug: "modes",
+        id: "modes",
         isHome: false,
         breadcrumb: "Storybook » Modes",
       },
@@ -1047,7 +1047,7 @@ describe("flattenNavGroups", () => {
         isHome: false,
         label: "Interaction tests",
         order: 2,
-        slug: "interactions",
+        id: "interactions",
         breadcrumb: "Storybook » Modes » Something",
       },
       {
@@ -1055,7 +1055,7 @@ describe("flattenNavGroups", () => {
         isHome: false,
         label: "Publish",
         order: 3,
-        slug: "storybook/publish",
+        id: "storybook/publish",
         breadcrumb: "Storybook » Modes » Something",
       },
     ]);

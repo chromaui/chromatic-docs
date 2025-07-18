@@ -1,5 +1,5 @@
 ---
-import BaseLayout from "../layouts/BaseLayout.astro";
+import BaseLayout from '../layouts/BaseLayout.astro';
 
 interface DocPage {
   title: string;
@@ -11,8 +11,8 @@ interface DocPage {
 
 export async function getStaticPaths() {
   const query = {
-    method: "POST",
-    headers: { "Content-Type": "application/json" },
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify({
       query: `
       {
@@ -28,7 +28,7 @@ export async function getStaticPaths() {
   };
 
   // Don't fetch data in development mode
-  if (process.env.NODE_ENV === "development") {
+  if (process.env.NODE_ENV === 'development') {
     return [];
   }
 
@@ -48,10 +48,18 @@ export async function getStaticPaths() {
   });
 }
 
-const { title, body } = Astro.props;
+interface Props {
+  title: string;
+  body: {
+    html: string;
+  };
+  cms_slug: string;
+}
+
+const { title, body, cms_slug } = Astro.props;
 ---
 
-<BaseLayout title={title} description="" url="/onboarding-guide" headings={[]}>
+<BaseLayout title={title} description="" headings={[]} id={cms_slug}>
   <h1>{title}</h1>
   <div set:html={body.html} />
 </BaseLayout>

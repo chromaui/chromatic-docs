@@ -1,5 +1,4 @@
 ---
-layout: "../../layouts/Layout.astro"
 title: Viewports
 description: Configure Chromatic in Storybook to test responsive components at various viewports and breakpoints.
 sidebar: { order: 2 }
@@ -199,6 +198,7 @@ Within Storybook, you can configure the default viewport for stories at differen
     };
     export default preview;
     ```
+
   </TabItem>
 
   <TabItem label="stories.ts">
@@ -215,7 +215,7 @@ Within Storybook, you can configure the default viewport for stories at differen
 
     export default meta;
     type Story = StoryObj<typeof meta>;
-    
+
 
     export const DefaultViewportFromName: Story = {
       globals: {
@@ -225,7 +225,7 @@ Within Storybook, you can configure the default viewport for stories at differen
       },
     };
     ```
-   
+
   </TabItem>
 </Tabs>
 
@@ -247,13 +247,13 @@ In the example below, both stories will use the `md` viewport size when viewed i
 // Adjust this import to match your framework (e.g., nextjs, vue3-vite)
 import type { Meta, StoryObj } from "@storybook/your-framework";
 
-import { allModes } from '../.storybook/modes';
+import { allModes } from "../.storybook/modes";
 
-import { MyComponent } from './MyComponent';
+import { MyComponent } from "./MyComponent";
 
 const meta = {
   component: MyComponent,
-  title: 'MyComponent',
+  title: "MyComponent",
 } satisfies Meta<typeof MyComponent>;
 
 export default meta;
@@ -394,7 +394,7 @@ Chromatic defaults to a viewport of width 1200px and height 900px.
 <details>
 <summary>How does snapshot cropping work with viewport width and height?</summary>
 
-When you add a viewport, Chromatic will size the browser’s viewport to the defined width and height. It will then [take a snapshot and crop](/docs/snapshots/#how-are-snapshots-captured) it to the component's bounding box. This eliminates negative space around snapshots, reducing the visual information you must review.
+When you add a viewport, Chromatic will size the browser’s viewport to the defined width and height. It will then [take a snapshot and crop](/docs/snapshots#how-are-snapshots-captured) it to the component's bounding box. This eliminates negative space around snapshots, reducing the visual information you must review.
 
 By default, Chromatic captures the full height of the rendered UI, even if a viewport height has been set. This is because in most cases, you want to capture the entire rendered UI. To restrict the capture height to the specified height, set `parameters.chromatic.cropToViewport` to `true`.
 

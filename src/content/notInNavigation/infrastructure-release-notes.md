@@ -1,5 +1,4 @@
 ---
-layout: "../../layouts/Layout.astro"
 title: Infrastructure release notes
 description: Chromatic's browser infrastructure release notes
 ---

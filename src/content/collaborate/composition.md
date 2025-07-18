@@ -1,5 +1,4 @@
 ---
-layout: "../../layouts/Layout.astro"
 title: Composition
 description: Learn to combine Storybooks through composition
 sidebar: { order: 8 }

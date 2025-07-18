@@ -1,5 +1,4 @@
 ---
-layout: "../../layouts/Layout.astro"
 title: Hover and focus states
 description: Learn how to capture hover and focus states
 sidebar: { order: 9, label: Hover and focus }
@@ -167,7 +166,11 @@ export const ActiveStatewithClass: Story = {
 ```
 
 <div class="aside">
-  ℹ️ This approach requires manually toggling the class names in your component's test to simulate the necessary states. If you're using a CSS-in-JS framework, you can [automate](https://github.com/Workday/canvas-kit/pull/377/files) this process by creating a JavaScript wrapper that adds the class names programmatically.
+  ℹ️ This approach requires manually toggling the class names in your
+  component's test to simulate the necessary states. If you're using a CSS-in-JS
+  framework, you can
+  [automate](https://github.com/Workday/canvas-kit/pull/377/files) this process
+  by creating a JavaScript wrapper that adds the class names programmatically.
 </div>
 
 ## Focusing DOM elements

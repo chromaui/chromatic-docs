@@ -1,16 +1,16 @@
 ---
-import { type TransformedItem } from "./Navigation/types";
+import { type TransformedItem } from './Navigation/types';
 
-const { flattenedNavItems, slug } = Astro.props;
+const { flattenedNavItems, id } = Astro.props;
 
 interface Props {
-  slug: string;
+  id: string;
   flattenedNavItems: TransformedItem[];
 }
 
-const itemIndex = flattenedNavItems.findIndex((i) => i.slug === slug);
+const itemIndex = flattenedNavItems.findIndex((i) => i.id === id);
 const item = flattenedNavItems[itemIndex];
-const breadcrumb = item?.breadcrumb || "Docs";
+const breadcrumb = item?.breadcrumb || 'Docs';
 // Order is reversed so that the first item is the most relevant
 const order = -(itemIndex + 1);
 ---
