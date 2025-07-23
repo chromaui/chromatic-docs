@@ -10,7 +10,7 @@ To setup Chromatic with an "unlinked" project:
 
 Nice! You created an unlinked project. This will allow you to get started with [UI Testing](/docs) workflow regardless of the underlying git provider. You can then configure your CI system to automatically run a Chromatic build on push.
 
-The Chromatic CLI provides the option to generate a JUnit XML report of your build, which you can use to handle commit / pull request statuses yourself. See [debug options](/docs/cli#debug-options) for details.
+The Chromatic CLI provides the option to generate a JUnit XML report of your build, which you can use to handle commit / pull request statuses yourself. For details, see the configuration reference [options](/docs/configure#options).
 
 Unlinked projects have certain drawbacks:
 
