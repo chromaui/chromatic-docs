@@ -126,6 +126,23 @@ If your provider is not on the list, please reach out to us at support@chromatic
 
 </details>
 
+<details>
+  <summary>How do you log in with SSO?</summary>
+
+Once SSO is enabled, you have two primary ways to log in:
+
+1. **Direct subdomain link:** If a subdomain is enabled, the most straightforward method is to use your organization's unique login URL:  `https://{YOUR-SUBDOMAIN}.chromatic.com/start`
+2. **SSO provider dashboard:** Simply find and click the Chromatic application tile, and you'll be redirected and logged in automatically.
+
+If you're having trouble logging in:
+
+1. Ensure your user has been provisioned to the Chromatic application within your SSO provider. Confirm your user group has the necessary permissions.
+2. Double-check that you are using the correct subdomain in the login URL. It must exactly match the one assigned to your organization.
+3. Login issues are often caused by stale cookies or cached data. Try clearing your browser's cache and cookies or using a private/incognito window to log in.
+4. If your organization has enabled IP restrictions, ensure you are connected to your corporate network (e.g., via a VPN) as required by your company's policy.
+
+</details>
+
 ## Organizations
 
 A Chromatic organization mirrors its counterpart GitHub Organization, Bitbucket Group, or GitLab Team. Open the account menu to swap between organizations or add a new organization.
