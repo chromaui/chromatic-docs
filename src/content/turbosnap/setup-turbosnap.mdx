@@ -179,6 +179,28 @@ You must pass `webpackStatsJson` as a [prop to options](https://nx.dev/nx-api/st
 
 </details>
 
+<details>
+<summary>How can I fail the CI pipeline if `preview-stats.json` file is missing?</summary>
+
+When TurboSnap is enabled and the `preview-stats.json` is missing, Chromatic doesn't fail the build. Instead, it issues a warning that TurboSnap has **bailed** and runs an un-optimized build.
+You can add an explicit verification step to your CI pipeline to fail the entire job if the file is not found and you don't want to run full builds.
+
+To achieve this, build Storybook in a previous step and place the script below before the Chromatic command:
+
+```yml
+STATS_FILE="storybook-static/preview-stats.json" # Adjust the path
+
+if; then
+  echo "✅ Success: $STATS_FILE found. Chromatic can proceed."
+else
+  echo "❌ Error: $STATS_FILE not found. This will prevent TurboSnap from functioning."
+  echo "Check your build script to ensure the --stats-json (or --webpack-stats-json) flag is correctly configured."
+  exit 1
+fi
+```
+
+</details>
+
 ### TurboSnap with prebuilt Storybook using Vite
 
 For projects using Storybook versions prior to 8, use the [vite-plugin-turbosnap](https://github.com/IanVS/vite-plugin-turbosnap). The plugin will automatically generate a stats file when you run the `build-storybook` command.
@@ -192,6 +214,61 @@ Vite is natively supported for Storybook 8 and later. To generate the stats file
   }
 }
 ```
+
+<details>
+<summary>How to generate the `preview-stats.json` file for Rsbuild?</summary>
+
+Like Webpack and Vite, Rspack should generate a stats file by default. If it doesn't, try setting the `performance.profile` option to `true`.
+
+Another method is to use the `performance.bundleAnalyze` option in your `rsbuild.config.ts` and set `generateStatsFile: true`.
+
+```ts title="rsbuild.config.ts"
+export default {
+  performance: {
+    bundleAnalyze: {
+      analyzerMode: "disabled", // Optional: prevents the HTML report from opening
+      generateStatsFile: true,
+    },
+  },
+};
+```
+
+If you are using Rspack CLI, you can use the `--json` flag to output the stats file.
+
+```Bash
+npx rspack --json stats.json
+```
+
+</details>
+
+<details>
+<summary>How to generate the `preview-stats.json` file for an Angular project?</summary>
+
+When using Angular with Storybook, directly passing a CLI flag will not generate the `preview-stats.json` file.
+You must configure the Storybook builder directly within your [`angular.json` file](https://storybook.js.org/docs/get-started/frameworks/angular) by adding `"webpackStatsJson": true`.
+
+```json title="angular.json"
+{
+  "projects": {
+    "your-project-name": {
+      "architect": {
+        "build-storybook": {
+          "builder": "@storybook/angular:build-storybook",
+          "options": {
+            "outputDir": "dist/storybook/your-project-name",
+            "configDir": ".storybook",
+            "browserTarget": "your-project-name:build",
+            "compodoc": false,
+            "webpackStatsJson": true
+          }
+        }
+      }
+    }
+  }
+}
+```
+
+</details>
 
 ### Specify a deviating Storybook base directory
 
