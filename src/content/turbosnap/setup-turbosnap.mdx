@@ -184,7 +184,8 @@ You must pass `webpackStatsJson` as a [prop to options](https://nx.dev/nx-api/st
 
 When TurboSnap is enabled and the `preview-stats.json` is missing, Chromatic doesn't fail the build. Instead, it issues a warning that TurboSnap has **bailed** and runs an un-optimized build.
 You can add an explicit verification step to your CI pipeline to fail the entire job if the file is not found and you don't want to run full builds.
-Place this script before the Chromatic command:
+
+To achieve this, build Storybook in a previous step and place the script below before the Chromatic command:
 
 ```yml
 STATS_FILE="storybook-static/preview-stats.json" # Adjust the path

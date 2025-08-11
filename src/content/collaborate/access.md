@@ -140,6 +140,7 @@ If you're having trouble logging in:
 2. Double-check that you are using the correct subdomain in the login URL. It must exactly match the one assigned to your organization.
 3. Login issues are often caused by stale cookies or cached data. Try clearing your browser's cache and cookies or using a private/incognito window to log in.
 4. If your organization has enabled IP restrictions, ensure you are connected to your corporate network (e.g., via a VPN) as required by your company's policy.
+5. If your organization limits access by domain and you use a different email domain than your colleagues (e.g., you're a contractor), ask your team to issue you an email address on an approved domain or contact us to add your current domain to the company's allow list.
 
 </details>
 

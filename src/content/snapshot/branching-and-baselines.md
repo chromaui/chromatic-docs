@@ -91,6 +91,22 @@ Read our CI [documentation](/docs/ci).
 </details>
 
 <details>
+  <summary>Why is a reverted or deleted commit included in the baseline history?</summary>
+
+Git operations that rewrite the history can cause a mismatch between your repository's history and Chromatic baseline history. Removing or altering a commit that has already been built in Chromatic will cause your histories to diverge if you don't run Chromatic after this change to update the baseline. Git "forgets" the commit, but Chromatic remembers it.
+
+| Action              | Git             | Chromatic            |
+| ------------------- | --------------- | -------------------- |
+| `commit C` + `push` | `A` → `B` → `C` | `A` → `B` → `C`      |
+| `reset --hard A`    | `A`             | `A` → `B` → `C`      |
+| `commit D` + `push` | `A` → `D`       | `A` → `B` → `C`→ `D` |
+
+The baseline history will keep the commits `B` and `C` which are now orphaned and may cause incorrect comparisons.
+You can bypass this commit by setting the `--ignore-last-build-on-branch` flag.
+
+</details>
+
+<details>
 <summary>How do baselines get preserved during squash and rebase-merging?</summary>
 
 Chromatic detects squash and rebase merges. Your baselines are preserved between branches, even when squashing or rebasing wipes the git history.
@@ -157,21 +173,6 @@ If you want to revert to a previous baseline, you can use Git to restore old bas
   <summary>What's the difference between an ancestor build and the baseline history?</summary>
 
 The **baseline history** shows all previously accepted and unreviewed baselines for a specific story, while an **ancestor build** is the most recent parent commit. A build can have [multiple ancestor builds](/docs/branching-and-baselines#what-if-there-are-multiple-ancestor-builds). An ancestor build may not be part of the baseline history of a specific story.
-
-</details>
-
-<details>
-  <summary>Why is a reverted or deleted commit included in the baseline history?</summary>
-
-Git operations that rewrite the history can cause a mismatch between your repository's history and Chromatic baseline history. Removing or altering a commit that has already been built in Chromatic will cause your histories to diverge if you don't run Chromatic after this change to update the baseline. Git "forgets" the commit, but Chromatic remembers it.
-
-| Action              | Git             | Chromatic            |
-| ------------------- | --------------- | -------------------- |
-| `commit C` + `push` | `A` → `B` → `C` | `A` → `B` → `C`      |
-| `reset --hard A`    | `A`             | `A` → `B` → `C`      |
-| `commit D` + `push` | `A` → `D`       | `A` → `B` → `C`→ `D` |
-
-The baseline history will keep the commits `B` and `C` which are now orphaned and may cause incorrect comparisons.
 
 </details>
 
