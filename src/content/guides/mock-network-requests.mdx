@@ -4,13 +4,23 @@ description: Learn how to mock APIs and network requests in your tests (Storyboo
 sidebar: { order: 5, label: "Mocking APIs" }
 ---
 
+import { YouTubeCallout } from "../../components/YouTubeCallout";
+
 # Mocking APIs and Network Requests
 
 When testing components or pages that make network requests, it's important to mock those requests to keep your tests isolated and predictable. Chromatic integrates with functional testing frameworks to enable visual testing of your UI. Therefore, APIs are mocked by your functional testing framework, not by Chromatic itself.
 
 ## Storybook
 
-Storybook offers [several addons](https://storybook.js.org/addons/tag/api) for mocking APIs (e.g. fetching data from a REST or GraphQL API). We recommend using the [MSW addon](https://storybook.js.org/addons/msw-storybook-addon). Mock Service Worker (MSW) is an API mocking library that uses service workers to capture network requests and provide mocked data in response. The MSW addon integrates this functionality into Storybook. Here’s a basic example:
+Storybook offers [several addons](https://storybook.js.org/addons/tag/api) for mocking APIs (e.g. fetching data from a REST or GraphQL API). We recommend using the [MSW addon](https://storybook.js.org/addons/msw-storybook-addon).
+
+<YouTubeCallout
+  client:load
+  id="XF4IZlIZGz8"
+  summary="Mocking network requests with MSW addon"
+/>
+
+Mock Service Worker (MSW) is an API mocking library that uses service workers to capture network requests and provide mocked data in response. The MSW addon integrates this functionality into Storybook. Here’s a basic example:
 
 ```tsx title="DocumentScreen.stories.tsx"
 // Replace your-framework with the name of your framework (e.g. nextjs, vue3-vite)
