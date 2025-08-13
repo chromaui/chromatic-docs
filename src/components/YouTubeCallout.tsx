@@ -151,7 +151,7 @@ export const YouTubeCallout = ({
   open,
   summary = "Watch a video tutorial on the Storybook channel",
   title,
-  params,
+  params = "rel=0",
 }: YouTubeCalloutProps) => (
   <Details open={open}>
     <Summary className="no-anchor">
