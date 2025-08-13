@@ -95,6 +95,16 @@ export const MockedError: Story = {
 
 For more details, check out the [Mocking network requests](https://storybook.js.org/docs/writing-stories/mocking-data-and-modules/mocking-network-requests) page in the Storybook documentation.
 
+### Module mocking
+
+If you rely on third-party libraries that make network requests, you can mock those modules in your stories. This is useful when you want to avoid inconsistencies in your tests due to external dependencies. Refer to the video below and the [module mocking documentation](https://storybook.js.org/docs/writing-stories/mocking-data-and-modules/mocking-modules) for more information on how to do this.
+
+<YouTubeCallout
+  client:load
+  id="TL-YSDsPpCk"
+  summary="Module mocking in Storybook"
+/>
+
 ## Playwright
 
 Playwright allows you to mock network requests, including XHRs and fetch requests. You can also use HAR files to mock multiple network requests made by the page. Check out the [Playwright documentation](https://playwright.dev/docs/mock#mock-api-requests) for more details.
