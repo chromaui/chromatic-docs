@@ -5,7 +5,7 @@ sidebar: { order: 10 }
 ---
 
 import ParamsCallout from "../../components/ParamsCallout.astro";
-
+import { YouTubeCallout } from "../../components/YouTubeCallout";
 import IntegrationSnippets from "../../components/IntegrationSnippets.astro";
 
 # Animations
@@ -105,6 +105,14 @@ MotionGlobalConfig.skipAnimations = isChromatic();
 ℹ️ For more information on disabling animations in other libraries, refer to the library's documentation or community resources to learn how to achieve this.
 
 </div>
+
+You can also replace the animation with a static image for visual testing. Watch the video below to see how this technique works.
+
+<YouTubeCallout
+  client:load
+  id="SyQfmoU2Ato"
+  summary="Replace animation with a static image for visual testing"
+/>
 
 ### Playwright and Cypress
 

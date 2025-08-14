@@ -16,6 +16,12 @@ It's tough to predict network stability and third-party hosting reliability. The
 
 If you're running tests with Storybook, we recommend adding [resources to your Storybook](https://storybook.js.org/docs/configure/integration/images-and-assets#serving-static-files-via-storybook-configuration) or using a reliable [placeholder service](https://placehold.co/). With Playwright or Cypress, resources should be provided by the local application server. However, if you need to load resources from external domains, you can enable the `assetDomains` option in the project configuration. Including these options will make your builds run faster.
 
+<div class="callout">
+
+For more best practices on loading images in Storybook, check out [**this guide**](https://github.com/yannbf/storybook-image-loading-best-practices).
+
+</div>
+
 ## Asynchronous rendering
 
 Our browsers monitor network activity while your tests are rendered. If your test renders after a delay (i.e., asynchronously), we cannot tell what happened. Thus, we can't reliably wait for subsequent resources to be loaded asynchronously.
