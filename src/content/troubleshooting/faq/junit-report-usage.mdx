@@ -54,7 +54,8 @@ If a story has visual changes that require review, it is marked with a `<failure
 ```
 
 <div class="callout">
-  If a story with changes in one build is run again in a subsequent build without being reviewed, it will still be flagged as "changed".
+  If a story with changes in one build is run again in a subsequent build
+  without being reviewed, it will still be flagged as "changed".
 </div>
 
 ### Skipped Stories
@@ -109,20 +110,18 @@ The most straightforward method for sending your JUnit reports to Datadog is by 
 ```shell
 datadog-ci junit upload --service chromatic <path-to-your-junit-xml-files>
 ```
-datadog-ci junit upload --service chromatic <path-to-your-junit-xml-files>
-```
 
-You will need to configure your Datadog API and application keys as environment variables (DD_API_KEY and DD_APP_KEY).
+You will need to configure your Datadog API and application keys as environment variables (`DD_API_KEY` and `DD_APP_KEY`).
 
 ### Using the GitHub Action
 
-For workflows hosted on GitHub Actions, you can use the `datadog/junit-upload-github-action`:
+For workflows hosted on GitHub Actions, you can use the [`datadog/junit-upload-github-action`](https://github.com/DataDog/junit-upload-github-action):
 
-```YAML
+```yml title=".github/workflows/test.yml"
 - name: Upload test results to Datadog
   uses: datadog/junit-upload-github-action@v1
   with:
     api_key: ${{ secrets.DD_API_KEY }}
-    junit_files: 'target/surefire-reports/*.xml'
-    service: 'your-service-name'
+    junit_files: "target/surefire-reports/*.xml"
+    service: "your-service-name"
 ```
