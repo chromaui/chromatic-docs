@@ -83,10 +83,9 @@ Stories that you've disabled in your Storybook configuration (`disabledSnapshot:
 
 First, ensure you're saving the report in your CI environment. In GitHub Actions, you can use the `actions/upload-artifact` job. The report file typically follows the naming pattern `chromatic-build-*.xml`.
 
-```YAML
-# GitHub Actions Example
+```yml title=".github/workflows/chromatic.yml"
 - name: Upload Build Report
-  uses: actions/upload-artifact@v3
+  uses: actions/upload-artifact@v4
   with:
     name: chromatic-reports
     path: chromatic-build-*.xml
