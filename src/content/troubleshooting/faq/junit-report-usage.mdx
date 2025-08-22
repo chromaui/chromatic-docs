@@ -61,9 +61,15 @@ If a story has visual changes that require review, it is marked with a `<failure
 
 Stories that are skipped during the build are explicitly marked with a `<skipped/>` tag.
 
-```XML
-<testcase classname="Atoms.Tooltip" name="Default ">
-  <skipped />
+```xml title="chromatic-build-159.xml"
+<testcase classname="Atoms.Loader" name="Shadow Dom">
+  <properties>
+    <property name="result" value="PENDING" />
+  </properties>
+  <failure
+    message="Snapshot contains visual changes and must be reviewed"
+    type="PENDING"
+  />
 </testcase>
 ```
 
