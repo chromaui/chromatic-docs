@@ -38,7 +38,7 @@ To integrate Chromatic with your existing pipeline, you'll need to add the follo
               - task: UseNode@1
                 displayName: "Install Node.js"
                 inputs:
-                  version: "22.17.0"
+                  version: "22.18.0"
               - task: Cache@2
                 displayName: "Install and cache dependencies"
                 inputs:
@@ -70,7 +70,7 @@ To integrate Chromatic with your existing pipeline, you'll need to add the follo
         jobs:
           - job: Playwright
             displayName: "Run Playwright"
-            container: mcr.microsoft.com/playwright:v1.54.1-noble
+            container: mcr.microsoft.com/playwright:v1.55.0-noble
             steps:
               - checkout: self
                 displayName: "Get Full Git History"
@@ -78,7 +78,7 @@ To integrate Chromatic with your existing pipeline, you'll need to add the follo
               - task: UseNode@1
                 displayName: "Install Node.js"
                 inputs:
-                  version: "22.17.0"
+                  version: "22.18.0"
               - task: Cache@2
                 displayName: "Install and cache dependencies"
                 inputs:
@@ -114,7 +114,7 @@ To integrate Chromatic with your existing pipeline, you'll need to add the follo
               - task: UseNode@1
                 displayName: "Install Node.js"
                 inputs:
-                  version: "22.17.0"
+                  version: "22.18.0"
               - task: Cache@2
                 displayName: "Install and cache dependencies"
                 inputs:
@@ -152,7 +152,7 @@ To integrate Chromatic with your existing pipeline, you'll need to add the follo
         jobs:
           - job: Cypress
             displayName: "Run Cypress"
-            container: cypress/browsers:node-22.17.0-chrome-138.0.7204.92-1-ff-140.0.2-edge-138.0.3351.65-1
+            container: cypress/browsers:node-22.18.0-chrome-139.0.7258.138-1-ff-142.0-edge-139.0.3405.102-1
             variables:
               npm_config_cache: $(Pipeline.Workspace)/.npm
             steps:
@@ -162,7 +162,7 @@ To integrate Chromatic with your existing pipeline, you'll need to add the follo
               - task: UseNode@1
                 displayName: "Install Node.js"
                 inputs:
-                  version: "22.17.0"
+                  version: "22.18.0"
               - task: Cache@2
                 displayName: "Install and cache dependencies"
                 inputs:
@@ -200,7 +200,7 @@ To integrate Chromatic with your existing pipeline, you'll need to add the follo
               - task: UseNode@1
                 displayName: "Install Node.js"
                 inputs:
-                  version: "22.17.0"
+                  version: "22.18.0"
               - task: Cache@2
                 displayName: "Install and cache dependencies"
                 inputs:
