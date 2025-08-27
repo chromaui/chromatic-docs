@@ -33,7 +33,7 @@ jobs:
           fetch-depth: 0
       - uses: actions/setup-node@v4
         with:
-          node-version: 22.17.0
+          node-version: 22.18.0
       - name: Install dependencies
         run: npm ci
       - name: Run Playwright tests
@@ -57,7 +57,7 @@ jobs:
           fetch-depth: 0
       - uses: actions/setup-node@v4
         with:
-          node-version: 22.17.0
+          node-version: 22.18.0
       - name: Install dependencies
         run: npm ci
 
@@ -125,7 +125,7 @@ executors:
       - image: mcr.microsoft.com/playwright:v1.55.0-noble
   chromatic-ui-testing:
     docker:
-      - image: cimg/node:22.17.0
+      - image: cimg/node:22.18
 
 jobs:
   Playwright:
