@@ -1,0 +1,126 @@
+---
+sidebar: { hide: true }
+title: Using and understanding Chromatic JUnit report
+section: uiTestsAndReview
+---
+
+# Using and understanding Chromatic JUnit report
+
+You can generate a JUnit XML report by setting the flag `junitReport` when you run Chromatic. This report is a valuable artifact that you can store and use for advanced reporting and monitoring purposes.
+
+## Report Structure and Key Data
+
+The Chromatic JUnit report is an XML file that summarizes the results of a build. The root `<testsuite>` tag contains high-level information about the entire test run. Key properties in every report include:
+
+- `buildNumber`: The Chromatic build number.
+- `buildUrl`: A direct link to the build results in the Chromatic UI.
+- `storybookUrl`: A link to your published Storybook.
+- `tests`: The total count of stories tested.
+- `failures`: The number of stories with visual changes that need review.
+- `skipped`: The number of stories that were skipped.
+- `errors`: The count of stories that encountered an error.
+
+Here's an example from a report file:
+
+```xml title="chromatic-build-159.xml"
+<testsuite name="Chromatic build 159" ... tests="86" failures="1" errors="0" skipped="0">
+    <properties>
+      <property name="buildNumber" value="159"/>
+      <property name="buildStatus" value="PENDING"/>
+      <property name="buildUrl" value="https://www.chromatic.com/build?appId=...&amp;number=159"/>
+      <property name="storybookUrl" value="https://...-nxjzlatrta.chromatic.com/"/>
+    </properties>
+</testsuite>
+```
+
+## Understanding Test Statuses
+
+Each `<testcase>` within the report represents a single Storybook story. Its status is indicated by the presence of child tags like `<failure>` or `<skipped>`.
+
+### Changed Stories
+
+If a story has visual changes that require review, it is marked with a `<failure>` tag.
+
+```xml title="chromatic-build-159.xml"
+<testcase classname="Atoms.Loader" name="Shadow Dom">
+  <properties>
+    <property name="result" value="PENDING" />
+  </properties>
+  <failure
+    message="Snapshot contains visual changes and must be reviewed"
+    type="PENDING"
+  />
+</testcase>
+```
+
+<div class="callout">
+  If a story with changes in one build is run again in a subsequent build
+  without being reviewed, it will still be flagged as "changed".
+</div>
+
+### Skipped Stories
+
+Stories that are skipped during the build are explicitly marked with a `<skipped/>` tag.
+
+```xml title="chromatic-build-159.xml"
+<testcase classname="Atoms.Loader" name="Shadow Dom">
+  <properties>
+    <property name="result" value="PENDING" />
+  </properties>
+  <failure
+    message="Snapshot contains visual changes and must be reviewed"
+    type="PENDING"
+  />
+</testcase>
+```
+
+### Passed and Disabled Stories
+
+A story that has passed successfully will appear as a simple `<testcase>` with no child tags.
+
+Stories that you've disabled in your Storybook configuration (`disabledSnapshot: true`) will still be listed in the report but will not be flagged with `<skipped/>`.
+
+## Storing the Report as an Artifact
+
+First, ensure you're saving the report in your CI environment. In GitHub Actions, you can use the `actions/upload-artifact` job. The report file typically follows the naming pattern `chromatic-build-*.xml`.
+
+```yml title=".github/workflows/chromatic.yml"
+- name: Upload Build Report
+  uses: actions/upload-artifact@v4
+  with:
+    name: chromatic-reports
+    path: chromatic-build-*.xml
+```
+
+Once you have the XML file, you can write a script in your CI pipeline to:
+
+1. **Parse the XML file:** Extract key attributes from the `<testsuite>` and `<testcase>` elements.
+2. **Format the data:** Convert the extracted information into a JSON payload suitable for your monitoring tool's API.
+3. **Send the data**: Push the JSON payload to an endpoint provided by tools like Datadog, New Relic, or a custom analytics solution.
+
+### Datadog
+
+The most straightforward method for sending your JUnit reports to Datadog is by using the `datadog-ci` command-line tool or its corresponding GitHub Action.
+
+
+1. Install the `datadog-ci` CLI
+2. After your tests have run and generated the JUnit XML report, use the following command:
+
+```shell
+datadog-ci junit upload --service chromatic <path-to-your-junit-xml-files>
+```
+
+You will need to configure your Datadog API and application keys as environment variables (`DD_API_KEY` and `DD_APP_KEY`).
+
+GitHub Action
+
+For workflows hosted on GitHub Actions, you can use the [`datadog/junit-upload-github-action`](https://github.com/DataDog/junit-upload-github-action):
+
+```yml title=".github/workflows/test.yml"
+- name: Upload test results to Datadog
+  uses: datadog/junit-upload-github-action@v1
+  with:
+    api_key: ${{ secrets.DD_API_KEY }}
+    junit_files: "target/surefire-reports/*.xml"
+    service: "your-service-name"
+```
