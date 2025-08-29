@@ -24,6 +24,7 @@ Chromatic is grateful to the following individuals for responsibly disclosing se
 #### 2025
 
 - [Mridul Rastogi](https://www.linkedin.com/in/mridul-rastogi-532726292/)
+- [Harsh Maheta](https://www.linkedin.com/in/harsh-maheta-7057542a9)
 
 #### 2024
 
