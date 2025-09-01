@@ -1,0 +1,15 @@
+---
+sidebar: { hide: true }
+title: I hit error 'unable to get local issuer certificate' when running Chromatic. How do I fix this?
+section: network
+---
+
+# I hit error "unable to get local issuer certificate" when running Chromatic. How do I fix this?
+
+The local certificate error typically is caused by your local certificate store in Mac OS, Node, or it may be due to local network settings.
+Run the commands below, and reach out to support to share the output to help diagnose the issue.
+
+```sh
+curl https://index.chromatic.com/graphql -v
+openssl s_client -connect index.chromatic.com:443
+```

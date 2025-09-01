@@ -95,6 +95,28 @@ export const MockedError: Story = {
 
 For more details, check out the [Mocking network requests](https://storybook.js.org/docs/writing-stories/mocking-data-and-modules/mocking-network-requests) page in the Storybook documentation.
 
+<details>
+<summary>Can I use MSW to mock browser APIs like `navigator.share`?</summary>
+
+Yes, but MSW is built to intercept and mock network requests (like fetch or XHR), not to directly mock browser APIs like the `navigator` object.
+
+You can use `Object.defineProperty` for direct browser APIs mocking. It modifies objects like `window` or `navigator`, and lets you define them in your code.
+Here's an example of how to mock the `navigator.share`:
+
+```tsx
+Object.defineProperty(navigator, "share", {
+  configurable: true, // Allows the property to be redefined later
+  value: async (data) => {
+    console.log("Mocked share:", data);
+    return Promise.resolve(); // Simulate a successful share
+  },
+});
+```
+
+Learn more about the `Object.defineProperty` in [MDN documentation](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/defineProperty).
+
+</details>
+
 ### Module mocking
 
 If you rely on third-party libraries that make network requests, you can mock those modules in your stories. This is useful when you want to avoid inconsistencies in your tests due to external dependencies. Refer to the video below and the [module mocking documentation](https://storybook.js.org/docs/writing-stories/mocking-data-and-modules/mocking-modules) for more information on how to do this.
