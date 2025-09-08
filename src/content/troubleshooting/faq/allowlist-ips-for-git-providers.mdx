@@ -1,0 +1,30 @@
+---
+sidebar: { hide: true }
+title: My organization restricts IP addresses for Git access. Should I add Chromatic to the allowlist?
+section: network
+---
+
+# My organization restricts IP addresses for Git access. Should I add Chromatic to the allowlist?
+
+Yes, you must add Chromatic's IP addresses to the allow list by following the instructions provided in the [GitHub](https://docs.github.com/en/enterprise-cloud@latest/organizations/keeping-your-organization-secure/managing-security-settings-for-your-organization/managing-allowed-ip-addresses-for-your-organization), [GitLab](https://docs.gitlab.com/ee/administration/monitoring/ip_allowlist.html), and [BitBucket](https://support.atlassian.com/bitbucket-cloud/docs/control-access-to-your-private-content/#Allowlisting-IP-addresses) documentation. Below are the IP addresses you may need to allow list:
+
+## Outbound traffic from Chromatic
+
+- 3.211.119.201
+- 50.17.44.251
+- 52.71.203.195
+
+## Inbound traffic to Chromatic
+
+Use these if your firewall blocks all inbound traffic and needs an inbound proxy:
+
+- 35.82.49.63
+- 44.238.180.191
+
+If you need to use the inbound proxy, make sure to set the `HTTPS_PROXY` [environment variable](/docs/configure/#environment-variables):
+
+```bash
+HTTPS_PROXY=https://chromatic:<project-token>@enterprise-proxy.chromatic.com
+```
+
+Replace `<project-token>` with your [project's token](/docs/faq/find-project-token/).
