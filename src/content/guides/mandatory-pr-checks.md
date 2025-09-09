@@ -51,7 +51,7 @@ To customize default settings, adjust the default configuration by following the
 5. Click the **Merge settings** tab to adjust the merge checks
    ![](../../images/bitbucket-merge-settings.png)
 
-<div class="aside">Note: The items marked with a star are only available for premium accounts.</div>
+<div class="aside">Note: The items marked with a star are only available for paid accounts.</div>
 
 ### GitLab
 
