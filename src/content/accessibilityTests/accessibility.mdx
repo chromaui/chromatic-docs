@@ -4,11 +4,19 @@ description: Catch accessibility issues early with automated testing for your co
 sidebar: { order: 1 }
 ---
 
+import { YouTubeCallout } from "../../components/YouTubeCallout";
+
 # Accessibility testing with Chromatic
 
 Chromatic builds on Storybook and [axe](https://github.com/dequelabs/axe-core) to seamlessly integrate accessibility testing into your development workflow. You write stories to create test cases for your components and run accessibility checks locally within Storybook.
 
 Then when you're ready to merge, Chromatic automatically runs accessibility regression tests on all your stories through CI. It also provides a dashboard that offers a bird's-eye view of [WCAG](#what-are-web-content-accessibility-guidelines-wcag) issues across all your components.
+
+<YouTubeCallout
+  client:load
+  id="rY6cVkZprjg"
+  summary="Quick overview of accessibility testing with Chromatic"
+/>
 
 ## Why component-level accessibility tests?
 
