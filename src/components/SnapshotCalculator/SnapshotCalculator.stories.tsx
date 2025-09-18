@@ -11,6 +11,20 @@ type Story = StoryObj<typeof SnapshotCalculator>;
 
 export const Base = {} satisfies Story;
 
+export const WithQueryParams = {
+  parameters: {
+    query: {
+      tests: "47",
+      builds: "3",
+      browsers: "2",
+      viewports: "2",
+      accessibility: "true",
+      turboSnap: "true",
+      changedTestsPercentage: "18",
+    },
+  },
+} satisfies Story;
+
 export const AccessibilityEnabled = {
   play: async ({ canvas, userEvent }) => {
     const checkbox = await canvas.findByLabelText("Accessibility tests");

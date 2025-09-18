@@ -1,4 +1,3 @@
-import { useEffect, useState } from "react";
 import styled from "@emotion/styled";
 import {
   spacing,
@@ -13,6 +12,7 @@ import {
 } from "@chromatic-com/tetra";
 import { calculateSnapshots } from "./calculateSnapshots";
 import { InfoTooltip } from "../InfoTooltip";
+import { useSnapshotCalculatorState } from "./useSnapshotCalculatorState";
 
 const Container = styled.div`
   padding: ${spacing[4]};
@@ -129,23 +129,22 @@ const Formulas = styled(Accordion)`
 `;
 
 export const SnapshotCalculator = () => {
-  const [tests, setTests] = useState(50);
-  const [builds, setBuilds] = useState(1);
-  const [browsers, setBrowsers] = useState(1);
-  const [viewports, setViewports] = useState(1);
-  const [accessibility, setAccessibility] = useState(false);
-  const [turboSnap, setTurboSnap] = useState(false);
-  const [changedTestsPercentage, setChangedTestsPercentage] = useState(50);
-
-  useEffect(() => {
-    // Reset changed tests when turboSnap is disabled
-    if (!turboSnap) {
-      setChangedTestsPercentage(tests);
-    } else {
-      // Start with all tests changed if turboSnap is enabled
-      setChangedTestsPercentage(Math.floor(tests / 2));
-    }
-  }, [turboSnap, setChangedTestsPercentage]);
+  const {
+    tests,
+    setTests,
+    builds,
+    setBuilds,
+    browsers,
+    setBrowsers,
+    viewports,
+    setViewports,
+    accessibility,
+    setAccessibility,
+    turboSnap,
+    setTurboSnap,
+    changedTestsPercentage,
+    setChangedTestsPercentage,
+  } = useSnapshotCalculatorState();
 
   const results = calculateSnapshots(
     tests,

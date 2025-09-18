@@ -132,6 +132,9 @@ importers:
       '@storybook/addon-links':
         specifier: ^9.0.16
         version: 9.0.16(react@18.2.0)(storybook@9.0.16(@testing-library/dom@10.1.0)(prettier@3.2.5))
+      '@storybook/addon-queryparams':
+        specifier: ^9.0.1
+        version: 9.0.1(storybook@9.0.16(@testing-library/dom@10.1.0)(prettier@3.2.5))
       '@storybook/react-vite':
         specifier: ^9.0.16
         version: 9.0.16(react-dom@18.2.0(react@18.2.0))(react@18.2.0)(rollup@4.36.0)(storybook@9.0.16(@testing-library/dom@10.1.0)(prettier@3.2.5))(typescript@5.8.2)(vite@6.3.5(@types/node@22.13.11))
@@ -2429,6 +2432,11 @@ packages:
     peerDependenciesMeta:
       react:
         optional: true
+
+  '@storybook/addon-queryparams@9.0.1':
+    resolution: {integrity: sha512-sHulGkBln3hcsdxZITn7RduY2c2EjzlsJ4WGmINeZH+HXY23j5kc2+yhmJgkOHlT9RhPaOkkCUK/YTcrgAaPOQ==}
+    peerDependencies:
+      storybook: ^9.0.0
 
   '@storybook/builder-vite@9.0.16':
     resolution: {integrity: sha512-zXockUexeRy3ABG7DFLEvJqJe4mGL0JkI7FMrpwiKaHCQNaD87vR0xkRVeh0a3B8GKUNxoYtpYKvdzc9DobQHQ==}
@@ -7936,6 +7944,10 @@ snapshots:
       storybook: 9.0.16(@testing-library/dom@10.1.0)(prettier@3.2.5)
     optionalDependencies:
       react: 18.2.0
+
+  '@storybook/addon-queryparams@9.0.1(storybook@9.0.16(@testing-library/dom@10.1.0)(prettier@3.2.5))':
+    dependencies:
+      storybook: 9.0.16(@testing-library/dom@10.1.0)(prettier@3.2.5)
 
   '@storybook/builder-vite@9.0.16(storybook@9.0.16(@testing-library/dom@10.1.0)(prettier@3.2.5))(vite@6.3.5(@types/node@22.13.11))':
     dependencies:

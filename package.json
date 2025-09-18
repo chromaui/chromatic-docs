@@ -66,6 +66,7 @@
     "@hyperjump/json-schema": "^1.9.4",
     "@storybook/addon-docs": "^9.0.16",
     "@storybook/addon-links": "^9.0.16",
+    "@storybook/addon-queryparams": "^9.0.1",
     "@storybook/react-vite": "^9.0.16",
     "broken-link-checker": "^0.7.8",
     "hast-util-to-string": "^3.0.0",
