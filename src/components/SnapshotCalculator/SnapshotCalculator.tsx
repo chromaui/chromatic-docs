@@ -1,4 +1,3 @@
-import { useEffect, useState } from "react";
 import styled from "@emotion/styled";
 import {
   spacing,
@@ -12,6 +11,8 @@ import {
   fontFamily,
 } from "@chromatic-com/tetra";
 import { calculateSnapshots } from "./calculateSnapshots";
+import { InfoTooltip } from "../InfoTooltip";
+import { useSnapshotCalculatorState } from "./useSnapshotCalculatorState";
 
 const Container = styled.div`
   padding: ${spacing[4]};
@@ -45,6 +46,12 @@ const Field = styled.div`
   input[type="number"] {
     padding: ${spacing[1]};
   }
+`;
+
+const Label = styled.label`
+  display: flex;
+  gap: ${spacing[1]};
+  align-items: center;
 `;
 
 const Checkbox = styled.div`
@@ -122,23 +129,22 @@ const Formulas = styled(Accordion)`
 `;
 
 export const SnapshotCalculator = () => {
-  const [tests, setTests] = useState(50);
-  const [builds, setBuilds] = useState(1);
-  const [browsers, setBrowsers] = useState(1);
-  const [viewports, setViewports] = useState(1);
-  const [accessibility, setAccessibility] = useState(false);
-  const [turboSnap, setTurboSnap] = useState(false);
-  const [changedTests, setChangedTests] = useState(0);
-
-  useEffect(() => {
-    // Reset changed tests when turboSnap is disabled
-    if (!turboSnap) {
-      setChangedTests(tests);
-    } else {
-      // Start with all tests changed if turboSnap is enabled
-      setChangedTests(Math.floor(tests / 2));
-    }
-  }, [turboSnap, setChangedTests]);
+  const {
+    tests,
+    setTests,
+    builds,
+    setBuilds,
+    browsers,
+    setBrowsers,
+    viewports,
+    setViewports,
+    accessibility,
+    setAccessibility,
+    turboSnap,
+    setTurboSnap,
+    changedTestsPercentage,
+    setChangedTestsPercentage,
+  } = useSnapshotCalculatorState();
 
   const results = calculateSnapshots(
     tests,
@@ -147,7 +153,7 @@ export const SnapshotCalculator = () => {
     viewports,
     accessibility,
     turboSnap,
-    changedTests,
+    changedTestsPercentage,
   );
 
   return (
@@ -155,7 +161,10 @@ export const SnapshotCalculator = () => {
       <Container>
         <VStack gap={4} marginBottom={4}>
           <Field>
-            <label htmlFor="sc-tests">Test count</label>
+            <Label htmlFor="sc-tests">
+              Story count
+              <InfoTooltip copy="Number of stories in your Storybook that you want to test" />
+            </Label>
             <input
               id="sc-tests"
               type="number"
@@ -165,7 +174,10 @@ export const SnapshotCalculator = () => {
             />
           </Field>
           <Field>
-            <label htmlFor="sc-builds">Builds</label>
+            <Label htmlFor="sc-builds">
+              Commits per month
+              <InfoTooltip copy="Number of commits you expect to make per month" />
+            </Label>
             <input
               id="sc-builds"
               type="number"
@@ -175,7 +187,16 @@ export const SnapshotCalculator = () => {
             />
           </Field>
           <Field>
-            <label htmlFor="sc-browsers">Browsers</label>
+            <Label htmlFor="sc-browsers">
+              Browsers
+              <InfoTooltip
+                copy="Number of browsers you want to test your components in"
+                link={{
+                  title: "Learn more",
+                  href: "/docs/browsers",
+                }}
+              />
+            </Label>
             <input
               id="sc-browsers"
               type="number"
@@ -186,7 +207,16 @@ export const SnapshotCalculator = () => {
             />
           </Field>
           <Field>
-            <label htmlFor="sc-viewports">Viewports</label>
+            <Label htmlFor="sc-viewports">
+              Viewports
+              <InfoTooltip
+                copy="Number of viewport sizes (breakpoints) you want to test your components across"
+                link={{
+                  title: "Learn more",
+                  href: "/docs/viewports",
+                }}
+              />
+            </Label>
             <input
               id="sc-viewports"
               type="number"
@@ -202,7 +232,14 @@ export const SnapshotCalculator = () => {
               checked={accessibility}
               onChange={(e) => setAccessibility(e.target.checked)}
             />
-            <label htmlFor="sc-accessibility">Accessibility tests</label>
+            <Label htmlFor="sc-accessibility">Accessibility tests</Label>
+            <InfoTooltip
+              copy="Run accessibility tests in addition to visual tests for all your stories"
+              link={{
+                title: "Learn more",
+                href: "/docs/accessibility",
+              }}
+            />
           </Checkbox>
 
           <Fieldset marginTop={2} gap={2}>
@@ -214,24 +251,40 @@ export const SnapshotCalculator = () => {
                 checked={turboSnap}
                 onChange={(e) => setTurboSnap(e.target.checked)}
               />
-              <label htmlFor="sc-turboSnap">Enabled</label>
+              <Label htmlFor="sc-turboSnap">Enabled</Label>
+              <InfoTooltip
+                copy="TurboSnap is an advanced Chromatic feature that speeds up UI Tests and reduces the number of snapshots required to run tests. It analyzes your project’s Git history and dependency graph to identify which components and their dependencies have changed. It then only snapshots stories associated with those changes."
+                link={{
+                  title: "Learn more",
+                  href: "/docs/turbosnap",
+                }}
+              />
             </Checkbox>
             {turboSnap && (
               <>
                 <Field>
-                  <label htmlFor="sc-test-changed">Tests with changes</label>
+                  <Label htmlFor="sc-test-changed">
+                    Percentage of tests with changes
+                    <InfoTooltip
+                      copy="On average, how many stories do you expect to have changes per commit? If unsure, 50% is a good starting point."
+                      link={{
+                        title: "Learn more",
+                        href: "/docs/turbosnap",
+                      }}
+                    />
+                  </Label>
                   <input
                     id="sc-test-changed"
                     type="range"
-                    value={changedTests}
+                    value={changedTestsPercentage}
                     onChange={(e) =>
-                      setChangedTests(Number(e.target.valueAsNumber))
+                      setChangedTestsPercentage(Number(e.target.valueAsNumber))
                     }
                     step="1"
                     min="0"
-                    max={tests}
+                    max={100}
                   />
-                  <span>{changedTests}</span>
+                  <span>{changedTestsPercentage}%</span>
                 </Field>
               </>
             )}
