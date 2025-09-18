@@ -44,6 +44,13 @@ Collaborate on billing, usage, and permissions by syncing your organization with
 
 For email and password accounts, only the account owner can login to access billing information. For SSO accounts, contact your company's SSO administrator to manage billing.
 
+<details>
+<summary>How can I give someone billing access?</summary>
+
+If your account is not linked to git and you need to give someone access to billing, email us at **support@chromatic.com** with the person's email address.
+
+</details>
+
 ## Project collaborators
 
 #### OAuth
