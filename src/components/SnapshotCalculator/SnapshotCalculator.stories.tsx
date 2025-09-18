@@ -44,6 +44,7 @@ export const AccessibilityAndTurbosnapEnabled = {
     const tsCheckbox = await canvas.findByLabelText("Enabled");
     await userEvent.click(tsCheckbox);
     const a11yCheckbox = await canvas.findByLabelText("Accessibility tests");
+
     await userEvent.click(a11yCheckbox);
   },
 } satisfies Story;

@@ -11,9 +11,7 @@ const DEFAULTS = {
 };
 
 export function useSnapshotCalculatorState() {
-  const [queryParams, setQueryParamsState] = useState(
-    () => new URLSearchParams(""),
-  );
+  const [_, setQueryParamsState] = useState(() => new URLSearchParams(""));
 
   const [tests, setTests] = useState(DEFAULTS.tests);
   const [builds, setBuilds] = useState(DEFAULTS.builds);
@@ -39,7 +37,6 @@ export function useSnapshotCalculatorState() {
     if (typeof window !== "undefined") {
       const params = new URLSearchParams(window.location.search);
       setQueryParamsState(params);
-      console.log(params);
 
       if (params.get("tests") !== null) {
         setStateFromQueryParam(

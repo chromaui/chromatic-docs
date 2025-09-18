@@ -232,16 +232,14 @@ export const SnapshotCalculator = () => {
               checked={accessibility}
               onChange={(e) => setAccessibility(e.target.checked)}
             />
-            <Label htmlFor="sc-accessibility">
-              Accessibility tests
-              <InfoTooltip
-                copy="Run accessibility tests in addition to visual tests for all your stories"
-                link={{
-                  title: "Learn more",
-                  href: "/docs/accessibility",
-                }}
-              />
-            </Label>
+            <Label htmlFor="sc-accessibility">Accessibility tests</Label>
+            <InfoTooltip
+              copy="Run accessibility tests in addition to visual tests for all your stories"
+              link={{
+                title: "Learn more",
+                href: "/docs/accessibility",
+              }}
+            />
           </Checkbox>
 
           <Fieldset marginTop={2} gap={2}>
@@ -253,16 +251,14 @@ export const SnapshotCalculator = () => {
                 checked={turboSnap}
                 onChange={(e) => setTurboSnap(e.target.checked)}
               />
-              <Label htmlFor="sc-turboSnap">
-                Enabled
-                <InfoTooltip
-                  copy="TurboSnap is an advanced Chromatic feature that speeds up UI Tests and reduces the number of snapshots required to run tests. It analyzes your project’s Git history and dependency graph to identify which components and their dependencies have changed. It then only snapshots stories associated with those changes."
-                  link={{
-                    title: "Learn more",
-                    href: "/docs/turbosnap",
-                  }}
-                />
-              </Label>
+              <Label htmlFor="sc-turboSnap">Enabled</Label>
+              <InfoTooltip
+                copy="TurboSnap is an advanced Chromatic feature that speeds up UI Tests and reduces the number of snapshots required to run tests. It analyzes your project’s Git history and dependency graph to identify which components and their dependencies have changed. It then only snapshots stories associated with those changes."
+                link={{
+                  title: "Learn more",
+                  href: "/docs/turbosnap",
+                }}
+              />
             </Checkbox>
             {turboSnap && (
               <>
