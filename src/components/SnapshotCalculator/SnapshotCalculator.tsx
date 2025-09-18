@@ -292,6 +292,7 @@ export const SnapshotCalculator = () => {
         </VStack>
         <Result>
           <InfoStat
+            data-testid="snapshots"
             unit={toPlural(results.snapshots, "Snapshot")}
             dimension=""
             value={results.snapshots.toLocaleString()}
@@ -299,6 +300,7 @@ export const SnapshotCalculator = () => {
           />
           {turboSnap && (
             <InfoStat
+              data-testid="turboSnaps"
               unit={toPlural(results.turboSnaps, "TurboSnap")}
               dimension=""
               value={results.turboSnaps.toLocaleString()}
@@ -306,6 +308,7 @@ export const SnapshotCalculator = () => {
             />
           )}
           <BillingStat
+            data-testid="billedSnapshots"
             unit={toPlural(results.billedSnapshots, "Billed snapshot")}
             dimension=""
             value={results.billedSnapshots.toLocaleString()}
