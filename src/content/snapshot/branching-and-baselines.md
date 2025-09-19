@@ -161,6 +161,13 @@ Use the `--auto-accept-changes` flag with the Chromatic CLI or the `autoAcceptCh
 </details>
 
 <details>
+  <summary>Will deleting a branch in git affect my baseline?</summary>
+
+No. You can safely delete branches in git, and it will not affect your baselines or snapshot history.
+
+</details>
+
+<details>
   <summary>What if I accidentally accept unwanted changes. Can I delete a build?</summary>
 
 Chromatic does not currently support deleting individual builds within a project. Builds are integral to Chromatic's baseline algorithms, making deleting individual links in the chain complex and impossible at the moment.

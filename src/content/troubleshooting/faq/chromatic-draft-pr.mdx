@@ -1,0 +1,35 @@
+---
+sidebar: { hide: true }
+title: How to skip Chromatic runs for draft PRs?
+section: ci
+---
+
+# How to skip Chromatic runs for draft PRs?
+
+Chromatic provides flags like [`--skip`](/docs/configure#skip) to bypass builds and [`--skip-update-check`](/docs/configure#skipupdatecheck) to bypass checks that might block your pipeline, but it lacks a built-in feature to automatically skip commits based on status.
+You can prevent Chromatic from running on draft pull requests by adding a conditional check to your CI workflow.
+
+Here's an example of how you might achieve that:
+
+```yaml
+name: "Chromatic"
+
+on:
+  pull_request:
+    types: [opened, synchronize, reopened, ready_for_review]
+
+jobs:
+  chromatic:
+    # This condition prevents the job from running on draft PRs
+    if: github.event.pull_request.draft == false
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      # ... other steps to build your Storybook
+      - name: Publish to Chromatic
+        uses: chromaui/action@v1
+        with:
+          projectToken: ${{ secrets.CHROMATIC_PROJECT_TOKEN }}
+```
+
+Including ready_for_review in the on trigger ensures the workflow runs as soon as the PR is marked "Ready for review." If necessary, you can delete this.

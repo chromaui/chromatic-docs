@@ -1,0 +1,55 @@
+---
+sidebar: { hide: true }
+title: How to set Chromatic environment variables in popular CI providers?
+section: ci
+---
+
+# How to set Chromatic environment variables in popular CI providers?
+
+Environment variables define settings for your CI workflow which Chromatic relies on to get git context, such as the current commit SHA and branch name.
+Below are examples on how to set them for some popular CI providers:
+
+| **CI Provider**                   | `CHROMATIC_SHA`                      | `CHROMATIC_BRANCH`             | `CHROMATIC_SLUG`                                            |
+| --------------------------------- | ------------------------------------ | ------------------------------ | ----------------------------------------------------------- |
+| **GitHub Actions** (Push)         | `GITHUB_SHA`                         | `GITHUB_REF_NAME`              | `GITHUB_REPOSITORY`                                         |
+| **GitHub Actions** (Pull Request) | `github.event.pull_request.head.sha` | `github.head_ref`              | `GITHUB_REPOSITORY`                                         |
+| **GitLab**                        | `CI_COMMIT_SHA`                      | `CI_COMMIT_REF_NAME`           | `CI_PROJECT_PATH`                                           |
+| **Bitbucket Pipelines**           | `BITBUCKET_COMMIT`                   | `BITBUCKET_BRANCH`             | `BITBUCKET_REPO_FULL_NAME`                                  |
+| **Bitbucket Workspaces**          | `BITBUCKET_COMMIT`                   | `BITBUCKET_BRANCH`             | `${BITBUCKET_REPO_OWNER}/${BITBUCKET_REPO_SLUG}`            |
+| **CircleCI**                      | `CIRCLE_SHA1`                        | `CIRCLE_BRANCH`                | `${CIRCLE_PROJECT_USERNAME}/${CIRCLE_PROJECT_REPONAME}`     |
+| **Semaphore** (Push)              | `SEMAPHORE_GIT_SHA`                  | `SEMAPHORE_GIT_BRANCH`         | `SEMAPHORE_PROJECT_NAME`                                    |
+| **Semaphore** (Pull Request)      | `SEMAPHORE_GIT_PR_SHA`               | `SEMAPHORE_GIT_WORKING_BRANCH` | `SEMAPHORE_PROJECT_NAME`                                    |
+| **TravisCI**                      | `TRAVIS_COMMIT`                      | `TRAVIS_BRANCH`                | `TRAVIS_REPO_SLUG`                                          |
+| **Jenkins**                       | `GIT_COMMIT`                         | `GIT_BRANCH`                   | `{org}/{repo}`                                              |
+| **Azure Pipelines**               | `BUILD_SOURCEVERSION`                | `BUILD_SOURCEBRANCHNAME`       | `{org}/{repo}`                                              |
+| **Buildkite**                     | `BUILDKITE_COMMIT`                   | `BUILDKITE_BRANCH`             | `${BUILDKITE_ORGANIZATION_SLUG}/${BUILDKITE_PIPELINE_SLUG}` |
+
+## Considerations
+
+Some CI providers have unique behaviors that require special configuration.
+
+**GitHub Actions pull requests**
+
+When a workflow runs on a pull request, the default `GITHUB_SHA` and `GITHUB_REF_NAME` variables refer to the temporary **merge commit**, not the head of the source branch.
+
+To get the correct commit and branch, you must access the `head` context from the pull request event.
+
+**GitLab merge requests**
+
+If your merge request pipeline runs on an ephemeral merge commit, you should override the default variables to ensure Chromatic tracks the correct source branch.
+
+**Bitbucket Pipelines**
+
+Bitbucket may create an ephemeral merge commit if the source branch is not up-to-date with the target branch (e.g., **main**).
+This can cause the `BITBUCKET_COMMIT` to differ from the commit you expect.
+
+**Jenkins**
+
+In Jenkins, some variables like `BUILD_ID` and `BUILD_URL` are available globally across all jobs.
+However, Git-specific variables like `GIT_COMMIT` and `GIT_BRANCH` are typically defined within a `Jenkinsfile` and must be accessed from there.
+
+**GitHub Merge Queue**
+
+GitHub's merge queue feature does **not** require any specific environment variable setup to work with Chromatic.
+
+If your provider is not listed here, refer to their documentation to find the equivalent environment variables for commit SHA, branch name, and repository slug. If you need further assistance, please reach out to the Chromatic support at **support@chromatic.com** or via in-app chat.

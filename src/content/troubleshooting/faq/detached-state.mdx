@@ -1,0 +1,12 @@
+---
+sidebar: { hide: true }
+title: Why is my build in a 'detached' state and how do I fix it?
+section: ci
+---
+
+# Why is my build in a 'detached' state and how do I fix it?
+
+A build can be in a "detached HEAD" state because most CI providers check out a specific commit hash rather than a branch name which means the runner doesn't inherently know which branch it's on.
+Without the branch, Chromatic can't find the correct baseline to compare against.
+
+You can tell Chromatic the branch by setting the [environment variables](/docs/faq/environment-variables) in your CI script. Note [you must set all variables](/docs/cli#chromatic-git-options).
