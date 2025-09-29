@@ -217,6 +217,17 @@ Scrollable divs constrain the height of their children. Change the height of the
 </details>
 
 <details>
+<summary>Why don't scrollbars appear in my snapshots?</summary>
+
+Chromatic intentionally disables scrollbars during snapshot capture to focus on testing your content rather than browser UI elements. This ensures consistent snapshots across different browsers and operating systems, since scrollbar appearance varies significantly between platforms.
+
+Unfortunately, there are currently no workarounds available to capture scrollbars in snapshots. This applies to both default browser scrollbars and custom-styled scrollbars using CSS.
+
+If you're testing custom scrollbar styling or need to detect overflow issues, you may need to use alternative testing approaches outside of Chromatic's visual regression testing.
+
+</details>
+
+<details>
 <summary>Why isn’t my portal component (modal, dialog, popover, tooltip or menu) captured? Or why is its snapshot cut off</summary>
 
 If you use an “animateIn” effect set [delay](/docs/delay) to ensure we snapshot when the animation completes.
