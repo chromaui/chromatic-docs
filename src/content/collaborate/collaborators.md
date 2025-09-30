@@ -47,7 +47,7 @@ For email and password accounts, only the account owner can login to access bill
 <details>
 <summary>How can I give someone billing access?</summary>
 
-If your account is not linked to git and you need to give someone access to billing, email us at **support@chromatic.com** with the person's email address.
+If you have an email/password account (not linked to git) and you need to give someone access to billing, email us at **support@chromatic.com** with the person's email address.
 
 </details>
 

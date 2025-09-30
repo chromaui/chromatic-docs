@@ -84,6 +84,13 @@ Require checks in [GitHub](https://docs.github.com/en/repositories/configuring-b
 ## Frequently asked questions
 
 <details>
+<summary>Is Docker supported?</summary>
+
+Yes. Docker is supported, but there’s a caveat: the Docker image must have git installed, and the installed git version must be `≥2.28.0`. If the version is lower, Chromatic won't work correctly.
+
+</details>
+
+<details>
 <summary>Can I hide the CI messages in the web app?</summary>
 
 Chromatic detects CI test runs for most services. But it's not possible for every system, which results in users seeing persistent "Setup CI / Automation" messages in the UI.
