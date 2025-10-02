@@ -1,0 +1,52 @@
+---
+sidebar: { hide: true }
+title: How to run Chromatic on UI-related commits only?
+section: ci
+---
+
+# How to run Chromatic on UI-related commits?
+
+Chromatic provides flags like [`--skip`](/docs/configure#skip) to bypass builds and [`--skip-update-check`](/docs/configure#skipupdatecheck) to bypass checks that might block your pipeline, but it lacks a built-in feature to automatically differentiate between UI and non-UI commits or commits with different statuses, so you must configure this logic in your CI workflow.
+
+Here are some common approaches:
+
+1. **Use branch naming conventions**: You can establish a convention for branch names to indicate the type of work being done. For example, you can configure your CI pipeline to run Chromatic for branches prefixed with `feature/`, or `ui/`, and skip it for branches like `docs/` or `chore/`.
+2. **Commit message conventions**: Similar to branch naming, you can use specific keywords in commit messages to indicate UI-related changes. For example, you can run Chromatic only if the commit message contains `[ui]` or `[feature]`.
+3. **File path filtering**: You can set up your CI to check the files changed in a commit. If the changes are only in non-UI files (like documentation or backend code), you can skip the Chromatic build.
+4. **Monorepo tooling**: For monorepos, use tools like Nx or Lerna to determine if any UI-related projects are affected by a commit.
+
+- Find a detailed guide of how to determined what changed in your project when using NX [here](https://nx.dev/ci/features/affected).
+- For Lerna, you can use `lerna changed` or `lerna diff` to identify changes in specific packages. Learn more [here](https://lerna.js.org/docs/api-reference/commands).
+
+Here's an example of how you might implement the branch naming convention strategy:
+
+```yaml
+jobs:
+  chromatic_test:
+    # This condition checks the branch name before starting the job
+    # You can created a fallback job to run when this condition is not met
+    if: |
+      startsWith(github.head_ref, 'feature/') ||
+      startsWith(github.head_ref, 'fix/') ||
+      startsWith(github.head_ref, 'ui/')
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Install Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Publish to Chromatic
+        uses: chromaui/action@latest
+        with:
+          # Add your project token as a secret
+          projectToken: ${{ secrets.CHROMATIC_PROJECT_TOKEN }}
+```

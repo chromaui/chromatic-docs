@@ -1,0 +1,22 @@
+---
+sidebar: { hide: true }
+title: Fixing a 'detached HEAD' state in CI
+section: ci
+---
+
+# Fixing a 'detached HEAD' state in CI
+
+A **detached HEAD state** occurs when your CI provider checks out a specific commit instead of a branch, losing the Git context.
+This prevents Chromatic from finding the correct baseline to compare against.
+
+### Most CI providers
+
+This can be caused by ephemeral merge commits (GitLab, Bitbucket) or a missing branch reference (Jenkins and others).
+Manually provide the Git context by [setting environment variables](/docs/faq/environment-variables) to resolve the issue.
+Note that [you must set all required Git variables](/docs/cli#chromatic-git-options) for the fix to work correctly.
+
+### GitHub
+
+On GitHub Actions, this issue happens when:
+- You are running on a `pull_request` event trigger
+- You are missing the `ref` tag on the checkout step in CI when running on `pull_request`
