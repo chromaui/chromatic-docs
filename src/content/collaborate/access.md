@@ -293,6 +293,8 @@ Once you have access and the prerequisite details, follow these instructions to 
 1. Go to the manage (`/manage`) page for the app that you want to connect.
 2. Click the Configure tab.
 3. In the Connected Application section, find the "Sync project with a Git repository" area and click "Add on-prem Git Provider" to enter the details for your repository.
+
+If your organization restricts IP addresses for git access, make sure to [add Chromatic's IP addresses to the allow list](/docs/faq/allowlist-ips-for-git-providers/#my-organization-restricts-ip-addresses-for-git-access-should-i-add-chromatic-to-the-allowlist).
 </details>
 
 <details>
