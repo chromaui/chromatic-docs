@@ -24,7 +24,7 @@ To integrate Chromatic with your existing workflow, you'll need to add the follo
     executors:
       chromatic-ui-testing:
         docker:
-          - image: cimg/node:22.18
+          - image: cimg/node:22.20.0
         working_directory: ~/repo
 
     jobs:
@@ -58,11 +58,11 @@ To integrate Chromatic with your existing workflow, you'll need to add the follo
     executors:
       pw-noble-development:
         docker:
-          - image: mcr.microsoft.com/playwright:v1.55.0-noble
+          - image: mcr.microsoft.com/playwright:v1.56.0-noble
         working_directory: ~/repo
       chromatic-ui-testing:
         docker:
-          - image: cimg/node:22.18
+          - image: cimg/node:22.20.0
         working_directory: ~/repo
 
     jobs:
@@ -130,11 +130,11 @@ To integrate Chromatic with your existing workflow, you'll need to add the follo
     executors:
       cypress:
         docker:
-          - image: cypress/browsers:node-22.18.0-chrome-139.0.7258.138-1-ff-142.0-edge-139.0.3405.102-1
+          - image: cypress/browsers:node-22.20.0-chrome-141.0.7390.54-1-ff-143.0.4-edge-141.0.3537.57-1
         working_directory: ~/repo
       chromatic-ui-testing:
         docker:
-          - image: cimg/node:22.18
+          - image: cimg/node:22.20.0
         working_directory: ~/repo
 
     jobs:
