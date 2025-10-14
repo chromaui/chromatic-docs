@@ -175,7 +175,7 @@ In Storybook 6.2, `--webpack-stats-json` must be set to the value of `--output-d
 <summary>How can I pass the `--stats-json` flag when using Storybook with `nx`?</summary>
 
 When using `nx`, you can't pass CLI flags to your `Storybook: build` script since the `nx` executor won't accept them.
-You must pass `statsJson` as a [prop to options](https://nx.dev/nx-api/storybook/executors/build#options) in order to generate the stats file.
+You must pass `webpackStatsJson` as a [prop to options](https://nx.dev/nx-api/storybook/executors/build#options) in order to generate the stats file.
 
 </details>
 
@@ -245,7 +245,7 @@ npx rspack --json stats.json
 <summary>How to generate the `preview-stats.json` file for an Angular project?</summary>
 
 When using Angular with Storybook, directly passing a CLI flag will not generate the `preview-stats.json` file.
-You must configure the Storybook builder directly within your [`angular.json` file](https://storybook.js.org/docs/get-started/frameworks/angular) by adding `"statsJson": true`.
+You must configure the Storybook builder directly within your [`angular.json` file](https://storybook.js.org/docs/get-started/frameworks/angular#how-do-i-configure-angulars-builder-for-storybook) by adding `"statsJson": true`.
 
 ```json title="angular.json"
 {
