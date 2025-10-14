@@ -172,7 +172,7 @@ If you're using `--storybook-build-dir` to provide a prebuilt Storybook, adjust 
 In Storybook 6.2, `--webpack-stats-json` must be set to the value of `--output-dir` (`storybook-static` by default). In Storybook 6.3+, the value can be omitted as it automatically uses the value of `--output-dir`. Note that `--webpack-stats-json` was not supported before Storybook 6.2 and, therefore, cannot be used with TurboSnap.
 
 <details>
-<summary>How can I pass the `--webpack-stats-json` flag when using Storybook with `nx`?</summary>
+<summary>How can I pass the `--stats-json` flag when using Storybook with `nx`?</summary>
 
 When using `nx`, you can't pass CLI flags to your `Storybook: build` script since the `nx` executor won't accept them.
 You must pass `webpackStatsJson` as a [prop to options](https://nx.dev/nx-api/storybook/executors/build#options) in order to generate the stats file.
@@ -245,7 +245,7 @@ npx rspack --json stats.json
 <summary>How to generate the `preview-stats.json` file for an Angular project?</summary>
 
 When using Angular with Storybook, directly passing a CLI flag will not generate the `preview-stats.json` file.
-You must configure the Storybook builder directly within your [`angular.json` file](https://storybook.js.org/docs/get-started/frameworks/angular) by adding `"webpackStatsJson": true`.
+You must configure the Storybook builder directly within your [`angular.json` file](https://storybook.js.org/docs/get-started/frameworks/angular#how-do-i-configure-angulars-builder-for-storybook) by adding `"statsJson": true`.
 
 ```json title="angular.json"
 {
@@ -259,7 +259,7 @@ You must configure the Storybook builder directly within your [`angular.json` fi
             "configDir": ".storybook",
             "browserTarget": "your-project-name:build",
             "compodoc": false,
-            "webpackStatsJson": true
+            "statsJson": true
           }
         }
       }
