@@ -302,11 +302,11 @@
   {
     "option": "workingDir",
     "flag": "--working-dir",
-    "description": "Provide the location of Storybook's `package.json` if installed in a subdirectory (i.e., monorepos).",
+    "description": "Provide the location of Storybook's `package.json` if installed in a subdirectory (i.e., monorepos). This is a GitHub Actions–specific key. Other CI/CD providers have their own flag.",
     "type": "string",
     "example": "`\"my-folder\"`",
     "default": "process.cwd()",
-    "supports": ["CLI", "GitHub Action"]
+    "supports": ["GitHub Action"]
   },
   {
     "option": "untraced",
