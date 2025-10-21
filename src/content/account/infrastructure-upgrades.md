@@ -44,6 +44,7 @@ Read about the infrastructure changes in the [release notes](/docs/infrastructur
 
 |                   Capture Stack version                   | Status               |
 | :-------------------------------------------------------: | -------------------- |
+| [Version 8](/docs/infrastructure-release-notes#version-8) | Beta ([opt in for upgrade](#opt-in-to-upgrade)) |
 | [Version 7](/docs/infrastructure-release-notes#version-7) | General availability |
 | [Version 6](/docs/infrastructure-release-notes#version-6) | No longer available  |
 | [Version 5](/docs/infrastructure-release-notes#version-5) | No longer available  |
