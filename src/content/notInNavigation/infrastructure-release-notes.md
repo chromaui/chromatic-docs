@@ -5,6 +5,30 @@ description: Chromatic's browser infrastructure release notes
 
 # Chromatic Capture Cloud release notes
 
+## Version 8
+
+Welcome to `Chromatic Capture Cloud version 8` released October 2025.
+
+**Status**: Beta ([opt in for upgrade](/docs/infrastructure-upgrades#opt-in-to-upgrade))
+
+Key highlights on this release:
+
+- **Shadow DOM Support:** Previously, Chromatic did not capture Shadow DOM elements without additional Storybook configuration. With Capture 8, open-root Shadow DOM is supported without additonal changes.
+- **Elements Outside Root:** Capture 8 improves support for capturing elements like sticky footers which are positioned outside the Storybook root.
+- **Infinite Animation Pausing:** Support has been added for automatically pausing infinite CSS animations in a consistent way.
+- **`.isChromatic`:** Capture now adds the class `isChromatic` to the `body` element during capture. This allows you to target the Chromatic capture environment specifically in your CSS if needed.
+
+### Supported browsers versions
+
+| Browser | Version |
+| ------- | ------- |
+| Chrome  | 140     |
+| Firefox | 141.0   |
+| Safari  | 26.0    |
+| Edge    | 140     |
+
+---
+
 ## Version 7
 
 Welcome to `Chromatic Capture Cloud version 7` released February 2025.
