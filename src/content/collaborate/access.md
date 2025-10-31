@@ -93,6 +93,15 @@ If your GitHub organization requires an admin to approve apps, you'll need to re
 </details>
 
 <details>
+    <summary>Does Chromatic support custom GitHub roles?</summary>
+
+**No, Chromatic doesn't support custom GitHub roles.**
+
+Chromatic only receives the role name from GitHub, not the specific permissions associated with it. Custom role names prevent Chromatic from accurately determining permissions.
+
+</details>
+
+<details>
   <summary>Is my forked repository subject to access restrictions?</summary>
 
 When you have a fork of a private organization owned repository, that forked repository is going to be subject to that organization's access restrictions. For example, `org1/my-repo` is the original repository and you fork it to `org2/my-repo`. In this situation, the original repo `org1/my-repo` would need to approve Chromatic's OAuth App on their end. Once they do, you'll be able to use the forked repo `org2/my-repo` with Chromatic.
@@ -131,7 +140,7 @@ If your provider is not on the list, please reach out to us at support@chromatic
 
 Once SSO is enabled, you have two primary ways to log in:
 
-1. **Direct subdomain link:** If a subdomain is enabled, the most straightforward method is to use your organization's unique login URL:  `https://{YOUR-SUBDOMAIN}.chromatic.com/start`
+1. **Direct subdomain link:** If a subdomain is enabled, the most straightforward method is to use your organization's unique login URL: `https://{YOUR-SUBDOMAIN}.chromatic.com/start`
 2. **SSO provider dashboard:** Simply find and click the Chromatic application tile, and you'll be redirected and logged in automatically.
 
 If you're having trouble logging in:
@@ -295,6 +304,7 @@ Once you have access and the prerequisite details, follow these instructions to 
 3. In the Connected Application section, find the "Sync project with a Git repository" area and click "Add on-prem Git Provider" to enter the details for your repository.
 
 If your organization restricts IP addresses for git access, make sure to [add Chromatic's IP addresses to the allow list](/docs/faq/allowlist-ips-for-git-providers/#my-organization-restricts-ip-addresses-for-git-access-should-i-add-chromatic-to-the-allowlist).
+
 </details>
 
 <details>

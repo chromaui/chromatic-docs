@@ -195,3 +195,13 @@ No. Cypress is a "black box" tool that tests your fully built app UI in a browse
 Chromatic creates and runs a Storybook [archive](/docs/faq/what-is-archive) based on your Cypress project, so the build Storybook step is required. Chromatic doesn't run Cypress directly.
 
 </details>
+
+<details>
+<summary id="chrome-browser">Is using Chrome mandatory when running Cypress with Chromatic?</summary>
+
+Yes. Chromatic relies on Chrome for snapshotting, so Chrome **must** be included in your Cypress configuration.
+Omitting it will trigger error: `Failed to run chromatic -cypress`
+
+Refer to Cypress documentation: [**Cross Browser Testing**](https://docs.cypress.io/app/guides/cross-browser-testing)
+
+</details>

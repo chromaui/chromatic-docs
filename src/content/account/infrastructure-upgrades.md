@@ -42,16 +42,16 @@ Future builds will use the upgrade build's auto-accepted baselines as the source
 
 Read about the infrastructure changes in the [release notes](/docs/infrastructure-release-notes).
 
-|                   Capture Stack version                   | Status               |
-| :-------------------------------------------------------: | -------------------- |
+|                   Capture Stack version                   | Status                                          |
+| :-------------------------------------------------------: | ----------------------------------------------- |
 | [Version 8](/docs/infrastructure-release-notes#version-8) | Beta ([opt in for upgrade](#opt-in-to-upgrade)) |
-| [Version 7](/docs/infrastructure-release-notes#version-7) | General availability |
-| [Version 6](/docs/infrastructure-release-notes#version-6) | No longer available  |
-| [Version 5](/docs/infrastructure-release-notes#version-5) | No longer available  |
-| [Version 4](/docs/infrastructure-release-notes#version-4) | No longer available  |
-| [Version 3](/docs/infrastructure-release-notes#version-3) | No longer available  |
-| [Version 2](/docs/infrastructure-release-notes#version-2) | No longer available  |
-| [Version 1](/docs/infrastructure-release-notes#version-1) | No longer available  |
+| [Version 7](/docs/infrastructure-release-notes#version-7) | General availability                            |
+| [Version 6](/docs/infrastructure-release-notes#version-6) | No longer available                             |
+| [Version 5](/docs/infrastructure-release-notes#version-5) | No longer available                             |
+| [Version 4](/docs/infrastructure-release-notes#version-4) | No longer available                             |
+| [Version 3](/docs/infrastructure-release-notes#version-3) | No longer available                             |
+| [Version 2](/docs/infrastructure-release-notes#version-2) | No longer available                             |
+| [Version 1](/docs/infrastructure-release-notes#version-1) | No longer available                             |
 
 ---
 
@@ -64,5 +64,14 @@ Chromatic does not support running tests on specific browser versions.
 With each infrastructure upgrade, our goal is to provide you with the latest stable browser versions, enabling a consistently flake-free testing environment while simplifying our infrastructure and customer support.
 
 Read our [documentation](/docs/browsers) to learn more about enabling additional browsers.
+
+</details>
+
+<details>
+<summary>Can I stay on the older capture stack?</summary>
+
+When a new capture stack is released in **beta**, you’ll receive an invitation to opt in. Once the general rollout begins, you’ll have a limited upgrade window to switch over. After that window closes, all projects will automatically move to the new capture stack, and the older version will no longer be available.
+
+In short, you cannot remain on the older stack indefinitely.
 
 </details>
