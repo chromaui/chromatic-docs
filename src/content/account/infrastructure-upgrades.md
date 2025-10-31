@@ -68,7 +68,7 @@ Read our [documentation](/docs/browsers) to learn more about enabling additional
 </details>
 
 <details>
-<summary>Can I stay on the older capture stack?</summary>
+<summary>Can I continue using the previous capture stack version?</summary>
 
 When a new capture stack is released in **beta**, you’ll receive an invitation to opt in. Once the general rollout begins, you’ll have a limited upgrade window to switch over. After that window closes, all projects will automatically move to the new capture stack, and the older version will no longer be available.
 
