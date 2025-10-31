@@ -1,0 +1,23 @@
+---
+sidebar: { hide: true }
+title: How to debug the Chromatic archive locally?
+section: "uiTestsAndReview"
+---
+
+# How to debug the Chromatic archive locally?
+
+You should debug the archive locally if you suspect that an E2E project issue is related to the Chromatic archive **not being generated** or being generated **incorrectly**.
+
+Debugging locally lets you see what Chromatic sends off for screenshotting. Sometimes the archive can be broken even if you don't hit an error.
+
+1. Add the script `"archive-storybook": "archive-storybook"` to the scripts section of your project's package.json file.
+
+2. Run your E2E tests as you normally would (using Playwright or Cypress) and then run the new script:
+
+```bash
+npm run archive-storybook
+# or
+yarn archive-storybook
+```
+
+3. Inspect the stories that Chromatic would upload.

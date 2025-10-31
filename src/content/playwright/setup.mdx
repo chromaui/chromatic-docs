@@ -222,3 +222,13 @@ Chromatic creates and runs a Storybook [archive](/docs/faq/what-is-archive) base
 Chromatic’s Playwright integration is designed to work with third-party integrations and tools. It allows you to combine your existing fixtures via the [`mergeTests`](https://playwright.dev/docs-fixtures#combine-custom-fixtures-from-multiple-modules) option. See our FAQ on [BDD support with Playwright](/docs/faq/bdd-with-playwright) to learn more.
 
 </details>
+
+<details>
+<summary id="chrome-browser">Is using Chrome mandatory when running Playwright with Chromatic?</summary>
+
+Yes. Chromatic relies on Chrome for snapshotting, so Chrome **must** be included in your Playwright configuration.
+Omitting it will trigger error: `Failed to run chromatic -playwright`
+
+Refer to Playwright documentation: [**Run tests on different browsers**](https://playwright.dev/docs/browsers#run-tests-on-different-browsers)
+
+</details>

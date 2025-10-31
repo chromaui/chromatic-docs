@@ -1,0 +1,16 @@
+---
+sidebar: { hide: true }
+title: What is the chromatic-diagnostics.json file?
+section: uiTestsAndReview
+---
+
+# What is the `chromatic-diagnostics.json` file?
+
+The `chromatic-diagnostics.json` file is a detailed report generated during a build that contains the build's context, configuration, and results. Its primary purpose is to help diagnose and debug issues when a build doesn't behave as expected. You can generate it by adding the `--diagnostics` flag to your chromatic command.
+It answers many common questions you might have about a specific build. For example:
+
+**1. What commit and branch was this build for?** The `git` and `build` objects list the git details.
+
+**2. Why were only some of my stories tested?** `actualTestCount` shows how many stories were actually tested versus the total `specCount` in the project. The `flags` and `options` objects capture all the settings used for the run to help you understand why certain stories were ignored.
+
+**3. What versions of X dependency was my build run with?** The `packageJson` object provides a complete list of dependencies, which is useful for checking versions of `chromatic`, and other key packages.

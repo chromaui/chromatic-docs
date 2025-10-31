@@ -176,3 +176,17 @@ However, our default threshold may miss subtle changes, such as nuanced changes 
 Find the suitable threshold for your UI using our [**interactive diff tool**](https://6262c53f521620003ac2ff49-ukmsdlppcb.chromatic.com/?path=/story/stories-diff-threshold-check--test-yours-out).
 
 </details>
+
+<details>
+<summary>What is the threshold?</summary>
+
+The threshold measures how much color difference Chromatic will tolerate before flagging two snapshots as “different. It measures the color distance in a 3D color space (YIQ).
+Chromatic compares the color at the same (x, y) position in both snapshots and checks how far apart they are in color space. Think of it like this:
+
+A **low threshold** (e.g., `0.0005`) means almost identical colors will still be flagged as changed. This is great for pixel-perfect checks.
+
+A **high threshold** (e.g., `0.63`) means Chromatic tolerates larger color differences — it’ll only flag major visual changes.
+
+Every screen has a different pixel density (DPI/PPI) and color gamut, so there’s no **“1 pixel = 1 threshold”** relationship.
+
+</details>
