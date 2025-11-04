@@ -20,7 +20,7 @@ Key highlights on this release:
 - The browser updates might lead to a few changes in how your story renders:
   - Starting in Chrome 135, **`<b>` tags are now styled as “bolder”** (used to be “bold” previously)
   - **Color shift in Safari:** Certain combinations of colors, layered images, and CSS filters can cause a color shift in Safari due to WebKit's image rendering. This is a rare issue and should not affect most users.
-  - The **formatting of unordered lists alongside surrounding text has changed** consistently across all browsers. Surrounding text was previously aligned to the bullets and is now aligned to the list item text.
+  - The **formatting of unordered lists with surrounding text has changed** consistently across all browsers. Previously, surrounding text was aligned with the bullets; it is now aligned with the list item text.
 
 ### Supported browsers versions
 
