@@ -8,9 +8,11 @@ sidebar: { order: 9 }
 
 The `isChromatic` method allows you to control how your Storybook tests run in the Chromatic environment. Use it to configure what features and behaviors are available when testing.
 
+You can also target specific CSS rules to the Chromatic capture environment using the [isChromatic class](#targeting-css-to-chromatic) added to the `body` element during capture.
+
 <div class="aside">
 
-ℹ️ The `isChromatic` helper function is specific to Storybook tests. If you need to control what code is executed in your Playwright or Cypress tests, you can use environment variables or other mechanisms provided by those tools to achieve similar results.
+ℹ️ The `isChromatic` functionality is specific to Storybook tests. If you need to control what code is executed in your Playwright or Cypress tests, you can use environment variables or other mechanisms provided by those tools to achieve similar results.
 
 </div>
 
@@ -108,3 +110,17 @@ Under specific circumstances, your components may require different behavior whe
 💡 If you're attempting to make code-specific changes in your project with `isChromatic`, the Chromatic package must be installed as a dependency instead of a development dependency.
 
 </div>
+
+## Targeting CSS to Chromatic
+
+Starting with [Capture 8](/docs/infrastructure-release-notes/#version-8), the isChromatic class is now added to the `<body>` element during snapshot capture. This allows you to write CSS rules specifically for the Chromatic capture environment. Whether you need to hide development-only UI, adjust animation timing, or tweak layout for testing, you now have a reliable way to target the Chromatic environment specifically in CSS.
+
+```css
+body.isChromatic .dev-only-banner {
+  display: none;
+}
+
+body.isChromatic .animated-background {
+  animation: none;
+}
+```
