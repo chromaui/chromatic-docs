@@ -17,6 +17,10 @@ Key highlights on this release:
 - **Elements Outside Root:** Capture 8 improves support for capturing elements like sticky footers which are positioned outside the Storybook root.
 - **Infinite Animation Pausing:** Support has been added for automatically pausing infinite CSS animations in a consistent way.
 - **`.isChromatic`:** Capture now adds the class `isChromatic` to the `body` element during capture. This allows you to target the Chromatic capture environment specifically in your CSS if needed.
+- The browser updates might lead to a few changes in how your story renders:
+  - Starting in Chrome 135, **`<b>` tags are now styled as “bolder”** (used to be “bold” previously)
+  - **Color shift in Safari:** Certain combinations of colors, layered images, and CSS filters can cause a color shift in Safari due to WebKit's image rendering. This is a rare issue and should not affect most users.
+  - The **formatting of unordered lists alongside surrounding text has changed** consistently across all browsers. Surrounding text was previously aligned to the bullets and is now aligned to the list item text.
 
 ### Supported browsers versions
 
