@@ -197,16 +197,16 @@ Alternatively, replace the Git token from the `Configure` tab on the `Manage` pa
 <details>
 <summary>My token is <code>missing</code> or <code>invalid</code></summary>
 
-In the Project Manage, you may see that your repository details couldn't be synced due to the token. This typically occurs for one of two reasons:
+In the Project's Manage tab, you may see that your repository details couldn't be synced due to the token. This typically occurs for one of two reasons:
 
 1. For **GitHub**, an access token is required when you first set up your project to link Chromatic to your repository. If this step wasn’t completed, the token will be missing.
 
 2. Tokens can expire or be deleted on your Git provider’s side, which revokes their permissions.
 
-3. If [IP restrictions](/docs/faq/allowlist-ips-for-git-providers) are set on your Git provider account but you haven’t added Chromatic’s IPs to the allowlist, the token may show as **invalid** or **missing**.
-
-To resolve the issue, another team member can **replace** the token, or you can **unlink** and relink the repository.
+Another team member can **replace** the token, or you can **unlink** and relink the repository to fix the issue.
 If this doesn’t help, contact us at support@chromatic.com or via our in-app live chat.
+
+If [IP restrictions](/docs/faq/allowlist-ips-for-git-providers) are set on your Git provider account but you haven’t added Chromatic’s IPs to the allowlist, the token may show as **invalid** or **missing** too. Setting the IPs will resolve this specific case.
 
 </details>
 
