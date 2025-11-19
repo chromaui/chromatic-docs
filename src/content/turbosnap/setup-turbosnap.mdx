@@ -20,13 +20,14 @@ It will build and test stories that may have been affected by the Git changes si
   difficult to debug scenarios or UI changes being missed. Instead, become
   familiar with Chromatic's out-of-the-box behavior, and once your project has
   been running smoothly, consider trying out TurboSnap. TurboSnap is unlocked
-  after ten successful builds on CI, at least one of which is accepted.
+  after ten successful builds on CI.
 </div>
 
 ## Prerequisites
 
 - Chromatic CLI [10.0+](https://www.npmjs.com/package/chromatic)
 - Storybook 6.5+
+- Git 2.28.0+
 - Webpack or Vite based project (Vite is natively supported with Storybook 8+ and can be used in earlier versions with the [vite-plugin-turbosnap](https://github.com/IanVS/vite-plugin-turbosnap))
 - Stories correctly [configured](https://storybook.js.org/docs/configure#configure-story-loading) in Storybook's `main.js`
 - 10 successful builds on CI
