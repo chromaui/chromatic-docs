@@ -109,13 +109,6 @@ You can review how many stories were tested in the TurboSnap tooltip.
 
 Full rebuilds can be required for various reasons (see the list in [how it works](/docs/turbosnap#how-it-works)). Another scenario where a full rebuild will also be required is due to a change to a `package.json` or lock file for a subproject that doesn't affect the Storybook (we need to be very conservative as we cannot tell if a change to a lock file could affect `node_modules` imported by Storybook).
 
-<div class="aside">
-  If you run into this situation frequently, upvote the{" "}
-  <a href="https://github.com/chromaui/chromatic-cli/issues/383">open issue</a>{" "}
-  in the Chromatic CLI's issue tracker to opt-out of this behavior for specific
-  directories in your repository.
-</div>
-
 ## Why is my build failing with an <code>Out of memory error</code>?
 
 An `Out of Memory` error typically happens when the Node.js process runs out of allocated memory, especially if your project has a large dependency tree or TurboSnap is enabled. Here are a few steps that can help resolve this issue:
