@@ -153,6 +153,40 @@ If you're having trouble logging in:
 
 </details>
 
+<details>
+  <summary>How do I update the SSO certificate?</summary>
+
+The fastest and most reliable method is to provide a metadata URL from your Identity Provider (IdP). This is typically a secure link found in your IdP's admin console.
+
+If your provider does not support a metadata URL, please send a new certificate to [priority-support@chromatic.com](priority-support@chromatic.com) to schedule the change. This ensures a smooth transition and prevents authentication downtime for your users. Please include the following in your request:
+
+1. The specific date, time, and timezone for the update.
+2. A PEM-encoded X.509 certificate in one of these supported formats:
+
+- `.pem`
+- `.key`
+- `.crt`
+- `.cer`
+- `.cert`
+
+</details>
+
+<details>
+  <summary>How are roles managed with SCIM?</summary>
+
+SCIM (System for Cross-domain Identity Management) enables automatic user provisioning. After SSO is configured, SCIM allows you to add/remove users and manage roles directly from your IdP.
+
+You must configure groups in your IdP that correspond to Chromatic's four roles: `Owner`, `Developer`, `Reviewer`, and `Viewer`. The groups must contain a `roles` or `role` attribute with values "owner", "developer", "reviewer", or "viewer" for Chromatic to recognize them properly.
+
+</details>
+
+<details>
+  <summary>Can roles be set differently for different projects?</summary>
+
+No, SCIM currently sets standard roles across all projects - project-specific role assignment is not supported.
+
+</details>
+
 ## Organizations
 
 A Chromatic organization mirrors its counterpart GitHub Organization, Bitbucket Group, or GitLab Team. Open the account menu to swap between organizations or add a new organization.
