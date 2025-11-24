@@ -154,11 +154,11 @@ If you're having trouble logging in:
 </details>
 
 <details>
-  <summary>How to update the SSO certificate?</summary>
+  <summary>How do I update the SSO certificate?</summary>
 
 The fastest and most reliable method is to provide a metadata URL from your Identity Provider (IdP). This is typically a secure link found in your IdP's admin console.
 
-If your provider does not support a metadata URL, please send a new certificate to priority-support@chromatic.com to schedule the change. This ensures a smooth transition and prevents authentication downtime for your users. Please include the following in your request:
+If your provider does not support a metadata URL, please send a new certificate to [priority-support@chromatic.com](priority-support@chromatic.com) to schedule the change. This ensures a smooth transition and prevents authentication downtime for your users. Please include the following in your request:
 
 1. The specific date, time, and timezone for the update.
 2. A PEM-encoded X.509 certificate in one of these supported formats:
