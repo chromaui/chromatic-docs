@@ -22,7 +22,7 @@ Opt-in to the upgrade on the Manage screen for your project. This will switch yo
 
 ### Upgrade builds
 
-Chromatic runs an "upgrade build" to ensure stories are snapshotted using a consistent infrastructure. That allows you to migrate your UI test baselines between infrastuctures without test flake or false positives. Each open branch gets its own upgrade build(s).
+Chromatic runs an "upgrade build" to ensure stories are snapshotted using a consistent infrastructure. That allows you to migrate your UI test baselines between infrastructures without test flake or false positives. Each open branch gets its own upgrade build(s).
 
 An upgrade build isolates all the UI changes caused by swapping infrastructure in one build. Unlike typical builds, upgrade builds don't snapshot new code. They work by **rerunning** the most recent build on that branch using the new infrastructure.
 
