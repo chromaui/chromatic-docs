@@ -20,7 +20,7 @@ npx chromatic trace ./src/stories/Atoms/Button.jsx
 
 Trimmed results:
 
-```json
+```bash
 ℹ Traced 1 changed file to 5 affected story files:
 
 — src/stories/Atoms/Button.js [changed]
