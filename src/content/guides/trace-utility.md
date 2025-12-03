@@ -142,7 +142,7 @@ npx chromatic trace -m expanded src/components/Button/Button.jsx
 
 Results:
 
-```json
+```bash
   — src/components/Button/Button.js [changed]
     ∟ src/components/Button/Button.stories.js
       ∟ [story index]
@@ -160,7 +160,7 @@ npx chromatic trace -m compact src/components/Button/Button.jsx
 
 Results:
 
-```json
+```bash
   src/components/Button/Button.stories.js
   src/components/Header/Header.stories.js
   src/components/App/App.stories.js
