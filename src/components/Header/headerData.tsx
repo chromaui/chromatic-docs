@@ -180,4 +180,22 @@ export const links: HeaderProps["links"] = {
     iconColor: "blue500",
     href: "/sales",
   },
+  steadySnap: {
+    title: "SteadySnap",
+    icon: "photostabilize",
+    iconColor: "yellow500",
+    href: "/features/steadysnap",
+  },
+  snapshotCalculator: {
+    title: "Snapshot calculator",
+    icon: "photo",
+    iconColor: "blue500",
+    href: "/snapshot-calculator",
+  },
+  accessibilityBudgetCalculator: {
+    title: "Accessibility budget calculator",
+    icon: "accessibility",
+    iconColor: "green500",
+    href: "/accessibility-budget-calculator",
+  },
 };

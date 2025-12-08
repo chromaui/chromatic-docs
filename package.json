@@ -27,7 +27,7 @@
     "@astrojs/mdx": "^4.3.0",
     "@astrojs/react": "^4.3.0",
     "@astrojs/sitemap": "^3.4.1",
-    "@chromatic-com/tetra": "^2.2.0",
+    "@chromatic-com/tetra": "^3.2.0",
     "@docsearch/css": "^3.5.2",
     "@emotion/react": "^11.13.3",
     "@emotion/server": "^11.11.0",
@@ -75,5 +75,5 @@
     "prettier-plugin-astro": "^0.12.0",
     "storybook": "^9.0.16"
   },
-  "packageManager": "pnpm@10.15.1+sha512.34e538c329b5553014ca8e8f4535997f96180a1d0f614339357449935350d924e22f8614682191264ec33d1462ac21561aff97f6bb18065351c162c7e8f6de67"
+  "packageManager": "pnpm@10.25.0+sha512.5e82639027af37cf832061bcc6d639c219634488e0f2baebe785028a793de7b525ffcd3f7ff574f5e9860654e098fe852ba8ac5dd5cefe1767d23a020a92f501"
 }
