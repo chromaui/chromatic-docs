@@ -344,7 +344,10 @@ export const SnapshotCalculator = () => {
               <hr />
               {turboSnap ? (
                 <>
-                  <code>TurboSnaps = Tests - Tests with changes</code>
+                  <code>
+                    TurboSnaps = (Tests - Tests with changes) x Builds x
+                    Browsers x Viewports
+                  </code>
                   <hr />
                   <code>Billed Snapshots = Snapshots + 0.2 * TurboSnaps</code>
                 </>
