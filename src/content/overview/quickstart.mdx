@@ -369,11 +369,11 @@ Chromatic builds and runs Storybook flawlessly _most of the time_, but we're not
 <details>
 <summary>Why is my build failing with the message <code>Cannot run a build with no stories</code>?</summary>
 
-This happens if certain stories were disabled via the [`chromatic: { disable: true }`](/docs/disable-snapshots#with-storybook) option at a higher level.
+This happens if certain stories were disabled via the [`chromatic: { disableSnapshot: true }`](/docs/disable-snapshots#with-storybook) option at a higher level.
 
 To solve this you can:
 
-1. Remove the top-level [`chromatic: { disable: true }`](/docs/disable-snapshots#with-storybook) option
+1. Remove the top-level [`chromatic: { disableSnapshot: true }`](/docs/disable-snapshots#with-storybook) option
 1. Enable snapshots for specific stories
 1. Run `yarn storybook-build` locally and fix the issues in your stories
 
