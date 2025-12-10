@@ -1,7 +1,7 @@
 ---
 title: Monorepos
 description: Chromatic's support for monorepos
-sidebar: { order: 5 }
+sidebar: { order: 6 }
 ---
 
 # Monorepos

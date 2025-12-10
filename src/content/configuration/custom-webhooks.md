@@ -1,7 +1,7 @@
 ---
 title: Custom webhooks
 description: Connect Chromatic to other services with webhooks
-sidebar: { order: 4 }
+sidebar: { order: 5 }
 ---
 
 # Custom webhooks
