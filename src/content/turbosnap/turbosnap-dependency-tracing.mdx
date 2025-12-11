@@ -122,15 +122,21 @@ const config: StorybookConfig = {
 export default config;
 ```
 
-### Use the trimmed stats file to trace dependencies
-
-If you're trying to understand why a story file is being detected as changed, you can [search for its file path](/docs/turbosnap/troubleshooting#why-are-no-changes-being-detected) in the trimmed stats file and trace its dependencies to see which modules were affected.
-
 ## Tracing dependencies with Vite
 
 Vite support for TurboSnap is available out of the box, starting with Storybook 8.0 and later, and does not require any additional configuration. However, if you're using an older version of Storybook, you must install the [vite-plugin-turbosnap](https://github.com/IanVS/vite-plugin-turbosnap) plugin to enable TurboSnap support with Vite.
 
 Similar to Webpack, when you run the `build-storybook` command, the `preview-stats.json` file is automatically generated. It contains information about each module being built and a mapping between each file and all the imported files. This structure mirrors that used by Wepack but only includes the information TurboSnap needs to perform dependency checks.
+
+## Next: Use the stats file to trace dependencies
+
+If you're trying to understand why a story file is being detected as changed, you can search for its file path in the trimmed stats file and trace its dependencies to see which modules were affected. Chromatic has a trace utility to simplify this process.
+
+In this next chapter, learn how to use the trace utility to analyze your dependency graph. Identify and remove unnecessary imports, diagnose false positives from build tools, and understand the real propagation of changes for optimized bundles and confident refactoring.
+
+<a class="btn primary round" href="/docs/turbosnap/trace-utility">
+  Read next chapter
+</a>
 
 ---
 

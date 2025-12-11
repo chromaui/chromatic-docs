@@ -15,78 +15,11 @@ import { YouTubeCallout } from "../../components/YouTubeCallout";
   summary="How to prepare your local Storybook for debugging"
 />
 
-<YouTubeCallout
-  client:load
-  id="TZKIlqLF_Xk"
-  summary="Debugging TurboSnap with the Chromatic Trace Utility"
-/>
-
 ## Why are no changes being detected?
 
 If the build output shows no story files being detected by changes, there might be an issue matching the git changes with the files in your Storybook build. Use the `--debug` flag for more information about what Chromatic is doing.
 
 Another reason that changes may be missed is if the changed files aren't directly included in the webpack build; use the [`externals` flag](/docs/turbosnap/setup#specify-external-files-to-trigger-a-full-re-test-when-they-change) to tell Chromatic about this.
-
-If you're trying to figure out why certain stories are being re-tested, you can pass the `--trace-changed` flag, which will print a visual report of how changed files link to your story files:
-
-```shell
-npx chromatic --only-changed --trace-changed
-```
-
-Alternatively, using the `trace` utility, you can manually trace a set of files to a set of related story files based on a Webpack stats file. First, you need to generate a `preview-stats.json` like so (requires Storybook >=6.3):
-
-```shell
-# npm
-npm run build-storybook -- --stats-json
-
-# yarn
-yarn build-storybook --stats-json
-```
-
-The `preview-stats.json` will end up in the build directory, typically `storybook-static`. If you want to inspect this file manually, you can trim it down to its bare essentials using this command:
-
-```shell
-npx chromatic trim-stats-file
-```
-
-Or, if you're using a custom build directory:
-
-```shell
-npx chromatic trim-stats-file ./path/to/preview-stats.json
-```
-
-This will output a `preview-stats.trimmed.json` file which should be much more human-readable (sort of).
-
-Now, to trace a set of changed file paths to their dependent story files, run the following:
-
-```shell
-npx chromatic trace [...changed file paths]
-```
-
-For example:
-
-```shell
-npx chromatic trace ./src/components/link.js ./src/pages/index.js
-```
-
-This prints the number of detected CSF globs, the total number of modules, and a map of `Webpack module ID -> file path` for each of the found story files (typically `*.stories.js`).
-
-Example output:
-
-```json
-Found 2 CSF globs
-Found 218 user modules
-{
-  '114': './src/components/buildPassed.stories.js',
-  '228': './src/components/buildHasChanges.stories.js',
-  '229': './src/components/storybookPublished.stories.js',
-  ...
-}
-```
-
-In this example, it found 2 CSF globs, which are the `stories` configured in your Storybook's `main.js` config file. From those globs, it detected a total of 218 modules (i.e., source files traceable from those globs via imports). What follows is a list of stories files, the IDs of which will get sent to Chromatic and used to limit the stories files to be tested.
-
-If this list of files contains things you didn't expect, look at any global decorators (e.g., theme providers, wrapper components). These are typically configured in Storybook's `preview.js` file. You might have a decorator that's imported from e.g. an `index.js` file, which itself imports a bunch of other files. This can lead to _all_ stories depending on a big swath of seemingly unrelated files.
 
 ## Why are changes not being detected correctly?
 
