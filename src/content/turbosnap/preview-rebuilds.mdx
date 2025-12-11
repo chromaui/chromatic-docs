@@ -1,0 +1,128 @@
+---
+title: Diagnosing Preview Rebuilds
+description: When unexpected changes impact your preview file, this can lead to more rebuilds than expected.  Learn how to pinpoint the root cause of your preview rebuilds using the `trace` utility.
+sidebar: { order: 6, label: "Diagnosing Preview Rebuilds" }
+slug: "turbosnap/preview-rebuilds"
+---
+
+# Diagnosing Preview Rebuilds
+
+Global decorators or parameters can affect every story. For this reason, TurboSnap retests everything when any file that flows into your `.storybook/preview.(js|ts)` changes. That includes anything your preview file imports directly and transitively (ex. barrels, shared utils, theme objects, etc.).
+
+Depending on how your project is structured, this can lead to small changes bubbling up to your preview file and causing more rebuilds than expected. Rebuilds caused by transitive triggers can be hard to diagnose, but are most frequently caused by:
+
+- Barrel/index files between the changed file and preview file. This happens when preview imports a wide barrel, as changes anywhere under that barrel bubble up.
+- Global decorator or parameter modules (ex. theme/i18n/etc.) imported by preview. If the changed file feeds one of these, it'll be in the preview file's dependency scope.
+- Monorepo shared package sources imported by preview (ex. `packages/ui/src/**`). When preview imports the source directly, a change in the shared package source propagates through preview to all consumers.
+
+If you notice this behavior, you'll need to identify which import pulled in the changes to pinpoint the root cause of your rebuilds.
+
+## Before you start, confirm changes and build your graph
+
+You'll need to confirm which files TurboSnap detects as having changed. Add Chromatic's `--debug` (`debug: true` in GitHub Actions) option so the CLI prints the files it computes as changed:
+
+```bash
+npx chromatic --project-token=<token> --only-changed --debug
+```
+
+If you need to reproduce the list locally, you can run Chromatic on the same commit as CI using `--dry-run`:
+
+```bash
+npx chromatic --project-token=<token> --only-changed --debug --dry-run
+```
+
+In Chromatic's CLI output, all changes will be printed out:
+
+```bash
+16:31:15.920 Found 14 changed files:
+               .storybook/preview.tsx
+               chromatic.config.json
+               package-lock.json
+               package.json
+               src/components/Codeblock.module.css
+               ...
+```
+
+### Build your dependency graph locally
+
+Whether you opt to manually dive in or use Chromatic's `trace` utility, you'll want to make sure you have built the graph:
+
+```bash
+npm run build-storybook -- --stats-json
+```
+
+To make the graph more human-readable, create a trimmed version:
+
+```bash
+npx chromatic trim-stats-file
+```
+
+## Step 1 - Check for a direct match
+
+Open your preview file and glance through its top-level imports. If any file in "Files changed" is an exact match to one of those imports, that's your trigger. Common culprits look similar to:
+
+- `./decorators/theme`
+- `./i18n`
+- `.msw/init-browser`
+- broad `index.(js|ts)` barrels
+
+## Step 2 - Look for the barrel footprint
+
+If there's no exact match, check whether preview imports from any barrel files (ex. `./decorators/index.js`, `@org/theme/index.ts`). If the "Files changed" list includes any file under the barrel's folder, that change likely bubbled up through the barrel to preview.
+
+## Step 3 - Monorepo `src` imports
+
+If you're in a monorepo, check to see whether preview imports package source directly (ex. `packages/ui/src/..`). If "Files changed" includes files under that source tree, that's the trigger.
+
+## Step 4 - Confirm the change impacts config
+
+Pick your suspicious file from "Files changed" and confirm the changed file is triggering rebuilds using the [`trace` utility](/docs/turbosnap/trace-utility):
+
+```bash
+npx chromatic trace ./helpers/my-helper.jsx
+```
+
+If it is, you should see a notice in the CLI that TurboSnap is disabled due to changes found in your preview file:
+
+```bash
+⚠ TurboSnap disabled due to file change
+Found a Storybook config change in .storybook/preview.tsx
+A full build is required because this file cannot be linked to any specific stories.
+```
+
+You can verify whether the file change is the only trigger for the build. Use `--untraced` to remove tracing for the file and trace any other suspicious files that have changed:
+
+```bash
+npx chromatic trace ./helpers/my-truncator.jsx --untraced ./helpers/my-helper.jsx
+```
+
+## Step 5 - Narrow to the first hop under preview
+
+Still unclear what's linking to preview? Take the likely preview import and use `--untraced` to narrow down whether it's pulling in the change when tracing another file:
+
+```bash
+npx chromatic trace ./src/components/Codeblock.module.css --untraced ./helpers/my-helper.jsx
+```
+
+You'll either see the same config change message confirming it's in the preview, or a dependency path to each impacted story. If you no longer see the config change message, you've isolated the first hop that's pulling in the change.
+
+## Step 6 - Manually trace changed files
+
+If you've narrowed down the culprit to a file, but you're not sure how it's linked to preview, start by opening your trimmed preview stats file. Search for the file to locate it's module dependencies, then trace the module dependencies for those files until you reach the preview file.
+
+Learn more about [reading the trimmed stats file...](/docs/turbosnap/dependency-tracing/#reading-the-trimmed-stats-file)
+
+## Quick read of large module arrays
+
+If the CLI shows a long array of possible preview modules (lots of JS helpers, MSW inits, i18n, etc.), treat the list as a menu of imports under preview.
+
+- Use Steps 1–3 to find the most plausible match against the “Files changed” list.
+- Use Step 4 on 1–2 candidates to confirm they’re truly part of the config closure for this build.
+- If it’s a merge build, remember you’re seeing upstream changes, too. Your branch might not have touched them, but they’re still in scope.
+
+## Conclusion
+
+By the end of this flow, you should have both the specific file(s) that changed and the specific import under preview that pulled it into the config closure. From there, you can decide whether to keep that import global, split it, or reduce its surface (ex. separate barrels, lighter theme entry, etc.):
+
+- If the import does not impact rendering or logic of your components or stories, it's safe to add the file to `--untraced`.
+- If it impacts rendering, it's best to [consider options](/docs/turbosnap/trace-utility/#suggested-fixes) for restructuring your imports to avoid excessive dependency scoping.
