@@ -23,7 +23,7 @@ Parameters are static metadata that can be attached at the story, component (met
 | `chromatic.forcedColors`            | `string`   | Control CSS [forced colors mode](/docs/media-features#test-high-contrast-color-schemes)                                                 |
 | `chromatic.prefersReducedMotion`    | `string`   | Control CSS [reduce motion setting](/docs/media-features#verify-reduced-motion-animations)                                              |
 | `chromatic.media`                   | `string`   | Enable CSS [print media styles](/docs/media-features/#combine-media-features-with-modes)                                                |
-| `chromatic.cropToViewport`          | `boolean`  | Crop the screenshot to the viewport, [learn more](docs/modes/viewports/#how-does-snapshot-cropping-work-with-viewport-width-and-height) |
+| `chromatic.cropToViewport`          | `boolean`  | Crop the screenshot to the viewport, [learn more](/docs/modes/viewports/#how-does-snapshot-cropping-work-with-viewport-width-and-height) |
 | `chromatic.modes`                   | `object`   | Apply [modes](/docs/modes)                                                                                                              |
 | `chromatic.viewports`               | `number[]` | [Legacy API](/docs/modes/viewports) for setting viewports for a story. Use [Modes](/docs/modes/viewports) instead.                      |
 
