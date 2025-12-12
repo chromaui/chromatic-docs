@@ -1,5 +1,5 @@
 ---
-title: Mastering Chromatic's Trace Utility
+title: Mastering Chromatic's trace utility
 description: Learn how to use the trace utility to analyze your dependency graph. Identify and remove unnecessary imports, diagnose false positives from build tools, and understand the real propagation of changes for optimized bundles and confident refactoring.
 sidebar: { order: 5, label: "Trace Utility" }
 slug: "turbosnap/trace-utility"
@@ -7,7 +7,7 @@ slug: "turbosnap/trace-utility"
 
 import { YouTubeCallout } from "../../components/YouTubeCallout";
 
-# Mastering Chromatic's Trace Utility
+# Mastering Chromatic's trace utility
 
 <YouTubeCallout
   client:load
@@ -55,17 +55,19 @@ By default, the CLI will output trimmed results:
 
 This output gives us insight into the blast radius of the file, letting you determine which stories are affected by changes to this file.
 
-For comparison, you can run the same command for an imported styles file and see if there's any difference:
+For comparison, you can run the same command for an imported CSS file and see if there's any difference:
 
 ```bash
 npx chromatic trace ./src/stories/Atoms/Button.css
 ```
 
-Perhaps you'll find that the Button styles have a direct impact on a component that doesn't use the Button but reuses some of the Button's styles. Reusing styles isn't recommended because it creates hidden dependencies—changing a button's padding could unexpectedly break a card component that happened to import those same styles. The `trace` utility exposes these **architectural anti-patterns**, showing you exactly how styling changes ripple through your application.
+Perhaps you'll find that the Button styles have a direct impact on a component that doesn't use the Button but reuses some of the Button's styles. Reusing styles isn't recommended because it creates hidden dependencies. Changing a Button's padding could unexpectedly break a card component that happened to import those same styles. The `trace` utility exposes these architectural anti-patterns, showing you exactly how styling changes ripple through your application.
 
-## Getting started with `trace`
+## Using the `trace` utility
 
-1. **Ensure you've built your Storybook to write your stats JSON**
+### 1. Configure your Storybook to generate stats JSON
+
+Ensure that you're generating a stats JSON file during your Storybook build. You can do this by adding the `--stats-json` flag to your build script in `package.json`:
 
 ```bash
 # Build with preview-stats.json
@@ -77,7 +79,7 @@ npx chromatic trim-stats-file
 
 The `preview-stats.json` file contains your complete dependency graph, while the trimmed version removes noise like `node_modules` dependencies for clearer analysis. The `trace` utility requires a stats file in order to map dependencies.
 
-2. **Trace one or more files to see affected stories**
+### 2. Trace one or more files to see affected stories
 
 Trace a single file by passing the file path:
 
@@ -94,9 +96,9 @@ npx chromatic trace ./src/components/Button.js ./src/hooks/useButton.js
 npx chromatic trace ./src/utils/helpers.js ./src/utils/constants.ts ./src/styles/main.css
 ```
 
-3. **`--mode` options**
+### 3. Adjust verbosity of the output using the `--mode/-m` flag
 
-Change the verbosity of the output using the `-m`/`--mode` option to `expanded` to see underlying modules:
+Use `expanded` to see underlying modules:
 
 ```bash
 npx chromatic trace -m expanded src/components/Button/Button.jsx
@@ -113,7 +115,7 @@ Results:
         ∟ [story index]
 ```
 
-Changing the `--mode` to `compact` will print only the list of dependent story files without showing how they're connected:
+Using `compact` will show only the list of dependent story files, omitting their connections:
 
 ```bash
 # See only affected story files
@@ -129,7 +131,7 @@ Results:
   src/components/App/App.stories.js
 ```
 
-### Using globbing features
+## Use globbing features
 
 [Basic globbing](https://github.com/micromatch/picomatch?tab=readme-ov-file#basic-globbing) is supported when using the `trace` utility. You can use a `*` character to trace an entire directory:
 
@@ -153,9 +155,13 @@ Traced files...
 [ 'src/components/atomic/accordion/Accordion.tsx' ]
 ```
 
+## Additional configuration options
+
 ### Custom stats file location
 
-By default, the `trace` utility expects your stats file to be in the `storybook-static` directory as either `preview-stats.json` or `preview-stats.trimmed.json`. If you're using a custom build directory, your stats file is output to a different directory than your build dir, or it's under a different name, you can pass the `-s`/`--stats-file` option to specify the custom stats file name:
+By default, the `trace` utility expects your stats file to be in the `storybook-static` directory as either `preview-stats.json` or `preview-stats.trimmed.json`. If you're using a custom build directory, your stats file is output to a different directory than your build directory.
+
+You can also use the `-s/--stats-file` flag to specify the custom stats file name:
 
 ```bash
 # Use a custom stats file name
@@ -168,9 +174,9 @@ npx chromatic trace -s build-artifacts/preview-stats.json src/components/Modal/M
 npx chromatic trace -s my-stats.json src/components/Button/Button.jsx src/components/Modal/Modal.jsx
 ```
 
-### Monorepo structure
+### Specify base directory in a monorepo
 
-If you're running the `trace` utility out of a monorepo with multiple Storybook projects or your project is nested, you can pass the `-b`/`--base-dir` option to specify the package directory:
+If you're running the `trace` utility in a monorepo with multiple Storybook projects or your project is nested, you can pass the `-b/--base-dir` option to specify the package directory:
 
 ```bash
 # Storybook nested in packages/storybook directory
@@ -180,9 +186,9 @@ npx chromatic trace -b packages/storybook src/components/Button/Button.jsx
 npx chromatic trace -b apps/web src/components/Button/Button.jsx
 ```
 
-### Test excluding files
+### Test impact of ignoring specific files
 
-You can test the impact of ignoring specific files using the `-u`/`--untraced` option:
+You can test the impact of ignoring specific files using the `-u/--untraced` option:
 
 ```bash
 # Ignore a specific utility file
@@ -195,7 +201,7 @@ npx chromatic trace src/components/Button/Button.jsx -u src/styles/shared.css
 npx chromatic trace src/components/Button/Button.jsx -u src/utils/helpers.js -u src/styles/theme.css
 ```
 
-## Debugging examples
+## Examples
 
 ### Barrel files
 
@@ -219,7 +225,7 @@ npx chromatic trace ./src/components/Button/Button.jsx
 npx chromatic trace ./src/components/Button/Button.jsx --untraced=./src/components/index.js
 ```
 
-If the second command shows fewer affected stories, you've identified the barrel file as the culprit. Barrel files commonly increase the blast radius of your changes since they may introduce unrelated files to a components dependency graph. The solution is to skip the barrel file and use direct imports:
+If the second command shows fewer affected stories, you've identified the barrel file as the culprit. Barrel files commonly increase the blast radius of your changes since they may introduce unrelated files to a component's dependency graph. The solution is to skip the barrel file and use direct imports:
 
 ```js
 # Replace
@@ -228,7 +234,7 @@ import { Button } from './components'
 import Button from './components/Button/Button'
 ```
 
-Direct imports ensure the dependency graph can follow the file without tracing unrelated components. This is most critical in global configurations (such as your preview file) and barrel files with a large impact radius.
+Direct imports ensure the dependency graph can follow the file without tracing unrelated modules. This is essential for global configurations (such as your `.storybook/preview` file) and barrel files with wide imports.
 
 ### Shared utility dependencies
 
@@ -239,7 +245,7 @@ Let's say you'd like to trace a currency utility:
 npx chromatic trace ./src/utils/formatCurrency.js
 ```
 
-A uchange to this tility function affects multiple components unexpectedly. The output shows it affects:
+A change to this utility function affects multiple components unexpectedly. The output shows it affects:
 
 ```txt
 - ProductPrice.jsx
@@ -248,7 +254,7 @@ A uchange to this tility function affects multiple components unexpectedly. The 
 - AdminDashboard.jsx (unexpected!)
 ```
 
-It's necessary to review how the currency utility is being imported by the Admin Dashboard component and other components being imported into Admin Dashboard. If you discover a third file cascading the changes to `AdminDashboard.jsx`, you may test ignoring it:
+It's necessary to review how the currency utility is being imported by the Admin Dashboard component and other components being imported into Admin Dashboard. If you discover a third file cascading the changes to `AdminDashboard.jsx`, you can try testing the impact of ignoring it:
 
 ```bash
 # Trace without the third file to see if they're truly needed
@@ -257,9 +263,9 @@ npx chromatic trace ./src/utils/formatCurrency.js --untraced=./src/components/Th
 
 This helps you distinguish between direct dependencies (components that actually use the utility) and transitive dependencies (components that import other components that use the utility).
 
-### Confirm changes on git
+### Confirm changes with Git
 
-Utilize these git commants along with `trace` to confirm what files have changed and the impact based on your dependency graph:
+Utilize these Git commands along with `trace` to confirm which files have changed and their impact, based on your dependency graph:
 
 ```bash
 # Trace only files changed in the most recent commit
@@ -272,7 +278,7 @@ npx chromatic trace $(git diff --name-only develop main)
 npx chromatic trace $(git diff --name-only)
 ```
 
-## Suggested Fixes
+## Suggested fixes
 
 ### Unused imports in dependency graph
 
@@ -300,7 +306,9 @@ npx chromatic trace $(git diff --name-only)
 
 ### Widespread but necessary dependencies
 
-If dependencies are genuinely used across many components, document them to create institutional knowledge so your team can assess ripple effects before making modifications. When dependencies are part of a shared library or design system that are being tested separately (or can be isolated for better scoping), [importing those components from the built package](/docs/turbosnap-for-monorepos/#prefer-importing-from-built-packages-over-src) can help avoid unnecessary changes being detected since built packages are generally excluded from git.
+If dependencies are genuinely used across multiple components, document them to build institutional knowledge. This enables your team to evaluate potential ripple effects before making changes.
+
+When dependencies are part of a shared library or design system and are tested separately (or can be isolated for better scoping), importing those components from the built package can be beneficial. This approach helps prevent unnecessary changes from being detected, as built packages are generally excluded from git. For more information, see [importing those components from the built package](/docs/turbosnap-for-monorepos#prefer-importing-from-built-packages-over-src).
 
 ## Next: Use the `trace` utility to diagnose preview file rebuilds
 
