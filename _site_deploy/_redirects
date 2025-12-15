@@ -30,6 +30,8 @@
 /docs/cypress/ci/ /docs/ci/
 
 /docs/setup-turbosnap/ /docs/turbosnap/setup/
+/docs/turbosnap-best-practices/ /docs/turbosnap/best-practices/
+/docs/turbosnap-for-monorepos/ /docs/turbosnap/monorepo-usage/
 
 # Plausible analytics
 

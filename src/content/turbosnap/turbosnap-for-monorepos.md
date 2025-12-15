@@ -1,7 +1,8 @@
 ---
 title: Optimizing TurboSnap for monorepos
 description: Tips to optimize your TurboSnap configuration when working with a monorepo
-sidebar: { order: 11, label: "TurboSnap for monorepos" }
+sidebar: { order: 8, label: "Monorepo usage" }
+slug: "turbosnap/monorepo-usage"
 ---
 
 # Optimizing TurboSnap for Monorepos
