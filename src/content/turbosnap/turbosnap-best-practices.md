@@ -1,7 +1,8 @@
 ---
 title: TurboSnap best practices
 description: TurboSnap best practices to optimize your builds for faster testing
-sidebar: { order: 10, label: "TurboSnap best practices" }
+sidebar: { order: 3, label: "Best practices" }
+slug: "turbosnap/best-practices"
 ---
 
 # TurboSnap best practices
@@ -206,9 +207,3 @@ TurboSnap can significantly reduce build times and snapshot volumes, but small c
 The best practices outlined above will help you achieve consistent and fast builds with minimal overhead and without sacrificing test coverage.
 
 In summary, limit changes to only necessary updates. Modularize global code, declare externals for non-bundled assets, and audit your `preview-stats.json` file using the [trace utility](/docs/turbosnap/troubleshooting#why-are-no-changes-being-detected).
-
-## Next: Optimizing TurboSnap for Monorepos
-
-If you're working out of a monorepo or with a large, complex project, you can easily find yourself running the wrong tests at the wrong time. Learn practical strategies to help manage your dependencies and keep your tests meaningful!
-
-<a class="btn primary round" href="/docs/turbosnap-for-monorepos">Read next chapter</a>

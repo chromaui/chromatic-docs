@@ -1,7 +1,7 @@
 ---
 title: Mastering Chromatic's trace utility
 description: Learn how to use the trace utility to analyze your dependency graph. Identify and remove unnecessary imports, diagnose false positives from build tools, and understand the real propagation of changes for optimized bundles and confident refactoring.
-sidebar: { order: 5, label: "Trace Utility" }
+sidebar: { order: 6, label: "Trace Utility" }
 slug: "turbosnap/trace-utility"
 ---
 
@@ -308,7 +308,7 @@ npx chromatic trace $(git diff --name-only)
 
 If dependencies are genuinely used across multiple components, document them to build institutional knowledge. This enables your team to evaluate potential ripple effects before making changes.
 
-When dependencies are part of a shared library or design system and are tested separately (or can be isolated for better scoping), importing those components from the built package can be beneficial. This approach helps prevent unnecessary changes from being detected, as built packages are generally excluded from git. For more information, see [importing those components from the built package](/docs/turbosnap-for-monorepos#prefer-importing-from-built-packages-over-src).
+When dependencies are part of a shared library or design system and are tested separately (or can be isolated for better scoping), importing those components from the built package can be beneficial. This approach helps prevent unnecessary changes from being detected, as built packages are generally excluded from git. For more information, see [importing those components from the built package](/docs/turbosnap/monorepo-usage#prefer-importing-from-built-packages-over-src).
 
 ## Next: Use the `trace` utility to diagnose preview file rebuilds
 
