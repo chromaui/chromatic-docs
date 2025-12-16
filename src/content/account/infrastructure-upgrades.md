@@ -42,16 +42,16 @@ Future builds will use the upgrade build's auto-accepted baselines as the source
 
 Read about the infrastructure changes in the [release notes](/docs/infrastructure-release-notes).
 
-|                   Capture Stack version                   | Status                                          |
-| :-------------------------------------------------------: | ----------------------------------------------- |
-| [Version 8](/docs/infrastructure-release-notes#version-8) | Beta ([opt in for upgrade](#opt-in-to-upgrade)) |
-| [Version 7](/docs/infrastructure-release-notes#version-7) | General availability                            |
-| [Version 6](/docs/infrastructure-release-notes#version-6) | No longer available                             |
-| [Version 5](/docs/infrastructure-release-notes#version-5) | No longer available                             |
-| [Version 4](/docs/infrastructure-release-notes#version-4) | No longer available                             |
-| [Version 3](/docs/infrastructure-release-notes#version-3) | No longer available                             |
-| [Version 2](/docs/infrastructure-release-notes#version-2) | No longer available                             |
-| [Version 1](/docs/infrastructure-release-notes#version-1) | No longer available                             |
+|                   Capture Stack version                   | Status               |
+| :-------------------------------------------------------: | -------------------- |
+| [Version 8](/docs/infrastructure-release-notes#version-8) | General availability |
+| [Version 7](/docs/infrastructure-release-notes#version-7) | No longer available  |
+| [Version 6](/docs/infrastructure-release-notes#version-6) | No longer available  |
+| [Version 5](/docs/infrastructure-release-notes#version-5) | No longer available  |
+| [Version 4](/docs/infrastructure-release-notes#version-4) | No longer available  |
+| [Version 3](/docs/infrastructure-release-notes#version-3) | No longer available  |
+| [Version 2](/docs/infrastructure-release-notes#version-2) | No longer available  |
+| [Version 1](/docs/infrastructure-release-notes#version-1) | No longer available  |
 
 ---
 
