@@ -574,7 +574,7 @@ npx chromatic --skip '@(renovate/**|your-custom-branch/**)'
 
 ---
 
-### Troubleshooting
+## Troubleshooting
 
 <details>
 <summary>Why don't Azure Pipelines fetch the complete git history even when `fetchDepth: 0` is set?</summary>
@@ -597,7 +597,7 @@ steps:
     fetchDepth: 0 # Still recommended
 
   - script: | # Fetch complete history
-      git fetch --unshallow 
+      git fetch --unshallow
     displayName: "Fetch complete history"
 ```
 
