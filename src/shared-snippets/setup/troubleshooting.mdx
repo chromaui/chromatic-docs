@@ -22,3 +22,28 @@ This error often appears when `git` is not available in your CI environment. Chr
 Chromatic takes snapshots very quickly. However, if we lose the connection to your server (for instance if you stop your server mid-build, or your internet connection goes down), builds can time out. Check your connection and try restarting the build.
 
 </details>
+
+<details>
+<summary>Why am I getting a `ERR_INVALID_ARG_TYPE` error?</summary>
+
+If you're encountering the following error in a Playwright/Cypress project:
+
+```
+TypeError [ERR_INVALID_ARG_TYPE]: The "paths[1]" argument must be of type string. Received undefined
+  at Object.resolve (node:path:1222:7)
+  at binPath (/Users/aaa/dev/temp/chromatic-e2e-examples/node_modules/@chromatic-com/playwright/dist/bin/build-archive-storybook.js:15:2773)
+  at /Users/aaa/dev/temp/chromatic-e2e-examples/node_modules/@chromatic-com/playwright/dist/bin/build-archive-storybook.js:15:2630 {
+code: 'ERR_INVALID_ARG_TYPE'
+```
+
+This issue likely due to a dependency conflict with Storybook versions in your project. You'll have the following in your `package.json`:
+
+```json
+"overrides": {
+  "storybook": "$storybook"
+}
+```
+
+This override force Chromatic to use an incompatible version of Storybook with Playwright/Chromatic, leading to errors. To resolve this, remove the Storybook overrides line from your `package.json`.
+
+</details>
