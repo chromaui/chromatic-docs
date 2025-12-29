@@ -1,0 +1,304 @@
+---
+title: Using Chromatic with Nx
+description: Use Nx natively in CI with Chromatic and Storybook
+sidebar: { order: 9 }
+---
+
+# Using Chromatic with Nx
+
+[Nx](https://nx.dev/) is a powerful monorepo tool that helps developers optimize builds and CI/CD execution. When combined with Storybook and Chromatic, it lets you run visual tests per-project and publish a single composed Storybook all in one workspace.
+
+This guide shows you how to set up Chromatic per-project for scoped testing in an Nx monorepo and aggregate all projects into a composed Storybook that can be published with Chromatic. By adding a workspace-wide Chromatic target, you'll have very minimal per-project configuration.
+
+## Prerequisites
+
+Before getting started, you'll want to make sure:
+
+- Your Nx workspace has Storybook installed and working in at least one project.
+- You are familiar with setting [environment variables](https://nx.dev/docs/guides/tips-n-tricks/define-environment-variables) and [CI secrets](https://nx.dev/docs/guides/nx-cloud/access-tokens#setting-ci-access-tokens).
+- You have Chromatic project tokens for each of the Storybook projects you want to test or publish.
+
+## Configure Nx to run Chromatic
+
+To make sure Chromatic tests are repeatable and consistent across all projects in your monorepo, we'll:
+
+1. Add a workspace-wide `chromatic` target in `nx.json`.
+2. Let Nx automatically infer Storybook targets with `@nx/storybook/plugin`.
+3. Add minimal overrides per project to provide the Chromatic token and project ID.
+
+### Add Chromatic to `nx.json`
+
+Open your `nx.json` and add the following under `targetDefaults`:
+
+```json title="nx.json"
+{
+  "targetDefaults": {
+    "chromatic": {
+      "executor": "nx:run-commands",
+      "options": {
+        "commands": [
+          {
+            "command": "npx chromatic --exit-zero-on-changes --storybook-build-dir={projectRoot}/storybook-static --storybook-base-dir={projectRoot} --storybook-config-dir={projectRoot}/.storybook --no-interactive --auto-accept-changes=main",
+            "description": "Chromatic will automatically build Storybook before running."
+          }
+        ]
+      },
+      "dependsOn": ["build-storybook"],
+      "inputs": [
+        {
+          "externalDependencies": ["chromatic"]
+        }
+      ]
+    }
+  }
+}
+```
+
+This creates a shared Chromatic target for all projects. Each project can add one line for its token and metadata, which keeps the configuration lean. The project's token can be stored as a repository secret for security and referenced through an env var in the `project.json`.
+
+This Chromatic command:
+
+- Sets the correct build, config, and base directory for each project.
+- Exits CLI on changes to avoid blocking anything else in your pipeline.
+- Keeps your default branch clean (assumes `main` but can be updated).
+
+### Auto-wire Storybook with Nx
+
+If you're not yet using [Nx's Storybook plugin](https://nx.dev/docs/technologies/test-tools/storybook/introduction), you can install it in your workspace with the following command:
+
+```sh
+nx add @nx/storybook
+```
+
+Then configure Storybook in your `nx.json` under the `plugins` section:
+
+```json title="nx.json"
+{
+  "plugins": [
+    {
+      "plugin": "@nx/storybook/plugin",
+      "options": {
+        "servesStorybookTargetName": "storybook",
+        "buildStorybookTargetName": "build-storybook",
+        "testStorybookTargetName": "test-storybook",
+        "staticStorybookTargetName": "static-storybook"
+      }
+    }
+  ]
+}
+```
+
+This makes Nx detect Storybook config in any project and wire up all common Storybook targets automatically.
+
+### Add project-specific Chromatic args
+
+For each project that you want to test in Chromatic, open its `project.json` and add:
+
+```json title="project.json"
+{
+  "targets": {
+    "chromatic": {
+      "metadata": {
+        "projectId": "112233445566778899"
+      },
+      "options": {
+        "args": ["--project-token=$CHROMATIC_PROJECT_TOKEN_UI_LIBRARY"]
+      }
+    }
+  }
+}
+```
+
+Note:
+
+- `projectId` is the Chromatic project's ID and is used later in the composed Storybook (you can locate this in the URL of your Chromatic project).
+- `--project-token` should reference a CI secret (`$CHROMATIC_PROJECT_TOKEN_UI_LIBRARY` in this example) where the project's unique token is stored.
+
+## Run Chromatic tests in CI
+
+Once Chromatic is configured per project, you can use Nx to run Chromatic, or limit builds to only affected projects with `nx affected`:
+
+```sh
+pnpm nx affected -t build-storybook chromatic
+```
+
+Depending on how your CI is configured with Chromatic, you may need to set the following for your Chromatic step:
+
+- `CHROMATIC_BRANCH`
+- `CHROMATIC_SHA`
+- `CHROMATIC_SLUG`
+  These ensure Chromatic can link builds to the correct commit and branch in your repo.
+
+### Nx-native example for GitHub Actions using `--skip`
+
+If you have branch protection rules in place and want to [get a Chromatic PR badge when a project is not affected](/docs/monorepos#only-run-chromatic-when-changes-occur-in-a-subproject), you'll want to apply the `--skip` flag. You can keep your YAML clean by including a step to build Storybook and publish to Chromatic when projects are affected, and run a bash script when not affected to apply `--skip`. Alternatively, you can include the bash script directly in your YAML if it's preferred.
+
+Let's say we have both `ui-library` and `design-system` projects. Add these steps to your YAML config:
+
+```yaml title=".github/workflows/chromatic.yml"
+- name: Affected
+  run: pnpm nx affected -t build-storybook chromatic
+
+- name: Skip unaffected projects and mark as passed for Chromatic status checks
+  run: ./tools/skip-unaffected.sh
+  shell: bash
+  env:
+    CHROMATIC_PROJECT_TOKEN_UI_LIBRARY: ${{ secrets.CHROMATIC_PROJECT_TOKEN_UI_LIBRARY }}
+    CHROMATIC_PROJECT_TOKEN_DESIGN_SYSTEM: ${{ secrets.CHROMATIC_PROJECT_TOKEN_DESIGN_SYSTEM }}
+```
+
+Create the `skip-unaffected.sh` bash script that contains the following:
+
+```sh title="./tools/skip-unaffected.sh"
+#! /bin/bash
+set -e
+
+chromatic_projects=$(npx nx show projects --with-target=chromatic)
+affected_chromatic_projects=$(npx nx show projects --with-target=chromatic --affected)
+
+echo ""
+echo "All Chromatic projects:"
+echo "$chromatic_projects" | tr ' ' '\n' | sed '$/^/- /'
+echo ""
+echo "Affected Chromatic projects:"
+if [ -z "$affected_chromatic_projects" ]; then
+  echo "- No affected Chromatic projects"
+else
+  echo "$affected_chromatic_projects" | tr ' ' '\n'
+fi
+echo ""
+
+chromatic_projects=($chromatic_projects)
+affected_chromatic_projects=($affected_chromatic_projects)
+
+for project in "${chromatic_projects[@]}"; do
+  if [[ ! " ${affected_chromatic_projects[@]} " =~ " ${project} " ]]; then
+    echo: "Project \"$project\" was not affected as part of the current CI run, skipping Chromatic build..."
+    NX_TUI=false npx nx run --excludeTaskDependencies $project:chromatic --skip --no-dte
+  fi
+done
+```
+
+## Publish a composed Storybook
+
+In addition to running tests, you may want [a single Storybook that displays all the Storybooks in your workspace side by side](/docs/composition). To create this "shared" Storybook (ex. `shared-storybook`), make a new project with a Storybook config.
+
+Update the `main` config for that project:
+
+```ts title="shared-storybook/.storybook/main.ts"
+import { createProjectGraphAsync } from "@nx/devkit";
+import type { StorybookConfig } from "@storybook/your-framework";
+
+const projectGraph = await createProjectGraphAsync();
+
+const projectsWithChromaticTarget = Object.values(projectGraph.nodes).filter(
+  (node) =>
+    node.data.name !== "shared-storybook" && node.data.targets?.chromatic,
+);
+
+const config: StorybookConfig = {
+  refs: projectsWithChromaticTarget.reduce((acc, project) => {
+    const chromaticProjectId =
+      project.data.targets?.chromatic?.metadata?.projectId;
+
+    if (!chromaticProjectId) {
+      throw new Error(
+        `Project "${project.name}" has a Chromatic target but no projectId.`,
+      );
+    }
+
+    acc[project.name] = {
+      title: project.data.name,
+      url: `https://main--${chromaticProjectId}.chromatic.com/`,
+      expanded: true,
+    };
+
+    return acc;
+  }, {}),
+};
+
+export default config;
+```
+
+This config:
+
+- Reads the project graph at build time.
+- Includes a ref for every project with a Chromatic target (except for your shared Storybook).
+- Shows each project's Storybook within a single, composed Storybook.
+- Assumes `main` for your default branch (can update the URL if you use a different default).
+
+Once you've set up the project in Chromatic for your shared Storybook and published your first build, you can disable UI tests to make the project publish-only. Include a step in your CI workflow to publish your shared Storybook as needed.
+
+<div class="aside">
+  Note: Chromatic requires at least one "real" story in the composed Storybook
+  to publish it. Add a simple placeholder story if needed.
+</div>
+
+## Configure TurboSnap across your workspace
+
+To use TurboSnap in an Nx project, you'll need to make sure you're passing `webpackStatsJson` as an option for `build-storybook`. You can set this as a default by updating `nx.json` to include the following target default for `build-storybook`:
+
+```json title="nx.json"
+{
+  "targetDefaults": {
+    "build-storybook": {
+      "options": {
+        "webpackStatsJson": true
+      }
+    }
+  }
+}
+```
+
+You'll also want to update `targetDefaults.chromatic.options.commands.command` to include `--only-changed`:
+
+```json title="nx.json"
+{
+  "targetDefaults": {
+    "chromatic": {
+      "executor": "nx:run-commands",
+      "options": {
+        "commands": [
+          {
+            "command": "npx chromatic --exit-zero-on-changes --storybook-build-dir={projectRoot}/storybook-static --storybook-base-dir={projectRoot} --storybook-config-dir={projectRoot}/.storybook --no-interactive --auto-accept-changes=main --only-changed",
+            "description": "Chromatic will automatically build Storybook before running."
+          }
+        ]
+      },
+      "dependsOn": ["build-storybook"],
+      "inputs": [
+        {
+          "externalDependencies": ["chromatic"]
+        }
+      ]
+    }
+  }
+}
+```
+
+The `--only-changed` flag enables TurboSnap, speeding up your UI testing. [Learn more about TurboSnap](/docs/turbosnap).
+
+## Workaround: Updating globals in composed Storybooks
+
+If your composed Storybook isn't updating globals correctly (ex. theme or controls), you can add the following to `manager.ts`:
+
+```ts title="shared-storybook/.storybook/manager.ts"
+import { addons } from "storybook/manager-api";
+
+addons.register("globals-reload", () => {
+  const getGlobals = () =>
+    new URLSearchParams(window.location.search).get("globals");
+
+  let lastGlobals = getGlobals();
+
+  setInterval(() => {
+    const currentGlobals = getGlobals();
+    if (currentGlobals !== lastGlobals) {
+      lastGlobals = currentGlobals;
+      window.location.reload();
+    }
+  }, 250);
+});
+```
+
+This causes the manager UI to reload whenever globals change, resolving the refresh issues in composed refs.

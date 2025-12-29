@@ -1,7 +1,7 @@
 ---
 title: Globs
 description: Learn how to use glob patterns with the Chromatic`, including examples of how to exclude specific files or directories from testing.
-sidebar: { order: 9 }
+sidebar: { order: 10 }
 ---
 
 # Globs
