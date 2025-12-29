@@ -25,9 +25,10 @@ type Props = {
   id: string;
   file?: string;
   headings: MarkdownHeading[];
+  searchMetaType?: 'faq' | 'default' | 'hidden';
 };
 
-const { title, description, id } = Astro.props;
+const { title, description, id, searchMetaType } = Astro.props;
 const { pathname } = Astro.url;
 
 const editUrl = Astro.props.file?.replace(projectRoot, '').replace('src/', '');
@@ -59,7 +60,11 @@ const editUrl = Astro.props.file?.replace(projectRoot, '').replace('src/', '');
           flatNavItems={flattenedNavItems}
         />
         <ContentContainer>
-          <SearchMeta id={id} flattenedNavItems={flattenedNavItems} />
+          <SearchMeta
+            id={id}
+            flattenedNavItems={flattenedNavItems}
+            type={searchMetaType}
+          />
           <slot />
           <EditAndFeedback title={title} editUrl={editUrl} />
         </ContentContainer>

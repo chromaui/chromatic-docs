@@ -41,6 +41,7 @@ const { Content, headings } = await render(FAQ);
   file={FAQ.filePath!}
   id={FAQ.id}
   headings={headings}
+  isIndex
 >
   <Content groupedFAQs={groupedFAQs} headings={headings} />
 </FAQLayout>
