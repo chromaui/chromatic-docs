@@ -1,7 +1,7 @@
 ---
 title: isChromatic
 description: Learn how to control what executes in the Chromatic environment
-sidebar: { order: 8 }
+sidebar: { order: 7 }
 ---
 
 # Check for Chromatic

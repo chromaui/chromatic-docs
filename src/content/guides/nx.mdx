@@ -1,7 +1,7 @@
 ---
 title: Using Chromatic with Nx
 description: Use Nx natively in CI with Chromatic and Storybook
-sidebar: { order: 7 }
+sidebar: { order: 9 }
 ---
 
 # Using Chromatic with Nx
@@ -30,7 +30,7 @@ To make sure Chromatic tests are repeatable and consistent across all projects i
 
 Open your `nx.json` and add the following under `targetDefaults`:
 
-```json
+```json title="nx.json"
 {
   "targetDefaults": {
     "chromatic": {
@@ -70,9 +70,9 @@ If you're not yet using [Nx's Storybook plugin](https://nx.dev/docs/technologies
 nx add @nx/storybook
 ```
 
-Then configure in `nx.json` under `plugins`:
+Then configure Storybook in your `nx.json` under the `plugins` section:
 
-```json
+```json title="nx.json"
 {
   "plugins": [
     {
@@ -94,7 +94,7 @@ This makes Nx detect Storybook config in any project and wire up all common Stor
 
 For each project that you want to test in Chromatic, open its `project.json` and add:
 
-```json
+```json title="project.json"
 {
   "targets": {
     "chromatic": {
@@ -131,11 +131,11 @@ Depending on how your CI is configured with Chromatic, you may need to set the f
 
 ### Nx-native example for GitHub Actions using `--skip`
 
-If you have branch protection rules in place and want to [get a Chromatic PR badge when a project is not affected](/docs/monorepos/#only-run-chromatic-when-changes-occur-in-a-subproject), you'll want to apply the `--skip` flag. You can keep your YAML clean by including a step to build Storybook and publish to Chromatic when projects are affected, and run a bash script when not affected to apply `--skip`. Alternatively, you can include the bash script directly in your YAML if it's preferred.
+If you have branch protection rules in place and want to [get a Chromatic PR badge when a project is not affected](/docs/monorepos#only-run-chromatic-when-changes-occur-in-a-subproject), you'll want to apply the `--skip` flag. You can keep your YAML clean by including a step to build Storybook and publish to Chromatic when projects are affected, and run a bash script when not affected to apply `--skip`. Alternatively, you can include the bash script directly in your YAML if it's preferred.
 
 Let's say we have both `ui-library` and `design-system` projects. Add these steps to your YAML config:
 
-```yaml
+```yaml title=".github/workflows/chromatic.yml"
 - name: Affected
   run: pnpm nx affected -t build-storybook chromatic
 
@@ -147,9 +147,9 @@ Let's say we have both `ui-library` and `design-system` projects. Add these step
     CHROMATIC_PROJECT_TOKEN_DESIGN_SYSTEM: ${{ secrets.CHROMATIC_PROJECT_TOKEN_DESIGN_SYSTEM }}
 ```
 
-Create a bash script under `./tools/skip-unaffected.sh` that contains the following:
+Create the `skip-unaffected.sh` bash script that contains the following:
 
-```sh
+```sh title="./tools/skip-unaffected.sh"
 #! /bin/bash
 set -e
 
@@ -185,7 +185,7 @@ In addition to running tests, you may want [a single Storybook that displays all
 
 Update the `main` config for that project:
 
-```ts
+```ts title="shared-storybook/.storybook/main.ts"
 import { createProjectGraphAsync } from "@nx/devkit";
 import type { StorybookConfig } from "@storybook/your-framework";
 
@@ -238,7 +238,7 @@ Once you've set up the project in Chromatic for your shared Storybook and publis
 
 To use TurboSnap in an Nx project, you'll need to make sure you're passing `webpackStatsJson` as an option for `build-storybook`. You can set this as a default by updating `nx.json` to include the following target default for `build-storybook`:
 
-```json
+```json title="nx.json"
 {
   "targetDefaults": {
     "build-storybook": {
@@ -252,7 +252,7 @@ To use TurboSnap in an Nx project, you'll need to make sure you're passing `webp
 
 You'll also want to update `targetDefaults.chromatic.options.commands.command` to include `--only-changed`:
 
-```json
+```json title="nx.json"
 {
   "targetDefaults": {
     "chromatic": {
@@ -276,13 +276,13 @@ You'll also want to update `targetDefaults.chromatic.options.commands.command` t
 }
 ```
 
-The `--only-changed` flag enables TurboSnap, speeding up your UI testing. [Learn more about TurboSnap](/docs/turbosnap/).
+The `--only-changed` flag enables TurboSnap, speeding up your UI testing. [Learn more about TurboSnap](/docs/turbosnap).
 
 ## Workaround: Updating globals in composed Storybooks
 
 If your composed Storybook isn't updating globals correctly (ex. theme or controls), you can add the following to `manager.ts`:
 
-```ts
+```ts title="shared-storybook/.storybook/manager.ts"
 import { addons } from "storybook/manager-api";
 
 addons.register("globals-reload", () => {
