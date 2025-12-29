@@ -1,18 +1,34 @@
 ---
 import { type TransformedItem } from './Navigation/types';
 
-const { flattenedNavItems, id } = Astro.props;
+const { flattenedNavItems, id, type = 'default' } = Astro.props;
 
 interface Props {
   id: string;
   flattenedNavItems: TransformedItem[];
+  type?: 'default' | 'faq' | 'hidden';
 }
+
+const offsets = {
+  default: 0,
+  faq: 100,
+  hidden: 200,
+};
+
+const offset = offsets[type];
 
 const itemIndex = flattenedNavItems.findIndex((i) => i.id === id);
 const item = flattenedNavItems[itemIndex];
-const breadcrumb = item?.breadcrumb || 'Docs';
+
+const breadcrumbs = {
+  faq: 'FAQs',
+  hidden: 'Miscellaneous',
+  default: item?.breadcrumb || 'Docs',
+};
+const breadcrumb = breadcrumbs[type];
+
 // Order is reversed so that the first item is the most relevant
-const order = -(itemIndex + 1);
+const order = -(itemIndex + 1 + offset);
 ---
 
 <!-- Used as lvl0 prop by algolia which helps categorize the search results  -->

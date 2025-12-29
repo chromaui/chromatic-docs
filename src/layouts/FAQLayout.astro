@@ -9,9 +9,10 @@ interface Props {
   id: string;
   file?: string;
   headings: MarkdownHeading[];
+  isIndex?: boolean;
 }
 
-const { id, title, description, headings, file } = Astro.props;
+const { id, title, description, headings, file, isIndex } = Astro.props;
 ---
 
 <BaseLayout
@@ -20,6 +21,7 @@ const { id, title, description, headings, file } = Astro.props;
   headings={headings}
   file={file}
   id={id}
+  searchMetaType={isIndex ? undefined : 'faq'}
 >
   <p>
     <a class="link primary with-icon" href="/docs/faq">

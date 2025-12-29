@@ -79,6 +79,7 @@ const { Content, headings } = await render(article);
   id={article.id}
   file={article.filePath}
   headings={headings}
+  searchMetaType={article.data.isHidden ? 'hidden' : 'default'}
 >
   <Content />
 </BaseLayout>

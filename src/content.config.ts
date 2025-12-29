@@ -12,6 +12,7 @@ const schema = z.object({
     })
     .optional(),
   isHome: z.boolean().optional(),
+  isHidden: z.boolean().optional(),
 });
 
 const overview = defineCollection({
@@ -128,7 +129,9 @@ const notInNavigation = defineCollection({
     pattern: "**/[^_]*.{md,mdx}",
     base: "./src/content/notInNavigation",
   }),
-  schema,
+  schema: schema.extend({
+    isHidden: z.boolean().optional().default(true),
+  }),
 });
 
 export const collections = {
