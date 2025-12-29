@@ -1,0 +1,21 @@
+---
+sidebar: { hide: true }
+title: How should ref be configured for merge_group and pull_request builds?
+section: turboSnap
+---
+
+# How should `ref` be configured for `merge_group` and `pull_request` builds?
+
+Since [TurboSnap does not support the `pull_request` event](/docs/turbosnap/setup#github-pull_request-triggers), you'll need to make sure the `ref` in your checkout step is updated so Chromatic detects the correct git information. If you are triggering builds with both the `pull_request` and `merge_group` events, you'll want to make sure both `github.event.pull_request.head.ref` and `github.sha` are set as the `ref`. This ensures your `ref` is correct for both events, with `merge_group` falling back to `github.sha`.
+
+Here's an example of the checkout step:
+
+```
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          ref: ${{ github.event.pull_request.head.ref || github.sha }}
+```
+
+It's important to make sure both are set, as `pull_request.head.ref` does not exist for `merge_group` and does not implicitly fall back to `github.sha`.
