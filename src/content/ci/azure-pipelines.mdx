@@ -571,3 +571,48 @@ npx chromatic --skip '@(renovate/**|your-custom-branch/**)'
 ```
 
 [globs guide]: /docs/globs
+
+---
+
+## Troubleshooting
+
+<details>
+<summary>Why don't Azure Pipelines fetch the complete git history even when `fetchDepth: 0` is set?</summary>
+
+Setting `fetchDepth: 0` means "don't apply depth limits to git operations," but **it doesn't ensure the repository isn't already shallow**. The git history may be shallow for the following reasons:
+
+1. **Initial cloning with `--depth=1`** (single commit) occurs regardless of `fetchDepth: 0`. The `fetchDepth` setting applies to subsequent fetches, not the initial clone. This typically happens when using self-hosted agents with workspace reuse.
+
+2. **Cached shallow workspace** – if a previous pipeline used shallow cloning, the cached workspace might already be shallow. New pipelines checking out to the same workspace inherit the shallow state.
+
+3. **Persistent shallow configuration** – the `.git/shallow` file persists in the workspace, and subsequent operations remain limited by it.
+
+**How to resolve this:**
+
+**1. Using `git fetch --unshallow`**
+
+```yaml
+steps:
+  - checkout: self
+    fetchDepth: 0 # Still recommended
+
+  - script: | # Fetch complete history
+      git fetch --unshallow
+    displayName: "Fetch complete history"
+```
+
+**2. Clean workspace strategy**
+
+```yaml
+resources:
+  repositories:
+    - repository: self
+      fetchDepth: 0
+
+jobs:
+  - job: build
+    workspace:
+      clean: all # Forces fresh clone
+```
+
+</details>
