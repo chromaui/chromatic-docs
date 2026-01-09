@@ -27,7 +27,7 @@
     "@astrojs/mdx": "^4.3.0",
     "@astrojs/react": "^4.3.0",
     "@astrojs/sitemap": "^3.4.1",
-    "@chromatic-com/tetra": "^3.2.0",
+    "@chromatic-com/tetra": "^3.2.2",
     "@docsearch/css": "^3.5.2",
     "@emotion/react": "^11.13.3",
     "@emotion/server": "^11.11.0",
