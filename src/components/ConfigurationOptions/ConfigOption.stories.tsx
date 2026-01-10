@@ -1,6 +1,5 @@
 import type { Meta, StoryObj } from "@storybook/react-vite";
 import { ConfigOption } from "./ConfigOption";
-import type { ConfigOptionProps } from "./ConfigOption";
 
 const meta = {
   title: "Components/ConfigOption",
@@ -12,10 +11,10 @@ const meta = {
       </div>
     ),
   ],
-} satisfies Meta<ConfigOptionProps>;
+} satisfies Meta<typeof ConfigOption>;
 
 export default meta;
-type Story = StoryObj<ConfigOptionProps>;
+type Story = StoryObj<typeof meta>;
 
 export const Basic: Story = {
   args: {

@@ -4,7 +4,7 @@ import { within } from "storybook/test";
 
 import { Tooltip } from "./Tooltip";
 
-const meta: Meta<typeof Tooltip> = {
+const meta = {
   title: "Components/Tooltip",
   component: Tooltip,
   parameters: {
@@ -18,9 +18,10 @@ const meta: Meta<typeof Tooltip> = {
       <div style={{ width: "800px", height: "600px" }}>{storyFn()}</div>
     ),
   ],
-};
+} satisfies Meta<typeof Tooltip>;
+
 export default meta;
-type Story = StoryObj<typeof Tooltip>;
+type Story = StoryObj<typeof meta>;
 
 export const Default: Story = {
   args: {

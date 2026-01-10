@@ -1,7 +1,6 @@
 import type { Meta, StoryObj } from "@storybook/react-vite";
 import { screen } from "storybook/test";
 import { FilterableConfigOptions } from "./FilterableConfigOptions";
-import type { FilterableConfigOptionsProps } from "./FilterableConfigOptions";
 import type { ConfigOption as ConfigOptionType } from "../../../chromatic-config/generate-schema";
 
 const meta = {
@@ -14,10 +13,10 @@ const meta = {
       </div>
     ),
   ],
-} satisfies Meta<FilterableConfigOptionsProps>;
+} satisfies Meta<typeof FilterableConfigOptions>;
 
 export default meta;
-type Story = StoryObj<FilterableConfigOptionsProps>;
+type Story = StoryObj<typeof meta>;
 
 const mockOptions = [
   {
