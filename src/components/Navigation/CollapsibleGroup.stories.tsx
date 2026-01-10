@@ -9,7 +9,7 @@ const meta = {
 } satisfies Meta<typeof CollapsibleGroup>;
 
 export default meta;
-type Story = StoryObj<typeof CollapsibleGroup>;
+type Story = StoryObj<typeof meta>;
 
 export const mockGroupOverview: TransformedNavGroup = {
   title: "Overview",
@@ -174,62 +174,65 @@ export const mockGroupWithMultiLevelNested: TransformedNavGroup = {
   items: mockGroupStorybook.items.concat(TSInModes),
 };
 
-export const Default = {
+export const Default: Story = {
   args: {
+    url: "",
     group: mockGroupOverview,
   },
-} satisfies Story;
+};
 
-export const DefaultOpen = {
+export const DefaultOpen: Story = {
   args: {
+    ...Default.args,
     group: { ...mockGroupOverview, defaultOpen: true },
   },
-} satisfies Story;
+};
 
-export const WithActiveUrl = {
+export const WithActiveUrl: Story = {
   args: {
     url: "/docs/test",
     group: { ...mockGroupOverview, defaultOpen: true },
   },
-} satisfies Story;
+};
 
-export const WithActiveUrlInClosedGroup = {
+export const WithActiveUrlInClosedGroup: Story = {
   args: {
     url: "/docs/storybook",
     group: mockGroupStorybook,
   },
-} satisfies Story;
+};
 
-export const Timeline = {
+export const Timeline: Story = {
   args: {
     url: "/docs/test",
     group: { ...mockGroupOverview, defaultOpen: true, timeline: true },
   },
-} satisfies Story;
+};
 
-export const Nested = {
+export const Nested: Story = {
   args: {
+    ...Default.args,
     group: { ...mockGroupWithNested, defaultOpen: true },
   },
-} satisfies Story;
+};
 
-export const NestedActive = {
+export const NestedActive: Story = {
   args: {
     group: Nested.args.group,
     url: "/docs/storybook",
   },
-} satisfies Story;
+};
 
-export const NestedDeepActive = {
+export const NestedDeepActive: Story = {
   args: {
     group: Nested.args.group,
     url: "/docs/themes",
   },
-} satisfies Story;
+};
 
-export const MultiLevelNesting = {
+export const MultiLevelNesting: Story = {
   args: {
     group: mockGroupWithMultiLevelNested,
     url: "/docs/turbosnap/setup",
   },
-} satisfies Story;
+};

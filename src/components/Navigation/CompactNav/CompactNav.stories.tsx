@@ -18,12 +18,13 @@ const meta = {
 } satisfies Meta<typeof CompactNav>;
 
 export default meta;
-type Story = StoryObj<typeof CompactNav>;
+type Story = StoryObj<typeof meta>;
 
 export const Collapsed = {
   args: {
     groups: [mockGroupOverview, mockGroupStorybook],
     activeItem: mockGroupOverview.items[0] as TransformedItem,
+    url: "",
   },
 } satisfies Story;
 
