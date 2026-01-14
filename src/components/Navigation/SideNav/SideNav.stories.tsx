@@ -13,24 +13,26 @@ const meta = {
 } satisfies Meta<typeof SideNav>;
 
 export default meta;
-type Story = StoryObj<typeof SideNav>;
+type Story = StoryObj<typeof meta>;
 
-export const Default = {
+export const Default: Story = {
   args: {
     sidebarGroups: [mockGroupOverview, mockGroupStorybook],
+    url: "",
   },
-} satisfies Story;
+};
 
-export const DefaultOpen = {
+export const DefaultOpen: Story = {
   args: {
+    ...Default.args,
     sidebarGroups: [
       { ...mockGroupOverview, defaultOpen: true },
       mockGroupStorybook,
     ],
   },
-} satisfies Story;
+};
 
-export const WithActiveUrl = {
+export const WithActiveUrl: Story = {
   args: {
     url: "/docs/test",
     sidebarGroups: [
@@ -38,9 +40,9 @@ export const WithActiveUrl = {
       mockGroupStorybook,
     ],
   },
-} satisfies Story;
+};
 
-export const WithActiveUrlInClosedGroup = {
+export const WithActiveUrlInClosedGroup: Story = {
   args: {
     url: "/docs/storybook",
     sidebarGroups: [
@@ -48,9 +50,9 @@ export const WithActiveUrlInClosedGroup = {
       mockGroupStorybook,
     ],
   },
-} satisfies Story;
+};
 
-export const Timeline = {
+export const Timeline: Story = {
   args: {
     url: "/docs/test",
     sidebarGroups: [
@@ -58,34 +60,35 @@ export const Timeline = {
       mockGroupStorybook,
     ],
   },
-} satisfies Story;
+};
 
-export const Nested = {
+export const Nested: Story = {
   args: {
+    ...Default.args,
     sidebarGroups: [
       { ...mockGroupOverview, defaultOpen: true },
       mockGroupWithNested,
     ],
   },
-} satisfies Story;
+};
 
-export const NestedActive = {
+export const NestedActive: Story = {
   args: {
     sidebarGroups: Nested.args.sidebarGroups,
     url: "/docs/storybook",
   },
-} satisfies Story;
+};
 
-export const NestedDeepActive = {
+export const NestedDeepActive: Story = {
   args: {
     sidebarGroups: Nested.args.sidebarGroups,
     url: "/docs/themes",
   },
-} satisfies Story;
+};
 
-export const MultiLevelNesting = {
+export const MultiLevelNesting: Story = {
   args: {
     sidebarGroups: [mockGroupOverview, mockGroupWithMultiLevelNested],
     url: "/docs/turbosnap/setup",
   },
-} satisfies Story;
+};

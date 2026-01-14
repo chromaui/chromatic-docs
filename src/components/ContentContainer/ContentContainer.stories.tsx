@@ -9,7 +9,7 @@ const meta = {
 } satisfies Meta<typeof ContentContainer>;
 
 export default meta;
-type Story = StoryObj<typeof ContentContainer>;
+type Story = StoryObj<typeof meta>;
 
 const Heading = ({
   level = 2,
