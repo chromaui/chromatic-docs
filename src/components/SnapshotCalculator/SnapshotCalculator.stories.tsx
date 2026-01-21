@@ -5,7 +5,6 @@ import { SnapshotCalculator } from "./SnapshotCalculator";
 const meta = {
   title: "Components/SnapshotCalculator",
   component: SnapshotCalculator,
-  tags: ["!test"], // Disables testing for this story until https://github.com/storybook-community/addon-queryparams/pull/15 is merged and released
 } satisfies Meta<typeof SnapshotCalculator>;
 
 export default meta;
