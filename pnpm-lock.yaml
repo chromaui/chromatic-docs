@@ -133,8 +133,8 @@ importers:
         specifier: ^10.1.11
         version: 10.1.11(react@18.2.0)(storybook@10.1.11(@testing-library/dom@10.1.0)(prettier@3.2.5)(react-dom@18.2.0(react@18.2.0))(react@18.2.0))
       '@storybook/addon-queryparams':
-        specifier: ^9.0.1
-        version: 9.0.1(storybook@10.1.11(@testing-library/dom@10.1.0)(prettier@3.2.5)(react-dom@18.2.0(react@18.2.0))(react@18.2.0))
+        specifier: ^10.0.0
+        version: 10.0.0(storybook@10.1.11(@testing-library/dom@10.1.0)(prettier@3.2.5)(react-dom@18.2.0(react@18.2.0))(react@18.2.0))
       '@storybook/addon-vitest':
         specifier: ^10.1.11
         version: 10.1.11(@vitest/browser-playwright@4.0.16)(@vitest/browser@4.0.16(vite@6.3.5(@types/node@22.13.11))(vitest@4.0.16))(@vitest/runner@4.0.16)(react-dom@18.2.0(react@18.2.0))(react@18.2.0)(storybook@10.1.11(@testing-library/dom@10.1.0)(prettier@3.2.5)(react-dom@18.2.0(react@18.2.0))(react@18.2.0))(vitest@4.0.16)
@@ -2051,10 +2051,10 @@ packages:
       react:
         optional: true
 
-  '@storybook/addon-queryparams@9.0.1':
-    resolution: {integrity: sha512-sHulGkBln3hcsdxZITn7RduY2c2EjzlsJ4WGmINeZH+HXY23j5kc2+yhmJgkOHlT9RhPaOkkCUK/YTcrgAaPOQ==}
+  '@storybook/addon-queryparams@10.0.0':
+    resolution: {integrity: sha512-GUWeh2+ZdX3iDZTDDnWwaggLgS0BvJ8kVytd10PvYq8ZXClCnw+e0Gy7WKG8BYssBp5EHmzGb4PRfkkhKI8Hrw==}
     peerDependencies:
-      storybook: ^9.0.0
+      storybook: ^10
 
   '@storybook/addon-vitest@10.1.11':
     resolution: {integrity: sha512-YbZzeKO3v+Xr97/malT4DZIATkVZT5EHNYx3xzEfPVuk19dDETAVYXO+tzcqCQHsgdKQHkmd56vv8nN3J3/kvw==}
@@ -7278,7 +7278,7 @@ snapshots:
     optionalDependencies:
       react: 18.2.0
 
-  '@storybook/addon-queryparams@9.0.1(storybook@10.1.11(@testing-library/dom@10.1.0)(prettier@3.2.5)(react-dom@18.2.0(react@18.2.0))(react@18.2.0))':
+  '@storybook/addon-queryparams@10.0.0(storybook@10.1.11(@testing-library/dom@10.1.0)(prettier@3.2.5)(react-dom@18.2.0(react@18.2.0))(react@18.2.0))':
     dependencies:
       storybook: 10.1.11(@testing-library/dom@10.1.0)(prettier@3.2.5)(react-dom@18.2.0(react@18.2.0))(react@18.2.0)
 

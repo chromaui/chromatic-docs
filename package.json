@@ -68,7 +68,7 @@
     "@storybook/addon-a11y": "^10.1.11",
     "@storybook/addon-docs": "^10.1.11",
     "@storybook/addon-links": "^10.1.11",
-    "@storybook/addon-queryparams": "^9.0.1",
+    "@storybook/addon-queryparams": "^10.0.0",
     "@storybook/addon-vitest": "^10.1.11",
     "@storybook/react-vite": "^10.1.11",
     "@vitest/browser-playwright": "^4.0.16",
