@@ -46,7 +46,7 @@
   },
   {
     "option": "configFile",
-    "flag": "--config.json",
+    "flag": "--config-file",
     "restriction": "Node.js API only",
     "description": "Path from where to load the Chromatic config JSON file.",
     "type": "string",
@@ -57,7 +57,7 @@
   {
     "option": "debug",
     "flag": "--debug",
-    "description": "Output verbose debugging information. This option implies `interactive: false`",
+    "description": "Output verbose debugging information. This option sets interactivity to false, preventing the CLI from prompting for user input and returning only message strings.",
     "type": "boolean",
     "example": "`true`",
     "default": false,
@@ -125,9 +125,9 @@
     "supports": ["CLI", "GitHub Action", "Config File"]
   },
   {
-    "option": "interactive: false",
+    "option": "interactive",
     "flag": "--no-interactive",
-    "description": "Don't ask interactive questions about your setup, and don't overwrite output. `true` in non-TTY environments.",
+    "description": "When set to false, it prompts the CLI not to ask interactive questions about your setup, and it doesn't overwrite output. It's set to `true` in non-TTY environments.",
     "type": "boolean",
     "example": "`false`",
     "defaultComment": "Inferred from TTY",
