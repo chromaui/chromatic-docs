@@ -246,7 +246,7 @@ npx rspack --json stats.json
 <summary>How to generate the `preview-stats.json` file for an Angular project?</summary>
 
 When using Angular with Storybook, directly passing a CLI flag will not generate the `preview-stats.json` file.
-You must configure the Storybook builder directly within your [`angular.json` file](https://storybook.js.org/docs/get-started/frameworks/angular#how-do-i-configure-angulars-builder-for-storybook) by adding `"statsJson": true`.
+You must configure the Storybook builder directly within your [`angular.json` file](https://storybook.js.org/docs/get-started/frameworks/angular#how-do-i-configure-angulars-builder-for-storybook) by adding `"webpackStatsJson": true`.
 
 ```json title="angular.json"
 {
@@ -260,7 +260,7 @@ You must configure the Storybook builder directly within your [`angular.json` fi
             "configDir": ".storybook",
             "browserTarget": "your-project-name:build",
             "compodoc": false,
-            "statsJson": true
+            "webpackStatsJson": true
           }
         }
       }
