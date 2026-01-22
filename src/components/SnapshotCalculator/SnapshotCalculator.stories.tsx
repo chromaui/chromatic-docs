@@ -8,11 +8,11 @@ const meta = {
 } satisfies Meta<typeof SnapshotCalculator>;
 
 export default meta;
-type Story = StoryObj<typeof SnapshotCalculator>;
+type Story = StoryObj<typeof meta>;
 
-export const Base = {} satisfies Story;
+export const Base: Story = {};
 
-export const WithQueryParams = {
+export const WithQueryParams: Story = {
   parameters: {
     query: {
       tests: "47",
@@ -24,23 +24,23 @@ export const WithQueryParams = {
       changedTestsPercentage: "18",
     },
   },
-} satisfies Story;
+};
 
-export const AccessibilityEnabled = {
+export const AccessibilityEnabled: Story = {
   play: async ({ canvas, userEvent }) => {
     const checkbox = await canvas.findByLabelText("Accessibility tests");
     await userEvent.click(checkbox);
   },
-} satisfies Story;
+};
 
-export const TurbosnapEnabled = {
+export const TurbosnapEnabled: Story = {
   play: async ({ canvas, userEvent }) => {
     const checkbox = await canvas.findByLabelText("Enabled");
     await userEvent.click(checkbox);
   },
-} satisfies Story;
+};
 
-export const AccessibilityAndTurbosnapEnabled = {
+export const AccessibilityAndTurbosnapEnabled: Story = {
   play: async ({ canvas, userEvent }) => {
     const tsCheckbox = await canvas.findByLabelText("Enabled");
     await userEvent.click(tsCheckbox);
@@ -48,9 +48,9 @@ export const AccessibilityAndTurbosnapEnabled = {
 
     await userEvent.click(a11yCheckbox);
   },
-} satisfies Story;
+};
 
-export const VerifyMath = {
+export const VerifyMath: Story = {
   parameters: {
     query: {
       tests: "50",
@@ -71,4 +71,4 @@ export const VerifyMath = {
     expect(turboSnaps).toHaveTextContent("160TurboSnaps");
     expect(billedSnapshots).toHaveTextContent("92Billed snapshots");
   },
-} satisfies Story;
+};
