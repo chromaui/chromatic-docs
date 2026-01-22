@@ -46,7 +46,7 @@
   },
   {
     "option": "configFile",
-    "flag": "--config.json",
+    "flag": "--config-file",
     "restriction": "Node.js API only",
     "description": "Path from where to load the Chromatic config JSON file.",
     "type": "string",
