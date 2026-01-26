@@ -19,7 +19,7 @@ To integrate Chromatic with your existing pipeline, you'll need to add the follo
 <IntegrationSnippets>
   <Fragment slot="storybook">
     ```yml title="bitbucket-pipelines.yml"
-    image: node:jod
+    image: node:krypton
 
     definitions:
       caches:
@@ -43,7 +43,7 @@ To integrate Chromatic with your existing pipeline, you'll need to add the follo
   </Fragment>
   <Fragment slot="playwright">
     ```yml title="bitbucket-pipelines.yml"
-    image: node:jod
+    image: node:krypton
 
     definitions:
       caches:
@@ -56,7 +56,7 @@ To integrate Chromatic with your existing pipeline, you'll need to add the follo
             steps:
               - step:
                   name: "Playwright"
-                  image: mcr.microsoft.com/playwright:v1.56.0-noble
+                  image: mcr.microsoft.com/playwright:v1.58.0-noble
                   caches:
                     - npm
                     - node
@@ -80,7 +80,7 @@ To integrate Chromatic with your existing pipeline, you'll need to add the follo
   </Fragment>
   <Fragment slot="cypress">
     ```yml title="bitbucket-pipelines.yml"
-    image: node:jod
+    image: node:krypton
 
     definitions:
       caches:
@@ -95,7 +95,7 @@ To integrate Chromatic with your existing pipeline, you'll need to add the follo
               - step:
                 name: "Cypress"
                 # Configure the ELECTRON_EXTRA_LAUNCH_ARGS environment variable in your project settings to run Cypress tests with Chromatic.
-                image: cypress/browsers:node-22.20.0-chrome-141.0.7390.54-1-ff-143.0.4-edge-141.0.3537.57-1
+                image: cypress/browsers:node-24.13.0-chrome-143.0.7499.192-1-ff-147.0-edge-143.0.3650.139-1
                 caches:
                   - npm
                   - node

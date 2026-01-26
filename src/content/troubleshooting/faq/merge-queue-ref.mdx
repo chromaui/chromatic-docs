@@ -10,12 +10,12 @@ Since [TurboSnap does not support the `pull_request` event](/docs/turbosnap/setu
 
 Here's an example of the checkout step:
 
-```
-    steps:
-      - uses: actions/checkout@v4
-        with:
-          fetch-depth: 0
-          ref: ${{ github.event.pull_request.head.ref || github.sha }}
+```yml title=".github/workflows/chromatic.yml"
+steps:
+  - uses: actions/checkout@v5
+    with:
+      fetch-depth: 0
+      ref: ${{ github.event.pull_request.head.ref || github.sha }}
 ```
 
 It's important to make sure both are set, as `pull_request.head.ref` does not exist for `merge_group` and does not implicitly fall back to `github.sha`.

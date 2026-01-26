@@ -73,7 +73,7 @@ We recommend running Chromatic on `push` events. However, if you wish to trigger
 Create a separate workflow for Chromatic using the following strategy for the checkout step:
 
 ```yaml
-- uses: actions/checkout@v4
+- uses: actions/checkout@v5
   with:
     # 👇 Ensures Chromatic can read your full git history
     fetch-depth: 0

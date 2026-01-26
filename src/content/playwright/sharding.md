@@ -26,14 +26,14 @@ jobs:
         shard: [1, 2]
     runs-on: ubuntu-latest
     container:
-      image: mcr.microsoft.com/playwright:v1.56.0-noble
+      image: mcr.microsoft.com/playwright:v1.58.0-noble
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v5
         with:
           fetch-depth: 0
-      - uses: actions/setup-node@v4
+      - uses: actions/setup-node@v6
         with:
-          node-version: 22.20.0
+          node-version: 24.13.0
       - name: Install dependencies
         run: npm ci
       - name: Run Playwright tests
@@ -52,12 +52,12 @@ jobs:
     needs: playwright
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v5
         with:
           fetch-depth: 0
-      - uses: actions/setup-node@v4
+      - uses: actions/setup-node@v6
         with:
-          node-version: 22.20.0
+          node-version: 24.13.0
       - name: Install dependencies
         run: npm ci
 
@@ -80,7 +80,7 @@ jobs:
 To run Playwright tests in parallel across shared CI jobs in GitLab, you can use the [`parallel`](https://docs.gitlab.com/ee/ci/yaml/index.html#parallel) option in your GitLab CI workflow. The job will be split into multiple smaller jobs running in parallel sequentially named based on the values of the environment variables. The results will be saved as an artifact and accessible by the Chromatic job when it runs.
 
 ```yaml title=".gitlab-ci.yml"
-image: node:jod
+image: node:krypton
 
 stages:
   - UI_Tests
@@ -96,7 +96,7 @@ before_script:
 Playwright:
   stage: UI_Tests
   needs: []
-  image: mcr.microsoft.com/playwright:v1.56.0-noble
+  image: mcr.microsoft.com/playwright:v1.58.0-noble
   parallel: 2
   script:
     - npx playwright test --shard=$CI_NODE_INDEX/$CI_NODE_TOTAL
@@ -122,10 +122,10 @@ version: 2.1
 executors:
   pw-noble-development:
     docker:
-      - image: mcr.microsoft.com/playwright:v1.56.0-noble
+      - image: mcr.microsoft.com/playwright:v1.58.0-noble
   chromatic-ui-testing:
     docker:
-      - image: cimg/node:22.20.0
+      - image: cimg/node:24.13.0
 
 jobs:
   Playwright:
@@ -200,7 +200,7 @@ pipeline {
         stage('Shard #1') {
           agent {
             docker {
-              image 'mcr.microsoft.com/playwright:v1.56.0-noble'
+              image 'mcr.microsoft.com/playwright:v1.58.0-noble'
               reuseNode true
             }
           }
@@ -220,7 +220,7 @@ pipeline {
         stage('Shard #2') {
           agent {
             docker {
-              image 'mcr.microsoft.com/playwright:v1.56.0-noble'
+              image 'mcr.microsoft.com/playwright:v1.58.0-noble'
               reuseNode true
             }
           }
@@ -253,7 +253,7 @@ pipeline {
 
 ## Semaphore
 
-To run Playwright tests in parallel across shared CI jobs in Semaphore, you can use the [`parallelism`](https://docs.semaphoreci.com/reference/pipeline-yaml#parallelism-in-jobs) option in your workflow. The job will be split into multiple smaller jobs running in parallel sequentially named based on the values of the environment variables. The results will be saved as an artifact and accessible by the Chromatic job when it runs.
+To run Playwright tests in parallel across shared CI jobs in Semaphore, you can use the [`parallelism`](https://docs.semaphore.io/reference/pipeline-yaml#parallelism-in-jobs) option in your workflow. The job will be split into multiple smaller jobs running in parallel sequentially named based on the values of the environment variables. The results will be saved as an artifact and accessible by the Chromatic job when it runs.
 
 ```yml title=".semaphore/semaphore.yml"
 version: v1.0
@@ -261,7 +261,7 @@ name: UI Tests
 agent:
   machine:
     type: e2-standard-2
-    os_image: ubuntu2204
+    os_image: ubuntu2404
 
 global_job_config:
   prologue:
@@ -275,10 +275,10 @@ blocks:
       agent:
         machine:
           type: e2-standard-2
-          os_image: ubuntu2204
+          os_image: ubuntu2404
         containers:
           - name: Plawyright
-            image: mcr.microsoft.com/playwright:v1.56.0-noble
+            image: mcr.microsoft.com/playwright:v1.58.0-noble
       jobs:
         - name: Run Playwright
           commands:
@@ -312,12 +312,12 @@ blocks:
 If you’re using a different CI provider, you’ll need to adapt your workflow to run Playwright tests in parallel across shared CI jobs and enable Chromatic to run after all instances have finished. Here’s an example of how you might do this in a generic CI provider.
 
 ```yml title="your-workflow.yml"
-image: node:jod
+image: node:krypton
 
 - run:
     name: "Playwright"
     displayName: "Run Playwright tests"
-    container: mcr.microsoft.com/playwright:v1.56.0-noble
+    container: mcr.microsoft.com/playwright:v1.58.0-noble
     options:
       parallel: 2
       artifacts:
