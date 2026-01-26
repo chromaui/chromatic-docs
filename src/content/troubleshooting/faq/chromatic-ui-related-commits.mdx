@@ -20,7 +20,7 @@ Here are some common approaches:
 
 Here's an example of how you might implement the branch naming convention strategy:
 
-```yaml
+```yml title=".github/workflows/chromatic.yml"
 jobs:
   chromatic_test:
     # This condition checks the branch name before starting the job
@@ -32,18 +32,16 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v4
+        uses: actions/checkout@v5
         with:
           fetch-depth: 0
-
       - name: Install Node.js
-        uses: actions/setup-node@v4
+        uses: actions/setup-node@v6
         with:
-          node-version: "20"
-
+          node-version: 24.13.0
       - name: Install dependencies
-        run: npm install
-
+          # ⚠️ See your package manager's documentation for the correct command to install dependencies in a CI environment.
+        run: npm ci
       - name: Publish to Chromatic
         uses: chromaui/action@latest
         with:

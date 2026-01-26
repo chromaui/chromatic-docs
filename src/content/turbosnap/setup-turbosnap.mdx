@@ -38,7 +38,7 @@ It will build and test stories that may have been affected by the Git changes si
 
 To enable TurboSnap for your project, add the `--only-changed` flag to your `chromatic` script, or add the `onlyChanged: true` option to your GitHub workflow config.
 
-```json
+```json title="package.json"
 {
   "scripts": {
     "chromatic": "chromatic --only-changed"
@@ -48,11 +48,11 @@ To enable TurboSnap for your project, add the `--only-changed` flag to your `chr
 
 Or for GitHub Actions:
 
-```yaml
+```yaml title=".github/workflows/chromatic.yml"
 steps:
   # ...
   - name: Run Chromatic
-    uses: chromaui/action@v1
+    uses: chromaui/action@latest
     with:
       projectToken: ${{ secrets.CHROMATIC_PROJECT_TOKEN }}
       onlyChanged: true
@@ -60,7 +60,7 @@ steps:
 
 TurboSnap can also be enabled through your `chromatic.config.json` file:
 
-```json
+```json title="chromatic.config.json"
 {
   "$schema": "https://www.chromatic.com/config-file.schema.json",
   "projectId": "Project:...",
@@ -86,7 +86,7 @@ The TurboSnap Helper utility is designed to assist with properly configuring Tur
 
 Run the utility from the root of your repo using:
 
-```sh
+```shell
 npx @chromatic-com/turbosnap-helper
 ```
 
@@ -162,7 +162,7 @@ A few common scenarios require additional configuration.
 
 If you're using `--storybook-build-dir` to provide a prebuilt Storybook, adjust your `build-storybook` script to include the `--stats-json` option (or `--webpack-stats-json` option for projects that haven't migrated to Storybook 8+). If Chromatic builds your Storybook for you, this is unnecessary, and will take care of it. For example:
 
-```json
+```json title="package.json"
 {
   "scripts": {
     "build-storybook": "build-storybook --stats-json"
@@ -188,7 +188,7 @@ You can add an explicit verification step to your CI pipeline to fail the entire
 
 To achieve this, build Storybook in a previous step and place the script below before the Chromatic command:
 
-```yml
+```yml title="chromatic-ci.yml"
 STATS_FILE="storybook-static/preview-stats.json" # Adjust the path
 
 if; then
@@ -236,7 +236,7 @@ export default {
 
 If you are using Rspack CLI, you can use the `--json` flag to output the stats file.
 
-```Bash
+```shell
 npx rspack --json stats.json
 ```
 
@@ -306,9 +306,7 @@ Globs not working as you expected? Verify your pattern using this [picomatch-pla
 
 If you've set up TurboSnap with Chromatic's [GitHub action](/docs/github-actions#enable-turbosnap), you can extend your existing workflow and provide the `externals` option as follows:
 
-```yml
-# .github/workflows/chromatic.yml
-
+```yml title=".github/workflows/chromatic.yml"
 # Other necessary configuration
 
 jobs:
@@ -316,7 +314,7 @@ jobs:
     steps:
       # 👇 Adds Chromatic as a step in the workflow
       - name: Run Chromatic
-        uses: chromaui/action@v1
+        uses: chromaui/action@latest
         # Options required to the GitHub chromatic action
         with:
           # 👇 Chromatic projectToken, refer to the manage page to obtain it.

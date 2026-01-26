@@ -26,7 +26,7 @@ To integrate Chromatic with your existing workflow, you'll need to add the follo
     agent:
       machine:
         type: e2-standard-2
-        os_image: ubuntu2204
+        os_image: ubuntu2404
 
     global_job_config:
       prologue:
@@ -56,7 +56,7 @@ To integrate Chromatic with your existing workflow, you'll need to add the follo
     agent:
       machine:
         type: e2-standard-2
-        os_image: ubuntu2204
+        os_image: ubuntu2404
 
     global_job_config:
       prologue:
@@ -70,10 +70,10 @@ To integrate Chromatic with your existing workflow, you'll need to add the follo
           agent:
             machine:
               type: e2-standard-2
-              os_image: ubuntu2204
+              os_image: ubuntu2404
             containers:
               - name: Plawyright
-                image: mcr.microsoft.com/playwright:v1.56.0-noble
+                image: mcr.microsoft.com/playwright:v1.58.0-noble
           jobs:
             - name: Run Playwright
               commands:
@@ -116,7 +116,7 @@ To integrate Chromatic with your existing workflow, you'll need to add the follo
     agent:
       machine:
         type: e2-standard-2
-        os_image: ubuntu2204
+        os_image: ubuntu2404
 
     global_job_config:
       prologue:
@@ -173,7 +173,7 @@ To integrate Chromatic with your existing workflow, you'll need to add the follo
 
 <div class="aside">
 
-We recommend saving the project token as an secret named `CHROMATIC_PROJECT_TOKEN` for security reasons. When the Chromatic CLI is executed, it will read the value automatically without any additional flags. Refer to the official Semaphore [secrets documentation](https://docs.semaphoreci.com/using-semaphore/secrets) to learn more about it.
+We recommend saving the project token as an secret named `CHROMATIC_PROJECT_TOKEN` for security reasons. When the Chromatic CLI is executed, it will read the value automatically without any additional flags. Refer to the official Semaphore [secrets documentation](https://docs.semaphore.io/using-semaphore/secrets) to learn more about it.
 
 </div>
 
@@ -200,7 +200,7 @@ blocks:
 
 <div class="aside">
 
-Read the official Semaphore [conditional job execution documentation](https://docs.semaphoreci.com/using-semaphore/jobs#skip-run).
+Read the official Semaphore [conditional job execution documentation](https://docs.semaphore.io/using-semaphore/jobs#skip-run).
 
 </div>
 
@@ -363,7 +363,7 @@ blocks:
 
 <div class="aside">
 
-Read the official Semaphore [monorepo documentation](https://docs.semaphoreci.com/using-semaphore/monorepo) to learn more about configuring your workflow.
+Read the official Semaphore [monorepo documentation](https://docs.semaphore.io/using-semaphore/monorepo) to learn more about configuring your workflow.
 
 </div>
 
@@ -397,7 +397,7 @@ TurboSnap is highly customizable and can be configured to fit your requirements.
 
 ### External Pull Requests
 
-By default, Semaphore allows external pull requests to run on your workflow. If you want to restrict this behavior, refer to the official Semaphore [documentation](https://docs.semaphoreci.com/using-semaphore/workflows#pr) to learn more about it.
+By default, Semaphore allows external pull requests to run on your workflow. If you want to restrict this behavior, refer to the official Semaphore [documentation](https://docs.semaphore.io/using-semaphore/workflows#pr) to learn more about it.
 
 ### UI Test and UI Review
 

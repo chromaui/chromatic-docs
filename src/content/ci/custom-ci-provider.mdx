@@ -19,7 +19,7 @@ To integrate Chromatic with your existing CI provider, you'll need to add the fo
 <IntegrationSnippets>
   <Fragment slot="storybook">
     ```yml title="your-workflow.yml"
-    image: node:jod
+    image: node:krypton
 
     - run:
         # ⚠️ See your package manager's documentation for the correct command to install dependencies in a CI environment.
@@ -33,7 +33,7 @@ To integrate Chromatic with your existing CI provider, you'll need to add the fo
   </Fragment>
   <Fragment slot="playwright">
     ```yml title="your-workflow.yml"
-    image: node:jod
+    image: node:krypton
 
     - run:
         # ⚠️ See your package manager's documentation for the correct command to install dependencies in a CI environment.
@@ -41,7 +41,7 @@ To integrate Chromatic with your existing CI provider, you'll need to add the fo
     - run:
         name: "Playwright"
         displayName: "Run Playwright tests"
-        container: mcr.microsoft.com/playwright:v1.56.0-noble
+        container: mcr.microsoft.com/playwright:v1.58.0-noble
         options:
           artifacts:
             # Chromatic automatically defaults to the test-results directory.
@@ -59,7 +59,7 @@ To integrate Chromatic with your existing CI provider, you'll need to add the fo
 </Fragment>
 <Fragment slot="cypress">
     ```yml title="your-workflow.yml"
-    image: node:jod
+    image: node:krypton
 
     - run:
         # ⚠️ See your package manager's documentation for the correct command to install dependencies in a CI environment.
@@ -67,7 +67,7 @@ To integrate Chromatic with your existing CI provider, you'll need to add the fo
     - run:
         name: "Cypress"
         displayName: "Run Cypress tests"
-        container: cypress/browsers:node-22.20.0-chrome-141.0.7390.54-1-ff-143.0.4-edge-141.0.3537.57-1
+        container: cypress/browsers:node-24.13.0-chrome-143.0.7499.192-1-ff-147.0-edge-143.0.3650.139-1
         environment:
           ELECTRON_EXTRA_LAUNCH_ARGS: "--remote-debugging-port=9222"
         options:

@@ -11,8 +11,8 @@ You can prevent Chromatic from running on draft pull requests by adding a condit
 
 Here's an example of how you might achieve that:
 
-```yaml
-name: 'Chromatic'
+```yml title=".github/workflows/chromatic.yml"
+name: "Chromatic"
 
 # Event for the workflow
 on:
@@ -20,6 +20,8 @@ on:
     branches:
       - main
   pull_request:
+    # Triggers the workflow on pull requests targeting the specified branches and events
+    # See https://docs.github.com/en/actions/reference/workflows-and-actions/events-that-trigger-workflows#pull_request
 
 # List of jobs
 jobs:
@@ -28,24 +30,22 @@ jobs:
     runs-on: ubuntu-latest
     # Job steps
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v5
         with:
-	  # 👇 Makes sure Chromatic can review the full git history
+          # 👇 Makes sure Chromatic can review the full git history
           fetch-depth: 0
           # 👇 Tells the checkout which commit hash to reference
           ref: ${{ github.event.pull_request.head.ref }}
-      - uses: actions/setup-node@v4
+      - uses: actions/setup-node@v6
         with:
-          node-version: 23.3.0
+          node-version: 24.13.0
       # 👇 Install dependencies with the same package manager used in the project (replace it as needed), e.g. yarn, npm, pnpm
       - name: Install dependencies
         run: npm ci
-
-      # If you're building your SB in a separate step, you can include it below;
-      # make sure to include --webpack-stats in build-storybook script:
+        # If you're building your SB in a separate step, you can include it below;
+        # make sure to include --webpack-stats in build-storybook script:
       - name: Build Storybook
         run: npm run build-storybook
-
       # 👇 Adds Chromatic as a step in the workflow
       - name: Publish to Chromatic
         uses: chromaui/action@latest
@@ -55,12 +55,12 @@ jobs:
           # 👇 Enable TurboSnap:
           onlyChanged: true
           # 👇 Add debug: true and print dependency trace for changed files to help with debugging:
-          traceChanged: 'expanded'
-	  debug: true
+          traceChanged: "expanded"
+          debug: true
           exitZeroOnChanges: true # Alternatively, can use exitOnceUploaded
-          autoAcceptChanges: 'main'
-	  # If you're letting Chromatic build your SB, you can skip storybookBuildDir.
-          # 👇 Since we're building in a separate step, this tells us where the build is:
+          autoAcceptChanges: "main"
+          # 👇 If you're letting Chromatic build your SB, you can skip storybookBuildDir.
+          #    Since we're building in a separate step, this tells us where the build is:
           storybookBuildDir: ./storybook-static
           # 👇 This makes sure Chromatic skips PR drafts (still in progress or not ready to review)
           skip: ${{ github.event.pull_request.draft == true }}

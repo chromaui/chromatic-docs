@@ -19,7 +19,7 @@ To integrate Chromatic with your existing pipeline, you'll need to add the follo
 <IntegrationSnippets>
   <Fragment slot="storybook">
     ```yml title=".gitlab-ci.yml"
-    image: node:jod
+    image: node:krypton
 
     stages:
       - UI_Tests
@@ -41,7 +41,7 @@ To integrate Chromatic with your existing pipeline, you'll need to add the follo
   </Fragment>
   <Fragment slot="playwright">
     ```yml title=".gitlab-ci.yml"
-    image: node:jod
+    image: node:krypton
 
     stages:
       - UI_Tests
@@ -58,7 +58,7 @@ To integrate Chromatic with your existing pipeline, you'll need to add the follo
     Playwright:
       stage: UI_Tests
       needs: []
-      image: mcr.microsoft.com/playwright:v1.56.0-noble
+      image: mcr.microsoft.com/playwright:v1.58.0-noble
       script:
         - npx playwright test
       allow_failure: true
@@ -80,7 +80,7 @@ To integrate Chromatic with your existing pipeline, you'll need to add the follo
   </Fragment>
   <Fragment slot="cypress">
     ```yml title=".gitlab-ci.yml"
-    image: node:jod
+    image: node:krypton
 
     stages:
       - UI_Tests
@@ -98,7 +98,7 @@ To integrate Chromatic with your existing pipeline, you'll need to add the follo
     Cypress:
       stage: UI_Tests
       needs: []
-      image: cypress/browsers:node-22.20.0-chrome-141.0.7390.54-1-ff-143.0.4-edge-141.0.3537.57-1
+      image: cypress/browsers:node-24.13.0-chrome-143.0.7499.192-1-ff-147.0-edge-143.0.3650.139-1
       variables:
         ELECTRON_EXTRA_LAUNCH_ARGS: "--remote-debugging-port=9222"
       script:
@@ -138,7 +138,7 @@ To improve the performance of your pipeline, you can use the [interruptible](htt
 This keyword has no effect if [automatic cancellation of redundant pipelines](https://docs.gitlab.com/ee/ci/pipelines/settings.html#auto-cancel-redundant-pipelines) is disabled. When enabled, a running job with `interruptible: true` is canceled when starting a pipeline for a new change on the same branch.
 
 ```yml title=".gitlab-ci.yml"
-image: node:jod
+image: node:krypton
 
 stages:
   - UI_Tests
@@ -224,8 +224,6 @@ Chromatic can be run on monorepos that have multiple subprojects. Each subprojec
 If you've already built your Storybook in a separate CI step, you can adjust your workflow to include the `--storybook-build-dir` CLI flag to point to the build output directory.
 
 ```yml title=".gitlab-ci.yml"
-# .gitlab-ci.yml
-
 # Additional pipeline configurations
 
 # Sets the stages for the pipeline
