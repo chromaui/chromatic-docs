@@ -185,9 +185,9 @@ Let's say you've made a change to a component on your `feature-branch`, accepted
   }
 }%%
 gitGraph TB:
+  checkout main
   commit id: "X" type: HIGHLIGHT
-  branch main
-  checkout feature-branch
+  branch feature-branch
   commit id: "A" tag: "unwanted changes"
   commit id: "B"
   commit id: "C" type: HIGHLIGHT
