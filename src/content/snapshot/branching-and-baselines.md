@@ -174,6 +174,29 @@ Chromatic does not currently support deleting individual builds within a project
 
 If you want to revert to a previous baseline, you can use Git to restore old baselines. Identify a past build with the correct baselines, create a new branch for these changes and merge them into the current `main` branch using the `--auto-accept-changes` flag.
 
+There are times where you may accept unwanted changes, and haven't merged these changes into your default branch. If the changes were on the most recent build, you can revert your acceptance in the dashboard, but there may be situations where the change was accepted on a previous build.
+
+Let's say you've made a change to a component on your `feature-branch`, accepted it, and a build or two later realized you need to make a different change to the same component:
+
+```mermaid
+%%{
+  init: {
+    'gitGraph': { 'parallelCommits': true, 'mainBranchName': 'main' }
+  }
+}%%
+gitGraph TB:
+  commit id: "X" type: HIGHLIGHT
+  branch main
+  checkout feature-branch
+  commit id: "A" tag: "unwanted changes"
+  commit id: "B"
+  commit id: "C" type: HIGHLIGHT
+```
+
+If you're still working on the feature branch where the changes were accepted, the changes made in the build tied to commit `A` will reflect as the baseline for the build tied to commit `C`. But in this situation, you likely want to see the changes from the commit `C` compared against the baselines prior to the build tied to commit `A`.
+
+You can revert the baselines by rebasing commit `C` onto the commit before commit `A`. After you rebase, run Chromatic with the `--ignore-last-build-on-branch` set to your feature branch. Your next build will compare the changes from commit `C` against the baselines from commit `X`.
+
 </details>
 
 <details>
