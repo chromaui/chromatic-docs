@@ -52,6 +52,7 @@ const config: StorybookConfig = {
   // ...
   features: {
     componentsManifest: true,
+    codeExamples: true,
   },
 };
 export default config;
@@ -231,10 +232,14 @@ The manifest provides a lot of context for the agent; however, this context is n
 To exclude a component or story from the manifest, use the `!manifest` [tag](https://storybook.js.org/docs/writing-stories/tags).
 
 ```tsx title="MyNoisyComponent.stories.tsx"
-export default {
+// Replace your-framework with the framework you are using (e.g., react-vite, nextjs)
+import type { StorybookConfig } from "@storybook/your-framework";
+
+const config: StorybookConfig = {
   component: MyNoisyComponent,
   tags: ["!manifest"],
 };
+export default config;
 ```
 
 </details>
