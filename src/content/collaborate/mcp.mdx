@@ -43,7 +43,10 @@ npx storybook@latest upgrade
 Then enable the MCP-specific experimental features in your Storybook configuration.
 
 ```tsx title=".storybook/main.ts"
-export default {
+// Replace your-framework with the framework you are using (e.g., react-vite, nextjs)
+import type { StorybookConfig } from "@storybook/your-framework";
+
+const config: StorybookConfig = {
   // other config such as:
   // stories: [] etc.
   // ...
@@ -51,6 +54,7 @@ export default {
     componentsManifest: true,
   },
 };
+export default config;
 ```
 
 Storybook Component Manifest packages all of your component metadata as JSON. This includes JSDoc descriptions, React Docgen props tables, story source snippets, and content that can be extracted from MDX docs pages. This manifest is consumed by the MCP server.
