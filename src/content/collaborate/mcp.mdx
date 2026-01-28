@@ -22,7 +22,7 @@ Chromatic simplifies this process by automating deployment and hosting your MCP 
 
 Product teams often consume design systems built by other teams. They're unable to access the MCP server for that design system without running its Storybook locally. By publishing the MCP server, you can ensure that all consumers of a design system have access to the MCP server for that design system.
 
-Published MCP server access also enables cloud-based coding agents such as Claude Code and GitHub Copilot to access component metadata and stories.
+Published MCP server access also enables cloud-based coding agents such as Claude Code and GitHub Copilot to access to access your Storybook context: component metadata, stories and MDX documentation.
 
 Additionally, it enables designers and other non-developers to prototype with coding agents without requiring a local development environment setup.
 
@@ -30,11 +30,11 @@ Additionally, it enables designers and other non-developers to prototype with co
 
 ## Setup guide
 
-To deploy your Storybook MCP server with Chromatic, you need to enable the MCP feature in your Storybook. If you've already done that, you can skip to step 3 to install the MCP server in your coding agent.
+To deploy your Storybook MCP server with Chromatic, you need to enable the MCP feature in your Storybook. If you've already done that, you can skip to [step 3](#3-deploy-the-mcp-server) to install the MCP server in your coding agent.
 
 ### 1. Enable MCP specific features
 
-To use the MCP server, you need to be using Storybook 10.1 or later. If you're not already on Storybook 10.1+, upgrade your Storybook by running:
+To use the MCP server, you need to be using Storybook 10.1 or later and use React. If you're not already on Storybook 10.1+, upgrade your Storybook by running:
 
 ```bash
 npx storybook@latest upgrade
@@ -52,15 +52,12 @@ const config: StorybookConfig = {
   // ...
   features: {
     componentsManifest: true,
-    codeExamples: true,
   },
 };
 export default config;
 ```
 
-Storybook Component Manifest packages all of your component metadata as JSON. This includes JSDoc descriptions, React Docgen props tables, story source snippets, and content that can be extracted from MDX docs pages. This manifest is consumed by the MCP server.
-
-Code Examples feature updates your `addon-docs` source snippets to match the manifest content. This format is better for both agents and humans.
+Storybook Components Manifest packages all of your component metadata as JSON. This includes JSDoc descriptions, React Docgen props tables, story source snippets, and content that can be extracted from MDX docs pages. This manifest is consumed by the MCP server.
 
 Once you restart your Storybook, you should be able to see the manifest at: `http://localhost:PORT/manifests/components.html`
 
