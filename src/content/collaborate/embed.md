@@ -1,7 +1,7 @@
 ---
 title: Embed stories
 description: Embed your Storybook on Medium, Notion, and other platforms
-sidebar: { order: 9, label: Embed }
+sidebar: { order: 10, label: Embed }
 ---
 
 # Embed stories
