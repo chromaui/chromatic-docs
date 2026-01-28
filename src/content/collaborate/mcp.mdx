@@ -136,8 +136,19 @@ You can construct permalinks to your MCP server from the "Collaborate" tab of yo
 Now that you've verified the MCP server, add it to your coding agent.
 
 ```bash
-claude mcp add storybook-mcp --transport http https://main--<appid>.chromatic.com --scope project
+mcp-add \
+  --name memory \
+  --type remote \
+  --url "https://main--<appid>.chromatic.com/mcp" \
+  --scope project \
+  --clients "claude,claude code,cursor,windsurf,vscode,opencode"
 ```
+
+<div class="aside">
+  While you can install the MCP server manually in your coding agent, using the{" "}
+  <a href="https://github.com/paoloricciuti/mcp-add">mcp-add</a> CLI tool
+  simplifies the process by automating the installation across multiple agents.
+</div>
 
 Use the `/mcp` command to confirm that the MCP server is installed:
 
