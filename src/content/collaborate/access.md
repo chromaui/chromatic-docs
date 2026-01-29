@@ -245,6 +245,19 @@ If [IP restrictions](/docs/faq/allowlist-ips-for-git-providers) are set on your 
 </details>
 
 <details>
+<summary>Using a service user for tokens</summary>
+
+Using a **dedicated service user** (or "bot user") for your Chromatic integration with git providers ensures greater stability, security, and control for your team's workflows. **Benefits:**
+
+- Integrations won't break if an individual team member leaves the company or has their access changed, since the token isn't tied to a personal account. Access changes can lead to tokens being missing or invalid.
+
+- It helps meet company policies that prohibit the use of personal tokens for external service integrations and comply with the principle of least privilege.
+
+- Access is managed through a dedicated account, providing better oversight and control than when scattered personal access tokens (PATs) are used for different Chromatic projects.
+
+</details>
+
+<details>
 <summary>Why am I getting <code>Could not retrieve repository ID</code> error when trying to link a repository?</summary>
 
 If your project is part of an organization, you need to have [your access request](#how-do-i-request-access-from-my-github-organization-admin) approved by an admin at the organization level.
