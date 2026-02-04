@@ -1,0 +1,44 @@
+---
+title: UI Review in Dev-Centric Workflows
+description: Learn how to use UI Review in concert with UI Tests for a robust, developer-centric workflow
+sidebar: { order: 11 }
+---
+
+# UI Review in Dev-Centric Workflows
+
+Chromatic’s UI Review complements automated UI Tests by giving teams a collaboration surface to inspect and discuss visual changes before merging. In dev-centric workflows, UI Review can be used in concert with UI Tests to support robust developer review patterns, whether developers use UI Review as their primary pre-merge inspection surface or as a shared sign-off tool alongside code review.
+
+## Dev Pre-Merge Inspection
+
+For many teams, UI Review is part of the everyday developer workflow and not a separate step for designers or product. Rather than relying on local checkouts or manual browser builds, developers use UI Review to understand the visual impact of changes before merging.
+
+A typical pattern for dev pre-merge UI Review is:
+
+- A developer opens a pull request and pushes commits, triggering a Chromatic build in CI.
+- Automated UI Tests run and report visual and interaction results. If there are intentional changes, tests can be accepted to update baselines and signify that expected changes have been validated.
+- Developers inspect the UI Review changeset to see exactly what will change on the base branch after merge.
+- Comments are left on specific snapshots to highlight unexpected diffs, missing states, or unintended side-effects.
+- The reviewer iterates or approves once the UI impact matches expectations.
+
+This workflow helps developers validate visual changes in the same way they inspect code diffs during code review, making visual impact transparent and easier to reason about in context.
+
+## Shared Dev Sign-off on UI
+
+For teams that want a more formal shared sign-off between developers, UI Review can act as the visual complement to code review. In this pattern, developers review UI changes together, helping guard shared components and enforce team standards.
+
+A shared dev sign-off workflow typically looks like:
+
+- A developer opens a pull request and pushes commits, triggering a Chromatic build in CI.
+- Automated UI Tests run and report visual and interaction results. If there are intentional changes, tests can be accepted to update baselines and signify that expected changes have been validated.
+- Another developer or code owner reviews the PR implementation and checks the UI Review to confirm the visual outcome.
+- Both code and UI outcomes are approved before merging.
+
+Because UI Review highlights exactly what changes will land on the base branch, it provides a single visual source of truth for the team to collaborate on. Comments are attached to specific snapshots and help teams discuss scope, intended impact, and any additional work that might be needed before merging.
+
+## How UI Review Fits With UI Tests
+
+Chromatic distinguishes between two workflows that often run side-by-side: UI Tests and UI Review. UI Tests run automatically to catch visual regressions against existing baselines, while UI Review shows a full changeset comparing the latest feature branch state with the base branch.
+
+In dev-centric workflows, UI Tests are used by developers to catch and prevent unintended visual regressions early. UI Review is used to inspect intended visual changes in the context of the full UI. Developers can choose, based on team policy, whether UI Review status checks block merge or are informational.
+
+Since they're independently surfaced on your pull request, you have the flexibility to [make either UI Tests or UI Review required checks](/docs/mandatory-pr-checks) in your Git provider settings.
