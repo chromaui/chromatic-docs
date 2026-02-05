@@ -11,7 +11,7 @@ You can enhance your Cypress and Chromatic tests further by configuring them usi
 
 ## Cypress options
 
-Cypress can be configured with [Cypress environment variables](https://docs.cypress.io/guides/guides/environment-variables). You can set the available options globally in your Cypress configuration file as follows:
+Cypress can be configured with [Cypress environment variables](https://docs.cypress.io/app/guides/environment-variables). You can set the available options globally in your Cypress configuration file as follows:
 
 ```ts title="cypress.config.js|ts"
 export default defineConfig({
@@ -23,7 +23,7 @@ export default defineConfig({
 });
 ```
 
-You can also override them for specific tests using via the [`env`](https://docs.cypress.io/guides/guides/environment-variables#Suite-of-test-configuration) option in the test configuration:
+You can also override them for specific tests using via the [`env`](https://docs.cypress.io/app/references/configuration#Suite-configuration) option in the test configuration:
 
 ```ts title="cypress/e2e/HomePage.cy.js|ts"
 describe("HomePage", () => {

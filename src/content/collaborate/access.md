@@ -373,8 +373,8 @@ If your organization restricts IP addresses for git access, make sure to [add Ch
 <details>
 <summary>Why am I getting an error when trying to access a GitHub SSO project that I see listed in Chromatic’s project list?</summary>
 
-This error can occur when Chromatic isn’t authorized for a GitHub organization that has SSO/SAML also configured. In order to grant access to a project, Chromatic uses that project’s token and your account’s GitHub token. During the login process for Chromatic you authenticate with GitHub and will be presented with a prompt inside of GitHub to authorize Chromatic for use in your organization.
+This error can occur when Chromatic isn't authorized for a GitHub organization that has SSO/SAML also configured. In order to grant access to a project, Chromatic uses that project’s token and your account’s GitHub token. During the login process for Chromatic you authenticate with GitHub and will be presented with a prompt inside of GitHub to authorize Chromatic for use in your organization.
 
-You must click the **Authorize** button. If you don’t click the **Authorize** button, but instead click the **Continue** button, you will not be able to access the project in Chromatic. If the person that set up the project previously logged into Chromatic with their GitHub credential but never authorized Chromatic for their organization, their teammates will also encounter this issue.
+You must click the **Authorize** button. If you don't click the **Authorize** button, but instead click the **Continue** button, you will not be able to access the project in Chromatic. If the person that set up the project previously logged into Chromatic with their GitHub credential but never authorized Chromatic for their organization, their teammates will also encounter this issue.
 
 </details>
