@@ -1,7 +1,7 @@
 ---
 title: Chromatic Markdown syntax
 description: Learn how to use markdown in discussions
-sidebar: { order: 10, label: Markdown }
+sidebar: { order: 11, label: Markdown }
 ---
 
 # Markdown support in Chromatic
