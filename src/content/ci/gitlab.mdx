@@ -58,7 +58,7 @@ To integrate Chromatic with your existing pipeline, you'll need to add the follo
     Playwright:
       stage: UI_Tests
       needs: []
-      image: mcr.microsoft.com/playwright:v1.58.0-noble
+      image: mcr.microsoft.com/playwright:v1.58.2-noble
       script:
         - npx playwright test
       allow_failure: true
@@ -98,7 +98,7 @@ To integrate Chromatic with your existing pipeline, you'll need to add the follo
     Cypress:
       stage: UI_Tests
       needs: []
-      image: cypress/browsers:node-24.13.0-chrome-143.0.7499.192-1-ff-147.0-edge-143.0.3650.139-1
+      image: cypress/browsers:node-24.14.0-chrome-145.0.7632.116-1-ff-148.0-edge-145.0.3800.70-1
       variables:
         ELECTRON_EXTRA_LAUNCH_ARGS: "--remote-debugging-port=9222"
       script:
