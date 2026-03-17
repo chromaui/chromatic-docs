@@ -8,13 +8,11 @@ import InstallSnippets from "../../components/InstallSnippets.astro";
 
 # Publish your Storybook MCP server
 
-Without the right context, agents tend to produce low-quality code that doesn't align with your project's conventions. They often create new components instead of reusing existing ones and hallucinate APIs.
+Without the right context, agents create new components instead of reusing existing ones, hallucinate APIs, and produce low-quality code that doesn’t align with your project’s conventions.
 
-Storybook MCP was developed to improve generated code quality by providing agents with project-specific context about your components and allowing them to self-correct using Storybook’s testing tools.
+Storybook MCP improves generated code quality by giving agents project-specific context about your components and letting them self-correct with Storybook’s testing tools. Locally, the MCP runs via the Storybook dev server endpoint.
 
-Locally, the MCP is served by the Storybook dev server endpoint. However, to ensure the MCP server is accessible to your entire team and their coding agents, you need to deploy it.
-
-Chromatic simplifies this process by automating deployment and hosting your MCP server alongside your published Storybook. It also manages access control, ensuring that only authorized collaborators can use your MCP server.
+Chromatic manages deployments to make this MCP server accessible to your entire team and their coding agents. It also manages access control, ensuring only authorized collaborators can use your MCP server.
 
 <details>
 
@@ -136,10 +134,11 @@ You can construct permalinks to your MCP server from the "Collaborate" tab of yo
 Now that you've verified the MCP server, add it to your coding agent.
 
 ```bash
-mcp-add \
-  --name memory \
-  --type remote \
+npx mcp-add \
+  --name <server_name> \
+  --type http \
   --url "https://main--<appid>.chromatic.com/mcp" \
+  --client-id "cdf3737dff9d485485968e50b63fd8b4" \
   --scope project \
   --clients "claude,claude code,cursor,windsurf,vscode,opencode"
 ```
