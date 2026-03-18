@@ -8,9 +8,9 @@ import InstallSnippets from "../../components/InstallSnippets.astro";
 
 # Publish your Storybook MCP server
 
-Without the right context, agents create new components instead of reusing existing ones, hallucinate APIs, and produce low-quality code that doesn’t align with your project’s conventions.
+Without the right context, agents create new components instead of reusing existing ones, hallucinate APIs, and produce low-quality code that doesn't align with your project's conventions.
 
-Storybook MCP improves generated code quality by giving agents project-specific context about your components and letting them self-correct with Storybook’s testing tools. Locally, the MCP runs via the Storybook dev server endpoint.
+[Storybook MCP](https://storybook.js.org/docs/ai) improves generated code quality by giving agents project-specific context about your components and letting them self-correct with Storybook's testing tools. Locally, the MCP runs via the Storybook dev server endpoint.
 
 Chromatic manages deployments to make this MCP server accessible to your entire team and their coding agents. It also manages access control, ensuring only authorized collaborators can use your MCP server.
 
@@ -28,110 +28,43 @@ Additionally, it enables designers and other non-developers to prototype with co
 
 ## Setup guide
 
-To deploy your Storybook MCP server with Chromatic, you need to enable the MCP feature in your Storybook. If you've already done that, you can skip to [step 3](#3-deploy-the-mcp-server) to install the MCP server in your coding agent.
+To deploy your Storybook MCP server with Chromatic, you need to need to be using _Storybook 10.3 or later and use React_.
 
-### 1. Enable MCP specific features
+### 1. Install the MCP addon
 
-To use the MCP server, you need to be using Storybook 10.1 or later and use React. If you're not already on Storybook 10.1+, upgrade your Storybook by running:
-
-```bash
-npx storybook@latest upgrade
-```
-
-Then enable the MCP-specific experimental features in your Storybook configuration.
-
-```tsx title=".storybook/main.ts"
-// Replace your-framework with the framework you are using (e.g., react-vite, nextjs)
-import type { StorybookConfig } from "@storybook/your-framework";
-
-const config: StorybookConfig = {
-  // other config such as:
-  // stories: [] etc.
-  // ...
-  features: {
-    componentsManifest: true,
-  },
-};
-export default config;
-```
-
-Storybook Components Manifest packages all of your component metadata as JSON. This includes JSDoc descriptions, React Docgen props tables, story source snippets, and content that can be extracted from MDX docs pages. This manifest is consumed by the MCP server.
-
-Once you restart your Storybook, you should be able to see the manifest at: `http://localhost:PORT/manifests/components.html`
-
-### 2. Install the MCP addon
-
-Once the manifest is working, install the MCP addon by running:
+Run this command to install and register the Storybook MCP addon:
 
 ```bash
 npx storybook add @storybook/addon-mcp
 ```
 
-You should now be able to see the MCP server route in your Storybook: `http://localhost:PORT/mcp`
+When running Storybook's dev server, you' can now access the MCP server at: http://localhost:6006/mcp (your port may be different).
 
 ![Storybook MCP server running locally](../../images/local-mcp.png)
 
-For more information, please refer to the [Storybook MCP documentation](https://storybook.js.org/TBD).
-
-### 3. Deploy the MCP server
-
-To deploy your MCP server, you need to publish your Storybook to Chromatic.
-
-#### Existing projects
+### 2. Run a build to publish the MCP server
 
 Simply run your Chromatic build as usual (either via CI or locally). This will automatically deploy your MCP server alongside your Storybook.
 
-#### New projects
+<details>
 
-Sign in to Chromatic and create a project.
+<summary>What do I do if I don't have a Chromatic project yet?</summary>
 
-![Setup project](../../images/setup.png)
+Follow our [quickstart guide](/docs/quickstart) to set up your first project and publish your Storybook.
 
-Then run your first Chromatic build to publish your Storybook and MCP server.
+</details>
 
-{/* prettier-ignore-start */}
-
-<InstallSnippets>
-  <Fragment slot="npm">
-  ```shell
-  $ npx chromatic --project-token <your-project-token>
-  ```
-  </Fragment>
-  <Fragment slot="yarn">
-  ```shell
-  $ yarn chromatic --project-token <your-project-token>
-  ```
-  </Fragment>
-  <Fragment slot="pnpm">
-  ```shell
-  $ pnpm chromatic --project-token <your-project-token>
-  ```
-  </Fragment>
-</InstallSnippets>
-
-{/* prettier-ignore-end */}
-
-### 4. Verify your MCP server is published
-
-Once the build is complete, you will see a confirmation message with links to your published Storybook and MCP server in both the build output and the Chromatic web app's build screen.
-
-{/* TODO: Insert screenshot of webapp here */}
-
-#### Grab your MCP server URL
-
-Chromatic publishes an instance of your MCP server for every build. However, to ensure stability, we recommend [permalinks](/docs/permalinks). For example, this will always point to latest successful build on your `main` branch:
+Once the build is complete, you will see a confirmation message with links to your published Storybook. The MCP server is published at the same URL as your Storybook on the `/mcp` route. For example:
 
 ```
-https://main--<appid>.chromatic.com/mcp
+https://642d765a7e8afcfb104268dc-mhlulncyca.chromatic.com/mcp
 ```
 
-You can construct permalinks to your MCP server from the "Collaborate" tab of your project settings in Chromatic.
+### 3. Install the MCP server in your coding agent
 
-{/* TODO: Insert screenshot of webapp here */}
+Each branch gets separate MCP server URLs for agents to connect with. We recommend using your default branch's [permalinks](/docs/permalinks) for production use. For example: `https://main--<appid>.chromatic.com/mcp`
 
-### 5. Install the MCP server in your coding agent
-
-Now that you've verified the MCP server, add it to your coding agent.
+Connect your coding agent to the MCP server by running the following command:
 
 ```bash
 npx mcp-add \
@@ -149,31 +82,15 @@ npx mcp-add \
   simplifies the process by automating the installation across multiple agents.
 </div>
 
-Use the `/mcp` command to confirm that the MCP server is installed:
-
-![Output from Claude Code confirming that it is connected to storybook-mcp](../../images/mcp-confirm-claude.png)
-
 #### Authentication for private Storybooks
 
-For private Storybooks, you need an MCP client that supports [OAuth CIMD](https://client.dev/), such as VSCode Copilot. CIMD is a new standard for authenticated MCP servers.
+For private Storybooks, your MCP client must authenticate with Chromatic to access the MCP server. Chromatic uses [CIMD](https://client.dev/) to authenticate with clients that support it, such as VSCode and Copilot. For other clients—like Claude Code and Cursor—it uses a static client ID.
 
-<div class="aside">
-  ⚠️ Claude Code does not yet support CIMD. Please upvote [this
-  issue](https://github.com/anthropics/claude-code/issues/18251) to nudge the
-  Claude Code team to add it.
-</div>
-
-To install Storybook MCP for a private Storybook in VSCode Copilot:
-
-1. Open the command palette, and select the option: `MCP: Add Server...`
-2. Select “HTTP” and paste the URL to your published server, e.g.: `https://main--<appid>.chromatic.com/mcp`
-   ![VS Code window with the user submitting the MCP server URL](../../images/vs-code-add-mcp.png)
-3. Provide a name for the server & accept
-4. After accepting, you'll be directed to authenticate
+The first time your agent connects to the MCP server, you'll be prompted to sign in with Chromatic. Follow the instructions in the authentication flow to grant access.
 
 ![Authentication screen in Chromatic asking for permission to connect to VS Code](../../images/mcp-auth.png)
 
-### 7. Run a prompt to test your MCP server
+### 4. Run a prompt to test your MCP server
 
 You're all set! Let's test it out. Start by explicitly asking the agent to run `list-all-documentation` on the MCP server. It should return a list of all components in your project.
 
@@ -211,25 +128,29 @@ You should see the agent using the tools provided by your Storybook MCP server t
 <details>
 <summary>How do I enable or disable MCP publishing?</summary>
 
-From your project's manage screen, navigate to the "Collaborate" tab and scroll down to find the "MCP Server" integration. From there you can enable or disable MCP publishing.
+Set the `componentsManifest` feature flag in your Storybook config to `false` to disable the MCP feature.
+
+```tsx title=".storybook/main.ts"
+// Replace your-framework with the framework you are using (e.g., react-vite, nextjs)
+import type { StorybookConfig } from "@storybook/your-framework";
+
+const config: StorybookConfig = {
+  // other config such as:
+  // stories: [] etc.
+  // ...
+  features: {
+    componentsManifest: false,
+  },
+};
+export default config;
+```
 
 </details>
 
 <details>
 <summary>Are all tools available in the published MCP server?</summary>
 
-Storybook MCP provides the following tools to coding agents:
-
-- Dev tools
-  - `get_ui_building_instructions`
-  - `preview-stories`
-- Docs tools
-  - `list-all-documentation`
-  - `get-component-documentation`
-
-However, only the Docs tools are available in the published MCP servers. That's because Dev tools provide project-specific implementation instructions that might differ for design systems consumed by multiple projects.
-
-You can use a published MCP server's Docs tools with the Dev tools from a locally-running MCP server. For example, the Docs tools associated with your design system's Storybook and the Dev tools associated with your app's Storybook.
+Only the [Docs tools](https://storybook.js.org/docs/ai/mcp/overview#docs) are available in the published MCP server. The [Development tools](https://storybook.js.org/docs/ai/mcp/overview#development) and [Testing tools](https://storybook.js.org/docs/ai/mcp/overview#testing) are only available when running the MCP server locally with Storybook's dev server.
 
 </details>
 
