@@ -16,7 +16,7 @@ pnpm test:unit        # Unit tests only (vitest)
 pnpm test:storybook   # Storybook component tests (vitest + Playwright)
 
 # Other
-pnpm storybook        # Storybook dev server at localhost:6006
+pnpm storybook        # Storybook dev server at localhost:6006 (MCP available at localhost:6006/mcp)
 pnpm check-links      # Check for broken links against prod
 ```
 
