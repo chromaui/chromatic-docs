@@ -31,3 +31,5 @@ _site_deploy/docs
 .vscode
 public/chromatic-config.schema.json
 *storybook.log
+
+.claude/settings.local.json

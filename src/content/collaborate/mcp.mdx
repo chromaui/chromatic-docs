@@ -60,37 +60,69 @@ Once the build is complete, you will see a confirmation message with links to yo
 https://642d765a7e8afcfb104268dc-mhlulncyca.chromatic.com/mcp
 ```
 
-### 3. Install the MCP server in your coding agent
+### 3. Enable composition
 
-Each branch gets separate MCP server URLs for agents to connect with. We recommend using your default branch's [permalinks](/docs/permalinks) for production use. For example: `https://main--<appid>.chromatic.com/mcp`
+The most common scenario is building UI with components from multiple Storybooks. For example, an app with a local Storybook that consumes a design system with a published Storybook.
 
-Connect your coding agent to the MCP server by running the following command:
-
-```bash
-npx mcp-add \
-  --name <server_name> \
-  --type http \
-  --url "https://main--<appid>.chromatic.com/mcp" \
-  --client-id "2dc633ab993b4e21b9bade8178efc0bf" \
-  --scope project \
-  --clients "claude,claude code,cursor,windsurf,vscode,opencode"
-```
+You can use [Storybook composition](/docs/composition) to include content from both Storybooks in the local MCP server, allowing your agent to find and reference components all composed Storybooks when generating UI.
 
 <div class="aside">
-  While you can install the MCP server manually in your coding agent, using the{" "}
-  <a href="https://github.com/paoloricciuti/mcp-add">mcp-add</a> CLI tool
-  simplifies the process by automating the installation across multiple agents.
+  If you don't have a local Storybook, then check out the instructions below on
+  how to use the [MCP server without a local
+  Storybook](#use-the-mcp-server-without-a-local-storybook).
 </div>
 
-#### Authentication for private Storybooks
+To enable composition, add a `refs` section to your Storybook config. We recommend using your default branch's [permalink](/docs/permalinks) as the ref URL. For example:
 
-For private Storybooks, your MCP client must authenticate with Chromatic to access the MCP server. Chromatic uses [CIMD](https://client.dev/) to authenticate with clients that support it, such as VSCode and Copilot. For other clients—like Claude Code and Cursor—it uses a static client ID.
+```js title="storybook/main.ts"
+// Replace your-framework with the framework you are using, e.g. react-vite, nextjs, vue3-vite, etc.
+import type { StorybookConfig } from "@storybook/your-framework";
+
+const config: StorybookConfig = {
+  framework: '@storybook/your-framework',
+  stories: ["../src/**/*.stories.@(js|jsx|ts|tsx)"],
+  refs: {
+    // 👇 Upper-case characters not supported in the refs key
+    "chromatic-published-storybook": {
+      // The title of your Storybook
+      title: "Design System",
+      // Permalink for your main branch
+      url: "https://main--<appid>.chromatic.com",
+    },
+  },
+};
+
+export default config;
+```
+
+### 4. Enable authentication for private Storybooks
+
+If you're using an agent that supports [CIMD](https://client.dev/) authentication, such as VSCode or Copilot, no additional configuration is needed. Skip to [step 5](#5-run-a-prompt-to-test-your-mcp-server).
+
+For other agents such as Claude Code and Cursor, you'll need to add Chromatic's Client ID to your MCP server configuration. For example:
+
+{/* prettier-ignore-start */}
+
+```json
+{
+  "mcpServers": {
+    "storybook-mcp": {
+      "url": "http://localhost:6006/mcp",
+      "type": "http",
+      "oauth": { // [!code ++]
+        "clientId": "2dc633ab993b4e21b9bade8178efc0bf" // [!code ++]
+      } // [!code ++]
+    }
+  }
+}
+```
+{/* prettier-ignore-end */}
 
 The first time your agent connects to the MCP server, you'll be prompted to sign in with Chromatic. Follow the instructions in the authentication flow to grant access.
 
 ![Authentication screen in Chromatic asking for permission to connect to VS Code](../../images/mcp-auth.png)
 
-### 4. Run a prompt to test your MCP server
+### 5. Run a prompt to test your MCP server
 
 You're all set! Let's test it out. Start by explicitly asking the agent to run `list-all-documentation` on the MCP server. It should return a list of all components in your project.
 
@@ -120,6 +152,30 @@ The calendar widget shouldn't allow selecting dates in the past and the return f
 ```
 
 You should see the agent using the tools provided by your Storybook MCP server to find and reuse existing components.
+
+---
+
+## Use the MCP server without a local Storybook
+
+If you don't have a local Storybook, you can connect your agent directly to the published MCP server. We recommend using your default branch's [permalink](/docs/permalinks) as the MCP server URL to ensure it stays up to date with your latest changes.
+
+Connect your coding agent to the MCP server by running the following command, then following the authentication flow and test prompt described in [step 5](#5-run-a-prompt-to-test-your-mcp-server) above.
+
+```bash
+npx mcp-add \
+  --name <server_name> \
+  --type http \
+  --url "https://main--<appid>.chromatic.com/mcp" \
+  --client-id "cdf3737dff9d485485968e50b63fd8b4" \
+  --scope project \
+  --clients "claude,claude code,cursor,windsurf,vscode,opencode"
+```
+
+<div class="aside">
+  While you can install the MCP server manually in your coding agent, using the{" "}
+  <a href="https://github.com/paoloricciuti/mcp-add">mcp-add</a> CLI tool
+  simplifies the process by automating the installation across multiple agents.
+</div>
 
 ---
 
