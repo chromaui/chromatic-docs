@@ -111,7 +111,7 @@ npx mcp-add --type http --url "https://localhost:6006/mcp" --client-id "cdf3737d
 
 #### Enable authentication
 
-For private Storybooks, your MCP client must authenticate with Chromatic to access the MCP server. Chromatic uses [CIMD](https://client.dev/) to authenticate with clients that support it, such as VSCode and Copilot. For other clients—like Claude Code and Cursor—it uses a static client ID.
+For private Storybooks, your coding agent must authenticate with Chromatic to access the MCP server. Chromatic uses [CIMD](https://client.dev/) to authenticate with tools that support it, such as VSCode and Copilot. For other coding agents, like Claude Code and Cursor, it uses a static client ID.
 
 The mcp-add command above was already configured with the required client ID for authentication. The first time your agent connects to the MCP server you'll be prompted to sign in with Chromatic. Follow the instructions in the authentication flow to grant access.
 
