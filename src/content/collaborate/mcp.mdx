@@ -95,36 +95,33 @@ const config: StorybookConfig = {
 export default config;
 ```
 
-### 4. Enable authentication for private Storybooks
+### 4. Install MCP server in your coding agent
 
-If you're using an agent that supports [CIMD](https://client.dev/) authentication, such as VSCode or Copilot, no additional configuration is needed. Skip to [step 5](#5-run-a-prompt-to-test-your-mcp-server).
+Run the following command to configure the local MCP server for your coding agent. We only need to connect local MCP server since the remote Storybook is composed into the local Storybook.
 
-For other agents such as Claude Code and Cursor, you'll need to add Chromatic's Client ID to your MCP server configuration. For example:
-
-{/* prettier-ignore-start */}
-
-```json
-{
-  "mcpServers": {
-    "storybook-mcp": {
-      "url": "http://localhost:6006/mcp",
-      "type": "http",
-      "oauth": { // [!code ++]
-        "clientId": "2dc633ab993b4e21b9bade8178efc0bf" // [!code ++]
-      } // [!code ++]
-    }
-  }
-}
+```bash
+npx mcp-add --type http --url "https://localhost:6006/mcp" --client-id "cdf3737dff9d485485968e50b63fd8b4" --scope project
 ```
-{/* prettier-ignore-end */}
 
-The first time your agent connects to the MCP server, you'll be prompted to sign in with Chromatic. Follow the instructions in the authentication flow to grant access.
+<div class="aside">
+  While you can install the MCP server manually in your coding agent, using the{" "}
+  <a href="https://github.com/paoloricciuti/mcp-add">mcp-add</a> CLI tool
+  simplifies the process by automating the installation across multiple agents.
+</div>
+
+#### Enable authentication
+
+For private Storybooks, your MCP client must authenticate with Chromatic to access the MCP server. Chromatic uses [CIMD](https://client.dev/) to authenticate with clients that support it, such as VSCode and Copilot. For other clients—like Claude Code and Cursor—it uses a static client ID.
+
+The mcp-add command above was already configured with the required client ID for authentication. The first time your agent connects to the MCP server you'll be prompted to sign in with Chromatic. Follow the instructions in the authentication flow to grant access.
 
 ![Authentication screen in Chromatic asking for permission to connect to VS Code](../../images/mcp-auth.png)
 
 ### 5. Run a prompt to test your MCP server
 
-You're all set! Let's test it out. Start by explicitly asking the agent to run `list-all-documentation` on the MCP server. It should return a list of all components in your project.
+You're all set! Let's test it out. Start by explicitly asking the agent to run `list-all-documentation` on the MCP server. It should return a list of all components in your project (both local and those in the composed Storybooks).
+
+![Example query with Claude Code that lists both local components and those from the composed design system Storybook](../../images/list-all-documentation.png)
 
 Then run a typical prompt in your project such as the following:
 
@@ -157,25 +154,13 @@ You should see the agent using the tools provided by your Storybook MCP server t
 
 ## Use the MCP server without a local Storybook
 
-If you don't have a local Storybook, you can connect your agent directly to the published MCP server. We recommend using your default branch's [permalink](/docs/permalinks) as the MCP server URL to ensure it stays up to date with your latest changes.
+If you don't have a local Storybook, you can connect your agent directly to the published MCP server. We recommend using your default branch's [permalink](/docs/permalinks) as the MCP server URL to ensure it stays up to date with your latest changes. For example: `https://main--<appid>.chromatic.com/mcp`
 
 Connect your coding agent to the MCP server by running the following command, then following the authentication flow and test prompt described in [step 5](#5-run-a-prompt-to-test-your-mcp-server) above.
 
 ```bash
-npx mcp-add \
-  --name <server_name> \
-  --type http \
-  --url "https://main--<appid>.chromatic.com/mcp" \
-  --client-id "cdf3737dff9d485485968e50b63fd8b4" \
-  --scope project \
-  --clients "claude,claude code,cursor,windsurf,vscode,opencode"
+npx mcp-add --type http --client-id "cdf3737dff9d485485968e50b63fd8b4" --scope project
 ```
-
-<div class="aside">
-  While you can install the MCP server manually in your coding agent, using the{" "}
-  <a href="https://github.com/paoloricciuti/mcp-add">mcp-add</a> CLI tool
-  simplifies the process by automating the installation across multiple agents.
-</div>
 
 ---
 
