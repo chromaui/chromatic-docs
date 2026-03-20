@@ -8,8 +8,6 @@ import InstallSnippets from "../../components/InstallSnippets.astro";
 
 # Publish your Storybook MCP server
 
-Without the right context, agents create new components instead of reusing existing ones, hallucinate APIs, and produce low-quality code that doesn't align with your project's conventions.
-
 [Storybook MCP](https://storybook.js.org/docs/ai) improves generated code quality by giving agents project-specific context about your components and letting them self-correct with Storybook's testing tools. Locally, the MCP runs via the Storybook dev server endpoint.
 
 Chromatic manages deployments to make this MCP server accessible to your entire team and their coding agents. It also manages access control, ensuring only authorized collaborators can use your MCP server.
@@ -18,11 +16,9 @@ Chromatic manages deployments to make this MCP server accessible to your entire 
 
 <summary>Why do I need to publish my Storybook MCP server?</summary>
 
-Product teams often consume design systems built by other teams. They're unable to access the MCP server for that design system without running its Storybook locally. By publishing the MCP server, you can ensure that all consumers of a design system have access to the MCP server for that design system.
+Product teams often consume components built by other teams—design systems, component libraries, microfrontends, etc. Each of those dependencies has its own Storybook with an MCP server. However, unless you’re running those Storybooks locally, your agents won’t be able to connect to those MCP servers.
 
-Published MCP server access also enables cloud-based coding agents such as Claude Code and GitHub Copilot to access to access your Storybook context: component metadata, stories and MDX documentation.
-
-Additionally, it enables designers and other non-developers to prototype with coding agents without requiring a local development environment setup.
+Publishing enables coding agents to connect to remote MCP servers for all your dependencies. This enables agents to pull in context from any Storybook in your stack, not just the one running locally.
 
 </details>
 
@@ -44,15 +40,7 @@ When running Storybook's dev server, you can now access the MCP server at: http:
 
 ### 2. Run a build to publish the MCP server
 
-Simply run your Chromatic build as usual (either via CI or locally). This will automatically deploy your MCP server alongside your Storybook.
-
-<details>
-
-<summary>What do I do if I don't have a Chromatic project yet?</summary>
-
-Follow our [quickstart guide](/docs/quickstart) to set up your first project and publish your Storybook.
-
-</details>
+Run a Chromatic build as usual via CI or locally to automatically deploy your MCP server alongside your Storybook. If you don't have a Chromatic project yet then follow our [quickstart guide](/docs/quickstart) to set up your first project and publish the Storybook.
 
 Once the build is complete, you will see a confirmation message with links to your published Storybook. The MCP server is published at the same URL as your Storybook on the `/mcp` route. For example:
 
@@ -62,9 +50,9 @@ https://642d765a7e8afcfb104268dc-mhlulncyca.chromatic.com/mcp
 
 ### 3. Enable composition
 
-The most common scenario is building UI with components from multiple Storybooks. For example, an app with a local Storybook that consumes a design system with a published Storybook.
+If your UI pulls components from multiple Storybooks, you can compose them into a single MCP server. For example, your app might have a local Storybook while consuming a design system from a remote published Storybook.
 
-You can use [Storybook composition](/docs/composition) to include content from both Storybooks in the local MCP server, allowing your agent to find and reference components from all composed Storybooks when generating UI.
+Use [composition](/docs/composition) to stitch together context from multiple Storybooks in your local MCP server. This allows agents to reference any component during UI generation.
 
 <div class="aside">
   If you don't have a local Storybook, then check out the instructions below on
@@ -95,6 +83,8 @@ const config: StorybookConfig = {
 export default config;
 ```
 
+![In your Storybook you should see the composed components in the sidebar](../../images/reference-external-storybooks-composition.png)
+
 ### 4. Install MCP server in your coding agent
 
 Run the following command to configure the local MCP server for your coding agent. We only need to connect local MCP server because the remote Storybook is composed into the local Storybook.
@@ -111,9 +101,9 @@ npx mcp-add --type http --url "https://localhost:6006/mcp" --client-id "cdf3737d
 
 #### Enable authentication
 
-For private Storybooks, your coding agent must authenticate with Chromatic to access the MCP server. Chromatic uses [CIMD](https://client.dev/) to authenticate with tools that support it, such as VSCode and Copilot. For other coding agents, like Claude Code and Cursor, it uses a static client ID.
+For private Storybooks, your coding agent must authenticate with Chromatic to access the MCP server. Chromatic uses [CIMD](https://client.dev/) to authenticate with tools that support it, such as VSCode and Copilot. For other coding agents, like Claude Code and Cursor, it uses a static client ID: `cdf3737dff9d485485968e50b63fd8b4`.
 
-The mcp-add command above was already configured with the required client ID for authentication. The first time your agent connects to the MCP server you'll be prompted to sign in with Chromatic. Follow the instructions in the authentication flow to grant access.
+The `mcp-add` command above was already configured with the required client ID for authentication. The first time your agent connects to the MCP server you'll be prompted to sign in with Chromatic. Follow the instructions in the authentication flow to grant access.
 
 ![Authentication screen in Chromatic asking for permission to connect to VS Code](../../images/mcp-auth.png)
 
@@ -121,34 +111,9 @@ The mcp-add command above was already configured with the required client ID for
 
 You're all set! Let's test it out. Start by explicitly asking the agent to run `list-all-documentation` on the MCP server. It should return a list of all components in your project (both local and those in the composed Storybooks).
 
+You should see the agent using the tools provided by your Storybook MCP server to find all the components.
+
 ![Example query with Claude Code that lists both local components and those from the composed design system Storybook](../../images/list-all-documentation.png)
-
-Then run a typical prompt in your project such as the following:
-
-```md
-Create a flight booking component that includes:
-
-- An autocomplete component for choosing source and destination from the following list of airports:
-  SYD: – Sydney Airport, Australia
-  MEL: – Melbourne Airport (Tullamarine), Australia
-  LAX: – Los Angeles International Airport, USA
-  JFK: – John F. Kennedy International Airport, New York, USA
-  LHR: – Heathrow Airport, London, UK
-  CDG: – Charles de Gaulle Airport, Paris, France
-  ATL: – Hartsfield–Jackson Atlanta International Airport, USA
-  DXB: – Dubai International Airport, UAE
-  HKG: – Hong Kong International Airport, Hong Kong
-  BNE: – Brisbane Airport, Australia
-  PER: – Perth Airport, Australia
-  DFW: – Dallas Fort Worth International Airport, USA
-
-- A toggle button for return vs one way
-- One or two date selects that when clicked on triggers a popover with a calendar widget.
-
-The calendar widget shouldn't allow selecting dates in the past and the return flight must be after the outward flight.
-```
-
-You should see the agent using the tools provided by your Storybook MCP server to find and reuse existing components.
 
 ---
 
