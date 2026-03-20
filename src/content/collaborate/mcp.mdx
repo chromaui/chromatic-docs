@@ -16,11 +16,9 @@ Chromatic manages deployments to make this MCP server accessible to your entire 
 
 <summary>Why do I need to publish my Storybook MCP server?</summary>
 
-Product teams often consume components built by other teams—design systems, component libraries, microfrontends, etc. They can’t access the MCP server for those dependencies unless they run all their storybooks locally. However, once those storybooks are published, you can remotely access the MCP server.
+Product teams often consume components built by other teams—design systems, component libraries, microfrontends, etc. Each of those dependencies has its own Storybook with an MCP server. However, unless you’re running those Storybooks locally, your agents won’t be able to connect to those MCP servers.
 
-Published MCP server access also enables coding agents such as Claude Code and GitHub Copilot to access all the information about your components: component metadata, stories, and MDX documentation.
-
-Additionally, it enables designers and other non-developers to prototype with coding agents without requiring a local development environment setup.
+Publishing enables coding agents to connect to remote MCP servers for all your dependencies. This enables agents to pull in context from any Storybook in your stack, not just the one running locally.
 
 </details>
 
