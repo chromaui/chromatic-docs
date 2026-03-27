@@ -1,0 +1,15 @@
+---
+sidebar: { hide: true }
+title: Why is the UI Review stuck in “Awaiting activity”?
+section: "usage"
+sectionOrder: 1
+---
+
+# Why is the UI Review stuck in “Awaiting activity”?
+
+A UI Review gets stuck in “Awaiting activity” when the head branch (feature branch) lacks a Chromatic build, even if there are no UI changes—Chromatic still needs a build to confirm nothing changed. To resolve this:
+
+- Run a Chromatic build on the base branch (e.g., main), then merge the base branch into the head branch and run another Chromatic build on the head branch. This ensures Chromatic can locate the correct baseline.
+- If the head branch does have builds, verify that commit SHAs, branch names, and PR numbers match exactly. Mismatches can cause Chromatic to treat builds as unrelated. Check if the PR/MR from the Review page doesn't match the commit within your repository by following the View on Git link.
+- Orphaned or detached builds (commits linked to a different branch/PR or to no branch/PR) may also break comparisons. Use `git fsck --unreachable` or `git rev-list` to identify them.
+- As a fix, push an empty commit to the head branch to trigger a new build, or correct any misconfigured environment variables (`CHROMATIC_SHA`, `CHROMATIC_BRANCH`, `CHROMATIC_SLUG`).
