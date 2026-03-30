@@ -1,21 +1,23 @@
-import { getCollection } from "astro:content";
+import { getAllCollections } from "../../utils/collections";
 import { transformNavGroups, flattenGroups } from "./transform-nav-groups";
 
-const overview = await getCollection("overview");
-const visualTests = await getCollection("visualTests");
-const accessibilityTests = await getCollection("accessibilityTests");
-const interactionTests = await getCollection("interactionTests");
-const playwright = await getCollection("playwright");
-const cypress = await getCollection("cypress");
-const configuration = await getCollection("configuration");
-const modes = await getCollection("modes");
-const snapshot = await getCollection("snapshot");
-const turbosnap = await getCollection("turbosnap");
-const collaborate = await getCollection("collaborate");
-const ci = await getCollection("ci");
-const account = await getCollection("account");
-const guides = await getCollection("guides");
-const troubleshooting = await getCollection("troubleshooting");
+const {
+  overview,
+  visualTests,
+  accessibilityTests,
+  interactionTests,
+  playwright,
+  cypress,
+  configuration,
+  modes,
+  snapshot,
+  turbosnap,
+  collaborate,
+  ci,
+  account,
+  guides,
+  troubleshooting,
+} = await getAllCollections();
 
 const rawNavGroups = [
   {

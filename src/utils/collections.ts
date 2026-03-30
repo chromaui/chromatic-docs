@@ -1,0 +1,58 @@
+import { getCollection } from "astro:content";
+
+export async function getAllCollections() {
+  const [
+    overview,
+    visualTests,
+    accessibilityTests,
+    interactionTests,
+    playwright,
+    cypress,
+    configuration,
+    modes,
+    snapshot,
+    turbosnap,
+    collaborate,
+    ci,
+    account,
+    guides,
+    troubleshooting,
+    notInNavigation,
+  ] = await Promise.all([
+    getCollection("overview"),
+    getCollection("visualTests"),
+    getCollection("accessibilityTests"),
+    getCollection("interactionTests"),
+    getCollection("playwright"),
+    getCollection("cypress"),
+    getCollection("configuration"),
+    getCollection("modes"),
+    getCollection("snapshot"),
+    getCollection("turbosnap"),
+    getCollection("collaborate"),
+    getCollection("ci"),
+    getCollection("account"),
+    getCollection("guides"),
+    getCollection("troubleshooting"),
+    getCollection("notInNavigation"),
+  ]);
+
+  return {
+    overview,
+    visualTests,
+    accessibilityTests,
+    interactionTests,
+    playwright,
+    cypress,
+    configuration,
+    modes,
+    snapshot,
+    turbosnap,
+    collaborate,
+    ci,
+    account,
+    guides,
+    troubleshooting,
+    notInNavigation,
+  };
+}
