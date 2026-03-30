@@ -2,7 +2,9 @@ import type { GetStaticPaths } from "astro";
 import { getAllCollections } from "../../utils/collections";
 import { llmsDoc } from "../../utils/llms";
 
-const SITE = "https://chromatic.com/docs";
+const siteUrl = "https://www.chromatic.com";
+const baseUrl = import.meta.env.BASE_URL;
+const SITE = `${siteUrl}${baseUrl}`;
 
 export const getStaticPaths: GetStaticPaths = async () => {
   const collections = await getAllCollections();

@@ -2,7 +2,9 @@ import type { APIRoute } from "astro";
 import { getAllCollections } from "../utils/collections";
 import { llmsTxt, docToLlmsItem } from "../utils/llms";
 
-const SITE = "https://chromatic.com/docs";
+const siteUrl = "https://www.chromatic.com";
+const baseUrl = import.meta.env.BASE_URL;
+const SITE = `${siteUrl}${baseUrl}`;
 const LLMS_BASE = `${SITE}/llms`;
 
 export const GET: APIRoute = async () => {
