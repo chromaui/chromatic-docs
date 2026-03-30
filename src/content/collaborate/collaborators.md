@@ -47,7 +47,12 @@ For email and password accounts, only the account owner can login to access bill
 <details>
 <summary>How can I give someone billing access?</summary>
 
-If you have an email/password user account (not linked to Git) and need access to billing, please email us at **support@chromatic.com** with your email address.
+If you have an email/password user account and need access to billing, please email us at **support@chromatic.com** with your email address.
+
+**Note:**
+
+- Billings users cannot be added to Git-linked accounts. Linked accounts rely on the connected Git provider to manage permissions. Users would need org-level permissions granted within the git provider to access billing.
+- Git-linked users cannot be set as Billing users for unlinked accounts. Git-linked user permissions depend on git providers.
 
 </details>
 

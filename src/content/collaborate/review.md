@@ -65,6 +65,10 @@ Add default reviewers on your project’s Manage page. Go to the Review section 
 
 Remove a default reviewer by clicking "Remove" beside their name. This will remove them as default reviewer but not from the project.
 
+When a new Review is created, Chromatic automatically assigns the project’s default reviewers to that Review. All assigned default reviewers must approve for the Review to pass, which prevents a Review from being “solo-approved” in practice.
+
+Default reviewers can be unassigned from a specific Review if necessary. This does not remove them as default reviewers for future Reviews.
+
 ## Review the changes
 
 The Review screen includes a Changeset tab showing a side-by-side view of all visual changes introduced on your head branch. It compares the UI on the head branch to the base branch.
@@ -156,5 +160,36 @@ The process might look something like:
 No, you can't prevent people from auto-approving their own review.
 
 However, you can [assign default reviewers](/docs/review#default-reviewers) to ensure that other teammates must approve of the review. Enable [mandatory pull request checks](/docs/mandatory-pr-checks/) for UI Review to require the reviewers you assign to approve.
+
+</details>
+
+<details>
+<summary>Are UI reviews generated for draft pull requests?</summary>
+
+Yes, Chromatic creates UI Reviews for draft pull requests, but you can configure your CI to skip running them if you prefer.
+
+For example, in a GitHub Actions workflow, you can add a condition to skip Chromatic for drafts:
+
+```yaml
+- name: Run Chromatic
+  if: github.event.pull_request.draft == false
+  uses: chromaui/action@v1
+  with:
+    projectToken: ${{ secrets.CHROMATIC_PROJECT_TOKEN }}
+```
+
+In GitLab, you can use a condition like:
+
+```yaml
+chromatic:
+  stage: test
+  image: node:latest
+  script:
+    - npx chromatic --project-token=$CHROMATIC_PROJECT_TOKEN
+  only:
+    - merge_requests
+  except:
+    - draft
+```
 
 </details>
