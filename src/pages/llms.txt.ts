@@ -2,12 +2,11 @@ import type { APIRoute } from "astro";
 import { getDocSections } from "../utils/collections";
 import { llmsTxt, docToLlmsItem } from "../utils/llms";
 
-const siteUrl = "https://www.chromatic.com";
-const baseUrl = import.meta.env.BASE_URL;
-const SITE = `${siteUrl}${baseUrl}`;
-const LLMS_BASE = `${SITE}/llms`;
+export const GET: APIRoute = async ({ site, url }) => {
+  const baseUrl = import.meta.env.BASE_URL;
+  const base = new URL(baseUrl, site ?? url).href.replace(/\/$/, "");
+  const LLMS_BASE = `${base}/llms`;
 
-export const GET: APIRoute = async () => {
   const sections = await getDocSections();
 
   return llmsTxt({

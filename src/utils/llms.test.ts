@@ -99,7 +99,6 @@ describe("llmsFullTxt", () => {
       name: "Test Site",
       description: "A test site",
       site: "https://example.com",
-      sections: [],
       docs: [
         {
           title: "First Doc",
@@ -132,7 +131,6 @@ describe("llmsFullTxt", () => {
       name: "Test",
       description: "Test",
       site: "https://example.com",
-      sections: [],
       docs: [
         {
           title: "MDX Doc",
@@ -146,8 +144,29 @@ describe("llmsFullTxt", () => {
     const text = await readResponse(response);
     expect(text).toContain("Regular markdown content.");
     expect(text).not.toContain("import Component");
+    expect(text).toContain("children");
     expect(text).not.toContain("<Component");
-    expect(text).not.toContain("<SelfClosing />");
+    expect(text).not.toContain("<SelfClosing");
+  });
+
+  test("preserves imports inside code fences", async () => {
+    const response = llmsFullTxt({
+      name: "Test",
+      description: "Test",
+      site: "https://example.com",
+      docs: [
+        {
+          title: "Code Doc",
+          description: "Has code",
+          link: "https://example.com/code",
+          body: 'import Foo from "./Foo";\n\nSome text.\n\n```ts\nimport { bar } from "baz";\nconsole.log(bar);\n```',
+        },
+      ],
+    });
+
+    const text = await readResponse(response);
+    expect(text).toContain('import { bar } from "baz";');
+    expect(text).not.toContain("import Foo");
   });
 });
 
@@ -162,6 +181,22 @@ describe("llmsDoc", () => {
     expect(text).toContain("URL: https://example.com/test-doc");
     expect(text).toContain("## Hello");
     expect(text).toContain("Some content here.");
+  });
+
+  test("uses site root URL for isHome entries", async () => {
+    const doc = mockDoc({
+      id: "introduction",
+      data: {
+        title: "Introduction",
+        description: "Welcome",
+        isHome: true,
+      },
+    });
+    const response = llmsDoc(doc, "https://example.com");
+
+    const text = await readResponse(response);
+    expect(text).toContain("URL: https://example.com");
+    expect(text).not.toContain("URL: https://example.com/introduction");
   });
 
   test("strips MDX from individual doc", async () => {
@@ -216,5 +251,19 @@ describe("docToFullItem", () => {
       link: "https://example.com/test-doc",
       body: "## Hello\n\nSome content here.",
     });
+  });
+
+  test("uses site root URL for isHome entries", () => {
+    const doc = mockDoc({
+      id: "introduction",
+      data: {
+        title: "Introduction",
+        description: "Welcome",
+        isHome: true,
+      },
+    });
+    const item = docToFullItem(doc, "https://example.com");
+
+    expect(item.link).toBe("https://example.com");
   });
 });

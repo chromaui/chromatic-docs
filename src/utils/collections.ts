@@ -1,4 +1,5 @@
 import { getCollection } from "astro:content";
+import type { DocEntry } from "./llms";
 
 export async function getAllCollections() {
   const [
@@ -114,7 +115,7 @@ export async function getDocSections() {
 
   // Track section order based on first appearance in sectionMap
   const sectionOrder: string[] = [];
-  const sectionItems: Record<string, any[]> = {};
+  const sectionItems: Record<string, DocEntry[]> = {};
 
   for (const [collectionName, sectionTitle] of sectionMap) {
     if (!sectionOrder.includes(sectionTitle)) {
