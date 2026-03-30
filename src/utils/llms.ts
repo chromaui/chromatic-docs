@@ -5,7 +5,7 @@
  */
 import type { CollectionEntry } from "astro:content";
 
-type DocEntry =
+export type DocEntry =
   | CollectionEntry<"overview">
   | CollectionEntry<"visualTests">
   | CollectionEntry<"accessibilityTests">
@@ -44,21 +44,74 @@ interface LlmsFullTxtConfig {
   name: string;
   description: string;
   site: string;
-  sections: LlmsSection[];
   docs: { title: string; description: string; link: string; body: string }[];
 }
 
-const MDX_PATTERNS = [
-  /^import\s+.+from\s+['"].+['"];?\s*$/gm,
-  /<[A-Z][a-zA-Z]*[^>]*>[\s\S]*?<\/[A-Z][a-zA-Z]*>/g,
-  /<[A-Z][a-zA-Z]*[^>]*\/>/g,
-] as const;
+const MDX_COMPONENT_TAG = /<\/?[A-Z][\w]*(\s+[^>]*?)?>/g;
+
+function stripTopLevelImportsOutsideCodeFences(content: string): string {
+  const lines = content.split("\n");
+  const importPattern = /^import\s+.+from\s+['"].+['"];?\s*$/;
+
+  let inFence = false;
+  let seenNonImportOutsideFence = false;
+  const resultLines: string[] = [];
+
+  for (const line of lines) {
+    const fenceMatch = line.trimStart().startsWith("```");
+    if (fenceMatch) {
+      inFence = !inFence;
+      resultLines.push(line);
+      continue;
+    }
+
+    if (inFence) {
+      resultLines.push(line);
+      continue;
+    }
+
+    if (!seenNonImportOutsideFence) {
+      if (line.trim() === "") {
+        resultLines.push(line);
+        continue;
+      }
+
+      if (importPattern.test(line)) {
+        // Skip top-of-file MDX import line.
+        continue;
+      }
+
+      seenNonImportOutsideFence = true;
+      resultLines.push(line);
+      continue;
+    }
+
+    resultLines.push(line);
+  }
+
+  return resultLines.join("\n");
+}
 
 function stripMdx(content: string): string {
-  return MDX_PATTERNS.reduce(
-    (text, pattern) => text.replace(pattern, ""),
-    content,
-  ).trim();
+  const withoutImports = stripTopLevelImportsOutsideCodeFences(content);
+  const lines = withoutImports.split("\n");
+
+  let inFence = false;
+  const processedLines = lines.map((line) => {
+    const isFence = line.trimStart().startsWith("```");
+    if (isFence) {
+      inFence = !inFence;
+      return line;
+    }
+
+    if (inFence) {
+      return line;
+    }
+
+    return line.replace(MDX_COMPONENT_TAG, "");
+  });
+
+  return processedLines.join("\n").trim();
 }
 
 function doc(...sections: (string | string[])[]): Response {
@@ -71,6 +124,10 @@ function doc(...sections: (string | string[])[]): Response {
   return new Response(content + "\n", {
     headers: { "Content-Type": "text/plain; charset=utf-8" },
   });
+}
+
+function entryUrl(entry: DocEntry, site: string): string {
+  return entry.data.isHome ? site : `${site}/${entry.id}`;
 }
 
 export function llmsTxt(config: LlmsTxtConfig): Response {
@@ -122,7 +179,7 @@ export function llmsDoc(entry: DocEntry, site: string): Response {
     "",
     `> ${description || title}`,
     "",
-    `URL: ${site}/${entry.id}`,
+    `URL: ${entryUrl(entry, site)}`,
     "",
     stripMdx(entry.body ?? ""),
   );
@@ -143,7 +200,7 @@ export function docToFullItem(entry: DocEntry, siteLink: string) {
   return {
     title: entry.data.title,
     description: entry.data.description || entry.data.title,
-    link: `${siteLink}/${entry.id}`,
+    link: entryUrl(entry, siteLink),
     body: entry.body ?? "",
   };
 }
