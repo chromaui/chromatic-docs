@@ -56,3 +56,26 @@ export async function getAllCollections() {
     notInNavigation,
   };
 }
+
+/**
+ * Returns all docs flattened into a single array.
+ * Excludes FAQ sub-pages from troubleshooting.
+ * Set `includeNotInNavigation` to true to include hidden pages.
+ */
+export async function getAllDocs({
+  includeNotInNavigation = false,
+} = {}) {
+  const collections = await getAllCollections();
+
+  return Object.entries(collections).flatMap(([key, entries]) => {
+    if (key === "notInNavigation") {
+      return includeNotInNavigation ? entries : [];
+    }
+    if (key === "troubleshooting") {
+      return entries.filter(
+        ({ id }) => id !== "faq" && !id.startsWith("faq/"),
+      );
+    }
+    return entries;
+  });
+}
