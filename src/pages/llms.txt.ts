@@ -1,0 +1,22 @@
+import type { APIRoute } from "astro";
+import { getDocSections } from "../utils/collections";
+import { llmsTxt, docToLlmsItem } from "../utils/llms";
+
+const siteUrl = "https://www.chromatic.com";
+const baseUrl = import.meta.env.BASE_URL;
+const SITE = `${siteUrl}${baseUrl}`;
+const LLMS_BASE = `${SITE}/llms`;
+
+export const GET: APIRoute = async () => {
+  const sections = await getDocSections();
+
+  return llmsTxt({
+    name: "Chromatic docs",
+    description:
+      "Chromatic is a cloud-based toolchain for visual testing, reviewing, and documenting Storybook components.",
+    sections: sections.map((s) => ({
+      title: s.title,
+      items: s.items.map((item) => docToLlmsItem(item, LLMS_BASE)),
+    })),
+  });
+};
