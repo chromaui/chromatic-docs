@@ -51,7 +51,7 @@ If you have an email/password user account and need access to billing, please em
 
 **Note:**
 
-- Billings users cannot be added to Git-linked accounts. Linked accounts rely on the connected git provider to manage permissions. Users would need org-level permissions granted within the git provider to access billing.
+- Billings users cannot be added to Git-linked accounts. Linked accounts rely on the connected Git provider to manage permissions. Users would need org-level permissions granted within the git provider to access billing.
 - Git-linked users cannot be set as Billing users for unlinked accounts. Git-linked user permissions depend on git providers.
 
 </details>
