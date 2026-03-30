@@ -94,8 +94,24 @@ function stripTopLevelImportsOutsideCodeFences(content: string): string {
 
 function stripMdx(content: string): string {
   const withoutImports = stripTopLevelImportsOutsideCodeFences(content);
+  const lines = withoutImports.split("\n");
 
-  return withoutImports.replace(MDX_COMPONENT_TAG, "").trim();
+  let inFence = false;
+  const processedLines = lines.map((line) => {
+    const isFence = line.trimStart().startsWith("```");
+    if (isFence) {
+      inFence = !inFence;
+      return line;
+    }
+
+    if (inFence) {
+      return line;
+    }
+
+    return line.replace(MDX_COMPONENT_TAG, "");
+  });
+
+  return processedLines.join("\n").trim();
 }
 
 function doc(...sections: (string | string[])[]): Response {
