@@ -1,3 +1,8 @@
+/**
+ * llms.txt generation utilities
+ *
+ * Based on https://kumak.dev/adding-llms-txt-to-astro
+ */
 import type { CollectionEntry } from "astro:content";
 
 type DocEntry =

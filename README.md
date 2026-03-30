@@ -150,6 +150,16 @@ Algolia's Docsearch is integrated with the project. Every 24 hours it will crawl
 
 The sidebar order is used to rank pages in search results. And the search results are grouped by the sidebar group.
 
+## llms.txt
+
+This project generates [llms.txt](https://llmstxt.org/) endpoints for AI-readable documentation, based on [Adding llms.txt to Astro](https://kumak.dev/adding-llms-txt-to-astro):
+
+- `/llms.txt` — Index of all docs grouped by section
+- `/llms-full.txt` — Complete content of all docs in a single file
+- `/llms/[slug].txt` — Individual doc pages as plain text
+
+The section grouping is driven by `sectionMap` in `src/utils/collections.ts`. New content collections are automatically included.
+
 ## Chromatic configuration options and schema
 
 The Chromatic configuration options and schema are maintained in the `chromatic-config/options.json` file. This file is used to generate the Chromatic configuration options docs and the schema file.
