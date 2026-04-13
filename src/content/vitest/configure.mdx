@@ -1,0 +1,169 @@
+---
+title: Configure
+slug: vitest/configure
+description: Learn about the various configuration options for visual tests for Vitest
+sidebar: { order: 3 }
+---
+
+import { TabItem, Tabs } from "../../components/Tabs";
+
+# Configure visual tests for Vitest
+
+You can enhance your Vitest and Chromatic tests further by configuring them using the options outlined in the following sections.
+
+## Vitest options
+
+The Chromatic Vitest integration supports configuring options globally in your [Vitest configuration file](https://vitest.dev/config/) as follows:
+
+```ts title="vitest.config.ts"
+import { defineProject } from "vitest/config";
+import { chromaticPlugin } from "@chromatic-com/vitest/plugin";
+
+export default defineProject({
+  plugins: [
+    chromaticPlugin({
+      // 👇 Sets the option at the global level.
+      disableAutoSnapshot: true,
+    }),
+  ],
+
+  // Other configuration options
+});
+```
+
+The `disableAutoSnapshot` option can also be configured at the test level as follows:
+
+<Tabs>
+  <TabItem label="On test level">
+<br />
+When called within `test()`, it disables snapshotting for that test:
+
+```jsx title="test/accordion.test.tsx"
+import { test } from "vitest";
+import { disableAutoSnapshot } from "@chromatic-com/vitest";
+
+test("accordion", async () => {
+  // ❌ Not snapshotted
+  disableAutoSnapshot(); // Scopes to this test only
+  await render(<Accordion />);
+});
+
+test("button", async () => {
+  // ✅ Snapshotted automatically
+  await render(<Button />);
+});
+```
+
+  </TabItem>
+
+  <TabItem label="On test suite level">
+<br />
+When called within `describe()`, it disables snapshotting for all tests and suites within that describe block.
+
+```jsx title="test/accordion.test.tsx"
+import { describe, test } from "vitest";
+import { disableAutoSnapshot } from "@chromatic-com/vitest";
+
+test("accordion", async () => {
+  // ✅ Snapshotted automatically
+  await render(<Accordion />);
+});
+
+describe("button", () => {
+  disableAutoSnapshot(); // Scopes to all tests (and nested suites) in this suite
+
+  test("default", async () => {
+    // ❌ Not snapshotted
+    await render(<Button />);
+  });
+
+  describe("as link", () => {
+    test("default", async () => {
+      // ❌ Not snapshotted
+      await render(<Button as={Link} />);
+    });
+  });
+});
+```
+
+  </TabItem>
+
+  <TabItem label="On test file level">
+<br />
+When called at the top level, it disables snapshotting for all tests in the file:
+
+```jsx title="test/accordion.test.tsx"
+import { describe, test } from "vitest";
+import { disableAutoSnapshot } from "@chromatic-com/vitest";
+
+// Scoped to whole test module (file), affects all tests and suites in this file
+disableAutoSnapshot();
+
+test("accordion", async () => {
+  // ❌ Not snapshotted
+  await render(<Accordion />);
+});
+
+describe("button", () => {
+  test("default", async () => {
+    // ❌ Not snapshotted
+    await render(<Button />);
+  });
+});
+```
+
+  </TabItem>
+</Tabs>
+
+## Test run options
+
+These options control how the Chromatic archive fixture behaves.
+
+| Option                   | Type            | Description                                                                                                                                                                          |
+| ------------------------ | --------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| `disableAutoSnapshot`    | `boolean`       | When `true`, it will disable the snapshot that happens automatically at the end of a test when using the Chromatic test fixture.                                                     |
+| `cropToViewport     `    | `boolean`       | When `true`, the snapshot will be clipped to the height of the [viewport](/docs/viewports#playwright).                                                                               |
+| `resourceArchiveTimeout` | `number`        | Maximum amount of time each test will wait for the network to be idle while archiving resources.                                                                                     |
+| `assetDomains`           | `array[string]` | A list of domains external to the test location that you want Chromatic to also capture assets from, e.g., <code style="display: inline;">['other-domain.com','our-cdn.com']</code>. |
+| `idleNetworkInterval`    | `number`        | Time in milliseconds to determine whether network is idle. The network is considered idle if there are no new network requests for at least this duration.                           |
+
+## Chromatic options
+
+These options control how Chromatic behaves when capturing snapshots of your pages.
+
+| Option                    | Type            | Chromatic Docs                                                                      |
+| ------------------------- | --------------- | ----------------------------------------------------------------------------------- |
+| `delay`                   | `number`        | [Delay](/docs/delay/)                                                               |
+| `diffIncludeAntiAliasing` | `boolean`       | [Threshold for changes](/docs/threshold#anti-aliasing)                              |
+| `diffThreshold`           | `number`        | [Threshold for changes](/docs/threshold#setting-the-threshold)                      |
+| `ignoreSelectors`         | `array[string]` | [Ignore elements](/docs/ignoring-elements#ignoring-elements-via-test-configuration) |
+| `forcedColors`            | `string`        | [Media Features](/docs/media-features#test-high-contrast-color-schemes)             |
+| `pauseAnimationAtEnd`     | `boolean`       | [Animations](/docs/animations#css-animations)                                       |
+| `prefersReducedMotion`    | `string`        | [Media Features](/docs/media-features#verify-reduced-motion-animations)             |
+
+## Environment variables
+
+Some options can be configured through environment variables.
+
+| Environment variable         | Description                                                                                                                                                                                                                                                                                                                                    |
+| ---------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `CHROMATIC_ARCHIVE_LOCATION` | If you have configured your project's [`outputDir`](https://playwright.dev/docs/api/class-testproject#test-project-output-dir) option to be different than the default, you must set the `CHROMATIC_ARCHIVE_LOCATION` environment variable to the same value. This ensures that the Chromatic can find the archives generated by Vitest tests. |
+
+---
+
+## Working in Monorepos
+
+Often, when using a monorepo, developers tend to keep their tests in a subdirectory instead of in the root of the project. At the same time, the Storybook and Chromatic configuration details live at the project’s root. In these cases, you will need to update the `archive-storybook` and `build-archive-storybook` scripts in your `package.json` by setting the [`-c` flag](https://storybook.js.org/docs/api/cli-options#build) and `CHROMATIC_ARCHIVE_LOCATION` environment variable. For example:
+
+```json title="package.json"
+"scripts": {
+  "archive-storybook": "CHROMATIC_ARCHIVE_LOCATION=path/to/.vitest/chromatic archive-storybook -c path/to/node_modules/@chromaui/archive-storybook/config",
+  "build-archive-storybook": "CHROMATIC_ARCHIVE_LOCATION=path/to/.vitest/chromatic build-archive-storybook -c path/to/node_modules/@chromaui/archive-storybook/config"
+}
+```
+
+<div class="aside">
+
+💡 For additional information on using Chromatic with a monorepo, see our [monorepo documentation](/docs/monorepos).
+
+</div>

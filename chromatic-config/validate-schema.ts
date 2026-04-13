@@ -70,6 +70,7 @@ export async function validateSchema() {
     buildScriptName: "build:storybook",
     playwright: true,
     cypress: false,
+    vitest: false,
     outputDir: "storybook-static",
     skipUpdateCheck: false,
     storybookBuildDir: "storybook-static",

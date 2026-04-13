@@ -60,6 +60,11 @@ const cypress = defineCollection({
   schema,
 });
 
+const vitest = defineCollection({
+  loader: glob({ pattern: "**/[^_]*.{md,mdx}", base: "./src/content/vitest" }),
+  schema,
+});
+
 const configuration = defineCollection({
   loader: glob({
     pattern: "**/[^_]*.{md,mdx}",
@@ -141,6 +146,7 @@ export const collections = {
   interactionTests,
   playwright,
   cypress,
+  vitest,
   configuration,
   modes,
   snapshot,

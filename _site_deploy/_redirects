@@ -29,6 +29,8 @@
 /docs/cypress/test/ /docs/test/
 /docs/cypress/ci/ /docs/ci/
 
+/docs/vitest/setup /docs/vitest/
+
 /docs/setup-turbosnap/ /docs/turbosnap/setup/
 /docs/turbosnap-best-practices/ /docs/turbosnap/best-practices/
 /docs/turbosnap-for-monorepos/ /docs/turbosnap/monorepo-usage/
