@@ -11,6 +11,7 @@ import { MarketingHeader } from '../components/Header/MarketingHeader';
 import { LayoutGrid } from '../components/LayoutGrid';
 import Navigation from '../components/Navigation/Navigation.astro';
 import { projectRoot } from '../util';
+import CopyMarkdown from '../components/CopyMarkdown.astro';
 import OnThisPage from '../components/OnThisPage.astro';
 import SearchMeta from '../components/SearchMeta.astro';
 import { globalStyles } from '../styles/global';
@@ -26,12 +27,18 @@ type Props = {
   file?: string;
   headings: MarkdownHeading[];
   searchMetaType?: 'faq' | 'default' | 'hidden';
+  hideCopyMarkdown?: boolean;
 };
 
 const { title, description, id, searchMetaType } = Astro.props;
 const { pathname } = Astro.url;
 
 const editUrl = Astro.props.file?.replace(projectRoot, '').replace('src/', '');
+const rawMarkdownUrl = editUrl
+  ? `${import.meta.env.BASE_URL}llms/${id}.txt`
+  : '';
+const hasHeadings = Astro.props.headings.length > 0;
+const showCopyMarkdown = !Astro.props.hideCopyMarkdown;
 ---
 
 <html lang="en">
@@ -40,8 +47,42 @@ const editUrl = Astro.props.file?.replace(projectRoot, '').replace('src/', '');
     <link rel="sitemap" href="/docs/sitemap-index.xml" />
     <style is:global set:html={globalStyles}></style>
     <Scripts />
+    <style is:global>
+      /* Copy Markdown — inline button */
+      /* Mobile (< 768px, NavDropdownMenu visible): block row above H1 */
+      .copy-md-inline {
+        display: flex;
+        justify-content: flex-start;
+        margin-bottom: 2.5rem;
+      }
+      /* Tablet+ (≥ 768px): float right so it sits beside the H1 */
+      @media (min-width: 768px) {
+        .copy-md-inline {
+          display: block;
+          float: right;
+          margin-left: 1rem;
+          margin-bottom: 0;
+        }
+      }
+      /* Hide when the OnThisPage sidebar is visible (≥ 1200px with ToC) */
+      .has-toc .copy-md-inline {
+        display: none;
+      }
+      /* Restore on mobile/tablet even with ToC (sidebar not shown there) */
+      @media (max-width: 1199px) {
+        .has-toc .copy-md-inline {
+          display: flex;
+        }
+      }
+      @media (min-width: 768px) and (max-width: 1199px) {
+        .has-toc .copy-md-inline {
+          display: block;
+          float: right;
+        }
+      }
+    </style>
   </head>
-  <body>
+  <body class={hasHeadings ? 'has-toc' : ''}>
     <!-- Google Tag Manager (noscript) -->
     <noscript
       ><iframe
@@ -53,7 +94,7 @@ const editUrl = Astro.props.file?.replace(projectRoot, '').replace('src/', '');
     <!-- End Google Tag Manager (noscript) -->
     <MarketingHeader client:visible />
     <FullWidthContainer>
-      <LayoutGrid showOnThisPage={Astro.props.headings.length > 0}>
+      <LayoutGrid showOnThisPage={hasHeadings}>
         <Navigation
           url={pathname.replace(/\/$/g, '')}
           navGroups={navGroups}
@@ -65,12 +106,22 @@ const editUrl = Astro.props.file?.replace(projectRoot, '').replace('src/', '');
             flattenedNavItems={flattenedNavItems}
             type={searchMetaType}
           />
+          {
+            rawMarkdownUrl && showCopyMarkdown && (
+              <div class="copy-md-inline">
+                <CopyMarkdown rawMarkdownUrl={rawMarkdownUrl} />
+              </div>
+            )
+          }
           <slot />
           <EditAndFeedback title={title} editUrl={editUrl} />
         </ContentContainer>
         {
-          Astro.props.headings.length > 0 && (
-            <OnThisPage headings={Astro.props.headings} />
+          hasHeadings && (
+            <OnThisPage
+              headings={Astro.props.headings}
+              rawMarkdownUrl={showCopyMarkdown ? rawMarkdownUrl : ''}
+            />
           )
         }
       </LayoutGrid>
