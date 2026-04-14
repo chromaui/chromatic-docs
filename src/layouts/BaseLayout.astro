@@ -27,6 +27,7 @@ type Props = {
   file?: string;
   headings: MarkdownHeading[];
   searchMetaType?: 'faq' | 'default' | 'hidden';
+  hideCopyMarkdown?: boolean;
 };
 
 const { title, description, id, searchMetaType } = Astro.props;
@@ -34,10 +35,10 @@ const { pathname } = Astro.url;
 
 const editUrl = Astro.props.file?.replace(projectRoot, '').replace('src/', '');
 const rawMarkdownUrl = editUrl
-  ? `https://raw.githubusercontent.com/chromaui/chromatic-docs/main/src/${editUrl}`
+  ? `${import.meta.env.BASE_URL}llms/${id}.txt`
   : '';
 const hasHeadings = Astro.props.headings.length > 0;
-const showCopyMarkdown = searchMetaType !== 'faq';
+const showCopyMarkdown = !Astro.props.hideCopyMarkdown;
 ---
 
 <html lang="en">

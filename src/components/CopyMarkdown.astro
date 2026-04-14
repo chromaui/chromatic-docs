@@ -49,7 +49,7 @@ const isSidebar = variant === 'sidebar';
   >
     <path d="M20 6 9 17l-5-5"></path>
   </svg>
-  <span class="copy-md-label">Copy Markdown</span>
+  <span class="copy-md-label">Copy markdown</span>
   <span class="copy-md-label-done">Copied!</span>
 </button>
 
@@ -137,7 +137,9 @@ const isSidebar = variant === 'sidebar';
 
 <script>
   document.addEventListener('click', function (e) {
-    const btn = (e.target as Element).closest('[data-copy-md]') as HTMLElement | null;
+    const btn = (e.target as Element).closest(
+      '[data-copy-md]',
+    ) as HTMLElement | null;
     if (!btn) return;
     const url = btn.getAttribute('data-copy-md')!;
     fetch(url)
