@@ -134,3 +134,24 @@ const isSidebar = variant === 'sidebar';
     }
   }
 </style>
+
+<script>
+  document.addEventListener('click', function (e) {
+    const btn = (e.target as Element).closest('[data-copy-md]') as HTMLElement | null;
+    if (!btn) return;
+    const url = btn.getAttribute('data-copy-md')!;
+    fetch(url)
+      .then((r) => r.text())
+      .then((text) => {
+        navigator.clipboard.writeText(text).then(() => {
+          btn.setAttribute('data-copied', '');
+          setTimeout(() => {
+            btn.removeAttribute('data-copied');
+          }, 2000);
+        });
+      })
+      .catch((err) => {
+        console.error('Failed to copy markdown:', err);
+      });
+  });
+</script>

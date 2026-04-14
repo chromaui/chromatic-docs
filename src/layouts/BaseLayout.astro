@@ -132,27 +132,5 @@ const showCopyMarkdown = searchMetaType !== 'faq';
       async
       defer
       src="//js.hs-scripts.com/45602133.js"></script>
-    <script is:inline>
-      document.addEventListener('click', function (e) {
-        var btn = e.target.closest('[data-copy-md]');
-        if (!btn) return;
-        var url = btn.getAttribute('data-copy-md');
-        fetch(url)
-          .then(function (r) {
-            return r.text();
-          })
-          .then(function (text) {
-            navigator.clipboard.writeText(text).then(function () {
-              btn.setAttribute('data-copied', '');
-              setTimeout(function () {
-                btn.removeAttribute('data-copied');
-              }, 2000);
-            });
-          })
-          .catch(function (err) {
-            console.error('Failed to copy markdown:', err);
-          });
-      });
-    </script>
   </body>
 </html>
