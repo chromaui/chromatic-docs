@@ -1,12 +1,14 @@
 ---
 import type { MarkdownHeading } from 'astro';
 import { color, fontSize } from '@chromatic-com/tetra';
+import CopyMarkdown from './CopyMarkdown.astro';
 
 type Props = {
   headings: MarkdownHeading[];
+  rawMarkdownUrl?: string;
 };
 
-const { headings } = Astro.props;
+const { headings, rawMarkdownUrl } = Astro.props;
 
 const tocHeadings = headings.map((heading) => {
   return heading.depth === 1 ? { ...heading, text: 'Overview' } : heading;
@@ -15,6 +17,11 @@ const tocHeadings = headings.map((heading) => {
 
 <aside>
   <nav class="on-this-page">
+    {
+      rawMarkdownUrl && (
+        <CopyMarkdown rawMarkdownUrl={rawMarkdownUrl} variant="sidebar" />
+      )
+    }
     <h2>On this page</h2>
     <ul>
       {
@@ -62,7 +69,7 @@ const tocHeadings = headings.map((heading) => {
   };
 
   const toObserve = document.querySelectorAll(
-    'h1[id], h2[id], h3[id], h4[id], h5[id], h6[id]'
+    'h1[id], h2[id], h3[id], h4[id], h5[id], h6[id]',
   );
 
   let current: HTMLAnchorElement | null = null;
