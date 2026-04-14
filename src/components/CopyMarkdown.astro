@@ -137,9 +137,8 @@ const isSidebar = variant === 'sidebar';
 
 <script>
   document.addEventListener('click', function (e) {
-    const btn = (e.target as Element).closest(
-      '[data-copy-md]',
-    ) as HTMLElement | null;
+    if (!(e.target instanceof Element)) return;
+    const btn = e.target.closest('[data-copy-md]') as HTMLElement | null;
     if (!btn) return;
     const url = btn.getAttribute('data-copy-md')!;
     fetch(url)
