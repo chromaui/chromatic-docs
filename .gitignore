@@ -33,3 +33,4 @@ public/chromatic-config.schema.json
 *storybook.log
 
 .claude/settings.local.json
+package-lock.json
