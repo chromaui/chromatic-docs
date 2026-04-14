@@ -142,14 +142,20 @@ const isSidebar = variant === 'sidebar';
     if (!btn) return;
     const url = btn.getAttribute('data-copy-md')!;
     fetch(url)
-      .then((r) => r.text())
+      .then((r) => {
+        if (!r.ok) {
+          throw new Error(`Failed to fetch markdown: ${r.status} ${r.statusText}`);
+        }
+        return r.text();
+      })
       .then((text) => {
-        navigator.clipboard.writeText(text).then(() => {
-          btn.setAttribute('data-copied', '');
-          setTimeout(() => {
-            btn.removeAttribute('data-copied');
-          }, 2000);
-        });
+        return navigator.clipboard.writeText(text);
+      })
+      .then(() => {
+        btn.setAttribute('data-copied', '');
+        setTimeout(() => {
+          btn.removeAttribute('data-copied');
+        }, 2000);
       })
       .catch((err) => {
         console.error('Failed to copy markdown:', err);
