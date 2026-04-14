@@ -37,6 +37,7 @@ const rawMarkdownUrl = editUrl
   ? `https://raw.githubusercontent.com/chromaui/chromatic-docs/main/src/${editUrl}`
   : '';
 const hasHeadings = Astro.props.headings.length > 0;
+const showCopyMarkdown = searchMetaType !== 'faq';
 ---
 
 <html lang="en">
@@ -105,7 +106,7 @@ const hasHeadings = Astro.props.headings.length > 0;
             type={searchMetaType}
           />
           {
-            rawMarkdownUrl && (
+            rawMarkdownUrl && showCopyMarkdown && (
               <div class="copy-md-inline">
                 <CopyMarkdown rawMarkdownUrl={rawMarkdownUrl} />
               </div>
@@ -118,7 +119,7 @@ const hasHeadings = Astro.props.headings.length > 0;
           hasHeadings && (
             <OnThisPage
               headings={Astro.props.headings}
-              rawMarkdownUrl={rawMarkdownUrl}
+              rawMarkdownUrl={showCopyMarkdown ? rawMarkdownUrl : ''}
             />
           )
         }
