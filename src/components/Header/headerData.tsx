@@ -6,7 +6,6 @@ import {
   MondayIcon,
   NetlifyIcon,
   PlaywrightIcon,
-  VitestIcon,
 } from "@chromatic-com/tetra";
 
 import type { HeaderProps } from "@chromatic-com/tetra";
@@ -61,12 +60,6 @@ export const links: HeaderProps["links"] = {
     customIcon: <CypressIcon />,
     iconColor: "green500",
     href: "/cypress",
-  },
-  vitest: {
-    title: "Vitest",
-    customIcon: <VitestIcon />,
-    iconColor: "green500",
-    href: "/vitest",
   },
   turboSnap: {
     title: "TurboSnap",
