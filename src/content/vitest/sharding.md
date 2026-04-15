@@ -9,7 +9,7 @@ sidebar: { order: 3 }
 
 When running your Vitest tests over multiple shared CI jobs, you'll need to wait for all jobs to complete, ensuring the results are saved in either the default test results directory or a custom directory accessible by the next job as artifacts. You can then run Chromatic in a job that depends on all the shards.
 
-See Vitest documentation [Vitest | Improving Performance | Sharding](https://vitest.dev/guide/improving-performance.html#sharding) for example how to merge Vitest's own test reports.
+See Vitest documentation [Sharding | Vitest](https://vitest.dev/guide/improving-performance.html#sharding) for example how to merge Vitest's own test reports.
 
 ## GitHub Actions
 

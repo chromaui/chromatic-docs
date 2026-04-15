@@ -18,7 +18,7 @@ import { render } from "vitest-browser-react";
 import { takeSnapshot } from "@chromatic-com/vitest"; // [!code highlight]
 import { Accordion } from "../src/components/Accordion";
 
-test("Can open accordon", async () => {
+test("Can open accordion", async () => {
   await render(<Accordion header="Example header">Example content</Accordion>);
 
   const toggle = page.getByRole("button", { name: "Example header" });
@@ -84,3 +84,47 @@ export default defineConfig({
   plugins: [chromaticPlugin({ idleNetworkInterval: 50 })],
 });
 ```
+
+## Limiting included tests using tags
+
+By default the `chromaticPlugin` applies its test setup for all test cases that the Vitest project runs.
+If your Vitest projects contains test cases that should not be covered by visual regression, this introduces unnecessary performance overhead.
+
+You can limit the test inclusion using `tags` option. In your Vitest configuration, define `tags: string[]` in the plugin options.
+
+```ts title="vitest.config.ts"
+import { defineConfig } from "vitest/config";
+import { chromaticPlugin } from "@chromatic-com/vitest/plugin";
+
+export default defineConfig({
+  plugins: [
+    chromaticPlugin({
+      // Apply test setups needed for visual regression only for
+      // test cases that have following tag:
+      tags: ["visual-regression"], // [!code highlight]
+    }),
+  ],
+});
+```
+
+Then use the configured tag in your test cases that should be included in visual regression. See [Test Tags | Vitest](https://vitest.dev/guide/test-tags.html#using-tags-in-tests) for detailed documentation about tags usage.
+
+<!-- prettier-ignore-start -->
+
+```tsx title="test/accordion.test.tsx"
+import { test } from "vitest";
+
+// Inlcuded in visual regression ✅
+test("accordion rendering", { tags: ["visual-regression"] }, async () => { // [!code highlight]
+  await render(<Accordion />);
+});
+
+// Not included in visual regression ❌
+test("accordion public API", () => {
+  expect(Accordion.open).toBeFunction();
+  expect(Accordion.close).toBeFunction();
+  expect(Accordion.toggle).toBeFunction();
+});
+```
+
+<!-- prettier-ignore-end -->
