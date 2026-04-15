@@ -73,16 +73,16 @@ const rawNavGroups = [
     items: collaborate,
   },
   {
+    title: "Vitest",
+    items: vitest,
+  },
+  {
     title: "Playwright",
     items: playwright,
   },
   {
     title: "Cypress",
     items: cypress,
-  },
-  {
-    title: "Vitest",
-    items: vitest,
   },
   {
     title: "Account",
