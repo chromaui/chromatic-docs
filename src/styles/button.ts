@@ -545,7 +545,6 @@ export const button = css`
     display: flex;
     align-items: center;
     gap: 1rem;
-    flex-wrap: wrap;
   }
 
   .btn-integration {
