@@ -84,7 +84,38 @@ jobs:
 To run Vitest tests in parallel across shared CI jobs in GitLab, you can use the [`parallel`](https://docs.gitlab.com/ee/ci/yaml/index.html#parallel) option in your GitLab CI workflow. The job will be split into multiple smaller jobs running in parallel sequentially named based on the values of the environment variables. The results will be saved as an artifact and accessible by the Chromatic job when it runs.
 
 ```yaml title=".gitlab-ci.yml"
-# TODO
+image: node:krypton
+
+stages:
+  - UI_Tests
+
+cache:
+  key: $CI_COMMIT_REF_SLUG-$CI_PROJECT_DIR
+  paths:
+    - .npm/
+
+before_script:
+  - npm ci
+
+Vitest:
+  stage: UI_Tests
+  needs: []
+  image: mcr.microsoft.com/playwright:v1.58.2-noble
+  parallel: 2
+  script:
+    - npx vitest run --shard=$CI_NODE_INDEX/$CI_NODE_TOTAL
+  allow_failure: true
+  artifacts:
+    when: always
+    paths:
+      - ".vitest/chromatic"
+    expire_in: 4 weeks
+
+Chromatic:
+  stage: UI_Tests
+  needs: [Vitest]
+  script:
+    - npx chromatic --vitest --project-token=$CHROMATIC_PROJECT_TOKEN
 ```
 
 ## CircleCI
@@ -92,7 +123,64 @@ To run Vitest tests in parallel across shared CI jobs in GitLab, you can use the
 To run Vitest tests in parallel across shared CI jobs in CircleCI, you can use the `parallelism` option in your CircleCI workflow to set the number of parallel jobs to run. You'll also need to override the default parallelization environment variables to allow the Vitest test runner to split the tests across the instances. When finished, the test results will be saved as an artifact and accessible by the Chromatic job when it runs.
 
 ```yaml title=".circleci/config.yml"
-# TODO
+version: 2.1
+
+executors:
+  vitest-testing:
+    docker:
+      - image: mcr.microsoft.com/playwright:v1.58.2-noble
+  chromatic-ui-testing:
+    docker:
+      - image: cimg/node:24.14.0
+
+jobs:
+  Vitest:
+    executor: vitest-testing
+    parallelism: 2
+    working_directory: ~/repo
+    steps:
+      - checkout
+      - restore_cache:
+          name: Restore NPM cache
+          keys:
+            - v1-dependencies-{{ checksum "package-lock.json" }}
+            - v1-dependencies-
+      - run:
+          name: "Install dependencies"
+          command: npm ci
+      - run:
+          name: "Run Vitest tests"
+          command: SHARD="$((${CIRCLE_NODE_INDEX}+1))"; npx vitest run --shard=${SHARD}/${CIRCLE_NODE_TOTAL}
+          when: always
+      - store_artifacts:
+          path: ./.vitest/chromatic
+      - persist_to_workspace:
+          root: .
+          paths:
+            - .vitest/chromatic
+  Chromatic:
+    executor: chromatic-ui-testing
+    working_directory: ~/repo
+    steps:
+      - checkout
+      - restore_cache:
+          name: Restore NPM cache
+          keys:
+            - v1-dependencies-{{ checksum "package-lock.json" }}
+            - v1-dependencies-
+      - run: npm ci
+      - attach_workspace:
+          at: .
+      - run:
+          name: "Run Chromatic"
+          command: npx chromatic --vitest --project-token=${CHROMATIC_PROJECT_TOKEN}
+workflows:
+  UI_Tests:
+    jobs:
+      - Vitest
+      - Chromatic:
+          requires:
+            - Vitest
 ```
 
 ## Jenkins
@@ -100,7 +188,73 @@ To run Vitest tests in parallel across shared CI jobs in CircleCI, you can use t
 If you're working with Jenkins, you can configure your pipeline to run Vitest tests in parallel, distributed across multiple stages, save the test results as artifacts, and run Chromatic in a separate stage that depends on the test results from the previous job.
 
 ```groovy title="Jenkinsfile"
-// TODO
+pipeline {
+  agent any
+  tools {nodejs "node"}
+
+  stages {
+    stage('Install dependencies') {
+      steps {
+        sh 'npm ci'
+      }
+    }
+    stage('Vitest'){
+      environment {
+        MAX_SHARDS = '2'
+      }
+      parallel {
+        stage('Shard #1') {
+          agent {
+            docker {
+              image 'mcr.microsoft.com/playwright:v1.58.2-noble'
+              reuseNode true
+            }
+          }
+          environment {
+            SHARD = '1'
+          }
+          steps {
+            sh 'npm ci'
+            sh "npx vitest run --shard=${SHARD}/${env.MAX_SHARDS}"
+          }
+          post {
+            always {
+              archiveArtifacts '.vitest/chromatic/**'
+            }
+          }
+        }
+        stage('Shard #2') {
+          agent {
+            docker {
+              image 'mcr.microsoft.com/playwright:v1.58.2-noble'
+              reuseNode true
+            }
+          }
+          environment {
+            SHARD = '2'
+          }
+          steps {
+            sh 'npm ci'
+            sh "npx vitest run --shard=${SHARD}/${env.MAX_SHARDS}"
+          }
+          post {
+            always {
+              archiveArtifacts '.vitest/chromatic/**'
+            }
+          }
+        }
+      }
+    }
+    stage('Chromatic') {
+      environment {
+        CHROMATIC_PROJECT_TOKEN = credentials('chromatic-project-token')
+      }
+      steps {
+        sh "npx chromatic --vitest"
+      }
+    }
+  }
+}
 ```
 
 ## Semaphore
@@ -108,7 +262,55 @@ If you're working with Jenkins, you can configure your pipeline to run Vitest te
 To run Vitest tests in parallel across shared CI jobs in Semaphore, you can use the [`parallelism`](https://docs.semaphore.io/reference/pipeline-yaml#parallelism-in-jobs) option in your workflow. The job will be split into multiple smaller jobs running in parallel sequentially named based on the values of the environment variables. The results will be saved as an artifact and accessible by the Chromatic job when it runs.
 
 ```yml title=".semaphore/semaphore.yml"
-# TODO
+version: v1.0
+name: UI Tests
+agent:
+  machine:
+    type: e2-standard-2
+    os_image: ubuntu2404
+
+global_job_config:
+  prologue:
+    commands:
+      - checkout
+
+blocks:
+  - name: Vitest
+    dependencies: []
+    task:
+      jobs:
+        agent:
+          machine:
+            type: e2-standard-2
+            os_image: ubuntu2404
+          containers:
+            - name: Vitest
+              image: mcr.microsoft.com/playwright:v1.58.2-noble
+        - name: Run Vitest
+          commands:
+            - cache restore npm-$SEMAPHORE_GIT_BRANCH-$(checksum package-lock.json)-$(checksum .semaphore/semaphore.yml)
+            - npm ci
+            - cache store npm-$SEMAPHORE_GIT_BRANCH-$(checksum package-lock.json)-$(checksum .semaphore/semaphore.yml) ~/.npm
+            - npx vitest run --shard=$SEMAPHORE_JOB_INDEX/$SEMAPHORE_JOB_COUNT
+          parallelism: 2
+      epilogue:
+        always:
+          commands:
+            - artifact push workflow --force .vitest/chromatic
+  - name: Run Chromatic
+    dependencies: ["Vitest"]
+    task:
+      prologue:
+        commands:
+          - artifact pull workflow .vitest/chromatic
+      secrets:
+        - name: CHROMATIC_PROJECT_TOKEN
+      jobs:
+        - name: Chromatic
+          commands:
+            - cache restore npm-$SEMAPHORE_GIT_BRANCH-$(checksum package-lock.json)-$(checksum .semaphore/semaphore.yml)
+            - npm ci
+            - npx chromatic --vitest
 ```
 
 ## Other CI providers
@@ -116,5 +318,22 @@ To run Vitest tests in parallel across shared CI jobs in Semaphore, you can use 
 If you’re using a different CI provider, you’ll need to adapt your workflow to run Vitest tests in parallel across shared CI jobs and enable Chromatic to run after all instances have finished. Here’s an example of how you might do this in a generic CI provider.
 
 ```yml title="your-workflow.yml"
-# TODO
+image: node:iron
+
+- run:
+    name: "Vitest"
+    displayName: "Run Vitest tests"
+    container: mcr.microsoft.com/playwright:v1.58.2-noble
+    options:
+      parallel: 2
+      artifacts:
+        - .vitest/chromatic/**
+    command: |
+      npm ci
+      npx vitest run --shard=$CI_JOB_INDEX/$CI_TOTAL_JOBS
+- run:
+    name: "Chromatic"
+    displayName: "Run Chromatic"
+    requires: [Vitest]
+    command: npx chromatic --vitest --project-token=$CHROMATIC_PROJECT_TOKEN
 ```
