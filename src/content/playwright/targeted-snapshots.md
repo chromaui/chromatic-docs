@@ -34,5 +34,5 @@ test("Can filter product", async ({ page }, testInfo) => {
   await takeSnapshot(page, "After adding to cart", testInfo); // [!code highlight]
 
   await expect(page).toHaveTitle(/Cart/);
-});`
+});
 ```

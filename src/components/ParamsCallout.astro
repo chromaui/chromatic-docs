@@ -25,6 +25,13 @@ const { name, integration } = Astro.props;
         defaults and override them for specific tests.{" "}
         <a href="/docs/cypress/configure">Learn more »</a>
       </>
+    ) : integration === "vitest" ? (
+      <>
+        ℹ️ The <code>{name}</code> configuration option can be set at the
+        project level or the test level. This enables you to set project wide
+        defaults and override them for specific tests.{" "}
+        <a href="/docs/vitest/configure">Learn more »</a>
+      </>
     ) : null
   }
 </div>

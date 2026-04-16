@@ -8,6 +8,7 @@ const {
   interactionTests,
   playwright,
   cypress,
+  vitest,
   configuration,
   modes,
   snapshot,
@@ -70,6 +71,10 @@ const rawNavGroups = [
   {
     title: "Collaborate",
     items: collaborate,
+  },
+  {
+    title: "Vitest",
+    items: vitest,
   },
   {
     title: "Playwright",

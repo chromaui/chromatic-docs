@@ -5,6 +5,7 @@ interface Props {
   storybook: string;
   playwright: string;
   cypress: string;
+  vitest: string;
 }
 ---
 
@@ -27,6 +28,13 @@ interface Props {
     Astro.slots.has("cypress") && (
       <TabItem label="Cypress">
         <slot name="cypress" />
+      </TabItem>
+    )
+  }
+  {
+    Astro.slots.has("vitest") && (
+      <TabItem label="Vitest">
+        <slot name="vitest" />
       </TabItem>
     )
   }

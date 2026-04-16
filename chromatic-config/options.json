@@ -351,5 +351,14 @@
     "example": "`true`",
     "default": false,
     "supports": ["CLI", "GitHub Action", "Config File"]
+  },
+  {
+    "option": "vitest",
+    "flag": "--vitest",
+    "description": "Use your Vitest tests to power visual tests with Chromatic. [Learn more](/docs/vitest)",
+    "type": "boolean",
+    "example": "`true`",
+    "default": false,
+    "supports": ["CLI", "GitHub Action", "Config File"]
   }
 ]
