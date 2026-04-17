@@ -35,7 +35,7 @@ const { pathname } = Astro.url;
 
 const editUrl = Astro.props.file?.replace(projectRoot, '').replace('src/', '');
 const rawMarkdownUrl = editUrl
-  ? `${import.meta.env.BASE_URL}llms/${id}.txt`
+  ? `${import.meta.env.BASE_URL}/llms/${id}.txt`
   : '';
 const hasHeadings = Astro.props.headings.length > 0;
 const showCopyMarkdown = !Astro.props.hideCopyMarkdown;
