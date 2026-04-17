@@ -6,6 +6,7 @@ sidebar: { order: 3, label: Storybook addon }
 
 import InstallSnippets from "../../components/InstallSnippets.astro";
 import { YouTubeCallout } from "../../components/YouTubeCallout";
+import { PlainOpenLink } from "../../components/PlainOpenLink";
 
 # Visual Tests addon for Storybook
 
@@ -274,7 +275,7 @@ If your network blocks requests to Chromatic’s API, the Visual Tests Addon may
 <details>
 <summary>Does the addon affect snapshot usage?</summary>
 
-The Visual Tests addon uses the same [pricing tiers as Chromatic](https://www.chromatic.com/pricing), providing the number of snapshots subscribed to in your plan. If you have any questions about snapshot costs or billing, please contact us <a class="intercom-concierge-bot"><b>via in-app chat</b></a>.
+The Visual Tests addon uses the same [pricing tiers as Chromatic](https://www.chromatic.com/pricing), providing the number of snapshots subscribed to in your plan. If you have any questions about snapshot costs or billing, please contact us <PlainOpenLink client:load label="billing"><b>via in-app chat</b></PlainOpenLink>.
 
 </details>
 

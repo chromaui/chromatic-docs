@@ -1,0 +1,88 @@
+---
+const appId = import.meta.env.PUBLIC_CHROMATIC_PLAIN_APP_ID;
+---
+
+{
+  appId && (
+    <>
+      <script is:inline src="https://chat.cdn-plain.com/index.js" async />
+      <script is:inline define:vars={{ appId }}>
+        // Keep in sync with monorepo services/webapp/lib/plainAuth.ts PLAIN_CONFIG
+        // and marketing's equivalent so the widget looks identical across surfaces.
+        // Label IDs mirror monorepo lib/constants/PlainLabels.ts.
+        const BASE_CONFIG = {
+          appId: appId,
+          hideBranding: true,
+          theme: 'light',
+          style: {
+            brandColor: '#006deb',
+            brandBackgroundColor: '#FFFFFF',
+            launcherBackgroundColor: '#006deb',
+            launcherIconColor: '#FFFFFF',
+          },
+          links: [
+            { icon: 'book',  text: 'Documentation', url: 'https://www.chromatic.com/docs/' },
+            { icon: 'bell',  text: 'Changelog',     url: 'https://www.chromatic.com/blog/releases/' },
+            { icon: 'error', text: 'System Status', url: 'https://status.chromatic.com/' },
+          ],
+          position: { bottom: '20px', right: '20px' },
+          chatButtons: [
+            {
+              icon: 'support',
+              text: 'Talk to a developer',
+              threadDetails: { labelTypeIds: ['lt_01KJFSDC5WN3G02WQ35TQ0WTD3'] },
+            },
+            {
+              icon: 'error',
+              text: "There's an issue",
+              form: {
+                fields: [
+                  {
+                    type: 'dropdown',
+                    placeholder: 'Select a topic...',
+                    options: [
+                      { icon: 'send', text: 'Billing',         threadDetails: { labelTypeIds: ['lt_01KJFR42S7PB52DNG9T815456N'] } },
+                      { icon: 'bug',  text: 'Bug',             threadDetails: { labelTypeIds: ['lt_01KJFR0TWAKS4PB08TRP36AWNJ'] } },
+                      { icon: 'bulb', text: 'Feature request', threadDetails: { labelTypeIds: ['lt_01KJFR1Z1JE9AD4GKTZ1PE9D41'] } },
+                    ],
+                  },
+                ],
+              },
+            },
+          ],
+        };
+
+        // Same-origin fetch: docs is reverse-proxied under the webapp
+        // (chromatic.com/docs → docs.chromatic.com), so session cookies attach
+        // automatically and the webapp's /plain-email-hash handler resolves
+        // the request. See monorepo services/webapp/server.ts.
+        async function fetchCustomerDetails() {
+          try {
+            const res = await fetch('/plain-email-hash', { credentials: 'include' });
+            if (!res.ok) return null;
+            // Response shape is intentionally aligned with Plain's `customerDetails`
+            // (email, emailHash, fullName, shortName, chatAvatarUrl) so we can
+            // forward it directly. See monorepo services/index/server/plain-auth-handler.ts.
+            return await res.json();
+          } catch (_err) {
+            return null;
+          }
+        }
+
+        (async function init() {
+          for (let attempts = 0; typeof window.Plain === 'undefined' && attempts < 50; attempts++) {
+            await new Promise((r) => setTimeout(r, 200));
+          }
+          if (typeof window.Plain === 'undefined') {
+            console.warn('[plain] SDK did not load within 10s');
+            return;
+          }
+          const customer = await fetchCustomerDetails();
+          window.Plain.init(
+            customer ? { ...BASE_CONFIG, customerDetails: customer } : BASE_CONFIG
+          );
+        })();
+      </script>
+    </>
+  )
+}
