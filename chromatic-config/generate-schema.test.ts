@@ -217,6 +217,57 @@ describe("Generate Schema", () => {
     });
   });
 
+  test("Handles nested object options", async () => {
+    const options: ConfigOption[] = [
+      {
+        option: "reactNative",
+        description: "React Native–specific configuration options.",
+        type: "object",
+        example: "",
+        supports: ["Config File"],
+        options: [
+          {
+            option: "iosBuildCommand",
+            description:
+              "The command that builds your React Native Storybook for iOS.",
+            type: "string",
+            example: '`"nx run my-app:build-storybook-ios"`',
+            supports: ["Config File"],
+          },
+        ],
+      },
+    ];
+
+    const schema = await createSchemaDef(options);
+
+    expect(schema).toEqual({
+      ...schemaBase,
+      properties: {
+        $schema: {
+          type: "string",
+          description:
+            "The schema file (https://www.chromatic.com/docs/chromatic-config.schema.json)",
+        },
+        reactNative: {
+          type: "object",
+          additionalProperties: false,
+          description: "React Native\u2013specific configuration options.",
+          markdownDescription:
+            "React Native\u2013specific configuration options.\n",
+          properties: {
+            iosBuildCommand: {
+              type: "string",
+              description:
+                "The command that builds your React Native Storybook for iOS.",
+              markdownDescription:
+                "The command that builds your React Native Storybook for iOS.\n",
+            },
+          },
+        },
+      },
+    });
+  });
+
   test("Makes relative links absolute", async () => {
     const options: ConfigOption[] = [
       {

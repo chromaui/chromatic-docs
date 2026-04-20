@@ -1,12 +1,23 @@
 ---
-import type { ConfigOption as ConfigOptionType } from '../../../chromatic-config/generate-schema';
-import configOptions from '../../../chromatic-config/options.json';
-import { FilterableConfigOptions } from './FilterableConfigOptions';
-import { formatOption } from './formatOptions';
+import type { ConfigOption as ConfigOptionType } from "../../../chromatic-config/generate-schema";
+import configOptions from "../../../chromatic-config/options.json";
+import { FilterableConfigOptions } from "./FilterableConfigOptions";
+import { formatOption } from "./formatOptions";
 
-const formattedOptions = await Promise.all(
-  (configOptions as ConfigOptionType[]).map(formatOption)
-);
+const flatOptions = (configOptions as ConfigOptionType[]).flatMap((option) => {
+  if (option.options && option.options.length > 0) {
+    return option.options.map(
+      (subOption) =>
+        ({
+          ...subOption,
+          option: `${option.option}.${subOption.option}`,
+        }) as ConfigOptionType,
+    );
+  }
+  return [option];
+});
+
+const formattedOptions = await Promise.all(flatOptions.map(formatOption));
 ---
 
 <FilterableConfigOptions client:load options={formattedOptions} />
