@@ -351,5 +351,27 @@
     "example": "`true`",
     "default": false,
     "supports": ["CLI", "GitHub Action", "Config File"]
+  },
+  {
+    "option": "reactNative",
+    "description": "React Native–specific configuration options.",
+    "type": "object",
+    "supports": ["Config File"],
+    "options": [
+      {
+        "option": "iosBuildCommand",
+        "description": "The command that builds your React Native Storybook for iOS.",
+        "type": "string",
+        "example": "`\"nx run my-app:build-storybook-ios\"`",
+        "supports": ["Config File"]
+      },
+      {
+        "option": "androidBuildCommand",
+        "description": "The command that builds your React Native Storybook for Android.",
+        "type": "string",
+        "example": "`\"nx run my-app:build-storybook-android\"`",
+        "supports": ["Config File"]
+      }
+    ]
   }
 ]
