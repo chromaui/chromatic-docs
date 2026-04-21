@@ -6,6 +6,17 @@ import optionsJSON from "./options.json" assert { type: "json" };
 
 export type SupportedType = "GitHub Action" | "CLI" | "Config File";
 
+export interface NestedConfigOption {
+  option: string;
+  description: string;
+  type: string | string[];
+  example: string;
+  default?: string | boolean;
+  defaultComment?: string;
+  deprecated?: "Config File" | "all";
+  supports: SupportedType[];
+}
+
 export interface ConfigOption {
   option?: string;
   flag?: string;
@@ -17,6 +28,7 @@ export interface ConfigOption {
   defaultComment?: string;
   deprecated?: "Config File" | "all";
   supports: SupportedType[];
+  options?: NestedConfigOption[];
 }
 
 const propertyTypes = {
@@ -124,23 +136,49 @@ export async function createSchemaDef(configOptions: ConfigOption[]) {
       );
       const plainTextDescription = stripMarkdown(description);
 
-      const type = (
-        Array.isArray(prop.type) ? prop.type.join("-") : prop.type
-      ) as PropertyType;
+      let propDef: Record<string, unknown>;
 
-      const propDef = {
-        ...propertyTypes[type],
-        ...(isDeprecated && { deprecated: true }),
-        description: plainTextDescription,
-        markdownDescription: description,
-        ...(prop.default &&
-          prop.default !== "" && {
-            default:
-              typeof prop.default === "string"
-                ? stripMarkdown(prop.default)
-                : prop.default,
-          }),
-      };
+      if (prop.type === "object" && prop.options) {
+        const nestedProperties: Record<string, unknown> = {};
+        for (const subOption of prop.options) {
+          const subType = (
+            Array.isArray(subOption.type)
+              ? subOption.type.join("-")
+              : subOption.type
+          ) as PropertyType;
+          const subDescription = await formatDescription(subOption.description);
+          const subPlainText = stripMarkdown(subDescription);
+          nestedProperties[subOption.option] = {
+            ...propertyTypes[subType],
+            description: subPlainText,
+            markdownDescription: subDescription,
+          };
+        }
+        propDef = {
+          type: "object",
+          additionalProperties: false,
+          description: plainTextDescription,
+          markdownDescription: description,
+          properties: nestedProperties,
+        };
+      } else {
+        const type = (
+          Array.isArray(prop.type) ? prop.type.join("-") : prop.type
+        ) as PropertyType;
+        propDef = {
+          ...propertyTypes[type],
+          ...(isDeprecated && { deprecated: true }),
+          description: plainTextDescription,
+          markdownDescription: description,
+          ...(prop.default &&
+            prop.default !== "" && {
+              default:
+                typeof prop.default === "string"
+                  ? stripMarkdown(prop.default)
+                  : prop.default,
+            }),
+        };
+      }
 
       if (schemaDef.properties[prop.option]) {
         throw new Error(
