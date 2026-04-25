@@ -6,7 +6,9 @@ interface Window {
   plausible(any): boolean;
   Plain?: {
     init: (config: unknown) => void;
-    open: (opts?: { threadDetails?: { labelTypeIds?: string[] } }) => void;
+    open: (config?: unknown) => void;
+    update?: (config: unknown) => void;
+    onClose?: (callback: () => void) => () => void;
     isInitialized?: () => boolean;
   };
   Intercom?: (command: string, ...args: unknown[]) => void;

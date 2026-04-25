@@ -14,15 +14,35 @@ export function PlainOpenLink({
   label,
   children,
 }: {
-  label: LabelKey;
+  label?: LabelKey;
   children: React.ReactNode;
 }) {
   const onClick = (e: React.MouseEvent<HTMLAnchorElement>) => {
     e.preventDefault();
     if (window.Plain?.isInitialized?.()) {
-      window.Plain.open({
-        threadDetails: { labelTypeIds: [LABEL_IDS[label]] },
-      });
+      if (label) {
+        // Force a *new* chat flow for CTA entry points, not a reopen of the last thread.
+        // The dummy externalId makes `entryPoint.type: "chat"` open a new conversation.
+        // Reset widget config on close so this is not a sticky "global" behavior for other opens.
+        const labelTypeId = LABEL_IDS[label];
+        const externalId = `docs-cta-${label}-${Date.now()}`;
+        const cta = {
+          entryPoint: { type: "chat" as const, externalId },
+          threadDetails: { labelTypeIds: [labelTypeId], externalId },
+        };
+        const plain = window.Plain;
+        if (!plain) return;
+        plain.open(cta);
+        if (typeof plain.onClose === "function") {
+          const remove = plain.onClose(() => {
+            // Clear CTA-scoped config back to the widget defaults.
+            plain.update?.({ entryPoint: { type: "default" } });
+            remove();
+          });
+        }
+        return;
+      }
+      window.Plain.open();
     }
   };
 
