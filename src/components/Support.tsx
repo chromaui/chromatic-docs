@@ -18,9 +18,7 @@ export function Support({ ...props }) {
   const openChat = () => {
     if (window.Plain?.isInitialized?.()) {
       window.Plain.open();
-      return;
     }
-    window.Intercom?.("showNewMessage");
   };
 
   return (

@@ -52,23 +52,6 @@ const appId = import.meta.env.PUBLIC_CHROMATIC_PLAIN_APP_ID;
           ],
         };
 
-        // Same-origin fetch: docs is reverse-proxied under the webapp
-        // (chromatic.com/docs → docs.chromatic.com), so session cookies attach
-        // automatically and the webapp's /plain-email-hash handler resolves
-        // the request. See monorepo services/webapp/server.ts.
-        async function fetchCustomerDetails() {
-          try {
-            const res = await fetch('/plain-email-hash', { credentials: 'include' });
-            if (!res.ok) return null;
-            // Response shape is intentionally aligned with Plain's `customerDetails`
-            // (email, emailHash, fullName, shortName, chatAvatarUrl) so we can
-            // forward it directly. See monorepo services/index/server/plain-auth-handler.ts.
-            return await res.json();
-          } catch (_err) {
-            return null;
-          }
-        }
-
         (async function init() {
           for (let attempts = 0; typeof window.Plain === 'undefined' && attempts < 50; attempts++) {
             await new Promise((r) => setTimeout(r, 200));
@@ -77,10 +60,8 @@ const appId = import.meta.env.PUBLIC_CHROMATIC_PLAIN_APP_ID;
             console.warn('[plain] SDK did not load within 10s');
             return;
           }
-          const customer = await fetchCustomerDetails();
-          window.Plain.init(
-            customer ? { ...BASE_CONFIG, customerDetails: customer } : BASE_CONFIG
-          );
+          // Use Plain's built-in email verification flow for docs visitors.
+          window.Plain.init({ ...BASE_CONFIG, requireAuthentication: true });
         })();
       </script>
     </>
