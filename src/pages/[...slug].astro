@@ -1,29 +1,30 @@
 ---
-import { getCollection, render } from 'astro:content';
-import type { CollectionEntry } from 'astro:content';
-import BaseLayout from '../layouts/BaseLayout.astro';
+import { getCollection, render } from "astro:content";
+import type { CollectionEntry } from "astro:content";
+import BaseLayout from "../layouts/BaseLayout.astro";
 
 export async function getStaticPaths() {
-  const overview = await getCollection('overview', ({ id }) => {
-    return id !== 'introduction';
+  const overview = await getCollection("overview", ({ id }) => {
+    return id !== "introduction";
   });
-  const visualTests = await getCollection('visualTests');
-  const accessibilityTests = await getCollection('accessibilityTests');
-  const interactionTests = await getCollection('interactionTests');
-  const playwright = await getCollection('playwright');
-  const cypress = await getCollection('cypress');
-  const configuration = await getCollection('configuration');
-  const modes = await getCollection('modes');
-  const snapshot = await getCollection('snapshot');
-  const turbosnap = await getCollection('turbosnap');
-  const collaborate = await getCollection('collaborate');
-  const ci = await getCollection('ci');
-  const account = await getCollection('account');
-  const guides = await getCollection('guides');
-  const troubleshooting = await getCollection('troubleshooting', ({ id }) => {
-    return id !== 'faq' && !id.startsWith('faq/');
+  const visualTests = await getCollection("visualTests");
+  const accessibilityTests = await getCollection("accessibilityTests");
+  const interactionTests = await getCollection("interactionTests");
+  const playwright = await getCollection("playwright");
+  const cypress = await getCollection("cypress");
+  const reactNative = await getCollection("reactNative");
+  const configuration = await getCollection("configuration");
+  const modes = await getCollection("modes");
+  const snapshot = await getCollection("snapshot");
+  const turbosnap = await getCollection("turbosnap");
+  const collaborate = await getCollection("collaborate");
+  const ci = await getCollection("ci");
+  const account = await getCollection("account");
+  const guides = await getCollection("guides");
+  const troubleshooting = await getCollection("troubleshooting", ({ id }) => {
+    return id !== "faq" && !id.startsWith("faq/");
   });
-  const notInNavigation = await getCollection('notInNavigation');
+  const notInNavigation = await getCollection("notInNavigation");
   const articles = [
     ...overview,
     ...visualTests,
@@ -31,6 +32,7 @@ export async function getStaticPaths() {
     ...interactionTests,
     ...playwright,
     ...cypress,
+    ...reactNative,
     ...configuration,
     ...modes,
     ...snapshot,
@@ -51,22 +53,23 @@ export async function getStaticPaths() {
 
 interface Props {
   article:
-    | CollectionEntry<'overview'>
-    | CollectionEntry<'visualTests'>
-    | CollectionEntry<'accessibilityTests'>
-    | CollectionEntry<'interactionTests'>
-    | CollectionEntry<'playwright'>
-    | CollectionEntry<'cypress'>
-    | CollectionEntry<'configuration'>
-    | CollectionEntry<'modes'>
-    | CollectionEntry<'snapshot'>
-    | CollectionEntry<'turbosnap'>
-    | CollectionEntry<'collaborate'>
-    | CollectionEntry<'ci'>
-    | CollectionEntry<'account'>
-    | CollectionEntry<'guides'>
-    | CollectionEntry<'troubleshooting'>
-    | CollectionEntry<'notInNavigation'>;
+    | CollectionEntry<"overview">
+    | CollectionEntry<"visualTests">
+    | CollectionEntry<"accessibilityTests">
+    | CollectionEntry<"interactionTests">
+    | CollectionEntry<"playwright">
+    | CollectionEntry<"cypress">
+    | CollectionEntry<"reactNative">
+    | CollectionEntry<"configuration">
+    | CollectionEntry<"modes">
+    | CollectionEntry<"snapshot">
+    | CollectionEntry<"turbosnap">
+    | CollectionEntry<"collaborate">
+    | CollectionEntry<"ci">
+    | CollectionEntry<"account">
+    | CollectionEntry<"guides">
+    | CollectionEntry<"troubleshooting">
+    | CollectionEntry<"notInNavigation">;
 }
 
 const { article } = Astro.props;
@@ -79,7 +82,7 @@ const { Content, headings } = await render(article);
   id={article.id}
   file={article.filePath}
   headings={headings}
-  searchMetaType={article.data.isHidden ? 'hidden' : 'default'}
+  searchMetaType={article.data.isHidden ? "hidden" : "default"}
 >
   <Content />
 </BaseLayout>
