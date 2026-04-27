@@ -15,11 +15,9 @@ const Trigger = styled(Button)`
 `;
 
 export function Support({ ...props }) {
-  const openIntercom = () => {
-    // @ts-ignore
-    const { Intercom } = window;
-    if (Intercom) {
-      Intercom("showNewMessage");
+  const openChat = () => {
+    if (window.Plain?.isInitialized?.()) {
+      window.Plain.open();
     }
   };
 
@@ -28,7 +26,7 @@ export function Support({ ...props }) {
       variant="outline"
       color="slate"
       size="sm"
-      onClick={openIntercom}
+      onClick={openChat}
       {...props}
     >
       Get support

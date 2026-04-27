@@ -1,5 +1,6 @@
 ---
 import Analytics from "./Analytics.astro";
+import PlainChat from "./PlainChat.astro";
 
 const baseUrl = import.meta.env.BASE_URL;
 const isProduction = import.meta.env.MODE === "production";
@@ -10,7 +11,14 @@ const isProduction = import.meta.env.MODE === "production";
   rel="stylesheet"
   href="https://fonts.googleapis.com/css?family=Nunito+Sans:400,700,800&display=swap"
 />
-{isProduction && <Analytics />}
+{
+  isProduction && (
+    <>
+      <Analytics />
+      <PlainChat />
+    </>
+  )
+}
 <!--
   Adds on-hover anchors to headings: see https://www.bryanbraun.com/anchorjs/
   Only using it for summary tags.
