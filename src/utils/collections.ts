@@ -9,6 +9,7 @@ export async function getAllCollections() {
     interactionTests,
     playwright,
     cypress,
+    reactNative,
     configuration,
     modes,
     snapshot,
@@ -26,6 +27,7 @@ export async function getAllCollections() {
     getCollection("interactionTests"),
     getCollection("playwright"),
     getCollection("cypress"),
+    getCollection("reactNative"),
     getCollection("configuration"),
     getCollection("modes"),
     getCollection("snapshot"),
@@ -45,6 +47,7 @@ export async function getAllCollections() {
     interactionTests,
     playwright,
     cypress,
+    reactNative,
     configuration,
     modes,
     snapshot,
@@ -63,9 +66,7 @@ export async function getAllCollections() {
  * Excludes FAQ sub-pages from troubleshooting.
  * Set `includeNotInNavigation` to true to include hidden pages.
  */
-export async function getAllDocs({
-  includeNotInNavigation = false,
-} = {}) {
+export async function getAllDocs({ includeNotInNavigation = false } = {}) {
   const collections = await getAllCollections();
 
   return Object.entries(collections).flatMap(([key, entries]) => {
@@ -73,9 +74,7 @@ export async function getAllDocs({
       return includeNotInNavigation ? entries : [];
     }
     if (key === "troubleshooting") {
-      return entries.filter(
-        ({ id }) => id !== "faq" && !id.startsWith("faq/"),
-      );
+      return entries.filter(({ id }) => id !== "faq" && !id.startsWith("faq/"));
     }
     return entries;
   });
@@ -100,6 +99,7 @@ const sectionMap: [string, string][] = [
   ["collaborate", "Collaborate"],
   ["playwright", "Playwright"],
   ["cypress", "Cypress"],
+  ["reactNative", "React Native"],
   ["account", "Account"],
   ["troubleshooting", "Troubleshooting"],
 ];
@@ -129,9 +129,7 @@ export async function getDocSections() {
 
     const filtered =
       key === "troubleshooting"
-        ? entries.filter(
-            ({ id }) => id !== "faq" && !id.startsWith("faq/"),
-          )
+        ? entries.filter(({ id }) => id !== "faq" && !id.startsWith("faq/"))
         : entries;
 
     const mapping = sectionMap.find(([name]) => name === key);

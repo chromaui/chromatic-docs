@@ -34,3 +34,4 @@ public/chromatic-config.schema.json
 
 .claude/settings.local.json
 package-lock.json
+.omc/

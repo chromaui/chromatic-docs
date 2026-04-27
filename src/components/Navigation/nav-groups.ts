@@ -8,6 +8,7 @@ const {
   interactionTests,
   playwright,
   cypress,
+  reactNative,
   configuration,
   modes,
   snapshot,
@@ -70,6 +71,10 @@ const rawNavGroups = [
   {
     title: "Collaborate",
     items: collaborate,
+  },
+  {
+    title: "React Native",
+    items: reactNative,
   },
   {
     title: "Playwright",

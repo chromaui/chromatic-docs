@@ -1,0 +1,657 @@
+---
+title: "Chromatic for React Native"
+description: "Set up Chromatic visual testing for an existing Storybook for React Native project"
+sidebar: { label: "Get Started", order: 1 }
+slug: react-native
+---
+
+import TroubleshootingSetup from "../../shared-snippets/setup/troubleshooting.mdx";
+import DemoChromaticUnlinked from "../../shared-snippets/demo-chromatic-unlinked.mdx";
+import InstallSnippets from "../../components/InstallSnippets.astro";
+
+# Chromatic for React Native
+
+Visual testing for native mobile has always been hard. Running tests in CI requires provisioning and maintaining macOS or Linux machines with simulators and emulators, which is slow, brittle, and difficult to scale. Most tools also only let you test at the screen level, making it hard to pinpoint which component caused a regression. React Native teams either skip visual testing entirely or stitch something together and hope it holds.
+
+Today, we're changing that. Chromatic Visual Tests now supports iOS and Android apps built with React Native, powered by [React Native for Storybook](https://storybookjs.github.io/react-native/docs/intro/). Your stories are your visual test cases. That means you test individual components in isolation, not just full screens, so you can catch exactly what changed and where.
+
+## Test the actual native UI
+
+Chromatic's new React Native Capture Cloud takes snapshots of your components running on actual native renderers, not WebViews or approximations.
+
+- iOS snapshots are captured on macOS runners using the iOS Simulator.
+- Android snapshots run on Linux runners using the Android Emulator.
+
+Results are uploaded to Chromatic for pixel-level diffing and review. Accept or reject changes in the Chromatic UI, and a status check in CI will block PRs that introduce unexpected visual changes.
+
+## Prerequisites
+
+Before you start, make sure you have:
+
+- A working [React Native](https://reactnative.dev) app (Expo, Expo Router, the React Native CLI, or [Re.Pack](https://re-pack.dev) are all supported).
+- [React Native for Storybook](https://storybookjs.github.io/react-native/docs/intro/) installed and running locally — **minimum v9.0**.
+- A [Chromatic](https://www.chromatic.com) account.
+
+If you don't have Storybook for React Native set up yet, the fastest path is the official setup skill, which scaffolds everything for you:
+
+```shell
+npx skills add https://github.com/storybookjs/react-native --skill setup-react-native-storybook
+```
+
+## Set up Chromatic for React Native
+
+The Chromatic CLI uploads your built React Native Storybook to the Chromatic cloud, where it runs on real iOS Simulator and Android Emulator instances and produces visual diffs against your baselines.
+
+### 1. Sign up and create a new project
+
+Generate a unique project token for your app by signing in to [Chromatic](https://www.chromatic.com/start) and creating a project. Sign in with your GitHub, GitLab, Bitbucket, or email.
+
+<DemoChromaticUnlinked />
+
+{/* TBD ASSET: Setup project screenshot for React Native */}
+
+<div class="aside">
+  📸 <strong>Asset placeholder:</strong> "Setup project" screenshot for the
+  React Native onboarding flow. Replace this block with the published image
+  before shipping.
+</div>
+
+### 2. Install Chromatic and configure the Storybook entry point
+
+Install the [chromatic](https://www.npmjs.com/package/chromatic) package from npm. The same single CLI handles both iOS and Android.
+
+{/* prettier-ignore-start */}
+
+<InstallSnippets>
+  <Fragment slot="npm">
+  ```shell
+  $ npm install --save-dev chromatic
+  ```
+  </Fragment>
+  <Fragment slot="yarn">
+  ```shell
+  $ yarn add --dev chromatic
+  ```
+  </Fragment>
+  <Fragment slot="pnpm">
+  ```shell
+  $ pnpm add --save-dev chromatic
+  ```
+  </Fragment>
+</InstallSnippets>
+
+{/* prettier-ignore-end */}
+
+<div class="aside">
+  We detect your package manager from your lockfile. If you don't already have
+  Storybook for React Native ≥ 9.0 in your project, run{" "}
+  <code>npm create storybook -- --type react_native --yes</code> first.
+</div>
+
+#### The Storybook entry-point pattern
+
+Unlike a web Storybook (which builds to its own static site), a React Native Storybook ships _inside_ your app binary. The pattern that everything below relies on is the same across all four project types:
+
+1. You create an entry point that conditionally renders `StorybookUI` based on an environment variable (for example `EXPO_PUBLIC_STORYBOOK_ENABLED` or `STORYBOOK_ENABLED`).
+2. You wire up your bundler — Metro's [`withStorybook`](https://storybookjs.github.io/react-native/docs/intro/) wrapper or Re.Pack's [`StorybookPlugin`](https://re-pack.dev) — so that when the env var is _off_, Storybook's imports are replaced with empty modules.
+3. Because of step 2, importing `StorybookUI` at the top level of `App.tsx` is safe even in production builds: the bundler strips it out.
+
+A few things are common to every flow regardless of which project type you have:
+
+- Initialize Storybook for React Native (≥ 9.0) with `npm create storybook -- --type react_native --yes`.
+- Enable WebSockets in `.rnstorybook/index.tsx` by setting `enableWebsockets: true` and installing [`@react-native-async-storage/async-storage`](https://react-native-async-storage.github.io/async-storage/). This is what lets Chromatic drive your stories during capture.
+- Update the story globs in `.rnstorybook/main.ts` so they cover the directories you write stories in.
+- Configure your bundler with the wrapper for your stack (Metro `withStorybook`, or Re.Pack `StorybookPlugin`).
+
+The rest of step 2 depends on which kind of project you have. The four scenarios below cover all of them. Pick one and skip the others.
+
+<div class="aside">
+  🤖 <strong>Prefer the agent path?</strong> Run{" "}
+  <code>
+    npx skills add https://github.com/storybookjs/react-native --skill
+    setup-react-native-storybook
+  </code>{" "}
+  and an AI assistant will detect your project type and apply the changes below
+  for you.
+</div>
+
+##### Detecting your project type
+
+| What's in your repo                                              | Project type         |
+| ---------------------------------------------------------------- | -------------------- |
+| `rspack.config.*` or `webpack.config.*` plus `@callstack/repack` | **Re.Pack**          |
+| `app/` directory with `_layout.tsx`, plus `expo-router`          | **Expo Router**      |
+| Expo, but no file-system routing                                 | **Expo**             |
+| `@react-native-community/cli`, no Expo                           | **React Native CLI** |
+
+<details>
+<summary><strong>Flow 1 — Expo (no router)</strong></summary>
+
+Wrap your Metro config with [`withStorybook`](https://storybookjs.github.io/react-native/docs/intro/). The `enabled` flag is what tells Storybook for React Native whether to pull in story files (when `true`) or replace them with empty modules (when `false`):
+
+```js title="metro.config.js"
+const { getDefaultConfig } = require("expo/metro-config");
+const {
+  withStorybook,
+} = require("@storybook/react-native/metro/withStorybook");
+
+const config = getDefaultConfig(__dirname);
+
+module.exports = withStorybook(config, {
+  enabled: process.env.EXPO_PUBLIC_STORYBOOK_ENABLED === "true",
+});
+```
+
+In your app entry, branch on the same env var. When the var is set, the binary boots straight into Storybook; otherwise it boots your normal app:
+
+```tsx title="App.tsx"
+import StorybookUI from './.rnstorybook';
+
+const isStorybook = process.env.EXPO_PUBLIC_STORYBOOK_ENABLED === 'true';
+
+export default function App() {
+  if (isStorybook) return <StorybookUI />;
+  return (/* existing app */);
+}
+```
+
+Add scripts to your `package.json` so you can launch the Storybook flavor of the app on demand:
+
+```json title="package.json"
+{
+  "scripts": {
+    "storybook": "EXPO_PUBLIC_STORYBOOK_ENABLED='true' expo start",
+    "storybook:ios": "EXPO_PUBLIC_STORYBOOK_ENABLED='true' expo start --ios",
+    "storybook:android": "EXPO_PUBLIC_STORYBOOK_ENABLED='true' expo start --android"
+  }
+}
+```
+
+Finally, install the Reanimated runtime that Storybook for React Native uses for several of its built-in interactions. Expo handles the babel plugin automatically:
+
+```shell
+npx expo install --fix react-native-reanimated react-native-worklets
+```
+
+</details>
+
+<details>
+<summary><strong>Flow 2 — Expo Router</strong></summary>
+
+The Metro config, `package.json` scripts, and Reanimated install are identical to **Flow 1**. The only change is that — because Expo Router owns your navigation tree — you mount Storybook as a route group instead of swapping the root component.
+
+Create a route that re-exports `StorybookUI`:
+
+```tsx title="app/(storybook)/index.tsx"
+export { default } from "../../.rnstorybook";
+```
+
+Then wire it up in your root layout. The pattern uses Expo Router's [`unstable_settings`](https://docs.expo.dev/router/advanced/router-settings/) to pick the initial route based on the env var, and a `Stack.Protected` guard so the Storybook route is unreachable when the var is off.
+
+**Stack-based root layout:**
+
+```tsx title="app/_layout.tsx"
+import { Stack } from "expo-router";
+
+const storybookEnabled = process.env.EXPO_PUBLIC_STORYBOOK_ENABLED === "true";
+
+export const unstable_settings = {
+  initialRouteName: storybookEnabled ? "(storybook)/index" : "(pages)/index",
+};
+
+export default function RootLayout() {
+  return (
+    <Stack screenOptions={{ headerShown: false }}>
+      <Stack.Protected guard={storybookEnabled}>
+        <Stack.Screen name="(storybook)/index" />
+      </Stack.Protected>
+      <Stack.Screen name="(pages)/index" />
+    </Stack>
+  );
+}
+```
+
+**Tabs-based root layout:**
+
+```tsx title="app/_layout.tsx"
+import { Stack } from "expo-router";
+
+const storybookEnabled = process.env.EXPO_PUBLIC_STORYBOOK_ENABLED === "true";
+
+export const unstable_settings = {
+  anchor: storybookEnabled ? "(storybook)" : "(tabs)",
+  initialRouteName: storybookEnabled ? "(storybook)" : "(tabs)",
+};
+
+export default function RootLayout() {
+  return (
+    <Stack>
+      <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
+      <Stack.Protected guard={storybookEnabled}>
+        <Stack.Screen
+          name="(storybook)/index"
+          options={{ headerShown: false }}
+        />
+      </Stack.Protected>
+    </Stack>
+  );
+}
+```
+
+In both variants, `unstable_settings` causes the app to open directly to Storybook when `EXPO_PUBLIC_STORYBOOK_ENABLED=true`. That's what makes the resulting binary capture-ready for Chromatic without any further routing tricks.
+
+</details>
+
+<details>
+<summary><strong>Flow 3 — React Native CLI</strong></summary>
+
+The CLI flow uses `STORYBOOK_ENABLED` (no `EXPO_PUBLIC_` prefix) and reads it through Babel's [`transform-inline-environment-variables`](https://babeljs.io/docs/babel-plugin-transform-inline-environment-variables) plugin so the value is inlined at build time.
+
+Install runtime deps. Worklets is a separate package and must come last in your Babel plugin list:
+
+```shell
+npm install react-native-reanimated react-native-worklets
+npm install --save-dev babel-plugin-transform-inline-environment-variables
+```
+
+```js title="babel.config.js"
+module.exports = {
+  presets: ["module:@react-native/babel-preset"],
+  plugins: [
+    "transform-inline-environment-variables",
+    "react-native-worklets/plugin", // must be last
+  ],
+};
+```
+
+Wrap Metro the same way you would in Expo, but read the bare `STORYBOOK_ENABLED` env var:
+
+```js title="metro.config.js"
+const { getDefaultConfig, mergeConfig } = require("@react-native/metro-config");
+const {
+  withStorybook,
+} = require("@storybook/react-native/metro/withStorybook");
+
+const defaultConfig = getDefaultConfig(__dirname);
+const config = {};
+
+module.exports = withStorybook(mergeConfig(defaultConfig, config), {
+  enabled: process.env.STORYBOOK_ENABLED === "true",
+});
+```
+
+`App.tsx` follows the same shape as **Flow 1** but reads `process.env.STORYBOOK_ENABLED`:
+
+```tsx title="App.tsx"
+import StorybookUI from './.rnstorybook';
+
+const isStorybook = process.env.STORYBOOK_ENABLED === 'true';
+
+export default function App() {
+  if (isStorybook) return <StorybookUI />;
+  return (/* existing app */);
+}
+```
+
+Install iOS pods so the native side picks up the new dependencies:
+
+```shell
+cd ios && pod install && cd ..
+```
+
+Add scripts:
+
+```json title="package.json"
+{
+  "scripts": {
+    "storybook": "STORYBOOK_ENABLED='true' react-native start",
+    "storybook:ios": "STORYBOOK_ENABLED='true' react-native run-ios",
+    "storybook:android": "STORYBOOK_ENABLED='true' react-native run-android"
+  }
+}
+```
+
+</details>
+
+<details>
+<summary><strong>Flow 4 — Re.Pack (rspack/webpack)</strong></summary>
+
+Re.Pack swaps Metro for [rspack](https://rspack.dev) (or webpack), so the env var becomes a build-time constant injected via [`DefinePlugin`](https://rspack.dev/plugins/webpack/define-plugin) instead of a runtime `process.env` lookup.
+
+Install the runtime deps. Worklets is now a separate package — it isn't bundled with Reanimated — and `react-native-worklets/plugin` must be the **last** entry in your Babel plugins:
+
+```shell
+npm install react-native-reanimated react-native-worklets
+```
+
+Wire up the rspack config:
+
+```js title="rspack.config.mjs"
+import * as Repack from "@callstack/repack";
+import rspack from "@rspack/core";
+import { StorybookPlugin } from "@storybook/react-native/repack/withStorybook";
+
+const storybookEnabled = process.env.STORYBOOK_ENABLED === "true";
+
+export default Repack.defineRspackConfig({
+  resolve: {
+    ...Repack.getResolveOptions({ enablePackageExports: true }), // required
+  },
+  plugins: [
+    new Repack.RepackPlugin(),
+    new rspack.DefinePlugin({
+      STORYBOOK_ENABLED: JSON.stringify(storybookEnabled),
+    }),
+    new StorybookPlugin({ enabled: storybookEnabled, websockets: "auto" }),
+  ],
+});
+```
+
+<div class="aside">
+  ⚠️ <code>enablePackageExports: true</code> is <strong>required</strong>.
+  Storybook for React Native ships its Re.Pack integration via the modern
+  package <code>exports</code> field; without this flag, rspack can't resolve it
+  and you'll get module-not-found errors at build time.
+</div>
+
+Because `STORYBOOK_ENABLED` is a build-time constant (not a runtime env var), declare it as a global and read it directly:
+
+```tsx title="App.tsx"
+import StorybookUI from './.rnstorybook';
+
+declare const STORYBOOK_ENABLED: boolean;
+
+export default function App() {
+  if (STORYBOOK_ENABLED) return <StorybookUI />;
+  return (/* existing app */);
+}
+```
+
+Add scripts. If your project uses [Rock](https://rockjs.dev), keep `rock` as the binary; otherwise replace it with `react-native`:
+
+```json title="package.json"
+{
+  "scripts": {
+    "storybook": "STORYBOOK_ENABLED='true' rock start",
+    "storybook:ios": "STORYBOOK_ENABLED='true' rock run:ios",
+    "storybook:android": "STORYBOOK_ENABLED='true' rock run:android"
+  }
+}
+```
+
+</details>
+
+### 3. Run your first build to establish baselines
+
+This is where the React Native flow diverges most from web. There's no separate `build-storybook` step and no static export. Because the Storybook entry-point env var makes Storybook the app's root component, **the resulting binary _is_ the Storybook build.** You build your app the same way you'd build any release of it, with the env var enabled.
+
+#### The output contract
+
+Chromatic's `-d` flag points at a directory that contains exactly two artifacts:
+
+- `storybook.app` — an iOS Simulator build
+- `storybook.apk` — an Android Emulator build
+
+A single `chromatic` invocation handles both platforms; the CLI picks up both artifacts from the same `-d` directory and uploads them to the React Native Capture Cloud. iOS snapshots run on macOS runners, Android on Linux runners.
+
+#### Build for iOS
+
+Use a vanilla `xcodebuild` invocation against your iOS workspace, with the Storybook env var set so Metro/Re.Pack bundles in your stories:
+
+```bash
+xcodebuild \
+  -workspace ios/<scheme>.xcworkspace \
+  -scheme <scheme> \
+  -configuration Release \
+  -sdk iphonesimulator \
+  -derivedDataPath ~/Library/Developer/Xcode/DerivedData \
+  CODE_SIGNING_ALLOWED=NO \
+  build
+```
+
+Replace `<scheme>` with your iOS scheme name (the one you'd normally pass to `xcodebuild -scheme`).
+
+<div class="aside">
+  🚧 <strong>TBD:</strong> the exact step that copies/renames the iOS build
+  output (the <code>.app</code> bundle that <code>xcodebuild</code> drops in{" "}
+  <code>
+    ~/Library/Developer/Xcode/DerivedData/&lt;scheme&gt;-…/Build/Products/Release-iphonesimulator/
+  </code>
+  ) to <code>storybook.app</code> in your <code>-d</code> directory is still being
+  finalized. We'll publish a copy/rename snippet here before this guide ships. <em>(Pending capture-infra defaults.)</em>
+</div>
+
+#### Build for Android
+
+<div class="aside">
+  🚧 <strong>TBD:</strong> the vanilla <code>./gradlew</code> Android build
+  command and the rename step that produces <code>storybook.apk</code> in your{" "}
+  <code>-d</code> directory are still being finalized. We'll fill in the exact
+  Gradle task and APK path before this guide ships.{" "}
+  <em>(Pending capture-infra defaults.)</em>
+</div>
+
+#### Run Chromatic
+
+Once both artifacts are in place, hand the directory to Chromatic:
+
+```shell
+npx chromatic --project-token <your-project-token> -d ./builds/
+```
+
+No new React Native–specific CLI flags are required for this basic flow. The CLI detects platform from the artifact's file extension.
+
+<div class="aside">
+  Advanced users can configure custom build commands and per-platform options in{" "}
+  <code>chromatic.config.json</code>'s <code>reactNative</code> section, but
+  that's out of scope for this guide.
+</div>
+
+{/* TBD ASSET: Optional build-flow diagram (App + env var → storybook.app + storybook.apk → Chromatic) */}
+
+<div class="aside">
+  📸 <strong>Asset placeholder:</strong> Optional build-flow diagram showing
+  "App entry point + STORYBOOK_ENABLED → <code>storybook.app</code> +{" "}
+  <code>storybook.apk</code> → Chromatic Capture Cloud". Replace this block with
+  the published asset before shipping.
+</div>
+
+### 4. Review changes
+
+On each build, Chromatic compares new snapshots to existing baselines from previous builds. Try modifying a component a bit and running another Chromatic build.
+
+When tests are complete, you'll see the build status and a link to review the changes. Click on that link to open Chromatic.
+
+```shell
+Build 1 published.
+
+View it online at https://www.chromatic.com/build?appId=...&number=1.
+```
+
+The build will be marked "unreviewed" and the changes will be listed in the "Tests" table. Go through each snapshot to review the diff and approve or reject the change.
+
+✅ **Accept change**: This updates the story baseline, ensuring future snapshots are compared against the latest approved version. Once a snapshot is accepted, it won't need re-acceptance until it changes, even across git branches or merges.
+
+❌ **Deny change**: This marks the change as "denied", indicating a regression and immediately failing the build. You can deny multiple changes per build. Denying a change will force a re-capture on the next build.
+
+#### iOS and Android shown side by side
+
+iOS and Android appear as separate "browsers" for each story, the same UX you'd see for Chrome, Safari, and Firefox in a web Storybook. Click into a story and you'll see snapshots for both platforms next to each other, so platform-specific regressions are obvious at a glance.
+
+{/* TBD ASSET: Build/story page showing iOS + Android browsers side-by-side */}
+
+<div class="aside">
+  📸 <strong>Asset placeholder:</strong> Story page showing iOS and Android
+  snapshots side-by-side as separate "browser" entries. Replace this block with
+  the published image before shipping.
+</div>
+
+### 5. Discussions
+
+Reviewers can create discussions to point out bugs or ask questions. Discussions are shown within the same interface as Chromatic's detected UI changes, so all collaborators have the same reference point.
+
+Alternatively, you can click on a snapshot to create a discussion pinned to a specific change and provide precise feedback on the issue. Pair discussions with denying a change to block merging until bugs are resolved.
+
+### 6. Merge
+
+If you accept all the changes, the build will **🟢 Pass**. Future builds whose stories have the same appearance will pass.
+
+If you deny any of the changes, the build will **🔴 Fail**. You will need to make code changes (and thus start a new build) to get the build to pass.
+
+When your build is passed (all changes accepted), you're ready to merge with confidence, knowing that your UI is bug-free. Chromatic will update the PR check for "UI Tests" to reflect the build status.
+
+After you merge your code, Chromatic will also apply accepted baselines to stories on the target branch. That means you'll only need to accept baselines a single time.
+
+### 7. PR check for "UI Tests"
+
+![PR badge for UI Tests](../../images/prbadge-test.png)
+
+Chromatic adds a 'UI Tests' badge to the list of status checks for your pull/merge requests. The badge shows errors or changes that need to be reviewed. Require the check in [GitHub](https://help.github.com/en/github/administering-a-repository/enabling-required-status-checks), [GitLab](https://docs.gitlab.com/ee/api/commits.html#post-the-build-status-to-a-commit), or [Bitbucket](https://confluence.atlassian.com/bitbucket/suggest-or-require-checks-before-a-merge-856691474.html) to prevent accidental UI bugs from being merged.
+
+[**Integrate Chromatic into your CI pipeline**](#) to get notified about any visual changes introduced by a pull request. Chromatic will run tests when you push code and report changes via the "UI Tests" badge for your pull request.
+
+<div class="aside">
+  🚧 <strong>TBD:</strong> the link above will point to a dedicated{" "}
+  <em>CI for React Native</em> page once it ships. For now it falls back to{" "}
+  <code>#</code>; update this to <code>/docs/ci/react-native</code> (or similar)
+  when the page lands.
+</div>
+
+---
+
+## Frequently asked questions
+
+<details>
+<summary>Which iOS and Android OS versions and devices does Chromatic capture on?</summary>
+
+<div class="aside">
+  🚧 <strong>TBD:</strong> the default device and OS matrix for the React Native
+  Capture Cloud is still being finalized. Until this is published, please reach
+  out via in-app chat or email{" "}
+  <a href="mailto:support@chromatic.com">support@chromatic.com</a>, or watch the{" "}
+  <a href="/docs/infrastructure-release-notes">infrastructure release notes</a>{" "}
+  for updates.
+</div>
+
+</details>
+
+<details>
+<summary>What CI runners does the React Native Capture Cloud use?</summary>
+
+The React Native Capture Cloud is hosted-only. Chromatic provisions and maintains the runners for you: macOS for iOS Simulator captures, Linux for Android Emulator captures. There is no bring-your-own-runner option; you don't need to install Xcode, the iOS Simulator, or the Android SDK on your CI to run visual tests.
+
+</details>
+
+<details>
+<summary>Can I run only iOS or only Android?</summary>
+
+Yes. Toggle the platforms you want to capture on the project's **Configure** screen in the Chromatic app. This is a project-level setting, not a CLI flag — passing only one of `storybook.app` or `storybook.apk` in your `-d` directory is fine, but the source of truth for "should this platform run at all?" lives in Configure.
+
+{/* TBD ASSET: Configure-screen screenshot showing iOS / Android toggle */}
+
+<div class="aside">
+  📸 <strong>Asset placeholder:</strong> Configure screen with iOS and Android
+  platform toggles. Replace this block with the published image before shipping.
+</div>
+
+</details>
+
+<details>
+<summary>How are custom fonts and static assets handled?</summary>
+
+They're bundled into the build itself. This is standard React Native behavior — fonts registered through `expo-font`, [`react-native-asset`](https://github.com/exodusmovement/react-native-asset), or platform-native asset catalogs are part of the `.app` and `.apk` artifacts that Chromatic captures from. There's no Chromatic-specific font configuration to manage.
+
+</details>
+
+<details>
+<summary>Do animations and Reanimated worklets work? How do I mitigate flake?</summary>
+
+Yes. Animations driven by [Reanimated](https://docs.swmansion.com/react-native-reanimated/) and [Worklets](https://docs.swmansion.com/react-native-worklets/) run normally during capture. To stabilize a story whose initial frames are mid-animation, use the Storybook [`delay` parameter](https://storybook.js.org/docs/api/parameters#delay) — Chromatic will wait the specified milliseconds before snapshotting, the same way it does on the web flow.
+
+</details>
+
+<details>
+<summary>Are dark mode, locale, and viewport modes supported in React Native?</summary>
+
+Not yet via Storybook's [modes API](/docs/modes). The current workaround is to write a separate story per variant — for example a `LightMode` story and a `DarkMode` story for the same component, each setting up its own theme provider in a decorator. We expect to close this gap as the React Native Capture Cloud matures.
+
+</details>
+
+<details>
+<summary>Is TurboSnap supported for React Native?</summary>
+
+No. [TurboSnap](/docs/turbosnap) relies on a webpack/Vite stats file to map source-file changes to affected stories, which doesn't have a clean equivalent in the React Native bundling pipeline. Every Chromatic build re-captures your full story set.
+
+</details>
+
+<details>
+<summary>How does CI integration work for React Native?</summary>
+
+The mechanics are the same as the web flow: build the artifacts on your CI, then call `npx chromatic -d <dir>` with your project token. A dedicated _CI for React Native_ page with provider-specific recipes is coming soon.
+
+<div class="aside">
+  🚧 <strong>TBD:</strong> link to the React Native CI guide once it's
+  published.
+</div>
+
+</details>
+
+<details>
+<summary>How do I integrate with my existing build pipeline (EAS, Bitrise, etc.)?</summary>
+
+Use whatever pipeline you already have. Chromatic doesn't care how the artifacts are produced — only that the contract is met:
+
+1. Build with the Storybook entry-point env var enabled (`EXPO_PUBLIC_STORYBOOK_ENABLED=true` for Expo flows, `STORYBOOK_ENABLED=true` for RN CLI / Re.Pack).
+2. Produce a `storybook.app` (iOS Simulator build) and a `storybook.apk` (Android Emulator build).
+3. Drop both in the same directory.
+4. Run `npx chromatic --project-token <token> -d <dir>`.
+
+[EAS Build](https://docs.expo.dev/eas/), [Bitrise](https://bitrise.io), [GitHub Actions](https://docs.github.com/en/actions) macOS runners, [CircleCI](https://circleci.com) — they're all just ways of producing those two files.
+
+</details>
+
+<details>
+<summary>What are the minimum macOS, Xcode, and Android SDK versions?</summary>
+
+<div class="aside">
+  🚧 <strong>TBD:</strong> the supported macOS / Xcode / Android SDK matrix for
+  the React Native Capture Cloud is still being finalized. Watch the{" "}
+  <a href="/docs/infrastructure-release-notes">infrastructure release notes</a>,
+  or reach out at{" "}
+  <a href="mailto:support@chromatic.com">support@chromatic.com</a> if you have a
+  specific version in mind.
+</div>
+
+</details>
+
+<details>
+<summary>Why are snapshot sizes different between iOS and Android?</summary>
+
+The two platforms render to different default device sizes, system chrome (status bar, navigation bar), pixel densities, and font stacks. Diffs are computed per platform, so the size difference doesn't affect detection — it just reflects how the platforms actually render your UI.
+
+</details>
+
+---
+
+## Troubleshooting
+
+<TroubleshootingSetup />
+
+---
+
+## Resources
+
+- [Chromatic](https://www.chromatic.com)
+- [React Native](https://reactnative.dev)
+- [React Native for Storybook](https://storybookjs.github.io/react-native/docs/intro/)
+- [Storybook for React Native — `setup-react-native-storybook` skill](https://github.com/storybookjs/react-native)
+- [`chromatic` package on npm](https://www.npmjs.com/package/chromatic)
+- [`@react-native-async-storage/async-storage`](https://react-native-async-storage.github.io/async-storage/)
+- [Reanimated](https://docs.swmansion.com/react-native-reanimated/)
+- [Worklets](https://docs.swmansion.com/react-native-worklets/)
+- [Re.Pack](https://re-pack.dev)
+- [rspack](https://rspack.dev)
+- [Rock](https://rockjs.dev)
+- [Expo Router — `unstable_settings`](https://docs.expo.dev/router/advanced/router-settings/)
+- [Storybook `delay` parameter](https://storybook.js.org/docs/api/parameters#delay)
+- [`babel-plugin-transform-inline-environment-variables`](https://babeljs.io/docs/babel-plugin-transform-inline-environment-variables)
