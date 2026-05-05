@@ -43,8 +43,8 @@ test("Can open accordion", async () => {
 });
 ```
 
-Chromatic integration provides `waitForIdleNetwork` utility function that can be used before you take manual snapshots.
-It will resolve once network has been idle for given time, meaning no new network requests started during that period.
+The Chromatic integration provides a `waitForIdleNetwork` utility function that can be used before you take manual snapshots.
+It will resolve once the network has been idle for a given time, meaning no new network requests started during that period.
 
 ```tsx title="test/accordion.test.tsx"
 import { test, expect } from "vitest";
@@ -71,7 +71,7 @@ test("image inside accordion", async () => {
   await expect.element(image).toBeInTheDocument();
 
   // Wait for image to finish loading. If it's not ready in 1000ms, error out.
-  await waitForIdleNetwork(1_000); // [!code highlight]
+  await waitForIdleNetwork(1000); // [!code highlight]
   await takeSnapshot("accordion open with image inside");
 });
 ```
@@ -79,7 +79,6 @@ test("image inside accordion", async () => {
 Network request state is polled in intervals of `idleNetworkInterval` in milliseconds. Default value is 100ms.
 This can be configured on Chromatic plugin's options:
 
-```ts
 export default defineConfig({
   plugins: [chromaticPlugin({ idleNetworkInterval: 50 })],
 });
@@ -88,9 +87,9 @@ export default defineConfig({
 ## Limiting included tests using tags
 
 By default the `chromaticPlugin` applies its test setup for all test cases that the Vitest project runs.
-If your Vitest projects contains test cases that should not be covered by visual regression, this introduces unnecessary performance overhead.
+If your Vitest project contains test cases that should not be visually tested, this introduces unnecessary performance overhead.
 
-You can limit the test inclusion using `tags` option. In your Vitest configuration, define `tags: string[]` in the plugin options.
+You can limit test inclusion using the `tags` option. In your Vitest configuration, define `tags: string[]` in the plugin options.
 
 ```ts title="vitest.config.ts"
 import { defineConfig } from "vitest/config";
@@ -107,7 +106,7 @@ export default defineConfig({
 });
 ```
 
-Then use the configured tag in your test cases that should be included in visual regression. See [Test Tags | Vitest](https://vitest.dev/guide/test-tags.html#using-tags-in-tests) for detailed documentation about tags usage.
+Then use the configured tag in your test cases that should be included in visual regression. See [Vitest's tags documention](https://vitest.dev/guide/test-tags.html#using-tags-in-tests) for more details.
 
 <!-- prettier-ignore-start -->
 

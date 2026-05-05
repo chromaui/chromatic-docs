@@ -31,10 +31,10 @@ export default defineProject({
 });
 ```
 
-The `disableAutoSnapshot` option can also be configured at the test level as follows:
+Snapshots can also be disabled with the `disableAutoSnapshot` utility function as follows:
 
 <Tabs>
-  <TabItem label="On test level">
+  <TabItem label="Test level">
 <br />
 When called within `test()`, it disables snapshotting for that test:
 
@@ -56,7 +56,7 @@ test("button", async () => {
 
   </TabItem>
 
-  <TabItem label="On test suite level">
+  <TabItem label="Test suite level">
 <br />
 When called within `describe()`, it disables snapshotting for all tests and suites within that describe block.
 
@@ -88,7 +88,7 @@ describe("button", () => {
 
   </TabItem>
 
-  <TabItem label="On test file level">
+  <TabItem label="Test file level">
 <br />
 When called at the top level, it disables snapshotting for all tests in the file:
 
