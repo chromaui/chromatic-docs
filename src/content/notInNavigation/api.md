@@ -1,12 +1,12 @@
 ---
-title: "Chromatic API for Agents — Private Beta — Getting Started"
+title: "Chromatic API (Private Beta)"
 description: "Getting started with Chromatic's GraphQL API for agents (private beta) — endpoint, OAuth 2.0 + PKCE authentication, queries, mutations, and scopes."
 sidebar:
   hide: true
 isHidden: true
 ---
 
-# Chromatic API for Agents — Private Beta — Getting Started
+# Chromatic API (Private Beta)
 
 Chromatic's public API is built using GraphQL. If you are new to GraphQL, Apollo has [resources for beginners](https://blog.apollographql.com/the-basics-of-graphql-in-5-links-9e1dc4cac055). The official [GraphQL documentation](https://graphql.org/) is another good starting point.
 
