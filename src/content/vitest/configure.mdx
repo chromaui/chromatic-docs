@@ -9,11 +9,7 @@ import { TabItem, Tabs } from "../../components/Tabs";
 
 # Configure visual tests for Vitest
 
-You can enhance your Vitest and Chromatic tests further by configuring them using the options outlined in the following sections.
-
-## Vitest options
-
-The Chromatic Vitest integration supports configuring options globally in your [Vitest configuration file](https://vitest.dev/config/) as follows:
+You can enhance your Vitest and Chromatic tests further by configuring these options in your [Vitest configuration file](https://vitest.dev/config/).
 
 ```ts title="vitest.config.ts"
 import { defineProject } from "vitest/config";
@@ -22,16 +18,18 @@ import { chromaticPlugin } from "@chromatic-com/vitest/plugin";
 export default defineProject({
   plugins: [
     chromaticPlugin({
-      // 👇 Sets the option at the global level.
+      // 👇 Options placed here
       disableAutoSnapshot: true,
     }),
   ],
 
-  // Other configuration options
+  // ...Other Vitest configuration
 });
 ```
 
-Snapshots can also be disabled with the `disableAutoSnapshot` utility function as follows:
+## Disabling automatic snapshots
+
+In addition to the [project-level option](#test-run-options), you can also call the `disableAutoSnapshot()` function to disable snapshotting for specific tests, suites, or test files.
 
 <Tabs>
   <TabItem label="Test level">
