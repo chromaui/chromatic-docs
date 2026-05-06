@@ -10,6 +10,17 @@ isHidden: true
 
 Chromatic's public API is built using GraphQL. If you are new to GraphQL, Apollo has [resources for beginners](https://blog.apollographql.com/the-basics-of-graphql-in-5-links-9e1dc4cac055). The official [GraphQL documentation](https://graphql.org/) is another good starting point.
 
+<details>
+  <summary>Prompt for AI-assisted set up</summary>
+
+Follow this doc to authenticate with OAuth 2.0 + PKCE in order to access the Chromatic API: https://www.chromatic.com/docs/llms/api.txt
+
+The client id is: <REPLACE_WITH_CLIENT_ID_PROVIDED_BY_CHROMATIC>
+
+Once authenticated, test out accessing the API by showing me a list of at most 10 of my projects with their names and URLs.
+
+</details>
+
 ## Endpoint
 
 Chromatic's GraphQL endpoint is:
@@ -44,35 +55,29 @@ If you are in the private beta, reach out directly to your dedicated Chromatic p
 
 Use your client ID to Chromatic OAuth client to run the authorization code flow. This opens a browser window for you to approve access, then exchanges the resulting code for a token pair.
 
-<div class="aside">
-
-💡 **Paste this page into your AI assistant and ask it to implement the OAuth 2.0 + PKCE flow. It already knows how PKCE works — just give it your client ID and the endpoints below.**
-
-</div>
-
 **Authorization endpoint** — `https://www.chromatic.com/authorize`
 
-| Parameter               | Value                                                                                                    |
-| ----------------------- | -------------------------------------------------------------------------------------------------------- |
-| `response_type`         | `code`                                                                                                   |
-| `client_id`             | `<your_client_id>`                                                                                       |
-| `redirect_uri`          | Your local callback (e.g. `http://localhost:8080/callback`)                                              |
+| Parameter               | Value                                                                                                   |
+| ----------------------- | ------------------------------------------------------------------------------------------------------- |
+| `response_type`         | `code`                                                                                                  |
+| `client_id`             | `<your_client_id>`                                                                                      |
+| `redirect_uri`          | Your local callback (e.g. `http://localhost:8080/callback`)                                             |
 | `scope`                 | `user:read account:read account:write project:read project:write build:read build:write storybook:read` |
-| `resource`              | `https://www.chromatic.com/api` (required)                                                               |
-| `code_challenge_method` | `S256`                                                                                                   |
+| `resource`              | `https://www.chromatic.com/api` (required)                                                              |
+| `code_challenge_method` | `S256`                                                                                                  |
 
 Chromatic will redirect to your `redirect_uri` with `?code=<AUTH_CODE>&state=<STATE>`.
 
 **Token endpoint** — `https://www.chromatic.com/token`
 
-| Parameter       | Value                                          |
-| --------------- | ---------------------------------------------- |
-| `grant_type`    | `authorization_code`                           |
-| `client_id`     | `<your_client_id>`                             |
-| `code`          | The authorization code from the redirect       |
-| `redirect_uri`  | Same value used in the authorization request   |
-| `code_verifier` | Your PKCE verifier                             |
-| `resource`      | `https://www.chromatic.com/api` (required)     |
+| Parameter       | Value                                        |
+| --------------- | -------------------------------------------- |
+| `grant_type`    | `authorization_code`                         |
+| `client_id`     | `<your_client_id>`                           |
+| `code`          | The authorization code from the redirect     |
+| `redirect_uri`  | Same value used in the authorization request |
+| `code_verifier` | Your PKCE verifier                           |
+| `resource`      | `https://www.chromatic.com/api` (required)   |
 
 Include the access token in the `Authorization` header of every API request:
 
@@ -422,13 +427,13 @@ If the review fails, errors come back in `userErrors` rather than the top-level 
 
 Scopes follow a `subject:action` pattern. Requesting a scope grants access to the endpoints listed below — nothing more.
 
-| Scope            | What it unlocks                                                        |
-| ---------------- | ---------------------------------------------------------------------- |
-| `user:read`      | `viewer` query — name, username, avatar, project count                 |
-| `account:read`   | `account` query — account name, avatar, projects list                  |
-| `account:write`  | `account.subscription` field — billing and plan details                |
-| `project:read`   | `project` query — project metadata, branch names, last build           |
-| `project:write`  | Create, update, and remove projects; manage collaborators and invites  |
-| `build:read`     | `build` query — build status, result, commit, test counts              |
-| `build:write`    | `reviewTest` mutation — accept or deny test snapshots                  |
-| `storybook:read` | `storybook` query — published Storybook URL and build link             |
+| Scope            | What it unlocks                                                       |
+| ---------------- | --------------------------------------------------------------------- |
+| `user:read`      | `viewer` query — name, username, avatar, project count                |
+| `account:read`   | `account` query — account name, avatar, projects list                 |
+| `account:write`  | `account.subscription` field — billing and plan details               |
+| `project:read`   | `project` query — project metadata, branch names, last build          |
+| `project:write`  | Create, update, and remove projects; manage collaborators and invites |
+| `build:read`     | `build` query — build status, result, commit, test counts             |
+| `build:write`    | `reviewTest` mutation — accept or deny test snapshots                 |
+| `storybook:read` | `storybook` query — published Storybook URL and build link            |
