@@ -371,6 +371,13 @@
         "type": "string",
         "example": "`\"nx run my-app:build-storybook-android\"`",
         "supports": ["Config File"]
+      },
+      {
+        "option": "androidBuildArchitectures",
+        "description": "The Android architectures to build for. Chromatic always builds for `x86_64`, if you would like additional architectures built you may specify them here.",
+        "type": "array of string",
+        "example": "`[\"arm64-v8a\", \"armeabi-v7a\"]`",
+        "supports": ["Config File"]
       }
     ]
   }
