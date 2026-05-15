@@ -63,9 +63,7 @@ export async function getAllCollections() {
  * Excludes FAQ sub-pages from troubleshooting.
  * Set `includeNotInNavigation` to true to include hidden pages.
  */
-export async function getAllDocs({
-  includeNotInNavigation = false,
-} = {}) {
+export async function getAllDocs({ includeNotInNavigation = false } = {}) {
   const collections = await getAllCollections();
 
   return Object.entries(collections).flatMap(([key, entries]) => {
@@ -73,9 +71,7 @@ export async function getAllDocs({
       return includeNotInNavigation ? entries : [];
     }
     if (key === "troubleshooting") {
-      return entries.filter(
-        ({ id }) => id !== "faq" && !id.startsWith("faq/"),
-      );
+      return entries.filter(({ id }) => id !== "faq" && !id.startsWith("faq/"));
     }
     return entries;
   });
@@ -129,9 +125,7 @@ export async function getDocSections() {
 
     const filtered =
       key === "troubleshooting"
-        ? entries.filter(
-            ({ id }) => id !== "faq" && !id.startsWith("faq/"),
-          )
+        ? entries.filter(({ id }) => id !== "faq" && !id.startsWith("faq/"))
         : entries;
 
     const mapping = sectionMap.find(([name]) => name === key);
