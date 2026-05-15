@@ -60,14 +60,6 @@ const cypress = defineCollection({
   schema,
 });
 
-const reactNative = defineCollection({
-  loader: glob({
-    pattern: "**/[^_]*.{md,mdx}",
-    base: "./src/content/react-native",
-  }),
-  schema,
-});
-
 const configuration = defineCollection({
   loader: glob({
     pattern: "**/[^_]*.{md,mdx}",
@@ -149,7 +141,6 @@ export const collections = {
   interactionTests,
   playwright,
   cypress,
-  reactNative,
   configuration,
   modes,
   snapshot,
