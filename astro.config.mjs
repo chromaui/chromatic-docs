@@ -29,7 +29,6 @@ export default defineConfig({
       [
         rehypeMermaid,
         {
-          strategy: "img-svg",
           mermaidConfig: {
             theme: "neutral",
             themeVariables: {

@@ -10,7 +10,7 @@
     "directory": "docs"
   },
   "scripts": {
-    "postinstall": "pnpm playwright-core install chromium",
+    "postinstall": "node scripts/install-playwright.mjs",
     "dev": "astro dev",
     "start": "astro dev",
     "build": "astro build",
@@ -46,7 +46,6 @@
     "framer-motion": "^11.0.5",
     "github-slugger": "^2.0.0",
     "hast-util-select": "^6.0.2",
-    "playwright-core": "1.47.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-lite-youtube-embed": "^2.3.52",
@@ -62,7 +61,7 @@
     "unist-util-visit": "^5.0.0"
   },
   "devDependencies": {
-    "@beoe/rehype-mermaid": "^0.0.1",
+    "@beoe/rehype-mermaid": "^0.4.2",
     "@chromatic-com/storybook": "^5.0.1",
     "@hyperjump/json-schema": "^1.9.4",
     "@storybook/addon-a11y": "^10.3.0",
@@ -83,5 +82,5 @@
     "storybook": "^10.3.0",
     "vitest": "^4.0.16"
   },
-  "packageManager": "pnpm@10.25.0+sha512.5e82639027af37cf832061bcc6d639c219634488e0f2baebe785028a793de7b525ffcd3f7ff574f5e9860654e098fe852ba8ac5dd5cefe1767d23a020a92f501"
+  "packageManager": "pnpm@11.2.2+sha512.36e6621fad506178936455e70247b8808ef4ec25797a9f437a93281a020484e2607f6a469a22e982987c3dbb8866e3071514ab10a4a1749e06edcd1ec118436f"
 }
