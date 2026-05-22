@@ -1,0 +1,13 @@
+gitGraph
+  commit id: "M.1"
+  branch feature-1
+  commit id: "F1.1" type: REVERSE
+  checkout main
+  branch feature-2
+  commit id: "F2.1"
+  checkout feature-1
+  commit id: "F1.2" type: REVERSE
+  checkout main
+  merge feature-2 id: "M.2" type: NORMAL
+  checkout feature-1
+  merge main id: "F1.3" type: HIGHLIGHT tag: "TS an. M.1 + M.2"

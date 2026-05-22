@@ -1,0 +1,13 @@
+%%{
+  init: { 'gitGraph': { 'parallelCommits': true, 'rotateCommitLabel': false, 'mainBranchOrder': 2 }}
+}%%
+gitGraph LR:
+   commit type: HIGHLIGHT id: "M"
+   branch new_feature
+   commit id: "D"
+   commit id: "E"
+   commit type: HIGHLIGHT id: "F"
+   checkout main
+   commit id: "A"
+   commit id: "B"
+   commit id: "C"

@@ -28,5 +28,10 @@ jobs:
             ${{ runner.os }}-pnpm-store-
       - name: Install dependencies
         run: pnpm install
+      - name: Verify diagrams are in sync
+        run: |
+          pnpm diagrams
+          git diff --exit-code src/images/diagrams \
+            || (echo "::error::Committed diagram SVGs are out of sync with diagrams/*.mmd. Run 'pnpm diagrams' locally and commit." && exit 1)
       - name: Run Vitest
         run: pnpm run test:unit

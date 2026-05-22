@@ -525,24 +525,7 @@ This means our git diff will include everything that's happened on main since yo
 
 Here is the scenario:
 
-```mermaid
-%%{
-  init: { 'theme': 'natural', 'themeVariables': { 'tagLabelFontSize': '12px' } }
-}%%
-gitGraph
-	commit id: "A"
-	branch feature
-	commit id: "P" tag: "an. A"
-  checkout main
-	commit id: "B" tag: "an. A"
-  commit id: "C" tag: "an. B"
-
-  checkout feature
-  branch ephemeral
-	commit id: "P'" tag: "ephemeral from D" type: HIGHLIGHT
-  checkout main
-  merge ephemeral id: "D" tag: "an. C"
-```
+![Git graph showing how GitHub's pull_request event creates an ephemeral merge commit P' from the feature branch (commit P) and the latest main (commits A, B, C, D).](../../images/diagrams/github-actions-ephemeral-merge.svg)
 
 What's happened:
 

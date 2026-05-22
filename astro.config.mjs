@@ -4,7 +4,6 @@ import mdx from "@astrojs/mdx";
 import sitemap from "@astrojs/sitemap";
 import rehypeAutolinkHeadings from "rehype-autolink-headings";
 import rehypeSlug from "rehype-slug";
-import rehypeMermaid from "@beoe/rehype-mermaid";
 import { rehypeShiki } from "@astrojs/markdown-remark";
 import { h, s } from "hastscript";
 import {
@@ -14,6 +13,7 @@ import {
 import rehypeRaw from "rehype-raw";
 import codeTitle from "remark-code-title";
 import { summarySlug } from "./src/summary-slug";
+import { markDiagramImages } from "./src/mark-diagram-images";
 import { schemaIntegration } from "./chromatic-config/schema-integration";
 
 // https://astro.build/config
@@ -26,20 +26,7 @@ export default defineConfig({
     remarkPlugins: [codeTitle],
     rehypePlugins: [
       rehypeSlug,
-      [
-        rehypeMermaid,
-        {
-          strategy: "img-svg",
-          mermaidConfig: {
-            theme: "neutral",
-            themeVariables: {
-              commitLabelFontSize: "14px",
-              tagLabelFontSize: "14px",
-            },
-          },
-        },
-      ],
-      // Manually configure shiki so that we can use mermaid alongside it
+      markDiagramImages,
       [
         rehypeShiki,
         {
