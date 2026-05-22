@@ -4,8 +4,9 @@
 import { readFile, writeFile, mkdir, readdir, stat } from "node:fs/promises";
 import { watch } from "node:fs";
 import path from "node:path";
+import { fileURLToPath } from "node:url";
 
-const ROOT = new URL("..", import.meta.url).pathname;
+const ROOT = fileURLToPath(new URL("..", import.meta.url));
 const SRC_DIR = path.join(ROOT, "diagrams");
 const OUT_DIR = path.join(ROOT, "src/images/diagrams");
 const KROKI = process.env.KROKI_URL ?? "https://kroki.io";
