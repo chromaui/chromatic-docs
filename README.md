@@ -46,6 +46,8 @@ All commands are run from the root of the project, from a terminal:
 | `pnpm preview`         | Preview your build locally, before deploying     |
 | `pnpm astro ...`       | Run CLI commands like `astro add`, `astro check` |
 | `pnpm astro -- --help` | Get help using the Astro CLI                     |
+| `pnpm diagrams`        | Render all `diagrams/*.mmd` files to SVG         |
+| `pnpm diagrams:watch`  | Watch `diagrams/` and re-render on save          |
 
 ## ✍️ Editing Content
 
@@ -132,7 +134,36 @@ console.log("Not highlighted");
 
 ### Mermaid diagrams
 
-You can insert Mermaid diagrams in markdown & MDX files to visualize Git commits and actions. For syntax and usage instructions, refer to the Mermaid documentation: [Mermaid documentation](https://mermaid.js.org/syntax/gitgraph.html).
+There are two ways to include Mermaid diagrams in the docs.
+
+**1. Inline fenced code blocks (markdown & MDX)**
+
+Use a ` ```mermaid ` fenced code block directly in any `.md` or `.mdx` file. The diagram is rendered at build time by `@beoe/rehype-mermaid`:
+
+````md
+```mermaid
+gitGraph
+   commit
+   branch feature
+   checkout feature
+   commit
+   checkout main
+   merge feature
+```
+````
+
+**2. Standalone `.mmd` files (complex or reusable diagrams)**
+
+Place a `.mmd` source file in the `diagrams/` directory, then render it to an SVG with:
+
+```bash
+pnpm diagrams         # render all diagrams/*.mmd → src/images/diagrams/*.svg
+pnpm diagrams:watch   # re-render automatically on save
+```
+
+The rendered SVGs land in `src/images/diagrams/` and can be referenced in content like any other image. Use this approach for diagrams that are large, reused across multiple pages, or need to be version-controlled as standalone assets.
+
+For full syntax reference see the [Mermaid documentation](https://mermaid.js.org/syntax/gitgraph.html).
 
 ### Adding an FAQ item
 
