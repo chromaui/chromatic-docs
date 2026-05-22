@@ -180,10 +180,8 @@ export const formatting = css`
   img.diagram {
     display: block;
     background: #f8f8f8;
-    border-radius: 4px;
-    margin: 1.5rem auto;
     padding: 1rem;
-    max-width: 100%;
+    width: 100%;
     height: auto;
   }
 
