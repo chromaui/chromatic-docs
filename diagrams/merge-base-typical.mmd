@@ -1,0 +1,15 @@
+%%{
+  init: {
+    'gitGraph': { 'parallelCommits': true, 'mainBranchName': 'base' }
+  }
+}%%
+gitGraph TB:
+  commit id: "x" type: HIGHLIGHT
+  branch head
+  checkout head
+  commit id: "w"
+  commit id: "p"
+  commit id: "q" type: HIGHLIGHT
+  checkout base
+  commit id: "y"
+  commit id: "z"

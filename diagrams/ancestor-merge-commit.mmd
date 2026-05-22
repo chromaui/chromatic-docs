@@ -1,0 +1,8 @@
+gitGraph TB:
+    commit id: "w"
+    commit id: "x" tag: "Build N"
+    branch new_feature
+    commit id: "p" tag: "Build N+1"
+    checkout main
+    merge new_feature id: "y" tag: "Build N+2"
+    commit id: "z"

@@ -1,4 +1,4 @@
 allowBuilds:
-  '@fortawesome/fontawesome-free': true
+  "@fortawesome/fontawesome-free": true
   esbuild: true
   sharp: true
