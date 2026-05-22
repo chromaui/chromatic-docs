@@ -24,6 +24,10 @@ When you're linking to a library or component on Chromatic, it can be useful to 
 
 **Example**: `https://www.chromatic.com/library?appId=...&branch=main`.
 
+<div class="aside">
+  If your branch name contains special characters like slashes or dots, URL-encode them in the query parameter. For example, <code>feature/my-branch</code> becomes <code>?branch=feature%2Fmy-branch</code>.
+</div>
+
 ## Embedding
 
 If you're documenting components outside of Storybook, you may be able to [embed interactive stories](/docs/embed). This works on many platforms that support the oEmbed specification.
