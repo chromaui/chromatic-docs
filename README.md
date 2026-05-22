@@ -134,36 +134,22 @@ console.log("Not highlighted");
 
 ### Mermaid diagrams
 
-There are two ways to include Mermaid diagrams in the docs.
+Mermaid diagrams are authored as `.mmd` files in the `diagrams/` directory and pre-rendered to SVG via [Kroki](https://kroki.io) before being committed.
 
-**1. Inline fenced code blocks (markdown & MDX)**
+**Workflow:**
 
-Use a ` ```mermaid ` fenced code block directly in any `.md` or `.mdx` file. The diagram is rendered at build time by `@beoe/rehype-mermaid`:
+1. Create or edit a `.mmd` file in `diagrams/`, e.g. `diagrams/my-diagram.mmd`
+2. Run `pnpm diagrams` (or `pnpm diagrams:watch` during active editing) to render it:
+   ```bash
+   pnpm diagrams         # render all diagrams/*.mmd → src/images/diagrams/*.svg
+   pnpm diagrams:watch   # re-render automatically on save
+   ```
+3. Commit both the `.mmd` source and the generated `src/images/diagrams/my-diagram.svg`
+4. Reference the SVG as a regular image in your markdown/MDX content
 
-````md
-```mermaid
-gitGraph
-   commit
-   branch feature
-   checkout feature
-   commit
-   checkout main
-   merge feature
-```
-````
+Images from `src/images/diagrams/` automatically receive a `diagram` CSS class for styling.
 
-**2. Standalone `.mmd` files (complex or reusable diagrams)**
-
-Place a `.mmd` source file in the `diagrams/` directory, then render it to an SVG with:
-
-```bash
-pnpm diagrams         # render all diagrams/*.mmd → src/images/diagrams/*.svg
-pnpm diagrams:watch   # re-render automatically on save
-```
-
-The rendered SVGs land in `src/images/diagrams/` and can be referenced in content like any other image. Use this approach for diagrams that are large, reused across multiple pages, or need to be version-controlled as standalone assets.
-
-For full syntax reference see the [Mermaid documentation](https://mermaid.js.org/syntax/gitgraph.html).
+For syntax reference see the [Mermaid documentation](https://mermaid.js.org/syntax/gitgraph.html).
 
 ### Adding an FAQ item
 

@@ -61,7 +61,7 @@ Shiki handles syntax highlighting with these special comment annotations:
 - `[!code --]` — mark removed lines
 - `[!code highlight]` — highlight lines
 
-Code blocks support `title="filename"` via `remark-code-title`. Mermaid diagrams are rendered via `@beoe/rehype-mermaid`.
+Code blocks support `title="filename"` via `remark-code-title`. Mermaid diagrams are authored as `.mmd` files in `diagrams/`, pre-rendered to SVG via Kroki using `pnpm diagrams`, and committed to `src/images/diagrams/`.
 
 Reusable code snippets live in `src/shared-snippets/` and can be imported in MDX files.
 
