@@ -1,9 +1,7 @@
 name: "Broken link checker"
-# on:
-#   schedule:
-#     - cron: "0 0 * * *"
-
-on: push
+on:
+  schedule:
+    - cron: "0 0 * * *"
 
 jobs:
   check-for-broken-links:
