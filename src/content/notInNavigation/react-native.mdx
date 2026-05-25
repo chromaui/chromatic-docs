@@ -191,7 +191,7 @@ When set, the CLI invokes these commands instead of its defaults. The commands m
 
 ### Reusing an existing build
 
-Pass `--storybook-build-dir` to skip all build steps except `manifest.json` generation. This is most useful for parallelizing native builds across CI machines: one machine builds the Android artifact, another builds iOS, and a third runs Chromatic with `--storybook-build-dir` pointing to the directory containing both artifacts.
+Pass `--storybook-build-dir` to skip all build steps except `manifest.json` generation. This is most useful for parallelizing native builds across CI machines: one machine builds the Android artifact, another builds the iOS artifact, and a third runs Chromatic with `--storybook-build-dir` pointing to the directory containing both artifacts.
 
 ### The `react-native-build` command
 
