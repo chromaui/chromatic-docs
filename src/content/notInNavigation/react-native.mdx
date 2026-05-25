@@ -25,7 +25,7 @@ Chromatic captures snapshots in the iOS Simulator on hosted macOS and the Androi
 
 Before you start, make sure you have:
 
-- A working React Native app (Expo, Expo Router, React Native CLI, and Re.Pack are all supported)
+- A working React Native app ([Expo](https://expo.dev/), [Expo Router](https://docs.expo.dev/router/introduction/), [React Native CLI](https://reactnative.dev/docs/environment-setup), and [Re.Pack](https://re-pack.dev/) are all supported)
 - [React Native for Storybook](https://storybookjs.github.io/react-native/docs/intro/) installed and running locally, v9.0 or higher
 - A [Chromatic](https://www.chromatic.com) account
 
@@ -193,9 +193,9 @@ When set, the CLI invokes these commands instead of its defaults. The commands m
 
 Pass `--storybook-build-dir` to skip all build steps except `manifest.json` generation. This is most useful for parallelizing native builds across CI machines: one machine builds the Android artifact, another builds the iOS artifact, and a third runs Chromatic with `--storybook-build-dir` pointing to the directory containing both artifacts.
 
-### The `react-native-build` command
+### The `react-native-build` command for Expo users
 
-The CLI includes a `react-native-build` sub-command for building your React Native app. It uses the same logic as a regular Chromatic run, but lets you split your CI pipeline and parallelize Android and iOS builds.
+The CLI includes a `react-native-build` sub-command for building your React Native app that use Expo. It uses the same logic as a regular Chromatic run, but lets you split your CI pipeline and parallelize Android and iOS builds.
 
 ```bash
 $ npx chromatic@latest react-native-build --help
@@ -210,13 +210,11 @@ $ npx chromatic@latest react-native-build --help
     --output-dir  Directory to write build artifacts and log file to.
 ```
 
----
-
 ## Configure CI
 
 Integrate Chromatic into your CI pipeline to get notified about any visual changes introduced by a pull request. Chromatic will run tests when you push code and report changes via the "UI Tests" badge for your pull request.
 
-Here's a sample GitHub Actions workflow that builds the Storybook app for iOS and Android in parallel, then runs Chromatic with the generated artifacts:
+Here's a sample GitHub Actions workflow (for Expo) that builds the Storybook app for iOS and Android in parallel, then runs Chromatic with the generated artifacts:
 
 ```yml title=".github/workflows/test.yml"
 name: Build
