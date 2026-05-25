@@ -1,13 +1,15 @@
 import React from "react";
 
-type LabelKey = "opensource" | "enterprise" | "billing" | "promo";
+import { PLAIN_LABEL_IDS } from "./plainConfig";
 
-// Keep in sync with monorepo chromatic-lib/constants/PlainLabels.ts.
+type LabelKey = "opensource" | "enterprise" | "billing" | "promo" | "sales";
+
 const LABEL_IDS: Record<LabelKey, string> = {
-  opensource: "lt_01KPDSS8GQ2JGK6BPGY18QHNH9",
-  enterprise: "lt_01KPDSTGS7PRM6QANFCQTY8DRX",
-  billing: "lt_01KJFR42S7PB52DNG9T815456N",
-  promo: "lt_01KJFR42S7PB52DNG9T815456N",
+  opensource: PLAIN_LABEL_IDS.openSourceQualification,
+  enterprise: PLAIN_LABEL_IDS.enterpriseQualification,
+  billing: PLAIN_LABEL_IDS.billing,
+  promo: PLAIN_LABEL_IDS.billing,
+  sales: PLAIN_LABEL_IDS.sales,
 };
 
 export function PlainOpenLink({
