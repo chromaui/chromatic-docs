@@ -86,7 +86,7 @@ First, ensure you're saving the report in your CI environment. In GitHub Actions
 
 ```yml title=".github/workflows/chromatic.yml"
 - name: Upload Build Report
-  uses: actions/upload-artifact@v4
+  uses: actions/upload-artifact@v7
   with:
     name: chromatic-reports
     path: chromatic-build-*.xml
@@ -101,7 +101,6 @@ Once you have the XML file, you can write a script in your CI pipeline to:
 ### Datadog
 
 The most straightforward method for sending your JUnit reports to Datadog is by using the `datadog-ci` command-line tool or its corresponding GitHub Action.
-
 
 1. Install the `datadog-ci` CLI
 2. After your tests have run and generated the JUnit XML report, use the following command:
