@@ -62,7 +62,7 @@ jobs:
         run: npm ci
 
       - name: Download all workflow run artifacts
-        uses: actions/download-artifact@v4
+        uses: actions/download-artifact@v8
         with:
           path: ./test-results/chromatic-archives
           pattern: playwright-report-*
