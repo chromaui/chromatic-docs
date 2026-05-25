@@ -1,6 +1,5 @@
-export const CHROMATIC_WEBAPP_URL = "https://www.chromatic.com";
 export const CHROMATIC_PLAIN_APP_ID = "liveChatApp_01KS8914NQXJ834YXGGFVQ61N5";
-export const CHROMATIC_PLAIN_AUTH_ENDPOINT = `${CHROMATIC_WEBAPP_URL}/plain-email-hash`;
+export const CHROMATIC_PLAIN_AUTH_ENDPOINT = "/plain-email-hash";
 
 export const PLAIN_LABEL_IDS = {
   openSourceQualification: "lt_01KPVGY522VC8FC61QY0VTHCT2",
