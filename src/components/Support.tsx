@@ -1,5 +1,5 @@
-import { Button, fontWeight, minMd, spacing } from "@chromatic-com/tetra";
-import styled from "@emotion/styled";
+import { Button, fontWeight, minMd, spacing } from '@chromatic-com/tetra';
+import styled from '@emotion/styled';
 
 const Trigger = styled(Button)`
   align-self: flex-start;
@@ -22,13 +22,7 @@ export function Support({ ...props }) {
   };
 
   return (
-    <Trigger
-      variant="outline"
-      color="slate"
-      size="sm"
-      onClick={openChat}
-      {...props}
-    >
+    <Trigger variant="outline" color="slate" size="sm" onClick={openChat} {...props}>
       Get support
     </Trigger>
   );

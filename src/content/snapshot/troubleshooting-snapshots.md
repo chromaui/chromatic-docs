@@ -1,7 +1,7 @@
 ---
 title: Troubleshooting Snapshots
 description: Tips for debugging and improving snapshot consistency
-sidebar: { order: 15, label: "Troubleshooting" }
+sidebar: { order: 15, label: 'Troubleshooting' }
 ---
 
 # Troubleshooting Snapshots

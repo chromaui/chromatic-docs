@@ -1,8 +1,8 @@
-import type { Meta, StoryObj } from "@storybook/react-vite";
-import { ContentContainer } from "./ContentContainer";
+import type { Meta, StoryObj } from '@storybook/react-vite';
+import { ContentContainer } from './ContentContainer';
 
 const meta = {
-  title: "Components/ContentContainer",
+  title: 'Components/ContentContainer',
   component: ContentContainer,
   // ContentContainer is already loaded for all stories in .storybook/preview.tsx
   render: ({ children }) => <div style={{ maxWidth: 796 }}>{children}</div>,
@@ -11,13 +11,7 @@ const meta = {
 export default meta;
 type Story = StoryObj<typeof meta>;
 
-const Heading = ({
-  level = 2,
-  children,
-}: {
-  level?: number;
-  children: React.ReactNode;
-}) => {
+const Heading = ({ level = 2, children }: { level?: number; children: React.ReactNode }) => {
   const Tag = `h${level}` as keyof JSX.IntrinsicElements;
 
   return (
@@ -50,49 +44,49 @@ const CodeExample = () => (
   <pre
     className="astro-code github-light"
     style={{
-      backgroundColor: "#fff",
-      color: "#24292e",
-      overflowX: "auto",
+      backgroundColor: '#fff',
+      color: '#24292e',
+      overflowX: 'auto',
     }}
     tabIndex={0}
     data-language="bash"
   >
     <code>
       <span className="line">
-        <span style={{ color: "#6A737D" }}># Install Chromatic</span>
+        <span style={{ color: '#6A737D' }}># Install Chromatic</span>
       </span>
-      {"\n"}
+      {'\n'}
       <span className="line">
-        <span style={{ color: "#6F42C1" }}>$</span>
-        <span style={{ color: "#032F62" }}> npm</span>
-        <span style={{ color: "#032F62" }}> install</span>
-        <span style={{ color: "#005CC5" }}> --save-dev</span>
-        <span style={{ color: "#032F62" }}> chromatic</span>
+        <span style={{ color: '#6F42C1' }}>$</span>
+        <span style={{ color: '#032F62' }}> npm</span>
+        <span style={{ color: '#032F62' }}> install</span>
+        <span style={{ color: '#005CC5' }}> --save-dev</span>
+        <span style={{ color: '#032F62' }}> chromatic</span>
       </span>
-      {"\n"}
+      {'\n'}
       <span className="line" />
-      {"\n"}
+      {'\n'}
       <span className="line">
-        <span style={{ color: "#6A737D" }}>
+        <span style={{ color: '#6A737D' }}>
           # Use your project token and run the following command
         </span>
       </span>
-      {"\n"}
+      {'\n'}
       <span className="line">
-        <span style={{ color: "#6A737D" }}># in your project directory</span>
+        <span style={{ color: '#6A737D' }}># in your project directory</span>
       </span>
-      {"\n"}
+      {'\n'}
       <span className="line">
-        <span style={{ color: "#6F42C1" }}>$</span>
-        <span style={{ color: "#032F62" }}> npx</span>
-        <span style={{ color: "#032F62" }}> chromatic</span>
-        <span style={{ color: "#005CC5" }}> --project-token</span>
-        <span style={{ color: "#D73A49" }}> &lt;</span>
-        <span style={{ color: "#032F62" }}>YOUR_PROJECT_TOKE</span>
-        <span style={{ color: "#24292E" }}>N</span>
-        <span style={{ color: "#D73A49" }}>&gt;</span>
+        <span style={{ color: '#6F42C1' }}>$</span>
+        <span style={{ color: '#032F62' }}> npx</span>
+        <span style={{ color: '#032F62' }}> chromatic</span>
+        <span style={{ color: '#005CC5' }}> --project-token</span>
+        <span style={{ color: '#D73A49' }}> &lt;</span>
+        <span style={{ color: '#032F62' }}>YOUR_PROJECT_TOKE</span>
+        <span style={{ color: '#24292E' }}>N</span>
+        <span style={{ color: '#D73A49' }}>&gt;</span>
       </span>
-      {"\n"}
+      {'\n'}
       <span className="line" />
     </code>
   </pre>
@@ -119,20 +113,18 @@ export const Basic: Story = {
       <>
         <Heading level={1}>Configuration reference</Heading>
         <p>
-          These options control how Chromatic behaves. See also{" "}
+          These options control how Chromatic behaves. See also{' '}
           <a href="/docs/branching-and-baselines">
             <strong>branching docs</strong>
-          </a>{" "}
-          and <a href="#diagnosing-issues">diagnosing issues</a> for when to use
-          some of these flags. Some options are only available as a flag or as
-          an input to the GitHub Action.
+          </a>{' '}
+          and <a href="#diagnosing-issues">diagnosing issues</a> for when to use some of these
+          flags. Some options are only available as a flag or as an input to the GitHub Action.
         </p>
         <p>
-          Flags must be passed as <code>--kebab-case</code> whereas options are{" "}
-          <code>camelCase</code>. Flags take precedence over configuration
-          options. When passing a flag without value, it is treated as true.
-          Where an array is accepted, specify the flag multiple times (once for
-          each value).
+          Flags must be passed as <code>--kebab-case</code> whereas options are{' '}
+          <code>camelCase</code>. Flags take precedence over configuration options. When passing a
+          flag without value, it is treated as true. Where an array is accepted, specify the flag
+          multiple times (once for each value).
         </p>
       </>
     ),
@@ -147,23 +139,21 @@ export const OrderedList: Story = {
         <p>Chromatic’s streamlined workflow involves four steps:</p>
         <ol>
           <li>
-            <strong>Cloud Rendering:</strong> Chromatic renders your UI
-            components in a cloud-based browser.
+            <strong>Cloud Rendering:</strong> Chromatic renders your UI components in a cloud-based
+            browser.
           </li>
           <li>
-            <strong>Snapshot Capture:</strong> Chromatic takes a snapshot for
-            each test, with all tests running simultaneously to save you time.
+            <strong>Snapshot Capture:</strong> Chromatic takes a snapshot for each test, with all
+            tests running simultaneously to save you time.
           </li>
           <li>
-            <strong>Automated diffing:</strong> Whenever you update your code,
-            Chromatic generates new snapshots and compares them to the
-            baselines.
+            <strong>Automated diffing:</strong> Whenever you update your code, Chromatic generates
+            new snapshots and compares them to the baselines.
           </li>
           <li>
-            <strong>Review and Verification:</strong> When Chromatic detects
-            changes, you’re prompted to review them to ensure they’re
-            intentional. Any unexpected changes trigger notifications so you can
-            fix them quickly.
+            <strong>Review and Verification:</strong> When Chromatic detects changes, you’re
+            prompted to review them to ensure they’re intentional. Any unexpected changes trigger
+            notifications so you can fix them quickly.
           </li>
         </ol>
       </>
@@ -176,50 +166,42 @@ export const UnOrderedList: Story = {
     children: (
       <>
         <p>
-          Chromatic manages the entire testing process for you. Everything from
-          building and publishing your Storybook to running tests in cloud
-          browsers.
+          Chromatic manages the entire testing process for you. Everything from building and
+          publishing your Storybook to running tests in cloud browsers.
         </p>
-        <p>
-          Publish Storybook Key advantages of Chromatic’s Storybook integration:
-        </p>
+        <p>Publish Storybook Key advantages of Chromatic’s Storybook integration:</p>
         <ul>
           <li>
-            <strong>Story-driven testing:</strong> Eliminate the hassle of
-            writing separate tests. Chromatic automatically converts your
-            stories into visual tests.
+            <strong>Story-driven testing:</strong> Eliminate the hassle of writing separate tests.
+            Chromatic automatically converts your stories into visual tests.
           </li>
           <li>
             <a href="/docs/interactions/#interaction-tests">
               <strong>Zero-config interaction tests:</strong>
-            </a>{" "}
-            If you use Storybook’s{" "}
-            <a href="https://storybook.js.org/docs/writing-stories/play-function">
-              play functions
-            </a>{" "}
-            for functional testing, Chromatic intelligently waits for their
-            completion before capturing snapshots.
+            </a>{' '}
+            If you use Storybook’s{' '}
+            <a href="https://storybook.js.org/docs/writing-stories/play-function">play functions</a>{' '}
+            for functional testing, Chromatic intelligently waits for their completion before
+            capturing snapshots.
           </li>
           <li>
-            <strong>Parallelized testing:</strong> Chromatic’s cloud
-            infrastructure is optimized to test all your stories simultaneously
-            at no extra cost, maximizing speed and efficiency.
+            <strong>Parallelized testing:</strong> Chromatic’s cloud infrastructure is optimized to
+            test all your stories simultaneously at no extra cost, maximizing speed and efficiency.
           </li>
           <li>
-            <strong>Cross-browser testing:</strong> Chromatic’s coverage extends
-            to Chrome, Firefox, Safari, and Edge. All browser tests run in
-            parallel.
+            <strong>Cross-browser testing:</strong> Chromatic’s coverage extends to Chrome, Firefox,
+            Safari, and Edge. All browser tests run in parallel.
           </li>
           <li>
             <a href="/docs/modes/">
               <strong>Effortless variant testing:</strong>
-            </a>{" "}
-            Chromatic harnesses the power of{" "}
+            </a>{' '}
+            Chromatic harnesses the power of{' '}
             <a href="https://storybook.js.org/docs/essentials/toolbars-and-globals#globals">
               Storybook Globals
-            </a>{" "}
-            to comprehensively test UI variations across themes, viewports,
-            locales, and media features.
+            </a>{' '}
+            to comprehensively test UI variations across themes, viewports, locales, and media
+            features.
           </li>
         </ul>
       </>
@@ -233,20 +215,20 @@ export const Video: Story = {
       <>
         <Heading>How does visual testing work?</Heading>
         <p>
-          You can think of Chromatic’s visual testing as “before-and-after”{" "}
-          <a href="/docs/snapshots">snapshots</a> of your app’s interface. You
-          begin by capturing a perfect “before” image—this becomes your{" "}
-          <a href="/docs/branching-and-baselines#whats-a-baseline">baseline</a>.
-          After any code changes, Chromatic compares a new “after” snapshot
-          pixel-by-pixel against the baseline, revealing any visual differences.
+          You can think of Chromatic’s visual testing as “before-and-after”{' '}
+          <a href="/docs/snapshots">snapshots</a> of your app’s interface. You begin by capturing a
+          perfect “before” image—this becomes your{' '}
+          <a href="/docs/branching-and-baselines#whats-a-baseline">baseline</a>. After any code
+          changes, Chromatic compares a new “after” snapshot pixel-by-pixel against the baseline,
+          revealing any visual differences.
         </p>
         <p>
-          You can think of Chromatic’s visual testing as “before-and-after”{" "}
-          <a href="/docs/snapshots">snapshots</a> of your app’s interface. You
-          begin by capturing a perfect “before” image—this becomes your{" "}
-          <a href="/docs/branching-and-baselines#whats-a-baseline">baseline</a>.
-          After any code changes, Chromatic compares a new “after” snapshot
-          pixel-by-pixel against the baseline, revealing any visual differences.
+          You can think of Chromatic’s visual testing as “before-and-after”{' '}
+          <a href="/docs/snapshots">snapshots</a> of your app’s interface. You begin by capturing a
+          perfect “before” image—this becomes your{' '}
+          <a href="/docs/branching-and-baselines#whats-a-baseline">baseline</a>. After any code
+          changes, Chromatic compares a new “after” snapshot pixel-by-pixel against the baseline,
+          revealing any visual differences.
         </p>
         <video
           autoPlay
@@ -254,8 +236,8 @@ export const Video: Story = {
           playsInline
           loop
           style={{
-            marginBottom: "1em",
-            border: "1px solid rgba(0, 0, 0, 0.1);",
+            marginBottom: '1em',
+            border: '1px solid rgba(0, 0, 0, 0.1);',
           }}
         >
           <source src="/assets/visual-test-hero.mp4" type="video/mp4" />
@@ -272,31 +254,24 @@ export const Images: Story = {
         <Heading>
           <img
             src="/assets/storybook.svg"
-            style={{ alignSelf: "center" }}
+            style={{ alignSelf: 'center' }}
             className="inline-icon"
             alt=""
-          />{" "}
+          />{' '}
           Visual testing with Storybook
         </Heading>
         <p>
-          <a href="https://storybook.js.org">Storybook</a> is an open source
-          workshop for developing components and pages in isolation. Chromatic
-          is built and maintained by the team behind Storybook, ensuring a
-          seamless integration.
+          <a href="https://storybook.js.org">Storybook</a> is an open source workshop for developing
+          components and pages in isolation. Chromatic is built and maintained by the team behind
+          Storybook, ensuring a seamless integration.
         </p>
         <p>
-          Storybook lets you define the different states and variations of
-          components as{" "}
-          <a href="https://storybook.js.org/docs/get-started/whats-a-story">
-            stories
-          </a>
-          . This gives you an ideal setup for functional testing. Attach a{" "}
-          <a href="https://storybook.js.org/docs/writing-stories/play-function">
-            play function
-          </a>{" "}
-          to mimic how users interact with your components and include
-          assertions to verify the expected behavior. Chromatic uses these
-          stories to power visual tests.
+          Storybook lets you define the different states and variations of components as{' '}
+          <a href="https://storybook.js.org/docs/get-started/whats-a-story">stories</a>. This gives
+          you an ideal setup for functional testing. Attach a{' '}
+          <a href="https://storybook.js.org/docs/writing-stories/play-function">play function</a> to
+          mimic how users interact with your components and include assertions to verify the
+          expected behavior. Chromatic uses these stories to power visual tests.
         </p>
         <p>
           <img
@@ -317,14 +292,14 @@ export const Aside: Story = {
   args: {
     children: (
       <div className="aside">
-        We recommend saving the project token as a secret environment variable
-        named <code>CHROMATIC_PROJECT_TOKEN</code> for security reasons. In your
-        Azure pipeline configuration, forward it using the `env` option. When
-        the Chromatic CLI is executed, it will read the environment variable
-        automatically without any additional flags. Refer to the official Azure{" "}
+        We recommend saving the project token as a secret environment variable named{' '}
+        <code>CHROMATIC_PROJECT_TOKEN</code> for security reasons. In your Azure pipeline
+        configuration, forward it using the `env` option. When the Chromatic CLI is executed, it
+        will read the environment variable automatically without any additional flags. Refer to the
+        official Azure{' '}
         <a href="https://learn.microsoft.com/en-us/azure/devops/pipelines/process/set-secret-variables?view=azure-devops&tabs=yaml%2Cbash">
           environment variables documentation
-        </a>{" "}
+        </a>{' '}
         to learn more about it.
       </div>
     ),
@@ -335,10 +310,9 @@ export const Callout: Story = {
   args: {
     children: (
       <div className="callout">
-        ℹ️ The <code>chromatic.delay</code> parameter can be set at story,
-        component, and project levels. This enables you to set project wide
-        defaults and override them for specific components and/or stories.{" "}
-        <a href="/docs/config-with-story-params">Learn more »</a>
+        ℹ️ The <code>chromatic.delay</code> parameter can be set at story, component, and project
+        levels. This enables you to set project wide defaults and override them for specific
+        components and/or stories. <a href="/docs/config-with-story-params">Learn more »</a>
       </div>
     ),
   },
@@ -380,17 +354,16 @@ export const Disclosure: Story = {
           Setup .gitignore to ignore certain files in your Git repository
         </summary>
         <p>
-          Running the Chromatic command may generate certain files for logging
-          and debugging purposes. Exactly which files it generates depends on
-          your configuration, but these entries should likely be added to your{" "}
-          <code>.gitignore</code> file:
+          Running the Chromatic command may generate certain files for logging and debugging
+          purposes. Exactly which files it generates depends on your configuration, but these
+          entries should likely be added to your <code>.gitignore</code> file:
         </p>
         <pre
           className="astro-code github-light"
           style={{
-            backgroundColor: "#fff",
-            color: "#24292e",
-            overflowX: "auto",
+            backgroundColor: '#fff',
+            color: '#24292e',
+            overflowX: 'auto',
           }}
           tabIndex={0}
           data-language="plaintext"
@@ -399,19 +372,19 @@ export const Disclosure: Story = {
             <span className="line">
               <span>build-storybook.log</span>
             </span>
-            {"\n"}
+            {'\n'}
             <span className="line">
               <span>chromatic.log</span>
             </span>
-            {"\n"}
+            {'\n'}
             <span className="line">
               <span>chromatic-build-*.xml</span>
             </span>
-            {"\n"}
+            {'\n'}
             <span className="line">
               <span>chromatic-diagnostics.json</span>
             </span>
-            {"\n"}
+            {'\n'}
             <span className="line">
               <span />
             </span>

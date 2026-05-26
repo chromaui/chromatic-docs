@@ -25,21 +25,21 @@ Chromatic will capture the DOM and take snapshots at the viewport size in which 
 [Viewports in Playwright](https://playwright.dev/docs/emulation#viewport) can be configured globally in your main Playwright configuration file as follows:
 
 ```ts title="playwright.config.js|ts"
-import { defineConfig } from "@playwright/test";
+import { defineConfig } from '@playwright/test';
 
 export default defineConfig({
   projects: [
     {
-      name: "chromium",
+      name: 'chromium',
       use: {
-        ...devices["Desktop Chrome"],
+        ...devices['Desktop Chrome'],
         viewport: { width: 1280, height: 720 },
       },
     },
     {
-      name: "Mobile",
+      name: 'Mobile',
       use: {
-        ...devices["Desktop Chrome"],
+        ...devices['Desktop Chrome'],
         viewport: { width: 500, height: 600 },
       },
     },
@@ -50,14 +50,14 @@ export default defineConfig({
 Or at the test level:
 
 ```ts title="Viewports.spec.js|ts"
-test.describe("Page display on medium size screen", () => {
+test.describe('Page display on medium size screen', () => {
   // 👇 Overrides the option in the test.
   test.use({
     viewport: { width: 1600, height: 1200 },
   });
 
-  test("Does not display sidebar", async ({ page }) => {
-    await page.goto("/");
+  test('Does not display sidebar', async ({ page }) => {
+    await page.goto('/');
   });
 });
 ```
@@ -69,7 +69,7 @@ Chromatic will capture the DOM and take snapshots at the viewport size in which 
 [Viewports in Cypress](https://docs.cypress.io/api/commands/viewport) can be configured [globally in your main Cypress configuration file](https://docs.cypress.io/api/commands/viewport#Default-sizing) as follows:
 
 ```ts title="cypress.config.js|ts"
-import { defineConfig } from "cypress";
+import { defineConfig } from 'cypress';
 
 export default defineConfig({
   viewportWidth: 1000,
@@ -81,17 +81,17 @@ Or using [configuration at the test level](https://docs.cypress.io/api/commands/
 
 ```ts title="cypress/e2e/Viewports.cy.js|ts"
 describe(
-  "Page display on medium size screen",
+  'Page display on medium size screen',
   {
     // 👇 Overrides the option in the test.
     viewportHeight: 1000,
     viewportWidth: 400,
   },
   () => {
-    it("Does not display sidebar", () => {
-      cy.visit("/");
+    it('Does not display sidebar', () => {
+      cy.visit('/');
     });
-  },
+  }
 );
 ```
 

@@ -15,10 +15,7 @@ import CopyMarkdown from '../components/CopyMarkdown.astro';
 import OnThisPage from '../components/OnThisPage.astro';
 import SearchMeta from '../components/SearchMeta.astro';
 import { globalStyles } from '../styles/global';
-import {
-  navGroups,
-  flattenedNavItems,
-} from '../components/Navigation/nav-groups';
+import { navGroups, flattenedNavItems } from '../components/Navigation/nav-groups';
 
 type Props = {
   title: string;
@@ -34,9 +31,7 @@ const { title, description, id, searchMetaType } = Astro.props;
 const { pathname } = Astro.url;
 
 const editUrl = Astro.props.file?.replace(projectRoot, '').replace('src/', '');
-const rawMarkdownUrl = editUrl
-  ? `${import.meta.env.BASE_URL}/llms/${id}.txt`
-  : '';
+const rawMarkdownUrl = editUrl ? `${import.meta.env.BASE_URL}/llms/${id}.txt` : '';
 const hasHeadings = Astro.props.headings.length > 0;
 const showCopyMarkdown = !Astro.props.hideCopyMarkdown;
 ---
@@ -101,11 +96,7 @@ const showCopyMarkdown = !Astro.props.hideCopyMarkdown;
           flatNavItems={flattenedNavItems}
         />
         <ContentContainer>
-          <SearchMeta
-            id={id}
-            flattenedNavItems={flattenedNavItems}
-            type={searchMetaType}
-          />
+          <SearchMeta id={id} flattenedNavItems={flattenedNavItems} type={searchMetaType} />
           {
             rawMarkdownUrl && showCopyMarkdown && (
               <div class="copy-md-inline">

@@ -10,7 +10,9 @@
     "directory": "docs"
   },
   "scripts": {
-    "prepare": "node scripts/setup-git-hooks.mjs",
+    "prepare": "lefthook install",
+    "format": "prettier --write .",
+    "format:check": "prettier --check .",
     "dev": "astro dev",
     "start": "astro dev",
     "build": "astro build",
@@ -77,6 +79,7 @@
     "broken-link-checker": "^0.7.8",
     "hast-util-to-string": "^3.0.0",
     "hastscript": "^8.0.0",
+    "lefthook": "^2.1.8",
     "playwright": "^1.57.0",
     "prettier": "^3.2.5",
     "prettier-plugin-astro": "^0.12.0",

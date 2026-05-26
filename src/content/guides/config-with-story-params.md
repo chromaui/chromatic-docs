@@ -16,9 +16,9 @@ Parameters specified at the story level apply to that story only. They are defin
 
 ```ts title="Button.stories.ts|tsx"
 // Replace your-framework with the framework you are using (e.g., nextjs, vue3-vite)
-import type { Meta, StoryObj } from "@storybook/your-framework";
+import type { Meta, StoryObj } from '@storybook/your-framework';
 
-import { Button } from "./Button";
+import { Button } from './Button';
 
 const meta = {
   component: Button,
@@ -29,7 +29,7 @@ type Story = StoryObj<typeof meta>;
 
 export const Primary: Story = {
   args: {
-    with: "props",
+    with: 'props',
   },
   parameters: {
     // Sets the diffThreshold for 0.2 for this specific story
@@ -44,9 +44,9 @@ Parameters specified in a CSF file's meta configuration apply to all stories in 
 
 ```ts title="Button.stories.ts|tsx"
 // Replace your-framework with the framework you are using (e.g., nextjs, vue3-vite)
-import type { Meta, StoryObj } from "@storybook/your-framework";
+import type { Meta, StoryObj } from '@storybook/your-framework';
 
-import { Button } from "./Button";
+import { Button } from './Button';
 
 const meta = {
   component: Button,
@@ -61,13 +61,13 @@ type Story = StoryObj<typeof meta>;
 
 export const Primary: Story = {
   args: {
-    with: "props",
+    with: 'props',
   },
 };
 
 export const Secondary: Story = {
   args: {
-    with: "secondary props",
+    with: 'secondary props',
   },
 };
 ```
@@ -78,7 +78,7 @@ Parameters specified at the project (global) level apply to all stories in your 
 
 ```ts title=".storybook/preview.ts"
 // Replace your-framework with the framework you are using (e.g., react-vite, vue3-vite) if you're using Storybook 9, or with the appropriate renderer otherwise.
-import type { Preview } from "@storybook/your-framework";
+import type { Preview } from '@storybook/your-framework';
 
 const preview: Preview = {
   parameters: {

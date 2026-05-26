@@ -4,7 +4,7 @@ description: Learn how to capture hover and focus states
 sidebar: { order: 9, label: Hover and focus }
 ---
 
-import IntegrationSnippets from "../../components/IntegrationSnippets.astro";
+import IntegrationSnippets from '../../components/IntegrationSnippets.astro';
 
 # Hover and focus states
 
@@ -98,13 +98,13 @@ The [`@storybook/addon-pseudo-states`](https://storybook.js.org/addons/storybook
 
 ```ts title="src/components/Auth.stories.ts|tsx"
 // Adjust this import to match your framework (e.g., nextjs, vue3-vite)
-import type { Meta, StoryObj } from "@storybook/your-framework";
+import type { Meta, StoryObj } from '@storybook/your-framework';
 
-import { LoginForm } from "./LoginForm";
+import { LoginForm } from './LoginForm';
 
 const meta = {
   component: LoginForm,
-  title: "LoginForm",
+  title: 'LoginForm',
 } satisfies Meta<typeof LoginForm>;
 
 export default meta;
@@ -140,13 +140,13 @@ Then, add a test that toggles the class name to simulate the hover state.
 
 ```ts title="src/components/MyComponent.stories.ts|tsx"
 // Adjust this import to match your framework (e.g., nextjs, vue3-vite)
-import type { Meta, StoryObj } from "@storybook/your-framework";
+import type { Meta, StoryObj } from '@storybook/your-framework';
 
-import { MyComponent } from "./MyComponent";
+import { MyComponent } from './MyComponent';
 
 const meta = {
   component: MyComponent,
-  title: "MyComponent",
+  title: 'MyComponent',
 } satisfies Meta<typeof MyComponent>;
 
 export default meta;
@@ -154,23 +154,22 @@ type Story = StoryObj<typeof meta>;
 
 export const HoverStatewithClass: Story = {
   args: {
-    className: "hover",
+    className: 'hover',
   },
 };
 
 export const ActiveStatewithClass: Story = {
   args: {
-    className: "active",
+    className: 'active',
   },
 };
 ```
 
 <div class="aside">
-  ℹ️ This approach requires manually toggling the class names in your
-  component's test to simulate the necessary states. If you're using a CSS-in-JS
-  framework, you can
-  [automate](https://github.com/Workday/canvas-kit/pull/377/files) this process
-  by creating a JavaScript wrapper that adds the class names programmatically.
+  ℹ️ This approach requires manually toggling the class names in your component's test to simulate
+  the necessary states. If you're using a CSS-in-JS framework, you can
+  [automate](https://github.com/Workday/canvas-kit/pull/377/files) this process by creating a
+  JavaScript wrapper that adds the class names programmatically.
 </div>
 
 ## Focusing DOM elements
@@ -183,19 +182,19 @@ If you're working with a component that provides a visual response to the user f
 
 ```ts title="src/components/Auth.stories.ts|tsx"
 // Adjust this import to match your framework (e.g., nextjs, vue3-vite)
-import type { Meta, StoryObj } from "@storybook/your-framework";
+import type { Meta, StoryObj } from '@storybook/your-framework';
 
 /*
  * Replace the storybook/test import with `@storybook/test` and adjust the stories accordingly if you're not using Storybook 9.0.
  * Refer to the Storybook documentation for the correct package and imports for earlier versions.
  */
-import { expect } from "storybook/test";
+import { expect } from 'storybook/test';
 
-import { LoginForm } from "./LoginForm";
+import { LoginForm } from './LoginForm';
 
 const meta = {
   component: LoginForm,
-  title: "LoginForm",
+  title: 'LoginForm',
 } satisfies Meta<typeof LoginForm>;
 
 export default meta;
@@ -203,10 +202,10 @@ type Story = StoryObj<typeof meta>;
 
 export const Default: Story = {
   play: async ({ canvas, userEvent }) => {
-    await userEvent.type(canvas.getByLabelText("email"), "test@email.com");
-    await userEvent.type(canvas.getByLabelText("password"), "KC@2N6^?vsV+)w1t");
+    await userEvent.type(canvas.getByLabelText('email'), 'test@email.com');
+    await userEvent.type(canvas.getByLabelText('password'), 'KC@2N6^?vsV+)w1t');
 
-    const SubmitButton = canvas.getByRole("button", { name: "Login" });
+    const SubmitButton = canvas.getByRole('button', { name: 'Login' });
     await SubmitButton.focus();
     await expect(SubmitButton).toHaveFocus();
   },

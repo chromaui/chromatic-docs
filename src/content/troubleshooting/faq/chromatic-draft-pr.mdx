@@ -12,7 +12,7 @@ You can prevent Chromatic from running on draft pull requests by adding a condit
 Here's an example of how you might achieve that:
 
 ```yml title=".github/workflows/chromatic.yml"
-name: "Chromatic"
+name: 'Chromatic'
 
 # Event for the workflow
 on:
@@ -55,10 +55,10 @@ jobs:
           # 👇 Enable TurboSnap:
           onlyChanged: true
           # 👇 Add debug: true and print dependency trace for changed files to help with debugging:
-          traceChanged: "expanded"
+          traceChanged: 'expanded'
           debug: true
           exitZeroOnChanges: true # Alternatively, can use exitOnceUploaded
-          autoAcceptChanges: "main"
+          autoAcceptChanges: 'main'
           # 👇 If you're letting Chromatic build your SB, you can skip storybookBuildDir.
           #    Since we're building in a separate step, this tells us where the build is:
           storybookBuildDir: ./storybook-static

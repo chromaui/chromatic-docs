@@ -21,7 +21,7 @@ You can also target specific CSS rules to the Chromatic capture environment usin
 If you're working with a framework-specific feature or library that prevents it from running in your tests, you can adjust your configuration file (i.e.,[`.storybook/preview.js|ts`](https://storybook.js.org/docs/configure#configure-story-rendering)) and add the `isChromatic` helper function, enabling you to configure how your tests run in Chromatic across your entire project. For example:
 
 ```js title=".storybook/preview.js|ts"
-import isChromatic from "chromatic/isChromatic";
+import isChromatic from 'chromatic/isChromatic';
 
 // Disables animation in Chromatic
 if (isChromatic()) {
@@ -39,15 +39,15 @@ If you need more granular control over how your tests run in Chromatic, you can 
 
 ```ts title="MyComponent.stories.ts|tsx"
 // Adjust this import to match your framework (e.g., nextjs, vue3-vite)
-import type { Meta, StoryObj } from "@storybook/your-framework";
+import type { Meta, StoryObj } from '@storybook/your-framework';
 
-import isChromatic from "chromatic/isChromatic";
+import isChromatic from 'chromatic/isChromatic';
 
-import { MyComponent } from "./MyComponent";
+import { MyComponent } from './MyComponent';
 
 const meta = {
   component: MyComponent,
-  title: "MyComponent",
+  title: 'MyComponent',
 } satisfies Meta<typeof MyComponent>;
 
 export default meta;
@@ -55,7 +55,7 @@ type Story = StoryObj<typeof meta>;
 
 export const Default: Story = {
   args: {
-    label: isChromatic() ? "I'm in Chromatic" : "Not in Chromatic",
+    label: isChromatic() ? "I'm in Chromatic" : 'Not in Chromatic',
   },
 };
 ```
@@ -76,13 +76,13 @@ Then, in your tests, you can check for the `IS_CHROMATIC` environment variable a
 
 ```ts title="MyComponent.stories.ts|tsx"
 // Adjust this import to match your framework (e.g., nextjs, vue3-vite)
-import type { Meta, StoryObj } from "@storybook/your-framework";
+import type { Meta, StoryObj } from '@storybook/your-framework';
 
-import { MyComponent } from "./MyComponent";
+import { MyComponent } from './MyComponent';
 
 const meta = {
   component: MyComponent,
-  title: "MyComponent",
+  title: 'MyComponent',
 } satisfies Meta<typeof Button>;
 
 export default meta;
@@ -90,7 +90,7 @@ type Story = StoryObj<typeof meta>;
 
 export const Default: Story = {
   args: {
-    label: process.env.IS_CHROMATIC ? "I'm in Chromatic" : "Not in Chromatic",
+    label: process.env.IS_CHROMATIC ? "I'm in Chromatic" : 'Not in Chromatic',
   },
 };
 ```

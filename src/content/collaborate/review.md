@@ -1,7 +1,7 @@
 ---
 title: Review
 description: Learn how to get approval and feedback on visual changes from designers, product managers, and other key stakeholders with Chromatic's UI Review workflow.
-sidebar: { order: 1, label: "UI Review" }
+sidebar: { order: 1, label: 'UI Review' }
 ---
 
 # UI Review powered by snapshots

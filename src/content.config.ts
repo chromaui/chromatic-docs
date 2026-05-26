@@ -1,5 +1,5 @@
-import { z, defineCollection } from "astro:content";
-import { glob } from "astro/loaders";
+import { z, defineCollection } from 'astro:content';
+import { glob } from 'astro/loaders';
 
 const schema = z.object({
   title: z.string(),
@@ -17,105 +17,105 @@ const schema = z.object({
 
 const overview = defineCollection({
   loader: glob({
-    pattern: "**/[^_]*.{md,mdx}",
-    base: "./src/content/overview",
+    pattern: '**/[^_]*.{md,mdx}',
+    base: './src/content/overview',
   }),
   schema,
 });
 
 const visualTests = defineCollection({
   loader: glob({
-    pattern: "**/[^_]*.{md,mdx}",
-    base: "./src/content/visualTests",
+    pattern: '**/[^_]*.{md,mdx}',
+    base: './src/content/visualTests',
   }),
   schema,
 });
 
 const accessibilityTests = defineCollection({
   loader: glob({
-    pattern: "**/[^_]*.{md,mdx}",
-    base: "./src/content/accessibilityTests",
+    pattern: '**/[^_]*.{md,mdx}',
+    base: './src/content/accessibilityTests',
   }),
   schema,
 });
 
 const interactionTests = defineCollection({
   loader: glob({
-    pattern: "**/[^_]*.{md,mdx}",
-    base: "./src/content/interactionTests",
+    pattern: '**/[^_]*.{md,mdx}',
+    base: './src/content/interactionTests',
   }),
   schema,
 });
 
 const playwright = defineCollection({
   loader: glob({
-    pattern: "**/[^_]*.{md,mdx}",
-    base: "./src/content/playwright",
+    pattern: '**/[^_]*.{md,mdx}',
+    base: './src/content/playwright',
   }),
   schema,
 });
 
 const cypress = defineCollection({
-  loader: glob({ pattern: "**/[^_]*.{md,mdx}", base: "./src/content/cypress" }),
+  loader: glob({ pattern: '**/[^_]*.{md,mdx}', base: './src/content/cypress' }),
   schema,
 });
 
 const configuration = defineCollection({
   loader: glob({
-    pattern: "**/[^_]*.{md,mdx}",
-    base: "./src/content/configuration",
+    pattern: '**/[^_]*.{md,mdx}',
+    base: './src/content/configuration',
   }),
   schema,
 });
 
 const modes = defineCollection({
-  loader: glob({ pattern: "**/[^_]*.{md,mdx}", base: "./src/content/modes" }),
+  loader: glob({ pattern: '**/[^_]*.{md,mdx}', base: './src/content/modes' }),
   schema,
 });
 
 const snapshot = defineCollection({
   loader: glob({
-    pattern: "**/[^_]*.{md,mdx}",
-    base: "./src/content/snapshot",
+    pattern: '**/[^_]*.{md,mdx}',
+    base: './src/content/snapshot',
   }),
   schema,
 });
 
 const collaborate = defineCollection({
   loader: glob({
-    pattern: "**/[^_]*.{md,mdx}",
-    base: "./src/content/collaborate",
+    pattern: '**/[^_]*.{md,mdx}',
+    base: './src/content/collaborate',
   }),
   schema,
 });
 
 const ci = defineCollection({
-  loader: glob({ pattern: "**/[^_]*.{md,mdx}", base: "./src/content/ci" }),
+  loader: glob({ pattern: '**/[^_]*.{md,mdx}', base: './src/content/ci' }),
   schema,
 });
 
 const account = defineCollection({
-  loader: glob({ pattern: "**/[^_]*.{md,mdx}", base: "./src/content/account" }),
+  loader: glob({ pattern: '**/[^_]*.{md,mdx}', base: './src/content/account' }),
   schema,
 });
 
 const guides = defineCollection({
-  loader: glob({ pattern: "**/[^_]*.{md,mdx}", base: "./src/content/guides" }),
+  loader: glob({ pattern: '**/[^_]*.{md,mdx}', base: './src/content/guides' }),
   schema,
 });
 
 const turbosnap = defineCollection({
   loader: glob({
-    pattern: "**/[^_]*.{md,mdx}",
-    base: "./src/content/turbosnap",
+    pattern: '**/[^_]*.{md,mdx}',
+    base: './src/content/turbosnap',
   }),
   schema,
 });
 
 const troubleshooting = defineCollection({
   loader: glob({
-    pattern: "**/[^_]*.{md,mdx}",
-    base: "./src/content/troubleshooting",
+    pattern: '**/[^_]*.{md,mdx}',
+    base: './src/content/troubleshooting',
   }),
   schema: schema.extend({
     description: z.string().optional(),
@@ -126,8 +126,8 @@ const troubleshooting = defineCollection({
 
 const notInNavigation = defineCollection({
   loader: glob({
-    pattern: "**/[^_]*.{md,mdx}",
-    base: "./src/content/notInNavigation",
+    pattern: '**/[^_]*.{md,mdx}',
+    base: './src/content/notInNavigation',
   }),
   schema: schema.extend({
     isHidden: z.boolean().optional().default(true),

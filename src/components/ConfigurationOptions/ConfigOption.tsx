@@ -1,18 +1,10 @@
-import React from "react";
-import {
-  color,
-  fontFamily,
-  fontSize,
-  HStack,
-  spacing,
-  Text,
-  VStack,
-} from "@chromatic-com/tetra";
-import styled from "@emotion/styled";
+import React from 'react';
+import { color, fontFamily, fontSize, HStack, spacing, Text, VStack } from '@chromatic-com/tetra';
+import styled from '@emotion/styled';
 import type {
   ConfigOption as ConfigOptionType,
   SupportedType,
-} from "../../../chromatic-config/generate-schema";
+} from '../../../chromatic-config/generate-schema';
 
 const Name = styled.h3`
   font-family: ${fontFamily.mono};
@@ -31,10 +23,10 @@ const Name = styled.h3`
 `;
 
 const FormattedType = ({ value }: { value: string | string[] }) => {
-  if (value === "array of glob") {
+  if (value === 'array of glob') {
     return (
       <>
-        <code>string | string[]</code>{" "}
+        <code>string | string[]</code>{' '}
         <Text as="span" variant="body14">
           (glob)
         </Text>
@@ -49,7 +41,7 @@ const FormattedType = ({ value }: { value: string | string[] }) => {
           return (
             <React.Fragment key={t}>
               {t}
-              {idx < value.length - 1 && " | "}
+              {idx < value.length - 1 && ' | '}
             </React.Fragment>
           );
         })}
@@ -74,18 +66,18 @@ const Tag = styled.div<{ type: SupportedType }>`
   line-height: 1;
   border-radius: 4px;
   color: ${({ type }) => {
-    if (type === "GitHub Action") {
+    if (type === 'GitHub Action') {
       return color.green600;
-    } else if (type === "CLI") {
+    } else if (type === 'CLI') {
       return color.blue600;
     }
 
     return color.purple600;
   }};
   background-color: ${({ type }) => {
-    if (type === "GitHub Action") {
+    if (type === 'GitHub Action') {
       return color.green100;
-    } else if (type === "CLI") {
+    } else if (type === 'CLI') {
       return color.blue100;
     }
 
@@ -119,14 +111,14 @@ export const ConfigOption = ({
           ))}
         </HStack>
       </VStack>
-      <VStack gap={1} style={{ width: "100%" }}>
+      <VStack gap={1} style={{ width: '100%' }}>
         {flag && (
           <HStack align="center">
             <Text fontWeight="bold" variant="body16">
               Flag:
             </Text>
             <div>
-              <code>{flag}</code>{" "}
+              <code>{flag}</code>{' '}
               {shortFlag && (
                 <>
                   (<code>{shortFlag}</code>)

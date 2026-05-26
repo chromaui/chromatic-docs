@@ -35,20 +35,20 @@ For this example, let's assume that the themes addon has been configured with a 
 ```ts title=".storybook/preview.ts"
 // Replace your-framework with the framework you are using (e.g., react-vite, vue3-vite)
 // if you're using Storybook 9, or with the appropriate renderer otherwise.
-import type { Preview } from "@storybook/your-framework";
+import type { Preview } from '@storybook/your-framework';
 
-import { withThemeByClassName } from "@storybook/addon-themes";
+import { withThemeByClassName } from '@storybook/addon-themes';
 
-import "../src/index.css";
+import '../src/index.css';
 
 const preview: Preview = {
   decorators: [
     withThemeByClassName({
       themes: {
-        light: "light",
-        dark: "dark",
+        light: 'light',
+        dark: 'dark',
       },
-      defaultTheme: "light",
+      defaultTheme: 'light',
     }),
   ],
 };
@@ -63,10 +63,10 @@ Modes are defined in the `.storybook/modes.js|ts` file. If your project doesn't 
 ```ts title=".storybook/modes.ts"
 export const allModes = {
   light: {
-    theme: "light",
+    theme: 'light',
   },
   dark: {
-    theme: "dark",
+    theme: 'dark',
   },
 } as const;
 ```
@@ -79,21 +79,21 @@ With the above set of modes, we can apply them as follows:
 
 ```ts title="ArticleCard.stories.ts|tsx"
 // Adjust this import to match your framework (e.g., nextjs, vue3-vite)
-import type { Meta } from "@storybook/your-framework";
+import type { Meta } from '@storybook/your-framework';
 
-import { allModes } from "../.storybook/modes";
+import { allModes } from '../.storybook/modes';
 
-import { ArticleCard } from "./ArticleCard";
+import { ArticleCard } from './ArticleCard';
 
 const meta = {
   component: ArticleCard,
-  title: "ArticleCard",
+  title: 'ArticleCard',
   parameters: {
     chromatic: {
       //🔶 Test each story for ArticleCard in two modes
       modes: {
-        light: allModes["light"],
-        dark: allModes["dark"],
+        light: allModes['light'],
+        dark: allModes['dark'],
       },
     },
   },

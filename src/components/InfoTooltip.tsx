@@ -1,8 +1,8 @@
-import { Icon, Link, VStack } from "@chromatic-com/tetra";
-import styled from "@emotion/styled";
-import * as RadixTooltip from "@radix-ui/react-tooltip";
+import { Icon, Link, VStack } from '@chromatic-com/tetra';
+import styled from '@emotion/styled';
+import * as RadixTooltip from '@radix-ui/react-tooltip';
 
-import { Tooltip } from "./Tooltip";
+import { Tooltip } from './Tooltip';
 
 const DetailLinkWrapper = styled.div`
   text-align: center;
@@ -22,7 +22,7 @@ interface InfoTooltipProps {
 export const InfoTooltip = ({
   copy,
   link,
-  contentProps = { sideOffset: 5, side: "right" },
+  contentProps = { sideOffset: 5, side: 'right' },
 }: InfoTooltipProps) => (
   <StyledTooltip
     trigger={<Icon name="info" aria-label="Info" color="slate600" />}

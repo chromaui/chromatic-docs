@@ -21,13 +21,13 @@ To set a viewport, specify one or more screen _widths_ to the `chromatic.viewpor
 
 ```ts title="MyComponent.stories.ts|tsx"
 // Adjust this import to match your framework (e.g., nextjs, vue3-vite)
-import type { Meta, StoryObj } from "@storybook/your-framework";
+import type { Meta, StoryObj } from '@storybook/your-framework';
 
-import { MyComponent } from "./MyComponent";
+import { MyComponent } from './MyComponent';
 
 const meta = {
   component: MyComponent,
-  title: "MyComponent",
+  title: 'MyComponent',
 } satisfies Meta<typeof MyComponent>;
 
 export default meta;
@@ -49,13 +49,13 @@ Thanks to Storybook's built-in [parameter](https://storybook.js.org/docs/writing
 
 ```ts title="MyComponent.stories.ts|tsx"
 // Adjust this import to match your framework (e.g., nextjs, vue3-vite)
-import type { Meta } from "@storybook/your-framework";
+import type { Meta } from '@storybook/your-framework';
 
-import { MyComponent } from "./MyComponent";
+import { MyComponent } from './MyComponent';
 
 const meta = {
   component: MyComponent,
-  title: "MyComponent",
+  title: 'MyComponent',
   parameters: {
     //👇 Defines a list of viewport widths applied to all stories of a component to be captured in Chromatic.
     // Note only widths are supported, to control width and height, use the modes api
@@ -92,7 +92,7 @@ If you’re still using the legacy API, then assign viewports for the entire Sto
 ```ts title=".storybook/preview.ts"
 // Replace your-framework with the framework you are using (e.g., react-vite, vue3-vite)
 // if you're using Storybook 9, or with the appropriate renderer otherwise.
-import type { Preview } from "@storybook/your-framework";
+import type { Preview } from '@storybook/your-framework';
 
 const preview: Preview = {
   parameters: {

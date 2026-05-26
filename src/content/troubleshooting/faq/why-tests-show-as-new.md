@@ -1,7 +1,7 @@
 ---
 sidebar: { hide: true }
 title: Why do tests show as new in builds?
-section: "uiTestsAndReview"
+section: 'uiTestsAndReview'
 ---
 
 # Why do tests show as new in builds?

@@ -2,7 +2,7 @@
 title: Configure browser options in Modes
 description: Learn how to configure browser options such as colorScheme and locale in Modes
 sidebar: { order: 5, label: Browser options }
-slug: "modes/browser-options"
+slug: 'modes/browser-options'
 ---
 
 # Configure browser options in Modes
@@ -15,23 +15,23 @@ Sets [prefers-color-scheme](https://developer.mozilla.org/en-US/docs/Web/CSS/@me
 
 ```ts title="ArticleCard.stories.ts|tsx"
 // Adjust this import to match your framework (e.g., nextjs, vue3-vite)
-import type { Meta } from "@storybook/your-framework";
+import type { Meta } from '@storybook/your-framework';
 
-import { allModes } from "../.storybook/modes";
+import { allModes } from '../.storybook/modes';
 
-import { ArticleCard } from "./ArticleCard";
+import { ArticleCard } from './ArticleCard';
 
 const meta = {
   component: ArticleCard,
-  title: "ArticleCard",
+  title: 'ArticleCard',
   parameters: {
     chromatic: {
       modes: {
         Light: {
-          colorScheme: "light",
+          colorScheme: 'light',
         },
         Dark: {
-          colorScheme: "dark",
+          colorScheme: 'dark',
         },
       },
     },
@@ -45,15 +45,15 @@ It simulates touch events, which are useful for testing components that rely on 
 
 ```ts title="ArticleCard.stories.ts|tsx"
 // Adjust this import to match your framework (e.g., nextjs, vue3-vite)
-import type { Meta } from "@storybook/your-framework";
+import type { Meta } from '@storybook/your-framework';
 
-import { allModes } from "../.storybook/modes";
+import { allModes } from '../.storybook/modes';
 
-import { ArticleCard } from "./ArticleCard";
+import { ArticleCard } from './ArticleCard';
 
 const meta = {
   component: ArticleCard,
-  title: "ArticleCard",
+  title: 'ArticleCard',
   parameters: {
     chromatic: {
       modes: {
@@ -72,23 +72,23 @@ Emulate the user locale. Enabling this option will also change the `navigator.la
 
 ```ts title="ArticleCard.stories.ts|tsx"
 // Adjust this import to match your framework (e.g., nextjs, vue3-vite)
-import type { Meta } from "@storybook/your-framework";
+import type { Meta } from '@storybook/your-framework';
 
-import { allModes } from "../.storybook/modes";
+import { allModes } from '../.storybook/modes';
 
-import { ArticleCard } from "./ArticleCard";
+import { ArticleCard } from './ArticleCard';
 
 const meta = {
   component: ArticleCard,
-  title: "ArticleCard",
+  title: 'ArticleCard',
   parameters: {
     chromatic: {
       modes: {
-        "United States": {
-          locale: "en-US",
+        'United States': {
+          locale: 'en-US',
         },
         France: {
-          locale: "fr-FR",
+          locale: 'fr-FR',
         },
       },
     },
@@ -102,23 +102,23 @@ You can combine multiple browser options within a mode for comprehensive testing
 
 ```ts title="ArticleCard.stories.ts|tsx"
 // Adjust this import to match your framework (e.g., nextjs, vue3-vite)
-import type { Meta } from "@storybook/your-framework";
+import type { Meta } from '@storybook/your-framework';
 
-import { allModes } from "../.storybook/modes";
+import { allModes } from '../.storybook/modes';
 
-import { ArticleCard } from "./ArticleCard";
+import { ArticleCard } from './ArticleCard';
 
 const meta = {
   component: ArticleCard,
-  title: "ArticleCard",
+  title: 'ArticleCard',
   parameters: {
     chromatic: {
       modes: {
-        "Mobile Dark FR": {
-          viewport: "small",
-          colorScheme: "dark",
+        'Mobile Dark FR': {
+          viewport: 'small',
+          colorScheme: 'dark',
           hasTouch: true,
-          locale: "fr-FR",
+          locale: 'fr-FR',
         },
       },
     },

@@ -1,7 +1,7 @@
 ---
 sidebar: { hide: true }
 title: How can I automatically trigger a UI Review?
-section: "uiTestsAndReview"
+section: 'uiTestsAndReview'
 sectionOrder: 1
 ---
 

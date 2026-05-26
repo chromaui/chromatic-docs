@@ -1,32 +1,32 @@
-import { expect, test, describe } from "vitest";
-import type { NavGroup } from "./types";
-import { transformNavGroups, flattenGroups } from "./transform-nav-groups";
+import { expect, test, describe } from 'vitest';
+import type { NavGroup } from './types';
+import { transformNavGroups, flattenGroups } from './transform-nav-groups';
 
 const mockGroups: NavGroup[] = [
   {
-    title: "Overview",
+    title: 'Overview',
     items: [
       {
-        id: "diff-inspector",
-        collection: "overview",
+        id: 'diff-inspector',
+        collection: 'overview',
         data: {
-          title: "Diff Inspector",
-          description: "Diff Inspector",
+          title: 'Diff Inspector',
+          description: 'Diff Inspector',
           sidebar: {
-            label: "Diff Inspector",
+            label: 'Diff Inspector',
             order: 5,
             hide: false,
           },
         },
       },
       {
-        id: "introduction",
-        collection: "overview",
+        id: 'introduction',
+        collection: 'overview',
         data: {
-          title: "Introduction",
-          description: "Introduction",
+          title: 'Introduction',
+          description: 'Introduction',
           sidebar: {
-            label: "Introduction",
+            label: 'Introduction',
             order: 1,
             hide: false,
           },
@@ -34,39 +34,39 @@ const mockGroups: NavGroup[] = [
         },
       },
       {
-        id: "test",
-        collection: "overview",
+        id: 'test',
+        collection: 'overview',
         data: {
-          title: "Test",
-          description: "Test",
+          title: 'Test',
+          description: 'Test',
           sidebar: {
-            label: "UI Tests",
+            label: 'UI Tests',
             order: 2,
             hide: false,
           },
         },
       },
       {
-        id: "ci",
-        collection: "overview",
+        id: 'ci',
+        collection: 'overview',
         data: {
-          title: "Automate with CI",
-          description: "Automate with CI",
+          title: 'Automate with CI',
+          description: 'Automate with CI',
           sidebar: {
-            label: "Automate with CI",
+            label: 'Automate with CI',
             order: 4,
             hide: false,
           },
         },
       },
       {
-        id: "review",
-        collection: "overview",
+        id: 'review',
+        collection: 'overview',
         data: {
-          title: "Review",
-          description: "Review",
+          title: 'Review',
+          description: 'Review',
           sidebar: {
-            label: "UI Review",
+            label: 'UI Review',
             order: 3,
             hide: false,
           },
@@ -75,55 +75,55 @@ const mockGroups: NavGroup[] = [
     ],
   },
   {
-    title: "Storybook",
+    title: 'Storybook',
     items: [
       {
-        id: "storybook",
-        collection: "troubleshooting",
+        id: 'storybook',
+        collection: 'troubleshooting',
         data: {
-          title: "Setup",
-          description: "Setup",
+          title: 'Setup',
+          description: 'Setup',
           sidebar: {
-            label: "Setup",
+            label: 'Setup',
             order: 1,
             hide: false,
           },
         },
       },
       {
-        id: "interactions",
-        collection: "troubleshooting",
+        id: 'interactions',
+        collection: 'troubleshooting',
         data: {
-          title: "Interaction tests",
-          description: "Interaction tests",
+          title: 'Interaction tests',
+          description: 'Interaction tests',
           sidebar: {
-            label: "Interaction tests",
+            label: 'Interaction tests',
             order: 2,
             hide: false,
           },
         },
       },
       {
-        id: "storybook/publish",
-        collection: "troubleshooting",
+        id: 'storybook/publish',
+        collection: 'troubleshooting',
         data: {
-          title: "Publish",
-          description: "Publish",
+          title: 'Publish',
+          description: 'Publish',
           sidebar: {
-            label: "Publish",
+            label: 'Publish',
             order: 3,
             hide: false,
           },
         },
       },
       {
-        id: "composition",
-        collection: "troubleshooting",
+        id: 'composition',
+        collection: 'troubleshooting',
         data: {
-          title: "Composition",
-          description: "Composition",
+          title: 'Composition',
+          description: 'Composition',
           sidebar: {
-            label: "Composition",
+            label: 'Composition',
             order: 4,
             hide: false,
           },
@@ -131,68 +131,68 @@ const mockGroups: NavGroup[] = [
       },
 
       {
-        title: "Modes",
+        title: 'Modes',
         items: [
           {
-            id: "modes",
-            collection: "modes",
+            id: 'modes',
+            collection: 'modes',
             data: {
-              title: "Story Modes",
-              description: "Story Modes",
+              title: 'Story Modes',
+              description: 'Story Modes',
               sidebar: {
-                label: "Story Modes",
+                label: 'Story Modes',
                 order: 1,
                 hide: false,
               },
             },
           },
           {
-            id: "legacy-viewports",
-            collection: "modes",
+            id: 'legacy-viewports',
+            collection: 'modes',
             data: {
-              title: "Viewports (legacy)",
-              description: "Viewports (legacy)",
+              title: 'Viewports (legacy)',
+              description: 'Viewports (legacy)',
               sidebar: {
-                label: "Viewports (legacy)",
+                label: 'Viewports (legacy)',
                 order: 5,
                 hide: false,
               },
             },
           },
           {
-            id: "themes",
-            collection: "modes",
+            id: 'themes',
+            collection: 'modes',
             data: {
-              title: "Themes",
-              description: "Themes",
+              title: 'Themes',
+              description: 'Themes',
               sidebar: {
-                label: "Themes",
+                label: 'Themes',
                 order: 3,
                 hide: false,
               },
             },
           },
           {
-            id: "custom-decorators",
-            collection: "modes",
+            id: 'custom-decorators',
+            collection: 'modes',
             data: {
-              title: "Custom decorators and globals",
-              description: "Custom decorators and globals",
+              title: 'Custom decorators and globals',
+              description: 'Custom decorators and globals',
               sidebar: {
-                label: "Custom decorators",
+                label: 'Custom decorators',
                 order: 4,
                 hide: false,
               },
             },
           },
           {
-            id: "viewports",
-            collection: "modes",
+            id: 'viewports',
+            collection: 'modes',
             data: {
-              title: "Viewports",
-              description: "Viewports",
+              title: 'Viewports',
+              description: 'Viewports',
               sidebar: {
-                label: "Viewports",
+                label: 'Viewports',
                 order: 2,
                 hide: true,
               },
@@ -204,21 +204,21 @@ const mockGroups: NavGroup[] = [
   },
 ];
 
-describe("transformNavGroups > Defaults", () => {
-  test("Uses sidebar label when defined", () => {
+describe('transformNavGroups > Defaults', () => {
+  test('Uses sidebar label when defined', () => {
     expect(
       transformNavGroups([
         {
-          title: "Overview",
+          title: 'Overview',
           items: [
             {
-              id: "test",
-              collection: "overview",
+              id: 'test',
+              collection: 'overview',
               data: {
-                title: "Test",
-                description: "Test",
+                title: 'Test',
+                description: 'Test',
                 sidebar: {
-                  label: "UI Tests",
+                  label: 'UI Tests',
                   order: 2,
                   hide: false,
                 },
@@ -226,36 +226,36 @@ describe("transformNavGroups > Defaults", () => {
             },
           ],
         },
-      ]),
+      ])
     ).toEqual([
       {
-        title: "Overview",
+        title: 'Overview',
         items: [
           {
             hide: false,
-            label: "UI Tests",
+            label: 'UI Tests',
             order: 2,
-            id: "test",
+            id: 'test',
             isHome: false,
-            breadcrumb: "Overview",
+            breadcrumb: 'Overview',
           },
         ],
       },
     ]);
   });
 
-  test("Uses title when sidebar label is not defined", () => {
+  test('Uses title when sidebar label is not defined', () => {
     expect(
       transformNavGroups([
         {
-          title: "Overview",
+          title: 'Overview',
           items: [
             {
-              id: "test",
-              collection: "overview",
+              id: 'test',
+              collection: 'overview',
               data: {
-                title: "Test",
-                description: "Test",
+                title: 'Test',
+                description: 'Test',
                 sidebar: {
                   order: 2,
                   hide: false,
@@ -265,38 +265,38 @@ describe("transformNavGroups > Defaults", () => {
             },
           ],
         },
-      ]),
+      ])
     ).toEqual([
       {
-        title: "Overview",
+        title: 'Overview',
         items: [
           {
             hide: false,
-            label: "Test",
+            label: 'Test',
             order: 2,
-            id: "test",
+            id: 'test',
             isHome: false,
-            breadcrumb: "Overview",
+            breadcrumb: 'Overview',
           },
         ],
       },
     ]);
   });
 
-  test("Sets empty slug when isHome is true", () => {
+  test('Sets empty slug when isHome is true', () => {
     expect(
       transformNavGroups([
         {
-          title: "Overview",
+          title: 'Overview',
           items: [
             {
-              id: "introduction",
-              collection: "overview",
+              id: 'introduction',
+              collection: 'overview',
               data: {
-                title: "Introduction",
-                description: "Introduction",
+                title: 'Introduction',
+                description: 'Introduction',
                 sidebar: {
-                  label: "Introduction",
+                  label: 'Introduction',
                   order: 1,
                   hide: false,
                 },
@@ -305,94 +305,94 @@ describe("transformNavGroups > Defaults", () => {
             },
           ],
         },
-      ]),
+      ])
     ).toEqual([
       {
-        title: "Overview",
+        title: 'Overview',
         items: [
           {
             hide: false,
-            label: "Introduction",
+            label: 'Introduction',
             order: 1,
-            id: "",
+            id: '',
             isHome: true,
-            breadcrumb: "Overview",
+            breadcrumb: 'Overview',
           },
         ],
       },
     ]);
   });
 
-  test("Sets order to 999 when not specified", () => {
+  test('Sets order to 999 when not specified', () => {
     expect(
       transformNavGroups([
         {
-          title: "Overview",
+          title: 'Overview',
           items: [
             {
-              id: "test",
-              collection: "overview",
+              id: 'test',
+              collection: 'overview',
               data: {
-                title: "Test",
-                description: "Test",
+                title: 'Test',
+                description: 'Test',
                 sidebar: {
-                  label: "UI Tests",
+                  label: 'UI Tests',
                   hide: false,
                 },
               },
             },
           ],
         },
-      ]),
+      ])
     ).toEqual([
       {
-        title: "Overview",
+        title: 'Overview',
         items: [
           {
             hide: false,
-            label: "UI Tests",
+            label: 'UI Tests',
             order: 999,
-            id: "test",
+            id: 'test',
             isHome: false,
-            breadcrumb: "Overview",
+            breadcrumb: 'Overview',
           },
         ],
       },
     ]);
   });
 
-  test("Sets hide to false when not specified", () => {
+  test('Sets hide to false when not specified', () => {
     expect(
       transformNavGroups([
         {
-          title: "Overview",
+          title: 'Overview',
           items: [
             {
-              id: "test",
-              collection: "overview",
+              id: 'test',
+              collection: 'overview',
               data: {
-                title: "Test",
-                description: "Test",
+                title: 'Test',
+                description: 'Test',
                 sidebar: {
-                  label: "UI Tests",
+                  label: 'UI Tests',
                   order: 2,
                 },
               },
             },
           ],
         },
-      ]),
+      ])
     ).toEqual([
       {
-        title: "Overview",
+        title: 'Overview',
         items: [
           {
             hide: false,
-            label: "UI Tests",
+            label: 'UI Tests',
             order: 2,
-            id: "test",
+            id: 'test',
             isHome: false,
-            breadcrumb: "Overview",
+            breadcrumb: 'Overview',
           },
         ],
       },
@@ -400,24 +400,24 @@ describe("transformNavGroups > Defaults", () => {
   });
 });
 
-describe("transformNavGroups > Nested defaults", () => {
+describe('transformNavGroups > Nested defaults', () => {
   test("Sets nested group's order to 999 when not specified", () => {
     expect(
       transformNavGroups([
         {
-          title: "Storybook",
+          title: 'Storybook',
           items: [
             {
-              title: "Modes",
+              title: 'Modes',
               items: [
                 {
-                  id: "modes",
-                  collection: "modes",
+                  id: 'modes',
+                  collection: 'modes',
                   data: {
-                    title: "Story Modes",
-                    description: "Story Modes",
+                    title: 'Story Modes',
+                    description: 'Story Modes',
                     sidebar: {
-                      label: "Story Modes",
+                      label: 'Story Modes',
                       hide: false,
                     },
                   },
@@ -426,23 +426,23 @@ describe("transformNavGroups > Nested defaults", () => {
             },
           ],
         },
-      ]),
+      ])
     ).toEqual([
       {
-        title: "Storybook",
+        title: 'Storybook',
         items: [
           {
             hide: false,
-            title: "Modes",
+            title: 'Modes',
             order: 999,
             items: [
               {
                 hide: false,
-                label: "Story Modes",
+                label: 'Story Modes',
                 order: 999,
-                id: "modes",
+                id: 'modes',
                 isHome: false,
-                breadcrumb: "Storybook » Modes",
+                breadcrumb: 'Storybook » Modes',
               },
             ],
           },
@@ -455,19 +455,19 @@ describe("transformNavGroups > Nested defaults", () => {
     expect(
       transformNavGroups([
         {
-          title: "Storybook",
+          title: 'Storybook',
           items: [
             {
-              title: "Modes",
+              title: 'Modes',
               items: [
                 {
-                  id: "modes",
-                  collection: "modes",
+                  id: 'modes',
+                  collection: 'modes',
                   data: {
-                    title: "Story Modes",
-                    description: "Story Modes",
+                    title: 'Story Modes',
+                    description: 'Story Modes',
                     sidebar: {
-                      label: "Story Modes",
+                      label: 'Story Modes',
                     },
                   },
                 },
@@ -475,23 +475,23 @@ describe("transformNavGroups > Nested defaults", () => {
             },
           ],
         },
-      ]),
+      ])
     ).toEqual([
       {
-        title: "Storybook",
+        title: 'Storybook',
         items: [
           {
             hide: false,
-            title: "Modes",
+            title: 'Modes',
             order: 999,
             items: [
               {
                 hide: false,
-                label: "Story Modes",
+                label: 'Story Modes',
                 order: 999,
-                id: "modes",
+                id: 'modes',
                 isHome: false,
-                breadcrumb: "Storybook » Modes",
+                breadcrumb: 'Storybook » Modes',
               },
             ],
           },
@@ -501,97 +501,97 @@ describe("transformNavGroups > Nested defaults", () => {
   });
 });
 
-describe("transformNavGroups > Sorting & filtering", () => {
-  test("transforms and sorts single level groups", () => {
+describe('transformNavGroups > Sorting & filtering', () => {
+  test('transforms and sorts single level groups', () => {
     expect(transformNavGroups([mockGroups[0]])).toEqual([
       {
-        title: "Overview",
+        title: 'Overview',
         items: [
           {
             hide: false,
-            label: "Introduction",
+            label: 'Introduction',
             order: 1,
-            id: "",
+            id: '',
             isHome: true,
-            breadcrumb: "Overview",
+            breadcrumb: 'Overview',
           },
           {
             hide: false,
-            label: "UI Tests",
+            label: 'UI Tests',
             order: 2,
-            id: "test",
+            id: 'test',
             isHome: false,
-            breadcrumb: "Overview",
+            breadcrumb: 'Overview',
           },
           {
             hide: false,
-            label: "UI Review",
+            label: 'UI Review',
             order: 3,
-            id: "review",
+            id: 'review',
             isHome: false,
-            breadcrumb: "Overview",
+            breadcrumb: 'Overview',
           },
           {
             hide: false,
-            label: "Automate with CI",
+            label: 'Automate with CI',
             order: 4,
-            id: "ci",
+            id: 'ci',
             isHome: false,
-            breadcrumb: "Overview",
+            breadcrumb: 'Overview',
           },
           {
             hide: false,
-            label: "Diff Inspector",
+            label: 'Diff Inspector',
             order: 5,
-            id: "diff-inspector",
+            id: 'diff-inspector',
             isHome: false,
-            breadcrumb: "Overview",
+            breadcrumb: 'Overview',
           },
         ],
       },
     ]);
   });
 
-  test("filters hidden items", () => {
+  test('filters hidden items', () => {
     expect(
       transformNavGroups([
         {
-          title: "Overview",
+          title: 'Overview',
           items: [
             {
-              id: "diff-inspector",
-              collection: "overview",
+              id: 'diff-inspector',
+              collection: 'overview',
               data: {
-                title: "Diff Inspector",
-                description: "Diff Inspector",
+                title: 'Diff Inspector',
+                description: 'Diff Inspector',
                 sidebar: {
-                  label: "Diff Inspector",
+                  label: 'Diff Inspector',
                   order: 5,
                   hide: false,
                 },
               },
             },
             {
-              id: "ci",
-              collection: "overview",
+              id: 'ci',
+              collection: 'overview',
               data: {
-                title: "Automate with CI",
-                description: "Automate with CI",
+                title: 'Automate with CI',
+                description: 'Automate with CI',
                 sidebar: {
-                  label: "Automate with CI",
+                  label: 'Automate with CI',
                   order: 4,
                   hide: true,
                 },
               },
             },
             {
-              id: "introduction",
-              collection: "overview",
+              id: 'introduction',
+              collection: 'overview',
               data: {
-                title: "Introduction",
-                description: "Introduction",
+                title: 'Introduction',
+                description: 'Introduction',
                 sidebar: {
-                  label: "Introduction",
+                  label: 'Introduction',
                   order: 1,
                   hide: false,
                 },
@@ -600,107 +600,107 @@ describe("transformNavGroups > Sorting & filtering", () => {
             },
           ],
         },
-      ]),
+      ])
     ).toEqual([
       {
-        title: "Overview",
+        title: 'Overview',
         items: [
           {
             hide: false,
-            label: "Introduction",
+            label: 'Introduction',
             order: 1,
-            id: "",
+            id: '',
             isHome: true,
-            breadcrumb: "Overview",
+            breadcrumb: 'Overview',
           },
           {
             hide: false,
-            label: "Diff Inspector",
+            label: 'Diff Inspector',
             order: 5,
-            id: "diff-inspector",
+            id: 'diff-inspector',
             isHome: false,
-            breadcrumb: "Overview",
+            breadcrumb: 'Overview',
           },
         ],
       },
     ]);
   });
 
-  test("transforms and sorts nested groups", () => {
+  test('transforms and sorts nested groups', () => {
     expect(transformNavGroups([mockGroups[1]])).toEqual([
       {
-        title: "Storybook",
+        title: 'Storybook',
         items: [
           {
             hide: false,
-            label: "Setup",
+            label: 'Setup',
             order: 1,
-            id: "storybook",
+            id: 'storybook',
             isHome: false,
-            breadcrumb: "Storybook",
+            breadcrumb: 'Storybook',
           },
           {
             hide: false,
-            label: "Interaction tests",
+            label: 'Interaction tests',
             order: 2,
-            id: "interactions",
+            id: 'interactions',
             isHome: false,
-            breadcrumb: "Storybook",
+            breadcrumb: 'Storybook',
           },
           {
             hide: false,
-            label: "Publish",
+            label: 'Publish',
             order: 3,
-            id: "storybook/publish",
+            id: 'storybook/publish',
             isHome: false,
-            breadcrumb: "Storybook",
+            breadcrumb: 'Storybook',
           },
           {
             hide: false,
-            label: "Composition",
+            label: 'Composition',
             order: 4,
-            id: "composition",
+            id: 'composition',
             isHome: false,
-            breadcrumb: "Storybook",
+            breadcrumb: 'Storybook',
           },
           {
             hide: false,
             items: [
               {
                 hide: false,
-                label: "Story Modes",
+                label: 'Story Modes',
                 order: 1,
-                id: "modes",
+                id: 'modes',
                 isHome: false,
-                breadcrumb: "Storybook » Modes",
+                breadcrumb: 'Storybook » Modes',
               },
               {
                 hide: false,
-                label: "Themes",
+                label: 'Themes',
                 order: 3,
-                id: "themes",
+                id: 'themes',
                 isHome: false,
-                breadcrumb: "Storybook » Modes",
+                breadcrumb: 'Storybook » Modes',
               },
               {
                 hide: false,
-                label: "Custom decorators",
+                label: 'Custom decorators',
                 order: 4,
-                id: "custom-decorators",
+                id: 'custom-decorators',
                 isHome: false,
-                breadcrumb: "Storybook » Modes",
+                breadcrumb: 'Storybook » Modes',
               },
               {
                 hide: false,
-                label: "Viewports (legacy)",
+                label: 'Viewports (legacy)',
                 order: 5,
-                id: "legacy-viewports",
+                id: 'legacy-viewports',
                 isHome: false,
-                breadcrumb: "Storybook » Modes",
+                breadcrumb: 'Storybook » Modes',
               },
             ],
             order: 999,
-            title: "Modes",
+            title: 'Modes',
           },
         ],
       },
@@ -708,34 +708,34 @@ describe("transformNavGroups > Sorting & filtering", () => {
   });
 });
 
-describe("transformNavGroups > Breadcrumbs", () => {
-  test("Generates breadcrumbs for single level groups", () => {
+describe('transformNavGroups > Breadcrumbs', () => {
+  test('Generates breadcrumbs for single level groups', () => {
     expect(
       transformNavGroups([
         {
-          title: "Storybook",
+          title: 'Storybook',
           items: [
             {
-              id: "storybook",
-              collection: "troubleshooting",
+              id: 'storybook',
+              collection: 'troubleshooting',
               data: {
-                title: "Setup",
-                description: "Setup",
+                title: 'Setup',
+                description: 'Setup',
                 sidebar: {
-                  label: "Setup",
+                  label: 'Setup',
                   order: 1,
                   hide: false,
                 },
               },
             },
             {
-              id: "interactions",
-              collection: "troubleshooting",
+              id: 'interactions',
+              collection: 'troubleshooting',
               data: {
-                title: "Interaction tests",
-                description: "Interaction tests",
+                title: 'Interaction tests',
+                description: 'Interaction tests',
                 sidebar: {
-                  label: "Interaction tests",
+                  label: 'Interaction tests',
                   order: 2,
                   hide: false,
                 },
@@ -743,46 +743,46 @@ describe("transformNavGroups > Breadcrumbs", () => {
             },
           ],
         },
-      ]),
+      ])
     ).toEqual([
       {
-        title: "Storybook",
+        title: 'Storybook',
         items: [
           {
             hide: false,
-            label: "Setup",
+            label: 'Setup',
             order: 1,
-            id: "storybook",
+            id: 'storybook',
             isHome: false,
-            breadcrumb: "Storybook",
+            breadcrumb: 'Storybook',
           },
           {
             hide: false,
-            label: "Interaction tests",
+            label: 'Interaction tests',
             order: 2,
-            id: "interactions",
+            id: 'interactions',
             isHome: false,
-            breadcrumb: "Storybook",
+            breadcrumb: 'Storybook',
           },
         ],
       },
     ]);
   });
 
-  test("Generates breadcrumbs for nested groups", () => {
+  test('Generates breadcrumbs for nested groups', () => {
     expect(
       transformNavGroups([
         {
-          title: "Storybook",
+          title: 'Storybook',
           items: [
             {
-              id: "composition",
-              collection: "troubleshooting",
+              id: 'composition',
+              collection: 'troubleshooting',
               data: {
-                title: "Composition",
-                description: "Composition",
+                title: 'Composition',
+                description: 'Composition',
                 sidebar: {
-                  label: "Composition",
+                  label: 'Composition',
                   order: 4,
                   hide: false,
                 },
@@ -790,16 +790,16 @@ describe("transformNavGroups > Breadcrumbs", () => {
             },
 
             {
-              title: "Modes",
+              title: 'Modes',
               items: [
                 {
-                  id: "modes",
-                  collection: "modes",
+                  id: 'modes',
+                  collection: 'modes',
                   data: {
-                    title: "Story Modes",
-                    description: "Story Modes",
+                    title: 'Story Modes',
+                    description: 'Story Modes',
                     sidebar: {
-                      label: "Story Modes",
+                      label: 'Story Modes',
                       order: 1,
                       hide: false,
                     },
@@ -809,98 +809,98 @@ describe("transformNavGroups > Breadcrumbs", () => {
             },
           ],
         },
-      ]),
+      ])
     ).toEqual([
       {
-        title: "Storybook",
+        title: 'Storybook',
         items: [
           {
             hide: false,
-            label: "Composition",
+            label: 'Composition',
             order: 4,
-            id: "composition",
+            id: 'composition',
             isHome: false,
-            breadcrumb: "Storybook",
+            breadcrumb: 'Storybook',
           },
           {
             hide: false,
             items: [
               {
                 hide: false,
-                label: "Story Modes",
+                label: 'Story Modes',
                 order: 1,
-                id: "modes",
+                id: 'modes',
                 isHome: false,
-                breadcrumb: "Storybook » Modes",
+                breadcrumb: 'Storybook » Modes',
               },
             ],
             order: 999,
-            title: "Modes",
+            title: 'Modes',
           },
         ],
       },
     ]);
   });
 
-  test("Generates breadcrumbs for deeply nested groups", () => {
+  test('Generates breadcrumbs for deeply nested groups', () => {
     expect(
       transformNavGroups([
         {
-          title: "Storybook",
+          title: 'Storybook',
           items: [
             {
-              id: "storybook",
-              collection: "troubleshooting",
+              id: 'storybook',
+              collection: 'troubleshooting',
               data: {
-                title: "Setup",
-                description: "Setup",
+                title: 'Setup',
+                description: 'Setup',
                 sidebar: {
-                  label: "Setup",
+                  label: 'Setup',
                   order: 1,
                   hide: false,
                 },
               },
             },
             {
-              title: "Modes",
+              title: 'Modes',
               items: [
                 {
-                  id: "modes",
-                  collection: "modes",
+                  id: 'modes',
+                  collection: 'modes',
                   data: {
-                    title: "Story Modes",
-                    description: "Story Modes",
+                    title: 'Story Modes',
+                    description: 'Story Modes',
                     sidebar: {
-                      label: "Story Modes",
+                      label: 'Story Modes',
                       order: 1,
                       hide: false,
                     },
                   },
                 },
                 {
-                  title: "Something",
+                  title: 'Something',
                   items: [
                     {
-                      id: "interactions",
-                      collection: "troubleshooting",
+                      id: 'interactions',
+                      collection: 'troubleshooting',
                       data: {
-                        title: "Interaction tests",
-                        description: "Interaction tests",
+                        title: 'Interaction tests',
+                        description: 'Interaction tests',
                         sidebar: {
-                          label: "Interaction tests",
+                          label: 'Interaction tests',
                           order: 2,
                           hide: false,
                         },
                       },
                     },
                     {
-                      id: "storybook/publish",
-                      collection: "troubleshooting",
+                      id: 'storybook/publish',
+                      collection: 'troubleshooting',
                       data: {
-                        title: "Publish",
-                        description: "Publish",
+                        title: 'Publish',
+                        description: 'Publish',
                         sidebar: {
-                          label: "Publish",
+                          label: 'Publish',
                           order: 3,
                           hide: false,
                         },
@@ -912,29 +912,29 @@ describe("transformNavGroups > Breadcrumbs", () => {
             },
           ],
         },
-      ]),
+      ])
     ).toEqual([
       {
-        title: "Storybook",
+        title: 'Storybook',
         items: [
           {
             hide: false,
-            label: "Setup",
+            label: 'Setup',
             order: 1,
-            id: "storybook",
+            id: 'storybook',
             isHome: false,
-            breadcrumb: "Storybook",
+            breadcrumb: 'Storybook',
           },
           {
             hide: false,
             items: [
               {
                 hide: false,
-                label: "Story Modes",
+                label: 'Story Modes',
                 order: 1,
-                id: "modes",
+                id: 'modes',
                 isHome: false,
-                breadcrumb: "Storybook » Modes",
+                breadcrumb: 'Storybook » Modes',
               },
               {
                 hide: false,
@@ -942,26 +942,26 @@ describe("transformNavGroups > Breadcrumbs", () => {
                   {
                     hide: false,
                     isHome: false,
-                    label: "Interaction tests",
+                    label: 'Interaction tests',
                     order: 2,
-                    id: "interactions",
-                    breadcrumb: "Storybook » Modes » Something",
+                    id: 'interactions',
+                    breadcrumb: 'Storybook » Modes » Something',
                   },
                   {
                     hide: false,
                     isHome: false,
-                    label: "Publish",
+                    label: 'Publish',
                     order: 3,
-                    id: "storybook/publish",
-                    breadcrumb: "Storybook » Modes » Something",
+                    id: 'storybook/publish',
+                    breadcrumb: 'Storybook » Modes » Something',
                   },
                 ],
                 order: 999,
-                title: "Something",
+                title: 'Something',
               },
             ],
             order: 999,
-            title: "Modes",
+            title: 'Modes',
           },
         ],
       },
@@ -969,31 +969,31 @@ describe("transformNavGroups > Breadcrumbs", () => {
   });
 });
 
-describe("flattenNavGroups", () => {
-  test("Flattens nested groups", () => {
+describe('flattenNavGroups', () => {
+  test('Flattens nested groups', () => {
     expect(
       flattenGroups([
         {
-          title: "Storybook",
+          title: 'Storybook',
           items: [
             {
               hide: false,
-              label: "Setup",
+              label: 'Setup',
               order: 1,
-              id: "storybook",
+              id: 'storybook',
               isHome: false,
-              breadcrumb: "Storybook",
+              breadcrumb: 'Storybook',
             },
             {
               hide: false,
               items: [
                 {
                   hide: false,
-                  label: "Story Modes",
+                  label: 'Story Modes',
                   order: 1,
-                  id: "modes",
+                  id: 'modes',
                   isHome: false,
-                  breadcrumb: "Storybook » Modes",
+                  breadcrumb: 'Storybook » Modes',
                 },
                 {
                   hide: false,
@@ -1001,62 +1001,62 @@ describe("flattenNavGroups", () => {
                     {
                       hide: false,
                       isHome: false,
-                      label: "Interaction tests",
+                      label: 'Interaction tests',
                       order: 2,
-                      id: "interactions",
-                      breadcrumb: "Storybook » Modes » Something",
+                      id: 'interactions',
+                      breadcrumb: 'Storybook » Modes » Something',
                     },
                     {
                       hide: false,
                       isHome: false,
-                      label: "Publish",
+                      label: 'Publish',
                       order: 3,
-                      id: "storybook/publish",
-                      breadcrumb: "Storybook » Modes » Something",
+                      id: 'storybook/publish',
+                      breadcrumb: 'Storybook » Modes » Something',
                     },
                   ],
                   order: 999,
-                  title: "Something",
+                  title: 'Something',
                 },
               ],
               order: 999,
-              title: "Modes",
+              title: 'Modes',
             },
           ],
         },
-      ]),
+      ])
     ).toEqual([
       {
         hide: false,
-        label: "Setup",
+        label: 'Setup',
         order: 1,
-        id: "storybook",
+        id: 'storybook',
         isHome: false,
-        breadcrumb: "Storybook",
+        breadcrumb: 'Storybook',
       },
       {
         hide: false,
-        label: "Story Modes",
+        label: 'Story Modes',
         order: 1,
-        id: "modes",
+        id: 'modes',
         isHome: false,
-        breadcrumb: "Storybook » Modes",
+        breadcrumb: 'Storybook » Modes',
       },
       {
         hide: false,
         isHome: false,
-        label: "Interaction tests",
+        label: 'Interaction tests',
         order: 2,
-        id: "interactions",
-        breadcrumb: "Storybook » Modes » Something",
+        id: 'interactions',
+        breadcrumb: 'Storybook » Modes » Something',
       },
       {
         hide: false,
         isHome: false,
-        label: "Publish",
+        label: 'Publish',
         order: 3,
-        id: "storybook/publish",
-        breadcrumb: "Storybook » Modes » Something",
+        id: 'storybook/publish',
+        breadcrumb: 'Storybook » Modes » Something',
       },
     ]);
   });

@@ -1,4 +1,4 @@
-import { css } from "@emotion/react";
+import { css } from '@emotion/react';
 
 export const formatting = css`
   font-size: 16px;
@@ -379,7 +379,7 @@ export const formatting = css`
 
     &:before {
       border-left: 1px solid rgba(0, 0, 0, 0.1);
-      content: "";
+      content: '';
       height: 100%;
       left: 4px;
       position: absolute;

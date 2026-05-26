@@ -1,4 +1,4 @@
-import { cssVariables } from "@chromatic-com/tetra";
+import { cssVariables } from '@chromatic-com/tetra';
 
 export const globalStyles = /*css*/ `
   ${cssVariables}
