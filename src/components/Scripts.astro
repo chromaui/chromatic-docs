@@ -1,9 +1,9 @@
 ---
-import Analytics from "./Analytics.astro";
-import PlainChat from "./PlainChat.astro";
+import Analytics from './Analytics.astro';
+import PlainChat from './PlainChat.astro';
 
 const baseUrl = import.meta.env.BASE_URL;
-const isProduction = import.meta.env.MODE === "production";
+const isProduction = import.meta.env.MODE === 'production';
 ---
 
 <link rel="preconnect" href="https://fonts.gstatic.com/" cross-origin="true" />
@@ -27,20 +27,20 @@ const isProduction = import.meta.env.MODE === "production";
 <script is:inline src={`${baseUrl}/anchor.min.js`}></script>
 <script is:inline>
   window.onload = function () {
-    anchors.add("summary:not(.no-anchor), .config-option");
+    anchors.add('summary:not(.no-anchor), .config-option');
   };
 </script>
 <!-- Google Tag Manager -->
 <script is:inline>
   (function (w, d, s, l, i) {
     w[l] = w[l] || [];
-    w[l].push({ "gtm.start": new Date().getTime(), event: "gtm.js" });
+    w[l].push({ 'gtm.start': new Date().getTime(), event: 'gtm.js' });
     var f = d.getElementsByTagName(s)[0],
       j = d.createElement(s),
-      dl = l != "dataLayer" ? "&l=" + l : "";
+      dl = l != 'dataLayer' ? '&l=' + l : '';
     j.async = true;
-    j.src = "https://www.googletagmanager.com/gtm.js?id=" + i + dl;
+    j.src = 'https://www.googletagmanager.com/gtm.js?id=' + i + dl;
     f.parentNode.insertBefore(j, f);
-  })(window, document, "script", "dataLayer", "GTM-K35MZQHR");
+  })(window, document, 'script', 'dataLayer', 'GTM-K35MZQHR');
 </script>
 <!-- End Google Tag Manager -->
