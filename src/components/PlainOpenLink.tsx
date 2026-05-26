@@ -19,7 +19,7 @@ export function PlainOpenLink({
   label?: LabelKey;
   children: React.ReactNode;
 }) {
-  const onClick = (e: React.MouseEvent<HTMLButtonElement>) => {
+  const onClick = (e: React.MouseEvent<HTMLAnchorElement>) => {
     e.preventDefault();
     if (window.Plain?.isInitialized?.()) {
       if (label) {
@@ -48,5 +48,9 @@ export function PlainOpenLink({
     }
   };
 
-  return <button onClick={onClick}>{children}</button>;
+  return (
+    <a href="#" onClick={onClick}>
+      {children}
+    </a>
+  );
 }
