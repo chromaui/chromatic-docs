@@ -1,0 +1,9 @@
+pre-commit:
+  parallel: true
+  jobs:
+    - name: prettier
+      glob: '*.{js,ts,tsx,astro,md,mdx,json,yaml,yml,css}'
+      run: pnpm exec prettier --check {staged_files}
+
+    - name: diagrams
+      run: node scripts/pre-commit-diagrams.mjs

@@ -4,7 +4,7 @@ description: Learn how to configure Chromatic with BitBucket Pipelines
 sidebar: { order: 4, label: Bitbucket Pipelines }
 ---
 
-import IntegrationSnippets from "../../components/IntegrationSnippets.astro";
+import IntegrationSnippets from '../../components/IntegrationSnippets.astro';
 
 # Automate Chromatic with BitBucket Pipelines
 
@@ -168,7 +168,7 @@ pipelines:
 
     # 👇 Adds Chromatic as a step in the pipeline
     - step:
-        name: "Run Chromatic"
+        name: 'Run Chromatic'
         # Other pipeline configuration
         script:
           - npm ci
@@ -195,7 +195,7 @@ pipelines:
 
     # 👇 Runs Chromatic sequentially for each monorepo subproject.
     - step:
-        name: "Publish Project 1 to Chromatic"
+        name: 'Publish Project 1 to Chromatic'
         # Other pipeline configuration
         script:
           - CHROMATIC_PROJECT_TOKEN=$CHROMATIC_PROJECT_TOKEN_1
@@ -203,7 +203,7 @@ pipelines:
           - cd packages/project_1
           - npx chromatic
     - step:
-        name: "Publish Project 2 to Chromatic"
+        name: 'Publish Project 2 to Chromatic'
         # Other pipeline configuration
         script:
           - CHROMATIC_PROJECT_TOKEN=$CHROMATIC_PROJECT_TOKEN_2
@@ -223,14 +223,14 @@ pipelines:
     # 👇 Runs Chromatic in parallel for each monorepo subproject.
     - parallel:
         - step:
-            name: "Publish Project 1 to Chromatic"
+            name: 'Publish Project 1 to Chromatic'
             # Other pipeline configuration
             script:
               - npm ci
               - cd packages/project_1
               - npx chromatic --project-token $CHROMATIC_PROJECT_TOKEN_1
         - step:
-            name: "Publish Project 2 to Chromatic"
+            name: 'Publish Project 2 to Chromatic'
             # Other pipeline configuration
             script:
               - npm ci
@@ -250,7 +250,7 @@ pipelines:
 
     # 👇 Adds Chromatic as a step in the pipeline
     - step:
-        name: "Run Chromatic"
+        name: 'Run Chromatic'
         # Other pipeline configuration
         script:
           - npm ci
@@ -280,7 +280,7 @@ pipelines:
 
     # 👇 Adds Chromatic as a step in the pipeline
     - step:
-        name: "Run Chromatic"
+        name: 'Run Chromatic'
         # Other pipeline configuration
         script:
           - npm ci
@@ -320,7 +320,7 @@ pipelines:
   default:
     # 👇 Checks if the branch is main and runs Chromatic with the flag to accept all changes.
     - step:
-        name: "Run Chromatic and auto accept changes"
+        name: 'Run Chromatic and auto accept changes'
         caches:
           - node
         script:
@@ -330,7 +330,7 @@ pipelines:
     # 👇 Checks if the branch is not main and runs Chromatic
     your-branch:
       - step:
-          name: "Run Chromatic"
+          name: 'Run Chromatic'
           script:
             - npm ci
             - npx chromatic
@@ -354,7 +354,7 @@ pipelines:
 
     # 👇 Adds Chromatic as a step in the pipeline
     - step:
-        name: "Run Chromatic"
+        name: 'Run Chromatic'
         # Other pipeline configuration
         script:
           - npm ci
@@ -378,10 +378,10 @@ If you're creating a [patch build](/docs/branching-and-baselines#what-happens-wh
 pipelines:
   pull-requests:
     # 👇 Will run as default for any branch not elsewhere defined
-    "**":
+    '**':
       - step:
           # 👇 Adds Chromatic as a step in the pipeline
-          name: "Run Chromatic"
+          name: 'Run Chromatic'
           caches:
             - node
           script:

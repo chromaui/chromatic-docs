@@ -1,0 +1,7 @@
+dist/
+.astro/
+node_modules/
+pnpm-lock.yaml
+public/chromatic-config.schema.json
+_site_deploy/
+src/components/Analytics.astro

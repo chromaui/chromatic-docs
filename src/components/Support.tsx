@@ -1,5 +1,5 @@
-import { Button, fontWeight, minMd, spacing } from "@chromatic-com/tetra";
-import styled from "@emotion/styled";
+import { Button, fontWeight, minMd, spacing } from '@chromatic-com/tetra';
+import styled from '@emotion/styled';
 
 const Trigger = styled(Button)`
   align-self: flex-start;
@@ -15,22 +15,14 @@ const Trigger = styled(Button)`
 `;
 
 export function Support({ ...props }) {
-  const openIntercom = () => {
-    // @ts-ignore
-    const { Intercom } = window;
-    if (Intercom) {
-      Intercom("showNewMessage");
+  const openChat = () => {
+    if (window.Plain?.isInitialized?.()) {
+      window.Plain.open();
     }
   };
 
   return (
-    <Trigger
-      variant="outline"
-      color="slate"
-      size="sm"
-      onClick={openIntercom}
-      {...props}
-    >
+    <Trigger variant="outline" color="slate" size="sm" onClick={openChat} {...props}>
       Get support
     </Trigger>
   );

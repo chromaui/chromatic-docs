@@ -1,5 +1,5 @@
-import { css } from "@emotion/react";
-import { fontFamily } from "@chromatic-com/tetra";
+import { css } from '@emotion/react';
+import { fontFamily } from '@chromatic-com/tetra';
 
 export const syntaxHighlighting = css`
   [data-remark-code-title] {
@@ -21,7 +21,7 @@ export const syntaxHighlighting = css`
     }
   }
 
-  div[class*="language-"] {
+  div[class*='language-'] {
     margin: 1.5em 0;
 
     & + .aside {
@@ -77,7 +77,7 @@ export const syntaxHighlighting = css`
 
   .astro-code code .diff.remove::before {
     color: #b31d28;
-    content: "-";
+    content: '-';
     transform: translateX(-6px);
   }
 
@@ -87,7 +87,7 @@ export const syntaxHighlighting = css`
 
   .astro-code code .diff.add::before {
     color: #22863a;
-    content: "+";
+    content: '+';
     transform: translateX(-6px);
   }
 

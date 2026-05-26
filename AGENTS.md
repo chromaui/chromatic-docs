@@ -31,10 +31,10 @@ Content lives in `src/content/` as Markdown/MDX files, organized into collection
 Each file's frontmatter controls its presence in the sidebar:
 
 ```yaml
-title: "Page Title" # required
-description: "..." # required
+title: 'Page Title' # required
+description: '...' # required
 sidebar:
-  label: "Short Label" # optional override for nav label
+  label: 'Short Label' # optional override for nav label
   order: 1 # controls sort order in sidebar
   hide: true # hide from sidebar
 isHidden: true # hide from search

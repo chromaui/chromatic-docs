@@ -1,5 +1,5 @@
-import type { ConfigOption as ConfigOptionType } from "../../../chromatic-config/generate-schema";
-import { markdown } from "../../markdown";
+import type { ConfigOption as ConfigOptionType } from '../../../chromatic-config/generate-schema';
+import { markdown } from '../../markdown';
 
 export const formatOption = async (option: ConfigOptionType) => {
   return {
@@ -11,6 +11,6 @@ export const formatOption = async (option: ConfigOptionType) => {
     default:
       option.default !== undefined
         ? `<code>${option.default}</code>`
-        : await markdown(option.defaultComment || ""),
+        : await markdown(option.defaultComment || ''),
   };
 };

@@ -4,7 +4,7 @@ description: Learn how to configure Chromatic with GitHub Actions
 sidebar: { order: 2, label: GitHub Actions }
 ---
 
-import IntegrationSnippets from "../../components/IntegrationSnippets.astro";
+import IntegrationSnippets from '../../components/IntegrationSnippets.astro';
 
 # Automate Chromatic with GitHub Actions
 
@@ -242,13 +242,13 @@ Chromatic's GitHub Action returns some information about your build in the form 
 If you need to customize your workflow to run Chromatic on specific branches, adjust your workflow like so:
 
 ```yml title=".github/workflows/chromatic.yml"
-name: "Chromatic"
+name: 'Chromatic'
 
 # 👇 Workflow event to trigger execution
 on:
   push:
     branches-ignore:
-      - "example" # 👈 Excludes the example branch
+      - 'example' # 👈 Excludes the example branch
 ```
 
 <div class="aside">
@@ -315,7 +315,7 @@ If you want to run Chromatic in parallel for each subproject, you will need to c
 
 ```yml title=".github/workflows/chromatic-1.yml"
 # 👇 Customize the workflow name
-name: "Chromatic 1"
+name: 'Chromatic 1'
 
 on: push
 
@@ -334,7 +334,7 @@ jobs:
 
 ```yml title=".github/workflows/chromatic-2.yml"
 # 👇 Customize the workflow name
-name: "Chromatic 2"
+name: 'Chromatic 2'
 
 on: push
 
@@ -432,7 +432,7 @@ jobs:
         env:
           # 👇 Sets environment variables
           CHROMATIC_RETRIES: 5
-          LOG_LEVEL: "error"
+          LOG_LEVEL: 'error'
 ```
 
 <div class="aside">
@@ -561,7 +561,7 @@ jobs:
         uses: chromaui/action@latest
         with:
           projectToken: ${{ secrets.CHROMATIC_PROJECT_TOKEN }}
-          autoAcceptChanges: "main" # 👈 Option to accept all changes on main
+          autoAcceptChanges: 'main' # 👈 Option to accept all changes on main
 ```
 
 <div class="aside">
@@ -584,7 +584,7 @@ jobs:
         uses: chromaui/action@latest
         with:
           projectToken: ${{ secrets.CHROMATIC_PROJECT_TOKEN }}
-          ignoreLastBuildOnBranch: "my-branch" # 👈 Option to ignore the last build on target branch
+          ignoreLastBuildOnBranch: 'my-branch' # 👈 Option to ignore the last build on target branch
 ```
 
 <div class="aside">
@@ -619,13 +619,13 @@ jobs:
         uses: chromaui/action@latest
         with:
           projectToken: ${{ secrets.CHROMATIC_PROJECT_TOKEN }}
-          skip: "dependabot/**" # 👈 Option to skip Chromatic for certain branches
+          skip: 'dependabot/**' # 👈 Option to skip Chromatic for certain branches
 ```
 
 To apply this to multiple branches, use an "extended glob". See the [globs guide] for details.
 
 ```yml
-skip: "@(renovate/**|dependabot/**)"
+skip: '@(renovate/**|dependabot/**)'
 ```
 
 <div class="aside">

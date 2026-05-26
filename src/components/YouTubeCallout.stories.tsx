@@ -1,8 +1,8 @@
-import type { Meta, StoryObj } from "@storybook/react-vite";
-import { YouTubeCallout } from "./YouTubeCallout";
+import type { Meta, StoryObj } from '@storybook/react-vite';
+import { YouTubeCallout } from './YouTubeCallout';
 
 const meta = {
-  title: "Components/YouTubeCallout",
+  title: 'Components/YouTubeCallout',
   component: YouTubeCallout,
 } satisfies Meta<typeof YouTubeCallout>;
 
@@ -11,8 +11,8 @@ type Story = StoryObj<typeof YouTubeCallout>;
 
 export const Closed: Story = {
   args: {
-    id: "BDuQb8jdz-c",
-    summary: "Watch a quick demo of how modes work",
+    id: 'BDuQb8jdz-c',
+    summary: 'Watch a quick demo of how modes work',
   },
 };
 

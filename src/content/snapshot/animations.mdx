@@ -4,9 +4,9 @@ description: Learn how Chromatic pauses animations and how to control the behavi
 sidebar: { order: 10 }
 ---
 
-import ParamsCallout from "../../components/ParamsCallout.astro";
-import { YouTubeCallout } from "../../components/YouTubeCallout";
-import IntegrationSnippets from "../../components/IntegrationSnippets.astro";
+import ParamsCallout from '../../components/ParamsCallout.astro';
+import { YouTubeCallout } from '../../components/YouTubeCallout';
+import IntegrationSnippets from '../../components/IntegrationSnippets.astro';
 
 # Animations
 
@@ -94,8 +94,8 @@ If you're working with JavaScript animations libraries (e.g., [framer-motion](ht
 You can conditionally disable animations using the [`isChromatic()`](/docs/ischromatic) utility function. For example, to turn off animations globally in framer-motion (v10.17.0 and above), you can set the `MotionGlobalConfig.skipAnimations` option as follows:
 
 ```ts title=".storybook/preview.js|ts"
-import { MotionGlobalConfig } from "framer-motion";
-import isChromatic from "chromatic/isChromatic";
+import { MotionGlobalConfig } from 'framer-motion';
+import isChromatic from 'chromatic/isChromatic';
 
 MotionGlobalConfig.skipAnimations = isChromatic();
 ```
@@ -188,8 +188,8 @@ export const useAnimatedState = () => {
     isComplete,
     animationProps: {
       onAnimationComplete: handleAnimationComplete,
-      "data-animation": isComplete ? "complete" : "playing",
-      "data-testid": "animated-element",
+      'data-animation': isComplete ? 'complete' : 'playing',
+      'data-testid': 'animated-element',
     },
   };
 };
@@ -198,8 +198,8 @@ export const useAnimatedState = () => {
 Then use the hook within the component that contains animated elements.
 
 ```tsx title="Button.tsx"
-import { motion } from "framer-motion";
-import { useAnimatedState } from "./useAnimatedState";
+import { motion } from 'framer-motion';
+import { useAnimatedState } from './useAnimatedState';
 
 export const Button = () => {
   const { animationProps } = useAnimatedState();
@@ -222,19 +222,19 @@ Lastly, add a `play()` function to the story file that asserts that the animatio
 
 ```tsx title="MyComponent.stories.tsx"
 // Adjust this import to match your framework (e.g., nextjs, vue3-vite)
-import type { Meta, StoryObj } from "@storybook/your-framework";
+import type { Meta, StoryObj } from '@storybook/your-framework';
 
 /*
  * Replace the storybook/test import with `@storybook/test` and adjust the stories accordingly if you're not using Storybook 9.0.
  * Refer to the Storybook documentation for the correct package and imports for earlier versions.
  */
-import { expect, waitFor } from "storybook/test";
+import { expect, waitFor } from 'storybook/test';
 
-import { Button } from "./Button";
+import { Button } from './Button';
 
 const meta = {
   component: Button,
-  title: "Button",
+  title: 'Button',
 } satisfies Meta<typeof Button>;
 
 export default meta;
@@ -244,14 +244,14 @@ export const Default: Story = {
   play: async ({ canvas }) => {
     await waitFor(
       async () => {
-        await expect(canvas.getByTestId("animated-element")).toHaveAttribute(
-          "data-animation",
-          "complete",
+        await expect(canvas.getByTestId('animated-element')).toHaveAttribute(
+          'data-animation',
+          'complete'
         );
       },
       // Default timeout is 1s, but you
       // can pass options if it take longer
-      { timeout: 5000 },
+      { timeout: 5000 }
     );
   },
 };
@@ -270,22 +270,22 @@ Additionally, you can turn this into a utility in order to reuse in other storie
  * Replace the storybook/test import with `@storybook/test` and adjust the stories accordingly if you're not using Storybook 9.0.
  * Refer to the Storybook documentation for the correct package and imports for earlier versions.
  */
-import { screen, waitFor } from "storybook/test";
+import { screen, waitFor } from 'storybook/test';
 
 const waitForAllAnimationsToComplete = async () => {
   return waitFor(
     () => {
       // Find all elements with animated-element testid added by the hook
-      const elements = screen.getByTestId("animated-element");
+      const elements = screen.getByTestId('animated-element');
 
       // Make sure they all finish their animation
       elements.forEach((element) => {
-        expect(element).toHaveAttribute("data-animation", "complete");
+        expect(element).toHaveAttribute('data-animation', 'complete');
       });
     },
     // Default timeout is 1s, but you
     // can pass options if it takes longer
-    { timeout: 5000 },
+    { timeout: 5000 }
   );
 };
 

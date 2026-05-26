@@ -1,4 +1,4 @@
-import styled from "@emotion/styled";
+import styled from '@emotion/styled';
 import {
   spacing,
   color,
@@ -9,10 +9,10 @@ import {
   typography,
   Accordion,
   fontFamily,
-} from "@chromatic-com/tetra";
-import { calculateSnapshots } from "./calculateSnapshots";
-import { InfoTooltip } from "../InfoTooltip";
-import { useSnapshotCalculatorState } from "./useSnapshotCalculatorState";
+} from '@chromatic-com/tetra';
+import { calculateSnapshots } from './calculateSnapshots';
+import { InfoTooltip } from '../InfoTooltip';
+import { useSnapshotCalculatorState } from './useSnapshotCalculatorState';
 
 const Container = styled.div`
   padding: ${spacing[4]};
@@ -43,7 +43,7 @@ const Field = styled.div`
     border-radius: 4px;
   }
 
-  input[type="number"] {
+  input[type='number'] {
     padding: ${spacing[1]};
   }
 `;
@@ -71,7 +71,7 @@ const Fieldset = styled(VStack)`
   border-top: 1px solid ${color.blackTr10};
   margin-left: -${spacing[4]};
   margin-right: -${spacing[4]};
-`.withComponent("fieldset");
+`.withComponent('fieldset');
 
 const Legend = styled.legend`
   ${typography.heading16}
@@ -153,7 +153,7 @@ export const SnapshotCalculator = () => {
     viewports,
     accessibility,
     turboSnap,
-    changedTestsPercentage,
+    changedTestsPercentage
   );
 
   return (
@@ -192,8 +192,8 @@ export const SnapshotCalculator = () => {
               <InfoTooltip
                 copy="Number of browsers you want to test your components in"
                 link={{
-                  title: "Learn more",
-                  href: "/docs/browsers",
+                  title: 'Learn more',
+                  href: '/docs/browsers',
                 }}
               />
             </Label>
@@ -212,8 +212,8 @@ export const SnapshotCalculator = () => {
               <InfoTooltip
                 copy="Number of viewport sizes (breakpoints) you want to test your components across"
                 link={{
-                  title: "Learn more",
-                  href: "/docs/viewports",
+                  title: 'Learn more',
+                  href: '/docs/viewports',
                 }}
               />
             </Label>
@@ -236,8 +236,8 @@ export const SnapshotCalculator = () => {
             <InfoTooltip
               copy="Run accessibility tests in addition to visual tests for all your stories"
               link={{
-                title: "Learn more",
-                href: "/docs/accessibility",
+                title: 'Learn more',
+                href: '/docs/accessibility',
               }}
             />
           </Checkbox>
@@ -255,8 +255,8 @@ export const SnapshotCalculator = () => {
               <InfoTooltip
                 copy="TurboSnap is an advanced Chromatic feature that speeds up UI Tests and reduces the number of snapshots required to run tests. It analyzes your project’s Git history and dependency graph to identify which components and their dependencies have changed. It then only snapshots stories associated with those changes."
                 link={{
-                  title: "Learn more",
-                  href: "/docs/turbosnap",
+                  title: 'Learn more',
+                  href: '/docs/turbosnap',
                 }}
               />
             </Checkbox>
@@ -268,8 +268,8 @@ export const SnapshotCalculator = () => {
                     <InfoTooltip
                       copy="On average, how many stories do you expect to have changes per commit? If unsure, 50% is a good starting point."
                       link={{
-                        title: "Learn more",
-                        href: "/docs/turbosnap",
+                        title: 'Learn more',
+                        href: '/docs/turbosnap',
                       }}
                     />
                   </Label>
@@ -277,9 +277,7 @@ export const SnapshotCalculator = () => {
                     id="sc-test-changed"
                     type="range"
                     value={changedTestsPercentage}
-                    onChange={(e) =>
-                      setChangedTestsPercentage(Number(e.target.valueAsNumber))
-                    }
+                    onChange={(e) => setChangedTestsPercentage(Number(e.target.valueAsNumber))}
                     step="1"
                     min="0"
                     max={100}
@@ -293,7 +291,7 @@ export const SnapshotCalculator = () => {
         <Result>
           <InfoStat
             data-testid="snapshots"
-            unit={toPlural(results.snapshots, "Snapshot")}
+            unit={toPlural(results.snapshots, 'Snapshot')}
             dimension=""
             value={results.snapshots.toLocaleString()}
             size="large"
@@ -301,7 +299,7 @@ export const SnapshotCalculator = () => {
           {turboSnap && (
             <InfoStat
               data-testid="turboSnaps"
-              unit={toPlural(results.turboSnaps, "TurboSnap")}
+              unit={toPlural(results.turboSnaps, 'TurboSnap')}
               dimension=""
               value={results.turboSnaps.toLocaleString()}
               size="large"
@@ -309,7 +307,7 @@ export const SnapshotCalculator = () => {
           )}
           <BillingStat
             data-testid="billedSnapshots"
-            unit={toPlural(results.billedSnapshots, "Billed snapshot")}
+            unit={toPlural(results.billedSnapshots, 'Billed snapshot')}
             dimension=""
             value={results.billedSnapshots.toLocaleString()}
             size="large"
@@ -323,30 +321,21 @@ export const SnapshotCalculator = () => {
             <VStack gap={4} marginTop={2} className="formula-inner">
               {accessibility ? (
                 <>
-                  <code>
-                    Visual Snapshots = Tests x Builds x Browsers x Viewports
-                  </code>
-                  <code>
-                    Accessibility Snapshots = Tests x Builds x Viewports
-                  </code>
+                  <code>Visual Snapshots = Tests x Builds x Browsers x Viewports</code>
+                  <code>Accessibility Snapshots = Tests x Builds x Viewports</code>
                   <hr />
-                  <code>
-                    Snapshots = Visual Snapshots + Accessibility Snapshots
-                  </code>
+                  <code>Snapshots = Visual Snapshots + Accessibility Snapshots</code>
                 </>
               ) : (
                 <>
-                  <code>
-                    Snapshots = (Tests x Builds x Browsers x Viewports)
-                  </code>
+                  <code>Snapshots = (Tests x Builds x Browsers x Viewports)</code>
                 </>
               )}
               <hr />
               {turboSnap ? (
                 <>
                   <code>
-                    TurboSnaps = (Tests - Tests with changes) x Builds x
-                    Browsers x Viewports
+                    TurboSnaps = (Tests - Tests with changes) x Builds x Browsers x Viewports
                   </code>
                   <hr />
                   <code>Billed Snapshots = Snapshots + 0.2 * TurboSnaps</code>
@@ -365,5 +354,5 @@ export const SnapshotCalculator = () => {
 };
 
 function toPlural(count: number, single: string): string {
-  return `${single}${count === 1 ? "" : "s"}`;
+  return `${single}${count === 1 ? '' : 's'}`;
 }

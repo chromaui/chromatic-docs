@@ -1,9 +1,9 @@
 <script>
   export const isMacLike = () =>
-    typeof window !== "undefined" && window.navigator.userAgent.includes("Mac");
-  export const optionOrAltSymbol = () => (isMacLike() ? "⌥" : "alt");
+    typeof window !== 'undefined' && window.navigator.userAgent.includes('Mac');
+  export const optionOrAltSymbol = () => (isMacLike() ? '⌥' : 'alt');
 
-  document.querySelectorAll("[data-alt-or-option]").forEach((el) => {
+  document.querySelectorAll('[data-alt-or-option]').forEach((el) => {
     el.textContent = optionOrAltSymbol();
   });
 </script>

@@ -31,13 +31,13 @@ Most likely you will have a `.storybook/main.js` which contains something like t
 // .storybook/main.js
 
 const stories = {
-  projectA: "../projectA/**.stories.js",
-  projectB: "../projectB/**.stories.js",
+  projectA: '../projectA/**.stories.js',
+  projectB: '../projectB/**.stories.js',
   // etc
 };
 
 const config = {
-  stories: stories[process.env.STORYBOOK_PROJECT] || "**/*.stories.js",
+  stories: stories[process.env.STORYBOOK_PROJECT] || '**/*.stories.js',
 };
 
 export default config;
@@ -53,14 +53,14 @@ For the above, you might [configure your `stories`](https://storybook.js.org/doc
 const config = {
   stories: [
     {
-      directory: "../projectA",
-      files: "*.stories.*",
-      titlePrefix: "Project Alpha",
+      directory: '../projectA',
+      files: '*.stories.*',
+      titlePrefix: 'Project Alpha',
     },
     {
-      directory: "../projectB",
-      files: "*.stories.*",
-      titlePrefix: "Project Beta",
+      directory: '../projectB',
+      files: '*.stories.*',
+      titlePrefix: 'Project Beta',
     },
   ],
 };

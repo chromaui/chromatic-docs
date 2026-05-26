@@ -52,34 +52,34 @@ Make sure to configure the addons in `.storybook/preview.js|ts` for each global 
 ```ts title=".storybook/preview.ts"
 // Replace your-framework with the framework you are using (e.g., react-vite, vue3-vite)
 // if you're using Storybook 9, or with the appropriate renderer otherwise.
-import type { Preview } from "@storybook/your-framework";
+import type { Preview } from '@storybook/your-framework';
 
-import { withThemeByClassName } from "@storybook/addon-themes";
+import { withThemeByClassName } from '@storybook/addon-themes';
 
-import "../src/index.css";
+import '../src/index.css';
 
 const preview: Preview = {
   parameters: {
     viewport: {
       options: {
-        small: { name: "Small", styles: { width: "640px", height: "800px" } },
-        large: { name: "Large", styles: { width: "1024px", height: "1000px" } },
+        small: { name: 'Small', styles: { width: '640px', height: '800px' } },
+        large: { name: 'Large', styles: { width: '1024px', height: '1000px' } },
       },
     },
     backgrounds: {
       options: {
-        light: { name: "light", value: "#fff" },
-        dark: { name: "dark", value: "#1E293B" },
+        light: { name: 'light', value: '#fff' },
+        dark: { name: 'dark', value: '#1E293B' },
       },
     },
   },
   decorators: [
     withThemeByClassName({
       themes: {
-        light: "light",
-        dark: "dark",
+        light: 'light',
+        dark: 'dark',
       },
-      defaultTheme: "light",
+      defaultTheme: 'light',
     }),
   ],
 };
@@ -100,28 +100,28 @@ To define all your modes, create a file called `.storybook/modes.js|ts`. Each mo
 ```ts title=".storybook/modes.ts"
 export const allModes = {
   mobile: {
-    viewport: "small",
+    viewport: 'small',
   },
   desktop: {
-    viewport: "large",
+    viewport: 'large',
   },
   dark: {
-    backgrounds: { value: "#1E293B" },
-    theme: "dark",
+    backgrounds: { value: '#1E293B' },
+    theme: 'dark',
   },
   light: {
-    backgrounds: { value: "#fff" },
-    theme: "light",
+    backgrounds: { value: '#fff' },
+    theme: 'light',
   },
-  "dark desktop": {
-    backgrounds: { value: "#1E293B" },
-    theme: "dark",
-    viewport: "large",
+  'dark desktop': {
+    backgrounds: { value: '#1E293B' },
+    theme: 'dark',
+    viewport: 'large',
   },
-  "light mobile": {
-    backgrounds: { value: "#fff" },
-    theme: "light",
-    viewport: "small",
+  'light mobile': {
+    backgrounds: { value: '#fff' },
+    theme: 'light',
+    viewport: 'small',
   },
 } as const;
 ```
@@ -132,21 +132,21 @@ To apply the modes to a component, import them into a CSF (`*.stories.js|ts`) fi
 
 ```ts title="ArticleCard.stories.ts|tsx"
 // Adjust this import to match your framework (e.g., nextjs, vue3-vite)
-import type { Meta, StoryObj } from "@storybook/your-framework";
+import type { Meta, StoryObj } from '@storybook/your-framework';
 
-import { allModes } from "../.storybook/modes";
+import { allModes } from '../.storybook/modes';
 
-import { ArticleCard } from "./ArticleCard";
+import { ArticleCard } from './ArticleCard';
 
 const meta = {
   component: ArticleCard,
-  title: "ArticleCard",
+  title: 'ArticleCard',
   parameters: {
     chromatic: {
       //🔶 Test each story for ArticleCard in two modes
       modes: {
-        "light mobile": allModes["light mobile"],
-        "dark desktop": allModes["dark desktop"],
+        'light mobile': allModes['light mobile'],
+        'dark desktop': allModes['dark desktop'],
       },
     },
   },
@@ -181,16 +181,16 @@ For instance, at the project level, we apply modes by setting the `chromatic` pa
 ```ts title=".storybook/preview.ts"
 // Replace your-framework with the framework you are using (e.g., react-vite, vue3-vite)
 // if you're using Storybook 9, or with the appropriate renderer otherwise.
-import type { Preview } from "@storybook/your-framework";
+import type { Preview } from '@storybook/your-framework';
 
-import { allModes } from "../.storybook/modes";
+import { allModes } from '../.storybook/modes';
 
 const preview: Preview = {
   parameters: {
     chromatic: {
       modes: {
-        light: allModes["light"],
-        dark: allModes["dark"],
+        light: allModes['light'],
+        dark: allModes['dark'],
       },
     },
   },
@@ -205,20 +205,20 @@ Then, in the CSF file, we set modes at the component level and/or the story leve
 
 ```ts title="ArticleCard.stories.ts|tsx"
 // Adjust this import to match your framework (e.g., nextjs, vue3-vite)
-import type { Meta, StoryObj } from "@storybook/your-framework";
+import type { Meta, StoryObj } from '@storybook/your-framework';
 
-import { allModes } from "../.storybook/modes";
+import { allModes } from '../.storybook/modes';
 
-import { ArticleCard } from "./ArticleCard";
+import { ArticleCard } from './ArticleCard';
 
 const meta = {
   component: ArticleCard,
-  title: "ArticleCard",
+  title: 'ArticleCard',
   parameters: {
     chromatic: {
       //🔶 Test each story for ArticleCard with this mode
       modes: {
-        desktop: allModes["desktop"],
+        desktop: allModes['desktop'],
       },
     },
   },
@@ -232,7 +232,7 @@ export const Base: Story = {
     chromatic: {
       //🔶 Test only the Base story with this mode
       modes: {
-        mobile: allModes["mobile"],
+        mobile: allModes['mobile'],
       },
     },
   },
@@ -254,19 +254,19 @@ In the example below, `desktop` mode is applied at the component level. But we�
 
 ```ts title="ArticleCard.stories.ts|tsx"
 // Adjust this import to match your framework (e.g., nextjs, vue3-vite)
-import type { Meta, StoryObj } from "@storybook/your-framework";
+import type { Meta, StoryObj } from '@storybook/your-framework';
 
-import { allModes } from "../.storybook/modes";
+import { allModes } from '../.storybook/modes';
 
-import { ArticleCard } from "./ArticleCard";
+import { ArticleCard } from './ArticleCard';
 
 const meta = {
   component: ArticleCard,
-  title: "ArticleCard",
+  title: 'ArticleCard',
   parameters: {
     chromatic: {
       modes: {
-        desktop: allModes["desktop"],
+        desktop: allModes['desktop'],
       },
     },
   },
@@ -299,15 +299,15 @@ Let’s look at an example, this Storybook uses the following set of modes:
 
 ```ts title=".storybook/modes.ts"
 export const allModes = {
-  "dark desktop": {
-    backgrounds: { value: "#1E293B" },
-    theme: "dark",
-    viewport: "large",
+  'dark desktop': {
+    backgrounds: { value: '#1E293B' },
+    theme: 'dark',
+    viewport: 'large',
   },
-  "light mobile": {
-    backgrounds: { value: "#fff" },
-    theme: "light",
-    viewport: "small",
+  'light mobile': {
+    backgrounds: { value: '#fff' },
+    theme: 'light',
+    viewport: 'small',
   },
 } as const;
 ```
@@ -316,11 +316,11 @@ We then apply some of those modes to a component, like so:
 
 ```ts title="ArticleCard.stories.ts|tsx"
 // Adjust this import to match your framework (e.g., nextjs, vue3-vite)
-import type { Meta, StoryObj } from "@storybook/your-framework";
+import type { Meta, StoryObj } from '@storybook/your-framework';
 
-import { allModes } from "../.storybook/modes";
+import { allModes } from '../.storybook/modes';
 
-import { ArticleCard } from "./ArticleCard";
+import { ArticleCard } from './ArticleCard';
 
 const meta = {
   component: ArticleCard,
@@ -328,8 +328,8 @@ const meta = {
     chromatic: {
       //🔶 Test each story for ArticleCard in two modes
       modes: {
-        "light mobile": allModes["light mobile"],
-        "dark desktop": allModes["dark desktop"],
+        'light mobile': allModes['light mobile'],
+        'dark desktop': allModes['dark desktop'],
       },
     },
   },
@@ -352,16 +352,16 @@ Now, let's consider a scenario where we modify the definition of the mode. Even 
 
 ```ts title=".storybook/modes.ts"
 export const allModes = {
-  "dark desktop": {
-    backgrounds: { value: "#1E293B" },
-    theme: "dark",
+  'dark desktop': {
+    backgrounds: { value: '#1E293B' },
+    theme: 'dark',
     // Using a different viewport size now
-    viewport: "extra-large",
+    viewport: 'extra-large',
   },
-  "light mobile": {
-    backgrounds: { value: "#fff" },
-    theme: "light",
-    viewport: "small",
+  'light mobile': {
+    backgrounds: { value: '#fff' },
+    theme: 'light',
+    viewport: 'small',
   },
 } as const;
 ```
@@ -374,11 +374,11 @@ Let's take an example scenario. We want to test the base story in both light and
 
 ```ts title="ArticleCard.stories.ts|tsx"
 // Adjust this import to match your framework (e.g., nextjs, vue3-vite)
-import type { Meta } from "@storybook/your-framework";
+import type { Meta } from '@storybook/your-framework';
 
-import { allModes } from "../.storybook/modes";
+import { allModes } from '../.storybook/modes';
 
-import { ArticleCard } from "./ArticleCard";
+import { ArticleCard } from './ArticleCard';
 
 export default {
   component: ArticleCard,
@@ -386,9 +386,9 @@ export default {
     chromatic: {
       //🔶 Test each story for ArticleCard in two modes
       modes: {
-        "light mobile": allModes["light mobile"],
-        "dark desktop": allModes["dark desktop"],
-        "1200px": { viewport: 1200 },
+        'light mobile': allModes['light mobile'],
+        'dark desktop': allModes['dark desktop'],
+        '1200px': { viewport: 1200 },
       },
     },
   },

@@ -1,5 +1,5 @@
 ---
-import { TabItemTagname } from "./rehype-tabs";
+import { TabItemTagname } from './rehype-tabs';
 
 interface Props {
   label: string;
@@ -8,7 +8,7 @@ interface Props {
 const { label } = Astro.props;
 
 if (!label) {
-  throw new Error("Missing prop `label` on `<TabItem>` component.");
+  throw new Error('Missing prop `label` on `<TabItem>` component.');
 }
 ---
 

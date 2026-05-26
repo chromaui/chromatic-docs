@@ -1,13 +1,13 @@
 ---
-title: "Chromatic for React Native"
-description: "Set up Chromatic visual testing for an existing Storybook for React Native project"
-sidebar: { label: "Get Started", order: 1 }
+title: 'Chromatic for React Native'
+description: 'Set up Chromatic visual testing for an existing Storybook for React Native project'
+sidebar: { label: 'Get Started', order: 1 }
 slug: react-native
 ---
 
-import TroubleshootingSetup from "../../shared-snippets/setup/troubleshooting.mdx";
-import DemoChromaticUnlinked from "../../shared-snippets/demo-chromatic-unlinked.mdx";
-import InstallSnippets from "../../components/InstallSnippets.astro";
+import TroubleshootingSetup from '../../shared-snippets/setup/troubleshooting.mdx';
+import DemoChromaticUnlinked from '../../shared-snippets/demo-chromatic-unlinked.mdx';
+import InstallSnippets from '../../components/InstallSnippets.astro';
 
 # Chromatic for React Native (early access)
 
@@ -63,13 +63,13 @@ Regardless of which router your project uses, you must return `<StorybookUI />` 
 For example, in `app/_layout.tsx`, you can conditionally render Storybook based on the environment variable:
 
 ```tsx title="app/_layout.tsx"
-import { Stack } from "expo-router";
-import StorybookUI from "../.rnstorybook";
+import { Stack } from 'expo-router';
+import StorybookUI from '../.rnstorybook';
 
 export default function RootLayout() {
-  if (process.env.EXPO_PUBLIC_STORYBOOK_ENABLED === "true") {
+  if (process.env.EXPO_PUBLIC_STORYBOOK_ENABLED === 'true') {
     return (
-      <ThemeProvider value={colorScheme === "dark" ? DarkTheme : DefaultTheme}>
+      <ThemeProvider value={colorScheme === 'dark' ? DarkTheme : DefaultTheme}>
         <StorybookUI />
       </ThemeProvider>
     );
@@ -89,17 +89,14 @@ export default function RootLayout() {
 Chromatic drives React Native Storybook via WebSockets and requires a few additional options to be enabled. These options must be controlled by environment variables read in `.rnstorybook/index.ts`.
 
 ```tsx title=".rnstorybook/index.ts"
-import { view } from "./storybook.requires";
+import { view } from './storybook.requires';
 
 const StorybookUIRoot = view.getStorybookUI({
-  enableWebsockets: process.env.EXPO_PUBLIC_STORYBOOK_ENABLED === "true",
-  host: process.env.EXPO_PUBLIC_STORYBOOK_WEBSOCKET_HOST || "localhost",
-  port: parseInt(
-    process.env.EXPO_PUBLIC_STORYBOOK_WEBSOCKET_PORT || "7007",
-    10,
-  ),
-  secured: process.env.EXPO_PUBLIC_STORYBOOK_WEBSOCKET_SECURED === "true",
-  onDeviceUI: process.env.EXPO_PUBLIC_STORYBOOK_DISABLE_UI !== "true",
+  enableWebsockets: process.env.EXPO_PUBLIC_STORYBOOK_ENABLED === 'true',
+  host: process.env.EXPO_PUBLIC_STORYBOOK_WEBSOCKET_HOST || 'localhost',
+  port: parseInt(process.env.EXPO_PUBLIC_STORYBOOK_WEBSOCKET_PORT || '7007', 10),
+  secured: process.env.EXPO_PUBLIC_STORYBOOK_WEBSOCKET_SECURED === 'true',
+  onDeviceUI: process.env.EXPO_PUBLIC_STORYBOOK_DISABLE_UI !== 'true',
 });
 
 export default StorybookUIRoot;

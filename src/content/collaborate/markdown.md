@@ -35,7 +35,7 @@ Share code examples by wrapping the relevant code with triple backticks <code>\`
 ````md
 ```js
 function Example() {
-  console.log("This is an example function");
+  console.log('This is an example function');
 }
 ```
 ````

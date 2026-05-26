@@ -1,22 +1,12 @@
-import * as Collapsible from "@radix-ui/react-collapsible";
-import styled from "@emotion/styled";
-import { css } from "@emotion/react";
-import {
-  typography,
-  Icon,
-  color,
-  fontWeight,
-  spacing,
-} from "@chromatic-com/tetra";
-import {
-  isNestedTransformedGroup,
-  type TransformedItem,
-  type TransformedNavGroup,
-} from "./types";
-import { isChildActive, withBase } from "./nav-utils";
+import * as Collapsible from '@radix-ui/react-collapsible';
+import styled from '@emotion/styled';
+import { css } from '@emotion/react';
+import { typography, Icon, color, fontWeight, spacing } from '@chromatic-com/tetra';
+import { isNestedTransformedGroup, type TransformedItem, type TransformedNavGroup } from './types';
+import { isChildActive, withBase } from './nav-utils';
 
 const Trigger = styled(Collapsible.Trigger, {
-  shouldForwardProp: (prop) => prop !== "nested",
+  shouldForwardProp: (prop) => prop !== 'nested',
 })<{ nested?: boolean }>`
   all: unset;
   display: flex;
@@ -26,7 +16,7 @@ const Trigger = styled(Collapsible.Trigger, {
   color: ${color.slate600};
   cursor: pointer;
 
-  &[data-state="open"] .icon-wrapper {
+  &[data-state='open'] .icon-wrapper {
     transform: rotate(90deg);
     transform-origin: center;
   }
@@ -60,13 +50,13 @@ const ContentWrapper = styled.div<{ isTimeline: boolean }>`
   ${({ isTimeline }) => isTimeline && `margin-top: -6px;`}
 
   &:before {
-    content: "";
+    content: '';
     display: block;
     position: absolute;
     top: ${({ isTimeline }) => (isTimeline ? 12 : 0)}px;
     left: 4px;
     width: 1px;
-    height: ${({ isTimeline }) => (isTimeline ? "calc(100% - 24px);" : "100%")};
+    height: ${({ isTimeline }) => (isTimeline ? 'calc(100% - 24px);' : '100%')};
     background-color: ${color.slate300};
     z-index: 0;
     border-radius: 9999px;
@@ -103,8 +93,7 @@ const Bullet = styled.div<{ isActive: boolean }>`
   z-index: 1;
   width: 9px;
   height: 9px;
-  background-color: ${({ isActive }) =>
-    isActive ? color.blue500 : color.slate300};
+  background-color: ${({ isActive }) => (isActive ? color.blue500 : color.slate300)};
   border-radius: 100%;
   box-shadow: white 0px 0px 0px 4px;
 `;
@@ -161,12 +150,7 @@ export const CollapsibleGroup = ({
           if (isNestedTransformedGroup(item)) {
             return (
               <NestedContent key={j}>
-                <CollapsibleGroup
-                  group={item}
-                  url={url}
-                  isHome={isHome}
-                  nested
-                />
+                <CollapsibleGroup group={item} url={url} isHome={isHome} nested />
               </NestedContent>
             );
           }

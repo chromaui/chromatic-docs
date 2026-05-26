@@ -4,7 +4,7 @@ description: Learn how to configure Chromatic with Travis CI
 sidebar: { order: 6, label: Travis CI }
 ---
 
-import IntegrationSnippets from "../../components/IntegrationSnippets.astro";
+import IntegrationSnippets from '../../components/IntegrationSnippets.astro';
 
 # Automate Chromatic with Travis CI
 
@@ -158,7 +158,7 @@ jobs:
     # Other jobs
 
     # 👇 Adds Chromatic as a job
-    - name: "Run Chromatic"
+    - name: 'Run Chromatic'
       script: npx chromatic
 ```
 
@@ -180,7 +180,7 @@ jobs:
     # Other jobs
 
     # 👇 Adds Chromatic as a job
-    - name: "Run Chromatic"
+    - name: 'Run Chromatic'
       #👇 Runs Chromatic with the flag to compress the build output.
       script: npx chromatic --zip
 ```
@@ -203,13 +203,13 @@ If you've already built your Storybook in a separate CI step, you can adjust you
 jobs:
   include:
     # Other jobs
-    - name: "Publish Project 1 to Chromatic"
+    - name: 'Publish Project 1 to Chromatic'
       before_script:
         # Other steps
         - cd packages/project_1
       script: npx chromatic
       env: CHROMATIC_PROJECT_TOKEN=$CHROMATIC_PROJECT_TOKEN_1
-    - name: "Publish Project 2 to Chromatic"
+    - name: 'Publish Project 2 to Chromatic'
       before_script:
         # Other steps
         - cd packages/project_2
@@ -235,7 +235,7 @@ jobs:
     # Other jobs
 
     # 👇 Adds Chromatic as a job
-    - name: "Run Chromatic"
+    - name: 'Run Chromatic'
       # 👇 Enables Chromatic's TurboSnap feature.
       script: npx chromatic --only-changed
 ```
@@ -264,7 +264,7 @@ jobs:
     # Other jobs
 
     # 👇 Adds Chromatic as a job
-    - name: "Run Chromatic"
+    - name: 'Run Chromatic'
       # 👇 Verifies the build event type or a if it's a forked repository
       if: (type = push OR head_repo != repo )
       script: npx chromatic
@@ -288,7 +288,7 @@ jobs:
     # Other jobs
 
     # 👇 Adds Chromatic as a job
-    - name: "Run Chromatic"
+    - name: 'Run Chromatic'
       # 👇 Runs Chromatic with the flag to prevent workflow failure
       script: npx chromatic --exit-zero-on-changes
 ```
@@ -325,11 +325,11 @@ If you’re using this functionality but notice the incoming changes were not ac
 jobs:
   include:
     # 👇 Checks if the branch is not main and runs Chromatic
-    - name: "Run Chromatic"
+    - name: 'Run Chromatic'
       if: branch != main
       script: npx chromatic
       # 👇 Checks if the branch is main and runs Chromatic with the flag to accept all changes
-    - name: "Run Chromatic and auto accepts changes"
+    - name: 'Run Chromatic and auto accepts changes'
       if: branch = main
       script: npx chromatic --auto-accept-changes
 ```
@@ -352,7 +352,7 @@ jobs:
     # Other jobs
 
     # 👇 Adds Chromatic as a job
-    - name: "Run Chromatic"
+    - name: 'Run Chromatic'
       # 👇 Option to skip the last build on target branch
       script: npx chromatic --ignore-last-build-on-branch=my-branch
 ```

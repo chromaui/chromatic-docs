@@ -4,9 +4,9 @@ description: Learn how you can tell Chromatic to skip snapshots for certain test
 sidebar: { order: 8 }
 ---
 
-import ParamsCallout from "../../components/ParamsCallout.astro";
+import ParamsCallout from '../../components/ParamsCallout.astro';
 
-import IntegrationSnippets from "../../components/IntegrationSnippets.astro";
+import IntegrationSnippets from '../../components/IntegrationSnippets.astro';
 
 # Disable snapshots for specific tests
 
@@ -18,13 +18,13 @@ If you're running tests with Storybook, you can enable the `disableSnapshot` opt
 
 ```ts title="src/components/NotFound.stories.ts|tsx"
 // Adjust this import to match your framework (e.g., nextjs, vue3-vite)
-import type { Meta, StoryObj } from "@storybook/your-framework";
+import type { Meta, StoryObj } from '@storybook/your-framework';
 
-import { NotFound } from "./NotFound";
+import { NotFound } from './NotFound';
 
 const meta = {
   component: NotFound,
-  title: "NotFound",
+  title: 'NotFound',
   parameters: {
     // Disables Chromatic's snapshotting on a component level
     chromatic: { disableSnapshot: true },

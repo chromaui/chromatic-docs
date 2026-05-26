@@ -1,6 +1,6 @@
-import type { Meta, StoryObj } from "@storybook/react-vite";
-import { LayoutGrid } from "./LayoutGrid";
-import styled from "@emotion/styled";
+import type { Meta, StoryObj } from '@storybook/react-vite';
+import { LayoutGrid } from './LayoutGrid';
+import styled from '@emotion/styled';
 
 const Navigation = styled.div`
   background: var(--tetra-color-blue100);
@@ -22,10 +22,10 @@ const OnThisPage = styled.div`
 `;
 
 const meta = {
-  title: "Components/LayoutGrid",
+  title: 'Components/LayoutGrid',
   component: LayoutGrid,
   parameters: {
-    layout: "fullscreen",
+    layout: 'fullscreen',
     chromatic: {
       viewports: [600, 900, 1200],
     },
@@ -34,9 +34,7 @@ const meta = {
     <LayoutGrid showOnThisPage={showOnThisPage}>
       <Navigation>Navigation</Navigation>
       <Content>Content</Content>
-      {showOnThisPage && (
-        <OnThisPage className="on-this-page">On this page</OnThisPage>
-      )}
+      {showOnThisPage && <OnThisPage className="on-this-page">On this page</OnThisPage>}
     </LayoutGrid>
   ),
 } satisfies Meta<typeof LayoutGrid>;
