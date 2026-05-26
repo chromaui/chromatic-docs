@@ -3,7 +3,7 @@ import {
   CHROMATIC_PLAIN_APP_ID,
   CHROMATIC_PLAIN_AUTH_ENDPOINT,
   PLAIN_LABEL_IDS,
-} from "./plainConfig";
+} from './plainConfig';
 ---
 
 <script is:inline src="https://chat.cdn-plain.com/index.js" async></script>
@@ -20,55 +20,55 @@ import {
   const BASE_CONFIG = {
     appId: appId,
     hideBranding: true,
-    theme: "light",
+    theme: 'light',
     style: {
-      brandColor: "#006deb",
-      brandBackgroundColor: "#FFFFFF",
-      launcherBackgroundColor: "#006deb",
-      launcherIconColor: "#FFFFFF",
+      brandColor: '#006deb',
+      brandBackgroundColor: '#FFFFFF',
+      launcherBackgroundColor: '#006deb',
+      launcherIconColor: '#FFFFFF',
     },
     links: [
       {
-        icon: "book",
-        text: "Documentation",
-        url: "https://www.chromatic.com/docs/",
+        text: 'How does Chromatic work?',
+        url: 'https://www.chromatic.com/docs/quickstart/',
+        icon: 'book',
       },
       {
-        icon: "bell",
-        text: "Changelog",
-        url: "https://www.chromatic.com/blog/releases/",
+        text: 'Estimate snapshot usage',
+        url: 'https://www.chromatic.com/snapshot-calculator',
+        icon: 'bulb',
       },
       {
-        icon: "error",
-        text: "System Status",
-        url: "https://status.chromatic.com/",
+        text: 'Book a demo',
+        url: 'https://www.chromatic.com/book-demo?type=opt3',
+        icon: 'pencil',
       },
     ],
-    position: { bottom: "20px", right: "20px" },
+    position: { bottom: '20px', right: '20px' },
     chatButtons: [
       {
-        icon: "support",
-        text: "Chat with a developer",
+        icon: 'support',
+        text: 'Chat with a developer',
       },
       {
-        icon: "chat",
-        text: "Speak with someone else",
+        icon: 'chat',
+        text: 'Speak with someone else',
         form: {
           fields: [
             {
-              type: "dropdown",
-              placeholder: "Select a topic...",
+              type: 'dropdown',
+              placeholder: 'Select a topic...',
               options: [
                 {
-                  icon: "chat",
-                  text: "Billing",
+                  icon: 'chat',
+                  text: 'Billing',
                   threadDetails: {
                     labelTypeIds: [labelIds.billing],
                   },
                 },
                 {
-                  icon: "chat",
-                  text: "Sales",
+                  icon: 'chat',
+                  text: 'Sales',
                   threadDetails: {
                     labelTypeIds: [labelIds.sales],
                   },
@@ -84,20 +84,20 @@ import {
   (async function init() {
     for (
       let attempts = 0;
-      typeof window.Plain === "undefined" && attempts < 50;
+      typeof window.Plain === 'undefined' && attempts < 50;
       attempts++
     ) {
       await new Promise((r) => setTimeout(r, 200));
     }
-    if (typeof window.Plain === "undefined") {
-      console.warn("[plain] SDK did not load within 10s");
+    if (typeof window.Plain === 'undefined') {
+      console.warn('[plain] SDK did not load within 10s');
       return;
     }
 
     try {
       const response = await fetch(authEndpoint, {
-        method: "GET",
-        credentials: "include",
+        method: 'GET',
+        credentials: 'include',
       });
       if (response.ok) {
         const customerDetails = await response.json();
@@ -110,7 +110,7 @@ import {
         );
       }
     } catch (error) {
-      console.warn("[plain] Failed to fetch customer details", error);
+      console.warn('[plain] Failed to fetch customer details', error);
     }
 
     window.Plain.init(BASE_CONFIG);
