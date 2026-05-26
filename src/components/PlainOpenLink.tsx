@@ -1,8 +1,8 @@
-import React from "react";
+import React from 'react';
 
-import { PLAIN_LABEL_IDS } from "./plainConfig";
+import { PLAIN_LABEL_IDS } from './plainConfig';
 
-type LabelKey = "opensource" | "enterprise" | "billing" | "promo" | "sales";
+type LabelKey = 'opensource' | 'enterprise' | 'billing' | 'promo' | 'sales';
 
 const LABEL_IDS: Record<LabelKey, string> = {
   opensource: PLAIN_LABEL_IDS.openSourceQualification,
@@ -29,16 +29,16 @@ export function PlainOpenLink({
         const labelTypeId = LABEL_IDS[label];
         const externalId = `docs-cta-${label}-${Date.now()}`;
         const cta = {
-          entryPoint: { type: "chat" as const, externalId },
+          entryPoint: { type: 'chat' as const, externalId },
           threadDetails: { labelTypeIds: [labelTypeId], externalId },
         };
         const plain = window.Plain;
         if (!plain) return;
         plain.open(cta);
-        if (typeof plain.onClose === "function") {
+        if (typeof plain.onClose === 'function') {
           const remove = plain.onClose(() => {
             // Clear CTA-scoped config back to the widget defaults.
-            plain.update?.({ entryPoint: { type: "default" } });
+            plain.update?.({ entryPoint: { type: 'default' } });
             remove();
           });
         }

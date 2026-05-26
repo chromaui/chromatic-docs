@@ -1,9 +1,9 @@
-import type { Meta, StoryObj } from "@storybook/react-vite";
-import { CollapsibleGroup } from "./CollapsibleGroup";
-import type { NestedTransformedGroup, TransformedNavGroup } from "./types";
+import type { Meta, StoryObj } from '@storybook/react-vite';
+import { CollapsibleGroup } from './CollapsibleGroup';
+import type { NestedTransformedGroup, TransformedNavGroup } from './types';
 
 const meta = {
-  title: "Components/Navigation/CollapsibleGroup",
+  title: 'Components/Navigation/CollapsibleGroup',
   component: CollapsibleGroup,
   excludeStories: /^mock.*/,
 } satisfies Meta<typeof CollapsibleGroup>;
@@ -12,85 +12,85 @@ export default meta;
 type Story = StoryObj<typeof meta>;
 
 export const mockGroupOverview: TransformedNavGroup = {
-  title: "Overview",
+  title: 'Overview',
   items: [
     {
       hide: false,
-      label: "Introduction",
+      label: 'Introduction',
       order: 1,
-      id: "",
+      id: '',
       isHome: true,
-      breadcrumb: "Overview",
+      breadcrumb: 'Overview',
     },
     {
       hide: false,
-      label: "UI Tests",
+      label: 'UI Tests',
       order: 2,
-      id: "test",
+      id: 'test',
       isHome: false,
-      breadcrumb: "Overview",
+      breadcrumb: 'Overview',
     },
     {
       hide: false,
-      label: "UI Review",
+      label: 'UI Review',
       order: 3,
-      id: "review",
+      id: 'review',
       isHome: false,
-      breadcrumb: "Overview",
+      breadcrumb: 'Overview',
     },
     {
       hide: false,
-      label: "Automate with CI",
+      label: 'Automate with CI',
       order: 4,
-      id: "ci",
+      id: 'ci',
       isHome: false,
-      breadcrumb: "Overview",
+      breadcrumb: 'Overview',
     },
     {
       hide: false,
-      label: "Diff Inspector",
+      label: 'Diff Inspector',
       order: 5,
-      id: "diff-inspector",
+      id: 'diff-inspector',
       isHome: false,
-      breadcrumb: "Overview",
+      breadcrumb: 'Overview',
     },
   ],
 };
 
 export const mockGroupStorybook: TransformedNavGroup = {
-  title: "Storybook",
+  title: 'Storybook',
   items: [
     {
       hide: false,
-      label: "Setup",
+      label: 'Setup',
       order: 1,
-      id: "storybook",
+      id: 'storybook',
       isHome: false,
-      breadcrumb: "Storybook",
+      breadcrumb: 'Storybook',
     },
     {
       hide: false,
-      label: "Interaction tests",
+      label: 'Interaction tests',
       order: 2,
-      id: "interactions",
+      id: 'interactions',
       isHome: false,
-      breadcrumb: "Storybook",
+      breadcrumb: 'Storybook',
     },
     {
       hide: false,
-      label: "Publish",
+      label: 'Publish',
       order: 3,
-      id: "storybook/publish",
+      id: 'storybook/publish',
       isHome: false,
-      breadcrumb: "Storybook",
+      breadcrumb: 'Storybook',
     },
     {
       hide: false,
-      label: "Composition",
+      label: 'Composition',
       order: 4,
-      id: "composition",
+      id: 'composition',
       isHome: false,
-      breadcrumb: "Storybook",
+      breadcrumb: 'Storybook',
     },
   ],
 };
@@ -100,39 +100,39 @@ const mockModes: NestedTransformedGroup = {
   items: [
     {
       hide: false,
-      label: "Story Modes",
+      label: 'Story Modes',
       order: 1,
-      id: "modes",
+      id: 'modes',
       isHome: false,
-      breadcrumb: "Storybook » Modes",
+      breadcrumb: 'Storybook » Modes',
     },
     {
       hide: false,
-      label: "Themes",
+      label: 'Themes',
       order: 3,
-      id: "themes",
+      id: 'themes',
       isHome: false,
-      breadcrumb: "Storybook » Modes",
+      breadcrumb: 'Storybook » Modes',
     },
     {
       hide: false,
-      label: "Custom decorators",
+      label: 'Custom decorators',
       order: 4,
-      id: "custom-decorators",
+      id: 'custom-decorators',
       isHome: false,
-      breadcrumb: "Storybook » Modes",
+      breadcrumb: 'Storybook » Modes',
     },
     {
       hide: false,
-      label: "Viewports (legacy)",
+      label: 'Viewports (legacy)',
       order: 5,
-      id: "legacy-viewports",
+      id: 'legacy-viewports',
       isHome: false,
-      breadcrumb: "Storybook » Modes",
+      breadcrumb: 'Storybook » Modes',
     },
   ],
   order: 999,
-  title: "Modes",
+  title: 'Modes',
 };
 
 const mockTS = {
@@ -140,23 +140,23 @@ const mockTS = {
   items: [
     {
       hide: false,
-      label: "Overview",
+      label: 'Overview',
       order: 1,
-      id: "turbosnap",
+      id: 'turbosnap',
       isHome: false,
-      breadcrumb: "Storybook » Modes » TurboSnap",
+      breadcrumb: 'Storybook » Modes » TurboSnap',
     },
     {
       hide: false,
-      label: "Setup",
+      label: 'Setup',
       order: 3,
-      id: "turbosnap/setup",
+      id: 'turbosnap/setup',
       isHome: false,
-      breadcrumb: "Storybook » Modes » TurboSnap",
+      breadcrumb: 'Storybook » Modes » TurboSnap',
     },
   ],
   order: 999,
-  title: "TurboSnap",
+  title: 'TurboSnap',
 };
 
 export const mockGroupWithNested: TransformedNavGroup = {
@@ -176,7 +176,7 @@ export const mockGroupWithMultiLevelNested: TransformedNavGroup = {
 
 export const Default: Story = {
   args: {
-    url: "",
+    url: '',
     group: mockGroupOverview,
   },
 };
@@ -190,21 +190,21 @@ export const DefaultOpen: Story = {
 
 export const WithActiveUrl: Story = {
   args: {
-    url: "/docs/test",
+    url: '/docs/test',
     group: { ...mockGroupOverview, defaultOpen: true },
   },
 };
 
 export const WithActiveUrlInClosedGroup: Story = {
   args: {
-    url: "/docs/storybook",
+    url: '/docs/storybook',
     group: mockGroupStorybook,
   },
 };
 
 export const Timeline: Story = {
   args: {
-    url: "/docs/test",
+    url: '/docs/test',
     group: { ...mockGroupOverview, defaultOpen: true, timeline: true },
   },
 };
@@ -219,20 +219,20 @@ export const Nested: Story = {
 export const NestedActive: Story = {
   args: {
     group: Nested.args.group,
-    url: "/docs/storybook",
+    url: '/docs/storybook',
   },
 };
 
 export const NestedDeepActive: Story = {
   args: {
     group: Nested.args.group,
-    url: "/docs/themes",
+    url: '/docs/themes',
   },
 };
 
 export const MultiLevelNesting: Story = {
   args: {
     group: mockGroupWithMultiLevelNested,
-    url: "/docs/turbosnap/setup",
+    url: '/docs/turbosnap/setup',
   },
 };

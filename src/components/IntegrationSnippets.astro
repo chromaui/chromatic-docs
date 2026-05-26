@@ -1,5 +1,5 @@
 ---
-import { TabItem, Tabs } from "./Tabs";
+import { TabItem, Tabs } from './Tabs';
 
 interface Props {
   storybook: string;
@@ -10,21 +10,21 @@ interface Props {
 
 <Tabs>
   {
-    Astro.slots.has("storybook") && (
+    Astro.slots.has('storybook') && (
       <TabItem label="Storybook">
         <slot name="storybook" />
       </TabItem>
     )
   }
   {
-    Astro.slots.has("playwright") && (
+    Astro.slots.has('playwright') && (
       <TabItem label="Playwright">
         <slot name="playwright" />
       </TabItem>
     )
   }
   {
-    Astro.slots.has("cypress") && (
+    Astro.slots.has('cypress') && (
       <TabItem label="Cypress">
         <slot name="cypress" />
       </TabItem>

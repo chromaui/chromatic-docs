@@ -186,25 +186,21 @@ In addition to running tests, you may want [a single Storybook that displays all
 Update the `main` config for that project:
 
 ```ts title="shared-storybook/.storybook/main.ts"
-import { createProjectGraphAsync } from "@nx/devkit";
-import type { StorybookConfig } from "@storybook/your-framework";
+import { createProjectGraphAsync } from '@nx/devkit';
+import type { StorybookConfig } from '@storybook/your-framework';
 
 const projectGraph = await createProjectGraphAsync();
 
 const projectsWithChromaticTarget = Object.values(projectGraph.nodes).filter(
-  (node) =>
-    node.data.name !== "shared-storybook" && node.data.targets?.chromatic,
+  (node) => node.data.name !== 'shared-storybook' && node.data.targets?.chromatic
 );
 
 const config: StorybookConfig = {
   refs: projectsWithChromaticTarget.reduce((acc, project) => {
-    const chromaticProjectId =
-      project.data.targets?.chromatic?.metadata?.projectId;
+    const chromaticProjectId = project.data.targets?.chromatic?.metadata?.projectId;
 
     if (!chromaticProjectId) {
-      throw new Error(
-        `Project "${project.name}" has a Chromatic target but no projectId.`,
-      );
+      throw new Error(`Project "${project.name}" has a Chromatic target but no projectId.`);
     }
 
     acc[project.name] = {
@@ -230,8 +226,8 @@ This config:
 Once you've set up the project in Chromatic for your shared Storybook and published your first build, you can disable UI tests to make the project publish-only. Include a step in your CI workflow to publish your shared Storybook as needed.
 
 <div class="aside">
-  Note: Chromatic requires at least one "real" story in the composed Storybook
-  to publish it. Add a simple placeholder story if needed.
+  Note: Chromatic requires at least one "real" story in the composed Storybook to publish it. Add a
+  simple placeholder story if needed.
 </div>
 
 ## Configure TurboSnap across your workspace
@@ -283,11 +279,10 @@ The `--only-changed` flag enables TurboSnap, speeding up your UI testing. [Learn
 If your composed Storybook isn't updating globals correctly (ex. theme or controls), you can add the following to `manager.ts`:
 
 ```ts title="shared-storybook/.storybook/manager.ts"
-import { addons } from "storybook/manager-api";
+import { addons } from 'storybook/manager-api';
 
-addons.register("globals-reload", () => {
-  const getGlobals = () =>
-    new URLSearchParams(window.location.search).get("globals");
+addons.register('globals-reload', () => {
+  const getGlobals = () => new URLSearchParams(window.location.search).get('globals');
 
   let lastGlobals = getGlobals();
 

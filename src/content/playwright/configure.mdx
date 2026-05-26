@@ -5,7 +5,7 @@ description: Learn about the various configuration options for visual tests for 
 sidebar: { order: 3 }
 ---
 
-import { TabItem, Tabs } from "../../components/Tabs";
+import { TabItem, Tabs } from '../../components/Tabs';
 
 # Configure visual tests for Playwright
 
@@ -50,12 +50,12 @@ The Chromatic [Playwright Fixture](https://playwright.dev/docs/test-fixtures) ca
 You can also override them for specific tests by adding the [`test.use()`](https://playwright.dev/docs/api/class-test#test-use) method in your test file and provide the required options:
 
 ```ts title="tests/HomePage.spec.js|ts"
-test.describe("HomePage", () => {
+test.describe('HomePage', () => {
   // 👇 Overrides the option in the test.
   test.use({ disableAutoSnapshot: true });
 
-  test("Loads the page with auto snapshotting disabled", async ({ page }) => {
-    await page.goto("/");
+  test('Loads the page with auto snapshotting disabled', async ({ page }) => {
+    await page.goto('/');
   });
 });
 ```

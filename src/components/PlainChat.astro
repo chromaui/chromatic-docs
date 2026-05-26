@@ -82,11 +82,7 @@ import {
   };
 
   (async function init() {
-    for (
-      let attempts = 0;
-      typeof window.Plain === 'undefined' && attempts < 50;
-      attempts++
-    ) {
+    for (let attempts = 0; typeof window.Plain === 'undefined' && attempts < 50; attempts++) {
       await new Promise((r) => setTimeout(r, 200));
     }
     if (typeof window.Plain === 'undefined') {
@@ -106,7 +102,7 @@ import {
       }
       if (response.status !== 401) {
         console.warn(
-          `[plain] Failed to fetch customer details: ${response.status} ${response.statusText}`,
+          `[plain] Failed to fetch customer details: ${response.status} ${response.statusText}`
         );
       }
     } catch (error) {

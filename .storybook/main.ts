@@ -1,24 +1,24 @@
-import type { StorybookConfig } from "@storybook/react-vite";
+import type { StorybookConfig } from '@storybook/react-vite';
 
 const config: StorybookConfig = {
-  stories: ["../src/**/*.stories.@(js|jsx|mjs|ts|tsx)"],
+  stories: ['../src/**/*.stories.@(js|jsx|mjs|ts|tsx)'],
   addons: [
-    "@storybook/addon-links",
-    "@chromatic-com/storybook",
-    "@storybook/addon-docs",
-    "@storybook/addon-a11y",
-    "@storybook/addon-vitest",
-    "@storybook/addon-queryparams",
-    "@storybook/addon-mcp"
+    '@storybook/addon-links',
+    '@chromatic-com/storybook',
+    '@storybook/addon-docs',
+    '@storybook/addon-a11y',
+    '@storybook/addon-vitest',
+    '@storybook/addon-queryparams',
+    '@storybook/addon-mcp',
   ],
   framework: {
-    name: "@storybook/react-vite",
+    name: '@storybook/react-vite',
     options: {},
   },
-  staticDirs: ["../public", "../src/images"],
+  staticDirs: ['../public', '../src/images'],
   env: (config) => ({
     ...config,
-    BASE_URL: "/docs",
+    BASE_URL: '/docs',
   }),
 };
 export default config;

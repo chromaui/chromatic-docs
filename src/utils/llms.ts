@@ -3,25 +3,25 @@
  *
  * Based on https://kumak.dev/adding-llms-txt-to-astro
  */
-import type { CollectionEntry } from "astro:content";
+import type { CollectionEntry } from 'astro:content';
 
 export type DocEntry =
-  | CollectionEntry<"overview">
-  | CollectionEntry<"visualTests">
-  | CollectionEntry<"accessibilityTests">
-  | CollectionEntry<"interactionTests">
-  | CollectionEntry<"playwright">
-  | CollectionEntry<"cypress">
-  | CollectionEntry<"configuration">
-  | CollectionEntry<"modes">
-  | CollectionEntry<"snapshot">
-  | CollectionEntry<"turbosnap">
-  | CollectionEntry<"collaborate">
-  | CollectionEntry<"ci">
-  | CollectionEntry<"account">
-  | CollectionEntry<"guides">
-  | CollectionEntry<"troubleshooting">
-  | CollectionEntry<"notInNavigation">;
+  | CollectionEntry<'overview'>
+  | CollectionEntry<'visualTests'>
+  | CollectionEntry<'accessibilityTests'>
+  | CollectionEntry<'interactionTests'>
+  | CollectionEntry<'playwright'>
+  | CollectionEntry<'cypress'>
+  | CollectionEntry<'configuration'>
+  | CollectionEntry<'modes'>
+  | CollectionEntry<'snapshot'>
+  | CollectionEntry<'turbosnap'>
+  | CollectionEntry<'collaborate'>
+  | CollectionEntry<'ci'>
+  | CollectionEntry<'account'>
+  | CollectionEntry<'guides'>
+  | CollectionEntry<'troubleshooting'>
+  | CollectionEntry<'notInNavigation'>;
 
 interface LlmsItem {
   title: string;
@@ -50,7 +50,7 @@ interface LlmsFullTxtConfig {
 const MDX_COMPONENT_TAG = /<\/?[A-Z][\w]*(\s+[^>]*?)?>/g;
 
 function stripTopLevelImportsOutsideCodeFences(content: string): string {
-  const lines = content.split("\n");
+  const lines = content.split('\n');
   const importPattern = /^import\s+.+from\s+['"].+['"];?\s*$/;
 
   let inFence = false;
@@ -58,7 +58,7 @@ function stripTopLevelImportsOutsideCodeFences(content: string): string {
   const resultLines: string[] = [];
 
   for (const line of lines) {
-    const fenceMatch = line.trimStart().startsWith("```");
+    const fenceMatch = line.trimStart().startsWith('```');
     if (fenceMatch) {
       inFence = !inFence;
       resultLines.push(line);
@@ -71,7 +71,7 @@ function stripTopLevelImportsOutsideCodeFences(content: string): string {
     }
 
     if (!seenNonImportOutsideFence) {
-      if (line.trim() === "") {
+      if (line.trim() === '') {
         resultLines.push(line);
         continue;
       }
@@ -89,16 +89,16 @@ function stripTopLevelImportsOutsideCodeFences(content: string): string {
     resultLines.push(line);
   }
 
-  return resultLines.join("\n");
+  return resultLines.join('\n');
 }
 
 function stripMdx(content: string): string {
   const withoutImports = stripTopLevelImportsOutsideCodeFences(content);
-  const lines = withoutImports.split("\n");
+  const lines = withoutImports.split('\n');
 
   let inFence = false;
   const processedLines = lines.map((line) => {
-    const isFence = line.trimStart().startsWith("```");
+    const isFence = line.trimStart().startsWith('```');
     if (isFence) {
       inFence = !inFence;
       return line;
@@ -108,21 +108,21 @@ function stripMdx(content: string): string {
       return line;
     }
 
-    return line.replace(MDX_COMPONENT_TAG, "");
+    return line.replace(MDX_COMPONENT_TAG, '');
   });
 
-  return processedLines.join("\n").trim();
+  return processedLines.join('\n').trim();
 }
 
 function doc(...sections: (string | string[])[]): Response {
   const content = sections
     .flat()
-    .join("\n")
-    .replace(/\n{3,}/g, "\n\n")
+    .join('\n')
+    .replace(/\n{3,}/g, '\n\n')
     .trim();
 
-  return new Response(content + "\n", {
-    headers: { "Content-Type": "text/plain; charset=utf-8" },
+  return new Response(content + '\n', {
+    headers: { 'Content-Type': 'text/plain; charset=utf-8' },
   });
 }
 
@@ -131,15 +131,15 @@ function entryUrl(entry: DocEntry, site: string): string {
 }
 
 export function llmsTxt(config: LlmsTxtConfig): Response {
-  const head = [`# ${config.name}`, "", `> ${config.description}`];
+  const head = [`# ${config.name}`, '', `> ${config.description}`];
 
-  const sections = config.sections.filter((s) => s.items.length > 0).map((section) => [
-    "",
-    `## ${section.title}`,
-    ...section.items.map(
-      (item) => `- [${item.title}](${item.link}): ${item.description}`,
-    ),
-  ]);
+  const sections = config.sections
+    .filter((s) => s.items.length > 0)
+    .map((section) => [
+      '',
+      `## ${section.title}`,
+      ...section.items.map((item) => `- [${item.title}](${item.link}): ${item.description}`),
+    ]);
 
   return doc(head, ...sections);
 }
@@ -147,25 +147,25 @@ export function llmsTxt(config: LlmsTxtConfig): Response {
 export function llmsFullTxt(config: LlmsFullTxtConfig): Response {
   const head = [
     `# ${config.name}`,
-    "",
+    '',
     `> ${config.description}`,
-    "",
+    '',
     `Site: ${config.site}`,
-    "",
-    "---",
+    '',
+    '---',
   ];
 
   const docs = config.docs.flatMap((item) => [
-    "",
+    '',
     `## ${item.title}`,
-    "",
+    '',
     `URL: ${item.link}`,
-    "",
+    '',
     `> ${item.description}`,
-    "",
+    '',
     stripMdx(item.body),
-    "",
-    "---",
+    '',
+    '---',
   ]);
 
   return doc(head, docs);
@@ -176,19 +176,16 @@ export function llmsDoc(entry: DocEntry, site: string): Response {
 
   return doc(
     `# ${title}`,
-    "",
+    '',
     `> ${description || title}`,
-    "",
+    '',
     `URL: ${entryUrl(entry, site)}`,
-    "",
-    stripMdx(entry.body ?? ""),
+    '',
+    stripMdx(entry.body ?? '')
   );
 }
 
-export function docToLlmsItem(
-  entry: DocEntry,
-  llmsLinkBase: string,
-): LlmsItem {
+export function docToLlmsItem(entry: DocEntry, llmsLinkBase: string): LlmsItem {
   return {
     title: entry.data.title,
     description: entry.data.description || entry.data.title,
@@ -201,6 +198,6 @@ export function docToFullItem(entry: DocEntry, siteLink: string) {
     title: entry.data.title,
     description: entry.data.description || entry.data.title,
     link: entryUrl(entry, siteLink),
-    body: entry.body ?? "",
+    body: entry.body ?? '',
   };
 }

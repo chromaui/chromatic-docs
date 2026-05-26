@@ -4,7 +4,7 @@ description: Learn how to deploy a Storybook MCP server using Chromatic.
 sidebar: { order: 7 }
 ---
 
-import InstallSnippets from "../../components/InstallSnippets.astro";
+import InstallSnippets from '../../components/InstallSnippets.astro';
 
 # Publish your Storybook MCP server
 
@@ -57,9 +57,8 @@ If your UI pulls components from multiple Storybooks, you can compose them into 
 Use [composition](/docs/composition) to stitch together context from multiple Storybooks in your local MCP server. This allows agents to reference any component during UI generation.
 
 <div class="aside">
-  If you don't have a local Storybook, then check out the instructions below on
-  how to use the [MCP server without a local
-  Storybook](#use-the-mcp-server-without-a-local-storybook).
+  If you don't have a local Storybook, then check out the instructions below on how to use the [MCP
+  server without a local Storybook](#use-the-mcp-server-without-a-local-storybook).
 </div>
 
 To enable composition, add a `refs` section to your Storybook config. We recommend using your default branch's [permalink](/docs/permalinks) as the ref URL. For example:
@@ -96,9 +95,9 @@ npx mcp-add --type http --url "https://localhost:6006/mcp" --client-id "cdf3737d
 ```
 
 <div class="aside">
-  While you can install the MCP server manually in your coding agent, using the{" "}
-  <a href="https://github.com/paoloricciuti/mcp-add">mcp-add</a> CLI tool
-  simplifies the process by automating the installation across multiple agents.
+  While you can install the MCP server manually in your coding agent, using the{' '}
+  <a href="https://github.com/paoloricciuti/mcp-add">mcp-add</a> CLI tool simplifies the process by
+  automating the installation across multiple agents.
 </div>
 
 #### Enable authentication
@@ -140,7 +139,7 @@ Set the [`componentsManifest` feature flag](https://storybook.js.org/docs/api/ma
 
 ```tsx title=".storybook/main.ts"
 // Replace your-framework with the framework you are using (e.g., react-vite, nextjs)
-import type { StorybookConfig } from "@storybook/your-framework";
+import type { StorybookConfig } from '@storybook/your-framework';
 
 const config: StorybookConfig = {
   // other config such as:
@@ -171,11 +170,11 @@ To exclude a component or story from the manifest, use the `!manifest` [tag](htt
 
 ```tsx title="MyNoisyComponent.stories.tsx"
 // Replace your-framework with the framework you are using (e.g., react-vite, nextjs)
-import type { StorybookConfig } from "@storybook/your-framework";
+import type { StorybookConfig } from '@storybook/your-framework';
 
 const config: StorybookConfig = {
   component: MyNoisyComponent,
-  tags: ["!manifest"],
+  tags: ['!manifest'],
 };
 export default config;
 ```

@@ -1,8 +1,8 @@
 ---
 title: TurboSnap best practices
 description: TurboSnap best practices to optimize your builds for faster testing
-sidebar: { order: 3, label: "Best practices" }
-slug: "turbosnap/best-practices"
+sidebar: { order: 3, label: 'Best practices' }
+slug: 'turbosnap/best-practices'
 ---
 
 # TurboSnap best practices

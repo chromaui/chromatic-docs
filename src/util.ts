@@ -1,3 +1,3 @@
-const root = new URL("./", import.meta.url);
+const root = new URL('./', import.meta.url);
 
-export const projectRoot = root.pathname.replace("dist/chunks/", "");
+export const projectRoot = root.pathname.replace('dist/chunks/', '');

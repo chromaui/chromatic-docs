@@ -22,10 +22,10 @@ For example, you could write in your `.storybook/main.js|ts`:
 
 ```ts title=".storybook/main.ts"
 // Replace your-framework with the framework you are using (e.g., react-webpack5, vue3-vite)
-import type { StorybookConfig } from "@storybook/your-framework";
+import type { StorybookConfig } from '@storybook/your-framework';
 
 const config: StorybookConfig = {
-  stories: ["../project-1/**/*.stories.js", "../project-2/**/*.stories.js"],
+  stories: ['../project-1/**/*.stories.js', '../project-2/**/*.stories.js'],
 };
 
 export default config;

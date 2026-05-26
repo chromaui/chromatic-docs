@@ -1,8 +1,8 @@
 ---
-import type { ConfigOption as ConfigOptionType } from "../../../chromatic-config/generate-schema";
-import configOptions from "../../../chromatic-config/options.json";
-import { FilterableConfigOptions } from "./FilterableConfigOptions";
-import { formatOption } from "./formatOptions";
+import type { ConfigOption as ConfigOptionType } from '../../../chromatic-config/generate-schema';
+import configOptions from '../../../chromatic-config/options.json';
+import { FilterableConfigOptions } from './FilterableConfigOptions';
+import { formatOption } from './formatOptions';
 
 const flatOptions = (configOptions as ConfigOptionType[]).flatMap((option) => {
   if (option.options && option.options.length > 0) {
@@ -11,7 +11,7 @@ const flatOptions = (configOptions as ConfigOptionType[]).flatMap((option) => {
         ({
           ...subOption,
           option: `${option.option}.${subOption.option}`,
-        }) as ConfigOptionType,
+        }) as ConfigOptionType
     );
   }
   return [option];

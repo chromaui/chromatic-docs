@@ -20,19 +20,19 @@ Add a [`play`](https://storybook.js.org/docs/writing-stories/play-function) func
 
 ```ts title="RangeSlider.stories.ts|tsx"
 // Adjust this import to match your framework (e.g., nextjs, vue3-vite)
-import type { Meta, StoryObj } from "@storybook/your-framework";
+import type { Meta, StoryObj } from '@storybook/your-framework';
 
 /*
  * Replace the storybook/test import with `@storybook/test` and adjust the stories accordingly if you're not using Storybook 9.0.
  * Refer to the Storybook documentation for the correct package and imports for earlier versions.
  */
-import { expect } from "storybook/test";
+import { expect } from 'storybook/test';
 
-import { RangeSlider } from "./RangeSlider";
+import { RangeSlider } from './RangeSlider';
 
 const meta = {
   component: RangeSlider,
-  title: "Library/Charts/RangeSlider",
+  title: 'Library/Charts/RangeSlider',
 } satisfies Meta<typeof RangeSlider>;
 
 export default meta;
@@ -41,10 +41,10 @@ type Story = StoryObj<typeof meta>;
 export const InputRange: Story = {
   play: async ({ canvas, userEvent }) => {
     // 🔢 Type into input field
-    await userEvent.type(canvas.getByTestId("input-max-range"), "15");
+    await userEvent.type(canvas.getByTestId('input-max-range'), '15');
 
     // ✅ Assert that component is responding to user behavior
-    const availableOptions = await canvas.findAllByTestId("highlighted-bar");
+    const availableOptions = await canvas.findAllByTestId('highlighted-bar');
     await expect(availableOptions.length).toBe(15);
   },
 };
@@ -74,19 +74,19 @@ An important caveat to remember when invoking a `play()` function from another s
 
 ```ts title="MyComponent.stories.ts|tsx"
 // Adjust this import to match your framework (e.g., nextjs, vue3-vite)
-import type { Meta, StoryObj } from "@storybook/your-framework";
+import type { Meta, StoryObj } from '@storybook/your-framework';
 
 /*
  * Replace the storybook/test import with `@storybook/test` and adjust the stories accordingly if you're not using Storybook 9.0.
  * Refer to the Storybook documentation for the correct package and imports for earlier versions.
  */
-import { expect, screen, waitFor } from "storybook/test";
+import { expect, screen, waitFor } from 'storybook/test';
 
-import { MyComponent } from "./MyComponent";
+import { MyComponent } from './MyComponent';
 
 const meta = {
   component: MyComponent,
-  title: "My Component",
+  title: 'My Component',
 } satisfies Meta<typeof MyComponent>;
 
 export default meta;
@@ -94,7 +94,7 @@ type Story = StoryObj<typeof meta>;
 
 export const FirstStory: Story = {
   play: async ({ canvas, userEvent }) => {
-    const dropdownButton = canvas.getByRole("button");
+    const dropdownButton = canvas.getByRole('button');
     await userEvent.click(dropdownButton);
   },
 };
@@ -103,7 +103,7 @@ export const SecondStory: Story = {
   play: async ({ canvas, context, userEvent }) => {
     //  👇 Pass the full context as an argument to the play function:
     await FirstStory.play(context);
-    const findText = canvas.getByText("some text");
+    const findText = canvas.getByText('some text');
     await userEvent.hover(findText);
     await waitFor(() => expect(findText.focus()));
   },
@@ -113,8 +113,8 @@ export const ThirdStory: Story = {
   play: async ({ context, userEvent }) => {
     //  👇 SecondStory.play will execute the play functions from FirstStory.play since this is part of the SecondStory.play function:
     await SecondStory.play(context);
-    const searchbox = screen.getByRole("searchbox", { label: "Search" });
-    await userEvent.type(searchbox, "text for searchbox");
+    const searchbox = screen.getByRole('searchbox', { label: 'Search' });
+    await userEvent.type(searchbox, 'text for searchbox');
   },
 };
 ```
@@ -123,19 +123,19 @@ Additionally, you can stack multiple `play()` functions within a story. Below 
 
 ```ts title="MyComponent.stories.ts|tsx"
 // Adjust this import to match your framework (e.g., nextjs, vue3-vite)
-import type { Meta, StoryObj } from "@storybook/your-framework";
+import type { Meta, StoryObj } from '@storybook/your-framework';
 
 /*
  * Replace the storybook/test import with `@storybook/test` and adjust the stories accordingly if you're not using Storybook 9.0.
  * Refer to the Storybook documentation for the correct package and imports for earlier versions.
  */
-import { screen } from "storybook/test";
+import { screen } from 'storybook/test';
 
-import { MyComponent } from "./MyComponent";
+import { MyComponent } from './MyComponent';
 
 const meta = {
   component: MyComponent,
-  title: "My Component",
+  title: 'My Component',
 } satisfies Meta<typeof MyComponent>;
 
 export default meta;
@@ -143,16 +143,13 @@ type Story = StoryObj<typeof meta>;
 
 export const FirstStory: Story = {
   play: async ({ canvas, userEvent }) => {
-    await userEvent.type(canvas.getByTestId("an-element"), "some text");
+    await userEvent.type(canvas.getByTestId('an-element'), 'some text');
   },
 };
 
 export const SecondStory: Story = {
   play: async ({ canvas, userEvent }) => {
-    await userEvent.type(
-      canvas.getByTestId("another-element"),
-      "some more text",
-    );
+    await userEvent.type(canvas.getByTestId('another-element'), 'some more text');
   },
 };
 
@@ -161,7 +158,7 @@ export const CombinedStories: Story = {
     //  👇 This executes FirstStory.play and SecondStory.play before executing the story's play function:
     await FirstStory.play(context);
     await SecondStory.play(context);
-    await userEvent.type(canvas.getByTestId("another-one"), "even more text");
+    await userEvent.type(canvas.getByTestId('another-one'), 'even more text');
   },
 };
 ```

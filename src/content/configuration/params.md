@@ -12,20 +12,20 @@ When using Chromatic with Storybook, you can control how a snapshot is captured 
 
 Parameters are static metadata that can be attached at the story, component (meta), and project (global) levels. For more information on how to use parameters in Storybook, see: [Config with story params](/docs/config-with-story-params).
 
-| Parameter                           | Type       | Purpose                                                                                                                                 |
-| ----------------------------------- | ---------- | --------------------------------------------------------------------------------------------------------------------------------------- |
-| `chromatic.delay`                   | `number`   | [Delay](/docs/delay) the capture by specified number of milliseconds.                                                                   |
-| `chromatic.diffIncludeAntiAliasing` | `boolean`  | Include [anti-aliasing](/docs/threshold#anti-aliasing) in diffs                                                                         |
-| `chromatic.diffThreshold`           | `number`   | Control visual sensitivity of diffs, [learn more](/docs/threshold#setting-the-threshold)                                                |
-| `chromatic.disableSnapshot`         | `boolean`  | [Skip test](/docs/disable-snapshots)                                                                                                    |
-| `chromatic.ignoreSelectors`         | `string[]` | [Ignore elements](/docs/ignoring-elements) from diff                                                                                    |
-| `chromatic.pauseAnimationAtEnd`     | `boolean`  | [Pause animation at end](/docs/animations#css-animations)                                                                               |
-| `chromatic.forcedColors`            | `string`   | Control CSS [forced colors mode](/docs/media-features#test-high-contrast-color-schemes)                                                 |
-| `chromatic.prefersReducedMotion`    | `string`   | Control CSS [reduce motion setting](/docs/media-features#verify-reduced-motion-animations)                                              |
-| `chromatic.media`                   | `string`   | Enable CSS [print media styles](/docs/media-features/#combine-media-features-with-modes)                                                |
+| Parameter                           | Type       | Purpose                                                                                                                                  |
+| ----------------------------------- | ---------- | ---------------------------------------------------------------------------------------------------------------------------------------- |
+| `chromatic.delay`                   | `number`   | [Delay](/docs/delay) the capture by specified number of milliseconds.                                                                    |
+| `chromatic.diffIncludeAntiAliasing` | `boolean`  | Include [anti-aliasing](/docs/threshold#anti-aliasing) in diffs                                                                          |
+| `chromatic.diffThreshold`           | `number`   | Control visual sensitivity of diffs, [learn more](/docs/threshold#setting-the-threshold)                                                 |
+| `chromatic.disableSnapshot`         | `boolean`  | [Skip test](/docs/disable-snapshots)                                                                                                     |
+| `chromatic.ignoreSelectors`         | `string[]` | [Ignore elements](/docs/ignoring-elements) from diff                                                                                     |
+| `chromatic.pauseAnimationAtEnd`     | `boolean`  | [Pause animation at end](/docs/animations#css-animations)                                                                                |
+| `chromatic.forcedColors`            | `string`   | Control CSS [forced colors mode](/docs/media-features#test-high-contrast-color-schemes)                                                  |
+| `chromatic.prefersReducedMotion`    | `string`   | Control CSS [reduce motion setting](/docs/media-features#verify-reduced-motion-animations)                                               |
+| `chromatic.media`                   | `string`   | Enable CSS [print media styles](/docs/media-features/#combine-media-features-with-modes)                                                 |
 | `chromatic.cropToViewport`          | `boolean`  | Crop the screenshot to the viewport, [learn more](/docs/modes/viewports/#how-does-snapshot-cropping-work-with-viewport-width-and-height) |
-| `chromatic.modes`                   | `object`   | Apply [modes](/docs/modes)                                                                                                              |
-| `chromatic.viewports`               | `number[]` | [Legacy API](/docs/modes/viewports) for setting viewports for a story. Use [Modes](/docs/modes/viewports) instead.                      |
+| `chromatic.modes`                   | `object`   | Apply [modes](/docs/modes)                                                                                                               |
+| `chromatic.viewports`               | `number[]` | [Legacy API](/docs/modes/viewports) for setting viewports for a story. Use [Modes](/docs/modes/viewports) instead.                       |
 
 ## Globals
 

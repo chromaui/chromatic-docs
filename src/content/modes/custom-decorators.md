@@ -25,12 +25,12 @@ Let's consider the following example that uses a decorator & globals to switch t
 The locale values are defined using [global types](https://storybook.js.org/docs/essentials/toolbars-and-globals#global-types-and-the-toolbar-annotation). The `withI18next` decorator retrieves the value of the `locale` global and applies it to `I18nextProvider`, enabling us to test stories with different translations.
 
 ```tsx title=".storybook/preview.tsx"
-import type { Preview } from "@storybook/react-vite";
+import type { Preview } from '@storybook/react-vite';
 
-import React, { Suspense, useEffect } from "react";
+import React, { Suspense, useEffect } from 'react';
 
-import { I18nextProvider } from "react-i18next";
-import i18n from "../src/i18n";
+import { I18nextProvider } from 'react-i18next';
+import i18n from '../src/i18n';
 
 // Wrap your stories in the I18nextProvider component
 const WithI18next = (Story, context) => {
@@ -57,19 +57,19 @@ const preview: Preview = {
   decorators: [withI18next],
   globalTypes: {
     locale: {
-      description: "Internationalization locale",
+      description: 'Internationalization locale',
       toolbar: {
-        icon: "globe",
+        icon: 'globe',
         items: [
-          { value: "en", title: "English" },
-          { value: "de", title: "Deutsch" },
-          { value: "ar", title: "عربي" },
+          { value: 'en', title: 'English' },
+          { value: 'de', title: 'Deutsch' },
+          { value: 'ar', title: 'عربي' },
         ],
       },
     },
   },
   initialGlobals: {
-    locale: "en", // Sets the default locale to English
+    locale: 'en', // Sets the default locale to English
   },
 };
 
@@ -83,13 +83,13 @@ Modes are defined in the `.storybook/modes.js|ts` file. If your project doesn't 
 ```ts title=".storybook/modes.ts"
 export const allModes = {
   english: {
-    locale: "en",
+    locale: 'en',
   },
   german: {
-    locale: "de",
+    locale: 'de',
   },
   arabic: {
-    locale: "ar",
+    locale: 'ar',
   },
 } as const;
 ```
@@ -100,22 +100,22 @@ With the above set of modes, we can apply them as follows:
 
 ```ts title="MyComponent.stories.ts|tsx"
 // Adjust this import to match your framework (e.g., nextjs, vue3-vite)
-import type { Meta } from "@storybook/your-framework";
+import type { Meta } from '@storybook/your-framework';
 
-import { allModes } from "../.storybook/modes";
+import { allModes } from '../.storybook/modes';
 
-import { MyComponent } from "./MyComponent";
+import { MyComponent } from './MyComponent';
 
 const meta = {
   component: MyComponent,
-  title: "MyComponent",
+  title: 'MyComponent',
   parameters: {
     chromatic: {
       //🔶 Test each story for MyComponent in three modes
       modes: {
-        english: allModes["english"],
-        german: allModes["german"],
-        arabic: allModes["arabic"],
+        english: allModes['english'],
+        german: allModes['german'],
+        arabic: allModes['arabic'],
       },
     },
   },

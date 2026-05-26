@@ -54,8 +54,8 @@ If a story has visual changes that require review, it is marked with a `<failure
 ```
 
 <div class="callout">
-  If a story with changes in one build is run again in a subsequent build
-  without being reviewed, it will still be flagged as "changed".
+  If a story with changes in one build is run again in a subsequent build without being reviewed, it
+  will still be flagged as "changed".
 </div>
 
 ### Skipped Stories
@@ -120,6 +120,6 @@ For workflows hosted on GitHub Actions, you can use the [`datadog/junit-upload-g
   uses: datadog/junit-upload-github-action@v1
   with:
     api_key: ${{ secrets.DD_API_KEY }}
-    junit_files: "target/surefire-reports/*.xml"
-    service: "your-service-name"
+    junit_files: 'target/surefire-reports/*.xml'
+    service: 'your-service-name'
 ```

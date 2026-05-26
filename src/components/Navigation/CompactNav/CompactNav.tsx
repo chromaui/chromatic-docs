@@ -1,7 +1,7 @@
-import { DropdownMenu } from "./DropdownMenu";
-import styled from "@emotion/styled";
-import { minMd } from "@chromatic-com/tetra";
-import type { TransformedNavGroup, TransformedItem } from "../types";
+import { DropdownMenu } from './DropdownMenu';
+import styled from '@emotion/styled';
+import { minMd } from '@chromatic-com/tetra';
+import type { TransformedNavGroup, TransformedItem } from '../types';
 
 const NavDropdownMenu = styled(DropdownMenu)`
   ${minMd} {

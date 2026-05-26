@@ -14,7 +14,7 @@ When running your Playwright tests over multiple shared CI jobs, you'll need to 
 If you're working with GitHub Actions, you can configure a job [matrix](https://docs.github.com/en/actions/using-jobs/using-a-matrix-for-your-jobs) to run Playwright tests in parallel across multiple instances. Enabling this option will run a separate job for every combination of the provided values, merge the test results as a single artifact, and make them available to the Chromatic job when it runs.
 
 ```yaml title=".github/workflows/chromatic.yml"
-name: "UI Tests"
+name: 'UI Tests'
 
 on: push
 
@@ -140,10 +140,10 @@ jobs:
             - v1-dependencies-{{ checksum "package-lock.json" }}
             - v1-dependencies-
       - run:
-          name: "Install Playwright dependencies"
+          name: 'Install Playwright dependencies'
           command: npm ci
       - run:
-          name: "Run Playwright tests"
+          name: 'Run Playwright tests'
           command: SHARD="$((${CIRCLE_NODE_INDEX}+1))"; npx playwright test --shard=${SHARD}/${CIRCLE_NODE_TOTAL}
           when: always
       - store_artifacts:
@@ -166,7 +166,7 @@ jobs:
       - attach_workspace:
           at: .
       - run:
-          name: "Run Chromatic"
+          name: 'Run Chromatic'
           command: npx chromatic --playwright --project-token=${CHROMATIC_PROJECT_TOKEN}
 workflows:
   UI_Tests:
@@ -292,7 +292,7 @@ blocks:
           commands:
             - artifact push workflow --force test-results
   - name: Run Chromatic
-    dependencies: ["Playwright"]
+    dependencies: ['Playwright']
     task:
       prologue:
         commands:

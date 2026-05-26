@@ -15,18 +15,12 @@ interface Props {
 
 const { navGroups, flatNavItems, url } = Astro.props;
 
-const activeItem =
-  flatNavItems.find((item) => withBase(item.id) === url) || flatNavItems[0];
+const activeItem = flatNavItems.find((item) => withBase(item.id) === url) || flatNavItems[0];
 ---
 
 <Container>
   <Search />
-  <CompactNav
-    client:only="react"
-    groups={navGroups}
-    activeItem={activeItem}
-    url={url}
-  />
+  <CompactNav client:only="react" groups={navGroups} activeItem={activeItem} url={url} />
   <SideNav client:load sidebarGroups={navGroups} url={url} />
   <Support client:load />
 </Container>

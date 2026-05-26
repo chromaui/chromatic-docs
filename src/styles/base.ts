@@ -1,12 +1,12 @@
-import { css } from "@emotion/react";
-import { fontFamily } from "@chromatic-com/tetra";
+import { css } from '@emotion/react';
+import { fontFamily } from '@chromatic-com/tetra';
 
 export const base = css`
   button,
   input,
   textarea,
   select {
-    font-family: "Nunito Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
+    font-family: 'Nunito Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif;
     outline: none;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;

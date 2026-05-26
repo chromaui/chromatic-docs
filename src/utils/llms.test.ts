@@ -1,15 +1,15 @@
-import { expect, test, describe } from "vitest";
-import { llmsTxt, llmsFullTxt, llmsDoc, docToLlmsItem, docToFullItem } from "./llms";
+import { expect, test, describe } from 'vitest';
+import { llmsTxt, llmsFullTxt, llmsDoc, docToLlmsItem, docToFullItem } from './llms';
 
 function mockDoc(overrides: Record<string, any> = {}) {
   return {
-    id: "test-doc",
-    collection: "overview",
+    id: 'test-doc',
+    collection: 'overview',
     data: {
-      title: "Test Doc",
-      description: "A test document",
+      title: 'Test Doc',
+      description: 'A test document',
     },
-    body: "## Hello\n\nSome content here.",
+    body: '## Hello\n\nSome content here.',
     ...overrides,
   } as any;
 }
@@ -18,147 +18,139 @@ async function readResponse(response: Response): Promise<string> {
   return response.text();
 }
 
-describe("llmsTxt", () => {
-  test("generates index with header and sections", async () => {
+describe('llmsTxt', () => {
+  test('generates index with header and sections', async () => {
     const response = llmsTxt({
-      name: "Test Site",
-      description: "A test site",
+      name: 'Test Site',
+      description: 'A test site',
       sections: [
         {
-          title: "Getting Started",
+          title: 'Getting Started',
           items: [
             {
-              title: "Introduction",
-              description: "Welcome to the site",
-              link: "https://example.com/llms/introduction.txt",
+              title: 'Introduction',
+              description: 'Welcome to the site',
+              link: 'https://example.com/llms/introduction.txt',
             },
           ],
         },
         {
-          title: "Guides",
+          title: 'Guides',
           items: [
             {
-              title: "Setup",
-              description: "How to set up",
-              link: "https://example.com/llms/setup.txt",
+              title: 'Setup',
+              description: 'How to set up',
+              link: 'https://example.com/llms/setup.txt',
             },
             {
-              title: "Advanced",
-              description: "Advanced usage",
-              link: "https://example.com/llms/advanced.txt",
+              title: 'Advanced',
+              description: 'Advanced usage',
+              link: 'https://example.com/llms/advanced.txt',
             },
           ],
         },
       ],
     });
 
-    expect(response.headers.get("Content-Type")).toBe(
-      "text/plain; charset=utf-8",
-    );
+    expect(response.headers.get('Content-Type')).toBe('text/plain; charset=utf-8');
 
     const text = await readResponse(response);
-    expect(text).toContain("# Test Site");
-    expect(text).toContain("> A test site");
-    expect(text).toContain("## Getting Started");
+    expect(text).toContain('# Test Site');
+    expect(text).toContain('> A test site');
+    expect(text).toContain('## Getting Started');
     expect(text).toContain(
-      "- [Introduction](https://example.com/llms/introduction.txt): Welcome to the site",
+      '- [Introduction](https://example.com/llms/introduction.txt): Welcome to the site'
     );
-    expect(text).toContain("## Guides");
-    expect(text).toContain(
-      "- [Setup](https://example.com/llms/setup.txt): How to set up",
-    );
-    expect(text).toContain(
-      "- [Advanced](https://example.com/llms/advanced.txt): Advanced usage",
-    );
+    expect(text).toContain('## Guides');
+    expect(text).toContain('- [Setup](https://example.com/llms/setup.txt): How to set up');
+    expect(text).toContain('- [Advanced](https://example.com/llms/advanced.txt): Advanced usage');
   });
 
-  test("filters out empty sections", async () => {
+  test('filters out empty sections', async () => {
     const response = llmsTxt({
-      name: "Test",
-      description: "Test",
+      name: 'Test',
+      description: 'Test',
       sections: [
-        { title: "Empty", items: [] },
+        { title: 'Empty', items: [] },
         {
-          title: "Has Items",
-          items: [
-            { title: "Item", description: "Desc", link: "/llms/item.txt" },
-          ],
+          title: 'Has Items',
+          items: [{ title: 'Item', description: 'Desc', link: '/llms/item.txt' }],
         },
       ],
     });
 
     const text = await readResponse(response);
-    expect(text).not.toContain("## Empty");
-    expect(text).toContain("## Has Items");
+    expect(text).not.toContain('## Empty');
+    expect(text).toContain('## Has Items');
   });
 });
 
-describe("llmsFullTxt", () => {
-  test("generates full content document", async () => {
+describe('llmsFullTxt', () => {
+  test('generates full content document', async () => {
     const response = llmsFullTxt({
-      name: "Test Site",
-      description: "A test site",
-      site: "https://example.com",
+      name: 'Test Site',
+      description: 'A test site',
+      site: 'https://example.com',
       docs: [
         {
-          title: "First Doc",
-          description: "First description",
-          link: "https://example.com/first",
-          body: "Content of the first doc.",
+          title: 'First Doc',
+          description: 'First description',
+          link: 'https://example.com/first',
+          body: 'Content of the first doc.',
         },
         {
-          title: "Second Doc",
-          description: "Second description",
-          link: "https://example.com/second",
-          body: "Content of the second doc.",
+          title: 'Second Doc',
+          description: 'Second description',
+          link: 'https://example.com/second',
+          body: 'Content of the second doc.',
         },
       ],
     });
 
     const text = await readResponse(response);
-    expect(text).toContain("# Test Site");
-    expect(text).toContain("Site: https://example.com");
-    expect(text).toContain("## First Doc");
-    expect(text).toContain("URL: https://example.com/first");
-    expect(text).toContain("> First description");
-    expect(text).toContain("Content of the first doc.");
-    expect(text).toContain("## Second Doc");
-    expect(text).toContain("---");
+    expect(text).toContain('# Test Site');
+    expect(text).toContain('Site: https://example.com');
+    expect(text).toContain('## First Doc');
+    expect(text).toContain('URL: https://example.com/first');
+    expect(text).toContain('> First description');
+    expect(text).toContain('Content of the first doc.');
+    expect(text).toContain('## Second Doc');
+    expect(text).toContain('---');
   });
 
-  test("strips MDX from body content", async () => {
+  test('strips MDX from body content', async () => {
     const response = llmsFullTxt({
-      name: "Test",
-      description: "Test",
-      site: "https://example.com",
+      name: 'Test',
+      description: 'Test',
+      site: 'https://example.com',
       docs: [
         {
-          title: "MDX Doc",
-          description: "Has MDX",
-          link: "https://example.com/mdx",
+          title: 'MDX Doc',
+          description: 'Has MDX',
+          link: 'https://example.com/mdx',
           body: 'import Component from "./Component";\n\n<Component prop="value">children</Component>\n\nRegular markdown content.\n\n<SelfClosing />',
         },
       ],
     });
 
     const text = await readResponse(response);
-    expect(text).toContain("Regular markdown content.");
-    expect(text).not.toContain("import Component");
-    expect(text).toContain("children");
-    expect(text).not.toContain("<Component");
-    expect(text).not.toContain("<SelfClosing");
+    expect(text).toContain('Regular markdown content.');
+    expect(text).not.toContain('import Component');
+    expect(text).toContain('children');
+    expect(text).not.toContain('<Component');
+    expect(text).not.toContain('<SelfClosing');
   });
 
-  test("preserves imports inside code fences", async () => {
+  test('preserves imports inside code fences', async () => {
     const response = llmsFullTxt({
-      name: "Test",
-      description: "Test",
-      site: "https://example.com",
+      name: 'Test',
+      description: 'Test',
+      site: 'https://example.com',
       docs: [
         {
-          title: "Code Doc",
-          description: "Has code",
-          link: "https://example.com/code",
+          title: 'Code Doc',
+          description: 'Has code',
+          link: 'https://example.com/code',
           body: 'import Foo from "./Foo";\n\nSome text.\n\n```ts\nimport { bar } from "baz";\nconsole.log(bar);\n```',
         },
       ],
@@ -166,104 +158,104 @@ describe("llmsFullTxt", () => {
 
     const text = await readResponse(response);
     expect(text).toContain('import { bar } from "baz";');
-    expect(text).not.toContain("import Foo");
+    expect(text).not.toContain('import Foo');
   });
 });
 
-describe("llmsDoc", () => {
-  test("generates individual doc page", async () => {
+describe('llmsDoc', () => {
+  test('generates individual doc page', async () => {
     const doc = mockDoc();
-    const response = llmsDoc(doc, "https://example.com");
+    const response = llmsDoc(doc, 'https://example.com');
 
     const text = await readResponse(response);
-    expect(text).toContain("# Test Doc");
-    expect(text).toContain("> A test document");
-    expect(text).toContain("URL: https://example.com/test-doc");
-    expect(text).toContain("## Hello");
-    expect(text).toContain("Some content here.");
+    expect(text).toContain('# Test Doc');
+    expect(text).toContain('> A test document');
+    expect(text).toContain('URL: https://example.com/test-doc');
+    expect(text).toContain('## Hello');
+    expect(text).toContain('Some content here.');
   });
 
-  test("uses site root URL for isHome entries", async () => {
+  test('uses site root URL for isHome entries', async () => {
     const doc = mockDoc({
-      id: "introduction",
+      id: 'introduction',
       data: {
-        title: "Introduction",
-        description: "Welcome",
+        title: 'Introduction',
+        description: 'Welcome',
         isHome: true,
       },
     });
-    const response = llmsDoc(doc, "https://example.com");
+    const response = llmsDoc(doc, 'https://example.com');
 
     const text = await readResponse(response);
-    expect(text).toContain("URL: https://example.com");
-    expect(text).not.toContain("URL: https://example.com/introduction");
+    expect(text).toContain('URL: https://example.com');
+    expect(text).not.toContain('URL: https://example.com/introduction');
   });
 
-  test("strips MDX from individual doc", async () => {
+  test('strips MDX from individual doc', async () => {
     const doc = mockDoc({
       body: 'import Foo from "./Foo";\n\n<Foo bar="baz" />\n\nPlain text.',
     });
-    const response = llmsDoc(doc, "https://example.com");
+    const response = llmsDoc(doc, 'https://example.com');
 
     const text = await readResponse(response);
-    expect(text).toContain("Plain text.");
-    expect(text).not.toContain("import Foo");
-    expect(text).not.toContain("<Foo");
+    expect(text).toContain('Plain text.');
+    expect(text).not.toContain('import Foo');
+    expect(text).not.toContain('<Foo');
   });
 
-  test("handles missing body gracefully", async () => {
+  test('handles missing body gracefully', async () => {
     const doc = mockDoc({ body: undefined });
-    const response = llmsDoc(doc, "https://example.com");
+    const response = llmsDoc(doc, 'https://example.com');
 
     const text = await readResponse(response);
-    expect(text).toContain("# Test Doc");
+    expect(text).toContain('# Test Doc');
   });
 });
 
-describe("docToLlmsItem", () => {
-  test("converts doc entry to index item", () => {
+describe('docToLlmsItem', () => {
+  test('converts doc entry to index item', () => {
     const doc = mockDoc();
-    const item = docToLlmsItem(doc, "https://example.com/llms");
+    const item = docToLlmsItem(doc, 'https://example.com/llms');
 
     expect(item).toEqual({
-      title: "Test Doc",
-      description: "A test document",
-      link: "https://example.com/llms/test-doc.txt",
+      title: 'Test Doc',
+      description: 'A test document',
+      link: 'https://example.com/llms/test-doc.txt',
     });
   });
 
-  test("falls back to title when description is missing", () => {
-    const doc = mockDoc({ data: { title: "No Desc", description: "" } });
-    const item = docToLlmsItem(doc, "https://example.com/llms");
+  test('falls back to title when description is missing', () => {
+    const doc = mockDoc({ data: { title: 'No Desc', description: '' } });
+    const item = docToLlmsItem(doc, 'https://example.com/llms');
 
-    expect(item.description).toBe("No Desc");
+    expect(item.description).toBe('No Desc');
   });
 });
 
-describe("docToFullItem", () => {
-  test("converts doc entry to full content item", () => {
+describe('docToFullItem', () => {
+  test('converts doc entry to full content item', () => {
     const doc = mockDoc();
-    const item = docToFullItem(doc, "https://example.com");
+    const item = docToFullItem(doc, 'https://example.com');
 
     expect(item).toEqual({
-      title: "Test Doc",
-      description: "A test document",
-      link: "https://example.com/test-doc",
-      body: "## Hello\n\nSome content here.",
+      title: 'Test Doc',
+      description: 'A test document',
+      link: 'https://example.com/test-doc',
+      body: '## Hello\n\nSome content here.',
     });
   });
 
-  test("uses site root URL for isHome entries", () => {
+  test('uses site root URL for isHome entries', () => {
     const doc = mockDoc({
-      id: "introduction",
+      id: 'introduction',
       data: {
-        title: "Introduction",
-        description: "Welcome",
+        title: 'Introduction',
+        description: 'Welcome',
         isHome: true,
       },
     });
-    const item = docToFullItem(doc, "https://example.com");
+    const item = docToFullItem(doc, 'https://example.com');
 
-    expect(item.link).toBe("https://example.com");
+    expect(item.link).toBe('https://example.com');
   });
 });

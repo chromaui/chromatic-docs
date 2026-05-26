@@ -1,7 +1,7 @@
-import styled from "@emotion/styled";
-import { css } from "@emotion/react";
-import * as Popover from "@radix-ui/react-popover";
-import { color, fontWeight, spacing, typography } from "@chromatic-com/tetra";
+import styled from '@emotion/styled';
+import { css } from '@emotion/react';
+import * as Popover from '@radix-ui/react-popover';
+import { color, fontWeight, spacing, typography } from '@chromatic-com/tetra';
 
 export const buttonStyles = css`
   all: unset;
@@ -37,23 +37,23 @@ export const buttonStyles = css`
 `;
 
 export const DropdownTrigger = styled(Popover.Trigger, {
-  shouldForwardProp: (propName) => propName !== "isActive",
+  shouldForwardProp: (propName) => propName !== 'isActive',
 })<{
   isActive?: boolean;
 }>`
   ${buttonStyles}
-  background-color: ${({ isActive }) => isActive && "rgba(30, 167, 253, 0.07)"};
+  background-color: ${({ isActive }) => isActive && 'rgba(30, 167, 253, 0.07)'};
   color: ${({ isActive }) => {
     if (isActive) return color.blue500;
     return color.slate500;
   }};
 
-  &[data-state="open"] {
+  &[data-state='open'] {
     background-color: rgba(30, 167, 253, 0.14);
     color: ${color.blue500};
   }
 
-  &[data-state="open"] > .CaretDown {
+  &[data-state='open'] > .CaretDown {
     transform: rotate(-180deg) translateY(0px);
   }
 `;

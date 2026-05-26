@@ -4,19 +4,18 @@ description: Learn how to setup Chromatic for Storybook and run tests
 sidebar: { order: 2 }
 ---
 
-import TroubleshootingSetup from "../../shared-snippets/setup/troubleshooting.mdx";
-import DemoChromaticUnlinked from "../../shared-snippets/demo-chromatic-unlinked.mdx";
-import InstallSnippets from "../../components/InstallSnippets.astro";
-import KeyboardShortcuts from "../../components/KeyboardShortcuts.astro";
+import TroubleshootingSetup from '../../shared-snippets/setup/troubleshooting.mdx';
+import DemoChromaticUnlinked from '../../shared-snippets/demo-chromatic-unlinked.mdx';
+import InstallSnippets from '../../components/InstallSnippets.astro';
+import KeyboardShortcuts from '../../components/KeyboardShortcuts.astro';
 
 # Chromatic for Storybook
 
 Chromatic, created by the team behind Storybook, seamlessly integrates visual testing into your UI development workflow. Storybook lets you capture every component state and variation as [stories](https://storybook.js.org/docs/get-started/whats-a-story). Then, Chromatic automatically executes visual, interaction and accessibility tests on those stories.
 
 <div class="aside">
-  ℹ️ Not using Storybook? Chromatic integrates with
-  [Playwright](/docs/playwright) and [Cypress](/docs/cypress) to transform your
-  E2E tests into visual regression tests.
+  ℹ️ Not using Storybook? Chromatic integrates with [Playwright](/docs/playwright) and
+  [Cypress](/docs/cypress) to transform your E2E tests into visual regression tests.
 </div>
 
 ## Set up Chromatic for Storybook
@@ -58,10 +57,9 @@ Install the [chromatic](https://www.npmjs.com/package/chromatic) package from np
 {/* prettier-ignore-end */}
 
 <div class="aside">
-  Storybook 6.5 or later is required. We also guarantee support for officially
-  maintained version of Node, currently 18, 20 & 21. Other Node releases may
-  encounter errors. To switch between Node versions, we recommend using{" "}
-  <a href="https://github.com/nvm-sh/nvm">nvm</a>,{" "}
+  Storybook 6.5 or later is required. We also guarantee support for officially maintained version of
+  Node, currently 18, 20 & 21. Other Node releases may encounter errors. To switch between Node
+  versions, we recommend using <a href="https://github.com/nvm-sh/nvm">nvm</a>,{' '}
   <a href="https://github.com/tj/n">n</a>, or another version manager.
 </div>
 
@@ -127,11 +125,9 @@ Subsequent builds will generate new snapshots that are compared against existing
 {/* prettier-ignore-end */}
 
 <div class="aside">
-  We use the <code>build-storybook</code> script from your{" "}
-  <code>package.json</code> by default. If you have customized the{" "}
-  <code>storybook</code> script (for example, adding a static directory with{" "}
-  <code>-s</code>), check that you've done the same for{" "}
-  <code>build-storybook</code>.
+  We use the <code>build-storybook</code> script from your <code>package.json</code> by default. If
+  you have customized the <code>storybook</code> script (for example, adding a static directory with{' '}
+  <code>-s</code>), check that you've done the same for <code>build-storybook</code>.
 </div>
 
 ### 4. Review changes
@@ -162,19 +158,8 @@ Reviewers can create discussions to point out bugs or ask questions. Discussions
 
 Alternatively, you can click on a snapshot to create a discussion pinned to a specific change and provide precise feedback on the issue. Pair discussions with denying a change to block merging until bugs are resolved.
 
-<video
-  autoPlay
-  muted
-  playsInline
-  loop
-  width="560px"
-  class="center"
-  style="pointer-events: none;"
->
-  <source
-    src="/docs/assets/testscreen-comment-pinned-optimized.mp4"
-    type="video/mp4"
-  />
+<video autoPlay muted playsInline loop width="560px" class="center" style="pointer-events: none;">
+  <source src="/docs/assets/testscreen-comment-pinned-optimized.mp4" type="video/mp4" />
 </video>
 
 ### 6. Merge

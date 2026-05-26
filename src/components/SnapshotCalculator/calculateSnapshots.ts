@@ -5,7 +5,7 @@ export function calculateSnapshots(
   viewports: number,
   accessibility: boolean,
   turboSnapEnabled: boolean,
-  changedTestsPercentage: number = 50,
+  changedTestsPercentage: number = 50
 ): {
   snapshots: number;
   turboSnaps: number;
@@ -36,9 +36,7 @@ export function calculateSnapshots(
   const unchangedTests = tests - changedTests;
 
   const regularSnapshots = changedTests * builds * browsers * viewports;
-  const regularA11ySnapshots = accessibility
-    ? changedTests * builds * viewports
-    : 0;
+  const regularA11ySnapshots = accessibility ? changedTests * builds * viewports : 0;
   const totalRegularSnapshots = regularSnapshots + regularA11ySnapshots;
 
   const turboSnaps = unchangedTests * builds * browsers * viewports;

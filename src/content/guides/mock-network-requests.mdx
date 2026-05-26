@@ -1,10 +1,10 @@
 ---
 title: Mocking APIs and Network Requests
 description: Learn how to mock APIs and network requests in your tests (Storybook, Playwright and Cypress)
-sidebar: { order: 5, label: "Mocking APIs" }
+sidebar: { order: 5, label: 'Mocking APIs' }
 ---
 
-import { YouTubeCallout } from "../../components/YouTubeCallout";
+import { YouTubeCallout } from '../../components/YouTubeCallout';
 
 # Mocking APIs and Network Requests
 
@@ -14,21 +14,17 @@ When testing components or pages that make network requests, it's important to m
 
 Storybook offers [several addons](https://storybook.js.org/addons/tag/api) for mocking APIs (e.g. fetching data from a REST or GraphQL API). We recommend using the [MSW addon](https://storybook.js.org/addons/msw-storybook-addon).
 
-<YouTubeCallout
-  client:load
-  id="XF4IZlIZGz8"
-  summary="Mocking network requests with MSW addon"
-/>
+<YouTubeCallout client:load id="XF4IZlIZGz8" summary="Mocking network requests with MSW addon" />
 
 Mock Service Worker (MSW) is an API mocking library that uses service workers to capture network requests and provide mocked data in response. The MSW addon integrates this functionality into Storybook. Here’s a basic example:
 
 ```tsx title="DocumentScreen.stories.tsx"
 // Replace your-framework with the name of your framework (e.g. nextjs, vue3-vite)
-import type { Meta, StoryObj } from "@storybook/your-framework";
+import type { Meta, StoryObj } from '@storybook/your-framework';
 
-import { http, HttpResponse, delay } from "msw";
+import { http, HttpResponse, delay } from 'msw';
 
-import { DocumentScreen } from "./DocumentScreen";
+import { DocumentScreen } from './DocumentScreen';
 
 const meta = {
   component: DocumentScreen,
@@ -42,26 +38,26 @@ const mockDocuments = [
   {
     id: 1,
     userID: 1,
-    title: "Something",
+    title: 'Something',
     content:
-      "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
-    status: "approved",
+      'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.',
+    status: 'approved',
   },
   {
     id: 2,
     userID: 1,
-    title: "Something else",
+    title: 'Something else',
     content:
-      "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
-    status: "pending",
+      'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.',
+    status: 'pending',
   },
   {
     id: 3,
     userID: 2,
-    title: "Another thing",
+    title: 'Another thing',
     content:
-      "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
-    status: "rejected",
+      'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.',
+    status: 'rejected',
   },
 ];
 
@@ -69,7 +65,7 @@ export const MockedSuccess: Story = {
   parameters: {
     msw: {
       handlers: [
-        http.get("/api/documents", () => {
+        http.get('/api/documents', () => {
           return HttpResponse.json(mockDocuments);
         }),
       ],
@@ -81,7 +77,7 @@ export const MockedError: Story = {
   parameters: {
     msw: {
       handlers: [
-        http.get("/api/documents", async () => {
+        http.get('/api/documents', async () => {
           await delay(800);
           return new HttpResponse(null, {
             status: 403,
@@ -104,10 +100,10 @@ You can use `Object.defineProperty` for direct browser APIs mocking. It modifies
 Here's an example of how to mock the `navigator.share`:
 
 ```tsx
-Object.defineProperty(navigator, "share", {
+Object.defineProperty(navigator, 'share', {
   configurable: true, // Allows the property to be redefined later
   value: async (data) => {
-    console.log("Mocked share:", data);
+    console.log('Mocked share:', data);
     return Promise.resolve(); // Simulate a successful share
   },
 });
@@ -121,53 +117,49 @@ Learn more about the `Object.defineProperty` in [MDN documentation](https://deve
 
 If you rely on third-party libraries that make network requests, you can mock those modules in your stories. This is useful when you want to avoid inconsistencies in your tests due to external dependencies. Refer to the video below and the [module mocking documentation](https://storybook.js.org/docs/writing-stories/mocking-data-and-modules/mocking-modules) for more information on how to do this.
 
-<YouTubeCallout
-  client:load
-  id="TL-YSDsPpCk"
-  summary="Module mocking in Storybook"
-/>
+<YouTubeCallout client:load id="TL-YSDsPpCk" summary="Module mocking in Storybook" />
 
 ## Playwright
 
 Playwright allows you to mock network requests, including XHRs and fetch requests. You can also use HAR files to mock multiple network requests made by the page. Check out the [Playwright documentation](https://playwright.dev/docs/mock#mock-api-requests) for more details.
 
 ```js title="tests/DocumentScreen.spec.js|ts"
-test("mocks documents api", async ({ page }) => {
+test('mocks documents api', async ({ page }) => {
   // Mock the api call before navigating
-  await page.route("*/**/api/documents", async (route) => {
+  await page.route('*/**/api/documents', async (route) => {
     const json = [
       {
         id: 1,
         userID: 1,
-        title: "Something",
+        title: 'Something',
         content:
-          "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
-        status: "approved",
+          'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.',
+        status: 'approved',
       },
       {
         id: 2,
         userID: 1,
-        title: "Something else",
+        title: 'Something else',
         content:
-          "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
-        status: "pending",
+          'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.',
+        status: 'pending',
       },
       {
         id: 3,
         userID: 2,
-        title: "Another thing",
+        title: 'Another thing',
         content:
-          "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
-        status: "rejected",
+          'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.',
+        status: 'rejected',
       },
     ];
     await route.fulfill({ json });
   });
   // Go to the page
-  await page.goto("https://myapp.com/documents");
+  await page.goto('https://myapp.com/documents');
 
   // Assert that the "Something else" is visible
-  await expect(page.getByText("Something else")).toBeVisible();
+  await expect(page.getByText('Something else')).toBeVisible();
 });
 ```
 
@@ -178,34 +170,34 @@ Cypress allows you to stub API responses with the `cy.intercept()` method, letti
 ```js title="cypress/e2e/DocumentScreen.cy.js|ts"
 cy.intercept(
   {
-    method: "GET", // Route all GET requests
-    url: "/api/documents",
+    method: 'GET', // Route all GET requests
+    url: '/api/documents',
   },
   [
     {
       id: 1,
       userID: 1,
-      title: "Something",
+      title: 'Something',
       content:
-        "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
-      status: "approved",
+        'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.',
+      status: 'approved',
     },
     {
       id: 2,
       userID: 1,
-      title: "Something else",
+      title: 'Something else',
       content:
-        "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
-      status: "pending",
+        'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.',
+      status: 'pending',
     },
     {
       id: 3,
       userID: 2,
-      title: "Another thing",
+      title: 'Another thing',
       content:
-        "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
-      status: "rejected",
+        'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.',
+      status: 'rejected',
     },
-  ], // and force the response to be mock data
-).as("getDocuments"); // and assign an alias
+  ] // and force the response to be mock data
+).as('getDocuments'); // and assign an alias
 ```

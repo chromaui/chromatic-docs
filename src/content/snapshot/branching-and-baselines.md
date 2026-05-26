@@ -1,7 +1,7 @@
 ---
 title: Branches and baselines
 description: How Chromatic decides what snapshots to compare when using UI Tests and UI Review
-sidebar: { order: 2, label: "Branches & baselines" }
+sidebar: { order: 2, label: 'Branches & baselines' }
 ---
 
 # Branches, baselines, and git history

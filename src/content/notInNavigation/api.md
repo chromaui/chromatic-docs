@@ -1,5 +1,5 @@
 ---
-title: "Chromatic API (Private Beta)"
+title: 'Chromatic API (Private Beta)'
 description: "Getting started with Chromatic's GraphQL API for agents (private beta) — endpoint, OAuth 2.0 + PKCE authentication, queries, mutations, and scopes."
 sidebar:
   hide: true
@@ -413,9 +413,7 @@ If the review fails, errors come back in `userErrors` rather than the top-level 
   "data": {
     "reviewTest": {
       "updatedTests": null,
-      "userErrors": [
-        { "message": "Build is superseded by a newer build on this branch" }
-      ]
+      "userErrors": [{ "message": "Build is superseded by a newer build on this branch" }]
     }
   }
 }

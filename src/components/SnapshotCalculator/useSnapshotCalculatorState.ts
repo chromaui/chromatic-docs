@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect } from 'react';
 
 const DEFAULTS = {
   tests: 50,
@@ -11,7 +11,7 @@ const DEFAULTS = {
 };
 
 export function useSnapshotCalculatorState() {
-  const [_, setQueryParamsState] = useState(() => new URLSearchParams(""));
+  const [_, setQueryParamsState] = useState(() => new URLSearchParams(''));
 
   const [tests, setTests] = useState(DEFAULTS.tests);
   const [builds, setBuilds] = useState(DEFAULTS.builds);
@@ -20,84 +20,64 @@ export function useSnapshotCalculatorState() {
   const [accessibility, setAccessibility] = useState(DEFAULTS.accessibility);
   const [turboSnap, setTurboSnap] = useState(DEFAULTS.turboSnap);
   const [changedTestsPercentage, setChangedTestsPercentage] = useState(
-    DEFAULTS.changedTestsPercentage,
+    DEFAULTS.changedTestsPercentage
   );
 
   function setStateFromQueryParam(
     setFn: React.SetStateAction<any>,
     value: string | null,
-    type: "number" | "boolean",
-    fallback: any,
+    type: 'number' | 'boolean',
+    fallback: any
   ) {
     setFn(parseParam(value, type, fallback));
   }
 
   // Use URLSearchParams from window.location.search to set initial state
   useEffect(() => {
-    if (typeof window !== "undefined") {
+    if (typeof window !== 'undefined') {
       const params = new URLSearchParams(window.location.search);
       setQueryParamsState(params);
 
-      if (params.get("tests") !== null) {
-        setStateFromQueryParam(
-          setTests,
-          params.get("tests"),
-          "number",
-          DEFAULTS.tests,
-        );
+      if (params.get('tests') !== null) {
+        setStateFromQueryParam(setTests, params.get('tests'), 'number', DEFAULTS.tests);
       }
 
-      if (params.get("builds") !== null) {
-        setStateFromQueryParam(
-          setBuilds,
-          params.get("builds"),
-          "number",
-          DEFAULTS.builds,
-        );
+      if (params.get('builds') !== null) {
+        setStateFromQueryParam(setBuilds, params.get('builds'), 'number', DEFAULTS.builds);
       }
 
-      if (params.get("builds") !== null) {
-        setStateFromQueryParam(
-          setBrowsers,
-          params.get("browsers"),
-          "number",
-          DEFAULTS.browsers,
-        );
+      if (params.get('builds') !== null) {
+        setStateFromQueryParam(setBrowsers, params.get('browsers'), 'number', DEFAULTS.browsers);
       }
 
-      if (params.get("viewports") !== null) {
-        setStateFromQueryParam(
-          setViewports,
-          params.get("viewports"),
-          "number",
-          DEFAULTS.viewports,
-        );
+      if (params.get('viewports') !== null) {
+        setStateFromQueryParam(setViewports, params.get('viewports'), 'number', DEFAULTS.viewports);
       }
 
-      if (params.get("accessibility") !== null) {
+      if (params.get('accessibility') !== null) {
         setStateFromQueryParam(
           setAccessibility,
-          params.get("accessibility"),
-          "boolean",
-          DEFAULTS.accessibility,
+          params.get('accessibility'),
+          'boolean',
+          DEFAULTS.accessibility
         );
       }
 
-      if (params.get("turboSnap") !== null) {
+      if (params.get('turboSnap') !== null) {
         setStateFromQueryParam(
           setTurboSnap,
-          params.get("turboSnap"),
-          "boolean",
-          DEFAULTS.turboSnap,
+          params.get('turboSnap'),
+          'boolean',
+          DEFAULTS.turboSnap
         );
       }
 
-      if (params.get("changedTestsPercentage") !== null) {
+      if (params.get('changedTestsPercentage') !== null) {
         setStateFromQueryParam(
           setChangedTestsPercentage,
-          params.get("changedTestsPercentage"),
-          "number",
-          DEFAULTS.changedTestsPercentage,
+          params.get('changedTestsPercentage'),
+          'number',
+          DEFAULTS.changedTestsPercentage
         );
       }
     }
@@ -106,12 +86,12 @@ export function useSnapshotCalculatorState() {
   useEffect(() => {
     // Helper to update query params in the URL
     function setQueryParams(params: Record<string, string>) {
-      if (typeof window !== "undefined") {
+      if (typeof window !== 'undefined') {
         const queryParams = new URLSearchParams(params);
         window.history.replaceState(
           {},
-          "",
-          `${window.location.pathname}?${queryParams.toString()}`,
+          '',
+          `${window.location.pathname}?${queryParams.toString()}`
         );
         setQueryParamsState(queryParams);
       }
@@ -126,15 +106,7 @@ export function useSnapshotCalculatorState() {
       turboSnap: String(turboSnap),
       changedTestsPercentage: String(changedTestsPercentage),
     });
-  }, [
-    tests,
-    builds,
-    browsers,
-    viewports,
-    accessibility,
-    turboSnap,
-    changedTestsPercentage,
-  ]);
+  }, [tests, builds, browsers, viewports, accessibility, turboSnap, changedTestsPercentage]);
 
   return {
     tests,
@@ -155,18 +127,14 @@ export function useSnapshotCalculatorState() {
 }
 
 // Helper to parse query param values
-function parseParam(
-  value: string | null,
-  type: "number" | "boolean",
-  fallback: any,
-) {
+function parseParam(value: string | null, type: 'number' | 'boolean', fallback: any) {
   if (value == null) return fallback;
-  if (type === "number") {
+  if (type === 'number') {
     const n = Number(value);
     return isNaN(n) ? fallback : n;
   }
-  if (type === "boolean") {
-    return value === "true";
+  if (type === 'boolean') {
+    return value === 'true';
   }
   return fallback;
 }

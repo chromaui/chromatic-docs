@@ -119,17 +119,17 @@ This project uses Shiki for syntax highlighting with the [transformerNotationDif
 Therefore, you can use Use `[!code ++]` and `[!code --]` to mark added and removed lines. For example:
 
 ```js
-console.log("hewwo"); // [!code --]
-console.log("hello"); // [!code ++]
-console.log("goodbye");
+console.log('hewwo'); // [!code --]
+console.log('hello'); // [!code ++]
+console.log('goodbye');
 ```
 
 And use `[!code highlight]` to highlight a line, like so:
 
 ```js
-console.log("Not highlighted");
-console.log("Highlighted"); // [!code highlight]
-console.log("Not highlighted");
+console.log('Not highlighted');
+console.log('Highlighted'); // [!code highlight]
+console.log('Not highlighted');
 ```
 
 ### Mermaid diagrams

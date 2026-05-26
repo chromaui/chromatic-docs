@@ -1,5 +1,5 @@
-import { getCollection } from "astro:content";
-import type { DocEntry } from "./llms";
+import { getCollection } from 'astro:content';
+import type { DocEntry } from './llms';
 
 export async function getAllCollections() {
   const [
@@ -20,22 +20,22 @@ export async function getAllCollections() {
     troubleshooting,
     notInNavigation,
   ] = await Promise.all([
-    getCollection("overview"),
-    getCollection("visualTests"),
-    getCollection("accessibilityTests"),
-    getCollection("interactionTests"),
-    getCollection("playwright"),
-    getCollection("cypress"),
-    getCollection("configuration"),
-    getCollection("modes"),
-    getCollection("snapshot"),
-    getCollection("turbosnap"),
-    getCollection("collaborate"),
-    getCollection("ci"),
-    getCollection("account"),
-    getCollection("guides"),
-    getCollection("troubleshooting"),
-    getCollection("notInNavigation"),
+    getCollection('overview'),
+    getCollection('visualTests'),
+    getCollection('accessibilityTests'),
+    getCollection('interactionTests'),
+    getCollection('playwright'),
+    getCollection('cypress'),
+    getCollection('configuration'),
+    getCollection('modes'),
+    getCollection('snapshot'),
+    getCollection('turbosnap'),
+    getCollection('collaborate'),
+    getCollection('ci'),
+    getCollection('account'),
+    getCollection('guides'),
+    getCollection('troubleshooting'),
+    getCollection('notInNavigation'),
   ]);
 
   return {
@@ -63,19 +63,15 @@ export async function getAllCollections() {
  * Excludes FAQ sub-pages from troubleshooting.
  * Set `includeNotInNavigation` to true to include hidden pages.
  */
-export async function getAllDocs({
-  includeNotInNavigation = false,
-} = {}) {
+export async function getAllDocs({ includeNotInNavigation = false } = {}) {
   const collections = await getAllCollections();
 
   return Object.entries(collections).flatMap(([key, entries]) => {
-    if (key === "notInNavigation") {
+    if (key === 'notInNavigation') {
       return includeNotInNavigation ? entries : [];
     }
-    if (key === "troubleshooting") {
-      return entries.filter(
-        ({ id }) => id !== "faq" && !id.startsWith("faq/"),
-      );
+    if (key === 'troubleshooting') {
+      return entries.filter(({ id }) => id !== 'faq' && !id.startsWith('faq/'));
     }
     return entries;
   });
@@ -87,21 +83,21 @@ export async function getAllDocs({
  * Order here determines section order in the output.
  */
 const sectionMap: [string, string][] = [
-  ["overview", "Overview"],
-  ["visualTests", "Visual Tests"],
-  ["modes", "Visual Tests"],
-  ["turbosnap", "Visual Tests"],
-  ["accessibilityTests", "Accessibility Tests"],
-  ["interactionTests", "Interaction Tests"],
-  ["ci", "CI"],
-  ["configuration", "Configuration"],
-  ["snapshot", "Snapshot"],
-  ["guides", "Guides"],
-  ["collaborate", "Collaborate"],
-  ["playwright", "Playwright"],
-  ["cypress", "Cypress"],
-  ["account", "Account"],
-  ["troubleshooting", "Troubleshooting"],
+  ['overview', 'Overview'],
+  ['visualTests', 'Visual Tests'],
+  ['modes', 'Visual Tests'],
+  ['turbosnap', 'Visual Tests'],
+  ['accessibilityTests', 'Accessibility Tests'],
+  ['interactionTests', 'Interaction Tests'],
+  ['ci', 'CI'],
+  ['configuration', 'Configuration'],
+  ['snapshot', 'Snapshot'],
+  ['guides', 'Guides'],
+  ['collaborate', 'Collaborate'],
+  ['playwright', 'Playwright'],
+  ['cypress', 'Cypress'],
+  ['account', 'Account'],
+  ['troubleshooting', 'Troubleshooting'],
 ];
 
 /**
@@ -125,13 +121,11 @@ export async function getDocSections() {
   }
 
   for (const [key, entries] of Object.entries(collections)) {
-    if (key === "notInNavigation") continue;
+    if (key === 'notInNavigation') continue;
 
     const filtered =
-      key === "troubleshooting"
-        ? entries.filter(
-            ({ id }) => id !== "faq" && !id.startsWith("faq/"),
-          )
+      key === 'troubleshooting'
+        ? entries.filter(({ id }) => id !== 'faq' && !id.startsWith('faq/'))
         : entries;
 
     const mapping = sectionMap.find(([name]) => name === key);

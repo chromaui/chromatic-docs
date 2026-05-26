@@ -1,21 +1,21 @@
-import type { CollectionEntry } from "astro:content";
+import type { CollectionEntry } from 'astro:content';
 
 export type CollectionEntryItem =
-  | Omit<CollectionEntry<"overview">, "render" | "body">
-  | Omit<CollectionEntry<"visualTests">, "render" | "body">
-  | Omit<CollectionEntry<"accessibilityTests">, "render" | "body">
-  | Omit<CollectionEntry<"interactionTests">, "render" | "body">
-  | Omit<CollectionEntry<"playwright">, "render" | "body">
-  | Omit<CollectionEntry<"cypress">, "render" | "body">
-  | Omit<CollectionEntry<"configuration">, "render" | "body">
-  | Omit<CollectionEntry<"modes">, "render" | "body">
-  | Omit<CollectionEntry<"snapshot">, "render" | "body">
-  | Omit<CollectionEntry<"turbosnap">, "render" | "body">
-  | Omit<CollectionEntry<"collaborate">, "render" | "body">
-  | Omit<CollectionEntry<"ci">, "render" | "body">
-  | Omit<CollectionEntry<"account">, "render" | "body">
-  | Omit<CollectionEntry<"guides">, "render" | "body">
-  | Omit<CollectionEntry<"troubleshooting">, "render" | "body">;
+  | Omit<CollectionEntry<'overview'>, 'render' | 'body'>
+  | Omit<CollectionEntry<'visualTests'>, 'render' | 'body'>
+  | Omit<CollectionEntry<'accessibilityTests'>, 'render' | 'body'>
+  | Omit<CollectionEntry<'interactionTests'>, 'render' | 'body'>
+  | Omit<CollectionEntry<'playwright'>, 'render' | 'body'>
+  | Omit<CollectionEntry<'cypress'>, 'render' | 'body'>
+  | Omit<CollectionEntry<'configuration'>, 'render' | 'body'>
+  | Omit<CollectionEntry<'modes'>, 'render' | 'body'>
+  | Omit<CollectionEntry<'snapshot'>, 'render' | 'body'>
+  | Omit<CollectionEntry<'turbosnap'>, 'render' | 'body'>
+  | Omit<CollectionEntry<'collaborate'>, 'render' | 'body'>
+  | Omit<CollectionEntry<'ci'>, 'render' | 'body'>
+  | Omit<CollectionEntry<'account'>, 'render' | 'body'>
+  | Omit<CollectionEntry<'guides'>, 'render' | 'body'>
+  | Omit<CollectionEntry<'troubleshooting'>, 'render' | 'body'>;
 
 export type NavGroupItem = CollectionEntryItem | NavGroup;
 
@@ -60,7 +60,7 @@ export interface TransformedNavGroup {
 }
 
 export function isNestedTransformedGroup(
-  item: TransformedNavGroupItem,
+  item: TransformedNavGroupItem
 ): item is NestedTransformedGroup {
   return (item as NestedTransformedGroup).items !== undefined;
 }
