@@ -109,6 +109,6 @@ import {
       console.warn('[plain] Failed to fetch customer details', error);
     }
 
-    window.Plain.init(BASE_CONFIG);
+    window.Plain.init({ ...BASE_CONFIG, requireAuthentication: true });
   })();
 </script>
