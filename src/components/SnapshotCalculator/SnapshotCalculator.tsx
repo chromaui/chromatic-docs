@@ -176,7 +176,7 @@ export const SnapshotCalculator = () => {
           <Field>
             <Label htmlFor="sc-builds">
               Commits per month
-              <InfoTooltip copy="Number of commits you expect to make per month" />
+              <InfoTooltip copy="Commits pushed to CI per month" />
             </Label>
             <input
               id="sc-builds"
