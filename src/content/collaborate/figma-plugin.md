@@ -1,7 +1,7 @@
 ---
 title: Storybook Figma plugin
 description: Connect stories to variants
-sidebar: { order: 5 }
+sidebar: { order: 6 }
 ---
 
 # Storybook Connect (Figma) plugin

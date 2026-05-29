@@ -13,3 +13,10 @@ Run the commands below, and reach out to support to share the output to help dia
 curl https://index.chromatic.com/graphql -v
 openssl s_client -connect index.chromatic.com:443
 ```
+
+Chromatic requires a publicly valid TLS certificate chain to securely communicate with its services. When your company uses a local certificate (e.g., from a corporate proxy like Zscaler that performs SSL inspection), the certificate is issued by an internal Certificate Authority (CA) that is not publicly trusted.
+This typically happens when you’re behind a corporate VPN or proxy that decrypts and re‑encrypts traffic for security monitoring.
+
+Local certificates may break Chromatic because of hostname mismatches, missing intermediate certs, or other validation errors.
+
+Ask your security team to add Chromatic’s domains and IPs, or have them update your local certificates.
