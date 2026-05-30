@@ -8,6 +8,7 @@ interface Window {
     init: (config: unknown) => void;
     open: (config?: unknown) => void;
     update?: (config: unknown) => void;
+    onOpen?: (callback: () => void) => () => void;
     onClose?: (callback: () => void) => () => void;
     isInitialized?: () => boolean;
   };
