@@ -1,7 +1,7 @@
-import styled from "@emotion/styled";
-import { spacing, minMd } from "@chromatic-com/tetra";
-import { type TransformedNavGroup } from "../types";
-import { CollapsibleGroup } from "../CollapsibleGroup";
+import styled from '@emotion/styled';
+import { spacing, minMd } from '@chromatic-com/tetra';
+import { type TransformedNavGroup } from '../types';
+import { CollapsibleGroup } from '../CollapsibleGroup';
 
 const SidebarContainer = styled.div`
   display: none;
@@ -17,9 +17,9 @@ const SidebarContainer = styled.div`
 `;
 
 const withBase = (url: string) =>
-  url === "" ? import.meta.env.BASE_URL : `${import.meta.env.BASE_URL}/${url}`;
+  url === '' ? import.meta.env.BASE_URL : `${import.meta.env.BASE_URL}/${url}`;
 
-const homeUrl = withBase("");
+const homeUrl = withBase('');
 
 interface SideNavProps {
   url: string;
@@ -33,9 +33,7 @@ export const SideNav = ({ url, sidebarGroups }: SideNavProps) => {
     <SidebarContainer>
       {sidebarGroups &&
         sidebarGroups.map((group, i) => {
-          return (
-            <CollapsibleGroup key={i} group={group} url={url} isHome={isHome} />
-          );
+          return <CollapsibleGroup key={i} group={group} url={url} isHome={isHome} />;
         })}
     </SidebarContainer>
   );

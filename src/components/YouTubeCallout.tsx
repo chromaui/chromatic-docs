@@ -1,7 +1,7 @@
-import * as React from "react";
-import LiteYouTubeEmbed from "react-lite-youtube-embed";
-import { Icon, color, fontWeight, typography } from "@chromatic-com/tetra";
-import styled from "@emotion/styled";
+import * as React from 'react';
+import LiteYouTubeEmbed from 'react-lite-youtube-embed';
+import { Icon, color, fontWeight, typography } from '@chromatic-com/tetra';
+import styled from '@emotion/styled';
 
 interface YouTubeCalloutProps {
   id: string;
@@ -53,7 +53,7 @@ const Details = styled.details`
     cursor: pointer;
 
     &::after {
-      content: "";
+      content: '';
       display: block;
       padding-bottom: calc(100% / (16 / 9));
     }
@@ -80,7 +80,7 @@ const Details = styled.details`
     }
 
     & > .lty-playbtn::before {
-      content: "";
+      content: '';
       position: absolute;
       background: inherit;
       top: 10%;
@@ -91,7 +91,7 @@ const Details = styled.details`
     }
 
     & > .lty-playbtn::after {
-      content: "";
+      content: '';
       position: relative;
       left: 1px;
       border-style: solid;
@@ -149,9 +149,9 @@ const Arrow = styled(Icon)`
 export const YouTubeCallout = ({
   id,
   open,
-  summary = "Watch a video tutorial on the Storybook channel",
+  summary = 'Watch a video tutorial on the Storybook channel',
   title,
-  params = "rel=0",
+  params = 'rel=0',
 }: YouTubeCalloutProps) => (
   <Details open={open}>
     <Summary className="no-anchor">

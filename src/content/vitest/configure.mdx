@@ -5,15 +5,15 @@ description: Learn about the various configuration options for visual tests for 
 sidebar: { order: 3 }
 ---
 
-import { TabItem, Tabs } from "../../components/Tabs";
+import { TabItem, Tabs } from '../../components/Tabs';
 
 # Configure visual tests for Vitest
 
 You can enhance your Vitest and Chromatic tests further by configuring these options globally in your [Vitest configuration file](https://vitest.dev/config/).
 
 ```ts title="vitest.config.ts"
-import { defineProject } from "vitest/config";
-import { chromaticPlugin } from "@chromatic-com/vitest/plugin";
+import { defineProject } from 'vitest/config';
+import { chromaticPlugin } from '@chromatic-com/vitest/plugin';
 
 export default defineProject({
   plugins: [
@@ -36,16 +36,16 @@ This allows you to have more granular control over which tests are snapshotted a
 When called within `test()`, it configures options for that test:
 
 ```jsx title="test/accordion.test.tsx"
-import { test } from "vitest";
-import { configure } from "@chromatic-com/vitest";
+import { test } from 'vitest';
+import { configure } from '@chromatic-com/vitest';
 
-test("accordion", async () => {
+test('accordion', async () => {
   // ❌ Not snapshotted
   configure({ disableAutoSnapshot: true }); // Scopes to this test only
   await render(<Accordion />);
 });
 
-test("button", async () => {
+test('button', async () => {
   // ✅ Snapshotted automatically
   await render(<Button />);
 });
@@ -58,24 +58,24 @@ test("button", async () => {
 When called within `describe()`, it configures options for all tests and suites within that describe block.
 
 ```jsx title="test/accordion.test.tsx"
-import { describe, test } from "vitest";
-import { configure } from "@chromatic-com/vitest";
+import { describe, test } from 'vitest';
+import { configure } from '@chromatic-com/vitest';
 
-test("accordion", async () => {
+test('accordion', async () => {
   // ✅ Snapshotted automatically
   await render(<Accordion />);
 });
 
-describe("button", () => {
+describe('button', () => {
   configure({ disableAutoSnapshot: true }); // Scopes to all tests (and nested suites) in this suite
 
-  test("default", async () => {
+  test('default', async () => {
     // ❌ Not snapshotted
     await render(<Button />);
   });
 
-  describe("as link", () => {
-    test("default", async () => {
+  describe('as link', () => {
+    test('default', async () => {
       // ❌ Not snapshotted
       await render(<Button as={Link} />);
     });
@@ -90,19 +90,19 @@ describe("button", () => {
 When called at the top level, it configures options for all tests in the file:
 
 ```jsx title="test/accordion.test.tsx"
-import { describe, test } from "vitest";
-import { configure } from "@chromatic-com/vitest";
+import { describe, test } from 'vitest';
+import { configure } from '@chromatic-com/vitest';
 
 // Scoped to whole test module (file), affects all tests and suites in this file
 configure({ disableAutoSnapshot: true });
 
-test("accordion", async () => {
+test('accordion', async () => {
   // ❌ Not snapshotted
   await render(<Accordion />);
 });
 
-describe("button", () => {
-  test("default", async () => {
+describe('button', () => {
+  test('default', async () => {
     // ❌ Not snapshotted
     await render(<Button />);
   });

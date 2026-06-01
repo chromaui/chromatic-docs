@@ -1,6 +1,6 @@
-import styled from "@emotion/styled";
-import { Support } from "../Support";
-import { minMd, spacing } from "@chromatic-com/tetra";
+import styled from '@emotion/styled';
+import { Support } from '../Support';
+import { minMd, spacing } from '@chromatic-com/tetra';
 
 export const Container = styled.div`
   display: flex;

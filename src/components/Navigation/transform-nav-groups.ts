@@ -6,15 +6,15 @@ import {
   type TransformedItem,
   type TransformedNavGroup,
   type TransformedNavGroupItem,
-} from "./types";
+} from './types';
 
 function generateBreadcrumb(path: string[]): string {
-  return path.join(" » ");
+  return path.join(' » ');
 }
 
 function transformNavItem(
   item: NavGroupItem,
-  path: string[],
+  path: string[]
 ): TransformedNavGroupItem | NestedTransformedGroup {
   if (isNestedGroup(item)) {
     return {
@@ -27,7 +27,7 @@ function transformNavItem(
 
   return {
     label: item.data?.sidebar?.label || item.data.title,
-    id: item.data?.isHome ? "" : item.id,
+    id: item.data?.isHome ? '' : item.id,
     order: item.data?.sidebar?.order || 999,
     hide: item.data?.sidebar?.hide || false,
     isHome: item.data?.isHome || false,
@@ -37,7 +37,7 @@ function transformNavItem(
 
 function transformSortAndFilterNavItems(
   items: NavGroupItem[],
-  path: string[] = [],
+  path: string[] = []
 ): TransformedNavGroupItem[] {
   return items
     .map((item) => transformNavItem(item, path))
@@ -53,24 +53,20 @@ export function transformNavGroups(groups: NavGroup[]) {
 }
 
 export function isTransformedItem(
-  item: TransformedNavGroupItem | TransformedNavGroup,
+  item: TransformedNavGroupItem | TransformedNavGroup
 ): item is TransformedItem {
-  return (
-    (item as NestedTransformedGroup | TransformedNavGroup).items === undefined
-  );
+  return (item as NestedTransformedGroup | TransformedNavGroup).items === undefined;
 }
 
 // Flatten the navGroups into a single array of items
 export function flattenGroups(
-  groups: TransformedNavGroup[] | TransformedNavGroupItem[],
+  groups: TransformedNavGroup[] | TransformedNavGroupItem[]
 ): TransformedItem[] {
   let flattenedItems: TransformedItem[] = [];
 
   for (const item of groups) {
     if (!isTransformedItem(item)) {
-      const items = flattenGroups(
-        (item as NestedTransformedGroup | TransformedNavGroup).items,
-      );
+      const items = flattenGroups((item as NestedTransformedGroup | TransformedNavGroup).items);
       flattenedItems.push(...items);
     } else {
       flattenedItems.push(item as TransformedItem);

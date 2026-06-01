@@ -4,7 +4,7 @@ description: Learn how to configure Chromatic with a custom provider
 sidebar: { order: 10, label: Other CI providers }
 ---
 
-import IntegrationSnippets from "../../components/IntegrationSnippets.astro";
+import IntegrationSnippets from '../../components/IntegrationSnippets.astro';
 
 # Automate Chromatic with a custom provider
 
@@ -41,7 +41,7 @@ To integrate Chromatic with your existing CI provider, you'll need to add the fo
     - run:
         name: "Playwright"
         displayName: "Run Playwright tests"
-        container: mcr.microsoft.com/playwright:v1.58.2-noble
+        container: mcr.microsoft.com/playwright:v1.60.0-noble
         options:
           artifacts:
             # Chromatic automatically defaults to the test-results directory.
@@ -67,7 +67,7 @@ To integrate Chromatic with your existing CI provider, you'll need to add the fo
     - run:
         name: "Cypress"
         displayName: "Run Cypress tests"
-        container: cypress/browsers:node-24.14.0-chrome-145.0.7632.116-1-ff-148.0-edge-145.0.3800.70-1
+        container: cypress/browsers:node-24.15.0-chrome-148.0.7778.96-1-ff-150.0.3-edge-148.0.3967.54-1
         environment:
           ELECTRON_EXTRA_LAUNCH_ARGS: "--remote-debugging-port=9222"
         options:

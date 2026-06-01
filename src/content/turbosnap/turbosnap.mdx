@@ -1,7 +1,7 @@
 ---
 title: Introduction to TurboSnap
 description: Speed up tests by detecting file changes with Git
-sidebar: { order: 1, label: "Overview" }
+sidebar: { order: 1, label: 'Overview' }
 ---
 
 # Introduction to TurboSnap
@@ -75,19 +75,7 @@ When there is more than one ancestor, TurboSnap needs to consider the possible c
 
 Let's take a look at an example to understand how a merge impacts the changes TurboSnap considers.
 
-```mermaid
-gitGraph
-	commit id: "M.1"
-	branch feature-1
-	commit id: "F1.1"
-	checkout main
-	branch feature-2
-	commit id: "F2.1 - preview.js" tag: "rebuild"
-	checkout main
-	merge feature-2 id: "M.2" tag: "rebuild"
-	checkout feature-1
-	merge main id: "F1.2" tag: "rebuild"
-```
+![Git graph where a change to preview.js on feature-2 triggers a full rebuild on F2.1, propagating rebuild tags through merges into main (M.2) and feature-1 (F1.2).](../../images/diagrams/turbosnap-full-rebuild-merge.svg)
 
 Suppose an update was made to `preview.js` on the `feature-2` branch, causing TurboSnap to trigger a full rebuild on build `F2.1`. This is expected, since changes to `preview.js` require us to retest everything.
 
@@ -119,18 +107,7 @@ We treat rebases like merges in this regard, since we want to bring baselines ac
 
 Let's take a look at an example to illustrate the logic behind why Chromatic takes an ancestor from each side of your rebase.
 
-```mermaid
-%%{
-  init: { 'theme': 'natural', 'themeVariables': { 'tagLabelFontSize': '12px' } }
-}%%
-gitGraph
-	commit id: "M.1"
-	branch feature
-	commit id: "F.1" tag: "an. M.1" type: REVERSE
-	commit id: "F.2" tag: "an. F.1" type: REVERSE
-	checkout main
-	merge feature id: "M.2" tag: "an. F.2 + M.1" type: HIGHLIGHT
-```
+![Git graph where a feature branch with commits F.1 and F.2 is merged into main as M.2, which takes both F.2 and M.1 as ancestor builds.](../../images/diagrams/turbosnap-rebase-ancestor.svg)
 
 Suppose you were to make and accept some changes on `Build F.1`.
 
@@ -163,21 +140,7 @@ TurboSnap will search for a "replacement build" on the branch with a valid commi
 
 Let's take a look at an example to understand the ancestor selection logic TurboSnap uses when the commit tied to the previous build on the branch is no longer in your git history.
 
-```mermaid
-gitGraph
-	commit id: "M.1"
-	branch feature-1
-	commit id: "F1.1" type: REVERSE
-	checkout main
-	branch feature-2
-	commit id: "F2.1"
-	checkout feature-1
-	commit id: "F1.2" type: REVERSE
-	checkout main
-	merge feature-2 id: "M.2" type: NORMAL
-	checkout feature-1
-	merge main id: "F1.3" type: HIGHLIGHT tag: "TS an. M.1 + M.2"
-```
+![Git graph illustrating TurboSnap's replacement-build behavior: feature-1 with rebased commits F1.1 and F1.2 takes M.1 and M.2 as TurboSnap ancestors on F1.3 after merging from main.](../../images/diagrams/turbosnap-replacement-build.svg)
 
 In this example, let's say you're working on `feature-1`. There are changes from `feature-2` that were merged into `main`, so you rebase those changes onto your `feature-1` branch on `Build F1.3`.
 
@@ -190,8 +153,7 @@ Things get a little more complicated when TurboSnap tries to locate the commit f
 ## Pricing
 
 <div class="aside" style="margin-bottom: 2rem;">
-  👀 Snapshots skipped by flags
-  [`OnlyStoryNames`](/docs/configure#onlystorynames) and
+  👀 Snapshots skipped by flags [`OnlyStoryNames`](/docs/configure#onlystorynames) and
   [`OnlyStoryFiles`](/docs/configure#onlystoryfiles) are charged as TurboSnaps.
 </div>
 

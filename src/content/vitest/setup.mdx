@@ -5,10 +5,10 @@ description: Learn how to setup Chromatic for Vitest
 sidebar: { order: 1 }
 ---
 
-import DemoChromaticUnlinked from "../../shared-snippets/demo-chromatic-unlinked.mdx";
-import TroubleshootingSetup from "../../shared-snippets/setup/troubleshooting.mdx";
-import RunE2E from "../../shared-snippets/setup/run-e2e.mdx";
-import InstallSnippets from "../../components/InstallSnippets.astro";
+import DemoChromaticUnlinked from '../../shared-snippets/demo-chromatic-unlinked.mdx';
+import TroubleshootingSetup from '../../shared-snippets/setup/troubleshooting.mdx';
+import RunE2E from '../../shared-snippets/setup/run-e2e.mdx';
+import InstallSnippets from '../../components/InstallSnippets.astro';
 
 # Chromatic for Vitest (beta)
 
@@ -43,9 +43,9 @@ Supported Vitest browser provider is [@vitest/browser-playwright](https://vitest
 Generate a unique project token for your app by signing in to Chromatic and creating a project. Sign in with your GitHub, GitLab, Bitbucket, or email.
 
 <div class="callout">
-  If your repository already has a Chromatic project linked to it, you can
-  create an additional Chromatic project to run visual tests with Vitest. Follow
-  the instructions for [sub-projects support](/docs/combine-stories-e2e).
+  If your repository already has a Chromatic project linked to it, you can create an additional
+  Chromatic project to run visual tests with Vitest. Follow the instructions for [sub-projects
+  support](/docs/combine-stories-e2e).
 </div>
 
 <DemoChromaticUnlinked />
@@ -88,9 +88,9 @@ Install **[chromatic](https://www.npmjs.com/package/chromatic)** and `@chromatic
 Add `chromaticPlugin` in your [Vitest configuration file](https://vitest.dev/config/).
 
 ```ts title="vitest.config.ts"
-import { defineProject } from "vitest/config";
-import { playwright } from "@vitest/browser-playwright";
-import { chromaticPlugin } from "@chromatic-com/vitest/plugin"; // [!code ++]
+import { defineProject } from 'vitest/config';
+import { playwright } from '@vitest/browser-playwright';
+import { chromaticPlugin } from '@chromatic-com/vitest/plugin'; // [!code ++]
 
 export default defineProject({
   plugins: [chromaticPlugin()], // [!code ++]
@@ -100,7 +100,7 @@ export default defineProject({
     browser: {
       provider: playwright(),
       enabled: true,
-      instances: [{ browser: "chromium" }],
+      instances: [{ browser: 'chromium' }],
     },
   },
 });

@@ -18,7 +18,7 @@ Web font loading can vary between browsers, versions, and operating systems. Web
 /* Fallback to "Courier New" for monospace fonts */
 
 code {
-  font-family: "Source Code Pro", "Courier New", monospace;
+  font-family: 'Source Code Pro', 'Courier New', monospace;
 }
 ```
 
@@ -30,6 +30,7 @@ code {
 - Sans-serif: Arial, Verdana, Trebuchet MS
 - Serif: Georgia, Times New Roman
 - Monospace: Courier New, Courier
+- Non-Latin scripts: use a web-safe font that covers your target language (e.g., `Noto Sans JP` for Japanese)
 
 </details>
 
@@ -38,13 +39,7 @@ code {
 We recommend that you always ensure fonts are loaded before your tests are executed. With Storybook, you can preload fonts by specifying them in [`./storybook/preview-head.html`](https://storybook.js.org/docs/configure/story-rendering#adding-to-head).
 
 ```js title="./storybook/preview-head.html"
-<link
-  rel="preload"
-  href="path/to/font.woff2"
-  as="font"
-  type="font/woff2"
-  crossorigin="anonymous"
-/>
+<link rel="preload" href="path/to/font.woff2" as="font" type="font/woff2" crossorigin="anonymous" />
 ```
 
 <div class="aside">
@@ -60,10 +55,10 @@ For example, you might have a font CDN referenced in your stylesheets like so.
 ```css title="src/index.css"
 @font-face {
   font-display: optional;
-  font-family: "YourFont";
+  font-family: 'YourFont';
   font-style: normal;
   font-weight: normal;
-  src: url("https://cdn.yoursite.com/yourfont.woff2") format("woff2");
+  src: url('https://cdn.yoursite.com/yourfont.woff2') format('woff2');
 }
 ```
 
@@ -74,11 +69,11 @@ Next, create a `yourfontface.css` CSS inside your Storybook configuration direct
 ```css title="./storybook/yourfontface.css"
 @font-face {
   font-display: optional;
-  font-family: "YourFont";
+  font-family: 'YourFont';
   font-style: normal;
   font-weight: normal;
   /* 👇 Change this to point at the local font path */
-  src: url("/yourfont.woff2") format("woff2");
+  src: url('/yourfont.woff2') format('woff2');
 }
 ```
 
@@ -95,12 +90,12 @@ This technique loads a local font file during development and testing in Storybo
 This alternate solution uses the browser's font load API and the [`isChromatic()`](/docs/ischromatic) helper function to verify that fonts load when in the Chromatic environment.
 
 ```js title="./storybook/preview.js|ts"
-import isChromatic from "chromatic/isChromatic";
+import isChromatic from 'chromatic/isChromatic';
 
 // Use the document.fonts API to check if fonts have loaded
 // https://developer.mozilla.org/en-US/docs/Web/API/Document/fonts API to
 const fontLoader = async () => ({
-  fonts: await Promise.all([document.fonts.load("400 1em Font Name")]),
+  fonts: await Promise.all([document.fonts.load('400 1em Font Name')]),
   // or
   // fonts: await document.fonts.ready,
 });

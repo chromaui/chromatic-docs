@@ -1,4 +1,4 @@
-name: "Run tests"
+name: 'Run tests'
 
 on: push
 
@@ -8,25 +8,20 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
-        uses: actions/checkout@v6
+        uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
         with:
           ref: ${{ github.event.pull_request.head.sha }}
-      - uses: pnpm/action-setup@v4
+      - uses: pnpm/action-setup@0e279bb959325dab635dd2c09392533439d90093 # v6.0.8
         name: Install pnpm
         with:
+          cache: true
           run_install: false
-      - name: Get pnpm store directory
-        shell: bash
-        run: |
-          echo "STORE_PATH=$(pnpm store path --silent)" >> $GITHUB_ENV
-      - uses: actions/cache@v5
-        name: Setup pnpm cache
-        with:
-          path: ${{ env.STORE_PATH }}
-          key: ${{ runner.os }}-pnpm-store-${{ hashFiles('**/pnpm-lock.yaml') }}
-          restore-keys: |
-            ${{ runner.os }}-pnpm-store-
       - name: Install dependencies
         run: pnpm install
+      - name: Verify diagrams are in sync
+        run: |
+          pnpm diagrams
+          git diff --exit-code src/images/diagrams \
+            || (echo "::error::Committed diagram SVGs are out of sync with diagrams/*.mmd. Run 'pnpm diagrams' locally and commit." && exit 1)
       - name: Run Vitest
         run: pnpm run test:unit

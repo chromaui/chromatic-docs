@@ -5,10 +5,10 @@ description: Learn how to setup Chromatic for Playwright
 sidebar: { order: 1 }
 ---
 
-import DemoChromaticUnlinked from "../../shared-snippets/demo-chromatic-unlinked.mdx";
-import TroubleshootingSetup from "../../shared-snippets/setup/troubleshooting.mdx";
-import RunE2E from "../../shared-snippets/setup/run-e2e.mdx";
-import InstallSnippets from "../../components/InstallSnippets.astro";
+import DemoChromaticUnlinked from '../../shared-snippets/demo-chromatic-unlinked.mdx';
+import TroubleshootingSetup from '../../shared-snippets/setup/troubleshooting.mdx';
+import RunE2E from '../../shared-snippets/setup/run-e2e.mdx';
+import InstallSnippets from '../../components/InstallSnippets.astro';
 
 # Chromatic for Playwright
 
@@ -42,9 +42,9 @@ Chromatic supports Playwright version 1.38.0 and above.
 Generate a unique project token for your app by signing in to Chromatic and creating a project. Sign in with your GitHub, GitLab, Bitbucket, or email.
 
 <div class="callout">
-  If your repository already has a Chromatic project linked to it, you can
-  create an additional Chromatic project to run visual tests with Playwright.
-  Follow the instructions for [sub-projects support](/docs/combine-stories-e2e).
+  If your repository already has a Chromatic project linked to it, you can create an additional
+  Chromatic project to run visual tests with Playwright. Follow the instructions for [sub-projects
+  support](/docs/combine-stories-e2e).
 </div>
 
 <DemoChromaticUnlinked />
@@ -77,23 +77,21 @@ Install **[chromatic](https://www.npmjs.com/package/chromatic)** and `@chromatic
 
 {/* prettier-ignore-end */}
 
-<div class="aside">
-  Chromatic only works with tests written in Playwright v1.12+.
-</div>
+<div class="aside">Chromatic only works with tests written in Playwright v1.12+.</div>
 
 ### 3. Add Chromatic to Playwright tests
 
 Update your Playwright tests to use the Chromatic specific testing utilities from `@chromatic-com/playwright`.
 
 ```js
-import { test, expect } from "@playwright/test"; // [!code --]
-import { test, expect } from "@chromatic-com/playwright"; // [!code ++]
+import { test, expect } from '@playwright/test'; // [!code --]
+import { test, expect } from '@chromatic-com/playwright'; // [!code ++]
 
 // Then use as normal 👇
-test("Homepage", async ({ page }) => {
-  await page.goto("https://mealexpress.com/");
+test('Homepage', async ({ page }) => {
+  await page.goto('https://mealexpress.com/');
 
-  await expect(page).toHaveTitle("Mealdrop - find your next meal");
+  await expect(page).toHaveTitle('Mealdrop - find your next meal');
 
   // ...
 });

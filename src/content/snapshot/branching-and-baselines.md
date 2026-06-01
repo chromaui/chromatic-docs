@@ -1,7 +1,7 @@
 ---
 title: Branches and baselines
 description: How Chromatic decides what snapshots to compare when using UI Tests and UI Review
-sidebar: { order: 2, label: "Branches & baselines" }
+sidebar: { order: 2, label: 'Branches & baselines' }
 ---
 
 # Branches, baselines, and git history
@@ -11,21 +11,7 @@ This document describes how Chromatic decides what snapshots to compare when usi
 - [UI Tests](#ui-tests-verify-changes-on-one-branch): Verify changes on one branch (uses baselines)
 - [UI Review](#ui-review-compare-two-branches-for-changes): Compare two branches for changes (does not use baselines)
 
-```mermaid
-%%{
-  init: { 'gitGraph': { 'parallelCommits': true, 'rotateCommitLabel': false, 'mainBranchOrder': 2 }}
-}%%
-    gitGraph LR:
-       commit type: HIGHLIGHT id: "M"
-       branch new_feature
-       commit id: "D"
-       commit id: "E"
-       commit type: HIGHLIGHT id: "F"
-       checkout main
-       commit id: "A"
-       commit id: "B"
-       commit id: "C"
-```
+![Git graph with main branch commits M, A, B, C and a new_feature branch off M with commits D, E, F. M and F are highlighted.](../../images/diagrams/branches-baselines-overview.svg)
 
 <div class="aside">
 
@@ -178,20 +164,7 @@ There are times where you may accept unwanted changes, and haven't merged these 
 
 Let's say you've made a change to a component on your `feature-branch`, accepted it, and a build or two later realized you need to make a different change to the same component:
 
-```mermaid
-%%{
-  init: {
-    'gitGraph': { 'parallelCommits': true, 'mainBranchName': 'main' }
-  }
-}%%
-gitGraph TB:
-  checkout main
-  commit id: "X" type: HIGHLIGHT
-  branch feature-branch
-  commit id: "A" tag: "unwanted changes"
-  commit id: "B"
-  commit id: "C" type: HIGHLIGHT
-```
+![Git graph with main branch commit X and a feature-branch off X with commits A (tagged "unwanted changes"), B, and C.](../../images/diagrams/unwanted-changes-on-feature.svg)
 
 If you're still working on the feature branch where the changes were accepted, the changes made in the build tied to commit `A` will reflect as the baseline for the build tied to commit `C`. But in this situation, you likely want to see the changes from the commit `C` compared against the baselines prior to the build tied to commit `A`.
 
@@ -216,35 +189,15 @@ When you create a new build for a new commit, Chromatic will calculate a baselin
 
 The ancestor build is the most recent ancestor (commit) in the git history that has had Chromatic run against it. Often, it is the previous commit:
 
-```mermaid
-
-gitGraph
- commit id: "x (Build N)"
- commit id: "y (Build N+1)"
-```
+![Two sequential commits x (Build N) and y (Build N+1) on a single branch.](../../images/diagrams/ancestor-previous-commit.svg)
 
 If you don’t run CI on every commit (which is common if you don’t push every single time you commit), there may be a gap:
 
-```mermaid
-
-gitGraph
- commit id: "x (Build N)"
- commit id: "y"
- commit id: "z (Build N+1)"
-```
+![Three sequential commits x (Build N), y (no build), and z (Build N+1) on a single branch.](../../images/diagrams/ancestor-with-gap.svg)
 
 Also, it is possible there is more than one most recent ancestor, in particular if the commit we are looking at is a merge commit:
 
-```mermaid
-gitGraph TB:
-    commit id: "w"
-    commit id: "x" tag: "Build N"
-    branch new_feature
-    commit id: "p" tag: "Build N+1"
-    checkout main
-    merge new_feature id: "y" tag: "Build N+2"
-    commit id: "z"
-```
+![Git graph with main branch commits w and x (Build N), new_feature branch with commit p (Build N+1), then a merge into main as y (Build N+2), followed by z.](../../images/diagrams/ancestor-merge-commit.svg)
 
 In this case, Build N+2 will have two ancestor builds (N, and N+1).
 Things can get a little more complicated (see some exceptions below) but that’s the basic idea.
@@ -266,12 +219,7 @@ If there is, check the status of that snapshot:
 
 The last case bears thinking about a bit. Consider this scenario:
 
-```mermaid
-gitGraph LR:
-  commit id: "x (Build N)"
-  commit id: "y (Build N+1)"
-  commit id: "z (Build N+2)"
-```
+![Three sequential commits x (Build N), y (Build N+1), and z (Build N+2) on a single branch.](../../images/diagrams/revert-restore-color.svg)
 
 Suppose then in commit y, we changed the color of our submit buttons to be orange rather than green. However, we realized this was a mistake and denied the change. Then in commit z we changed the colour back to green.
 
@@ -331,23 +279,7 @@ To find the merge base build in Chromatic, we need to track back from the curren
 
 Typically this leads to a situation like so:
 
-```mermaid
-%%{
-  init: {
-    'gitGraph': { 'parallelCommits': true, 'mainBranchName': 'base' }
-  }
-}%%
-gitGraph TB:
-  commit id: "x" type: HIGHLIGHT
-  branch head
-  checkout head
-  commit id: "w"
-  commit id: "p"
-  commit id: "q" type: HIGHLIGHT
-  checkout base
-  commit id: "y"
-  commit id: "z"
-```
+![Git graph with base branch (commits x, y, z) and a head branch off x with commits w, p, q. x and q are highlighted as the merge base and head commit.](../../images/diagrams/merge-base-typical.svg)
 
 Starting with the build corresponding to commit `q`, Chromatic walks back the commit and build history, through `p` and `w` until it reaches `x`. This is the “merge base” build (and also commit, which would be output from `git merge-base base head`).
 
@@ -355,24 +287,7 @@ Chromatic will now compare the stories from `q` to the corresponding stories in 
 
 If the head branch has been more recently updated from the base branch, the merge base can be a more recent commit than the point we branched off:
 
-```mermaid
-%%{
-  init: {
-    'gitGraph': { 'parallelCommits': true, 'mainBranchName': 'base' }
-  }
-}%%
-gitGraph TB:
-  commit id: "x"
-  branch head
-  checkout head
-  commit id: "w"
-  commit id: "p"
-  checkout base
-  commit id: "y"
-  commit id: "z" type: HIGHLIGHT
-  checkout head
-  merge base id: "q" type: HIGHLIGHT
-```
+![Git graph where the head branch (commits w, p) has been updated from the base branch (commits y, z) via a merge commit q. z and q are highlighted.](../../images/diagrams/merge-base-updated.svg)
 
 In this case the merge base starting at `q` will be `z`. It makes sense to use `z` as the point of comparison, otherwise (if we compared `q` to `x` as before) we would see a set of changes in the PR that were created by `y` and `z`, which would be confusing.
 

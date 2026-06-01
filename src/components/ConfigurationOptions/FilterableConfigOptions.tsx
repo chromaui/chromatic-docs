@@ -1,14 +1,10 @@
-import {
-  DropdownMenu,
-  DropdownMenuCheckboxItem,
-  Icon,
-} from "@chromatic-com/tetra";
-import { ConfigOption } from "./ConfigOption";
+import { DropdownMenu, DropdownMenuCheckboxItem, Icon } from '@chromatic-com/tetra';
+import { ConfigOption } from './ConfigOption';
 import type {
   ConfigOption as ConfigOptionType,
   SupportedType,
-} from "../../../chromatic-config/generate-schema";
-import { useMemo, useState } from "react";
+} from '../../../chromatic-config/generate-schema';
+import { useMemo, useState } from 'react';
 
 export interface FilterableConfigOptionsProps {
   options: ConfigOptionType[];
@@ -18,21 +14,17 @@ type Filters = {
   [key in SupportedType]: boolean;
 };
 
-export const FilterableConfigOptions = ({
-  options,
-}: FilterableConfigOptionsProps) => {
+export const FilterableConfigOptions = ({ options }: FilterableConfigOptionsProps) => {
   const [filters, setFilters] = useState<Filters>({
     CLI: true,
-    "GitHub Action": true,
-    "Config File": true,
+    'GitHub Action': true,
+    'Config File': true,
   });
 
   const filteredOptions = useMemo(() => {
-    const activeFilters = Object.keys(filters).filter(
-      (filter) => filters[filter as SupportedType],
-    );
+    const activeFilters = Object.keys(filters).filter((filter) => filters[filter as SupportedType]);
     const filteredOptions = options.filter((option) =>
-      option.supports.some((support) => activeFilters.includes(support)),
+      option.supports.some((support) => activeFilters.includes(support))
     );
     return filteredOptions;
   }, [filters, options]);
@@ -49,25 +41,23 @@ export const FilterableConfigOptions = ({
           }
         >
           <DropdownMenuCheckboxItem
-            checked={filters["CLI"]}
-            onCheckedChange={(checked: boolean) =>
-              setFilters({ ...filters, CLI: checked })
-            }
+            checked={filters['CLI']}
+            onCheckedChange={(checked: boolean) => setFilters({ ...filters, CLI: checked })}
           >
             CLI
           </DropdownMenuCheckboxItem>
           <DropdownMenuCheckboxItem
-            checked={filters["GitHub Action"]}
+            checked={filters['GitHub Action']}
             onCheckedChange={(checked: boolean) =>
-              setFilters({ ...filters, "GitHub Action": checked })
+              setFilters({ ...filters, 'GitHub Action': checked })
             }
           >
             GitHub Action
           </DropdownMenuCheckboxItem>
           <DropdownMenuCheckboxItem
-            checked={filters["Config File"]}
+            checked={filters['Config File']}
             onCheckedChange={(checked: boolean) =>
-              setFilters({ ...filters, "Config File": checked })
+              setFilters({ ...filters, 'Config File': checked })
             }
           >
             Config File
@@ -76,8 +66,8 @@ export const FilterableConfigOptions = ({
       </p>
       {filteredOptions.length === 0 && (
         <p className="callout">
-          No options found. Please make sure you've selected at least one
-          platform from the "Filter by platform" dropdown above.
+          No options found. Please make sure you've selected at least one platform from the "Filter
+          by platform" dropdown above.
         </p>
       )}
       {filteredOptions.map((option) => (

@@ -1,5 +1,5 @@
-import { expect, test, describe } from "vitest";
-import { calculateSnapshots } from "./calculateSnapshots";
+import { expect, test, describe } from 'vitest';
+import { calculateSnapshots } from './calculateSnapshots';
 
 const examples = [
   {
@@ -92,12 +92,10 @@ const turboSnapExamples = [
   },
 ];
 
-describe("calculateSnapshots", () => {
-  test("Calculates snapshots", () => {
+describe('calculateSnapshots', () => {
+  test('Calculates snapshots', () => {
     examples.forEach(({ tests, builds, browsers, viewports, snapshots }) => {
-      expect(
-        calculateSnapshots(tests, builds, browsers, viewports, false, false),
-      ).toEqual({
+      expect(calculateSnapshots(tests, builds, browsers, viewports, false, false)).toEqual({
         snapshots,
         turboSnaps: 0,
         billedSnapshots: snapshots,
@@ -105,11 +103,9 @@ describe("calculateSnapshots", () => {
     });
   });
 
-  test("Calculates snapshots with accessibility enabled", () => {
+  test('Calculates snapshots with accessibility enabled', () => {
     examples.forEach(({ tests, builds, browsers, viewports, snapshots }) => {
-      expect(
-        calculateSnapshots(tests, builds, browsers, viewports, true, false),
-      ).toEqual({
+      expect(calculateSnapshots(tests, builds, browsers, viewports, true, false)).toEqual({
         snapshots: snapshots + tests * builds * viewports,
         turboSnaps: 0,
         billedSnapshots: snapshots + tests * builds * viewports,
@@ -117,7 +113,7 @@ describe("calculateSnapshots", () => {
     });
   });
 
-  test("Calculates snapshots with TurboSnap enabled", () => {
+  test('Calculates snapshots with TurboSnap enabled', () => {
     turboSnapExamples.forEach(
       ({
         tests,
@@ -130,25 +126,17 @@ describe("calculateSnapshots", () => {
         changedTestPercentage,
       }) => {
         expect(
-          calculateSnapshots(
-            tests,
-            builds,
-            browsers,
-            viewports,
-            false,
-            true,
-            changedTestPercentage,
-          ),
+          calculateSnapshots(tests, builds, browsers, viewports, false, true, changedTestPercentage)
         ).toEqual({
           snapshots,
           turboSnaps,
           billedSnapshots,
         });
-      },
+      }
     );
   });
 
-  test("Calculates snapshots with TurboSnap enabled", () => {
+  test('Calculates snapshots with TurboSnap enabled', () => {
     expect(calculateSnapshots(50, 1, 2, 2, true, true, 20)).toEqual({
       billedSnapshots: 92,
       snapshots: 60,

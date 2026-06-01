@@ -1,11 +1,11 @@
-import { Header } from "@chromatic-com/tetra";
-import type { FC } from "react";
+import { Header } from '@chromatic-com/tetra';
+import type { FC } from 'react';
 
-import { links } from "./headerData";
-import styled from "@emotion/styled";
+import { links } from './headerData';
+import styled from '@emotion/styled';
 
 interface Props {
-  theme?: "dark" | "light";
+  theme?: 'dark' | 'light';
 }
 
 const Wrapper = styled.span`
@@ -18,7 +18,7 @@ export const TrackSignUp = ({ children }: { children: React.ReactNode }) => {
     <Wrapper
       onClick={() => {
         if (window.plausible) {
-          window.plausible("Click Sign Up");
+          window.plausible('Click Sign Up');
         }
       }}
     >
@@ -27,7 +27,7 @@ export const TrackSignUp = ({ children }: { children: React.ReactNode }) => {
   );
 };
 
-export const MarketingHeader: FC<Props> = ({ theme = "light" }) => {
+export const MarketingHeader: FC<Props> = ({ theme = 'light' }) => {
   return (
     <Header
       fullWidth

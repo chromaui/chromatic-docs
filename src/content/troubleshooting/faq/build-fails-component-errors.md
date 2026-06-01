@@ -1,7 +1,7 @@
 ---
 sidebar: { hide: true }
 title: Why is my build failing with component errors?
-section: "uiTestsAndReview"
+section: 'uiTestsAndReview'
 ---
 
 # Why is my build failing with component errors?

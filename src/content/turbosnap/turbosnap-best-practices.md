@@ -1,8 +1,8 @@
 ---
 title: TurboSnap best practices
 description: TurboSnap best practices to optimize your builds for faster testing
-sidebar: { order: 3, label: "Best practices" }
-slug: "turbosnap/best-practices"
+sidebar: { order: 3, label: 'Best practices' }
+slug: 'turbosnap/best-practices'
 ---
 
 # TurboSnap best practices
@@ -73,7 +73,7 @@ We recommend running Chromatic on `push` events. However, if you wish to trigger
 Create a separate workflow for Chromatic using the following strategy for the checkout step:
 
 ```yaml
-- uses: actions/checkout@v5
+- uses: actions/checkout@v6
   with:
     # 👇 Ensures Chromatic can read your full git history
     fetch-depth: 0

@@ -4,7 +4,7 @@ description: Learn how to configure Chromatic with Azure
 sidebar: { order: 8, label: Azure Pipelines }
 ---
 
-import IntegrationSnippets from "../../components/IntegrationSnippets.astro";
+import IntegrationSnippets from '../../components/IntegrationSnippets.astro';
 
 # Automate Chromatic with Azure Pipelines
 
@@ -38,7 +38,7 @@ To integrate Chromatic with your existing pipeline, you'll need to add the follo
               - task: UseNode@1
                 displayName: "Install Node.js"
                 inputs:
-                  version: "24.14.0"
+                  version: "24.15.0"
               - task: Cache@2
                 displayName: "Install and cache dependencies"
                 inputs:
@@ -70,7 +70,7 @@ To integrate Chromatic with your existing pipeline, you'll need to add the follo
         jobs:
           - job: Playwright
             displayName: "Run Playwright"
-            container: mcr.microsoft.com/playwright:v1.58.2-noble
+            container: mcr.microsoft.com/playwright:v1.60.0-noble
             steps:
               - checkout: self
                 displayName: "Get Full Git History"
@@ -78,7 +78,7 @@ To integrate Chromatic with your existing pipeline, you'll need to add the follo
               - task: UseNode@1
                 displayName: "Install Node.js"
                 inputs:
-                  version: "24.14.0"
+                  version: "24.15.0"
               - task: Cache@2
                 displayName: "Install and cache dependencies"
                 inputs:
@@ -114,7 +114,7 @@ To integrate Chromatic with your existing pipeline, you'll need to add the follo
               - task: UseNode@1
                 displayName: "Install Node.js"
                 inputs:
-                  version: "24.14.0"
+                  version: "24.15.0"
               - task: Cache@2
                 displayName: "Install and cache dependencies"
                 inputs:
@@ -152,7 +152,7 @@ To integrate Chromatic with your existing pipeline, you'll need to add the follo
         jobs:
           - job: Cypress
             displayName: "Run Cypress"
-            container: cypress/browsers:node-24.14.0-chrome-145.0.7632.116-1-ff-148.0-edge-145.0.3800.70-1
+            container: cypress/browsers:node-24.15.0-chrome-148.0.7778.96-1-ff-150.0.3-edge-148.0.3967.54-1
             variables:
               npm_config_cache: $(Pipeline.Workspace)/.npm
             steps:
@@ -162,7 +162,7 @@ To integrate Chromatic with your existing pipeline, you'll need to add the follo
               - task: UseNode@1
                 displayName: "Install Node.js"
                 inputs:
-                  version: "24.14.0"
+                  version: "24.15.0"
               - task: Cache@2
                 displayName: "Install and cache dependencies"
                 inputs:
@@ -200,7 +200,7 @@ To integrate Chromatic with your existing pipeline, you'll need to add the follo
               - task: UseNode@1
                 displayName: "Install Node.js"
                 inputs:
-                  version: "24.14.0"
+                  version: "24.15.0"
               - task: Cache@2
                 displayName: "Install and cache dependencies"
                 inputs:
@@ -275,17 +275,17 @@ Chromatic is prepared to handle large file uploads (with a limit of 5000 files, 
 # Pipeline stages
 stages:
   - stage: UI_Tests
-    displayName: "UI Tests"
+    displayName: 'UI Tests'
     # Job list
     jobs:
       - job: Chromatic
-        displayName: "Run Chromatic"
+        displayName: 'Run Chromatic'
         steps:
           # Other steps in the pipeline
 
           # 👇 Adds Chromatic as a step in the pipeline
           - task: CmdLine@2
-            displayName: "Run Chromatic"
+            displayName: 'Run Chromatic'
             inputs:
               # 👇 Runs Chromatic with the flag to compress the build output.
               script: npx chromatic --zip
@@ -310,27 +310,27 @@ If you've already built your Storybook in a separate CI step, you can adjust you
 # Pipeline stages
 stages:
   - stage: UI_Tests
-    displayName: "UI Tests"
+    displayName: 'UI Tests'
 
     # 👇 Adds Chromatic as a step in the pipeline
     jobs:
       # 👇 Runs Chromatic sequentially for each monorepo subproject.
       - job: Chromatic_Deploy_1
-        displayName: "Publish Project 1 to Chromatic"
+        displayName: 'Publish Project 1 to Chromatic'
         steps:
           # Other steps in the pipeline
           - task: CmdLine@2
-            displayName: "Publish Project 1 to Chromatic"
+            displayName: 'Publish Project 1 to Chromatic'
             inputs:
               script: cd packages/project_1 && npx chromatic
             env:
               CHROMATIC_PROJECT_TOKEN: $(CHROMATIC_PROJECT_TOKEN_1)
       - job: Chromatic_Deploy_2
-        displayName: "Publish Project 2 to Chromatic"
+        displayName: 'Publish Project 2 to Chromatic'
         steps:
           # Other steps in the pipeline
           - task: CmdLine@2
-            displayName: "Publish Project 2 to Chromatic"
+            displayName: 'Publish Project 2 to Chromatic'
             inputs:
               script: cd packages/project_2 && npx chromatic
             env:
@@ -353,17 +353,17 @@ TurboSnap is an advanced Chromatic feature implemented to improve the build time
 # Pipeline stages
 stages:
   - stage: UI_Tests
-    displayName: "UI Tests"
+    displayName: 'UI Tests'
     # Job list
     jobs:
       - job: Chromatic_Deploy
-        displayName: "Run Chromatic"
+        displayName: 'Run Chromatic'
         steps:
           # Other steps in the pipeline
 
           # 👇 Adds Chromatic as a step in the pipeline
           - task: CmdLine@2
-            displayName: "Run Chromatic"
+            displayName: 'Run Chromatic'
             inputs:
               # 👇 Enables Chromatic's TurboSnap feature.
               script: npx chromatic --only-changed
@@ -389,7 +389,7 @@ In this case, you can adjust your workflow and include the `--branch-name` flag.
 # Pipeline stages
 stages:
   - stage: UI_Tests
-    displayName: "UI Tests"
+    displayName: 'UI Tests'
     # Job list
     jobs:
       - job: Chromatic
@@ -423,17 +423,17 @@ If you are using pull request statuses as required checks before merging, you ma
 # Pipeline stages
 stages:
   - stage: UI_Tests
-    displayName: "UI Tests"
+    displayName: 'UI Tests'
     # Job list
     jobs:
       - job: Chromatic
-        displayName: "Run Chromatic"
+        displayName: 'Run Chromatic'
         steps:
           # Other steps in the pipeline
 
           # 👇 Adds Chromatic as a step in the pipeline
           - task: CmdLine@2
-            displayName: "Run Chromatic"
+            displayName: 'Run Chromatic'
             inputs:
               #👇Runs Chromatic with the flag to prevent pipeline failure
               script: npx chromatic --exit-zero-on-changes
@@ -473,17 +473,17 @@ If you’re using this functionality but notice the incoming changes were not ac
 # Pipeline stages
 stages:
   - stage: UI_Tests
-    displayName: "UI Tests"
+    displayName: 'UI Tests'
     # Job list
     jobs:
       - job: Chromatic
-        displayName: "Run Chromatic"
+        displayName: 'Run Chromatic'
         steps:
           # Other steps in the pipeline
 
           # 👇 Checks if the branch is main and runs Chromatic with the flag to accept all changes.
           - task: CmdLine@2
-            displayName: "Run Chromatic and auto accept changes"
+            displayName: 'Run Chromatic and auto accept changes'
             condition: and(succeeded(), eq(variables['build.sourceBranch'], 'refs/heads/main'))
             inputs:
               script: npx chromatic --auto-accept-changes
@@ -491,7 +491,7 @@ stages:
               CHROMATIC_PROJECT_TOKEN: $(CHROMATIC_PROJECT_TOKEN)
             # 👇 Checks if the branch is not main and runs Chromatic
           - task: CmdLine@2
-            displayName: "Run Chromatic"
+            displayName: 'Run Chromatic'
             condition: eq(variables['Build.Reason'], 'PullRequest')
             inputs:
               script: npx chromatic
@@ -515,17 +515,17 @@ If you want to test the changes introduced by the rebased branch, you can adjust
 # Pipeline stages
 stages:
   - stage: UI_Tests
-    displayName: "UI Tests"
+    displayName: 'UI Tests'
     # Job list
     jobs:
       - job: Chromatic
-        displayName: "Run Chromatic"
+        displayName: 'Run Chromatic'
         steps:
           # Other steps in the pipeline
 
           # 👇 Option to skip the last build on target branch
           - task: CmdLine@2
-            displayName: "Run Chromatic"
+            displayName: 'Run Chromatic'
             inputs:
               script: npx chromatic --ignore-last-build-on-branch=my-branch
             env:
@@ -598,7 +598,7 @@ steps:
 
   - script: | # Fetch complete history
       git fetch --unshallow
-    displayName: "Fetch complete history"
+    displayName: 'Fetch complete history'
 ```
 
 **2. Clean workspace strategy**

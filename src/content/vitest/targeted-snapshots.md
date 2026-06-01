@@ -12,17 +12,17 @@ By default, Chromatic takes a snapshot at the end of every Vitest test, whether 
 `takeSnapshot` is especially useful for capturing a snapshot of your UI’s appearance when your UI reaches a specific state mid-test:
 
 ```tsx title="test/accordion.test.tsx"
-import { test, expect } from "vitest";
-import { page } from "vitest/browser";
-import { render } from "vitest-browser-react";
-import { takeSnapshot } from "@chromatic-com/vitest"; // [!code highlight]
-import { Accordion } from "../src/components/Accordion";
+import { test, expect } from 'vitest';
+import { page } from 'vitest/browser';
+import { render } from 'vitest-browser-react';
+import { takeSnapshot } from '@chromatic-com/vitest'; // [!code highlight]
+import { Accordion } from '../src/components/Accordion';
 
-test("Can open accordion", async () => {
+test('Can open accordion', async () => {
   await render(<Accordion header="Example header">Example content</Accordion>);
 
-  const toggle = page.getByRole("button", { name: "Example header" });
-  const content = page.getByText("Example content");
+  const toggle = page.getByRole('button', { name: 'Example header' });
+  const content = page.getByText('Example content');
 
   // Open accordion, content should become visible
   await toggle.click();
@@ -39,7 +39,7 @@ test("Can open accordion", async () => {
   // You can call takeSnapshot multiple times if necessary.
   // To help disambiguate, you can give the snapshot a name,
   // which is passed as the first argument to takeSnapshot.
-  await takeSnapshot("closed"); // [!code highlight]
+  await takeSnapshot('closed'); // [!code highlight]
 });
 ```
 
@@ -47,24 +47,21 @@ The Chromatic integration provides a `waitForIdleNetwork` utility function that 
 It will resolve once the network has been idle for a given time, meaning no new network requests started during that period.
 
 ```tsx title="test/accordion.test.tsx"
-import { test, expect } from "vitest";
-import { page } from "vitest/browser";
-import { render } from "vitest-browser-react";
-import { takeSnapshot, waitForIdleNetwork } from "@chromatic-com/vitest"; // [!code highlight]
-import { Accordion } from "../src/components/Accordion";
+import { test, expect } from 'vitest';
+import { page } from 'vitest/browser';
+import { render } from 'vitest-browser-react';
+import { takeSnapshot, waitForIdleNetwork } from '@chromatic-com/vitest'; // [!code highlight]
+import { Accordion } from '../src/components/Accordion';
 
-test("image inside accordion", async () => {
+test('image inside accordion', async () => {
   await render(
     <Accordion header="Example header">
-      <img
-        alt="Vitest logo"
-        src="https://www.chromatic.com/integrations/vitest.svg"
-      />
-    </Accordion>,
+      <img alt="Vitest logo" src="https://www.chromatic.com/integrations/vitest.svg" />
+    </Accordion>
   );
 
-  const toggle = page.getByRole("button", { name: "Example header" });
-  const image = page.getByRole("image", { name: "Vitest logo" });
+  const toggle = page.getByRole('button', { name: 'Example header' });
+  const image = page.getByRole('image', { name: 'Vitest logo' });
 
   // Open accordion, image should become visible
   await toggle.click();
@@ -72,7 +69,7 @@ test("image inside accordion", async () => {
 
   // Wait for image to finish loading. If it's not ready in 1000ms, error out.
   await waitForIdleNetwork(1000); // [!code highlight]
-  await takeSnapshot("accordion open with image inside");
+  await takeSnapshot('accordion open with image inside');
 });
 ```
 
@@ -93,15 +90,15 @@ If your Vitest project contains test cases that should not be visually tested, t
 You can limit test inclusion using the `tags` option. In your Vitest configuration, define `tags: string[]` in the plugin options.
 
 ```ts title="vitest.config.ts"
-import { defineConfig } from "vitest/config";
-import { chromaticPlugin } from "@chromatic-com/vitest/plugin";
+import { defineConfig } from 'vitest/config';
+import { chromaticPlugin } from '@chromatic-com/vitest/plugin';
 
 export default defineConfig({
   plugins: [
     chromaticPlugin({
       // Apply test setups needed for visual regression only for
       // test cases that have following tag:
-      tags: ["visual-regression"], // [!code highlight]
+      tags: ['visual-regression'], // [!code highlight]
     }),
   ],
 });

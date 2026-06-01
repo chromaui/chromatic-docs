@@ -26,9 +26,9 @@ export default defineConfig({
 You can also override them for specific tests using via the [`env`](https://docs.cypress.io/app/references/configuration#Suite-configuration) option in the test configuration:
 
 ```ts title="cypress/e2e/HomePage.cy.js|ts"
-describe("HomePage", () => {
+describe('HomePage', () => {
   it(
-    "Loads the page with auto snapshotting disabled",
+    'Loads the page with auto snapshotting disabled',
     {
       env: {
         // 👇 Overrides the option in the test.
@@ -36,8 +36,8 @@ describe("HomePage", () => {
       },
     },
     () => {
-      cy.visit("/");
-    },
+      cy.visit('/');
+    }
   );
 });
 ```

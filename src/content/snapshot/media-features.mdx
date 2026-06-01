@@ -4,9 +4,9 @@ description: Learn how to use media features in Chromatic Capture
 sidebar: { order: 12 }
 ---
 
-import ParamsCallout from "../../components/ParamsCallout.astro";
+import ParamsCallout from '../../components/ParamsCallout.astro';
 
-import IntegrationSnippets from "../../components/IntegrationSnippets.astro";
+import IntegrationSnippets from '../../components/IntegrationSnippets.astro';
 
 # Media features
 
@@ -188,17 +188,17 @@ The [`print`](https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_media_queries
 
 ```ts title="src/components/UserAccount.stories.ts|tsx"
 // Adjust this import to match your framework (e.g., nextjs, vue3-vite)
-import type { Meta, StoryObj } from "@storybook/your-framework";
+import type { Meta, StoryObj } from '@storybook/your-framework';
 
-import { UserAccount } from "./UserAccount";
+import { UserAccount } from './UserAccount';
 
 const meta = {
   component: UserAccount,
-  title: "UserAccount",
+  title: 'UserAccount',
   parameters: {
     chromatic: {
       // Sets the print media feature at the component level for all stories.
-      media: "print",
+      media: 'print',
     },
   },
 } satisfies Meta<typeof UserAccount>;
@@ -221,10 +221,10 @@ For example, if you have existing Modes for German and American English locales,
 // Define modes
 export const allModes = {
   german: {
-    locale: "de",
+    locale: 'de',
   },
   american: {
-    locale: "en-us",
+    locale: 'en-us',
   },
   // {...  Other modes}
 };
@@ -234,15 +234,15 @@ Then, apply the Modes and the media feature to your tests.
 
 ```ts title="src/components/UserAccount.stories.ts|tsx"
 // Adjust this import to match your framework (e.g., nextjs, vue3-vite)
-import type { Meta, StoryObj } from "@storybook/your-framework";
+import type { Meta, StoryObj } from '@storybook/your-framework';
 
-import { allModes } from "../../.storybook/modes";
+import { allModes } from '../../.storybook/modes';
 
-import { UserAccount } from "./UserAccount";
+import { UserAccount } from './UserAccount';
 
 const meta = {
   component: UserAccount,
-  title: "UserAccount",
+  title: 'UserAccount',
 } satisfies Meta<typeof UserAccount>;
 
 export default meta;
@@ -258,11 +258,11 @@ export const WithPrintStyles: Story = {
   parameters: {
     chromatic: {
       // 1️⃣
-      media: "print",
+      media: 'print',
       // 2️⃣
       modes: {
-        "german print": allModes["de"],
-        "en-us print": allModes["en-us"],
+        'german print': allModes['de'],
+        'en-us print': allModes['en-us'],
       },
     },
   },
@@ -284,9 +284,9 @@ No, setting media features in [Modes](/docs/modes/) is not supported.
 export const allModes = {
   // 🚨 THESE WILL NOT WORK 🚨
   mode: {
-    media: "print",
-    forcedColors: "active",
-    prefersReducedMotion: "reduce",
+    media: 'print',
+    forcedColors: 'active',
+    prefersReducedMotion: 'reduce',
   },
   // {...  Other modes}
 };

@@ -14,7 +14,7 @@ When running your Playwright tests over multiple shared CI jobs, you'll need to 
 If you're working with GitHub Actions, you can configure a job [matrix](https://docs.github.com/en/actions/using-jobs/using-a-matrix-for-your-jobs) to run Playwright tests in parallel across multiple instances. Enabling this option will run a separate job for every combination of the provided values, merge the test results as a single artifact, and make them available to the Chromatic job when it runs.
 
 ```yaml title=".github/workflows/chromatic.yml"
-name: "UI Tests"
+name: 'UI Tests'
 
 on: push
 
@@ -26,21 +26,21 @@ jobs:
         shard: [1, 2]
     runs-on: ubuntu-latest
     container:
-      image: mcr.microsoft.com/playwright:v1.58.2-noble
+      image: mcr.microsoft.com/playwright:v1.60.0-noble
     steps:
-      - uses: actions/checkout@v5
+      - uses: actions/checkout@v6
         with:
           fetch-depth: 0
       - uses: actions/setup-node@v6
         with:
-          node-version: 24.14.0
+          node-version: 24.15.0
       - name: Install dependencies
         run: npm ci
       - name: Run Playwright tests
         run: npx playwright test --shard=${{ matrix.shard }}/${{ strategy.job-total }}
         env:
           HOME: /root
-      - uses: actions/upload-artifact@v4
+      - uses: actions/upload-artifact@v7
         if: always()
         with:
           name: playwright-report-${{ matrix.shard }}_${{ strategy.job-total }}
@@ -52,17 +52,17 @@ jobs:
     needs: playwright
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v5
+      - uses: actions/checkout@v6
         with:
           fetch-depth: 0
       - uses: actions/setup-node@v6
         with:
-          node-version: 24.14.0
+          node-version: 24.15.0
       - name: Install dependencies
         run: npm ci
 
       - name: Download all workflow run artifacts
-        uses: actions/download-artifact@v4
+        uses: actions/download-artifact@v8
         with:
           path: ./test-results/chromatic-archives
           pattern: playwright-report-*
@@ -96,7 +96,7 @@ before_script:
 Playwright:
   stage: UI_Tests
   needs: []
-  image: mcr.microsoft.com/playwright:v1.58.2-noble
+  image: mcr.microsoft.com/playwright:v1.60.0-noble
   parallel: 2
   script:
     - npx playwright test --shard=$CI_NODE_INDEX/$CI_NODE_TOTAL
@@ -122,10 +122,10 @@ version: 2.1
 executors:
   pw-noble-development:
     docker:
-      - image: mcr.microsoft.com/playwright:v1.58.2-noble
+      - image: mcr.microsoft.com/playwright:v1.60.0-noble
   chromatic-ui-testing:
     docker:
-      - image: cimg/node:24.14.0
+      - image: cimg/node:24.15.0
 
 jobs:
   Playwright:
@@ -140,10 +140,10 @@ jobs:
             - v1-dependencies-{{ checksum "package-lock.json" }}
             - v1-dependencies-
       - run:
-          name: "Install Playwright dependencies"
+          name: 'Install Playwright dependencies'
           command: npm ci
       - run:
-          name: "Run Playwright tests"
+          name: 'Run Playwright tests'
           command: SHARD="$((${CIRCLE_NODE_INDEX}+1))"; npx playwright test --shard=${SHARD}/${CIRCLE_NODE_TOTAL}
           when: always
       - store_artifacts:
@@ -166,7 +166,7 @@ jobs:
       - attach_workspace:
           at: .
       - run:
-          name: "Run Chromatic"
+          name: 'Run Chromatic'
           command: npx chromatic --playwright --project-token=${CHROMATIC_PROJECT_TOKEN}
 workflows:
   UI_Tests:
@@ -200,7 +200,7 @@ pipeline {
         stage('Shard #1') {
           agent {
             docker {
-              image 'mcr.microsoft.com/playwright:v1.58.2-noble'
+              image 'mcr.microsoft.com/playwright:v1.60.0-noble'
               reuseNode true
             }
           }
@@ -220,7 +220,7 @@ pipeline {
         stage('Shard #2') {
           agent {
             docker {
-              image 'mcr.microsoft.com/playwright:v1.58.2-noble'
+              image 'mcr.microsoft.com/playwright:v1.60.0-noble'
               reuseNode true
             }
           }
@@ -278,7 +278,7 @@ blocks:
           os_image: ubuntu2404
         containers:
           - name: Plawyright
-            image: mcr.microsoft.com/playwright:v1.58.2-noble
+            image: mcr.microsoft.com/playwright:v1.60.0-noble
       jobs:
         - name: Run Playwright
           commands:
@@ -292,7 +292,7 @@ blocks:
           commands:
             - artifact push workflow --force test-results
   - name: Run Chromatic
-    dependencies: ["Playwright"]
+    dependencies: ['Playwright']
     task:
       prologue:
         commands:
@@ -317,7 +317,7 @@ image: node:krypton
 - run:
     name: "Playwright"
     displayName: "Run Playwright tests"
-    container: mcr.microsoft.com/playwright:v1.58.2-noble
+    container: mcr.microsoft.com/playwright:v1.60.0-noble
     options:
       parallel: 2
       artifacts:

@@ -4,9 +4,9 @@ description: Learn how you can tell Chromatic to ignore changes for certain elem
 sidebar: { order: 7, label: Ignore elements }
 ---
 
-import ParamsCallout from "../../components/ParamsCallout.astro";
+import ParamsCallout from '../../components/ParamsCallout.astro';
 
-import IntegrationSnippets from "../../components/IntegrationSnippets.astro";
+import IntegrationSnippets from '../../components/IntegrationSnippets.astro';
 
 # Ignore DOM elements
 
@@ -17,7 +17,7 @@ Sometimes a component's appearance changes every render or contains content like
 To ignore specific elements in your UI, add the `.chromatic-ignore` class or `data-chromatic="ignore"` attributes to the elements you want Chromatic to skip. Enabling these attributes notifies Chromatic's diffing algorithm to disregard the pixels when running your UI tests and comparing snapshots for visual changes, including the element's bounding box and position (e.g., width, height, and relative positioning).
 
 ```tsx title="src/components/VideoComponent.ts|tsx"
-import React from "react";
+import React from 'react';
 
 interface VideoPlayerProps {
   src: string;

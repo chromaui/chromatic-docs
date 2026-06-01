@@ -1,7 +1,7 @@
 ---
 title: Publish
 description: Learn how Chromatic helps document components.
-sidebar: { order: 6 }
+sidebar: { order: 7 }
 ---
 
 # Publish your Storybook
@@ -23,6 +23,10 @@ Chromatic generates a [permalink](/docs/permalinks) for the latest uploaded Stor
 When you're linking to a library or component on Chromatic, it can be useful to link to the latest version on a `branch` rather than a specific build. To do so, add the `branch=foo` query parameter to the URL.
 
 **Example**: `https://www.chromatic.com/library?appId=...&branch=main`.
+
+<div class="aside">
+  If your branch name contains special characters like slashes or dots, URL-encode them in the query parameter. For example, <code>feature/my-branch</code> becomes <code>?branch=feature%2Fmy-branch</code>.
+</div>
 
 ## Embedding
 

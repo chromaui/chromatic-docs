@@ -1,0 +1,28 @@
+---
+sidebar: { hide: true }
+title: Using Chromatic for release-to-release comparisons
+section: ci
+---
+
+# Using Chromatic for release-to-release comparisons
+
+Release‑to‑release comparisons help you catch unintended UI changes between the last production version and your next release — something PR‑level reviews can miss due to baseline drift or squash merges.
+
+### Step 1: Use a consistent branch naming convention
+
+Name your release branches predictably, for example:  
+`release/v9.0.0`, `release/v10.0.0`, `release/v11.0.0`.
+
+This makes it easy to identify the previous production baseline and compare it against an upcoming release.
+
+### Step 2: Compare releases via a pull request
+
+When you’re ready to release a new version:
+
+1. Create a pull request from the **new release branch** (e.g., `release/v10.1.0`) into the **previous release branch** (e.g., `release/v9.0.0`).
+2. Chromatic will generate a UI Review showing the entire changeset between the two releases — exactly what changed from the last production version to the next.
+
+### What you get
+
+- **Release‑to‑release diff** – A complete visual comparison of the two production releases.
+- **Ongoing feature branch reviews** – Your normal PR workflow against the current working version continues unchanged.

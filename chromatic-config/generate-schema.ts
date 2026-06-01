@@ -1,10 +1,21 @@
-import fs from "fs";
-import { remark } from "remark";
-import strip from "strip-markdown";
-import RemarkLinkRewrite from "remark-link-rewrite";
-import optionsJSON from "./options.json" assert { type: "json" };
+import fs from 'fs';
+import { remark } from 'remark';
+import strip from 'strip-markdown';
+import RemarkLinkRewrite from 'remark-link-rewrite';
+import optionsJSON from './options.json' assert { type: 'json' };
 
-export type SupportedType = "GitHub Action" | "CLI" | "Config File";
+export type SupportedType = 'GitHub Action' | 'CLI' | 'Config File';
+
+export interface NestedConfigOption {
+  option: string;
+  description: string;
+  type: string | string[];
+  example: string;
+  default?: string | boolean;
+  defaultComment?: string;
+  deprecated?: 'Config File' | 'all';
+  supports: SupportedType[];
+}
 
 export interface ConfigOption {
   option?: string;
@@ -15,28 +26,29 @@ export interface ConfigOption {
   example: string;
   default?: string | boolean;
   defaultComment?: string;
-  deprecated?: "Config File" | "all";
+  deprecated?: 'Config File' | 'all';
   supports: SupportedType[];
+  options?: NestedConfigOption[];
 }
 
 const propertyTypes = {
-  "array of glob": {
-    $ref: "#/$defs/array-of-strings",
+  'array of glob': {
+    $ref: '#/$defs/array-of-strings',
   },
   boolean: {
-    type: "boolean",
+    type: 'boolean',
   },
   glob: {
-    type: "string",
+    type: 'string',
   },
   string: {
-    type: "string",
+    type: 'string',
   },
-  "glob-boolean": {
-    $ref: "#/$defs/string-or-boolean",
+  'glob-boolean': {
+    $ref: '#/$defs/string-or-boolean',
   },
-  "string-boolean": {
-    $ref: "#/$defs/string-or-boolean",
+  'string-boolean': {
+    $ref: '#/$defs/string-or-boolean',
   },
 };
 
@@ -44,23 +56,18 @@ type PropertyType = keyof typeof propertyTypes;
 
 const stripMarkdown = (content: string) => {
   const value = String(remark().use(strip).processSync(content));
-  return value.trimEnd().replaceAll("\\", "");
+  return value.trimEnd().replaceAll('\\', '');
 };
 
-const formatDescription = async (
-  description: string,
-  isDeprecated?: boolean,
-): Promise<string> => {
-  const descWithDeprecated = isDeprecated
-    ? `DEPRECATED ${description}`
-    : description;
+const formatDescription = async (description: string, isDeprecated?: boolean): Promise<string> => {
+  const descWithDeprecated = isDeprecated ? `DEPRECATED ${description}` : description;
 
   const descWithAbsLinks = await remark()
     // @ts-ignore-next-line
     .use(RemarkLinkRewrite, {
       replacer: (url: string) => {
-        if (url.startsWith("/docs/")) {
-          return url.replace("/docs/", "https://www.chromatic.com/docs/");
+        if (url.startsWith('/docs/')) {
+          return url.replace('/docs/', 'https://www.chromatic.com/docs/');
         }
         return url;
       },
@@ -83,69 +90,83 @@ interface Schema {
 
 export async function createSchemaDef(configOptions: ConfigOption[]) {
   const schemaDef: Schema = {
-    $schema: "https://json-schema.org/draft/2020-12/schema",
-    $id: "https://www.chromatic.com/config-file.schema.json",
+    $schema: 'https://json-schema.org/draft/2020-12/schema',
+    $id: 'https://www.chromatic.com/config-file.schema.json',
     additionalProperties: false,
     $defs: {
-      "string-or-boolean": {
-        anyOf: [{ type: "string" }, { type: "boolean" }],
+      'string-or-boolean': {
+        anyOf: [{ type: 'string' }, { type: 'boolean' }],
       },
-      "array-of-strings": {
-        type: "array",
+      'array-of-strings': {
+        type: 'array',
         items: {
-          type: "string",
+          type: 'string',
         },
       },
     },
-    description: "Configuration schema for visual testing tool Chromatic",
-    title: "Chromatic Config File Schema",
-    type: "object",
+    description: 'Configuration schema for visual testing tool Chromatic',
+    title: 'Chromatic Config File Schema',
+    type: 'object',
     properties: {
       $schema: {
-        type: "string",
+        type: 'string',
         description:
-          "The schema file (https://www.chromatic.com/docs/chromatic-config.schema.json)",
+          'The schema file (https://www.chromatic.com/docs/chromatic-config.schema.json)',
       },
     },
   };
 
-  const supportedOptions: ConfigOption[] = (
-    configOptions as ConfigOption[]
-  ).filter((option) => option.supports.includes("Config File"));
+  const supportedOptions: ConfigOption[] = (configOptions as ConfigOption[]).filter((option) =>
+    option.supports.includes('Config File')
+  );
 
   for (const prop of supportedOptions) {
     if (prop.option) {
-      const isDeprecated =
-        prop.deprecated === "Config File" || prop.deprecated === "all";
+      const isDeprecated = prop.deprecated === 'Config File' || prop.deprecated === 'all';
 
-      const description = await formatDescription(
-        prop.description,
-        isDeprecated,
-      );
+      const description = await formatDescription(prop.description, isDeprecated);
       const plainTextDescription = stripMarkdown(description);
 
-      const type = (
-        Array.isArray(prop.type) ? prop.type.join("-") : prop.type
-      ) as PropertyType;
+      let propDef: Record<string, unknown>;
 
-      const propDef = {
-        ...propertyTypes[type],
-        ...(isDeprecated && { deprecated: true }),
-        description: plainTextDescription,
-        markdownDescription: description,
-        ...(prop.default &&
-          prop.default !== "" && {
-            default:
-              typeof prop.default === "string"
-                ? stripMarkdown(prop.default)
-                : prop.default,
-          }),
-      };
+      if (prop.type === 'object' && prop.options) {
+        const nestedProperties: Record<string, unknown> = {};
+        for (const subOption of prop.options) {
+          const subType = (
+            Array.isArray(subOption.type) ? subOption.type.join('-') : subOption.type
+          ) as PropertyType;
+          const subDescription = await formatDescription(subOption.description);
+          const subPlainText = stripMarkdown(subDescription);
+          nestedProperties[subOption.option] = {
+            ...propertyTypes[subType],
+            description: subPlainText,
+            markdownDescription: subDescription,
+          };
+        }
+        propDef = {
+          type: 'object',
+          additionalProperties: false,
+          description: plainTextDescription,
+          markdownDescription: description,
+          properties: nestedProperties,
+        };
+      } else {
+        const type = (Array.isArray(prop.type) ? prop.type.join('-') : prop.type) as PropertyType;
+        propDef = {
+          ...propertyTypes[type],
+          ...(isDeprecated && { deprecated: true }),
+          description: plainTextDescription,
+          markdownDescription: description,
+          ...(prop.default &&
+            prop.default !== '' && {
+              default:
+                typeof prop.default === 'string' ? stripMarkdown(prop.default) : prop.default,
+            }),
+        };
+      }
 
       if (schemaDef.properties[prop.option]) {
-        throw new Error(
-          `Duplicate property found: ${prop.option}. Skipping property.`,
-        );
+        throw new Error(`Duplicate property found: ${prop.option}. Skipping property.`);
       } else {
         schemaDef.properties[prop.option] = propDef;
       }
@@ -156,11 +177,8 @@ export async function createSchemaDef(configOptions: ConfigOption[]) {
 }
 
 export async function generateSchema() {
-  console.log("⚙️ Generating schema for chromatic.config.json file");
+  console.log('⚙️ Generating schema for chromatic.config.json file');
   const schema = await createSchemaDef(optionsJSON as ConfigOption[]);
 
-  fs.writeFileSync(
-    "public/chromatic-config.schema.json",
-    JSON.stringify(schema, null, 2),
-  );
+  fs.writeFileSync('public/chromatic-config.schema.json', JSON.stringify(schema, null, 2));
 }

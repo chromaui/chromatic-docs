@@ -1,7 +1,7 @@
 ---
 title: Chromatic Markdown syntax
 description: Learn how to use markdown in discussions
-sidebar: { order: 11, label: Markdown }
+sidebar: { order: 13, label: Markdown }
 ---
 
 # Markdown support in Chromatic
@@ -35,7 +35,7 @@ Share code examples by wrapping the relevant code with triple backticks <code>\`
 ````md
 ```js
 function Example() {
-  console.log("This is an example function");
+  console.log('This is an example function');
 }
 ```
 ````

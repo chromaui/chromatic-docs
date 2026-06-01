@@ -21,7 +21,7 @@ You can also target specific CSS rules to the Chromatic capture environment usin
 If you're working with a framework-specific feature or library that prevents it from running in your tests, you can adjust your configuration file (i.e.,[`.storybook/preview.js|ts`](https://storybook.js.org/docs/configure#configure-story-rendering)) and add the `isChromatic` helper function, enabling you to configure how your tests run in Chromatic across your entire project. For example:
 
 ```js title=".storybook/preview.js|ts"
-import isChromatic from "chromatic/isChromatic";
+import isChromatic from 'chromatic/isChromatic';
 
 // Disables animation in Chromatic
 if (isChromatic()) {
@@ -39,15 +39,15 @@ If you need more granular control over how your tests run in Chromatic, you can 
 
 ```ts title="MyComponent.stories.ts|tsx"
 // Adjust this import to match your framework (e.g., nextjs, vue3-vite)
-import type { Meta, StoryObj } from "@storybook/your-framework";
+import type { Meta, StoryObj } from '@storybook/your-framework';
 
-import isChromatic from "chromatic/isChromatic";
+import isChromatic from 'chromatic/isChromatic';
 
-import { MyComponent } from "./MyComponent";
+import { MyComponent } from './MyComponent';
 
 const meta = {
   component: MyComponent,
-  title: "MyComponent",
+  title: 'MyComponent',
 } satisfies Meta<typeof MyComponent>;
 
 export default meta;
@@ -55,34 +55,34 @@ type Story = StoryObj<typeof meta>;
 
 export const Default: Story = {
   args: {
-    label: isChromatic() ? "I'm in Chromatic" : "Not in Chromatic",
+    label: isChromatic() ? "I'm in Chromatic" : 'Not in Chromatic',
   },
 };
 ```
 
 ## Environment variables
 
-If you're running Storybook tests with version 7.6 or higher, you can also use the `IS_CHROMATIC` environment variable to control how your tests run in Chromatic. To do so, adjust your `chromatic` script in your `package.json` file to include the environment variable as follows:
+If you're running Storybook tests with version 7.6 or higher, you can also use the `STORYBOOK_IS_CHROMATIC` environment variable to control how your tests run in Chromatic. To do so, adjust your `chromatic` script in your `package.json` file to include the environment variable as follows:
 
 ```json title="package.json"
 {
   "scripts": {
-    "chromatic": "IS_CHROMATIC=true chromatic"
+    "chromatic": "STORYBOOK_IS_CHROMATIC=true chromatic"
   }
 }
 ```
 
-Then, in your tests, you can check for the `IS_CHROMATIC` environment variable and set the available options accordingly (e.g., [args](https://storybook.js.org/docs/writing-stories/args), [parameters](https://storybook.js.org/docs/writing-stories/parameters)).
+Then, in your tests, you can check for the `STORYBOOK_IS_CHROMATIC` environment variable and set the available options accordingly (e.g., [args](https://storybook.js.org/docs/writing-stories/args), [parameters](https://storybook.js.org/docs/writing-stories/parameters)).
 
 ```ts title="MyComponent.stories.ts|tsx"
 // Adjust this import to match your framework (e.g., nextjs, vue3-vite)
-import type { Meta, StoryObj } from "@storybook/your-framework";
+import type { Meta, StoryObj } from '@storybook/your-framework';
 
-import { MyComponent } from "./MyComponent";
+import { MyComponent } from './MyComponent';
 
 const meta = {
   component: MyComponent,
-  title: "MyComponent",
+  title: 'MyComponent',
 } satisfies Meta<typeof Button>;
 
 export default meta;
@@ -90,14 +90,14 @@ type Story = StoryObj<typeof meta>;
 
 export const Default: Story = {
   args: {
-    label: process.env.IS_CHROMATIC ? "I'm in Chromatic" : "Not in Chromatic",
+    label: process.env.STORYBOOK_IS_CHROMATIC ? "I'm in Chromatic" : 'Not in Chromatic',
   },
 };
 ```
 
 <div class="aside">
 
-ℹ️ For Vite-based environments, you may be required to adjust your test to allow it to access the environment variable. See the [Vite documentation](https://vitejs.dev/guide/env-and-mode.html) for more information.
+ℹ️ Storybook only exposes environment variables prefixed with `STORYBOOK_` to the browser bundle. Using a non-prefixed variable like `IS_CHROMATIC` will not be accessible via `process.env` in your stories. For Vite-based environments, you may also need to adjust your configuration to allow access to environment variables. See the [Vite documentation](https://vitejs.dev/guide/env-and-mode.html) for more information.
 
 </div>
 

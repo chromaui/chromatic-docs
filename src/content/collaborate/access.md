@@ -10,7 +10,7 @@ Learn how to manage access to your Chromatic account and projects.
 
 ## Authentication
 
-Sign in to Chromatic via OAuth, email, or SSO.
+Sign in to Chromatic via OAuth, email, or [SSO](/docs/sso).
 
 #### OAuth
 
@@ -28,6 +28,8 @@ Depending on your Git provider, Chromatic will request a set of OAuth scopes whe
 | [GitHub](https://developer.github.com/apps/building-oauth-apps/understanding-scopes-for-oauth-apps/#available-scopes)        | `['user:email', 'read:user', 'read:org', 'repo:status']` |
 | [GitLab](https://docs.gitlab.com/ee/user/profile/personal_access_tokens.html#limiting-scopes-of-a-personal-access-token)     | `['api']`                                                |
 | [Bitbucket](https://confluence.atlassian.com/bitbucket/oauth-on-bitbucket-cloud-238027431.html#OAuthonBitbucketCloud-Scopes) | `['account', 'repository', 'pullrequest', 'webhook']`    |
+
+For Enterprise customers using GitHub Enterprise Server and GitLab self-managed, the same scopes are required.
 
 </details>
 
@@ -122,70 +124,7 @@ We recommend signing up with email for projects that **are not** on GitHub, Bitb
 
 #### Single Sign-On (SSO)
 
-Single Sign-On (SSO) is available to enterprise customers. To sign-in, make sure to navigate to your team's custom Chromatic URL, for example, `mycompany.chromatic.com`.
-
-If you don't know the Chromatic URL for your team, you may need to ask the account or project owner.
-
-<details>
-  <summary>What SSO providers are supported?</summary>
-
-OneLogin, Okta, Google Workspace, PingOne, Keycloak, SimpleSAMLphp-based Identity Providers, and Active Directory Federation Services.
-
-If your provider is not on the list, please reach out to us at support@chromatic.com or use our **in-app chat**, and we will determine if it is possible to integrate with it.
-
-</details>
-
-<details>
-  <summary>How do you log in with SSO?</summary>
-
-Once SSO is enabled, you have two primary ways to log in:
-
-1. **Direct subdomain link:** If a subdomain is enabled, the most straightforward method is to use your organization's unique login URL: `https://{YOUR-SUBDOMAIN}.chromatic.com/start`
-2. **SSO provider dashboard:** Simply find and click the Chromatic application tile, and you'll be redirected and logged in automatically.
-
-If you're having trouble logging in:
-
-1. Ensure your user has been provisioned to the Chromatic application within your SSO provider. Confirm your user group has the necessary permissions.
-2. Double-check that you are using the correct subdomain in the login URL. It must exactly match the one assigned to your organization.
-3. Login issues are often caused by stale cookies or cached data. Try clearing your browser's cache and cookies or using a private/incognito window to log in.
-4. If your organization has enabled IP restrictions, ensure you are connected to your corporate network (e.g., via a VPN) as required by your company's policy.
-5. If your organization limits access by domain and you use a different email domain than your colleagues (e.g., you're a contractor), ask your team to issue you an email address on an approved domain or contact us to add your current domain to the company's allow list.
-
-</details>
-
-<details>
-  <summary>How do I update the SSO certificate?</summary>
-
-The fastest and most reliable method is to provide a metadata URL from your Identity Provider (IdP). This is typically a secure link found in your IdP's admin console.
-
-If your provider does not support a metadata URL, please send a new certificate to [priority-support@chromatic.com](mailto:priority-support@chromatic.com ) to schedule the change. This ensures a smooth transition and prevents authentication downtime for your users. Please include the following in your request:
-
-1. The specific date, time, and timezone for the update.
-2. A PEM-encoded X.509 certificate in one of these supported formats:
-
-- `.pem`
-- `.key`
-- `.crt`
-- `.cer`
-- `.cert`
-
-</details>
-
-<details>
-  <summary>How are roles managed with SCIM?</summary>
-
-SCIM (System for Cross-domain Identity Management) enables automatic user provisioning. After SSO is configured, SCIM allows you to add/remove users and manage roles directly from your IdP.
-
-You must configure groups in your IdP that correspond to Chromatic's four roles: `Owner`, `Developer`, `Reviewer`, and `Viewer`. The groups must contain a `roles` or `role` attribute with values "owner", "developer", "reviewer", or "viewer" for Chromatic to recognize them properly.
-
-</details>
-
-<details>
-  <summary>Can roles be set differently for different projects?</summary>
-
-No, SCIM currently sets standard roles across all projects - project-specific role assignment is not supported.
-
-</details>
+Single Sign-On (SSO) is available to enterprise customers. Learn more [here](/docs/sso).
 
 ## Organizations
 
@@ -340,33 +279,6 @@ Follow these instructions to link your project to a Git provider:
 This connects your Chromatic email/password account with your Git provider account, allowing you to set up a [linked project](#linked-projects).
 
 Note: Your personal account must have access to the repository in order to connect in Chromatic. You may need to ask an administrator to grant you additional permissions.
-
-</details>
-<details>
-<summary>How do I link my project to GitHub Enterprise Server or GitLab self-managed?</summary>
-
-For Enterprise plans, we support connecting on-premise versions of GitHub Enterprise and GitLab. Please reach out to us via Support to get access.
-
-You also need to have some information from your Git Provider setup ready
-
-1. The URL to your Git Provider (e.g. https://chromatic.github.com, https://gitlab.custom.com)
-2. The Name of Your Repository (e.g. chromatic/ux)
-3. Access Token (See docs for [GitHub](https://docs.github.com/en/authentication/keeping-your-account-and-data-secure/managing-your-personal-access-tokens) and [GitLab](https://docs.gitlab.com/ee/user/project/settings/project_access_tokens.html))
-
-Depending on your Git Provider, the relevant docs for creating an access token can be found below. When you create your token, please ensure that you enable the proper scopes.
-
-| Git provider | Permission Scopes                                        |
-| ------------ | -------------------------------------------------------- |
-| GitHub       | `['user:email', 'read:user', 'read:org', 'repo:status']` |
-| GitLab       | `['api']`                                                |
-
-Once you have access and the prerequisite details, follow these instructions to link your project to GitHub Enterprise Server or GitLab self-managed:
-
-1. Go to the manage (`/manage`) page for the app that you want to connect.
-2. Click the Configure tab.
-3. In the Connected Application section, find the "Sync project with a Git repository" area and click "Add on-prem Git Provider" to enter the details for your repository.
-
-If your organization restricts IP addresses for git access, make sure to [add Chromatic's IP addresses to the allow list](/docs/faq/allowlist-ips-for-git-providers/#my-organization-restricts-ip-addresses-for-git-access-should-i-add-chromatic-to-the-allowlist).
 
 </details>
 

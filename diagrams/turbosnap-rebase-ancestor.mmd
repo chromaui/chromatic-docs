@@ -1,0 +1,10 @@
+%%{
+  init: { 'theme': 'natural', 'themeVariables': { 'tagLabelFontSize': '12px' } }
+}%%
+gitGraph
+  commit id: "M.1"
+  branch feature
+  commit id: "F.1" tag: "an. M.1" type: REVERSE
+  commit id: "F.2" tag: "an. F.1" type: REVERSE
+  checkout main
+  merge feature id: "M.2" tag: "an. F.2 + M.1" type: HIGHLIGHT

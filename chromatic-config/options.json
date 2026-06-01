@@ -360,5 +360,34 @@
     "example": "`true`",
     "default": false,
     "supports": ["CLI", "GitHub Action", "Config File"]
+  },
+  {
+    "option": "reactNative",
+    "description": "React Native–specific configuration options.",
+    "type": "object",
+    "supports": ["Config File"],
+    "options": [
+      {
+        "option": "iosBuildCommand",
+        "description": "The command that builds your React Native Storybook for iOS.",
+        "type": "string",
+        "example": "`\"nx run my-app:build-storybook-ios\"`",
+        "supports": ["Config File"]
+      },
+      {
+        "option": "androidBuildCommand",
+        "description": "The command that builds your React Native Storybook for Android.",
+        "type": "string",
+        "example": "`\"nx run my-app:build-storybook-android\"`",
+        "supports": ["Config File"]
+      },
+      {
+        "option": "androidBuildArchitectures",
+        "description": "The Android architectures to build for. Chromatic always builds for `x86_64`, if you would like additional architectures built you may specify them here.",
+        "type": "array of string",
+        "example": "`[\"arm64-v8a\", \"armeabi-v7a\"]`",
+        "supports": ["Config File"]
+      }
+    ]
   }
 ]

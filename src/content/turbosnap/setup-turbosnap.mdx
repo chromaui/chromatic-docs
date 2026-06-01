@@ -1,11 +1,11 @@
 ---
 title: Setup TurboSnap
 description: Speed up tests by detecting file changes with Git
-sidebar: { order: 1, label: "Setup" }
-slug: "turbosnap/setup"
+sidebar: { order: 1, label: 'Setup' }
+slug: 'turbosnap/setup'
 ---
 
-import { YouTubeCallout } from "../../components/YouTubeCallout";
+import { YouTubeCallout } from '../../components/YouTubeCallout';
 
 # Setup TurboSnap
 
@@ -14,13 +14,12 @@ Enable TurboSnap by running Chromatic's CLI with the `--only-changed` option. Al
 It will build and test stories that may have been affected by the Git changes since the last build. Depending on your project setup, you may need [additional configuration](#configure).
 
 <div class="aside">
-  ⚠️ When using TurboSnap, your builds may complete in less time using fewer
-  snapshots. However, we don't allow using TurboSnap immediately when starting
-  out with Chromatic since the configuration is more complicated and can lead to
-  difficult to debug scenarios or UI changes being missed. Instead, become
-  familiar with Chromatic's out-of-the-box behavior, and once your project has
-  been running smoothly, consider trying out TurboSnap. TurboSnap is unlocked
-  after ten successful builds on CI.
+  ⚠️ When using TurboSnap, your builds may complete in less time using fewer snapshots. However, we
+  don't allow using TurboSnap immediately when starting out with Chromatic since the configuration
+  is more complicated and can lead to difficult to debug scenarios or UI changes being missed.
+  Instead, become familiar with Chromatic's out-of-the-box behavior, and once your project has been
+  running smoothly, consider trying out TurboSnap. TurboSnap is unlocked after ten successful builds
+  on CI.
 </div>
 
 ## Prerequisites
@@ -124,8 +123,8 @@ Traversing dependencies for X files that changed since the last build
 ```
 
 <div class="aside">
-  This message tells us how many git changes Chromatic has detected since the
-  last Chromatic build. Usually, that's just one or two commits' worth of files.
+  This message tells us how many git changes Chromatic has detected since the last Chromatic build.
+  Usually, that's just one or two commits' worth of files.
 </div>
 
 ```shell
@@ -143,9 +142,8 @@ Tested A stories across B components; capture C snapshots in S seconds.
 ```
 
 <div class="aside">
-  This message tells you how many snapshots we actually took instead of the
-  number of stories we found in your Storybook. Usually, C would be the number
-  of stories in the Y component files above.
+  This message tells you how many snapshots we actually took instead of the number of stories we
+  found in your Storybook. Usually, C would be the number of stories in the Y component files above.
 </div>
 
 Once TurboSnap is activated, all subsequent builds will display an indicator with TurboSnap's status. Find it on the Build page above your tests.
@@ -227,7 +225,7 @@ Another method is to use the `performance.bundleAnalyze` option in your `rsbuild
 export default {
   performance: {
     bundleAnalyze: {
-      analyzerMode: "disabled", // Optional: prevents the HTML report from opening
+      analyzerMode: 'disabled', // Optional: prevents the HTML report from opening
       generateStatsFile: true,
     },
   },
@@ -358,11 +356,7 @@ To enable TurboSnap for specific branches, pass a glob to `--only-changed` (e.g.
 
 TurboSnap will make working in a monorepo more efficient. Because it detects affected stories based on the actual files changed, pushing a commit that touched only backend code will run faster in CI and not use up your snapshot quota. However, it will still build and publish your Storybook. To avoid that, you can [skip Chromatic entirely](/docs/monorepos#only-run-chromatic-when-changes-occur-in-a-subproject), speeding up your CI pipeline even more.
 
-<YouTubeCallout
-  client:load
-  id="pmVx8Meh4g0"
-  summary="Configure Turbosnap in a Monorepo"
-/>
+<YouTubeCallout client:load id="pmVx8Meh4g0" summary="Configure Turbosnap in a Monorepo" />
 
 When configuring TurboSnap in a monorepo, it's important to ensure that Chromatic understands where your Storybook project is relative to where you're executing your `chromatic` script. This is particularly important because TurboSnap relies on the correct file path resolution to determine which stories have changed and which stories can be skipped. If you're running a subproject out of a monorepo, chances are that you're executing your script from the root of your repository, in which case there are extra considerations to take when configuring TurboSnap.
 

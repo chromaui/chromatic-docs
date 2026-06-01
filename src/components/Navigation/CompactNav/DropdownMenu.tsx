@@ -1,20 +1,12 @@
-import styled from "@emotion/styled";
-import * as Popover from "@radix-ui/react-popover";
-import * as RadixDropdownMenu from "@radix-ui/react-dropdown-menu";
-import {
-  typography,
-  color,
-  spacing,
-  minSm,
-  fontWeight,
-  minMd,
-  VStack,
-} from "@chromatic-com/tetra";
-import { DropdownTrigger } from "./DropdownTrigger";
-import { AnimatePresence, motion } from "framer-motion";
-import React from "react";
-import type { TransformedNavGroup } from "../types";
-import { CollapsibleGroup } from "../CollapsibleGroup";
+import styled from '@emotion/styled';
+import * as Popover from '@radix-ui/react-popover';
+import * as RadixDropdownMenu from '@radix-ui/react-dropdown-menu';
+import { typography, color, spacing, minSm, fontWeight, minMd, VStack } from '@chromatic-com/tetra';
+import { DropdownTrigger } from './DropdownTrigger';
+import { AnimatePresence, motion } from 'framer-motion';
+import React from 'react';
+import type { TransformedNavGroup } from '../types';
+import { CollapsibleGroup } from '../CollapsibleGroup';
 
 const NavigationMenu = styled(motion.div)`
   position: relative;
@@ -43,7 +35,7 @@ const NavMenuDropdownTrigger = styled(DropdownTrigger)`
 `;
 
 interface DropdownMenuProps {
-  variant?: "light" | "dark";
+  variant?: 'light' | 'dark';
   label: string;
   groups: TransformedNavGroup[];
   url: string;
@@ -55,13 +47,7 @@ const PopoverContent = styled(Popover.Content)`
   overflow: scroll;
 `;
 
-export const DropdownMenu = ({
-  label,
-  variant,
-  groups,
-  url,
-  ...props
-}: DropdownMenuProps) => {
+export const DropdownMenu = ({ label, variant, groups, url, ...props }: DropdownMenuProps) => {
   const [mobileMenuOpen, setMobileMenuOpen] = React.useState(false);
 
   return (
@@ -79,15 +65,11 @@ export const DropdownMenu = ({
                 initial={{ opacity: 0, y: -8 }}
                 animate={{ opacity: 1, y: 0 }}
                 exit={{ opacity: 0, y: -8 }}
-                transition={{ ease: "easeOut", duration: 0.14 }}
+                transition={{ ease: 'easeOut', duration: 0.14 }}
               >
                 <VStack gap={4}>
                   {groups.map((group) => (
-                    <CollapsibleGroup
-                      key={group.title}
-                      group={group}
-                      url={url}
-                    />
+                    <CollapsibleGroup key={group.title} group={group} url={url} />
                   ))}
                 </VStack>
               </NavigationMenu>

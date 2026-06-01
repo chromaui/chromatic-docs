@@ -46,6 +46,8 @@ All commands are run from the root of the project, from a terminal:
 | `pnpm preview`         | Preview your build locally, before deploying     |
 | `pnpm astro ...`       | Run CLI commands like `astro add`, `astro check` |
 | `pnpm astro -- --help` | Get help using the Astro CLI                     |
+| `pnpm diagrams`        | Render all `diagrams/*.mmd` files to SVG         |
+| `pnpm diagrams:watch`  | Watch `diagrams/` and re-render on save          |
 
 ## ✍️ Editing Content
 
@@ -117,22 +119,37 @@ This project uses Shiki for syntax highlighting with the [transformerNotationDif
 Therefore, you can use Use `[!code ++]` and `[!code --]` to mark added and removed lines. For example:
 
 ```js
-console.log("hewwo"); // [!code --]
-console.log("hello"); // [!code ++]
-console.log("goodbye");
+console.log('hewwo'); // [!code --]
+console.log('hello'); // [!code ++]
+console.log('goodbye');
 ```
 
 And use `[!code highlight]` to highlight a line, like so:
 
 ```js
-console.log("Not highlighted");
-console.log("Highlighted"); // [!code highlight]
-console.log("Not highlighted");
+console.log('Not highlighted');
+console.log('Highlighted'); // [!code highlight]
+console.log('Not highlighted');
 ```
 
 ### Mermaid diagrams
 
-You can insert Mermaid diagrams in markdown & MDX files to visualize Git commits and actions. For syntax and usage instructions, refer to the Mermaid documentation: [Mermaid documentation](https://mermaid.js.org/syntax/gitgraph.html).
+Mermaid diagrams are authored as `.mmd` files in the `diagrams/` directory and pre-rendered to SVG via [Kroki](https://kroki.io) before being committed.
+
+**Workflow:**
+
+1. Create or edit a `.mmd` file in `diagrams/`, e.g. `diagrams/my-diagram.mmd`
+2. Run `pnpm diagrams` (or `pnpm diagrams:watch` during active editing) to render it:
+   ```bash
+   pnpm diagrams         # render all diagrams/*.mmd → src/images/diagrams/*.svg
+   pnpm diagrams:watch   # re-render automatically on save
+   ```
+3. Commit both the `.mmd` source and the generated `src/images/diagrams/my-diagram.svg`
+4. Reference the SVG as a regular image in your markdown/MDX content
+
+Images from `src/images/diagrams/` automatically receive a `diagram` CSS class for styling.
+
+For syntax reference see the [Mermaid documentation](https://mermaid.js.org/syntax/gitgraph.html).
 
 ### Adding an FAQ item
 

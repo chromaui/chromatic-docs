@@ -1,4 +1,4 @@
-import { css } from "@emotion/react";
+import { css } from '@emotion/react';
 
 export const link = css`
   a,
@@ -88,7 +88,7 @@ export const link = css`
       gap: 0.75rem;
     }
 
-    > [class*="icon-"] {
+    > [class*='icon-'] {
       font-size: 80%;
       display: inline-block;
       margin-right: 0.25em;

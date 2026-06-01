@@ -1,4 +1,4 @@
-import { css } from "@emotion/react";
+import { css } from '@emotion/react';
 
 export const formatting = css`
   font-size: 16px;
@@ -177,31 +177,19 @@ export const formatting = css`
     }
   }
 
-  figure.mermaid {
-    width: 100%;
+  img.diagram {
+    display: block;
     background: #f8f8f8;
-    border-radius: 4px;
-    position: relative;
-    margin: 1.5rem 0;
     padding: 1rem;
+    width: 100%;
+    height: auto;
+  }
 
-    svg {
-      display: block;
-      /* min-width: 300px; */
-      height: auto;
-
-      .branch,
-      line[class^="branch"] {
-        opacity: 0;
-      }
-    }
-
-    & + .aside {
-      margin-top: -1.5rem;
-      border-top-left-radius: 0;
-      border-top-right-radius: 0;
-      border-top: 1px solid rgba(0, 0, 0, 0.1);
-    }
+  p:has(> img.diagram) + .aside {
+    margin-top: -1.5rem;
+    border-top-left-radius: 0;
+    border-top-right-radius: 0;
+    border-top: 1px solid rgba(0, 0, 0, 0.1);
   }
 
   blockquote {
@@ -391,7 +379,7 @@ export const formatting = css`
 
     &:before {
       border-left: 1px solid rgba(0, 0, 0, 0.1);
-      content: "";
+      content: '';
       height: 100%;
       left: 4px;
       position: absolute;

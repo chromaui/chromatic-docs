@@ -16,7 +16,7 @@ See [Vitest's sharding documentation](https://vitest.dev/guide/improving-perform
 If you're working with GitHub Actions, you can configure a job [matrix](https://docs.github.com/en/actions/using-jobs/using-a-matrix-for-your-jobs) to run Vitest tests in parallel across multiple instances. Enabling this option will run a separate job for every combination of the provided values, merge the test results as a single artifact, and make them available to the Chromatic job when it runs.
 
 ```yaml title=".github/workflows/chromatic.yml"
-name: "UI Tests"
+name: 'UI Tests'
 
 on: push
 
@@ -109,7 +109,7 @@ Vitest:
   artifacts:
     when: always
     paths:
-      - ".vitest/chromatic"
+      - '.vitest/chromatic'
     expire_in: 4 weeks
 
 Chromatic:
@@ -147,10 +147,10 @@ jobs:
             - v1-dependencies-{{ checksum "package-lock.json" }}
             - v1-dependencies-
       - run:
-          name: "Install dependencies"
+          name: 'Install dependencies'
           command: npm ci
       - run:
-          name: "Run Vitest tests"
+          name: 'Run Vitest tests'
           command: SHARD="$((${CIRCLE_NODE_INDEX}+1))"; npx vitest run --shard=${SHARD}/${CIRCLE_NODE_TOTAL}
           when: always
       - store_artifacts:
@@ -173,7 +173,7 @@ jobs:
       - attach_workspace:
           at: .
       - run:
-          name: "Run Chromatic"
+          name: 'Run Chromatic'
           command: npx chromatic --vitest --project-token=${CHROMATIC_PROJECT_TOKEN}
 workflows:
   UI_Tests:

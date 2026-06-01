@@ -1,5 +1,5 @@
-import { getAllCollections } from "../../utils/collections";
-import { transformNavGroups, flattenGroups } from "./transform-nav-groups";
+import { getAllCollections } from '../../utils/collections';
+import { transformNavGroups, flattenGroups } from './transform-nav-groups';
 
 const {
   overview,
@@ -22,20 +22,20 @@ const {
 
 const rawNavGroups = [
   {
-    title: "Overview",
+    title: 'Overview',
     items: overview,
     defaultOpen: true,
     timeline: true,
   },
   {
-    title: "Visual Tests",
+    title: 'Visual Tests',
     items: [
       {
-        title: "Modes",
+        title: 'Modes',
         items: modes,
       },
       {
-        title: "TurboSnap",
+        title: 'TurboSnap',
         items: turbosnap,
       },
       ...visualTests,
@@ -43,53 +43,53 @@ const rawNavGroups = [
     defaultOpen: false,
   },
   {
-    title: "Accessibility Tests",
+    title: 'Accessibility Tests',
     items: accessibilityTests,
     defaultOpen: false,
   },
   {
-    title: "Interaction Tests",
+    title: 'Interaction Tests',
     items: interactionTests,
     defaultOpen: false,
   },
   {
-    title: "CI",
+    title: 'CI',
     items: ci,
   },
   {
-    title: "Configuration",
+    title: 'Configuration',
     items: configuration,
   },
   {
-    title: "Snapshot",
+    title: 'Snapshot',
     items: snapshot,
   },
   {
-    title: "Guides",
+    title: 'Guides',
     items: guides,
   },
   {
-    title: "Collaborate",
+    title: 'Collaborate',
     items: collaborate,
   },
   {
-    title: "Vitest",
+    title: 'Vitest',
     items: vitest,
   },
   {
-    title: "Playwright",
+    title: 'Playwright',
     items: playwright,
   },
   {
-    title: "Cypress",
+    title: 'Cypress',
     items: cypress,
   },
   {
-    title: "Account",
+    title: 'Account',
     items: account,
   },
   {
-    title: "Troubleshooting",
+    title: 'Troubleshooting',
     items: troubleshooting,
   },
 ];

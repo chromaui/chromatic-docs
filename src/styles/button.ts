@@ -1,5 +1,5 @@
-import { css } from "@emotion/react";
-import { minMd } from "@chromatic-com/tetra";
+import { css } from '@emotion/react';
+import { minMd } from '@chromatic-com/tetra';
 
 export const button = css`
   .btn {
@@ -153,12 +153,12 @@ export const button = css`
         right: 0;
         bottom: 0;
         left: 0;
-        content: "";
+        content: '';
         border: 1px dotted #999;
         display: block;
       }
 
-      [class*="icon-"] {
+      [class*='icon-'] {
         text-indent: 0;
         letter-spacing: 0;
         margin-left: -0.375rem;
@@ -202,7 +202,7 @@ export const button = css`
         transition: all 150ms ease-out;
         transform: translateY(100%);
         //background-color: rgba(0,0,0,.2);
-        content: "";
+        content: '';
       }
 
       .progress-bar {
@@ -286,7 +286,7 @@ export const button = css`
         transform: translateX(100%);
         background: rgba(0, 0, 0, 0.2);
         opacity: 0;
-        content: "";
+        content: '';
       }
 
       .loading-bar {
@@ -406,7 +406,7 @@ export const button = css`
       padding: 0;
       width: 14px;
 
-      [class*="icon-"]:only-child {
+      [class*='icon-']:only-child {
         display: block;
         font-size: 10px;
         line-height: 14px;
@@ -434,7 +434,7 @@ export const button = css`
       }
     }
 
-    [class*="icon-"] {
+    [class*='icon-'] {
       font-size: 16px;
       margin-right: 6px;
       vertical-align: baseline;

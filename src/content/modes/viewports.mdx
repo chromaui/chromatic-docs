@@ -2,10 +2,10 @@
 title: Viewports
 description: Configure Chromatic in Storybook to test responsive components at various viewports and breakpoints.
 sidebar: { order: 2 }
-slug: "modes/viewports"
+slug: 'modes/viewports'
 ---
 
-import { TabItem, Tabs } from "../../components/Tabs";
+import { TabItem, Tabs } from '../../components/Tabs';
 
 # Configure viewports for stories
 
@@ -55,8 +55,8 @@ export const allModes = {
   specificString: {
     // string values
     viewport: {
-      height: "600",
-      width: "800px",
+      height: '600',
+      width: '800px',
     },
   },
 } as const;
@@ -70,9 +70,9 @@ For example, given the following set of modes in `.storybook/modes.ts`.
 
 ```ts title=".storybook/modes.ts"
 export const allModes = {
-  small: { name: "Small", styles: { width: "640px", height: "900px" } },
-  medium: { name: "Medium", styles: { width: "768px", height: "900px" } },
-  large: { name: "Large", styles: { width: "1024px", height: "900px" } },
+  small: { name: 'Small', styles: { width: '640px', height: '900px' } },
+  medium: { name: 'Medium', styles: { width: '768px', height: '900px' } },
+  large: { name: 'Large', styles: { width: '1024px', height: '900px' } },
 } as const;
 ```
 
@@ -80,21 +80,21 @@ We can apply the modes, like so:
 
 ```ts title="ArticleCard.stories.ts|tsx"
 // Adjust this import to match your framework (e.g., nextjs, vue3-vite)
-import type { Meta } from "@storybook/your-framework";
+import type { Meta } from '@storybook/your-framework';
 
-import { allModes } from "../.storybook/modes";
+import { allModes } from '../.storybook/modes';
 
-import { ArticleCard } from "./ArticleCard";
+import { ArticleCard } from './ArticleCard';
 
 const meta = {
   component: ArticleCard,
-  title: "ArticleCard",
+  title: 'ArticleCard',
   parameters: {
     chromatic: {
       //🔶 Test each story for ArticleCard in two modes
       modes: {
-        mobile: allModes["small"],
-        desktop: allModes["large"],
+        mobile: allModes['small'],
+        desktop: allModes['large'],
       },
     },
   },
@@ -114,26 +114,26 @@ The Storybook [viewport feature](https://storybook.js.org/docs/essentials/viewpo
 You start by configuring your desired set of viewports in `.storybook/preview.js|ts`. For example:
 
 <div class="aside">
-  ⚠️&nbsp;&nbsp;While the viewport feature allows you to specify dimensions
-  using any valid CSS unit (such as px, rem, calc, etc.), Chromatic modes only
-  support whole numbers or strings with a "px" suffix.
+  ⚠️&nbsp;&nbsp;While the viewport feature allows you to specify dimensions using any valid CSS unit
+  (such as px, rem, calc, etc.), Chromatic modes only support whole numbers or strings with a "px"
+  suffix.
 </div>
 
 ```ts title=".storybook/preview.ts"
 // Replace your-framework with the framework you are using (e.g., react-vite, vue3-vite)
 // if you're using Storybook 9, or with the appropriate renderer otherwise.
-import type { Preview } from "@storybook/your-framework";
+import type { Preview } from '@storybook/your-framework';
 
 const preview: Preview = {
   parameters: {
     viewport: {
       options: {
-        xsm: { name: "XSmall", styles: { width: "320px", height: "900px" } },
-        sm: { name: "Small", styles: { width: "640px", height: "900px" } },
-        md: { name: "Medium", styles: { width: "768px", height: "900px" } },
-        lg: { name: "Large", styles: { width: "1024px", height: "900px" } },
-        xl: { name: "XL", styles: { width: "1280px", height: "900px" } },
-        "2xl": { name: "2XL", styles: { width: "1536px", height: "900px" } },
+        xsm: { name: 'XSmall', styles: { width: '320px', height: '900px' } },
+        sm: { name: 'Small', styles: { width: '640px', height: '900px' } },
+        md: { name: 'Medium', styles: { width: '768px', height: '900px' } },
+        lg: { name: 'Large', styles: { width: '1024px', height: '900px' } },
+        xl: { name: 'XL', styles: { width: '1280px', height: '900px' } },
+        '2xl': { name: '2XL', styles: { width: '1536px', height: '900px' } },
       },
     },
   },
@@ -147,13 +147,13 @@ You can now refer to these viewports by their key in your mode's definition. For
 ```ts title=".storybook/modes.ts"
 export const allModes = {
   xsm: {
-    viewport: "xsm",
+    viewport: 'xsm',
   },
   md: {
-    viewport: "md",
+    viewport: 'md',
   },
   xl: {
-    viewport: "xl",
+    viewport: 'xl',
   },
   // Note, you can still specify the more
   // specific options listed in the section above
@@ -243,15 +243,15 @@ In the example below, both stories will use the `md` viewport size when viewed i
 
 ```ts title="MyComponent.stories.ts|tsx"
 // Adjust this import to match your framework (e.g., nextjs, vue3-vite)
-import type { Meta, StoryObj } from "@storybook/your-framework";
+import type { Meta, StoryObj } from '@storybook/your-framework';
 
-import { allModes } from "../.storybook/modes";
+import { allModes } from '../.storybook/modes';
 
-import { MyComponent } from "./MyComponent";
+import { MyComponent } from './MyComponent';
 
 const meta = {
   component: MyComponent,
-  title: "MyComponent",
+  title: 'MyComponent',
 } satisfies Meta<typeof MyComponent>;
 
 export default meta;
@@ -260,7 +260,7 @@ type Story = StoryObj<typeof meta>;
 export const FirstStory: Story = {
   globals: {
     viewport: {
-      value: "md",
+      value: 'md',
     },
   },
 };
@@ -268,14 +268,14 @@ export const FirstStory: Story = {
 export const SecondStory: Story = {
   globals: {
     viewport: {
-      value: "md",
+      value: 'md',
     },
   },
   parameters: {
     chromatic: {
       modes: {
-        lg: allModes["lg"],
-        xl: allModes["xl"],
+        lg: allModes['lg'],
+        xl: allModes['xl'],
       },
     },
   },
@@ -327,13 +327,13 @@ If no height is specified, Chromatic will capture a snapshot based on the intrin
 
 ```ts title="MyComponent.stories.ts|tsx"
 // Adjust this import to match your framework (e.g., nextjs, vue3-vite)
-import type { Meta } from "@storybook/your-framework";
+import type { Meta } from '@storybook/your-framework';
 
-import { MyComponent } from "./MyComponent";
+import { MyComponent } from './MyComponent';
 
 const meta = {
   component: MyComponent,
-  title: "MyComponent",
+  title: 'MyComponent',
   parameters: {
     chromatic: {
       cropToViewport: true,
@@ -362,16 +362,16 @@ But if you really want to assign project-level modes, you can do so by setting t
 ```ts title=".storybook/preview.ts"
 // Replace your-framework with the framework you are using (e.g., react-vite, vue3-vite)
 // if you're using Storybook 9, or with the appropriate renderer otherwise.
-import type { Preview } from "@storybook/your-framework";
+import type { Preview } from '@storybook/your-framework';
 
-import { allModes } from "../.storybook/modes";
+import { allModes } from '../.storybook/modes';
 
 const preview: Preview = {
   parameters: {
     chromatic: {
       modes: {
-        light: allModes["light"],
-        dark: allModes["dark"],
+        light: allModes['light'],
+        dark: allModes['dark'],
       },
     },
   },

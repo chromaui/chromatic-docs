@@ -1,8 +1,8 @@
 ---
 title: TurboSnap dependency tracing
 description: Speed up tests by detecting file changes with Git
-sidebar: { order: 5, label: "Dependency tracing" }
-slug: "turbosnap/dependency-tracing"
+sidebar: { order: 5, label: 'Dependency tracing' }
+slug: 'turbosnap/dependency-tracing'
 ---
 
 # TurboSnap dependency tracing
@@ -108,13 +108,13 @@ The asset object for a story file usually looks a bit different:
 Under "reasons," you'll notice a `moduleName` resembling a path pattern. In the full, untrimmed file, the `issuerPath`'s are `"./storybook-config-entry.js"` and `"./storybook-stories.js"`. That's because the dependency is related to this project's Storybook configuration:
 
 ```ts title=".storybook/main.ts"
-import type { StorybookConfig } from "@storybook/react-webpack5";
+import type { StorybookConfig } from '@storybook/react-webpack5';
 
 const config: StorybookConfig = {
   stories: [
     {
-      directory: "../",
-      files: "**/*.@(mdx|stories.@(js|jsx|ts|tsx))",
+      directory: '../',
+      files: '**/*.@(mdx|stories.@(js|jsx|ts|tsx))',
     },
   ],
   // ...

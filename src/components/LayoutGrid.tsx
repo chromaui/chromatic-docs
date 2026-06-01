@@ -1,12 +1,13 @@
-import { minLg, minMd, minXl, spacing } from "@chromatic-com/tetra";
-import styled from "@emotion/styled";
-import { css } from "@emotion/react";
+import { minLg, minMd, minXl, spacing } from '@chromatic-com/tetra';
+import styled from '@emotion/styled';
+import { css } from '@emotion/react';
 
 export const LayoutGrid = styled.div<{ showOnThisPage?: boolean }>`
   margin: ${spacing[10]} 0;
   display: flex;
-  gap: ${spacing[10]};
+  gap: ${spacing[4]};
   flex-direction: column;
+  margin-bottom: ${spacing[8]};
 
   ${minMd} {
     margin: ${spacing[16]} 0;
