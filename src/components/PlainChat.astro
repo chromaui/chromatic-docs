@@ -49,34 +49,13 @@ import {
     chatButtons: [
       {
         icon: 'support',
-        text: 'Chat with a developer',
+        text: 'Get help from support',
       },
       {
-        icon: 'chat',
-        text: 'Speak with someone else',
-        form: {
-          fields: [
-            {
-              type: 'dropdown',
-              placeholder: 'Select a topic...',
-              options: [
-                {
-                  icon: 'chat',
-                  text: 'Billing',
-                  threadDetails: {
-                    labelTypeIds: [labelIds.billing],
-                  },
-                },
-                {
-                  icon: 'chat',
-                  text: 'Sales',
-                  threadDetails: {
-                    labelTypeIds: [labelIds.sales],
-                  },
-                },
-              ],
-            },
-          ],
+        icon: 'bulb',
+        text: 'Discuss plans and pricing',
+        threadDetails: {
+          labelTypeIds: [labelIds.sales],
         },
       },
     ],
