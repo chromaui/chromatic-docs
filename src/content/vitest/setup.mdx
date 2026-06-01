@@ -50,6 +50,7 @@ Generate a unique project token for your app by signing in to Chromatic and crea
 
 <DemoChromaticUnlinked />
 
+{/* TODO: Replace with Vitest version */}
 ![Setup project](../../images/setup-playwright.png)
 
 ### 2. Install Chromatic
@@ -213,10 +214,40 @@ When complete, you’ll see the build status and a link to review the changes. C
   → Tested X stories across 10 components; captured 10 snapshots in 1 minute 3 seconds
 ```
 
+{/* TODO: Replace with version using suites */}
 ![Chromatic build screen with a list of component tests that have visual changes](../../images/build-test-unreviewed-e2e.png)
+
+<details>
+<summary id="change-title">How can I change the name of a test?</summary>
+
+By default, the name and surrounding hierarchy of a test in a Chromatic build is generated based on the file path, suite name(s), and test name in Vitest. Sometimes, the file path and component result in a less than helpful display in the build table. For example, you could have test files located at `src/pages/dashboard/Page.test.tsx` and `src/pages/settings/Page.test.tsx`, which would be displayed like this in the build table:
+
+{/* ![TK](../../images/vitest-test-name-unhelpful.png) */}
+
+You can customize this name by calling `configure` function from `@chromatic-com/vitest` with the [`title` option](/docs/vitest/configure#test-run-options) in the test file.
+
+```jsx title="src/pages/dashboard/Page.test.tsx"
+import { describe, test } from 'vitest';
+import { configure } from '@chromatic-com/vitest'; // [!code ++]
+
+import { Page } from './Page';
+
+configure({ title: 'Dashboard' }); // [!code ++]
+
+test('Dashboard', async () => {
+  await render(<Page />);
+});
+```
+
+Which would be displayed like this in the build table:
+
+{/* ![TK](../../images/vitest-test-name-helpful.png) */}
+
+</details>
 
 The build will be marked “unreviewed” and the changes will be listed in the “Tests” table. Go through each snapshot to review the diff and approve or reject the change.
 
+{/* TODO: Replace to swap viewport mode with snapshot name */}
 ![Clicking on a test takes you to the snapshot page where you can compare the new snapshot to the baseline](../../images/snapshot-unreviewed-e2e.png)
 
 Once you accept all changes, your build is marked as passed 🟢. This updates the baselines for those tests, ensuring future snapshots are compared against the latest approved version.
@@ -247,6 +278,17 @@ Take full control of your Chromatic and Vitest setup to match your team's specif
 ## Frequently asked questions
 
 <TroubleshootingSetup />
+
+<details>
+<summary id="disable-auto-snapshot">How can I disable automatic snapshots for a test?</summary>
+
+By default, Chromatic captures a snapshot at the end of each test. You can disable this behavior for specific test cases, a suite of tests, test files, or the entire project using the [`disableAutoSnapshot` option](/docs/vitest/configure).
+
+You can also make automatic snapshots opt-in instead of opt-out, by disabling them at the project level and then re-enabling them for specific test files, suites, or test cases.
+
+Regardless of whether a test has automatic snapshots enabled or disabled, you can always capture a snapshot programmatically at any point during the test using the [`takeSnapshot` function](/docs/vitest/targeted-snapshots).
+
+</details>
 
 <details>
 <summary id="turbosnap-support">Can I use TurboSnap with Vitest visual tests?</summary>

@@ -116,13 +116,14 @@ describe('button', () => {
 
 These options control how the Chromatic plugin behaves during test execution.
 
-| Option                   | Type            | Description                                                                                                                                                                                                                  |
-| ------------------------ | --------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `outputDirectory`        | `string`        | Directory where temporary archives and snapshots will be stored. Relative to the project [the project `root`](https://vitest.dev/config/root.html#root). Defaults to `.vitest/chromatic`. **Allowed only as global option.** |
-| `disableAutoSnapshot`    | `boolean`       | When `true`, it will disable the snapshot that happens automatically at the end of a test.                                                                                                                                   |
-| `resourceArchiveTimeout` | `number`        | Maximum amount of time each test will wait for the network to be idle while archiving resources.                                                                                                                             |
-| `assetDomains`           | `array[string]` | A list of domains external to the test location that you want Chromatic to also capture assets from, e.g., <code style="display: inline;">['other-domain.com','our-cdn.com']</code>. **Allowed only as global option.**      |
-| `idleNetworkInterval`    | `number`        | Time in milliseconds to determine whether network is idle. The network is considered idle if there are no new network requests for at least this duration. **Allowed only as global option.**                                |
+| Option                   | Type            | Description                                                                                                                                                                                                                      |
+| ------------------------ | --------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `assetDomains`           | `array[string]` | A list of domains external to the test location that you want Chromatic to also capture assets from, e.g., <code style="display: inline;">['other-domain.com','our-cdn.com']</code>. **Only available as a global option.**      |
+| `disableAutoSnapshot`    | `boolean`       | When `true`, it will disable the snapshot that happens automatically at the end of a test.                                                                                                                                       |
+| `idleNetworkInterval`    | `number`        | Time in milliseconds to determine whether network is idle. The network is considered idle if there are no new network requests for at least this duration. **Only available as global option.**                                  |
+| `outputDirectory`        | `string`        | Directory where temporary archives and snapshots will be stored. Relative to the project [the project `root`](https://vitest.dev/config/root.html#root). Defaults to `.vitest/chromatic`. **Only available as a global option.** |
+| `resourceArchiveTimeout` | `number`        | Maximum amount of time each test will wait for the network to be idle while archiving resources.                                                                                                                                 |
+| `title`                  | `string`        | Override the inferred name for the test file. **Only available as a test file-level option.** ([See **Review changes** for details](/docs/vitest#6-review-changes))                                                              |
 
 ## Chromatic options
 
@@ -134,8 +135,8 @@ These options control how Chromatic behaves when capturing snapshots of your pag
 | `delay`                   | `number`        | [Delay](/docs/delay/)                                                                                  |
 | `diffIncludeAntiAliasing` | `boolean`       | [Threshold for changes](/docs/threshold#anti-aliasing)                                                 |
 | `diffThreshold`           | `number`        | [Threshold for changes](/docs/threshold#setting-the-threshold)                                         |
-| `ignoreSelectors`         | `array[string]` | [Ignore elements](/docs/ignoring-elements#ignoring-elements-via-test-configuration)                    |
 | `forcedColors`            | `string`        | [Media Features](/docs/media-features#test-high-contrast-color-schemes)                                |
+| `ignoreSelectors`         | `array[string]` | [Ignore elements](/docs/ignoring-elements#ignoring-elements-via-test-configuration)                    |
 | `pauseAnimationAtEnd`     | `boolean`       | [Animations](/docs/animations#css-animations)                                                          |
 | `prefersReducedMotion`    | `string`        | [Media Features](/docs/media-features#verify-reduced-motion-animations)                                |
 
