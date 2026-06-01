@@ -1,7 +1,7 @@
 ---
 title: Composition
 description: Learn to combine Storybooks through composition
-sidebar: { order: 10 }
+sidebar: { order: 11 }
 ---
 
 # Storybook Composition

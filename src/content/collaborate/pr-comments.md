@@ -1,7 +1,7 @@
 ---
 title: PR comments (beta)
 description: Chromatic posts a comment on your pull request with the UI test status, change counts, and a link to your published Storybook.
-sidebar: { order: 8, label: 'PR comments' }
+sidebar: { order: 10, label: 'PR comments' }
 ---
 
 # PR comments (beta)

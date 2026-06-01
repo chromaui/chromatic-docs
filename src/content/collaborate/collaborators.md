@@ -10,7 +10,7 @@ Chromatic keeps track of UI feedback and tests in one place so that collaborator
 
 ## Organization collaborators
 
-Manage organization collaborators via OAuth, email, or SSO.
+Manage organization collaborators via OAuth, email, or [SSO](/docs/sso).
 
 #### OAuth
 
@@ -34,9 +34,7 @@ However, projects _within_ an organization do support [project-level collaborato
 
 #### Single Sign-On (SSO) for organizations
 
-Single Sign-On (SSO) is available to enterprise customers. Chromatic syncs access permissions with your SSO provider. At the organization-level, contact us via in-app chat or email to manage or remove collaborators.
-
-When you add collaborators in your SSO provider, that access will be reflected in Chromatic automatically.
+Single Sign-On (SSO) is available to enterprise customers. Learn more [here](/docs/sso).
 
 ### Billing and usage
 
@@ -87,9 +85,7 @@ If you signed up via email and password, Chromatic won't have a Git repo to sync
 
 #### Single Sign-On (SSO) for projects
 
-Chromatic syncs access permissions with your SSO provider. At the project-level, all collaborators who have access via SSO will also get access to every Chromatic project within your organization's account.
-
-When you add or remove collaborators in your SSO provider, that access will be reflected in Chromatic automatically.
+Chromatic syncs access permissions with your SSO provider. Learn more [here](/docs/sso).
 
 ### External collaborators
 
@@ -105,19 +101,6 @@ External collaborators are added and removed manually. Once they create an accou
 #### Limitations of external collaborator accounts
 
 External collaborator accounts cannot link the project to a repository on GitHub, Bitbucket, or GitLab.
-
-<details>
-<summary>How can I invite external collaborators to my SAML account?</summary>
-
-SAML accounts do not directly support **external collaborators**. However, we have an allowlist of email domains that can access Chromatic with SSO.
-
-We can add any email domain to the allowlist, as long as it is not a generic email address with `@gmail` or `@yahoo`. For example, if you have a contractor with an email like `person@storybook.org`, we can add `storybook.org` to the allowlist for your SAML account.
-
-Many companies add contractors as external users by creating specific domains for them, such as `person@chromatic-ext.com`, and then adding `chromatic-ext.com` to the allowlist.
-
-Send us the list of external collaborators via our **in-app chat** or email us at [support@chromatic.com](mailto:support@chromatic.com).
-
-</details>
 
 ### Roles
 
@@ -147,10 +130,6 @@ Go to your project's Manage page to view your role and it's capabilities.
 #### Roles for open source projects
 
 Open source projects are viewable to all users even if they're not listed as a collaborator or have a Chromatic account. But in order to manage or review the open source project, collaborators must have explicit access and the corresponding role.
-
-#### Roles for Single Sign-On (SSO)
-
-Chromatic syncs collaborators with your SSO provider. All collaborators are granted `developer` capabilities.
 
 ### Visibility
 
