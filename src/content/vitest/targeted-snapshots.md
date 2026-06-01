@@ -79,6 +79,7 @@ test("image inside accordion", async () => {
 Network request state is polled in intervals of `idleNetworkInterval` in milliseconds. Default value is 100ms.
 This can be configured on Chromatic plugin's options:
 
+```ts
 export default defineConfig({
   plugins: [chromaticPlugin({ idleNetworkInterval: 50 })],
 });
