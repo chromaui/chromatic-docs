@@ -9,7 +9,7 @@ import { TabItem, Tabs } from "../../components/Tabs";
 
 # Configure visual tests for Vitest
 
-You can enhance your Vitest and Chromatic tests further by configuring these options in your [Vitest configuration file](https://vitest.dev/config/).
+You can enhance your Vitest and Chromatic tests further by configuring these options globally in your [Vitest configuration file](https://vitest.dev/config/).
 
 ```ts title="vitest.config.ts"
 import { defineProject } from "vitest/config";
@@ -18,7 +18,7 @@ import { chromaticPlugin } from "@chromatic-com/vitest/plugin";
 export default defineProject({
   plugins: [
     chromaticPlugin({
-      // 👇 Options placed here
+      // 👇 Global options placed here
       disableAutoSnapshot: true,
     }),
   ],
@@ -27,22 +27,21 @@ export default defineProject({
 });
 ```
 
-## Disabling automatic snapshots
-
-In addition to the [project-level option](#test-run-options), you can also call the `disableAutoSnapshot()` function to disable snapshotting for specific tests, suites, or test files.
+In addition to global configuration, you can also configure options at the test file, suite, and test case level.
+This allows you to have more granular control over which tests are snapshotted and how they are snapshotted.
 
 <Tabs>
-  <TabItem label="Test level">
+  <TabItem label="Test case level">
 <br />
-When called within `test()`, it disables snapshotting for that test:
+When called within `test()`, it configures options for that test:
 
 ```jsx title="test/accordion.test.tsx"
 import { test } from "vitest";
-import { disableAutoSnapshot } from "@chromatic-com/vitest";
+import { configure } from "@chromatic-com/vitest";
 
 test("accordion", async () => {
   // ❌ Not snapshotted
-  disableAutoSnapshot(); // Scopes to this test only
+  configure({ disableAutoSnapshot: true }); // Scopes to this test only
   await render(<Accordion />);
 });
 
@@ -56,11 +55,11 @@ test("button", async () => {
 
   <TabItem label="Test suite level">
 <br />
-When called within `describe()`, it disables snapshotting for all tests and suites within that describe block.
+When called within `describe()`, it configures options for all tests and suites within that describe block.
 
 ```jsx title="test/accordion.test.tsx"
 import { describe, test } from "vitest";
-import { disableAutoSnapshot } from "@chromatic-com/vitest";
+import { configure } from "@chromatic-com/vitest";
 
 test("accordion", async () => {
   // ✅ Snapshotted automatically
@@ -68,7 +67,7 @@ test("accordion", async () => {
 });
 
 describe("button", () => {
-  disableAutoSnapshot(); // Scopes to all tests (and nested suites) in this suite
+  configure({ disableAutoSnapshot: true }); // Scopes to all tests (and nested suites) in this suite
 
   test("default", async () => {
     // ❌ Not snapshotted
@@ -88,14 +87,14 @@ describe("button", () => {
 
   <TabItem label="Test file level">
 <br />
-When called at the top level, it disables snapshotting for all tests in the file:
+When called at the top level, it configures options for all tests in the file:
 
 ```jsx title="test/accordion.test.tsx"
 import { describe, test } from "vitest";
-import { disableAutoSnapshot } from "@chromatic-com/vitest";
+import { configure } from "@chromatic-com/vitest";
 
 // Scoped to whole test module (file), affects all tests and suites in this file
-disableAutoSnapshot();
+configure({ disableAutoSnapshot: true });
 
 test("accordion", async () => {
   // ❌ Not snapshotted
@@ -115,30 +114,30 @@ describe("button", () => {
 
 ## Test run options
 
-These options control how the Chromatic archive fixture behaves.
+These options control how the Chromatic plugin behaves during test execution.
 
-| Option                   | Type            | Description                                                                                                                                                                               |
-| ------------------------ | --------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `outputDirectory`        | `string`        | Directory where temporary archives and snapshots will be stored. Relative to the project [the project `root`](https://vitest.dev/config/root.html#root). Defaults to `.vitest/chromatic`. |
-| `disableAutoSnapshot`    | `boolean`       | When `true`, it will disable the snapshot that happens automatically at the end of a test when using the Chromatic test fixture.                                                          |
-| `cropToViewport     `    | `boolean`       | When `true`, the snapshot will be clipped to the height of the [viewport](/docs/viewports#playwright).                                                                                    |
-| `resourceArchiveTimeout` | `number`        | Maximum amount of time each test will wait for the network to be idle while archiving resources.                                                                                          |
-| `assetDomains`           | `array[string]` | A list of domains external to the test location that you want Chromatic to also capture assets from, e.g., <code style="display: inline;">['other-domain.com','our-cdn.com']</code>.      |
-| `idleNetworkInterval`    | `number`        | Time in milliseconds to determine whether network is idle. The network is considered idle if there are no new network requests for at least this duration.                                |
+| Option                   | Type            | Description                                                                                                                                                                                                                  |
+| ------------------------ | --------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `outputDirectory`        | `string`        | Directory where temporary archives and snapshots will be stored. Relative to the project [the project `root`](https://vitest.dev/config/root.html#root). Defaults to `.vitest/chromatic`. **Allowed only as global option.** |
+| `disableAutoSnapshot`    | `boolean`       | When `true`, it will disable the snapshot that happens automatically at the end of a test.                                                                                                                                   |
+| `resourceArchiveTimeout` | `number`        | Maximum amount of time each test will wait for the network to be idle while archiving resources.                                                                                                                             |
+| `assetDomains`           | `array[string]` | A list of domains external to the test location that you want Chromatic to also capture assets from, e.g., <code style="display: inline;">['other-domain.com','our-cdn.com']</code>. **Allowed only as global option.**      |
+| `idleNetworkInterval`    | `number`        | Time in milliseconds to determine whether network is idle. The network is considered idle if there are no new network requests for at least this duration. **Allowed only as global option.**                                |
 
 ## Chromatic options
 
 These options control how Chromatic behaves when capturing snapshots of your pages.
 
-| Option                    | Type            | Chromatic Docs                                                                      |
-| ------------------------- | --------------- | ----------------------------------------------------------------------------------- |
-| `delay`                   | `number`        | [Delay](/docs/delay/)                                                               |
-| `diffIncludeAntiAliasing` | `boolean`       | [Threshold for changes](/docs/threshold#anti-aliasing)                              |
-| `diffThreshold`           | `number`        | [Threshold for changes](/docs/threshold#setting-the-threshold)                      |
-| `ignoreSelectors`         | `array[string]` | [Ignore elements](/docs/ignoring-elements#ignoring-elements-via-test-configuration) |
-| `forcedColors`            | `string`        | [Media Features](/docs/media-features#test-high-contrast-color-schemes)             |
-| `pauseAnimationAtEnd`     | `boolean`       | [Animations](/docs/animations#css-animations)                                       |
-| `prefersReducedMotion`    | `string`        | [Media Features](/docs/media-features#verify-reduced-motion-animations)             |
+| Option                    | Type            | Chromatic Docs                                                                                         |
+| ------------------------- | --------------- | ------------------------------------------------------------------------------------------------------ |
+| `cropToViewport     `     | `boolean`       | When `true`, the snapshot will be clipped to the height of the [viewport](/docs/viewports#playwright). |
+| `delay`                   | `number`        | [Delay](/docs/delay/)                                                                                  |
+| `diffIncludeAntiAliasing` | `boolean`       | [Threshold for changes](/docs/threshold#anti-aliasing)                                                 |
+| `diffThreshold`           | `number`        | [Threshold for changes](/docs/threshold#setting-the-threshold)                                         |
+| `ignoreSelectors`         | `array[string]` | [Ignore elements](/docs/ignoring-elements#ignoring-elements-via-test-configuration)                    |
+| `forcedColors`            | `string`        | [Media Features](/docs/media-features#test-high-contrast-color-schemes)                                |
+| `pauseAnimationAtEnd`     | `boolean`       | [Animations](/docs/animations#css-animations)                                                          |
+| `prefersReducedMotion`    | `string`        | [Media Features](/docs/media-features#verify-reduced-motion-animations)                                |
 
 ## Environment variables
 
