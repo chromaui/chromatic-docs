@@ -27,9 +27,35 @@ code {
 <details>
 <summary>Which web-safe fonts do you recommend for Chromatic?</summary>
 
+**Latin scripts**
+
 - Sans-serif: Arial, Verdana, Trebuchet MS
 - Serif: Georgia, Times New Roman
 - Monospace: Courier New, Courier
+
+**Non-Latin scripts**
+
+If your components display text in languages that use non-Latin scripts, include a web-safe or system font that supports those characters as a fallback. The following fonts are commonly available across operating systems:
+
+| Script / Language | Recommended fallback fonts |
+|---|---|
+| Japanese | `"Hiragino Sans"`, `"Yu Gothic"`, `"Meiryo"`, `"MS PGothic"` |
+| Chinese (Simplified) | `"PingFang SC"`, `"Microsoft YaHei"`, `"SimHei"` |
+| Chinese (Traditional) | `"PingFang TC"`, `"Microsoft JhengHei"`, `"MingLiU"` |
+| Korean | `"Apple SD Gothic Neo"`, `"Malgun Gothic"`, `"Gulim"` |
+| Arabic | `"Geeza Pro"`, `"Arial Unicode MS"`, `"Tahoma"` |
+| Hebrew | `"Arial Hebrew"`, `"David"`, `"Tahoma"` |
+| Thai | `"Thonburi"`, `"Leelawadee UI"`, `"Tahoma"` |
+| Devanagari (Hindi, etc.) | `"Kohinoor Devanagari"`, `"Mangal"`, `"Arial Unicode MS"` |
+
+For the broadest cross-script coverage, consider adding [Noto Sans](https://fonts.google.com/noto) (e.g., `Noto Sans JP`, `Noto Sans SC`) as a fallback. Noto fonts are designed to support all Unicode scripts and are available via Google Fonts.
+
+```css title="src/index.css"
+/* Example: Japanese with Noto Sans JP fallback */
+body {
+  font-family: 'YourFont', 'Hiragino Sans', 'Yu Gothic', 'Noto Sans JP', sans-serif;
+}
+```
 
 </details>
 
