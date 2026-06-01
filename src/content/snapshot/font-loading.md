@@ -30,6 +30,7 @@ code {
 - Sans-serif: Arial, Verdana, Trebuchet MS
 - Serif: Georgia, Times New Roman
 - Monospace: Courier New, Courier
+- Non-Latin scripts: use a web-safe font that covers your target language (e.g., `Noto Sans JP` for Japanese)
 
 </details>
 
