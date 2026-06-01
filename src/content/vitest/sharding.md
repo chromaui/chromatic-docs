@@ -47,6 +47,7 @@ jobs:
         with:
           name: chromatic-archives-${{ matrix.shard }}_${{ strategy.job-total }}
           path: .vitest/chromatic
+          include-hidden-files: true
           retention-days: 1
 
   chromatic:
