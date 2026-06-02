@@ -116,30 +116,30 @@ describe('button', () => {
 
 These options control how the Chromatic plugin behaves during test execution.
 
-| Option                   | Type                              | Description                                                                                                                                                                                                                      |
-| ------------------------ | --------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `assetDomains`           | `array[string]`                   | A list of domains external to the test location that you want Chromatic to also capture assets from, e.g., <code style="display: inline;">['other-domain.com','our-cdn.com']</code>. **Only available as a global option.**      |
-| `disableAutoSnapshot`    | `boolean`                         | When `true`, it will disable the snapshot that happens automatically at the end of a test.                                                                                                                                       |
-| `idleNetworkInterval`    | `number`                          | Time in milliseconds to determine whether network is idle. The network is considered idle if there are no new network requests for at least this duration. **Only available as global option.**                                  |
-| `outputDirectory`        | `string`                          | Directory where temporary archives and snapshots will be stored. Relative to the project [the project `root`](https://vitest.dev/config/root.html#root). Defaults to `.vitest/chromatic`. **Only available as a global option.** |
-| `resourceArchiveTimeout` | `number`                          | Maximum amount of time each test will wait for the network to be idle while archiving resources.                                                                                                                                 |
-| `reporter`               | `boolean \| { verbose: boolean }` | Test reporter used to log information about captured archives. Verbose mode controls whether status is logged during test run. A summary is always logged at the end of test run. **Only available as a global option.**         |
-| `title`                  | `string`                          | Override the inferred name for the test file. **Only available as a test file-level option.** ([See **Review changes** for details](/docs/vitest#6-review-changes))                                                              |
+| Option                   | Type                              | Description                                                                                                                                                                                                                                                          |
+| ------------------------ | --------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `assetDomains`           | `array[string]`                   | A list of domains external to the test location that you want Chromatic to also capture assets from, e.g., <code style="display: inline;">['other-domain.com','our-cdn.com']</code>. **Only available as a global option.**                                          |
+| `disableAutoSnapshot`    | `boolean`                         | When `true`, a snapshot is not captured automatically at the end of a test case.                                                                                                                                                                                     |
+| `idleNetworkInterval`    | `number`                          | Set the time (in milliseconds) to determine whether network is idle. The network is considered idle if there are no new network requests for at least this duration. **Only available as global option.**                                                            |
+| `outputDirectory`        | `string`                          | Directory where temporary archives and snapshots will be stored. Relative to [the project `root`](https://vitest.dev/config/root.html#root). **Only available as a global option.**<br />Default: `.vitest/chromatic`                                                |
+| `resourceArchiveTimeout` | `number`                          | Maximum amount of time each test will wait for the network to be idle while archiving resources.                                                                                                                                                                     |
+| `reporter`               | `boolean \| { verbose: boolean }` | When truthy, use Chromatic's test reporter, which adds information about captured archives to Vitest's output. When `verbose` is `true`, additional details are logged during the test run. **Only available as a global option.**<br />Default: `{ verbose: true }` |
+| `title`                  | `string`                          | Override the inferred name for the test file. **Only available as a test file-level option.** ([See **Review changes** for details.](/docs/vitest#6-review-changes))                                                                                                 |
 
 ## Chromatic options
 
 These options control how Chromatic behaves when capturing snapshots of your pages.
 
-| Option                    | Type            | Chromatic Docs                                                                                         |
-| ------------------------- | --------------- | ------------------------------------------------------------------------------------------------------ |
-| `cropToViewport     `     | `boolean`       | When `true`, the snapshot will be clipped to the height of the [viewport](/docs/viewports#playwright). |
-| `delay`                   | `number`        | [Delay](/docs/delay/)                                                                                  |
-| `diffIncludeAntiAliasing` | `boolean`       | [Threshold for changes](/docs/threshold#anti-aliasing)                                                 |
-| `diffThreshold`           | `number`        | [Threshold for changes](/docs/threshold#setting-the-threshold)                                         |
-| `forcedColors`            | `string`        | [Media Features](/docs/media-features#test-high-contrast-color-schemes)                                |
-| `ignoreSelectors`         | `array[string]` | [Ignore elements](/docs/ignoring-elements#ignoring-elements-via-test-configuration)                    |
-| `pauseAnimationAtEnd`     | `boolean`       | [Animations](/docs/animations#css-animations)                                                          |
-| `prefersReducedMotion`    | `string`        | [Media Features](/docs/media-features#verify-reduced-motion-animations)                                |
+| Option                    | Type                          | Description                                                                                                                     |
+| ------------------------- | ----------------------------- | ------------------------------------------------------------------------------------------------------------------------------- |
+| `cropToViewport`          | `boolean`                     | When `true`, the snapshot will be clipped to the height of the [viewport](/docs/viewports#playwright).                          |
+| `delay`                   | `number`                      | Set the [delay](/docs/delay/) (in milliseconds) before capturing the snapshot.                                                  |
+| `diffIncludeAntiAliasing` | `boolean`                     | When `true`, include [differences from antialiasing in threshold calculation](/docs/threshold#anti-aliasing).                   |
+| `diffThreshold`           | `number`                      | Set the [threshold for changes](/docs/threshold#setting-the-threshold).<br />Default: `0.063`                                   |
+| `forcedColors`            | `'active' \| 'none'`          | Set the [forced colors media feature](/docs/media-features#test-high-contrast-color-schemes).                                   |
+| `ignoreSelectors`         | `array[string]`               | [Ignore elements](/docs/ignoring-elements#ignoring-elements-via-test-configuration) from being captured in snapshots.           |
+| `pauseAnimationAtEnd`     | `boolean`                     | When `false` [CSS animations](/docs/animations#css-animations) will pause at the start instead of the end.<br />Default: `true` |
+| `prefersReducedMotion`    | `'reduce' \| 'no-preference'` | Set the [prefers-reduced-motion media feature](/docs/media-features#verify-reduced-motion-animations).                          |
 
 ## Environment variables
 
