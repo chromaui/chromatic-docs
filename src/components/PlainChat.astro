@@ -17,6 +17,7 @@ import {
 >
   // Keep in sync with monorepo services/webapp/lib/plainAuth.ts PLAIN_CONFIG
   // and marketing's equivalent so the widget looks identical across surfaces.
+  const PLAIN_PAGE_EVENT_ENDPOINT = '/plain-page-event';
   const BASE_CONFIG = {
     appId: appId,
     hideBranding: true,
@@ -48,38 +49,34 @@ import {
     chatButtons: [
       {
         icon: 'support',
-        text: 'Chat with a developer',
+        text: 'Get help from support',
       },
       {
-        icon: 'chat',
-        text: 'Speak with someone else',
-        form: {
-          fields: [
-            {
-              type: 'dropdown',
-              placeholder: 'Select a topic...',
-              options: [
-                {
-                  icon: 'chat',
-                  text: 'Billing',
-                  threadDetails: {
-                    labelTypeIds: [labelIds.billing],
-                  },
-                },
-                {
-                  icon: 'chat',
-                  text: 'Sales',
-                  threadDetails: {
-                    labelTypeIds: [labelIds.sales],
-                  },
-                },
-              ],
-            },
-          ],
+        icon: 'bulb',
+        text: 'Discuss plans and pricing',
+        threadDetails: {
+          labelTypeIds: [labelIds.sales],
         },
       },
     ],
   };
+
+  function reportPlainEvent(eventType, title) {
+    fetch(PLAIN_PAGE_EVENT_ENDPOINT, {
+      method: 'POST',
+      credentials: 'include',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        eventType,
+        pathname: window.location.pathname,
+        title,
+        url: window.location.href,
+        source: 'docs',
+      }),
+    }).catch(() => {
+      // Best-effort support context only.
+    });
+  }
 
   (async function init() {
     for (let attempts = 0; typeof window.Plain === 'undefined' && attempts < 50; attempts++) {
@@ -98,6 +95,10 @@ import {
       if (response.ok) {
         const customerDetails = await response.json();
         window.Plain.init({ ...BASE_CONFIG, customerDetails });
+        reportPlainEvent('page-view', document.title);
+        if (typeof window.Plain.onOpen === 'function') {
+          window.Plain.onOpen(() => reportPlainEvent('chat-open', 'Started chat'));
+        }
         return;
       }
       if (response.status !== 401) {
