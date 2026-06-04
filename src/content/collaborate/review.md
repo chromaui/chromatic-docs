@@ -121,7 +121,7 @@ Chromatic supports UI Test and UI Review across forks, but there's some caveats.
 }
 ```
 
-If you use a CI provider other than GitHub, you can still use an environment variable. Just make sure your CI is configured to also build forked branches. The project token does not grant access to the project (it can only retrieve a strict set of insensitive data), but it does allow running new builds which count against your snapshot quota.
+If you use a CI provider other than GitHub, you can still use an environment variable. Just make sure your CI is configured to also build forked branches. The project token does not grant access to the project (it can only retrieve a strict set of insensitive data), but it does allow running new builds which can use snapshots.
 
 ---
 

@@ -202,7 +202,7 @@ Read the official [GitHub secrets documentation](https://docs.github.com/en/free
 
 ### Forked repositories
 
-GitHub secrets work at a repository level. Forked repositories will not have access to them. If you want to run Chromatic on cross-repository (forked) PRs, you'll have to expose the `projectToken` by including it as plaintext in your `chromatic.yml` workflow file. Be aware that anyone with access to this file will be able to run Chromatic builds on your project, consuming your snapshot quota. You can reset the project token on the Manage > Configure screen at any time if you think it may have been compromised.
+GitHub secrets work at a repository level. Forked repositories will not have access to them. If you want to run Chromatic on cross-repository (forked) PRs, you'll have to expose the `projectToken` by including it as plaintext in your `chromatic.yml` workflow file. Be aware that anyone with access to this file will be able to run Chromatic builds on your project, which can use snapshots. You can reset the project token on the Manage > Configure screen at any time if you think it may have been compromised.
 
 ### Pinning the CLI version
 
@@ -599,7 +599,7 @@ Including the `ignoreLastBuildOnBranch` option ensures the latest build for the 
 
 You can enable PR checks for external forks by sharing your project token where you configured the Chromatic command (often in `package.json` or in the pipeline step).
 
-Sharing project tokens allows contributors and others to run Chromatic builds on your project, consuming your snapshot quota. They cannot access your account, settings, or accept baselines. This can be an acceptable tradeoff for open source projects that value community contributions.
+Sharing project tokens allows contributors and others to run Chromatic builds on your project, which can use snapshots. They cannot access your account, settings, or accept baselines. This can be an acceptable tradeoff for open source projects that value community contributions.
 
 #### Skipping builds for certain branches
 

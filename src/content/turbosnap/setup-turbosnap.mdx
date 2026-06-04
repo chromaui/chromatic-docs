@@ -354,7 +354,7 @@ To enable TurboSnap for specific branches, pass a glob to `--only-changed` (e.g.
 
 ### Using TurboSnap in a monorepo
 
-TurboSnap will make working in a monorepo more efficient. Because it detects affected stories based on the actual files changed, pushing a commit that touched only backend code will run faster in CI and not use up your snapshot quota. However, it will still build and publish your Storybook. To avoid that, you can [skip Chromatic entirely](/docs/monorepos#only-run-chromatic-when-changes-occur-in-a-subproject), speeding up your CI pipeline even more.
+TurboSnap will make working in a monorepo more efficient. Because it detects affected stories based on the actual files changed, pushing a commit that touched only backend code will run faster in CI and use fewer snapshots. However, it will still build and publish your Storybook. To avoid that, you can [skip Chromatic entirely](/docs/monorepos#only-run-chromatic-when-changes-occur-in-a-subproject), speeding up your CI pipeline even more.
 
 <YouTubeCallout client:load id="pmVx8Meh4g0" summary="Configure Turbosnap in a Monorepo" />
 
