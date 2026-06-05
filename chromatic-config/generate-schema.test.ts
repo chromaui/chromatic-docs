@@ -261,6 +261,41 @@ describe('Generate Schema', () => {
     });
   });
 
+  test('Handles number type with minimum and default', async () => {
+    const options: ConfigOption[] = [
+      {
+        option: 'gitTimeout',
+        description: 'The maximum number of seconds Chromatic waits for git operations.',
+        type: 'number',
+        example: '`30`',
+        default: 20,
+        minimum: 1,
+        supports: ['Config File'],
+      },
+    ];
+
+    const schema = await createSchemaDef(options);
+
+    expect(schema).toEqual({
+      ...schemaBase,
+      properties: {
+        $schema: {
+          type: 'string',
+          description:
+            'The schema file (https://www.chromatic.com/docs/chromatic-config.schema.json)',
+        },
+        gitTimeout: {
+          type: 'number',
+          minimum: 1,
+          default: 20,
+          description: 'The maximum number of seconds Chromatic waits for git operations.',
+          markdownDescription:
+            'The maximum number of seconds Chromatic waits for git operations.\n',
+        },
+      },
+    });
+  });
+
   test('Makes relative links absolute', async () => {
     const options: ConfigOption[] = [
       {
