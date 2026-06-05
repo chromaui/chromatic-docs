@@ -63,7 +63,7 @@ If the `NameID` changes and any of the `email`, `firstName`, or `lastName` attri
 
 If the `NameID` changes and the `email`, `firstName`, or `lastName` attributes are not mapped in the SAML assertion, the fallback mechanism has no attributes to compare. Consequently, a new user account is created, again leading to the loss of historical data and permissions.
 
-> ✅ **Best practice:** Use a **persistent, unchanging NameID (or `idp_id` attribute)**. Document how to revert the IdP configuration if matching fails.
+> ✅ **Best practice:** Use a **persistent, unchanging NameID (or `idp_id` attribute)**.
 
 #### What happens when the corporate domain changes (e.g., from @oldcompany.com to @newcompany.com)?
 
