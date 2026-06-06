@@ -11,8 +11,9 @@ export interface NestedConfigOption {
   description: string;
   type: string | string[];
   example: string;
-  default?: string | boolean;
+  default?: string | boolean | number;
   defaultComment?: string;
+  minimum?: number;
   deprecated?: 'Config File' | 'all';
   supports: SupportedType[];
 }
@@ -24,8 +25,9 @@ export interface ConfigOption {
   description: string;
   type: string | string[];
   example: string;
-  default?: string | boolean;
+  default?: string | boolean | number;
   defaultComment?: string;
+  minimum?: number;
   deprecated?: 'Config File' | 'all';
   supports: SupportedType[];
   options?: NestedConfigOption[];
@@ -40,6 +42,9 @@ const propertyTypes = {
   },
   glob: {
     type: 'string',
+  },
+  number: {
+    type: 'number',
   },
   string: {
     type: 'string',
@@ -155,6 +160,7 @@ export async function createSchemaDef(configOptions: ConfigOption[]) {
         propDef = {
           ...propertyTypes[type],
           ...(isDeprecated && { deprecated: true }),
+          ...(prop.minimum !== undefined && { minimum: prop.minimum }),
           description: plainTextDescription,
           markdownDescription: description,
           ...(prop.default &&

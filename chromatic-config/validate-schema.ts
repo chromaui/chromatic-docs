@@ -57,6 +57,7 @@ export async function validateSchema() {
     debug: true,
     diagnosticsFile: false,
     fileHashing: true,
+    gitTimeout: 30,
     junitReport: true,
     zip: true,
     autoAcceptChanges: 'main',

@@ -117,6 +117,15 @@
     "supports": ["CLI", "GitHub Action"]
   },
   {
+    "option": "gitTimeout",
+    "description": "The maximum number of seconds Chromatic waits for individual git operations to complete before timing out. Increase this value if you have a large repository where git commands take longer than usual.",
+    "type": "number",
+    "example": "`30`",
+    "default": 20,
+    "minimum": 1,
+    "supports": ["Config File"]
+  },
+  {
     "option": "ignoreLastBuildOnBranch",
     "flag": "--ignore-last-build-on-branch",
     "description": "Do not use the last build on this branch as a baseline if it is no longer in history (i.e., the branch was rebased).",
