@@ -63,6 +63,7 @@ jobs:
           node-version: 24.15.0
       - name: Install dependencies
         run: npm ci
+
       - name: Download all workflow run artifacts
         uses: actions/download-artifact@v8
         with:
@@ -108,7 +109,6 @@ Vitest:
     paths:
       - '.vitest/'
     expire_in: 4 weeks
-
 Chromatic:
   stage: UI_Tests
   needs: [Vitest]
