@@ -127,16 +127,16 @@ To run Vitest tests in parallel across shared CI jobs in CircleCI, you can use t
 version: 2.1
 
 executors:
-  vitest-testing:
+  vitest-noble-development:
     docker:
-      - image: mcr.microsoft.com/playwright:v1.58.2-noble
+      - image: mcr.microsoft.com/playwright:v1.60.0-noble
   chromatic-ui-testing:
     docker:
-      - image: cimg/node:24.14.0
+      - image: cimg/node:24.15.0
 
 jobs:
   Vitest:
-    executor: vitest-testing
+    executor: vitest-noble-development
     parallelism: 2
     working_directory: ~/repo
     steps:
@@ -147,7 +147,7 @@ jobs:
             - v1-dependencies-{{ checksum "package-lock.json" }}
             - v1-dependencies-
       - run:
-          name: 'Install dependencies'
+          name: 'Install Vitest dependencies'
           command: npm ci
       - run:
           name: 'Run Vitest tests'
