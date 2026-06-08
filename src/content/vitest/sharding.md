@@ -319,16 +319,16 @@ blocks:
 If you’re using a different CI provider, you’ll need to adapt your workflow to run Vitest tests in parallel across shared CI jobs and enable Chromatic to run after all instances have finished. Here’s an example of how you might do this in a generic CI provider.
 
 ```yml title="your-workflow.yml"
-image: node:iron
+image: node:krypton
 
 - run:
     name: "Vitest"
     displayName: "Run Vitest tests"
-    container: mcr.microsoft.com/playwright:v1.58.2-noble
+    container: mcr.microsoft.com/playwright:v1.60.0-noble
     options:
       parallel: 2
       artifacts:
-        - .vitest/chromatic/**
+        - .vitest/**
     command: |
       npm ci
       npx vitest run --shard=$CI_JOB_INDEX/$CI_TOTAL_JOBS
