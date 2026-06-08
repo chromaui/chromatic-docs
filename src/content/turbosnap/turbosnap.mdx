@@ -21,7 +21,7 @@ TurboSnap is an advanced Chromatic feature that speeds up [UI Tests](/docs#test-
 
 Chromatic will not capture a new snapshot for stories that do not have associated code changes. In most cases, this results in faster test runs and reduces the number of billable snapshots.
 
-If you denied any [UI Tests](/docs/quickstart#4-review-changes) on the ancestor build, Chromatic will always re-capture those stories even if TurboSnap would otherwise skip them. This is particularly useful for handling [inconsistent snapshots](/docs/snapshots#improve-snapshot-consistency).
+If you denied any [UI Tests](/docs/quickstart#4-review-changes) on the ancestor build, Chromatic will always re-capture those stories even if TurboSnap would otherwise skip them. This is particularly useful for handling [inconsistent snapshots](/docs/troubleshooting-snapshots#improve-snapshot-consistency).
 
 ### Full rebuilds
 
@@ -168,4 +168,4 @@ For example, consider a Storybook with 50 stories. If your code changes impact 1
 - 10 regular snapshots
 - 40 TurboSnaps (which cost: .2 x 40 = 8 regular snapshots)
 
-Check out the [billing docs](/docs/billing#snapshots-with-turbosnap-enabled) for more details.
+Check out the [billing docs](/docs/billing#snapshots-with-turbosnap-enabled-storybook-only) for more details.
