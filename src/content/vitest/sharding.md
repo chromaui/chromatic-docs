@@ -101,7 +101,7 @@ before_script:
 Vitest:
   stage: UI_Tests
   needs: []
-  image: mcr.microsoft.com/playwright:v1.58.2-noble
+  image: mcr.microsoft.com/playwright:v1.60.0-noble
   parallel: 2
   script:
     - npx vitest run --shard=$CI_NODE_INDEX/$CI_NODE_TOTAL
@@ -109,7 +109,7 @@ Vitest:
   artifacts:
     when: always
     paths:
-      - '.vitest/chromatic'
+      - '.vitest/'
     expire_in: 4 weeks
 
 Chromatic:
