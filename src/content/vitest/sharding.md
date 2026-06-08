@@ -23,51 +23,48 @@ on: push
 jobs:
   vitest:
     name: Run Vitest
-    runs-on: ubuntu-latest
     strategy:
       matrix:
         shard: [1, 2]
+    runs-on: ubuntu-latest
+    container:
+      image: mcr.microsoft.com/playwright:v1.60.0-noble
     steps:
-      - uses: actions/checkout@v5
+      - uses: actions/checkout@v6
+        with:
+          fetch-depth: 0
       - uses: actions/setup-node@v6
         with:
-          node-version: 24.14.0
-
+          node-version: 24.15.0
       - name: Install dependencies
         run: npm ci
-
-      - name: Install Playwright binaries
-        run: npx playwright install
-
-      - name: Run tests
+      - name: Run Vitest tests
         run: npx vitest run --shard=${{ matrix.shard }}/${{ strategy.job-total }}
-
-      - uses: actions/upload-artifact@v4
+        env:
+          HOME: /root
+      - uses: actions/upload-artifact@v7
         if: ${{ !cancelled() }}
         with:
           name: chromatic-archives-${{ matrix.shard }}_${{ strategy.job-total }}
           path: .vitest/chromatic
           include-hidden-files: true
-          retention-days: 1
+          retention-days: 30
 
   chromatic:
     name: Run Chromatic
     needs: vitest
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v5
+      - uses: actions/checkout@v6
         with:
           fetch-depth: 0
-
       - uses: actions/setup-node@v6
         with:
-          node-version: 24.14.0
-
+          node-version: 24.15.0
       - name: Install dependencies
         run: npm ci
-
       - name: Download all workflow run artifacts
-        uses: actions/download-artifact@v4
+        uses: actions/download-artifact@v8
         with:
           path: .vitest/chromatic
           pattern: chromatic-archives-*
