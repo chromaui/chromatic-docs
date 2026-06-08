@@ -207,7 +207,7 @@ pipeline {
         stage('Shard #1') {
           agent {
             docker {
-              image 'mcr.microsoft.com/playwright:v1.58.2-noble'
+              image 'mcr.microsoft.com/playwright:v1.60.0-noble'
               reuseNode true
             }
           }
@@ -220,14 +220,14 @@ pipeline {
           }
           post {
             always {
-              archiveArtifacts '.vitest/chromatic/**'
+              archiveArtifacts '.vitest/**'
             }
           }
         }
         stage('Shard #2') {
           agent {
             docker {
-              image 'mcr.microsoft.com/playwright:v1.58.2-noble'
+              image 'mcr.microsoft.com/playwright:v1.60.0-noble'
               reuseNode true
             }
           }
@@ -240,7 +240,7 @@ pipeline {
           }
           post {
             always {
-              archiveArtifacts '.vitest/chromatic/**'
+              archiveArtifacts '.vitest/**'
             }
           }
         }
