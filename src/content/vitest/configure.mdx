@@ -1,0 +1,166 @@
+---
+title: Configure
+slug: vitest/configure
+description: Learn about the various configuration options for visual tests for Vitest
+sidebar: { order: 3 }
+---
+
+import { TabItem, Tabs } from '../../components/Tabs';
+
+# Configure visual tests for Vitest
+
+You can enhance your Vitest and Chromatic tests further by configuring these options globally in your [Vitest configuration file](https://vitest.dev/config/).
+
+```ts title="vitest.config.ts"
+import { defineProject } from 'vitest/config';
+import { chromaticPlugin } from '@chromatic-com/vitest/plugin';
+
+export default defineProject({
+  plugins: [
+    chromaticPlugin({
+      // 👇 Global options placed here
+      disableAutoSnapshot: true,
+    }),
+  ],
+
+  // ...Other Vitest configuration
+});
+```
+
+In addition to global configuration, you can also configure options at the test file, suite, and test case level.
+This allows you to have more granular control over which tests are snapshotted and how they are snapshotted.
+
+<Tabs>
+  <TabItem label="Test case level">
+<br />
+When called within `test()`, it configures options for that test:
+
+```jsx title="test/accordion.test.tsx"
+import { test } from 'vitest';
+import { configure } from '@chromatic-com/vitest';
+
+test('accordion', async () => {
+  // ❌ Not snapshotted
+  configure({ disableAutoSnapshot: true }); // Scopes to this test only
+  await render(<Accordion />);
+});
+
+test('button', async () => {
+  // ✅ Snapshotted automatically
+  await render(<Button />);
+});
+```
+
+  </TabItem>
+
+  <TabItem label="Test suite level">
+<br />
+When called within `describe()`, it configures options for all tests and suites within that describe block.
+
+```jsx title="test/accordion.test.tsx"
+import { describe, test } from 'vitest';
+import { configure } from '@chromatic-com/vitest';
+
+test('accordion', async () => {
+  // ✅ Snapshotted automatically
+  await render(<Accordion />);
+});
+
+describe('button', () => {
+  configure({ disableAutoSnapshot: true }); // Scopes to all tests (and nested suites) in this suite
+
+  test('default', async () => {
+    // ❌ Not snapshotted
+    await render(<Button />);
+  });
+
+  describe('as link', () => {
+    test('default', async () => {
+      // ❌ Not snapshotted
+      await render(<Button as={Link} />);
+    });
+  });
+});
+```
+
+  </TabItem>
+
+  <TabItem label="Test file level">
+<br />
+When called at the top level, it configures options for all tests in the file:
+
+```jsx title="test/accordion.test.tsx"
+import { describe, test } from 'vitest';
+import { configure } from '@chromatic-com/vitest';
+
+// Scoped to whole test module (file), affects all tests and suites in this file
+configure({ disableAutoSnapshot: true });
+
+test('accordion', async () => {
+  // ❌ Not snapshotted
+  await render(<Accordion />);
+});
+
+describe('button', () => {
+  test('default', async () => {
+    // ❌ Not snapshotted
+    await render(<Button />);
+  });
+});
+```
+
+  </TabItem>
+</Tabs>
+
+## Test run options
+
+These options control how the Chromatic plugin behaves during test execution and are only available as global options (set via the plugin configuration in your Vitest config file).
+
+| Option                | Type                              | Description                                                                                                                                                                                                                   |
+| --------------------- | --------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `assetDomains`        | `array[string]`                   | A list of domains external to the test location that you want Chromatic to also capture assets from, e.g., <code style="display: inline;">['other-domain.com','our-cdn.com']</code>.                                          |
+| `idleNetworkInterval` | `number`                          | Set the time (in milliseconds) to determine whether network is idle. The network is considered idle if there are no new network requests for at least this duration.                                                          |
+| `outputDirectory`     | `string`                          | Directory where temporary archives and snapshots will be stored. Relative to the project [the project `root`](https://vitest.dev/config/root.html#root).<br />Default: `.vitest/chromatic`                                    |
+| `reporter`            | `boolean \| { verbose: boolean }` | When truthy, use Chromatic's test reporter, which adds information about captured archives to Vitest's output. When `verbose` is `true`, additional details are logged during the test run.<br />Default: `{ verbose: true }` |
+
+## Snapshot options
+
+These options control how Chromatic behaves when capturing snapshots of your components. They can be set at the global, test file, test suite, or test case level (except where noted).
+
+| Option                    | Type                          | Description                                                                                                                                                               |
+| ------------------------- | ----------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `cropToViewport`          | `boolean`                     | When `true`, the snapshot will be clipped to the height of the [viewport](https://vitest.dev/guide/browser/visual-regression-testing.html#set-consistent-viewport-sizes). |
+| `delay`                   | `number`                      | Set the [delay](/docs/delay/) (in milliseconds) before capturing the snapshot.                                                                                            |
+| `diffIncludeAntiAliasing` | `boolean`                     | When `true`, include [differences from antialiasing in threshold calculation](/docs/threshold#anti-aliasing).                                                             |
+| `diffThreshold`           | `number`                      | Set the [threshold for changes](/docs/threshold#setting-the-threshold).<br />Default: `0.063`                                                                             |
+| `disableAutoSnapshot`     | `boolean`                     | When `true`, a snapshot is not captured automatically at the end of a test case.                                                                                          |
+| `forcedColors`            | `'active' \| 'none'`          | Set the [forced colors media feature](/docs/media-features#test-high-contrast-color-schemes).                                                                             |
+| `ignoreSelectors`         | `array[string]`               | [Ignore elements](/docs/ignoring-elements#ignoring-elements-via-test-configuration) from being captured in snapshots.                                                     |
+| `pauseAnimationAtEnd`     | `boolean`                     | When `false` [CSS animations](/docs/animations#css-animations) will pause at the start instead of the end.<br />Default: `true`                                           |
+| `prefersReducedMotion`    | `'reduce' \| 'no-preference'` | Set the [prefers-reduced-motion media feature](/docs/media-features#verify-reduced-motion-animations).                                                                    |
+| `resourceArchiveTimeout`  | `number`                      | Maximum amount of time each test will wait for the network to be idle while archiving resources.                                                                          |
+| `title`                   | `string`                      | Override the inferred name for the test file. **Only available as a test file-level option.** ([See **Review changes** for details.](/docs/vitest#6-review-changes))      |
+
+## Environment variables
+
+Some options can be configured through environment variables.
+
+| Environment variable         | Description                                                                                                                                                                                                                                                             |
+| ---------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `CHROMATIC_ARCHIVE_LOCATION` | If you have configured your project's `outputDirectory` option to be different than the default, you must set the `CHROMATIC_ARCHIVE_LOCATION` environment variable to the same value. This ensures that the Chromatic can find the archives generated by Vitest tests. |
+
+---
+
+## Working in Monorepos
+
+Often, when using a monorepo, developers tend to keep their tests in a subdirectory instead of in the root of the project. At the same time, the Storybook and Chromatic configuration details live at the project’s root. In these cases, you will need to set the `CHROMATIC_ARCHIVE_LOCATION` environment variable to point to the directory where the test snapshots are stored. This ensures that Chromatic can find the snapshots generated by Vitest tests.
+
+```bash
+CHROMATIC_ARCHIVE_LOCATION=./packages/my-package/.vitest/chromatic npx chromatic --vitest --project-token==<TOKEN>
+```
+
+<div class="aside">
+
+💡 For additional information on using Chromatic with a monorepo, see our [monorepo documentation](/docs/monorepos).
+
+</div>
