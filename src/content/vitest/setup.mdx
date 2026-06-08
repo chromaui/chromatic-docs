@@ -16,6 +16,12 @@ Chromatic’s visual tests integrate with Vitest via a plugin. This means you ca
 
 ![Run Vitest tests and snapshot pages with Chromatic to detect visual bugs](../../images/workflow-vitest-visual-test.png)
 
+<div class="callout">
+
+🚧 **Early access:** Chromatic for Vitest is currently in early access. If you’re interested in trying it out, [request access here](https://share.hsforms.com/1jy-S7e-8TLWGnI_dT7T9Uwr5etx?ref=chromaticblog.ghost.io&__hstc=243929690.cdaecf856b9dae7a6940d569e83ab885.1777500929046.1780520573197.1780527451431.43&__hssc=243929690.1.1780527451431&__hsfp=38ac06b2498e4056a6274f360c3c04aa).
+
+</div>
+
 ## Why visual test with Vitest?
 
 Vitest Browser Mode enables you to write component tests that drive the browser to simulate and verify key user interactions like ‘toggle accordion’ and ‘filter search results’. By snapshotting the UI states generated during your component tests, you can proactively catch visual bugs that might slip through traditional logic-based tests.
@@ -33,29 +39,32 @@ While Vitest offers a basic ability to capture and visually compare screenshots 
 - **Parallelized testing:** Chromatic's cloud infrastructure automatically scales to run all tests simultaneously, eliminating the need for you to configure multiple workers on your CI.
 - **Dedicated review app:** Chromatic offers a suite of visual diffing tools to spot regressions fast. Features include unified and split diffs, highlighting ignored regions, spotlight mode to focus and zoom in on changes, and strobe diff to pinpoint subtle changes.
 
-## Setup Chromatic for Vitest
+## Requirements
 
-Chromatic supports Vitest version 4.0.0 and above.
-Supported Vitest browser provider is [@vitest/browser-playwright](https://vitest.dev/config/browser/playwright).
+- Vitest version 4.0.0 and above
+- Vitest project must use [@vitest/browser-playwright](https://vitest.dev/config/browser/playwright)
+
+## Set up Chromatic for Vitest
 
 ### 1. Sign up and create a new project
 
-Generate a unique project token for your app by signing in to Chromatic and creating a project. Sign in with your GitHub, GitLab, Bitbucket, or email.
+Create a Chromatic account and/or sign in with your GitHub, GitLab, Bitbucket, or email. Then reach out to your point of contact at Chromatic to enable Vitest support for your account.
+
+Generate a unique project token for your app by creating a project.
 
 <div class="callout">
   If your repository already has a Chromatic project linked to it, you can create an additional
   Chromatic project to run visual tests with Vitest. Follow the instructions for [sub-projects
-  support](/docs/combine-stories-e2e).
+  support](/docs/monorepos#run-chromatic-for-each-subproject).
 </div>
 
 <DemoChromaticUnlinked />
 
-{/* TODO: Replace with Vitest version */}
-![Setup project](../../images/setup-playwright.png)
+{/* ![Set up project](../../images/vitest-setup.png) */}
 
 ### 2. Install Chromatic
 
-Install **[chromatic](https://www.npmjs.com/package/chromatic)** and `@chromatic-com/vitest` packages from npm.
+Install **[`chromatic`](https://www.npmjs.com/package/chromatic)** and **[`@chromatic-com/vitest`](https://www.npmjs.com/package/@chromatic-com/vitest)** packages from npm.
 
 {/* prettier-ignore-start */}
 
@@ -78,11 +87,6 @@ Install **[chromatic](https://www.npmjs.com/package/chromatic)** and `@chromatic
 </InstallSnippets>
 
 {/* prettier-ignore-end */}
-
-<div class="aside">
-  Chromatic only works with Vitest v4+ and
-  [@vitest/browser-playwright](https://vitest.dev/config/browser/playwright).
-</div>
 
 ### 3. Add Chromatic to Vitest tests
 
@@ -214,13 +218,12 @@ When complete, you’ll see the build status and a link to review the changes. C
   → Tested X stories across 10 components; captured 10 snapshots in 1 minute 3 seconds
 ```
 
-{/* TODO: Replace with version using suites */}
-![Chromatic build screen with a list of component tests that have visual changes](../../images/build-test-unreviewed-e2e.png)
+{/* ![Chromatic build screen with a list of component tests that have visual changes](../../images/vitest-build-unreviewed.png) */}
 
 <details>
 <summary id="change-title">How can I change the name of a test?</summary>
 
-By default, the name and surrounding hierarchy of a test in a Chromatic build is generated based on the file path, suite name(s), and test name in Vitest. Sometimes, the file path and component result in a less than helpful display in the build table. For example, you could have test files located at `src/pages/dashboard/Page.test.tsx` and `src/pages/settings/Page.test.tsx`, which would be displayed like this in the build table:
+By default, the name and surrounding hierarchy of a test in a Chromatic build is generated based on the file path, suite name(s), and test name in Vitest. Sometimes, the file path and component result in a less than helpful display in the build table. For example, you could have test files located at `src/pages/dashboard/Page.test.tsx` and `src/pages/settings/Page.test.tsx`, which would result in both tests being displayed as `Page` in the build table, making it difficult to differentiate between them.
 
 {/* ![TK](../../images/vitest-test-name-unhelpful.png) */}
 
@@ -239,7 +242,7 @@ test('Dashboard', async () => {
 });
 ```
 
-Which would be displayed like this in the build table:
+{/* Which would be displayed like this in the build table: */}
 
 {/* ![TK](../../images/vitest-test-name-helpful.png) */}
 
@@ -247,12 +250,11 @@ Which would be displayed like this in the build table:
 
 The build will be marked “unreviewed” and the changes will be listed in the “Tests” table. Go through each snapshot to review the diff and approve or reject the change.
 
-{/* TODO: Replace to swap viewport mode with snapshot name */}
-![Clicking on a test takes you to the snapshot page where you can compare the new snapshot to the baseline](../../images/snapshot-unreviewed-e2e.png)
+{/* ![Clicking on a test takes you to the snapshot page where you can compare the new snapshot to the baseline](../../images/vitest-snapshot-unreviewed.png) */}
 
 Once you accept all changes, your build is marked as passed 🟢. This updates the baselines for those tests, ensuring future snapshots are compared against the latest approved version.
 
-![Chromatic build screen with all changes approved](../../images/build-test-reviewed-e2e.png)
+{/* ![Chromatic build screen with all changes approved](../../images/vitest-build-reviewed.png) */}
 
 ---
 
@@ -293,7 +295,7 @@ Regardless of whether a test has automatic snapshots enabled or disabled, you ca
 <details>
 <summary id="turbosnap-support">Can I use TurboSnap with Vitest visual tests?</summary>
 
-TODO
+Not yet.
 
 </details>
 

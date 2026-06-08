@@ -127,19 +127,19 @@ These options control how the Chromatic plugin behaves during test execution and
 
 These options control how Chromatic behaves when capturing snapshots of your components. They can be set at the global, test file, test suite, or test case level (except where noted).
 
-| Option                    | Type                          | Description                                                                                                                                                          |
-| ------------------------- | ----------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `cropToViewport`          | `boolean`                     | When `true`, the snapshot will be clipped to the height of the [viewport](/docs/viewports#playwright).                                                               |
-| `delay`                   | `number`                      | Set the [delay](/docs/delay/) (in milliseconds) before capturing the snapshot.                                                                                       |
-| `diffIncludeAntiAliasing` | `boolean`                     | When `true`, include [differences from antialiasing in threshold calculation](/docs/threshold#anti-aliasing).                                                        |
-| `diffThreshold`           | `number`                      | Set the [threshold for changes](/docs/threshold#setting-the-threshold).<br />Default: `0.063`                                                                        |
-| `disableAutoSnapshot`     | `boolean`                     | When `true`, a snapshot is not captured automatically at the end of a test case.                                                                                     |
-| `forcedColors`            | `'active' \| 'none'`          | Set the [forced colors media feature](/docs/media-features#test-high-contrast-color-schemes).                                                                        |
-| `ignoreSelectors`         | `array[string]`               | [Ignore elements](/docs/ignoring-elements#ignoring-elements-via-test-configuration) from being captured in snapshots.                                                |
-| `pauseAnimationAtEnd`     | `boolean`                     | When `false` [CSS animations](/docs/animations#css-animations) will pause at the start instead of the end.<br />Default: `true`                                      |
-| `prefersReducedMotion`    | `'reduce' \| 'no-preference'` | Set the [prefers-reduced-motion media feature](/docs/media-features#verify-reduced-motion-animations).                                                               |
-| `resourceArchiveTimeout`  | `number`                      | Maximum amount of time each test will wait for the network to be idle while archiving resources.                                                                     |
-| `title`                   | `string`                      | Override the inferred name for the test file. **Only available as a test file-level option.** ([See **Review changes** for details.](/docs/vitest#6-review-changes)) |
+| Option                    | Type                          | Description                                                                                                                                                               |
+| ------------------------- | ----------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `cropToViewport`          | `boolean`                     | When `true`, the snapshot will be clipped to the height of the [viewport](https://vitest.dev/guide/browser/visual-regression-testing.html#set-consistent-viewport-sizes). |
+| `delay`                   | `number`                      | Set the [delay](/docs/delay/) (in milliseconds) before capturing the snapshot.                                                                                            |
+| `diffIncludeAntiAliasing` | `boolean`                     | When `true`, include [differences from antialiasing in threshold calculation](/docs/threshold#anti-aliasing).                                                             |
+| `diffThreshold`           | `number`                      | Set the [threshold for changes](/docs/threshold#setting-the-threshold).<br />Default: `0.063`                                                                             |
+| `disableAutoSnapshot`     | `boolean`                     | When `true`, a snapshot is not captured automatically at the end of a test case.                                                                                          |
+| `forcedColors`            | `'active' \| 'none'`          | Set the [forced colors media feature](/docs/media-features#test-high-contrast-color-schemes).                                                                             |
+| `ignoreSelectors`         | `array[string]`               | [Ignore elements](/docs/ignoring-elements#ignoring-elements-via-test-configuration) from being captured in snapshots.                                                     |
+| `pauseAnimationAtEnd`     | `boolean`                     | When `false` [CSS animations](/docs/animations#css-animations) will pause at the start instead of the end.<br />Default: `true`                                           |
+| `prefersReducedMotion`    | `'reduce' \| 'no-preference'` | Set the [prefers-reduced-motion media feature](/docs/media-features#verify-reduced-motion-animations).                                                                    |
+| `resourceArchiveTimeout`  | `number`                      | Maximum amount of time each test will wait for the network to be idle while archiving resources.                                                                          |
+| `title`                   | `string`                      | Override the inferred name for the test file. **Only available as a test file-level option.** ([See **Review changes** for details.](/docs/vitest#6-review-changes))      |
 
 ## Environment variables
 
