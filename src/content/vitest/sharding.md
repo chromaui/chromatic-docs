@@ -289,7 +289,7 @@ blocks:
             - cache restore npm-$SEMAPHORE_GIT_BRANCH-$(checksum package-lock.json)-$(checksum .semaphore/semaphore.yml)
             - npm ci
             - cache store npm-$SEMAPHORE_GIT_BRANCH-$(checksum package-lock.json)-$(checksum .semaphore/semaphore.yml) ~/.npm
-            - npx vitest run --project chromatic --shard=$SEMAPHORE_JOB_INDEX/$SEMAPHORE_JOB_COUNT
+            - npx vitest run --shard=$SEMAPHORE_JOB_INDEX/$SEMAPHORE_JOB_COUNT
           parallelism: 2
       epilogue:
         always:
