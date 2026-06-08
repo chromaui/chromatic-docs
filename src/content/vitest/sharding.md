@@ -279,31 +279,32 @@ blocks:
   - name: Vitest
     dependencies: []
     task:
+      agent:
+        machine:
+          type: e2-standard-2
+          os_image: ubuntu2404
+        containers:
+          - name: Vitest
+            image: mcr.microsoft.com/playwright:v1.60.0-noble
       jobs:
-        agent:
-          machine:
-            type: e2-standard-2
-            os_image: ubuntu2404
-          containers:
-            - name: Vitest
-              image: mcr.microsoft.com/playwright:v1.58.2-noble
         - name: Run Vitest
           commands:
             - cache restore npm-$SEMAPHORE_GIT_BRANCH-$(checksum package-lock.json)-$(checksum .semaphore/semaphore.yml)
             - npm ci
             - cache store npm-$SEMAPHORE_GIT_BRANCH-$(checksum package-lock.json)-$(checksum .semaphore/semaphore.yml) ~/.npm
-            - npx vitest run --shard=$SEMAPHORE_JOB_INDEX/$SEMAPHORE_JOB_COUNT
+            - npx vitest run --project chromatic --shard=$SEMAPHORE_JOB_INDEX/$SEMAPHORE_JOB_COUNT
           parallelism: 2
       epilogue:
         always:
           commands:
-            - artifact push workflow --force .vitest/chromatic
+            - artifact push workflow --force .vitest
   - name: Run Chromatic
-    dependencies: ["Vitest"]
+    dependencies: ['Vitest']
     task:
       prologue:
         commands:
-          - artifact pull workflow .vitest/chromatic
+          - sem-version node 24.15.0
+          - artifact pull workflow .vitest
       secrets:
         - name: CHROMATIC_PROJECT_TOKEN
       jobs:
