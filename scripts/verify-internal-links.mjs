@@ -294,15 +294,21 @@ function checkLink(target, fromFile) {
 // 4. Choose files, run, report.
 // ---------------------------------------------------------------------------
 function changedContentFiles() {
-  let out = '';
+  const paths = new Set();
   try {
-    out = execSync('git status --porcelain', { cwd: ROOT, encoding: 'utf8' });
+    const diff = execSync('git diff --name-only HEAD', { cwd: ROOT, encoding: 'utf8' });
+    for (const p of diff.split('\n')) if (p.trim()) paths.add(p.trim());
+
+    const untracked = execSync('git ls-files --others --exclude-standard', {
+      cwd: ROOT,
+      encoding: 'utf8',
+    });
+    for (const p of untracked.split('\n')) if (p.trim()) paths.add(p.trim());
   } catch {
     return [];
   }
-  return out
-    .split('\n')
-    .map((l) => l.slice(3).trim())
+
+  return [...paths]
     .filter((p) => /src\/content\/.+\.(md|mdx)$/.test(p))
     .map((p) => join(ROOT, p))
     .filter(existsSync);
