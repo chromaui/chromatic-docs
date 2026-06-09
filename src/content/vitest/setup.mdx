@@ -60,7 +60,7 @@ Generate a unique project token for your app by creating a project.
 
 <DemoChromaticUnlinked />
 
-{/* ![Set up project](../../images/vitest-setup.png) */}
+![Set up project](../../images/setup-vitest.png)
 
 ### 2. Install Chromatic
 
@@ -218,14 +218,14 @@ When complete, you’ll see the build status and a link to review the changes. C
   → Tested X stories across 10 components; captured 10 snapshots in 1 minute 3 seconds
 ```
 
-{/* ![Chromatic build screen with a list of component tests that have visual changes](../../images/vitest-build-unreviewed.png) */}
+![Chromatic build screen with a list of component tests that have visual changes](../../images/build-test-unreviewed-vitest.png)
 
 <details>
 <summary id="change-title">How can I change the name of a test?</summary>
 
-By default, the name and surrounding hierarchy of a test in a Chromatic build is generated based on the file path, suite name(s), and test name in Vitest. Sometimes, the file path and component result in a less than helpful display in the build table. For example, you could have test files located at `src/pages/dashboard/Page.test.tsx` and `src/pages/settings/Page.test.tsx`, which would result in both tests being displayed as `Page` in the build table, making it difficult to differentiate between them.
+By default, the name and surrounding hierarchy of a test in a Chromatic build is generated based on the file path, suite name(s), and test name in Vitest. Sometimes, the file path and component result in a less than helpful display in the build table. For example, you could have test files located at `src/pages/dashboard/Page.test.tsx` and `src/pages/settings/Page.test.tsx`, which would result in both tests being displayed as `Page` in the build table, making it difficult to differentiate between them:
 
-{/* ![TK](../../images/vitest-test-name-unhelpful.png) */}
+![Chromatic build screen with two sets of tests both labeled "Page"](../../images/vitest-buildscreen-name-incorrect.png)
 
 You can customize this name by calling `configure` function from `@chromatic-com/vitest` with the [`title` option](/docs/vitest/configure#test-run-options) in the test file.
 
@@ -242,19 +242,19 @@ test('Dashboard', async () => {
 });
 ```
 
-{/* Which would be displayed like this in the build table: */}
+Which displays like this in the build table:
 
-{/* ![TK](../../images/vitest-test-name-helpful.png) */}
+![Chromatic build screen with "Dashboard" and "Settings" test sets](../../images/vitest-buildscreen-name-correct.png)
 
 </details>
 
 The build will be marked “unreviewed” and the changes will be listed in the “Tests” table. Go through each snapshot to review the diff and approve or reject the change.
 
-{/* ![Clicking on a test takes you to the snapshot page where you can compare the new snapshot to the baseline](../../images/vitest-snapshot-unreviewed.png) */}
+![Homepage : Can open product / tablet. Comparing the baseline snapshot to the new one.](../../images/snapshot-unreviewed-vitest.png)
 
 Once you accept all changes, your build is marked as passed 🟢. This updates the baselines for those tests, ensuring future snapshots are compared against the latest approved version.
 
-{/* ![Chromatic build screen with all changes approved](../../images/vitest-build-reviewed.png) */}
+![Chromatic build screen with all changes approved](../../images/build-test-reviewed-vitest.png)
 
 ---
 
