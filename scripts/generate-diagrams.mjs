@@ -10,7 +10,7 @@ const ROOT = fileURLToPath(new URL('..', import.meta.url));
 const SRC_DIR = path.join(ROOT, 'diagrams');
 const OUT_DIR = path.join(ROOT, 'src/images/diagrams');
 const KROKI = process.env.KROKI_URL ?? 'https://kroki.io';
-const KROKI_RETRIES = Number(process.env.KROKI_RETRIES ?? 3);
+const KROKI_RETRIES = Number(process.env.KROKI_RETRIES ?? 5);
 const KROKI_RETRY_DELAY_MS = Number(process.env.KROKI_RETRY_DELAY_MS ?? 1000);
 
 const sleep = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
@@ -42,7 +42,8 @@ async function render(file) {
       }
     } catch (error) {
       lastError = error;
-      if (!error.retriable || attempt === KROKI_RETRIES) {
+      const retriable = error.retriable ?? true;
+      if (!retriable || attempt === KROKI_RETRIES) {
         throw lastError;
       }
     }
@@ -60,7 +61,15 @@ async function renderAll() {
     console.log('No .mmd files in diagrams/');
     return;
   }
-  const results = await Promise.allSettled(files.map(render));
+  const results = [];
+  for (const file of files) {
+    try {
+      const value = await render(file);
+      results.push({ status: 'fulfilled', value });
+    } catch (reason) {
+      results.push({ status: 'rejected', reason });
+    }
+  }
   let failed = 0;
   results.forEach((r, i) => {
     if (r.status === 'fulfilled') {
