@@ -10,8 +10,13 @@ const ROOT = fileURLToPath(new URL('..', import.meta.url));
 const SRC_DIR = path.join(ROOT, 'diagrams');
 const OUT_DIR = path.join(ROOT, 'src/images/diagrams');
 const KROKI = process.env.KROKI_URL ?? 'https://kroki.io';
-const KROKI_RETRIES = Number(process.env.KROKI_RETRIES ?? 5);
-const KROKI_RETRY_DELAY_MS = Number(process.env.KROKI_RETRY_DELAY_MS ?? 1000);
+const parsePositiveInt = (value, fallback) => {
+  const parsed = Number.parseInt(value ?? '', 10);
+  return Number.isInteger(parsed) && parsed > 0 ? parsed : fallback;
+};
+const KROKI_RETRIES = parsePositiveInt(process.env.KROKI_RETRIES, 5);
+const KROKI_RETRY_DELAY_MS = parsePositiveInt(process.env.KROKI_RETRY_DELAY_MS, 1000);
+const KROKI_CONCURRENCY = parsePositiveInt(process.env.KROKI_CONCURRENCY, 3);
 
 const sleep = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
 const shouldRetryStatus = (status) => status === 429 || status >= 500;
@@ -61,15 +66,21 @@ async function renderAll() {
     console.log('No .mmd files in diagrams/');
     return;
   }
-  const results = [];
-  for (const file of files) {
-    try {
-      const value = await render(file);
-      results.push({ status: 'fulfilled', value });
-    } catch (reason) {
-      results.push({ status: 'rejected', reason });
+  const results = Array(files.length);
+  let next = 0;
+  const worker = async () => {
+    while (next < files.length) {
+      const i = next++;
+      try {
+        const value = await render(files[i]);
+        results[i] = { status: 'fulfilled', value };
+      } catch (reason) {
+        results[i] = { status: 'rejected', reason };
+      }
     }
-  }
+  };
+  const workerCount = Math.min(KROKI_CONCURRENCY, files.length);
+  await Promise.all(Array.from({ length: workerCount }, () => worker()));
   let failed = 0;
   results.forEach((r, i) => {
     if (r.status === 'fulfilled') {
