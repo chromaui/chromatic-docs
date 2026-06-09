@@ -5,26 +5,61 @@ import { readFile, writeFile, mkdir, readdir, stat } from 'node:fs/promises';
 import { watch } from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
+import { writeManifest } from './diagrams-manifest.mjs';
 
 const ROOT = fileURLToPath(new URL('..', import.meta.url));
 const SRC_DIR = path.join(ROOT, 'diagrams');
 const OUT_DIR = path.join(ROOT, 'src/images/diagrams');
 const KROKI = process.env.KROKI_URL ?? 'https://kroki.io';
+const parsePositiveInt = (value, fallback) => {
+  const parsed = Number.parseInt(value ?? '', 10);
+  return Number.isInteger(parsed) && parsed > 0 ? parsed : fallback;
+};
+const KROKI_RETRIES = parsePositiveInt(process.env.KROKI_RETRIES, 5);
+const KROKI_RETRY_DELAY_MS = parsePositiveInt(process.env.KROKI_RETRY_DELAY_MS, 1000);
+const KROKI_CONCURRENCY = parsePositiveInt(process.env.KROKI_CONCURRENCY, 3);
+const KROKI_TIMEOUT_MS = parsePositiveInt(process.env.KROKI_TIMEOUT_MS, 30000);
+
+const sleep = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
+const shouldRetryStatus = (status) => status === 429 || status >= 500;
 
 async function render(file) {
   const src = await readFile(path.join(SRC_DIR, file), 'utf8');
-  const res = await fetch(`${KROKI}/mermaid/svg`, {
-    method: 'POST',
-    headers: { 'Content-Type': 'text/plain' },
-    body: src,
-  });
-  if (!res.ok) {
-    throw new Error(`Kroki ${res.status} for ${file}: ${await res.text()}`);
+  let lastError;
+  for (let attempt = 1; attempt <= KROKI_RETRIES; attempt++) {
+    try {
+      const res = await fetch(`${KROKI}/mermaid/svg`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'text/plain' },
+        body: src,
+        signal: AbortSignal.timeout(KROKI_TIMEOUT_MS),
+      });
+      if (res.ok) {
+        const svg = await res.text();
+        const out = path.join(OUT_DIR, file.replace(/\.mmd$/, '.svg'));
+        await writeFile(out, svg);
+        return out;
+      }
+
+      const body = await res.text();
+      const error = new Error(`Kroki ${res.status} for ${file}: ${body}`);
+      error.retriable = shouldRetryStatus(res.status);
+      lastError = error;
+      if (!error.retriable || attempt === KROKI_RETRIES) {
+        throw lastError;
+      }
+    } catch (error) {
+      lastError = error;
+      const retriable = error.retriable ?? true;
+      if (!retriable || attempt === KROKI_RETRIES) {
+        throw lastError;
+      }
+    }
+
+    await sleep(KROKI_RETRY_DELAY_MS * attempt);
   }
-  const svg = await res.text();
-  const out = path.join(OUT_DIR, file.replace(/\.mmd$/, '.svg'));
-  await writeFile(out, svg);
-  return out;
+
+  throw lastError;
 }
 
 async function renderAll() {
@@ -34,7 +69,21 @@ async function renderAll() {
     console.log('No .mmd files in diagrams/');
     return;
   }
-  const results = await Promise.allSettled(files.map(render));
+  const results = Array(files.length);
+  let next = 0;
+  const worker = async () => {
+    while (next < files.length) {
+      const i = next++;
+      try {
+        const value = await render(files[i]);
+        results[i] = { status: 'fulfilled', value };
+      } catch (reason) {
+        results[i] = { status: 'rejected', reason };
+      }
+    }
+  };
+  const workerCount = Math.min(KROKI_CONCURRENCY, files.length);
+  await Promise.all(Array.from({ length: workerCount }, () => worker()));
   let failed = 0;
   results.forEach((r, i) => {
     if (r.status === 'fulfilled') {
@@ -45,6 +94,8 @@ async function renderAll() {
     }
   });
   if (failed > 0) process.exit(1);
+  const manifest = await writeManifest();
+  console.log(`✓ manifest → ${path.relative(ROOT, manifest)}`);
 }
 
 async function renderOne(file) {
