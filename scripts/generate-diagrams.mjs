@@ -17,6 +17,7 @@ const parsePositiveInt = (value, fallback) => {
 const KROKI_RETRIES = parsePositiveInt(process.env.KROKI_RETRIES, 5);
 const KROKI_RETRY_DELAY_MS = parsePositiveInt(process.env.KROKI_RETRY_DELAY_MS, 1000);
 const KROKI_CONCURRENCY = parsePositiveInt(process.env.KROKI_CONCURRENCY, 3);
+const KROKI_TIMEOUT_MS = parsePositiveInt(process.env.KROKI_TIMEOUT_MS, 30000);
 
 const sleep = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
 const shouldRetryStatus = (status) => status === 429 || status >= 500;
@@ -30,6 +31,7 @@ async function render(file) {
         method: 'POST',
         headers: { 'Content-Type': 'text/plain' },
         body: src,
+        signal: AbortSignal.timeout(KROKI_TIMEOUT_MS),
       });
       if (res.ok) {
         const svg = await res.text();
