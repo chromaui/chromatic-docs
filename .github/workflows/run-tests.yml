@@ -18,5 +18,7 @@ jobs:
           run_install: false
       - name: Install dependencies
         run: pnpm install
+      - name: Verify diagrams are in sync
+        run: pnpm run diagrams:verify
       - name: Run Vitest
         run: pnpm run test:unit

@@ -5,6 +5,7 @@ import { readFile, writeFile, mkdir, readdir, stat } from 'node:fs/promises';
 import { watch } from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
+import { writeManifest } from './diagrams-manifest.mjs';
 
 const ROOT = fileURLToPath(new URL('..', import.meta.url));
 const SRC_DIR = path.join(ROOT, 'diagrams');
@@ -93,6 +94,8 @@ async function renderAll() {
     }
   });
   if (failed > 0) process.exit(1);
+  const manifest = await writeManifest();
+  console.log(`✓ manifest → ${path.relative(ROOT, manifest)}`);
 }
 
 async function renderOne(file) {
