@@ -22,7 +22,7 @@ The comment is created the first time a build posts results for a PR. From then 
 
 ## Enable
 
-PR comments require the [GitHub app to be installed and your project linked](/docs/access#linked-projects). Once that’s done, enable PR comments from your project’s Manage screen under _Notifications_.
+PR comments require [UI Review to be enabled](/docs/manual-ui-review/#enable-ui-review), the [GitHub app to be installed, and your project linked](/docs/access#linked-projects). Once that’s done, enable PR comments from your project’s Manage screen under _Notifications_.
 
 ![The Notifications section of the Chromatic project Manage screen, with the Pull request comments option highlighted and showing an Enable button](../../images/pr-comments-manage-screen.png)
 
