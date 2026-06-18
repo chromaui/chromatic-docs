@@ -103,7 +103,7 @@ A custom domain gives you a memorable URL to share with stakeholders and teammat
 1. Go to the DNS management interface provided by your domain registrar or web hosting provider. Find the section where you can add DNS records.
 2. Add a CNAME record for the subdomain you would like to use, such as `*.storybook.example.com`, then enter `domains.chromatic.com` as the value.
 3. Back in Chromatic, enter the full domain name you’d like to use and choose a target branch. The domain will link to the most recent build on that branch.
-4. If you've setup a custom wildcard subdomain for another project, get in touch and ask for the domain to be whitelisted, in order to complete the configuration.
+4. If you've set up a custom wildcard subdomain for another project, get in touch and ask for the domain to be whitelisted, in order to complete the configuration.
 
 </details>
 
@@ -171,7 +171,7 @@ Check the specific FAQs below for each issue and how to resolve it.
 
 These services hide your origin server and prevent the CA from reaching Chromatic's validation endpoints.
 
-Set your DNS record to **"DNS only"** (grey cloud for Cloudflare) so it resolves directly to `domains.chromatic.com` without any intermediate proxying. 
+Set your DNS record to **"DNS only"** (grey cloud for Cloudflare), so it resolves directly to `domains.chromatic.com` without any intermediate proxying.
 
 </details>
 
@@ -190,7 +190,7 @@ Consult your DNS provider's documentation to check if flattening is enabled for 
 <details id="aaaa-records">
 <summary><b>Does Chromatic support IPv6 (AAAA records)?</b></summary>
 
-**No.** AAAA records are currently **not supported** for custom domains. If such records exist on your domain, they may prevent the CA from reaching Chromatic's servers and block certificate issuance.
+**No.** AAAA records are currently **not supported** for custom domains. If such records exist on your domain, they may prevent the CA from reaching Chromatic's servers and block the issuance of certificates.
 
 **Solution:** Remove any AAAA records pointing to your custom domain. Only use the record types specified in the setup guide:
 
@@ -218,7 +218,7 @@ Verify that your DNSSEC records are valid and properly propagated. If you recent
 <details id="dns-propagation">
 <summary><b>How long does DNS propagation take for certificate issuance?</b></summary>
 
-DNS changes are not instant. After updating your records, it may take anywhere from a few minutes up to **48 hours** (though typically under an hour) for global DNS resolvers to pick up the changes. During this period, the CA may query an outdated resolver and fail validation.
+DNS changes are not instant. After updating your records, it may take anywhere from a few minutes to **48 hours** (typically under an hour) for global DNS resolvers to pick up the changes. During this period, the CA may query an outdated resolver and fail validation.
 
 Use public DNS lookup tools (like `dig` or online checkers) to verify that your record is visible from multiple locations worldwide before retrying.
 
@@ -227,8 +227,7 @@ Use public DNS lookup tools (like `dig` or online checkers) to verify that your 
 <details id="renewal-failed">
 <summary><b>My certificate failed to renew. Why?</b></summary>
 
-Certificate renewal is an automated process that requires your DNS configuration to remain **exactly as it was during the initial setup** or not hit any limitations if changes are introduced.
-The renewal will fail if you don't reconfigure your DNS settings to meet the requirements.
+Certificate renewal is an automated process that requires your DNS configuration to remain **exactly as it was during the initial setup** to avoid any limitations if changes are introduced. The renewal will fail if you don't reconfigure your DNS settings to meet the requirements.
 
 </details>
 
