@@ -83,7 +83,11 @@ A custom domain gives you a memorable URL to share with stakeholders and teammat
   style="width: 400px; display:block; margin: 0 auto;"
 />
 
-<details>
+---
+
+## Troubleshooting
+
+<details id="custom-apex">
 <summary><b>How to setup a custom apex domain</b></summary>
 
 1. Go to the DNS management interface provided by your domain registrar or web hosting provider. Find the section where you can add DNS records.
@@ -93,45 +97,151 @@ A custom domain gives you a memorable URL to share with stakeholders and teammat
 
 </details>
 
-<details>
+<details id="custom-wildcard">
 <summary><b>How to setup a custom wildcard subdomain</b></summary>
 
 1. Go to the DNS management interface provided by your domain registrar or web hosting provider. Find the section where you can add DNS records.
 2. Add a CNAME record for the subdomain you would like to use, such as `*.storybook.example.com`, then enter `domains.chromatic.com` as the value.
 3. Back in Chromatic, enter the full domain name you’d like to use and choose a target branch. The domain will link to the most recent build on that branch.
-4. If you've setup a custom wildcard subdomain for another project, get in touch and ask for the domain to be whitelisted, in order to complete the configuration.
+4. If you've set up a custom wildcard subdomain for another project, get in touch and ask for the domain to be whitelisted, in order to complete the configuration.
 
 </details>
 
-<details>
-<summary><b>My domain remains in the "Issuing certificate" state</b></summary>
-
-Your DNS may be configured with [CAA records](https://en.wikipedia.org/wiki/DNS_Certification_Authority_Authorization) that only allow certain authorities to issue certificates for your domain names. The Chromatic custom domain relies on Let's Encrypt and ZeroSSL (either one may be used). In order to allow Let's Encrypt or ZeroSSL to issue a certificate for your Chromatic custom domain, add a `CAA` record for `letsencrypt.org` and `sectigo.com`. For example:
-
-```
-example.com. 300 IN CAA 0 issue "letsencrypt.org"
-example.com. 300 IN CAA 0 issue "sectigo.com"
-```
-
-As CAA records are inherited by subdomains, you can configure the CAA record at the apex domain level, which is convenient if you have multiple Chromatic projects.
-
-For more information about configuring CAA records, refer to [Let's Encrypt](https://letsencrypt.org/docs/caa/) and [ZeroSSL](https://help.zerossl.com/hc/en-us/articles/360060119753-Invalid-CAA-Records).
-
-</details>
-
-<details>
+<details id="connected-404">
  <summary><b> My custom domain is "Connected" in Chromatic, but visiting the URL results in a 404 error. Why?</b></summary>
 
 When you set a custom domain, you select a target branch, and the domain links to the latest build on that branch. If you encounter a 404 error, it's likely because the selected branch doesn't have any Chromatic builds yet.
 
 </details>
 
-<details>
+<details id="free-plans">
 
 <summary>
   <b>Are custom domains available for free plans?</b>
 </summary>
 
 No. You must upgrade to the Starter plan or higher.
+
+</details>
+
+<details id="issuing-certificate">
+<summary><b>My domain remains in the "Issuing certificate" state. What are the common causes?</b></summary>
+
+When you add a custom domain, Chromatic automatically provisions a TLS certificate from Let's Encrypt or ZeroSSL. The Certificate Authority (CA) must verify domain ownership by querying your public DNS records. If your DNS configuration interferes with this verification, the issuance will hang.
+
+The most common causes are:
+
+- [DNS proxying / CDN "orange cloud" enabled](#dns-proxying)
+- [CNAME flattening (ANAME) active](#cname-flattening)
+- [AAAA (IPv6) records present](#aaaa-records)
+- [Restrictive CAA records](#caa-records)
+- [DNSSEC misconfiguration](#dnssec)
+- [DNS changes that haven't fully propagated](#dns-propagation)
+
+Check the specific FAQs below for each issue and how to resolve it.
+
+</details>
+
+<details id="pending-status">
+<summary><b>My custom domain is stuck in a "Pending" state. What are the common causes?</b></summary>
+
+When you add a custom domain, Chromatic performs several steps to make it live. If any of these steps fail, the domain will remain in a "Pending" state.
+
+The most common causes are:
+
+- DNS configuration issues: [proxying](#dns-proxying) or [propagation](#dns-propagation)
+- [Certificate issuance problems](#issuing-certificate)
+
+Check the specific FAQs below for each issue and how to resolve it.
+
+</details>
+
+<details id="dns-proxying">
+<summary><b>Does Chromatic support Cloudflare proxying (orange cloud) or other CDN services?</b></summary>
+
+**No.** Custom domains must not be proxied through Cloudflare (orange cloud) or any other CDN / reverse proxy service while certificates are being provisioned or renewed. This includes:
+
+- Cloudflare (when proxying is enabled)
+- Fastly
+- Akamai
+- Imperva
+- Sucuri
+- CloudFront
+- Any other reverse proxy or CDN placed in front of your domain
+
+These services hide your origin server and prevent the CA from reaching Chromatic's validation endpoints.
+
+Set your DNS record to **"DNS only"** (grey cloud for Cloudflare), so it resolves directly to `domains.chromatic.com` without any intermediate proxying.
+
+</details>
+
+<details id="cname-flattening">
+<summary><b>What is CNAME flattening, and can it break my certificate issuance?</b></summary>
+
+Some DNS providers offer "CNAME flattening" or "ANAME records," which resolve a CNAME at the DNS level and return an A (IPv4) or AAAA (IPv6) record instead. This can interfere with the validation process used by Let's Encrypt and ZeroSSL.
+
+Consult your DNS provider's documentation to check if flattening is enabled for your zone.
+
+- If possible, configure it to flatten CNAMEs **only at the zone apex** (root domain).
+- For subdomains (e.g., `storybook.yourdomain.com`), use a **standard CNAME record** without flattening.
+
+</details>
+
+<details id="aaaa-records">
+<summary><b>Does Chromatic support IPv6 (AAAA records)?</b></summary>
+
+**No.** AAAA records are currently **not supported** for custom domains. If such records exist on your domain, they may prevent the CA from reaching Chromatic's servers and block the issuance of certificates.
+
+**Solution:** Remove any AAAA records pointing to your custom domain. Only use the record types specified in the setup guide:
+
+- **CNAME** for subdomains (pointing to `domains.chromatic.com`)
+- **A** for apex/root domains (pointing to `34.120.230.5`) plus the required **TXT** record
+
+</details>
+
+<details id="caa-records">
+<summary><b>How should I configure CAA records for Chromatic?</b></summary>
+
+There is no need to configure them manually. Your DNS may have CAA (Certification Authority Authorization) records that restrict which CAs are allowed to issue certificates for your domain. Chromatic relies on **Let's Encrypt** and **ZeroSSL (Sectigo)** — both must be permitted.
+
+</details>
+
+<details id="dnssec">
+<summary><b>Does DNSSEC work with Chromatic custom domains?</b></summary>
+
+**Yes**, DNSSEC is supported, but it must be configured **correctly**. Invalid DNSSEC configurations—such as stale keys after a DNS provider change—can prevent DNS resolution entirely, which blocks certificate issuance.
+
+Verify that your DNSSEC records are valid and properly propagated. If you recently changed DNS providers, ensure the DS records at your registrar have been updated. Temporarily disabling DNSSEC can help you confirm whether it is the root cause.
+
+</details>
+
+<details id="dns-propagation">
+<summary><b>How long does DNS propagation take for certificate issuance?</b></summary>
+
+DNS changes are not instant. After updating your records, it may take anywhere from a few minutes to **48 hours** (typically under an hour) for global DNS resolvers to pick up the changes. During this period, the CA may query an outdated resolver and fail validation.
+
+Use public DNS lookup tools (like `dig` or online checkers) to verify that your record is visible from multiple locations worldwide before retrying.
+
+</details>
+
+<details id="renewal-failed">
+<summary><b>My certificate failed to renew. Why?</b></summary>
+
+Certificate renewal is an automated process that requires your DNS configuration to remain **exactly as it was during the initial setup** to avoid any limitations if changes are introduced. The renewal will fail if you don't reconfigure your DNS settings to meet the requirements.
+
+</details>
+
+<details id="still-stuck">
+<summary><b>I've checked everything, but my domain is still stuck. What should I do?</b></summary>
+
+If you've verified all the above (DNS, certificates, etc.) and the domain remains stuck in pending or issuing certificate states, please contact **Chromatic support** with the following details:
+
+- The custom domain name you are trying to add
+- Your DNS provider
+- Any DNS proxy, flattening, or security features you have enabled
+- The exact DNS records you have configured (type, name, value, TTL)
+- Screenshots of your DNS configuration (if possible)
+
+This information will help our team diagnose the issue quickly.
 
 </details>
