@@ -1,0 +1,22 @@
+---
+sidebar: { hide: true }
+title: "Why doesn't my organization appear when I try to add it or link a project?"
+section: 'account'
+---
+
+# Why doesn't my organization appear when I try to add it or link a project?
+
+When you add an account or link a project, the list of organizations you can choose from comes from what your GitHub user can see through the Chromatic OAuth app. If your organization is missing, it's usually one of these.
+
+**You're not a member of the organization.** The list only includes organizations you belong to on GitHub. Being an admin or owner of a _different_ organization doesn't add you to this one, and an invitation you haven't accepted yet doesn't count (invitations also expire after 7 days). Organization membership is private by default, so check your status on the organization's People page, or see GitHub's guides to [organization membership](https://docs.github.com/en/account-and-profile/concepts/organization-membership) and [roles](https://docs.github.com/en/organizations/managing-peoples-access-to-your-organization-with-roles/roles-in-an-organization).
+
+**The organization hasn't approved the Chromatic OAuth app.** Organizations can restrict which third-party OAuth apps their members may use. If yours does, an organization owner needs to approve the Chromatic OAuth app before the org will appear for you.
+
+**The organization enforces an IP allow list.** Some organizations only allow GitHub access from approved IP addresses. If yours does, Chromatic's outbound IPs need to be on the list, otherwise our request to read your organizations is blocked. See [allowlisting Chromatic's IPs](/docs/faq/allowlist-ips-for-git-providers#outbound-traffic-from-chromatic).
+
+The two Chromatic apps are easy to confuse, so it helps to know what each does:
+
+- The **OAuth app** signs you in and reads which organizations and repositories you can see. This is what fills the list when you add an account, so it's the one that matters here.
+- The **GitHub App** (chromatic-com) handles builds, pull request checks, and UI Review after an account exists. Installing it does not make your organization appear in the list.
+
+If you can't add the organization yourself, anyone already in it can add it in Chromatic and invite you to the project.
