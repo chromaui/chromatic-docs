@@ -6,7 +6,7 @@ sidebar: { order: 4 }
 
 # Single Sign-On (SSO)
 
-Single Sign-On (SSO) is available to **enterprise customers**. It allows your team to authenticate using your corporate identity provider (IdP) and access Chromatic via a custom subdomain (e.g., `mycompany.chromatic.com`). If you don’t know the Chromatic URL for your team, ask the account or project owner or contact support via chat or [support@chromatic.com](mailto:support@chromatic.com).
+Single Sign-On (SSO) is available to [**enterprise customers**](/pricing). It allows your team to authenticate using your corporate identity provider (IdP) and access Chromatic via a custom subdomain (e.g., `mycompany.chromatic.com`). If you don’t know the Chromatic URL for your team, ask the account or project owner or contact support via chat or [support@chromatic.com](mailto:support@chromatic.com).
 
 ## Supported SSO providers
 
@@ -29,7 +29,7 @@ If your provider is not listed, contact [support@chromatic.com](mailto:support@c
 
 Once SSO is enabled, collaborators can log in two ways:
 
-1. **Direct subdomain link** – `https://{YOUR-SUBDOMAIN}.chromatic.com/start`  
+1. **Direct subdomain link** – `https://{YOUR-SUBDOMAIN}.chromatic.com/start`
    Replace `{YOUR-SUBDOMAIN}` with the subdomain assigned to your organization.
 
 2. **IdP dashboard** – Click the Chromatic application tile in your SSO provider’s portal.
@@ -49,10 +49,10 @@ At the project-level, all collaborators who have access via SSO will also get ac
 
 Chromatic identifies existing users using **two methods** in order:
 
-1. **Primary identifier** – The SAML `NameID` (or `idp_id` attribute).  
+1. **Primary identifier** – The SAML `NameID` (or `idp_id` attribute).
    This is typically a persistent, immutable user ID from your IdP.
 
-2. **Fallback identifier** – A combination of `email`, `firstName`, and `lastName` attributes.  
+2. **Fallback identifier** – A combination of `email`, `firstName`, and `lastName` attributes.
    This requires that your IdP sends these three attributes in the SAML assertion.
 
 #### What happens when the `NameID` (or `idp_id`) changes?
