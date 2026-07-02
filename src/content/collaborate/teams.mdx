@@ -35,9 +35,13 @@ To assign a team to a project:
 1. Go to the project's **Manage page » Collaborate tab**.
 2. Under **Teams**, click **Add team**, select the team, and choose a role.
 
+![Project Manage page Collaborate tab showing the Collaborators section with a Teams panel. An Add team button appears on the right above a search field labeled Find teams.](../../images/teams-project-page.png)
+
 ## Roles and permissions
 
 A team is assigned to one or more projects with a specific [project role](#project-roles). Any user who is a member of that team automatically gets that role on those projects.
+
+![Team page showing the Projects section with an Add project button.](../../images/teams-team-page.png)
 
 ### How a user's effective project role is resolved
 
@@ -46,20 +50,19 @@ A user can receive project access from multiple sources. The **highest role** al
 1. **Organization Admin:** Admins have implicit Owner access on all projects.
 2. **Direct project assignment:** A role assigned to the user on the specific project.
 3. **Team membership:** The role granted by any team the user belongs to that is assigned to the project. If the user is in multiple teams with different roles on the same project, the highest applies.
-4. **Base project role:** The organization-wide default role for all members (see [below](#base-project-role)).
 
-Roles can only be elevated through this process, never reduced. For example, if the base project role is `viewer` and a team grants `developer`, the user receives `developer`.
+Roles can only be elevated through this process, never reduced. For example, if a user's direct assignment grants `developer` and a team assignment grants `owner`, the user receives `owner`.
 
 ### Organization roles
 
 Organization roles control what a member can do at the org level.
 
-| Role        | What they can do                                                                                                                                                                                                                              |
-| ----------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| **Admin**   | Full access to all settings, billing, SSO/SCIM configuration, team-to-project assignments, and all projects (implicit Owner on every project). Can manage members. Every organization must have at least one member with the Admin role.      |
-| **Editor**  | Can create projects and assign teams to projects. Cannot access billing or SSO settings. Team membership is managed through your IdP via SCIM, not in Chromatic.                                                                              |
-| **Member**  | Standard membership. Can view organization details and member list. Project access is determined by base project role, team membership or direct assignment.                                                                                  |
-| **Billing** | Full access to billing management (invoices, payment methods, subscription). Cannot manage teams or projects beyond what their base project role allows. Intended for finance team members who manage payments but don't need project access. |
+| Role        | What they can do                                                                                                                                                                                                                         |
+| ----------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| **Admin**   | Full access to all settings, billing, SSO/SCIM configuration, team-to-project assignments, and all projects (implicit Owner on every project). Can manage members. Every organization must have at least one member with the Admin role. |
+| **Editor**  | Can create projects and assign teams to projects. Cannot access billing or SSO settings. Team membership is managed through your IdP via SCIM, not in Chromatic.                                                                         |
+| **Member**  | Standard membership. Can view organization details and member list. Project access is determined by team membership or direct assignment.                                                                                                |
+| **Billing** | Full access to billing management (invoices, payment methods, subscription). Cannot manage teams or projects. Intended for finance team members who manage payments but don't need project access.                                       |
 
 ### Project roles
 
@@ -73,14 +76,6 @@ Project roles determine what a member can do within a specific project.
 | **Viewer**    | Read-only access to builds, stories, and review status.                                |
 | **None**      | No access. The project is not visible to the user.                                     |
 
-### Base project role
-
-Organizations have a **base project role** setting that automatically grants all members a default role on every project. Options are `none`, `viewer`, `reviewer`, `developer`, and `owner`.
-
-When set to `none`, members cannot see any project unless they are explicitly assigned access through a team or direct assignment. This is useful when projects should be private by default.
-
-Admins can change this setting under **Organization Settings » General**.
-
 ## What SCIM manages vs. what you manage manually
 
 There is a clear boundary between what your IdP automates via SCIM and what you set manually in Chromatic.
@@ -89,5 +84,5 @@ There is a clear boundary between what your IdP automates via SCIM and what you 
 | ------------------------------------------------ | ------------------------------------- |
 | Organization membership (who is in the org)      | Team-to-project assignments and roles |
 | Organization roles (Admin, Editor, Member, etc.) | Direct project member assignments     |
-| Team creation and naming                         | Base project role setting             |
+| Team creation and naming                         |                                       |
 | Team membership                                  |                                       |
