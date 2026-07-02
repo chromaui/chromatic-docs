@@ -6,7 +6,7 @@ sidebar: { order: 4 }
 
 # Single Sign-On (SSO)
 
-Single Sign-On (SSO) is available to **enterprise customers**. It allows your team to authenticate using your corporate identity provider (IdP) and access Chromatic via a custom subdomain (e.g., `mycompany.chromatic.com`). If you don’t know the Chromatic URL for your team, ask the account or project owner or contact support via chat or [support@chromatic.com](mailto:support@chromatic.com).
+Single Sign-On (SSO) is available to [**enterprise customers**](/pricing). It allows your team to authenticate using your corporate identity provider (IdP) and access Chromatic via a custom subdomain (e.g., `mycompany.chromatic.com`). If you don’t know the Chromatic URL for your team, ask the account or project owner or contact support via chat or [support@chromatic.com](mailto:support@chromatic.com).
 
 ## Supported SSO providers
 
@@ -29,13 +29,13 @@ If your provider is not listed, contact [support@chromatic.com](mailto:support@c
 
 Once SSO is enabled, collaborators can log in two ways:
 
-1. **Direct subdomain link** – `https://{YOUR-SUBDOMAIN}.chromatic.com/start`  
+1. **Direct subdomain link** – `https://{YOUR-SUBDOMAIN}.chromatic.com/start`
    Replace `{YOUR-SUBDOMAIN}` with the subdomain assigned to your organization.
 
 2. **IdP dashboard** – Click the Chromatic application tile in your SSO provider’s portal.
 
 When you add or remove collaborators in your SSO provider, changes will be reflected in Chromatic automatically.
-At the project-level, all collaborators who have access via SSO will also get access to every Chromatic project within your organization’s account. **Limitation:** Currently, SSO users get access to **all projects**. Project-specific access is not supported via SCIM.
+To control which projects collaborators can access, use [Teams](/docs/teams). Teams are synced from your identity provider’s directory groups via SCIM and can be assigned to specific projects, each with a project role.
 
 #### Troubleshooting login issues
 
@@ -49,10 +49,10 @@ At the project-level, all collaborators who have access via SSO will also get ac
 
 Chromatic identifies existing users using **two methods** in order:
 
-1. **Primary identifier** – The SAML `NameID` (or `idp_id` attribute).  
+1. **Primary identifier** – The SAML `NameID` (or `idp_id` attribute).
    This is typically a persistent, immutable user ID from your IdP.
 
-2. **Fallback identifier** – A combination of `email`, `firstName`, and `lastName` attributes.  
+2. **Fallback identifier** – A combination of `email`, `firstName`, and `lastName` attributes.
    This requires that your IdP sends these three attributes in the SAML assertion.
 
 #### What happens when the `NameID` (or `idp_id`) changes?
@@ -90,7 +90,7 @@ Send us the list of external collaborators via our **in-app chat** or email us a
 
 Chromatic supports two provisioning methods for managing user accounts via **Single Sign-On (SSO)**. The first is **Just-in-Time (JIT)** provisioning, where a user account is automatically created in Chromatic the first time the user logs in via SSO—no pre‑provisioning or administrative setup is required beforehand.
 
-The second is **SCIM** (System for Cross-domain Identity Management) provisioning, which allows users and groups to be pushed from your identity provider (IdP) to Chromatic before their first login. **SCIM** enables automated role assignment (e.g., setting permissions based on group membership) and automated de-provisioning (e.g., removing access when a user is disabled in your IdP).
+The second is **SCIM** (System for Cross-domain Identity Management) provisioning, which allows users and groups to be pushed from your identity provider (IdP) to Chromatic before their first login. **SCIM** enables automated role assignment (e.g., setting permissions based on group membership) and automated de-provisioning (e.g., removing access when a user is disabled in your IdP). Directory groups pushed via SCIM become [Teams](/docs/teams) in Chromatic, which you can assign to specific projects.
 
 In short, **JIT** is simpler and requires no upfront configuration but offers less control over pre‑login access, while **SCIM** provides full lifecycle management and automation at the cost of additional setup.
 
@@ -101,7 +101,7 @@ SCIM allows you to manage Chromatic roles (`Owner`, `Developer`, `Reviewer`, `Vi
 - Configure groups in your IdP that contain a `roles` or `role` attribute. Without this attribute, Chromatic won't be able to identify the correct role and will fall back to `Developer`.
 - Attribute values must match exactly: `"owner"`, `"developer"`, `"reviewer"`, `"viewer"`.
 
-**Limitation:** SCIM sets the same role for a user across **all projects**. Project-specific roles are not supported via SCIM.
+**Limitation:** The role attribute sets the same role for a user across **all projects**. To grant project-specific roles, assign a SCIM-synced [team](/docs/teams) to individual projects in Chromatic and choose a role for each assignment.
 
 When SCIM is not implemented or groups are not set correctly, all users are assigned the `Developer` role.
 

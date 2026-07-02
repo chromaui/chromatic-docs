@@ -1,7 +1,7 @@
 ---
 title: Publish
 description: Learn how Chromatic helps document components.
-sidebar: { order: 7 }
+sidebar: { order: 8 }
 ---
 
 # Publish your Storybook
