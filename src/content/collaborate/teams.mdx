@@ -28,7 +28,7 @@ When a directory group is synced via SCIM:
 
 ### Assigning teams to projects
 
-Team-to-project assignments are managed in Chromatic. Admins and Editors can assign a team to one or more projects and choose a [project role](#project-roles) for each assignment.
+Team-to-project assignments are managed in Chromatic. Admins can assign a team to one or more projects and choose a [project role](#project-roles) for each assignment.
 
 To assign a team to a project:
 
@@ -60,7 +60,6 @@ Organization roles control what a member can do at the org level.
 | Role        | What they can do                                                                                                                                                                                                                         |
 | ----------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | **Admin**   | Full access to all settings, billing, SSO/SCIM configuration, team-to-project assignments, and all projects (implicit Owner on every project). Can manage members. Every organization must have at least one member with the Admin role. |
-| **Editor**  | Can create projects and assign teams to projects. Cannot access billing or SSO settings. Team membership is managed through your IdP via SCIM, not in Chromatic.                                                                         |
 | **Member**  | Standard membership. Can view organization details and member list. Project access is determined by team membership or direct assignment.                                                                                                |
 | **Billing** | Full access to billing management (invoices, payment methods, subscription). Cannot manage teams or projects. Intended for finance team members who manage payments but don't need project access.                                       |
 
@@ -80,9 +79,9 @@ Project roles determine what a member can do within a specific project.
 
 There is a clear boundary between what your IdP automates via SCIM and what you set manually in Chromatic.
 
-| Managed via SCIM                                 | Managed manually in Chromatic         |
-| ------------------------------------------------ | ------------------------------------- |
-| Organization membership (who is in the org)      | Team-to-project assignments and roles |
-| Organization roles (Admin, Editor, Member, etc.) | Direct project member assignments     |
-| Team creation and naming                         |                                       |
-| Team membership                                  |                                       |
+| Managed via SCIM                            | Managed manually in Chromatic         |
+| ------------------------------------------- | ------------------------------------- |
+| Organization membership (who is in the org) | Team-to-project assignments and roles |
+| Organization roles (Admin, Member, etc.)    | Direct project member assignments     |
+| Team creation and naming                    |                                       |
+| Team membership                             |                                       |
