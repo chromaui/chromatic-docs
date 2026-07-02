@@ -1,7 +1,7 @@
 ---
 title: Single Sign-On (SSO)
 description: Configure SAML-based SSO, manage user identity matching, SCIM provisioning, and troubleshoot
-sidebar: { order: 4 }
+sidebar: { order: 5 }
 ---
 
 # Single Sign-On (SSO)
