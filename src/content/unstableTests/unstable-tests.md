@@ -15,7 +15,7 @@ Chromatic detects such tests automatically, labeling them as **Unstable**. These
 
 Chromatic verifies every visual change by capturing it multiple times to confirm whether it's a genuine change, a transient flake, or an unstable test. Under the hood, a single test may be captured two or three times, but you’re billed for only one snapshot per test.
 
-<!-- TODO(screenshot): A test showing the Unstable label with its trace link -->
+![Chromatic Tests dashboard showing unstable tests, with links to Chrome, Firefox, and Safari traces for each test.](../../images/unstable-tests.png)
 
 Here's a flowchart of the detection process:
 

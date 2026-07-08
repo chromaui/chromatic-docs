@@ -21,8 +21,11 @@ When Chromatic [detects that a test is unstable](/docs/unstable-tests#multiple-s
 
 On the build page, actual changes show up top while ignored tests are grouped separately in a collapsed section below.
 
-<!-- TODO(screenshot): Build page with the collapsed unstable/ignored tests group -->
-<!-- TODO(screenshot): Test page eyebrow indicating the test is unstable and accepting is optional -->
+![Chromatic test results page showing a list of tests with changes, and collapsed group at the bottom saying 4 unstable tests are auto-ignored.](../../images/unstable-tests-grouped.png)
+
+On the test page, an unstable test has an eyebrow indicating the test is unstable.
+
+![Chromatic test page showing an unstable test with an eyebrow indicating instability.](../../images/unstable-test.png)
 
 ## Manually ignore a test
 

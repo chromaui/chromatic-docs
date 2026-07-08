@@ -5,7 +5,7 @@ sidebar: { order: 3, label: 'Troubleshooting' }
 slug: 'troubleshooting-snapshots'
 ---
 
-# Troubleshooting Unstable snapshots
+# Troubleshooting unstable tests
 
 Did you encounter inconsistent, blank, or other rendering issues in your snapshots? This guide helps you identify common causes and improve snapshot consistency.
 
@@ -21,9 +21,7 @@ The Snapshot Trace Viewer lets you explore recorded traces of tests rendered and
 
 Chromatic records traces automatically. When a test [renders inconsistently](/docs/unstable-tests), Chromatic flags it as unstable and attaches a trace of the capture session, no rerun required. Builds containing unstable tests feature a "Traces" column, which links to the Trace Viewer for each unstable snapshot, with one link per enabled browser. Click on one of the browser buttons to open the Trace Viewer.
 
-<!-- TODO(screenshot): re-capture view-trace.png showing the Traces column on a regular (non-rerun) build -->
-
-![A build with unstable tests has an additional "traces" column](../../images/view-trace.png)
+![Chromatic Tests dashboard showing unstable tests, with links to Chrome, Firefox, and Safari traces for each test.](../../images/unstable-tests.png)
 
 <details>
   <summary>Why does the Trace Viewer indicate that Chromatic captured multiple screenshots for a test?</summary>
@@ -81,8 +79,6 @@ Debug inconsistent snapshots by looking at the set of changes between the origin
 
 When there are potential rendering inconsistencies in a rerun build, Chromatic will call them out in a message.
 ![Inconsistent snapshot detection](../../images/build-detail-inconsistent-snapshot-detection.png)
-
-<!-- TODO(screenshot): confirm the inconsistency callout message/banner still matches the current UI post auto-tracing -->
 
 ## Common snapshot rendering issues
 
