@@ -1,0 +1,14 @@
+%%{
+  init: { 'theme': 'natural' }
+}%%
+flowchart TB
+  c1[Capture snapshot] --> m1{Matches baseline?}
+  m1 -- Yes --> pass([Test passes])
+  m1 -- No --> c2[Capture a second time]
+  c2 --> m2{Second capture matches...}
+  m2 -- Baseline --> resolved([Transient flake\nauto-resolved, test passes])
+  m2 -- First capture --> change([Consistent change\nreported for review])
+  m2 -- Neither --> c3[Capture a third time\nwith tracing enabled]
+  c3 --> m3{Matches baseline?}
+  m3 -- Yes --> resolved2([Flake auto-resolved\ntest passes])
+  m3 -- No --> unstable([Labeled Unstable\ntrace attached])

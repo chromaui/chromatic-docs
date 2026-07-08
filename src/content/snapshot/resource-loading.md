@@ -1,7 +1,7 @@
 ---
 title: Resource loading
 description: Learn how Chromatic loads resources and waits to screenshot.
-sidebar: { order: 6 }
+sidebar: { order: 7 }
 ---
 
 # Resource loading

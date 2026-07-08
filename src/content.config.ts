@@ -117,6 +117,14 @@ const turbosnap = defineCollection({
   schema,
 });
 
+const unstableTests = defineCollection({
+  loader: glob({
+    pattern: '**/[^_]*.{md,mdx}',
+    base: './src/content/unstableTests',
+  }),
+  schema,
+});
+
 const troubleshooting = defineCollection({
   loader: glob({
     pattern: '**/[^_]*.{md,mdx}',
@@ -150,6 +158,7 @@ export const collections = {
   configuration,
   modes,
   snapshot,
+  unstableTests,
   collaborate,
   ci,
   account,

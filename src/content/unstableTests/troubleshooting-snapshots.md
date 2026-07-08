@@ -1,35 +1,29 @@
 ---
 title: Troubleshooting Snapshots
 description: Tips for debugging and improving snapshot consistency
-sidebar: { order: 15, label: 'Troubleshooting' }
+sidebar: { order: 3, label: 'Troubleshooting' }
+slug: 'troubleshooting-snapshots'
 ---
 
-# Troubleshooting Snapshots
+# Troubleshooting Unstable snapshots
 
 Did you encounter inconsistent, blank, or other rendering issues in your snapshots? This guide helps you identify common causes and improve snapshot consistency.
 
-## Rerun build to identify inconsistencies
+<div class="aside">
 
-Double-check whether a visual change is real or caused by inconsistencies in your app code by retaking snapshots. Click the "rerun" button to kick off a new build that uses identical settings and configuration as your original build. Only snapshots for denied, unreviewed, or errored changes will be captured. Any changes you accepted in the original build will not be snapshotted again in a rerun build.
+Chromatic detects tests that render inconsistently, labels them as [Unstable](/docs/unstable-tests), and ignores them automatically so they don't block your build.
 
-![Rerun button](../../images/build-detail-rerun-button.png)
+</div>
 
-Debug inconsistent snapshots by looking at the set of changes between the original build and the rerun build. You might encounter these common scenarios:
-
-- Identical changes between builds: This means the snapshots are accurately showing bonafide UI changes that need your verification. Continue the [UI Tests workflow](/docs/quickstart#4-review-changes) as usual.
-
-Different changes between builds: This means inconsistent snapshots are introducing false positives to your visual tests. Learn how to use the [Snapshot Tracer Viewer](#debug-snapshots-with-trace-viewer-beta) to identify the root cause and check out our recommendations for [improving snapshot consistency](#improve-snapshot-consistency).
-
-When there are potential rendering inconsistencies in a rerun build, Chromatic will call them out in a message.
-![Inconsistent snapshot detection](../../images/build-detail-inconsistent-snapshot-detection.png)
-
-## Debug snapshots with Trace Viewer (beta)
+## Debug snapshots with the Trace Viewer
 
 The Snapshot Trace Viewer lets you explore recorded traces of tests rendered and snapshotted in the Chromatic Capture Cloud. It captures network requests, console logs, and other debugging information, helping you identify the root cause of rendering issues.
 
-Once you rerun a build, the subsequent build will feature a "Traces" column. This column links to the Trace Viewer for each snapshot in the build, with one link per enabled browser. Click on one of the browser buttons to open the Trace Viewer.
+Chromatic records traces automatically. When a test [renders inconsistently](/docs/unstable-tests), Chromatic flags it as unstable and attaches a trace of the capture session, no rerun required. Builds containing unstable tests feature a "Traces" column, which links to the Trace Viewer for each unstable snapshot, with one link per enabled browser. Click on one of the browser buttons to open the Trace Viewer.
 
-![Build 2 was a rerun build so it has an additional "traces" column](../../images/view-trace.png)
+<!-- TODO(screenshot): re-capture view-trace.png showing the Traces column on a regular (non-rerun) build -->
+
+![A build with unstable tests has an additional "traces" column](../../images/view-trace.png)
 
 <details>
   <summary>Why does the Trace Viewer indicate that Chromatic captured multiple screenshots for a test?</summary>
@@ -72,6 +66,23 @@ When Chromatic captures a screenshot, it includes metadata like viewport informa
 - **Element positioning problems**: The clip rectangle shows precisely what was captured. If an element is missing from the snapshot, verify if it falls within the expected clip area.
 
 ![Example of screenshot metadata for a story of a dropdown component](../../images/trace-screenshot-metadata.png)
+
+## Rerun build to identify inconsistencies
+
+Double-check whether a visual change is real or caused by inconsistencies in your app code by retaking snapshots. Click the "rerun" button to kick off a new build that uses identical settings and configuration as your original build. Only snapshots for denied, unreviewed, or errored changes will be captured. Any changes you accepted in the original build will not be snapshotted again in a rerun build.
+
+![Rerun button](../../images/build-detail-rerun-button.png)
+
+Debug inconsistent snapshots by looking at the set of changes between the original build and the rerun build. You might encounter these common scenarios:
+
+- Identical changes between builds: This means the snapshots are accurately showing bonafide UI changes that need your verification. Continue the [UI Tests workflow](/docs/quickstart#4-review-changes) as usual.
+
+- Different changes between builds: This means inconsistent snapshots are introducing false positives to your visual tests. Use the [Trace Viewer](#debug-snapshots-with-the-trace-viewer) to identify the root cause and check out our recommendations for [improving snapshot consistency](#improve-snapshot-consistency).
+
+When there are potential rendering inconsistencies in a rerun build, Chromatic will call them out in a message.
+![Inconsistent snapshot detection](../../images/build-detail-inconsistent-snapshot-detection.png)
+
+<!-- TODO(screenshot): confirm the inconsistency callout message/banner still matches the current UI post auto-tracing -->
 
 ## Common snapshot rendering issues
 
