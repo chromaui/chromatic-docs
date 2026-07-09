@@ -1,21 +1,15 @@
 ---
-title: Flake Filter
+title: Flake filter
 description: Chromatic ignores unstable tests automatically so flaky snapshots never block your builds. You can also manually ignore a test to unblock a build without accepting unexpected changes.
 sidebar: { order: 2 }
 slug: 'flake-filter'
 ---
 
-<!-- TODO: Before merging, re-verify every quoted UI string (menu items, section headers, banners) against the shipped app. -->
+# Flake filter
 
-# Flake Filter
+[Unstable tests](/docs/unstable-tests) add a lot of noise to the review process because they fail intermittently without any change to your code. Flake Filter automatically detects and ignores unstable tests so they don’t block your build.
 
-[Unstable tests](/docs/unstable-tests) add a lot of noise to the review process because they fail intermittently without any change to your code.
-
-Flake Filter automatically detects and ignores unstable tests so they don’t require approval or block your build. You can also manually ignore a test to unblock a build without accepting unexpected changes.
-
-A build passes when every other test is passed or accepted.
-
-## Auto-ignored unstable tests
+## Auto-ignore unstable tests
 
 When Chromatic [detects that a test is unstable](/docs/unstable-tests#multiple-snapshots-to-detect-unstable-tests), it ignores that test automatically.
 
@@ -58,6 +52,6 @@ Yes. Chromatic has to capture a test to determine whether it's stable, so ignore
 <details>
 <summary>Can I turn off auto-ignoring for unstable tests?</summary>
 
-No. Unstable tests are ignored automatically on every build. If you'd rather resolve the instability itself, use the attached trace to find the root cause. See [Troubleshooting Snapshots](/docs/troubleshooting-snapshots#improve-snapshot-consistency) for common causes and fixes.
+Yes. You can turn off auto-ignoring for unstable tests in your project settings.
 
 </details>
