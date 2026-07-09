@@ -1,51 +1,57 @@
 ---
 title: Flake filter
-description: Chromatic ignores unstable tests automatically so flaky snapshots never block your builds. You can also manually ignore a test to unblock a build without accepting unexpected changes.
-sidebar: { order: 2 }
+description: Flake filter detects flaky tests, labels them as unstable, and ignores them automatically so they never block your build. Traces help you debug and fix them.
+sidebar: { order: 1 }
 slug: 'flake-filter'
 ---
 
 # Flake filter
 
-[Unstable tests](/docs/unstable-tests) add a lot of noise to the review process because they fail intermittently without any change to your code. Flake Filter automatically detects and ignores unstable tests so they don’t block your build.
+Flaky tests fail intermittently because they render differently on each test run without any change to your code. This might be because of an animation caught mid-frame, a font that loads late, randomized or dynamic data, a network request that doesn't finish in time, etc.
 
-## Auto-ignore unstable tests
+Flake filter detects such tests automatically, labeling them as **Unstable**, and automatically ignoring them so they don't block your build. Chromatic also records a [trace](#fix-unstable-tests) of the rendering session so you can diagnose the root cause without re-running the build.
 
-When Chromatic [detects that a test is unstable](/docs/unstable-tests#multiple-snapshots-to-detect-unstable-tests), it ignores that test automatically.
+## How it works
 
-On the build page, actual changes show up top while ignored tests are grouped separately in a collapsed section below.
+Chromatic verifies every visual change by rendering a test multiple times to evaluate whether it's a genuine change, a transient flake, or an unstable test. Under the hood, a single test may be rendered two or three times, but you’re billed only one snapshot per test.
+
+<details>
+<summary>How does Chromatic decide a test is unstable?</summary>
+
+![Flowchart of the detection flow: a snapshot that differs from the baseline is rendered a second time. A second render matching the baseline is a transient flake that auto-resolves; one matching the first render is a consistent change reported for review; one matching neither triggers a third render with tracing enabled. If the third render still differs, the test is labelled Unstable with a trace attached.](../../images/diagrams/unstable-test-detection.svg)
+
+</details>
+
+![Chromatic Tests dashboard showing unstable tests, with links to Chrome, Firefox, and Safari traces for each test.](../../images/unstable-tests.png)
+
+When Chromatic detects that a test is unstable, it ignores that test automatically so it doesn't require an approval for the build to pass. On the build page, actual changes show up top while ignored tests are grouped separately in a collapsed section below.
 
 ![Chromatic test results page showing a list of tests with changes, and collapsed group at the bottom saying 4 unstable tests are auto-ignored.](../../images/unstable-tests-grouped.png)
 
-On the test page, an unstable test has an eyebrow indicating the test is unstable.
+<div class="aside">
 
-![Chromatic test page showing an unstable test with an eyebrow indicating instability.](../../images/unstable-test.png)
+Need to park the changes on a _stable_ test? You can also [ignore tests](/docs/ignore-tests) on a build.
 
-## Manually ignore a test
+</div>
 
-Sometimes a _stable_ test shows a change you're not ready to deal with, for example: an unexpected diff from an unrelated commit, or a new story that isn't ready for review. Ignoring it gets your build passing while you deal with the change later.
+### Auto-ignores don't persist across builds
 
-To ignore a test, open the context menu on the test's page and select **Ignore this test on this build**.
+Auto-ignoring is scoped to a single build and re-evaluated on every build, so when a test stops flaking, it returns to normal on the next build automatically. Ignoring a test also doesn't affect your [baselines](/docs/branching-and-baselines) unless you take action to accept or deny it, and it doesn't surface changes in the [UI Review](/docs/review) workflow.
 
-<!-- TODO(verify): exact menu item copy against the shipped UI -->
-<!-- TODO(screenshot): Context (ellipsis) menu showing the ignore action -->
+## Fix unstable tests
 
-If you change your mind, you can un-ignore the test to return it to the unreviewed state on the same build.
+Instability is a signal that a test needs attention. To help you diagnose it, every unstable test includes a [Playwright trace](https://playwright.dev/docs/trace-viewer) recorded during the snapshot process.
 
-<!-- TODO(screenshot): A manually ignored test showing the undo affordance -->
+The trace includes network requests, console logs, and DOM snapshots from the test run, giving you the information you need to pinpoint why the test rendered inconsistently. Learn how to read a trace in [Debug snapshots with the trace viewer](/docs/trace-viewer).
 
-## Ignores don't persist across builds
-
-Ignoring is scoped to a single build. Auto-ignoring is re-evaluated on every build, so when a test stops flaking, it returns to normal on the next build automatically. Similarly, a manually ignored test is captured and compared as usual on future builds.
-
-Ignoring a test also doesn't affect your [baselines](/docs/branching-and-baselines) unless you take action to accept or deny it, and it doesn't surface changes in the [UI Review](/docs/review) workflow.
+Once you've identified the cause, the [Troubleshooting unstable tests](/docs/troubleshooting-snapshots) page covers common fixes, such as pausing animations, preloading fonts, and seeding randomness.
 
 ## Frequently asked questions
 
 <details>
 <summary>Do ignored tests count toward my snapshot usage?</summary>
 
-Yes. Chromatic has to capture a test to determine whether it's stable, so ignored tests still count toward your snapshot usage. However, even when Chromatic [captures a test multiple times](/docs/unstable-tests#multiple-snapshots-to-detect-unstable-tests) to detect instability, you are only billed for one snapshot per test.
+Yes. Chromatic has to capture a test to determine whether it's stable, so ignored tests still count toward your snapshot usage. However, even when Chromatic [captures a test multiple times](#how-it-works) to detect instability, you are only billed for one snapshot per test.
 
 </details>
 
