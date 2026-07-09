@@ -9,18 +9,11 @@ slug: 'flake-filter'
 
 Flaky tests fail intermittently because they render differently on each test run without any change to your code. This might be because of an animation caught mid-frame, a font that loads late, randomized or dynamic data, a network request that doesn't finish in time, etc.
 
-Flake filter detects such tests automatically, labeling them as **Unstable**, and automatically ignoring them so they don't block your build. Chromatic also records a [trace](#fix-unstable-tests) of the rendering session so you can diagnose the root cause without re-running the build.
+Flake filter detects such tests automatically, labeling them as **unstable**, and automatically ignoring them so that they don't block your build. Chromatic also records a [trace](#fix-unstable-tests) of the rendering session so you can diagnose the root cause without re-running the build.
 
 ## How it works
 
 Chromatic verifies every visual change by rendering a test multiple times to evaluate whether it's a genuine change, a transient flake, or an unstable test. Under the hood, a single test may be rendered two or three times, but you’re billed only one snapshot per test.
-
-<details>
-<summary>How does Chromatic decide a test is unstable?</summary>
-
-![Flowchart of the detection flow: a snapshot that differs from the baseline is rendered a second time. A second render matching the baseline is a transient flake that auto-resolves; one matching the first render is a consistent change reported for review; one matching neither triggers a third render with tracing enabled. If the third render still differs, the test is labelled Unstable with a trace attached.](../../images/diagrams/unstable-test-detection.svg)
-
-</details>
 
 ![Chromatic Tests dashboard showing unstable tests, with links to Chrome, Firefox, and Safari traces for each test.](../../images/unstable-tests.png)
 
@@ -59,5 +52,7 @@ Yes. Chromatic has to capture a test to determine whether it's stable, so ignore
 <summary>Can I turn off auto-ignoring for unstable tests?</summary>
 
 Yes. You can turn off auto-ignoring for unstable tests in your project settings.
+
+![Screenshot of the project settings page showing the "Ignore unstable tests automatically" toggle.](../../images/disable-flake-filter.png)
 
 </details>

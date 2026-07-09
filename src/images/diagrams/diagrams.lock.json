@@ -43,10 +43,6 @@
     "src": "05075bcdbac44f51d1d70077502ed3554aa511ce2a562941a60bf9286409e6f7",
     "svg": "bf11b37da1f35c856c9ba4c50b140a9c83f7496f14cec079315bffc0459323e4"
   },
-  "unstable-test-detection.mmd": {
-    "src": "99ff24dabb86dad2c790fee371a6a25e5999a29af64e9fa7e35c3f5dfff15868",
-    "svg": "82dd3f8ae7fd4fa5bfb5ef0515a76616035325bfacb470a173d1e2a72c7f5ec7"
-  },
   "unwanted-changes-on-feature.mmd": {
     "src": "9b4477fc97dd56e55f59c73bff20f1577f7db5f60a186ff17500c8366005c0c4",
     "svg": "172dae99a0ef1d50b97298e2591a3c0071f45847e85e22f39b6e017c6ed80c4c"
