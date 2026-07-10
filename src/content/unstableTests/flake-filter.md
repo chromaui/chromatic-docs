@@ -21,11 +21,11 @@ When Chromatic detects that a test is unstable, it ignores that test automatical
 
 ![Chromatic test results page showing a list of tests with changes, and collapsed group at the bottom saying 4 unstable tests are auto-ignored.](../../images/unstable-tests-ignored-row.png)
 
+Auto-ignoring doesn't affect your [baselines](/docs/branching-and-baselines) unless you take action to accept or deny a change, and it doesn't surface changes in the [UI Review](/docs/review) workflow.
+
 ### Auto-ignores don't persist across builds
 
-Auto-ignoring is scoped to a single build and re-evaluated on every build, so when a test stops flaking, it returns to normal on the next build automatically.
-
-Auto-ignoring also doesn't affect your [baselines](/docs/branching-and-baselines) unless you take action to accept or deny it, and it doesn't surface changes in the [UI Review](/docs/review) workflow.
+Flake filter runs on each build to re-evaluate whether a test is still unstable. When a test stops flaking, it automatically re-enters the test suite.
 
 ### Disable flake filter
 
