@@ -9,9 +9,9 @@ slug: 'trace-viewer'
 
 Trace Viewer lets you explore network requests, console logs, and other debugging information captured during the snapshot process. It helps you pinpoint the root cause of rendering issues, such as missing fonts, incorrect styles, or unexpected layout changes.
 
-Chromatic records traces automatically. When test is [unstable](/docs/flake-filter), Chromatic flags it as unstable and attaches a trace of the capture session, no rerun required. Builds containing unstable tests feature a "Traces" column, which links to the trace viewer for each unstable snapshot, with one link per enabled browser. Click on one of the browser buttons to open the trace viewer.
+Chromatic records traces automatically. When test is [unstable](/docs/flake-filter#what-is-an-unstable-test), Chromatic flags it as unstable and attaches a trace of the capture session, no rerun required. Builds containing unstable tests feature a "Traces" column, which links to the trace viewer for each unstable snapshot, with one link per enabled browser. Click on one of the browser buttons to open the trace viewer.
 
-![Chromatic Tests dashboard showing unstable tests, with links to Chrome, Firefox, and Safari traces for each test.](../../images/unstable-tests.png)
+![Chromatic Tests dashboard showing browser-specific trace links for unstable tests in the Traces column.](../../images/unstable-test-traces.png)
 
 <details>
   <summary>Why does the trace viewer indicate that Chromatic captured multiple screenshots for a test?</summary>

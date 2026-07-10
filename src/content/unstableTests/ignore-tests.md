@@ -17,12 +17,11 @@ Looking for a different kind of ignore? [Flake Filter](/docs/flake-filter) autom
 
 To ignore a test, open the context menu on the test's page and select **Ignore this test on this build**.
 
-<!-- TODO(verify): exact menu item copy against the shipped UI -->
-<!-- TODO(screenshot): Context (ellipsis) menu showing the ignore action -->
+![The three-dot action menu on a test page showing the Ignore test on this build option.](../../images/ignore-test.png)
 
 If you change your mind, you can un-ignore the test to return it to the unreviewed state on the same build.
 
-<!-- TODO(screenshot): An ignored test showing the undo affordance -->
+![An ignored test showing the Ignored badge and the undo button.](../../images/ignore-test-ignored.png)
 
 ## Ignores don't persist across builds
 
