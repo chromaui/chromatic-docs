@@ -57,4 +57,4 @@ When Chromatic captures a screenshot, it includes metadata like viewport informa
 
 ## Fix the root cause
 
-Once the trace has helped you identify why a test is unstable, the [Troubleshooting Snapshots](/docs/troubleshooting-snapshots#improve-snapshot-consistency) page covers common fixes, such as pausing animations, preloading fonts, and seeding randomness.
+Once the trace has helped you identify why a test is unstable, the [Troubleshooting unstable tests](/docs/troubleshooting-snapshots#improve-snapshot-consistency) page covers common fixes, such as pausing animations, preloading fonts, and seeding randomness.
