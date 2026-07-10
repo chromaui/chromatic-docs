@@ -12,7 +12,6 @@ const {
   configuration,
   modes,
   snapshot,
-  unstableTests,
   turbosnap,
   collaborate,
   ci,
@@ -63,14 +62,7 @@ const rawNavGroups = [
   },
   {
     title: 'Snapshot',
-    items: [
-      {
-        title: 'Unstable tests',
-        order: 4,
-        items: unstableTests,
-      },
-      ...snapshot,
-    ],
+    items: snapshot,
   },
   {
     title: 'Guides',

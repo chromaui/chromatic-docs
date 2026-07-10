@@ -1,7 +1,7 @@
 ---
 title: Flake filter
 description: Flake filter detects flaky tests, labels them as unstable, and ignores them automatically so they don't block your build.
-sidebar: { order: 1 }
+sidebar: { order: 4 }
 slug: 'flake-filter'
 ---
 

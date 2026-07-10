@@ -1,7 +1,7 @@
 ---
 title: Troubleshooting Snapshots
 description: Tips for debugging and improving snapshot stability
-sidebar: { order: 5, label: 'Troubleshooting' }
+sidebar: { order: 19, label: 'Troubleshooting' }
 slug: 'troubleshooting-snapshots'
 ---
 

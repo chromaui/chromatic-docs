@@ -1,7 +1,7 @@
 ---
 title: Rerun builds
 description: Double-check whether a visual change is real or caused by inconsistent rendering by retaking snapshots with identical settings.
-sidebar: { order: 4 }
+sidebar: { order: 17 }
 slug: 'rerun-builds'
 ---
 

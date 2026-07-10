@@ -16,7 +16,6 @@ export async function getStaticPaths() {
   const configuration = await getCollection('configuration');
   const modes = await getCollection('modes');
   const snapshot = await getCollection('snapshot');
-  const unstableTests = await getCollection('unstableTests');
   const turbosnap = await getCollection('turbosnap');
   const collaborate = await getCollection('collaborate');
   const ci = await getCollection('ci');
@@ -37,7 +36,6 @@ export async function getStaticPaths() {
     ...configuration,
     ...modes,
     ...snapshot,
-    ...unstableTests,
     ...turbosnap,
     ...collaborate,
     ...ci,
@@ -65,7 +63,6 @@ interface Props {
     | CollectionEntry<'configuration'>
     | CollectionEntry<'modes'>
     | CollectionEntry<'snapshot'>
-    | CollectionEntry<'unstableTests'>
     | CollectionEntry<'turbosnap'>
     | CollectionEntry<'collaborate'>
     | CollectionEntry<'ci'>

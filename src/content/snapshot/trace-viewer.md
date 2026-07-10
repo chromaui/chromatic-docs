@@ -1,7 +1,7 @@
 ---
 title: Trace viewer
 description: Explore recorded traces of tests rendered and snapshotted in the Chromatic Capture Cloud to identify the root cause of rendering issues.
-sidebar: { order: 3 }
+sidebar: { order: 18 }
 slug: 'trace-viewer'
 ---
 
