@@ -5,11 +5,11 @@ sidebar: { order: 3 }
 slug: 'trace-viewer'
 ---
 
-# Debug snapshots with the trace viewer
+# Trace viewer to debug snapshots
 
-The Snapshot trace viewer lets you explore recorded traces of tests rendered and snapshotted in the Chromatic Capture Cloud. It captures network requests, console logs, and other debugging information, helping you identify the root cause of rendering issues.
+Trace Viewer lets you explore network requests, console logs, and other debugging information captured during the snapshot process. It helps you pinpoint the root cause of rendering issues, such as missing fonts, incorrect styles, or unexpected layout changes.
 
-Chromatic records traces automatically. When a test [renders inconsistently](/docs/flake-filter), Chromatic flags it as unstable and attaches a trace of the capture session, no rerun required. Builds containing unstable tests feature a "Traces" column, which links to the trace viewer for each unstable snapshot, with one link per enabled browser. Click on one of the browser buttons to open the trace viewer.
+Chromatic records traces automatically. When test is [unstable](/docs/flake-filter), Chromatic flags it as unstable and attaches a trace of the capture session, no rerun required. Builds containing unstable tests feature a "Traces" column, which links to the trace viewer for each unstable snapshot, with one link per enabled browser. Click on one of the browser buttons to open the trace viewer.
 
 ![Chromatic Tests dashboard showing unstable tests, with links to Chrome, Firefox, and Safari traces for each test.](../../images/unstable-tests.png)
 
@@ -22,7 +22,7 @@ During the capture process, Chromatic continually takes screenshots until it eit
 
 ## How to use the snapshot trace?
 
-Chromatic uses Playwright to render and capture snapshots in its [Capture Cloud](/docs/infrastructure-release-notes), even if your tests are written using Cypress or Storybook. Therefore, it's able to leverage Playwright's [built-in capability](https://playwright.dev/docs/trace-viewer#network) to generate these traces. These traces capture network activity, console logs, DOM snapshots, and other debugging information.
+Chromatic uses Playwright to render and capture snapshots in [Capture Cloud](/docs/infrastructure-release-notes), even if your tests are written using Cypress or Storybook. Therefore, it's able to leverage Playwright's [built-in capability](https://playwright.dev/docs/trace-viewer#network) to generate these traces. These traces capture network activity, console logs, DOM snapshots, and other debugging information.
 
 ![Example of a Playwright trace capturing network requests and displaying the final DOM structure](../../images/trace-example.png)
 
@@ -57,4 +57,4 @@ When Chromatic captures a screenshot, it includes metadata like viewport informa
 
 ## Fix the root cause
 
-Once the trace has helped you identify why a test renders inconsistently, the [Troubleshooting Snapshots](/docs/troubleshooting-snapshots#improve-snapshot-consistency) page covers common fixes, such as pausing animations, preloading fonts, and seeding randomness.
+Once the trace has helped you identify why a test is unstable, the [Troubleshooting Snapshots](/docs/troubleshooting-snapshots#improve-snapshot-consistency) page covers common fixes, such as pausing animations, preloading fonts, and seeding randomness.

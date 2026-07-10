@@ -1,11 +1,11 @@
 ---
 title: Flake filter
-description: Flake filter detects flaky tests, labels them as unstable, and ignores them automatically so they never block your build. Traces help you debug and fix them.
+description: Flake filter detects flaky tests, labels them as unstable, and ignores them automatically so they don't block your build.
 sidebar: { order: 1 }
 slug: 'flake-filter'
 ---
 
-# Flake filter
+# Flake filter for unstable tests
 
 Flaky tests fail intermittently because they render differently on each test run without any change to your code. This might be because of an animation caught mid-frame, a font that loads late, randomized or dynamic data, a network request that doesn't finish in time, etc.
 
