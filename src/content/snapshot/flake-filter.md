@@ -48,6 +48,6 @@ Once you've identified the cause, the [Troubleshooting unstable tests](/docs/tro
 <details>
 <summary>Do auto-ignored tests count toward my snapshot usage?</summary>
 
-Yes. Chromatic has to capture a test to determine whether it's stable, so ignored tests still count toward your snapshot usage. However, even when Chromatic [captures a test multiple times](#how-it-works) to detect instability, you are only billed for one snapshot per test.
+Yes. Chromatic has to capture a test to determine whether it's stable, so ignored tests still count toward your snapshot usage. However, even when Chromatic [captures a test multiple times](#how-flake-filter-works) to detect instability, you are only billed for one snapshot per test.
 
 </details>
