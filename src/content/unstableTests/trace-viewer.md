@@ -22,7 +22,7 @@ During the capture process, Chromatic continually takes screenshots until it eit
 
 ## How to use the snapshot trace?
 
-Chromatic uses Playwright to render and capture snapshots in [Capture Cloud](/docs/infrastructure-release-notes), even if your tests are written using Cypress or Storybook. Therefore, it's able to leverage Playwright's [built-in capability](https://playwright.dev/docs/trace-viewer#network) to generate these traces. These traces capture network activity, console logs, DOM snapshots, and other debugging information.
+Chromatic uses Playwright to render and capture snapshots in [Capture Cloud](/docs/infrastructure-release-notes), even if your tests are written using Cypress or Storybook. Therefore, it's able to leverage Playwright's [built-in capability](https://playwright.dev/docs/trace-viewer#trace-viewer-features) to generate these traces. These traces capture network activity, console logs, DOM snapshots, and other debugging information.
 
 ![Example of a Playwright trace capturing network requests and displaying the final DOM structure](../../images/trace-example.png)
 
@@ -40,7 +40,7 @@ For a detailed list of trace viewer features, see the [Playwright documentation]
 
 ### Inspect the DOM
 
-The Trace archives the DOM for each step or action executed, allowing you to inspect the DOM at the time of capture. Use this tab to verify the DOM structure is as expected.
+The trace archives the DOM for each step or action executed, allowing you to inspect the DOM at the time of capture. Use this tab to verify the DOM structure is as expected.
 
 Check for missing elements, incorrect styles, or unexpected layout changes. If styles are missing but the CSS file has loaded, ensure the styles are applied correctly.
 

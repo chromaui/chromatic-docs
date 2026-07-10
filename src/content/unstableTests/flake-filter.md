@@ -21,7 +21,7 @@ When Chromatic detects that a test is unstable, it ignores that test automatical
 
 ![Chromatic test results page showing a list of tests with changes, and collapsed group at the bottom saying 4 unstable tests are auto-ignored.](../../images/unstable-tests-ignored-row.png)
 
-Auto-ignoring doesn't affect your [baselines](/docs/branching-and-baselines) unless you take action to accept or deny a change, and it doesn't surface changes in the [UI Review](/docs/review) workflow.
+Tests labelled as unstable and automatically ignored won't affect your [baselines](/docs/branching-and-baselines) unless you take action to accept or deny them, and they won't surface changes in the [UI Review](/docs/review) workflow.
 
 ### Auto-ignores don't persist across builds
 
