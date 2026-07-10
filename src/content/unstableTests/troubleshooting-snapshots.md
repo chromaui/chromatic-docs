@@ -1,17 +1,17 @@
 ---
 title: Troubleshooting Snapshots
-description: Tips for debugging and improving snapshot consistency
+description: Tips for debugging and improving snapshot stability
 sidebar: { order: 5, label: 'Troubleshooting' }
 slug: 'troubleshooting-snapshots'
 ---
 
 # Troubleshooting unstable tests
 
-Did you encounter inconsistent, blank, or other rendering issues in your snapshots? This guide helps you identify common causes and improve snapshot consistency.
+Did you encounter an unstable, blank, or other rendering issues in your snapshots? This guide helps you identify common causes and improve snapshot consistency.
 
 <div class="aside">
 
-Chromatic detects tests that render inconsistently, labels them as [Unstable](/docs/flake-filter), and ignores them automatically so they don't block your build. Each unstable test includes a [trace](/docs/trace-viewer) to help you debug it.
+Chromatic auto-detects [unstable tests](/docs/flake-filter#what-is-an-unstable-test), and ignores them so they don't block your build. Each unstable test includes a [trace](/docs/trace-viewer) to help you debug it.
 
 </div>
 
@@ -32,11 +32,11 @@ If your resources are behind a firewall, whitelist our domain so we can load you
 </details>
 
 <details>
-<summary>Why am I seeing inconsistent snapshots for a component using srcset?</summary>
+<summary>Why am I seeing an unstable snapshot for a component using srcset?</summary>
 
 The `srcset` attribute is a useful mechanism that provides the browser with a list of potential images to display, based on specified conditions such as media queries.
 
-In most cases, Chromatic will capture the correct image from the `srcset` list. However, if multiple tests list the same image in their respective `srcset` lists, browser cache issues can result in inconsistent snapshots.
+In most cases, Chromatic will capture the correct image from the `srcset` list. However, if multiple tests list the same image in their respective `srcset` lists, browser cache issues can result in unstable tests.
 
 In situations like this, the best workaround is to make the `srcset` URLs unique for each test by adding a random query parameter value.
 
@@ -106,7 +106,7 @@ Chromatic captures Chrome and Firefox snapshots in a Linux environment. It inclu
 <details>
 <summary>Where are my videos?</summary>
 
-Videos are interactive and time-based which introduces inconsistencies in snapshots. Chromatic hides videos by default to prevent false positives. You'll see the poster image (if specified) or a blank space where the video is supposed to render.
+Videos are interactive and time-based which makes a test unstable. Chromatic hides videos by default to prevent false positives. You'll see the poster image (if specified) or a blank space where the video is supposed to render.
 
 </details>
 
