@@ -138,7 +138,7 @@ If you need additional control when Chromatic captures a snapshot, you can adjus
         await new Promise((resolve) => setTimeout(resolve, 10000));
         const ItemList = await canvas.getByLabelText("listitems");
         const numberOfItems = await within(ItemList).findAllByRole("link");
-          expect(numberOfItems).toHaveLength(20);
+        expect(numberOfItems).toHaveLength(20);
       },
     };
     ```
