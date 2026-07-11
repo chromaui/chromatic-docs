@@ -20,36 +20,36 @@ Chromatic has a multistage timeout for capturing a snapshot: 15 seconds to rende
 
 <IntegrationSnippets>
   <Fragment slot="storybook">
-  ```ts title="src/components/Categories.stories.ts|tsx"
-  // Adjust this import to match your framework (e.g., nextjs, vue3-vite)
-  import type { Meta, StoryObj } from "@storybook/your-framework";
+    ```ts title="src/components/Categories.stories.ts|tsx"
+    // Adjust this import to match your framework (e.g., nextjs, vue3-vite)
+    import type { Meta, StoryObj } from "@storybook/your-framework";
 
-  /*
-   * Replace the storybook/test import with `@storybook/test` and adjust the stories accordingly if you're not using Storybook 9.0.
-   * Refer to the Storybook documentation for the correct package and imports for earlier versions.
-   */
-  import { expect } from "storybook/test";
+    /*
+    * Replace the storybook/test import with `@storybook/test` and adjust the stories accordingly if you're not using Storybook 9.0.
+    * Refer to the Storybook documentation for the correct package and imports for earlier versions.
+    */
+    import { expect } from "storybook/test";
 
-  import { Categories } from "./Categories";
+    import { Categories } from "./Categories";
 
-  const meta = {
-    component: Categories,
-    title: "Categories",
-    parameters: {
-      // Sets the delay (in milliseconds) at the component level for all stories.
-      chromatic: { delay: 300 },
-    },
-  } satisfies Meta<typeof Categories>;
+    const meta = {
+      component: Categories,
+      title: "Categories",
+      parameters: {
+        // Sets the delay (in milliseconds) at the component level for all stories.
+        chromatic: { delay: 300 },
+      },
+    } satisfies Meta<typeof Categories>;
 
-  export default meta;
-  type Story = StoryObj<typeof meta>;
+    export default meta;
+    type Story = StoryObj<typeof meta>;
 
-  export const Default: Story = {
-    play: async ({ canvas }) => {
-      await expect(canvas.getByText("Available Categories")).toBeInTheDocument();
-    },
-  };
-  ```
+    export const Default: Story = {
+      play: async ({ canvas }) => {
+        await expect(canvas.getByText("Available Categories")).toBeInTheDocument();
+      },
+    };
+    ```
   <ParamsCallout name="delay" integration="storybook" />
   </Fragment>
   <Fragment slot="playwright">
@@ -65,7 +65,7 @@ Chromatic has a multistage timeout for capturing a snapshot: 15 seconds to rende
         await expect(page.getByText("Available Categories")).toBeVisible();
       });
     });
-  ```
+    ```
   <ParamsCallout name="delay" integration="playwright" />
   </Fragment>
   <Fragment slot="cypress">
@@ -77,7 +77,7 @@ Chromatic has a multistage timeout for capturing a snapshot: 15 seconds to rende
         cy.get("h2").contains("Available Categories");
       });
     });
-   ```
+    ```
   <ParamsCallout name="delay" integration="cypress" />
   </Fragment>
 </IntegrationSnippets>
@@ -94,116 +94,105 @@ If you need additional control when Chromatic captures a snapshot, you can adjus
 
 <IntegrationSnippets>
   <Fragment slot="storybook">
-  ```ts title="src/components/Categories.stories.ts|tsx"
-  // Adjust this import to match your framework (e.g., nextjs, vue3-vite)
-  import type { Meta, StoryObj } from "@storybook/your-framework";
+    ```ts title="src/components/Categories.stories.ts|tsx"
+    // Adjust this import to match your framework (e.g., nextjs, vue3-vite)
+    import type { Meta, StoryObj } from "@storybook/your-framework";
+ 
+    /*
+    * Replace the storybook/test import with `@storybook/test` and adjust the stories accordingly if you're not using Storybook 9.0.
+    * Refer to the Storybook documentation for the correct package and imports for earlier versions.
+    */
+    import { expect, waitFor, within } from "storybook/test";
 
-/\*
+    import { Categories } from './Categories';
 
-- Replace the storybook/test import with `@storybook/test` and adjust the stories accordingly if you're not using Storybook 9.0.
-- Refer to the Storybook documentation for the correct package and imports for earlier versions.
-  \*/
-  import { expect, waitFor, within } from "storybook/test";
+    const meta = {
+      component: Categories,
+      title: "Categories",
+    } satisfies Meta<typeof Categories>;
 
-import { Categories } from './Categories';
+    export default meta;
+    type Story = StoryObj<typeof meta>;
 
-const meta = {
-component: Categories,
-title: "Categories",
-} satisfies Meta<typeof Categories>;
+    export const Default: Story = {
+      play: async ({ canvas, userEvent }) => {
+        const LoadMoreButton = await canvas.getByRole("button", { name: "Load more" });
+        await userEvent.click(LoadMoreButton);
 
-export default meta;
-type Story = StoryObj<typeof meta>;
+        // Wait for the below assertion not throwing an error (default timeout is 1000ms)
+        // This is especially useful when you have an asynchronous action or component that you want to wait for before taking a snapshot
+        await waitFor(async () => {
+          const ItemList = await canvas.getByLabelText("listitems");
+          const numberOfItems = await within(ItemList).findAllByRole("link");
+          expect(numberOfItems).toHaveLength(0);
+        });
+      },
+    };
 
-export const Default: Story = {
-play: async ({ canvas, userEvent }) => {
-const LoadMoreButton = await canvas.getByRole("button", { name: "Load more" });
-await userEvent.click(LoadMoreButton);
-
-      // Wait for the below assertion not throwing an error (default timeout is 1000ms)
-      // This is especially useful when you have an asynchronous action or component that you want to wait for before taking a snapshot
-      await waitFor(async () => {
+    // Emulates a delayed story by setting a timeout of 10 seconds to allow the component to load the items and ensure that the list has 20 items rendered in the DOM
+    export const WithManualTimeout: Story = {
+      play: async ({ canvas, userEvent }) => {
+        const LoadMoreButton = await canvas.getByTestId("button");
+        await userEvent.click(LoadMoreButton);
+        // This sets a timeout of 10 seconds and verifies that there are 20 items in the list
+        await new Promise((resolve) => setTimeout(resolve, 10000));
         const ItemList = await canvas.getByLabelText("listitems");
         const numberOfItems = await within(ItemList).findAllByRole("link");
-        expect(numberOfItems).toHaveLength(0);
-      });
-    },
+        expect(numberOfItems).toHaveLength(20);
+      },
+    };
+    ```
+    <div class="aside">
+    
+    ℹ️ For more information about querying elements, see the [DOM Testing Library cheatsheet](https://testing-library.com/docs/dom-testing-library/cheatsheet/#queries).
 
-};
-
-// Emulates a delayed story by setting a timeout of 10 seconds to allow the component to load the items and ensure that the list has 20 items rendered in the DOM
-export const WithManualTimeout: Story = {
-play: async ({ canvas, userEvent }) => {
-const LoadMoreButton = await canvas.getByTestId("button");
-await userEvent.click(LoadMoreButton);
-
-      // This sets a timeout of 10 seconds and verifies that there are 20 items in the list
-      await new Promise((resolve) => setTimeout(resolve, 10000));
-
-      const ItemList = await canvas.getByLabelText("listitems");
-      const numberOfItems = await within(ItemList).findAllByRole("link");
-      expect(numberOfItems).toHaveLength(20);
-    },
-
-};
-
-````
-
-<div class="aside">
-
-ℹ️ For more information about querying elements, see the [DOM Testing Library cheatsheet](https://testing-library.com/docs/dom-testing-library/cheatsheet/#queries).
-
-</div>
+    </div>
 
 </Fragment>
-<Fragment slot="playwright">
- ```ts title="tests/Categories.spec.js|ts"
- import { test, expect } from "@chromatic-com/playwright";
+  <Fragment slot="playwright">
+    ```ts title="tests/Categories.spec.js|ts"
+    import { test, expect } from "@chromatic-com/playwright";
 
-  test.describe("Categories Page", () => {
-    test("Renders the categories page with additional items", async ({ page }) => {
-      await page.goto("/categories");
+    test.describe("Categories Page", () => {
+      test("Renders the categories page with additional items", async ({ page }) => {
+        await page.goto("/categories");
 
-      const loadMoreButton = await page.getByRole("button", { name: "Load more" });
+        const loadMoreButton = await page.getByRole("button", { name: "Load more" });
 
-      await loadMoreButton.click();
+        await loadMoreButton.click();
 
-      // Verifies that there are 20 items in the list after waiting for 10 seconds
-      expect(await page.locator(".listItems")).toHaveCount(20, {
-        timeout: 10000
+          // Verifies that there are 20 items in the list after waiting for 10 seconds
+        expect(await page.locator(".listItems")).toHaveCount(20, {
+          timeout: 10000
+        });
       });
-
-   });
- });
-````
-
-   <div class="aside">
+    });
+    ```
+    <div class="aside">
 
     ℹ️ Playwright's [locators](https://playwright.dev/docs/locators) include additional methods to find elements in the DOM and interact with them in your tests. However, when writing tests, you may need additional control over the timing of your assertions. For more information, see the Playwright documentation on [timeouts](https://playwright.dev/docs/test-timeouts).
 
-   </div>
+    </div>
 
   </Fragment>
   <Fragment slot="cypress">
-   ```ts title="cypress/e2e/Categories.cy.js|ts"
-   describe("Categories Page", () => {
-     it("Renders the categories page with additional items", () => {
+    ```ts title="cypress/e2e/Categories.cy.js|ts"
+    describe("Categories Page", () => {
+      it("Renders the categories page with additional items", () => {
         cy.visit("/categories");
         cy.get("button").contains("Load more").click();
 
         // Verifies that there are 20 items in the list after waiting for 10 seconds
         cy.get(".listItems", { timeout: 10000 }).should("have.length", 20);
-     });
-
-});
-
-```
-
-<div class="aside">
- ℹ️ The Cypress [API](https://docs.cypress.io/api/table-of-contents#Queries) includes additional methods to find elements in the DOM and interact with them in your tests. However, when writing tests, you may need additional control over the timing of your assertions. For more information, see the Cypress documentation on [timeouts](https://docs.cypress.io/guides/references/configuration#Timeouts).
-</div>
-</Fragment>
+      });
+    });
+    ```
+    <div class="aside">
+  
+    ℹ️ The Cypress [API](https://docs.cypress.io/api/table-of-contents#Queries) includes additional methods to find elements in the DOM and interact with them in your tests. However, when writing tests, you may need additional control over the timing of your assertions. For more information, see the Cypress documentation on [timeouts](https://docs.cypress.io/guides/references/configuration#Timeouts).
+  
+    </div>
+  </Fragment>
 </IntegrationSnippets>
 
 {/* prettier-ignore-end */}
-```
