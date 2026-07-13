@@ -1,7 +1,7 @@
 ---
 title: Position sticky & fixed
 description: Learn how to snapshot position sticky and fixed elements
-sidebar: { order: 13 }
+sidebar: { order: 10 }
 ---
 
 # Position sticky & fixed

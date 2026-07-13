@@ -18,6 +18,9 @@ export default defineConfig({
   site: 'https://chromatic.com/docs',
   base: '/docs',
   trailingSlash: 'never',
+  redirects: {
+    '/troubleshooting-snapshots': '/docs/unstable-tests',
+  },
   markdown: {
     syntaxHighlight: false,
     remarkPlugins: [codeTitle],

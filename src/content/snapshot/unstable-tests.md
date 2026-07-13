@@ -1,21 +1,55 @@
 ---
-title: Debug unstable tests
-description: Tips for debugging and improving snapshot stability
-sidebar: { order: 19 }
-slug: 'troubleshooting-snapshots'
+title: Unstable tests debugging
+description: Learn why tests become unstable, improve test stability, and troubleshoot snapshot rendering issues.
+sidebar: { order: 11, label: 'Unstable tests' }
+slug: 'unstable-tests'
 ---
 
-# Debug unstable tests
+# Unstable tests debugging
 
-Did you encounter an unstable test, a blank snapshot, or another rendering issue? This guide helps you identify common causes and improve test stability.
+Use this guide when a test is unstable or when a snapshot is consistently wrong, incomplete, or otherwise unexpected. These are different problems, but they often share causes such as animations, resources that load late, dynamic data, or layout behavior.
+
+## What is an unstable test?
+
+An unstable test renders differently across repeated runs even when your code hasn't changed. For example, an animation might be caught mid-frame, a font might load late, dynamic data might change, or a network request might not finish in time.
 
 <div class="aside">
 
-Chromatic automatically detects and ignores [unstable tests](/docs/flake-filter#what-is-an-unstable-test) so they don't block your build. Each unstable test includes a [trace](/docs/trace-viewer) to help you debug it.
+Chromatic automatically detects and ignores unstable tests with [Flake filter](/docs/flake-filter) so they don't block your build.
 
 </div>
 
+<span id="improve-snapshot-consistency"></span>
+
+## Improve test stability
+
+Your components and stories must render stably to prevent false positives. The following practices can improve test stability:
+
+- **Randomness in tests**: Components sometimes use random number generators to create data for complex inputs. You can hard-code the input data or use a tool such as [seedrandom](https://github.com/davidbau/seedrandom) to generate stable values.
+
+- **Animations**: Chromatic attempts to pause all animations. However, you may need to [configure animation behavior](/docs/animations).
+
+- **Unpredictable resource hosts**: Resources that load from unpredictable or unreliable sources may not load within the 15-second capture window. Serve resources as static files, use a [placeholder service](https://placehold.net/), and learn how to make [resource loading](/docs/resource-loading) more reliable.
+
+- **Image CDNs and compression algorithms**: Image CDNs optimize image weight and size, which can affect how images render. Since this happens upstream of Chromatic, changes to those images are detected as visual changes. Ensure the served images are identical every time and use stable compression settings. Also consider serving images as static files or using a [placeholder service](https://placehold.net/).
+
+- **Web font loading**: Web fonts can load at different times and make tests unstable, especially when combined with [interactions](/docs/interactions). Serve web fonts as static files and [preload](/docs/font-loading) them.
+
+- **Iframes rendering out of the viewport**: Some browsers only visually render iframes when they are inside the viewport, even when they have loaded all their resources. If an iframe is below the viewport of a tall story, it will appear blank. You may want to [ignore the element](/docs/ignoring-elements) and test it in isolation so it fits inside the viewport.
+
+- **Use of the current date and time**: To keep tests that use the current time stable, use a tool such as [mockdate](https://www.npmjs.com/package/mockdate) to set the `Date` object to a fixed value.
+
+- **UI takes time to render**: UI can take extra time to settle into its final state. Add a [delay](/docs/delay) before taking a snapshot. This can make instability less obvious in snapshots, but it won't eliminate the underlying rendering issue.
+
+- **Intentional randomness**: Some stories are intentionally dynamic. You may want to [exclude the story from UI Tests](/docs/disable-snapshots#with-storybook). If those dynamic elements are still useful during local development, use [`isChromatic()`](/docs/ischromatic) to apply these stability techniques only in Chromatic.
+
+## Start with the trace
+
+Each unstable test includes a [trace](/docs/trace-viewer) with network requests, console logs, DOM snapshots, and snapshot metadata. Start there to identify what changed during capture, then use the rendering issues below to find a likely cause and fix.
+
 ## Common snapshot rendering issues
+
+### Missing or incorrect content
 
 <details>
 <summary>Where are my images and fonts?</summary>
@@ -24,7 +58,7 @@ Image and font rendering can be tricky. Resources that load from unpredictable o
 
 - Ensure that [fonts load in Chromatic](/docs/font-loading).
 - Ensure that [resources load in Chromatic](/docs/resource-loading).
-- Serve resources as [static files](#serve-static-files) to improve test speed.
+- Serve resources as [static files](/docs/resource-loading) to improve test speed.
 - Use a [placeholder service](https://placehold.net/).
 
 If your resources are behind a firewall, whitelist our domain so we can load your resources.
@@ -119,6 +153,8 @@ Generally speaking it is a good idea to wrap calls like that in a `try { } catch
 
 </details>
 
+### Layout and capture problems
+
 <details>
 <summary>Why is my content being cut off vertically in my snapshots?</summary>
 
@@ -177,6 +213,8 @@ If you use an `animateIn` effect, set a [delay](/docs/delay) so Chromatic captur
 Your component might be rendering outside of the viewport. Either reposition the component or adjust the [viewport size](/docs/modes/viewports/).
 
 </details>
+
+### Unexpected rendering behavior
 
 <details>
 <summary>Do you support taking snapshots of a component with multiple themes?</summary>
@@ -250,37 +288,3 @@ Loading a custom font can make the test unstable. Fonts can load before, during,
 The solution we recommend is to use a `<link rel="preload">` in your [`.storybook/preview-head.html`](https://storybook.js.org/docs/configure/story-rendering#adding-to-head) to preload the font before the story renders. This ensures that the dimensions and position of the fonts inside of the graph component remain consistent.
 
 </details>
-
-<span id="improve-snapshot-consistency"></span>
-
-## Improve test stability
-
-Your components and stories must render stably to prevent false positives. The following practices can improve test stability:
-
-- **Randomness in tests**: Components sometimes use random number generators to create data for complex inputs. You can hard-code the input data or use a tool such as [seedrandom](https://github.com/davidbau/seedrandom) to generate stable values.
-
-- **Animations**: Chromatic attempts to pause all animations. However, you may need to [configure animation behavior](/docs/animations).
-
-- **Unpredictable resource hosts**: Resources that load from unpredictable or flaky sources may not load in time (15s) to capture. To work around this, serve resources as [static files](#serve-static-files) or use a [placeholder service](https://placehold.co/). Learn more about how we [load resources](/docs/resource-loading).
-
-- **Image CDNs and compression algorithms**: Image CDNs optimize image weight and size, which can affect how images render. Since this happens upstream of Chromatic, changes to those images are detected as visual changes. Ensure the served images are identical every time and use consistent compression settings. Also consider serving images as [static files](#serve-static-files) or using a [placeholder service](https://placehold.co/).
-
-- **Web font loading**: Web fonts can load at different times and make tests unstable, especially when combined with [interactions](/docs/interactions). Serve web fonts as [static files](#serve-static-files) and [preload](/docs/font-loading) them.
-
-- **Iframes rendering out of the viewport**: Some browsers only visually render iframes when they are inside of the viewport, despite the fact that they have loaded with all of their resources. For this reason, if you have an iframe that is placed below the viewport of a tall story, it will appear blank. You may want to [ignore that element](/docs/ignoring-elements) and also test it in isolation so that it fits inside of the viewport.
-
-- **Use of the current date and time**: To keep tests that use the current time stable, use a tool such as [mockdate](https://www.npmjs.com/package/mockdate) to set the `Date` object to a fixed value.
-
-- **UI takes time to render**: UI can take extra time to settle into its final state. Add a [delay](/docs/delay) before taking a snapshot. This can make instability less obvious in snapshots, but it won't eliminate the underlying rendering issue.
-
-- **Intentional randomness**: Some stories are intentionally dynamic. You may want to [exclude the story from UI Tests](/docs/disable-snapshots#with-storybook). If those dynamic elements are still useful during local development, use [`isChromatic()`](/docs/ischromatic) to apply these stability techniques only in Chromatic.
-
-### Serve static files
-
-When using Playwright or Cypress, you can serve static files such as fonts, images, and videos through your app server. This helps resources load reliably across snapshots.
-
-For Storybook, use the [staticDirs](https://storybook.js.org/docs/configure/integration/images-and-assets#serving-static-files-via-storybook-configuration) option to load static files for your stories.
-
-## Browser differences between snapshots
-
-Chromatic attempts to render as consistently as possible across our supported browsers. But all browsers have different capabilities and built-in APIs. In practice, this means your snapshots may appear or behave differently depending on which browser you're looking at. This is ideal for customers because it mirrors what the end users who use different browsers would also encounter.

@@ -1,17 +1,13 @@
 ---
 title: Flake filter
 description: Flake filter detects unstable tests and automatically ignores them so they don't block your build.
-sidebar: { order: 4 }
+sidebar: { order: 14 }
 slug: 'flake-filter'
 ---
 
 # Flake filter for unstable tests
 
-Flake filter automatically detects and ignores unstable tests so they don't block your build. Chromatic also records a [trace](/docs/trace-viewer) of the rendering session so you can diagnose the root cause without rerunning the build.
-
-## What is an unstable test?
-
-An unstable test renders differently across repeated runs even when your code hasn't changed. Common causes include an animation caught mid-frame, a font that loads late, dynamic data, or a network request that doesn't finish in time.
+Flake filter automatically detects and ignores [unstable tests](/docs/unstable-tests#what-is-an-unstable-test) so they don't block your build. Chromatic also records a [trace](/docs/trace-viewer) of the rendering session so you can diagnose the root cause without rerunning the build.
 
 ## How flake filter works
 

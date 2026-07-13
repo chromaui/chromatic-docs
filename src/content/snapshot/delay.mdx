@@ -1,7 +1,7 @@
 ---
 title: Delay
 description: Learn how to make Chromatic wait before capturing a snapshot
-sidebar: { order: 15 }
+sidebar: { order: 8 }
 ---
 
 import ParamsCallout from '../../components/ParamsCallout.astro';
@@ -10,7 +10,7 @@ import IntegrationSnippets from '../../components/IntegrationSnippets.astro';
 
 # Delay snapshots
 
-Components sometimes trigger custom interactions when they render, such as JavaScript-driven [animations](/docs/animations#javascript-animations) that cannot [otherwise be disabled](/docs/troubleshooting-snapshots) or third-party functionality outside of your control. The `delay` configuration option defines a fixed minimum wait before Chromatic captures a snapshot, allowing the test to reach its intended state.
+Components sometimes trigger custom interactions when they render, such as JavaScript-driven [animations](/docs/animations#javascript-animations) that cannot [otherwise be disabled](/docs/unstable-tests) or third-party functionality outside of your control. The `delay` configuration option defines a fixed minimum wait before Chromatic captures a snapshot, allowing the test to reach its intended state.
 
 ## Customizing snapshot delays
 
