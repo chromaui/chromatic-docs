@@ -1,7 +1,7 @@
 ---
 title: Ignore tests
 description: Manually ignore a test to unblock a build without accepting unexpected changes.
-sidebar: { order: 8 }
+sidebar: { order: 16 }
 slug: 'ignore-tests'
 ---
 

@@ -1,7 +1,7 @@
 ---
 title: Trace viewer
 description: Explore traces recorded while Chromatic captures snapshots to identify the root cause of rendering issues.
-sidebar: { order: 18 }
+sidebar: { order: 12 }
 slug: 'trace-viewer'
 ---
 
@@ -9,7 +9,7 @@ slug: 'trace-viewer'
 
 Trace viewer lets you explore network requests, console logs, and other debugging information captured during the snapshot process. It helps you pinpoint the root cause of rendering issues, such as missing fonts, incorrect styles, or unexpected layout changes.
 
-Chromatic records traces automatically. When a test is [unstable](/docs/flake-filter#what-is-an-unstable-test), Chromatic flags it and attaches a trace of the capture session. Builds containing unstable tests include a **Traces** column with one trace link per enabled browser. Click a browser to open its trace.
+Chromatic records traces automatically. When a test is [unstable](/docs/unstable-tests#what-is-an-unstable-test), Chromatic flags it and attaches a trace of the capture session. Builds containing unstable tests include a **Traces** column with one trace link per enabled browser. Click a browser to open its trace.
 
 ![Chromatic Tests dashboard showing browser-specific trace links for unstable tests in the Traces column.](../../images/unstable-test-traces.png)
 
@@ -23,7 +23,7 @@ Below are some common scenarios where the trace viewer can help you debug snapsh
 
 ### Network tab analysis
 
-The network tab displays the resources loaded during capture, including fonts, stylesheets, scripts, and other assets. Check for resources that failed to load or took a long time. For example, if fonts are incorrect or styles are missing, ensure that the font or CSS files loaded successfully with the correct MIME type. Consider loading slow assets [as static files](/docs/troubleshooting-snapshots#serve-static-files).
+The network tab displays the resources loaded during capture, including fonts, stylesheets, scripts, and other assets. Check for resources that failed to load or took a long time. For example, if fonts are incorrect or styles are missing, ensure that the font or CSS files loaded successfully with the correct MIME type. Learn how to make [resource loading](/docs/resource-loading) more reliable.
 
 <div class="aside">
 
@@ -50,4 +50,4 @@ When Chromatic captures a snapshot, it includes metadata like viewport informati
 
 ## Fix the root cause
 
-Instability is a signal that a test needs attention. Once the trace has helped you identify why a test is unstable, learn how to [improve test stability](/docs/troubleshooting-snapshots#improve-test-stability) with fixes such as pausing animations, preloading fonts, and seeding randomness.
+Instability is a signal that a test needs attention. Once the trace has helped you identify why a test is unstable, learn how to [improve test stability](/docs/unstable-tests#improve-test-stability) with fixes such as pausing animations, preloading fonts, and seeding randomness.

@@ -1,7 +1,7 @@
 ---
 title: Rerun builds
 description: Double-check whether a visual change is real or caused by an unstable test by retaking snapshots with identical settings.
-sidebar: { order: 17 }
+sidebar: { order: 13 }
 slug: 'rerun-builds'
 ---
 
@@ -15,7 +15,7 @@ Compare the changes in the original and rerun builds. You might encounter these 
 
 - **Identical changes between builds:** The snapshots show bona fide UI changes that need your verification. Continue the [UI Tests workflow](/docs/quickstart#4-review-changes) as usual.
 
-- **Different changes between builds:** The tests might be unstable and introducing false positives. Use the [trace viewer](/docs/trace-viewer) to identify the root cause, then [improve test stability](/docs/troubleshooting-snapshots#improve-test-stability).
+- **Different changes between builds:** The tests might be unstable and introducing false positives. Use the [trace viewer](/docs/trace-viewer) to identify the root cause, then [improve test stability](/docs/unstable-tests#improve-test-stability).
 
 When Chromatic detects potential test instability in a rerun build, it displays a message.
 
