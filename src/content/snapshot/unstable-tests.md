@@ -19,8 +19,6 @@ Chromatic automatically detects and ignores unstable tests with [Flake filter](/
 
 </div>
 
-<span id="improve-snapshot-consistency"></span>
-
 ## Improve test stability
 
 Your components and stories must render stably to prevent false positives. The following practices can improve test stability:
