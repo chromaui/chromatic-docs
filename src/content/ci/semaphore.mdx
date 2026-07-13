@@ -31,7 +31,7 @@ To integrate Chromatic with your existing workflow, you'll need to add the follo
     global_job_config:
       prologue:
         commands:
-          - sem-version node 24.15.0
+          - sem-version node 24.18.0
           - checkout
 
     blocks:
@@ -74,7 +74,7 @@ To integrate Chromatic with your existing workflow, you'll need to add the follo
               os_image: ubuntu2404
             containers:
               - name: Plawyright
-                image: mcr.microsoft.com/playwright:v1.60.0-noble
+                image: mcr.microsoft.com/playwright:v1.61.1-noble
           jobs:
             - name: Run Playwright
               commands:
@@ -122,7 +122,7 @@ To integrate Chromatic with your existing workflow, you'll need to add the follo
     global_job_config:
       prologue:
         commands:
-          - sem-version node 24.15.0
+          - sem-version node 24.18.0
           - checkout
 
     blocks:

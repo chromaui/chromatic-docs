@@ -28,14 +28,14 @@ jobs:
         shard: [1, 2]
     runs-on: ubuntu-latest
     container:
-      image: mcr.microsoft.com/playwright:v1.60.0-noble
+      image: mcr.microsoft.com/playwright:v1.61.1-noble
     steps:
-      - uses: actions/checkout@v6
+      - uses: actions/checkout@v7
         with:
           fetch-depth: 0
       - uses: actions/setup-node@v6
         with:
-          node-version: 24.15.0
+          node-version: 24.18.0
       - name: Install dependencies
         run: npm ci
       - name: Run Vitest tests
@@ -55,12 +55,12 @@ jobs:
     needs: vitest
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v6
+      - uses: actions/checkout@v7
         with:
           fetch-depth: 0
       - uses: actions/setup-node@v6
         with:
-          node-version: 24.15.0
+          node-version: 24.18.0
       - name: Install dependencies
         run: npm ci
 
@@ -99,7 +99,7 @@ before_script:
 Vitest:
   stage: UI_Tests
   needs: []
-  image: mcr.microsoft.com/playwright:v1.60.0-noble
+  image: mcr.microsoft.com/playwright:v1.61.1-noble
   parallel: 2
   script:
     - npx vitest run --shard=$CI_NODE_INDEX/$CI_NODE_TOTAL
@@ -126,10 +126,10 @@ version: 2.1
 executors:
   vitest-noble-development:
     docker:
-      - image: mcr.microsoft.com/playwright:v1.60.0-noble
+      - image: mcr.microsoft.com/playwright:v1.61.1-noble
   chromatic-ui-testing:
     docker:
-      - image: cimg/node:24.15.0
+      - image: cimg/node:24.18.0
 
 jobs:
   Vitest:
@@ -204,7 +204,7 @@ pipeline {
         stage('Shard #1') {
           agent {
             docker {
-              image 'mcr.microsoft.com/playwright:v1.60.0-noble'
+              image 'mcr.microsoft.com/playwright:v1.61.1-noble'
               reuseNode true
             }
           }
@@ -224,7 +224,7 @@ pipeline {
         stage('Shard #2') {
           agent {
             docker {
-              image 'mcr.microsoft.com/playwright:v1.60.0-noble'
+              image 'mcr.microsoft.com/playwright:v1.61.1-noble'
               reuseNode true
             }
           }
@@ -282,7 +282,7 @@ blocks:
           os_image: ubuntu2404
         containers:
           - name: Vitest
-            image: mcr.microsoft.com/playwright:v1.60.0-noble
+            image: mcr.microsoft.com/playwright:v1.61.1-noble
       jobs:
         - name: Run Vitest
           commands:
@@ -300,7 +300,7 @@ blocks:
     task:
       prologue:
         commands:
-          - sem-version node 24.15.0
+          - sem-version node 24.18.0
           - artifact pull workflow .vitest
       secrets:
         - name: CHROMATIC_PROJECT_TOKEN
@@ -322,7 +322,7 @@ image: node:krypton
 - run:
     name: "Vitest"
     displayName: "Run Vitest tests"
-    container: mcr.microsoft.com/playwright:v1.60.0-noble
+    container: mcr.microsoft.com/playwright:v1.61.1-noble
     options:
       parallel: 2
       artifacts:
