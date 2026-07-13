@@ -23,4 +23,4 @@ If you change your mind, you can un-ignore the test to return it to the unreview
 
 ![An ignored test showing the Ignored badge and the undo button.](../../images/ignore-test-ignored.png)
 
-**Ignoring is scoped to a single build:** an ignored test is captured and compared as usual on future builds. Ignoring a test also doesn't affect your [baselines](/docs/branching-and-baselines) unless you take action to accept or deny it, and it doesn't surface changes in the [UI Review](/docs/review) workflow.
+**Ignoring is scoped to a single build:** an ignored test is captured and compared as usual on future builds. Ignoring a test also doesn't affect your [baselines](/docs/branching-and-baselines) unless you take action to accept or deny it.
