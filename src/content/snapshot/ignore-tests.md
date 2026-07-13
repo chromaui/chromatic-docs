@@ -7,7 +7,7 @@ slug: 'ignore-tests'
 
 # Ignore tests
 
-Sometimes a test shows a change you're not ready to deal with, for example: an unexpected diff from an unrelated commit, or a new story that isn't ready for review. Ignoring it gets your build passing while you deal with the change later.
+Sometimes a test shows a change you're not ready to address, such as an unexpected diff from an unrelated commit or a new story that isn't ready for review. Ignoring the test lets the build pass while you address the change later.
 
 <div class="aside">
 
