@@ -1,7 +1,7 @@
 ---
 title: Animations
 description: Learn how Chromatic pauses animations and how to control the behavior
-sidebar: { order: 12 }
+sidebar: { order: 4 }
 ---
 
 import ParamsCallout from '../../components/ParamsCallout.astro';
@@ -10,7 +10,7 @@ import IntegrationSnippets from '../../components/IntegrationSnippets.astro';
 
 # Animations
 
-Chromatic proactively pauses CSS animations/transitions, SVG animations, and videos to prevent false positives. We do this because multiple variables outside of our control make it impossible to guarantee consistent animation painting down to the millisecond.
+Chromatic proactively pauses CSS transitions, CSS and SVG animations, and videos to prevent false positives. Variables outside of Chromatic's control can otherwise make animation timing unstable from one test run to the next.
 
 ## CSS animations
 
@@ -87,7 +87,7 @@ By default, CSS animations are paused at the end of their animation cycle (i.e.,
 
 ## JavaScript animations
 
-If you're working with JavaScript animations libraries (e.g., [framer-motion](https://www.framer.com/motion/)), Chromatic will not have the same level of control over the animations as CSS animations and will not disable them by default. We recommend toggling off the animation library when running in Chromatic to ensure consistent visual tests and avoid false positives.
+If you're working with JavaScript animation libraries (e.g., [Motion](https://motion.dev/)), Chromatic doesn't have the same control over them as it does over CSS animations and won't disable them by default. We recommend disabling JavaScript animations when running in Chromatic to keep tests stable.
 
 ### Storybook
 
@@ -172,7 +172,7 @@ if (window.disableAnimations) {
 
 If your animation library doesn't support disabling animations, you can use a [play function](https://storybook.js.org/docs/writing-stories/play-function) to assert that animation is complete before taking a snapshot.
 
-To accomplish this, add a property (ID, class or data attribute) to the element you’re testing once the animation finishes. Then, in the `play()` function, check for this property's presence. This ensures that the UI is in a stable state and ready for Chromatic to capture a snapshot.
+To accomplish this, add a property (ID, class, or data attribute) to the element you’re testing once the animation finishes. Then, in the `play()` function, check for this property's presence. This ensures that the UI is in a stable state and ready for Chromatic to capture a snapshot.
 
 Here's a quick example that demonstrates this approach using a React hook that tracks the state of your animation and adds a `testid` data attribute on completion.
 
@@ -297,9 +297,9 @@ export const MultipleAnimationExample: Story = {
 };
 ```
 
-## GIFs and Videos
+## GIFs and videos
 
-Chromatic automatically pauses videos and animated GIFs at their first frame, ensuring consistent visual tests without the need for custom workarounds. If you specify a [poster](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/video#poster) attribute for videos, Chromatic will use that image instead.
+Chromatic automatically pauses videos and animated GIFs at their first frame, keeping visual tests stable without custom workarounds. If you specify a [poster](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/video#poster) attribute for videos, Chromatic will use that image instead.
 
 ## Animations that cannot be disabled
 

@@ -1,16 +1,16 @@
 ---
 title: Font loading
-description: Learn how to preload fonts for fast and consistent visual testing.
-sidebar: { order: 5 }
+description: Learn how to preload fonts for fast and stable visual testing.
+sidebar: { order: 6 }
 ---
 
 # Loading custom fonts
 
 Browsers can decide to render HTML in multiple passes when custom fonts are used. They do this to speed up the time-to-first-meaningful-paint.
 
-Unfortunately, this behavior can cause your tests to render without the custom font or, worse, render inconsistently. That triggers font rendering changes that you have to accept again and again. Here are ways to prevent that.
+This behavior can cause a test to render without the custom font or use different fonts across repeated runs, making the test unstable. The following techniques can prevent that instability.
 
-## Best practice: Fallback to web-safe fonts
+## Best practice: Fall back to web-safe fonts
 
 Web font loading can vary between browsers, versions, and operating systems. Web-safe fonts are commonly installed by default on browsers and operating systems. We recommend you include a web-safe font in your font stack as a fallback in case your web font isn't available or doesn't load as expected.
 
@@ -50,7 +50,7 @@ If you’re loading fonts from an external CDN service (like Google Fonts or Ado
 
 If your CSS has global `@font-face` declarations that point to a CDN, you may need to override them to ensure that your snapshots always use assets loaded locally.
 
-For example, you might have a font CDN referenced in your stylesheets like so.
+For example, you might reference a font CDN in your stylesheets like this:
 
 ```css title="src/index.css"
 @font-face {
@@ -64,7 +64,7 @@ For example, you might have a font CDN referenced in your stylesheets like so.
 
 To serve the fonts statically, you first need to put your fonts in a static directory for Storybook. We recommend the `../public` directory.
 
-Next, create a `yourfontface.css` CSS inside your Storybook configuration directory (i.e., `.storybook`). We'll use it to reference the local path for your font in the `../public` directory.
+Next, create a `yourfontface.css` file inside your Storybook configuration directory (that is, `.storybook`). Use it to reference the local path for your font in the `../public` directory.
 
 ```css title="./storybook/yourfontface.css"
 @font-face {
@@ -85,7 +85,7 @@ Reference the stylesheet in Storybook's [`preview-head.html`](https://storybook.
 
 This technique loads a local font file during development and testing in Storybook. Meanwhile, your users are still loading the font from the CDN in production.
 
-## Solution C: Check fonts have loaded in a loader
+## Solution C: Check that fonts have loaded in a loader
 
 This alternate solution uses the browser's font load API and the [`isChromatic()`](/docs/ischromatic) helper function to verify that fonts load when in the Chromatic environment.
 
@@ -93,7 +93,7 @@ This alternate solution uses the browser's font load API and the [`isChromatic()
 import isChromatic from 'chromatic/isChromatic';
 
 // Use the document.fonts API to check if fonts have loaded
-// https://developer.mozilla.org/en-US/docs/Web/API/Document/fonts API to
+// https://developer.mozilla.org/en-US/docs/Web/API/Document/fonts
 const fontLoader = async () => ({
   fonts: await Promise.all([document.fonts.load('400 1em Font Name')]),
   // or

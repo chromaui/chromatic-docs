@@ -1,7 +1,7 @@
 ---
 title: Threshold
 description: Learn how to fine-tune the amount of visual change between snapshots before they get marked as changes
-sidebar: { order: 16, label: Threshold for changes }
+sidebar: { order: 17, label: Threshold for changes }
 ---
 
 import ParamsCallout from '../../components/ParamsCallout.astro';
@@ -86,9 +86,9 @@ If you need to customize how Chromatic identifies visual changes in your UI, add
 
 {/* prettier-ignore-end */}
 
-Adjusting the `diffThreshold` configuration option allows Chromatic to detect subtle visual changes within your UI when snapshotted. While accurate for most common scenarios, it can lead to an inconsistent UI test. For example, setting the parameter to a value of `0.8` can be enough to prevent Chromatic from accurately detecting changes (e.g., positioning).
+Choose the lowest threshold that filters out expected visual noise without hiding meaningful changes. For example, a threshold of `0.8` may prevent Chromatic from detecting positioning changes.
 
-If you're unsure which value will be enough, use our [**interactive diff tool**](https://6262c53f521620003ac2ff49-ukmsdlppcb.chromatic.com/?path=/story/stories-diff-threshold-check--test-yours-out) that allows you to preview in real-time how adjusting the option impacts your UI tests.
+Use the [**interactive diff tool**](https://6262c53f521620003ac2ff49-ukmsdlppcb.chromatic.com/?path=/story/stories-diff-threshold-check--test-yours-out) to preview how different values affect your UI tests.
 
 ### Anti-aliasing
 
