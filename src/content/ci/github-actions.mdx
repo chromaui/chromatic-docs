@@ -29,12 +29,12 @@ In your `.github/workflows` directory, create a new file called `chromatic.yml` 
         runs-on: ubuntu-latest
         steps:
           - name: Checkout code
-            uses: actions/checkout@v6
+            uses: actions/checkout@v7
             with:
               fetch-depth: 0
           - uses: actions/setup-node@v6
             with:
-              node-version: 24.15.0
+              node-version: 24.18.0
           - name: Install dependencies
             # ⚠️ See your package manager's documentation for the correct command to install dependencies in a CI environment.
             run: npm ci
@@ -55,14 +55,14 @@ In your `.github/workflows` directory, create a new file called `chromatic.yml` 
       playwright:
         runs-on: ubuntu-latest
         container:
-          image: mcr.microsoft.com/playwright:v1.60.0-noble
+          image: mcr.microsoft.com/playwright:v1.61.1-noble
         steps:
-          - uses: actions/checkout@v6
+          - uses: actions/checkout@v7
             with:
               fetch-depth: 0
           - uses: actions/setup-node@v6
             with:
-              node-version: 24.15.0
+              node-version: 24.18.0
           - name: Install dependencies
             # ⚠️ See your package manager's documentation for the correct command to install dependencies in a CI environment.
             run: npm ci
@@ -83,12 +83,12 @@ In your `.github/workflows` directory, create a new file called `chromatic.yml` 
         needs: playwright
         runs-on: ubuntu-latest
         steps:
-          - uses: actions/checkout@v6
+          - uses: actions/checkout@v7
             with:
               fetch-depth: 0
           - uses: actions/setup-node@v6
             with:
-              node-version: 24.15.0
+              node-version: 24.18.0
           - name: Install dependencies
              # ⚠️ See your package manager's documentation for the correct command to install dependencies in a CI environment.
             run: npm ci
@@ -119,15 +119,15 @@ In your `.github/workflows` directory, create a new file called `chromatic.yml` 
         name: Run Cypress
         runs-on: ubuntu-latest
         container:
-          image: cypress/browsers:node-24.15.0-chrome-148.0.7778.96-1-ff-150.0.3-edge-148.0.3967.54-1
+          image: cypress/browsers:node-24.18.0-chrome-150.0.7871.46-1-ff-152.0.5-edge-150.0.4078.48-1
           options: --user 1001
         steps:
-          - uses: actions/checkout@v6
+          - uses: actions/checkout@v7
             with:
               fetch-depth: 0
           - uses: actions/setup-node@v6
             with:
-              node-version: 24.15.0
+              node-version: 24.18.0
           - name: Install dependencies
             # ⚠️ See your package manager's documentation for the correct command to install dependencies in a CI environment.
             run: npm ci
@@ -150,12 +150,12 @@ In your `.github/workflows` directory, create a new file called `chromatic.yml` 
         runs-on: ubuntu-latest
         steps:
           - name: Checkout code
-            uses: actions/checkout@v6
+            uses: actions/checkout@v7
             with:
               fetch-depth: 0
           - uses: actions/setup-node@v6
             with:
-              node-version: 24.15.0
+              node-version: 24.18.0
           - name: Install dependencies
             # ⚠️ See your package manager's documentation for the correct command to install dependencies in a CI environment.
             run: npm ci
@@ -507,7 +507,7 @@ This means the latest build on main will be an ancestor of this ephemeral branch
 If you decide to use the `pull_request` event, we recommend creating a separate workflow for Chromatic using the following strategy for the checkout step:
 
 ```yml
-- uses: actions/checkout@v6
+- uses: actions/checkout@v7
   with:
     fetch-depth: 0
     # 👇 Tells the checkout which commit hash to reference
