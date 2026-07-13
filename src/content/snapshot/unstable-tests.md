@@ -29,9 +29,9 @@ Your components and stories must render stably to prevent false positives. The f
 
 - **Animations**: Chromatic attempts to pause all animations. However, you may need to [configure animation behavior](/docs/animations).
 
-- **Unpredictable resource hosts**: Resources that load from unpredictable or unreliable sources may not load within the 15-second capture window. Serve resources as static files, use a [placeholder service](https://placehold.net/), and learn how to make [resource loading](/docs/resource-loading) more reliable.
+- **Unpredictable resource hosts**: Resources that load from unpredictable or unreliable sources may not load within the 15-second capture window. Serve resources as static files, use a [placeholder service](https://placehold.co/), and learn how to make [resource loading](/docs/resource-loading) more reliable.
 
-- **Image CDNs and compression algorithms**: Image CDNs optimize image weight and size, which can affect how images render. Since this happens upstream of Chromatic, changes to those images are detected as visual changes. Ensure the served images are identical every time and use stable compression settings. Also consider serving images as static files or using a [placeholder service](https://placehold.net/).
+- **Image CDNs and compression algorithms**: Image CDNs optimize image weight and size, which can affect how images render. Since this happens upstream of Chromatic, changes to those images are detected as visual changes. Ensure the served images are identical every time and use stable compression settings. Also consider serving images as static files or using a [placeholder service](https://placehold.co/).
 
 - **Web font loading**: Web fonts can load at different times and make tests unstable, especially when combined with [interactions](/docs/interactions). Serve web fonts as static files and [preload](/docs/font-loading) them.
 
@@ -59,7 +59,7 @@ Image and font rendering can be tricky. Resources that load from unpredictable o
 - Ensure that [fonts load in Chromatic](/docs/font-loading).
 - Ensure that [resources load in Chromatic](/docs/resource-loading).
 - Serve resources as [static files](/docs/resource-loading) to improve test speed.
-- Use a [placeholder service](https://placehold.net/).
+- Use a [placeholder service](https://placehold.co/).
 
 If your resources are behind a firewall, whitelist our domain so we can load your resources.
 
