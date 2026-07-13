@@ -1,77 +1,19 @@
 ---
 title: Troubleshooting Snapshots
-description: Tips for debugging and improving snapshot consistency
-sidebar: { order: 15, label: 'Troubleshooting' }
+description: Tips for debugging and improving snapshot stability
+sidebar: { order: 19, label: 'Troubleshooting' }
+slug: 'troubleshooting-snapshots'
 ---
 
-# Troubleshooting Snapshots
+# Troubleshooting unstable tests
 
-Did you encounter inconsistent, blank, or other rendering issues in your snapshots? This guide helps you identify common causes and improve snapshot consistency.
-
-## Rerun build to identify inconsistencies
-
-Double-check whether a visual change is real or caused by inconsistencies in your app code by retaking snapshots. Click the "rerun" button to kick off a new build that uses identical settings and configuration as your original build. Only snapshots for denied, unreviewed, or errored changes will be captured. Any changes you accepted in the original build will not be snapshotted again in a rerun build.
-
-![Rerun button](../../images/build-detail-rerun-button.png)
-
-Debug inconsistent snapshots by looking at the set of changes between the original build and the rerun build. You might encounter these common scenarios:
-
-- Identical changes between builds: This means the snapshots are accurately showing bonafide UI changes that need your verification. Continue the [UI Tests workflow](/docs/quickstart#4-review-changes) as usual.
-
-Different changes between builds: This means inconsistent snapshots are introducing false positives to your visual tests. Learn how to use the [Snapshot Tracer Viewer](#debug-snapshots-with-trace-viewer-beta) to identify the root cause and check out our recommendations for [improving snapshot consistency](#improve-snapshot-consistency).
-
-When there are potential rendering inconsistencies in a rerun build, Chromatic will call them out in a message.
-![Inconsistent snapshot detection](../../images/build-detail-inconsistent-snapshot-detection.png)
-
-## Debug snapshots with Trace Viewer (beta)
-
-The Snapshot Trace Viewer lets you explore recorded traces of tests rendered and snapshotted in the Chromatic Capture Cloud. It captures network requests, console logs, and other debugging information, helping you identify the root cause of rendering issues.
-
-Once you rerun a build, the subsequent build will feature a "Traces" column. This column links to the Trace Viewer for each snapshot in the build, with one link per enabled browser. Click on one of the browser buttons to open the Trace Viewer.
-
-![Build 2 was a rerun build so it has an additional "traces" column](../../images/view-trace.png)
-
-<details>
-  <summary>Why does the Trace Viewer indicate that Chromatic captured multiple screenshots for a test?</summary>
-
-During the capture process, Chromatic continually takes screenshots until it either reaches the maximum allowed timeout or it captures two matching screenshots, indicating that the page has settled. This ensures the snapshot is consistent and that UI is in its final state.
-
-</details>
-
-### How to use the snapshot trace?
-
-Chromatic uses Playwright to render and capture snapshots in its [Capture Cloud](/docs/infrastructure-release-notes), even if your tests are written using Cypress or Storybook. Therefore, it's able to leverage Playwright's [built-in capability](https://playwright.dev/docs/trace-viewer#network) to generate these traces. These traces capture network activity, console logs, DOM snapshots, and other debugging information.
-
-![Example of a Playwright trace capturing network requests and displaying the final DOM structure](../../images/trace-example.png)
-
-Below are some common scenarios where the Trace Viewer can help you debug snapshot issues:
-
-#### Network tab analysis
-
-The network tab displays the resources loaded during capture, including fonts, stylesheets, scripts, and other assets. Check for resources that failed to load or took a long time. For example, if fonts aren't incorrect or styles are missing, ensure that the font or CSS files have loaded successfully with the correct MIME type. Consider loading slow assets [statically](#serve-static-files).
+Did you encounter an unstable, blank, or other rendering issues in your snapshots? This guide helps you identify common causes and improve snapshot consistency.
 
 <div class="aside">
 
-For a detailed list of trace viewer features, see the [Playwright documentation](https://playwright.dev/docs/trace-viewer#trace-viewer-features).
+Chromatic auto-detects [unstable tests](/docs/flake-filter#what-is-an-unstable-test), and ignores them so they don't block your build. Each unstable test includes a [trace](/docs/trace-viewer) to help you debug it.
 
 </div>
-
-#### Inspect the DOM
-
-The Trace archives the DOM for each step or action executed, allowing you to inspect the DOM at the time of capture. Use this tab to verify the DOM structure is as expected.
-
-Check for missing elements, incorrect styles, or unexpected layout changes. If styles are missing but the CSS file has loaded, ensure the styles are applied correctly.
-
-![Use browser devtools to inspecting the DOM archived by the trace](../../images/trace-inspect-dom.png)
-
-#### Screenshot metadata
-
-When Chromatic captures a screenshot, it includes metadata like viewport information and clip rectangle dimensions, providing context for the capture. Use this data to identify issues such as:
-
-- **Responsive design issues**: Viewport information reveals the screen size used for the capture. Compare this with your breakpoints to ensure that the correct styles are applied.
-- **Element positioning problems**: The clip rectangle shows precisely what was captured. If an element is missing from the snapshot, verify if it falls within the expected clip area.
-
-![Example of screenshot metadata for a story of a dropdown component](../../images/trace-screenshot-metadata.png)
 
 ## Common snapshot rendering issues
 
@@ -90,11 +32,11 @@ If your resources are behind a firewall, whitelist our domain so we can load you
 </details>
 
 <details>
-<summary>Why am I seeing inconsistent snapshots for a component using srcset?</summary>
+<summary>Why am I seeing an unstable snapshot for a component using srcset?</summary>
 
 The `srcset` attribute is a useful mechanism that provides the browser with a list of potential images to display, based on specified conditions such as media queries.
 
-In most cases, Chromatic will capture the correct image from the `srcset` list. However, if multiple tests list the same image in their respective `srcset` lists, browser cache issues can result in inconsistent snapshots.
+In most cases, Chromatic will capture the correct image from the `srcset` list. However, if multiple tests list the same image in their respective `srcset` lists, browser cache issues can result in unstable tests.
 
 In situations like this, the best workaround is to make the `srcset` URLs unique for each test by adding a random query parameter value.
 
@@ -164,7 +106,7 @@ Chromatic captures Chrome and Firefox snapshots in a Linux environment. It inclu
 <details>
 <summary>Where are my videos?</summary>
 
-Videos are interactive and time-based which introduces inconsistencies in snapshots. Chromatic hides videos by default to prevent false positives. You'll see the poster image (if specified) or a blank space where the video is supposed to render.
+Videos are interactive and time-based which makes a test unstable. Chromatic hides videos by default to prevent false positives. You'll see the poster image (if specified) or a blank space where the video is supposed to render.
 
 </details>
 

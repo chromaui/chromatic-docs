@@ -1,7 +1,7 @@
 ---
 title: Font loading
 description: Learn how to preload fonts for fast and consistent visual testing.
-sidebar: { order: 4 }
+sidebar: { order: 5 }
 ---
 
 # Loading custom fonts
