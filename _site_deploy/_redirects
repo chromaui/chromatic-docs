@@ -8,6 +8,7 @@
 /docs/test/ /docs/
 /docs/storybook/viewports/ /docs/modes/viewports/
 /docs/storybook/publish/ /docs/publish/
+/docs/troubleshooting-snapshots/ /docs/unstable-tests/
 
 # Getting started guides
 
