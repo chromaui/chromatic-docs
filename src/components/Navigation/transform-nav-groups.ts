@@ -19,7 +19,7 @@ function transformNavItem(
   if (isNestedGroup(item)) {
     return {
       ...item,
-      order: item.order || 999,
+      order: item.order ?? 999,
       hide: item.hide || false,
       items: transformSortAndFilterNavItems(item.items, [...path, item.title]),
     };
