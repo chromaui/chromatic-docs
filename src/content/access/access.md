@@ -1,7 +1,7 @@
 ---
 title: Access control
 description: Learn how to control who has access to your Chromatic project
-sidebar: { order: 2 }
+sidebar: { order: 1, label: 'Overview' }
 ---
 
 # Access control
@@ -10,7 +10,7 @@ Learn how to manage access to your Chromatic account and projects.
 
 ## Authentication
 
-Sign in to Chromatic via OAuth, email, or [SSO](/docs/sso).
+Sign in to Chromatic via OAuth, email, or [SSO](/docs/access/sso).
 
 #### OAuth
 
@@ -112,19 +112,19 @@ When you have a fork of a private organization owned repository, that forked rep
 
 #### Email
 
-Email and password authentication is available on all accounts. It's a popular authentication method for [external collaborators](/docs/collaborators#external-collaborators) like designers, PMs, and other stakeholders.
+Email and password authentication is available on all accounts. It's a popular authentication method for [external collaborators](/docs/access/collaborators#external-collaborators) like designers, PMs, and other stakeholders.
 
 If you're setting up Chromatic for your team as the account owner or administrator, there are some boundaries to be aware of:
 
 - Email accounts can use Chromatic as normal
-- [Collaborators](/docs/collaborators) are manually managed
+- [Collaborators](/docs/access/collaborators) are manually managed
 - [Pull request checks](/docs/ci#pull-request-checks) are manually setup via your CI system
 
 We recommend signing up with email for projects that **are not** on GitHub, Bitbucket, or GitLab. For example, projects on services like Azure DevOps, AWS, etc. Read the setup instructions for these types of projects [here](/docs/faq/chromatic-sso-on-premises-other-git).
 
 #### Single Sign-On (SSO)
 
-Single Sign-On (SSO) is available to enterprise customers. Learn more [here](/docs/sso).
+Single Sign-On (SSO) is available to enterprise customers. Learn more [here](/docs/access/sso).
 
 ## Organizations
 
@@ -138,13 +138,13 @@ There are two types of Chromatic projects: linked and unlinked.
 
 #### Linked projects
 
-Linked projects are associated with a repository on GitHub, Bitbucket, or GitLab. That allows Chromatic to [sync collaborators](/docs/collaborators#project-collaborators), badge pull requests, get pull request metadata for [UI Review](/docs/review), and keep track of [UI Test](/docs) baselines.
+Linked projects are associated with a repository on GitHub, Bitbucket, or GitLab. That allows Chromatic to [sync collaborators](/docs/access/collaborators#project-collaborators), badge pull requests, get pull request metadata for [UI Review](/docs/review), and keep track of [UI Test](/docs) baselines.
 
 By creating a linked project in Chromatic, you automatically have at your disposal:
 
-- [Collaborators](/docs/collaborators) synched automatically based on your Git provider.
+- [Collaborators](/docs/access/collaborators) synched automatically based on your Git provider.
 
-- The [visibility](/docs/collaborators#visibility) of your published Storybook will be synced with the visibility of your GitHub repository
+- The [visibility](/docs/access/collaborators#visibility) of your published Storybook will be synced with the visibility of your GitHub repository
 
 - UI test notifications are enabled via automated webhooks for third-party integrations.
 
@@ -235,16 +235,16 @@ Connecting one Chromatic entity to multiple Git providers is not yet supported.
 
 #### Unlinked projects
 
-An unlinked project is perfect for teams that self-host Git or have enterprise Git providers (that aren't on Chromatic's enterprise plan). Unlinked projects still require Git; they are just not linked to a repository on GitHub, Bitbucket, or GitLab. They do not automatically [sync collaborators](/docs/collaborators#project-collaborators) or badge pull requests.
+An unlinked project is perfect for teams that self-host Git or have enterprise Git providers (that aren't on Chromatic's enterprise plan). Unlinked projects still require Git; they are just not linked to a repository on GitHub, Bitbucket, or GitLab. They do not automatically [sync collaborators](/docs/access/collaborators#project-collaborators) or badge pull requests.
 
 The characteristics of an unlinked project include:
 
 - Your code is in a local or self-hosted repository.
 - You're using an email/password account OR a personal OAuth account.
 - Chromatic runs as a [CI-only](/docs/ci) job.
-- Collaborators are [manually managed](/docs/collaborators#external-collaborators) via an invite list.
+- Collaborators are [manually managed](/docs/access/collaborators#external-collaborators) via an invite list.
 - PR badging is manually configured in your CI provider.
-- Notifications are manually setup via Chromatic's [custom webhooks](/docs/integrations#custom-webhooks).
+- Notifications are manually setup via Chromatic's [custom webhooks](/docs/custom-webhooks).
 
 Learn how to create an unlinked project [here](/docs/faq/chromatic-sso-on-premises-other-git).
 

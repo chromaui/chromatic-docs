@@ -33,6 +33,10 @@
 /docs/turbosnap-best-practices/ /docs/turbosnap/best-practices/
 /docs/turbosnap-for-monorepos/ /docs/turbosnap/monorepo-usage/
 
+/docs/collaborators/ /docs/access/collaborators/
+/docs/sso/ /docs/access/sso/
+/docs/teams/ /docs/access/teams/
+
 # Plausible analytics
 
 /js/script.js https://plausible.io/js/script.js 200

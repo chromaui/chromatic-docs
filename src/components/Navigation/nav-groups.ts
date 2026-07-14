@@ -14,6 +14,7 @@ const {
   snapshot,
   turbosnap,
   collaborate,
+  access,
   ci,
   account,
   guides,
@@ -70,7 +71,14 @@ const rawNavGroups = [
   },
   {
     title: 'Collaborate',
-    items: collaborate,
+    items: [
+      {
+        title: 'Access control',
+        items: access,
+        order: 0,
+      },
+      ...collaborate,
+    ],
   },
   {
     title: 'Vitest',

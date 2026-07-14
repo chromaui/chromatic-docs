@@ -1,7 +1,8 @@
 ---
 title: Collaborators
 description: Learn how to add and manage collaborators
-sidebar: { order: 3 }
+slug: 'access/collaborators'
+sidebar: { order: 2 }
 ---
 
 # Collaborators
@@ -10,7 +11,7 @@ Chromatic keeps track of UI feedback and tests in one place so that collaborator
 
 ## Organization collaborators
 
-Manage organization collaborators via OAuth, email, or [SSO](/docs/sso).
+Manage organization collaborators via OAuth, email, or [SSO](/docs/access/sso).
 
 #### OAuth
 
@@ -36,7 +37,7 @@ However, projects _within_ an organization do support [project-level collaborato
 
 #### Single Sign-On (SSO) for organizations
 
-Single Sign-On (SSO) is available to enterprise customers. Learn more [here](/docs/sso).
+Single Sign-On (SSO) is available to enterprise customers. Learn more [here](/docs/access/sso).
 
 ### Billing and usage
 
@@ -87,7 +88,7 @@ If you signed up via email and password, Chromatic won't have a Git repo to sync
 
 #### Single Sign-On (SSO) for projects
 
-Chromatic syncs access permissions with your SSO provider. Learn more [here](/docs/sso).
+Chromatic syncs access permissions with your SSO provider. Learn more [here](/docs/access/sso).
 
 ### External collaborators
 

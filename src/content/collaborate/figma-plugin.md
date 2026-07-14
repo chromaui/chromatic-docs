@@ -61,11 +61,11 @@ Nope. Chromatic automatically updates your linked stories to reflect the latest 
 
 ### Collaborators
 
-When a story is linked to a Figma component, that link persists across teams and Figma files. Only [collaborators](/docs/collaborators) can find and access linked components for security purposes.
+When a story is linked to a Figma component, that link persists across teams and Figma files. Only [collaborators](/docs/access/collaborators) can find and access linked components for security purposes.
 
-Invite non-technical teammates like designers or PMs to your Chromatic project as [external collaborators](/docs/collaborators#external-collaborators). That gives them permissions to view and manage linked components.
+Invite non-technical teammates like designers or PMs to your Chromatic project as [external collaborators](/docs/access/collaborators#external-collaborators). That gives them permissions to view and manage linked components.
 
-Every Chromatic plan comes with unlimited collaborators and [fine-grained roles](/docs/collaborators#roles). There are no extra charges "per seat".
+Every Chromatic plan comes with unlimited collaborators and [fine-grained roles](/docs/access/collaborators#roles). There are no extra charges "per seat".
 
 ---
 
