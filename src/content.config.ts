@@ -94,6 +94,14 @@ const collaborate = defineCollection({
   schema,
 });
 
+const access = defineCollection({
+  loader: glob({
+    pattern: '**/[^_]*.{md,mdx}',
+    base: './src/content/access',
+  }),
+  schema,
+});
+
 const ci = defineCollection({
   loader: glob({ pattern: '**/[^_]*.{md,mdx}', base: './src/content/ci' }),
   schema,
@@ -151,6 +159,7 @@ export const collections = {
   modes,
   snapshot,
   collaborate,
+  access,
   ci,
   account,
   guides,

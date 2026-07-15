@@ -6,7 +6,7 @@ sidebar: { order: 3 }
 
 # Notifications
 
-Chromatic sends email notifications to keep [collaborators](/docs/collaborators) in the loop. You have control over when and how these notifications are delivered.
+Chromatic sends email notifications to keep [collaborators](/docs/access/collaborators) in the loop. You have control over when and how these notifications are delivered.
 
 ### [UI Tests](/docs#test-how-uis-look--function)
 

@@ -42,7 +42,7 @@ UI Review is different than UI Tests because it shows you what will change on th
 
 Invite reviewers by going to the project's Manage page » Collaborate tab. You can invite collaborators by email or by sharing an invite link. SSO is also an option for Enterprise plans, which enables all teams to access Chromatic easily.
 
-[More on inviting collaborators »](/docs/collaborators#external-collaborators)
+[More on inviting collaborators »](/docs/access/collaborators#external-collaborators)
 
 </details>
 
