@@ -12,9 +12,9 @@ Chromatic handles globs using [picomatch](https://www.npmjs.com/package/picomatc
 
 ## How to verify your glob pattern
 
-[Picomatch playground](https://picomatch-playground-ebjlxm.csb.app/) is a handy tool for testing your glob patterns. Let's look at some examples to understand how to use globs with Chromatic.
+[Picomatch playground](https://tools.chromatic.support/globs/) is a handy tool for testing your glob patterns. Let's look at some examples to understand how to use globs with Chromatic.
 
-Imagine we have a project with the following list of files. Copy and paste it into the `File structure` text box of the [Picomatch playground](https://picomatch-playground-ebjlxm.csb.app/).
+Imagine we have a project with the following list of files. Copy and paste it into the `File structure` text box of the [Picomatch playground](https://tools.chromatic.support/globs/).
 
 ```
 .stories/preview.jsx
