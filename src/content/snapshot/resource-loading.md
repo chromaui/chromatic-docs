@@ -29,3 +29,51 @@ Our browsers monitor network activity while your tests are rendered. If your tes
 If you know how long async rendering takes, you can add a [delay](/docs/delay) to avoid snapshotting until after that happens. However, it can be difficult to reliably set a time that network resources will load within, so you may have to add/subtract seconds to the delay.
 
 We are investigating ways to add first-class support for asynchronous rendering to Storybook and Chromatic. Let us know if you need this feature by chat or [email](mailto:support@chromatic.com?Subject=Asynchronous%20Rendering).
+
+## Resources could not be loaded
+
+When Chromatic captures a story, it sometimes blocks or fails to load assets (e.g. images, fonts, stylesheets) that work fine locally. If this happens, you will see a warning on the comparison page:
+
+<div class="aside">
+
+Resources requested by the story could not be loaded. Snapshots may be affected. **Huh?**
+
+</div>
+
+Hovering over the **Huh?** link reveals a tooltip containing the specific URLs that failed to load. Use that list as your starting debugging point and try these suggestions:
+
+1. Confirm the assets load locally when running Storybook.
+2. Ensure all URLs are well‑formed and use valid public paths.
+3. Confirm the assets are publicly available using `curl` (or `wget`) to fetch them directly.
+4. If you use a VPN or a corporate network, try fetching them from outside that network to rule out access restrictions.
+5. Ensure the URL uses `https://`. Using `http://` may result in a mixed‑content block.
+6. Verify your server sends valid `Access-Control-Allow-Origin` headers.
+
+If these suggestions don't help, please reach out to [us](mailto:support@chromatic.com) and share a link to the comparison page.
+
+---
+
+## Troubleshooting
+
+<details>
+<summary>My story fails with an URL reload loop error. **Why?**</summary>
+
+The URL reload loop error is a safeguard that prevents **excessive network calls** to the same URL within a single story. It helps avoid performance issues during snapshot capture. If you are doing multiple calls to the same URL, try consolidating those calls.
+
+</details>
+
+<details>
+<summary>My story only times out during capture. It works locally on Storybook. **Why?**</summary>
+
+Too many steps in a play function (especially with programmatic delays), large re-renders of big components, or loading large data files/static assets can all cause the timeout to be exceeded. Storybook addons or unnecessary assets (that don't have any effect in your current test) may still be loaded with a story and cause performance issues and timeouts. We suggest conditionally disabling these addons or assets for Chromatic builds. For example:
+
+```js title="./storybook/preview.js|ts"
+export default {
+  addons: [
+    // ... your other addons
+    !isChromatic && 'storybook-addon-pseudo-states',
+  ].filter(Boolean),
+};
+```
+
+</details>
