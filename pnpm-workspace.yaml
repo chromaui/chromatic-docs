@@ -3,3 +3,5 @@ allowBuilds:
   esbuild: true
   lefthook: true
   sharp: true
+minimumReleaseAgeExclude:
+  - '@chromatic-com/tetra@3.2.19'
