@@ -56,14 +56,14 @@ If these suggestions don't help, please reach out to [us](mailto:support@chromat
 ## Troubleshooting
 
 <details>
-<summary>My story fails with an URL reload loop error. **Why?**</summary>
+<summary>Why does my story fail with an URL reload loop error?</summary>
 
 The URL reload loop error is a safeguard that prevents **excessive network calls** to the same URL within a single story. It helps avoid performance issues during snapshot capture. If you are doing multiple calls to the same URL, try consolidating those calls.
 
 </details>
 
 <details>
-<summary>My story only times out during capture. It works locally on Storybook. **Why?**</summary>
+<summary>Why does my story only time out during capture but works locally?</summary>
 
 Too many steps in a play function (especially with programmatic delays), large re-renders of big components, or loading large data files/static assets can all cause the timeout to be exceeded. Storybook addons or unnecessary assets (that don't have any effect in your current test) may still be loaded with a story and cause performance issues and timeouts. We suggest conditionally disabling these addons or assets for Chromatic builds. For example:
 
