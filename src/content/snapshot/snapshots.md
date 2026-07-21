@@ -16,11 +16,11 @@ Looking for information on snapshot billing? [Go to billing docs](/docs/billing)
 
 The type of work performed by Chromatic is determined by the following factors:
 
-- **Visual vs. Accessibility:** A [visual test](/docs/visual) captures the rendered state of the UI, whereas an [accessibility test](/docs/accessibility) captures accessibility information about the UI. Both types of tests capture a snapshot and compare it to a baseline snapshot to detect changes.
+- **Visual vs. Accessibility:** A [visual test](/docs/visual) captures the rendered state of the UI, whereas an [accessibility test](/docs/accessibility) captures accessibility information about the UI. Both types of tests take a snapshot and compare it to a baseline snapshot to detect changes.
 
-- **Capture vs. Turbo:** A capture test performs the full suite of work, including taking screenshots or capturing accessibility data, and running diffs. A [turbo snapshot](https://docs/turbosnap) skips unnecessary work if it is determined that the associated code has not changed, speeding up the testing process.
+- **Capture vs. Turbo:** A captured snapshot performs the full suite of work, including taking screenshots or capturing accessibility data, and running diffs. A [turbo snapshot](/docs/turbosnap) skips unnecessary work if it is determined that the associated code has not changed, speeding up the testing process.
 
-These dimensions stack to create a snapshot. For example, you can have a "visual capture snapshot" or an "accessibility turbo snapshot". The short forms are "visual snapshot" and "accessibility turbosnap", respectively.
+These dimensions stack to create a snapshot. For example, you can have a "captured visual snapshot" or a "turbo accessibility snapshot". The short forms are "visual snapshot" and "accessibility turbosnap", respectively.
 
 ## Snapshot-compatible tests
 
@@ -30,9 +30,9 @@ A **test** represents a piece of UI rendered in a specific state that Chromatic 
 - **Playwright & Cypress End-to-End (E2E) tests:** Chromatic [archives](/docs/faq/what-is-archive) these E2E tests during Playwright/Cypress test runs, and then replays them in the cloud to run visual tests.
 - **Vitest browser mode tests:** Chromatic [archives](/docs/faq/what-is-archive) these tests during Vitest test runs, and then replays them in the cloud to run visual tests.
 
-Each test can generate [multiple snapshots](/docs/billing#snapshots), varying by [browser](/docs/browsers#browser-support) (or mobile simulators and emulators), [theme](/docs/themes), [viewport size](/docs/viewports), and other configurations you define.
+Each test can generate multiple snapshots, varying by [browser](/docs/browsers#browser-support) (or mobile simulators and emulators), [theme](/docs/themes), [viewport size](/docs/viewports), and other configurations you define.
 
-With [Playwright](/docs/playwright/targeted-snapshots), [Cypress](/docs/cypress/targeted-snapshots), and [Vitest](/docs/vitest/targeted-snapshots), you can even capture multiple snapshots within a single test for even more granular analysis.
+With [Playwright](/docs/playwright/targeted-snapshots), [Cypress](/docs/cypress/targeted-snapshots), and [Vitest](/docs/vitest/targeted-snapshots), you can even capture multiple visual snapshots within a single test for even more granular analysis.
 
 ## How are snapshots captured?
 
