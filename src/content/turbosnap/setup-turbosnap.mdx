@@ -33,6 +33,11 @@ It will build and test stories that may have been affected by the Git changes si
 - For GitHub Actions: run on `push` rather than `pull_request` ([learn more](#github-pull_request-triggers))
 - UI Tests should be enabled
 
+<div class="callout">
+  See [Vitest | TurboSnap](/docs/vitest/turbosnap) for instructions how to set up TurboSnap with
+  Vitest.
+</div>
+
 ## Configure
 
 To enable TurboSnap for your project, add the `--only-changed` flag to your `chromatic` script, or add the `onlyChanged: true` option to your GitHub workflow config.
