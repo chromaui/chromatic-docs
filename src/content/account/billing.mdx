@@ -4,11 +4,11 @@ description: Chromatic billing information
 sidebar: { order: 2, label: Billing & invoices }
 ---
 
-import { SnapshotCalculator } from '../../components/SnapshotCalculator/SnapshotCalculator';
-
 # Billing and invoices
 
-Chromatic bills customers monthly based on their subscription date. For instance, if you subscribed on February 14th, you'll be billed on the 14th of each month. Any additional snapshots used during that time are added to the current billing period. Similarly, snapshots are allocated within the same time frame and reset following the same cadence.
+Chromatic bills customers monthly based on their subscription date. For example, if you subscribed on February 14, you'll be billed on the 14th of each month.
+
+Each plan comes with a set amount of billed snapshots per month. If you go beyond that amount, then you are charged for additional billed snapshots. All counts reset at the end of each month.
 
 <details>
 <summary>Why am I not receiving invoices?</summary>
@@ -26,81 +26,76 @@ Not at this time. We currently only support monthly payments for our self-serve 
 
 ## Snapshots
 
-Chromatic charges based on [snapshots](/docs/snapshots) and browser coverage, respectively. Snapshots power [UI Tests](/docs#test-how-uis-look--function) and [UI Review](/docs/review). They are only taken when you enable “UI Review” or “UI Tests” for your project.
+The monthly bill is calculated based on the number of billed [snapshots](/docs/snapshots). There are two types of snapshots:
 
-Every time you run a build, we take one snapshot for each test. If you have 50 tests, Chromatic will take 50 snapshots. In addition, testing multiple viewports and browsers are also considered snapshots.
+- **captured (1 billed snapshot):** Chromatic performs the full suite of work, including taking screenshots or capturing accessibility data, and running diffs.
+- **turbosnap (0.2 billed snapshot):** Chromatic identifies tests that have no code changes associated with them or their dependencies and copies over the snapshots from existing baselines for them.
 
-Running an [accessibility test](/docs/accessibility) counts as one additional snapshot per test. However, you are not charged for [interaction](/docs/interactions) tests.
+## How we count billed snapshots
 
-See the table below for examples of how many snapshots are taken in different scenarios. Or use the [snapshot calculator](/docs/billing#snapshot-calculator) to estimate your usage.
+Each test can lead to multiple snapshots depending on the number of browsers/devices, modes, and test types you run. [Visual](/docs/visual) and [accessibility tests](/docs/accessibility) incur billed snapshots; [interaction tests](/docs/interactions) don't.
 
-| Test count | Builds    | Browsers   | Viewports   | Snapshots taken |
-| ---------- | --------- | ---------- | ----------- | --------------- |
-| 1 test     | 10 builds | 1 browser  | 1 viewport  | 10 snapshots    |
-| 1 test     | 10 builds | 2 browsers | 1 viewport  | 20 snapshots    |
-| 2 tests    | 10 builds | 1 browser  | 1 viewport  | 20 snapshots    |
-| 2 tests    | 10 builds | 2 browsers | 1 viewport  | 40 snapshots    |
-| 2 tests    | 10 builds | 2 browsers | 2 viewports | 80 snapshots    |
+Billed snapshots are calculated based on the number of tests, builds, browsers, and modes. You can use our [snapshot calculator](https://www.chromatic.com/snapshot-calculator) to estimate your monthly snapshot usage and see the underlying math.
 
-<div class="aside">
+```
+visual snapshots = Tests x Builds x Browsers x Modes
+accessibility snapshots = Tests x Builds x Modes
+```
 
-If you use our free [Publish Storybook](/docs/publish) service only you will not be billed for snapshots.
+### Without TurboSnap enabled
 
-</div>
+Chromatic captures a new snapshot for every test in every build. Therefore, the total billed snapshots are calculated as follows:
 
-### Snapshots with TurboSnap enabled (Storybook only)
+```
+billed snapshots = visual snapshots + accessibility snapshots
+```
 
-Chromatic's default behavior is to capture a new snapshot for every story in every build.
+### With TurboSnap enabled
 
-With [TurboSnap](/docs/turbosnap) enabled, Chromatic first analyzes the Git history and the dependency graph of your project to identify stories that have no code changes within them or their dependencies. Instead of capturing new snapshots, it copies over the snapshots from existing baselines that didn't change. These duplicated snapshots are referred to as **TurboSnaps**, billed at 1/5th the cost of a regular snapshot.
+Chromatic copies over snapshots from existing baselines for turbosnaps. For the remaining stories, Chromatic captures new snapshots as usual. Therefore, the total billed snapshots are calculated as follows:
 
-For the remaining stories, Chromatic captures new snapshots as usual and bills them at the regular rate.
+```
+Visual snapshots = Tests with changes x Builds x Browsers x Modes
+Accessibility snapshots = Tests with changes x Builds x Modes
 
-If you're running both accessibility and visual tests for a story—with no associated code changes—you'll only be charged one TurboSnap for that story.
+turbosnaps = (Tests - Tests with changes) x Builds x Browsers x Modes
+billed snapshots from turbosnaps = turbosnaps * 0.2
 
-Refer to the examples below or jump to the [snapshot calculator](/docs/billing#snapshot-calculator) to estimate your usage.
+billed snapshots = visual snapshots + accessibility snapshots + billed snapshots from turbosnaps
+```
 
-| Test count | Browsers | Viewports | Tests w/ changes | Snapshots | TurboSnaps | Billed snapshots |
-| ---------- | -------- | --------- | ---------------- | --------- | ---------- | ---------------- |
-| 50         | 1        | 1         | 50               | 50        | 0          | 50               |
-| 50         | 1        | 1         | 10               | 10        | 40         | 18               |
-| 50         | 2        | 1         | 50               | 100       | 0          | 100              |
-| 50         | 2        | 1         | 10               | 20        | 80         | 36               |
-| 50         | 2        | 2         | 10               | 40        | 160        | 72               |
+### Billed snapshots are counted at the account level
 
-Note: your [billing page](/docs/billing#view-current-months-usage) will include a breakdown of regular snapshots vs TurboSnaps.
+If your account has multiple projects, we sum the billed snapshots each project incurs to get your total usage. Chromatic doesn't break down billing per project.
 
-### Snapshot calculator
+A couple more things to note:
 
-<SnapshotCalculator client:load />
-
-### How we count snapshots
-
-Snapshots are counted at the account level. If your account has multiple projects, we sum the number of snapshots each project uses to get your total usage. Chromatic doesn't break down billing per project.
+- Your [billing page](/docs/billing#view-current-months-usage) will include a breakdown of captured snapshots vs turbosnaps.
+- If you use our free [Publish Storybook](/docs/publish) service only (i.e., UI Test and UI Review is disabled) you won't incur billed snapshots.
 
 ### View current month's usage
 
 Find the current month's usage in the Plan section of the Billing page.
 
-![Chromatic monthly snapshots used](../../images/article-view-snapshots-billing-screen.png)
+![monthly billed snapshots used](../../images/article-view-snapshots-billing-screen.png)
 
-### Additional snapshots
+### Additional billed snapshots
 
-Each plan comes with a specific number of included snapshots per month. If your usage reaches that amount:
+Each plan comes with a specific number of included billed snapshots. If your usage reaches that amount:
 
-1. **Free plan:** Review and testing will be paused once you use all 5,000 included free snapshots per month. You can resume testing by upgrading to a paid plan or waiting until your included snapshots reset at the end of the billing cycle. ![Builds blocked because the account hit the monthly snapshot limit](../../images/build-blocked.png)
+1. **Free plan:** Review and testing will be paused once you use all 5,000 included billed snapshots per month. You can resume testing by upgrading to a paid plan or waiting until your included billed snapshots reset at the end of the billing cycle. ![Builds blocked because the account hit the monthly snapshot limit](../../images/build-blocked.png)
 
-2. **Paid plans:** Review and testing will not be interrupted. Any additional snapshots beyond the included amount will be billed at the end of the month.
+2. **Paid plans:** Review and testing will not be interrupted. Any billed snapshots beyond the included amount are charged at the end of the month.
 
-For information on the number of snapshots included in each plan and the cost of additional snapshots, please refer to the [pricing page](https://www.chromatic.com/pricing). You can also set [usage alerts](/docs/billing#usage-alerts) to notify a designated email address when your usage reaches a certain number of snapshots.
+For information on the number of billed snapshots included in each plan and the cost of additional snapshots, please refer to the [pricing page](https://www.chromatic.com/pricing). You can also set [usage alerts](/docs/billing#usage-alerts) to notify a designated email address when your usage reaches a certain number of billed snapshots.
 
-Alternatively, you may consider upgrading to an enterprise plan for more snapshots. Contact us via in-app chat or <a href="mailto:support@chromatic.com?Subject=Custom%20plan">email</a> to learn more.
+Alternatively, you may consider upgrading to an enterprise plan for more billed snapshots. Contact us via in-app chat or <a href="mailto:support@chromatic.com?Subject=Custom%20plan">email</a> to learn more.
 
 ### Usage alerts
 
 Keep track of your account's snapshot usage by setting up a usage alert. When your usage reaches a certain snapshot threshold in a billing period, we'll notify the designated email address.
 
-For example, if you want to get a notification when you use 90% of the 35,000 snapshots in the Starter plan, you'd set the snapshot alert threshold to 31,500.
+For example, if you want to get a notification when you use 90% of the 35,000 billed snapshots in the Starter plan, you'd set the snapshot alert threshold to 31,500.
 
 ![Setup usage alerting](../../images/billing-usage-alert.png)
 
@@ -114,9 +109,9 @@ Access usage reports for each billing period on the billing page. These reports 
 
 The **usage section** provides a per-project summary of Snapshots and TurboSnaps utilized (only available for billing periods starting in August 2024).
 
-The **invoice** includes details of the active plan for the billing period, the base number of snapshots included, charges for additional snapshots, and a link to download a PDF copy of the invoice (available for all billing periods).
+The **invoice** includes details of the active plan for the billing period, the base number of billed snapshots included, charges for additional snapshots, and a link to download a PDF copy of the invoice (available for all billing periods).
 
-![Example of a usage report that shows a breakdown of snapshots by project and the invoice details](../../images/usage-report.png)
+![Example of a usage report that shows a breakdown of billed snapshots by project and the invoice details](../../images/usage-report.png)
 
 To access the current billing period's usage report, click on the "View usage" button in the Plan section.
 
@@ -155,14 +150,14 @@ The CSV file provides a granular breakdown of usage and includes the following c
 <dt>Build number</dt>
 <dd>The incremental number for this build</dd>
 
-  <dt>TurboSnaps</dt>
+  <dt>turbosnaps</dt>
   <dd>
 
-Number of snapshots identified by [TurboSnap](#snapshots-with-turbosnap-enabled-storybook-only) with no associated code changes. Billed at 1/5th the cost of a regular snapshot.
+Number of snapshots copied by [TurboSnap](#with-turbosnap-enabled).
 
   </dd>
 
-  <dt>TurboSnaps Bail Reason</dt>
+  <dt>TurboSnap Bail Reason</dt>
   <dd>
 
 Explains why a TurboSnap triggered a full rebuild. For more details, check out the [TurboSnap docs](/docs/turbosnap/troubleshooting#what-do-the-turbosnap-bail-reasons-in-my-usage-report-mean).
@@ -170,19 +165,24 @@ Explains why a TurboSnap triggered a full rebuild. For more details, check out t
   </dd>
 
 <dt>Chrome snapshots</dt>
-<dd>Number of billed snapshots captured in Chrome</dd>
+<dd>Number of captured visual Chrome snapshots</dd>
 
 <dt>Firefox snapshots</dt>
-<dd>Number of billed snapshots captured in Firefox</dd>
+<dd>Number of captured visual Firefox snapshots</dd>
 
 <dt>Safari snapshots</dt>
-<dd>Number of billed snapshots captured in Safari</dd>
+<dd>Number of captured visual Safari snapshots</dd>
 
 <dt>Edge snapshots</dt>
-<dd>Number of billed snapshots captured in Edge</dd>
+<dd>Number of captured visual Edge snapshots</dd>
 
-  <dt>Internet Explorer snapshots</dt>
-  <dd>Phased out in 2023. Number of billed snapshots captured in Internet Explorer.</dd>
+{' '}
+
+<dt>Internet Explorer snapshots</dt>
+<dd>Phased out in 2023. Number of captured visual Internet Explorer snapshots.</dd>
+
+  <dt>Accessibility snapshots</dt>
+  <dd>Number of captured accessibility snapshots</dd>
 </dl>
 
 ### Export monthly and yearly usage data as CSV
@@ -195,7 +195,7 @@ For a custom date range or to get the report in JSON format, contact us via in-a
 
 ## Change plans
 
-Change your plan in account settings. All changes are prorated to the day. That means you can change your plan anytime in the month without getting charged unnecessarily for unused snapshots.
+Change your plan in account settings. All changes are prorated to the day. That means you can change your plan anytime in the month without getting charged unnecessarily for unused billed snapshots.
 
 ## Legacy plans
 
