@@ -158,7 +158,7 @@ Each snapshot incurs billed snapshots: captured snapshots cost 1 billed snapshot
 
 ### How turbosnaps are billed
 
-By enabling TurboSnap, Chromatic checks for stories with no associated code changes. Instead of capturing new snapshots, it copies snapshots from existing baselines. This uses fewer infrastructure resources, and we pass these savings on to you by billing each turbosnap at 1/5th the cost of a captured snapshot.
+By enabling TurboSnap, Chromatic checks for stories with no associated code changes. Instead of capturing new snapshots, it copies snapshots from existing baselines. This uses fewer infrastructure resources, and we pass these savings on to you by billing each turbosnap at 1/5th the cost of a captured snapshot (`0.2`).
 
 The remaining stories on that build are captured as usual and billed at the captured-snapshot rate (1 billed snapshot each).
 
