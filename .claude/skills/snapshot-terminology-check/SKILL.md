@@ -65,6 +65,11 @@ construction (link _text_ is still checked) — then reports findings with
 - `billed-as-type-phrasing` — verbs of work (take/capture/run/…) applied to a
   `billed snapshot`
 - `turbosnap-plural-feature` — `TurboSnaps`
+- `snapshot-as-verb` — `snapshot`/`snapshots` used as a verb instead of a
+  noun: gerund/participle (`snapshotting`, `snapshotted`), infinitive
+  (`to snapshot`), modal + bare stem (`will snapshot`), or `snapshot(s)`
+  governing a direct object (`it snapshots your UI`). Suppresses `bare-plural`
+  on the same match — the fix is a rewrite, not a modifier.
 
 Exit codes: `0` no errors (REVIEW may exist) · `1` errors · `2` usage or
 self-test failure. If you change the script or the rules in TERMINOLOGY.md,
@@ -74,15 +79,17 @@ run `--self-test` and keep both in sync.
 
 Context decides these — never judge from script output alone:
 
-| Judgment call                                                                                   | Verdict                                                                      |
-| ----------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------- |
-| `bare-plural`, no modifier: does the paragraph establish the type?                              | ok if clear antecedent; else **warning** — add modifier or `total snapshots` |
-| `bare-plural`, unknown modifier (`baseline`, `multiple`, …): established term or invented type? | **warning** if invented/off-ontology                                         |
-| `billed-as-type-phrasing` confirmed — billed snapshot described as work                         | **error** — snapshots _incur/generate_ billed snapshots                      |
-| `billable` ↔ `billed` swapped (meaning-level; invisible to the script)                         | **error**                                                                    |
-| Correctly-cased `TurboSnap`/`turbosnap` but feature/type usage mismatched                       | **warning**                                                                  |
-| Singular `snapshot` with clear contextual type                                                  | ok                                                                           |
-| Literal UI-string names quoted from the product (chart titles, the "Snapshots" nav page)        | judgment call — renaming is a product decision, note it                      |
+| Judgment call                                                                                                                        | Verdict                                                                      |
+| ------------------------------------------------------------------------------------------------------------------------------------ | ---------------------------------------------------------------------------- |
+| `bare-plural`, no modifier: does the paragraph establish the type?                                                                   | ok if clear antecedent; else **warning** — add modifier or `total snapshots` |
+| `bare-plural`, unknown modifier (`baseline`, `multiple`, …): established term or invented type?                                      | **warning** if invented/off-ontology                                         |
+| `billed-as-type-phrasing` confirmed — billed snapshot described as work                                                              | **error** — snapshots _incur/generate_ billed snapshots                      |
+| `billable` ↔ `billed` swapped (meaning-level; invisible to the script)                                                              | **error**                                                                    |
+| Correctly-cased `TurboSnap`/`turbosnap` but feature/type usage mismatched                                                            | **warning**                                                                  |
+| Singular `snapshot` with clear contextual type                                                                                       | ok                                                                           |
+| `snapshot-as-verb` confirmed — prose describing the product's action                                                                 | **warning** — rewrite around `capture`/`generate`/`take`                     |
+| `snapshot-as-verb` on a literal UI string/option name quoted from the product (e.g. a checkbox labeled "auto snapshotting disabled") | judgment call — renaming is a product decision, note it                      |
+| Literal UI-string names quoted from the product (chart titles, the "Snapshots" nav page)                                             | judgment call — renaming is a product decision, note it                      |
 
 ### 4. Report
 

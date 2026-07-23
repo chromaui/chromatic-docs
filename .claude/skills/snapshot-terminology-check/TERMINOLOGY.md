@@ -19,6 +19,11 @@ the work entirely when it's unnecessary.
 - Singular `snapshot` is acceptable **if the type is clear from context**
   (e.g. a paragraph that already established it's discussing visual snapshots).
 - To refer to all snapshots of every type, use **`total snapshots`**.
+- `snapshot` is always a **noun**, never a verb. Chromatic doesn't "snapshot"
+  something — it _takes_, _captures_, or _generates_ a snapshot _of_
+  something. Avoid `snapshotting`, `snapshotted`, `to snapshot`, and `it
+snapshots X`; these blur the noun/verb distinction the same way a bare
+  plural does.
 
 ### `billed snapshot` — the unit of billing
 
@@ -104,6 +109,9 @@ Invalid combinations (contradictions within category 1):
 | "billable snapshots appear on your invoice"    | "billed snapshots appear on your invoice"                      |
 | "snapshots are captured in Chrome" (ambiguous) | "visual snapshots are captured in Chrome"                      |
 | "an inherited capture"                         | "a copied (inherited) snapshot"                                |
+| "It intelligently snapshots only the stories"  | "It intelligently captures snapshots only of the stories"      |
+| "stories to snapshot"                          | "stories to capture"                                           |
+| "enabling it to be snapshotted correctly"      | "enabling a correct snapshot to be captured"                   |
 
 Correct usage from the proposal, useful as templates:
 

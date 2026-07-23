@@ -75,7 +75,23 @@ const RULES = [
     re: /\bTurboSnaps\b/g, // case-sensitive on purpose
     suggestion: 'the feature name is singular; if this refers to the snapshots, use "turbosnaps"',
   },
+  {
+    id: 'snapshot-as-verb',
+    severity: 'review',
+    // Non-noun word forms: gerund/participle, infinitive, or modal + bare stem.
+    // "snapshot" is a unit of work (noun) — it's taken/captured/generated, never itself the verb.
+    re: /\b(?:re-?)?snapshott(?:ing|ed)\b|\bto\s+snapshot\b|\b(?:will|can|could|should|would|may|might|must)\s+snapshot\b/gi,
+    suggestion:
+      '"snapshot" used as a verb — Chromatic doesn\'t "snapshot" something; rewrite around "capture/generate a snapshot of …"',
+  },
 ];
+
+// Transitive-verb heuristic: "snapshot(s)" immediately governing a direct
+// object ("it snapshots your UI", "Chromatic snapshots a story") — a noun
+// can't be followed directly by a determiner without a preposition, so this
+// almost always signals verb usage rather than the bare-plural noun.
+const VERB_OBJECT_RE =
+  /\bsnapshots?\b(?:\s+(?:only|just|solely|automatically|intelligently|then))?\s+(?:a|an|the|your|this|that|these|those|each|every|any|all|some|no|its)\b/gi;
 
 const blank = (s) => s.replace(/\S/g, ' ');
 
@@ -165,10 +181,31 @@ function checkSource(src) {
         });
       }
     }
+    // snapshot-as-verb (object heuristic): "snapshots"/"snapshot" directly
+    // governing a direct object. Takes precedence over bare-plural below —
+    // the fix here is "rewrite as a verb phrase", not "add a modifier".
+    VERB_OBJECT_RE.lastIndex = 0;
+    const verbObjectIndices = new Set();
+    let vm;
+    while ((vm = VERB_OBJECT_RE.exec(line)) !== null) {
+      verbObjectIndices.add(vm.index);
+      findings.push({
+        line: idx + 1,
+        col: vm.index + 1,
+        rule: 'snapshot-as-verb',
+        severity: 'review',
+        match: vm[0],
+        excerpt: excerptAt(rawLines[idx], vm.index, vm[0].length),
+        suggestion:
+          '"snapshot" used as a verb — Chromatic doesn\'t "snapshot" something; rewrite around "capture/generate a snapshot of …"',
+      });
+    }
+
     // bare-plural: plural "snapshots" not preceded by a known modifier
     const re = /\bsnapshots\b/gi;
     let m;
     while ((m = re.exec(line)) !== null) {
+      if (verbObjectIndices.has(m.index)) continue;
       const before = line.slice(0, m.index);
       const prev = before.match(/([A-Za-z][A-Za-z-]*)[*_]{0,3}\s+$/);
       const prevWord = prev ? prev[1] : null;
@@ -215,6 +252,19 @@ const FIXTURES = [
   ['TurboSnaps reduce billing.', ['turbosnap-plural-feature']],
   ['---\ntitle: Snapshots everywhere\n---\n\n```\nbilled turbosnaps\n```\n\nClean prose.', []],
   ['<!-- billed turbosnaps -->ok text', []],
+  ['It intelligently snapshots only the stories that changed.', ['snapshot-as-verb']],
+  ['It also snapshots any tests that were denied on the ancestor build.', ['snapshot-as-verb']],
+  ['When Chromatic snapshots a Storybook story, it trims the result.', ['snapshot-as-verb']],
+  ['You can specify stories to snapshot.', ['snapshot-as-verb']],
+  ['Chrome must be included for snapshotting.', ['snapshot-as-verb']],
+  [
+    'Baselines that were snapshotted on old infrastructure are re-snapshotted.',
+    ['snapshot-as-verb'],
+  ],
+  ['Chromatic will snapshot your stories automatically.', ['snapshot-as-verb']],
+  ['This would create two Chromatic snapshots.', ['bare-plural']],
+  ['Chromatic snapshots sometimes show the initial loading state.', ['bare-plural']],
+  ['Chromatic captures visual snapshots of every story.', []],
 ];
 
 function selfTest() {
