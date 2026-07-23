@@ -26,7 +26,7 @@ These dimensions stack to create a snapshot. For example, you can have a "captur
 
 A **test** represents a piece of UI rendered in a specific state that Chromatic can capture as a snapshot. Chromatic supports the following types of tests:
 
-- **Storybook Stories:** By default, a story captures the rendered state of a UI component. Therefore Chromatic uses stories as is for UI testing.
+- **Storybook Stories:** By default, a story captures the rendered state of a UI component. Chromatic uses stories as is for UI testing.
 - **Playwright & Cypress End-to-End (E2E) tests:** Chromatic [archives](/docs/faq/what-is-archive) these E2E tests during Playwright/Cypress test runs, and then replays them in the cloud to run visual tests.
 - **Vitest browser mode tests:** Chromatic [archives](/docs/faq/what-is-archive) these tests during Vitest test runs, and then replays them in the cloud to run visual tests.
 
