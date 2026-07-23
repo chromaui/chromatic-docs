@@ -6,7 +6,7 @@ sidebar: { order: 1 }
 
 # Snapshots
 
-A **snapshot** is the unit of work executed by Chromatic to execute a [UI Test](/docs#test-how-uis-look--function). This work can be taking a screenshot, capturing accessibility data, copying such information from one test to another, or even bypassing such work completely if it is found to be unnecessary.
+A **snapshot** is the unit of work executed by Chromatic to run a [UI Test](/docs#test-how-uis-look--function). This work can be taking a screenshot, capturing accessibility data, copying such information from one test to another, or even bypassing such work completely if it is found to be unnecessary.
 
 <div class="aside">
 
