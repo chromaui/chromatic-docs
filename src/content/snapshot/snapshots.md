@@ -18,7 +18,7 @@ The type of work performed by Chromatic is determined by the following factors:
 
 - **Visual vs. Accessibility:** A [visual test](/docs/visual) captures the rendered state of the UI, whereas an [accessibility test](/docs/accessibility) captures accessibility information about the UI. Both types of tests take a snapshot and compare it to a baseline snapshot to detect changes.
 
-- **Capture vs. Turbo:** A captured snapshot performs the full suite of work, including taking screenshots or capturing accessibility data, and running diffs. A [turbo snapshot](/docs/turbosnap) skips unnecessary work if it is determined that the associated code has not changed, speeding up the testing process.
+- **Capture vs. TurboSnap:** A captured snapshot performs the full suite of work, including taking screenshots or capturing accessibility data, and running diffs. A [TurboSnap](/docs/turbosnap) snapshot avoids unnecessary work if it is determined that the associated code has not changed, speeding up the testing process.
 
 These dimensions stack to create a snapshot. For example, you can have a "captured visual snapshot" or a "turbo accessibility snapshot". The short forms are "visual snapshot" and "accessibility turbosnap", respectively.
 
