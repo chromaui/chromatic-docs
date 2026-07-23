@@ -2,7 +2,7 @@
 title: Sharding
 slug: vitest/sharding
 description: Learn how to run Vitest tests in parallel across shared CI jobs
-sidebar: { order: 3 }
+sidebar: { order: 4 }
 ---
 
 # Sharded Vitest Runs

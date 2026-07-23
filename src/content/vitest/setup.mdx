@@ -93,11 +93,11 @@ Install **[`chromatic`](https://www.npmjs.com/package/chromatic)** and **[`@chro
 Add `chromaticPlugin` in your [Vitest configuration file](https://vitest.dev/config/).
 
 ```ts title="vitest.config.ts"
-import { defineProject } from 'vitest/config';
+import { defineConfig } from 'vitest/config';
 import { playwright } from '@vitest/browser-playwright';
 import { chromaticPlugin } from '@chromatic-com/vitest/plugin'; // [!code ++]
 
-export default defineProject({
+export default defineConfig({
   plugins: [chromaticPlugin()], // [!code ++]
 
   test: {
@@ -295,7 +295,7 @@ Regardless of whether a test has automatic snapshots enabled or disabled, you ca
 <details>
 <summary id="turbosnap-support">Can I use TurboSnap with Vitest visual tests?</summary>
 
-Not yet.
+Yes. TurboSnap is supported. See the [dedicated guide](/docs/vitest/turbosnap) for more information.
 
 </details>
 

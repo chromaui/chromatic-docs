@@ -122,6 +122,7 @@ These options control how the Chromatic plugin behaves during test execution and
 | `idleNetworkInterval` | `number`                          | Set the time (in milliseconds) to determine whether network is idle. The network is considered idle if there are no new network requests for at least this duration.                                                          |
 | `outputDirectory`     | `string`                          | Directory where temporary archives and snapshots will be stored. Relative to the project [the project `root`](https://vitest.dev/config/root.html#root).<br />Default: `.vitest/chromatic`                                    |
 | `reporter`            | `boolean \| { verbose: boolean }` | When truthy, use Chromatic's test reporter, which adds information about captured archives to Vitest's output. When `verbose` is `true`, additional details are logged during the test run.<br />Default: `{ verbose: true }` |
+| `turboSnap`           | `boolean`                         | Enables [TurboSnap](/docs/vitest/turbosnap). Must be used with [`onlyChanged`](/docs/configure#onlychanged) <br />Default: `false`.                                                                                           |
 
 ## Snapshot options
 
