@@ -25,6 +25,17 @@ the work entirely when it's unnecessary.
 snapshots X`; these blur the noun/verb distinction the same way a bare
   plural does.
 
+### `test` vs `capture` — not interchangeable
+
+- `test` is the product-level action (a **Visual Test**, comparing a build
+  against baselines). It is not a synonym for producing a snapshot.
+- `capture` is the specific term for producing a new snapshot image, per the
+  "type of work" ontology below.
+- `re-test` / `retest` describing TurboSnap (or anything else) deciding to
+  trigger a **new snapshot** for a story is the same drift as `snapshot`-as-verb —
+  use `re-capture` / `recapture` instead. Reserve `test`/`retest` for the
+  broader visual-test run itself, not the act of producing a snapshot.
+
 ### `billed snapshot` — the unit of billing
 
 What appears on the Stripe invoice and triggers overages.
@@ -112,6 +123,8 @@ Invalid combinations (contradictions within category 1):
 | "It intelligently snapshots only the stories"  | "It intelligently captures snapshots only of the stories"      |
 | "stories to snapshot"                          | "stories to capture"                                           |
 | "enabling it to be snapshotted correctly"      | "enabling a correct snapshot to be captured"                   |
+| "we re-test everything in these situations"    | "we re-capture everything in these situations"                 |
+| "TurboSnap retests all stories"                | "TurboSnap re-captures all stories"                            |
 
 Correct usage from the proposal, useful as templates:
 

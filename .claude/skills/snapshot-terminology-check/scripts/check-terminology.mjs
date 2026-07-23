@@ -84,6 +84,15 @@ const RULES = [
     suggestion:
       '"snapshot" used as a verb — Chromatic doesn\'t "snapshot" something; rewrite around "capture/generate a snapshot of …"',
   },
+  {
+    id: 'retest-as-recapture',
+    severity: 'review',
+    // "test" is the product-level action (Visual Tests); triggering a new
+    // snapshot for a story specifically is a "capture" per the ontology.
+    re: /\bre[- ]?test(?:s|ed|ing)?\b/gi,
+    suggestion:
+      'if this means triggering a new snapshot (not the broader visual-test run), use "re-capture"/"recapture" — see TERMINOLOGY.md',
+  },
 ];
 
 // Transitive-verb heuristic: "snapshot(s)" immediately governing a direct
@@ -265,6 +274,17 @@ const FIXTURES = [
   ['This would create two Chromatic snapshots.', ['bare-plural']],
   ['Chromatic snapshots sometimes show the initial loading state.', ['bare-plural']],
   ['Chromatic captures visual snapshots of every story.', []],
+  [
+    'To avoid false positives, we re-test everything in the following situations.',
+    ['retest-as-recapture'],
+  ],
+  ['TurboSnap retests everything whenever the preview file changes.', ['retest-as-recapture']],
+  ['Use the untraced flag to avoid re-testing dependent stories.', ['retest-as-recapture']],
+  [
+    'Do the onlyStoryNames and onlyStoryFiles options have similar retest logic?',
+    ['retest-as-recapture'],
+  ],
+  ['This contest and protest are unrelated words.', []],
 ];
 
 function selfTest() {

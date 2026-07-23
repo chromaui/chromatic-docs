@@ -70,6 +70,8 @@ construction (link _text_ is still checked) — then reports findings with
   (`to snapshot`), modal + bare stem (`will snapshot`), or `snapshot(s)`
   governing a direct object (`it snapshots your UI`). Suppresses `bare-plural`
   on the same match — the fix is a rewrite, not a modifier.
+- `retest-as-recapture` — `re-test`/`retest` (any inflection) describing the
+  act of triggering a new snapshot; should be `re-capture`/`recapture`
 
 Exit codes: `0` no errors (REVIEW may exist) · `1` errors · `2` usage or
 self-test failure. If you change the script or the rules in TERMINOLOGY.md,
@@ -89,6 +91,8 @@ Context decides these — never judge from script output alone:
 | Singular `snapshot` with clear contextual type                                                                                       | ok                                                                           |
 | `snapshot-as-verb` confirmed — prose describing the product's action                                                                 | **warning** — rewrite around `capture`/`generate`/`take`                     |
 | `snapshot-as-verb` on a literal UI string/option name quoted from the product (e.g. a checkbox labeled "auto snapshotting disabled") | judgment call — renaming is a product decision, note it                      |
+| `retest-as-recapture` confirmed — describes a new snapshot being triggered, not the broader visual-test run                          | **warning** — use `re-capture`/`recapture`                                   |
+| `retest-as-recapture` — genuinely means re-running the whole visual test (rare)                                                      | ok, leave as `retest`/`re-test`                                              |
 | Literal UI-string names quoted from the product (chart titles, the "Snapshots" nav page)                                             | judgment call — renaming is a product decision, note it                      |
 
 ### 4. Report
