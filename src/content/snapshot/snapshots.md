@@ -120,4 +120,4 @@ With Storybook, it displays the story, and with Playwright, Cypress and Vitest, 
 
 ### Differences in visual snapshot vs Canvas
 
-The visual snapshot might differ from the `Canvas` due to various reasons, such as JavaScript execution being blocked during capture, which can prevent certain elements from being captured, or the use of the `isChromatic()` function to alter rendering on Chromatic.
+The visual snapshot might differ from the `Canvas` for various reasons, such as JavaScript execution being blocked during capture, which can prevent certain elements from being captured. Or the use of the `isChromatic()` function to alter rendering on Chromatic.
