@@ -32,8 +32,8 @@ You can turn off automatic ignoring for unstable tests from your project setting
 ## Frequently asked questions
 
 <details>
-<summary>Do auto-ignored tests count toward my snapshot usage?</summary>
+<summary>Do auto-ignored tests count toward my billed snapshot usage?</summary>
 
-Yes. Chromatic has to capture a snapshot for a test to determine whether the test is stable, so ignored tests still count toward your snapshot usage. However, even though Chromatic may render a test multiple times to detect instability, you are only billed for one snapshot.
+Yes. Chromatic has to capture a visual snapshot of a test to determine whether the test is stable, so ignored tests still count towards billed snapshots. However, even though Chromatic may render a test multiple times to detect instability, you are only charged one billed snapshot.
 
 </details>
