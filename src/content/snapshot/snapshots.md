@@ -114,7 +114,7 @@ The component screen allows you to switch between 'Canvas' and 'Snapshot'. Under
 
 **Canvas** is an interactive environment that renders your test code live in the browser. These are fully inspectable, enabling you to troubleshoot changes and errors effectively.
 
-With Storybook, it displays the story, and with Playwright, Cypress and Vitest, it shows the [archive](/docs/faq/what-is-archive) of your test. It visualizes the _final state_ of the test UI.
+With Storybook, it displays the story. With Playwright, Cypress and Vitest, it shows the [archive](/docs/faq/what-is-archive) of your test. In all cases, you see the _final state_ of the test UI.
 
 ![Component screen in Canvas mode](../../images/component-canvas.png)
 
