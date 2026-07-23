@@ -20,15 +20,15 @@ The type of work performed by Chromatic is determined by the following factors:
 
 - **Capture vs. TurboSnap:** A captured snapshot performs the full suite of work, including taking screenshots or capturing accessibility data, and running diffs. A [TurboSnap](/docs/turbosnap) snapshot avoids unnecessary work if it is determined that the associated code has not changed, speeding up the testing process.
 
-These dimensions stack to create a snapshot. For example, you can have a "captured visual snapshot" or a "turbo accessibility snapshot". The short forms are "visual snapshot" and "accessibility turbosnap", respectively.
+These dimensions stack to create a snapshot. For example, you can have a "captured visual snapshot" or a "turbo visual snapshot". The short forms are "visual snapshot" and "visual turbosnap", respectively.
 
 ## Snapshot-compatible tests
 
 A **test** represents a piece of UI rendered in a specific state that Chromatic can capture as a snapshot. Chromatic supports the following types of tests:
 
-- **Storybook Stories:** By default, a story captures the rendered state of a UI component. Chromatic uses stories as is for UI testing.
-- **Playwright & Cypress End-to-End (E2E) tests:** Chromatic [archives](/docs/faq/what-is-archive) these E2E tests during Playwright/Cypress test runs, and then replays them in the cloud to run visual tests.
-- **Vitest browser mode tests:** Chromatic [archives](/docs/faq/what-is-archive) these tests during Vitest test runs, and then replays them in the cloud to run visual tests.
+- Storybook Stories
+- Playwright & Cypress End-to-End (E2E) tests
+- Vitest browser mode tests
 
 Each test can generate multiple snapshots, varying by [browser](/docs/browsers#browser-support) (or mobile simulators and emulators), [theme](/docs/themes), [viewport size](/docs/viewports), and other configurations you define.
 
