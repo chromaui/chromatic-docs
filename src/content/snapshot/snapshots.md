@@ -48,7 +48,7 @@ Chromatic's Capture Cloud leverages a fleet of standardized [browsers](/docs/bro
 <details>
 <summary>2. Wait for the test to render</summary>
 
-Capture Cloud uses underlying browser APIs combined with our own set of heuristics to determine when the UI has "loaded".
+Capture Cloud uses underlying browser APIs combined with our own set of [heuristics](/features/steadysnap) to determine when the UI has "loaded" and is ready to be captured.
 
 </details>
 
