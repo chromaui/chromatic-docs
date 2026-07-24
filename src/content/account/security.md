@@ -1,7 +1,7 @@
 ---
 title: Security
 description: Security overview and responsible disclosure
-sidebar: { order: 5 }
+sidebar: { order: 7 }
 ---
 
 # Security policy

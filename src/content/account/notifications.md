@@ -1,7 +1,7 @@
 ---
 title: Notifications
 description: Control when and how you receive activity notifications
-sidebar: { order: 3 }
+sidebar: { order: 5 }
 ---
 
 # Notifications

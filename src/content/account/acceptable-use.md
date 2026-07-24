@@ -1,7 +1,7 @@
 ---
 title: Acceptable Use Policy
 description: Chromatic Acceptable Use Policy
-sidebar: { order: 8 }
+sidebar: { order: 10 }
 ---
 
 # Acceptable Use Policy
