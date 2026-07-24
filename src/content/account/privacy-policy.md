@@ -1,7 +1,7 @@
 ---
 title: Privacy Policy
 description: Chromatic Privacy Policy
-sidebar: { order: 7 }
+sidebar: { order: 9 }
 ---
 
 # Privacy and Cookies Notice

@@ -1,7 +1,7 @@
 ---
 title: Infrastructure upgrades
 description: Learn how Chromatic handles browser rendering changes to be minimally disruptive
-sidebar: { order: 4 }
+sidebar: { order: 6 }
 ---
 
 # Infrastructure upgrades

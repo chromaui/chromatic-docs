@@ -1,7 +1,7 @@
 ---
 title: Terms of Service
 description: Chromatic Terms of Service
-sidebar: { order: 6 }
+sidebar: { order: 8 }
 ---
 
 # Terms of Service

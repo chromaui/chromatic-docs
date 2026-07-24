@@ -4,7 +4,7 @@ description: Chromatic billing information
 sidebar: { order: 2, label: Billing & invoices }
 ---
 
-# Billing and invoices
+# Billing
 
 Chromatic bills customers monthly based on their subscription date. For example, if you subscribed on February 14, you'll be billed on the 14th of each month.
 
@@ -66,7 +66,7 @@ billed snapshots = visual snapshots + accessibility snapshots + billed snapshots
 
 ### Billed snapshots are counted at the account level
 
-If your account has multiple projects, we sum the billed snapshots each project incurs to get your total usage. You can see a breakdown of billed snapshots by project in the [usage report](#usage-reports) for each billing period.
+If your account has multiple projects, we sum the billed snapshots each project incurs to get your total usage. You can see a breakdown of billed snapshots by project in the [usage report](/docs/billing/usage-reports) for each billing period.
 
 A couple more things to note:
 
@@ -102,96 +102,6 @@ For example, if you want to get a notification when you use 90% of the 35,000 bi
 ### Data retention
 
 Chromatic guarantees a minimum of 12 months of data retention for builds and snapshots on all plans.
-
-## Usage reports
-
-Access usage reports for each billing period on the billing page. These reports offer a detailed breakdown of usage and display the invoice statement.
-
-The **usage section** provides a per-project summary of Visual, Accessibility and TurboSnap snapshots utilized.
-
-The **invoice** includes details of the active plan for the billing period, the base number of billed snapshots included, charges for additional billed snapshots, and a link to download a PDF copy of the invoice (available for all billing periods).
-
-![Example of a usage report that shows a breakdown of billed snapshots by project and the invoice details](../../images/usage-report.png)
-
-To access the current billing period's usage report, click on the "View usage" button in the Plan section.
-
-![Access current billing period's usage report from the Plan section](../../images/usage-report-current-period.png)
-
-To view previous billing periods, click on the card for the desired period in the Statements section.
-
-![Access a previous billing period's usage report from the statements section](../../images/usage-report-past-periods.png)
-
-### Export usage data as a CSV
-
-You can generate a CSV file with a detailed list of every build within a build period. Click on a billing period to view the Usage Report, then click the "Download CSV" button to get a CSV file for that period.
-
-The CSV file provides a granular breakdown of usage and includes the following columns:
-
-<dl>
-  <dt>Date</dt>
-  <dd>Creation date and time of the build (ISO 8601)</dd>
-
-<dt>App ID</dt>
-<dd>Unique Chromatic project identifier</dd>
-
-<dt>Build ID</dt>
-<dd>Unique Chromatic build identifier</dd>
-
-  <dt>Repository slug</dt>
-  <dd>
-    Owner and name of the Git repository linked to the project (`<ownerName>:<repoName>`)
-  </dd>
-
-  <dt>Branch name</dt>
-  <dd>
-    Git branch name for which the build was created, prefixed with `<ownerName>:` if the build originates from a fork
-  </dd>
-
-<dt>Build number</dt>
-<dd>The incremental number for this build</dd>
-
-  <dt>turbosnaps</dt>
-  <dd>
-
-Number of snapshots copied by [TurboSnap](#with-turbosnap-enabled).
-
-  </dd>
-
-  <dt>TurboSnap Bail Reason</dt>
-  <dd>
-
-Explains why a TurboSnap triggered a full rebuild. For more details, check out the [TurboSnap docs](/docs/turbosnap/troubleshooting#what-do-the-turbosnap-bail-reasons-in-my-usage-report-mean).
-
-  </dd>
-
-<dt>Chrome snapshots</dt>
-<dd>Number of captured visual Chrome snapshots</dd>
-
-<dt>Firefox snapshots</dt>
-<dd>Number of captured visual Firefox snapshots</dd>
-
-<dt>Safari snapshots</dt>
-<dd>Number of captured visual Safari snapshots</dd>
-
-<dt>Edge snapshots</dt>
-<dd>Number of captured visual Edge snapshots</dd>
-
-{' '}
-
-<dt>Internet Explorer snapshots</dt>
-<dd>Phased out in 2023. Number of captured visual Internet Explorer snapshots.</dd>
-
-  <dt>Accessibility snapshots</dt>
-  <dd>Number of captured accessibility snapshots</dd>
-</dl>
-
-### Export monthly and yearly usage data as CSV
-
-Usage reports export your account's activity for the chosen billing period. You can also download a CSV of your monthly or yearly snapshot usage across all your projects' builds. Click the "Generate report" button and select a year and/or month, and then click "Generate CSV."
-
-For a custom date range or to get the report in JSON format, contact us via in-app chat or [email](mailto:support@chromatic.com).
-
-![Setup usage report](../../images/billing-usage-report.png)
 
 ## Change plans
 
