@@ -34,7 +34,7 @@ When Chromatic tests detect a visual change to a story in any enabled browser, y
 
 ![Notification of changes in Firefox snapshot](../../images/browser-buildscreen-notification.png)
 
-You can see changes for the browser's snapshot in the [review](/docs/review#find-your-pull-request) workflow.
+You can see changes for the browser's snapshot in the [review](/docs/review#review-the-changes) workflow.
 
 ![Changes in Firefox snapshot](../../images/browser-snapshotscreen-diff-in-firefox-snapshot.png)
 

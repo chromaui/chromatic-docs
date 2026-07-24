@@ -30,7 +30,7 @@ Please read this Privacy Notice carefully so you can make an informed decision a
   - [11. Where We Transfer Your Personal Information](#11-where-we-transfer-your-personal-information)
   - [12. Cookies Notice](#12-cookies-notice)
   - [13. Your Privacy Rights](#13-your-privacy-rights)
-  - [14. Notice to European Users](#14--notice-to-european-users)
+  - [14. Notice to European Users](#14-notice-to-european-users)
   - [15. Notice to Canadian Users](#15-notice-to-canadian-users)
   - [16. Notice to Australian Users](#16-notice-to-australian-users)
   - [17. Do Not Track Signals and Third-Party Tracking](#17-do-not-track-signals-and-third-party-tracking)
