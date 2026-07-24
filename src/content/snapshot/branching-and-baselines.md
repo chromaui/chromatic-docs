@@ -1,12 +1,12 @@
 ---
 title: Branches and baselines
-description: How Chromatic decides what snapshots to compare when using UI Tests and UI Review
+description: How Chromatic decides which visual or accessibility snapshots to compare when using UI Tests and UI Review
 sidebar: { order: 2, label: 'Branches & baselines' }
 ---
 
 # Branches, baselines, and git history
 
-This document describes how Chromatic decides what snapshots to compare when using UI Tests or UI Review.
+This document describes how Chromatic decides which visual or accessibility snapshots to compare when using UI Tests or UI Review.
 
 - [UI Tests](#ui-tests-verify-changes-on-one-branch): Verify changes on one branch (uses baselines)
 - [UI Review](#ui-review-compare-two-branches-for-changes): Compare two branches for changes (does not use baselines)
@@ -21,11 +21,11 @@ Visualize the different comparisons methods using the git history diagram above.
 
 ## UI Tests: Verify changes on one branch
 
-UI Tests serve as visual regression tests between builds, similar to snapshot testing. When modifications are made in a PR, the tests fail until the new snapshots are accepted as baselines.
+UI Tests serve as visual and accessibility regression tests between builds. When modifications are made in a PR, the tests fail until the new visual and/or accessibility snapshots are accepted as baselines.
 
 ### What’s a baseline?
 
-A baseline is the last known “good” state of the story in a given [mode](/docs/modes). [UI Tests](/docs#test-how-uis-look--function) take snapshots and compare them to baselines to detect changes.
+A baseline is the last known “good” state of the story in a given [mode](/docs/modes). UI Tests capture snapshots and compare them to baselines to detect changes.
 
 Chromatic’s objective is to maintain an up to date “baseline” for each story. Baselines live alongside the git history and persist through git branching and merging.
 
@@ -228,7 +228,7 @@ Then in Build N+2, we should compare the “new” green buttons to the original
 <details>
 <summary>How do browsers work with baselines?</summary>
 
-Baselines are calculated above the level of browsers. Clicking “accept” on a baseline will accept all snapshots taken in different browsers associated with that baseline. We can ignore multiple browsers when thinking about baselines.
+Baselines are calculated above the level of browsers. Clicking “accept” on a baseline will accept all visual snapshots taken in different browsers associated with that baseline. We can ignore multiple browsers when thinking about baselines.
 
 </details>
 
@@ -248,7 +248,7 @@ When you [verify UI Test changes on Chromatic](/docs/quickstart#4-review-changes
   <source src="/docs/assets/testscreen-baseline-history-detail-optimized.mp4" type="video/mp4" />
 </video>
 
-The snapshot marked “Most recent build....” is a change that hasn’t been accepted as a baseline yet. The baseline marked “current baseline” is the last known good version of the snapshot that was accepted by Tom Coleman. Going back in the timeline, the listed baselines show previous times the component changed.
+The snapshot marked “Most recent build....” is a change that hasn’t been accepted as a baseline yet. The baseline marked “current baseline” is the last known good version of the visual snapshot that was accepted by Tom Coleman. Going back in the timeline, the listed baselines show previous times the component changed.
 
 </details>
 
@@ -262,14 +262,14 @@ A changeset is a list of UI changes between two branches. [UI Review](/docs/revi
 
 Conceptually, this is similar to what systems like GitHub do when showing you the code changes in a pull/merge request.
 
-Unlike UI Tests, UI Review does not use baselines to generate changesets so the list of changes may also show snapshots that were unreviewed in UI Tests.
+Unlike UI Tests, UI Review does not use baselines to generate changesets so the list of changes may also show visual snapshots that were unreviewed in UI Tests.
 
 <details>
 <summary>What if I skip running Chromatic on a base branch?</summary>
 
 UI Review will not work if you skip running `chromatic` on a base branch like `main`. Chromatic needs to have two builds to generate a changeset.
 
-UI Review works differently than UI Tests. Some customers skip running `chromatic` on their base branches in UI Tests. This works for UI Tests because our baseline detection algorithm. UI Review needs `chromatic` to run in order to create a build that captures snapshots for comparison.
+UI Review works differently than UI Tests. Some customers skip running `chromatic` on their base branches in UI Tests. This works for UI Tests because our baseline detection algorithm. UI Review needs `chromatic` to run in order to capture snapshots for comparison.
 
 </details>
 
