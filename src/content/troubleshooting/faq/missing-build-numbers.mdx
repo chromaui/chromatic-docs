@@ -1,0 +1,19 @@
+---
+sidebar: { hide: true }
+title: Why are there gaps in my build numbers?
+section: usage
+---
+
+# Why are there gaps in my build numbers?
+
+If you're looking at your build history and a number's missing (say you have builds 18 and 21, but nothing for 19 or 20), that's expected behavior.
+
+Chromatic only shows a build in the UI once it reaches the `extract` step, when the CLI finishes building, uploading, and processing your Storybook. A build gets its number the moment it starts. But it doesn't get the timestamp Chromatic uses to display builds until extraction finishes. If a build fails or gets interrupted before that (a CI cancellation, a dropped connection during upload, an error partway through), it never shows up. The number isn't reused or skipped on purpose. It's attached to a build that never finished.
+
+To confirm that's what happened, check the CI logs for the run tied to that missing number. Look for a failed, errored, or canceled CLI step in that run.
+
+If you've checked and nothing explains it, email us at support@chromatic.com or use the in-app chat.
+
+## Related
+
+- [What are the different types of Chromatic builds?](/docs/faq/types-of-builds/)
