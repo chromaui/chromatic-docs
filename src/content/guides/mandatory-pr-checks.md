@@ -66,3 +66,22 @@ You can set up the basic merge checks for your repository by following these ste
    ![GitLab-mr-UI-block](../../images/gitlab-mandatory-checks.png)
 
 This can extended by enabling [branch protection](https://docs.gitlab.com/ee/user/project/protected_branches.html) for the repository. For GitLab paid plans, you can set up [additional rules](https://docs.gitlab.com/ee/user/project/merge_requests/authorization_for_merge_requests.html) for the repository.
+
+## Check status by scenario
+
+Once a check is marked as mandatory in your Git provider, its outcome depends on how Chromatic runs (or doesn't run) for that commit. Check status is driven entirely by Chromatic's build result — there's no API or setting to programmatically mark a check as passed. Use this table to understand what to expect:
+
+| Scenario                                                                                                                       | Check result                                                                                                                                                                                                                                       |
+| ------------------------------------------------------------------------------------------------------------------------------ | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Build has no visual changes                                                                                                    | ✅ Passes automatically.                                                                                                                                                                                                                           |
+| Build run with the [`--skip`](/docs/configure#options) flag                                                                    | ✅ Marked as skipped and passes immediately, unblocking the PR regardless of whether the commit has visual changes.                                                                                                                                |
+| Build has visual changes to review                                                                                             | ⚠️ Pending — blocks merging until someone reviews and approves the changes.                                                                                                                                                                        |
+| Mandatory in your Git provider, but the corresponding check (UI Tests/UI Review) is turned off in Chromatic's project settings | ⚠️ Pending indefinitely — Chromatic never sends a status for a check that isn't enabled, so the required check has nothing to satisfy it. Either disable the requirement in your Git provider or re-enable the check in Chromatic.                 |
+| The Chromatic step itself is bypassed, for example with a conditional step (`if:` in GitHub Actions or `rules:` in GitLab CI)  | ⚠️ Pending indefinitely — if Chromatic never runs, it never reports a status, so a mandatory check has nothing to resolve it. Skip the build with `--skip` instead of skipping the CI step, or don't mark the check as required for that scenario. |
+| Your account has used all its included billed snapshots for the billing period                                                 | ⚠️ Pending — the build can't complete, so no status is sent. See [additional billed snapshots](/docs/billing#additional-billed-snapshots).                                                                                                         |
+
+<div class="aside">
+
+If a check is stuck pending and none of these scenarios apply, see [Why aren't pull request checks syncing with my Git provider?](/docs/ci/#why-arent-pull-request-checks-syncing-with-my-git-provider)
+
+</div>
