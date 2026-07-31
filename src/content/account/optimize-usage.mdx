@@ -64,7 +64,7 @@ TurboSnap effectiveness is the amount of copied or bypassed snapshots relative t
 
 TurboSnap copies a snapshot only when it can confidently determine that nothing affecting that test changed, based on your Git history and dependency graph.
 
-When it can't establish that (because of how your CI checks out history, barrel files, how your Storybook is configured, or other reasons), it bails. In that case, Chromatic captures every test instead of copying the unchanged ones, and the build is billed at the full captured rate.
+TurboSnap bails when it doesn't have enough information to establish change likelihood. This can happen due to how your CI checks out history, barrel files, your Storybook configuration, or other reasons. In that case, Chromatic captures every test which costs 1 billed snapshot instead of copying the unchanged ones.
 
 ### Identifying the root cause of bails
 
