@@ -42,32 +42,32 @@ If builds don't closely line up with PRs, it's likely that a structural change i
 
 ## Are snapshots per build climbing?
 
-**Total snapshots per build** naturally rise as you add more tests. A gradual increase usually reflects growing coverage. A sharp jump typically points to a specific change, such as enabling a new test type (accessibility/visual) or adding more browsers across the board. If that isn't the case, check for a misconfiguration in your CI setup.
+**Total snapshots per Build** naturally rise as you add more tests. A gradual increase usually reflects growing coverage. A sharp jump typically points to a specific change, such as enabling a new test type (accessibility/visual) or adding more browsers across the board. If that isn't the case, check for a misconfiguration in your CI setup.
 
 ![Billed Snapshots per Build chart breaks down billed snapshot usage historically into the contribution of various types of snapshots. The line charts the total number of builds in the time period.](../../images/usage-trends-billed-snapshots-per-build.png)
 
-[TurboSnap](/docs/turbosnap) is meant to offset that increase. If TurboSnap is working well, your **Snapshot billing rate** should come down as total snapshots per build go up. That's because TurboSnap copies or bypasses unchanged snapshots instead of capturing them again.
+[TurboSnap](/docs/turbosnap) is meant to offset the gradual increase. If TurboSnap is working well, your **Snapshot billing rate** should come down as **Total snapshots per Build** go up. That's because TurboSnap copies or bypasses unchanged snapshots instead of capturing them again.
 
-**Snapshot billing rate** is a measure of TurboSnap's effectiveness. It is the ratio of billed snapshots to total snapshots. If your snapshot billing rate is not decreasing, that means TurboSnap bailing too often.
+**Snapshot billing rate** is the ratio of billed snapshots to total snapshots. Captured snapshots cost a full billed snapshot and copied or bypassed ones cost 0.2 billed snapshots. So the more TurboSnap replaces captures with copies or bypasses, the lower your rate.
+
+A rate of 1.0 means every snapshot was captured again. In other words, TurboSnap isn't working as expected. If TurboSnap is working well, this number should be lower.
 
 ## Is TurboSnap bailing too often?
 
-TurboSnap's effectiveness has the biggest impact on your snapshot billing rate. Bailed builds drive up **Billed Snapshots per Build** even when **Total Snapshots per Build** are stable.
+[Bailed builds](/docs/turbosnap/troubleshooting#what-do-the-turbosnap-bail-reasons-in-my-usage-report-mean) drive up **Billed Snapshots per Build** even when **Total Snapshots per Build** are stable.
 
-A snapshot billing rate of 1.0 means every snapshot was captured again. In other words, TurboSnap isn't working as expected. If TurboSnap is working well, this number should be lower.
+TurboSnap effectiveness is the amount of copied or bypassed snapshots relative to captured ones. Your goal is to reduce the "bail" segments of the chart below and grow the "copied" and "bypassed" segments.
+
+![TurboSnap effectiveness shows how many snapshots are being copied or bypassed rather than captured](../../images/usage-trends-ts-effectiveness.png)
 
 ### Why TurboSnap bails affect your bill
 
 TurboSnap copies a snapshot only when it can confidently determine that nothing affecting that test changed, based on your Git history and dependency graph.
 
-When it can't establish that (because of how your CI checks out history, barrel files, how your Storybook is configured, or other reasons), it [bails](/docs/turbosnap/troubleshooting#what-do-the-turbosnap-bail-reasons-in-my-usage-report-mean). In that case, Chromatic captures every test instead of copying the unchanged ones, and the build is billed at the full captured rate.
+When it can't establish that (because of how your CI checks out history, barrel files, how your Storybook is configured, or other reasons), it bails. In that case, Chromatic captures every test instead of copying the unchanged ones, and the build is billed at the full captured rate.
 
 ### Identifying the root cause of bails
 
 Bail reasons are listed per build in the [usage report CSV export](/docs/billing/usage-reports#export-usage-data-as-a-csv). Use it to dig into specific builds rather than trends over time.
 
-Effectiveness is the amount of copied or bypassed snapshots relative to captured ones. The more TurboSnap can copy or bypass instead of recapturing, the lower your billing rate.
-
 If bails are a significant share of your builds, work through [TurboSnap troubleshooting](/docs/turbosnap/troubleshooting) to resolve the specific issues.
-
-![TurboSnap effectiveness shows how many snapshots are being copied or bypassed rather than captured](../../images/usage-trends-ts-effectiveness.png)
