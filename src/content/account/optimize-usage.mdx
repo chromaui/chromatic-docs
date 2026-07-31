@@ -6,19 +6,27 @@ sidebar: { order: 4, label: Optimize usage }
 
 # Optimize usage
 
-The Usage trends dashboard charts your account's [billed snapshot](/docs/billing) usage over time so you can diagnose a spike, understand what changed, and decide what to do next. Work through the questions below in order to identify the root cause and optimize your usage.
+The Usage Trends dashboard tracks your billed snapshots over time. You can find it on your project's billing page. Click **Trends (beta)** to open the dashboard.
 
-## When did it start, and in which project?
+Use the dashboard to diagnose spikes, understand what changed, and decide what to do next. Work through the questions below, in order, to identify the root cause and optimize your usage.
+
+![Example of a Usage Trends dashboard showing the Billed snapshots chart](../../images/usage-trends.png)
+
+## When did the usage spike start, and in which project?
 
 Start with the **Billed Snapshots** and **Billed Snapshots per Project** charts. You're looking for the week usage changed, and ideally the one project it changed in.
 
+![Billed Snapshots chart shows how many billed snapshots each project generated in the previous 156 weeks](../../images/usage-trends-billed-snapshots.png)
+
 Look for whether most of your usage comes from one project, or whether one project shows the same pattern of change as your account overall. Filter the dashboard to that project to make other charts easier to read and to better understand what's driving the change.
 
-![Billed Snapshots chart shows how many billed snapshots each project generated in the previous 156 weeks](../../images/usage-trends-billed-snapshots.png)
+You can filter the dashboard by clicking the project name in the **Billed Snapshots per Project** donut chart, or by using the **App ID** dropdown in the top left of the dashboard.
+
+![Example of filtering the Usage Trends dashboard by clicking on a project](../../images/usage-trends-filter.png)
 
 ## Did build count go up?
 
-Compare whether the builds line matches the bars on the **Billed Snapshots chart**:
+The main usage drivers are build count and snapshots per build. To diagnose your usage, check whether the Builds line and the bars track each other on the **Billed Snapshots** chart.
 
 - **Lines up closely:** your usage increase is almost certainly driven by more builds. Move on to ["Are builds outpacing PRs?"](#are-builds-outpacing-prs) to understand why build volume grew.
 
@@ -26,9 +34,9 @@ Compare whether the builds line matches the bars on the **Billed Snapshots chart
 
 ## Are builds outpacing PRs?
 
-Use the **Build count** chart to compare builds against PRs. More PRs, especially PRs with changes, means more builds and greater Chromatic usage.
+More PRs, especially PRs with changes, means more builds and greater Chromatic usage. Use the **Build count** chart to compare builds against PRs.
 
-If builds don't closely line up with PRs, it's likely that a structural change is causing extra builds. For example, more commits per PR, or builds running on main.
+If builds don't closely line up with PRs, it's likely that a structural change is causing additional builds. For example, your team commits many times per PR, or builds run on a long-lived branch like `main`.
 
 ![Build count chart breaks the build volume down to builds on feature or default branches. We chart the number of PRs, considering every non-main branch with a build on it as a PR (this may overcount slightly compared to your Git provider). A “ default” branch is a branch with a name commonly considered for a trunk branch: main, master, trunk, dev , devel, development, staging, prod, production.](../../images/usage-trends-build-count.png)
 
@@ -36,13 +44,13 @@ If builds don't closely line up with PRs, it's likely that a structural change i
 
 **Total snapshots per build** naturally rise as you add more tests. A gradual increase usually reflects growing coverage. A sharp jump typically points to a specific change, such as enabling a new test type (accessibility/visual) or adding more browsers across the board. If that isn't the case, check for a misconfiguration in your CI setup.
 
-[TurboSnap](/docs/turbosnap) is meant to offset that increase. As total snapshots per build go up, your **Snapshot billing rate** should come down. If it isn't, investigate TurboSnap's effectiveness in the next section.
-
 ![Billed Snapshots per Build chart breaks down billed snapshot usage historically into the contribution of various types of snapshots. The line charts the total number of builds in the time period.](../../images/usage-trends-billed-snapshots-per-build.png)
+
+[TurboSnap](/docs/turbosnap) is meant to offset that increase. As total snapshots per build go up, your **Snapshot billing rate** should come down. If it isn't, investigate TurboSnap's effectiveness in the next section.
 
 ## Is TurboSnap bailing too often?
 
-TurboSnap's effectiveness has the biggest impact on your snapshot billing rate. Bailed builds drive up _billed snapshots per build_ even when total snapshots per build are stable.
+TurboSnap's effectiveness has the biggest impact on your snapshot billing rate. Bailed builds drive up **Billed Snapshots per Build** even when **Total Snapshots per Build** are stable.
 
 Effectiveness is the amount of copied or bypassed snapshots relative to captured ones. The more TurboSnap can copy or bypass instead of recapturing, the lower your billing rate.
 
