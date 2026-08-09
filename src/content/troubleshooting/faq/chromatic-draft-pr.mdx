@@ -30,15 +30,15 @@ jobs:
     runs-on: ubuntu-latest
     # Job steps
     steps:
-      - uses: actions/checkout@v6
+      - uses: actions/checkout@v7
         with:
           # 👇 Makes sure Chromatic can review the full git history
           fetch-depth: 0
           # 👇 Tells the checkout which commit hash to reference
           ref: ${{ github.event.pull_request.head.ref }}
-      - uses: actions/setup-node@v6
+      - uses: actions/setup-node@v7
         with:
-          node-version: 24.15.0
+          node-version: 24.19.0
       # 👇 Install dependencies with the same package manager used in the project (replace it as needed), e.g. yarn, npm, pnpm
       - name: Install dependencies
         run: npm ci
