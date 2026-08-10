@@ -239,7 +239,7 @@ The snapshot marked “Most recent build....” is a change that hasn’t been a
 
 </details>
 
-### Preferring merged baselines
+## Preferring merged baselines
 
 When a build has [multiple ancestor builds](#what-if-there-are-multiple-ancestor-builds) (for example, on a merge commit), Chromatic has to choose which baseline to use for each story. By default, it picks the most recently accepted baseline.
 
@@ -247,23 +247,37 @@ That default works for most teams. But consider a busy repository where many peo
 
 The `preferMergedBaselines` feature flag changes this behavior. When enabled, Chromatic prefers the “incoming” baselines from other branches, such as `main`, so you don’t have to re-accept changes that were already approved elsewhere. Without the flag, Chromatic can fall back to a stale baseline from the same branch, which can make approved changes from `main` appear as new diffs. With the flag enabled, Chromatic picks the fresher `main` baseline instead.
 
-**Important things to know:**
+### Important things to know
 
 - `preferMergedBaselines` is an account-level feature flag. It applies to all projects under the account. There is no way to enable it for a single project while leaving others on the default behavior.
 - It can’t be enabled via a CLI flag and must be turned on by the Chromatic team on your behalf. To request it, [email support](mailto:support@chromatic.com) or message them via in-app chat.
 - It only takes effect when there is a merge commit with multiple parents. If you use `git rebase` rather than `git merge`, Chromatic cannot see the other branch as an ancestor, so the flag has no effect.
 
-#### Workflows where it helps
+### Workflows where it helps
 
-1. **High-frequency trunk-based development with long-lived PRs.** In active teams, `main` updates rapidly while a developer works on a multi-day feature branch. Other developers merge and accept updates to shared components (e.g., updating a global `Button` design) on `main`. When you run `git merge main` into your feature branch, Chromatic’s default behavior compares your branch against its own previous baseline on that branch. This forces you to re-approve the global `Button` changes, even though someone else already vetted and approved them on `main`. With `preferMergedBaselines`, Chromatic detects the merge commit, evaluates both parent histories, and pulls the newly approved `Button` baseline directly from `main`. You only review visual diffs unique to your branch.
+#### High-frequency trunk-based development with long-lived PRs
 
-   ![Git graph with main branch commits A and B (an accepted UI change) and a feature branch off A with commit C, where main is merged into the feature branch as merge commit M.](../../images/diagrams/prefer-merged-baselines.svg)
+In active teams, `main` updates rapidly while a developer works on a multi-day feature branch. Meanwhile, other developers merge updates to shared components (e.g., updating a global Button design) into `main`.
 
-2. **Integration and release branches.** Enterprise workflows often use intermediate integration branches (e.g., `release/v2.1` or `staging`) before hitting production (`main`). Bug fixes and component updates are often merged directly into the integration branch and approved there. When developers sync their feature branches with it (e.g., `git merge staging`), Chromatic would normally pick the older feature branch baseline. With `preferMergedBaselines`, Chromatic prioritizes the accepted baselines coming in from the integration branch, so feature branches inherit pre-approved fixes immediately.
+When you merge `main` into your feature branch, Chromatic's default behavior compares your branch against its own previous baseline on that branch. This forces you to re-approve the global Button changes, even though someone already vetted and approved them on main.
 
-3. **Parallel feature branches sharing base components.** Two feature branches (`feature-A` and `feature-B`) are developed in parallel. `feature-A` completes first, updates shared design tokens, and merges into `main`. Developer B pulls `main` into `feature-B` (`git merge main`). Without the flag, Developer B is forced to re-verify Developer A’s design token changes because Chromatic defaults to `feature-B`’s older baseline, which causes confusion when Developer B lacks context on those changes. With `preferMergedBaselines`, Chromatic prioritizes `main`’s incoming baseline over `feature-B`’s historical baseline, bypassing redundant reviews.
+With `preferMergedBaselines`, Chromatic detects the merge commit, evaluates both parent histories, and pulls the newly approved Button baseline directly from main. You only review visual diffs unique to your branch.
 
-#### Limitations and considerations
+![Git graph with main branch commits A and B (an accepted UI change) and a feature branch off A with commit C, where main is merged into the feature branch as merge commit M.](../../images/diagrams/prefer-merged-baselines.svg)
+
+#### Integration and release branches
+
+Enterprise workflows often use intermediate integration branches (e.g., `release/v2.1` or `staging`) before reaching production (`main`).
+
+Bug fixes and component updates are often merged directly into the integration branch and approved there. When developers sync their feature branches with it (e.g., `git merge staging`), Chromatic would normally pick the older feature-branch baseline.
+
+With `preferMergedBaselines`, Chromatic prioritizes the accepted baselines coming from the integration branch, so feature branches inherit pre-approved fixes immediately.
+
+#### Parallel feature branches sharing base components
+
+Two feature branches (`feature-A` and `feature-B`) are developed in parallel. `feature-A` completes first, updates shared design tokens, and merges into `main`. Developer B pulls `main` into `feature-B` (`git merge main`). Without the flag, Developer B is forced to re-verify Developer A’s design token changes because Chromatic defaults to `feature-B`’s older baseline, which causes confusion when Developer B lacks context on those changes. With `preferMergedBaselines`, Chromatic prioritizes `main`’s incoming baseline over `feature-B`’s historical baseline, bypassing redundant reviews.
+
+### Limitations and considerations
 
 - Commits and branches must still be in the git history for their baselines to be picked up.
 - The flag uses the baseline at the last sync point from `main`, not `main`’s current `HEAD`. If your branch is significantly behind `main`, merge or rebase before the flag produces the expected result.
