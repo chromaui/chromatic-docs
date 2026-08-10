@@ -241,7 +241,7 @@ The snapshot marked “Most recent build....” is a change that hasn’t been a
 
 ### Preferring merged baselines
 
-When a build has [multiple ancestor builds](#what-if-there-are-multiple-ancestor-builds) — for example, on a merge commit — Chromatic has to choose which baseline to use for each story. By default, it picks the most recently accepted baseline.
+When a build has [multiple ancestor builds](#what-if-there-are-multiple-ancestor-builds) (for example, on a merge commit), Chromatic has to choose which baseline to use for each story. By default, it picks the most recently accepted baseline.
 
 That default works for most teams. But consider a busy repository where many people are working on the same UI. When you merge someone else’s changes into your branch (e.g., when you `git pull`) and they’ve touched the same stories as you, Chromatic can pick your baselines instead of the incoming ones. This results in you having to re-accept the changes the other person made, which you might not have the context on.
 
@@ -249,13 +249,13 @@ The `preferMergedBaselines` feature flag changes this behavior. When enabled, Ch
 
 **Important things to know:**
 
-- `preferMergedBaselines` is an account-level feature flag. It applies to all projects under the account — there is no way to enable it for a single project while leaving others on the default behavior.
+- `preferMergedBaselines` is an account-level feature flag. It applies to all projects under the account. There is no way to enable it for a single project while leaving others on the default behavior.
 - It can’t be enabled via a CLI flag and must be turned on by the Chromatic team on your behalf. To request it, [email support](mailto:support@chromatic.com) or message them via in-app chat.
 - It only takes effect when there is a merge commit with multiple parents. If you use `git rebase` rather than `git merge`, Chromatic cannot see the other branch as an ancestor, so the flag has no effect.
 
 #### Workflows where it helps
 
-1. **High-frequency trunk-based development with long-lived PRs.** In active teams, `main` updates rapidly while a developer works on a multi-day feature branch. Other developers merge and accept updates to shared components (e.g., updating a global `Button` design) on `main`. When you run `git merge main` into your feature branch, Chromatic’s default behavior compares your branch against its own previous baseline on that branch. This forces you to re-approve the global `Button` changes — even though someone else already vetted and approved them on `main`. With `preferMergedBaselines`, Chromatic detects the merge commit, evaluates both parent histories, and pulls the newly approved `Button` baseline directly from `main`. You only review visual diffs unique to your branch.
+1. **High-frequency trunk-based development with long-lived PRs.** In active teams, `main` updates rapidly while a developer works on a multi-day feature branch. Other developers merge and accept updates to shared components (e.g., updating a global `Button` design) on `main`. When you run `git merge main` into your feature branch, Chromatic’s default behavior compares your branch against its own previous baseline on that branch. This forces you to re-approve the global `Button` changes, even though someone else already vetted and approved them on `main`. With `preferMergedBaselines`, Chromatic detects the merge commit, evaluates both parent histories, and pulls the newly approved `Button` baseline directly from `main`. You only review visual diffs unique to your branch.
 
 2. **Integration and release branches.** Enterprise workflows often use intermediate integration branches (e.g., `release/v2.1` or `staging`) before hitting production (`main`). Bug fixes and component updates are often merged directly into the integration branch and approved there. When developers sync their feature branches with it (e.g., `git merge staging`), Chromatic would normally pick the older feature branch baseline. With `preferMergedBaselines`, Chromatic prioritizes the accepted baselines coming in from the integration branch, so feature branches inherit pre-approved fixes immediately.
 
