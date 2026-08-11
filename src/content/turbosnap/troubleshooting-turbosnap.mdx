@@ -68,9 +68,25 @@ In the case of merge commits, Chromatic does not know ahead of time which side o
 
 TurboSnap is compatible with squash and merge rebasing as of version 6.6+. Please update your package to get support.
 
+## Why didn't TurboSnap run on my build?
+
+"TurboSnap bailed" and "TurboSnap never ran" are different situations with different fixes, and the usage report doesn't always tell them apart. Work out which one you're looking at before you start troubleshooting.
+
+| Bail reason column                                                                      | What happened                                                                                        |
+| --------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------- |
+| One of the [reasons below](#what-do-the-turbosnap-bail-reasons-in-my-usage-report-mean) | TurboSnap ran, but couldn't confirm anything was unchanged, so every test in the build was captured. |
+| `unavailable`                                                                           | Your plan doesn't include TurboSnap, so it never ran. No configuration change will alter that.       |
+| Empty                                                                                   | Either TurboSnap ran and copied what it could, or it wasn't enabled for that build.                  |
+
+An empty column doesn't distinguish those last two. To tell them apart, open the build in Chromatic and check the TurboSnap status in the test summary. Its tooltip says whether TurboSnap applied, bailed, or was disabled for that build.
+
 ## What do the TurboSnap bail reasons in my usage report mean?
 
-Your [usage data (CSV report)](/docs/billing/usage-reports#export-usage-data-as-a-csv) can help you faster identify opportunities to improve your TurboSnap configuration. The "TurboSnaps Bail Reason" column tells you what caused TurboSnap triggered a full rebuild. Here's what each reason means:
+Your [usage data (CSV report)](/docs/billing/usage-reports#export-usage-data-as-a-csv) can help you identify opportunities to improve your TurboSnap configuration. The **TurboSnap Bail Reason** column tells you what caused TurboSnap to bail and trigger a full rebuild. The **TurboSnap effectiveness** chart in the [Trends dashboard](/docs/optimize-usage) segments bails by these same reasons.
+
+Most reasons point to something in your setup you can change. `unavailable` and `missingStatsFile` are the exceptions, explained in their entries below.
+
+Here's what each reason means:
 
 ### `changedExternalFiles`
 
@@ -108,7 +124,9 @@ TurboSnap is having issues retrieving your git history. This commonly happens wh
 
 TurboSnap bailed due to missing stats file.
 
-Since the stats file is needed for TurboSnap to analyze your dependencies, make sure your Storybook script includes `--stats-json`.
+This reason comes from Chromatic CLI versions before 10.6.0. Newer versions fail the build with an error message instead of bailing, so it only appears in usage reports covering builds that ran on an older CLI.
+
+The fix is the same either way. Since the stats file is needed for TurboSnap to analyze your dependencies, make sure your Storybook script includes `--stats-json`.
 
 ### `noAncestorBuild`
 
@@ -121,3 +139,9 @@ This bail reason is reserved for when no ancestor build is found at all for a co
 TurboSnap bailed because the commit is a rerun of a previous build, based on the baseline build having the same commit and branch name.
 
 Most reruns are intentional, but if you weren't expecting the ones you're seeing, this may indicate you need to check your CI workflow to see what could be kicking off an additional build for the same commit.
+
+### `unavailable`
+
+TurboSnap didn't run because your plan doesn't include it.
+
+This isn't a configuration problem, and no change to your Chromatic script will resolve it. Review your plan on the [billing page](/docs/billing). In Chromatic, the TurboSnap status on an affected build links through to the project's manage page, where availability is shown.
