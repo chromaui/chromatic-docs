@@ -70,12 +70,12 @@ TurboSnap is compatible with squash and merge rebasing as of version 6.6+. Pleas
 
 ## Why didn't TurboSnap run on my build?
 
-"TurboSnap bailed" and "TurboSnap never ran" are different situations with different fixes, and the usage report doesn't always tell them apart. Work out which one you're looking at before you start troubleshooting.
+The usage report shows whether TurboSnap actually ran, and if it didn’t, why.
 
 | Bail reason column                                                                      | What happened                                                                                        |
 | --------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------- |
 | One of the [reasons below](#what-do-the-turbosnap-bail-reasons-in-my-usage-report-mean) | TurboSnap ran, but couldn't confirm anything was unchanged, so every test in the build was captured. |
-| `unavailable`                                                                           | Your plan doesn't include TurboSnap, so it never ran. No configuration change will alter that.       |
+| `unavailable`                                                                           | TurboSnap isn't available for your account yet. It becomes available after 10 builds from CI.        |
 | Empty                                                                                   | Either TurboSnap ran and copied what it could, or it wasn't enabled for that build.                  |
 
 An empty column doesn't distinguish those last two. To tell them apart, open the build in Chromatic and check the TurboSnap status in the test summary. Its tooltip says whether TurboSnap applied, bailed, or was disabled for that build.
@@ -142,6 +142,8 @@ Most reruns are intentional, but if you weren't expecting the ones you're seeing
 
 ### `unavailable`
 
-TurboSnap didn't run because your plan doesn't include it.
+TurboSnap didn't run because it isn't available for your account yet.
 
-This isn't a configuration problem, and no change to your Chromatic script will resolve it. Review your plan on the [billing page](/docs/billing). In Chromatic, the TurboSnap status on an affected build links through to the project's manage page, where availability is shown.
+TurboSnap becomes available once a project has run at least 10 builds from CI, and it stays available for the whole account from then on. Until that happens, builds that ask for TurboSnap record this reason and capture every test.
+
+This isn't a configuration problem, so there's nothing to change in your Chromatic script. Keep running builds in CI. If you've passed 10 builds from CI and TurboSnap still isn't available, check that the project has UI Tests or UI Review enabled, since it won't become available for projects that only publish Storybook.
