@@ -1,6 +1,6 @@
 ---
 title: 'Chromatic API (Private Beta)'
-description: "Getting started with Chromatic's GraphQL API for agents (private beta) — endpoint, OAuth 2.0 + PKCE authentication, queries, mutations, and scopes."
+description: "Getting started with Chromatic's GraphQL API for agents (private beta) — endpoint, OAuth 2.0 authentication for user-facing and machine-to-machine clients, queries, mutations, and scopes."
 sidebar:
   hide: true
 isHidden: true
@@ -13,11 +13,15 @@ Chromatic's public API is built using GraphQL. If you are new to GraphQL, Apollo
 <details>
   <summary>Prompt for AI-assisted set up</summary>
 
-Follow this doc to authenticate with OAuth 2.0 + PKCE in order to access the Chromatic API: https://www.chromatic.com/docs/llms/api.txt
+Follow this doc to authenticate with OAuth 2.0 in order to access the Chromatic API: https://www.chromatic.com/docs/llms/api.txt
+
+If you have a client secret, authenticate with the client credentials grant. Otherwise, use the authorization code flow with PKCE.
 
 The client id is: <REPLACE_WITH_CLIENT_ID_PROVIDED_BY_CHROMATIC>
+The client secret is: <REPLACE_WITH_CLIENT_SECRET_OR_DELETE_THIS_LINE>
+The account id is: <REPLACE_WITH_ACCOUNT_ID_OR_DELETE_THIS_LINE>
 
-Once authenticated, test out accessing the API by showing me a list of at most 10 of my projects with their names and URLs.
+Once authenticated, test out accessing the API by showing me a list of at most 10 projects with their names and URLs. If you authenticated with PKCE, use the `viewer` query. If you used client credentials, use the `account` query with the account id above.
 
 </details>
 
@@ -37,15 +41,20 @@ Note this is an early access feature so there are some endpoints that you can se
 
 With the client ID you received, go through the authorization flow (outlined below) to receive an `access_token`.
 
-Once you have it, our GraphQL API is explorable and queryable via [Apollo Studio](https://www.chromatic.com/api) — a GraphQL client where you can browse the schema and run queries.
+Once you have it, our GraphQL API is explorable and queryable via [Apollo Studio](https://www.chromatic.com/api): a GraphQL client where you can browse the schema and run queries.
 
 Add the `Authorization` header with the value `Bearer <access_token>` to authenticate your requests.
 
 ### Authentication
 
-Chromatic uses OAuth 2.0 with PKCE to issue access tokens. All API requests must include a valid access token in the `Authorization` header.
+Chromatic supports two OAuth 2.0 flows to issue access tokens. All API requests must include a valid access token in the `Authorization` header.
 
-#### Getting an access token
+| Flow                                                          | Use when                                                                                       | Credentials                 |
+| ------------------------------------------------------------- | ---------------------------------------------------------------------------------------------- | --------------------------- |
+| [Authorization code with PKCE](#authorization-code-with-pkce) | An agent or tool acts on behalf of a signed-in user, such as local development or an IDE agent | Client ID                   |
+| [Client credentials (M2M)](#client-credentials-m2m)           | Headless automation runs with no user present, such as a CI pipeline, bot, or service          | Client ID and client secret |
+
+#### Authorization code with PKCE
 
 <div class="aside">
 
@@ -53,7 +62,7 @@ If you are in the private beta, reach out directly to your dedicated Chromatic p
 
 </div>
 
-Use your client ID to Chromatic OAuth client to run the authorization code flow. This opens a browser window for you to approve access, then exchanges the resulting code for a token pair.
+Use your client ID with the Chromatic OAuth client to run the authorization code flow. This opens a browser window for you to approve access, then exchanges the resulting code for a token pair.
 
 **Authorization endpoint** — `https://www.chromatic.com/authorize`
 
@@ -95,7 +104,7 @@ Authorization: Bearer <your_access_token>
 
 #### Refreshing your token
 
-Access tokens are short-lived. Use your `refresh_token` to obtain a new token pair without re-authorizing. Refresh tokens **rotate on every use** — always save the new `refresh_token` from the response.
+This applies to the authorization code flow only, the client credentials grant doesn't issue refresh tokens. Access tokens are short-lived. Use your `refresh_token` to obtain a new token pair without re-authorizing. Refresh tokens **rotate on every use**. Always save the new `refresh_token` from the response.
 
 ```bash
 curl -s -X POST https://www.chromatic.com/token \
@@ -108,9 +117,47 @@ curl -s -X POST https://www.chromatic.com/token \
 
 ---
 
+#### Client credentials (M2M)
+
+Machine-to-machine (M2M) clients authenticate directly with a client ID and client secret. There's no browser redirect and no user approval step, which makes this the right flow for CI pipelines, bots, and other headless automation. To create one, follow [Create an M2M OAuth client](/docs/m2m-oauth-client).
+
+**Token endpoint** — `https://www.chromatic.com/token`
+
+| Parameter       | Value                                      |
+| --------------- | ------------------------------------------ |
+| `grant_type`    | `client_credentials`                       |
+| `client_id`     | `<your_client_id>`                         |
+| `client_secret` | `<your_client_secret>`                     |
+| `resource`      | `https://www.chromatic.com/api` (required) |
+
+```bash
+curl -s -X POST https://www.chromatic.com/token \
+  -H "Content-Type: application/x-www-form-urlencoded" \
+  --data-urlencode "grant_type=client_credentials" \
+  --data-urlencode "client_id=<your_client_id>" \
+  --data-urlencode "client_secret=<your_client_secret>" \
+  --data-urlencode "resource=https://www.chromatic.com/api"
+```
+
+The response contains an `access_token` that you pass in the `Authorization` header, exactly as with the PKCE flow.
+
+<div class="aside">
+
+💡 Access tokens expire after **60 minutes**. M2M clients don't receive a refresh token, request a new access token with the same grant when the current one expires.
+
+</div>
+
+Treat the client secret like a password. Store it in your CI provider's secret manager and never commit it. Chromatic shows it once, when you create the client, and can't retrieve it afterwards.
+
+M2M tokens act on behalf of an account, not a user, so the `viewer` query and the `user:read` scope aren't available. Use the [`account`](#account) query as your entry point instead.
+
+---
+
 ### Making requests
 
 All requests are `POST` to `https://www.chromatic.com/api` with a JSON body containing your `query` and optionally `variables`.
+
+This example queries `viewer`, which requires the `user:read` scope and is available via the [authorization code with PKCE](#authorization-code-with-pkce) flow only. With an M2M token, query [`account`](#account) instead.
 
 ```bash
 curl -s -X POST https://www.chromatic.com/api \
@@ -154,9 +201,9 @@ The GraphQL API always returns HTTP `200`, even when something goes wrong. Check
 
 Common error causes:
 
-- **Expired token** — access tokens last 60 minutes; refresh and retry
-- **Insufficient scope** — the token doesn't include the scope required for that field
-- **Not found** — the requested ID doesn't exist or isn't accessible to the authenticated user
+- **Expired token:** access tokens last 60 minutes; refresh and retry
+- **Insufficient scope:** the token doesn't include the scope required for that field
+- **Not found:** the requested ID doesn't exist or isn't accessible to the authenticated user
 
 ---
 
@@ -164,7 +211,7 @@ Common error causes:
 
 #### viewer
 
-Returns the authenticated user's profile. Requires the `user:read` scope.
+Returns the authenticated user's profile. Requires the `user:read` scope, which is available via the [authorization code with PKCE](#authorization-code-with-pkce) flow only.
 
 ```bash
 curl -s -X POST https://www.chromatic.com/api \
@@ -204,6 +251,8 @@ Returns an account by ID — either a personal account or an organization. Requi
 | Argument | Type | Description        |
 | -------- | ---- | ------------------ |
 | `id`     | ID!  | Account identifier |
+
+Both the bare ID (as found in the `chromatic.com/apps` URL) and the prefixed `Account:` form (as returned in API responses) are accepted.
 
 ```bash
 curl -s -X POST https://www.chromatic.com/api \
