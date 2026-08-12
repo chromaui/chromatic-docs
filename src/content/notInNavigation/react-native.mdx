@@ -531,3 +531,28 @@ Not yet via the [modes API](/docs/modes). You can write a separate story per var
 Not yet
 
 </details>
+
+<details>
+<summary>Why are my stories hidden behind the status bar?</summary>
+
+Chromatic captures stories as rendered by the simulator, including the status bar—this can cause inconsistent rendering across devices. To avoid this, wrap your stories with a decorator that adds some padding or a safe area view, ensuring the UI elements stay visible, for example:
+
+```ts title=".storybook/preview.ts|tsx"
+import type { Preview } from '@storybook/react-native';
+
+import { View } from 'react-native';
+
+const preview: Preview = {
+  decorators: [
+    (Story) => (
+      <View style={{ padding: 44, flex: 1 }}>
+        <Story />
+      </View>
+    ),
+  ],
+};
+
+export default preview;
+```
+
+</details>
