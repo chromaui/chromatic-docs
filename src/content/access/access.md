@@ -114,7 +114,7 @@ When you have a fork of a private organization owned repository, that forked rep
 
 Email and password authentication is available on all accounts. It's a popular authentication method for [external collaborators](/docs/access/collaborators#external-collaborators) like designers, PMs, and other stakeholders.
 
-If you're setting up Chromatic for your team as the account owner or administrator, there are some boundaries to be aware of:
+If you're setting up Chromatic for your team, there are some boundaries to be aware of:
 
 - Email accounts can use Chromatic as normal
 - [Collaborators](/docs/access/collaborators) are manually managed
@@ -161,9 +161,9 @@ You can link a project during the project creation process or afterward on the p
 
 If you encounter an `<unknown>` project, this means Chromatic can no longer connect it to your Git repository.
 
-To refresh the Git access token and reconnect the `<unknown>` project, request one of the account owners to log out and log back into Chromatic.
+Each project syncs using one collaborator's access token. Open the project's **Manage** page » **Configure** tab to see whose token it's using. That person can sign out of Chromatic and sign back in with the Git provider to refresh it.
 
-Alternatively, replace the Git token from the `Configure` tab on the `Manage` page of your project.
+Anyone with Developer access or higher and a connected Git account can take over instead, by selecting **Replace with your token** on the same tab.
 
 </details>
 
