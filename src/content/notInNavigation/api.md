@@ -125,9 +125,9 @@ Machine-to-machine (M2M) clients authenticate directly with a client ID and clie
 
 | Parameter       | Value                                      |
 | --------------- | ------------------------------------------ |
-| `grant_type`    | `client_credentials`                       |
-| `client_id`     | `<your_client_id>`                         |
-| `client_secret` | `<your_client_secret>`                     |
+| `grant_type`    | `client_credentials` (required)            |
+| `client_id`     | `<your_client_id>` (required)              |
+| `client_secret` | `<your_client_secret>` (required)          |
 | `resource`      | `https://www.chromatic.com/api` (required) |
 
 ```bash
