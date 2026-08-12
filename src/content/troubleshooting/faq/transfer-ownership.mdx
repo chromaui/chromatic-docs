@@ -2,9 +2,33 @@
 sidebar: { hide: true }
 title: How do I transfer account ownership to another user?
 section: account
-section order: 5
+sectionOrder: 5
 ---
 
 # How do I transfer account ownership to another user?
 
-To transfer ownership, you will need to assign another collaborator with the owner role - please note they must be a collaborator within the organization account (via Git provider). If you have an individual account and want to transfer it to another user, please reach out to us using our **in-app chat** or email us at **support@chromatic.com**.
+Chromatic accounts don't have an owner role, so there's nothing to hand over directly. What to do depends on the account type.
+
+Looking to hand off a single project? See [project ownership](/docs/access/collaborators#project-ownership).
+
+## Organization accounts linked to a Git provider
+
+Access comes from your GitHub organization, GitLab group, or Bitbucket workspace. Everyone in it is a Member in Chromatic, so there's no owner to reassign — change who has access in your Git provider instead.
+
+One thing is tied to a specific person: the Git provider API token Chromatic uses to sync your organization's details and permissions. If that person leaves or loses access, another member takes it over themselves:
+
+1. Sign in to Chromatic with the same Git provider.
+2. Open your organization's **Settings** page.
+3. Under **API token**, select **Replace with your token**.
+
+This can only be done by the person taking the token over, and it can't be undone.
+
+## Enterprise accounts with SSO
+
+Organization roles come from your identity provider. An Admin can change a member's role to Billing, Member, or Viewer on the Settings page, but making someone an Admin has to happen in your identity provider. Every account keeps at least one Admin. See [organization roles](/docs/access/teams#organization-roles).
+
+## Individual accounts
+
+There's no self-serve way to move an email and password account, or a personal Git account, to someone else. Use our **in-app chat** to contact us or email us at [support@chromatic.com](mailto:support@chromatic.com). Tell us the account and who should have it, and we'll go through the options with you.
+
+Moving the subscription is a separate step — see [how do I transfer my account's subscription to another account?](/docs/faq/transfer-subscription/)

@@ -55,16 +55,16 @@ Single Sign-On (SSO) is available to enterprise customers. Learn more [here](/do
 
 Collaborate on billing, usage, and permissions by syncing your organization with GitHub, Bitbucket, or GitLab.
 
-For email and password accounts, only the account owner can login to access billing information. For SSO accounts, contact your company's SSO administrator to manage billing.
+For email and password accounts, the user who created the account is the only one who can sign in to manage billing. To give a teammate billing access, see below. For SSO accounts, contact your company's SSO administrator to manage billing.
 
 <details>
 <summary>How can I give someone billing access?</summary>
 
-If you have an email/password user account and need access to billing, please email us at **support@chromatic.com** with your email address.
+If you have an unlinked organization account and need access to billing, please email us at **support@chromatic.com** with your email address.
 
 **Note:**
 
-- Billings users cannot be added to Git-linked accounts. Linked accounts rely on the connected Git provider to manage permissions. Users would need org-level permissions granted within the git provider to access billing.
+- Billing users cannot be added to Git-linked accounts. Linked accounts rely on the connected Git provider to manage permissions. Users would need org-level permissions granted within the git provider to access billing.
 - Git-linked users cannot be set as Billing users for unlinked accounts. Git-linked user permissions depend on git providers.
 
 </details>
@@ -138,6 +138,8 @@ On the Enterprise plan with SSO and directory sync (SCIM), additional organizati
 Projects must have at least one owner. The `owner` role is automatically assigned to the first user in a Chromatic project.
 
 Transfer ownership by assigning another collaborator as an owner and then reassigning yourself another role.
+
+This transfers a single project. Chromatic accounts have no owner role — see [how do I transfer account ownership to another user?](/docs/faq/transfer-ownership/)
 
 #### View your role
 
