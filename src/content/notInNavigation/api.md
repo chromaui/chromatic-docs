@@ -21,7 +21,7 @@ The client id is: <REPLACE_WITH_CLIENT_ID_PROVIDED_BY_CHROMATIC>
 The client secret is: <REPLACE_WITH_CLIENT_SECRET_OR_DELETE_THIS_LINE>
 The account id is: <REPLACE_WITH_ACCOUNT_ID_OR_DELETE_THIS_LINE>
 
-Once authenticated, test out accessing the API by showing me a list of at most 10 projects with their names and URLs. If you authenticated with PKCE, use the `viewer` query. If you used client credentials, use the `account` query with the account id above.
+If you authenticated without a client secret, use the `viewer` query via `accounts { projects }`. If you have a client secret, use the `account` query with the account id above
 
 </details>
 
