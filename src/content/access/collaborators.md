@@ -55,17 +55,18 @@ Single Sign-On (SSO) is available to enterprise customers. Learn more [here](/do
 
 Collaborate on billing, usage, and permissions by syncing your organization with GitHub, Bitbucket, or GitLab.
 
-For email and password accounts, the user who created the account is the only one who can sign in to manage billing. To give a teammate billing access, see below. For SSO accounts, contact your company's SSO administrator to manage billing.
+For email and password accounts, the user who created the account is the only one who can sign in to manage billing. On SSO accounts and unlinked organization accounts, the Billing role is set by Chromatic — see below.
 
 <details>
 <summary>How can I give someone billing access?</summary>
 
-If you have an unlinked organization account and need access to billing, please email us at **support@chromatic.com** with your email address.
+If you have an unlinked organization or SSO account and need billing access for someone, email us at **support@chromatic.com** with their email address.
 
 **Note:**
 
 - Billing users cannot be added to Git-linked accounts. Linked accounts rely on the connected Git provider to manage permissions. Users would need org-level permissions granted within the git provider to access billing.
 - Git-linked users cannot be set as Billing users for unlinked accounts. Git-linked user permissions depend on git providers.
+- On SSO accounts with directory sync, roles come from your identity provider. If your IdP later changes someone's role, it overwrites the role we set, so assigning the Billing role in your IdP is the durable option.
 
 </details>
 
