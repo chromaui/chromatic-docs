@@ -1,16 +1,48 @@
 ---
 sidebar: { hide: true }
-title: Why am I receiving a failed to login as OAuth user error ?
+title: Why is my Git account already connected to another Chromatic profile?
 section: account
-section order: 5
+sectionOrder: 5
 ---
 
-# Why am I receiving a failed to login as OAuth user error ?
+# Why is my Git account already connected to another Chromatic profile?
 
-If you're encountering issues with linking your Git provider to Chromatic, one of the most common reasons for this error is due to existing duplicate accounts.
+A Git provider account can only be connected to one Chromatic profile at a time. You'll see this when you try to connect one that's already attached elsewhere:
 
-The first step in resolving this issue is identifying any previous accounts you may have with Chromatic.
+```plain
+This GitHub account is already connected to another Chromatic profile,
+but can only be connected to one.
+```
 
-Once you've identified a potential duplicate account, the next step is to log into Chromatic using the account that's causing the issue.
+## You have a second Chromatic profile
 
-If you are unable to find the account, please contact support via our **in-app chat** or email us at **support@chromatic.com** so we can assist you further.
+The usual cause. Most people get here after signing up twice: once with a Git provider, once with an email and password.
+
+Decide which profile you're keeping before deleting anything. Usually it's the Git-linked one, because that's where your projects and build history already are.
+
+### Keeping the Git-linked profile
+
+Sign out, then sign in at [chromatic.com/start](https://www.chromatic.com/start) with your Git provider. That takes you to the Git-linked profile, and there's nothing left to connect.
+
+If you don't want the email and password profile, sign in to it and [delete it](/docs/faq/delete-my-profile).
+
+### Keeping the email and password profile
+
+The Git-linked profile has to go first, since the Git account can't be attached to two profiles at once.
+
+1. Sign out of your current profile.
+2. Sign in at [chromatic.com/start](https://www.chromatic.com/start) with the Git provider that's causing the error.
+3. Open your [profile page](https://www.chromatic.com/profile) and [delete that profile](/docs/faq/delete-my-profile).
+4. Sign back in to the profile you're keeping, then connect the Git provider from your profile page.
+
+Chromatic asks for the password before deleting a profile that was created with an email and password.
+
+## The Git account is connected to a SAML profile
+
+You can't fix this one yourself. If the Git account is attached to a profile on a [SAML account](/docs/access/sso), that profile has to be removed first.
+
+Use our **in-app chat** to contact us or email us at [support@chromatic.com](mailto:support@chromatic.com). Tell us the Git provider and the username or email you're connecting.
+
+Removing a profile is permanent, so we'll confirm what's on it before doing anything.
+
+Once we've removed it, sign out — or clear your cookies for `chromatic.com` — before you sign in with your Git provider again. An old session can send you back to the profile you just left, which looks like the fix didn't work.
