@@ -50,7 +50,7 @@ To connect activity from the plugin with the later CLI run without identifying y
 
 ## See what’s being collected
 
-If you want to inspect exactly what’s sent, you can have the integration write every telemetry event to a local file instead of guessing. Enable it through the plugin:
+To inspect exactly what’s sent, you can have the integration write every telemetry event to a local file. Enable it through the plugin:
 
 ```ts title="vitest.config.ts"
 import { chromaticPlugin } from '@chromatic-com/vitest/plugin';
@@ -83,3 +83,21 @@ DO_NOT_TRACK=1
 [`DO_NOT_TRACK` is a cross-tool standard.](https://consoledonottrack.com/)
 
 </div>
+
+<p></p>
+
+<div class="aside">
+
+⚠️ These environment variables must be set for **both** the Vitest process and the Chromatic CLI process. Setting it for only one of them leaves the other still reporting.
+
+</div>
+
+For example, when running locally, you can do:
+
+```shell
+CHROMATIC_DISABLE_TELEMETRY=1 vitest
+# then
+CHROMATIC_DISABLE_TELEMETRY=1 chromatic --vitest -t=<TOKEN>
+```
+
+Or, in a CI workflow, you can set the variable globally for all steps.
