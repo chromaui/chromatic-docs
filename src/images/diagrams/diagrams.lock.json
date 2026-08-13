@@ -27,6 +27,10 @@
     "src": "30fa53c190d23d35c70fd8863a1a957e451870f607c0b91df0db942b66d810dc",
     "svg": "456f17d3f759389325f74588d1341f3b490e4010c6101d12d2793587e9e1a1f0"
   },
+  "prefer-merged-baselines.mmd": {
+    "src": "2c72c607d396456ca336fedacf9c54950247f6283e7249755dace13f103cd54f",
+    "svg": "2327081187c54433aea8459b2db4fb5db84402ffdcfceb2bf53275db8644c9cc"
+  },
   "revert-restore-color.mmd": {
     "src": "8397d3cf5e70e0ec8993ac635dfdf229b45291f9f79bd7317b23a0f3b0727b8d",
     "svg": "787881e58cb3d4ae6ab0fb5d9f174ce8e0927f76f4fea76836d5340a0bde4459"

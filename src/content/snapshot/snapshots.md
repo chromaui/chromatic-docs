@@ -6,7 +6,7 @@ sidebar: { order: 1 }
 
 # Snapshots
 
-A **snapshot** is an image of the UI rendered by a test, along with metadata captured in Chromatic’s Capture Cloud infrastructure. Snapshots power Chromatic's [UI Tests](/docs#test-how-uis-look--function) and [UI Review](/docs/review) features.
+A **snapshot** is the unit of work executed by Chromatic to run a [UI Test](/docs#test-how-uis-look--function). This work can be taking a screenshot, capturing accessibility data, copying such information from one test to another, or even bypassing such work completely if it is found to be unnecessary.
 
 <div class="aside">
 
@@ -14,59 +14,67 @@ Looking for information on snapshot billing? [Go to billing docs](/docs/billing)
 
 </div>
 
+The type of work performed by Chromatic is determined by the following factors:
+
+- **Visual vs. Accessibility:** A [visual test](/docs/visual) captures the rendered state of the UI, whereas an [accessibility test](/docs/accessibility) captures accessibility information about the UI. Both types of tests take a snapshot and compare it to a baseline snapshot to detect changes.
+
+- **Capture vs. TurboSnap:** A captured snapshot performs the full suite of work, including taking screenshots or capturing accessibility data, and running diffs. A [TurboSnap](/docs/turbosnap) snapshot avoids unnecessary work if it is determined that the associated code has not changed, speeding up the testing process.
+
+These dimensions stack to create a snapshot. For example, you can have a "captured visual snapshot" or a "turbo visual snapshot". The short forms are "visual snapshot" and "visual turbosnap", respectively.
+
 ## Snapshot-compatible tests
 
-A **test** represents a piece of UI rendered in a specific state. Chromatic can capture snapshots for a two types of tests:
+A **test** represents a piece of UI rendered in a specific state that Chromatic can capture as a snapshot. Chromatic supports the following types of tests:
 
-- **Storybook Stories:** By default, a story captures the rendered state of a UI component. Therefore Chromatic uses stories as is for visual testing.
+- Storybook Stories
+- Playwright & Cypress End-to-End (E2E) tests
+- Vitest browser mode tests
 
-- **End-to-End (E2E) tests:** Chromatic captures snapshots of your Playwright or Cypress E2E tests by first creating a self-contained [archive](/docs/faq/what-is-archive). This archive, generated during Playwright/Cypress test runs, contains all the assets and data required to re-render your app UI for visual testing.
+Each test can generate multiple snapshots, varying by [browser](/docs/browsers#browser-support) (or mobile simulators and emulators), [theme](/docs/themes), [viewport size](/docs/viewports), and other configurations you define.
 
-Each test can generate [multiple snapshots](/docs/billing#snapshots), varying by [browser](/docs/browsers#browser-support), [theme](/docs/themes), [viewport size](/docs/viewports), and other configurations you define. This ensures comprehensive coverage of your UI's visual appearance.
-
-With Playwright and Cypress, you can even capture snapshots at [specific moments within a single test](/docs/playwright/targeted-snapshots) for even more granular analysis.
+With [Playwright](/docs/playwright/targeted-snapshots), [Cypress](/docs/cypress/targeted-snapshots), and [Vitest](/docs/vitest/targeted-snapshots), you can even capture multiple visual snapshots within a single test for even more granular analysis.
 
 ## How are snapshots captured?
 
 Chromatic captures snapshots by following these steps:
 
 <details>
-<summary>1. Load each test in the designated browser and viewport</summary>
+<summary>1. Load each test in the designated device and viewport</summary>
 
-Chromatic's Capture Cloud leverages a fleet of standardized [browsers](/docs/browsers) to load all of your tests (either stories or archives) in parallel, at the specified [viewport size](/docs/viewports).
+Chromatic's Capture Cloud leverages a fleet of standardized [browsers](/docs/browsers) and mobile emulators to load all of your tests (either stories or archives) in parallel, at the specified [viewport size](/docs/viewports).
 
 </details>
 
 <details>
 <summary>2. Wait for the test to render</summary>
 
-Capture Cloud uses underlying browser APIs combined with our own set of heuristics to determine when the UI has "loaded". Various factors can influence this waiting period, which are detailed in the following section: [When is a snapshot captured?](#when-is-a-snapshot-captured)
+Capture Cloud uses underlying browser APIs combined with our own set of [heuristics](/features/steadysnap) to determine when the UI has "loaded" and is ready to be captured.
 
 </details>
 
 <details>
-<summary>3. Take a screenshot and crop it to the dimensions of the UI</summary>
+<summary>3. Capture screenshot and/or accessibility data</summary>
 
-Chromatic crops the screenshot to the size of the rendered UI.
+For visual tests, Chromatic takes a screenshot and crops it to the dimensions of the UI.
 
-**Stories:** It determines crop dimensions by measuring the bounding box of the `<body>` element. For atomic components, cropping eliminates negative spaces around snapshots reducing the visual information you must review.
-
-**E2E Tests:** For pages, Chromatic captures the full width and height of the rendered UI.
+For accessibility tests, Chromatic runs accessibility audits and collects information about the rendered UI.
 
 </details>
 
 <details>
-<summary>4. Save snapshot and diff between previous baseline snapshots for a build or branch</summary>
+<summary>4. Save snapshot and diff between baseline and new snapshot</summary>
 
-Each snapshot is associated with a story and tagged with commit, branch, and other relevant metadata. Snapshots are stored in Chromatic's cloud. For UI Test and UI Review, snapshots are visually compared (diff) to identify changes. Our infrastructure is effectively capable of snapshotting every story in parallel, no matter how many stories you have.
+Each snapshot is associated with a test and tagged with commit, branch, and other relevant metadata. Chromatic then runs pixel diffs between the new snapshot and the previous baseline snapshot for that test, highlighting any visual changes. For accessibility tests, Chromatic compares the new accessibility data with the previous baseline data to identify any changes.
 
 </details>
 
-## When is a snapshot captured?
+## Visual snapshots
+
+### When is a visual web snapshot captured?
 
 Various factors can influence the waiting period, for [**step 2**](/docs/snapshots#2-wait-for-the-test-to-render), before the snapshot is captured.
 
-One of the primary heuristics Chromatic uses is **network quiesence**—a period of network inactivity which signals that all resources have loaded. This loading analysis is our best approximation for determining when the UI has finished rendering.
+One of the primary heuristics Chromatic uses is **network quiesence**, a period of network inactivity which signals that all resources have loaded. This loading analysis is our best approximation for determining when the UI has finished rendering.
 
 ![basic snapshot](../../images/basic-snapshot.png)
 
@@ -94,22 +102,22 @@ If you apply a delay to a story that has interactions, the delay is applied afte
 
 ![snapshot with interactions and delay](../../images/snapshot-with-interactions-and-delay.png)
 
-## View snapshots for a test
+### View visual snapshot for a test
 
-The component screen allows you to switch between 'Canvas' and 'Snapshot'. Under the Snapshot tab, you'll find the image captured by Chromatic's cloud browser — this is exactly what the browser _saw_ when it rendered the test. This could be the component's _initial_ or _intermediate_ state.
+The component screen allows you to switch between 'Canvas' and 'Snapshot'. Under the Snapshot tab, you'll find the image captured by Chromatic's cloud browser. This is exactly what the browser _saw_ when it rendered the test. This could be the component's _initial_ or _intermediate_ state.
 
 ![Component screen with snapshot](../../images/component-snapshot.png)
 
-<div class="aside">Tip: Click the expand icon in the top right to open the test. Stories open in your published Storybook.</div>
+<div class="aside">Tip: Click the arrow icon in the top right to open the test. Stories open in your published Storybook.</div>
 
 ### View live rendered test using the Canvas
 
 **Canvas** is an interactive environment that renders your test code live in the browser. These are fully inspectable, enabling you to troubleshoot changes and errors effectively.
 
-With Storybook, it displays the story, and with Playwright or Cypress, it shows the [archive](/docs/faq/what-is-archive) of your E2E test. It visualizes the _final state_ of the test UI.
+With Storybook, it displays the story. With Playwright, Cypress and Vitest, it shows the [archive](/docs/faq/what-is-archive) of your test. In all cases, you see the _final state_ of the test UI.
 
 ![Component screen in Canvas mode](../../images/component-canvas.png)
 
-### Differences in Snapshot vs Canvas
+### Differences in visual snapshot vs Canvas
 
-The snapshot might differ from the `Canvas` due to various reasons, such as JavaScript execution being blocked during capture, which can prevent certain elements from being captured, or the use of the `isChromatic()` function to alter rendering on Chromatic.
+The visual snapshot might differ from the `Canvas` for various reasons, such as JavaScript execution being blocked during capture, which can prevent certain elements from being captured. Or the use of the `isChromatic()` function to alter rendering on Chromatic.

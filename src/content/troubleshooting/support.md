@@ -6,7 +6,7 @@ sidebar: { order: 2 }
 
 # Support
 
-The fastest way to get help is to search the docs and browse our [FAQ](/docs/FAQ).
+The fastest way to get help is to search the docs and browse our [FAQ](/docs/faq).
 
 Our team is spread across timezones for a quick turnaround time. Use our **in-app chat** to get in touch. Please provide details like version numbers, logs, and screenshots, to speed up troubleshooting.
 

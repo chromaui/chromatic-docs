@@ -1,0 +1,55 @@
+---
+title: TurboSnap
+slug: vitest/turbosnap
+description: Using TurboSnap with Vitest
+sidebar: { order: 3 }
+---
+
+# Configure TurboSnap for Vitest
+
+TurboSnap can reduce the amount of snapshots that need to be visually compared. Using Vite's module graph, it can track down changed files and dependencies to determine which snapshots need to be re-run. You can read more about TurboSnap in the [TurboSnap documentation](/docs/turbosnap).
+
+To enable TurboSnap in Vitest, you'll need to set the Chromatic plugin's `turboSnap` option to `true` in the Vitest configuration file.
+
+```ts title="vitest.config.ts"
+import { defineProject } from 'vitest/config';
+import { chromaticPlugin } from '@chromatic-com/vitest/plugin';
+
+export default defineProject({
+  plugins: [chromaticPlugin({
+    turboSnap: true, // [!code ++]
+  )],
+});
+```
+
+During the test run, the plugin will generate information for TurboSnap in the `outputDirectory` (default is `.vitest/chromatic`) that can be used to determine which snapshots need to be re-run.
+
+To enable TurboSnap in `chromatic` CLI, you'll need to use the `--only-changed` flag:
+
+```bash
+chromatic --vitest --project-token=<TOKEN> --only-changed
+```
+
+Or set `onlyChanged: true` in your Github Action workflow file:
+
+```ts title=".github/workflows/chromatic.yml"
+jobs:
+  chromatic:
+    steps:
+      # ... other steps
+
+      - name: Run Chromatic
+        uses: chromaui/action@latest
+        with:
+          vitest: true
+          onlyChanged: true // [!code ++]
+          projectToken: ${{ secrets.CHROMATIC_PROJECT_TOKEN }}
+```
+
+## Configuration
+
+To accommodate files outside of the module graph (such as a global stylesheet), you can set the `externals` option alongside `onlyChanged` to force a full build (no TurboSnapped snapshots) when those files change. See [this TurboSnap recipe](/docs/turbosnap/setup#specify-external-files-to-trigger-a-full-re-test-when-they-change) for more information.
+
+You may also have files that you wish to exclude from TurboSnap, which you can do by setting the `untraced` option. A change to any of these files will _not_ be considered a change in the module graph, and will not trigger a re-run of snapshots that depend on them. See [this TurboSnap recipe](/docs/turbosnap/setup#avoid-re-testing-dependent-stories-when-certain-files-changed) for more information.
+
+Finally, there is [specific guidance for using TurboSnap in a monorepo](/docs/turbosnap/setup#using-turbosnap-in-a-monorepo) that you may find useful.

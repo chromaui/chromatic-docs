@@ -5,6 +5,7 @@ import type {
   ConfigOption as ConfigOptionType,
   SupportedType,
 } from '../../../chromatic-config/generate-schema';
+import { optionSlug } from './optionSlug';
 
 const Name = styled.h3`
   font-family: ${fontFamily.mono};
@@ -99,10 +100,14 @@ export const ConfigOption = ({
   supports,
   default: defaultValue,
 }: ConfigOptionProps) => {
+  const slug = optionSlug(option);
+
   return (
     <ConfigOptionContainer gap={4} align="flex-start">
       <VStack gap={1} marginBottom={2}>
-        <Name className="config-option">{option}</Name>
+        <Name className="config-option" id={slug || undefined}>
+          {option}
+        </Name>
         <HStack align="center" gap={2}>
           {supports.map((type) => (
             <Tag key={type} type={type}>
