@@ -27,7 +27,7 @@ const isProduction = import.meta.env.MODE === 'production';
 <script is:inline src={`${baseUrl}/anchor.min.js`}></script>
 <script is:inline>
   window.onload = function () {
-    anchors.add('summary:not(.no-anchor), .config-option');
+    anchors.add('summary:not(.no-anchor)');
   };
 </script>
 <!-- Google Tag Manager -->

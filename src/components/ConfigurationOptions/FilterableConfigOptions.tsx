@@ -71,7 +71,7 @@ export const FilterableConfigOptions = ({ options }: FilterableConfigOptionsProp
         </p>
       )}
       {filteredOptions.map((option) => (
-        <ConfigOption {...option} />
+        <ConfigOption key={option.option} {...option} />
       ))}
     </>
   );
