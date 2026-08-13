@@ -1,50 +1,54 @@
 {
   "ancestor-merge-commit.mmd": {
     "src": "ddfab6f4b1d8e6dff7bceded8fc526ca6f9859f6a8c53cecc8c608db25dde271",
-    "svg": "f497124c9ac2f96222f010ac708458e47ee09848f70b6389197e588d81b4df65"
+    "svg": "1b538d6d062e9b5f670c602b46340768d17cc86d17eddeb00c3add80dc614c43"
   },
   "ancestor-previous-commit.mmd": {
     "src": "ed67120b31b0129794b8ffd97a48bd141f93fe060624b98721bcb3c844f33b4a",
-    "svg": "552eafb7f5f1898b8aa2d5d63060e36fe8879b0a1698197e7848d61084dc75c2"
+    "svg": "5914722354abea7631f6538f3d57add0be1d2d8e3c2f0754158fc9832da179f4"
   },
   "ancestor-with-gap.mmd": {
     "src": "a6bfafe60be79d2735d28e7ebad372bafe86c61f87e66eac8466405607dee508",
-    "svg": "03ac171d7a6783980930fde8ce066c6970f95654114c4df5972bfbb9ac60bb4e"
+    "svg": "619b6c7b472da91450a29b05db607752e6bd56e95ca7b455805bef509b041fd4"
   },
   "branches-baselines-overview.mmd": {
     "src": "fb99922f7fdec2dc5a2b2c658d82a6a69a73c82eca8f7cb1b837dcf3d9cdb429",
-    "svg": "65543172d06f2670458d6778f14107ae728f7b7ded0e6bf5b0a3c8e44bc7ada8"
+    "svg": "1cc1de4731b5aef47abd3fdeb6e37afe6a1efe876bc32fe512c56aa28baef878"
   },
   "github-actions-ephemeral-merge.mmd": {
     "src": "2550e7ba3a4fd53add2aa3389f072ea8d88addf9bc5cdb004d76a06d561e44ca",
-    "svg": "c99d79bffb41474b7ddcb0c9db6ccab2da24e7913c82064f8d5cb97f2113ade6"
+    "svg": "53847988a79841a74946efe70ae4d387c2f02bf2147c54227eae154027076b0e"
   },
   "merge-base-typical.mmd": {
     "src": "16e0bfb87ca6b4bce188b6ab7d3a970d1ac9ef64ee06291c28a36ab22b94cd7c",
-    "svg": "4efafe767c0ae73f18105d87c0bdc23c2dfdadc222e3f865db00cd30c7a4a514"
+    "svg": "a456e2d0acb198252eba3ee4c31107f1e41ac79416c2650231b02b3d71a8c5ea"
   },
   "merge-base-updated.mmd": {
     "src": "30fa53c190d23d35c70fd8863a1a957e451870f607c0b91df0db942b66d810dc",
-    "svg": "456f17d3f759389325f74588d1341f3b490e4010c6101d12d2793587e9e1a1f0"
+    "svg": "cf5bb8991c5364ace775bb39d64babc39ab29c18c989c4a1016bf3a4fd146df0"
+  },
+  "prefer-merged-baselines.mmd": {
+    "src": "2c72c607d396456ca336fedacf9c54950247f6283e7249755dace13f103cd54f",
+    "svg": "3601178b15abd78f5e55468303638024f99e04a989517aa279c7d417b7ed8a75"
   },
   "revert-restore-color.mmd": {
     "src": "8397d3cf5e70e0ec8993ac635dfdf229b45291f9f79bd7317b23a0f3b0727b8d",
-    "svg": "787881e58cb3d4ae6ab0fb5d9f174ce8e0927f76f4fea76836d5340a0bde4459"
+    "svg": "8ea4059cd048b599fcbeaa4914f7263820206589ea2c3dffb62914a98cd65e57"
   },
   "turbosnap-full-rebuild-merge.mmd": {
     "src": "04c706df555b16a83740270923012c0e31471be79ca3b21d5e1b3e4fc9dcc69e",
-    "svg": "e24938236a779fb55079e237fece0a90a3839a1d862b2170185b2affb1449341"
+    "svg": "39394fff69656447ad060761d43c70c84c446bcfdf3640846f1aa19a27fc56e2"
   },
   "turbosnap-rebase-ancestor.mmd": {
     "src": "1e2b37081590de9a6643be516cc516468bbc6a2247d94a29cc8c55e60ad43391",
-    "svg": "870781612981272d7813b9ae4060047c447944049c3060bcc76c9b5663fa2862"
+    "svg": "0b313fc257db31b82bc2614721309c1a9616c5842c115e93470b294092cb6ee2"
   },
   "turbosnap-replacement-build.mmd": {
     "src": "05075bcdbac44f51d1d70077502ed3554aa511ce2a562941a60bf9286409e6f7",
-    "svg": "bf11b37da1f35c856c9ba4c50b140a9c83f7496f14cec079315bffc0459323e4"
+    "svg": "94e4e28e5dab0740337ed726184d9fb5ccc405d62aa0858aeec8a6b9a984c1e0"
   },
   "unwanted-changes-on-feature.mmd": {
     "src": "9b4477fc97dd56e55f59c73bff20f1577f7db5f60a186ff17500c8366005c0c4",
-    "svg": "172dae99a0ef1d50b97298e2591a3c0071f45847e85e22f39b6e017c6ed80c4c"
+    "svg": "b06c5aad6775c617a21b3e39197a1dae7788a83fc2c605f1d966673aa0ca2e0b"
   }
 }

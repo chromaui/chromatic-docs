@@ -9,6 +9,16 @@ sidebar: { order: 2 }
 
 Chromatic keeps track of UI feedback and tests in one place so that collaborators stays aligned without you having to do extra work.
 
+## Permission layers
+
+Chromatic has two separate permission layers, [organizations](#organization-collaborators) and [projects](#project-collaborators).
+
+**Organization** roles govern account settings such as billing, and adding projects. Unless your organization uses [Teams](/docs/access/teams) on the Enterprise plan, `member` is the only organization role there is.
+
+**Project** roles govern what you can do inside a given project — reviewing, approving, managing settings, and deleting. Project roles are Owner, Developer, Reviewer, and Viewer, and they're set per project, so you may hold different roles on different projects.
+
+If you're looking for a permission you don't have, it's almost always a project role you need, not an organization one. See [Roles](#roles) for what each role covers.
+
 ## Organization collaborators
 
 Manage organization collaborators via OAuth, email, or [SSO](/docs/access/sso).
@@ -17,9 +27,11 @@ Manage organization collaborators via OAuth, email, or [SSO](/docs/access/sso).
 
 Chromatic mirrors access permissions with your GitHub Organization, Bitbucket Group, or GitLab Team. Users who have access to your organization will also have access to your Chromatic organization.
 
-| Permission level       | What collaborators can do                           |
-| ---------------------- | --------------------------------------------------- |
-| Organization: `member` | View / change account settings, view / add projects |
+| Permission level       | What collaborators can do                    |
+| ---------------------- | -------------------------------------------- |
+| Organization: `member` | View / change account settings, add projects |
+
+Unless your organization uses [Teams](/docs/access/teams) on the Enterprise plan, `member` is the only organization role — see [Roles](#roles) for how it sits alongside the project roles.
 
 Organization collaborators can manage billing and account status but may not have access to projects. You need to be a [project collaborator](#project-collaborators) to view and manage projects.
 
@@ -43,17 +55,18 @@ Single Sign-On (SSO) is available to enterprise customers. Learn more [here](/do
 
 Collaborate on billing, usage, and permissions by syncing your organization with GitHub, Bitbucket, or GitLab.
 
-For email and password accounts, only the account owner can login to access billing information. For SSO accounts, contact your company's SSO administrator to manage billing.
+For email and password accounts, the user who created the account is the only one who can sign in to manage billing. On SSO accounts and unlinked organization accounts, the Billing role is set by Chromatic — see below.
 
 <details>
 <summary>How can I give someone billing access?</summary>
 
-If you have an email/password user account and need access to billing, please email us at **support@chromatic.com** with your email address.
+If you have an unlinked organization or SSO account and need billing access for someone, email us at **support@chromatic.com** with their email address.
 
 **Note:**
 
-- Billings users cannot be added to Git-linked accounts. Linked accounts rely on the connected Git provider to manage permissions. Users would need org-level permissions granted within the git provider to access billing.
+- Billing users cannot be added to Git-linked accounts. Linked accounts rely on the connected Git provider to manage permissions. Users would need org-level permissions granted within the git provider to access billing.
 - Git-linked users cannot be set as Billing users for unlinked accounts. Git-linked user permissions depend on git providers.
+- On SSO accounts with directory sync, roles come from your identity provider. If your IdP later changes someone's role, it overwrites the role we set, so assigning the Billing role in your IdP is the durable option.
 
 </details>
 
@@ -107,22 +120,27 @@ External collaborator accounts cannot link the project to a repository on GitHub
 
 ### Roles
 
-Roles give you fine-grained control over who can do what. There are four roles that can be assigned to any collaborator.
+Roles give you fine-grained control over who can do what. They belong to one of the two [permission layers](#permission-layers): the organization role and the four project roles.
 
 Each project has a unique set of roles that are managed by the project owner. For example, you can be a "developer" in one project and a "viewer" in another.
 
-| Role                | What you can do                                                                                                |
-| ------------------- | -------------------------------------------------------------------------------------------------------------- |
-| Owner               | Can manage, delete the project, and manage/assign roles to collaborators.                                      |
-| Developer (default) | Can manage the project, review tests, approve PRs, and assign reviewers. Cannot assign roles to collaborators. |
-| Reviewer            | Can leave comments, review tests, and approve PRs they're assigned to. Cannot assign others or self-approve.   |
-| Viewer              | Read-only access to the project.                                                                               |
+| Role                | Layer        | What you can do                                                                                                |
+| ------------------- | ------------ | -------------------------------------------------------------------------------------------------------------- |
+| Member              | Organization | View / change account settings and add projects. Doesn't grant access to any project's contents.               |
+| Owner               | Project      | Can manage, delete the project, and manage/assign roles to collaborators.                                      |
+| Developer (default) | Project      | Can manage the project, review tests, approve PRs, and assign reviewers. Cannot assign roles to collaborators. |
+| Reviewer            | Project      | Can leave comments, review tests, and approve PRs they're assigned to. Cannot assign others or self-approve.   |
+| Viewer              | Project      | Read-only access to the project.                                                                               |
+
+On the Enterprise plan with SSO and directory sync (SCIM), additional organization roles are available. See [Teams](/docs/access/teams#organization-roles) for the full list and what each one covers.
 
 #### Project ownership
 
 Projects must have at least one owner. The `owner` role is automatically assigned to the first user in a Chromatic project.
 
 Transfer ownership by assigning another collaborator as an owner and then reassigning yourself another role.
+
+This transfers a single project. Chromatic accounts have no owner role — see [how do I transfer account ownership to another user?](/docs/faq/transfer-ownership/)
 
 #### View your role
 
@@ -147,6 +165,17 @@ When you set Storybook visibility to public, it will be accessible to visitors w
 ---
 
 ### Troubleshooting
+
+<details>
+<summary>Why does my role say Member?</summary>
+
+Member is your **organization** role, not your project role. Outside the Enterprise plan it's the only organization role there is, so seeing it doesn't mean you've been downgraded or assigned the wrong thing.
+
+What you can do inside a project — reviewing, approving, changing settings, deleting the project — comes from your **project** role instead: Owner, Developer, Reviewer, or Viewer. Go to the project's Manage page to see which one you hold. If you need a permission you don't have, ask a project Owner to change your project role.
+
+See [Permission layers](#permission-layers) for how the two fit together.
+
+</details>
 
 <details>
 <summary>Why can't my teammates access a project?</summary>

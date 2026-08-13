@@ -226,41 +226,34 @@ jobs:
     runs-on: macos-latest
     steps:
       - name: Checkout
-        uses: actions/checkout@v6
+        uses: actions/checkout@v7
         with:
           fetch-depth: 0
-
       - name: Select Xcode
         run: sudo xcode-select -s /Applications/Xcode_26.3.app
-
       - name: Setup Node.js
-        uses: actions/setup-node@v6
+        uses: actions/setup-node@v7
         with:
-          node-version: 24
+          node-version: 24.19.0
           cache: npm
-
       - name: Install dependencies
-        run: npm install
-
+        run: npm ci
       - name: Cache CocoaPods spec repo
-        uses: actions/cache@v5
+        uses: actions/cache@v6
         with:
           path: ~/.cocoapods
           key: cocoapods-specs-${{ hashFiles('package.json', 'app.json') }}
           restore-keys: |
             cocoapods-specs-
-
       - name: Cache Pods directory
-        uses: actions/cache@v5
+        uses: actions/cache@v6
         with:
           path: ios/Pods
           key: ios-pods-${{ hashFiles('package.json', 'app.json') }}
           restore-keys: |
             ios-pods-
-
       - name: Build iOS
         run: npx --yes chromatic react-native-build --platform=ios --output-dir=build
-
       - name: Upload iOS build
         uses: actions/upload-artifact@v7
         with:
@@ -272,44 +265,37 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
-        uses: actions/checkout@v6
+        uses: actions/checkout@v7
         with:
           fetch-depth: 0
-
       - name: Setup Node.js
-        uses: actions/setup-node@v6
+        uses: actions/setup-node@v7
         with:
-          node-version: 24
+          node-version: 24.19.0
           cache: npm
-
       - name: Cache Gradle wrapper
-        uses: actions/cache@v5
+        uses: actions/cache@v6
         with:
           path: ~/.gradle/wrapper
           key: gradle-wrapper-${{ hashFiles('package.json', 'app.json') }}
-
       - name: Cache Gradle dependencies
-        uses: actions/cache@v5
+        uses: actions/cache@v6
         with:
           path: ~/.gradle/caches
           key: gradle-caches-${{ hashFiles('package.json', 'app.json') }}
           restore-keys: |
             gradle-caches-
-
       - name: Cache Android directory
-        uses: actions/cache@v5
+        uses: actions/cache@v6
         with:
           path: android/
           key: android-dir-${{ hashFiles('package.json', 'app.json') }}
           restore-keys: |
             android-dir-
-
       - name: Install dependencies
-        run: npm install
-
+        run: npm ci
       - name: Build Android
         run: npx --yes chromatic react-native-build --platform=android --output-dir=build
-
       - name: Upload Android build
         uses: actions/upload-artifact@v7
         with:
@@ -322,37 +308,31 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
-        uses: actions/checkout@v6
+        uses: actions/checkout@v7
         with:
           fetch-depth: 0
-
       - name: Setup Node.js
-        uses: actions/setup-node@v6
+        uses: actions/setup-node@v7
         with:
-          node-version: 24
+          node-version: 24.19.0
           cache: npm
-
       - name: Install dependencies
-        run: npm install
-
+        run: npm ci
       - name: Download iOS build
         uses: actions/download-artifact@v8
         with:
           name: ios-build
           path: build/ios
-
       - name: Download Android build
         uses: actions/download-artifact@v8
         with:
           name: android-build
           path: build/android
-
       - name: Move Storybook static files
         run: |
           mkdir -p storybook-static
           mv build/ios/storybook.app storybook-static/
           mv build/android/storybook.apk storybook-static/
-
       - name: Publish to Chromatic
         run: npx --yes chromatic -d storybook-static --exit-zero-on-changes --exit-zero-on-errors
         env:
@@ -407,7 +387,6 @@ jobs:
     params:
       platform: ios
       profile: storybook
-
   build_android:
     name: Build Android Storybook
     type: build
@@ -465,19 +444,16 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
-        uses: actions/checkout@v4
+        uses: actions/checkout@v7
         with:
           fetch-depth: 0
-
       - name: Setup Node.js
-        uses: actions/setup-node@v4
+        uses: actions/setup-node@v7
         with:
-          node-version: 22
+          node-version: 24.19.0
           cache: npm
-
       - name: Install dependencies
         run: npm ci
-
       - name: Download EAS build artifacts
         env:
           EXPO_TOKEN: ${{ secrets.EXPO_TOKEN }}
@@ -487,7 +463,6 @@ jobs:
           cp -R "$IOS_PATH" storybook-static/storybook.app
           ANDROID_PATH=$(npx eas-cli build:download --build-id "${{ inputs.android_build_id }}" --non-interactive --json | jq -r '.path')
           cp "$ANDROID_PATH" storybook-static/storybook.apk
-
       - name: Run Chromatic
         uses: chromaui/action@latest
         with:
@@ -557,4 +532,27 @@ Not yet
 
 </details>
 
----
+<details>
+<summary>Why are my stories hidden behind the status bar?</summary>
+
+Chromatic captures stories as rendered by the simulator, including the status bar—this can cause inconsistent rendering across devices. To avoid this, wrap your stories with a decorator that adds some padding or a safe area view, ensuring the UI elements stay visible, for example:
+
+```ts title=".storybook/preview.ts|tsx"
+import type { Preview } from '@storybook/react-native';
+
+import { View } from 'react-native';
+
+const preview: Preview = {
+  decorators: [
+    (Story) => (
+      <View style={{ padding: 44, flex: 1 }}>
+        <Story />
+      </View>
+    ),
+  ],
+};
+
+export default preview;
+```
+
+</details>
