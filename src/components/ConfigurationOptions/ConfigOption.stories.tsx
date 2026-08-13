@@ -1,17 +1,14 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
 import { ConfigOption } from './ConfigOption';
-import { ContentContainer } from '../ContentContainer';
 
 const meta = {
   title: 'Components/ConfigOption',
   component: ConfigOption,
   decorators: [
-    // Rendered inside ContentContainer, as on the page, so the heading's anchor link picks up the
-    // shared formatting styles that keep it hidden until hover.
     (Story) => (
-      <ContentContainer style={{ maxWidth: 796 }}>
+      <div style={{ maxWidth: 796 }}>
         <Story />
-      </ContentContainer>
+      </div>
     ),
   ],
 } satisfies Meta<typeof ConfigOption>;

@@ -13,28 +13,15 @@ const Name = styled.h3`
   && {
     margin: 0 0 ${spacing[1]} 0;
   }
-`;
 
-/**
- * Mirrors the markup rehype-autolink-headings generates for Markdown headings, so option headings
- * pick up the same hover-reveal anchor styling from `src/styles/formatting.ts`.
- */
-const AutolinkHeader = ({ slug }: { slug: string }) => (
-  <a className="autolink-header" aria-hidden="true" tabIndex={-1} href={`#${slug}`}>
-    <svg
-      className="autolink-svg"
-      xmlns="http://www.w3.org/2000/svg"
-      width={14}
-      height={14}
-      fill="currentColor"
-      viewBox="0 0 14 14"
-      aria-label="Link to this section"
-    >
-      <path d="M11.841 2.159a2.25 2.25 0 0 0-3.182 0l-2.5 2.5a2.25 2.25 0 0 0 0 3.182.5.5 0 0 1-.707.707 3.25 3.25 0 0 1 0-4.596l2.5-2.5a3.25 3.25 0 0 1 4.596 4.596l-2.063 2.063a4.27 4.27 0 0 0-.094-1.32l1.45-1.45a2.25 2.25 0 0 0 0-3.182Z" />
-      <path d="M3.61 7.21c-.1-.434-.132-.88-.095-1.321L1.452 7.952a3.25 3.25 0 1 0 4.596 4.596l2.5-2.5a3.25 3.25 0 0 0 0-4.596.5.5 0 0 0-.707.707 2.25 2.25 0 0 1 0 3.182l-2.5 2.5A2.25 2.25 0 1 1 2.159 8.66l1.45-1.45Z" />
-    </svg>
-  </a>
-);
+  & > a.anchorjs-link {
+    width: 14px;
+    height: 14px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+`;
 
 const FormattedType = ({ value }: { value: string | string[] }) => {
   if (value === 'array of glob') {
@@ -120,7 +107,6 @@ export const ConfigOption = ({
       <VStack gap={1} marginBottom={2}>
         <Name className="config-option" id={slug || undefined}>
           {option}
-          {slug && <AutolinkHeader slug={slug} />}
         </Name>
         <HStack align="center" gap={2}>
           {supports.map((type) => (
