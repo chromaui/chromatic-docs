@@ -2,18 +2,15 @@ import type { Meta, StoryObj } from '@storybook/react-vite';
 import { screen } from 'storybook/test';
 import { FilterableConfigOptions } from './FilterableConfigOptions';
 import type { ConfigOption as ConfigOptionType } from '../../../chromatic-config/generate-schema';
-import { ContentContainer } from '../ContentContainer';
 
 const meta = {
   title: 'Components/FilterableConfigOptions',
   component: FilterableConfigOptions,
   decorators: [
-    // Rendered inside ContentContainer, as on the page, so each heading's anchor link picks up the
-    // shared formatting styles that keep it hidden until hover.
     (Story) => (
-      <ContentContainer style={{ maxWidth: 796 }}>
+      <div style={{ maxWidth: 796 }}>
         <Story />
-      </ContentContainer>
+      </div>
     ),
   ],
 } satisfies Meta<typeof FilterableConfigOptions>;

@@ -5,6 +5,7 @@ import type {
   SupportedType,
 } from '../../../chromatic-config/generate-schema';
 import { useMemo, useState } from 'react';
+import { useOptionAnchors } from './useOptionAnchors';
 
 export interface FilterableConfigOptionsProps {
   options: ConfigOptionType[];
@@ -28,6 +29,8 @@ export const FilterableConfigOptions = ({ options }: FilterableConfigOptionsProp
     );
     return filteredOptions;
   }, [filters, options]);
+
+  useOptionAnchors(filteredOptions);
 
   return (
     <>
