@@ -85,11 +85,9 @@ Use the Billed Snapshots per Build chart to compare the periods before and after
 
 ### 4. Did Snapshot Billing Rate increase?
 
-Snapshot Billing Rate is billed snapshots divided by total snapshots. It shows whether your usage is becoming more or less efficient over time.
+Snapshot Billing Rate is billed snapshots divided by total snapshots. It shows whether your usage is becoming more or less efficient over time. When you first set up Chromatic, the rate starts at `1.0` because a full cost snapshot is captured for every test.
 
-When you first set up Chromatic, the rate starts at `1.0`. Chromatic captures a new snapshot for every test and bills it at full cost.
-
-We invented [TurboSnap](/docs/turbosnap) to use changed files to determine which stories need new snapshots. It _copies_ or _bypasses_ snapshots for stories it determines could not have changed. Both are billed at a lower cost, lowering the average Snapshot Billing Rate.
+[TurboSnap](/docs/turbosnap) lowers your Snapshot Billing Rate by using changed files to determine which stories need new snapshots. It _copies_ or _bypasses_ snapshots for stories it determines could not have changed and these are billed at a lower rate.
 
 - Captured costs `1.0` billed snapshot.
 - Copied (via TurboSnap) costs `0.2` billed snapshots.
@@ -97,10 +95,10 @@ We invented [TurboSnap](/docs/turbosnap) to use changed files to determine which
 
 There is no such thing as "best practice" rate. Most teams with TurboSnap have a lower rate than `1.0`, but the exact rate will depend on what part of your project is in development at any given time. You shouldn't expect a rate of `0.0` because that would mean every snapshot was bypassed because none of the frontend under test changed.
 
-| Pattern                                          | What it suggests                                         | What to check                                                                                                            |
-| ------------------------------------------------ | -------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------ |
-| Snapshot Billing Rate increased                  | A larger share of snapshots was billed at full cost      | Use [TurboSnap Effectiveness Breakdown](#why-did-the-rate-increase) to see why more snapshots were captured at full cost |
-| Snapshot Billing Rate stayed stable or decreased | TurboSnap effectiveness did not drive the usage increase | Use the causes identified in steps 2 and 3                                                                               |
+| Pattern                                          | What it suggests                                         | What to check                                                                              |
+| ------------------------------------------------ | -------------------------------------------------------- | ------------------------------------------------------------------------------------------ |
+| Snapshot Billing Rate increased                  | A larger share of snapshots was billed at full cost      | Use TurboSnap Effectiveness Breakdown to see why more snapshots were captured at full cost |
+| Snapshot Billing Rate stayed stable or decreased | TurboSnap effectiveness did not drive the usage increase | Use the causes identified in steps 2 and 3                                                 |
 
 #### Why did the rate increase?
 
