@@ -1,103 +1,128 @@
 ---
-title: Optimize snapshot usage using the Trends dashboard
-description: Find what's driving a usage spike and what to change to bring it down
-sidebar: { order: 4, label: Trends }
+title: Understand and optimize snapshot usage with Trends
+description: Track billed snapshot usage over time and diagnose unexpected increases
+sidebar: { order: 4, label: Usage trends }
 ---
 
-# Optimize snapshot usage using the Trends dashboard
+# Understand and optimize snapshot usage with Trends
 
-Three things drive your bill: how many builds you run, how many snapshots each build takes, and how many of those snapshots you're billed for. The Trends dashboard charts all three over time. Use it to investigate usage spikes.
+Three factors drive billed snapshot usage: how many builds you run, how many snapshots each build generates, and the average billed cost of those snapshots. Trends visualizes all three over time so you can see where usage comes from and investigate unexpected increases.
 
-## Getting started
+Go to the Billing page and click Trends.
 
-Go to the billing page and click **Trends (beta)**. Then work through the questions below in order. Each one tests a driver and points to what to change.
+![Trends dashboard with project, date-range, and date-grouping controls above the Billed Snapshots chart](../../images/usage-trends.png)
 
-![Example of a Trends dashboard showing the Billed snapshots chart](../../images/usage-trends.png)
+## How to investigate an increase in billed snapshots
 
-## When did the usage spike start, and in which project?
+Start with all projects selected and choose a Date Range that includes periods before and after the increase. More than one thing can cause an increase during the same period, so check each usage driver even after you find one cause.
 
-Start with the **Billed Snapshots** and **Billed Snapshots per Project** charts. You're looking for the week usage changed and, ideally, the single project it changed in.
+### 1. Find when and where usage increased
 
-![Billed Snapshots chart stacks weekly billed snapshots by browser and test type over the previous 156 weeks, with total builds plotted as a line](../../images/usage-trends-billed-snapshots.png)
+Start with the Billed Snapshots chart, which breaks usage down by browser, accessibility testing, and TurboSnap and plots build volume as the Builds line. Identify when usage first spiked above its previous pattern.
 
-Check whether most of your usage comes from one project, or whether one project's pattern matches your account's overall. Either way, that's the project to focus on.
+![Billed Snapshots chart showing billed snapshot usage by browser, accessibility testing, and TurboSnap, with the Builds line plotted over it](../../images/usage-trends-billed-snapshots.png)
 
-Filter the dashboard to it. Every other chart gets easier to read, and the cause of the change is easier to isolate.
+Next, use Billed Snapshots per Project to see each project's share of usage during that period. The project with the most total usage may have remained stable while a smaller project caused the increase.
 
-To filter, click the project in the **Billed Snapshots per Project** donut chart, or select it from the **App ID** dropdown at the top left.
+Select each likely project in Billed Snapshots per Project or from the App ID filter, then compare its Billed Snapshots history with the account-wide increase. If several projects increased, repeat the remaining steps for each.
 
-![Example of filtering the Trends dashboard by clicking on a project](../../images/usage-trends-filter.png)
+![App ID filter open above the Billed Snapshots per Project chart](../../images/usage-trends-filter.png)
 
-## Did build count go up?
+### 2. Did build volume increase?
 
-On the **Billed Snapshots** chart, compare the Builds line against the bars. Whether the two track each other tells you which driver to investigate next.
+On the Billed Snapshots chart, compare the bars with the Builds line. Look for changes at the same time and peaks that follow a similar pattern.
 
-**They line up:** more builds is almost certainly the cause. Continue to ["Are builds outpacing PRs?"](#are-builds-outpacing-prs) to find out why build volume grew.
+**Billed Snapshots + Builds line up.** When both rise at roughly the same time and follow a similar pattern, build volume likely contributed to the usage increase. Continue to [Did build volume outpace PR activity?](#did-build-volume-outpace-pr-activity).
 
-![Example of the Builds line and the bars tracking each other on the Billed Snapshots chart](../../images/usage-trends-lines-up.png)
+![Billed snapshots and the Builds line increasing during the same periods and following similar peaks](../../images/usage-trends-lines-up.png)
 
-**They don't line up:** snapshots per build is the bigger contributor. Skip ahead to ["Are snapshots per build climbing?"](#are-snapshots-per-build-climbing).
+**Billed Snapshots + Builds don't line up.** When the bars grow while the Builds line stays stable or rises more slowly, build volume is less likely to be the primary cause. Continue to [Billed Snapshots per Build](#3-did-billed-snapshots-per-build-increase).
 
-![Example of the Builds line and the bars not tracking each other on the Billed Snapshots chart. The number of snapshots per build has increased](../../images/usage-trends-no-line-up.png)
+![Billed snapshots increasing while the Builds line stays relatively stable](../../images/usage-trends-no-line-up.png)
 
-### Are builds outpacing PRs?
+If there is no clear pattern in the charts, check both build volume and snapshots per build.
 
-More PRs mean more builds, and more usage. Use the **Build count** chart to compare the two.
+#### Did build volume outpace PR activity?
 
-If builds track PRs, usage is growing with your team's output. If builds outpace PRs, something structural is adding builds: more commits per PR than before, or builds running on a long-lived branch.
+PR volume naturally grows as teams add developers and fluctuates with seasonality. Use the Build Count chart to see whether increased build volume reflects more PRs or a CI workflow that triggers more builds.
 
-![Build count chart plots PRs against build volume, with builds split into feature-branch and default-branch builds](../../images/usage-trends-build-count.png)
+![Build Count chart with Default Builds selected, comparing PRs, Feature Builds, and Default Builds](../../images/usage-trends-build-count.png)
 
-<div class="aside">
-Default branches are those with a name commonly used for a trunk: `main`, `master`, `trunk`, `dev`, `devel`, `development`, `staging`, `prod`, or `production`.
+Feature Builds run on feature branches, so they help show how much development is happening across active branches. Default Builds run on common long-lived branches and often come from routine merge, deployment, or scheduled workflows. Trends uses recognized branch names to classify builds into these groups.
 
-The chart treats every build on a non-default branch as a PR, so its PR count may run slightly higher than your Git provider's.
+| Pattern                                   | What it suggests                                | What to check                                                                  |
+| ----------------------------------------- | ----------------------------------------------- | ------------------------------------------------------------------------------ |
+| PRs and Feature Builds increased together | Build volume is growing with your team's output | Confirm the additional PRs and builds were expected                            |
+| Feature Builds increased faster than PRs  | Each PR may now produce more builds             | Check for additional commits, reruns, bot branches, or duplicate CI jobs       |
+| Default Builds increased                  | Default-branch workflows are running more often | Check for changes to merge, push, scheduled, or deployment-triggered workflows |
 
-</div>
+Use the [usage report CSV](/docs/billing/usage-reports#export-usage-data-as-a-csv) to pinpoint the branches and builds behind the increase, then review your CI workflow and [Chromatic configuration](/docs/configure) for unintended triggers.
 
-## Are snapshots per build climbing?
+#### Are PRs with UI changes being reviewed?
 
-**Total Snapshots per Build** rises naturally as you add tests, so a gradual climb usually just reflects growing coverage.
+After determining why build volume grew, use the Velocity chart to see how many PRs changed the UI and how many of those were reviewed.
 
-A sharp jump points to a specific change: a new test type enabled (accessibility or visual), or more browsers added across the board. If neither happened, check your CI setup for a misconfiguration.
+![Velocity chart comparing Unchanged PRs, Unreviewed Changed PRs, and Reviewed PRs](../../images/usage-trends-velocity.png)
 
-![Billed Snapshots per Build chart plots stories per build, total snapshots per build, and billed snapshots per build, with the snapshot billing rate on a secondary axis](../../images/usage-trends-billed-snapshots-per-build.png)
+Unchanged PRs contain no UI changes and are typically backend-only. These are common and healthy because not every PR affects the frontend.
 
-## Is your billing rate coming down?
+Unreviewed Changed PRs contain UI changes that your team is not reviewing. This may be intentional, such as a side-project spike that is not headed to production. If unreviewed changed PRs make up a large share, consider using Draft PRs and [skipping Chromatic runs for them](/docs/faq/chromatic-draft-pr) to optimize usage.
 
-[TurboSnap](/docs/turbosnap) is meant to offset that growth. It copies or bypasses snapshots it can tell haven't changed instead of capturing them again, and both cost less than a capture.
+Reviewed PRs contain UI changes and have user activity on at least one of the PR's builds. This activity indicates that your team is reviewing UI changes in Chromatic, where they can catch regressions before merging.
 
-| Snapshot type | Cost (billed snapshot) |
-| ------------- | ---------------------- |
-| Captured      | 1.0                    |
-| Copied        | 0.2                    |
-| Bypassed      | 0                      |
+### 3. Did billed snapshots per build increase?
 
-**Snapshot Billing Rate** is the ratio of billed snapshots to total snapshots. The more captures TurboSnap replaces with copies and bypasses, the lower the rate.
+Use the Billed Snapshots per Build chart to compare the periods before and after a usage increase.
 
-A rate of 1.0 means every snapshot is captured, so TurboSnap either isn't set up yet or is misconfigured. When it's working, the rate sits below 1.0 and falls further as **Total Snapshots per Build** rises.
+![Billed Snapshots per Build chart comparing Stories per Build, Total Snapshots per Build, Billed Snapshots per Build, and Snapshot Billing Rate](../../images/usage-trends-billed-snapshots-per-build.png)
 
-### Is TurboSnap bailing too often?
+| Pattern                                                                                       | What it suggests                                           | What to check                                                                                                                                                      |
+| --------------------------------------------------------------------------------------------- | ---------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| Stories per Build and Total Snapshots per Build increased together                            | The project added stories or tests                         | Review the stories or tests added when usage increased and confirm the growth was intentional                                                                      |
+| Total Snapshots per Build increased faster than Stories per Build                             | Each story began producing more snapshots                  | Check for added [browsers](/docs/browsers), [Modes](/docs/modes), or newly enabled [Visual Testing](/docs/visual) and [Accessibility Testing](/docs/accessibility) |
+| Billed Snapshots per Build increased while Total Snapshots per Build stayed relatively stable | The average billed cost of each snapshot increased         | Continue to [Did Snapshot Billing Rate increase?](#4-did-snapshot-billing-rate-increase)                                                                           |
+| No discernible pattern                                                                        | The view may be too broad, or more than one factor changed | Narrow the filters, then compare each factor                                                                                                                       |
 
-Bails are the most common reason a billing rate won't come down. A [bailed build](/docs/turbosnap/troubleshooting#what-do-the-turbosnap-bail-reasons-in-my-usage-report-mean) captures everything, so **Billed Snapshots per Build** climbs even when **Total Snapshots per Build** holds steady.
+### 4. Did Snapshot Billing Rate increase?
 
-Use the **TurboSnap effectiveness** chart to see the mix. Your goal is to shrink the bail segments and grow the copied and bypassed ones.
+Snapshot Billing Rate is billed snapshots divided by total snapshots. It shows whether your usage is becoming more or less efficient over time. When you first set up Chromatic, the rate starts at `1.0` because a full cost snapshot is captured for every test.
 
-<details>
-  <summary>Why TurboSnap bails affect your bill</summary>
+[TurboSnap](/docs/turbosnap) lowers your Snapshot Billing Rate by using changed files to determine which stories need new snapshots. It _copies_ or _bypasses_ snapshots for stories it determines could not have changed and these are billed at a lower rate.
 
-TurboSnap copies a snapshot only when it can confidently determine that nothing affecting that test changed, based on your Git history and dependency graph.
+- Captured costs `1.0` billed snapshot.
+- Copied (via TurboSnap) costs `0.2` billed snapshots.
+- Bypassed (via TurboSnap) costs `0.0` billed snapshots.
 
-It bails when it can't establish that. How your CI checks out history, barrel files, and your Storybook configuration are common causes, among others.
+There is no such thing as "best practice" rate. Most teams with TurboSnap have a lower rate than `1.0`, but the exact rate will depend on what part of your project is in development at any given time. You shouldn't expect a rate of `0.0` because that would mean every snapshot was bypassed because none of the frontend under test changed.
 
-On a bail, Chromatic captures every test at 1 billed snapshot each instead of copying the unchanged ones at 0.2.
+| Pattern                                          | What it suggests                                         | What to check                                                                              |
+| ------------------------------------------------ | -------------------------------------------------------- | ------------------------------------------------------------------------------------------ |
+| Snapshot Billing Rate increased                  | A larger share of snapshots was billed at full cost      | Use TurboSnap Effectiveness Breakdown to see why more snapshots were captured at full cost |
+| Snapshot Billing Rate stayed stable or decreased | TurboSnap effectiveness did not drive the usage increase | Use the causes identified in steps 2 and 3                                                 |
 
-</details>
+#### Why did the rate increase?
 
-![TurboSnap effectiveness shows how many snapshots are being copied or bypassed rather than captured](../../images/usage-trends-ts-effectiveness.png)
+TurboSnap [bails](/docs/turbosnap/troubleshooting#what-do-the-turbosnap-bail-reasons-in-my-usage-report-mean) when it cannot safely determine which tests were affected. When it bails, the affected snapshots are captured at the full rate of `1.0`, which raises the average Snapshot Billing Rate.
 
-### Identifying the root cause of bails
+The TurboSnap Effectiveness Breakdown chart visualizes the ratio of snapshots billed at a lower rate versus full cost.
 
-The chart segments bails by reason, so you can see which one dominates. To find the specific builds behind it, export [bail reasons](/docs/turbosnap/troubleshooting#what-do-the-turbosnap-bail-reasons-in-my-usage-report-mean) per build from the [usage report CSV](/docs/billing/usage-reports#export-usage-data-as-a-csv).
+![TurboSnap Effectiveness Breakdown showing captured, copied, and bypassed snapshots, including full-cost captures caused by TurboSnap bails](../../images/usage-trends-ts-effectiveness.png)
 
-If bails make up a significant share of your builds, work through [TurboSnap troubleshooting](/docs/turbosnap/troubleshooting) to resolve them.
+| Pattern                                             | What it suggests                                              | What to check                                                             |
+| --------------------------------------------------- | ------------------------------------------------------------- | ------------------------------------------------------------------------- |
+| Captured: No TurboSnap increased                    | More snapshots came from builds that were not using TurboSnap | Confirm TurboSnap is enabled for the affected projects and builds         |
+| Labels beginning with Captured: Bail increased      | TurboSnap could not determine a safe set of affected tests    | Find the dominant bail reason and the builds behind it                    |
+| Labels beginning with Captured: TurboSnap increased | File changes may have legitimately affected more tests        | Check which files changed and whether they should affect many tests       |
+| Copied: TurboSnap or Bypassed: TurboSnap increased  | A larger share of snapshots was billed at a lower cost        | Use these segments as a reference point when comparing captured snapshots |
+| No discernible pattern                              | The view may be too broad, or more than one factor changed    | Narrow the filters, then compare each factor                              |
+
+When you've identified the dominant bail reason, export bail data from the [usage report CSV](/docs/billing/usage-reports#export-usage-data-as-a-csv) then follow the corresponding [TurboSnap troubleshooting](/docs/turbosnap/troubleshooting) guidance.
+
+## How to verify an optimization
+
+1. Make your optimization in code or configuration
+2. Wait until the project has run enough builds to see a usage pattern emerge.
+3. Return to Trends with the same App ID. Choose a Date Range that includes comparable periods before and after your optimization.
+4. Compare Billed Snapshots, build volume, Total Snapshots per Build, and Snapshot Billing Rate.
+
+If usage did not change as expected, export the [usage report CSV](/docs/billing/usage-reports#export-usage-data-as-a-csv) for the affected period and compare the individual builds.
