@@ -30,7 +30,7 @@ This is a special case of TurboSnap. If a build has no changes in _any_ story's 
 Bypassed snapshots require Chromatic CLI 17.7.0 or later. A build is bypassed when all of the following are true:
 
 - No files in any story's dependency graph changed.
-- The build has exactly one [ancestor build](/docs/branching-and-baselines#find-the-ancestor-builds) ([merge commits](#merge-commits) have two ancestors, so they are never bypassed).
+- The build has exactly one [ancestor build](/docs/branching-and-baselines#find-the-ancestor-builds) (a [merge commit](#merge-commits) on an otherwise unchanged branch will typically only have a single ancestor as all other builds on the branch will have been bypassed).
 - The ancestor build is passing or accepted, or it's on the same branch as the current build.
 - The build did not come from the [Visual Tests Addon](/docs/visual-tests-addon) running locally.
 
