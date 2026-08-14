@@ -87,7 +87,7 @@ Use the Billed Snapshots per Build chart to compare the periods before and after
 
 Snapshot Billing Rate is billed snapshots divided by total snapshots. It shows whether your usage is becoming more or less efficient over time. When you first set up Chromatic, the rate starts at `1.0` because a full cost snapshot is captured for every test.
 
-[TurboSnap](/docs/turbosnap) lowers your Snapshot Billing Rate by using changed files to determine which stories need new snapshots. It _copies_ or _bypasses_ snapshots for stories it determines could not have changed and these are billed at a lower rate.
+[TurboSnap](/docs/turbosnap) lowers your Snapshot Billing Rate by using changed files to determine which stories need new snapshots. It _copies_ or [_bypasses_](/docs/turbosnap#bypassed-builds) snapshots for stories it determines could not have changed and these are billed at a lower rate.
 
 - Captured costs `1.0` billed snapshot.
 - Copied (via TurboSnap) costs `0.2` billed snapshots.

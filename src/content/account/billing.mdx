@@ -26,10 +26,14 @@ Not at this time. We currently only support monthly payments for our self-serve 
 
 ## Snapshots
 
-The monthly bill is calculated based on the number of billed [snapshots](/docs/snapshots). There are two types of snapshots:
+The monthly bill is calculated based on the number of billed [snapshots](/docs/snapshots). There are three types of snapshots:
 
 - **Captured (1 billed snapshot):** Chromatic performs the full suite of work, including taking screenshots or capturing accessibility data, and running diffs.
-- **Turbosnap (0.2 billed snapshot):** Chromatic identifies tests that have no code changes associated with them or their dependencies and copies over the existing snapshots from previous baselines for them.
+- **Turbosnap**
+  - **Copied (0.2 billed snapshots):** Chromatic identifies tests that have no code changes associated with them or their dependencies and copies over the existing snapshots from previous baselines for them.
+  - **Bypassed (0 billed snapshots):** the build has no changes in any test's dependencies at all, so Chromatic bypasses all snapshots.
+
+Copied and bypassed snapshots are both produced by [TurboSnap](/docs/turbosnap), and together they're referred to as **turbosnaps**. See [copied and bypassed snapshots](/docs/turbosnap#bypassed-builds) for how Chromatic decides between them.
 
 ## How we count billed snapshots
 
@@ -63,6 +67,10 @@ billed snapshots from turbosnaps = turbosnaps * 0.2
 
 billed snapshots = visual snapshots + accessibility snapshots + billed snapshots from turbosnaps
 ```
+
+#### Bypassing snapshots
+
+Builds where _nothing_ in any test's dependencies changed are the exception. Chromatic bypasses every snapshot on such a build rather than copying it, so the build incurs no billed snapshots and drops out of the calculation entirely. See [copied and bypassed snapshots](/docs/turbosnap#bypassed-builds).
 
 ### Billed snapshots are counted at the account level
 
