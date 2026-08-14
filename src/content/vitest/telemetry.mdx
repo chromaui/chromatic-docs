@@ -50,17 +50,7 @@ To connect activity from the plugin with the later CLI run without identifying y
 
 ## See what’s being collected
 
-To inspect exactly what’s sent, you can have the integration write every telemetry event to a local file. Enable it through the plugin:
-
-```ts title="vitest.config.ts"
-import { chromaticPlugin } from '@chromatic-com/vitest/plugin';
-
-export default {
-  plugins: [chromaticPlugin({ telemetry: { logToFile: true } })],
-};
-```
-
-Or with an environment variable:
+To inspect exactly what’s sent, you can have the integration write every telemetry event to a local file. Enable it with an environment variable:
 
 ```shell
 CHROMATIC_TELEMETRY_LOG_TO_FILE=1
