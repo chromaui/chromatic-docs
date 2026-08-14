@@ -50,10 +50,12 @@ To connect activity from the plugin with the later CLI run without identifying y
 
 ## See what’s being collected
 
-To inspect exactly what’s sent, you can have the integration write every telemetry event to a local file. Enable it with an environment variable:
+To inspect exactly what’s sent, you can have the integration write every telemetry event to a local file. Enable it with the `CHROMATIC_TELEMETRY_LOG_TO_FILE` environment variable:
 
 ```shell
-CHROMATIC_TELEMETRY_LOG_TO_FILE=1
+CHROMATIC_TELEMETRY_LOG_TO_FILE=1 npx vitest
+# then
+CHROMATIC_TELEMETRY_LOG_TO_FILE=1 npx chromatic --vitest
 ```
 
 Each event is written as one JSON object per line to `telemetry.jsonl` in your [`outputDirectory`](/docs/vitest/configure) (`.vitest/chromatic` by default).
