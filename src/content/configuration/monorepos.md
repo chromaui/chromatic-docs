@@ -124,7 +124,7 @@ TurboSnap is an excellent feature to use with monorepos to avoid re-snapshotting
 
 The `--untraced` CLI flag can be used to ignore all changes outside of a package or related packages. For example, given a monorepo with unrelated packages `UI` and `app`, you can add the following CLI option to `UI`’s Chromatic command to only run snapshots when files inside the `UI` package change: `--untraced \"./packages/!(UI)/**\"` .
 
-Note that the glob pattern starts from the root directory of the repository, not from the directory of the `UI` package. You can also specify `--untraced` multiple times to include multiple glob patterns.
+Note that the glob pattern starts from the root directory of the repository, not from the directory of the `UI` package. You can also specify `--untraced` multiple times to include multiple glob patterns. Setting `--working-dir` does not change that, and other path options resolve differently — see [TurboSnap config paths](/docs/turbosnap/config-paths).
 
 ```shell
 npx chromatic --only-changed --untraced=package.json,yarn.lock --exit-zero-on-changes

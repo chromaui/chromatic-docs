@@ -384,6 +384,12 @@ If you're using a prebuilt Storybook as opposed to having Chromatic build your S
 
 This would ensure we're checking `packages/webapp` for your Storybook project instead of your root directory, which may end up detecting unexpected package control files for other subprojects. Even though the default config directory is being used, you'll want to ensure to set `--storybook-config-dir` as well since this path is relative to your current working directory.
 
+<div class="aside">
+
+ℹ️ These options don't share a base directory: some resolve against your repository root, others against your current working directory. See [TurboSnap config paths](/docs/turbosnap/config-paths) for the full breakdown and a worked monorepo example.
+
+</div>
+
 If you're using the `--externals` or `--untraced` flags in a monorepo, you'll want to be mindful that the paths specified are relative to your repository root. For example, let's say you want to ignore some global decorators in your `packages/webapp` project:
 
 ```shell

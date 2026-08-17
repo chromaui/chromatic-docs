@@ -21,6 +21,8 @@ If the build output shows no story files being detected by changes, there might 
 
 Another reason that changes may be missed is if the changed files aren't directly included in the webpack build; use the [`externals` flag](/docs/turbosnap/setup#specify-external-files-to-trigger-a-full-re-test-when-they-change) to tell Chromatic about this.
 
+Path resolution is the other common cause, especially in a monorepo. `untraced` and `externals` patterns are relative to your repository root, while `storybookConfigDir` and `storybookBuildDir` are relative to your working directory, so a pattern with the wrong prefix silently matches nothing. See [TurboSnap config paths](/docs/turbosnap/config-paths).
+
 ## Why are changes not being detected correctly?
 
 Teams frequently use an index file ([barrel file](https://basarat.gitbook.io/typescript/main-1/barrel)) to simplify imports. This practice allows for easier importing, such as accessing a component from `@component-library` instead of specifying the full path like `@component-library/elements/table`. However, the usage of barrels impacts TurboSnap's ability to detect changes.
