@@ -1,0 +1,140 @@
+---
+title: TurboSnap config paths
+description: TurboSnap's path options resolve against different bases. Learn which options are relative to your repository root and which are relative to your working directory.
+sidebar: { order: 8, label: 'Config paths' }
+slug: 'turbosnap/config-paths'
+---
+
+# TurboSnap config paths
+
+TurboSnap's path options don't all resolve against the same base. Some are relative to your repository root, others to the current working directory. Mixing them up is the most common reason TurboSnap looks for your Storybook in the wrong place — especially in a monorepo, where `workingDir` moves the goalposts for some options but not others.
+
+For what each option does, see the [configuration options reference](/docs/configure#options). For setting TurboSnap up in the first place, see [Setup](/docs/turbosnap/setup).
+
+## Which base each option uses
+
+**Relative to the repository root:**
+
+- `untraced`
+- `externals`
+- `storybookBaseDir`
+
+**Relative to the current working directory:**
+
+- `storybookConfigDir`
+- `storybookBuildDir`
+
+`workingDir` changes the current working directory, so it affects the second group and leaves the first group alone.
+
+<div class="aside">
+
+ℹ️ `storybookBaseDir` defaults to the current working directory expressed relative to the repository root. If you set it explicitly, your value is read as repo-root-relative — not as an addition to `workingDir`.
+
+</div>
+
+## Why `storybookBaseDir` exists
+
+`storybookBaseDir` corrects a mismatch between two sets of file paths:
+
+- the paths inside `preview-stats.json`, which your Storybook build generates
+- the paths returned by `git diff --name-only`, which TurboSnap runs
+
+If your Storybook build and the `chromatic` command run from the same working directory, the two line up and you don't need `storybookBaseDir` at all. If they run from different directories, the paths won't match and TurboSnap can't connect a changed file to the stories that depend on it.
+
+One exception: if your `build-storybook` script changes directory before invoking `storybook build`, the paths can diverge even when Chromatic builds your Storybook for you.
+
+<div class="aside">
+
+✨ Run `npx @chromatic-com/turbosnap-helper` from your repository root and it will report the correct base and config directories for your project, and can update your config file for you.
+
+</div>
+
+## Worked example
+
+Given a Storybook in `client/`, with these directories:
+
+```bash
+📙 Storybook Base Directory: ./client
+📂 Storybook Config Directory: ./client/.storybook
+```
+
+a working GitHub Actions step looks like this:
+
+```yaml
+- name: Build Storybook
+  run: npm run build-storybook -- -o ./client/storybook-static -c ./client/.storybook
+- name: Publish to Chromatic
+  uses: chromaui/action@latest
+  with:
+    projectToken: ${{ secrets.CHROMATIC_PROJECT_TOKEN }}
+    workingDir: client
+    onlyChanged: true
+    # 👇 relative to workingDir, so no ./client prefix
+    storybookBuildDir: storybook-static
+    externals: |
+      ./client/public/*.css
+      **/*.sass
+    untraced: |
+      **/preview.js
+      # 👇 relative to the repository root, so ./client is required
+      ./client/src/utils.tsx
+```
+
+Notes on each option in that config:
+
+- `storybookBuildDir` is cwd-relative, and `workingDir` has already moved the cwd to `client`, so it's `storybook-static` rather than `./client/storybook-static`.
+- `storybookConfigDir` is omitted entirely. It defaults to `.storybook`, which is correct once the cwd is `client`.
+- `storybookBaseDir` is omitted. Its default is the cwd relative to the repository root, which is `./client` — already right.
+- `untraced` and `externals` are repo-root-relative and are unaffected by `workingDir`, so they need the `./client` prefix. A pattern like `./src/utils.tsx` would silently match nothing.
+
+For more on monorepo setups, see [Using TurboSnap in a monorepo](/docs/turbosnap/setup#using-turbosnap-in-a-monorepo) and [Optimizing TurboSnap for monorepos](/docs/turbosnap/monorepo-usage).
+
+## Common failures
+
+<details>
+<summary>The config directory path is duplicated (<code>foo/bar/foo/bar/.storybook</code>)</summary>
+
+You've set `storybookConfigDir` to a repo-root-relative path while also using `workingDir`. Because `storybookConfigDir` is cwd-relative, Chromatic appends your value to the working directory.
+
+```yaml
+# ✖ Chromatic looks for web/app/web/app/sb-config/.storybook
+workingDir: web/app
+storybookConfigDir: web/app/sb-config/.storybook
+
+# ✔ relative to the working directory
+workingDir: web/app
+storybookConfigDir: sb-config/.storybook
+```
+
+If your config directory is at the default location inside your working directory, drop `storybookConfigDir` altogether.
+
+</details>
+
+<details>
+<summary>The base directory resolves to the repository root instead of a subdirectory</summary>
+
+You've set `workingDir` in CI but `storybookBaseDir` somewhere else — in your `chromatic` script or `chromatic.config.json` — with a path relative to the subproject rather than the repository.
+
+```json title="chromatic.config.json"
+// ✖ Chromatic looks for ./app/sb at the repository root
+{ "storybookBaseDir": "./app/sb" }
+```
+
+Because `storybookBaseDir` is repo-root-relative, `workingDir: web/services` does not make this resolve to `./web/services/app/sb`. Either give the full repo-root-relative path, or set it in the Chromatic step of your CI workflow where the full path is natural:
+
+```yaml
+storybookBaseDir: web/services/app/sb
+```
+
+Flags take precedence over config-file options, and you can supply both in the same build. Check every place a path might be set: your CI configuration, your `package.json` scripts, and `chromatic.config.json`.
+
+</details>
+
+<details>
+<summary>I see "No manifest or lockfile found at the root of the repository"</summary>
+
+TurboSnap is looking for your project's manifest and lockfile in the wrong place, which usually means your Storybook configuration lives in a subdirectory and the base directory isn't set correctly.
+
+Run `npx @chromatic-com/turbosnap-helper` from your repository root to get the correct value. If you still can't determine the right path, generate a trimmed stats file and use the [`trace` utility](/docs/turbosnap/trace-utility) to see which paths TurboSnap resolves.
+
+</details>
