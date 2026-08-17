@@ -180,3 +180,71 @@ export default config;
 ```
 
 </details>
+
+<details>
+<summary>I see "invalid_redirect_uri" or "redirect_uri not registered" when connecting</summary>
+
+There are two separate causes, and they need different fixes.
+
+**Your agent picked a random local port.** Some agents authenticate using a client metadata document as the client ID. Those agents choose an ephemeral loopback port at runtime — `http://localhost:52947/callback`, with a different port each time.
+
+Chromatic's authorization requires the redirect URI to match exactly. A port that changes between attempts won't match.
+
+**Your configuration uses the wrong key format.** Every agent expects the OAuth client ID under a different key, so copying a working config from one tool to another reliably fails. See the next entry.
+
+The most reliable fix for both is to let the `mcp-add` CLI write the configuration for you, rather than editing it by hand:
+
+```bash
+npx mcp-add --type http --url "https://<BRANCH>--<APP-ID>.chromatic.com/mcp" --client-id "cdf3737dff9d485485968e50b63fd8b4" --scope project
+```
+
+After changing any MCP configuration, start a new agent session — most agents only read it at startup.
+
+</details>
+
+<details>
+<summary>Where does the OAuth client ID go in my agent's config?</summary>
+
+Each agent expects a different key. Use the one for your tool:
+
+| Agent       | Expected key                  | Example                                         |
+| ----------- | ----------------------------- | ----------------------------------------------- |
+| Claude Code | `oauth.clientId` (camelCase)  | `{ "oauth": { "clientId": "your-client-id" } }` |
+| Cursor      | `auth.client_id` (snake_case) | `{ "auth": { "client_id": "your-client-id" } }` |
+| Codex       | `auth.CLIENT_ID` (uppercase)  | `{ "auth": { "CLIENT_ID": "your-client-id" } }` |
+
+Both the outer key (`oauth` vs `auth`) and the inner key's casing matter. A complete entry for Claude Code looks like this:
+
+```json title=".mcp.json"
+{
+  "mcpServers": {
+    "your-chromatic-storybook-mcp": {
+      "type": "http",
+      "url": "https://<BRANCH>--<APP-ID>.chromatic.com/mcp",
+      "oauth": {
+        "clientId": "cdf3737dff9d485485968e50b63fd8b4"
+      }
+    }
+  }
+}
+```
+
+</details>
+
+<details>
+<summary>Which config file does my agent read?</summary>
+
+Editing the wrong file is a common cause of "my changes had no effect."
+
+| Agent           | Per-repository                    | Global                        |
+| --------------- | --------------------------------- | ----------------------------- |
+| Claude Code     | `.mcp.json`                       | `~/.claude.json`              |
+| Claude Desktop  | Not supported                     | `claude_desktop_config.json`  |
+| Cursor          | `.cursor/mcp.json`                | `~/.cursor/mcp.json`          |
+| Cline (VS Code) | `.vscode/cline_mcp_settings.json` | `cline_mcp_settings.json`     |
+| Continue        | `.continue/mcpServers/mcp.json`   | `~/.continue/config.json`     |
+| Zed             | Configured through settings UI    | `~/.config/zed/settings.json` |
+
+To confirm the server itself is reachable before debugging your config, open the MCP URL in a browser: `https://<BRANCH>--<APP-ID>.chromatic.com/mcp`.
+
+</details>
