@@ -1,0 +1,95 @@
+---
+title: Telemetry
+slug: vitest/telemetry
+description: Understand the anonymous usage data Chromatic collects through the Vitest
+  integration, and how to opt out.
+sidebar: { order: 5 }
+---
+
+# Telemetry
+
+Chromatic’s [Vitest integration](/docs/vitest) collects completely anonymous telemetry data about general usage. Participation is on by default, and you can [opt out](#how-to-opt-out) if you’d rather not share this information.
+
+## Why collect telemetry?
+
+The Vitest integration spans two parts of a run:
+
+1. The **Vitest plugin** (`@chromatic-com/vitest`) captures snapshots and writes local archives while your tests run.
+2. The **CLI** (`chromatic --vitest`) uploads those archives to Chromatic.
+
+Because the integration is used across a wide range of Vitest versions, browsers, project layouts, and CI environments, telemetry is the most accurate way for us to understand how the integration is actually used, where people run into friction, and which configurations or compatibility issues get in the way of a successful setup. It directly informs which bugs we prioritize and which parts of the workflow we improve.
+
+The data is anonymized and can’t be traced back to you (though it may include a hashed project identifier), and access is limited to relevant members of Chromatic’s core team.
+
+## What is collected
+
+Telemetry is scoped to information that answers a specific product or diagnostic question, not every possible interaction. At a high level, we collect:
+
+- **Activation and eligibility**: Whether the plugin ran, and whether a project was ineligible to run (e.g., browser mode is disabled).
+- **Run outcomes**: Aggregate counts such as the number of snapshots captured per run and the number of archives written.
+- **Capture mode and test selection**: Whether a snapshot was taken automatically or manually via [`takeSnapshot`](/docs/vitest/targeted-snapshots), whether a custom name was used, and the color scheme (`light` or `dark`) at capture time.
+- **Configuration usage**: _Which_ [`chromaticPlugin()` and `configure()` options](/docs/vitest/configure) are set and at what scope. Values that could be sensitive are reduced to booleans or counts (e.g., `tags` becomes a `tagsCount`), never the raw values.
+- **Environment and versions**: Whether the run is in CI, your package manager, and version numbers for Node, Vitest, the Vitest plugin, and the Chromatic CLI.
+- **Warnings and errors**: Stable event types and sanitized error messages and stacks, so we can diagnose failures such as network-idle timeouts, missing archives, or a failed Storybook build.
+
+## What is _not_ collected
+
+Chromatic never collects sensitive or identifiable information. Specifically, telemetry excludes:
+
+- Source code and DOM content
+- Credentials and environment variables
+- File paths and URLs
+- Test names and suite names
+- Raw configuration values
+
+Wherever a value could be sensitive, it’s converted into a safe, aggregate form before being sent. For example, an array option is reduced to a count, and any error message or stack is sanitized to strip your working directory and home directory before it leaves your machine.
+
+## How your project is anonymized
+
+To connect activity from the plugin with the later CLI run without identifying you, each event carries an anonymous project identifier. It’s a one-way SHA-256 hash of your Git `origin` remote URL (normalized, with any protocol and credentials removed), or a hash of the project’s root path when no Git remote is available. Each run also gets a random session ID so plugin and CLI events from the same run can be correlated. Neither value can be reversed to reveal your repository or machine.
+
+## See what’s being collected
+
+To inspect exactly what’s sent, you can have the integration write every telemetry event to a local file. Enable it with the `CHROMATIC_TELEMETRY_LOG_TO_FILE` environment variable:
+
+```shell
+CHROMATIC_TELEMETRY_LOG_TO_FILE=1 npx vitest
+# then
+CHROMATIC_TELEMETRY_LOG_TO_FILE=1 npx chromatic --vitest
+```
+
+Each event is written as one JSON object per line to `telemetry.jsonl` in your [`outputDirectory`](/docs/vitest/configure) (`.vitest/chromatic` by default).
+
+## How to opt out
+
+Telemetry is enabled by default and can be disabled by setting an environment variable. The plugin and the CLI respect the same preference, so setting it once disables telemetry for the entire run.
+
+```shell
+CHROMATIC_DISABLE_TELEMETRY=1
+# or
+DO_NOT_TRACK=1
+```
+
+<div class="aside">
+
+[`DO_NOT_TRACK` is a cross-tool standard.](https://consoledonottrack.com/)
+
+</div>
+
+<p></p>
+
+<div class="aside">
+
+⚠️ These environment variables must be set for **both** the Vitest process and the Chromatic CLI process. Setting it for only one of them leaves the other still reporting.
+
+</div>
+
+For example, when running locally, you can do:
+
+```shell
+CHROMATIC_DISABLE_TELEMETRY=1 vitest
+# then
+CHROMATIC_DISABLE_TELEMETRY=1 chromatic --vitest -t=<TOKEN>
+```
+
+Or, in a CI workflow, you can set the variable globally for all steps.
