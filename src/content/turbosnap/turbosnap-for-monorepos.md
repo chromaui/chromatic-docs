@@ -1,7 +1,7 @@
 ---
 title: Optimizing TurboSnap for monorepos
 description: Tips to optimize your TurboSnap configuration when working with a monorepo
-sidebar: { order: 8, label: 'Monorepo usage' }
+sidebar: { order: 9, label: 'Monorepo usage' }
 slug: 'turbosnap/monorepo-usage'
 ---
 
@@ -10,6 +10,8 @@ slug: 'turbosnap/monorepo-usage'
 For large teams using a monorepo and managing changes across dozens of packages, it's crucial not just to run tests faster but to run the right ones. TurboSnap excels in these scenarios by accelerating test runs, executing UI tests only on what has actually changed. However, poorly structured dependencies can derail your whole setup. Constantly triggering full rebuilds or skipping coverage on affected components makes it impossible to trust the results.
 
 In this guide, we’ll break down practical strategies for managing `dependencies`, `devDependencies`, dynamic imports, and `package.json` files in a way that keeps your TurboSnap builds snappy _and_ your coverage meaningful.
+
+Before tuning dependencies, confirm your directory options point where you expect. In a monorepo, some path options are relative to your repository root and others to your working directory — [TurboSnap config paths](/docs/turbosnap/config-paths) covers which is which.
 
 <div class="aside">
 

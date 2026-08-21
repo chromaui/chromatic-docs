@@ -55,6 +55,8 @@ If your Storybook config or preview files don't live in the default `./.storyboo
 - `storybookBaseDir` sets the root for dependency tracing (what source files are considered part of the Storybook project)
 - `storybookConfigDir` tells Chromatic where to find your Storybook configuration (the path where your `main.js|ts` and `preview.js|ts` live)
 
+These two options resolve against different bases. See [TurboSnap config paths](/docs/turbosnap/config-paths) for which options are relative to your repository root and which are relative to your working directory.
+
 If your directories are not properly configured, changes to unrelated files—like your root `package.json` or backend utilities—can trigger full rebuilds.
 
 <div class="aside">
