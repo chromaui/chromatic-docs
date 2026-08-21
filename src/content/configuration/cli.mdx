@@ -66,8 +66,8 @@ For Playwright and Cypress, we recommend installing the chromatic package as a d
 Chromatic CLI can be configured through options in `./chromatic.config.json` file (recommended) placed at the root of your project folder and/or by passing CLI flags.
 
 <div class="aside">
-  Note: some options are only available as flags. For a full list of available options, please refer
-  to the [configuration reference](/docs/configure) page.
+  Some options are only available as flags. For a full list of available options, please refer to
+  the [configuration reference](/docs/configure) page.
 </div>
 
 Flags must be passed as `--kebab-case` whereas options are `camelCase`. Flags take precedence over configuration options. When passing a flag without value, it is treated as `true`. Where an array is accepted, specify the flag multiple times (once for each value).
@@ -76,7 +76,7 @@ Flags must be passed as `--kebab-case` whereas options are `camelCase`. Flags ta
 
 - Flags take precedence over options specified in the config file and GitHub Action.
 
-- Passing a flag without value is treated as `true`. e.g.:
+- Passing a flag without a value is treated as `true`. e.g.:
   ```sh
   $ npx chromatic --dry-run -t <your-project-token>
   ```
@@ -147,7 +147,7 @@ To set up CI, store your project token as the `CHROMATIC_PROJECT_TOKEN` environm
 
 #### Visual Tests addon
 
-For local builds with the [Visual Tests addon](/docs/visual-tests-addon/), your personal OAuth token (with which you authenticated the addon) is used instead of the project token.
+For local builds with the [Visual Tests addon](/docs/visual-tests-addon/), your personal OAuth token (which you used to authenticate the addon) is used instead of the project token.
 
 ## Exit codes
 
@@ -182,7 +182,7 @@ For local builds with the [Visual Tests addon](/docs/visual-tests-addon/), your 
 ## Troubleshooting
 
 <details>
-<summary> I see "Chromatic: Failed to publish. Reason: self signed certificate in certificate chain" when running the CLI on my machine.</summary>
+<summary> I see "Chromatic: Failed to publish. Reason: self-signed certificate in certificate chain" when running the CLI on my machine.</summary>
 
 This isn't a Chromatic CLI issue. Check if your machine is using special security or network settings before running the CLI.
 
@@ -191,14 +191,14 @@ This isn't a Chromatic CLI issue. Check if your machine is using special securit
 <details>
 <summary id="chromatic-dns-options"> I see "ENOTFOUND" when running the CLI on my machine</summary>
 
-By default, DNS resolution is handled by the environment system. If you are experiencing DNS issues (i.e. `ENOTFOUND`), the CLI will try and switch from the operating system DNS lookup (i.e., `dns.lookup`) to network DNS resolve (i.e., `dns.resolve`). If this also fails, the CLI will add `CHROMATIC_DNS_FAILOVER_SERVERS` to the list of available DNS servers and try again. For additional information regarding Node's DNS implementation, please refer to their [documentation](https://nodejs.org/docs/latest/api/dns.html#dns_implementation_considerations).
+By default, DNS resolution is handled by the environment system. If you are experiencing DNS issues (i.e., `ENOTFOUND`), the CLI will try to switch from the operating system DNS lookup (i.e., `dns.lookup`) to network DNS resolve (i.e., `dns.resolve`). If this also fails, the CLI will add `CHROMATIC_DNS_FAILOVER_SERVERS` to the list of available DNS servers and try again. For additional information regarding Node's DNS implementation, please refer to their [documentation](https://nodejs.org/docs/latest/api/dns.html#dns_implementation_considerations).
 
 </details>
 
 <details>
 <summary id="chromatic-git-options">Why are Git environment variables not working with the CLI?</summary>
 
-If you've configured the Chromatic CLI to run with one of the Git environment variables (i.e.,`CHROMATIC_SHA`, `CHROMATIC_BRANCH`, `CHROMATIC_SLUG`), you must configure all three. Otherwise, Chromatic will ignore them when running the build.
+If you've configured the Chromatic CLI to run with one of the Git environment variables (i.e., `CHROMATIC_SHA`, `CHROMATIC_BRANCH`, `CHROMATIC_SLUG`), you must configure all three. Otherwise, Chromatic will ignore them when running the build.
 
 </details>
 
@@ -207,9 +207,248 @@ If you've configured the Chromatic CLI to run with one of the Git environment va
 
 - `--no-interactive`: When running the CLI locally, use this flag to get logs like you would in CI, which are more elaborate than the interactive logs. This is automatically enabled in CI, so adding it to a CI script is useless.
 - `--diagnostics-file`: Before terminating the process, this dumps process context information to `chromatic-diagnostics.json`. This is the first place to look if you see things you didn't expect. In a CI system, you'll have to configure this file as a **build artifact** so you can download it. How to do this depends on your CI provider.
-- `--dry-run`: Use this if you want to debug the CLI without actually publishing your Storybook or running a Chromatic build. Typically you'd pair this with `--diagnostics-file`.
+- `--dry-run`: Use this if you want to debug the CLI without actually publishing your Storybook or running a Chromatic build. Typically, you'd pair this with `--diagnostics-file`.
 - `--debug`: This enables verbose logging and `--no-interactive`. Use this if you want to see the nitty-gritty details. Primarily useful if you have issues publishing (uploading) your Storybook to Chromatic.
 - `--trace-changed`: Specifically for TurboSnap, you can use this flag to get a printed tree view of the dependencies between changed files (according to Git) and your story files.
 - `--only-story-names`: If you have specific stories causing problems, you can use this flag to run a build for just those stories (one or more). If you don't know which stories are available, you can use `--list` to print a list of all stories in your Storybook, though it will require running a Chromatic build.
+
+</details>
+
+<details>
+<summary>I see "No installationId found for repositoryId" when running the CLI</summary>
+
+Chromatic can't reach the git repository linked to your project. This usually means one of three things:
+
+- The repository connection has lapsed. Check whether your organization's permissions for the Chromatic app have changed.
+- The repository was renamed or deleted, so Chromatic can no longer find it at the path it has on file.
+- Your git access token is no longer valid. Log out of Chromatic and log back in to refresh it.
+
+Also, confirm that git is initialized in the directory you're running the CLI from (`git status`).
+
+</details>
+
+<details>
+<summary>I see "Failed to build Storybook"</summary>
+
+This is a problem with your Storybook build, not with Chromatic. Chromatic builds your Storybook in production mode, so a package that works in development mode but breaks in a production build will fail here, while running fine locally with `storybook dev`.
+
+Reproduce it locally the same way Chromatic does:
+
+```bash
+npm run build-storybook
+npx http-server storybook-static -o
+```
+
+If that fails, fix the build error and re-run. If it succeeds, run Chromatic with diagnostics to capture more detail:
+
+```bash
+npx chromatic --project-token=<TOKEN> --dry-run --debug --diagnostics-file
+```
+
+</details>
+
+<details>
+<summary>I see "Failed to extract stories from your Storybook"</summary>
+
+Your Storybook contains a runtime error. The full message may look like this:
+
+```bash
+✖ Failed to extract stories from your Storybook
+This is usually a problem with your published Storybook, not with Chromatic.
+
+Build and open your Storybook locally and check the browser console for errors.
+Visit your published Storybook at https://<subdomain>.chromatic.com
+The following error was encountered while running your Storybook:
+
+Error: page.evaluate: ReferenceError: Cannot access 'it' before initialization
+```
+
+The message doesn't say which story is responsible, and because stories load on demand, opening your published Storybook may not surface the error in the console at all.
+
+To find the offending story:
+
+1. Open your published Storybook's `iframe.html` (the URL is in the CLI output, with `/iframe.html` appended).
+2. In the browser console, run:
+
+   ```js
+   await (window.__STORYBOOK_PREVIEW__?.extract?.() ?? __STORYBOOK_PREVIEW__.extract());
+   ```
+
+3. The console output names the story that threw.
+
+Fix the runtime error in that story, then rerun your build.
+
+</details>
+
+<details>
+<summary>I see "Build script not found"</summary>
+
+The CLI couldn't find a `build-storybook` script in your `package.json`:
+
+```bash
+✖ Build script not found
+The CLI didn't find a script called "build-storybook" in your package.json.
+```
+
+Add it:
+
+```json title="package.json"
+{
+  "scripts": {
+    "build-storybook": "storybook build",
+    "chromatic": "chromatic"
+  }
+}
+```
+
+If your build script has a different name, point the CLI at it with [`buildScriptName`](/docs/configure#buildscriptname) instead of renaming it.
+
+</details>
+
+<details>
+<summary>I see "Failed to publish your built Storybook — Invalid Storybook build"</summary>
+
+Chromatic detected that the build output isn't a valid Storybook and stopped before uploading, so there's no additional logging to inspect.
+
+Build your Storybook locally to confirm it produces valid output. If it does, build it as a separate step in CI and hand the output directory to Chromatic rather than letting Chromatic build it:
+
+```bash
+npm run build-storybook
+npx chromatic --storybook-build-dir=storybook-static
+```
+
+</details>
+
+<details>
+<summary>I see "Failed to authenticate" and I'm on a corporate network</summary>
+
+This usually indicates a TLS problem. Proxies that intercept HTTPS traffic and present their own certificate can break the CLI's connection to Chromatic.
+
+If the CLI worked previously but has started failing without any changes on your side, your network, DNS, or firewall configuration likely changed.
+
+Check whether your machine can reach `index.chromatic.com` with a valid TLS certificate. If your organization uses a corporate certificate, your security team will need to allow the connection.
+
+See also [local certificate errors](/docs/faq/local-certificate-error/).
+
+</details>
+
+<details>
+<summary>I see "Failed to authenticate (INTERNAL_SERVER_ERROR: No app with code '…' found)"</summary>
+
+The project token being passed doesn't match any Chromatic project. Almost always a configuration problem rather than an outage:
+
+- Confirm the token against the one on your project's **Manage** page.
+- If the token comes from an environment variable or a secrets manager, confirm the value arriving at the CLI is the raw token and hasn't been wrapped, encrypted, or truncated in transit.
+- If the token was [reset](/docs/faq/reset-project-token/), update every place it's configured.
+
+</details>
+
+<details>
+<summary>I see "Error: Unknown argument" and I'm using the Angular CLI</summary>
+
+```bash
+Error: Unknown argument: /tmp/chromatic--1234-e5X6a7M8p9L0e
+```
+
+The Angular CLI rejects the temporary output directory that Chromatic passes when it builds your Storybook for you. Build Storybook as its own step and pass the result to Chromatic instead:
+
+```json title="package.json"
+{
+  "scripts": {
+    "build-storybook": "ng run components:build-storybook",
+    "chromatic": "npm run build-storybook && npx chromatic --storybook-build-dir=static-storybook"
+  }
+}
+```
+
+</details>
+
+<details>
+<summary>I see "Some chunks are larger than 500 kBs"</summary>
+
+This is a warning from your bundler about your Storybook's output size, not a Chromatic error. It often appears alongside a failing or slow build.
+
+Options, roughly in order of effort:
+
+- Use dynamic `import()` to split large modules so they load on demand.
+- Configure chunking explicitly — `build.rollupOptions.output.manualChunks` for Vite, `optimization.splitChunks` for webpack.
+- Raise the warning threshold if the size is expected. In Vite:
+
+  ```js title="vite.config.js"
+  export default {
+    build: {
+      chunkSizeWarningLimit: 1000, // KB
+    },
+  };
+  ```
+
+  This changes only the warning threshold, not the chunk sizes.
+
+If your build is also timing out, see [`CHROMATIC_TIMEOUT` and `STORYBOOK_BUILD_TIMEOUT`](/docs/configure#environment-variables), and consider passing a prebuilt Storybook with `--storybook-build-dir`.
+
+</details>
+
+<details>
+<summary>I see "Failed to publish your built Storybook — Sentinel file 'files-copied.txt' not OK"</summary>
+
+Chromatic reuses unchanged files from your previous build instead of re-uploading them. This error means one or more of those files failed to copy.
+
+Re-run the build. If it keeps failing, disable file reuse for that build:
+
+```bash
+npx chromatic --no-file-hashing
+```
+
+and [contact support](mailto:support@chromatic.com) so we can look into it.
+
+</details>
+
+<details>
+<summary>I see "NoSuchKey" in my <code>--debug</code> output</summary>
+
+A `NoSuchKey` 404 for `.chromatic/files-copied.txt` in verbose output is expected and harmless. Chromatic polls for that file while reusing unchanged files from your previous build, so it's absent until the copy finishes. It doesn't affect your build.
+
+</details>
+
+<details>
+<summary>I see "Unhandled promise rejection: Invalid version"</summary>
+
+```bash
+Unhandled promise rejection: Invalid version: "x"
+```
+
+This comes from npm, not Chromatic. The `version` field in your `package.json` must be parseable by [node-semver](https://github.com/npm/node-semver#versions) — that is, it must follow semantic versioning. A leading `=` or `v` is stripped, but any other scheme fails.
+
+Update the version to a valid semver string.
+
+</details>
+
+<details>
+<summary>I see "ReferenceError: &lt;something&gt; is not defined"</summary>
+
+For example:
+
+```bash
+ReferenceError: React is not defined
+ReferenceError: _jsx is not defined
+ReferenceError: IDBIndex is not defined
+```
+
+A dependency isn't declared, isn't installed, or is declared incorrectly, so it's missing from the production build Chromatic renders.
+
+1. Confirm your Storybook builds and serves locally:
+
+   ```bash
+   npm run build-storybook
+   npx http-server storybook-static -o
+   ```
+
+2. Run Storybook's health check to catch mismatched `@storybook/*` versions:
+
+   ```bash
+   npx storybook@latest doctor
+   ```
+
+3. Check that the missing dependency is declared in `package.json` and that its configuration (for example, your Vite or webpack config) is complete.
 
 </details>
