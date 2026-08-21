@@ -271,7 +271,7 @@ To find the offending story:
 2. In the browser console, run:
 
    ```js
-   await __STORYBOOK_PREVIEW__.extract();
+   await (window.__STORYBOOK_PREVIEW__?.extract?.() ?? __STORYBOOK_PREVIEW__.extract());
    ```
 
 3. The console output names the story that threw.
