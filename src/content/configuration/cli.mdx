@@ -66,7 +66,7 @@ For Playwright and Cypress, we recommend installing the chromatic package as a d
 Chromatic CLI can be configured through options in `./chromatic.config.json` file (recommended) placed at the root of your project folder and/or by passing CLI flags.
 
 <div class="aside">
-  Note: some options are only available as flags. For a full list of available options, please refer
+  Some options are only available as flags. For a full list of available options, please refer
   to the [configuration reference](/docs/configure) page.
 </div>
 
@@ -76,7 +76,7 @@ Flags must be passed as `--kebab-case` whereas options are `camelCase`. Flags ta
 
 - Flags take precedence over options specified in the config file and GitHub Action.
 
-- Passing a flag without value is treated as `true`. e.g.:
+- Passing a flag without a value is treated as `true`. e.g.:
   ```sh
   $ npx chromatic --dry-run -t <your-project-token>
   ```
@@ -147,7 +147,7 @@ To set up CI, store your project token as the `CHROMATIC_PROJECT_TOKEN` environm
 
 #### Visual Tests addon
 
-For local builds with the [Visual Tests addon](/docs/visual-tests-addon/), your personal OAuth token (with which you authenticated the addon) is used instead of the project token.
+For local builds with the [Visual Tests addon](/docs/visual-tests-addon/), your personal OAuth token (which you used to authenticate the addon) is used instead of the project token.
 
 ## Exit codes
 
@@ -182,7 +182,7 @@ For local builds with the [Visual Tests addon](/docs/visual-tests-addon/), your 
 ## Troubleshooting
 
 <details>
-<summary> I see "Chromatic: Failed to publish. Reason: self signed certificate in certificate chain" when running the CLI on my machine.</summary>
+<summary> I see "Chromatic: Failed to publish. Reason: self-signed certificate in certificate chain" when running the CLI on my machine.</summary>
 
 This isn't a Chromatic CLI issue. Check if your machine is using special security or network settings before running the CLI.
 
@@ -191,14 +191,14 @@ This isn't a Chromatic CLI issue. Check if your machine is using special securit
 <details>
 <summary id="chromatic-dns-options"> I see "ENOTFOUND" when running the CLI on my machine</summary>
 
-By default, DNS resolution is handled by the environment system. If you are experiencing DNS issues (i.e. `ENOTFOUND`), the CLI will try and switch from the operating system DNS lookup (i.e., `dns.lookup`) to network DNS resolve (i.e., `dns.resolve`). If this also fails, the CLI will add `CHROMATIC_DNS_FAILOVER_SERVERS` to the list of available DNS servers and try again. For additional information regarding Node's DNS implementation, please refer to their [documentation](https://nodejs.org/docs/latest/api/dns.html#dns_implementation_considerations).
+By default, DNS resolution is handled by the environment system. If you are experiencing DNS issues (i.e., `ENOTFOUND`), the CLI will try to switch from the operating system DNS lookup (i.e., `dns.lookup`) to network DNS resolve (i.e., `dns.resolve`). If this also fails, the CLI will add `CHROMATIC_DNS_FAILOVER_SERVERS` to the list of available DNS servers and try again. For additional information regarding Node's DNS implementation, please refer to their [documentation](https://nodejs.org/docs/latest/api/dns.html#dns_implementation_considerations).
 
 </details>
 
 <details>
 <summary id="chromatic-git-options">Why are Git environment variables not working with the CLI?</summary>
 
-If you've configured the Chromatic CLI to run with one of the Git environment variables (i.e.,`CHROMATIC_SHA`, `CHROMATIC_BRANCH`, `CHROMATIC_SLUG`), you must configure all three. Otherwise, Chromatic will ignore them when running the build.
+If you've configured the Chromatic CLI to run with one of the Git environment variables (i.e., `CHROMATIC_SHA`, `CHROMATIC_BRANCH`, `CHROMATIC_SLUG`), you must configure all three. Otherwise, Chromatic will ignore them when running the build.
 
 </details>
 
@@ -207,7 +207,7 @@ If you've configured the Chromatic CLI to run with one of the Git environment va
 
 - `--no-interactive`: When running the CLI locally, use this flag to get logs like you would in CI, which are more elaborate than the interactive logs. This is automatically enabled in CI, so adding it to a CI script is useless.
 - `--diagnostics-file`: Before terminating the process, this dumps process context information to `chromatic-diagnostics.json`. This is the first place to look if you see things you didn't expect. In a CI system, you'll have to configure this file as a **build artifact** so you can download it. How to do this depends on your CI provider.
-- `--dry-run`: Use this if you want to debug the CLI without actually publishing your Storybook or running a Chromatic build. Typically you'd pair this with `--diagnostics-file`.
+- `--dry-run`: Use this if you want to debug the CLI without actually publishing your Storybook or running a Chromatic build. Typically, you'd pair this with `--diagnostics-file`.
 - `--debug`: This enables verbose logging and `--no-interactive`. Use this if you want to see the nitty-gritty details. Primarily useful if you have issues publishing (uploading) your Storybook to Chromatic.
 - `--trace-changed`: Specifically for TurboSnap, you can use this flag to get a printed tree view of the dependencies between changed files (according to Git) and your story files.
 - `--only-story-names`: If you have specific stories causing problems, you can use this flag to run a build for just those stories (one or more). If you don't know which stories are available, you can use `--list` to print a list of all stories in your Storybook, though it will require running a Chromatic build.
@@ -223,14 +223,14 @@ Chromatic can't reach the git repository linked to your project. This usually me
 - The repository was renamed or deleted, so Chromatic can no longer find it at the path it has on file.
 - Your git access token is no longer valid. Log out of Chromatic and log back in to refresh it.
 
-Also confirm that git is initialized in the directory you're running the CLI from (`git status`).
+Also, confirm that git is initialized in the directory you're running the CLI from (`git status`).
 
 </details>
 
 <details>
 <summary>I see "Failed to build Storybook"</summary>
 
-This is a problem with your Storybook build, not with Chromatic. Chromatic builds your Storybook in production mode, so a package that works in development mode but breaks in a production build will fail here while running fine locally with `storybook dev`.
+This is a problem with your Storybook build, not with Chromatic. Chromatic builds your Storybook in production mode, so a package that works in development mode but breaks in a production build will fail here, while running fine locally with `storybook dev`.
 
 Reproduce it locally the same way Chromatic does:
 
@@ -276,7 +276,7 @@ To find the offending story:
 
 3. The console output names the story that threw.
 
-Fix the runtime error in that story and re-run your build.
+Fix the runtime error in that story, then rerun your build.
 
 </details>
 
@@ -324,7 +324,7 @@ npx chromatic --storybook-build-dir=storybook-static
 
 This usually indicates a TLS problem. Proxies that intercept HTTPS traffic and present their own certificate can break the CLI's connection to Chromatic.
 
-If the CLI worked previously and started failing without any change on your side, your network, DNS, or firewall configuration likely changed.
+If the CLI worked previously but has started failing without any changes on your side, your network, DNS, or firewall configuration likely changed.
 
 Check whether your machine can reach `index.chromatic.com` with a valid TLS certificate. If your organization uses a corporate certificate, your security team will need to allow the connection.
 
@@ -350,7 +350,7 @@ The project token being passed doesn't match any Chromatic project. Almost alway
 Error: Unknown argument: /tmp/chromatic--1234-e5X6a7M8p9L0e
 ```
 
-The Angular CLI is rejecting the temporary output directory Chromatic passes when it builds your Storybook for you. Build Storybook as its own step and pass the result to Chromatic instead:
+The Angular CLI rejects the temporary output directory that Chromatic passes when it builds your Storybook for you. Build Storybook as its own step and pass the result to Chromatic instead:
 
 ```json title="package.json"
 {
@@ -382,7 +382,7 @@ Options, roughly in order of effort:
   };
   ```
 
-  This changes the warning threshold only, not the chunk sizes.
+  This changes only the warning threshold, not the chunk sizes.
 
 If your build is also timing out, see [`CHROMATIC_TIMEOUT` and `STORYBOOK_BUILD_TIMEOUT`](/docs/configure#environment-variables), and consider passing a prebuilt Storybook with `--storybook-build-dir`.
 
