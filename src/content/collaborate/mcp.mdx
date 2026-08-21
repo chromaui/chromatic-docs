@@ -248,3 +248,12 @@ Editing the wrong file is a common cause of "my changes had no effect."
 To confirm the server itself is reachable before debugging your config, open the MCP URL in a browser: `https://<BRANCH>--<APP-ID>.chromatic.com/mcp`.
 
 </details>
+
+<details>
+<summary>Do SSO users need to authenticate individually?</summary>
+
+Yes. Each SSO user must authenticate individually to connect their coding agent to the MCP server. 
+
+Authentication tokens are scoped per user session, so team members cannot share a single authenticated connection or bypass the login flow. When connecting for the first time, each team member will be prompted to complete the Chromatic SSO authentication flow in their browser.
+
+</details>
