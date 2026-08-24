@@ -29,11 +29,11 @@ If you change your mind, you can un-ignore the test to return it to the unreview
 
 Two different mechanisms stop a test from blocking your build, and they behave differently. A third — disabling — stops the test from running at all.
 
-|                      | What it does                                                                                      | Scope                          | Persistence                         |
-| -------------------- | ------------------------------------------------------------------------------------------------- | ------------------------------ | ----------------------------------- |
-| **Manually ignored** | You ignore a specific test on a specific build so the build can pass without accepting the change | That build only                | Does not carry over                 |
-| **Auto-ignored**     | [Flake filter](/docs/flake-filter) ignores a test it detected as unstable                         | That build, on that branch     | Re-evaluated on every build         |
-| **Disabled**         | The test is not captured at all                                                                   | Wherever the parameter applies | Persists while the parameter is set |
+|                      | What it does                                                                                      | Scope & Persistence                                      |
+| -------------------- | ------------------------------------------------------------------------------------------------- | -------------------------------------------------------- |
+| **Manually ignored** | You ignore a specific test on a specific build so the build can pass without accepting the change | That build only and does not carry over to other builds. |
+| **Auto-ignored**     | [Flake filter](/docs/flake-filter) ignores a test it detected as unstable                         | Specific build. Re-evaluated on every build.             |
+| **Disabled**         | For every build where the parameter is set.                                                       |
 
 Ignored and auto-ignored tests share the same `IGNORED` status, which means the test:
 
