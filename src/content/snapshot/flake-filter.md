@@ -13,7 +13,7 @@ Flake filter automatically detects and ignores [unstable tests](/docs/unstable-t
 
 Chromatic renders each test multiple times to determine whether a visual change is genuine or the test is unstable.
 
-When Chromatic detects an unstable test, it ignores the test automatically so the build isn't blocked on a false positive. On the build page, actual changes appear at the top, while ignored tests are grouped separately in a collapsed section below.
+When Chromatic detects an unstable test, it automatically ignores the test so the build isn't blocked by a false positive. On the build page, actual changes appear at the top, while ignored tests are grouped separately in a collapsed section below.
 
 ![Chromatic test results page showing a list of tests with changes, and collapsed group at the bottom saying 4 unstable tests are auto-ignored.](../../images/unstable-tests-ignored-row.png)
 
@@ -21,7 +21,7 @@ Automatically ignored tests won't affect your [baselines](/docs/branching-and-ba
 
 ### Auto-ignores don't persist across builds
 
-Flake filter runs on each build to reevaluate whether a test is still unstable. When a test becomes stable, it automatically returns to the test suite.
+Flake filter runs on each build to reevaluate whether a test remains unstable. When a test becomes stable, it automatically returns to the test suite.
 
 ### Related mechanisms
 
@@ -38,6 +38,6 @@ You can turn off automatic ignoring for unstable tests from your project setting
 <details>
 <summary>Do auto-ignored tests count toward my billed snapshot usage?</summary>
 
-Yes. Chromatic has to capture a visual snapshot of a test to determine whether the test is stable, so ignored tests still count towards billed snapshots. However, even though Chromatic may render a test multiple times to detect instability, you are only charged one billed snapshot.
+Yes. Chromatic has to capture a visual snapshot of a test to determine whether the test is stable, so ignored tests still count towards billed snapshots. However, even if Chromatic renders a test multiple times to detect instability, you are charged for only one billed snapshot.
 
 </details>
