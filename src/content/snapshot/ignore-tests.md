@@ -24,3 +24,64 @@ If you change your mind, you can un-ignore the test to return it to the unreview
 ![An ignored test showing the Ignored badge and the undo button.](../../images/ignore-test-ignored.png)
 
 **Ignoring is scoped to a single build:** an ignored test is captured and compared as usual on future builds. Ignoring a test also doesn't affect your [baselines](/docs/branching-and-baselines) unless you take action to accept or deny it.
+
+## Ignored, auto-ignored, and disabled: which is which?
+
+Two different mechanisms stop a test from blocking your build, and they behave differently. A third — disabling — stops the test running at all.
+
+|                      | What it does                                                                                      | Scope                          | Persistence                         |
+| -------------------- | ------------------------------------------------------------------------------------------------- | ------------------------------ | ----------------------------------- |
+| **Manually ignored** | You ignore a specific test on a specific build so the build can pass without accepting the change | That build only                | Does not carry over                 |
+| **Auto-ignored**     | [Flake filter](/docs/flake-filter) ignores a test it detected as unstable                         | That build, on that branch     | Re-evaluated on every build         |
+| **Disabled**         | The test is not captured at all                                                                   | Wherever the parameter applies | Persists while the parameter is set |
+
+Ignored and auto-ignored tests share the same `IGNORED` status, which means the test:
+
+- does not update the baseline
+- does not block the build from passing
+
+Crucially, **ignoring a test doesn't change what Chromatic captures**. An ignored test is captured and compared on later builds like any other test, and [TurboSnap](/docs/turbosnap) skips unchanged stories whether they were ignored or not. Ignoring is about removing review noise, not about saving snapshots. If you want to stop snapshotting a test entirely, [disable it](/docs/disable-snapshots) with `disableSnapshot` — don't rely on ignoring to do that.
+
+## Frequently asked questions
+
+<details>
+<summary>What happens if I accept or deny an auto-ignored test?</summary>
+
+Your decision wins. Once you accept or deny the snapshot, the test behaves like any other reviewed test for that build and stops following the auto-ignore rules.
+
+</details>
+
+<details>
+<summary>Can I ignore tests for a whole project instead of build by build?</summary>
+
+No. Ignoring is a per-build decision made after capture, and it exists to reduce review noise. If a test is consistently problematic, [disable it](/docs/disable-snapshots) with `disableSnapshot`.
+
+</details>
+
+<details>
+<summary>Are ignored tests shown in UI Review?</summary>
+
+Auto-ignored tests are filtered out of UI Review. An unstable test is unlikely to relate to the code changes under review, so showing it to reviewers adds noise without adding information.
+
+</details>
+
+<details>
+<summary>What happens to ignored tests on an upgrade build?</summary>
+
+On [upgrade builds](/docs/infrastructure-upgrades), ignored tests are treated as passed and auto-accepted rather than staying ignored. This applies to both manually ignored and auto-ignored tests.
+
+</details>
+
+<details>
+<summary>How does this interact with accessibility tests?</summary>
+
+An accessibility regression that occurs alongside an unstable visual comparison is auto-ignored too. It's still logged and counted as a regression, but it won't enter the baseline unless you accept it — the same rule that applies to visual snapshots. This behaves identically for builds run locally through the Visual Tests addon.
+
+</details>
+
+<details>
+<summary>Can I batch-accept ignored tests?</summary>
+
+Manually ignored tests are excluded from batch operations — "accept all", "deny all", and "mark all unreviewed" skip them. Act on them individually.
+
+</details>
