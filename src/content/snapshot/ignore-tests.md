@@ -47,21 +47,21 @@ Crucially, **ignoring a test doesn't change what Chromatic captures**. An ignore
 <details>
 <summary>What happens if I accept or deny an auto-ignored test?</summary>
 
-Your decision wins. Once you accept or deny the snapshot, the test behaves like any other reviewed test for that build and stops following the auto-ignore rules.
+Once you accept or deny the snapshot, the test behaves like any other reviewed test for that build and stops following the auto-ignore rules.
 
 </details>
 
 <details>
 <summary>Can I ignore tests for a whole project instead of build by build?</summary>
 
-No. Ignoring is a per-build decision made after capture to reduce review noise. If a test is consistently problematic, [disable it](/docs/disable-snapshots) with `disableSnapshot`.
+No. Ignoring is only available. If a test is consistently problematic you can [disable it](/docs/disable-snapshots) with `disableSnapshot`.
 
 </details>
 
 <details>
 <summary>Are ignored tests shown in UI Review?</summary>
 
-Auto-ignored tests are filtered out of UI Review. An unstable test is unlikely to be related to the code changes under review, so showing it to reviewers adds noise without providing information.
+Auto-ignored tests are filtered out of UI Review. An unstable test is unlikely to be related to the code changes under review, so showing it to reviewers adds noise.
 
 </details>
 
@@ -73,15 +73,15 @@ On [upgrade builds](/docs/infrastructure-upgrades), ignored tests are treated as
 </details>
 
 <details>
-<summary>How does this interact with accessibility tests?</summary>
+<summary>How does auto-ignore impact accessibility tests?</summary>
 
-An accessibility regression that occurs alongside an unstable visual comparison is auto-ignored, too. It's still logged and counted as a regression, but it won't enter the baseline unless you accept it — the same rule that applies to visual snapshots. This behaves identically for builds run locally through the Visual Tests addon.
+An accessibility regression that occurs within an unstable test is also auto-ignored. However, if you accept the snapshot, it update the accessibility baseline too.
 
 </details>
 
 <details>
 <summary>Can I batch-accept ignored tests?</summary>
 
-Manually ignored tests are excluded from batch operations — "accept all", "deny all", and "mark all unreviewed" skip them. Act on them individually.
+Manually ignored tests are excluded from batch operations: "accept all", "deny all", and "mark all unreviewed".
 
 </details>
