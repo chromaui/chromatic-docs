@@ -21,13 +21,15 @@ If the build output shows no story files being detected by changes, there might 
 
 Another reason that changes may be missed is if the changed files aren't directly included in the webpack build; use the [`externals` flag](/docs/turbosnap/setup#specify-external-files-to-trigger-a-full-re-test-when-they-change) to tell Chromatic about this.
 
+Path resolution is the other common cause, especially in a monorepo. `untraced` and `externals` patterns are relative to your repository root, while `storybookConfigDir` and `storybookBuildDir` are relative to your working directory, so a pattern with the wrong prefix silently matches nothing. See [TurboSnap config paths](/docs/turbosnap/config-paths).
+
 ## Why are changes not being detected correctly?
 
-Teams frequently use an index file ([barrel file](https://basarat.gitbook.io/typescript/main-1/barrel)) to simplify imports. This practice allows for easier importing, such as accessing a component from `@component-library` instead of specifying the full path like `@component-library/elements/table`. However, the usage of barrels impacts TurboSnap's ability to detect changes.
+Teams frequently use an index file ([barrel file](https://basarat.gitbook.io/typescript/main-1/barrel)) to simplify imports. This practice allows easier imports, such as accessing a component from `@component-library` instead of specifying the full path, like `@component-library/elements/table`. However, the usage of barrels impacts TurboSnap's ability to detect changes.
 
 When encountering a barrel file, TurboSnap relies on Webpack's tree-shaking abilities to accurately identify changes. Otherwise, a modification in `@component-library/elements/table` would prompt changes in all files importing from the barrel file, meaning all files that import from `@component-library`.
 
-Therefore, if you use barrel files, you'll want to ensure that Webpack tree-shaking (dead-code-elimination) is working properly. Here are some tips:
+Therefore, if you use barrel files, you'll want to ensure that Webpack tree-shaking (dead code elimination) is working properly. Here are some tips:
 
 1. Use ES2015 module syntax (i.e., import and export)
 2. Build using `production` mode (`NODE_ENV`) to enable [various optimizations](https://webpack.js.org/configuration/mode/#usage) including minification and tree-shaking.
@@ -40,13 +42,13 @@ You can review how many stories were tested in the TurboSnap tooltip.
 
 ## Why are full rebuilds required?
 
-Full rebuilds can be required for various reasons (see the list in [how it works](/docs/turbosnap#how-it-works)). Another scenario where a full rebuild will also be required is due to a change to a `package.json` or lock file for a subproject that doesn't affect the Storybook (we need to be very conservative as we cannot tell if a change to a lock file could affect `node_modules` imported by Storybook).
+Full rebuilds can be required for various reasons (see the list in [how it works](/docs/turbosnap#how-it-works)). Another scenario where a full rebuild will also be required is due to a change to a `package.json` or lock file for a subproject that doesn't affect the Storybook (we need to be very conservative, as we cannot tell if a change to a lock file could affect `node_modules` imported by Storybook).
 
 ## Why is my build failing with an <code>Out of memory error</code>?
 
 An `Out of Memory` error typically happens when the Node.js process runs out of allocated memory, especially if your project has a large dependency tree or TurboSnap is enabled. Here are a few steps that can help resolve this issue:
 
-- **Increase Node.js memory allocation:** Try rerunning Chromatic’s CLI with a higher memory limit by setting `NODE_OPTIONS=--max_old_space_size=4096` (4GB) or higher. This provides more memory to Node.js, which can help with larger builds.
+- **Increase Node.js memory allocation:** Try rerunning Chromatic’s CLI with a higher memory limit by setting `NODE_OPTIONS=--max_old_space_size=4096` (4GB) or higher. This provides Node.js with more memory, which can help with larger builds.
 
 - **Adjust CI runner memory settings:** Make sure your CI runner has sufficient memory. Chromatic recommends a minimum of 4GB, and if needed, up to 8GB. Some CI providers may require specific configurations to allocate more memory to certain steps or to the entire runner environment.
 
@@ -60,9 +62,9 @@ Ordinarily, TurboSnap uses git to find all files that have changed since the [an
 
 When you have a merge commit, Chromatic considers **any file that has changed since either ancestor's commit** to decide if a story needs to be re-snapshotted. In other words, the union of the git changes.
 
-The reason for this behavior relates to what Chromatic does when it chooses not to re-snapshot a story. In such case, it "copies" the snapshot for the story from the ancestor build, knowing (due to the git check) that the story cannot have changed in the meantime.
+The reason for this behavior is how Chromatic handles it when it chooses not to re-snapshot a story. In such a case, it "copies" the snapshot for the story from the ancestor build, knowing (due to the git check) that the story cannot have changed in the meantime.
 
-In the case of merge commits, Chromatic does not know ahead of time which side of the merge the snapshot might be copied from because that involves running the [complete baseline selection](/docs/branching-and-baselines#calculate-a-snapshot-baseline-from-the-ancestor-builds) process, so it needs to be conservative and allow for changes on either branch.
+In the case of merge commits, Chromatic does not know ahead of time which side of the merge the snapshot might be copied from, because that involves running the [complete baseline selection](/docs/branching-and-baselines#calculate-a-snapshot-baseline-from-the-ancestor-builds) process. As a result, it needs to be conservative and allow for changes on either branch.
 
 ## Does TurboSnap work with squash/rebase merge?
 
@@ -75,14 +77,14 @@ The usage report shows whether TurboSnap actually ran, and if it didn’t, why.
 | Bail reason column                                                                      | What happened                                                                                        |
 | --------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------- |
 | One of the [reasons below](#what-do-the-turbosnap-bail-reasons-in-my-usage-report-mean) | TurboSnap ran, but couldn't confirm anything was unchanged, so every test in the build was captured. |
-| `unavailable`                                                                           | TurboSnap isn't available for your account yet. It becomes available after 10 builds from CI.        |
+| `unavailable`                                                                           | TurboSnap isn't available for your account yet. It becomes available after 10 CI builds.             |
 | Empty                                                                                   | Either TurboSnap ran and copied what it could, or it wasn't enabled for that build.                  |
 
-An empty column doesn't distinguish those last two. To tell them apart, open the build in Chromatic and check the TurboSnap status in the test summary. Its tooltip says whether TurboSnap applied, bailed, or was disabled for that build.
+An empty column doesn't distinguish those last two. To tell them apart, open the build in Chromatic and check the TurboSnap status in the test summary. Its tooltip says whether TurboSnap was applied, bailed, or was disabled for that build.
 
 ## What do the TurboSnap bail reasons in my usage report mean?
 
-Your [usage data (CSV report)](/docs/billing/usage-reports#export-usage-data-as-a-csv) can help you identify opportunities to improve your TurboSnap configuration. The **TurboSnap Bail Reason** column tells you what caused TurboSnap to bail and trigger a full rebuild. The **TurboSnap effectiveness** chart in the [Trends dashboard](/docs/usage-trends) segments bails by these same reasons.
+Your [usage data (CSV report)](/docs/billing/usage-reports#export-usage-data-as-a-csv) can help you identify opportunities to improve your TurboSnap configuration. The **TurboSnap Bail Reason** column tells you what caused TurboSnap to bail and trigger a full rebuild. The **TurboSnap effectiveness** chart in the [Trends dashboard](/docs/usage-trends) segments by these same reasons.
 
 Most reasons point to something in your setup you can change. `unavailable` and `missingStatsFile` are the exceptions, explained in their entries below.
 
@@ -98,19 +100,19 @@ You may need to check your glob pattern or revisit the paths you're including wi
 
 TurboSnap bailed due to one or more package file changes (`package.json`, `package-lock.json`, `yarn.lock`).
 
-This bail should be expected from time to time as dependencies are updated, but can become more of an issue if you run out of a monorepo or have dependencies in subdirectories. If you find this happening frequently, consider using `untraced` to [avoid re-testing on changes to your package control files](/docs/turbosnap/setup#avoid-re-testing-on-changes-to-package-control-files).
+This bail should be expected from time to time as dependencies are updated, but it can become more of an issue if you run out of a monorepo or have dependencies in subdirectories. If you find this happening frequently, consider using `untraced` to [avoid re-testing on changes to your package control files](/docs/turbosnap/setup#avoid-re-testing-on-changes-to-package-control-files).
 
 ### `changedStaticFiles`
 
 TurboSnap bailed due to matching static file (`--static-dir`).
 
-This message should only present to customers using TurboSnap with older Storybook versions, since `--static-dir` was deprecated in Storybook 8. Customers on Storybook 8+ need to add their static dirs using `externals`. This error may indicate that you need to check the value you've configured for `--static-dir`.
+This message should be shown only when using TurboSnap with older Storybook versions, since `--static-dir` was deprecated in Storybook 8. Customers on Storybook 8+ need to add their static dirs using `externals`. This error may indicate that you need to check the value you've configured for `--static-dir`.
 
 ### `changedStorybookFiles`
 
 TurboSnap bailed due to a change in Storybook config (`.storybook` dir files, such as `main.js|ts` and `preview.js|ts`).
 
-You may have made changes to one of the files within your Storybook configuration, or to a dependency that is being imported by your configuration. It's important to keep in mind that second part, since it's common practice to import decorators into the `preview.js` config.
+You may have made changes to one of the files in your Storybook configuration, or to a dependency imported by your configuration. It's important to keep in mind the second part, since it's common practice to import decorators into the `preview.js` config.
 
 Additionally, if you're utilizing barrel/index files (whether directly importing in your `preview.js` or in a file that `preview.js` is dependent on), it's likely to cause more bails since [a change to any of these modules would cause any file that imports the index file to be considered "dirty"](/docs/turbosnap/setup#avoid-re-testing-dependent-stories-when-certain-files-changed), even if it's not using the changed module.
 
@@ -122,21 +124,21 @@ TurboSnap is having issues retrieving your git history. This commonly happens wh
 
 ### `missingStatsFile`
 
-TurboSnap bailed due to missing stats file.
+TurboSnap bailed due to a missing stats file.
 
-This reason comes from Chromatic CLI versions before 10.6.0. Newer versions fail the build with an error message instead of bailing, so it only appears in usage reports covering builds that ran on an older CLI.
+This is due to Chromatic CLI versions before 10.6.0. Newer versions fail the build with an error message instead of bailing, so it only appears in usage reports covering builds that ran on an older CLI.
 
 The fix is the same either way. Since the stats file is needed for TurboSnap to analyze your dependencies, make sure your Storybook script includes `--stats-json`.
 
 ### `noAncestorBuild`
 
-TurboSnap bailed due to not finding an ancestor build for the commit.
+TurboSnap bailed because it couldn't find an ancestor build for the commit.
 
 This bail reason is reserved for when no ancestor build is found at all for a commit. This can be due to rebasing, squash-merging, force-pushing, or running against ephemeral merge commits. If it's happening on builds that don't fit those categories, it may indicate an issue with fetching your git history.
 
 ### `rebuild`
 
-TurboSnap bailed because the commit is a rerun of a previous build, based on the baseline build having the same commit and branch name.
+TurboSnap bailed because the commit is a rerun of a previous build, since the baseline build had the same commit and branch name.
 
 Most reruns are intentional, but if you weren't expecting the ones you're seeing, this may indicate you need to check your CI workflow to see what could be kicking off an additional build for the same commit.
 
@@ -144,6 +146,6 @@ Most reruns are intentional, but if you weren't expecting the ones you're seeing
 
 TurboSnap didn't run because it isn't available for your account yet.
 
-TurboSnap becomes available once a project has run at least 10 builds from CI, and it stays available for the whole account from then on. Until that happens, builds that ask for TurboSnap record this reason and capture every test.
+TurboSnap becomes available once a project has run at least 10 builds from CI, and it remains available for the entire account thereafter. Until that happens, builds that asks for TurboSnap record this reason, and capture every test.
 
 This isn't a configuration problem, so there's nothing to change in your Chromatic script. Keep running builds in CI. If you've passed 10 builds from CI and TurboSnap still isn't available, check that the project has UI Tests or UI Review enabled, since it won't become available for projects that only publish Storybook.

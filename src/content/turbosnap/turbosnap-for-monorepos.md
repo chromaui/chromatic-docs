@@ -1,7 +1,7 @@
 ---
 title: Optimizing TurboSnap for monorepos
 description: Tips to optimize your TurboSnap configuration when working with a monorepo
-sidebar: { order: 8, label: 'Monorepo usage' }
+sidebar: { order: 9, label: 'Monorepo usage' }
 slug: 'turbosnap/monorepo-usage'
 ---
 
@@ -11,10 +11,12 @@ For large teams using a monorepo and managing changes across dozens of packages,
 
 In this guide, we’ll break down practical strategies for managing `dependencies`, `devDependencies`, dynamic imports, and `package.json` files in a way that keeps your TurboSnap builds snappy _and_ your coverage meaningful.
 
+Before tuning dependencies, confirm that your directory options point to where you expect them to. In a monorepo, some path options are relative to your repository root and others to your working directory — [TurboSnap config paths](/docs/turbosnap/config-paths) covers which is which.
+
 <div class="aside">
 
 ✨ **Try TurboSnap Helper!**
-Run our helper utility to accurately configure TurboSnap, even in monorepos—no more guess work! [Read how you can run the utility and get instant help with your config.](/docs/turbosnap/setup#update-your-configuration-using-turbosnap-helper)
+Run our helper utility to accurately configure TurboSnap, even in monorepos—no more guesswork! [Read how you can run the utility and get instant help with your config.](/docs/turbosnap/setup#update-your-configuration-using-turbosnap-helper)
 
 </div>
 
@@ -34,7 +36,7 @@ Although TurboSnap doesn't have native awareness of affected files, you can use 
 
 ## Avoid changes to shared or root-level package files unless necessary
 
-Changing dependencies at the root or in shared `package.json` files will often trigger TurboSnap to retest all stories. When possible, limit root-level `package.json` changes to toolchains or devDependencies. Keep shared runtime dependencies in leaf packages (a standalone UI component or package that isn’t imported by any other internal packages) so they're not a dependency for any other package.
+Changing dependencies at the root or in shared `package.json` files will often trigger TurboSnap to retest all stories. When possible, limit root-level `package.json` changes to toolchains or devDependencies. Keep shared runtime dependencies in leaf packages (standalone UI components or packages that aren’t imported by any other internal packages) so they aren't a dependency of any other package.
 
 ## Use `devDependencies` to avoid unnecessary rebuilds
 
@@ -48,9 +50,9 @@ We recommend:
 
 ## Group and isolate high-churn utilities
 
-If you have shared utility functions that frequently change, you may see more retests than expected. Every change to those utility files will cascade to every component that imports from the package, which can trigger TurboSnap to retest all related stories.
+If you have shared utility functions that frequently change, you may see more retests than expected. Every change to those utility files will cascade to every component that imports from the package, potentially triggering TurboSnap to retest all related stories.
 
-Instead, isolate those utilities into a clearly scoped package and avoid re-exporting them through your UI library or core package. Import the utilities in your app code and not your shared design system unless they're directly UI-related.
+Instead, isolate those utilities into a clearly scoped package and avoid re-exporting them through your UI library or core package. Import the utilities in your app code, not in your shared design system, unless they're directly UI-related.
 
 ## Avoid dynamic imports in preview files
 
@@ -58,27 +60,27 @@ Dynamic imports can disrupt TurboSnap's static analysis of your dependency graph
 
 To ensure full traceability, always use direct imports in your preview and shared utility files.
 
-**Why does this happen?** Dynamic imports break the chain TurboSnap relies on to identify affected stories. This can lead to either under-testing or over-testing. Direct imports ensure that the dependency graph can follow the file, identifying which components are affected. As a result, TurboSnap only retests stories that directly or indirectly depend on the modified file.
+**Why does this happen?** Dynamic imports break the chain that TurboSnap relies on to identify affected stories. This can lead to either under-testing or over-testing. Direct imports ensure that the dependency graph can follow the file, identifying which components are affected. As a result, TurboSnap only retests stories that directly or indirectly depend on the modified file.
 
 ## Avoid excessive wrapper indirection
 
 You **can’t avoid full rebuilds** when changing anything imported by `preview.ts`, but you reduce how often it happens and improve your team’s visibility by avoiding excessive wrapper indirection.
 
-Excessive wrapper indirection may look like `withTheme()` wrapping stories with a provider theme, then being imported by `withGlobalProvider()` which wraps the stories in locale. Flattening this structure so `withTheme()` and `withLocale()` are individually defined makes it easier to see which dependencies are responsible when retesting. It also lets you bypass the preview file for some stories by importing the providers directly in specific stories, which would ensure only those files are tested when changes are made to the providers.
+Excessive wrapper indirection may look like `withTheme()` wrapping stories with a provider theme, then being imported by `withGlobalProvider()` which wraps the stories in locale. Flattening this structure so `withTheme()` and `withLocale()` are individually defined makes it easier to see which dependencies are responsible when retesting. It also lets you bypass the preview file for some stories by importing the providers directly into specific stories, ensuring only those files are tested when changes are made to the providers.
 
 When possible, use direct imports and consider moving stable wrappers into `preview.ts`. If you're using frequently changing wrappers or features, try to limit them to individual story files to minimize their impact.
 
 ## Document your dependency graph
 
-Larger teams working out of a monorepo can benefit from clearly identifying which packages depend on which. Tools like [Nx Graph](https://nx.dev/features/explore-graph) (or similar) can help your team visualize your dependency graph and avoid unintentional coupling between packages.
+Larger teams working from a monorepo can benefit from clearly identifying which packages depend on which others. Tools like [Nx Graph](https://nx.dev/features/explore-graph) (or similar) can help your team visualize your dependency graph and avoid unintentional coupling between packages.
 
 ## Monitor `changedPackageFiles` in Chromatic builds
 
-If you notice frequent rebuilds due to changes in package files, keep an eye on Chromatic's CLI output for `changedPackageFiles`. TurboSnap will list all package files that triggered a rebuild. Investigate whether the changes are necessary, if there are opportunities to better isolate your packages, or if you should consider using `--untraced` to ignore the packages.
+If you notice frequent rebuilds due to changes in package files, keep an eye on Chromatic's CLI output for `changedPackageFiles`. TurboSnap will list all package files that triggered a rebuild. Investigate whether the changes are necessary, whether there are opportunities to better isolate your packages, or whether you should consider using `--untraced` to ignore them.
 
 ### Use caution when marking `package.json` files as untraced
 
-Monorepos often include multiple `package.json` files, and some may trigger rebuilds unnecessarily. You can use `--untraced` to ignore these files. Use the following guidelines to determine if it's safe to mark a `package.json` file as untraced:
+Monorepos often include multiple `package.json` files, and some of them may trigger unnecessary rebuilds. You can use `--untraced` to ignore these files. Use the following guidelines to determine if it's safe to mark a `package.json` file as untraced:
 
 ✅ **It’s safe to mark `package.json` as untraced when:**
 
@@ -95,7 +97,7 @@ Monorepos often include multiple `package.json` files, and some may trigger rebu
 
 ## Conclusion
 
-Smart dependency management in a monorepo can drastically improve TurboSnap performance and confidence, making it easier and faster to test changes before pushing them to production. By being intentional with how you structure `dependencies`, avoiding dynamic imports in shared config, and tracing changes clearly, you’ll strike the perfect balance between speed and reliability in your visual testing pipeline.
+Smart dependency management in a monorepo can drastically improve TurboSnap performance and confidence, making it easier and faster to test changes before pushing them to production. By being intentional about how you structure `dependencies`, avoiding dynamic imports in shared config, and clearly tracing changes, you’ll strike the perfect balance between speed and reliability in your visual testing pipeline.
 
 Ready to optimize your builds? Start by auditing your most frequently rebuilt packages!
 
