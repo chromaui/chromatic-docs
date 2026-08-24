@@ -25,22 +25,15 @@ If you change your mind, you can un-ignore the test to return it to the unreview
 
 **Ignoring is scoped to a single build:** an ignored test is captured and compared as usual on future builds. Ignoring a test also doesn't affect your [baselines](/docs/branching-and-baselines) unless you take action to accept or deny it.
 
-## Ignored, auto-ignored, and disabled: which is which?
+## What's the difference between ignored, auto-ignored, and disabled tests
 
-Two different mechanisms stop a test from blocking your build, and they behave differently. A third — disabling — stops the test from running at all.
+|                      | What it does                                                                                       | Scope & Persistence                                      |
+| -------------------- | -------------------------------------------------------------------------------------------------- | -------------------------------------------------------- |
+| **Manually ignored** | You ignore a specific test on a specific build so the build can pass without accepting the change. | That build only and does not carry over to other builds. |
+| **Auto-ignored**     | [Flake filter](/docs/flake-filter) ignores a test it detected as unstable.                         | Specific build. Re-evaluated on every build.             |
+| **Disabled**         | The test is not captured at all.                                                                   | For every build where the parameter is set.              |
 
-|                      | What it does                                                                                      | Scope & Persistence                                      |
-| -------------------- | ------------------------------------------------------------------------------------------------- | -------------------------------------------------------- |
-| **Manually ignored** | You ignore a specific test on a specific build so the build can pass without accepting the change | That build only and does not carry over to other builds. |
-| **Auto-ignored**     | [Flake filter](/docs/flake-filter) ignores a test it detected as unstable                         | Specific build. Re-evaluated on every build.             |
-| **Disabled**         | For every build where the parameter is set.                                                       |
-
-Ignored and auto-ignored tests share the same `IGNORED` status, which means the test:
-
-- does not update the baseline
-- does not block the build from passing
-
-Crucially, **ignoring a test doesn't change what Chromatic captures**. An ignored test is captured and compared on later builds like any other test, and [TurboSnap](/docs/turbosnap) skips unchanged stories whether they were ignored or not. Ignoring is about removing review noise, not about saving snapshots. If you want to stop snapshotting a test entirely, [disable it](/docs/disable-snapshots) with `disableSnapshot` — don't rely on ignoring to do that.
+Ignored and auto-ignored tests do not update the baseline and do not block the build from passing. **Ignoring also does not change what Chromatic captures**. An ignored test is captured and compared on later builds like any other test, and [TurboSnap](/docs/turbosnap) skips unchanged stories whether they were ignored or not.
 
 ## Frequently asked questions
 
