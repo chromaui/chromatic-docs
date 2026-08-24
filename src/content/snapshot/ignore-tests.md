@@ -27,7 +27,7 @@ If you change your mind, you can un-ignore the test to return it to the unreview
 
 ## Ignored, auto-ignored, and disabled: which is which?
 
-Two different mechanisms stop a test from blocking your build, and they behave differently. A third — disabling — stops the test running at all.
+Two different mechanisms stop a test from blocking your build, and they behave differently. A third — disabling — stops the test from running at all.
 
 |                      | What it does                                                                                      | Scope                          | Persistence                         |
 | -------------------- | ------------------------------------------------------------------------------------------------- | ------------------------------ | ----------------------------------- |
@@ -54,14 +54,14 @@ Your decision wins. Once you accept or deny the snapshot, the test behaves like 
 <details>
 <summary>Can I ignore tests for a whole project instead of build by build?</summary>
 
-No. Ignoring is a per-build decision made after capture, and it exists to reduce review noise. If a test is consistently problematic, [disable it](/docs/disable-snapshots) with `disableSnapshot`.
+No. Ignoring is a per-build decision made after capture to reduce review noise. If a test is consistently problematic, [disable it](/docs/disable-snapshots) with `disableSnapshot`.
 
 </details>
 
 <details>
 <summary>Are ignored tests shown in UI Review?</summary>
 
-Auto-ignored tests are filtered out of UI Review. An unstable test is unlikely to relate to the code changes under review, so showing it to reviewers adds noise without adding information.
+Auto-ignored tests are filtered out of UI Review. An unstable test is unlikely to be related to the code changes under review, so showing it to reviewers adds noise without providing information.
 
 </details>
 
@@ -75,7 +75,7 @@ On [upgrade builds](/docs/infrastructure-upgrades), ignored tests are treated as
 <details>
 <summary>How does this interact with accessibility tests?</summary>
 
-An accessibility regression that occurs alongside an unstable visual comparison is auto-ignored too. It's still logged and counted as a regression, but it won't enter the baseline unless you accept it — the same rule that applies to visual snapshots. This behaves identically for builds run locally through the Visual Tests addon.
+An accessibility regression that occurs alongside an unstable visual comparison is auto-ignored, too. It's still logged and counted as a regression, but it won't enter the baseline unless you accept it — the same rule that applies to visual snapshots. This behaves identically for builds run locally through the Visual Tests addon.
 
 </details>
 
