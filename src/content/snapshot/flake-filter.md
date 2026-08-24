@@ -23,6 +23,10 @@ Automatically ignored tests won't affect your [baselines](/docs/branching-and-ba
 
 Flake filter runs on each build to reevaluate whether a test is still unstable. When a test becomes stable, it automatically returns to the test suite.
 
+### Related mechanisms
+
+Automatic ignoring is one of several ways a test can stop blocking your build. See [ignored, auto-ignored, and disabled tests](/docs/ignore-tests#ignored-auto-ignored-and-disabled-which-is-which) for how it differs from ignoring a test yourself or disabling it entirely.
+
 ### Disable flake filter
 
 You can turn off automatic ignoring for unstable tests from your project settings.
