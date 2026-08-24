@@ -184,7 +184,7 @@ This is a fairly basic setup. More advanced options are explained below.
 
 ### Project token secret
 
-To securely provide the projectToken to Chromatic, you must configure a GitHub repository secret. First, find your project on Chromatic.com and go to **Manage** and then **Configure**. Copy the project token.
+To securely provide the projectToken to Chromatic, you must configure a GitHub repository secret. First, find your project on Chromatic.com, then go to **Manage**, then **Configure**. Copy the project token.
 
 ![Chromatic Project Token configuration](../../images/configure-project-token.png)
 
@@ -202,15 +202,15 @@ Read the official [GitHub secrets documentation](https://docs.github.com/en/free
 
 ### Forked repositories
 
-GitHub secrets work at a repository level. Forked repositories will not have access to them. If you want to run Chromatic on cross-repository (forked) PRs, you'll have to expose the `projectToken` by including it as plaintext in your `chromatic.yml` workflow file. Be aware that anyone with access to this file will be able to run Chromatic builds on your project, which can use snapshots. You can reset the project token on the Manage > Configure screen at any time if you think it may have been compromised.
+GitHub secrets work at a repository level. Forked repositories will not have access to them. If you want to run Chromatic on cross-repository (forked) PRs, you'll have to expose the `projectToken` by including it as plaintext in your `chromatic.yml` workflow file. Be aware that anyone with access to this file can run Chromatic builds on your project, which may use snapshots. You can reset the project token on the Manage > Configure screen at any time if you think it may have been compromised.
 
 ### Pinning the CLI version
 
 While the CLI follows [semantic versioning](https://semver.org/), the GitHub Action typically auto-upgrades to the latest version. However, it's possible to pin the CLI version by changing the tag:
 
 - To automatically receive all new updates, use `chromaui/action@latest` (the default).
-- To automatically receive new features and bugfixes but avoid breaking changes, use `chromaui/action@vX` where `vX` is a major version number (e.g. `v10`).
-- To not receive any updates but pin the action to a specific CLI version, use `chromaui/action@vX.Y.Z` where `vX.Y.Z` is a full semver version (e.g. `v10.0.0`).
+- To automatically receive new features and bugfixes but avoid breaking changes, use `chromaui/action@vX` where `vX` is a major version number (e.g., `v10`).
+- To not receive any updates but pin the action to a specific CLI version, use `chromaui/action@vX.Y.Z` where `vX.Y.Z` is a full semver version (e.g., `v10.0.0`).
 
 The full list of tags is [available on GitHub](https://github.com/chromaui/action/tags).
 
@@ -220,7 +220,7 @@ For more information on the available options, refer to our [configuration refer
 
 ### Outputs
 
-Chromatic's GitHub Action returns some information about your build in the form of outputs. The table below lists what's currently available. Read the official [GitHub documentation](https://docs.github.com/en/actions/using-workflows/workflow-syntax-for-github-actions#onworkflow_calloutputs) for more information about outputs.
+Chromatic's GitHub Action returns information about your build as outputs. The table below lists what's currently available. Read the official [GitHub documentation](https://docs.github.com/en/actions/using-workflows/workflow-syntax-for-github-actions#onworkflow_calloutputs) for more information about outputs.
 
 | Name                             | Type     | Description                                                                                                         |
 | -------------------------------- | -------- | ------------------------------------------------------------------------------------------------------------------- |
@@ -280,7 +280,7 @@ jobs:
 
 ### Run Chromatic on monorepos
 
-Chromatic can be run on monorepos that have multiple subprojects. Each subproject will need its project token.
+Chromatic can run on monorepos with multiple subprojects. Each subproject will need its project token.
 
 #### Prerequisites
 
@@ -354,7 +354,7 @@ jobs:
 
 ### Enable TurboSnap
 
-TurboSnap is an advanced Chromatic feature implemented to improve the build time for large projects. By default, it is disabled in your CI environment. To enable it, add the `onlyChanged` option to the workflow as follows:
+TurboSnap is an advanced Chromatic feature designed to improve build times for large projects. By default, it is disabled in your CI environment. To enable it, add the `onlyChanged` option to the workflow as follows:
 
 ```yml title=".github/workflows/chromatic.yml"
 jobs:
@@ -377,7 +377,7 @@ TurboSnap is highly customizable and can be configured to fit your requirements.
 
 #### Trigger full rebuilds
 
-By default, TurboSnap relies on Webpack's dependency graph to determine which files changes since the last build. If you're working with files processed outside the scope of Webpack (e.g., fonts, images, CSS, external libraries), you can use the `externals` option to tell Chromatic to rebuild the entire project when a file matching the pattern is changed. For example:
+By default, TurboSnap relies on webpack's dependency graph to determine which files have changed since the last build. If you're working with files processed outside the scope of webpack (e.g., fonts, images, CSS, external libraries), you can use the `externals` option to tell Chromatic to rebuild the entire project when a file matching the pattern is changed. For example:
 
 ```yml title=".github/workflows/chromatic.yml"
 # Other necessary configuration
@@ -412,7 +412,7 @@ Multiple file patterns can also be provided as follows:
 
 <div class="aside">
 
-The `externals` option also accept additional glob patterns defined via [picomatch](https://github.com/micromatch/picomatch?tab=readme-ov-file#globbing-features). See the [globs guide] for more info.
+The `externals` option also accepts additional glob patterns defined via [picomatch](https://github.com/micromatch/picomatch?tab=readme-ov-file#globbing-features). See the [globs guide] for more info.
 
 </div>
 
@@ -459,7 +459,7 @@ jobs:
 
 <div class="aside">
 
-Read the official [Storybook environment variable's documentation](https://storybook.js.org/docs/configure/environment-variables).
+Read the official [Storybook environment variables documentation](https://storybook.js.org/docs/configure/environment-variables).
 
 </div>
 
@@ -492,15 +492,15 @@ Read about the [available options](/docs/configure#options).
 
 Builds that contain visual changes need to be [verified](/docs/quickstart#4-review-changes). The task will fail if `exitZeroOnChanges` option is set to false. Once you accept all the changes, re-run the workflow, and the `chromatic` job will pass.
 
-If you deny any change, you will need to make the necessary code changes to fix the test (and thus start a new run) to get Chromatic to pass again.
+If you deny any changes, you will need to make the necessary code changes to fix the test (and thus start a new run), so Chromatic passes again.
 
 ### Recommended configuration for build events
 
-GitHub's Actions, like other CI systems, can run based on any type of event. Our recommendation is to run Chromatic's step on `push` events.
+GitHub Actions, like other CI systems, can run in response to any type of event. Our recommendation is to run Chromatic's step on `push` events.
 
-While the `pull_request` event also works, it can cause Chromatic's baselines to be lost in certain scenarios or cause Chromatic to use an unexpected baseline from the `main` branch.
+While the `pull_request` event also works, it can cause Chromatic's baselines to be lost in certain scenarios or lead to Chromatic using an unexpected baseline from the `main` branch.
 
-GitHub allows workflows to execute on commits pushed to a branch in a pull request or on "merge" commits between that branch and the base branch (main). These merge commits do not persist in your repository's history. When a GitHub action is triggered on `pull_request`, GitHub creates an ephemeral branch and merges the PR branch into the latest from `main`. For details, refer to the [pull request workflow docs](https://docs.github.com/en/actions/using-workflows/events-that-trigger-workflows#pull_request) to understand what `GITHUB_SHA` and `GITHUB_REF` are set to.
+GitHub allows workflows to execute on commits pushed to a branch in a pull request or on "merge" commits between that branch and the base branch (main). These merge commits do not persist in your repository's history. When a GitHub Action is triggered on `pull_request`, GitHub creates an ephemeral branch and merges the PR branch into the latest commit on `main`. For details, refer to the [pull request workflow docs](https://docs.github.com/en/actions/using-workflows/events-that-trigger-workflows#pull_request) to understand what `GITHUB_SHA` and `GITHUB_REF` are set to.
 
 This means the latest build on main will be an ancestor of this ephemeral branch, even though it is not an ancestor of the actual PR branch. Therefore, it'll use the incorrect baseline for comparison. That's why we recommend running Chromatic using the `push` event.
 
@@ -520,7 +520,7 @@ If you decide to use the `pull_request` event, we recommend creating a separate 
 
 **NOTE:** The `ref` on the checkout step is required for TurboSnap to correctly detect changed files.
 
-The pull_request event makes an ephemeral commit between latest main and the commit you have created.
+The pull_request event makes an ephemeral commit between the latest main and the commit you have created.
 This means our git diff will include everything that's happened on main since you branched. That's what the ref solution solves for.
 
 Here is the scenario:
@@ -541,13 +541,13 @@ When we take the git diff between `P'` and the baseline from `main (A)` we are n
 
 #### Maintain a clean "main" branch
 
-A clean `main` branch is a development **best practice** and **highly recommended** for Chromatic. This means testing your `main` branch to ensure builds are passing. It's important to note that baselines will not persist through branching and merging unless you test your `main` branch.
+A clean `main` branch is a development **best practice** and **highly recommended** for Chromatic. This means testing your `main` branch to ensure that builds pass. It's important to note that baselines will not persist through branching and merging unless you test your `main` branch.
 
 If the builds result from direct commits to `main`, you must accept changes to keep the main branch clean. If they're merged from `feature-branches`, you must ensure those branches are passing _before_ you merge into `main`.
 
 #### GitHub squash/rebase merge and the "main" branch
 
-GitHub's squash/rebase merge functionality creates new commits that have no association with the branch being merged. If you've enabled our GitHub application in the [UI Review](/docs/review) workflow, then we will automatically detect this situation and bring baselines over (see [Branching and Baselines](/docs/branching-and-baselines#how-do-baselines-get-preserved-during-squash-and-rebase-merging) for more details).
+GitHub's squash/rebase merge functionality creates new commits that are not associated with the branch being merged. If you've enabled our GitHub application in the [UI Review](/docs/review) workflow, we will automatically detect this and bring the baselines over (see [Branching and Baselines](/docs/branching-and-baselines#how-do-baselines-get-preserved-during-squash-and-rebase-merging) for more details).
 
 If you’re using this functionality but notice the incoming changes were not accepted as baselines in Chromatic, then you'll need to adjust the workflow to include a new step with the `autoAcceptChanges` option. For example:
 
@@ -593,11 +593,11 @@ Read about the [available options](/docs/configure#options).
 
 </div>
 
-Including the `ignoreLastBuildOnBranch` option ensures the latest build for the specific branch is not used as a baseline.
+Including the `ignoreLastBuildOnBranch` option ensures that the latest build for the specified branch is not used as the baseline.
 
 #### Run Chromatic on external forks of open source projects
 
-You can enable PR checks for external forks by sharing your project token where you configured the Chromatic command (often in `package.json` or in the pipeline step).
+You can enable PR checks for external forks by sharing your project token, where you configured the Chromatic command (often in `package.json` or in the pipeline step).
 
 Sharing project tokens allows contributors and others to run Chromatic builds on your project, which can use snapshots. They cannot access your account, settings, or accept baselines. This can be an acceptable tradeoff for open source projects that value community contributions.
 
@@ -605,7 +605,7 @@ Sharing project tokens allows contributors and others to run Chromatic builds on
 
 Sometimes you might want to skip running a build for a certain branch but still have Chromatic mark the latest commit on that branch as "passed". Otherwise, pull requests could be blocked due to required checks that remain pending. To avoid this issue, you can run `chromatic` with the `--skip` flag. This flag accepts a branch name or glob pattern.
 
-For instance, Dependabot automatically updates the dependencies of a project. Although some dependencies can result in UI changes, you might not find it worthwhile to run Chromatic for every dependency update. Instead, you could rely on Chromatic running against the `main` or `develop` branch. One use case for this feature is skipping builds for branches created by a bot.
+For instance, Dependabot automatically updates a project's dependencies. Although some dependencies can result in UI changes, you might not find it worthwhile to run Chromatic for every dependency update. Instead, you could rely on Chromatic running against the `main` or `develop` branch. One use case for this feature is skipping builds for branches created by a bot.
 
 To skip builds for `dependabot` branches, use the following:
 
