@@ -9,9 +9,9 @@ slug: 'turbosnap/config-paths'
 
 TurboSnap's path options don't all resolve against the same base. Some are relative to your repository root, others to the current working directory. Mixing them up is the most common reason TurboSnap looks for your Storybook in the wrong place — especially in a monorepo, where `workingDir` moves the goalposts for some options but not others.
 
-For what each option does, see the [configuration options reference](/docs/configure#options). For setting TurboSnap up in the first place, see [Setup](/docs/turbosnap/setup).
+For what each option does, see the [configuration options reference](/docs/configure#options). To set up TurboSnap in the first place, see [Setup](/docs/turbosnap/setup).
 
-## Which base each option uses
+## Which base does each option use
 
 **Relative to the repository root:**
 
@@ -39,13 +39,13 @@ For what each option does, see the [configuration options reference](/docs/confi
 - the paths inside `preview-stats.json`, which your Storybook build generates
 - the paths returned by `git diff --name-only`, which TurboSnap runs
 
-If your Storybook build and the `chromatic` command run from the same working directory, the two line up and you don't need `storybookBaseDir` at all. If they run from different directories, the paths won't match and TurboSnap can't connect a changed file to the stories that depend on it.
+If your Storybook build and the `chromatic` command run from the same working directory, the two line up, and you don't need `storybookBaseDir` at all. If they run from different directories, the paths won't match, and TurboSnap can't connect a changed file to the stories that depend on it.
 
 One exception: if your `build-storybook` script changes directory before invoking `storybook build`, the paths can diverge even when Chromatic builds your Storybook for you.
 
 <div class="aside">
 
-✨ Run `npx @chromatic-com/turbosnap-helper` from your repository root and it will report the correct base and config directories for your project, and can update your config file for you.
+✨ Run `npx @chromatic-com/turbosnap-helper` from your repository root, and it will report the correct base and config directories for your project, and can update your config file for you.
 
 </div>
 
@@ -133,7 +133,7 @@ Flags take precedence over config-file options, and you can supply both in the s
 <details>
 <summary>I see "No manifest or lockfile found at the root of the repository"</summary>
 
-TurboSnap is looking for your project's manifest and lockfile in the wrong place, which usually means your Storybook configuration lives in a subdirectory and the base directory isn't set correctly.
+TurboSnap is looking for your project's manifest and lockfile in the wrong place, which usually means your Storybook configuration lives in a subdirectory, and the base directory isn't set correctly.
 
 Run `npx @chromatic-com/turbosnap-helper` from your repository root to get the correct value. If you still can't determine the right path, generate a trimmed stats file and use the [`trace` utility](/docs/turbosnap/trace-utility) to see which paths TurboSnap resolves.
 
