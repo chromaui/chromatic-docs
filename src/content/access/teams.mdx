@@ -9,6 +9,12 @@ sidebar: { order: 4, label: 'Teams' }
 
 Teams are available to organizations on the [Enterprise plan](/pricing). They let you control which users can access which projects in your Chromatic organization. Instead of assigning individuals to projects one by one, you assign groups synced from your identity provider (e.g., "Engineering" or "QA") to projects, while membership is managed centrally in your identity provider.
 
+<div class="aside">
+
+ℹ️ Teams are not enabled by default. To turn them on for your organization, contact us via in-app chat or email [support@chromatic.com](mailto:support@chromatic.com?Subject=Enable%20Teams).
+
+</div>
+
 ## How it works
 
 An **organization** is the top-level container in Chromatic that holds:
@@ -19,7 +25,7 @@ An **organization** is the top-level container in Chromatic that holds:
 
 ## Setting up teams
 
-Teams require [SSO with directory sync (SCIM)](/docs/access/sso). Each team in Chromatic corresponds to a directory group in your identity provider (IdP), such as Okta. Teams are provisioned automatically from the directory groups your IdP pushes via SCIM; they cannot be created or edited manually in Chromatic.
+Teams must be enabled for your organization by Chromatic support, and they require [SSO with directory sync (SCIM)](/docs/access/sso). Each team in Chromatic corresponds to a directory group in your identity provider (IdP), such as Okta. Teams are provisioned automatically from the directory groups your IdP pushes via SCIM; they cannot be created or edited manually in Chromatic.
 
 When a directory group is synced via SCIM:
 
