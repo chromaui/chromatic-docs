@@ -151,6 +151,45 @@ export default defineConfig({
 });
 ```
 
+#### Migrate from Vitest's visual testing
+
+Chromatic's plugin will not interfere with [Vitest's built-in visual testing](https://vitest.dev/guide/browser/visual-regression-testing.html), and vice-versa. They can be used together in the same test suite.
+
+If you wish to fully migrate to Chromatic, the `toMatchScreenshot` matcher can be replaced or removed, depending on where in the test it is called:
+
+- **In the middle of a test**: Use Chromatic's [`takeSnapshot` function](/docs/vitest/targeted-snapshots) to capture a snapshot at that point in the test.
+- **At the end of a test**: Chromatic will automatically capture a snapshot at the end of the test (unless [disabled](/docs/vitest/configure)), so you can remove the `toMatchScreenshot` call.
+
+```ts title="Accordion.test.tsx"
+import { test, expect } from 'vitest';
+import { page } from 'vitest/browser';
+import { render } from 'vitest-browser-react';
+import { takeSnapshot } from '@chromatic-com/vitest'; // [!code ++]
+
+import { Accordion } from '../src/components/Accordion';
+
+test('can open accordion', async () => {
+  await render(
+    <Accordion header="Shipping details">
+      Ships within 3 business days
+    </Accordion>
+  );
+
+  await expect(page).toMatchScreenshot('closed'); // [!code --]
+  await takeSnapshot('closed'); // [!code ++]
+
+  const toggle = page.getByRole('button', { name: 'Shipping details' });
+  await toggle.click();
+
+  const content = page.getByText('Ships within 3 business days');
+  await expect.element(content).toBeInTheDocument();
+
+  // This is the last line of the test, so Chromatic will automatically
+  // capture a snapshot here. No `takeSnapshot` call is needed.
+  await expect(page).toMatchScreenshot('open'); // [!code --]
+});
+```
+
 ### 4. Run Vitest
 
 Run your Vitest tests as you normally would.
@@ -265,6 +304,18 @@ You're building robust components by uncovering bugs during development. Take yo
 ![PR badge for UI Tests](../../images/prbadge-test.png)
 
 [**Integrate Chromatic into your CI pipeline**](/docs/ci) to get notified about any visual changes introduced by a pull request. Chromatic runs test any time you push code and reports changes via the “UI Tests” badge for your pull request.
+
+### Working with agents
+
+There are a few aspects of Chromatic for Vitest that you may need to teach an agent to handle. Here is a sample block of instructions you can provide to your agent:
+
+```text
+When writing Vitest Browser Mode tests, consider component states that are important to capture visually. For example, if a component has a closed state and an open state, write tests that simulate those states and capture snapshots of them. Snapshots are automatically captured at the end of each test (unless disabled with `disableAutoSnapshot`), but you can also capture snapshots at specific points in the test using the `takeSnapshot` function from `@chromatic-com/vitest`.
+
+`@chromatic-com/vitest` can be configured in the Vitest configuration file or in individual test files. See: https://chromatic.com/docs/vitest/configure
+
+You can run visual tests locally (after running Vitest tests) using the `chromatic --vitest -t=<TOKEN>` command with your project token.
+```
 
 ### Advanced configuration options
 
