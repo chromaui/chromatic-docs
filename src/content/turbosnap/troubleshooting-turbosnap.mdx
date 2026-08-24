@@ -77,7 +77,7 @@ The usage report shows whether TurboSnap actually ran, and if it didn’t, why.
 | Bail reason column                                                                      | What happened                                                                                        |
 | --------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------- |
 | One of the [reasons below](#what-do-the-turbosnap-bail-reasons-in-my-usage-report-mean) | TurboSnap ran, but couldn't confirm anything was unchanged, so every test in the build was captured. |
-| `unavailable`                                                                           | TurboSnap isn't available for your account yet. It becomes available after 10 CI builds.        |
+| `unavailable`                                                                           | TurboSnap isn't available for your account yet. It becomes available after 10 CI builds.             |
 | Empty                                                                                   | Either TurboSnap ran and copied what it could, or it wasn't enabled for that build.                  |
 
 An empty column doesn't distinguish those last two. To tell them apart, open the build in Chromatic and check the TurboSnap status in the test summary. Its tooltip says whether TurboSnap was applied, bailed, or was disabled for that build.
