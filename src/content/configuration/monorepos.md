@@ -6,9 +6,9 @@ sidebar: { order: 6 }
 
 # Monorepos
 
-A common pattern in modern web development is monorepos -- having a single repository that contains multiple distinct projects. As a monorepo can be associated with many Chromatic projects, there are a few tips that can help with using Chromatic with a monorepo.
+A common pattern in modern web development is the monorepo — a single repository containing multiple distinct projects. Since a monorepo can be associated with many Chromatic projects, there are a few tips to help you use Chromatic with a monorepo.
 
-Chromatic doesn’t assume anything about how you run the CLI. This means you can run it from inside any project or subproject so long as you pass the correct project token.
+Chromatic doesn’t assume anything about how you run the CLI. This means you can run it from within any project or subproject, as long as you pass the correct project token.
 
 ## Running Chromatic for more than one subproject's Storybook
 
@@ -16,7 +16,7 @@ You can have multiple linked subprojects in Chromatic for any given repository, 
 
 ### Combine multiple projects into a single Storybook
 
-A common approach that works well for many teams is to combine multiple subproject's Storybooks into a single Storybook. When you run Chromatic on the principal Storybook, you test all stories in a single Chromatic project.
+A common approach that works well for many teams is to combine multiple subprojects' Storybooks into a single Storybook. When you run Chromatic on the principal Storybook, you test all stories in a single Chromatic project.
 
 For example, you could write in your `.storybook/main.js|ts`:
 
@@ -31,11 +31,11 @@ const config: StorybookConfig = {
 export default config;
 ```
 
-Often teams find a single Storybook for all their development works quite well, also!
+Often teams find a single Storybook for all their development works quite well, too!
 
 ### Run Chromatic for each subproject
 
-In Chromatic, a project is typically linked to a Git repository and will synchronize permissions from the permissions of that repository as well as post build status messages to the repository’s pull/merge requests.
+In Chromatic, a project is typically linked to a Git repository and will synchronize permissions from the permissions of that repository, as well as post build status messages to the repository’s pull/merge requests.
 
 Each subproject in a monorepo can now be associated with a separate Chromatic project that adds additional build statuses to the repository’s pull/merge requests. Here's how to set it up.
 
@@ -73,7 +73,7 @@ Every monorepo subproject will get build statuses posted to the pull/merge reque
 
 ## Only run Chromatic when changes occur in a subproject
 
-If your monorepo consists of both UI and backend subprojects, it may be common to have commits that do not touch UI at all. In such cases, running Chromatic on those commits makes little sense.
+If your monorepo consists of both UI and backend subprojects, it is common to have commits that do not touch the UI at all. In such cases, running Chromatic on those commits makes little sense.
 
 You can use tools like [`lerna changed`](https://github.com/lerna/lerna/tree/4fcac71c782cf91a3624fded775faaf3ddb8d636/libs/commands/changed) to detect such situations (depending on how you've set up your monorepo).
 
@@ -82,7 +82,7 @@ If you want to get a Chromatic PR badge for such commits (for instance, if you b
 <details>
    <summary>How do I use Lerna changed to skip changes in a branch or skip certain builds?</summary>
 
-Please refer to the [lerna docs](https://github.com/lerna/lerna/tree/4fcac71c782cf91a3624fded775faaf3ddb8d636/libs/commands/changed) for up to date info. Here's a sample workflow:
+Please refer to the [lerna docs](https://github.com/lerna/lerna/tree/4fcac71c782cf91a3624fded775faaf3ddb8d636/libs/commands/changed) for up-to-date info. Here's a sample workflow:
 
 1. Install Lerna globally: `npm install -g lerna`
 2. Initialize Lerna: `lerna init`
@@ -102,7 +102,7 @@ Please refer to the [lerna docs](https://github.com/lerna/lerna/tree/4fcac71c782
 
 If you want to skip a certain build, you can use the `--ignore` flag with the build command.
 
-For example: `lerna run build --ignore <package-name>`
+For example: `lerna run build --ignore <package-name>`.
 
 </details>
 
@@ -116,15 +116,15 @@ If you are combining multiple Storybooks into one (see [above](#combine-multiple
 - Use [`--only-story-files`](/docs/configure#options) to only snapshot stories matching a glob pattern by story file name.
 - Use [`--only-story-names`](/docs/configure#options) to only snapshot stories matching a glob pattern by component/story name.
 
-In each case, matching stories will not be captured again, instead we assume it has not changed, and copy the previous snapshot of the story (from one of the ancestor builds). Note you cannot use both `--only-story-files` and `--only-story-names` on the same build, as they conflict.
+In each case, matching stories will not be captured again; instead, we assume they have not changed and copy the previous snapshot of the story (from one of the ancestor builds). Note that you cannot use both `--only-story-files` and `--only-story-names` in the same build, as they conflict.
 
 #### With TurboSnap
 
-TurboSnap is an excellent feature to use with monorepos to avoid re-snapshotting all components across all projects when any changes occur.
+TurboSnap is an excellent feature for monorepos, helping avoid re-snapshotting all components across all projects when changes occur.
 
-The `--untraced` CLI flag can be used to ignore all changes outside of a package or related packages. For example, given a monorepo with unrelated packages `UI` and `app`, you can add the following CLI option to `UI`’s Chromatic command to only run snapshots when files inside the `UI` package change: `--untraced \"./packages/!(UI)/**\"` .
+The `--untraced` CLI flag can be used to ignore all changes outside of a package or related packages. For example, given a monorepo with unrelated packages `UI` and `app`, you can add the following CLI option to `UI`’s Chromatic command to only run snapshots when files inside the `UI` package change: `--untraced \"./packages/!(UI)/**\"`.
 
-Note that the glob pattern starts from the root directory of the repository, not from the directory of the `UI` package. You can also specify `--untraced` multiple times to include multiple glob patterns. Setting `--working-dir` does not change that, and other path options resolve differently — see [TurboSnap config paths](/docs/turbosnap/config-paths).
+Note that the glob pattern starts at the repository's root directory, not in the `UI` package directory. You can also specify `--untraced` multiple times to include multiple glob patterns. Setting `--working-dir` does not change that, and other path options resolve differently — see [TurboSnap config paths](/docs/turbosnap/config-paths).
 
 ```shell
 npx chromatic --only-changed --untraced=package.json,yarn.lock --exit-zero-on-changes
@@ -134,29 +134,29 @@ Some monorepo setups manage third-party dependencies at the root level (so all d
 
 #### With onlyStoryFiles
 
-The `--only-story-files` flag accepts a glob and can be specified multiple times. Any story files (e.g., `Example.stories.js`) which match the glob will have all of their stories captured and tested.
+The `--only-story-files` flag accepts a glob and can be specified multiple times. Any story files (e.g., `Example.stories.js`) that match the glob will have all of their stories captured and tested.
 
 ```shell
 npx chromatic --only-story-files "./src/components/**/.stories.js" --only-story-files "./shared/**/*.stories.js"
 ```
 
 <div class="aside">
-Using quotes around the glob patterns is intentional and recommended to avoid being incorrectly detected by your shell, preventing the command from executing correctly.
+Using quotes around glob patterns is intentional and recommended to avoid being misinterpreted by your shell, which could prevent the command from executing correctly.
 </div>
 
 #### With onlyStoryNames
 
-The `--only-story-names` flag accepts a glob and can be specified multiple times. Any component/story name (e.g., `Forms/Button/*`) which matches the glob will have all of its stories captured and tested.
+The `--only-story-names` flag accepts a glob and can be specified multiple times. Any component/story name (e.g., `Forms/Button/*`) that matches the glob will have all of its stories captured and tested.
 
 ```shell
 npx chromatic --only-story-names "Forms/**" --only-story-names "**/Header/*"
 ```
 
-This would match all stories for all components under "Forms" (i.e., any story file which `title` path starts with "Forms"), as well as all stories for the "Header" component, regardless of where it is in the hierarchy (i.e., any story file which `title` path ends with "Header"). Again, make sure to use quotes around glob patterns.
+This would match all stories for all components under "Forms" (i.e., any story file whose `title` path starts with "Forms"), as well as all stories for the "Header" component, regardless of where it is in the hierarchy (i.e., any story file whose `title` path ends with "Header"). Again, make sure to use quotes around glob patterns.
 
 ### Building a subset of your stories
 
-With the removal of the `--preserve-missing` flag, building a partial Storybook containing a subset of your stories is no longer recommended. Publishing a Storybook with missing stories will result in those missing stories being marked as "removed".
+With the removal of the `--preserve-missing` flag, building a partial Storybook containing a subset of your stories is no longer recommended. Publishing a Storybook with missing stories will mark those stories as "removed".
 
 ---
 
@@ -172,6 +172,6 @@ When using an existing project that is part of the monorepo and [requiring PR ch
 <details>
 <summary>Why is my monorepo project triggering a full rebuild?</summary>
 
-If TurboSnap is enabled inside a monorepo project, [file changes](/docs/turbosnap#full-rebuilds) that impact one package will automatically trigger a full rebuild on all related projects when running Chromatic. Read more about how to ignore changes in unrelated packages [above](#with-turbosnap).
+If TurboSnap is enabled in a monorepo project, [file changes](/docs/turbosnap#full-rebuilds) that affect one package will automatically trigger a full rebuild across all related projects when running Chromatic. Read more about how to ignore changes in unrelated packages [above](#with-turbosnap).
 
 </details>
