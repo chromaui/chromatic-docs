@@ -16,7 +16,7 @@ It will build and test stories that may have been affected by the Git changes si
 <div class="aside">
   ⚠️ When using TurboSnap, your builds may complete in less time using fewer snapshots. However, we
   don't allow using TurboSnap immediately when starting out with Chromatic since the configuration
-  is more complicated and can lead to difficult to debug scenarios or UI changes being missed.
+  is more complicated and can lead to difficult-to-debug scenarios or UI changes being missed.
   Instead, become familiar with Chromatic's out-of-the-box behavior, and once your project has been
   running smoothly, consider trying out TurboSnap. TurboSnap is unlocked after ten successful builds
   on CI.
@@ -27,7 +27,7 @@ It will build and test stories that may have been affected by the Git changes si
 - Chromatic CLI [10.0+](https://www.npmjs.com/package/chromatic)
 - Storybook 6.5+ or Vitest 4+
 - Git 2.28.0+
-- Webpack or Vite based project (Vite is natively supported with Storybook 8+ and can be used in earlier versions with the [vite-plugin-turbosnap](https://github.com/IanVS/vite-plugin-turbosnap))
+- Webpack or Vite-based project (Vite is natively supported with Storybook 8+ and can be used in earlier versions with the [vite-plugin-turbosnap](https://github.com/IanVS/vite-plugin-turbosnap))
 - Stories correctly [configured](https://storybook.js.org/docs/configure#configure-story-loading) in Storybook's `main.js`
 - 10 successful builds on CI
 - For GitHub Actions: run on `push` rather than `pull_request` ([learn more](#github-pull_request-triggers))
@@ -76,7 +76,7 @@ You may need additional config in the following situations:
 
 - You're using `--storybook-build-dir` or `-d` to let Chromatic use a prebuilt Storybook
 - You are using the `staticDirs` config in your main Storybook configuration
-- You have other files outside the Webpack dependency tree which affect your stories (e.g., Sass or template files)
+- You have other files outside the Webpack dependency tree that affect your stories (e.g., Sass or template files)
 - You have files that should never trigger a re-test (e.g., in a monorepo)
 - You want to enable or disable TurboSnap for specific branches
 
@@ -84,7 +84,7 @@ Jump to the [recipes](#recipes) section for more information.
 
 ### Update your configuration using TurboSnap Helper
 
-Having TurboSnap properly configured is essential when trying to optimize build performance. If you're working in a monorepo, or even just a large project with a complex setup, setting up TurboSnap efficiently can feel overwhelming. That's where the TurboSnap helper comes in! We've introduced the `@chromatic-com/turbosnap-helper` CLI utility to simplify the process of managing your configuration.
+Having TurboSnap properly configured is essential for optimizing build performance. If you're working in a monorepo, or even just a large project with a complex setup, setting up TurboSnap efficiently can feel overwhelming. That's where the TurboSnap helper comes in! We've introduced the `@chromatic-com/turbosnap-helper` CLI utility to simplify managing your configuration.
 
 The TurboSnap Helper utility is designed to assist with properly configuring TurboSnap for Chromatic. It's especially helpful in monorepos, where managing directories, static assets, and build optimizations across multiple projects can get tricky.
 
@@ -97,7 +97,7 @@ npx @chromatic-com/turbosnap-helper
 <div class="aside">
 
 ❓ **Why run the utility from the repo root rather than the project root?**
-TurboSnap Helper supports monorepos. By starting from the root, it can scan across all of your projects, so you're not accidentally missing assets or settings that could cause full rebuilds. If you run the utility from your project root, not a problem. The utility will still work just fine.
+TurboSnap Helper supports monorepos. Starting from the root, it can scan all your projects, so you're not accidentally missing assets or settings that could trigger full rebuilds. If you run the utility from your project root, not a problem. The utility will still work just fine.
 
 </div>
 
@@ -109,7 +109,7 @@ The utility can run in three modes:
 - `analyze` - reviews your story and component files for dynamic imports
 - `preview` - analyzes your preview file for shared dependencies that could cause full rebuilds
 
-Running `init` mode not only prints out configuration options in the CLI, but **automatically adds the correct config options** to your Chromatic config file. We've enhanced the utility to take it beyond directory config help and introduced static asset detection, allowing you to easily add static assets to your `externals` config to ensure you don't miss changes. Don't have an existing Chromatic config file? No worries—the utility will create one for you!
+Running `init` mode not only prints configuration options in the CLI but also **automatically adds the correct config options** to your Chromatic config file. We've enhanced the utility to take it beyond directory config help and introduced static asset detection, allowing you to easily add static assets to your `externals` config to ensure you don't miss changes. Don't have an existing Chromatic config file? No worries—the utility will create one for you!
 
 To help further optimize your builds, the utility has an `analyze` mode that scans both story and components files to detect and surface dynamic imports. Dynamic imports are a hidden culprit for confusing TurboSnap behavior that can result in missed regressions or unnecessary rebuilds. `analyze` mode helps you track them down early.
 
@@ -128,7 +128,7 @@ Traversing dependencies for X files that changed since the last build
 ```
 
 <div class="aside">
-  This message tells us how many git changes Chromatic has detected since the last Chromatic build.
+  This message indicates how many git changes Chromatic has detected since the last Chromatic build.
   Usually, that's just one or two commits' worth of files.
 </div>
 
@@ -138,7 +138,7 @@ Found Y story files affected by recent changes
 
 <div class="aside">
 
-This message tells you the number of story files that depend on the X changes above. This message also might be replaced by a message telling you that we need to capture all stories ([see below](/docs/turbosnap#full-rebuilds) ).
+This message shows the number of story files that depend on the X changes listed above. This message might also be replaced with a message telling you that we need to capture all stories ([see below](/docs/turbosnap#full-rebuilds)).
 
 </div>
 
@@ -148,7 +148,7 @@ Tested A stories across B components; capture C snapshots in S seconds.
 
 <div class="aside">
   This message tells you how many snapshots we actually took instead of the number of stories we
-  found in your Storybook. Usually, C would be the number of stories in the Y component files above.
+  found in your Storybook. Usually, C is the number of stories in the Y-component files above.
 </div>
 
 Once TurboSnap is activated, all subsequent builds will display an indicator with TurboSnap's status. Find it on the Build page above your tests.
@@ -186,8 +186,8 @@ You must pass `webpackStatsJson` as a [prop to options](https://nx.dev/nx-api/st
 <details>
 <summary>How can I fail the CI pipeline if `preview-stats.json` file is missing?</summary>
 
-When TurboSnap is enabled and the `preview-stats.json` is missing, Chromatic doesn't fail the build. Instead, it issues a warning that TurboSnap has **bailed** and runs an un-optimized build.
-You can add an explicit verification step to your CI pipeline to fail the entire job if the file is not found and you don't want to run full builds.
+When TurboSnap is enabled and the `preview-stats.json` is missing, Chromatic doesn't fail the build. Instead, it issues a warning that TurboSnap has **bailed** and runs an unoptimized build.
+You can add an explicit verification step to your CI pipeline to fail the entire job if the file is not found, and you don't want to run full builds.
 
 To achieve this, build Storybook in a previous step and place the script below before the Chromatic command:
 
@@ -291,7 +291,7 @@ If you're running `chromatic` from the same subdirectory as `build-storybook`, t
 
 ### Specify external files to trigger a full re-test when they change
 
-TurboSnap relies on Webpack's dependency graph. That means if you're using files processed externally to Webpack, with the output consumed by Webpack, you'll need to trigger a re-test when they change. This includes static assets like fonts, images and CSS files, as well as files that compile to static assets such as Sass, so long as they are not processed through a Webpack loader.
+TurboSnap relies on Webpack's dependency graph. That means if you're using files processed externally to Webpack, with the output consumed by Webpack, you'll need to trigger a re-test when they change. This includes static assets like fonts, images, and CSS files, as well as files that compile to static assets such as Sass, so long as they are not processed through a Webpack loader.
 
 For example, if you use an external Sass compiler (not `sass-loader`) to compile `.sass` files to `.css` files (which may then be consumed by Webpack), then a change to a `.sass` file will not match any dependencies, preventing stories from being captured (i.e., snapshotted).
 
@@ -318,7 +318,7 @@ jobs:
       # 👇 Adds Chromatic as a step in the workflow
       - name: Run Chromatic
         uses: chromaui/action@latest
-        # Options required to the GitHub chromatic action
+        # Options required for the GitHub chromatic action
         with:
           # 👇 Chromatic projectToken, refer to the manage page to obtain it.
           projectToken: ${{ secrets.CHROMATIC_PROJECT_TOKEN }}
@@ -331,31 +331,31 @@ jobs:
 
 If you are using the [`staticDirs`](https://storybook.js.org/docs/configure/integration/images-and-assets#serving-static-files-via-storybook-configuration) option in your main Storybook config (introduced in Storybook 6.4), you should flag those as externals as well.
 
-Whereas, the deprecated `--static-dir` (`-s`) Storybook CLI flag is auto-detected, the config option in `main.js` is not.
+Whereas the deprecated `--static-dir` (`-s`) Storybook CLI flag is auto-detected, the config option in `main.js` is not.
 
-### Avoid re-testing dependent stories when certain files changed
+### Avoid re-testing dependent stories when certain files have changed
 
-You may have certain files in your Webpack dependency graph which are (indirectly) used by a story but which you know are unlikely to cause a meaningful (visual) change. A typical example is a global decorator that imports some utility files. Since a global decorator applies to all stories, changing such a utility file would cause the entire Storybook to be re-tested. You can avoid that problem using the `--untraced` flag:
+You may have certain files in your Webpack dependency graph that are (indirectly) used by a story but which you know are unlikely to cause a meaningful (visual) change. A typical example is a global decorator that imports some utility files. Since a global decorator applies to all stories, changing this utility file would require retesting the entire Storybook. You can avoid that problem using the `--untraced` flag:
 
 ```shell
 chromatic --only-changed --untraced ".storybook/decorators/*.js"
 ```
 
-TurboSnap works by taking a list of changed files in your Git repository and tracing those down to a set of story files. The `--untraced` flag allows you to skip tracing dependencies for certain files. That means any file in the Webpack dependency graph matching `--untraced` will be ignored, and thus stories (indirectly) depending on it will not get marked for re-testing at that time. However, those stories still might get marked as a result of tracing another changed file (via a different dependency chain).
+TurboSnap works by taking a list of changed files in your Git repository and tracing those down to a set of story files. The `--untraced` flag allows you to skip tracing dependencies for certain files. That means any file in the Webpack dependency graph matching `--untraced` will be ignored, and thus stories (indirectly) depending on it will not get marked for re-testing at that time. However, those stories might still be marked as a result of tracing another changed file (via a different dependency chain).
 
 > Keep in mind that your tests will be less reliable when using `--untraced` because it may skip stories that actually did have meaningful changes. It's recommended to disable TurboSnap on your main branch (see below) so that you can at least catch such changes.
 
-`--untraced` is particularly useful when you're importing "index" files that re-export a bunch of underlying modules. A change to any of these modules would cause any file that imports the index file to be considered "dirty", even if it doesn't actually use the changed module. By using `--untraced` on the index file, all of its re-exported modules are automatically untraced as well, as long as they aren't imported directly.
+`--untraced` is particularly useful when you're importing "index" files that re-export many underlying modules. A change to any of these modules would mark any file that imports the index file as "dirty", even if it doesn't actually use the changed module. By using `--untraced` on the index file, all its re-exported modules are automatically untraced as well, provided they aren't imported directly.
 
 #### Avoid re-testing on changes to package control files
 
-When certain files that pertain to `node_modules` (`package.json`, `package-lock.json`, `yarn.lock`) change, TurboSnap attempts to determine an exact set of changed dependencies and trace those dependencies to associated stories. We rely on lock file(s) to get actual version numbers rather than semver ranges. TurboSnap retrieves versions for both the current state of the repository and for each baseline commit. If a lockfile is missing or out of sync with package.json, TurboSnap cannot do this, and we'll have to re-test all stories.
+When certain files related to `node_modules` (`package.json`, `package-lock.json`, `yarn.lock`) change, TurboSnap attempts to determine an exact set of changed dependencies and trace them to their associated stories. We rely on lockfile(s) to obtain actual version numbers rather than semver ranges. TurboSnap retrieves versions for both the current state of the repository and for each baseline commit. If a lockfile is missing or out of sync with package.json, TurboSnap cannot do this, and we'll have to re-test all stories.
 
-Similar to source code changes, the `--untraced` flag can also be used to ignore dependency updates (e.g., `--untraced "services/backend/package.json"`). That way, any dependency updates in that package will not be considered when applying TurboSnap. A typical use case scenario would be to untrace the `services/backend/**/*` directory and ignore _any_ changes, including dependencies. If you need fine-grained control over what is untraced, you can also enable it for a specific lockfile, with the caveat that untracing the root-level lockfile will ignore any dependency changes in _all_ packages that rely on it (i.e., sub-packages that don't have their lockfile).
+Similar to source code changes, the `--untraced` flag can also be used to ignore dependency updates (e.g., `--untraced "services/backend/package.json"`). That way, any dependency updates in that package will not be taken into account when applying TurboSnap. A typical use case scenario would be to untrace the `services/backend/**/*` directory and ignore _any_ changes, including dependencies. If you need fine-grained control over what is untraced, you can also enable it for a specific lockfile, with the caveat that untracing the root-level lockfile will ignore any dependency changes in _all_ packages that rely on it (i.e., sub-packages that don't have their lockfile).
 
 ### Enable or disable for specific branches
 
-To enable TurboSnap for specific branches, pass a glob to `--only-changed` (e.g., `chromatic --only-changed "feature/*"`). Use a negating glob (e.g. `chromatic --only-changed "!(main)"`) to enable all but certain branches. See the [globs guide] for details.
+To enable TurboSnap for specific branches, pass a glob to `--only-changed` (e.g., `chromatic --only-changed "feature/*"`). Use a negating glob (e.g., `chromatic --only-changed "!(main)"`) to enable all but certain branches. See the [globs guide] for details.
 
 ### Using TurboSnap in a monorepo
 
@@ -363,7 +363,7 @@ TurboSnap will make working in a monorepo more efficient. Because it detects aff
 
 <YouTubeCallout client:load id="pmVx8Meh4g0" summary="Configure Turbosnap in a Monorepo" />
 
-When configuring TurboSnap in a monorepo, it's important to ensure that Chromatic understands where your Storybook project is relative to where you're executing your `chromatic` script. This is particularly important because TurboSnap relies on the correct file path resolution to determine which stories have changed and which stories can be skipped. If you're running a subproject out of a monorepo, chances are that you're executing your script from the root of your repository, in which case there are extra considerations to take when configuring TurboSnap.
+When configuring TurboSnap in a monorepo, it's important to ensure that Chromatic understands where your Storybook project is relative to where you're executing your `chromatic` script. This is particularly important because TurboSnap relies on the correct file path resolution to determine which stories have changed and which stories can be skipped. If you're running a subproject in a monorepo, chances are you're executing your script from the root of your repository, in which case, there are extra considerations when configuring TurboSnap.
 
 Chromatic's suggested best practice when executing from your repo root is to set your `--storybook-base-dir` and `--storybook-config-dir` flags. For example, when your Storybook project is located in the `packages/webapp` dir of your repo, you'd update your script to reflect the following:
 
@@ -382,7 +382,7 @@ If you're using a prebuilt Storybook as opposed to having Chromatic build your S
 
 </div>
 
-This would ensure we're checking `packages/webapp` for your Storybook project instead of your root directory, which may end up detecting unexpected package control files for other subprojects. Even though the default config directory is being used, you'll want to ensure to set `--storybook-config-dir` as well since this path is relative to your current working directory.
+This would ensure we're checking `packages/webapp` for your Storybook project rather than your root directory, which could otherwise detect unexpected package control files from other subprojects. Even though the default config directory is being used, you'll want to ensure to set `--storybook-config-dir` as well, since this path is relative to your current working directory.
 
 <div class="aside">
 
@@ -396,7 +396,7 @@ If you're using the `--externals` or `--untraced` flags in a monorepo, you'll wa
 chromatic --only-changed --untraced "packages/webapp/.storybook/decorators/*.js --storybook-base-dir packages/webapp --storybook-config-dir packages/webapp/.storybook"
 ```
 
-Using the path from the project's root (`.storybook/decorators/*.js`) would result in the files still getting traced by TurboSnap. Keep in mind you can use a pattern such as `--untraced "**/.storybook/decorators/*.js"`, this would work with TurboSnap and would result in changes to the directory going untraced.
+Using the path from the project's root (`.storybook/decorators/*.js`) would still cause the files to be traced by TurboSnap. Keep in mind you can use a pattern such as `--untraced "**/.storybook/decorators/*.js"`. This would work with TurboSnap and result in changes to the directory being untraced.
 
 <div class="aside">
 
@@ -422,8 +422,8 @@ Learn more about using [onlyStoryFiles](/docs/monorepos#with-onlystoryfiles) and
 
 GitHub workflows have various "triggers" that a Chromatic action could run on. We recommend sticking to `push` unless you know what you're doing.
 
-TurboSnap is _not_ compatible with the `pull_request` trigger or its variations. The reason is that `pull_request` workflows run against an ephemeral merge commit, which doesn't exist in your Git history yet, but _would_ if you were to merge the PR at that point.
+TurboSnap is _not_ compatible with the `pull_request` trigger or its variations. The reason is that `pull_request` workflows run against an ephemeral merge commit that doesn't yet exist in your git history, but _would_ if you were to merge the PR at that point.
 
 If your pull requests trigger multiple builds before being merged, Chromatic would not be able to find those earlier builds because your Git history does not actually contain the commit for which you ran a Chromatic build.
 
-Our own GitHub Action works around that by using `pull_request.head.sha` as the commit hash for the build, even though it's really running against the merge commit so that we can still track baseline history. However, this discrepancy means TurboSnap would be looking at a different set of changed files than were actually in the recorded commit (which depends on the state of your base branch), yielding unpredictable results.
+Our own GitHub Action works around that by using `pull_request.head.sha` as the commit hash for the build, even though it's really running against the merge commit, so that we can still track baseline history. However, this discrepancy means TurboSnap would be looking at a different set of changed files than were actually in the recorded commit (which depends on the state of your base branch), yielding unpredictable results.
