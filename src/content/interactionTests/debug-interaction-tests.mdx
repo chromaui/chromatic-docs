@@ -14,10 +14,10 @@ Timing, selectors, and small differences between your local environment and Chro
 The fix depends on which of these you have:
 
 - **An assertion failure**: "Unable to find an element by…", or `toBeVisible` failing. Usually a selector or timing problem.
-- **A snapshot mismatch**: The test passes but the snapshot doesn't show the state you expected after the interactions. Usually the UI moved on before capture, or never reached the state.
+- **A snapshot mismatch**: The test passes, but the snapshot doesn't show the state you expected after the interactions. Usually, the UI moved on before capture, or never reached the state.
 - **An intermittent failure**: Passes sometimes, and often only in specific browsers. Almost always timing.
 
-Note the Chromatic build URL, the specific test URL, and which browsers fail. A failure in Firefox or Safari but not Chrome points at timing more often than at logic.
+Note the Chromatic build URL, the specific test URL, and which browsers fail. A failure in Firefox or Safari, but not in Chrome, points more often to timing than to logic.
 
 ## 2. Run the interaction outside Chromatic
 
@@ -26,11 +26,11 @@ Before changing anything, confirm the `play` function passes on its own:
 - Run it with [Storybook's test runner](https://storybook.js.org/docs/writing-tests/integrations/test-runner) or the [Vitest addon](https://storybook.js.org/docs/writing-tests/integrations/vitest-addon).
 - Build and serve your Storybook in production mode locally and run the story there. Chromatic renders a production build, so a test that only passes in development mode will fail in Chromatic.
 
-If it fails locally too, you have an ordinary test bug and the rest of this guide won't help.
+If it fails locally too, you have an ordinary test bug, and the rest of this guide won't help.
 
 ## 3. Rule out a version change
 
-If the test started failing rather than never having worked:
+If the test started failing, rather than never having worked:
 
 - Did you upgrade Storybook? Was the upgrade run through Storybook's automigration?
 - Did you upgrade a design system, component library, or other dependency?
@@ -70,7 +70,7 @@ Most intermittent failures are the UI not being ready when the assertion runs.
 | `findBy*`  | Waits up to a timeout (1000ms by default), then throws. |
 | `queryBy*` | Immediate. Returns `null` instead of throwing.          |
 
-`findBy*` is already a `waitFor`. If it still times out, the element either never appears, or appears and disappears again before the query resolves.
+`findBy*` is already a `waitFor`. If it still times out, the element either never appears or appears and disappears again before the query resolves.
 
 **Give slow interactions explicit time.** Tooltips and dropdowns often carry a hover delay of a few hundred milliseconds plus an entrance animation:
 
