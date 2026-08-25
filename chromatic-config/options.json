@@ -20,7 +20,7 @@
   {
     "option": "buildCommand",
     "flag": "--build-command",
-    "description": "The command that builds your Storybook. Use this if your Storybook build command does not exist in the \"scripts\" field of your package.json.<br/>Requires `--output-dir`.",
+    "description": "The command Chromatic uses to build your Storybook before capturing snapshots. Use this if your Storybook build command does not exist in the \"scripts\" field of your package.json.<br/>Requires `--output-dir`.",
     "type": "string",
     "example": "`\"nx run my-app:build-storybook\"`",
     "supports": ["CLI", "GitHub Action", "Config File"]
@@ -29,7 +29,7 @@
     "option": "buildScriptName",
     "flag": "--build-script-name",
     "shortFlag": "-b",
-    "description": "The npm script that builds your Storybook. Use this if your Storybook build script is named differently.",
+    "description": "The npm script Chromatic uses to build your Storybook before capturing snapshots. Use this if your Storybook build script is named differently.",
     "type": "string",
     "example": "`\"build:storybook\"`",
     "default": "build-storybook",
@@ -93,7 +93,7 @@
   {
     "option": "exitZeroOnChanges",
     "flag": "--exit-zero-on-changes",
-    "description": "If all snapshots render, but there are visual changes, exit with code `0` rather than the usual exit code `1`. Only for given branch, if specified.",
+    "description": "If all tests render successfully but visual changes are found, exit with code `0` rather than the usual exit code `1`. Only for given branch, if specified.",
     "type": ["glob", "boolean"],
     "example": "`\"!(main)\"` or `true`",
     "defaultComment": "`true` in the GitHub Action, otherwise `false`",
