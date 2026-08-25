@@ -51,3 +51,5 @@ When Chromatic captures a snapshot, it includes metadata like viewport informati
 ## Fix the root cause
 
 Instability is a signal that a test needs attention. Once the trace has helped you identify why a test is unstable, learn how to [improve test stability](/docs/unstable-tests#improve-test-stability) with fixes such as pausing animations, preloading fonts, and seeding randomness.
+
+If the trace shows a failed interaction, work through the step-by-step method to [debug failing interaction tests](/docs/interactions/debug).

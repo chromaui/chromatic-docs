@@ -1,0 +1,120 @@
+---
+title: Debug failing interaction tests
+description: A step-by-step method for diagnosing interaction tests that fail in Chromatic, including tests that pass locally or fail intermittently.
+sidebar: { order: 3, label: 'Debug interaction tests' }
+slug: 'interactions/debug'
+---
+
+# Debug failing interaction tests
+
+Timing, selectors, and small differences between your local environment and Chromatic's are the usual causes of failing interaction tests.
+
+## 1. Identify what's failing
+
+The fix depends on which of these you have:
+
+- **An assertion failure**: "Unable to find an element by…", or `toBeVisible` failing. Usually a selector or timing problem.
+- **A snapshot mismatch**: The test passes but the snapshot doesn't show the state you expected after the interactions. Usually the UI moved on before capture, or never reached the state.
+- **An intermittent failure**: Passes sometimes, and often only in specific browsers. Almost always timing.
+
+Note the Chromatic build URL, the specific test URL, and which browsers fail. A failure in Firefox or Safari but not Chrome points at timing more often than at logic.
+
+## 2. Run the interaction outside Chromatic
+
+Before changing anything, confirm the `play` function passes on its own:
+
+- Run it with [Storybook's test runner](https://storybook.js.org/docs/writing-tests/integrations/test-runner) or the [Vitest addon](https://storybook.js.org/docs/writing-tests/integrations/vitest-addon).
+- Build and serve your Storybook in production mode locally and run the story there. Chromatic renders a production build, so a test that only passes in development mode will fail in Chromatic.
+
+If it fails locally too, you have an ordinary test bug and the rest of this guide won't help.
+
+## 3. Rule out a version change
+
+If the test started failing rather than never having worked:
+
+- Did you upgrade Storybook? Was the upgrade run through Storybook's automigration?
+- Did you upgrade a design system, component library, or other dependency?
+- Do your Node and `@storybook/test` / `@testing-library/user-event` versions match between your machine and CI?
+
+## 4. Check your selectors and query scope
+
+Querying the wrong part of the DOM is the most common cause.
+
+**Use the right scope.** For elements rendered inside the story root, query within it:
+
+```js
+const canvas = within(canvasElement);
+```
+
+For portals (dialogs, dropdowns, tooltips, and menus rendered outside the story root), `within(canvasElement)` won't find them. Use `screen` instead.
+
+**Use selectors that survive re-rendering.** Prefer role- and label-based queries over text or test IDs where you can. See Testing Library's [guidance on query types](https://testing-library.com/docs/queries/about/#types-of-queries).
+
+**Disambiguate when several elements match.** A "found multiple elements" failure means your query isn't specific enough. This is common with radio groups, checkbox lists, and repeated labels.
+
+- `getByRole('checkbox')` throws if more than one checkbox matches; `getAllByRole('checkbox')` returns all of them.
+- A string passed to a label-text query must match the full label exactly. A regular expression matches substrings, so `getByLabelText(/male/i)` matches both "Male" and "Female". Narrow the pattern, or scope the query to a container first.
+- `getByTestId` requires the element to carry a `data-testid` attribute.
+
+**Confirm what's rendered.** Locally, call `screen.debug()` or log `document.body.innerHTML` after each step to check the element you're querying for is present when you query for it.
+
+## 5. Handle timing and asynchrony
+
+Most intermittent failures are the UI not being ready when the assertion runs.
+
+**Pick the right query family:**
+
+| Query      | Behavior                                                |
+| ---------- | ------------------------------------------------------- |
+| `getBy*`   | Immediate. Throws if not found.                         |
+| `findBy*`  | Waits up to a timeout (1000ms by default), then throws. |
+| `queryBy*` | Immediate. Returns `null` instead of throwing.          |
+
+`findBy*` is already a `waitFor`. If it still times out, the element either never appears, or appears and disappears again before the query resolves.
+
+**Give slow interactions explicit time.** Tooltips and dropdowns often carry a hover delay of a few hundred milliseconds plus an entrance animation:
+
+```js
+const tooltip = await screen.findByTestId('tooltip-container', {}, { timeout: 3000 });
+```
+
+or, when asserting on visibility:
+
+```js
+await userEvent.hover(button);
+await waitFor(() => expect(screen.getByRole('tooltip')).toBeVisible(), {
+  timeout: 3000,
+});
+```
+
+Chromatic allows an additional 15 seconds after the story renders to execute interaction tests. Explicit timeouts must fit within that window.
+
+## 6. Keep the UI in the state you want captured
+
+The interaction can succeed while the UI reverts before Chromatic captures it.
+
+**Watch for auto-close.** Menus, dropdowns, dialogs, and tooltips commonly close when focus moves, when a click or key event lands outside the component, or when internal state changes. Calling `focus()` on the trigger element, or on the overlay itself, often keeps it open long enough.
+
+**Choose between `userEvent` and `fireEvent` deliberately.** `userEvent` simulates a real user and dispatches a full sequence of pointer events, including CSS `:hover` states. `fireEvent` dispatches a minimal set. If a `userEvent.hover`-based test is unstable, tighten selectors and add explicit waits first. Fall back to `fireEvent.hover` only as a last resort, and only if your component doesn't depend on the full pointer sequence.
+
+## 7. Read the trace
+
+Chromatic attaches a [trace](/docs/trace-viewer) when it flags a test as unstable. For other failures, [rerun the build](/docs/rerun-builds); a rerun records a trace for every test it recaptures. In the trace, look for:
+
+- **When the element appeared and disappeared**, on the timeline.
+- **The pointer and keyboard events** around the moment of failure.
+- **Console output and stack traces**, including anything you logged yourself.
+- **Failed network requests**, which can leave the component in a state your assertions don't expect.
+
+## 8. Add targeted logging
+
+If the trace doesn't explain it, instrument the component, push a new build, and rerun it to record a trace. Logs appear in the trace:
+
+```js
+const handleOpenChange = (isOpen) => {
+  console.log('Dropdown open state changed:', isOpen);
+  console.trace('Stack trace for open change');
+};
+```
+
+Log when state initializes, when debounced callbacks or timers fire, and when components mount and unmount. Then read the trace around the moment the element disappears or the assertion fails.

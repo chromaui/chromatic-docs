@@ -179,6 +179,8 @@ Go to your published Storybook to reproduce the exact state of your story when t
 
 ![Storybook with failed interaction test](../../images/interaction-test-storybook-failed-test.png)
 
+If the cause isn't clear, work through the step-by-step method to [debug failing interaction tests](/docs/interactions/debug).
+
 ## PR check for interaction tests
 
 Interaction tests are reported in the UI Tests pull request check. When a test fails, you'll see a "Failed tests" status message prompting you to fix the test before moving on.
