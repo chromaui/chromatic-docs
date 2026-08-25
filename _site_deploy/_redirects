@@ -37,6 +37,8 @@
 /docs/sso/ /docs/access/sso/
 /docs/teams/ /docs/access/teams/
 
+/docs/optimize-usage/ /docs/usage-trends/
+
 # Plausible analytics
 
 /js/script.js https://plausible.io/js/script.js 200
