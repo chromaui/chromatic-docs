@@ -9,10 +9,12 @@ interface Props {
   type?: 'default' | 'faq' | 'hidden';
 }
 
+// FAQ pages must always rank below all other pages, so the offsets leave
+// enough headroom for the sidebar to grow without the bands overlapping
 const offsets = {
   default: 0,
-  faq: 100,
-  hidden: 200,
+  hidden: 1000,
+  faq: 2000,
 };
 
 const offset = offsets[type];
