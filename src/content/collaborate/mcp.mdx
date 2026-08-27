@@ -203,6 +203,34 @@ After changing any MCP configuration, start a new agent session — most agents 
 </details>
 
 <details>
+
+<summary> I hit error 'does not support dynamic client registration' when authenticating </summary>
+This error typically occurs when you're trying to connect Chromatic MCP to a tool that does not support
+dynamic client registration. The alternative is using the bearer token:
+
+```json title=".mcp.json"
+{
+  "mcpServers": {
+    "your-chromatic-storybook-mcp": {
+      "type": "http",
+      "url": "https://<BRANCH>--<APP-ID>.chromatic.com/mcp",
+      "headers": {
+        "Authorization": "Bearer YOUR_TOKEN_STRING_HERE"
+      }
+    }
+  }
+}
+```
+
+<strong>Notes</strong>
+
+1. Find the `token` in the Application tab of the <strong>Developers Tools</strong> under chromatic.com cookies.
+   Use the `token`, not the `asset_token`.
+2. This method is only recommended for tools that don't support OAuth 2.0 with dynamic client registration. For other tools, always prefer using the `mcp-add` CLI with the `--client-id` parameter, as it handles authentication more securely.
+
+</details>
+
+<details>
 <summary>Where does the OAuth client ID go in my agent's config?</summary>
 
 Each agent expects a different key. Use the one for your tool:
