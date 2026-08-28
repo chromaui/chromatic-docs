@@ -51,6 +51,77 @@ To integrate Chromatic with your existing workflow, you'll need to add the follo
           - Chromatic
     ```
   </Fragment>
+  <Fragment slot="vitest">
+    ```yml title=".circleci/config.yml"
+    version: 2.1
+
+    executors:
+      pw-noble-development:
+        docker:
+          - image: mcr.microsoft.com/playwright:v1.62.0-noble
+        working_directory: ~/repo
+      chromatic-ui-testing:
+        docker:
+          - image: cimg/node:24.19.0
+        working_directory: ~/repo
+
+    jobs:
+      Vitest:
+        executor: pw-noble-development
+        steps:
+          - checkout
+          - restore_cache:
+              name: Restore NPM cache
+              keys:
+                - v1-dependencies-{{ checksum "package-lock.json" }}
+                - v1-dependencies-
+          - run:
+              name: "Install Vitest dependencies"
+              # ⚠️ See your package manager's documentation for the correct command to install dependencies in a CI environment.
+              command: npm ci
+          - save_cache:
+              name: Save NPM cache
+              paths:
+                - ~/.npm
+              key: v1-dependencies-{{ checksum "package-lock.json" }}
+          - run:
+              name: "Run Vitest tests"
+              command: npx vitest run
+              when: always
+          - persist_to_workspace:
+              root: .
+              paths:
+                # Chromatic automatically defaults to the .vitest/chromatic directory.
+                # Replace with the path to your custom directory and adjust the CHROMATIC_ARCHIVE_LOCATION environment variable accordingly.
+                - .vitest/chromatic
+      Chromatic:
+        executor: chromatic-ui-testing
+        steps:
+          - checkout
+          - restore_cache:
+              name: Restore NPM cache
+              keys:
+                - v1-dependencies-{{ checksum "package-lock.json" }}
+                - v1-dependencies-
+          - run: npm ci
+          - attach_workspace:
+              at: .
+          - run:
+              name: "Run Chromatic"
+              command: npx chromatic --vitest
+              # ⚠️ Optionally configure the archive location with env vars
+              environment:
+                CHROMATIC_ARCHIVE_LOCATION: ".vitest/chromatic"
+
+    workflows:
+      UI_Tests:
+        jobs:
+          - Vitest
+          - Chromatic:
+              requires:
+                - Vitest
+    ```
+  </Fragment>
   <Fragment slot="playwright">
     ```yml title=".circleci/config.yml"
     version: 2.1

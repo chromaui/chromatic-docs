@@ -26,6 +26,13 @@ Before we begin, make sure you set the `CHROMATIC_PROJECT_TOKEN` environment var
 }
 ```
   </Fragment>
+  <Fragment slot="vitest">
+```json
+"scripts": {
+  "chromatic": "chromatic --vitest --exit-zero-on-changes"
+}
+```
+  </Fragment>
   <Fragment slot="playwright">
 ```json
 "scripts": {
@@ -37,13 +44,6 @@ Before we begin, make sure you set the `CHROMATIC_PROJECT_TOKEN` environment var
 ```json
 "scripts": {
   "chromatic": "chromatic --cypress --exit-zero-on-changes"
-}
-```
-  </Fragment>
-  <Fragment slot="vitest">
-```json
-"scripts": {
-  "chromatic": "chromatic --vitest --exit-zero-on-changes"
 }
 ```
   </Fragment>

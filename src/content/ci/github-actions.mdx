@@ -45,6 +45,45 @@ In your `.github/workflows` directory, create a new file called `chromatic.yml` 
               projectToken: ${{ secrets.CHROMATIC_PROJECT_TOKEN }}
     ```
   </Fragment>
+  <Fragment slot="vitest">
+    ```yml title=".github/workflows/chromatic.yml"
+    name: "Chromatic"
+
+    on: push
+
+    jobs:
+      tests:
+        name: Run Vitest & Chromatic
+        runs-on: ubuntu-latest
+        container:
+          image: mcr.microsoft.com/playwright:v1.62.0-noble
+        steps:
+          - name: Checkout code
+            uses: actions/checkout@v7
+            with:
+              fetch-depth: 0
+          - uses: actions/setup-node@v7
+            with:
+              node-version: 24.19.0
+          - name: Install dependencies
+            # ⚠️ See your package manager's documentation for the correct command to install dependencies in a CI environment.
+            run: npm ci
+          - name: Run Vitest tests
+            run: npx vitest run
+            env:
+              HOME: /root
+          - name: Run Chromatic
+            uses: chromaui/action@latest
+            with:
+              # ⚠️ Enable Vitest
+              vitest: true
+              # ⚠️ Make sure to configure a `CHROMATIC_PROJECT_TOKEN` repository secret
+              projectToken: ${{ secrets.CHROMATIC_PROJECT_TOKEN }}
+            # ⚠️ Optionally configure the archive location with env vars
+            env:
+              CHROMATIC_ARCHIVE_LOCATION: .vitest/chromatic
+    ```
+  </Fragment>
   <Fragment slot="playwright">
     ```yaml title=".github/workflows/chromatic.yml"
     name: "Chromatic"
@@ -105,7 +144,8 @@ In your `.github/workflows` directory, create a new file called `chromatic.yml` 
               # ⚠️ Make sure to configure a `CHROMATIC_PROJECT_TOKEN` repository secret
               projectToken: ${{ secrets.CHROMATIC_PROJECT_TOKEN }}
             # ⚠️ Optionally configure the archive location with env vars
-            env: CHROMATIC_ARCHIVE_LOCATION=./test-results
+            env:
+              CHROMATIC_ARCHIVE_LOCATION: ./test-results
     ```
   </Fragment>
   <Fragment slot="cypress">

@@ -31,6 +31,32 @@ To integrate Chromatic with your existing CI provider, you'll need to add the fo
         command: npx chromatic
     ```
   </Fragment>
+  <Fragment slot="vitest">
+    ```yml title="your-workflow.yml"
+    image: node:krypton
+
+    - run:
+        # ⚠️ See your package manager's documentation for the correct command to install dependencies in a CI environment.
+        command: npm ci
+    - run:
+        name: "Vitest"
+        displayName: "Run Vitest tests"
+        container: mcr.microsoft.com/playwright:v1.62.0-noble
+        options:
+          artifacts:
+            # Chromatic automatically defaults to the .vitest/chromatic directory.
+            # Replace with the path to your custom directory and adjust the CHROMATIC_ARCHIVE_LOCATION environment variable accordingly.
+            - .vitest/chromatic
+        command: npx vitest run
+    - run:
+        name: "Chromatic"
+        displayName: "Run Chromatic"
+        requires: [Vitest]
+        environment:
+          CHROMATIC_ARCHIVE_LOCATION: ".vitest/chromatic"
+        command: npx chromatic --vitest
+    ```
+  </Fragment>
   <Fragment slot="playwright">
     ```yml title="your-workflow.yml"
     image: node:krypton
