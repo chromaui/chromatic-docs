@@ -12,7 +12,7 @@ Components can respond differently to hover or focus events. Here are a few tech
 
 ## JavaScript-triggered hover states
 
-If you're working with a component that relies on JavaScript to trigger hover states (e.g., tooltips, dropdowns), you can adjust your tests and include Storybook's [play](https://storybook.js.org/docs/writing-stories/play-function) function or [Playwright's](https://playwright.dev/docs/api/class-locator#locator-hover) and [Cypress's](https://docs.cypress.io/api/commands/hover) APIs to simulate the state and verify the component's behavior.
+If you're working with a component that relies on JavaScript to trigger hover states (e.g., tooltips, dropdowns), you can adjust your tests and include Storybook's [play](https://storybook.js.org/docs/writing-stories/play-function) function or [Vitest's](https://vitest.dev/guide/browser/interactivity-api#userevent-hover), [Playwright's](https://playwright.dev/docs/api/class-locator#locator-hover), and [Cypress's](https://docs.cypress.io/api/commands/hover) APIs to simulate the state and verify the component's behavior.
 
 {/* prettier-ignore-start */}
 
@@ -51,6 +51,31 @@ If you're working with a component that relies on JavaScript to trigger hover st
         };
       },
     };
+    ```
+  </Fragment>
+  <Fragment slot="vitest">
+    ```tsx title="tests/Auth.test.tsx"
+    import { describe, expect, test } from "vitest";
+    import { page } from "vitest/browser";
+    import { render } from "vitest-browser-react";
+
+    import { LoginForm } from "../src/components/LoginForm";
+
+    describe("Authentication", () => {
+      test("Warns the user about invalid credentials", async () => {
+        await render(<LoginForm />);
+
+        await page.getByLabelText("email").fill("test@email.com");
+        await page.getByLabelText("password").fill("password");
+
+        // Triggers the hover state
+        await page.getByLabelText("password").hover();
+
+        await expect
+          .element(page.getByText("Must be at least 16 characters long"))
+          .toBeVisible();
+      });
+    });
     ```
   </Fragment>
   <Fragment slot="playwright">

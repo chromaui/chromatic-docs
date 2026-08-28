@@ -54,6 +54,27 @@ If you need to customize how Chromatic identifies visual changes in your UI, add
     ```
     <ParamsCallout name="diffThreshold" integration="storybook" />
   </Fragment>
+  <Fragment slot="vitest">
+    ```tsx title="tests/UserAccount.test.tsx"
+    import { describe, expect, test } from "vitest";
+    import { page } from "vitest/browser";
+    import { render } from "vitest-browser-react";
+    import { configure } from "@chromatic-com/vitest";
+
+    import { UserAccount } from "../src/components/UserAccount";
+
+    describe("UserAccount", () => {
+      // Sets the threshold for 0.2 for every test in this suite.
+      configure({ diffThreshold: 0.2 });
+
+      test("Renders the user information", async () => {
+        await render(<UserAccount />);
+        await expect.element(page.getByText("Welcome, username")).toBeInTheDocument();
+      });
+    });
+    ```
+    <ParamsCallout name="diffThreshold" integration="vitest" />
+  </Fragment>
   <Fragment slot="playwright">
     ```ts title="tests/UserProfile.spec.js|ts"
     import { test, expect } from "@chromatic-com/playwright";
@@ -131,6 +152,27 @@ To enable this feature and allow Chromatic to automatically detect anti-aliased 
     };
     ```
     <ParamsCallout name="diffIncludeAntiAliasing" integration="storybook" />
+  </Fragment>
+  <Fragment slot="vitest">
+    ```tsx title="tests/UserAccount.test.tsx"
+    import { describe, expect, test } from "vitest";
+    import { page } from "vitest/browser";
+    import { render } from "vitest-browser-react";
+    import { configure } from "@chromatic-com/vitest";
+
+    import { UserAccount } from "../src/components/UserAccount";
+
+    describe("UserAccount", () => {
+      // Configures this suite to include anti-aliasing in the diff calculation.
+      configure({ diffIncludeAntiAliasing: true });
+
+      test("Renders the user information", async () => {
+        await render(<UserAccount />);
+        await expect.element(page.getByText("Welcome, username")).toBeInTheDocument();
+      });
+    });
+    ```
+    <ParamsCallout name="diffIncludeAntiAliasing" integration="vitest" />
   </Fragment>
   <Fragment slot="playwright">
     ```ts title="tests/UserProfile.spec.js|ts"
