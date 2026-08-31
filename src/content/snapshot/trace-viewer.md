@@ -15,7 +15,7 @@ Chromatic records traces automatically. When a test is [unstable](/docs/unstable
 
 ## How to use a snapshot trace
 
-Chromatic uses Playwright to render and capture snapshots in Capture Cloud, even if your tests are written using Cypress or Storybook. This lets Chromatic use Playwright's [trace viewer features](https://playwright.dev/docs/trace-viewer#trace-viewer-features) to record network activity, console logs, DOM snapshots, and other debugging information.
+Chromatic uses Playwright to render and capture snapshots in Capture Cloud, even if your tests are written using Vitest, Cypress, or Storybook. This lets Chromatic use Playwright's [trace viewer features](https://playwright.dev/docs/trace-viewer#trace-viewer-features) to record network activity, console logs, DOM snapshots, and other debugging information.
 
 ![Example of a Playwright trace capturing network requests and displaying the final DOM structure](../../images/trace-example.png)
 

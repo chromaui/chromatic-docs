@@ -26,11 +26,14 @@ If you customize the way your Storybook runs, you may need to pass additional op
 
 If you don't install `chromatic` as a dependency, `npx` automatically downloads and runs the latest version. This means you'll always have the newest features but might experience slightly slower startup times due to the download.
 
-## Usage with Playwright or Cypress
+## Usage with Vitest, Playwright, or Cypress
 
-When pairing Chromatic with Playwright or Cypress, you have to pass the corresponding flag: `--playwright` or `--cypress`. Chromatic captures an archive of your UI (DOM, styles, and assets) while Playwright or Cypress runs your E2E tests. The CLI uploads the archive to the Chromatic cloud infrastructure to run visual testing.
+When pairing Chromatic with Vitest, Playwright, or Cypress, you have to pass the corresponding flag: `--vitest`, `--playwright`, or `--cypress`. Chromatic captures an archive of your UI (DOM, styles, and assets) while Vitest, Playwright, or Cypress runs your tests. The CLI uploads the archive to the Chromatic cloud infrastructure to run visual testing.
 
 ```shell
+# For Chromatic with Vitest
+$ npx chromatic --project-token <your-project-token> --vitest
+
 # For Chromatic with Playwright
 $ npx chromatic --project-token <your-project-token> --playwright
 
@@ -38,7 +41,7 @@ $ npx chromatic --project-token <your-project-token> --playwright
 $ npx chromatic --project-token <your-project-token> --cypress
 ```
 
-For Playwright and Cypress, we recommend installing the chromatic package as a dependency. This ensures that the CLI is in sync with the `@chromatic-com/playwright` or `@chromatic-com/cypress` package.
+For Vitest, Playwright, and Cypress, we recommend installing the chromatic package as a dependency. This ensures that the CLI is in sync with the `@chromatic-com/vitest`, `@chromatic-com/playwright`, or `@chromatic-com/cypress` package.
 
 ## Installing
 

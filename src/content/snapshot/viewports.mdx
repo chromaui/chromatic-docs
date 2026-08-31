@@ -6,7 +6,7 @@ sidebar: { order: 3 }
 
 # Viewports for responsive UIs with breakpoints
 
-UI components respond and adapt to different device widths. Chromatic streamlines visual testing, enabling you to capture each test at multiple viewport sizes. Viewports is compatible with Storybook, Playwright, and Cypress integrations.
+UI components respond and adapt to different device widths. Chromatic streamlines visual testing, enabling you to capture each test at multiple viewport sizes. Viewports is compatible with Storybook, Vitest, Playwright, and Cypress integrations.
 
 ## Storybook
 
@@ -17,6 +17,42 @@ Chromatic also integrates with Storybook's viewport feature. You can specify vie
 For detailed usage instructions, refer to the [**configure viewports for stories**](/docs/modes/viewports) page.
 
 ![Chromatic modes with the viewport feature](../../images/addon-viewports.png)
+
+## Vitest
+
+Chromatic will capture the DOM and take snapshots at the viewport size in which a test is configured to run.
+
+Viewports in Vitest can be [configured globally](https://vitest.dev/guide/browser/#configuration) in your main Vitest configuration file as follows:
+
+```ts title="vitest.config.js|ts"
+import { defineConfig } from 'vitest/config';
+import { playwright } from '@vitest/browser-playwright';
+
+export default defineConfig({
+  test: {
+    browser: {
+      provider: playwright(),
+      enabled: true,
+      viewport: { width: 1280, height: 720 },
+      instances: [{ browser: 'chromium' }],
+    },
+  },
+});
+```
+
+Or at the test level:
+
+```ts title="Viewports.spec.js|ts"
+import { test } from 'vitest';
+import { page } from 'vitest/browser';
+
+test('Page display on medium size screen', async () => {
+  // 👇 Overrides the option in the test.
+  await page.viewport(1600, 1200);
+
+  await page.goto('/');
+});
+```
 
 ## Playwright
 

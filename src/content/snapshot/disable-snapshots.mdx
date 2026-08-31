@@ -10,7 +10,7 @@ import IntegrationSnippets from '../../components/IntegrationSnippets.astro';
 
 # Disable snapshots for specific tests
 
-By default, Chromatic captures snapshots for all your UI components, whether you're testing with Storybook, [Playwright](/docs/playwright), [Cypress](/docs/cypress), or [Vitest](/docs/vitest). However, you can disable specific tests that are irrelevant or cause false positives.
+By default, Chromatic captures snapshots for all your UI components, whether you're testing with Storybook, [Vitest](/docs/vitest), [Playwright](/docs/playwright), or [Cypress](/docs/cypress). However, you can disable specific tests that are irrelevant or cause false positives.
 
 ## With Storybook
 
@@ -39,9 +39,9 @@ export const Default: Story = {};
 
 <ParamsCallout name="disableSnapshot" integration="storybook" />
 
-## With Playwright, Cypress, or Vitest
+## With Vitest, Playwright, or Cypress
 
-By default, Chromatic's Playwright, Cypress, and Vitest integrations run tests and capture a snapshot at the end of each test; either it passes or fails. However, if you've enabled targeted snapshots with [Playwright](/docs/playwright/targeted-snapshots), [Cypress](/docs/cypress/targeted-snapshots), or [Vitest](/docs/vitest/targeted-snapshots) to pinpoint visual changes when the test reaches a specific point, you can opt out of the automated snapshotting process by enabling the `disableAutoSnapshot` configuration option. This is useful when capturing snapshots at specific points in your test, such as when a particular element is visible or when a specific action is performed.
+By default, Chromatic's Vitest, Playwright, and Cypress integrations run tests and capture a snapshot at the end of each test; either it passes or fails. However, if you've enabled targeted snapshots with [Vitest](/docs/vitest/targeted-snapshots), [Playwright](/docs/playwright/targeted-snapshots), or [Cypress](/docs/cypress/targeted-snapshots) to pinpoint visual changes when the test reaches a specific point, you can opt out of the automated snapshotting process by enabling the `disableAutoSnapshot` configuration option. This is useful when capturing snapshots at specific points in your test, such as when a particular element is visible or when a specific action is performed.
 
 {/* prettier-ignore-start */}
 

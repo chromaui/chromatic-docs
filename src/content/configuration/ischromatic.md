@@ -12,7 +12,7 @@ You can also target specific CSS rules to the Chromatic capture environment usin
 
 <div class="aside">
 
-ℹ️ The `isChromatic` functionality is specific to Storybook tests. If you need to control what code is executed in your Playwright or Cypress tests, you can use environment variables or other mechanisms provided by those tools to achieve similar results.
+ℹ️ The `isChromatic` functionality is specific to Storybook tests. If you need to control what code is executed in your Vitest, Playwright, or Cypress tests, you can use environment variables or other mechanisms provided by those tools to achieve similar results.
 
 </div>
 
