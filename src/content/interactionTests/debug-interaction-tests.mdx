@@ -26,7 +26,7 @@ Before changing anything, confirm the `play` function passes on its own:
 - Run it with [Storybook's test runner](https://storybook.js.org/docs/writing-tests/integrations/test-runner) or the [Vitest addon](https://storybook.js.org/docs/writing-tests/integrations/vitest-addon).
 - Build and serve your Storybook in production mode locally and run the story there. Chromatic renders a production build, so a test that only passes in development mode will fail in Chromatic.
 
-If it fails locally too, you have an ordinary test bug, and the rest of this guide won't help.
+If it fails locally too, then it's likely a bug in the test. Check the syntax, queries, and assertions.
 
 ## 3. Rule out a version change
 
@@ -58,7 +58,7 @@ For portals (dialogs, dropdowns, tooltips, and menus rendered outside the story 
 
 **Confirm what's rendered.** Locally, call `screen.debug()` or log `document.body.innerHTML` after each step to check the element you're querying for is present when you query for it.
 
-## 5. Handle timing and asynchrony
+## 5. Check for timing issues
 
 Most intermittent failures are the UI not being ready when the assertion runs.
 
@@ -97,7 +97,7 @@ The interaction can succeed while the UI reverts before Chromatic captures it.
 
 **Choose between `userEvent` and `fireEvent` deliberately.** `userEvent` simulates a real user and dispatches a full sequence of pointer events, including CSS `:hover` states. `fireEvent` dispatches a minimal set. If a `userEvent.hover`-based test is unstable, tighten selectors and add explicit waits first. Fall back to `fireEvent.hover` only as a last resort, and only if your component doesn't depend on the full pointer sequence.
 
-## 7. Read the trace
+## 7. Review the trace
 
 Chromatic attaches a [trace](/docs/trace-viewer) when it flags a test as unstable. For other failures, [rerun the build](/docs/rerun-builds); a rerun records a trace for every test it recaptures. In the trace, look for:
 
