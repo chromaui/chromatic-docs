@@ -57,6 +57,7 @@ A user can receive project access from multiple sources. The **highest role** al
 1. **Organization Admin:** Admins have implicit Owner access on all projects.
 2. **Direct project assignment:** A role assigned to the user on the specific project.
 3. **Team membership:** The role granted by any team the user belongs to that is assigned to the project. If the user is in multiple teams with different roles on the same project, the highest applies.
+4. **Base project role:** The role all organization users are granted for every project.
 
 Roles can only be elevated through this process, never reduced. For example, if a user's direct assignment grants `developer` and a team assignment grants `owner`, the user receives `owner`.
 
@@ -64,12 +65,12 @@ Roles can only be elevated through this process, never reduced. For example, if 
 
 Organization roles control what a member can do at the org level.
 
-| Role        | What they can do                                                                                                                                                                                                                         |
-| ----------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| **Admin**   | Full access to all settings, billing, SSO/SCIM configuration, team-to-project assignments, and all projects (implicit Owner on every project). Can manage members. Every organization must have at least one member with the Admin role. |
-| **Member**  | Standard membership. Can view organization details and member list. Project access is determined by team membership or direct assignment.                                                                                                |
-| **Billing** | Full access to billing management (invoices, payment methods, subscription). Cannot manage teams or projects. Intended for finance team members who manage payments but don't need project access.                                       |
-| **Viewer**  | Read-only at the organization level. Can view organization details and the member list, but cannot change account settings, manage billing, or add projects. Project access is determined by team membership or direct assignment.       |
+| Role        | What they can do                                                                                                                                                                                                                                     |
+| ----------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| **Admin**   | Full access to all settings, billing, SSO/SCIM configuration, team-to-project assignments, and all projects (implicit Owner on every project). Can manage members. Every organization must have at least one member with the Admin role.             |
+| **Billing** | Full access to billing management (invoices, payment methods, subscription). Intended for finance team members who manage payments but do not need full administrative access. Project access is determined by team membership or direct assignment. |
+| **Member**  | Standard membership. Can view organization details and member list. Project access is determined by team membership or direct assignment.                                                                                                            |
+| **Viewer**  | Read-only at the organization level. Can view organization details and the member list, but cannot change account settings, manage billing, or add projects. Project access is determined by team membership or direct assignment.                   |
 
 ### Project roles
 
