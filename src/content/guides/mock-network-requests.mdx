@@ -4,6 +4,7 @@ description: Learn how to mock APIs and network requests in your tests (Storyboo
 sidebar: { order: 5, label: 'Mocking APIs' }
 ---
 
+import { TabItem, Tabs } from '../../components/Tabs';
 import { YouTubeCallout } from '../../components/YouTubeCallout';
 
 # Mocking APIs and Network Requests
@@ -118,6 +119,72 @@ Learn more about the `Object.defineProperty` in [MDN documentation](https://deve
 If you rely on third-party libraries that make network requests, you can mock those modules in your stories. This is useful when you want to avoid inconsistencies in your tests due to external dependencies. Refer to the video below and the [module mocking documentation](https://storybook.js.org/docs/writing-stories/mocking-data-and-modules/mocking-modules) for more information on how to do this.
 
 <YouTubeCallout client:load id="TL-YSDsPpCk" summary="Module mocking in Storybook" />
+
+## Vitest
+
+You can [mock network requests in Vitest](https://vitest.dev/guide/mocking/requests.html) using Mock Service Worker (MSW).
+
+<Tabs>
+  <TabItem label="Setup">
+<br />
+MSW recommends integrating it with Vitest by [extending the test context](https://vitest.dev/guide/test-context.html#extend-test-context).
+
+```ts title="test-extend.ts"
+import { test as testBase } from 'vitest';
+import { worker } from './mocks/browser';
+
+export const test = testBase.extend({
+  worker: [
+    async ({}, use) => {
+      // Start the worker before the test.
+      await worker.start();
+
+      // Expose the worker object on the test's context.
+      await use(worker);
+
+      // Remove any request handlers added in individual test cases.
+      // This prevents them from affecting unrelated tests.
+      worker.resetHandlers();
+    },
+    {
+      auto: true,
+    },
+  ],
+});
+```
+
+  </TabItem>
+
+  <TabItem label="In a test">
+<br />
+Now you can use the `worker` object in your tests to mock network requests. You can add request handlers to the worker for specific test cases, and reset them after each test to avoid side effects.
+
+```jsx title="Dashboard.test.tsx"
+import { http, HttpResponse } from 'msw';
+import { test } from './test-extend';
+import { Dashboard } from './components/dashboard';
+
+test('displays a notification if fetching the dashboard failed', async ({ worker }) => {
+  // Prepend overrides to the happy-path handlers
+  // on the `worker` object from the test's context.
+  worker.use(
+    http.post('/dashboard', () => {
+      return new HttpResponse(null, { status: 500 });
+    })
+  );
+
+  render(<Dashboard />);
+
+  // Your actions and assertions...
+});
+```
+
+  </TabItem>
+</Tabs>
+
+### Module mocking
+
+Vitest also allows you to mock modules using the powerful [`vi.mock()` function](https://vitest.dev/guide/mocking/modules.html). This is useful when you need to mock third-party libraries that make network requests, or when you want to isolate your tests from external dependencies.
 
 ## Playwright
 
