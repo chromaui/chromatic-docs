@@ -56,24 +56,22 @@ The [`forced-colors`](https://developer.mozilla.org/en-US/docs/Web/CSS/@media/fo
   </Fragment>
   <Fragment slot="vitest">
     ```tsx title="tests/Auth.test.tsx"
-    import { describe, test } from "vitest";
+    import { test } from "vitest";
     import { page } from "vitest/browser";
     import { render } from "vitest-browser-react";
     import { configure } from "@chromatic-com/vitest";
 
     import { LoginForm } from "../src/components/LoginForm";
 
-    describe("Authentication", () => {
-      // Enables the forcedColors option for every test in this suite.
+    test("Authenticates a user with high contrast mode enabled", async () => {
+      // Enables the forcedColors option for this test.
       configure({ forcedColors: "active" });
 
-      test("Authenticates a user with high contrast mode enabled", async () => {
-        await render(<LoginForm />);
+      await render(<LoginForm />);
 
-        await page.getByLabelText("email").fill("test@email.com");
-        await page.getByLabelText("password").fill("KC@2N6^?vsV+)w1t");
-        await page.getByRole("button", { name: "Login" }).click();
-      });
+      await page.getByLabelText("email").fill("test@email.com");
+      await page.getByLabelText("password").fill("KC@2N6^?vsV+)w1t");
+      await page.getByRole("button", { name: "Login" }).click();
     });
     ```
     <ParamsCallout name="forcedColors" integration="vitest" />
@@ -172,17 +170,15 @@ The [`prefers-reduced-motion`](https://developer.mozilla.org/en-US/docs/Web/CSS/
 
     import { LoginForm } from "../src/components/LoginForm";
 
-    describe("Authentication", () => {
-      // Enables the prefersReducedMotion option for every test in this suite.
+    test("Authenticates a user with reduced motion enabled", async () => {
+      // Enables the prefersReducedMotion option for this test.
       configure({ prefersReducedMotion: "reduce" });
 
-      test("Authenticates a user with reduced motion enabled", async () => {
-        await render(<LoginForm />);
+      await render(<LoginForm />);
 
-        await page.getByLabelText("email").fill("test@email.com");
-        await page.getByLabelText("password").fill("KC@2N6^?vsV+)w1t");
-        await page.getByRole("button", { name: "Login" }).click();
-      });
+      await page.getByLabelText("email").fill("test@email.com");
+      await page.getByLabelText("password").fill("KC@2N6^?vsV+)w1t");
+      await page.getByRole("button", { name: "Login" }).click();
     });
     ```
     <ParamsCallout name="prefersReducedMotion" integration="vitest" />

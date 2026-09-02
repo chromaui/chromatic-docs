@@ -54,21 +54,19 @@ By default, CSS animations are paused at the end of their animation cycle (i.e.,
   </Fragment>
   <Fragment slot="vitest">
     ```tsx title="tests/Product.test.tsx"
-    import { describe, expect, test } from "vitest";
+    import { expect, test } from "vitest";
     import { page } from "vitest/browser";
     import { render } from "vitest-browser-react";
     import { configure } from "@chromatic-com/vitest";
 
     import { Product } from "../src/components/Product";
 
-    describe("Product", () => {
-      // Overrides the default behavior and pauses the animation at the first frame for every test in this suite.
+    test("Renders the product details", async () => {
+      // Overrides the default behavior and pauses the animation at the first frame for this test.
       configure({ pauseAnimationAtEnd: false });
 
-      test("Renders the product details", async () => {
-        await render(<Product />);
-        await expect.element(page.getByText("Product details")).toBeInTheDocument();
-      });
+      await render(<Product />);
+      await expect.element(page.getByText("Product details")).toBeInTheDocument();
     });
     ```
   <ParamsCallout name="pauseAnimationAtEnd" integration="vitest" />

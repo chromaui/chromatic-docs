@@ -54,21 +54,19 @@ Chromatic has a multistage timeout for capturing a snapshot: 15 seconds to rende
   </Fragment>
   <Fragment slot="vitest">
     ```ts title="tests/Categories.spec.tsx"
-    import { describe, expect, test } from 'vitest';
+    import { expect, test } from 'vitest';
     import { page } from 'vitest/browser'
     import { render } from 'vitest-browser-react';
     import { configure } from '@chromatic-com/vitest';
     
     import { Categories } from '../src/components/Categories';
 
-    describe("Categories Page", () => {
-      // Configures the delay (in milliseconds) for this test suite
+    test("Renders the categories page", async () => {
+      // Configures the delay (in milliseconds) for this test
       configure({ delay: 300 });
 
-      test("Renders the categories page", async () => {
-        await render(<Categories />);
-        await expect.element(page.getByText("Available Categories")).toContain("Available Categories");
-      });
+      await render(<Categories />);
+      await expect.element(page.getByText("Available Categories")).toContain("Available Categories");
     });
     ```
   <ParamsCallout name="delay" integration="vitest" />

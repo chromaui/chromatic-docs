@@ -56,21 +56,19 @@ If you need to customize how Chromatic identifies visual changes in your UI, add
   </Fragment>
   <Fragment slot="vitest">
     ```tsx title="tests/UserAccount.test.tsx"
-    import { describe, expect, test } from "vitest";
+    import { expect, test } from "vitest";
     import { page } from "vitest/browser";
     import { render } from "vitest-browser-react";
     import { configure } from "@chromatic-com/vitest";
 
     import { UserAccount } from "../src/components/UserAccount";
 
-    describe("UserAccount", () => {
-      // Sets the threshold for 0.2 for every test in this suite.
+    test("Renders the user information", async () => {
+      // Sets the threshold for 0.2 for this test.
       configure({ diffThreshold: 0.2 });
 
-      test("Renders the user information", async () => {
-        await render(<UserAccount />);
-        await expect.element(page.getByText("Welcome, username")).toBeInTheDocument();
-      });
+      await render(<UserAccount />);
+      await expect.element(page.getByText("Welcome, username")).toBeInTheDocument();
     });
     ```
     <ParamsCallout name="diffThreshold" integration="vitest" />
@@ -155,21 +153,19 @@ To enable this feature and allow Chromatic to automatically detect anti-aliased 
   </Fragment>
   <Fragment slot="vitest">
     ```tsx title="tests/UserAccount.test.tsx"
-    import { describe, expect, test } from "vitest";
+    import { expect, test } from "vitest";
     import { page } from "vitest/browser";
     import { render } from "vitest-browser-react";
     import { configure } from "@chromatic-com/vitest";
 
     import { UserAccount } from "../src/components/UserAccount";
 
-    describe("UserAccount", () => {
-      // Configures this suite to include anti-aliasing in the diff calculation.
+    test("Renders the user information", async () => {
+      // Configures this test to include anti-aliasing in the diff calculation.
       configure({ diffIncludeAntiAliasing: true });
 
-      test("Renders the user information", async () => {
-        await render(<UserAccount />);
-        await expect.element(page.getByText("Welcome, username")).toBeInTheDocument();
-      });
+      await render(<UserAccount />);
+      await expect.element(page.getByText("Welcome, username")).toBeInTheDocument();
     });
     ```
     <ParamsCallout name="diffIncludeAntiAliasing" integration="vitest" />
