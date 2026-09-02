@@ -2,9 +2,9 @@
 import { TabItem, Tabs } from './Tabs';
 
 interface Props {
-  storybook: string;
-  playwright: string;
   cypress: string;
+  playwright: string;
+  storybook: string;
   vitest: string;
 }
 ---
@@ -14,6 +14,13 @@ interface Props {
     Astro.slots.has('storybook') && (
       <TabItem label="Storybook">
         <slot name="storybook" />
+      </TabItem>
+    )
+  }
+  {
+    Astro.slots.has('vitest') && (
+      <TabItem label="Vitest">
+        <slot name="vitest" />
       </TabItem>
     )
   }
@@ -28,13 +35,6 @@ interface Props {
     Astro.slots.has('cypress') && (
       <TabItem label="Cypress">
         <slot name="cypress" />
-      </TabItem>
-    )
-  }
-  {
-    Astro.slots.has('vitest') && (
-      <TabItem label="Vitest">
-        <slot name="vitest" />
       </TabItem>
     )
   }

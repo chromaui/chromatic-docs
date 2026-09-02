@@ -39,6 +39,45 @@ To integrate Chromatic with your existing pipeline, you'll need to add the follo
         - npx chromatic
     ```
   </Fragment>
+  <Fragment slot="vitest">
+    ```yml title=".gitlab-ci.yml"
+    image: node:krypton
+
+    stages:
+      - UI_Tests
+
+    cache:
+      key: $CI_COMMIT_REF_SLUG-$CI_PROJECT_DIR
+      paths:
+        - .npm/
+
+    before_script:
+      # ⚠️ See your package manager's documentation for the correct command to install dependencies in a CI environment.
+      - npm ci
+
+    Vitest:
+      stage: UI_Tests
+      needs: []
+      image: mcr.microsoft.com/playwright:v1.62.0-noble
+      script:
+        - npx vitest run
+      artifacts:
+        when: always
+        paths:
+          # Chromatic automatically defaults to the .vitest/chromatic directory.
+          # Replace with the path to your custom directory and adjust the CHROMATIC_ARCHIVE_LOCATION environment variable accordingly.
+          - ".vitest/chromatic/"
+        expire_in: 4 weeks
+    Chromatic:
+      stage: UI_Tests
+      needs: [Vitest]
+      # ⚠️ Optionally configure the archive location with env vars
+      variables:
+        CHROMATIC_ARCHIVE_LOCATION: ".vitest/chromatic/"
+      script:
+        - npx chromatic --vitest
+    ```
+  </Fragment>
   <Fragment slot="playwright">
     ```yml title=".gitlab-ci.yml"
     image: node:krypton

@@ -27,12 +27,12 @@ These dimensions stack to create a snapshot. For example, you can have a "captur
 A **test** represents a piece of UI rendered in a specific state that Chromatic can capture as a snapshot. Chromatic supports the following types of tests:
 
 - Storybook Stories
-- Playwright & Cypress End-to-End (E2E) tests
 - Vitest browser mode tests
+- Playwright & Cypress End-to-End (E2E) tests
 
 Each test can generate multiple snapshots, varying by [browser](/docs/browsers#browser-support) (or mobile simulators and emulators), [theme](/docs/themes), [viewport size](/docs/viewports), and other configurations you define.
 
-With [Playwright](/docs/playwright/targeted-snapshots), [Cypress](/docs/cypress/targeted-snapshots), and [Vitest](/docs/vitest/targeted-snapshots), you can even capture multiple visual snapshots within a single test for even more granular analysis.
+With [Vitest](/docs/vitest/targeted-snapshots), [Playwright](/docs/playwright/targeted-snapshots), and [Cypress](/docs/cypress/targeted-snapshots), you can even capture multiple visual snapshots within a single test for even more granular analysis.
 
 ## How are snapshots captured?
 
@@ -114,7 +114,7 @@ The component screen allows you to switch between 'Canvas' and 'Snapshot'. Under
 
 **Canvas** is an interactive environment that renders your test code live in the browser. These are fully inspectable, enabling you to troubleshoot changes and errors effectively.
 
-With Storybook, it displays the story. With Playwright, Cypress and Vitest, it shows the [archive](/docs/faq/what-is-archive) of your test. In all cases, you see the _final state_ of the test UI.
+With Storybook, it displays the story. With Vitest, Playwright, and Cypress, it shows the [archive](/docs/faq/what-is-archive) of your test. In all cases, you see the _final state_ of the test UI.
 
 ![Component screen in Canvas mode](../../images/component-canvas.png)
 

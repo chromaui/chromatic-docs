@@ -39,6 +39,40 @@ To integrate Chromatic with your existing [multistage pipeline](https://www.jenk
     }
     ```
   </Fragment>
+  <Fragment slot="vitest">
+     ```groovy title="JenkinsFile"
+     pipeline {
+       /* Other pipeline configuration. */
+
+       stages {
+         /* Other pipeline stages */
+
+         stage('Vitest') {
+           agent {
+             docker {
+               image 'mcr.microsoft.com/playwright:v1.62.0-noble'
+               reuseNode true
+             }
+           }
+           steps {
+             sh 'npm ci'
+             sh 'npx vitest run'
+           }
+         }
+         stage('Run Chromatic'){
+           environment {
+             CHROMATIC_PROJECT_TOKEN = credentials('chromatic-project-token')
+             CHROMATIC_ARCHIVE_LOCATION = '.vitest/chromatic'
+           }
+           steps {
+             /* 👇 Runs the Chromatic CLI */
+             sh "npx chromatic --vitest"
+           }
+         }
+       }
+     }
+    ```
+  </Fragment>
   <Fragment slot="playwright">
      ```groovy title="JenkinsFile"
      pipeline {

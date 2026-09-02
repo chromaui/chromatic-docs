@@ -79,6 +79,27 @@ You can specify a list of CSS selectors with the `ignoreSelectors` option to ign
     ```
     <ParamsCallout name="ignoreSelectors" integration="storybook" />
   </Fragment>
+  <Fragment slot="vitest" visible="true">
+    ```tsx title="tests/Product.test.tsx"
+    import { describe, expect, test } from "vitest";
+    import { page } from "vitest/browser";
+    import { render } from "vitest-browser-react";
+    import { configure } from "@chromatic-com/vitest";
+
+    import { Product } from "../src/components/Product";
+
+    describe("Product", () => {
+      // Ignores the diff for elements targeted by the specified list of selectors
+      configure({ ignoreSelectors: ['.product-price'] });
+
+      test("Renders the product details", async () => {
+        await render(<Product />);
+        await expect.element(page.getByText("Product details")).toBeInTheDocument();
+      });
+    });
+    ```
+    <ParamsCallout name="ignoreSelectors" integration="vitest" />
+  </Fragment>
   <Fragment slot="playwright" visible="true">
     ```ts title="tests/Product.spec.js|ts"
     import { test, expect } from "@chromatic-com/playwright";

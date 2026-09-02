@@ -48,6 +48,67 @@ To integrate Chromatic with your existing workflow, you'll need to add the follo
                 - npx chromatic
   ```
   </Fragment>
+  <Fragment slot="vitest">
+    ```yml title=".semaphore/semaphore.yml"
+    version: v1.0
+
+    name: UI Tests
+
+    agent:
+      machine:
+        type: e2-standard-2
+        os_image: ubuntu2404
+
+    global_job_config:
+      prologue:
+        commands:
+          - checkout
+
+    blocks:
+      - name: Vitest
+        dependencies: []
+        task:
+          agent:
+            machine:
+              type: e2-standard-2
+              os_image: ubuntu2404
+            containers:
+              - name: Vitest
+                image: mcr.microsoft.com/playwright:v1.62.0-noble
+          jobs:
+            - name: Run Vitest
+              commands:
+                - cache restore npm-$SEMAPHORE_GIT_BRANCH-$(checksum package-lock.json)-$(checksum .semaphore/semaphore.yml)
+                # ⚠️ See your package manager's documentation for the correct command to install dependencies in a CI environment.
+                - npm ci
+                - cache store npm-$SEMAPHORE_GIT_BRANCH-$(checksum package-lock.json)-$(checksum .semaphore/semaphore.yml) ~/.npm
+                - npx vitest run
+          epilogue:
+            always:
+              commands:
+                # Chromatic automatically defaults to the .vitest/chromatic directory.
+                # Replace with the path to your custom directory and adjust the CHROMATIC_ARCHIVE_LOCATION environment variable accordingly.
+                - artifact push workflow .vitest/chromatic
+      - name: Chromatic
+        dependencies: ["Vitest"]
+        task:
+          prologue:
+            commands:
+              - sem-version node 24.19.0
+              - artifact pull workflow .vitest/chromatic
+          secrets:
+            - name: CHROMATIC_PROJECT_TOKEN
+          env_vars:
+            - name: CHROMATIC_ARCHIVE_LOCATION
+              value: .vitest/chromatic
+          jobs:
+            - name: Run Chromatic
+              commands:
+                - cache restore npm-$SEMAPHORE_GIT_BRANCH-$(checksum package-lock.json)-$(checksum .semaphore/semaphore.yml)
+                - npm ci
+                - npx chromatic --vitest
+    ```
+  </Fragment>
   <Fragment slot="playwright">
     ```yml title=".semaphore/semaphore.yml"
     version: v1.0
@@ -73,7 +134,7 @@ To integrate Chromatic with your existing workflow, you'll need to add the follo
               type: e2-standard-2
               os_image: ubuntu2404
             containers:
-              - name: Plawyright
+              - name: Playwright
                 image: mcr.microsoft.com/playwright:v1.62.0-noble
           jobs:
             - name: Run Playwright

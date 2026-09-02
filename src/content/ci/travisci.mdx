@@ -43,6 +43,48 @@ To integrate Chromatic with your existing workflow, you’ll need to add the fol
           script: npx chromatic
     ```
   </Fragment>
+  <Fragment slot="vitest">
+    ```yml title=".travis.yml"
+    language: node_js
+    os: linux
+    dist: jammy
+
+    node_js:
+      - 20
+
+    before_script:
+      # ⚠️ See your package manager's documentation for the correct command to install dependencies in a CI environment.
+      - npm ci
+
+    cache: npm
+
+    branches:
+      only:
+        - main
+
+    jobs:
+      include:
+        - stage: "Vitest"
+          name: "Run Vitest"
+          script:
+            - npx playwright install --with-deps
+            - npx vitest run
+          workspaces:
+            create:
+              name: vitest
+              paths:
+                # Chromatic automatically defaults to the .vitest/chromatic directory.
+                # Replace with the path to your custom directory and adjust the CHROMATIC_ARCHIVE_LOCATION environment variable accordingly.
+                - .vitest/chromatic
+        - stage: "Chromatic"
+          name: "Run Chromatic"
+          workspaces:
+            use: vitest
+          env:
+            - CHROMATIC_ARCHIVE_LOCATION=".vitest/chromatic"
+          script: npx chromatic --vitest
+    ```
+  </Fragment>
   <Fragment slot="playwright">
     ```yml title=".travis.yml"
     language: node_js

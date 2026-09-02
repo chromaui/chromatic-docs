@@ -10,7 +10,7 @@ Chromatic automates UI development so you can build features faster, with less m
 
 <div class="aside">
 
-Not using Storybook? Chromatic integrates seamlessly with [Playwright](/docs/playwright) and [Cypress](/docs/cypress) to offer thorough visual testing. In this scenario, proceed with writing E2E tests as usual and incorporate Chromatic into your [Pull Request workflow »](/docs/in-pull-request)
+Not using Storybook? Chromatic integrates seamlessly with [Vitest](/docs/vitest), [Playwright](/docs/playwright), and [Cypress](/docs/cypress) to offer thorough visual testing. In this scenario, proceed with writing tests as usual and incorporate Chromatic into your [Pull Request workflow »](/docs/in-pull-request)
 
 </div>
 
@@ -32,7 +32,11 @@ If you're a seasoned Storybook user, most teams choose a [Component-Driven](http
 4. Integrate pages into your project by hooking up data and business logic.
 
 <details>
-<summary>Chromatic also integrates with Playwright and Cypress</summary>
+<summary>Chromatic also integrates with Vitest, Playwright, and Cypress</summary>
+
+Developers can test their components with Vitest's Browser Mode. Chromatic can capture the DOM, styles, and assets of your components while Vitest runs your tests. The CLI uploads the archive to the Chromatic cloud infrastructure to run visual testing.
+
+- [Learn how to setup Vitest »](/docs/vitest)
 
 Developers test user flows end-to-end by navigating between pages with Playwright or Cypress. This methodology allows you to simulate how users behave. Chromatic uses these E2E tests as visual test cases by automatically snapshotting key moments in the test.
 

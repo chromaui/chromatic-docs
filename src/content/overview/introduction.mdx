@@ -1,6 +1,6 @@
 ---
 title: Why Chromatic?
-description: Chromatic is a cloud-based toolchain that integrates with Storybook, Playwright, and Cypress to help teams test and review UIs.
+description: Chromatic is a cloud-based toolchain that integrates with Storybook, Vitest, Playwright, and Cypress to help teams test and review UIs.
 sidebar: { order: 1 }
 isHome: true
 slug: introduction
@@ -12,7 +12,7 @@ import { YouTubeCallout } from '../../components/YouTubeCallout';
 
 Chromatic is a testing platform that scans every possible UI state across browsers to catch bugs in appearance, functionality, and accessibility. It enables you to assign reviewers and resolve discussions to streamline team sign-off.
 
-Chromatic is made by the [team](https://www.chromatic.com/company/about) behind Storybook and integrates with Storybook, Playwright, and Cypress.
+Chromatic is made by the [team](https://www.chromatic.com/company/about) behind Storybook and integrates with Storybook, Vitest, Playwright, and Cypress.
 
 <YouTubeCallout
   client:load
@@ -50,7 +50,7 @@ Chromatic’s UI Tests lets you gain full confidence in your UIs on every commit
 
 ## Powered by your existing tests
 
-Chromatic's UI Tests build on the Storybook, Playwright, and Cypress tests you’ve already written. This dramatically reduces maintenance burden and setup.
+Chromatic's UI Tests build on the Storybook, Vitest, Playwright, and Cypress tests you’ve already written. This dramatically reduces maintenance burden and setup.
 
 ### <img src="/docs/assets/storybook.svg" class="inline-icon" alt="" /> Storybook
 
@@ -75,6 +75,12 @@ Chromatic manages the entire testing process for you. Everything from building a
 
 [**Effortless variant testing:**](/docs/modes/) Chromatic harnesses the power of [Storybook Globals](https://storybook.js.org/docs/essentials/toolbars-and-globals#globals) to comprehensively test UI variations across themes, viewports, locales, and media features.
 
+### <img src="/docs/assets/vitest.svg" class="inline-icon" alt="" /> Vitest
+
+Chromatic works alongside your existing Vitest component tests. As each test runs, it captures an archive of your UI (DOM, styles, and assets), then renders that archive in cloud browsers and pixel-diffs the snapshots to find visual changes.
+
+![Run Vitest tests and snapshot pages with Chromatic to detect visual bugs](../../images/workflow-vitest-visual-test.png)
+
 ### <img src="/docs/assets/playwright.svg" class="inline-icon" alt="" /> Playwright and <img src="/docs/assets/cypress.svg" class="inline-icon" alt="" /> Cypress
 
 Run your E2E tests as usual. While those tests run, Chromatic collects a complete archive of your UI (DOM, styles, and assets). It then renders that archived UI in cloud browsers, captures visual snapshots, and identifies visual regressions through pixel diffing.
@@ -89,13 +95,13 @@ Experience the power of Chromatic firsthand! Setup takes just two minutes. Pick 
   <a class="btn-integration" href="/docs/quickstart" title="Storybook">
     <img src="/docs/assets/storybook.svg" alt="" />
   </a>
+  <a class="btn-integration" href="/docs/vitest" title="Vitest">
+    <img src="/docs/assets/vitest.svg" alt="" />
+  </a>
   <a class="btn-integration" href="/docs/playwright" title="Playwright">
     <img src="/docs/assets/playwright.svg" alt="" />
   </a>
   <a class="btn-integration" href="/docs/cypress" title="Cypress">
     <img src="/docs/assets/cypress.svg" alt="" />
-  </a>
-  <a class="btn-integration" href="/docs/vitest" title="Vitest">
-    <img src="/docs/assets/vitest.svg" alt="" />
   </a>
 </div>

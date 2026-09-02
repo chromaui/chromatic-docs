@@ -41,6 +41,43 @@ To integrate Chromatic with your existing pipeline, you'll need to add the follo
                     - npx chromatic
     ```
   </Fragment>
+  <Fragment slot="vitest">
+    ```yml title="bitbucket-pipelines.yml"
+    image: node:krypton
+
+    definitions:
+      caches:
+        npm: $HOME/.npm
+
+    pipelines:
+      default:
+        - stage:
+            name: "UI Tests"
+            steps:
+              - step:
+                  name: "Vitest"
+                  image: mcr.microsoft.com/playwright:v1.62.0-noble
+                  caches:
+                    - npm
+                    - node
+                  script:
+                    # ⚠️ See your package manager's documentation for the correct command to install dependencies in a CI environment.
+                    - npm ci
+                    - npx vitest run
+                  artifacts:
+                    # Chromatic automatically defaults to the .vitest/chromatic directory.
+                    # Replace with the path to your custom directory and adjust the CHROMATIC_ARCHIVE_LOCATION environment variable accordingly.
+                    - .vitest/chromatic/**
+              - step:
+                  name: "Run Chromatic"
+                  caches:
+                    - npm
+                    - node
+                  script:
+                    - npm ci
+                    - npx chromatic --vitest
+    ```
+  </Fragment>
   <Fragment slot="playwright">
     ```yml title="bitbucket-pipelines.yml"
     image: node:krypton

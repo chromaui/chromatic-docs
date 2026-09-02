@@ -54,6 +54,28 @@ The [`forced-colors`](https://developer.mozilla.org/en-US/docs/Web/CSS/@media/fo
     ```
     <ParamsCallout name="forcedColors" integration="storybook" />
   </Fragment>
+  <Fragment slot="vitest">
+    ```tsx title="tests/Auth.test.tsx"
+    import { test } from "vitest";
+    import { page } from "vitest/browser";
+    import { render } from "vitest-browser-react";
+    import { configure } from "@chromatic-com/vitest";
+
+    import { LoginForm } from "../src/components/LoginForm";
+
+    test("Authenticates a user with high contrast mode enabled", async () => {
+      // Enables the forcedColors option for this test.
+      configure({ forcedColors: "active" });
+
+      await render(<LoginForm />);
+
+      await page.getByLabelText("email").fill("test@email.com");
+      await page.getByLabelText("password").fill("KC@2N6^?vsV+)w1t");
+      await page.getByRole("button", { name: "Login" }).click();
+    });
+    ```
+    <ParamsCallout name="forcedColors" integration="vitest" />
+  </Fragment>
   <Fragment slot="playwright">
     ```ts title="tests/Auth.spec.js|ts"
     import { test } from "@chromatic-com/playwright";
@@ -138,6 +160,28 @@ The [`prefers-reduced-motion`](https://developer.mozilla.org/en-US/docs/Web/CSS/
     };
     ```
     <ParamsCallout name="prefersReducedMotion" integration="storybook" />
+  </Fragment>
+  <Fragment slot="vitest">
+    ```tsx title="tests/Auth.test.tsx"
+    import { describe, test } from "vitest";
+    import { page } from "vitest/browser";
+    import { render } from "vitest-browser-react";
+    import { configure } from "@chromatic-com/vitest";
+
+    import { LoginForm } from "../src/components/LoginForm";
+
+    test("Authenticates a user with reduced motion enabled", async () => {
+      // Enables the prefersReducedMotion option for this test.
+      configure({ prefersReducedMotion: "reduce" });
+
+      await render(<LoginForm />);
+
+      await page.getByLabelText("email").fill("test@email.com");
+      await page.getByLabelText("password").fill("KC@2N6^?vsV+)w1t");
+      await page.getByRole("button", { name: "Login" }).click();
+    });
+    ```
+    <ParamsCallout name="prefersReducedMotion" integration="vitest" />
   </Fragment>
   <Fragment slot="playwright">
     ```ts title="tests/Auth.spec.js|ts"

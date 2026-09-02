@@ -37,6 +37,7 @@ When called within `test()`, it configures options for that test:
 
 ```jsx title="test/accordion.test.tsx"
 import { test } from 'vitest';
+import { render } from 'vitest-browser-react';
 import { configure } from '@chromatic-com/vitest';
 
 test('accordion', async () => {
@@ -59,6 +60,7 @@ When called within `describe()`, it configures options for all tests and suites 
 
 ```jsx title="test/accordion.test.tsx"
 import { describe, test } from 'vitest';
+import { render } from 'vitest-browser-react';
 import { configure } from '@chromatic-com/vitest';
 
 test('accordion', async () => {
@@ -91,6 +93,7 @@ When called at the top level, it configures options for all tests in the file:
 
 ```jsx title="test/accordion.test.tsx"
 import { describe, test } from 'vitest';
+import { render } from 'vitest-browser-react';
 import { configure } from '@chromatic-com/vitest';
 
 // Scoped to whole test module (file), affects all tests and suites in this file

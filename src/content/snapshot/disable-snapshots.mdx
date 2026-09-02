@@ -10,7 +10,7 @@ import IntegrationSnippets from '../../components/IntegrationSnippets.astro';
 
 # Disable snapshots for specific tests
 
-By default, Chromatic captures snapshots for all your UI components, whether you're testing with Storybook, [Playwright](/docs/playwright), or [Cypress](/docs/cypress). However, you can disable specific tests that are irrelevant or cause false positives.
+By default, Chromatic captures snapshots for all your UI components, whether you're testing with Storybook, [Vitest](/docs/vitest), [Playwright](/docs/playwright), or [Cypress](/docs/cypress). However, you can disable specific tests that are irrelevant or cause false positives.
 
 ## With Storybook
 
@@ -39,13 +39,42 @@ export const Default: Story = {};
 
 <ParamsCallout name="disableSnapshot" integration="storybook" />
 
-## With Playwright or Cypress
+## With Vitest, Playwright, or Cypress
 
-By default, Chromatic's Playwright and Cypress integrations run tests and captures a snapshot at the end of each E2E test; either it passes or fails. However, if you've enabled targeted snapshots with [Playwright](/docs/playwright/targeted-snapshots) or [Cypress](/docs/cypress/targeted-snapshots) to pinpoint visual changes when the test reaches a specific point, you can opt out of the automated snapshotting process by enabling the `disableAutoSnapshot` configuration option. This is useful when capturing snapshots at specific points in your test, such as when a particular element is visible or when a specific action is performed.
+By default, Chromatic's Vitest, Playwright, and Cypress integrations run tests and capture a snapshot at the end of each test; either it passes or fails. However, if you've enabled targeted snapshots with [Vitest](/docs/vitest/targeted-snapshots), [Playwright](/docs/playwright/targeted-snapshots), or [Cypress](/docs/cypress/targeted-snapshots) to pinpoint visual changes when the test reaches a specific point, you can opt out of the automated snapshotting process by enabling the `disableAutoSnapshot` configuration option. This is useful when capturing snapshots at specific points in your test, such as when a particular element is visible or when a specific action is performed.
 
 {/* prettier-ignore-start */}
 
 <IntegrationSnippets>
+  <Fragment slot="vitest" visible="true">
+    ```tsx title="tests/NotFound.test.tsx"
+    import { describe, expect, test } from "vitest";
+    import { page } from "vitest/browser";
+    import { render } from "vitest-browser-react";
+    import { configure, takeSnapshot } from "@chromatic-com/vitest";
+
+    import { NotFound } from "../src/components/NotFound";
+
+    describe("Not found", () => {
+      // Disables the automated snapshot generated at the end of each test in this suite
+      configure({ disableAutoSnapshot: true });
+
+      test("should show a 404 page", async () => {
+        await render(<NotFound />);
+
+        await expect.element(page.getByText("Page not found")).toBeInTheDocument();
+
+        await takeSnapshot("Initial 404 page");
+
+        // Interacts with the page by clicking the "Go back" button
+        await page.getByRole("button", { name: "Go back" }).click();
+
+        await takeSnapshot("Home page loaded");
+      });
+    });
+    ```
+    <ParamsCallout name="disableAutoSnapshot" integration="vitest" />
+  </Fragment>
   <Fragment slot="playwright" visible="true">
     ```ts title="tests/NotFound.spec.js|ts"
     import { expect, takeSnapshot, test } from "@chromatic-com/playwright";

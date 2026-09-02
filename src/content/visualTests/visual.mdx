@@ -1,6 +1,6 @@
 ---
 title: Visual tests
-description: Chromatic is a cloud-based toolchain that integrates with Storybook, Playwright, and Cypress to help teams test and review UI components.
+description: Chromatic is a cloud-based toolchain that integrates with Storybook, Vitest, Playwright, and Cypress to help teams test and review UI components.
 sidebar: { order: 1 }
 ---
 
@@ -52,6 +52,18 @@ Storybook lets you define the different states and variations of components as [
 Chromatic integrates with Storybook via an [addon](https://www.chromatic.com/storybook) to unlock on-demand visual testing right from within your familiar Storybook environment. With a single click, you can run visual checks on all your stories simultaneously. Chromatic runs the tests in the cloud, notifying you directly in Storybook if any component's appearance deviates from expectations. In addition to this local workflow, you can also run these tests in CI.
 
 [**Get started with Storybook & Chromatic »**](/docs/quickstart)
+
+### <img src="/docs/assets/vitest.svg" style="align-self: center;" class="inline-icon" alt="" /> Visual testing with Vitest
+
+[Vitest](https://vitest.dev/) is an open source testing framework built on Vite. It allows you to write unit tests to verify functionality, and integration tests to validate how components work together. With [Browser Mode](https://vitest.dev/guide/browser/), Vitest can also run tests in a real browser environment.
+
+Chromatic provides a plugin to integrate with Vitest. While your tests run, Chromatic captures an archive of your component (DOM, styles, and assets). After the tests complete, Chromatic uploads the archives to the cloud, where it renders the components in multiple browsers, captures snapshots, and performs pixel diffing to identify any unintended visual changes.
+
+Vitest offers built-in visual testing capabilities, but the snapshots must be stored in your repository and managing flake and inconsistent test results can be challenging. Chromatic's cloud-based snapshotting and flake-reduction tools make it a better testing solution for teams.
+
+[**Get started with Vitest & Chromatic »**](/docs/vitest)
+
+![](../../images/workflow-vitest-visual-test.png)
 
 ### <img src="/docs/assets/playwright.svg" style="align-self: center;" class="inline-icon" alt="" /> Visual testing with Playwright
 

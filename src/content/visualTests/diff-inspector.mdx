@@ -83,6 +83,24 @@ Customize how Chromatic identifies visual changes by adjusting the `diffThreshol
     };
     ```
   </Fragment>
+  <Fragment slot="vitest">
+    ```tsx title="tests/UserAccount.test.tsx"
+    import { describe, expect, test } from "vitest";
+    import { page } from "vitest/browser";
+    import { render } from "vitest-browser-react";
+    import { configure } from "@chromatic-com/vitest";
+
+    import { UserAccount } from "../src/components/UserAccount";
+
+    test("Renders the user information", async () => {
+      // Sets the threshold for 0.2 for this test.
+      configure({ diffThreshold: 0.2 });
+
+      await render(<UserAccount />);
+      await expect.element(page.getByText("Welcome, username")).toBeInTheDocument();
+    });
+    ```
+  </Fragment>
   <Fragment slot="playwright">
     ```js title="tests/mytest.spec.js"
     test.describe("some block", () => {
