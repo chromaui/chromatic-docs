@@ -1,9 +1,21 @@
 ---
 sidebar: { hide: true }
-title: How do I add chromatic.com to my allowlist if my resources are behind a firewall?
+title: How do I add Chromatic to my allowlist if my resources are behind a firewall?
 section: compatibility
 ---
 
-# How do I add chromatic.com to my allowlist if my resources are behind a firewall?
+# How do I add Chromatic to my allowlist if my resources are behind a firewall?
 
-You will need to make sure that `chromatic.com` is added to the allowed list in your firewall settings. Since `chromatic.com` is a top-level domain, you won't need to add any subdomains to the allowlist.
+If your CI environment restricts outbound connections, allow these hosts:
+
+| Host                                          | Protocol |
+| --------------------------------------------- | -------- |
+| `index.chromatic.com`                         | HTTPS    |
+| `notify.chromatic.com`                        | WSS      |
+| `chromatic-builds.s3.us-west-2.amazonaws.com` | HTTPS    |
+
+A `*.chromatic.com` rule covers the first two hosts. It does not cover the S3 hostname, so add that host separately.
+
+Chromatic uses port 443 for these connections.
+
+If your Git provider restricts incoming connections from Chromatic, configure [Git provider IP allowlisting](/docs/faq/allowlist-ips-for-git-providers).
