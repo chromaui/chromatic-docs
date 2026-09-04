@@ -10,11 +10,11 @@ Chromatic sends email notifications to keep [collaborators](/docs/access/collabo
 
 ### [UI Tests](/docs#test-how-uis-look--function)
 
-In UI Tests, Chromatic emails the build owner when there are changes to a build and when there are discussions. If you're not the build owner but participate in a discussion thread, you'll get notified of replies for that discussion.
+In UI Tests, Chromatic emails the build owner when there are changes to a build or discussions. If you're not the build owner but participate in a discussion thread, you'll be notified of replies to that thread.
 
 ### [UI Review](/docs/review)
 
-In UI Review, Chromatic emails the PR owner and any participants when a discussion begins, is replied-to, or gets resolved.
+In UI Review, Chromatic emails the PR owner and any participants when a discussion begins, is replied to, or gets resolved.
 
 ### Change the default email address
 
@@ -26,7 +26,7 @@ To set the default email address, go to the [Profile](https://www.chromatic.com/
 
 To adjust which activities trigger emails and where they get sent, go to the [Notifications](https://www.chromatic.com/notifications) page.
 
-By default, notifications get sent to your default email address. If you signed up via GitHub, Bitbucket, or GitLab, Chromatic will retrieve the email addresses associated with your account from your Git provider. You can forward notifications to any of these email addresses.
+By default, notifications get sent to your default email address. If you signed up via GitHub, Bitbucket, or GitLab, Chromatic will retrieve the email addresses associated with your profile from your Git provider. You can forward notifications to any of these email addresses.
 
 ---
 

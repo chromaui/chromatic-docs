@@ -1,6 +1,6 @@
 ---
 title: 'Chromatic API (Private Beta)'
-description: "Getting started with Chromatic's GraphQL API for agents (private beta) — endpoint, OAuth 2.0 authentication for user-facing and machine-to-machine clients, queries, mutations, and scopes."
+description: "Getting started with Chromatic's GraphQL API for agents (private beta): endpoint, OAuth 2.0 authentication for user-facing and machine-to-machine clients, queries, mutations, and scopes."
 sidebar:
   hide: true
 isHidden: true
@@ -17,11 +17,11 @@ Follow this doc to authenticate with OAuth 2.0 in order to access the Chromatic 
 
 If you have a client secret, authenticate with the client credentials grant. Otherwise, use the authorization code flow with PKCE.
 
-The client id is: <REPLACE_WITH_CLIENT_ID_PROVIDED_BY_CHROMATIC>
+The client ID is: <REPLACE_WITH_CLIENT_ID_PROVIDED_BY_CHROMATIC>
 The client secret is: <REPLACE_WITH_CLIENT_SECRET_OR_DELETE_THIS_LINE>
-The account id is: <REPLACE_WITH_ACCOUNT_ID_OR_DELETE_THIS_LINE>
+The account ID is: <REPLACE_WITH_ACCOUNT_ID_OR_DELETE_THIS_LINE>
 
-If you authenticated without a client secret, use the `viewer` query via `accounts { projects }`. If you have a client secret, use the `account` query with the account id above
+If you authenticated without a client secret, use the `viewer` query via `accounts { projects }`. If you have a client secret, use the `account` query with the account ID above
 
 </details>
 
@@ -33,9 +33,9 @@ Chromatic's GraphQL endpoint is:
 https://www.chromatic.com/api
 ```
 
-It supports introspection so you can query the whole schema.
+It supports introspection, so you can query the whole schema.
 
-Note this is an early access feature so there are some endpoints that you can see but aren't scoped to access.
+Note that this is an early access feature, so some endpoints you can see aren't scoped for access.
 
 ## Getting started
 
@@ -64,7 +64,7 @@ If you are in the private beta, reach out directly to your dedicated Chromatic p
 
 Use your client ID with the Chromatic OAuth client to run the authorization code flow. This opens a browser window for you to approve access, then exchanges the resulting code for a token pair.
 
-**Authorization endpoint** — `https://www.chromatic.com/authorize`
+**Authorization endpoint**: `https://www.chromatic.com/authorize`
 
 | Parameter               | Value                                                                                                   |
 | ----------------------- | ------------------------------------------------------------------------------------------------------- |
@@ -77,7 +77,7 @@ Use your client ID with the Chromatic OAuth client to run the authorization code
 
 Chromatic will redirect to your `redirect_uri` with `?code=<AUTH_CODE>&state=<STATE>`.
 
-**Token endpoint** — `https://www.chromatic.com/token`
+**Token endpoint**: `https://www.chromatic.com/token`
 
 | Parameter       | Value                                        |
 | --------------- | -------------------------------------------- |
@@ -104,7 +104,7 @@ Authorization: Bearer <your_access_token>
 
 #### Refreshing your token
 
-This applies to the authorization code flow only, the client credentials grant doesn't issue refresh tokens. Access tokens are short-lived. Use your `refresh_token` to obtain a new token pair without re-authorizing. Refresh tokens **rotate on every use**. Always save the new `refresh_token` from the response.
+This applies only to the authorization code flow; the client credentials grant doesn't issue refresh tokens. Access tokens are short-lived. Use your `refresh_token` to obtain a new token pair without re-authorizing. Refresh tokens **rotate on every use**. Always save the new `refresh_token` from the response.
 
 ```bash
 curl -s -X POST https://www.chromatic.com/token \
@@ -121,7 +121,7 @@ curl -s -X POST https://www.chromatic.com/token \
 
 Machine-to-machine (M2M) clients authenticate directly with a client ID and client secret. There's no browser redirect and no user approval step, which makes this the right flow for CI pipelines, bots, and other headless automation. To create one, follow [Create an M2M OAuth client](/docs/m2m-oauth-client).
 
-**Token endpoint** — `https://www.chromatic.com/token`
+**Token endpoint**: `https://www.chromatic.com/token`
 
 | Parameter       | Value                                      |
 | --------------- | ------------------------------------------ |
@@ -143,11 +143,11 @@ The response contains an `access_token` that you pass in the `Authorization` hea
 
 <div class="aside">
 
-💡 Access tokens expire after **60 minutes**. M2M clients don't receive a refresh token, request a new access token with the same grant when the current one expires.
+💡 Access tokens expire after **60 minutes**. M2M clients don't receive a refresh token; they request a new access token with the same grant when the current one expires.
 
 </div>
 
-Treat the client secret like a password. Store it in your CI provider's secret manager and never commit it. Chromatic shows it once, when you create the client, and can't retrieve it afterwards.
+Treat the client secret like a password. Store it in your CI provider's secret manager and never commit it. Chromatic shows it once, when you create the client, and can't retrieve it afterward.
 
 M2M tokens act on behalf of an account, not a user, so the `viewer` query and the `user:read` scope aren't available. Use the [`account`](#account) query as your entry point instead.
 
@@ -157,7 +157,7 @@ M2M tokens act on behalf of an account, not a user, so the `viewer` query and th
 
 All requests are `POST` to `https://www.chromatic.com/api` with a JSON body containing your `query` and optionally `variables`.
 
-This example queries `viewer`, which requires the `user:read` scope and is available via the [authorization code with PKCE](#authorization-code-with-pkce) flow only. With an M2M token, query [`account`](#account) instead.
+This example queries `viewer`, which requires the `user:read` scope and is available only via the [authorization code with PKCE](#authorization-code-with-pkce) flow. With an M2M token, query [`account`](#account) instead.
 
 ```bash
 curl -s -X POST https://www.chromatic.com/api \
@@ -244,7 +244,7 @@ curl -s -X POST https://www.chromatic.com/api \
 
 #### account
 
-Returns an account by ID — either a personal account or an organization. Requires the `account:read` scope.
+Returns an account by ID, either a personal account or an organization account. Requires the `account:read` scope.
 
 **Arguments:**
 
@@ -334,7 +334,7 @@ Returns a build by ID. Requires the `build:read` scope.
 | -------- | ---- | ---------------- |
 | `id`     | ID!  | Build identifier |
 
-Builds progress through several stages — `AnnouncedBuild`, `PublishedBuild`, `PreparedBuild`, `StartedBuild`, and `CompletedBuild` — and expose different fields at each stage. Use inline fragments to handle this:
+Builds progress through several stages (`AnnouncedBuild`, `PublishedBuild`, `PreparedBuild`, `StartedBuild`, and `CompletedBuild`) and expose different fields at each stage. Use inline fragments to handle this:
 
 ```bash
 curl -s -X POST https://www.chromatic.com/api \
@@ -472,18 +472,18 @@ If the review fails, errors come back in `userErrors` rather than the top-level 
 
 ### Scopes reference
 
-Scopes follow a `subject:action` pattern. Requesting a scope grants access to the endpoints listed below — nothing more.
+Scopes follow a `subject:action` pattern. Requesting a scope grants access to the endpoints listed below, nothing more.
 
-| Scope            | What it unlocks                                                       |
-| ---------------- | --------------------------------------------------------------------- |
-| `user:read`      | `viewer` query — name, username, avatar, project count                |
-| `account:read`   | `account` query — account name, avatar, projects list                 |
-| `account:write`  | `account.subscription` field — billing and plan details               |
-| `project:read`   | `project` query — project metadata, branch names, last build          |
-| `project:write`  | Create, update, and remove projects; manage collaborators and invites |
-| `build:read`     | `build` query — build status, result, commit, test counts             |
-| `build:write`    | `reviewTest` mutation — accept or deny test snapshots                 |
-| `storybook:read` | `storybook` query — published Storybook URL and build link            |
+| Scope            | What it unlocks                                                                                                                   |
+| ---------------- | --------------------------------------------------------------------------------------------------------------------------------- |
+| `user:read`      | `viewer` query: name, username, avatar, project count                                                                             |
+| `account:read`   | `account` query: account name, avatar, projects list                                                                              |
+| `account:write`  | `account.subscription` field: billing and plan details                                                                            |
+| `project:read`   | `project` query: project metadata, branch names, last build                                                                       |
+| `project:write`  | `projectCreate` mutation: create a project on the account                                                                         |
+| `build:read`     | `build` query: build status, result, commit, test counts                                                                          |
+| `build:write`    | `reviewTest`, `testQuarantine`, and `testUnquarantine` mutations: accept or deny test snapshots, quarantine or unquarantine tests |
+| `storybook:read` | `storybook` query: published Storybook URL and build link                                                                         |
 
 ---
 
