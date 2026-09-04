@@ -1,96 +1,115 @@
 ---
 title: Teams
-description: Use Teams to manage which groups of users can access which projects in your Chromatic organization
+description: Use Teams to assign SCIM-synced groups to projects in your Chromatic account
 slug: 'access/teams'
 sidebar: { order: 4, label: 'Teams' }
 ---
 
 # Teams
 
-Teams are available to organizations on the [Enterprise plan](/pricing). They let you control which users can access which projects in your Chromatic organization. Instead of assigning individuals to projects one by one, you assign groups synced from your identity provider (e.g., "Engineering" or "QA") to projects, while membership is managed centrally in your identity provider.
+Teams let you assign groups from your identity provider to Chromatic projects. Each assignment grants every team member the same project role.
 
-<div class="aside">
+Teams require an [Enterprise plan](/pricing), [Single Sign-On (SSO), and directory sync (SCIM)](/docs/access/sso).
 
-ℹ️ Teams are not enabled by default. To turn them on for your organization, contact us via in-app chat or email [support@chromatic.com](mailto:support@chromatic.com?Subject=Enable%20Teams).
+Chromatic enables Teams when it configures SSO and directory sync for your account. If you already use directory sync, complete step 3 before syncing new groups.
 
-</div>
+## Set up Teams
 
-## How it works
+### 1. Configure SSO and directory sync
 
-An **organization** is the top-level container in Chromatic that holds:
+Configure [SSO and directory sync](/docs/access/sso) for your account.
 
-- **Member:** user who belongs to the organization, each with an organization-level role.
-- **Project:** app being tested.
-- **Team:** group of users synced from a directory group in your identity provider (IdP). Teams are the primary mechanism for granting groups of users access to groups of projects.
+For Teams setup, set the SCIM `userName` to each person's email address. Use the same value for their SAML `NameID` so SSO and SCIM update the same profile.
 
-## Setting up teams
+### 2. Create account role groups
 
-Teams must be enabled for your organization by Chromatic support, and they require [SSO with directory sync (SCIM)](/docs/access/sso). Each team in Chromatic corresponds to a directory group in your identity provider (IdP), such as Okta. Teams are provisioned automatically from the directory groups your IdP pushes via SCIM; they cannot be created or edited manually in Chromatic.
+Create a directory group for each [account role](/docs/access/collaborators#account-roles) you need. Choose at least one group for the Admin role because only an account Admin can assign Teams to projects.
 
-When a directory group is synced via SCIM:
+### 3. Send the configuration to Chromatic Support
 
-- The team and its name are defined by the group in your IdP.
-- Membership is controlled by the IdP and is read-only in Chromatic. When a user is added to or removed from the group in your IdP, they are automatically added to or removed from the team in Chromatic.
-- A directory group maps to a single team, and a team maps to a single directory group.
+Ask Chromatic Support to enable Teams and configure:
 
-### Assigning teams to projects
+- The directory group for each account role.
+- The default account role for account collaborators who do not belong to a mapped role group. If you do not choose one, the default is Member.
+- The default project role. This establishes the minimum project role for every account collaborator and enables the Teams access model.
 
-Team-to-project assignments are managed in Chromatic. Admins can assign a team to one or more projects and choose a [project role](#project-roles) for each assignment.
+If you have additional questions, use our **in-app chat** to contact us or email us at [support@chromatic.com](mailto:support@chromatic.com).
 
-To assign a team to a project:
+### 4. Sync directory groups
 
-1. Go to the project's **Manage page » Collaborate tab**.
-2. Under **Teams**, click **Add team**, select the team, and choose a role.
+Sync the directory groups you want to use for access. SCIM creates one Team for each group, including groups used for account role mapping.
 
-![Project Manage page Collaborate tab showing the Collaborators section with a Teams panel. An Add team button appears on the right above a search field labeled Find teams.](../../images/teams-project-page.png)
+Your IdP controls each Team's name and membership. You cannot edit these fields in Chromatic. Adding or removing someone in a directory group updates their Team membership.
 
-## Roles and permissions
+### 5. Assign Teams to projects
 
-A team is assigned to one or more projects with a specific [project role](#project-roles). Any user who is a member of that team automatically gets that role on those projects.
+Chromatic manages Team-to-project assignments. An account Admin can assign a Team to several projects and choose a different [project role](/docs/access/collaborators#project-roles) for each assignment.
 
-![Team page showing the Projects section with an Add project button.](../../images/teams-team-page.png)
+1. Open the project's **Manage page » Collaborate tab**.
+2. Under **Teams**, select **Add team**.
+3. Choose the Team and its project role.
 
-### How a user's effective project role is resolved
+![Project Manage page Collaborate tab showing the Teams panel and Add team button](../../images/teams-project-page.png)
 
-A user can receive project access from multiple sources. The **highest role** always wins.
+You can also open a Team and add projects from its **Projects** section.
 
-1. **Organization Admin:** Admins have implicit Owner access on all projects.
-2. **Direct project assignment:** A role assigned to the user on the specific project.
-3. **Team membership:** The role granted by any team the user belongs to that is assigned to the project. If the user is in multiple teams with different roles on the same project, the highest applies.
-4. **Base project role:** The role all organization users are granted for every project.
+![Team page showing assigned projects and the Add project button](../../images/teams-team-page.png)
 
-Roles can only be elevated through this process, never reduced. For example, if a user's direct assignment grants `developer` and a team assignment grants `owner`, the user receives `owner`.
+### 6. Verify project access
 
-### Organization roles
+Confirm that each Team grants the expected role on each assigned project. After verification, remove any direct project collaborator assignments that the Teams replace.
 
-Organization roles control what a member can do at the org level.
+## How Chromatic resolves a project role
 
-| Role        | What they can do                                                                                                                                                                                                                                     |
-| ----------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| **Admin**   | Full access to all settings, billing, SSO/SCIM configuration, team-to-project assignments, and all projects (implicit Owner on every project). Can manage members. Every organization must have at least one member with the Admin role.             |
-| **Billing** | Full access to billing management (invoices, payment methods, subscription). Intended for finance team members who manage payments but do not need full administrative access. Project access is determined by team membership or direct assignment. |
-| **Member**  | Standard membership. Can view organization details and member list. Project access is determined by team membership or direct assignment.                                                                                                            |
-| **Viewer**  | Read-only at the organization level. Can view organization details and the member list, but cannot change account settings, manage billing, or add projects. Project access is determined by team membership or direct assignment.                   |
+A profile can receive project access from four sources. Chromatic applies the highest project role available through any source:
 
-### Project roles
+1. **Account Admin:** An Admin has implicit Owner access to every project.
+2. **Direct project assignment:** A project Owner assigns a role directly to the project collaborator.
+3. **Default project role:** Every account collaborator receives this minimum role.
+4. **Team membership:** Each assigned Team grants its configured project role.
 
-Project roles determine what a member can do within a specific project.
+Assignments can raise a project role but cannot reduce one. For example, a direct Developer assignment and a Team Owner assignment produce the Owner role.
 
-| Role          | What they can do                                                                       |
-| ------------- | -------------------------------------------------------------------------------------- |
-| **Owner**     | Full project access: settings, token management, collaborator management, Git linking. |
-| **Developer** | Run builds, approve/reject changes in UI Review, manage baselines.                     |
-| **Reviewer**  | Approve/reject changes in UI Review. Cannot run builds.                                |
-| **Viewer**    | Read-only access to builds, stories, and review status.                                |
-| **None**      | No access. The project is not visible to the user.                                     |
+[Review account and project role permissions »](/docs/access/collaborators#roles)
 
-## What SCIM manages vs. what you manage manually
+## Where access settings are managed
 
-There is a clear boundary between what your IdP automates via SCIM and what you set manually in Chromatic.
+| Your IdP and SCIM        | Chromatic Support                        | In Chromatic                            |
+| ------------------------ | ---------------------------------------- | --------------------------------------- |
+| Account collaborators    | Teams enablement                         | Team-to-project assignments and roles   |
+| Account roles            | Directory group-to-account-role mappings | Direct project collaborator assignments |
+| Team creation and naming | Default account role                     |                                         |
+| Team membership          | Default project role                     |                                         |
 
-| Managed via SCIM                            | Managed manually in Chromatic         |
-| ------------------------------------------- | ------------------------------------- |
-| Organization membership (who is in the org) | Team-to-project assignments and roles |
-| Organization roles (Admin, Member, etc.)    | Direct project member assignments     |
-| Team creation and naming                    |                                       |
-| Team membership                             |                                       |
+Changes from your IdP overwrite the corresponding account role, Team name, and Team membership in Chromatic.
+
+## Migrate from legacy project role mapping
+
+Some accounts configured before Teams use a SCIM `role` or `roles` attribute. This legacy mapping assigns one project role across every project. You can keep it until you are ready to migrate.
+
+Complete step 3 before syncing new groups for Teams. Chromatic Support enables Teams, configures the account defaults, and coordinates cleanup of project memberships created by the legacy mapping. Do not use the legacy project role mapping and Teams at the same time.
+
+---
+
+## Troubleshooting
+
+<details>
+<summary>Why don't Teams appear after syncing groups?</summary>
+
+Teams may not have been enabled when the groups synced. Chromatic Support can import the existing directory groups. You do not need to push the groups again.
+
+</details>
+
+<details>
+<summary>Why doesn't assigning a Team change project access?</summary>
+
+The default project role may not be configured for the account. Ask Chromatic Support to confirm that Teams and the default project role are enabled.
+
+</details>
+
+<details>
+<summary>Why did SCIM create a separate profile?</summary>
+
+The SCIM `userName` may not match the email address and SAML `NameID` for the person's SSO profile. Correct the identity mapping in your IdP and sync the profile again. Ask Chromatic Support to clean up the separate profile.
+
+</details>
