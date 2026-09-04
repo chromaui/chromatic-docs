@@ -1,0 +1,11 @@
+flowchart LR
+  profile["Profile"]
+  accountA["Account A"]
+  projectA["Project A"]
+  accountB["Account B"]
+  projectB["Project B"]
+
+  profile -->|"account access"| accountA
+  accountA -->|"owns"| projectA
+  accountB -->|"owns"| projectB
+  profile -.->|"direct access"| projectB
