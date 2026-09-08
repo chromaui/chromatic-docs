@@ -38,7 +38,7 @@ To integrate Chromatic with your existing pipeline, you'll need to add the follo
               - task: UseNode@1
                 displayName: "Install Node.js"
                 inputs:
-                  version: "24.19.0"
+                  version: "24.20.0"
               - task: Cache@2
                 displayName: "Install and cache dependencies"
                 inputs:
@@ -70,7 +70,9 @@ To integrate Chromatic with your existing pipeline, you'll need to add the follo
         jobs:
           - job: Vitest
             displayName: "Run Vitest"
-            container: mcr.microsoft.com/playwright:v1.62.0-noble
+            container: mcr.microsoft.com/playwright:v1.63.0-noble
+            variables:
+              npm_config_cache: $(Pipeline.Workspace)/.npm
             steps:
               - checkout: self
                 displayName: "Get Full Git History"
@@ -78,7 +80,7 @@ To integrate Chromatic with your existing pipeline, you'll need to add the follo
               - task: UseNode@1
                 displayName: "Install Node.js"
                 inputs:
-                  version: "24.19.0"
+                  version: "24.20.0"
               - task: Cache@2
                 displayName: "Install and cache dependencies"
                 inputs:
@@ -114,7 +116,7 @@ To integrate Chromatic with your existing pipeline, you'll need to add the follo
               - task: UseNode@1
                 displayName: "Install Node.js"
                 inputs:
-                  version: "24.19.0"
+                  version: "24.20.0"
               - task: Cache@2
                 displayName: "Install and cache dependencies"
                 inputs:
@@ -152,7 +154,9 @@ To integrate Chromatic with your existing pipeline, you'll need to add the follo
         jobs:
           - job: Playwright
             displayName: "Run Playwright"
-            container: mcr.microsoft.com/playwright:v1.62.0-noble
+            container: mcr.microsoft.com/playwright:v1.63.0-noble
+            variables:
+              npm_config_cache: $(Pipeline.Workspace)/.npm
             steps:
               - checkout: self
                 displayName: "Get Full Git History"
@@ -160,7 +164,7 @@ To integrate Chromatic with your existing pipeline, you'll need to add the follo
               - task: UseNode@1
                 displayName: "Install Node.js"
                 inputs:
-                  version: "24.19.0"
+                  version: "24.20.0"
               - task: Cache@2
                 displayName: "Install and cache dependencies"
                 inputs:
@@ -196,7 +200,7 @@ To integrate Chromatic with your existing pipeline, you'll need to add the follo
               - task: UseNode@1
                 displayName: "Install Node.js"
                 inputs:
-                  version: "24.19.0"
+                  version: "24.20.0"
               - task: Cache@2
                 displayName: "Install and cache dependencies"
                 inputs:
@@ -234,7 +238,7 @@ To integrate Chromatic with your existing pipeline, you'll need to add the follo
         jobs:
           - job: Cypress
             displayName: "Run Cypress"
-            container: cypress/browsers:node-24.19.0-chrome-151.0.7922.75-1-ff-153.0.3-edge-151.0.4129.59-1
+            container: cypress/browsers:node-24.20.0-chrome-152.0.7977.64-1-ff-155.0-edge-152.0.4191.53-1
             variables:
               npm_config_cache: $(Pipeline.Workspace)/.npm
             steps:
@@ -244,7 +248,7 @@ To integrate Chromatic with your existing pipeline, you'll need to add the follo
               - task: UseNode@1
                 displayName: "Install Node.js"
                 inputs:
-                  version: "24.19.0"
+                  version: "24.20.0"
               - task: Cache@2
                 displayName: "Install and cache dependencies"
                 inputs:
@@ -282,7 +286,7 @@ To integrate Chromatic with your existing pipeline, you'll need to add the follo
               - task: UseNode@1
                 displayName: "Install Node.js"
                 inputs:
-                  version: "24.19.0"
+                  version: "24.20.0"
               - task: Cache@2
                 displayName: "Install and cache dependencies"
                 inputs:

@@ -31,7 +31,7 @@ To integrate Chromatic with your existing workflow, you'll need to add the follo
     global_job_config:
       prologue:
         commands:
-          - sem-version node 24.19.0
+          - sem-version node 24.20.0
           - checkout
 
     blocks:
@@ -74,7 +74,7 @@ To integrate Chromatic with your existing workflow, you'll need to add the follo
               os_image: ubuntu2404
             containers:
               - name: Vitest
-                image: mcr.microsoft.com/playwright:v1.62.0-noble
+                image: mcr.microsoft.com/playwright:v1.63.0-noble
           jobs:
             - name: Run Vitest
               commands:
@@ -94,7 +94,7 @@ To integrate Chromatic with your existing workflow, you'll need to add the follo
         task:
           prologue:
             commands:
-              - sem-version node 24.19.0
+              - sem-version node 24.20.0
               - artifact pull workflow .vitest/chromatic
           secrets:
             - name: CHROMATIC_PROJECT_TOKEN
@@ -135,7 +135,7 @@ To integrate Chromatic with your existing workflow, you'll need to add the follo
               os_image: ubuntu2404
             containers:
               - name: Playwright
-                image: mcr.microsoft.com/playwright:v1.62.0-noble
+                image: mcr.microsoft.com/playwright:v1.63.0-noble
           jobs:
             - name: Run Playwright
               commands:
@@ -155,7 +155,7 @@ To integrate Chromatic with your existing workflow, you'll need to add the follo
         task:
           prologue:
             commands:
-              - sem-version node 24.19.0
+              - sem-version node 24.20.0
               - artifact pull workflow test-results
           secrets:
             - name: CHROMATIC_PROJECT_TOKEN
@@ -184,7 +184,7 @@ To integrate Chromatic with your existing workflow, you'll need to add the follo
     global_job_config:
       prologue:
         commands:
-          - sem-version node 24.19.0
+          - sem-version node 24.20.0
           - checkout
 
     blocks:

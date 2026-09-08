@@ -41,7 +41,7 @@ To integrate Chromatic with your existing CI provider, you'll need to add the fo
     - run:
         name: "Vitest"
         displayName: "Run Vitest tests"
-        container: mcr.microsoft.com/playwright:v1.62.0-noble
+        container: mcr.microsoft.com/playwright:v1.63.0-noble
         options:
           artifacts:
             # Chromatic automatically defaults to the .vitest/chromatic directory.
@@ -67,7 +67,7 @@ To integrate Chromatic with your existing CI provider, you'll need to add the fo
     - run:
         name: "Playwright"
         displayName: "Run Playwright tests"
-        container: mcr.microsoft.com/playwright:v1.62.0-noble
+        container: mcr.microsoft.com/playwright:v1.63.0-noble
         options:
           artifacts:
             # Chromatic automatically defaults to the test-results directory.
@@ -93,7 +93,7 @@ To integrate Chromatic with your existing CI provider, you'll need to add the fo
     - run:
         name: "Cypress"
         displayName: "Run Cypress tests"
-        container: cypress/browsers:node-24.19.0-chrome-151.0.7922.75-1-ff-153.0.3-edge-151.0.4129.59-1
+        container: cypress/browsers:node-24.20.0-chrome-152.0.7977.64-1-ff-155.0-edge-152.0.4191.53-1
         environment:
           ELECTRON_EXTRA_LAUNCH_ARGS: "--remote-debugging-port=9222"
         options:

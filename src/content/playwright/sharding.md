@@ -26,14 +26,14 @@ jobs:
         shard: [1, 2]
     runs-on: ubuntu-latest
     container:
-      image: mcr.microsoft.com/playwright:v1.62.0-noble
+      image: mcr.microsoft.com/playwright:v1.63.0-noble
     steps:
       - uses: actions/checkout@v7
         with:
           fetch-depth: 0
       - uses: actions/setup-node@v7
         with:
-          node-version: 24.19.0
+          node-version: 24.20.0
       - name: Install dependencies
         run: npm ci
       - name: Run Playwright tests
@@ -57,7 +57,7 @@ jobs:
           fetch-depth: 0
       - uses: actions/setup-node@v7
         with:
-          node-version: 24.19.0
+          node-version: 24.20.0
       - name: Install dependencies
         run: npm ci
 
@@ -96,7 +96,7 @@ before_script:
 Playwright:
   stage: UI_Tests
   needs: []
-  image: mcr.microsoft.com/playwright:v1.62.0-noble
+  image: mcr.microsoft.com/playwright:v1.63.0-noble
   parallel: 2
   script:
     - npx playwright test --shard=$CI_NODE_INDEX/$CI_NODE_TOTAL
@@ -122,10 +122,10 @@ version: 2.1
 executors:
   pw-noble-development:
     docker:
-      - image: mcr.microsoft.com/playwright:v1.62.0-noble
+      - image: mcr.microsoft.com/playwright:v1.63.0-noble
   chromatic-ui-testing:
     docker:
-      - image: cimg/node:24.19.0
+      - image: cimg/node:24.20.0
 
 jobs:
   Playwright:
@@ -200,7 +200,7 @@ pipeline {
         stage('Shard #1') {
           agent {
             docker {
-              image 'mcr.microsoft.com/playwright:v1.62.0-noble'
+              image 'mcr.microsoft.com/playwright:v1.63.0-noble'
               reuseNode true
             }
           }
@@ -220,7 +220,7 @@ pipeline {
         stage('Shard #2') {
           agent {
             docker {
-              image 'mcr.microsoft.com/playwright:v1.62.0-noble'
+              image 'mcr.microsoft.com/playwright:v1.63.0-noble'
               reuseNode true
             }
           }
@@ -278,7 +278,7 @@ blocks:
           os_image: ubuntu2404
         containers:
           - name: Plawyright
-            image: mcr.microsoft.com/playwright:v1.62.0-noble
+            image: mcr.microsoft.com/playwright:v1.63.0-noble
       jobs:
         - name: Run Playwright
           commands:
@@ -296,7 +296,7 @@ blocks:
     task:
       prologue:
         commands:
-          - sem-version node 24.19.0
+          - sem-version node 24.20.0
           - artifact pull workflow test-results
       secrets:
         - name: CHROMATIC_PROJECT_TOKEN
@@ -318,7 +318,7 @@ image: node:krypton
 - run:
     name: "Playwright"
     displayName: "Run Playwright tests"
-    container: mcr.microsoft.com/playwright:v1.62.0-noble
+    container: mcr.microsoft.com/playwright:v1.63.0-noble
     options:
       parallel: 2
       artifacts:
