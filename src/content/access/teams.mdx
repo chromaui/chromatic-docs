@@ -56,7 +56,7 @@ Send us three things via in-app chat or [support@chromatic.com](mailto:support@c
 
 1. **Group-to-role mapping:** which directory group maps to which organization role.
 2. **Default organization role:** the role for anyone not in a mapped group. See [default roles](#default-roles).
-3. **Default project role:** the minimum role every member has on every project. See [default roles](#default-roles).
+3. **Base project role:** the minimum role every member has on every project. See [default roles](#default-roles).
 
 ### 4. Push your team groups
 
@@ -127,7 +127,7 @@ Two defaults cover users and projects that mappings don't explicitly address. Bo
 
 **Default organization role** applies only to users who aren't in any mapped organization role group. It never overrides a mapped role. If it isn't set, unmapped users become **Members**, which allows them to create projects. Most organizations choose **Viewer** so that only users in mapped groups can create projects.
 
-**Default project role** is the minimum role every organization member has on every project. It's required for team-based access to take effect. Options are Viewer, Reviewer, Developer, or None.
+**Base project role** is the minimum role every organization member has on every project. It's required for team-based access to take effect. Options are Viewer, Reviewer, Developer, or None.
 
 ## What SCIM manages vs. what you manage manually
 
