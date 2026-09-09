@@ -13,7 +13,7 @@ Welcome to `Chromatic Capture Cloud version 9` released August 2026.
 
 Key highlights on this release:
 
-- **Sharper snapshots with a 2.0 device pixel ratio:** Capture 9 takes snapshots at twice the pixel density for crisper, clearer images. Your upgrade build compares new DPR 2.0 snapshots with existing DPR 1.0 snapshots, so its diffs can look unusual. This affects only the upgrade build. Future builds compare DPR 2.0 snapshots with DPR 2.0 baselines.
+- **Sharper snapshots with a 2.0 device pixel ratio:** Capture 9 takes snapshots at twice the pixel density for crisper, clearer images. Your upgrade build compares new DPR 2.0 snapshots with existing DPR 1.0 snapshots, so its diffs can look unusual. This affects only the upgrade build. Future builds compare DPR 2.0 snapshots with DPR 2.0 baselines. [Learn more about device pixel ratio](/docs/snapshots#device-pixel-ratio).
 - **More accurate animation pausing:** Capture 9 uses the browser's Web Animations API to pause animations. This follows the browser's animation timing model, including delays and fill modes, and applies after story rerenders and inside open shadow roots. Stories that use workarounds for the previous animation pausing behavior might render differently, and those workarounds might no longer be necessary. SVG animation pausing is unchanged.
 
 ### Supported browsers versions
