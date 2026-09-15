@@ -55,6 +55,18 @@ The list of changes is shown on the build page in the Chromatic web app. The bui
 
 ![On the build page, you'll get a list of tests with changes. In the results column, you can see what kind of change was detected: visual or accessibility.](../../images/a11y/accessibility-tests-build.png)
 
+### After enabling Accessibility Tests, existing branches capture all stories once
+
+Accessibility results are tracked per story, on each branch, alongside visual baselines. Builds that ran before you enabled accessibility tests have no accessibility results to compare against, so Chromatic can't copy those baselines forward. For that reason, the next build on each of your active branches will capture every story once to establish its accessibility baselines, including branches where nothing relevant changed. After that build, the branch has accessibility baselines and inheritance works as usual.
+
+Keep this in mind if you use [TurboSnap](/docs/turbosnap), since the behavior applies there too. The next build on a branch captures all stories even when TurboSnap traces zero affected story files. TurboSnap still runs, but a story whose ancestor build has no accessibility baseline has to be captured instead of copied, so it's billed as a regular snapshot rather than at the TurboSnap rate.
+
+<div class="aside">
+
+Plan ahead when you enable accessibility tests. If you have a large number of open PRs, each of those branches pays for a capture on its next build. Enabling during a quieter period, or after closing or merging stale branches, keeps that one-time cost down.
+
+</div>
+
 ## 4. Debug accessibility issues
 
 With each build, Chromatic identifies any changes in accessibility violations related to a story. However, it's up to you to verify if those changes are intentional or if they represent regressions that need to be fixed. Click on a test to view the details.
