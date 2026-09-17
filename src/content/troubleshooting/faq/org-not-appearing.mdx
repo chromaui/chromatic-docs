@@ -6,17 +6,17 @@ section: 'account'
 
 # Why doesn't my organization appear when I try to add it or link a project?
 
-When you add an account or link a project, the list of organizations you can choose from comes from what your GitHub user can see through the Chromatic OAuth app. If your organization is missing, it's usually one of these.
+The organization is missing when Chromatic cannot read it through your connected GitHub account and the Chromatic OAuth App. Check these conditions:
 
-**You're not a member of the organization.** The list only includes organizations you belong to on GitHub. Being an admin or owner of a _different_ organization doesn't add you to this one, and an invitation you haven't accepted yet doesn't count (invitations also expire after 7 days). Organization membership is private by default, so check your status on the organization's People page, or see GitHub's guides to [organization membership](https://docs.github.com/en/account-and-profile/concepts/organization-membership) and [roles](https://docs.github.com/en/organizations/managing-peoples-access-to-your-organization-with-roles/roles-in-an-organization).
+**You are not a member of the organization.** The list includes only organizations you have joined on GitHub. An invitation does not count until you accept it. Check your status on the organization's People page or review GitHub's guides to [organization membership](https://docs.github.com/en/account-and-profile/concepts/organization-membership) and [organization roles](https://docs.github.com/en/organizations/managing-peoples-access-to-your-organization-with-roles/roles-in-an-organization).
 
-**The organization hasn't approved the Chromatic OAuth app.** Organizations can restrict which third-party OAuth apps their members may use. If yours does, an organization owner needs to approve the Chromatic OAuth app before the org will appear for you.
+**The organization has not approved the Chromatic OAuth App.** An organization Owner must approve the app when GitHub restricts third-party OAuth access.
 
-**The organization enforces an IP allow list.** Some organizations only allow GitHub access from approved IP addresses. If yours does, Chromatic's outbound IPs need to be on the list, otherwise our request to read your organizations is blocked. See [allowlisting Chromatic's IPs](/docs/faq/allowlist-ips-for-git-providers#outbound-traffic-from-chromatic).
+**The organization enforces an IP allow list.** Add Chromatic's outbound IP addresses or GitHub will block the request. See [how to allowlist Chromatic's IP addresses](/docs/faq/allowlist-ips-for-git-providers#outbound-traffic-from-chromatic).
 
-The two Chromatic apps are easy to confuse, so it helps to know what each does:
+## OAuth App and GitHub App
 
-- The **OAuth app** signs you in and reads which organizations and repositories you can see. This is what fills the list when you add an account, so it's the one that matters here.
-- The **GitHub App** (chromatic-com) handles builds, pull request checks, and UI Review after an account exists. Installing it does not make your organization appear in the list.
+- The **Chromatic OAuth App** signs you in and reads which organizations and repositories you can access. It supplies the organization list when you add an account.
+- The **Chromatic GitHub App** (`chromatic-com`) handles pull request checks and UI Review after the account exists. Installing it does not add the organization to the account list.
 
-If you can't add the organization yourself, anyone already in it can add it in Chromatic and invite you to the project.
+Another GitHub organization member can add the account in Chromatic and invite you directly to its projects.
