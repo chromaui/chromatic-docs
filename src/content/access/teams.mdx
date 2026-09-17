@@ -68,8 +68,8 @@ A profile can receive project access from four sources. Chromatic applies the hi
 
 1. **Account Admin:** An Admin has implicit Owner access to every project.
 2. **Direct project assignment:** A project Owner assigns a role directly to the project collaborator.
-3. **Default project role:** Every account collaborator receives this minimum role.
-4. **Team membership:** Each assigned Team grants its configured project role.
+3. **Default project role:** Every account collaborator receives this minimum role. Because it participates in highest-wins resolution, it can raise a user above what their teams grant.
+4. **Team membership:** Each assigned Team grants its configured project role. If the user is in multiple teams with different roles on the same project, the highest applies.
 
 ### Organization roles
 
