@@ -53,6 +53,9 @@ Chromatic manages Team-to-project assignments. An account Admin can assign a Tea
 
 You can also open a Team and add projects from its **Projects** section.
 
+1. Go to **Account settings » Teams**. The Teams section is below the collaborator list.
+2. Select the team, then under **Projects** click **Add project**, select the project, and choose a role.
+
 ![Team page showing assigned projects and the Add project button](../../images/teams-team-page.png)
 
 ### 6. Verify project access
@@ -68,20 +71,49 @@ A profile can receive project access from four sources. Chromatic applies the hi
 3. **Default project role:** Every account collaborator receives this minimum role.
 4. **Team membership:** Each assigned Team grants its configured project role.
 
-Assignments can raise a project role but cannot reduce one. For example, a direct Developer assignment and a Team Owner assignment produce the Owner role.
+### Organization roles
 
-[Review account and project role permissions »](/docs/access/collaborators#roles)
+Organization roles control what a member can do at the org level. A user in more than one mapped group receives the highest role.
 
-## Where access settings are managed
+| Role        | What they can do                                                                                                                                                                                                                                                          |
+| ----------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| **Admin**   | Full access to all settings, billing, SSO/SCIM configuration, team-to-project assignments, and all projects (implicit Owner on every project). Can manage members. Every organization must have at least one member with the Admin role. Keep this group small.           |
+| **Billing** | Full access to billing management (invoices, payment methods, subscription). Intended for finance team members who manage payments but do not need full administrative access. Can create projects. Project access is determined by team membership or direct assignment. |
+| **Member**  | Standard membership. Can view organization details and member list. Can create projects. Project access is determined by team membership or direct assignment.                                                                                                            |
+| **Viewer**  | Read-only at the organization level. Can view organization details and the member list, but cannot change account settings, manage billing, or add projects. Project access is determined by team membership or direct assignment.                                        |
 
-| Your IdP and SCIM        | Chromatic Support                        | In Chromatic                            |
-| ------------------------ | ---------------------------------------- | --------------------------------------- |
-| Account collaborators    | Teams enablement                         | Team-to-project assignments and roles   |
-| Account roles            | Directory group-to-account-role mappings | Direct project collaborator assignments |
-| Team creation and naming | Default account role                     |                                         |
-| Team membership          | Default project role                     |                                         |
+### Project roles
 
-Changes from your IdP overwrite the corresponding account role, Team name, and Team membership in Chromatic.
+Project roles determine what a member can do within a specific project.
+
+| Role          | What they can do                                                                       |
+| ------------- | -------------------------------------------------------------------------------------- |
+| **Owner**     | Full project access: settings, token management, collaborator management, Git linking. |
+| **Developer** | Run builds, approve/reject changes in UI Review, manage baselines.                     |
+| **Reviewer**  | Approve/reject changes in UI Review. Cannot run builds.                                |
+| **Viewer**    | Read-only access to builds, stories, and review status.                                |
+| **None**      | No access. The project is not visible to the user.                                     |
+
+### Default roles
+
+Two defaults cover users and projects that mappings don't explicitly address. Both are configured by Chromatic on request (see [step 3](#3-tell-chromatic-your-defaults)).
+
+**Default organization role** applies only to users who aren't in any mapped organization role group. It never overrides a mapped role. If it isn't set, unmapped users become **Members**, which allows them to create projects. Most organizations choose **Viewer** so that only users in mapped groups can create projects.
+
+**Default project role** is the minimum role every organization member has on every project. It's required for team-based access to take effect. Options are Viewer, Reviewer, Developer, or None.
+
+## What SCIM manages vs. what you manage manually
+
+There is a clear boundary between what your IdP automates via SCIM and what you set manually in Chromatic.
+
+| Managed via SCIM                            | Configured by Chromatic on request | Managed manually in Chromatic         |
+| ------------------------------------------- | ---------------------------------- | ------------------------------------- |
+| Organization membership (who is in the org) | Group-to-organization-role mapping | Team-to-project assignments and roles |
+| Organization roles (Admin, Member, etc.)    | Default organization role          | Direct project member assignments     |
+| Team creation and naming                    | Default project role               |                                       |
+| Team membership                             |                                    |                                       |
+
+Synced roles and memberships overwrite manual edits in Chromatic. Make role and team changes in your IdP.
 
 ## Migrate from legacy project role mapping
 
