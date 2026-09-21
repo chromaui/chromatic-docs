@@ -1,11 +1,21 @@
+%%{init: {"flowchart": {"curve": "stepAfter", "nodeSpacing": 32, "rankSpacing": 48}}}%%
 flowchart LR
-  profile["Profile"]
-  accountA["Account A"]
-  projectA["Project A"]
-  accountB["Account B"]
-  projectB["Project B"]
+  accTitle: Profiles, accounts, and projects
+  accDescr: A profile has account access to Account A and direct project access to Project B without account access to Account B. Each project belongs to its enclosing account. Account access does not necessarily grant project access.
 
-  profile -->|"account access"| accountA
-  accountA -->|"owns"| projectA
-  accountB -->|"owns"| projectB
-  profile -.->|"direct access"| projectB
+  profile["Profile"]
+
+  subgraph accountA["Account A"]
+    projectA["Project A"]
+  end
+
+  subgraph accountB["Account B"]
+    projectB["Project B"]
+  end
+
+  profile -->|"Account access"| accountA
+  profile -->|"Project access only<br/>No account access"| projectB
+
+  style accountA fill:#f7f7f7,stroke:#aaa
+  style accountB fill:#f7f7f7,stroke:#aaa
+  style profile fill:#fff,stroke:#aaa
