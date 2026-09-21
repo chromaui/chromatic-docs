@@ -26,7 +26,7 @@ To set the default email address, go to the [Profile](https://www.chromatic.com/
 
 To adjust which activities trigger emails and where they get sent, go to the [Notifications](https://www.chromatic.com/notifications) page.
 
-By default, notifications get sent to your default email address. If you signed up via GitHub, Bitbucket, or GitLab, Chromatic will retrieve the email addresses associated with your account from your Git provider. You can forward notifications to any of these email addresses.
+By default, notifications get sent to your default email address. If you signed up via GitHub, Bitbucket, or GitLab, Chromatic will retrieve the email addresses associated with your profile from your Git provider. You can forward notifications to any of these email addresses.
 
 ---
 

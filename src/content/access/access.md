@@ -1,292 +1,142 @@
 ---
-title: Access control
-description: Learn how to control who has access to your Chromatic project
+title: How access works
+description: Learn how Chromatic profiles, accounts, projects, and Git connections determine access
 sidebar: { order: 1, label: 'Overview' }
 ---
 
-# Access control
+<span id="access-control"></span>
 
-Learn how to manage access to your Chromatic account and projects.
+# Profiles, accounts, and projects
 
-## Authentication
+Chromatic separates your identity, account settings, and project permissions across three layers: profiles, accounts, and projects.
 
-Sign in to Chromatic via OAuth, email, or [SSO](/docs/access/sso).
+![A Chromatic profile with account access to Account A and direct project access to Project B without access to Account B](../../images/diagrams/access-model.svg)
 
-#### OAuth
+A profile can access several accounts and projects. Account access and project access are separate. An account collaborator may not have access to every project. A project collaborator may not have access to the account that contains it.
 
-Chromatic supports the cloud versions of GitHub, GitLab, or Bitbucket on our [self-serve plans](https://www.chromatic.com/pricing).
+| Chromatic layer | What it represents                                | Git provider equivalent                                                           |
+| --------------- | ------------------------------------------------- | --------------------------------------------------------------------------------- |
+| **Profile**     | Your identity and sign-in methods                 | A GitHub, GitLab, or Bitbucket account connected to your profile                  |
+| **Account**     | The container for billing, settings, and projects | A personal Git account, GitHub organization, GitLab group, or Bitbucket workspace |
+| **Project**     | The app or Storybook you test                     | A repository linked to the project                                                |
 
-If you use the on-premise or self-managed versions of GitHub, GitLab, or Bitbucket, we can support you via our [enterprise plan](https://www.chromatic.com/pricing). We recommend trialing Chromatic first by following these [instructions](/docs/faq/chromatic-sso-on-premises-other-git).
+## Profiles
 
-<details>
-    <summary>What OAuth scopes does Chromatic request?</summary>
+<span id="authentication"></span>
 
-Depending on your Git provider, Chromatic will request a set of OAuth scopes when you first sign in. Chromatic uses these permissions to enumerate your list of repositories, set PR statuses, and retrieve users for assignment to review. Chromatic will never read/write source code.
+A profile represents one person in Chromatic. You can sign in through a Git provider, email and password, or [Single Sign-On (SSO)](/docs/access/sso). These are sign-in methods, not separate profile types.
 
-| Git provider                                                                                                                 | OAuth Scopes                                             |
-| ---------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------- |
-| [GitHub](https://developer.github.com/apps/building-oauth-apps/understanding-scopes-for-oauth-apps/#available-scopes)        | `['user:email', 'read:user', 'read:org', 'repo:status']` |
-| [GitLab](https://docs.gitlab.com/ee/user/profile/personal_access_tokens.html#limiting-scopes-of-a-personal-access-token)     | `['api']`                                                |
-| [Bitbucket](https://confluence.atlassian.com/bitbucket/oauth-on-bitbucket-cloud-238027431.html#OAuthonBitbucketCloud-Scopes) | `['account', 'repository', 'pullrequest', 'webhook']`    |
+Chromatic creates a personal account when it creates your profile. You can also connect more than one Git provider and access organization accounts or individual projects through the same profile.
 
-For Enterprise customers using GitHub Enterprise Server and GitLab self-managed, the same scopes are required.
+### OAuth
 
-</details>
+Chromatic supports the cloud versions of GitHub, GitLab, and Bitbucket on [self-serve plans](https://www.chromatic.com/pricing). Connecting a Git provider lets Chromatic identify the organizations and repositories available to you.
 
-<details>
-    <summary>What do you need to link a project to a Git provider repository?</summary>
+On-premise GitHub Enterprise Server and self-managed GitLab connections require an Enterprise plan. See [how to link a repository](/docs/faq/link-a-repository) for provider permissions and setup requirements.
 
-To link a project to a Git provider repository, you need:
+<span id="troubleshooting"></span>
 
-- Membership in the organization that owns the repository.
-- Write access to the repository, via one of the following roles:
+- <a id="what-oauth-scopes-does-chromatic-request" href="/docs/faq/link-a-repository#oauth-and-github-app-permissions">What OAuth scopes does Chromatic request?</a>
+- <a id="what-do-you-need-to-link-a-project-to-a-git-provider-repository" href="/docs/faq/link-a-repository#before-you-link-a-repository">What do you need to link a project to a Git provider repository?</a>
+- <a id="what-permissions-does-the-github-app-request" href="/docs/faq/link-a-repository#oauth-and-github-app-permissions">What permissions does the GitHub App request?</a>
+- <a id="does-chromatic-access-my-source-code" href="/docs/faq/link-a-repository#does-chromatic-access-my-source-code">Does Chromatic access my source code?</a>
+- <a id="how-do-i-request-access-from-my-github-organization-admin" href="/docs/faq/org-not-appearing#request-oauth-app-approval">How do I request access from my GitHub organization admin?</a>
+- <a id="does-chromatic-support-custom-github-roles" href="/docs/faq/link-a-repository#does-chromatic-support-custom-github-roles">Does Chromatic support custom GitHub roles?</a>
+- <a id="is-my-forked-repository-subject-to-access-restrictions" href="/docs/faq/link-a-repository#can-i-link-a-private-fork">Is my forked repository subject to access restrictions?</a>
 
-| Git provider                                                                                                                                                                                                 | Role                                  |
-| ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------- |
-| [GitHub](https://docs.github.com/en/organizations/managing-user-access-to-your-organizations-repositories/managing-repository-roles/repository-roles-for-an-organization#repository-roles-for-organizations) | `write`, `maintain`, or `admin`       |
-| [GitLab](https://docs.gitlab.com/ee/user/permissions.html#project-members-permissions)                                                                                                                       | `developer`, `maintainer`, or `owner` |
-| [Bitbucket](https://support.atlassian.com/bitbucket-cloud/docs/grant-repository-access-to-users-and-groups/)                                                                                                 | `admin`, or `write`                   |
+If your GitHub organization uses SSO, see <a id="why-am-i-getting-an-error-when-trying-to-access-a-github-sso-project-that-i-see-listed-in-chromatics-project-list" href="https://docs.github.com/en/enterprise-cloud%40latest/authentication/authenticating-with-single-sign-on/authorizing-an-app-for-single-sign-on">GitHub's app authorization instructions for SSO</a>.
 
-</details>
+### Email
 
-<details>
-    <summary>What permissions does the GitHub App request?</summary>
+Email and password signs you in without connecting a Git provider. Use this method for unlinked projects or an unlinked organization account.
 
-Chromatic's GitHub App enables [UI Review](/docs/review) for pull requests. We need additional permissions to access pull request information and add PR checks.
+An email profile can also join individual projects as a [project collaborator](/docs/access/collaborators#external-collaborators). You can later [connect a Git provider to the same profile](/docs/faq/connect-git-user-to-chromatic-user).
 
-- ✅ Read access to metadata
-- ✅ Read and write access to checks and pull requests
-- ✅ Read access to organization members (for collaborators)
-- 🔒 We do not request access to your code
+<a id="how-do-i-link-a-project-to-a-git-provider-using-my-emailpassword-account" href="/docs/faq/link-a-repository">Learn how to link a repository after connecting your Git provider »</a>
 
-<div class="aside">
+### Single Sign-On (SSO)
 
-ℹ️ We recommend teams create a Chromatic “bot” or IT Service Account user on your Git provider. You can grant write permissions to that account for the repositories you want to link to Chromatic projects. This way, tokens aren’t tied to an individual user. And if a token expires, it’s straightforward for anyone on the team to validate a new one.
+SSO is an Enterprise sign-in method enabled on an account. It can be used with linked or unlinked projects, depending on the account's configuration.
 
-</div>
+[Learn how SSO authentication and provisioning work »](/docs/access/sso)
 
-</details>
+## Accounts
 
-<details>
-  <summary>Does Chromatic access my source code?</summary>
+<span id="organizations"></span>
 
-No, Chromatic only uses the static Storybook build or Storybook source code (if the static build is not being used). The static build refers to a static web application that is generated from your Storybook that can be hosted by any web server.
+Accounts contain billing, settings, account collaborators, and projects. Two attributes describe each account:
 
-**For unlinked projects:** Chromatic does not have access to your git provider
+- **Ownership:** A personal account belongs to one profile and cannot have additional account collaborators. An organization account can have several account collaborators.
+- **Git connection:** A Git-linked personal account corresponds to a personal Git account. A Git-linked organization account corresponds to a GitHub organization, GitLab group, or Bitbucket workspace. An unlinked account has no account-level Git connection.
 
-**For linked projects:** Chromatic requests data from your git provider without accessing your source code.
+SSO is a capability enabled on an organization account, not a separate account type.
 
-For GitHub, Chromatic only has access to repository metadata and merge request information.
+Your [personal account is created with your profile](#profiles). The table below describes personal and organization account configurations.
 
-However, GitLab and Bitbucket don't offer repository metadata and merge request information without full API access. Therefore, Chromatic has permission to access the source code on GitLab, but it doesn't actually access it.
+| Account setup                     | How account access is configured                                                                                                   | Supported project setup                                         |
+| --------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------- |
+| **Personal, Git-linked**          | Connect a personal Git provider account to your profile. Your profile has Admin access. You cannot add account collaborators.      | Linked projects from personal repositories or unlinked projects |
+| **Personal, unlinked**            | Sign up with email and password. Your profile has Admin access. You cannot add account collaborators.                              | Unlinked projects                                               |
+| **Organization, Git-linked**      | Add a Git organization or link one of its repositories. Chromatic syncs its members as account collaborators with the Member role. | Linked projects                                                 |
+| **Organization, unlinked**        | [Ask Support to create the account](mailto:support@chromatic.com). Support manages account access for email and password profiles. | Unlinked projects                                               |
+| **Organization with SSO enabled** | Chromatic configures SSO on an Enterprise account. Your identity provider manages account access.                                  | Linked or unlinked projects, based on the SSO configuration     |
 
-</details>
+Personal accounts cannot have additional account collaborators. Their one account collaborator has the Admin role. If colleagues need to manage billing or add projects, use an organization account or share individual projects with them.
 
-<details>
-    <summary>How do I request access from my GitHub organization admin?</summary>
+Open the account menu to switch accounts or add one.
 
-Chromatic requests the minimum permissions needed to use the tool. With GitHub, we request permissions for "OAuth" and "GitHub app" respectively. This allows organizations to expand permissions incrementally as they use more features.
+![Chromatic account menu showing available accounts and the option to add an account](../../images/account-menu.png)
 
-If your GitHub organization requires an admin to approve apps, you'll need to request access inside of Chromatic and track their status inside of GitHub (below).
+### Git-linked accounts
 
-1. **Chromatic OAuth app**: Enables GitHub sign-in. Track your access request [here](https://github.com/settings/connections/applications/495b5c3cb5ae140436a0).
-2. **Chromatic.com app**: Enables [UI Review](/docs/review). Track your access request [here](https://github.com/apps/chromatic-com).
+Connecting a Git provider to your profile creates a Git-linked personal account. Adding a Git organization, group, or workspace creates the matching organization account.
 
-</details>
+Git-linked organization accounts mirror account access from the Git provider. A linked project belongs to the account that matches its repository owner. Linking an existing project can therefore move it to another account.
 
-<details>
-    <summary>Does Chromatic support custom GitHub roles?</summary>
+A Git provider account can connect to only one Chromatic profile. If the connection already exists, see [why a Git account can be connected to another profile](/docs/faq/failed-to-login).
 
-**No, Chromatic doesn't support custom GitHub roles.**
+### Unlinked accounts
 
-Chromatic only receives the role name from GitHub, not the specific permissions associated with it. Custom role names prevent Chromatic from accurately determining permissions.
+An unlinked personal account is created when you sign up with email and password. It can contain unlinked projects.
 
-</details>
+Unlinked organization accounts let several people manage unlinked projects without sharing credentials. They are not self-serve. [Contact Support](mailto:support@chromatic.com) to create one.
 
-<details>
-  <summary>Is my forked repository subject to access restrictions?</summary>
-
-When you have a fork of a private organization owned repository, that forked repository is going to be subject to that organization's access restrictions. For example, `org1/my-repo` is the original repository and you fork it to `org2/my-repo`. In this situation, the original repo `org1/my-repo` would need to approve Chromatic's OAuth App on their end. Once they do, you'll be able to use the forked repo `org2/my-repo` with Chromatic.
-
-</details>
-
-#### Email
-
-Email and password authentication is available on all accounts. It's a popular authentication method for [external collaborators](/docs/access/collaborators#external-collaborators) like designers, PMs, and other stakeholders.
-
-If you're setting up Chromatic for your team, there are some boundaries to be aware of:
-
-- Email accounts can use Chromatic as normal
-- [Collaborators](/docs/access/collaborators) are manually managed
-- [Pull request checks](/docs/ci#pull-request-checks) are manually setup via your CI system
-
-We recommend signing up with email for projects that **are not** on GitHub, Bitbucket, or GitLab. For example, projects on services like Azure DevOps, AWS, etc. Read the setup instructions for these types of projects [here](/docs/faq/chromatic-sso-on-premises-other-git).
-
-#### Single Sign-On (SSO)
-
-Single Sign-On (SSO) is available to enterprise customers. Learn more [here](/docs/access/sso).
-
-## Organizations
-
-A Chromatic organization mirrors its counterpart GitHub Organization, Bitbucket Group, or GitLab Team. Open the account menu to swap between organizations or add a new organization.
-
-![Account menu](../../images/account-menu.png)
+If one team needs linked and unlinked projects, use separate accounts. Keep linked projects in the Git-linked account and unlinked projects in an unlinked organization account.
 
 ## Projects
 
-There are two types of Chromatic projects: linked and unlinked.
+Projects contain builds, tests, reviews, project settings, and project collaborators. Projects are either linked or unlinked.
 
-#### Linked projects
+Every project needs at least one Owner and can have several. Project ownership does not grant access to the account that contains the project.
 
-Linked projects are associated with a repository on GitHub, Bitbucket, or GitLab. That allows Chromatic to [sync collaborators](/docs/access/collaborators#project-collaborators), badge pull requests, get pull request metadata for [UI Review](/docs/review), and keep track of [UI Test](/docs) baselines.
+### Linked projects
 
-By creating a linked project in Chromatic, you automatically have at your disposal:
+A linked project is connected to a GitHub, GitLab, or Bitbucket repository. Chromatic can [sync project collaborators](/docs/access/collaborators#repository-synced-collaborators), retrieve pull request or merge request metadata, add [pull request checks](/docs/ci#pull-request-checks), and create [automatic UI Reviews](/docs/faq/automate-ui-reviews).
 
-- [Collaborators](/docs/access/collaborators) synched automatically based on your Git provider.
+See [Storybook visibility](/docs/access/collaborators#storybook-visibility) for how repository visibility affects access to your published Storybook.
 
-- The [visibility](/docs/access/collaborators#visibility) of your published Storybook will be synced with the visibility of your GitHub repository
+Git-linked organization accounts can add only linked projects. To move a linked project to another Git organization or an account with SSO enabled, unlink its repository first.
 
-- UI test notifications are enabled via automated webhooks for third-party integrations.
+[Learn how to link a repository and maintain its connection »](/docs/faq/link-a-repository)
 
-- Automated PR badging is configured automatically via [OAuth permissions](#what-permissions-does-the-github-app-request) granted by the Git provider.
+- <a id="why-is-my-linked-project-showing-up-as-unknown" href="/docs/faq/link-a-repository#repair-a-repository-connection">Repair an unknown repository connection</a>
+- <a id="my-token-is-missing-or-invalid" href="/docs/faq/link-a-repository#repair-a-repository-connection">Replace a missing or invalid repository token</a>
+- <a id="using-a-service-user-for-tokens" href="/docs/faq/link-a-repository#use-a-service-user-for-repository-tokens">Use a service user for repository tokens</a>
+- <a id="why-am-i-getting-could-not-retrieve-repository-id-error-when-trying-to-link-a-repository" href="/docs/faq/org-not-appearing#request-oauth-app-approval">Check GitHub organization approval for a repository ID error</a>
+- <a id="how-do-i-migrate-from-one-git-provider-to-another-eg-gitlab--github" href="/docs/faq/link-a-repository#move-projects-to-another-git-provider">Move projects to another Git provider</a>
 
-- Chromatic's GitHub App provides a faster UI review process and PR metadata retrieval.
+### Unlinked projects
 
-- Improved handling of [rebasing](/docs/branching-and-baselines) and squash & merge commit strategies enabled with Chromatic's GitHub App.
+An unlinked project uses Git but has no repository connection in Chromatic. Use one when your repository is self-hosted or uses a provider that Chromatic does not support directly.
 
-You can link a project during the project creation process or afterward on the project's Manage page within the Collaborators tab.
+You manage [project collaborators](/docs/access/collaborators#external-collaborators), [pull request checks](/docs/ci#pull-request-checks), and [webhooks](/docs/custom-webhooks#how-to-integrate-custom-webhooks) manually. Unlinked projects use [manual UI Reviews](/docs/manual-ui-review) because Chromatic cannot create a review from a pull request or merge request without a repository connection.
 
-<details>
-<summary>Why is my linked project showing up as <code>unknown</code>?</summary>
+Unlinked accounts can add only unlinked projects. A Git-linked personal account can also contain unlinked projects.
 
-If you encounter an `<unknown>` project, this means Chromatic can no longer connect it to your Git repository.
+<a id="how-do-i-create-an-unlinked-project-on-my-existing-github-bitbucket-or-gitlab-account" href="/docs/faq/chromatic-sso-on-premises-other-git">Learn how to set up an unlinked project »</a>
 
-Each project syncs using one collaborator's access token. Open the project's **Manage** page » **Configure** tab to see whose token it's using. That person can sign out of Chromatic and sign back in with the Git provider to refresh it.
+## Manage access
 
-Anyone with Developer access or higher and a connected Git account can take over instead, by selecting **Replace with your token** on the same tab.
-
-</details>
-
-<details>
-<summary>My token is <code>missing</code> or <code>invalid</code></summary>
-
-In the Project's Manage tab, you may see that your repository details couldn't be synced due to the token. This typically occurs for one of two reasons:
-
-1. For **GitHub**, an access token is required when you first set up your project to link Chromatic to your repository. If this step wasn’t completed, the token will be missing.
-
-2. Tokens can expire or be deleted on your Git provider’s side, which revokes their permissions.
-
-Another team member can **replace** the token, or you can **unlink** and relink the repository to fix the issue.
-If this doesn’t help, contact us at support@chromatic.com or via our in-app live chat.
-
-If [IP restrictions](/docs/faq/allowlist-ips-for-git-providers) are set on your Git provider account but you haven’t added Chromatic’s IPs to the allowlist, the token may show as **invalid** or **missing** too. Setting the IPs will resolve this specific case.
-
-</details>
-
-<details>
-<summary>Using a service user for tokens</summary>
-
-Using a **dedicated service user** (or "bot user") for your Chromatic integration with git providers ensures greater stability, security, and control for your team's workflows. **Benefits:**
-
-- Integrations won't break if an individual team member leaves the company or has their access changed, since the token isn't tied to a personal account. Access changes can lead to tokens being missing or invalid.
-
-- It helps meet company policies that prohibit the use of personal tokens for external service integrations and comply with the principle of least privilege.
-
-- Access is managed through a dedicated account, providing better oversight and control than when scattered personal access tokens (PATs) are used for different Chromatic projects.
-
-</details>
-
-<details>
-<summary>Why am I getting <code>Could not retrieve repository ID</code> error when trying to link a repository?</summary>
-
-If your project is part of an organization, you need to have [your access request](#how-do-i-request-access-from-my-github-organization-admin) approved by an admin at the organization level.
-Approval from a repository-level admin alone will not be sufficient. The actual scopes that Chromatic requires are listed [here](#what-oauth-scopes-does-chromatic-request).
-
-</details>
-
-<details>
-<summary>How do I migrate from one Git provider to another (e.g., GitLab → GitHub)?</summary>
-
-**For linked accounts**
-
-To migrate your Chromatic projects to the new Git provider:
-
-1. Connect your user account to the new git provider via the [Profile page](https://www.chromatic.com/profile). Under “Connected accounts,” link your new git provider. Ensure that everyone on your team does the same. _Warning:_ do not disconnect the old git provider yet since you may lose access.
-   ![Connect to Git provider](../../images/connect-profile-to-git.png)
-
-1. In the upper-right corner of the dashboard, open the menu and click "Add" to create a new Chromatic organization account for your new Git provider. You'll now see both accounts in that list, each linked to different Git providers.
-
-1. Unlink all existing projects from the old Git provider through the `Manage` tab.
-   ![Unlink project](../../images/unlink-project.png)
-
-1. Then link all projects to repositories from the new Git provider. Note that projects will automatically move to the new Chromatic organization level account.
-
-If you have a paid account, use our in-app chat to get in touch, or email us at support@chromatic.com to move your subscription to the new Chromatic entity.
-
-**For unlinked accounts**
-
-Follow steps 1, 3, and 4 from the guide above, but you don't need to create a new Chromatic organization level account.
-
-**Important**
-
-Connecting one Chromatic entity to multiple Git providers is not yet supported.
-
-</details>
-
-#### Unlinked projects
-
-An unlinked project is perfect for teams that self-host Git or have enterprise Git providers (that aren't on Chromatic's enterprise plan). Unlinked projects still require Git; they are just not linked to a repository on GitHub, Bitbucket, or GitLab. They do not automatically [sync collaborators](/docs/access/collaborators#project-collaborators) or badge pull requests.
-
-The characteristics of an unlinked project include:
-
-- Your code is in a local or self-hosted repository.
-- You're using an email/password account OR a personal OAuth account.
-- Chromatic runs as a [CI-only](/docs/ci) job.
-- Collaborators are [manually managed](/docs/access/collaborators#external-collaborators) via an invite list.
-- PR badging is manually configured in your CI provider.
-- Notifications are manually setup via Chromatic's [custom webhooks](/docs/custom-webhooks).
-
-Learn how to create an unlinked project [here](/docs/faq/chromatic-sso-on-premises-other-git).
-
----
-
-### Troubleshooting
-
-<details>
-<summary>How do I create an unlinked project on my existing GitHub, Bitbucket, or GitLab account?</summary>
-
-- ❌ You can't create unlinked projects on GitHub org, Bitbucket workspace, or GitLab group connected accounts.
-- ✅ You can create unlinked projects on personal GitHub, Bitbucket, or GitLab accounts.
-- ✅ You can create unlinked projects on email/password accounts.
-
-If your account is currently connected to a GitHub org, Bitbucket workspace, or GitLab group, you'll need to create a new email/password account to set up an unlinked project. Your teammates can access this account by sharing credentials (for example, with a password manager).
-
-To share billing between an existing connected account and an email/password account, message us via in-app chat.
-
-</details>
-
-<details>
-<summary>How do I link a project to a Git provider using my email/password account?</summary>
-
-Email accounts are not connected to a Git provider by default. This means you can only create [unlinked projects](#unlinked-projects).
-
-Follow these instructions to link your project to a Git provider:
-
-1. Go to your profile (`/profile`) and connect to your Git provider.
-2. Go to the project's Manage page » Collaborate tab.
-3. Click to "sync collaborators with a Git repository".
-
-This connects your Chromatic email/password account with your Git provider account, allowing you to set up a [linked project](#linked-projects).
-
-Note: Your personal account must have access to the repository in order to connect in Chromatic. You may need to ask an administrator to grant you additional permissions.
-
-</details>
-
-<details>
-<summary>Why am I getting an error when trying to access a GitHub SSO project that I see listed in Chromatic’s project list?</summary>
-
-This error can occur when Chromatic isn't authorized for a GitHub organization that has SSO/SAML also configured. In order to grant access to a project, Chromatic uses that project’s token and your account’s GitHub token. During the login process for Chromatic you authenticate with GitHub and will be presented with a prompt inside of GitHub to authorize Chromatic for use in your organization.
-
-You must click the **Authorize** button. If you don't click the **Authorize** button, but instead click the **Continue** button, you will not be able to access the project in Chromatic. If the person that set up the project previously logged into Chromatic with their GitHub credential but never authorized Chromatic for their organization, their teammates will also encounter this issue.
-
-</details>
+- [Manage account and project collaborators and roles »](/docs/access/collaborators)
+- [Configure Single Sign-On and SCIM provisioning »](/docs/access/sso)
+- [Assign SCIM-synced Teams to projects »](/docs/access/teams)

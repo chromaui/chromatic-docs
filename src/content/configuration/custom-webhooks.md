@@ -74,7 +74,7 @@ Similarly, we call your endpoint when a review is created:
 
 ## Review decisions
 
-When a reviewer is assigned to a review or they approve the changes, we send an update like this:
+When a reviewer is assigned to a review, or they approve the changes, we send an update like this:
 
 ```json
 {
@@ -113,13 +113,13 @@ When a reviewer is assigned to a review or they approve the changes, we send an 
 
 <div class="aside">
 
-Reviews are currently only supported on unlinked projects. [Read more ›](/docs/access#projects)
+The `review` event currently fires only for [manual UI Reviews](/docs/manual-ui-review).
 
 </div>
 
 ### How to integrate custom webhooks
 
-Chromatic will make a post request with the above body to the designated webhook URL. That gives you flexibility to catch the webhook response and customize it to fit the service you're integrating with.
+Chromatic will make a POST request with the body above to the designated webhook URL. That gives you flexibility to catch the webhook response and customize it to fit the service you're integrating with.
 
 Most customers set up a simple proxy app to customize the webhook message. Below are some starter projects for known Git providers that use Express as a proxy to help you integrate with Chromatic.
 
@@ -130,13 +130,13 @@ Most customers set up a simple proxy app to customize the webhook message. Below
 
 ### Versioned webhooks
 
-Our webhooks are versioned and won't introduce breaking changes when we roll out an update. Our requests include the `X-Webhook-Version` header (e.g. `2`) to indicate what version was used and a `"version"` property in the JSON request body. We may introduce new events or add new fields, properties, or HTTP headers without incrementing the version number, as we consider those to be non-breaking changes.
+Our webhooks are versioned and won't introduce breaking changes when we roll out an update. Our requests include the `X-Webhook-Version` header (e.g., `2`) to indicate what version was used and a `"version"` property in the JSON request body. We may introduce new events or add new fields, properties, or HTTP headers without incrementing the version number, as we consider them non-breaking changes.
 
-If you've been using a custom webhook for a long time, or used to have one in the past, your project might still be configured to receive an older type of webhook. In this case you'll see a prompt like this:
+If you've been using a custom webhook for a long time, or used to have one, your project might still be configured to receive an older webhook type. In this case, you'll see a prompt like this:
 
 ![Outdated Chromatic webhook](../../images/custom-webhook-outdated.png)
 
-You can either continue to use the existing integration, or upgrade your webhook to the latest version. As soon as you've upgraded, you'll start to receive the updated request format, so your endpoint should already be setup to handle them.
+You can either continue to use the existing integration or upgrade your webhook to the latest version. As soon as you've upgraded, you'll start receiving the updated request format, so your endpoint should already be set up to handle it.
 
 Removing and recreating your webhook will not automatically update you to the new format.
 

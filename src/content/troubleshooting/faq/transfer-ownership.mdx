@@ -9,26 +9,32 @@ sectionOrder: 5
 
 Chromatic accounts don't have an owner role, so there's nothing to hand over directly. What to do depends on the account type.
 
-Looking to hand off a single project? See [project ownership](/docs/access/collaborators#project-ownership).
+To hand off a single project, see [project ownership](/docs/access/collaborators#project-ownership).
 
 ## Organization accounts linked to a Git provider
 
-Access comes from your GitHub organization, GitLab group, or Bitbucket workspace. Everyone in it is a Member in Chromatic, so there's no owner to reassign — change who has access in your Git provider instead.
+Access comes from your GitHub organization, GitLab group, or Bitbucket workspace. Everyone in it becomes an account collaborator, so there's no owner to reassign. Change access in your Git provider instead.
 
-One thing is tied to a specific person: the Git provider API token Chromatic uses to sync your organization's details and permissions. If that person leaves or loses access, another member takes it over themselves:
+One thing is tied to a specific person: the Git provider API token Chromatic uses to sync your Git organization's details and permissions. If that person leaves or loses access, another account collaborator takes it over:
 
 1. Sign in to Chromatic with the same Git provider.
-2. Open your organization's **Settings** page.
+2. Open your account's **Settings** page.
 3. Under **API token**, select **Replace with your token**.
 
-This can only be done by the person taking the token over, and it can't be undone.
+This can only be done by the person taking over the token, and it can't be undone.
 
 ## Enterprise accounts with SSO
 
-Organization roles come from your identity provider. An Admin can change a member's role to Billing, Member, or Viewer on the Settings page, but making someone an Admin has to happen in your identity provider. Every account keeps at least one Admin. See [organization roles](/docs/access/teams#organization-roles).
+Account roles are provided by your identity provider. An Admin can change an account collaborator's role to Billing, Member, or Viewer on the Settings page, but making someone an Admin must be done in your identity provider. Every account keeps at least one Admin. See [account roles](/docs/access/collaborators#account-roles).
 
-## Individual accounts
+## Unlinked organization accounts
 
-There's no self-serve way to move an email and password account, or a personal Git account, to someone else. Use our **in-app chat** to contact us or email us at [support@chromatic.com](mailto:support@chromatic.com). Tell us the account and who should have it, and we'll go through the options with you.
+Chromatic Support manages account collaborators on an unlinked organization account. Each account collaborator needs a profile created with email and password. Ask Support to add or remove an account collaborator or assign Member or Billing access.
 
-Moving the subscription is a separate step — see [how do I transfer my account's subscription to another account?](/docs/faq/transfer-subscription/)
+## Personal accounts
+
+The Admin role on a personal account does not let you add another account collaborator or transfer the account. Ask Chromatic Support to transfer it. Include the account and the person who should receive it.
+
+Moving the subscription is a separate step; see [how do I transfer my account's subscription to another account?](/docs/faq/transfer-subscription/).
+
+If you have additional questions, use our **in-app chat** to contact us or email us at [support@chromatic.com](mailto:support@chromatic.com).

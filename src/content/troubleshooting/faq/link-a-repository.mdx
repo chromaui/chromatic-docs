@@ -6,6 +6,112 @@ section: 'usage'
 
 # How do I link a repository to my project?
 
-If your repository is part of a git entity, you must get the access request approved by an admin at the organization level.
+Connect your Git provider to your profile, then link the repository from the project's **Manage** page. Your Git provider account must have access to both the repository and its organization.
 
-If you aren't a member of a git entity, you can't link their repositories to a Chromatic project. Please refer to our documentation on access control here: [Access control](/docs/access#access-control)
+## Before you link a repository
+
+You need:
+
+- A GitHub, GitLab, or Bitbucket account [connected to your Chromatic profile](/docs/faq/connect-git-user-to-chromatic-user).
+- Membership in the organization, group, or workspace that owns the repository.
+- Write access through one of these provider roles:
+
+| Git provider | Required repository role              |
+| ------------ | ------------------------------------- |
+| GitHub       | `write`, `maintain`, or `admin`       |
+| GitLab       | `developer`, `maintainer`, or `owner` |
+| Bitbucket    | `write` or `admin`                    |
+
+If the organization controls third-party applications, an administrator must approve Chromatic. See [why an organization can be missing](/docs/faq/org-not-appearing) for the GitHub approval flow.
+
+## Link the repository
+
+1. Open the project's **Manage** page.
+2. Select the **Collaborate** tab.
+3. Select **Sync collaborators with a Git repository**.
+4. Choose the repository and authorize any required provider access.
+
+Linking moves the project to the Chromatic account that matches the repository owner. To move a linked project to another Git organization or an account with SSO, unlink it before linking the new repository.
+
+## OAuth and GitHub App permissions
+
+Chromatic uses OAuth to sign you in, list available organizations and repositories, set pull request statuses, and find project collaborators for reviews.
+
+| Git provider | OAuth scopes                                             |
+| ------------ | -------------------------------------------------------- |
+| GitHub       | `['user:email', 'read:user', 'read:org', 'repo:status']` |
+| GitLab       | `['api']`                                                |
+| Bitbucket    | `['account', 'repository', 'pullrequest', 'webhook']`    |
+
+The Chromatic GitHub App provides additional pull request integration. It requests:
+
+- Read access to metadata and organization members.
+- Read and write access to checks and pull requests.
+- No access to repository contents.
+
+The OAuth App and GitHub App have separate approval flows. [Learn what each GitHub app controls »](/docs/faq/org-not-appearing#oauth-app-and-github-app)
+
+### Does Chromatic access my source code?
+
+No. Chromatic uses the static Storybook build, or the Storybook source supplied for a build, without reading your application repository.
+
+GitHub exposes repository and pull request metadata without source access. GitLab and Bitbucket require broader API scopes, but Chromatic does not use those scopes to read your source code.
+
+### Does Chromatic support custom GitHub roles?
+
+No. GitHub sends Chromatic the custom role name without its underlying permissions. Chromatic cannot map an unknown role name to the repository access required for linking.
+
+### Can I link a private fork?
+
+Yes, after the organization that owns the original private repository approves the Chromatic OAuth App. The original repository's access restrictions also apply to its forks.
+
+For example, a fork from `org1/my-repo` to `org2/my-repo` still requires approval from `org1`.
+
+## Repair a repository connection
+
+Each linked project syncs through a project collaborator's provider token. The repository can appear as `<unknown>`, `missing`, or `invalid` when Chromatic can no longer use that token.
+
+1. Open the project's **Manage page » Configure tab**.
+2. Check whose token the project uses.
+3. Ask that person to sign out and sign back in through the Git provider to refresh the token.
+
+A project collaborator with Developer or Owner access can instead select **Replace with your token**. You can also unlink and relink the repository.
+
+Provider-side token deletion or expiration can invalidate a connection. Git provider IP restrictions can cause the same status when [Chromatic's IP addresses are not allowlisted](/docs/faq/allowlist-ips-for-git-providers).
+
+### Use a service user for repository tokens
+
+Use a dedicated service user when your organization permits one. Grant it write access only to the repositories you need to link.
+
+The repository connection then remains available when a project collaborator leaves or loses access. Your team can also manage the token without tying it to one person's account.
+
+## Move projects to another Git provider
+
+To move linked projects from one Git provider to another:
+
+1. Connect the new Git provider from your [profile page](https://www.chromatic.com/profile). Ask each project collaborator who needs synced access to do the same.
+2. Open the account menu and add the account for the new Git provider.
+3. Unlink each project from its current repository.
+4. Link each project to its repository on the new provider. Chromatic moves the project to the matching account.
+
+Do not disconnect the original Git provider before you move the projects. You may lose access before the new connection is ready.
+
+For a paid account, contact Chromatic Support through in-app chat or [email](mailto:support@chromatic.com) to move the subscription. One Chromatic account cannot connect to several Git organizations or providers at the same time.
+
+## Link an on-premise provider
+
+GitHub Enterprise Server and self-managed GitLab connections require an Enterprise plan. Contact Chromatic Support to enable the connection before following these steps.
+
+Prepare:
+
+- The Git provider URL, such as `https://github.example.com`.
+- The repository name, such as `example/design-system`.
+- A provider access token with the required OAuth scopes listed above.
+
+Then:
+
+1. Open the project's **Manage page » Configure tab**.
+2. Find **Sync project with a Git repository** under **Connected Applications**.
+3. Select **Add on-prem Git Provider** and enter the connection details.
+
+If your provider restricts Git access by IP address, [add Chromatic's outbound addresses to its allow list](/docs/faq/allowlist-ips-for-git-providers#my-organization-restricts-ip-addresses-for-git-access-should-i-add-chromatic-to-the-allowlist).
