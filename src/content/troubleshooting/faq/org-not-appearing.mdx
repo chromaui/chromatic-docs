@@ -20,3 +20,26 @@ The organization is missing when Chromatic cannot read it through your connected
 - The **Chromatic GitHub App** (`chromatic-com`) handles pull request checks and UI Review after the account exists. Installing it does not add the organization to the account list.
 
 Another GitHub organization member can add the account in Chromatic and invite you directly to its projects.
+
+### Request OAuth App approval
+
+Request OAuth App approval if your GitHub organization is missing from Chromatic's account list.
+
+1. Sign in to Chromatic with GitHub to authorize the OAuth App for your personal GitHub account.
+2. When adding an account in Chromatic, select **Check permissions**. This opens the [Chromatic OAuth App settings in GitHub](https://github.com/settings/connections/applications/495b5c3cb5ae140436a0).
+3. Next to the GitHub organization, select **Request access**, then **Request approval from owners**.
+4. After an organization owner approves access, return to Chromatic and select **refresh this list**.
+
+You can return to the OAuth App settings to review its organization access. See GitHub's [OAuth App approval instructions](https://docs.github.com/en/account-and-profile/how-tos/organization-membership/requesting-organization-approval-for-oauth-apps).
+
+### Request GitHub App approval
+
+Request GitHub App installation for pull request checks and UI Review. This is separate from OAuth App approval.
+
+1. Select **Install Chromatic on GitHub** when Chromatic prompts you to enable the integration, or open the [Chromatic GitHub App installation page](https://github.com/apps/chromatic-com/installations/new).
+2. Select the GitHub organization and repositories. If you cannot install the app yourself, submit an installation request to the organization owner.
+3. Ask the organization owner to review the request GitHub sends by email. After installation, the owner can [review the installed app and its repository access](https://docs.github.com/en/apps/using-github-apps/reviewing-and-modifying-installed-github-apps) in the organization's **Settings » GitHub Apps**.
+
+For a pending request, check with the organization owner. GitHub documents [how installation requests reach organization owners](https://docs.github.com/en/apps/using-github-apps/requesting-a-github-app-from-your-organization-owner).
+
+If the organization has [disabled app access requests](https://docs.github.com/en/organizations/managing-programmatic-access-to-your-organization/limiting-oauth-app-and-github-app-access-requests-and-installations), contact a GitHub organization owner directly.
