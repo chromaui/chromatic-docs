@@ -36,19 +36,23 @@ On-premise GitHub Enterprise Server and self-managed GitLab connections require 
 
 <span id="troubleshooting"></span>
 
-- [What OAuth scopes does Chromatic request?](/docs/faq/link-a-repository#oauth-and-github-app-permissions)
-- [What do you need to link a project to a Git provider repository?](/docs/faq/link-a-repository#before-you-link-a-repository)
-- [What permissions does the GitHub App request?](/docs/faq/link-a-repository#oauth-and-github-app-permissions)
-- [Does Chromatic access my source code?](/docs/faq/link-a-repository#does-chromatic-access-my-source-code)
-- [How do I request access from my GitHub organization admin?](/docs/faq/org-not-appearing#request-oauth-app-approval)
-- [Does Chromatic support custom GitHub roles?](/docs/faq/link-a-repository#does-chromatic-support-custom-github-roles)
-- [Is my forked repository subject to access restrictions?](/docs/faq/link-a-repository#can-i-link-a-private-fork)
+- <a id="what-oauth-scopes-does-chromatic-request" href="/docs/faq/link-a-repository#oauth-and-github-app-permissions">What OAuth scopes does Chromatic request?</a>
+- <a id="what-do-you-need-to-link-a-project-to-a-git-provider-repository" href="/docs/faq/link-a-repository#before-you-link-a-repository">What do you need to link a project to a Git provider repository?</a>
+- <a id="what-permissions-does-the-github-app-request" href="/docs/faq/link-a-repository#oauth-and-github-app-permissions">What permissions does the GitHub App request?</a>
+- <a id="does-chromatic-access-my-source-code" href="/docs/faq/link-a-repository#does-chromatic-access-my-source-code">Does Chromatic access my source code?</a>
+- <a id="how-do-i-request-access-from-my-github-organization-admin" href="/docs/faq/org-not-appearing#request-oauth-app-approval">How do I request access from my GitHub organization admin?</a>
+- <a id="does-chromatic-support-custom-github-roles" href="/docs/faq/link-a-repository#does-chromatic-support-custom-github-roles">Does Chromatic support custom GitHub roles?</a>
+- <a id="is-my-forked-repository-subject-to-access-restrictions" href="/docs/faq/link-a-repository#can-i-link-a-private-fork">Is my forked repository subject to access restrictions?</a>
+
+If your GitHub organization uses SSO, see <a id="why-am-i-getting-an-error-when-trying-to-access-a-github-sso-project-that-i-see-listed-in-chromatics-project-list" href="https://docs.github.com/en/enterprise-cloud%40latest/authentication/authenticating-with-single-sign-on/authorizing-an-app-for-single-sign-on">GitHub's app authorization instructions for SSO</a>.
 
 ### Email
 
 Email and password signs you in without connecting a Git provider. Use this method for unlinked projects or an unlinked organization account.
 
 An email profile can also join individual projects as a [project collaborator](/docs/access/collaborators#external-collaborators). You can later [connect a Git provider to the same profile](/docs/faq/connect-git-user-to-chromatic-user).
+
+<a id="how-do-i-link-a-project-to-a-git-provider-using-my-emailpassword-account" href="/docs/faq/link-a-repository">Learn how to link a repository after connecting your Git provider »</a>
 
 ### Single Sign-On (SSO)
 
@@ -115,6 +119,12 @@ Git-linked organization accounts can add only linked projects. To move a linked 
 
 [Learn how to link a repository and maintain its connection »](/docs/faq/link-a-repository)
 
+- <a id="why-is-my-linked-project-showing-up-as-unknown" href="/docs/faq/link-a-repository#repair-a-repository-connection">Repair an unknown repository connection</a>
+- <a id="my-token-is-missing-or-invalid" href="/docs/faq/link-a-repository#repair-a-repository-connection">Replace a missing or invalid repository token</a>
+- <a id="using-a-service-user-for-tokens" href="/docs/faq/link-a-repository#use-a-service-user-for-repository-tokens">Use a service user for repository tokens</a>
+- <a id="why-am-i-getting-could-not-retrieve-repository-id-error-when-trying-to-link-a-repository" href="/docs/faq/org-not-appearing#request-oauth-app-approval">Check GitHub organization approval for a repository ID error</a>
+- <a id="how-do-i-migrate-from-one-git-provider-to-another-eg-gitlab--github" href="/docs/faq/link-a-repository#move-projects-to-another-git-provider">Move projects to another Git provider</a>
+
 ### Unlinked projects
 
 An unlinked project uses Git but has no repository connection in Chromatic. Use one when your repository is self-hosted or uses a provider that Chromatic does not support directly.
@@ -123,7 +133,7 @@ You manage [project collaborators](/docs/access/collaborators#external-collabora
 
 Unlinked accounts can add only unlinked projects. A Git-linked personal account can also contain unlinked projects.
 
-[Learn how to set up an unlinked project »](/docs/faq/chromatic-sso-on-premises-other-git)
+<a id="how-do-i-create-an-unlinked-project-on-my-existing-github-bitbucket-or-gitlab-account" href="/docs/faq/chromatic-sso-on-premises-other-git">Learn how to set up an unlinked project »</a>
 
 ## Manage access
 
