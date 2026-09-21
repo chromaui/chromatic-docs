@@ -8,7 +8,7 @@ sidebar: { order: 9 }
 
 Chroma Software, Inc.®
 
-Updated: May 21, 2025
+Updated: September 21, 2026
 
 Chroma Software, Inc., a business corporation (herein “Chromatic”, “we”, “us” or “our”), based in the United States and headquartered at 548 Market St. \#26384 San Francisco, CA 94104, is committed to protecting and respecting your privacy and personal information (herein, “personal information” refers to any information that identifies you or is about you as an individual). This Privacy Notice describes how we collect, use and share personal information through your (herein, “you” or “your” refers to the person accessing our products and services) interaction with our website: [https://www.chromatic.com/](https://www.chromatic.com/), (herein, “Website”).
 
@@ -127,6 +127,9 @@ We may disclose, and may have already disclosed, personal information to the fol
   - **Meta/Facebook.** Meta helps us to customize our advertising and to serve you ads on your social media based on your browsing behavior. This allows your behavior to be tracked after you have been redirected to one of our Websites by clicking on the Meta/Facebook ad. The Meta Pixel stores a cookie on your device to enable us to measure the effectiveness of Facebook ads for statistical and market research purposes. We do not have access to the information collected through the Meta Pixel. However, the information collected via the Meta Pixel is also stored and processed by Facebook. You can learn more about Meta’s privacy preferences by visiting [https://www.facebook.com/privacy/policy/](https://www.facebook.com/privacy/policy/).
   - **Adobe Analytics.** Adobe Analytics helps us to understand your use of our Website and services. Adobe uses cookies or other tracking technologies to help us analyze how users interact with the Sites and Services, compile reports on their activity, and provide other services related to their activity and usage. The technologies used by Adobe may collect information such as your IP address, time of visit, whether you are a returning visitor, and any referring website. You can opt out of the use of Adobe Analytics by visiting https://www.adobe.com/privacy/opt-out.html.
   - **Common Room.** We utilize Common Room in order to aid us with understanding your use of our Website and services. You have view Common Room’s privacy policy by visiting https://www.commonroom.io/privacy-policy/.
+  - **ZoomInfo.** ZoomInfo assists us in enriching business contact and company information and supporting our customer relationship management activities. For more information about ZoomInfo’s privacy practices, please visit [https://www.zoominfo.com/legal/privacy-policy](https://www.zoominfo.com/legal/privacy-policy).
+  - **RevenueHero.** RevenueHero assists us in scheduling sales meetings and routing inbound leads generated through our website. For more information about RevenueHero’s privacy practices, please visit [https://www.revenuehero.io/privacy-policy](https://www.revenuehero.io/privacy-policy).
+  - **Plain (Not Just Tickets Ltd).** Plain assists us in managing customer support communications and providing customer service. For more information about Plain’s privacy practices, please visit [https://www.plain.com/legal/privacy-policy](https://www.plain.com/legal/privacy-policy).
 
 - **Our professional advisers** - Including accountants, lawyers and other professional advisers that assist us in carrying out our business activities;
 
