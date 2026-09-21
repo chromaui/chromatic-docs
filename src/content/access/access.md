@@ -1,12 +1,10 @@
 ---
-title: How access works
+title: Access control
 description: Learn how Chromatic profiles, accounts, projects, and Git connections determine access
 sidebar: { order: 1, label: 'Overview' }
 ---
 
-<span id="access-control"></span>
-
-# Profiles, accounts, and projects
+# Access control
 
 Chromatic separates your identity, account settings, and project permissions across three layers: profiles, accounts, and projects.
 
