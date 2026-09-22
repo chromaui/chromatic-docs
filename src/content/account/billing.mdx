@@ -29,7 +29,7 @@ Not at this time. We currently only support monthly payments for our self-serve 
 The monthly bill is calculated based on the number of billed [snapshots](/docs/snapshots). There are three types of snapshots:
 
 - **Captured (1 billed snapshot):** Chromatic performs the full suite of work, including taking screenshots or capturing accessibility data, and running diffs.
-- **Turbosnap**
+- **TurboSnap**
   - **Copied (0.2 billed snapshots):** Chromatic identifies tests that have no code changes associated with them or their dependencies and copies over the existing snapshots from previous baselines for them.
   - **Bypassed (0 billed snapshots):** the build has no changes in any test's dependencies at all, so Chromatic bypasses all snapshots.
 
@@ -80,6 +80,21 @@ A couple more things to note:
 
 - Your [billing page](#view-current-months-usage) will include a breakdown of captured snapshots vs turbosnaps.
 - If you use our free [Publish Storybook](/docs/publish) service only (i.e., UI Test and UI Review is disabled) you won't incur billed snapshots.
+
+<details>
+<summary>How does each method for ignoring a story affect billing?</summary>
+
+| Method                                                                         | Effect on billed snapshots                                                                                                                   |
+| ------------------------------------------------------------------------------ | -------------------------------------------------------------------------------------------------------------------------------------------- |
+| Stories declared in the preview file (`stories` parameter)                     | Story files that don't match the glob, or are ignored (`!src/legacy/**`), are not built and generate 0 billed snapshots.                     |
+| `disableSnapshot` parameter                                                    | Chromatic skips snapshot capture for the story, so it generates 0 billed snapshots.                                                         |
+| `.chromatic-ignore`, `data-chromatic="ignore"`, or `ignoreSelectors` parameter | Chromatic excludes a specific area or element from visual comparisons. The visual snapshot is still captured and generates billed snapshots. |
+| TurboSnap                                                                      | The billed snapshot cost is 0.2 per copied snapshot. Bypassed snapshots generate 0 billed snapshots.                                         |
+| `onlyStoryNames` / `onlyStoryFiles`                                            | Stories excluded by these options are billed at the copied snapshot rate of 0.2 billed snapshots per copied snapshot.                       |
+| `--skip` flag                                                                  | The build is skipped entirely and generates 0 billed snapshots.                                                                              |
+| Unstable, ignored, or quarantined stories                                      | Stories are still captured, even if their diffs are not reviewed. Each captured snapshot generates 1 billed snapshot.                        |
+
+</details>
 
 ### View current month's usage
 
