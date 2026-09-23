@@ -21,6 +21,16 @@ The organization is missing when Chromatic cannot read it through your connected
 
 Another GitHub organization member can add the account in Chromatic and invite you directly to its projects.
 
+### Why extra repositories appear after I restrict the GitHub App
+
+GitHub OAuth App approval is organization-wide. GitHub does not offer a selected-repository setting for the Chromatic OAuth App. Chromatic lists repository metadata (name, slug, default branch) that the signed-in GitHub profile can already see. That list is how you add an account and [link a project](/docs/faq/link-a-repository). It is not the same as `chromatic-com` repository access.
+
+Installing `chromatic-com` on selected repositories does not hide other organization repositories from Chromatic's picker. Pull request checks and UI Review follow the GitHub App install. Add and link still need organization OAuth approval. Revoking that OAuth approval removes the organization from those flows.
+
+To limit pull request integration, keep organization OAuth approved and restrict `chromatic-com` to the repositories that need checks and UI Review.
+
+If add or link fails with **Could not retrieve repository ID**, that is the opposite case: the GitHub App does not include that repository. See [Could not retrieve repository ID when adding a project](#could-not-retrieve-repository-id-when-adding-a-project).
+
 ### Request OAuth App approval
 
 Request OAuth App approval if your GitHub organization is missing from Chromatic's account list.
@@ -43,3 +53,14 @@ Request GitHub App installation for pull request checks and UI Review. This is s
 For a pending request, check with the organization owner. GitHub documents [how installation requests reach organization owners](https://docs.github.com/en/apps/using-github-apps/requesting-a-github-app-from-your-organization-owner).
 
 If the organization has [disabled app access requests](https://docs.github.com/en/organizations/managing-programmatic-access-to-your-organization/limiting-oauth-app-and-github-app-access-requests-and-installations), contact a GitHub organization owner directly.
+
+### Could not retrieve repository ID when adding a project
+
+This error means Chromatic cannot see the repository through the Chromatic GitHub App (`chromatic-com`). It is not an OAuth listing problem. If extra organization repositories appear in the picker, see [why extra repositories appear after I restrict the GitHub App](#why-extra-repositories-appear-after-i-restrict-the-github-app).
+
+When `chromatic-com` is installed on selected repositories, add and link can fail for any repository that is not on that list. Check both of these:
+
+1. Connect GitHub on your Chromatic [profile](/docs/faq/connect-git-user-to-chromatic-user). On an SSO account, open `{subdomain}.chromatic.com/profile`.
+2. Ask a GitHub organization owner to grant `chromatic-com` access to that repository: organization **Settings → GitHub Apps → Chromatic → Repository access**. See [Request GitHub App approval](#request-github-app-approval).
+
+After both are in place, try adding or linking the project again.
