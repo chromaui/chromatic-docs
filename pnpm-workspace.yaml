@@ -5,3 +5,6 @@ allowBuilds:
   sharp: true
 minimumReleaseAgeExclude:
   - '@chromatic-com/tetra@3.2.19 || 3.3.0'
+
+overrides:
+  sharp: ^0.35.4
