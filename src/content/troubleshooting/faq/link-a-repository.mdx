@@ -51,6 +51,12 @@ The Chromatic GitHub App provides additional pull request integration. It reques
 
 The OAuth App and GitHub App have separate approval flows. [Learn what each GitHub app controls »](/docs/faq/org-not-appearing#oauth-app-and-github-app)
 
+### Can I limit GitHub OAuth to selected repositories?
+
+No. GitHub OAuth App approval cannot be limited to selected repositories. The picker shows repositories the signed-in GitHub profile can access. Restricting `chromatic-com` to selected repositories does not change that list. Revoking OAuth removes the organization from add and link.
+
+Use GitHub App selected-repository install to limit pull request checks and UI Review, not to hide repositories from the picker. [Why do extra repositories appear after I limit the GitHub App? »](/docs/faq/org-not-appearing#why-extra-repositories-appear-after-i-restrict-the-github-app)
+
 ### Does Chromatic access my source code?
 
 No. Chromatic uses the static Storybook build, or the Storybook source supplied for a build, without reading your application repository.
@@ -78,6 +84,8 @@ Each linked project syncs through a project collaborator's provider token. The r
 A project collaborator with Developer or Owner access can instead select **Replace with your token**. You can also unlink and relink the repository.
 
 Provider-side token deletion or expiration can invalidate a connection. Git provider IP restrictions can cause the same status when [Chromatic's IP addresses are not allowlisted](/docs/faq/allowlist-ips-for-git-providers).
+
+Add or link can also fail with **Could not retrieve repository ID** when `chromatic-com` is installed on selected repositories and that repository is not on the list. Grant the GitHub App access to the repository, then try again. [Could not retrieve repository ID when adding a project »](/docs/faq/org-not-appearing#could-not-retrieve-repository-id-when-adding-a-project)
 
 ### Use a service user for repository tokens
 

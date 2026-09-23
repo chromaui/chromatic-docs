@@ -39,6 +39,8 @@ On-premise GitHub Enterprise Server and self-managed GitLab connections require 
 - <a id="what-permissions-does-the-github-app-request" href="/docs/faq/link-a-repository#oauth-and-github-app-permissions">What permissions does the GitHub App request?</a>
 - <a id="does-chromatic-access-my-source-code" href="/docs/faq/link-a-repository#does-chromatic-access-my-source-code">Does Chromatic access my source code?</a>
 - <a id="how-do-i-request-access-from-my-github-organization-admin" href="/docs/faq/org-not-appearing#request-oauth-app-approval">How do I request access from my GitHub organization admin?</a>
+- <a id="why-extra-repositories-appear-after-i-restrict-the-github-app" href="/docs/faq/org-not-appearing#why-extra-repositories-appear-after-i-restrict-the-github-app">Why do extra repositories appear after I restrict the GitHub App?</a>
+- <a id="could-not-retrieve-repository-id-when-adding-a-project" href="/docs/faq/org-not-appearing#could-not-retrieve-repository-id-when-adding-a-project">Could not retrieve repository ID when adding a project</a>
 - <a id="does-chromatic-support-custom-github-roles" href="/docs/faq/link-a-repository#does-chromatic-support-custom-github-roles">Does Chromatic support custom GitHub roles?</a>
 - <a id="is-my-forked-repository-subject-to-access-restrictions" href="/docs/faq/link-a-repository#can-i-link-a-private-fork">Is my forked repository subject to access restrictions?</a>
 
