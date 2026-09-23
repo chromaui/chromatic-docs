@@ -87,12 +87,12 @@ A couple more things to note:
 | Method                                                                         | Effect on billed snapshots                                                                                                                   |
 | ------------------------------------------------------------------------------ | -------------------------------------------------------------------------------------------------------------------------------------------- |
 | Stories declared in the preview file (`stories` parameter)                     | Story files that don't match the glob, or are ignored (`!src/legacy/**`), are not built and generate 0 billed snapshots.                     |
-| `disableSnapshot` parameter                                                    | Chromatic skips snapshot capture for the story, so it generates 0 billed snapshots.                                                         |
-| `.chromatic-ignore`, `data-chromatic="ignore"`, or `ignoreSelectors` parameter | Chromatic excludes a specific area or element from visual comparisons. The visual snapshot is still captured and generates billed snapshots. |
-| TurboSnap                                                                      | The billed snapshot cost is 0.2 per copied snapshot. Bypassed snapshots generate 0 billed snapshots.                                         |
-| `onlyStoryNames` / `onlyStoryFiles`                                            | Stories excluded by these options are billed at the copied snapshot rate of 0.2 billed snapshots per copied snapshot.                       |
+| `disableSnapshot` parameter                                                    | Chromatic skips snapshot capture for the story, so it generates 0 billed snapshots.                                                          |
+| `.chromatic-ignore`, `data-chromatic="ignore"`, or `ignoreSelectors` parameter | Chromatic excludes a specific area or element from visual comparisons. The visual snapshot is still captured and billed.                     |
+| TurboSnap                                                                      | The billed snapshot cost is 0.2 per copied snapshot. Bypassed builds generate 0 billed snapshots.                                            |
+| `onlyStoryNames` / `onlyStoryFiles`                                            | Stories excluded by these options are billed at the copied snapshot rate of 0.2 billed snapshots.                                            |
 | `--skip` flag                                                                  | The build is skipped entirely and generates 0 billed snapshots.                                                                              |
-| Unstable, ignored, or quarantined stories                                      | Stories are still captured, even if their diffs are not reviewed. Each captured snapshot generates 1 billed snapshot.                        |
+| Unstable, ignored, or quarantined stories                                      | Stories are still captured, even if their diffs are not reviewed. Each story captured generates 1 billed snapshot.                           |
 
 </details>
 
