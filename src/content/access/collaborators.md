@@ -24,12 +24,12 @@ Organization accounts can have several account collaborators. A personal account
 
 How you manage account collaborators depends on the account setup:
 
-| Account setup               | How account access is managed                                                                                                   |
-| --------------------------- | ------------------------------------------------------------------------------------------------------------------------------- |
-| **Personal**                | The account has one account collaborator with the Admin role. You cannot add another.                                           |
-| **Git-linked organization** | Chromatic syncs account collaborators from the GitHub organization, GitLab group, or Bitbucket workspace with the Member role.  |
-| **Organization with SSO**   | Your identity provider manages account collaborators and account roles.                                                         |
-| **Unlinked organization**   | Account collaborators sign in with email and password. Contact Support to add or remove account collaborators or change a role. |
+| Account setup               | How account access is managed                                                                                                                             |
+| --------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| **Personal**                | The account has one account collaborator with the Admin role. You cannot add another.                                                                     |
+| **Git-linked organization** | Chromatic syncs account collaborators from the GitHub organization, GitLab group, or Bitbucket workspace with the Member role.                            |
+| **Organization with SSO**   | Your identity provider manages account collaborators and account roles.                                                                                   |
+| **Unlinked organization**   | Account collaborators sign in through a Git provider or with email and password. Contact Support to add or remove account collaborators or change a role. |
 
 Account collaborators on a Git-linked organization account can manage billing, account settings, and projects. They still need project access to view or manage a project.
 
@@ -45,7 +45,7 @@ Billing access follows the account setup:
 
 - On a personal account, only the profile owner can manage billing.
 - On a Git-linked organization account, account collaborators can manage billing.
-- On an unlinked organization account, contact [support@chromatic.com](mailto:support@chromatic.com) to assign Billing access to an email and password profile.
+- On an unlinked organization account, contact [support@chromatic.com](mailto:support@chromatic.com) to assign Billing access to an existing Chromatic profile.
 - On an account with SSO and directory sync, assign the Billing role through your identity provider. Identity provider updates overwrite roles set directly in Chromatic.
 
 ## Project collaborators

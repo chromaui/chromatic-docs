@@ -78,7 +78,7 @@ Your [personal account is created with your profile](#profiles). The table below
 | **Personal, Git-linked**          | Connect a personal Git provider account to your profile. Your profile has Admin access. You cannot add account collaborators.      | Linked projects from personal repositories or unlinked projects |
 | **Personal, unlinked**            | Sign up with email and password. Your profile has Admin access. You cannot add account collaborators.                              | Unlinked projects                                               |
 | **Organization, Git-linked**      | Add a Git organization or link one of its repositories. Chromatic syncs its members as account collaborators with the Member role. | Linked projects                                                 |
-| **Organization, unlinked**        | [Ask Support to create the account](mailto:support@chromatic.com). Support manages account access for email and password profiles. | Unlinked projects                                               |
+| **Organization, unlinked**        | [Ask Support to create the account](mailto:support@chromatic.com). Support manages account access for existing profiles.           | Unlinked projects                                               |
 | **Organization with SSO enabled** | Chromatic configures SSO on an Enterprise account. Your identity provider manages account access.                                  | Linked or unlinked projects, based on the SSO configuration     |
 
 Personal accounts cannot have additional account collaborators. Their one account collaborator has the Admin role. If colleagues need to manage billing or add projects, use an organization account or share individual projects with them.
