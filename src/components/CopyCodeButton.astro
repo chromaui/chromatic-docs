@@ -1,0 +1,88 @@
+---
+import { color } from '@chromatic-com/tetra';
+
+/*
+ * No markup here on purpose: the rehype-copy-button plugin injects
+ * `<button class="copy-code-btn">` into every Shiki `pre` at build time.
+ * This component — rendered once from BaseLayout — ships the delegated
+ * click handler and the global styles for that injected markup.
+ */
+const styles = /* css */ `
+  pre:has(> .copy-code-btn) {
+    position: relative;
+  }
+
+  .copy-code-btn {
+    position: absolute;
+    top: 0.5rem;
+    right: 0.5rem;
+    z-index: 3; /* stay above .highlighted code lines (z-index: 2) */
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 2rem;
+    height: 2rem;
+    padding: 0;
+    border: 1px solid rgba(0, 0, 0, 0.12);
+    border-radius: 6px;
+    background: #fff;
+    color: ${color.slate600};
+    cursor: pointer;
+    opacity: 0.5;
+    transition: opacity 0.2s ease-in-out;
+  }
+
+  pre:hover > .copy-code-btn,
+  .copy-code-btn:focus-visible {
+    opacity: 1;
+  }
+
+  .copy-code-btn:hover {
+    color: ${color.slate800};
+    border-color: rgba(0, 0, 0, 0.25);
+  }
+
+  /* Copied state — mirrors CopyMarkdown.astro */
+  .copy-code-btn .copy-code-icon-check {
+    display: none;
+  }
+  .copy-code-btn[data-copied] .copy-code-icon-copy {
+    display: none;
+  }
+  .copy-code-btn[data-copied] .copy-code-icon-check {
+    display: inline;
+  }
+
+  /* Touch devices never hover: keep the button visible */
+  @media (hover: none) {
+    .copy-code-btn {
+      opacity: 1;
+    }
+  }
+`;
+---
+
+<style is:global set:html={styles}></style>
+
+<script>
+  document.addEventListener('click', function (e) {
+    if (!(e.target instanceof Element)) return;
+    const btn = e.target.closest('.copy-code-btn');
+    if (!btn) return;
+    const pre = btn.closest('pre');
+    if (!pre) return;
+    // Read from the `code` child — never the `pre` — so the button itself is
+    // never part of the copied text.
+    const code = pre.querySelector('code');
+    const text = (code?.textContent ?? '').replace(/\n$/, '');
+    navigator.clipboard
+      .writeText(text)
+      .then(() => {
+        btn.setAttribute('data-copied', '');
+        setTimeout(() => btn.removeAttribute('data-copied'), 2000);
+      })
+      .catch((err) => {
+        console.error('Failed to copy code:', err);
+      });
+  });
+</script>
