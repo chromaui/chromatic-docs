@@ -11,7 +11,7 @@ Sometimes a test shows a change you're not ready to address, such as an unexpect
 
 <div class="aside">
 
-Looking for a different kind of ignore? [Flake Filter](/docs/flake-filter) automatically ignores unstable tests. You can also [ignore specific elements](/docs/ignoring-elements) within a snapshot, or [disable snapshots](/docs/disable-snapshots) for tests you never want captured.
+Looking for a different kind of ignore? [Flake Filter](/docs/flake-filter) automatically ignores unstable tests, and you can [quarantine](/docs/quarantine-tests) a test to ignore it on every build. You can also [ignore specific elements](/docs/ignoring-elements) within a snapshot, or [disable snapshots](/docs/disable-snapshots) for tests you never want captured.
 
 </div>
 
@@ -31,6 +31,7 @@ If you change your mind, you can un-ignore the test to return it to the unreview
 | -------------------- | -------------------------------------------------------------------------------------------------- | -------------------------------------------------------- |
 | **Manually ignored** | You ignore a specific test on a specific build so the build can pass without accepting the change. | That build only and does not carry over to other builds. |
 | **Auto-ignored**     | [Flake filter](/docs/flake-filter) ignores a test it detected as unstable.                         | Specific build. Re-evaluated on every build.             |
+| **Quarantined**      | You [quarantine](/docs/quarantine-tests) a test so its diffs are ignored on every build.           | All builds on all branches, until you unquarantine it.   |
 | **Disabled**         | The test is not captured at all.                                                                   | For every build where the parameter is set.              |
 
 Ignored and auto-ignored tests do not update the baseline and do not block the build from passing. **Ignoring also does not change what Chromatic captures**. An ignored test is captured and compared on later builds like any other test, and [TurboSnap](/docs/turbosnap) skips unchanged stories whether they were ignored or not.
@@ -47,7 +48,7 @@ Once you accept or deny the snapshot, the test behaves like any other reviewed t
 <details>
 <summary>Can I ignore tests for a whole project instead of build by build?</summary>
 
-No. Ignoring is only available. If a test is consistently problematic you can [disable it](/docs/disable-snapshots) with `disableSnapshot`.
+No. Ignoring applies to a single build. If a test is consistently unstable, [quarantine it](/docs/quarantine-tests) to ignore its diffs on every build while still tracking it. To stop capturing it entirely, [disable it](/docs/disable-snapshots) with `disableSnapshot`.
 
 </details>
 
