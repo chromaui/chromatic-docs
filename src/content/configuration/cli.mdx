@@ -17,7 +17,7 @@ The [Chromatic CLI](https://www.npmjs.com/package/chromatic) manages the visual 
 ## Usage with Storybook
 
 ```shell
-$ npx chromatic --project-token <your-project-token>
+npx chromatic --project-token <your-project-token>
 ```
 
 The CLI defaults to running with Storybook. It builds and uploads your Storybook to Chromatic's cloud infrastructure, to start the [publish](/docs/publish) and [visual test](/docs) workflows.
@@ -32,13 +32,13 @@ When pairing Chromatic with Vitest, Playwright, or Cypress, you have to pass the
 
 ```shell
 # For Chromatic with Vitest
-$ npx chromatic --project-token <your-project-token> --vitest
+npx chromatic --project-token <your-project-token> --vitest
 
 # For Chromatic with Playwright
-$ npx chromatic --project-token <your-project-token> --playwright
+npx chromatic --project-token <your-project-token> --playwright
 
 # For Chromatic with Cypress
-$ npx chromatic --project-token <your-project-token> --cypress
+npx chromatic --project-token <your-project-token> --cypress
 ```
 
 For Vitest, Playwright, and Cypress, we recommend installing the chromatic package as a dependency. This ensures that the CLI is in sync with the `@chromatic-com/vitest`, `@chromatic-com/playwright`, or `@chromatic-com/cypress` package.
@@ -81,11 +81,11 @@ Flags must be passed as `--kebab-case` whereas options are `camelCase`. Flags ta
 
 - Passing a flag without a value is treated as `true`. e.g.:
   ```sh
-  $ npx chromatic --dry-run -t <your-project-token>
+  npx chromatic --dry-run -t <your-project-token>
   ```
 - Where an `array` is accepted, specify the flag multiple times (once for each value). e.g.:
   ```sh
-  $ npx chromatic --externals "my-folder/**" --externals "another-folder/**" -t <your-project-token>
+  npx chromatic --externals "my-folder/**" --externals "another-folder/**" -t <your-project-token>
   ```
 
 ### Chromatic Config File
