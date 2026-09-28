@@ -16,16 +16,15 @@ const styles = /* css */ `
     position: absolute;
     top: 0.5rem;
     right: 0.5rem;
-    z-index: 3; /* stay above .highlighted code lines (z-index: 2) */
     display: inline-flex;
     align-items: center;
     justify-content: center;
     width: 2rem;
     height: 2rem;
     padding: 0;
-    border: 1px solid rgba(0, 0, 0, 0.12);
+    border: 1px solid ${color.blackTr10};
     border-radius: 6px;
-    background: #fff;
+    background: ${color.white};
     color: ${color.slate600};
     cursor: pointer;
     opacity: 0.5;
@@ -39,7 +38,7 @@ const styles = /* css */ `
 
   .copy-code-btn:hover {
     color: ${color.slate800};
-    border-color: rgba(0, 0, 0, 0.25);
+    border-color: ${color.slate400};
   }
 
   /* Copied state — mirrors CopyMarkdown.astro */
