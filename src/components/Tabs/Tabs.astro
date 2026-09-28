@@ -2,12 +2,22 @@
 import { color } from '@chromatic-com/tetra';
 import { processPanels } from './rehype-tabs';
 
+interface Props {
+  /**
+   * localStorage key used to remember the selected tab across pages.
+   * Tab groups sharing a key will default to the last label the user selected.
+   */
+  persistKey?: string;
+}
+
+const { persistKey } = Astro.props;
+
 const panelHtml = await Astro.slots.render('default');
 
 const { html, panels } = processPanels(panelHtml);
 ---
 
-<code-snippet-tabs>
+<code-snippet-tabs data-persist-key={persistKey}>
   {
     panels && (
       <div class="tablist-wrapper not-content">
@@ -77,15 +87,41 @@ const { html, panels } = processPanels(panelHtml);
 </style>
 
 <script>
+  const readStoredTab = (key: string): string | null => {
+    try {
+      return localStorage.getItem(key);
+    } catch {
+      // Storage may be unavailable (e.g. strict privacy settings).
+      return null;
+    }
+  };
+
+  const writeStoredTab = (key: string, label: string) => {
+    try {
+      localStorage.setItem(key, label);
+    } catch {
+      // Storage may be unavailable (e.g. strict privacy settings).
+    }
+  };
+
   class CodeSnippetTabs extends HTMLElement {
     tabs: HTMLAnchorElement[];
     panels: HTMLElement[];
+    storageKey: string | null;
 
     constructor() {
       super();
       const tablist = this.querySelector<HTMLUListElement>('[role="tablist"]')!;
       this.tabs = [...tablist.querySelectorAll<HTMLAnchorElement>('[role="tab"]')];
       this.panels = [...this.querySelectorAll<HTMLElement>(':scope > [role="tabpanel"]')];
+      this.storageKey = this.getAttribute('data-persist-key');
+
+      // Default to the last tab the user selected, if it exists in this group.
+      const storedLabel = this.storageKey && readStoredTab(this.storageKey);
+      if (storedLabel) {
+        const index = this.tabs.findIndex((tab) => tab.textContent?.trim() === storedLabel);
+        if (index > 0) this.switchTab(this.tabs[index], index, false);
+      }
 
       this.tabs.forEach((tab, i) => {
         // Handle clicks for mouse users
@@ -121,7 +157,7 @@ const { html, panels } = processPanels(panelHtml);
       });
     }
 
-    switchTab(newTab: HTMLAnchorElement | null | undefined, index: number) {
+    switchTab(newTab: HTMLAnchorElement | null | undefined, index: number, focus = true) {
       if (!newTab) return;
 
       // Mark all tabs as unselected and hide all tab panels.
@@ -139,7 +175,12 @@ const { html, panels } = processPanels(panelHtml);
       // Restore active tab to the default tab order.
       newTab.removeAttribute('tabindex');
       newTab.setAttribute('aria-selected', 'true');
-      newTab.focus();
+      if (focus) newTab.focus();
+
+      // Remember the user's choice so other tab groups can default to it.
+      if (this.storageKey && newTab.textContent) {
+        writeStoredTab(this.storageKey, newTab.textContent.trim());
+      }
     }
   }
 
