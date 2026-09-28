@@ -144,7 +144,7 @@ packages/design-system/
 
 The result is the same as the triggers above — a full rebuild — but the cause looks different. The file isn't config, and tracing it to preview.tsx won't work, because it isn't in preview's dependency graph. The bail reason still reads `changedStorybookFiles`.
 
-This structure obscures the real root cause of the bailout. To resolve it, you can either move the non-config files out of `.storybook/` or add them to `untraced` in your TurboSnap config. This will prevent TurboSnap from treating them as config files and avoid unnecessary full rebuilds.
+This structure obscures the real root cause of the bailout. To resolve it, you can either move the non-config files out of `.storybook/` or add them to `untraced` in your TurboSnap config if they don't impact rendering. This will prevent TurboSnap from treating them as config files and avoid unnecessary full rebuilds.
 
 **Only text files are exempt**
 
