@@ -117,7 +117,7 @@ You may have made changes to one of the files in your Storybook configuration, o
 Additionally, if you're utilizing barrel/index files (whether directly importing in your `preview.js` or in a file that `preview.js` is dependent on), it's likely to cause more bails since [a change to any of these modules would cause any file that imports the index file to be considered "dirty"](/docs/turbosnap/setup#avoid-re-testing-dependent-stories-when-certain-files-changed), even if it's not using the changed module.
 
 <details>
-<summary>Changes to non-config files inside the `.storybook` directory trigger `changedStorybookFiles` bailouts?</summary>
+<summary>Can changes to non-config files inside the `.storybook` directory trigger `changedStorybookFiles` bailouts?</summary>
 
 TurboSnap considers any file inside the `.storybook` directory to be a Storybook config file, even if it's not one of the main config files (`main.js|ts`, `preview.js|ts`, `manager.js|ts`). This means that changes to non-config files (like utility scripts or custom modules) within the `.storybook` directory can trigger a `changedStorybookFiles` bailout.
 Consider this structure:
