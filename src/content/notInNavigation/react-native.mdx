@@ -113,17 +113,17 @@ Subsequent builds will generate new snapshots that are compared against existing
 <InstallSnippets>
   <Fragment slot="npm">
   ```shell
-  $ npx chromatic --project-token <your-project-token>
+  npx chromatic --project-token <your-project-token>
   ```
   </Fragment>
   <Fragment slot="yarn">
   ```shell
-  $ yarn chromatic --project-token <your-project-token>
+  yarn chromatic --project-token <your-project-token>
   ```
   </Fragment>
   <Fragment slot="pnpm">
   ```shell
-  $ pnpm chromatic --project-token <your-project-token>
+  pnpm chromatic --project-token <your-project-token>
   ```
   </Fragment>
 </InstallSnippets>
@@ -193,12 +193,12 @@ Pass `--storybook-build-dir` to skip all build steps except `manifest.json` gene
 The CLI includes a `react-native-build` sub-command for building your React Native app that use Expo. It uses the same logic as a regular Chromatic run, but lets you split your CI pipeline and parallelize Android and iOS builds.
 
 ```bash
-$ npx chromatic@latest react-native-build --help
+npx chromatic@latest react-native-build --help
 
   Build React Native Storybook for Chromatic
 
   Usage
-    $ chromatic react-native-build [options]
+    chromatic react-native-build [options]
 
   Options
     --platform    Platform to build (android, ios). Can be specified multiple times. Defaults to all platforms in Expo config.
