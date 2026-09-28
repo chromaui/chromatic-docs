@@ -31,7 +31,7 @@ If you change your mind, you can un-ignore the test to return it to the unreview
 | -------------------- | -------------------------------------------------------------------------------------------------- | -------------------------------------------------------- |
 | **Manually ignored** | You ignore a specific test on a specific build so the build can pass without accepting the change. | That build only and does not carry over to other builds. |
 | **Auto-ignored**     | [Flake filter](/docs/flake-filter) ignores a test it detected as unstable.                         | Specific build. Re-evaluated on every build.             |
-| **Quarantined**      | You [quarantine](/docs/quarantine-tests) a test so its diffs are ignored on every build.           | All builds on all branches, until you unquarantine it.   |
+| **Quarantined**      | You [quarantine](/docs/quarantine-tests) a test so its diffs are ignored on every build.           | All builds on all branches, until you un-quarantine it.  |
 | **Disabled**         | The test is not captured at all.                                                                   | For every build where the parameter is set.              |
 
 Ignored and auto-ignored tests do not update the baseline and do not block the build from passing. **Ignoring also does not change what Chromatic captures**. An ignored test is captured and compared on later builds like any other test, and [TurboSnap](/docs/turbosnap) skips unchanged stories whether they were ignored or not.

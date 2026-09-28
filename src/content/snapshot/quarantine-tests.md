@@ -1,45 +1,55 @@
 ---
 title: Quarantine tests
-description: Quarantine unstable tests so their diffs don't block builds, and track them in one place until you're ready to fix them.
+description: Quarantine unstable tests so they stop blocking PRs, and track them in one place until you're ready to fix them.
 sidebar: { order: 17 }
 slug: 'quarantine-tests'
 ---
 
 # Quarantine tests
 
-Unstable tests produce diffs that have nothing to do with your code changes. You may not have time to fix a test right away. If you drop it, you lose coverage, and nothing reminds you to add it back later.
+You run Chromatic and see diffs in a component your code changes didn't touch. It's an [unstable test](/docs/unstable-tests#what-is-an-unstable-test). You're left with two bad options: wait for someone to fix it, or delete it and lose coverage.
 
-Quarantine lets you set an [unstable test](/docs/unstable-tests#what-is-an-unstable-test) aside without losing track of it. Chromatic ignores diffs from a quarantined test on every build and lists all quarantined tests on a dashboard, so you can fix them when you're ready.
+Quarantine gives you a third option. Diffs for quarantined tests don't block PRs, and Chromatic tracks every quarantined test on a dashboard so you can come back to it when you're ready to fix the instability.
 
 ## Quarantine a test
 
-You can quarantine a test from the build page or the test page. Open the three-dot menu for the test and select **Quarantine test**.
+An unstable test renders differently across repeated runs even when your code hasn't changed. Sometimes the fix is obvious. Other times it [needs investigation](/docs/unstable-tests#improve-test-stability) that you don't have time for right now. Quarantine it instead.
 
-![The three-dot action menu on a build page showing the Deny test, Ignore test on this build, and Quarantine test options.](../../images/quarantine-test-menu.png)
+From the build page or the test page, open the three-dot menu and select **Quarantine test**.
 
-After you quarantine a test, Chromatic ignores its diffs on all builds, across all branches and for all users. Its diffs won't block new builds from passing until you remove it from quarantine.
+![The three-dot menu on a test page showing the Ignore test on this build and Quarantine test options.](../../images/quarantine-test-menu.png)
 
-## Manage quarantined tests
+Once quarantined, the test's diffs stop blocking builds on every branch, for everyone on the project. On the build page, quarantined tests are listed in the **Unstable** section with a **Quarantined** badge.
 
-To see every quarantined test in your project, go to **Library > Quarantined**. The dashboard shows who quarantined each test and when.
+![The Unstable section of a build page, listing tests with Ignored, Quarantined, and Auto-ignored badges.](../../images/quarantine-build-unstable.png)
 
-![The Quarantined tab in the Library, listing quarantined tests grouped by component with who quarantined them and how long ago.](../../images/quarantine-dashboard.png)
+## Track quarantined tests
 
-To fix a quarantined test:
+To see every quarantined test in your project, go to **Library > Quarantined**. Think of it as a to-do list for your unstable tests. It shows who quarantined each test and when.
 
-1. Select the test on the dashboard.
-2. Follow the [unstable tests debugging guide](/docs/unstable-tests#improve-test-stability) to make it render consistently.
-3. Remove the test from quarantine to return it to your regular test suite.
+When you're ready to fix a test:
 
-## Quarantine vs. Flake filter
+1. Follow the [unstable tests debugging guide](/docs/unstable-tests#improve-test-stability) to stabilize rendering.
+2. Select **Remove quarantine** to return the test to your regular test suite.
 
-[Flake filter](/docs/flake-filter) automatically detects unstable tests and ignores them so they don't block your build. Those auto-ignores don't carry over between builds. Chromatic checks each build again to see whether a test is still unstable.
+![The Quarantined tab in the Library, listing quarantined tests with who quarantined them, when, and a Remove quarantine action.](../../images/quarantine-dashboard.png)
 
-Quarantine is a choice you make yourself, and it lasts. Chromatic ignores a quarantined test's diffs on every build until you remove it from quarantine, whether or not Flake filter flags it on a given build.
+## Flake filter vs. Quarantine
+
+[Flake filter](/docs/flake-filter) automatically detects and ignores unstable tests so they don't block your build. These ignores don't persist across builds, so each build checks the test for unstable rendering again.
+
+Quarantine is your call, and it sticks. Chromatic ignores diffs from a quarantined test on every build until you un-quarantine it.
 
 See [ignored, auto-ignored, and disabled tests](/docs/ignore-tests#whats-the-difference-between-ignored-auto-ignored-and-disabled-tests) for how quarantine compares to the other ways a test can stop blocking your build.
 
 ## Frequently asked questions
+
+<details>
+<summary>Is quarantining the same as deleting a test?</summary>
+
+No. A quarantined test stays in your suite and on the Quarantined dashboard, so everyone on the team can see which tests are known problems. Its diffs just don't block your build. When the test is stable again, un-quarantine it.
+
+</details>
 
 <details>
 <summary>Do quarantined tests count toward my billed snapshot usage?</summary>
