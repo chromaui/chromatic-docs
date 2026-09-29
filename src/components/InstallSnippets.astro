@@ -2,14 +2,13 @@
 import { TabItem, Tabs } from './Tabs';
 
 interface Props {
-  storybook: string;
-  playwright: string;
-  cypress: string;
-  vitest: string;
+  npm: string;
+  yarn: string;
+  pnpm: string;
 }
 ---
 
-<Tabs>
+<Tabs persistKey="chromatic-docs:install-snippets">
   <TabItem label="npm">
     <slot name="npm" />
   </TabItem>
