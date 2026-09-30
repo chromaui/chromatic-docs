@@ -15,7 +15,7 @@ An unstable test renders differently across repeated runs even when your code ha
 
 <div class="aside">
 
-Chromatic automatically detects and ignores unstable tests with [Flake filter](/docs/flake-filter) so they don't block your build.
+Chromatic automatically detects and ignores unstable tests with [Flake filter](/docs/flake-filter) so they don't block your build. If you're not ready to fix an unstable test, [quarantine it](/docs/quarantine-tests) to ignore its diffs on every build and track it until you are.
 
 </div>
 
