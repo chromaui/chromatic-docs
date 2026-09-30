@@ -78,6 +78,7 @@
     "@vitest/browser-playwright": "^4.0.16",
     "@vitest/coverage-v8": "^4.0.16",
     "broken-link-checker": "^0.7.8",
+    "happy-dom": "^20.14.5",
     "hast-util-to-string": "^3.0.0",
     "hastscript": "^8.0.0",
     "lefthook": "^2.1.8",
