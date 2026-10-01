@@ -69,7 +69,7 @@ This can extended by enabling [branch protection](https://docs.gitlab.com/ee/use
 
 ### Azure DevOps
 
-Chromatic can post commit status checks to pull requests in [Azure Repos](https://learn.microsoft.com/en-us/azure/devops/repos/). Once your project is linked to an Azure repository, add a **Status Check** branch policy in Azure DevOps that requires the Chromatic status (for example, `chromatic/UI Tests`).
+Chromatic can post commit status checks to pull requests in [Azure Repos](https://learn.microsoft.com/en-us/azure/devops/repos/). This feature is in early access, so [contact support](mailto:support@chromatic.com) to enable it for your account. Once your project is linked to an Azure repository, add a **Status Check** branch policy in Azure DevOps that requires the Chromatic status (for example, `chromatic/UI Tests`).
 
 [Learn how to set up Azure DevOps status checks »](/docs/azure-pipelines#pull-request-status-checks)
 
