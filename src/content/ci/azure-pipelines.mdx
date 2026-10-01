@@ -499,6 +499,10 @@ Chromatic will now detect the correct branch and run your workflow. You can also
 
 [UI Tests](/docs#test-how-uis-look--function) and [UI Review](/docs/review) rely on [branch and baseline](/docs/branching-and-baselines) detection to keep track of [snapshots](/docs/snapshots). We recommend the following configuration.
 
+#### Pull request status checks
+
+Chromatic can report UI Tests and UI Review statuses on Azure Repos pull requests and block merging until they pass. This feature is in early access. Learn how to [link your project and require Chromatic checks in Azure DevOps](/docs/mandatory-pr-checks#azure-devops).
+
 #### Command exit code for "required" checks
 
 If you are using pull request statuses as required checks before merging, you may not want your pipeline to fail if test snapshots render without errors (but with changes). To achieve this, pass the flag `--exit-zero-on-changes` to the `chromatic` command, and your step will continue in such cases. For example:
