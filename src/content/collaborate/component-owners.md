@@ -6,7 +6,7 @@ sidebar: { order: 2, label: 'Component owners' }
 
 # Component and story owners
 
-In a large Storybook, different people own different parts of the UI. A design system lead owns the form controls, another team owns navigation, and so on. When a pull request changes those areas, the people who own them should be the ones reviewing the changes. Assigning those reviewers by hand is slow and easy to get wrong, and [default reviewers](/docs/review#default-reviewers) apply to every Review regardless of what changed.
+In a large Storybook, different people own different parts of the UI. A design system lead owns the form controls, another engineer owns navigation, and so on. When a pull request changes those areas, the people who own them should be the ones reviewing the changes. Assigning those reviewers by hand is slow and easy to get wrong, and [default reviewers](/docs/review#default-reviewers) apply to every Review regardless of what changed.
 
 Component owners solve this. You list who owns which components and stories in a `COMPONENTOWNERS` file. When Chromatic creates a [UI Review](/docs/review), it checks the stories in the changeset against that file and automatically assigns their owners as reviewers.
 
@@ -28,14 +28,14 @@ Here's an example:
 
 ```text title="COMPONENTOWNERS"
 # Fallback owner for every story (must come first)
-*                         @frontend-platform-team
+*                         frontend-lead@acme.com
 
 # Design system
-Forms/Input               @design-system-team
-Forms/*                   @design-system-team alice@acme.com
+Forms/*                   bob@acme.com alice@acme.com
+Forms/Input               bob@acme.com
 
 # Navigation and layout
-Layout/*                  @navigation-team
+Layout/*                  carol@acme.com
 
 # Story-level override
 Forms/Input/Primary       design-system-lead@acme.com
@@ -54,14 +54,13 @@ Patterns match against a story's Storybook path (its `title` followed by the sto
 
 ### Owners
 
-A rule can list individuals, teams, or both, separated by spaces. When a rule applies, all of its owners are assigned.
+Identify each owner by the email address of their Chromatic account, without an `@` prefix (for example, `alice@acme.com`). This works for every user, whether they sign in with a Git provider, email, or SSO.
 
-- **Individuals:** Use the email address of their Chromatic account, without an `@` prefix (for example, `alice@acme.com`). This works for every user, whether they sign in with a Git provider, email, or SSO.
-- **Teams:** Use `@` followed by the exact name of a Chromatic [Team](/docs/access/teams) (for example, `@design-system-team`). Any member of the team can approve on the team's behalf.
+A rule can list several owners, separated by spaces. When a rule applies, all of its owners are assigned.
 
 <div class="aside">
 
-ℹ️ Git provider usernames (for example, `@alice` on GitHub) aren't supported. Use the person's email address instead.
+ℹ️ Teams and Git provider usernames (for example, `@alice` on GitHub) aren't supported. List each person's email address instead.
 
 </div>
 
@@ -71,8 +70,9 @@ As with `CODEOWNERS`, the **last matching rule wins**. When several rules match 
 
 This means general rules go at the top and specific rules go below them. In the example above:
 
-- `Layout/Header/Default` is assigned to `@navigation-team`.
-- `Forms/Select/Default` is assigned to `@design-system-team` and `alice@acme.com`.
+- `Layout/Header/Default` is assigned to `carol@acme.com`.
+- `Forms/Select/Default` is assigned to `bob@acme.com` and `alice@acme.com`.
+- `Forms/Input/Default` is assigned only to `bob@acme.com`, because `Forms/Input` comes after `Forms/*`.
 - `Forms/Input/Primary` is assigned only to `design-system-lead@acme.com`, because the story-level override is the last matching rule.
 
 <div class="aside">
@@ -87,7 +87,7 @@ When Chromatic creates a UI Review, it looks at each story with changes in the c
 
 <!-- IMAGE PLACEHOLDER: Reviewers list on a UI Review showing owners assigned from COMPONENTOWNERS -->
 
-Assigned owners behave like any other reviewer. They're notified about the Review, and every assigned reviewer must approve for the Review to pass. When a team is assigned, approval from any one of its members counts for the team. You can still add or remove reviewers on an individual Review.
+Assigned owners behave like any other reviewer. They're notified about the Review, and every assigned reviewer must approve for the Review to pass. You can still add or remove reviewers on an individual Review.
 
 <!-- IMAGE PLACEHOLDER: Manage page Review section with component owners information -->
 
@@ -96,7 +96,6 @@ Assigned owners behave like any other reviewer. They're notified about the Revie
 Chromatic doesn't validate the `COMPONENTOWNERS` file. If an owner isn't being assigned, check that:
 
 - The email address matches the one on the person's Chromatic account, and they're a collaborator on the project.
-- The team name exactly matches a Team assigned to the project.
 - The pattern matches the story's Storybook path, not its file path.
 - A later rule in the file doesn't also match the story and override the rule you expect.
 - The owner has notifications turned on in their [notification settings](/docs/notifications) if they aren't receiving emails.
