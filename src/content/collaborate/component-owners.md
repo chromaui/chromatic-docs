@@ -54,15 +54,7 @@ Patterns match against a story's Storybook path (its `title` followed by the sto
 
 ### Owners
 
-Identify each owner by the email address of their Chromatic account, without an `@` prefix (for example, `alice@acme.com`). This works for every user, whether they sign in with a Git provider, email, or SSO.
-
-A rule can list several owners, separated by spaces. When a rule applies, all of its owners are assigned.
-
-<div class="aside">
-
-ℹ️ Teams and Git provider usernames (for example, `@alice` on GitHub) aren't supported. List each person's email address instead.
-
-</div>
+List each owner by the email address on their Chromatic account (for example, `alice@acme.com`). A rule can list several owners, separated by spaces. When a rule applies, all of its owners are assigned.
 
 ### Rule precedence
 
