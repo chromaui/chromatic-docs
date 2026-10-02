@@ -6,7 +6,7 @@ sidebar: { order: 8 }
 
 # Mandatory PR checks
 
-When you link your Chromatic project to a GitHub, Bitbucket, or GitLab repository, Chromatic provides status checks directly on your pull requests. Depending on what features you have enabled, you'll see checks for: UI Tests, UI Review & Publish.
+When you link your Chromatic project to a GitHub, Bitbucket, GitLab, or [Azure DevOps](#azure-devops) repository, Chromatic provides status checks directly on your pull requests. Depending on what features you have enabled, you'll see checks for: UI Tests, UI Review & Publish.
 
 If Chromatic detects visual changes or if UI Review is required, the status checks will show as "pending." This indicates that a human needs to review the changes before proceeding.
 
@@ -66,6 +66,10 @@ You can set up the basic merge checks for your repository by following these ste
    ![GitLab-mr-UI-block](../../images/gitlab-mandatory-checks.png)
 
 This can extended by enabling [branch protection](https://docs.gitlab.com/ee/user/project/protected_branches.html) for the repository. For GitLab paid plans, you can set up [additional rules](https://docs.gitlab.com/ee/user/project/merge_requests/authorization_for_merge_requests.html) for the repository.
+
+### Azure DevOps
+
+For Azure DevOps repositories, see [pull request status checks in Azure Pipelines](/docs/azure-pipelines#pull-request-status-checks).
 
 ## Check status by scenario
 

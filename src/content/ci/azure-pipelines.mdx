@@ -660,6 +660,82 @@ npx chromatic --skip '@(renovate/**|your-custom-branch/**)'
 
 ---
 
+## Pull request status checks
+
+Chromatic can post commit status checks to pull requests in [Azure Repos](https://learn.microsoft.com/en-us/azure/devops/repos/). Unlike GitHub, GitLab, and Bitbucket, Azure DevOps isn't a sign-in provider. Instead, you connect a Chromatic project to an Azure repository with a personal access token (PAT).
+
+<div class="aside">
+
+ℹ️ Azure DevOps status checks are available on the [Enterprise plan](https://www.chromatic.com/enterprise). [Contact support](mailto:support@chromatic.com) to enable them for your account.
+
+</div>
+
+### Before you begin
+
+- A Chromatic project that isn't linked to another Git provider
+- An Azure DevOps repository with your project's code
+- An Azure DevOps [personal access token](https://learn.microsoft.com/en-us/azure/devops/organizations/accounts/use-personal-access-tokens-to-authenticate?view=azure-devops&tabs=Windows#create-a-pat) with the **Code (Read)** and **Code (Status)** scopes
+
+### Link your Chromatic project to Azure DevOps
+
+1. In your Chromatic project, go to **Manage** and open the **Configure** tab.
+2. Scroll down to the **Connected applications** section and choose to link an Azure DevOps repository.
+3. Enter your Azure DevOps **Organization name**, **Project name**, and **Repository name**. In a basic setup, the project and repository names are the same, but an Azure DevOps project can contain multiple repositories.
+4. Paste your personal access token in the **Access token** field and click **Add Azure DevOps**.
+
+   ![The Link Azure DevOps repository dialog, with fields for organization name, project name, repository name, and access token, an Add Azure DevOps button, and a note listing the required scopes: Code (Read) and Code (Status)](../../images/azure-devops-link-repository.png)
+
+If the token is valid, the dialog closes and the repository is linked. Otherwise, Chromatic shows an error on the token field.
+
+Once linked, the **Connected applications** section shows your Azure DevOps repository and the status of its access token.
+
+![The Connected applications section of the Manage screen, showing a linked Azure DevOps repository named my-project/my-repo with an Unlink button, and a valid Azure DevOps access token with a Replace token button](../../images/azure-devops-connected-applications.png)
+
+### Replace an expired or invalid token
+
+If your personal access token expires or is revoked, Chromatic marks it as **Invalid** and stops reporting commit status checks. To restore them:
+
+1. Create a new personal access token in Azure DevOps with the **Code (Read)** and **Code (Status)** scopes.
+2. In your Chromatic project, go to **Manage** » **Configure** » **Connected applications**.
+3. Next to **Azure DevOps access token**, click **Replace token**.
+4. Paste the new token and click **Replace token**.
+
+![The Connected applications section with an invalid Azure DevOps access token, and the replace token form open with an access token field and a Replace token button](../../images/azure-devops-replace-token.png)
+
+### Run Chromatic in Azure Pipelines
+
+Before Azure DevOps can require the Chromatic status, Chromatic needs to report it at least once. Set up a pipeline that runs Chromatic on pull requests:
+
+1. Commit a pipeline YAML file that runs Chromatic to your repository's default branch. See [Setup](#setup) for an example.
+2. In your Azure DevOps project, go to **Pipelines** and click **New pipeline**.
+3. Select **Azure Repos Git**, then select your repository.
+4. Select **Existing Azure Pipelines YAML file**, then choose the branch and path of the file you committed.
+5. Click **Variables** and add a secret variable named `CHROMATIC_PROJECT_TOKEN` with your Chromatic [project token](/docs/faq/find-project-token).
+6. Run the pipeline manually and confirm the build succeeds.
+
+### Run the pipeline on every pull request
+
+1. In your Azure DevOps project, go to **Project settings** » **Repositories** and select your repository.
+2. Open the **Policies** tab and, under **Branch Policies**, select your default branch.
+3. Add a **Build Validation** policy and select the pipeline you just ran.
+4. Set the trigger to **Automatic**, the policy requirement to **Required**, and the build expiration to **Never**.
+
+### Require the Chromatic status check
+
+1. Open a pull request against your default branch. The pipeline will queue automatically.
+2. Wait for the pipeline to finish. Chromatic's statuses (for example, `chromatic/UI Tests`) appear on the pull request, but they don't block merging yet.
+3. Go back to **Project settings** » **Repositories** » your repository » **Policies**, and select your default branch under **Branch Policies**.
+4. Add a **Status Check** policy and choose the Chromatic status (for example, `chromatic/UI Tests`) from the **Status to check** dropdown.
+5. Set the policy requirement to **Required**.
+
+Now, pull requests into that branch can't be merged until the Chromatic status passes. Existing pull requests, including the one you used to report the first status, pick up the policy without any changes.
+
+<div class="aside">
+
+Azure Pipelines can take several minutes to start a queued run. If the Chromatic status doesn't appear right away, check the pipeline queue before troubleshooting.
+
+</div>
+
 ## Troubleshooting
 
 <details>
