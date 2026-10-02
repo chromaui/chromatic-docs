@@ -29,7 +29,10 @@ export function initImageLightbox(doc: Document = document): () => void {
       dialog.dataset.ready = '';
       // Any click (image, backdrop, or close button) dismisses the lightbox.
       dialog.addEventListener('click', () => dialog.close());
-      dialog.addEventListener('close', () => preview.removeAttribute('src'));
+      // `close` fires in a later task; skip clearing if it was reopened since.
+      dialog.addEventListener('close', () => {
+        if (!dialog.open) preview.removeAttribute('src');
+      });
     }
     return { dialog, preview };
   }

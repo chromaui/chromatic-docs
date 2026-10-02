@@ -111,6 +111,7 @@ export const OpenWithKeyboard: Story = {
     screenshot.focus();
     await userEvent.keyboard(' ');
     await waitFor(() => expect(isOpen(canvasElement)).toBe(true));
+    await expect(getDialog(canvasElement)!.querySelector('img')).toHaveAttribute('src');
   },
 };
 
@@ -124,7 +125,11 @@ export const CloseWithButton: Story = {
     await expect(close).toHaveAccessibleName('Close enlarged image');
     await userEvent.click(close);
     await waitFor(() => expect(isOpen(canvasElement)).toBe(false));
-    await expect(getDialog(canvasElement)!.querySelector('img')).not.toHaveAttribute('src');
+    // The dialog's `close` event (which clears the preview) fires in a later
+    // task than `close()` itself, so wait for it rather than asserting at once.
+    await waitFor(() =>
+      expect(getDialog(canvasElement)!.querySelector('img')).not.toHaveAttribute('src')
+    );
   },
 };
 
