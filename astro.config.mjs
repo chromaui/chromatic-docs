@@ -12,6 +12,7 @@ import codeTitle from 'remark-code-title';
 import { summarySlug } from './src/summary-slug';
 import { markDiagramImages } from './src/mark-diagram-images';
 import rehypeCopyButton from './src/plugins/rehype-copy-button';
+import rehypeZoomableImages from './src/plugins/rehype-zoomable-images';
 import { schemaIntegration } from './chromatic-config/schema-integration';
 
 // https://astro.build/config
@@ -25,6 +26,7 @@ export default defineConfig({
     rehypePlugins: [
       rehypeSlug,
       markDiagramImages,
+      rehypeZoomableImages,
       [
         rehypeShiki,
         {

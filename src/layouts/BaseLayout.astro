@@ -13,6 +13,7 @@ import Navigation from '../components/Navigation/Navigation.astro';
 import { projectRoot } from '../util';
 import CopyMarkdown from '../components/CopyMarkdown.astro';
 import CopyCodeButton from '../components/CopyCodeButton.astro';
+import ImageLightbox from '../components/ImageLightbox/ImageLightbox.astro';
 import OnThisPage from '../components/OnThisPage.astro';
 import SearchMeta from '../components/SearchMeta.astro';
 import { globalStyles } from '../styles/global';
@@ -120,6 +121,7 @@ const showCopyMarkdown = !Astro.props.hideCopyMarkdown;
       </LayoutGrid>
     </FullWidthContainer>
     <MarketingFooter />
+    <ImageLightbox />
     <script
       type="text/javascript"
       id="hs-script-loader"
