@@ -674,16 +674,33 @@ Chromatic can post commit status checks to pull requests in [Azure Repos](https:
 
 - A Chromatic project that isn't linked to another Git provider
 - An Azure DevOps repository with your project's code
-- An Azure DevOps [personal access token](https://learn.microsoft.com/en-us/azure/devops/organizations/accounts/use-personal-access-tokens-to-authenticate?view=azure-devops&tabs=Windows#create-a-pat) with **Code (Read & write)** scope
+- An Azure DevOps [personal access token](https://learn.microsoft.com/en-us/azure/devops/organizations/accounts/use-personal-access-tokens-to-authenticate?view=azure-devops&tabs=Windows#create-a-pat) with the **Code (Read)** and **Code (Status)** scopes
 
 ### Link your Chromatic project to Azure DevOps
 
 1. In your Chromatic project, go to **Manage** and open the **Configure** tab.
-2. Scroll down to the **Connected applications** section and choose to link Azure DevOps.
-3. Enter your Azure DevOps organization, project, and repository names. In a basic setup, the project and repository names are the same, but an Azure DevOps project can contain multiple repositories.
-4. Paste your personal access token in the token field and save.
+2. Scroll down to the **Connected applications** section and choose to link an Azure DevOps repository.
+3. Enter your Azure DevOps **Organization name**, **Project name**, and **Repository name**. In a basic setup, the project and repository names are the same, but an Azure DevOps project can contain multiple repositories.
+4. Paste your personal access token in the **Access token** field and click **Add Azure DevOps**.
+
+   ![The Link Azure DevOps repository dialog, with fields for organization name, project name, repository name, and access token, an Add Azure DevOps button, and a note listing the required scopes: Code (Read) and Code (Status)](../../images/azure-devops-link-repository.png)
 
 If the token is valid, the dialog closes and the repository is linked. Otherwise, Chromatic shows an error on the token field.
+
+Once linked, the **Connected applications** section shows your Azure DevOps repository and the status of its access token.
+
+![The Connected applications section of the Manage screen, showing a linked Azure DevOps repository named my-project/my-repo with an Unlink button, and a valid Azure DevOps access token with a Replace token button](../../images/azure-devops-connected-applications.png)
+
+### Replace an expired or invalid token
+
+If your personal access token expires or is revoked, Chromatic marks it as **Invalid** and stops reporting commit status checks. To restore them:
+
+1. Create a new personal access token in Azure DevOps with the **Code (Read)** and **Code (Status)** scopes.
+2. In your Chromatic project, go to **Manage** » **Configure** » **Connected applications**.
+3. Next to **Azure DevOps access token**, click **Replace token**.
+4. Paste the new token and click **Replace token**.
+
+![The Connected applications section with an invalid Azure DevOps access token, and the replace token form open with an access token field and a Replace token button](../../images/azure-devops-replace-token.png)
 
 ### Run Chromatic in Azure Pipelines
 
