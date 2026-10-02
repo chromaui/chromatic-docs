@@ -13,6 +13,7 @@ import Navigation from '../components/Navigation/Navigation.astro';
 import { projectRoot } from '../util';
 import CopyMarkdown from '../components/CopyMarkdown.astro';
 import CopyCodeButton from '../components/CopyCodeButton.astro';
+import ImageLightbox from '../components/ImageLightbox.astro';
 import OnThisPage from '../components/OnThisPage.astro';
 import SearchMeta from '../components/SearchMeta.astro';
 import { globalStyles } from '../styles/global';
@@ -44,6 +45,7 @@ const showCopyMarkdown = !Astro.props.hideCopyMarkdown;
     <style is:global set:html={globalStyles}></style>
     <Scripts />
     <CopyCodeButton />
+    <ImageLightbox />
     <style is:global>
       /* Copy Markdown — inline button */
       /* Mobile (< 768px, NavDropdownMenu visible): block row above H1 */
