@@ -95,7 +95,6 @@ export const OpenDiagram: Story = {
 };
 
 export const OpenWithKeyboard: Story = {
-  parameters: { chromatic: { disableSnapshot: true } },
   play: async ({ canvasElement }) => {
     const screenshot = getImg(canvasElement, 'Accessibility build screen');
     await waitFor(() => expect(screenshot).toHaveAttribute('tabindex', '0'));
@@ -116,7 +115,6 @@ export const OpenWithKeyboard: Story = {
 };
 
 export const CloseWithButton: Story = {
-  parameters: { chromatic: { disableSnapshot: true } },
   play: async ({ canvasElement }) => {
     await userEvent.click(getImg(canvasElement, 'Accessibility build screen'));
     await waitFor(() => expect(isOpen(canvasElement)).toBe(true));
@@ -131,7 +129,6 @@ export const CloseWithButton: Story = {
 };
 
 export const CloseByClickingImage: Story = {
-  parameters: { chromatic: { disableSnapshot: true } },
   play: async ({ canvasElement }) => {
     await userEvent.click(getImg(canvasElement, 'Accessibility build screen'));
     await waitFor(() => expect(isOpen(canvasElement)).toBe(true));
@@ -141,7 +138,6 @@ export const CloseByClickingImage: Story = {
 };
 
 export const GifDoesNotOpen: Story = {
-  parameters: { chromatic: { disableSnapshot: true } },
   play: async ({ canvasElement }) => {
     await userEvent.click(getImg(canvasElement, 'Animated visual bugs'));
     await expect(isOpen(canvasElement)).toBe(false);
