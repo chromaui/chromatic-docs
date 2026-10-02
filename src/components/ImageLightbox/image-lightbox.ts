@@ -1,13 +1,6 @@
 /** Matches the class added by `src/plugins/rehype-zoomable-images.ts`. */
 const ZOOMABLE = 'img.zoomable';
 
-const CLOSE_ICON = `
-  <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none"
-    stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-    <path d="M18 6 6 18" /><path d="m6 6 12 12" />
-  </svg>
-`;
-
 function isZoomable(target: EventTarget | null): target is HTMLImageElement {
   return target instanceof HTMLImageElement && target.matches(ZOOMABLE);
 }
@@ -23,35 +16,28 @@ function enhance(root: ParentNode) {
 }
 
 /**
- * Open `img.zoomable` content images in a native `<dialog>` lightbox.
- * The dialog is created on first use. Returns a cleanup function that removes
- * the listeners and the dialog (used by stories; the site never tears down).
+ * Open `img.zoomable` content images in the `dialog.image-lightbox` rendered
+ * by `LightboxDialog`. Returns a cleanup function that removes the listeners
+ * (used by stories; the site never tears down).
  */
 export function initImageLightbox(doc: Document = document): () => void {
-  let dialog: HTMLDialogElement | null = null;
-  let preview: HTMLImageElement | null = null;
-
   function getDialog() {
-    if (dialog && preview) return { dialog, preview };
-    const el = doc.createElement('dialog');
-    el.className = 'image-lightbox';
-    el.setAttribute('aria-label', 'Enlarged image');
-    el.innerHTML = `
-      <button type="button" class="image-lightbox-close" aria-label="Close enlarged image">${CLOSE_ICON}</button>
-      <img class="image-lightbox-img" alt="" />
-    `;
-    const img = el.querySelector('img')!;
-    // Any click (image, backdrop, or close button) dismisses the lightbox.
-    el.addEventListener('click', () => el.close());
-    el.addEventListener('close', () => img.removeAttribute('src'));
-    doc.body.appendChild(el);
-    dialog = el;
-    preview = img;
+    const dialog = doc.querySelector<HTMLDialogElement>('dialog.image-lightbox');
+    const preview = dialog?.querySelector<HTMLImageElement>('.image-lightbox-img');
+    if (!dialog || !preview) return null;
+    if (!dialog.dataset.ready) {
+      dialog.dataset.ready = '';
+      // Any click (image, backdrop, or close button) dismisses the lightbox.
+      dialog.addEventListener('click', () => dialog.close());
+      dialog.addEventListener('close', () => preview.removeAttribute('src'));
+    }
     return { dialog, preview };
   }
 
   function open(img: HTMLImageElement) {
-    const { dialog, preview } = getDialog();
+    const lightbox = getDialog();
+    if (!lightbox) return;
+    const { dialog, preview } = lightbox;
     const src = img.currentSrc || img.src;
     preview.src = src;
     preview.alt = img.alt;
@@ -88,6 +74,5 @@ export function initImageLightbox(doc: Document = document): () => void {
     doc.removeEventListener('click', onClick);
     doc.removeEventListener('keydown', onKeydown);
     doc.removeEventListener('DOMContentLoaded', onReady);
-    dialog?.remove();
   };
 }

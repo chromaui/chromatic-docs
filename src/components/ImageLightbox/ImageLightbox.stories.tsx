@@ -4,6 +4,7 @@ import { expect, userEvent, waitFor } from 'storybook/test';
 import { rehype } from 'rehype';
 import rehypeZoomableImages from '../../plugins/rehype-zoomable-images';
 import { initImageLightbox } from './image-lightbox';
+import { LightboxDialog } from './LightboxDialog';
 import { lightboxStyles } from './styles';
 
 /*
@@ -35,6 +36,7 @@ function DocsContent() {
     <>
       <style>{lightboxStyles}</style>
       <div dangerouslySetInnerHTML={{ __html: contentHtml }} />
+      <LightboxDialog />
     </>
   );
 }

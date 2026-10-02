@@ -1,16 +1,18 @@
 ---
+import { LightboxDialog } from './LightboxDialog';
 import { lightboxStyles } from './styles';
 
 /*
- * No markup here on purpose: the rehype-zoomable-images plugin adds
- * `class="zoomable"` to static Markdown images at build time. This component,
- * rendered once from BaseLayout, ships the styles and the script that opens
- * those images in a native <dialog> lightbox. Behavior lives in
- * `image-lightbox.ts` so stories can exercise the same code.
+ * The rehype-zoomable-images plugin adds `class="zoomable"` to static
+ * Markdown images at build time. This component, rendered once at the end of
+ * BaseLayout's body, ships the (static) dialog markup, its styles, and the
+ * script that opens those images in it. Markup and behavior live in
+ * `LightboxDialog.tsx` and `image-lightbox.ts` so stories use the same code.
  */
 ---
 
 <style is:global set:html={lightboxStyles}></style>
+<LightboxDialog />
 
 <script>
   import { initImageLightbox } from './image-lightbox';

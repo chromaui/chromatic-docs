@@ -1,4 +1,4 @@
-import { color } from '@chromatic-com/tetra';
+import { color, spacing } from '@chromatic-com/tetra';
 
 /** Global styles for zoomable content images and the lightbox dialog. */
 export const lightboxStyles = /* css */ `
@@ -7,8 +7,8 @@ export const lightboxStyles = /* css */ `
   }
 
   img.zoomable:focus-visible {
-    outline: 2px solid ${color.blue500};
-    outline-offset: 2px;
+    outline: ${spacing[0.5]} solid ${color.blue500};
+    outline-offset: ${spacing[0.5]};
   }
 
   html:has(.image-lightbox[open]) {
@@ -35,49 +35,53 @@ export const lightboxStyles = /* css */ `
   }
 
   .image-lightbox::backdrop {
-    background: rgba(0, 0, 0, 0.85);
+    background: ${color.slate900};
+    opacity: 0.9;
   }
 
   .image-lightbox-img {
     display: block;
-    max-width: calc(100vw - 4rem);
-    max-height: calc(100vh - 4rem);
+    max-width: calc(100vw - ${spacing[16]});
+    max-height: calc(100vh - ${spacing[16]});
     width: auto;
     height: auto;
     object-fit: contain;
     background: ${color.white};
-    border-radius: 4px;
-    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
+    border-radius: ${spacing[1]};
   }
 
   /* SVG diagrams have no intrinsic pixel size; let them fill the viewport */
   .image-lightbox-img[data-vector] {
-    width: calc(100vw - 8rem);
-    height: calc(100vh - 8rem);
-    padding: 1.5rem;
+    width: calc(100vw - ${spacing[32]});
+    height: calc(100vh - ${spacing[32]});
+    padding: ${spacing[6]};
     box-sizing: border-box;
   }
 
   .image-lightbox-close {
     position: fixed;
-    top: 1rem;
-    right: 1rem;
+    top: ${spacing[4]};
+    right: ${spacing[4]};
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    width: 2.5rem;
-    height: 2.5rem;
+    width: ${spacing[10]};
+    height: ${spacing[10]};
     padding: 0;
     border: 0;
     border-radius: 50%;
-    background: rgba(0, 0, 0, 0.6);
-    color: ${color.white};
+    background: ${color.slate700};
     cursor: pointer;
   }
 
   .image-lightbox-close:hover,
   .image-lightbox-close:focus-visible {
-    background: rgba(0, 0, 0, 0.85);
+    background: ${color.slate600};
+  }
+
+  .image-lightbox-close:focus-visible {
+    outline: ${spacing[0.5]} solid ${color.blue500};
+    outline-offset: ${spacing[0.5]};
   }
 
   @keyframes image-lightbox-fade {

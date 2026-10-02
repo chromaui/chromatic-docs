@@ -45,7 +45,6 @@ const showCopyMarkdown = !Astro.props.hideCopyMarkdown;
     <style is:global set:html={globalStyles}></style>
     <Scripts />
     <CopyCodeButton />
-    <ImageLightbox />
     <style is:global>
       /* Copy Markdown — inline button */
       /* Mobile (< 768px, NavDropdownMenu visible): block row above H1 */
@@ -122,6 +121,7 @@ const showCopyMarkdown = !Astro.props.hideCopyMarkdown;
       </LayoutGrid>
     </FullWidthContainer>
     <MarketingFooter />
+    <ImageLightbox />
     <script
       type="text/javascript"
       id="hs-script-loader"
