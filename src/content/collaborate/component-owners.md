@@ -28,17 +28,17 @@ Here's an example:
 
 ```text title="COMPONENTOWNERS"
 # Fallback owner for every story (must come first)
-*                         frontend-lead@acme.com
+*                         kyle@acme.com
 
 # Design system
-Forms/*                   bob@acme.com alice@acme.com
-Forms/Input               bob@acme.com
+Forms/*                   dom@acme.com varun@acme.com
+Forms/Input               dom@acme.com
 
 # Navigation and layout
-Layout/*                  carol@acme.com
+Layout/*                  michael@acme.com
 
 # Story-level override
-Forms/Input/Primary       design-system-lead@acme.com
+Forms/Input/Primary       varun@acme.com
 ```
 
 ### Path patterns
@@ -54,7 +54,7 @@ Patterns match against a story's Storybook path (its `title` followed by the sto
 
 ### Owners
 
-List each owner by the email address on their Chromatic account (for example, `alice@acme.com`). A rule can list several owners, separated by spaces. When a rule applies, all of its owners are assigned.
+List each owner by the email address on their Chromatic account (for example, `varun@acme.com`). A rule can list several owners, separated by spaces. When a rule applies, all of its owners are assigned.
 
 ### Rule precedence
 
@@ -62,10 +62,10 @@ As with `CODEOWNERS`, the **last matching rule wins**. When several rules match 
 
 This means general rules go at the top and specific rules go below them. In the example above:
 
-- `Layout/Header/Default` is assigned to `carol@acme.com`.
-- `Forms/Select/Default` is assigned to `bob@acme.com` and `alice@acme.com`.
-- `Forms/Input/Default` is assigned only to `bob@acme.com`, because `Forms/Input` comes after `Forms/*`.
-- `Forms/Input/Primary` is assigned only to `design-system-lead@acme.com`, because the story-level override is the last matching rule.
+- `Layout/Header/Default` is assigned to `michael@acme.com`.
+- `Forms/Select/Default` is assigned to `dom@acme.com` and `varun@acme.com`.
+- `Forms/Input/Default` is assigned only to `dom@acme.com`, because `Forms/Input` comes after `Forms/*`.
+- `Forms/Input/Primary` is assigned only to `varun@acme.com`, because the story-level override is the last matching rule.
 
 <div class="aside">
 
