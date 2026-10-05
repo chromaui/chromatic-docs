@@ -1,6 +1,7 @@
 import { expect, test, describe } from 'vitest';
 import { formatOption } from './formatOptions';
 import type { ConfigOption } from '../../../chromatic-config/generate-schema';
+import configOptions from '../../../chromatic-config/options.json';
 
 const mockOption = {
   option: 'projectToken',
@@ -54,5 +55,43 @@ describe('ConfigurationOptions: formatOption', () => {
       defaultComment: 'Inferred from CI or Git',
     });
     expect(result.default).toBe('Inferred from CI or Git');
+  });
+
+  test("Titles the card with the curated 'name'", async () => {
+    const result = await formatOption({
+      ...mockOption,
+      name: 'Project token',
+    });
+    expect(result.name).toBe('Project token');
+  });
+
+  test("Falls back to 'option' when 'name' is absent", async () => {
+    const result = await formatOption(mockOption);
+    expect(result.name).toBe('projectToken');
+  });
+
+  test("Falls back to 'flag' when 'name' and 'option' are absent", async () => {
+    const flagOnlyOption: ConfigOption = {
+      flag: '--list',
+      description: 'Outputs the list of available stories in your Storybook.',
+      type: 'boolean',
+      example: '`true`',
+      supports: ['CLI'],
+    };
+    const result = await formatOption(flagOnlyOption);
+    expect(result.name).toBe('--list');
+  });
+});
+
+describe('ConfigurationOptions: options.json completeness', () => {
+  test('every option entry has a non-empty name', () => {
+    const entries = (configOptions as ConfigOption[]).flatMap((option) =>
+      option.options ? [option, ...option.options] : [option]
+    );
+
+    for (const entry of entries) {
+      expect(typeof entry.name).toBe('string');
+      expect(entry.name?.trim().length).toBeGreaterThan(0);
+    }
   });
 });
