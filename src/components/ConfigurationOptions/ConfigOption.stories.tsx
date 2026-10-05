@@ -132,3 +132,16 @@ export const OnlyCI: Story = {
     supports: ['GitHub Action'],
   },
 };
+
+export const GitHubActionFlagOnly: Story = {
+  args: {
+    // Mirrors the real --patch-build entry: supported by the GitHub Action but
+    // with no config key, so the card shows the flag only — no Option row.
+    name: 'Patch build',
+    flag: '--patch-build',
+    description: 'Create a patch build to fix a missing PR comparison.',
+    type: 'string',
+    example: '<code>"my-feature...main"</code>',
+    supports: ['CLI', 'GitHub Action'],
+  },
+};

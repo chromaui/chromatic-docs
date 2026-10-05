@@ -82,6 +82,26 @@ describe('ConfigurationOptions: formatOption', () => {
     const result = await formatOption(flagOnlyOption);
     expect(result.name).toBe('--list');
   });
+
+  test('Marks entries with a real option field as having a config key', async () => {
+    const result = await formatOption(mockOption);
+    expect(result.hasConfigKey).toBe(true);
+  });
+
+  test('Marks flag-only entries as having no config key, keeping the flag substitution', async () => {
+    const patchBuildOption: ConfigOption = {
+      name: 'Patch build',
+      flag: '--patch-build',
+      description: 'Create a patch build to fix a missing PR comparison.',
+      type: 'string',
+      example: '`"my-feature...main"`',
+      supports: ['CLI', 'GitHub Action'],
+    };
+    const result = await formatOption(patchBuildOption);
+    expect(result.hasConfigKey).toBe(false);
+    // Anchors and React keys still read the flag-substituted option value.
+    expect(result.option).toBe('--patch-build');
+  });
 });
 
 describe('ConfigurationOptions: shouldShowOptionKey', () => {

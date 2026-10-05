@@ -89,6 +89,9 @@ const Tag = styled.div<{ type: SupportedType }>`
 
 export interface ConfigOptionProps extends ConfigOptionType {
   supports: SupportedType[];
+  // Render-time field emitted by formatOption. Raw data (stories, direct
+  // consumers) omits it, and the row defaults to showing.
+  hasConfigKey?: boolean;
 }
 
 export const ConfigOption = ({
@@ -100,6 +103,7 @@ export const ConfigOption = ({
   type,
   example,
   supports,
+  hasConfigKey,
   default: defaultValue,
 }: ConfigOptionProps) => {
   const slug = optionSlug(option);
@@ -134,7 +138,7 @@ export const ConfigOption = ({
             </div>
           </HStack>
         )}
-        {shouldShowOptionKey(supports) && option && (
+        {shouldShowOptionKey(supports) && hasConfigKey !== false && option && (
           <HStack align="center">
             <Text fontWeight="bold" variant="body16">
               Option:
