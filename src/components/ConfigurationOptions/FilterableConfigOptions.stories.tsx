@@ -20,6 +20,7 @@ type Story = StoryObj<typeof meta>;
 
 const mockOptions = [
   {
+    name: 'Auto accept changes',
     option: 'autoAcceptChanges',
     flag: '--auto-accept-changes',
     description:
@@ -30,6 +31,7 @@ const mockOptions = [
     supports: ['CLI', 'GitHub Action', 'Config File'],
   },
   {
+    name: 'Branch name',
     option: 'branchName',
     flag: '--branch-name',
     description:
@@ -41,6 +43,7 @@ const mockOptions = [
     default: 'Inferred from CI or Git',
   },
   {
+    name: 'Build script name',
     option: 'buildScriptName',
     flag: '--build-script-name',
     shortFlag: '-b',
@@ -52,6 +55,7 @@ const mockOptions = [
     supports: ['CLI', 'GitHub Action', 'Config File'],
   },
   {
+    name: 'Config file',
     option: 'configFile',
     flag: '--config.json',
     restriction: 'Node.js API only',
