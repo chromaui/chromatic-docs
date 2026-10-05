@@ -91,7 +91,6 @@ export interface ConfigOptionProps extends ConfigOptionType {
 }
 
 export const ConfigOption = ({
-  name,
   option,
   shortFlag,
   flag,
@@ -107,7 +106,7 @@ export const ConfigOption = ({
     <ConfigOptionContainer gap={4} align="flex-start">
       <VStack gap={1} marginBottom={2}>
         <Name className="config-option" id={slug || undefined}>
-          {name}
+          {option}
         </Name>
         <HStack align="center" gap={2}>
           {supports.map((type) => (
