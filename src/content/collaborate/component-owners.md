@@ -1,30 +1,51 @@
 ---
 title: Component and story owners
-description: Automatically assign the right reviewers to a UI Review based on which components and stories changed, using a COMPONENTOWNERS file.
+description: Use a COMPONENTOWNERS file to automatically assign the right reviewers to a UI Review based on which components and stories changed.
 sidebar: { order: 2, label: 'Component owners' }
 ---
 
-# Component and story owners
+# Component and story owners (beta)
 
-In a large Storybook, different people own different parts of the UI. A design system lead owns the form controls, another engineer owns navigation, and so on. When a pull request changes those areas, the people who own them should be the ones reviewing the changes. Assigning those reviewers by hand is slow and easy to get wrong, and [default reviewers](/docs/review#default-reviewers) apply to every Review regardless of what changed.
+In large codebases, no one person owns the whole UI. When a pull request touches a component, the person who owns it should review it, not whoever happened to get tagged. Component owners maps parts of your UI to the people responsible for them, so the right reviewers are added to the [UI Review](/docs/review) automatically.
 
-Component owners solve this. You list who owns which components and stories in a `COMPONENTOWNERS` file. When Chromatic creates a [UI Review](/docs/review), it checks the stories in the changeset against that file and automatically assigns their owners as reviewers.
+![Diagram of how Chromatic assigns component owners. The changed stories in Build 482 (Input-Primary, Select-Default and Header-Default) are matched against rules in a COMPONENTOWNERS file, and the matching owners (dom@acme.com, michael@acme.com and varun@acme.com) are added as reviewers on the UI Review.](../../images/component-owners.png)
 
-<!-- IMAGE PLACEHOLDER: A UI Review with reviewers automatically assigned from COMPONENTOWNERS -->
+## How to set up component owners
 
-## Create a COMPONENTOWNERS file
+Chromatic uses the `COMPONENTOWNERS` file to determine which developers should be assigned as reviewers for each changed story. It is a plain text file that works like a Git provider's `CODEOWNERS` file.
 
-`COMPONENTOWNERS` is a plain text file that works like a Git provider's `CODEOWNERS` file. Each line is a rule: a path pattern followed by one or more owners.
+### Create a COMPONENTOWNERS file at the root of your repository
+
+Each line is a rule: a path pattern followed by one or more owners.
 
 ```text title="COMPONENTOWNERS"
 <path-pattern> <owner> [<owner> ...]
 ```
 
-Lines starting with `#` are comments, and blank lines are ignored.
+<div class="aside">
 
-<!-- TODO: Document where the COMPONENTOWNERS file lives and how the Chromatic CLI uploads it once that's finalized. -->
+Lines starting with `#` are comments, and blank lines are ignored
 
-Here's an example:
+</div>
+
+#### Path patterns
+
+Patterns match against a story's path (its `title` followed by the story name), not the file path of the stories file. For example, the `Primary` story of a component titled `Forms/Input` has the path `Forms/Input/Primary`.
+
+| Pattern               | Matches                                    |
+| --------------------- | ------------------------------------------ |
+| `*`                   | Every story                                |
+| `Forms/*`             | Every story under `Forms`, at any depth    |
+| `Forms/Input`         | Every story of the `Forms/Input` component |
+| `Forms/Input/Primary` | Only the `Primary` story of `Forms/Input`  |
+
+#### Owners
+
+List each owner by the email address associated with their Chromatic account. A rule can list several owners, separated by spaces. When a rule is triggered, all of its owners are assigned.
+
+#### Example
+
+Here's a complete example:
 
 ```text title="COMPONENTOWNERS"
 # Fallback owner for every story (must come first)
@@ -41,37 +62,22 @@ Layout/*                  michael@acme.com
 Forms/Input/Primary       varun@acme.com
 ```
 
-### Path patterns
-
-Patterns match against a story's Storybook path (its `title` followed by the story name), not the file path of the story file. For example, the `Primary` story of a component titled `Forms/Input` has the path `Forms/Input/Primary`.
-
-| Pattern               | Matches                                    |
-| --------------------- | ------------------------------------------ |
-| `*`                   | Every story                                |
-| `Forms/*`             | Every story under `Forms`, at any depth    |
-| `Forms/Input`         | Every story of the `Forms/Input` component |
-| `Forms/Input/Primary` | Only the `Primary` story of `Forms/Input`  |
-
-### Owners
-
-List each owner by the email address on their Chromatic account (for example, `varun@acme.com`). A rule can list several owners, separated by spaces. When a rule applies, all of its owners are assigned.
-
-### Rule precedence
-
-As with `CODEOWNERS`, the **last matching rule wins**. When several rules match a story, only the owners on the last matching rule in the file are assigned.
-
-This means general rules go at the top and specific rules go below them. In the example above:
-
-- `Layout/Header/Default` is assigned to `michael@acme.com`.
-- `Forms/Select/Default` is assigned to `dom@acme.com` and `varun@acme.com`.
-- `Forms/Input/Default` is assigned only to `dom@acme.com`, because `Forms/Input` comes after `Forms/*`.
-- `Forms/Input/Primary` is assigned only to `varun@acme.com`, because the story-level override is the last matching rule.
-
 <div class="aside">
 
 ⚠️ Put the catch-all `*` rule at the top of the file. If it's the last line, it will match every story and override all the rules above it.
 
 </div>
+
+### Rule precedence
+
+As with `CODEOWNERS`, the **last matching rule wins**. When several rules match a story, only the owners on the last matching rule in the file are assigned.
+
+Putting general rules at the top and specific rules below them ensures the correct owners are assigned. In the example above:
+
+- `Layout/Header/Default` is assigned to `michael@acme.com`.
+- `Forms/Select/Default` is assigned to `dom@acme.com` and `varun@acme.com`.
+- `Forms/Input/Default` is assigned only to `dom@acme.com`, because `Forms/Input` comes after `Forms/*`.
+- `Forms/Input/Primary` is assigned only to `varun@acme.com`, because the story-level override is the last matching rule.
 
 ## How owners are assigned
 
