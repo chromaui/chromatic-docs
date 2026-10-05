@@ -30,12 +30,15 @@ Lines starting with `#` are comments, and blank lines are ignored.
 
 Patterns match against a story's Storybook path (its `title` followed by the story name), not the path of the stories file. For example, the `Primary` story of a component titled `Forms/Input` has the path `Forms/Input/Primary`.
 
-| Pattern               | Matches                                    |
-| --------------------- | ------------------------------------------ |
-| `*`                   | Every story                                |
-| `Forms/*`             | Every story under `Forms`, at any depth    |
-| `Forms/Input`         | Every story of the `Forms/Input` component |
-| `Forms/Input/Primary` | Only the `Primary` story of `Forms/Input`  |
+| Pattern               | Matches                                              |
+| --------------------- | ---------------------------------------------------- |
+| `*`                   | Every story                                          |
+| `Forms/**`            | Every story under `Forms`, at any depth              |
+| `Forms/Input`         | Every story of the `Forms/Input` component           |
+| `Forms/Input/Primary` | Only the `Primary` story of `Forms/Input`            |
+| `Button`              | Any path containing a `Button` segment, at any depth |
+
+Inside a path, `*` doesn't cross a `/`, so `Forms/*` doesn't match `Forms/Input/Primary`. Use `**` to match stories at any depth.
 
 #### Owners
 
@@ -48,11 +51,11 @@ List each owner by the email address associated with their Chromatic account. A 
 *                         kyle@acme.com
 
 # Design system
-Forms/*                   dom@acme.com varun@acme.com
+Forms/**                  dom@acme.com varun@acme.com
 Forms/Input               dom@acme.com
 
 # Navigation and layout
-Layout/*                  michael@acme.com
+Layout/**                 michael@acme.com
 
 # Story-level override
 Forms/Input/Primary       varun@acme.com
@@ -66,7 +69,7 @@ In the example above:
 
 - `Layout/Header/Default` is assigned to `michael@acme.com`.
 - `Forms/Select/Default` is assigned to `dom@acme.com` and `varun@acme.com`.
-- `Forms/Input/Default` is assigned only to `dom@acme.com`, because `Forms/Input` comes after `Forms/*`.
+- `Forms/Input/Default` is assigned only to `dom@acme.com`, because `Forms/Input` comes after `Forms/**`.
 - `Forms/Input/Primary` is assigned only to `varun@acme.com`, because the story-level override is the last matching rule.
 
 <div class="aside">
@@ -77,9 +80,7 @@ In the example above:
 
 ## Owners are assigned after a build is completed
 
-When Chromatic creates a UI Review, it takes each changed story in the changeset, finds the last matching rule in `COMPONENTOWNERS`, and assigns those owners as reviewers. Owners are added alongside your project's [default reviewers](/docs/review#default-reviewers).
-
-<!-- IMAGE PLACEHOLDER: Reviewers list on a UI Review showing owners assigned from COMPONENTOWNERS -->
+On every build, Chromatic takes each changed story in the UI Review's changeset, finds the last matching rule in `COMPONENTOWNERS`, and assigns those owners as reviewers. Owners are added alongside your project's [default reviewers](/docs/review#default-reviewers).
 
 Assigned owners behave like any other reviewer. They're notified about the Review, and every assigned reviewer must approve for the Review to pass. You can still add or remove reviewers on an individual Review.
 
