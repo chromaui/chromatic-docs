@@ -1,6 +1,7 @@
 import { expect, test, describe } from 'vitest';
 import { formatOption } from './formatOptions';
-import type { ConfigOption } from '../../../chromatic-config/generate-schema';
+import { shouldShowOptionKey } from './shouldShowOptionKey';
+import type { ConfigOption, SupportedType } from '../../../chromatic-config/generate-schema';
 import configOptions from '../../../chromatic-config/options.json';
 
 const mockOption = {
@@ -80,6 +81,30 @@ describe('ConfigurationOptions: formatOption', () => {
     };
     const result = await formatOption(flagOnlyOption);
     expect(result.name).toBe('--list');
+  });
+});
+
+describe('ConfigurationOptions: shouldShowOptionKey', () => {
+  test("Options supported only by 'CLI' hide the option key", () => {
+    expect(shouldShowOptionKey(['CLI'] as SupportedType[])).toBe(false);
+  });
+
+  test("Options supported by 'Config File' show the option key", () => {
+    expect(shouldShowOptionKey(['Config File'] as SupportedType[])).toBe(true);
+  });
+
+  test("Options supported by 'GitHub Action' show the option key", () => {
+    expect(shouldShowOptionKey(['GitHub Action'] as SupportedType[])).toBe(true);
+  });
+
+  test("Options supported by 'CLI', 'GitHub Action' and 'Config File' show the option key", () => {
+    expect(shouldShowOptionKey(['CLI', 'GitHub Action', 'Config File'] as SupportedType[])).toBe(
+      true
+    );
+  });
+
+  test('Options with no supports hide the option key', () => {
+    expect(shouldShowOptionKey([] as SupportedType[])).toBe(false);
   });
 });
 

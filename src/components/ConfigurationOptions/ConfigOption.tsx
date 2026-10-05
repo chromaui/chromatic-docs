@@ -6,6 +6,7 @@ import type {
   SupportedType,
 } from '../../../chromatic-config/generate-schema';
 import { optionSlug } from './optionSlug';
+import { shouldShowOptionKey } from './shouldShowOptionKey';
 
 const Name = styled.h3`
   font-family: ${fontFamily.mono};
@@ -131,6 +132,14 @@ export const ConfigOption = ({
                 </>
               )}
             </div>
+          </HStack>
+        )}
+        {shouldShowOptionKey(supports) && option && (
+          <HStack align="center">
+            <Text fontWeight="bold" variant="body16">
+              Option:
+            </Text>
+            <code>{option}</code>
           </HStack>
         )}
         <HStack align="center">

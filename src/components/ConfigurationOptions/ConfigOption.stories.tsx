@@ -108,6 +108,18 @@ export const OnlyCLI: Story = {
   },
 };
 
+export const OnlyConfigFile: Story = {
+  args: {
+    name: 'Auto accept changes',
+    option: 'autoAcceptChanges',
+    description:
+      'If there are any changes to the build, automatically accept them. Only for given branch, if specified.',
+    type: 'string',
+    example: '<code>"my-folder/**"</code>',
+    supports: ['Config File'],
+  },
+};
+
 export const OnlyCI: Story = {
   args: {
     name: 'Auto accept changes',
