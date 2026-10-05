@@ -577,7 +577,7 @@ When we take the git diff between `P'` and the baseline from `main (A)` we are n
 
 ### Run Chromatic in a merge queue
 
-Chromatic supports [GitHub merge queues](https://docs.github.com/en/repositories/configuring-branches-and-merges-in-your-repository/configuring-pull-request-merges/managing-a-merge-queue). When a pull request is added to the queue, GitHub creates a temporary branch that combines the latest base branch with the queued changes and runs your required checks against it. Running Chromatic on that branch verifies the UI of the exact code that will land on `main` before it's merged.
+Chromatic supports [GitHub merge queues](https://docs.github.com/en/repositories/configuring-branches-and-merges-in-your-repository/configuring-pull-request-merges/managing-a-merge-queue). When a pull request is added to the queue, GitHub creates a temporary branch that combines the latest base branch with the queued changes and runs your required checks against it. Running Chromatic on that branch verifies the UI of the exact code that will land on `main` before it is merged.
 
 #### Trigger Chromatic on the `merge_group` event
 
