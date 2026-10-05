@@ -18,7 +18,6 @@ type Story = StoryObj<typeof meta>;
 
 export const Basic: Story = {
   args: {
-    name: 'Auto accept changes',
     supports: ['GitHub Action', 'CLI'],
     option: 'autoAcceptChanges',
     flag: '--auto-accept-changes',
@@ -97,7 +96,6 @@ export const SupportsAll: Story = {
 
 export const OnlyCLI: Story = {
   args: {
-    name: 'Auto accept changes',
     option: '--auto-accept-changes',
     flag: '--auto-accept-changes',
     description:
@@ -110,7 +108,6 @@ export const OnlyCLI: Story = {
 
 export const OnlyCI: Story = {
   args: {
-    name: 'Auto accept changes',
     option: 'autoAcceptChanges',
     flag: '--auto-accept-changes',
     description:

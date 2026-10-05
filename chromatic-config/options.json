@@ -1,6 +1,5 @@
 [
   {
-    "name": "Auto accept changes",
     "option": "autoAcceptChanges",
     "flag": "--auto-accept-changes",
     "description": "If there are any changes to the build, automatically accept them. Only for given branch, if specified.",
@@ -10,7 +9,6 @@
     "supports": ["CLI", "GitHub Action", "Config File"]
   },
   {
-    "name": "Branch name",
     "option": "branchName",
     "flag": "--branch-name",
     "description": "Override the branch name for certain CI providers or cross-fork PR comparisons. Also accepts `<owner>:<branch>`",
@@ -20,7 +18,6 @@
     "supports": ["CLI", "GitHub Action"]
   },
   {
-    "name": "Build command",
     "option": "buildCommand",
     "flag": "--build-command",
     "description": "The command Chromatic uses to build your Storybook before capturing snapshots. Use this if your Storybook build command does not exist in the \"scripts\" field of your package.json.<br/>Requires `--output-dir`.",
@@ -29,7 +26,6 @@
     "supports": ["CLI", "GitHub Action", "Config File"]
   },
   {
-    "name": "Build script name",
     "option": "buildScriptName",
     "flag": "--build-script-name",
     "shortFlag": "-b",
@@ -40,7 +36,6 @@
     "supports": ["CLI", "GitHub Action", "Config File"]
   },
   {
-    "name": "CI",
     "option": "ci",
     "flag": "--ci",
     "description": "Mark the build as coming from CI.",
@@ -50,7 +45,6 @@
     "supports": ["CLI"]
   },
   {
-    "name": "Config file",
     "option": "configFile",
     "flag": "--config-file",
     "restriction": "Node.js API only",
@@ -61,7 +55,6 @@
     "supports": ["CLI", "GitHub Action"]
   },
   {
-    "name": "Debug",
     "option": "debug",
     "flag": "--debug",
     "description": "Output verbose debugging information. This option sets interactivity to false, preventing the CLI from prompting for user input and returning only message strings.",
@@ -71,7 +64,6 @@
     "supports": ["CLI", "GitHub Action", "Config File"]
   },
   {
-    "name": "Diagnostics file",
     "option": "diagnosticsFile",
     "flag": "--diagnostics-file",
     "description": "When enabled, write process context information to a JSON file.<br/>Defaults to `chromatic-diagnostics.json`",
@@ -81,7 +73,6 @@
     "supports": ["CLI", "GitHub Action", "Config File"]
   },
   {
-    "name": "Dry run",
     "option": "dryRun",
     "flag": "--dry-run",
     "description": "Run without actually publishing to Chromatic.",
@@ -91,7 +82,6 @@
     "supports": ["CLI", "GitHub Action"]
   },
   {
-    "name": "Exit once uploaded",
     "option": "exitOnceUploaded",
     "flag": "--exit-once-uploaded",
     "description": "Exit with status `0` (OK) once the built version has been published to Chromatic. Only for given branch, if specified.",
@@ -101,7 +91,6 @@
     "supports": ["CLI", "GitHub Action", "Config File"]
   },
   {
-    "name": "Exit zero on changes",
     "option": "exitZeroOnChanges",
     "flag": "--exit-zero-on-changes",
     "description": "If all tests render successfully but visual changes are found, exit with code `0` rather than the usual exit code `1`. Only for given branch, if specified.",
@@ -111,7 +100,6 @@
     "supports": ["CLI", "GitHub Action", "Config File"]
   },
   {
-    "name": "Externals",
     "option": "externals",
     "flag": "--externals",
     "description": "Disable [TurboSnap](/docs/turbosnap) when any of these files have changed since the baseline build.<br/>Requires `onlyChanged`.",
@@ -120,7 +108,6 @@
     "supports": ["CLI", "GitHub Action", "Config File"]
   },
   {
-    "name": "Force rebuild",
     "option": "forceRebuild",
     "flag": "--force-rebuild",
     "description": "Do not skip build when a rebuild is detected. Only for given branch, if specified.",
@@ -130,7 +117,6 @@
     "supports": ["CLI", "GitHub Action"]
   },
   {
-    "name": "Git timeout",
     "option": "gitTimeout",
     "description": "The maximum number of seconds Chromatic waits for individual git operations to complete before timing out. Increase this value if you have a large repository where git commands take longer than usual.",
     "type": "number",
@@ -140,7 +126,6 @@
     "supports": ["Config File"]
   },
   {
-    "name": "Ignore last build on branch",
     "option": "ignoreLastBuildOnBranch",
     "flag": "--ignore-last-build-on-branch",
     "description": "Do not use the last build on this branch as a baseline if it is no longer in history (i.e., the branch was rebased).",
@@ -149,7 +134,6 @@
     "supports": ["CLI", "GitHub Action", "Config File"]
   },
   {
-    "name": "Interactive",
     "option": "interactive",
     "flag": "--no-interactive",
     "description": "When set to false, it prompts the CLI not to ask interactive questions about your setup, and it doesn't overwrite output. It's set to `true` in non-TTY environments.",
@@ -159,7 +143,6 @@
     "supports": ["CLI", "GitHub Action"]
   },
   {
-    "name": "JUnit report",
     "option": "junitReport",
     "flag": "--junit-report",
     "description": "When enabled, write the build results to a JUnit XML file.<br/>Defaults to `chromatic-build-{buildNumber}.xml` where the `{buildNumber}` will be replaced with the actual build number.",
@@ -169,7 +152,6 @@
     "supports": ["CLI", "GitHub Action", "Config File"]
   },
   {
-    "name": "List available stories",
     "flag": "--list",
     "description": "Outputs the list of available stories in your Storybook.<br/>Useful for [debugging and diagnosing issues](/docs/cli#flags-to-help-diagnose-build-issues-with-the-cli).",
     "type": "boolean",
@@ -178,7 +160,6 @@
     "supports": ["CLI"]
   },
   {
-    "name": "Log file",
     "option": "logFile",
     "flag": "--log-file",
     "description": "Write CLI logs to a file. Defaults to `chromatic.log`",
@@ -188,7 +169,6 @@
     "supports": ["CLI", "GitHub Action", "Config File"]
   },
   {
-    "name": "File hashing",
     "option": "fileHashing",
     "flag": "--no-file-hashing",
     "description": "Enabling this option will turn off the built-in file hashing mechanism, leading to all the files being uploaded to Chromatic on every build.",
@@ -198,7 +178,6 @@
     "supports": ["CLI", "GitHub Action", "Config File"]
   },
   {
-    "name": "Only changed",
     "option": "onlyChanged",
     "flag": "--only-changed",
     "description": "Enables [TurboSnap](/docs/turbosnap).<br/>Runs Chromatic for stories affected by files and dependencies that have changed since the baseline build, including the specified branch if provided.",
@@ -208,7 +187,6 @@
     "supports": ["CLI", "GitHub Action", "Config File"]
   },
   {
-    "name": "Only story files",
     "option": "onlyStoryFiles",
     "flag": "--only-story-files",
     "description": "Only run a single story or a subset of stories by their filename(s). Specify the full path to the story file relative to the root of your Storybook project.",
@@ -217,7 +195,6 @@
     "supports": ["CLI", "GitHub Action", "Config File"]
   },
   {
-    "name": "Only story names",
     "option": "onlyStoryNames",
     "flag": "--only-story-names",
     "description": "Only run a single story or a subset of stories by their name.",
@@ -226,7 +203,6 @@
     "supports": ["CLI", "GitHub Action", "Config File"]
   },
   {
-    "name": "Output directory",
     "option": "outputDir",
     "flag": "--output-dir",
     "shortFlag": "-o",
@@ -237,7 +213,6 @@
     "supports": ["CLI", "GitHub Action", "Config File"]
   },
   {
-    "name": "Patch build",
     "flag": "--patch-build",
     "description": "Create a patch build to fix a missing PR comparison.",
     "type": "string",
@@ -245,7 +220,6 @@
     "supports": ["CLI", "GitHub Action"]
   },
   {
-    "name": "Project ID",
     "option": "projectId",
     "description": "The unique identifier for your project, sometimes referred to as `appId`.",
     "type": "string",
@@ -253,7 +227,6 @@
     "supports": ["Config File"]
   },
   {
-    "name": "Project token",
     "option": "projectToken",
     "flag": "--project-token",
     "shortFlag": "-t",
@@ -265,7 +238,6 @@
     "deprecated": "Config File"
   },
   {
-    "name": "Repository slug",
     "option": "repositorySlug",
     "flag": "--repository-slug",
     "description": "Override the repository slug. This is mainly used to correctly handle cross-fork builds, where the owner deviates.",
@@ -275,7 +247,6 @@
     "supports": ["CLI", "GitHub Action"]
   },
   {
-    "name": "Skip",
     "option": "skip",
     "flag": "--skip",
     "description": "Skip Chromatic tests, but mark the commit as passing. It avoids blocking PRs due to required merge checks. Only for given branch, if specified.",
@@ -285,7 +256,6 @@
     "supports": ["CLI", "GitHub Action", "Config File"]
   },
   {
-    "name": "Skip update check",
     "option": "skipUpdateCheck",
     "flag": "--skip-update-check",
     "description": "Skips Chromatic CLI update check.",
@@ -295,7 +265,6 @@
     "supports": ["CLI", "GitHub Action", "Config File"]
   },
   {
-    "name": "Storybook base directory",
     "option": "storybookBaseDir",
     "flag": "--storybook-base-dir",
     "description": "Relative path from repository root to Storybook project root.<br/>Use with `onlyChanged` and `storybookBuildDir` when your Storybook is located in a subdirectory of your repository.",
@@ -304,7 +273,6 @@
     "supports": ["CLI", "GitHub Action", "Config File"]
   },
   {
-    "name": "Storybook build directory",
     "option": "storybookBuildDir",
     "flag": "--storybook-build-dir",
     "shortFlag": "-d",
@@ -314,7 +282,6 @@
     "supports": ["CLI", "GitHub Action", "Config File"]
   },
   {
-    "name": "Storybook config directory",
     "option": "storybookConfigDir",
     "flag": "--storybook-config-dir",
     "description": "Relative path from where you run Chromatic to your Storybook config directory.<br/>Use with `onlyChanged` and `storybookBuildDir` when using a custom [`--config-dir`](https://storybook.js.org/docs/api/cli-options#build) flag for Storybook.",
@@ -324,7 +291,6 @@
     "supports": ["CLI", "GitHub Action", "Config File"]
   },
   {
-    "name": "Storybook log file",
     "option": "storybookLogFile",
     "flag": "--storybook-log-file",
     "description": "Write Storybook build logs to a custom file path.",
@@ -334,7 +300,6 @@
     "supports": ["CLI", "GitHub Action", "Config File"]
   },
   {
-    "name": "Trace changed",
     "option": "traceChanged",
     "flag": "--trace-changed",
     "description": "Print dependency trace for changed files to affected story files. Set to \"expanded\" to list individual modules.<br/>Requires `onlyChanged`.",
@@ -344,7 +309,6 @@
     "supports": ["CLI", "GitHub Action", "Config File"]
   },
   {
-    "name": "Working directory",
     "option": "workingDir",
     "flag": "--working-dir",
     "description": "Provide the location of Storybook's `package.json` if installed in a subdirectory (i.e., monorepos). This is a GitHub Actions–specific key. Other CI/CD providers have their own flag.",
@@ -354,7 +318,6 @@
     "supports": ["GitHub Action"]
   },
   {
-    "name": "Untraced",
     "option": "untraced",
     "flag": "--untraced",
     "description": "Disregard these files and their dependencies when tracing dependent stories for [TurboSnap](/docs/turbosnap).<br/>Requires `onlyChanged`.",
@@ -363,7 +326,6 @@
     "supports": ["CLI", "GitHub Action", "Config File"]
   },
   {
-    "name": "Upload metadata",
     "option": "uploadMetadata",
     "flag": "--upload-metadata",
     "description": "Upload Chromatic metadata files as part of the published Storybook. This option implies `diagnosticsFile: true` and `logFile: true`",
@@ -373,7 +335,6 @@
     "supports": ["CLI", "GitHub Action", "Config File"]
   },
   {
-    "name": "Zip",
     "option": "zip",
     "flag": "--zip",
     "description": "Publish your Storybook to Chromatic as a single zip file instead of individual content files.",
@@ -383,7 +344,6 @@
     "supports": ["CLI", "GitHub Action", "Config File"]
   },
   {
-    "name": "Playwright",
     "option": "playwright",
     "flag": "--playwright",
     "description": "Use your Playwright tests to power visual tests with Chromatic. [Learn more](/docs/playwright)",
@@ -393,7 +353,6 @@
     "supports": ["CLI", "GitHub Action", "Config File"]
   },
   {
-    "name": "Cypress",
     "option": "cypress",
     "flag": "--cypress",
     "description": "Use your Cypress tests to power visual tests with Chromatic. [Learn more](/docs/cypress)",
@@ -403,7 +362,6 @@
     "supports": ["CLI", "GitHub Action", "Config File"]
   },
   {
-    "name": "Vitest",
     "option": "vitest",
     "flag": "--vitest",
     "description": "Use your Vitest tests to power visual tests with Chromatic. [Learn more](/docs/vitest)",
@@ -413,14 +371,12 @@
     "supports": ["CLI", "GitHub Action", "Config File"]
   },
   {
-    "name": "React Native",
     "option": "reactNative",
     "description": "React Native–specific configuration options.",
     "type": "object",
     "supports": ["Config File"],
     "options": [
       {
-        "name": "iOS build command",
         "option": "iosBuildCommand",
         "description": "The command that builds your React Native Storybook for iOS.",
         "type": "string",
@@ -428,7 +384,6 @@
         "supports": ["Config File"]
       },
       {
-        "name": "Android build command",
         "option": "androidBuildCommand",
         "description": "The command that builds your React Native Storybook for Android.",
         "type": "string",
@@ -436,7 +391,6 @@
         "supports": ["Config File"]
       },
       {
-        "name": "Android build architectures",
         "option": "androidBuildArchitectures",
         "description": "The Android architectures to build for. Chromatic always builds for `x86_64`, if you would like additional architectures built you may specify them here.",
         "type": "array of string",
