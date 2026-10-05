@@ -14,6 +14,8 @@ In large codebases, no one person owns the whole UI. When a pull request touches
 
 Chromatic reads a `COMPONENTOWNERS` file to decide who reviews each changed story. It's a plain text file that works like a Git provider's `CODEOWNERS` file.
 
+<div class="aside">⚠️ Component owners requires Chromatic CLI 18.8.0 or later.</div>
+
 ### Create a COMPONENTOWNERS file
 
 Add a file named `COMPONENTOWNERS` to the root of your repository. Each line is a rule: a path pattern followed by one or more owners.
@@ -81,14 +83,43 @@ When Chromatic creates a UI Review, it takes each changed story in the changeset
 
 Assigned owners behave like any other reviewer. They're notified about the Review, and every assigned reviewer must approve for the Review to pass. You can still add or remove reviewers on an individual Review.
 
-<!-- IMAGE PLACEHOLDER: Manage page Review section with component owners information -->
+![UI Review showing owners assigned from COMPONENTOWNERS](../../images/component-owners-assigned.png)
 
 ## Troubleshooting
 
-Chromatic doesn't validate the `COMPONENTOWNERS` file. If an owner isn't being assigned, check that:
+<details>
+<summary>Does Chromatic validate the COMPONENTOWNERS file?</summary>
 
+No. Chromatic doesn't check the file for errors. A malformed rule, a mistyped email, or a pattern that matches no stories is silently ignored, so double-check the file when you add or change rules.
+
+</details>
+
+<details>
+<summary>Why isn't a component owner being assigned?</summary>
+
+Check the following:
+
+- Your project runs Chromatic CLI 18.8.0 or later.
 - The email address matches the one on the person's Chromatic account, and they're a collaborator on the project.
 - The pattern matches the story's Storybook path, not its file path.
 - A later rule in the file doesn't also match the story and override the rule you expect.
 
 If an owner is assigned but isn't receiving emails, ask them to check their [notification settings](/docs/notifications).
+
+</details>
+
+<details>
+<summary>How do component owners work in a monorepo with multiple projects?</summary>
+
+All projects in the repository share one `COMPONENTOWNERS` file. If several Storybooks have stories at the same path, a rule for that path assigns its owners in every one of those projects.
+
+To keep ownership separate, namespace each Storybook's stories with a unique top-level title (for example, `Marketing/Button` and `App/Button` instead of `Button` in both), then write rules against those namespaces.
+
+</details>
+
+<details>
+<summary>Can I remove a component owner from a UI Review after they're assigned?</summary>
+
+Yes. Assigned owners are regular reviewers, so you can remove them from an individual Review the same way you remove any other reviewer.
+
+</details>
