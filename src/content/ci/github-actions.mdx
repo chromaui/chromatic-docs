@@ -575,6 +575,65 @@ When the GitHub Action runs on the pull_request event, by default it creates a n
 
 When we take the git diff between `P'` and the baseline from `main (A)` we are not going to just get the changes in `P` but also all the changes in `B`, `C` and `D`.
 
+### Run Chromatic in a merge queue
+
+Chromatic supports [GitHub merge queues](https://docs.github.com/en/repositories/configuring-branches-and-merges-in-your-repository/configuring-pull-request-merges/managing-a-merge-queue). When a pull request is added to the queue, GitHub creates a temporary branch that combines the latest base branch with the queued changes and runs your required checks against it. Running Chromatic on that branch verifies the UI of the exact code that will land on `main` before it's merged.
+
+#### Trigger Chromatic on the `merge_group` event
+
+GitHub runs merge queue checks on the `merge_group` event. Add it to the events that trigger your Chromatic workflow, alongside `push`:
+
+```yml title=".github/workflows/chromatic.yml"
+name: 'Chromatic'
+
+# 👇 Run on regular pushes and when a pull request enters the merge queue
+on:
+  push:
+  merge_group:
+
+jobs:
+  chromatic:
+    name: Run Chromatic
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v7
+        with:
+          fetch-depth: 0
+      # ... other steps
+
+      - name: Run Chromatic
+        uses: chromaui/action@latest
+        with:
+          projectToken: ${{ secrets.CHROMATIC_PROJECT_TOKEN }}
+          exitZeroOnChanges: false # 👈 Fail the merge queue check if unaccepted changes are found
+```
+
+You don't need to set any additional environment variables. Chromatic detects the merge queue branch (named like `gh-readonly-queue/main/pr-<number>-<sha>`) and its commit automatically.
+
+<div class="aside">
+
+If your workflow also runs on the `pull_request` event, update the `ref` of your checkout step so it works for both events. See [How should `ref` be configured for `merge_group` and `pull_request` builds?](/docs/faq/merge-queue-ref)
+
+</div>
+
+#### Require Chromatic to pass before merging
+
+To make the merge queue wait on Chromatic, enable the merge queue and add the Chromatic job as a required status check in a [branch ruleset](https://docs.github.com/en/repositories/configuring-branches-and-merges-in-your-repository/managing-rulesets/about-rulesets) (or branch protection rule) for your default branch:
+
+1. In your repository, go to **Settings** > **Rules** > **Rulesets** and create a new branch ruleset (or edit an existing one).
+2. Under **Target branches**, include your default branch.
+3. Enable **Require merge queue** and choose a merge method (merge, squash, or rebase).
+4. Enable **Require status checks to pass** and add the Chromatic job (e.g., `Run Chromatic`) as a required check.
+5. Set **Enforcement status** to **Active** and save the ruleset.
+
+#### How Chromatic handles merge queue builds
+
+When a pull request enters the queue, Chromatic runs a build on the merge queue branch and compares it against the baselines you've already accepted:
+
+- **Changes accepted on the pull request:** If you've reviewed and accepted the UI changes on the pull request's builds, the merge queue build finds no new changes and passes. GitHub then merges the pull request once all required checks complete. This also applies when several pull requests are queued at once and each merge group includes changes from the pull requests ahead of it.
+- **Unaccepted changes:** If the pull request's UI changes haven't been accepted, the merge queue build reports them as changes. With `exitZeroOnChanges: false`, the Chromatic check fails, and GitHub removes the pull request from the queue so it can't be merged. Review and accept the changes on the pull request, then add it to the queue again.
+
 ### UI Test and UI Review
 
 [UI Tests](/docs#test-how-uis-look--function) and [UI Review](/docs/review) rely on [branch and baseline](/docs/branching-and-baselines) detection to keep track of [snapshots](/docs/snapshots). We recommend the following configuration.
