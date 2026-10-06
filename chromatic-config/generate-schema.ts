@@ -7,6 +7,7 @@ import optionsJSON from './options.json' assert { type: 'json' };
 export type SupportedType = 'GitHub Action' | 'CLI' | 'Config File';
 
 export interface NestedConfigOption {
+  name?: string;
   option: string;
   description: string;
   type: string | string[];
@@ -19,7 +20,12 @@ export interface NestedConfigOption {
 }
 
 export interface ConfigOption {
+  name?: string;
   option?: string;
+  // Explicit anchor override for entries whose config key arrived after the
+  // legacy anchor was published; optionSlug anchors from it to keep deep
+  // links stable.
+  anchor?: string;
   flag?: string;
   shortFlag?: string;
   description: string;

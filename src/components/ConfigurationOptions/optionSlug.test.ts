@@ -21,7 +21,7 @@ describe('ConfigurationOptions: optionSlug', () => {
     const names = (configOptions as ConfigOption[]).flatMap((option) =>
       option.options && option.options.length > 0
         ? option.options.map((subOption) => `${option.option}.${subOption.option}`)
-        : [option.option || option.flag]
+        : [option.anchor || option.option || option.flag]
     );
     const slugs = names.map((name) => optionSlug(name));
 

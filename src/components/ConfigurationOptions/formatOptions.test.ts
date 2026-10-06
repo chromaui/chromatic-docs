@@ -1,6 +1,8 @@
 import { expect, test, describe } from 'vitest';
 import { formatOption } from './formatOptions';
-import type { ConfigOption } from '../../../chromatic-config/generate-schema';
+import { shouldShowOptionKey } from './shouldShowOptionKey';
+import type { ConfigOption, SupportedType } from '../../../chromatic-config/generate-schema';
+import configOptions from '../../../chromatic-config/options.json';
 
 const mockOption = {
   option: 'projectToken',
@@ -13,6 +15,10 @@ const mockOption = {
   supports: ['CLI', 'GitHub Action', 'Config File'],
   deprecated: 'Config File',
 } as ConfigOption;
+
+const flatEntries = (configOptions as ConfigOption[]).flatMap((option) =>
+  option.options ? [option, ...option.options] : [option]
+);
 
 describe('ConfigurationOptions: formatOption', () => {
   test("Sets 'config option' as option", async () => {
@@ -54,5 +60,95 @@ describe('ConfigurationOptions: formatOption', () => {
       defaultComment: 'Inferred from CI or Git',
     });
     expect(result.default).toBe('Inferred from CI or Git');
+  });
+
+  test("Titles the card with the curated 'name'", async () => {
+    const result = await formatOption({
+      ...mockOption,
+      name: 'Project token',
+    });
+    expect(result.name).toBe('Project token');
+  });
+
+  test("Falls back to 'option' when 'name' is absent", async () => {
+    const result = await formatOption(mockOption);
+    expect(result.name).toBe('projectToken');
+  });
+
+  test("Falls back to 'flag' when 'name' and 'option' are absent", async () => {
+    const flagOnlyOption: ConfigOption = {
+      flag: '--list',
+      description: 'Outputs the list of available stories in your Storybook.',
+      type: 'boolean',
+      example: '`true`',
+      supports: ['CLI'],
+    };
+    const result = await formatOption(flagOnlyOption);
+    expect(result.name).toBe('--list');
+  });
+
+  test('Marks entries with a real option field as having a config key', async () => {
+    const result = await formatOption(mockOption);
+    expect(result.hasConfigKey).toBe(true);
+  });
+
+  test('Marks flag-only entries as having no config key, keeping the flag substitution', async () => {
+    const listOption: ConfigOption = {
+      name: 'List available stories',
+      flag: '--list',
+      description: 'Outputs the list of available stories in your Storybook.',
+      type: 'boolean',
+      example: '`true`',
+      supports: ['CLI'],
+    };
+    const result = await formatOption(listOption);
+    expect(result.hasConfigKey).toBe(false);
+    // Anchors and React keys still read the flag-substituted option value.
+    expect(result.option).toBe('--list');
+    expect(result.anchorId).toBe('list');
+  });
+
+  test('Keeps the --patch-build anchor while exposing its config key', async () => {
+    const patchBuild = flatEntries.find((option) => option.flag === '--patch-build');
+    if (!patchBuild) throw new Error('--patch-build entry missing from options.json');
+
+    const result = await formatOption(patchBuild);
+    // The anchor override pins the legacy deep link even though the config key changed.
+    expect(result.anchorId).toBe('patch-build');
+    expect(result.hasConfigKey).toBe(true);
+    expect(result.option).toBe('patchBuild');
+  });
+});
+
+describe('ConfigurationOptions: shouldShowOptionKey', () => {
+  test("Options supported only by 'CLI' hide the option key", () => {
+    expect(shouldShowOptionKey(['CLI'] as SupportedType[])).toBe(false);
+  });
+
+  test("Options supported by 'Config File' show the option key", () => {
+    expect(shouldShowOptionKey(['Config File'] as SupportedType[])).toBe(true);
+  });
+
+  test("Options supported by 'GitHub Action' show the option key", () => {
+    expect(shouldShowOptionKey(['GitHub Action'] as SupportedType[])).toBe(true);
+  });
+
+  test("Options supported by 'CLI', 'GitHub Action' and 'Config File' show the option key", () => {
+    expect(shouldShowOptionKey(['CLI', 'GitHub Action', 'Config File'] as SupportedType[])).toBe(
+      true
+    );
+  });
+
+  test('Options with no supports hide the option key', () => {
+    expect(shouldShowOptionKey([] as SupportedType[])).toBe(false);
+  });
+});
+
+describe('ConfigurationOptions: options.json completeness', () => {
+  test('every option entry has a non-empty name', () => {
+    for (const entry of flatEntries) {
+      expect(typeof entry.name).toBe('string');
+      expect(entry.name?.trim().length).toBeGreaterThan(0);
+    }
   });
 });

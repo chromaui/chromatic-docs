@@ -6,6 +6,7 @@ import type {
   SupportedType,
 } from '../../../chromatic-config/generate-schema';
 import { optionSlug } from './optionSlug';
+import { shouldShowOptionKey } from './shouldShowOptionKey';
 
 const Name = styled.h3`
   font-family: ${fontFamily.mono};
@@ -88,9 +89,15 @@ const Tag = styled.div<{ type: SupportedType }>`
 
 export interface ConfigOptionProps extends ConfigOptionType {
   supports: SupportedType[];
+  // Render-time fields emitted by formatOption. Raw data (stories, direct
+  // consumers) omits them: hasConfigKey defaults the Option row to showing,
+  // and anchorId falls back to optionSlug(option).
+  hasConfigKey?: boolean;
+  anchorId?: string;
 }
 
 export const ConfigOption = ({
+  name,
   option,
   shortFlag,
   flag,
@@ -98,15 +105,17 @@ export const ConfigOption = ({
   type,
   example,
   supports,
+  hasConfigKey,
+  anchorId,
   default: defaultValue,
 }: ConfigOptionProps) => {
-  const slug = optionSlug(option);
+  const slug = anchorId ?? optionSlug(option);
 
   return (
     <ConfigOptionContainer gap={4} align="flex-start">
       <VStack gap={1} marginBottom={2}>
         <Name className="config-option" id={slug || undefined}>
-          {option}
+          {name}
         </Name>
         <HStack align="center" gap={2}>
           {supports.map((type) => (
@@ -130,6 +139,14 @@ export const ConfigOption = ({
                 </>
               )}
             </div>
+          </HStack>
+        )}
+        {shouldShowOptionKey(supports) && hasConfigKey !== false && option && (
+          <HStack align="center">
+            <Text fontWeight="bold" variant="body16">
+              Option:
+            </Text>
+            <code>{option}</code>
           </HStack>
         )}
         <HStack align="center">

@@ -18,6 +18,7 @@ type Story = StoryObj<typeof meta>;
 
 export const Basic: Story = {
   args: {
+    name: 'Auto accept changes',
     supports: ['GitHub Action', 'CLI'],
     option: 'autoAcceptChanges',
     flag: '--auto-accept-changes',
@@ -96,6 +97,7 @@ export const SupportsAll: Story = {
 
 export const OnlyCLI: Story = {
   args: {
+    name: 'Auto accept changes',
     option: '--auto-accept-changes',
     flag: '--auto-accept-changes',
     description:
@@ -106,8 +108,21 @@ export const OnlyCLI: Story = {
   },
 };
 
+export const OnlyConfigFile: Story = {
+  args: {
+    name: 'Auto accept changes',
+    option: 'autoAcceptChanges',
+    description:
+      'If there are any changes to the build, automatically accept them. Only for given branch, if specified.',
+    type: 'string',
+    example: '<code>"my-folder/**"</code>',
+    supports: ['Config File'],
+  },
+};
+
 export const OnlyCI: Story = {
   args: {
+    name: 'Auto accept changes',
     option: 'autoAcceptChanges',
     flag: '--auto-accept-changes',
     description:
@@ -115,5 +130,47 @@ export const OnlyCI: Story = {
     type: 'string',
     example: '<code>"my-folder/**"</code>',
     supports: ['GitHub Action'],
+  },
+};
+
+export const GitHubActionFlagOnly: Story = {
+  args: {
+    // A raw consumer without an option key: formatOption has not run, so
+    // neither hasConfigKey nor anchorId is set — the Option row hides and the
+    // anchor falls back to optionSlug(option).
+    name: 'Flag only',
+    flag: '--flag-only',
+    description: 'A card backed only by a CLI flag, consumed directly without formatting.',
+    type: 'string',
+    example: '<code>"value"</code>',
+    supports: ['CLI', 'GitHub Action'],
+  },
+};
+
+export const PatchBuild: Story = {
+  args: {
+    // Mirrors the real --patch-build entry as formatOption emits it: a config
+    // key with an explicit anchor override keeping the legacy #patch-build
+    // deep link.
+    name: 'Patch build',
+    option: 'patchBuild',
+    anchorId: 'patch-build',
+    flag: '--patch-build',
+    description: 'Create a patch build to fix a missing PR comparison.',
+    type: 'string',
+    example: '<code>"my-feature...main"</code>',
+    supports: ['CLI', 'GitHub Action'],
+  },
+};
+
+export const ListAvailableStories: Story = {
+  args: {
+    // Mirrors the real --list entry: CLI-only with no option key — flag only.
+    name: 'List available stories',
+    flag: '--list',
+    description: 'Outputs the list of available stories in your Storybook.',
+    type: 'boolean',
+    example: '<code>true</code>',
+    supports: ['CLI'],
   },
 };
