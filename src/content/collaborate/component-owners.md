@@ -34,7 +34,7 @@ Patterns match against a story's Storybook path (its `title` followed by the sto
 | --------------------- | ---------------------------------------------------- |
 | `*`                   | Every story                                          |
 | `Forms/**`            | Every story under `Forms`, at any depth              |
-| `Forms/Input`         | Every story of the `Forms/Input` component           |
+| `Forms/Input/*`       | Every story of the `Forms/Input` component           |
 | `Forms/Input/Primary` | Only the `Primary` story of `Forms/Input`            |
 | `Button`              | Any path containing a `Button` segment, at any depth |
 
@@ -52,7 +52,7 @@ List each owner by the email address associated with their Chromatic account. A 
 
 # Design system
 Forms/**                  dom@acme.com varun@acme.com
-Forms/Input               dom@acme.com
+Forms/Input/*             dom@acme.com
 
 # Navigation and layout
 Layout/**                 michael@acme.com
@@ -69,7 +69,7 @@ In the example above:
 
 - `Layout/Header/Default` is assigned to `michael@acme.com`.
 - `Forms/Select/Default` is assigned to `dom@acme.com` and `varun@acme.com`.
-- `Forms/Input/Default` is assigned only to `dom@acme.com`, because `Forms/Input` comes after `Forms/**`.
+- `Forms/Input/Default` is assigned only to `dom@acme.com`, because `Forms/Input/*` comes after `Forms/**`.
 - `Forms/Input/Primary` is assigned only to `varun@acme.com`, because the story-level override is the last matching rule.
 
 <div class="aside">
