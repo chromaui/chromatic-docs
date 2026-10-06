@@ -238,6 +238,8 @@
   },
   {
     "name": "Patch build",
+    "option": "patchBuild",
+    "anchor": "--patch-build",
     "flag": "--patch-build",
     "description": "Create a patch build to fix a missing PR comparison.",
     "type": "string",

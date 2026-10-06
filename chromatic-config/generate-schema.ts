@@ -22,6 +22,10 @@ export interface NestedConfigOption {
 export interface ConfigOption {
   name?: string;
   option?: string;
+  // Explicit anchor override for entries whose config key arrived after the
+  // legacy anchor was published; optionSlug anchors from it to keep deep
+  // links stable.
+  anchor?: string;
   flag?: string;
   shortFlag?: string;
   description: string;

@@ -16,6 +16,10 @@ const mockOption = {
   deprecated: 'Config File',
 } as ConfigOption;
 
+const flatEntries = (configOptions as ConfigOption[]).flatMap((option) =>
+  option.options ? [option, ...option.options] : [option]
+);
+
 describe('ConfigurationOptions: formatOption', () => {
   test("Sets 'config option' as option", async () => {
     const result = await formatOption(mockOption);
@@ -89,18 +93,30 @@ describe('ConfigurationOptions: formatOption', () => {
   });
 
   test('Marks flag-only entries as having no config key, keeping the flag substitution', async () => {
-    const patchBuildOption: ConfigOption = {
-      name: 'Patch build',
-      flag: '--patch-build',
-      description: 'Create a patch build to fix a missing PR comparison.',
-      type: 'string',
-      example: '`"my-feature...main"`',
-      supports: ['CLI', 'GitHub Action'],
+    const listOption: ConfigOption = {
+      name: 'List available stories',
+      flag: '--list',
+      description: 'Outputs the list of available stories in your Storybook.',
+      type: 'boolean',
+      example: '`true`',
+      supports: ['CLI'],
     };
-    const result = await formatOption(patchBuildOption);
+    const result = await formatOption(listOption);
     expect(result.hasConfigKey).toBe(false);
     // Anchors and React keys still read the flag-substituted option value.
-    expect(result.option).toBe('--patch-build');
+    expect(result.option).toBe('--list');
+    expect(result.anchorId).toBe('list');
+  });
+
+  test('Keeps the --patch-build anchor while exposing its config key', async () => {
+    const patchBuild = flatEntries.find((option) => option.flag === '--patch-build');
+    if (!patchBuild) throw new Error('--patch-build entry missing from options.json');
+
+    const result = await formatOption(patchBuild);
+    // The anchor override pins the legacy deep link even though the config key changed.
+    expect(result.anchorId).toBe('patch-build');
+    expect(result.hasConfigKey).toBe(true);
+    expect(result.option).toBe('patchBuild');
   });
 });
 
@@ -130,11 +146,7 @@ describe('ConfigurationOptions: shouldShowOptionKey', () => {
 
 describe('ConfigurationOptions: options.json completeness', () => {
   test('every option entry has a non-empty name', () => {
-    const entries = (configOptions as ConfigOption[]).flatMap((option) =>
-      option.options ? [option, ...option.options] : [option]
-    );
-
-    for (const entry of entries) {
+    for (const entry of flatEntries) {
       expect(typeof entry.name).toBe('string');
       expect(entry.name?.trim().length).toBeGreaterThan(0);
     }

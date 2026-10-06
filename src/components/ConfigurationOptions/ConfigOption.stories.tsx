@@ -135,13 +135,42 @@ export const OnlyCI: Story = {
 
 export const GitHubActionFlagOnly: Story = {
   args: {
-    // Mirrors the real --patch-build entry: supported by the GitHub Action but
-    // with no config key, so the card shows the flag only — no Option row.
+    // A raw consumer without an option key: formatOption has not run, so
+    // neither hasConfigKey nor anchorId is set — the Option row hides and the
+    // anchor falls back to optionSlug(option).
+    name: 'Flag only',
+    flag: '--flag-only',
+    description: 'A card backed only by a CLI flag, consumed directly without formatting.',
+    type: 'string',
+    example: '<code>"value"</code>',
+    supports: ['CLI', 'GitHub Action'],
+  },
+};
+
+export const PatchBuild: Story = {
+  args: {
+    // Mirrors the real --patch-build entry as formatOption emits it: a config
+    // key with an explicit anchor override keeping the legacy #patch-build
+    // deep link.
     name: 'Patch build',
+    option: 'patchBuild',
+    anchorId: 'patch-build',
     flag: '--patch-build',
     description: 'Create a patch build to fix a missing PR comparison.',
     type: 'string',
     example: '<code>"my-feature...main"</code>',
     supports: ['CLI', 'GitHub Action'],
+  },
+};
+
+export const ListAvailableStories: Story = {
+  args: {
+    // Mirrors the real --list entry: CLI-only with no option key — flag only.
+    name: 'List available stories',
+    flag: '--list',
+    description: 'Outputs the list of available stories in your Storybook.',
+    type: 'boolean',
+    example: '<code>true</code>',
+    supports: ['CLI'],
   },
 };
