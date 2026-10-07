@@ -94,6 +94,8 @@ Found a Storybook config change in .storybook/preview.tsx
 A full build is required because this file cannot be linked to any specific stories.
 ```
 
+Don't add `preview.js|ts` to `untraced`. Changes to global themes, context providers, or decorators could then go untested. Only untrace an imported file after confirming its changes cannot affect rendering, such as a telemetry or logging module.
+
 You can verify whether the file change is the only trigger for the build. Use `--untraced` to remove tracing for the file and trace any other suspicious files that have changed:
 
 ```bash

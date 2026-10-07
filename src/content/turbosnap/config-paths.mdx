@@ -75,9 +75,8 @@ A working GitHub Actions step looks like this:
       ./client/public/*.css
       **/*.sass
     untraced: |
-      **/preview.js
       # 👇 relative to the repository root, so ./client is required
-      ./client/src/utils.tsx
+      ./client/src/telemetry.js
 ```
 
 Notes on each option in that config:
