@@ -1,0 +1,15 @@
+interface:
+  display_name: "Query Chromatic"
+  short_description: "Answer questions about Chromatic builds, tests and stories with a read-only GraphQL query."
+  brand_color: "#FF4785"
+  default_prompt: "Which stories are broken on Chromatic build 1234?"
+
+policy:
+  # Safe to trigger implicitly: the query tool runs reads only.
+  allow_implicit_invocation: true
+
+dependencies:
+  tools:
+    - type: "mcp"
+      value: "chromatic"
+      description: "Chromatic MCP server: schema search and read-only queries over the public API."

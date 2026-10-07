@@ -1,0 +1,16 @@
+interface:
+  display_name: "Reduce snapshot usage"
+  short_description: "Show where a Chromatic project's snapshots go and propose story changes that cut them."
+  brand_color: "#FF4785"
+  default_prompt: "Where do our Chromatic snapshots go, and how could we use fewer?"
+
+policy:
+  # Safe to trigger implicitly: it reads builds and proposes edits, and makes
+  # none without the user's yes.
+  allow_implicit_invocation: true
+
+dependencies:
+  tools:
+    - type: "mcp"
+      value: "chromatic"
+      description: "Chromatic MCP server: builds and the tests on them."

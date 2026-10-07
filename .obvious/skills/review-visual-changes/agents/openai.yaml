@@ -1,0 +1,16 @@
+interface:
+  display_name: "Review visual changes"
+  short_description: "Sort a Chromatic build's pending visual changes into expected and suspicious, against the branch's code change."
+  brand_color: "#FF4785"
+  default_prompt: "Are the visual changes on this branch's Chromatic build expected?"
+
+policy:
+  # Safe to trigger implicitly: it reads the build and the diff, and changes a
+  # test only when the user asks, through a tool the agent asks approval for.
+  allow_implicit_invocation: true
+
+dependencies:
+  tools:
+    - type: "mcp"
+      value: "chromatic"
+      description: "Chromatic MCP server: builds, tests and visual comparisons."

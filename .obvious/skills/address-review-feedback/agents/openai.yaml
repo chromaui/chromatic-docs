@@ -1,0 +1,16 @@
+interface:
+  display_name: "Address review feedback"
+  short_description: "Turn the open reviewer comments on a Chromatic build into changes and draft replies."
+  brand_color: "#FF4785"
+  default_prompt: "Address the reviewer comments on this branch's Chromatic build."
+
+policy:
+  # Safe to trigger implicitly: comment reads are read-only, and changes land
+  # only in the working tree after the user sees the plan.
+  allow_implicit_invocation: true
+
+dependencies:
+  tools:
+    - type: "mcp"
+      value: "chromatic"
+      description: "Chromatic MCP server: builds and their comment threads."

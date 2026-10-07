@@ -1,0 +1,11 @@
+interface:
+  display_name: "Connect Chromatic project"
+  short_description: "Find this repository's Chromatic project id, or record it in chromatic.config.json."
+  brand_color: "#FF4785"
+  default_prompt: "Find or record this repository's Chromatic project id."
+
+policy:
+  # Safe to trigger implicitly: the only write is chromatic.config.json in the
+  # working tree, with an id the user supplied or the API matched to this
+  # repository's remote.
+  allow_implicit_invocation: true

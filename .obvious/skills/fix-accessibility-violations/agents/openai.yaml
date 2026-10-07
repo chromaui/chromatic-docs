@@ -1,0 +1,16 @@
+interface:
+  display_name: "Fix accessibility violations"
+  short_description: "Fix the accessibility violations a Chromatic build reported and verify the fix on the next build."
+  brand_color: "#FF4785"
+  default_prompt: "Fix the accessibility violations Chromatic found on this branch."
+
+policy:
+  # Safe to trigger implicitly: build reads are read-only, and fixes land only
+  # in the working tree.
+  allow_implicit_invocation: true
+
+dependencies:
+  tools:
+    - type: "mcp"
+      value: "chromatic"
+      description: "Chromatic MCP server: builds and their accessibility results."
