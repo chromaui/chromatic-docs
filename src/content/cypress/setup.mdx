@@ -183,6 +183,25 @@ Take full control of your Chromatic and Cypress setup to match your team's speci
 <TroubleshootingSetup />
 
 <details>
+<summary id="missing-archives">No <code>chromatic-archives</code> folder after running Cypress</summary>
+
+If your Cypress run doesn't create `chromatic-archives`, check the browser launch command, downloads path, and Chromatic setup.
+
+1. Check that your Cypress command uses `ELECTRON_EXTRA_LAUNCH_ARGS=--remote-debugging-port=9222`, as shown in the [run instructions](/docs/cypress#4-run-cypress).
+
+2. Check Cypress's [`downloadsFolder`](https://docs.cypress.io/guides/references/configuration#Downloads). It defaults to `cypress/downloads`. If you changed it, set `CHROMATIC_ARCHIVE_LOCATION` to the same path so Chromatic can find the archives.
+
+3. After a run with the default path, check `cypress/downloads/chromatic-archives/`. It contains `.stories.json` files and an `archive/` directory with `.snapshot.json` files.
+
+4. If `downloadsFolder` exists but `chromatic-archives` is missing or disappears, check that `cypress/support/e2e.js` or `cypress/support/e2e.ts` imports `@chromatic-com/cypress/support`. See the [setup example](/docs/cypress#3-add-chromatic-to-cypress-tests).
+
+5. Check that `setupNodeEvents` calls `installPlugin(on, config)` in your Cypress config, as shown in the [setup example](/docs/cypress#3-add-chromatic-to-cypress-tests).
+
+6. Check for `supportFile: false` in your `e2e` config. This disables the support file, so Cypress won't run the Chromatic import in step 4. Remove that setting to load the support file.
+
+</details>
+
+<details>
 <summary id="turbosnap-support">Can I use TurboSnap with Cypress visual tests?</summary>
 
 No. Cypress is a "black box" tool that tests your fully built app UI in a browser. TurboSnap is incompatible with this testing methodology because it requires tracking code changes and git history to identify the UI that's likely to change. We would love to integrate TurboSnap and Cypress but it isn't technically feasible right now.

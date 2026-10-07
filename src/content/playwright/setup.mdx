@@ -201,6 +201,17 @@ Take full control of your Chromatic and Playwright setup to match your team's sp
 <TroubleshootingSetup />
 
 <details>
+<summary id="missing-archives">Why aren't Playwright archives generated?</summary>
+
+Chromatic writes archives during a Playwright run when your tests use its `test` fixture in a Chromium project. If `test-results/chromatic-archives` is missing, check the following:
+
+1. Check that your test files import `test` from `@chromatic-com/playwright`, as shown in the [setup instructions](/docs/playwright#3-add-chromatic-to-playwright-tests). Importing `test` from `@playwright/test` does not run the Chromatic fixture.
+2. Check that your Playwright run includes a Chromium project. The Chromatic fixture skips archive capture for other browser types. The [Playwright demo configuration](https://github.com/chromaui-demo/e2e-demo-playwright/blob/main/playwright.config.ts) shows a Chromium project, and its [test file](https://github.com/chromaui-demo/e2e-demo-playwright/blob/main/tests/example.spec.ts) imports Chromatic's `test` fixture.
+3. Check your Playwright [`outputDir`](https://playwright.dev/docs/api/class-testconfig#test-config-output-dir). If you changed it, look for `chromatic-archives` in that output location. If the folder exists but Chromatic cannot find it, set `CHROMATIC_ARCHIVE_LOCATION` to the same location as `outputDir`, as described in the [configuration guide](/docs/playwright/configure#environment-variables).
+
+</details>
+
+<details>
 <summary id="turbosnap-support">Can I use TurboSnap with Playwright visual tests?</summary>
 
 No. Playwright is a "black box" tool that tests your fully built app UI in a browser. TurboSnap is incompatible with this testing methodology because it requires tracking code changes and git history to identify the UI that's likely to change. We would love to integrate TurboSnap and Playwright but it isn't technically feasible right now.
