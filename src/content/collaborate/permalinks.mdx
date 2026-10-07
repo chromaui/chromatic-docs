@@ -81,6 +81,20 @@ A custom domain gives you a memorable URL to share with stakeholders and teammat
 
 ## Troubleshooting
 
+<details>
+<summary>Why does my Storybook permalink show an older build?</summary>
+
+A branch permalink opens the latest published Storybook on that branch. Check the branch name on the build you expect and compare it with the branch in your permalink. Builds from forks use a [separate branch name](/docs/permalinks#branches-that-are-within-forked-repositories). If your CI sends a different branch name, [set the branch name explicitly](/docs/faq/override-branch-name).
+
+</details>
+
+<details>
+<summary>Why does a test's View Storybook link open an earlier build?</summary>
+
+If TurboSnap copied the test from an earlier build, its View Storybook link opens the Storybook associated with that test's snapshot. The View Storybook link on the build page opens the current build's Storybook. If the test was captured on the current build, the links should point to that build.
+
+</details>
+
 <details id="custom-apex">
 <summary><b>How to setup a custom apex domain</b></summary>
 

@@ -50,3 +50,20 @@ Components and their stories are securely indexed each commit and branch. Use th
 - **Snapshot**: Verify the image [snapshots](/docs/snapshots) used for cross-browser [UI Tests](/docs#test-how-uis-look--function)
 
 ![Component screen](../../images/component.png)
+
+---
+
+## Component names change in published source blocks
+
+If a published Storybook shows a renamed component in a source block, such as `<g>` instead of `<Button>`, Vite may have minified the component name during the build. If you use Storybook's Vite builder, you can disable minification in `.storybook/main.js`:
+
+```js title=".storybook/main.js"
+export default {
+  async viteFinal(config) {
+    const { mergeConfig } = await import('vite');
+    return mergeConfig(config, { build: { minify: false } });
+  },
+};
+```
+
+Rebuild and publish your Storybook, then check the source block again.
