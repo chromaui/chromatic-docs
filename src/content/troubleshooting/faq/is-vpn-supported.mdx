@@ -1,13 +1,16 @@
 ---
 sidebar: { hide: true }
 title: Is VPN supported?
+description: Connect Chromatic to a Git provider behind a VPN or private network.
 section: network
 ---
 
 # Is VPN supported?
 
-Using a VPN is supported. If your organization has IP restrictions enabled, add [Chromatic's IP addresses](/docs/faq/allowlist-ips-for-git-providers) to your allowed list.
+Yes. Your CI environment can use a VPN when it connects to Chromatic.
+
+If GitHub Enterprise Server or self-managed GitLab is on a private network, [link it through a public HTTPS proxy](/docs/faq/link-a-repository#link-an-on-premise-provider) and allow [Chromatic's outbound IP addresses](/docs/faq/allowlist-ips-for-git-providers) through your firewall.
 
 If your firewall or proxy restricts connections from your CI environment, follow our [firewall allowlist guidance](/docs/faq/add-chromatic-to-allowlist-if-my-resources-are-behind-a-firewall).
 
-Chromatic uses port 443 for these connections.
+Your CI environment connects to Chromatic over port 443.
