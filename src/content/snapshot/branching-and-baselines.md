@@ -239,6 +239,49 @@ The snapshot marked “Most recent build....” is a change that hasn’t been a
 
 </details>
 
+## Move to a new repository
+
+To keep your project and its baseline history, [unlink and relink the existing project](/docs/faq/link-a-repository) to the new repository. If you create a new Chromatic project instead, its baseline history starts over. You can compare the old and new repositories before establishing baselines in that new project.
+
+### Set up the new project
+
+1. Create a Chromatic project for the new repository.
+2. Replace the old project token wherever the new repository supplies it, such as `CHROMATIC_PROJECT_TOKEN`, a CLI flag, or Chromatic config. Use the token from the new project's **Manage** page.
+
+### If the new repository is still an unchanged copy
+
+1. Run Chromatic in the new repository with `--auto-accept-changes` to establish its initial baselines.
+2. Make your dependency, version, and configuration changes.
+3. Run Chromatic again to compare your changes against those baselines.
+
+### If the new repository has already diverged
+
+Build the new Storybook and compare it against the old project's baselines before moving to the new project.
+
+1. Build Storybook in the new repository:
+
+   ```bash
+   npm run build-storybook
+   ```
+
+2. Copy the output directory into a scratch directory in the old repository, such as `new-repo/`.
+3. From the old repository, run Chromatic against that copied build:
+
+   ```bash
+   npx chromatic --storybook-build-dir=new-repo/storybook-static
+   ```
+
+   This creates a Chromatic build in the old project and compares the new Storybook against its baselines.
+
+4. Review the changes in the old project.
+5. If they're all expected, run Chromatic in the new repository with `--auto-accept-changes` to establish its baselines.
+
+The new project starts its own baseline history. Keep the old project if you need to see which builds established the previous baselines or who accepted them.
+
+## Check unexpected baselines
+
+If a baseline looks wrong, check [how Chromatic finds ancestor builds](#find-the-ancestor-builds). After a squash or rebase merge, see [how Chromatic preserves baselines](#how-do-baselines-get-preserved-during-squash-and-rebase-merging). If a story renders differently between captures, check the [unstable tests guide](/docs/unstable-tests).
+
 ## Preferring merged baselines
 
 When a build has [multiple ancestor builds](#what-if-there-are-multiple-ancestor-builds) (for example, on a merge commit), Chromatic has to choose which baseline to use for each story. By default, it picks the most recently accepted baseline.
