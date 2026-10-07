@@ -1,0 +1,15 @@
+interface:
+  display_name: "Latest Chromatic build"
+  short_description: "Report the latest Chromatic build for this branch."
+  brand_color: "#FF4785"
+  default_prompt: "What is the latest Chromatic build on this branch?"
+
+policy:
+  # Safe to trigger implicitly: a single read of the build.
+  allow_implicit_invocation: true
+
+dependencies:
+  tools:
+    - type: "mcp"
+      value: "chromatic"
+      description: "Chromatic MCP server: builds and their accessibility results."

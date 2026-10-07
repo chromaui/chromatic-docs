@@ -1,0 +1,16 @@
+interface:
+  display_name: "Check project setup"
+  short_description: "Check that this repository is connected to the right Chromatic project and that the project is set up to test it."
+  brand_color: "#FF4785"
+  default_prompt: "Is Chromatic set up right for this repository?"
+
+policy:
+  # Safe to trigger implicitly: it reads the project and local files, and
+  # changes nothing.
+  allow_implicit_invocation: true
+
+dependencies:
+  tools:
+    - type: "mcp"
+      value: "chromatic"
+      description: "Chromatic MCP server: projects and builds."

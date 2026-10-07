@@ -1,0 +1,15 @@
+interface:
+  display_name: "Check merge readiness"
+  short_description: "Say whether a branch is ready to merge from Chromatic's side, and what is left if not."
+  brand_color: "#FF4785"
+  default_prompt: "Is this branch ready to merge as far as Chromatic is concerned?"
+
+policy:
+  # Safe to trigger implicitly: it only reads the branch's build.
+  allow_implicit_invocation: true
+
+dependencies:
+  tools:
+    - type: "mcp"
+      value: "chromatic"
+      description: "Chromatic MCP server: builds, tests, comments and accessibility results."

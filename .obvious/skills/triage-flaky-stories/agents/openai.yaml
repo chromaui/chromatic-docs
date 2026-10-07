@@ -1,0 +1,17 @@
+interface:
+  display_name: "Triage flaky stories"
+  short_description: "Find a Chromatic project's quarantined and unstable stories and fix what makes them flaky."
+  brand_color: "#FF4785"
+  default_prompt: "Which of our stories are flaky or quarantined in Chromatic, and why?"
+
+policy:
+  # Safe to trigger implicitly: fixes land only in the working tree, and it
+  # quarantines a story only when the user asks, through a tool the agent asks
+  # approval for.
+  allow_implicit_invocation: true
+
+dependencies:
+  tools:
+    - type: "mcp"
+      value: "chromatic"
+      description: "Chromatic MCP server: quarantined stories and the tests on builds."

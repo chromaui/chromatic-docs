@@ -1,0 +1,15 @@
+interface:
+  display_name: "Find an existing component"
+  short_description: "Check the published Storybook for a component that already does the job before building a new one."
+  brand_color: "#FF4785"
+  default_prompt: "Do we already have a component for this in our Storybook?"
+
+policy:
+  # Safe to trigger implicitly: it only reads the published Storybook.
+  allow_implicit_invocation: true
+
+dependencies:
+  tools:
+    - type: "mcp"
+      value: "chromatic"
+      description: "Chromatic MCP server: builds and published Storybooks."
