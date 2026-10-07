@@ -11,11 +11,11 @@ You can enhance your Cypress and Chromatic tests further by configuring them usi
 
 ## Cypress options
 
-Cypress can be configured with [Cypress environment variables](https://docs.cypress.io/app/guides/environment-variables). You can set the available options globally in your Cypress configuration file as follows:
+Cypress can be configured with [Cypress configuration options](https://docs.cypress.io/app/guides/environment-variables). You can set the available options globally in your Cypress configuration file as follows:
 
 ```ts title="cypress.config.js|ts"
 export default defineConfig({
-  env: {
+  expose: {
     // 👇 Sets the option at the project level.
     disableAutoSnapshot: true,
   },
@@ -23,14 +23,14 @@ export default defineConfig({
 });
 ```
 
-You can also override them for specific tests using via the [`env`](https://docs.cypress.io/app/references/configuration#Suite-configuration) option in the test configuration:
+You can also override them for specific tests via the [`expose`](https://docs.cypress.io/app/references/configuration#Test-specific-Configuration) option in the test configuration:
 
 ```ts title="cypress/e2e/HomePage.cy.js|ts"
 describe('HomePage', () => {
   it(
     'Loads the page with auto snapshotting disabled',
     {
-      env: {
+      expose: {
         // 👇 Overrides the option in the test.
         disableAutoSnapshot: true,
       },
