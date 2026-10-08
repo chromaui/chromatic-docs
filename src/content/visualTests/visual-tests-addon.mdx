@@ -206,6 +206,29 @@ That said, we don't recommend turning Docs on for local builds because this will
 </details>
 
 <details>
+<summary>Why does a custom MDX Docs template fail with "Module parse failed: Unexpected token"?</summary>
+
+The Visual Tests addon uses a Storybook test build, which may disable the Docs addon and Docs Blocks. If your Storybook configuration imports a custom MDX template for `parameters.docs.page`, that build can fail while parsing the import even though a normal Storybook build succeeds.
+
+Keep the Docs addon enabled in your Storybook configuration and set these test-build options in `.storybook/main.ts`:
+
+```ts title=".storybook/main.ts"
+export default {
+  // ... your Storybook configuration
+  build: {
+    test: {
+      disableBlocks: false,
+      disabledAddons: [],
+    },
+  },
+};
+```
+
+If your Docs pages are missing rather than failing to build, use the [settings above](#missing-docs). See the [reported custom-template error](https://github.com/chromaui/addon-visual-tests/issues/275) and [Storybook's test-build options](https://storybook.js.org/docs/api/main-config/main-config-build#test) for details.
+
+</details>
+
+<details>
 <summary id="monorepo">Can I use the addon with a monorepo?</summary>
 
 Yes, but you must have a separate `chromatic.config.json` file for each subproject (e.g., `design-system-A/chromatic.config.json` and `design-system-B/chromatic.config.json`).

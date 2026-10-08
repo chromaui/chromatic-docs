@@ -27,6 +27,26 @@ Parameters are static metadata that can be attached at the story, component (met
 | `chromatic.modes`                   | `object`   | Apply [modes](/docs/modes)                                                                                                               |
 | `chromatic.viewports`               | `number[]` | [Legacy API](/docs/modes/viewports) for setting viewports for a story. Use [Modes](/docs/modes/viewports) instead.                       |
 
+### Check parameters in a published Storybook
+
+In Storybook 10, open a story's `iframe.html` page and run this in the browser console to see its Chromatic parameters:
+
+```js
+window.__STORYBOOK_PREVIEW__.currentRender.story.parameters.chromatic;
+```
+
+Run the command after the story loads. From the Storybook manager page, select the `storybook-preview-iframe` frame in DevTools first.
+
+To list stories with snapshots disabled, run this in the `iframe.html` console:
+
+```js
+Object.entries(await window.__STORYBOOK_PREVIEW__.extract())
+  .filter(([, story]) => story.parameters?.chromatic?.disableSnapshot)
+  .map(([id]) => id);
+```
+
+These commands use Storybook's preview internals, which may differ in other versions. You can check the published Storybook version at `/project.json` in the Storybook root.
+
 ## Globals
 
 Globals in Storybook represent “global” (as in not story-specific) inputs that affect how a story is rendered.

@@ -134,6 +134,12 @@ You can specify a list of CSS selectors with the `ignoreSelectors` option to ign
 
 {/* prettier-ignore-end */}
 
+## Shadow DOM and iframes
+
+Chromatic finds ignored elements inside open shadow roots. Place `.chromatic-ignore` or `data-chromatic="ignore"` on the element, or use an `ignoreSelectors` value that matches within its shadow root. A selector cannot cross a shadow root boundary.
+
+Chromatic does not find ignored elements inside an iframe nested in the captured page. To ignore its contents, mark the iframe element in the captured page instead. Keep the iframe's dimensions stable between snapshots.
+
 ## Dimension changes in ignored elements still trigger diffs
 
 Adding the `data-chromatic="ignore"` attribute or specifying a selector with the `ignoreSelectors` option instructs the diffing algorithm to disregard pixels within the bounding box of the ignored element. However, dimension changes of this element still trigger a change.

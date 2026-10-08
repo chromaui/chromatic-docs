@@ -387,6 +387,24 @@ Options, roughly in order of effort:
 
   This changes only the warning threshold, not the chunk sizes.
 
+For a webpack Storybook build, install [`webpack-bundle-analyzer`](https://github.com/webpack/webpack-bundle-analyzer) and inspect the full `preview-stats.json` file:
+
+```bash
+npm install --save-dev webpack-bundle-analyzer
+npx webpack-bundle-analyzer storybook-static/preview-stats.json
+```
+
+If Chromatic builds your Storybook, it generates this file. For a prebuilt Storybook, add Storybook's `--stats-json` option to your build command. Use the full file, not `preview-stats.trimmed.json`, which is intended for dependency tracing.
+
+If your built JavaScript has source maps, [`source-map-explorer`](https://github.com/danvk/source-map-explorer) offers another view of the bundle. Find a `.js` file and its corresponding `.map` file in your Storybook build output, then run:
+
+```bash
+npm install --save-dev source-map-explorer
+npx source-map-explorer storybook-static/path/to/bundle.js
+```
+
+Replace the example path with your bundle's path. This option needs a source map; the webpack stats file alone is not enough.
+
 If your build is also timing out, see [`CHROMATIC_TIMEOUT` and `STORYBOOK_BUILD_TIMEOUT`](/docs/configure#environment-variables), and consider passing a prebuilt Storybook with `--storybook-build-dir`.
 
 </details>

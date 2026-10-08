@@ -23,6 +23,26 @@ bottom: 0;
 
 ## Troubleshooting
 
+To capture a scrolled state, scroll the page or element in your story's `play` function before Chromatic captures it. Give the story a fixed-height decorator if it would otherwise expand to fit its content.
+
+```jsx
+import { within } from 'storybook/test';
+
+export const Scrolled = {
+  decorators: [
+    (Story) => (
+      <div style={{ height: '568px' }}>
+        <Story />
+      </div>
+    ),
+  ],
+  play: async ({ canvasElement }) => {
+    const target = within(canvasElement).getByText('Somewhere, USA');
+    target.scrollIntoView();
+  },
+};
+```
+
 <details>
 
 <summary>I set an element to use sticky positioning, but it's not working. What could be the issue?</summary>
