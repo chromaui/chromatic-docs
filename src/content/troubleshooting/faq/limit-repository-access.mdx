@@ -1,16 +1,28 @@
 ---
 sidebar: { hide: true }
-title: How can I limit access to a GitHub repository?
+title: How can I limit which repositories Chromatic can access?
+description: Limit Git provider access for Chromatic with GitHub App settings or provider membership.
 section: 'usage'
 ---
 
-# How can I limit access to a GitHub repository?
+# How can I limit which repositories Chromatic can access?
 
-To limit access to your GitHub repository, you'll need to do the following:
+## GitHub
 
-1. Open Chromatic.com App configuration settings here: https://github.com/apps/chromatic-com
-2. Select the `Configure` tab
-   ![Configure Chromatic](../../../images/configure-chromatic.png)
-3. Select your chosen git entity
-4. Select your chosen repositories and select `save`
-   ![Select Repositories](../../../images/select-repositories-chromatic.png)
+To limit the repositories available to the Chromatic GitHub App for pull request integration:
+
+1. Open the [Chromatic GitHub App settings](https://github.com/apps/chromatic-com) and select **Configure**.
+   ![Configure the Chromatic GitHub App](../../../images/configure-chromatic.png)
+2. Select your GitHub organization.
+3. Select the repositories and save your changes.
+   ![Select repositories for the Chromatic GitHub App](../../../images/select-repositories-chromatic.png)
+
+This setting doesn't limit the repositories shown in Chromatic's project picker. The GitHub OAuth connection uses the signed-in profile's repository access. See [OAuth and GitHub App permissions](/docs/faq/link-a-repository#oauth-and-github-app-permissions).
+
+## GitLab
+
+To limit which GitLab projects a connected profile can access, put those projects in a subgroup and add the profile to that subgroup under **Manage > Members**. Don't add the profile to the parent group, since parent members inherit access to its subgroups.
+
+## Bitbucket
+
+Put the repositories in a separate Bitbucket workspace and grant the connected profile access to that workspace. Review its access to other workspaces and repositories in Bitbucket.
