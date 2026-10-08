@@ -112,9 +112,11 @@ GitHub Enterprise Server and self-managed GitLab connections require an Enterpri
 
 Prepare:
 
-- The Git provider URL, such as `https://github.example.com`.
+- A public HTTPS URL that reaches your Git provider API, such as `https://github.example.com`.
 - The repository name, such as `example/design-system`.
 - A provider access token with the required OAuth scopes listed above.
+
+If the provider is on a private network, configure a public HTTPS proxy and allow [Chromatic's outbound IP addresses](/docs/faq/allowlist-ips-for-git-providers) to reach it. Enter the proxy's base URL. Chromatic adds `/api/v3/` for GitHub Enterprise Server or `/api/v4/` for self-managed GitLab.
 
 Then:
 
