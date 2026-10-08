@@ -92,7 +92,13 @@ export const MockedError: Story = {
 
 For more details, check out the [Mocking network requests](https://storybook.js.org/docs/writing-stories/mocking-data-and-modules/mocking-network-requests) page in the Storybook documentation.
 
-If a mock does not intercept a request in your published Storybook, check **Application → Service Workers** in your browser's developer tools for `mockServiceWorker.js`. Then inspect the request in **Network** to see whether a service worker handled it. If it did not, check that MSW is initialized and that a handler matches the request URL. See the [MSW addon setup](https://github.com/mswjs/msw-storybook-addon?tab=readme-ov-file#configure-the-addon).
+If a mock does not intercept a request in your published Storybook:
+
+1. Open **Application > Service Workers** in your browser's developer tools. Check that `mockServiceWorker.js` is registered and running.
+2. Trigger the request and inspect it in **Network**. Check whether a service worker handled it, then compare its status and response body with the mock you expected.
+3. If the request reached the server or returned the wrong response, check that the MSW addon is set up and that a handler matches the request URL.
+
+To find requests without a matching handler, you can set `onUnhandledRequest: 'warn'` when starting a custom worker. See the [MSW Storybook addon's custom worker setup](https://github.com/mswjs/msw-storybook-addon#custom-worker-setup) for the current configuration.
 
 <details>
 <summary>Can I use MSW to mock browser APIs like `navigator.share`?</summary>
