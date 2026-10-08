@@ -1,0 +1,16 @@
+---
+sidebar: { hide: true }
+title: Why does my PR say "Build required for forked branch"?
+description: Find the missing build for a pull request from a fork.
+section: uiTestsAndReview
+---
+
+# Why does my PR say "Build required for forked branch"?
+
+Chromatic can't find a build for the pull request's head branch on the fork. UI Review needs that build to compare the branch with its base.
+
+Run Chromatic on the fork's head branch, then check the build's commit SHA, branch name, and repository against the pull request. If the build exists but Chromatic still can't find it, correct the Git context in CI. Set all three variables: `CHROMATIC_SHA` to the source branch's head SHA, `CHROMATIC_BRANCH` to its branch name, and `CHROMATIC_SLUG` to the base repository's `org/repo` slug. See the [provider variable table](/docs/faq/environment-variables/) and [Git options](/docs/cli#chromatic-git-options).
+
+For GitHub Actions pull requests, use the pull request's head SHA and branch rather than the temporary merge commit. Forked pull requests also need a way to run Chromatic with a project token. See [GitHub Actions and external forks](/docs/github-actions).
+
+If the branch has no build, the [Awaiting activity FAQ](/docs/faq/awaiting-activity/) covers other checks.

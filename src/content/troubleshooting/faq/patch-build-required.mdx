@@ -1,0 +1,22 @@
+---
+sidebar: { hide: true }
+title: Why does every PR say a patch build is required?
+description: Find why UI Review cannot locate a merge base build.
+section: uiTestsAndReview
+---
+
+# Why does every PR say a patch build is required?
+
+Chromatic can't find a build at the merge base for those pull requests. A patch build supplies that missing build so UI Review can compare the branches.
+
+First, check that CI fetches enough Git history for Chromatic to identify the merge base. For GitHub Actions, set `fetch-depth: 0` on the checkout step:
+
+```yaml
+- uses: actions/checkout@v4
+  with:
+    fetch-depth: 0
+```
+
+Then check whether Chromatic has builds for the relevant commits on the base branch. A missing historical build is common when you first install Chromatic. Follow the patch build instructions in UI Review for an affected pull request. See [Branching and baselines](/docs/branching-and-baselines#what-happens-when-the-merge-base-build-isnt-found-patch-builds) for how Chromatic chooses the merge base.
+
+If the merge base is old, you can update the pull request branch from its base branch and run Chromatic again. This changes the merge base, but you may still need a patch build if no build exists there.

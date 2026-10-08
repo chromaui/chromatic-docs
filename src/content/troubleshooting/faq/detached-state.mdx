@@ -1,19 +1,17 @@
 ---
 sidebar: { hide: true }
 title: Fixing a 'detached HEAD' state in CI
+description: Provide Git context when your build checks out a detached commit.
 section: ci
 ---
 
 # Fixing a 'detached HEAD' state in CI
 
-A **detached HEAD state** occurs when your CI provider checks out a specific commit instead of a branch, losing the Git context.
-This prevents Chromatic from finding the correct baseline to compare against.
+A **detached HEAD state** means Git has checked out a commit instead of a branch. Chromatic may need explicit branch information to find the correct baseline.
 
 ### Most CI providers
 
-This can be caused by ephemeral merge commits (GitLab, Bitbucket) or a missing branch reference (Jenkins and others).
-Manually provide the Git context by [setting environment variables](/docs/faq/environment-variables) to resolve the issue.
-Note that [you must set all required Git variables](/docs/cli#chromatic-git-options) for the fix to work correctly.
+Ephemeral merge commits or missing branch references can cause this in CI. Provide the Git context with [environment variables](/docs/faq/environment-variables). You must [set all three Git variables](/docs/cli#chromatic-git-options).
 
 ### GitHub
 
@@ -21,3 +19,18 @@ On GitHub Actions, this issue happens when:
 
 - You are running on a `pull_request` event trigger
 - You are missing the `ref` tag on the checkout step in CI when running on `pull_request`
+
+## Local builds
+
+Run `git status` to check whether `HEAD` is detached. This can happen after `git checkout <commit-hash>`, `git checkout origin/feature-branch`, or `gh pr checkout <number> --detach`. A regular `gh pr checkout <number>` creates or uses a local branch.
+
+If you made a commit while detached and want to keep it on a branch, run `git switch -c <new-branch-name>`. Push the branch with `git push origin <new-branch-name>` if you need the commit on the remote. For a remote branch that already exists, use `git switch --track origin/feature-branch` instead.
+
+If your CI workflow requires an attached branch, you can check it before running Chromatic:
+
+```yaml
+- name: Check for an attached branch
+  run: git symbolic-ref -q HEAD >/dev/null
+```
+
+Some CI workflows intentionally check out a detached commit. In those workflows, provide the [Git environment variables](/docs/faq/environment-variables) instead of failing the build.

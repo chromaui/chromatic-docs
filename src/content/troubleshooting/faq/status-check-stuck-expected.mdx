@@ -1,0 +1,18 @@
+---
+sidebar: { hide: true }
+title: Why is my status check stuck on "Expected - Waiting for status to be reported"?
+description: Check why Chromatic has not reported a pull request status.
+section: ci
+---
+
+# Why is my status check stuck on "Expected - Waiting for status to be reported"?
+
+This means your Git provider hasn't received the expected status for the pull request commit. Check the following:
+
+1. Confirm that the Chromatic build ran and that its commit SHA matches the pull request's head commit. If they differ, correct the [Git environment variables](/docs/faq/environment-variables/) and run another build. Set all three variables when overriding Git context.
+2. Check that your project is linked to the repository and that the Git provider access token is valid under **Manage → Configure → Connected applications**. If the token is invalid, reconnect the provider, then run another build.
+3. Check your provider's [GitHub](https://www.githubstatus.com/), [GitLab](https://status.gitlab.com/), or [Bitbucket](https://bitbucket.status.atlassian.com/) status page for an incident affecting commit statuses.
+
+If UI Review shows pending changes, complete the review before expecting a passing UI Review check. If the review has passed but the status remains stale, push a new commit to trigger another build. A provider API rate limit can also delay a status; support can check for that using the build URL.
+
+If the status still doesn't update, use our **in-app chat** to contact us or email us at [support@chromatic.com](mailto:support@chromatic.com). Include the build and pull request URLs.
