@@ -217,3 +217,11 @@ No, Chromatic waits for the entire play function to execute and captures a snaps
 If you need a snapshot of a specific step, we recommend breaking your story into multiple stories and using [play function composition](#composing-stories-with-the-play-function).
 
 </details>
+
+<details>
+
+<summary>Why is the interaction test icon missing from my build?</summary>
+
+The icon on the build page appears when the captured changes include a story with an interaction test. Other stories in your Storybook can have interaction tests without making the icon appear on that build.
+
+</details>
