@@ -40,7 +40,7 @@ The summary bar at the top of the page switches between three views:
 
 - **Tests**: Every component and story in the project, with test and component counts over time
 - **A11y violations**: Accessibility issues across your components. See the [accessibility dashboard](/docs/accessibility/dashboard).
-- **Quarantined**: Flaky tests that Chromatic ignores across all builds. See [quarantine tests](/docs/quarantine-tests).
+- **Quarantined**: Flaky tests that Chromatic ignores across all builds. See the [quarantine dashboard](/docs/quarantine-tests#dashboard-tracks-all-the-quarantined-tests).
 
 ![The Library page showing the Tests view: a chart of test and component counts over six months, and a table of components and stories with their status and last updated time](../../images/library.png)
 
