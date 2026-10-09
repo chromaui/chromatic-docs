@@ -218,7 +218,7 @@ decorators: [(Story) => (
 )],
 ```
 
-For vertical shifts, check whether the component uses `box-sizing: border-box`.
+For vertical shifts, check whether the component uses `box-sizing: border-box`. If it does, try adding a fixed height to the decorator as well.
 
 </details>
 
@@ -227,18 +227,38 @@ For vertical shifts, check whether the component uses `box-sizing: border-box`.
 
 If borders are missing or content shifts, check whether the component uses `box-sizing: border-box`.
 
-Try these fixes:
+Try a decorator that gives the story a fixed width and height:
 
-- Add a fixed height to the decorator shown above.
+```js
+decorators: [(Story) => (
+  <div style={{ width: '800px', height: '600px' }}>
+    <Story />
+  </div>
+)],
+```
 
-- Add a [`play` function](/docs/interactions) that waits for the element to finish rendering.
+If the border appears after the story renders, wait for its final style in a [`play` function](/docs/interactions). Add `data-testid="bordered-element"` to the element for this example:
+
+```js
+import { expect, waitFor } from 'storybook/test';
+
+export const WithBorder = {
+  play: async ({ canvas }) => {
+    await waitFor(async () => {
+      await expect(canvas.getByTestId('bordered-element')).toHaveStyle({
+        borderTopWidth: '1px',
+      });
+    });
+  },
+};
+```
 
 </details>
 
 <details>
-<summary>Why do fractional element dimensions cause unstable tests?</summary>
+<summary>Why can decimal pixel dimensions make snapshots unstable?</summary>
 
-Fractional computed dimensions can coincide with content shifts between captures.
+A fractional dimension is a computed width or height like `100.5px`. In some layouts, fractional dimensions can coincide with content shifts between captures.
 
 If you find fractional widths or heights, try adjusting the styles so they resolve to whole numbers.
 
