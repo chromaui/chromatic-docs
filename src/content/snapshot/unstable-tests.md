@@ -208,17 +208,15 @@ Generally speaking it is a good idea to wrap calls like that in a `try { } catch
 
 Text, padding, borders, or images may move between captures, even when your code hasn't changed.
 
-If a flex or grid column has a dynamic width, try wrapping the story in a fixed-width decorator:
+If a flex or grid column changes width between captures, try a decorator with a fixed width. For vertical shifts involving `box-sizing: border-box`, set a fixed height too:
 
 ```js
 decorators: [(Story) => (
-  <div style={{ width: '800px' }}>
+  <div style={{ width: '800px', height: '600px' }}>
     <Story />
   </div>
 )],
 ```
-
-For vertical shifts, check whether the component uses `box-sizing: border-box`. If it does, try adding a fixed height to the decorator as well.
 
 </details>
 
