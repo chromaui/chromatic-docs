@@ -50,6 +50,56 @@ Each unstable test includes a [trace](/docs/trace-viewer) with network requests,
 ### Missing or incorrect content
 
 <details>
+<summary>Why do I see "Can't access cssRules, likely due to CORS restrictions"?</summary>
+
+If you see this error while loading Google Fonts, check the stylesheet link in `.storybook/preview-head.html`.
+
+Add `crossorigin="anonymous"` to the stylesheet link so the browser requests it with CORS:
+
+```html title=".storybook/preview-head.html"
+<link href="<your font URL>" rel="stylesheet" crossorigin="anonymous" />
+```
+
+The stylesheet host must also allow the request with an `Access-Control-Allow-Origin` response header. If it doesn't, serve the stylesheet from the same origin as your Storybook.
+
+</details>
+
+<details>
+<summary>Why are my styles missing or applied in the wrong order?</summary>
+
+**If you use Vite with CSS modules**, check the filenames. Vite treats `utils.module.scss` as a CSS module, but `utils.scss` as a regular stylesheet.
+
+**If you load global stylesheets outside your component tree**, reference them from `.storybook/preview-head.html`:
+
+```html title=".storybook/preview-head.html"
+<link href="/css/layout.css" rel="stylesheet" />
+
+<link href="/css/overrides.css" rel="stylesheet" />
+```
+
+Check the order of the links and any conflicting rules in DevTools. The stylesheets cascade in the order listed.
+
+</details>
+
+<details>
+<summary>Why does a browser permission read as "denied" in Chromatic but not locally?</summary>
+
+If a browser permission returns `denied` in Chromatic's capture iframe, the snapshot will show that state. An interaction cannot grant a permission blocked by the iframe's policy.
+
+To test the granted state, mock the permission result in your story. You can also use [`isChromatic()`](/docs/ischromatic) or an environment variable to render a specific state.
+
+</details>
+
+<details>
+<summary>Why can't Chromatic find a file that exists locally?</summary>
+
+A filename may have different casing from its import path or asset URL. This can work on a case-insensitive filesystem but fail in Chromatic's Linux capture environment.
+
+Check that every import path and asset URL matches the actual filename exactly, including case.
+
+</details>
+
+<details>
 <summary>Where are my images and fonts?</summary>
 
 Image and font rendering can be tricky. Resources that load from unpredictable or flaky sources may not load within the 15-second capture window. Work around this by:
@@ -152,6 +202,76 @@ Generally speaking it is a good idea to wrap calls like that in a `try { } catch
 </details>
 
 ### Layout and capture problems
+
+<details>
+<summary>Why does my snapshot shift by a few pixels between builds?</summary>
+
+Text, padding, borders, or images may move between captures, even when your code hasn't changed.
+
+If a flex or grid column changes width between captures, try a decorator with a fixed width. For vertical shifts involving `box-sizing: border-box`, set a fixed height too:
+
+```js
+decorators: [(Story) => (
+  <div style={{ width: '800px', height: '600px' }}>
+    <Story />
+  </div>
+)],
+```
+
+</details>
+
+<details>
+<summary>Why are borders missing from my snapshot, or shifting between builds?</summary>
+
+If borders are missing or content shifts, check whether the component uses `box-sizing: border-box`.
+
+Try a decorator that gives the story a fixed width and height:
+
+```js
+decorators: [(Story) => (
+  <div style={{ width: '800px', height: '600px' }}>
+    <Story />
+  </div>
+)],
+```
+
+If the border appears after the story renders, wait for its final style in a [`play` function](/docs/interactions). Add `data-testid="bordered-element"` to the element for this example:
+
+```js
+import { expect, waitFor } from 'storybook/test';
+
+export const WithBorder = {
+  play: async ({ canvas }) => {
+    await waitFor(async () => {
+      await expect(canvas.getByTestId('bordered-element')).toHaveStyle({
+        borderTopWidth: '1px',
+      });
+    });
+  },
+};
+```
+
+</details>
+
+<details>
+<summary>Why can decimal pixel dimensions make snapshots unstable?</summary>
+
+A fractional dimension is a computed width or height like `100.5px`. In some layouts, fractional dimensions can coincide with content shifts between captures.
+
+If you find fractional widths or heights, try adjusting the styles so they resolve to whole numbers.
+
+</details>
+
+<details>
+<summary>Why is my truncated text unstable?</summary>
+
+Check whether JavaScript or CSS truncates the text.
+
+**JavaScript truncation:** If the text changes after render, add a short [`delay`](/docs/delay) before capture. If the container width changes too, try a fixed-width decorator.
+
+**CSS truncation:** If a transition changes the text after render, start the story in its final state or disable the transition for the test. See [animations](/docs/animations).
+
+</details>
 
 <details>
 <summary>Why is my content being cut off vertically in my snapshots?</summary>
