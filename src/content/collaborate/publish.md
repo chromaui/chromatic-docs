@@ -8,8 +8,6 @@ sidebar: { order: 8 }
 
 The Chromatic CLI builds and publishes your Storybook to a secure online workspace, making all your stories accessible to your team at [chromatic.com](https://www.chromatic.com/start). Chromatic also indexes and versions your stories, creating a searchable library within the web app. This allows teams to discover, reuse, and reference existing components easily.
 
-![The Chromatic Library page with a "Single source of truth for your team" banner above the project's test and component trends](../../images/library-explainer.png)
-
 ## Direct access to your Storybook
 
 Every time you trigger a Chromatic build, your Storybook is published on our secure CDN. Published Storybooks are private by default with [access](/docs/access) restricted to logged in collaborators. [Visibility](/docs/access/collaborators#storybook-visibility) can be set to public if desired.
