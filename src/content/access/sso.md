@@ -61,11 +61,18 @@ Your IdP must also send `email` and `firstName` or `lastName` attributes in the 
 
 If you use Microsoft Entra ID, check the claim names for `user.givenname` and `user.surname` in your application's **Attributes & Claims** settings. Entra ID uses names ending in `/givenname` and `/surname` by default. Rename them to end in `/firstname` and `/lastname`, respectively, so Chromatic receives the expected name attributes.
 
+If your account uses SCIM, Chromatic creates each profile with the SCIM `userName` as both its `NameID` and its email address. Set `userName` to each person's email address and send the same value as the SAML `NameID`. If the two values differ, the person's first SSO sign-in creates a second profile instead of opening the one SCIM provisioned and gives them default permissions instead of the ones granted.
+
+If you use Okta, check the Chromatic application's settings:
+
+- Sign On → Credentials Details: set Application username format to **Email**. A custom expression that resolves to `user.id` sends the Okta user ID instead.
+- Provisioning → To App → Attribute Mappings: map `userName` and `email` to `user.email`.
+
 #### What happens when the `NameID` (or `idp_id`) changes?
 
 Chromatic treats an unrecognized `NameID` as a new person and creates a new profile. The previous profile's history and permissions don't carry over, even when the email and name attributes are unchanged.
 
-Use a persistent, unchanging `NameID` or `idp_id` attribute.
+Use a persistent, unchanging `NameID` or `idp_id` attribute. If your account uses SCIM, the `NameID` must match the SCIM `userName`, so keep both set to the email address.
 
 #### What happens when the corporate domain changes (e.g., from @oldcompany.com to @newcompany.com)?
 
