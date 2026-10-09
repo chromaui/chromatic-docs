@@ -8,8 +8,6 @@ sidebar: { order: 8 }
 
 The Chromatic CLI builds and publishes your Storybook to a secure online workspace, making all your stories accessible to your team at [chromatic.com](https://www.chromatic.com/start). Chromatic also indexes and versions your stories, creating a searchable library within the web app. This allows teams to discover, reuse, and reference existing components easily.
 
-![Chromatic's publishing feature enables you to browse your component library and demo live components in the browser](../../images/workflow-document.png)
-
 ## Direct access to your Storybook
 
 Every time you trigger a Chromatic build, your Storybook is published on our secure CDN. Published Storybooks are private by default with [access](/docs/access) restricted to logged in collaborators. [Visibility](/docs/access/collaborators#storybook-visibility) can be set to public if desired.
@@ -34,13 +32,15 @@ If you're documenting components outside of Storybook, you may be able to [embed
 
 ## Browse library
 
-The library screen within the Chromatic web app visualizes the latest components on a branch-by-branch basis. Browse existing components to reuse or reference. Use the branch picker to find branch-specific components.
+The **Library** page in the Chromatic web app is a dashboard for your project's tests and components. It shows the latest components on a branch, how your test suite has grown over time, and the status of every story.
 
-- Identify changes by comparing historical commits and branches
-- Share the library with teammates
-- Browse existing components for re-use
+The summary bar at the top of the page switches between three views:
 
-![Component library](../../images/library.png)
+- **Tests**: Every component and story in the project, with test and component counts over time
+- **A11y violations**: Accessibility issues across your components. See the [accessibility dashboard](/docs/accessibility/dashboard).
+- **Quarantined**: Flaky tests that Chromatic ignores across all builds. See the [quarantine dashboard](/docs/quarantine-tests#dashboard-tracks-all-the-quarantined-tests).
+
+![The Library page showing the Tests view: a chart of test and component counts over six months, and a table of components and stories with their status and last updated time](../../images/library.png)
 
 ## Demo components
 
