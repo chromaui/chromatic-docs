@@ -44,19 +44,6 @@ The summary bar at the top of the page switches between three views:
 
 ![The Library page showing the Tests view: a chart of test and component counts over six months, and a table of components and stories with their status and last updated time](../../images/library.png)
 
-### Track tests and components over time
-
-The chart plots how many tests and components your project had over the selected time range. Hover over the chart to see the counts sampled on a given day. Use the time range picker to change the period, and the branch picker to switch branches.
-
-### Browse components and stories
-
-The table lists every component in the project. Expand a component to see its stories, the status of each story's latest test (for example, **Accepted** or **Auto-ignored**), and when it was last updated.
-
-- Search for a component or test by name
-- Select **Download CSV** to export the list
-- Select **View Storybook** to open the published Storybook for the current branch
-- Select **Share** to share the library with teammates
-
 ## Demo components
 
 Components and their stories are securely indexed each commit and branch. Use the component screen to demo components without needing to switch branches, pull code, or Git. It's your window into the metadata and variations of the component. You can also share a link to this screen to get feedback.
