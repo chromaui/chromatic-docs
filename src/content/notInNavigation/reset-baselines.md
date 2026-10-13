@@ -1,6 +1,6 @@
 ---
 title: Reset baselines
-description: Start your branch's visual tests over from the base branch when its baselines come from the wrong ancestor builds.
+description: Escape hatch to reset a branch’s baselines when it ends up with an incorrect baseline from the wrong ancestor build.
 ---
 
 # Reset baselines
