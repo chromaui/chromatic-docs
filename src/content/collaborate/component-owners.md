@@ -36,7 +36,7 @@ Patterns match against a story's Storybook path (its `title` followed by the sto
 | `Forms/**`            | Every story under `Forms`, at any depth               |
 | `Forms/Input/*`       | Every story of the `Forms/Input` component            |
 | `Forms/Input/Primary` | Only the `Primary` story of `Forms/Input`             |
-| `Button`              | Any path whose last segment is `Button`, at any depth |
+| `Button`              | Any path whose last segment is `Button`               |
 
 Inside a path, `*` doesn't cross a `/`, so `Forms/*` doesn't match `Forms/Input/Primary`. Use `**` to match stories at any depth.
 
