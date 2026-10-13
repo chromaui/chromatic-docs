@@ -33,4 +33,4 @@ Scan every `.md` and `.mdx` file in `src/content/ci/` for the following patterns
 
 4. **Summarize the changes** — list every substitution made: old value → new value, and which files were affected.
 
-5. **Open a PR** — follow the `create-pr` skill to push the branch and open a draft PR. Title format: `chore: upgrade CI code example versions (<date>)`. The PR body summary should list the version bumps as bullet points.
+5. **Open a PR** — push the branch (`git push -u origin HEAD`) and open a draft PR with `gh pr create -d --base main --title "…" --body-file <file> -a "@me"`. Title format: `chore: upgrade CI code example versions (<date>)`. The PR body summary should list the version bumps as bullet points.

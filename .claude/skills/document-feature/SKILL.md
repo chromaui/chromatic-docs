@@ -115,7 +115,7 @@ Run these, fix what they find, and re-run until clean:
 
 1. Commit the content, images, and any redirect on the branch from step 0 with a conventional message, e.g. `docs: document <feature>`, and a body that says what pages changed.
 2. Push. If GitHub over SSH hangs, `GIT_SSH_COMMAND="ssh -o ConnectTimeout=15" git push -u origin HEAD` fails fast instead of stalling; retry once before reporting it.
-3. Use the **`create-pr`** skill to open a draft PR with the `documentation` label. Write the body to a file and pass `--body-file` (long bodies with backticks break inline quoting). Include:
+3. Check `gh pr view` for an existing PR on the branch; if there is one, update its body with `gh pr edit` instead. Otherwise open a draft: `gh pr create -d --base main --title "docs: …" --body-file <file> -a "@me" -l documentation`. Write the body to a file in the scratchpad (long bodies with backticks break inline quoting). Include:
    - **Summary:** the feature in one sentence and the pages added or changed.
    - **Open questions** for the feature owner: every gap and source conflict you couldn't resolve. If the user already answered them, list the answers as **Decisions confirmed** instead, so reviewers know they were deliberate.
    - **Not in this PR:** related docs or images you noticed are stale but left alone, and pre-existing check findings.
