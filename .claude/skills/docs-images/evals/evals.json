@@ -1,0 +1,26 @@
+{
+  "skill_name": "docs-images",
+  "evals": [
+    {
+      "id": 1,
+      "name": "chrome-arrow-turbosnap",
+      "prompt": "For the TurboSnap docs page I need a new image of the build screen for a build where TurboSnap skipped most stories, wrapped in the browser window, with an arrow pointing at the TurboSnap indicator. Put it in the Turbosnap section and call it turbosnap-buildscreen-skipped.",
+      "expected_output": "A frame in the Turbosnap section, composed from current Chromatic library components, wrapped in BrowserChrome with a flush clip frame (x+1,y+32, w-2, bottom radii 7), one house orange arrow aimed at the TurboSnap indicator, 2x PNG export. The whole arrow (with tail) and the browser's bottom edge sit inside the frame.",
+      "files": []
+    },
+    {
+      "id": 2,
+      "name": "crop-pointer-verify",
+      "prompt": "Make a cropped image for the UI Tests section showing someone clicking the 'Verify changes' button on the build screen. Name it build-verify-changes-click.",
+      "expected_output": "A small (~560x286) #F6F9FC frame in UI Tests showing a browser corner: top bar and right edge each 25px in, the page scrolled inside the clip frame so Verify changes is visible, and a pointer whose fingertip is on the button.",
+      "files": []
+    },
+    {
+      "id": 3,
+      "name": "no-section-asks",
+      "prompt": "I'm writing up the component owners filter for the docs. Can you make an image of the build screen with an arrow pointing at the owner filter dropdown?",
+      "expected_output": "No frame built yet; asks which section to use, suggesting the existing 'Component Owners' section. If the owner filter doesn't exist in the library or file, also asks for a screenshot or design rather than inventing it.",
+      "files": []
+    }
+  ]
+}

@@ -1,0 +1,12 @@
+{
+  "skill_name": "document-feature",
+  "evals": [
+    {
+      "id": 1,
+      "name": "default-usage-alerts",
+      "prompt": "Let's document Default Usage Alerts: Proposal: https://app.notion.com/p/chromatic-ui/Default-Usage-Alerts-for-Self-Serve-Accounts-35e6e81620348157af14c3e35caca77a Project conclusion: <same page>#c6647369335a42689d8f289132d6abe9 Demo video: https://www.loom.com/share/fbf09dd88111467c8b644d0e242237dc UI: https://www.figma.com/design/5keoPKSdKBbqM7HsyEf9M6/Billing-Usage-Alerts?node-id=1-20664 We don't need images for the emails, just the UI to add the alert",
+      "expected_output": "Branches docs/default-usage-alerts from main before editing. Fetches the Notion page, notes the Loom isn't readable, prefers the conclusion (billing email) over the proposal (account owner) and flags it. Shows a plan that edits billing.mdx's #usage-alerts section in place plus the hit-snapshot-limit FAQ, with UI-only images, and waits for confirmation. Uses exact Figma labels (Default alert, Disable/Enable, Custom alert, Add alert, Snapshot threshold, Alert email, Change email, Update alert email). Images rebuilt from the design's library components with no stray image slots or extra buttons. Link check and terminology check clean on changed lines; draft PR with decisions, out-of-scope notes and dist-derived QA paths. Reference result: chromaui/chromatic-docs#934.",
+      "files": []
+    }
+  ]
+}
