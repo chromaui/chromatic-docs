@@ -59,7 +59,7 @@ If there are no Chromatic builds on the base branch, there's nothing to reset th
 <details>
 <summary>Why can't I reset a build when my CI checks out a partial git history?</summary>
 
-Chromatic needs enough git history to find where your branch started from the base branch. Without it, the build can't be reset. Fetch the full commit history in CI, for example with `fetch-depth: 0` in [GitHub Actions](/docs/github-actions).
+A shallow clone stops the Chromatic CLI from finding a parent build for the branch's first build. Without that link, there's no build to reset to. Fetch the full commit history in CI, for example with `fetch-depth: 0` in [GitHub Actions](/docs/github-actions). Then rebase your branch and push to run a new build.
 
 </details>
 
