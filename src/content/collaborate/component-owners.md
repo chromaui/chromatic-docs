@@ -30,13 +30,13 @@ Lines starting with `#` are comments, and blank lines are ignored.
 
 Patterns match against a story's Storybook path (its `title` followed by the story name), not the path of the stories file. For example, the `Primary` story of a component titled `Forms/Input` has the path `Forms/Input/Primary`.
 
-| Pattern               | Matches                                              |
-| --------------------- | ---------------------------------------------------- |
-| `*`                   | Every story                                          |
-| `Forms/**`            | Every story under `Forms`, at any depth              |
-| `Forms/Input/*`       | Every story of the `Forms/Input` component           |
-| `Forms/Input/Primary` | Only the `Primary` story of `Forms/Input`            |
-| `Button`              | Any path containing a `Button` segment, at any depth |
+| Pattern               | Matches                                               |
+| --------------------- | ----------------------------------------------------- |
+| `*`                   | Every story                                           |
+| `Forms/**`            | Every story under `Forms`, at any depth               |
+| `Forms/Input/*`       | Every story of the `Forms/Input` component            |
+| `Forms/Input/Primary` | Only the `Primary` story of `Forms/Input`             |
+| `Button`              | Any path whose last segment is `Button`, at any depth |
 
 Inside a path, `*` doesn't cross a `/`, so `Forms/*` doesn't match `Forms/Input/Primary`. Use `**` to match stories at any depth.
 
