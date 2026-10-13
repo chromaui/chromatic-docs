@@ -110,17 +110,35 @@ Each plan comes with a specific number of included billed snapshots. If your usa
 
 2. **Paid plans:** Review and testing will not be interrupted. Additional billed snapshots beyond the included amount are charged at the end of the billing period.
 
-For information on the number of billed snapshots included in each plan and the cost of additional snapshots, refer to the [pricing page](https://www.chromatic.com/pricing). You can also set [usage alerts](/docs/billing#usage-alerts) to notify a designated email address when your usage reaches a certain number of billed snapshots.
+For information on the number of billed snapshots included in each plan and the cost of additional snapshots, refer to the [pricing page](https://www.chromatic.com/pricing). A [default usage alert](/docs/billing#usage-alerts) emails you when you use all of your included billed snapshots, and you can add a custom alert for any other threshold.
 
 Alternatively, you may consider upgrading to an enterprise plan for more billed snapshots. Contact us via in-app chat or <a href="mailto:support@chromatic.com?Subject=Custom%20plan">email</a> to learn more.
 
 ### Usage alerts
 
-Keep track of your account's snapshot usage by setting up a usage alert. When your usage reaches a certain snapshot threshold in a billing period, we'll notify the designated email address.
+Usage alerts email you when your account's billed snapshots reach a threshold, so a spike in usage shows up before your invoice does. Manage them in the **Alerts** section of the Billing page.
 
-For example, if you want to get a notification when you use 90% of the 35,000 billed snapshots in the Starter plan, you'd set the snapshot alert threshold to 31,500.
+![The Alerts section of the Billing page with the default alert enabled](../../images/billing-usage-alert.png)
 
-![Setup usage alerting](../../images/billing-usage-alert.png)
+#### Default alert
+
+Your account has a default alert that's on automatically. When a build uses up your included billed snapshots, including any bonus ones, Chromatic emails you. It sends this email once per billing period.
+
+To turn it off, click **Disable** next to **Default alert**. Click **Enable** to turn it back on.
+
+#### Custom alert
+
+Add a custom alert to get notified at a different threshold, such as before you reach your included billed snapshots. Click **Add alert** next to **Custom alert**, enter a **Snapshot threshold**, and click **Add alert**.
+
+For example, to get a notification when you use 90% of the 35,000 billed snapshots in the Starter plan, set the threshold to 31,500.
+
+![The custom alert form with a snapshot threshold field](../../images/billing-usage-alert-custom.png)
+
+To edit or delete a custom alert, click **Change** or **Remove**.
+
+#### Alert email
+
+Both alerts go to the **Alert email** address, which defaults to your [billing email](/docs/billing#email-invoices-to-your-billing-or-finance-manager). If you set up a usage alert before default alerts were introduced, its email address became your alert email. To send alerts somewhere else, click **Change email**, enter the address, and click **Update alert email**.
 
 ### Data retention
 
