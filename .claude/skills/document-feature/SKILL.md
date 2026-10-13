@@ -1,21 +1,33 @@
 ---
 name: document-feature
-description: End-to-end workflow for documenting a new or changed Chromatic feature in this docs repo, from a feature brief and Figma designs to a draft PR. Use whenever the user describes a feature (what it does, why, how it works), shares a Figma file of UI changes, and wants docs written or updated, including "document this feature", "write docs for X", "update the docs for the new Y", "we shipped Z, can you add it to the docs", or a pasted spec or release note plus a figma.com link. Covers choosing where the docs go, writing the page, building images with docs-images, reviewing, and opening a draft PR.
+description: End-to-end workflow for documenting a new or changed Chromatic feature in this docs repo, from a feature brief and Figma designs to a draft PR. Use whenever the user describes a feature (what it does, why, how it works), shares a Figma file of UI changes, and wants docs written or updated, including "document this feature", "write docs for X", "update the docs for the new Y", "we shipped Z, can you add it to the docs", or a pasted spec, release note, Notion proposal or Linear project plus a figma.com link. Covers choosing where the docs go, writing the page, building images with docs-images, reviewing, and opening a draft PR.
 ---
 
 # Document a feature
 
 Turn a feature brief and its Figma designs into published-ready docs: the right page, accurate prose, matching images, reviewed, and up as a draft PR.
 
-The user supplies the inputs, usually pasted into the prompt:
+The user supplies the inputs, pasted into the prompt or as links:
 
 - **Purpose:** what problem the feature solves and who it's for.
 - **Functionality:** how it works, settings, limits, plan availability, rollout status.
 - **Figma file** with the UI changes.
 
-The brief and the Figma file are the only sources of truth. The docs will be read by customers who act on them, so a confident sentence that's wrong is worse than a gap. When the brief doesn't say something, don't fill it in from what similar features do. Ask, or leave it out and list it as an open question.
+The brief (and the documents it links to), the Figma file, and the user's answers are the only sources of truth. The docs will be read by customers who act on them, so a confident sentence that's wrong is worse than a gap. When the brief doesn't say something, don't fill it in from what similar features do. Ask, or leave it out and list it as an open question.
+
+## 0. Branch first
+
+Before touching any file, create the working branch from `main`: `git checkout -b docs/<feature-slug> main`. Starting on whatever branch happens to be checked out (often a skill or unrelated branch) drags its commits into the PR, and moving edits afterwards means stashing, which is easy to get wrong when a `git fetch` times out halfway. Local `main` is fine if the network is flaky. Note how far behind `origin/main` it might be.
 
 ## 1. Understand the feature
+
+**Fetch linked sources yourself.** Briefs often arrive as links rather than text:
+
+- **Notion** (proposal, project conclusion): read with the Notion MCP `notion-fetch`. A `#…` fragment points at a section of the same page, so one fetch covers it.
+- **Linear, Slack:** use their MCP tools.
+- **Loom and other video:** not readable. Don't guess at the content; ask the user for a transcript or the key points if the written sources leave gaps.
+
+**When sources disagree, the most recent one wins.** A project's conclusion or wrap-up reflects what shipped; the proposal reflects what was planned. In practice details drift (who receives an email, which plans are included, what was cut). Use the later source and list the conflict as an open question so the owner confirms it.
 
 Read the brief, then look at the Figma designs (`get_metadata` to find the frames, `get_screenshot` on the relevant ones; load `figma-use` first if you'll call `use_figma`). From the designs, note:
 
@@ -84,7 +96,7 @@ Keep claims sourced. If you find yourself writing a default value, a limit, or a
 
 Use the **`docs-images`** skill for every image in the plan. It owns the Figma file, frame naming, composition, and export rules, so follow it rather than improvising. Two things this workflow adds:
 
-- **The feature's Figma file is the reference for new UI.** `docs-images` asks for a design when the control isn't in the library yet. Point it at the frames from step 1 so it can rebuild the new UI from them (or copy the relevant layers) instead of inventing it.
+- **The feature's Figma file is the reference for new UI.** `docs-images` asks for a design when the control isn't in the library yet. Point it at the frames from step 1; its "Rebuilding UI from a feature's design file" section covers copying the design's components and overrides across files.
 - **Section:** use the docs-images section that matches the page you're writing. If none fits, propose a new section named for the docs topic and confirm with the user.
 
 Make sure each exported filename matches the path already written into the page. Build the images after the prose so you know exactly which steps need a picture. Usually that's one image per major step or concept, not one per paragraph.
@@ -94,18 +106,19 @@ Make sure each exported filename matches the path already written into the page.
 Run these, fix what they find, and re-run until clean:
 
 1. **`docs-link-check`** for every page you added or edited. It catches broken slugs and anchors in unmerged changes.
-2. **`snapshot-terminology-check`** if the page mentions snapshots, captures, TurboSnap, billing, usage, or plan limits.
-3. **Prose pass** with `humanizer` on the new and changed text: cut filler, promotional tone, and AI tells. Keep the facts and UI labels untouched.
-4. **Accuracy pass** (yourself): reread the changed text against the brief and the Figma frames. Every UI label should match the design exactly. Every default, limit, and plan claim should trace to the brief. Every image referenced should exist at its path. Anything that doesn't trace goes to open questions or gets cut.
-5. Start `pnpm dev` and open the page at `http://localhost:4321/docs/<slug>` to check the sidebar position, image rendering, and callouts. Stop the server afterwards.
+2. **`snapshot-terminology-check`** if the page mentions snapshots, captures, TurboSnap, billing, usage, or plan limits. The checker scans whole files, so judge only the lines you changed (`git diff -U0`). Fix those; list pre-existing findings in the PR under "not in this PR" rather than widening the diff.
+3. **Prose pass** on the added lines (`git diff -U0 -- src/content | grep '^+'`): cut filler, promotional tone, and stacked clauses; check for em dashes in sentences. Keep facts and UI labels untouched. A short read-through is enough; reach for `humanizer` only if the draft is long or reads generic.
+4. **Accuracy pass:** reread the changed text against the sources and the Figma frames. Every UI label should match the design exactly. Every default, limit, and plan claim should trace to a source or a user answer. Anything that doesn't trace goes to open questions or gets cut.
+5. **Render check from the build.** `docs-link-check` already ran `pnpm build`, so inspect `dist/` rather than starting a dev server (which is slow to come up and easy to leave running). Grep the page's built HTML for the new heading ids and image filenames, e.g. `grep -oE 'id="<anchor>"|<image-name>[^"]*' dist/<route>/index.html`. The route is the `dist/` folder that contains the page, which also gives you the exact preview path for the PR (FAQ pages live under `/docs/faq/…`, not `/docs/…`).
 
 ## 6. Open a draft PR
 
-1. If you're on `main`, create a branch first: `docs/<feature-slug>`.
-2. Commit the content, images, and any redirect with a conventional message, e.g. `docs: document <feature>`, and a body that says what pages changed.
-3. Use the **`create-pr`** skill to open a draft PR. In the description include:
+1. Commit the content, images, and any redirect on the branch from step 0 with a conventional message, e.g. `docs: document <feature>`, and a body that says what pages changed.
+2. Push. If GitHub over SSH hangs, `GIT_SSH_COMMAND="ssh -o ConnectTimeout=15" git push -u origin HEAD` fails fast instead of stalling; retry once before reporting it.
+3. Use the **`create-pr`** skill to open a draft PR with the `documentation` label. Write the body to a file and pass `--body-file` (long bodies with backticks break inline quoting). Include:
    - **Summary:** the feature in one sentence and the pages added or changed.
-   - **Open questions** for the feature owner: every gap from step 1 and every claim you couldn't verify. Reviewers can answer these inline instead of reverse-engineering what's uncertain.
-   - **How to QA:** the Netlify preview paths to check (`/docs/<slug>`), and what to look for.
+   - **Open questions** for the feature owner: every gap and source conflict you couldn't resolve. If the user already answered them, list the answers as **Decisions confirmed** instead, so reviewers know they were deliberate.
+   - **Not in this PR:** related docs or images you noticed are stale but left alone, and pre-existing check findings.
+   - **How to QA:** the preview paths taken from `dist/` (step 5), and what to look for.
    - The Figma links for the source designs and the new docs-image frames.
-4. Give the user the PR link and the open questions.
+4. Give the user the PR link and anything still open.

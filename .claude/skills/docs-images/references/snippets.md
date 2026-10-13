@@ -267,6 +267,56 @@ async function addPointer(img, target, type = 'handpointalt') {
 }
 ```
 
+## readDesignInstances
+
+Run this in the **feature's design file** (its own fileKey), read-only. For each top-level instance in the given frames, it returns the library key, variant set key, property values, and visible text with fill colours. Re-apply these in the docs file after `importComponentByKeyAsync(key)`.
+
+```js
+const FRAME_IDS = ['<frame id>', '<frame id>'];
+const out = [];
+for (const id of FRAME_IDS) {
+  const f = await figma.getNodeByIdAsync(id);
+  // Only instances not nested inside another instance; nested ones come along with their parent.
+  const insts = f.findAllWithCriteria({ types: ['INSTANCE'] }).filter((i) => {
+    for (let p = i.parent; p && p.id !== id; p = p.parent) if (p.type === 'INSTANCE') return false;
+    return true;
+  });
+  for (const i of insts) {
+    const mc = await i.getMainComponentAsync();
+    const set = mc && mc.parent && mc.parent.type === 'COMPONENT_SET' ? mc.parent : null;
+    out.push({
+      id: i.id,
+      name: i.name,
+      key: mc && mc.key,
+      setKey: set && set.key,
+      variant: mc && mc.name,
+      props: Object.fromEntries(
+        Object.entries(i.componentProperties).map(([k, v]) => [k, v.value])
+      ),
+      texts: i
+        .findAllWithCriteria({ types: ['TEXT'] })
+        .filter((t) => t.visible)
+        .map((t) => ({ name: t.name, chars: t.characters, fill: t.fills[0] && t.fills[0].color })),
+    });
+  }
+}
+return out;
+```
+
+Booleans the design left `false` need setting explicitly in the docs file too, because the current library may default them to `true` (see "Expect the library to have drifted" in SKILL.md). To hide all optional slots except one:
+
+```js
+const p = inst.componentProperties;
+const keep = Object.keys(p).find((k) => k.startsWith('Show status text'));
+inst.setProperties(
+  Object.fromEntries(
+    Object.keys(p)
+      .filter((k) => p[k].type === 'BOOLEAN' && k !== keep)
+      .map((k) => [k, false])
+  )
+);
+```
+
 ## Export to the repo
 
 After the frame looks right, call `download_assets` with `fileKey` and the frame's `nodeId` (no format/scale overrides, so the frame's 2× PNG setting applies), then:

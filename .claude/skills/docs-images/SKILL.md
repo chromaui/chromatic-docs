@@ -41,6 +41,19 @@ Look at an existing image in the same section for reference (`get_screenshot` on
 
 **If the UI doesn't exist yet, ask.** When neither the library nor existing images contain the control the user wants (a new feature, a renamed button), don't invent it. Ask for a screenshot, a design link, or a description of where it sits and what it says. A made-up control in the docs misleads readers.
 
+### Rebuilding UI from a feature's design file
+
+New features usually come with their own Figma file. `use_figma` runs against one file per call, so you can't copy layers across. Rebuild the UI in the docs file from the same library components instead:
+
+1. In the **design file**, run a read-only `use_figma` over the frames you need and collect, for each instance: `getMainComponentAsync()` → `key` (and the parent set's key for variants), `componentProperties` values, visible text by node name, and any text fill colours (status text like "Disabled" or "Enabled" is often recoloured per instance). Snippet `readDesignInstances`.
+2. In the **docs file**, import each by key (`importComponentByKeyAsync`) and re-apply the properties, text and colours. Local frames in the design (forms, wrappers) are rebuilt with auto-layout using the sizes from `get_design_context`.
+3. **Expect the library to have drifted.** The design was made against an older library version, and newer versions often turn on defaults the design never had: an image or icon slot, a second "Action" button, a password "Show" toggle. Reading the design's properties tells you what it set, not what the new version adds. So after the first screenshot, compare it with the design screenshot side by side, then turn off every boolean slot the design doesn't show, hide extra buttons, and fix any shape changes (e.g. a button that's a pill in the library but squared to sit under a field in the design).
+4. Use realistic sample data (`acme`, `billing@acme.com`) in place of the designers' real email addresses or names.
+
+### Showing one section of a long page
+
+To show a section in the middle of a page (an "Alerts" card halfway down Billing), build only that section and treat the page as scrolled. Put the section's title ~40px below the top of the UI frame, so the empty margin reads as the gap after the previous section, then use a crop with the top bar and right edge pinned. The header and sidebar have scrolled out of view or sit off-frame to the left, so you don't need to rebuild them. Make the crop wide enough for the section (≈1150 for a 1060px card) and check that **none of the traffic-light dots** peek in at the left of the top bar; a single stray dot looks like a glitch. Either hide all three or show all three.
+
 When aiming annotations, target the **instance** that holds the label, not the text node. Buttons are usually instances named generically (`Button`), so match an instance that contains the label text (see the `cropFrame` example in snippets). Give any overlays you add (tooltips, menus) clear names so later lookups aren't ambiguous. A `use_figma` script that throws is rolled back entirely, so a failed build leaves nothing behind to clean up.
 
 ## 4. Choose a presentation
@@ -106,3 +119,5 @@ The same goes for supporting state with no click involved. If the docs point is 
 ## Updating an existing image
 
 Find the frame by name in its section, duplicate it if the old version should stay, and edit the instances and text in place. Keep the frame's name, size and export settings unless the user asks otherwise, so the docs page doesn't need changing. Re-export over the existing PNG.
+
+**When the UI was redesigned**, editing the old frame in place rarely works: old images often use deprecated components and sizes. Build a new frame with the same name instead. Then rename the old one `<name>-legacy` and clear its `exportSettings`, so two frames never export to the same file. Place the new frame beside the old one. Don't delete the old frame unless the user asks.
