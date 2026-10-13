@@ -69,6 +69,8 @@ When a new Review is created, Chromatic automatically assigns the project’s de
 
 Default reviewers can be unassigned from a specific Review if necessary. This does not remove them as default reviewers for future Reviews.
 
+To assign reviewers based on which components and stories changed, use [component owners](/docs/component-owners).
+
 ## Review the changes
 
 The Review screen includes a Changeset tab showing a side-by-side view of all visual changes introduced on your head branch. It compares the UI on the head branch to the base branch.
