@@ -17,7 +17,7 @@ The option appears on the newest build on a branch. It doesn't appear on builds 
 
 ![The rerun menu on the build screen, with the Reset baselines option outlined.](../../images/reset-baselines-menu.png)
 
-## Resetting restarts your branch from the base branch
+## Your branch starts fresh from the base branch
 
 Chromatic creates a new build for the same commit and compares it against the base branch, so you see only the changes your branch introduces. There’s no need to close the pull request and reopen it under a new branch name.
 
