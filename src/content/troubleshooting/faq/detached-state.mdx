@@ -1,11 +1,11 @@
 ---
 sidebar: { hide: true }
-title: Fixing a 'detached HEAD' state in CI
+title: Fixing a detached HEAD state
 description: Provide Git context when your build checks out a detached commit.
 section: ci
 ---
 
-# Fixing a 'detached HEAD' state in CI
+# Fixing a detached HEAD state
 
 A **detached HEAD state** means Git has checked out a commit instead of a branch. Chromatic may need explicit branch information to find the correct baseline.
 
@@ -24,7 +24,11 @@ On GitHub Actions, this issue happens when:
 
 Run `git status` to check whether `HEAD` is detached. This can happen after `git checkout <commit-hash>`, `git checkout origin/feature-branch`, or `gh pr checkout <number> --detach`. A regular `gh pr checkout <number>` creates or uses a local branch.
 
-If you made a commit while detached and want to keep it on a branch, run `git switch -c <new-branch-name>`. Push the branch with `git push origin <new-branch-name>` if you need the commit on the remote. For a remote branch that already exists, use `git switch --track origin/feature-branch` instead.
+If you made a commit while detached and want to keep it on a branch, run `git switch -c <new-branch-name>`. Push the branch with `git push origin <new-branch-name>` if you need the commit on the remote.
+
+If you haven't made commits while detached and want to work on an existing remote branch, use `git switch --track origin/feature-branch` to create a local tracking branch. If you already have a local branch, use `git switch feature-branch`.
+
+## Checking for an attached branch in CI
 
 If your CI workflow requires an attached branch, check for one before running Chromatic:
 

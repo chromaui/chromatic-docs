@@ -12,7 +12,7 @@ Chromatic uses CI environment variables to identify the current commit, branch, 
 | **CI Provider**                   | `CHROMATIC_SHA`                      | `CHROMATIC_BRANCH`             | `CHROMATIC_SLUG`                                            |
 | --------------------------------- | ------------------------------------ | ------------------------------ | ----------------------------------------------------------- |
 | **GitHub Actions** (Push)         | `GITHUB_SHA`                         | `GITHUB_REF_NAME`              | `GITHUB_REPOSITORY`                                         |
-| **GitHub Actions** (Pull Request) | `github.event.pull_request.head.sha` | `github.head_ref`              | `GITHUB_REPOSITORY`                                         |
+| **GitHub Actions** (Pull Request) | `github.event.pull_request.head.sha` | `github.head_ref`              | `github.event.pull_request.head.repo.full_name`             |
 | **GitLab**                        | `CI_COMMIT_SHA`                      | `CI_COMMIT_REF_NAME`           | `CI_PROJECT_PATH`                                           |
 | **Bitbucket Pipelines**           | `BITBUCKET_COMMIT`                   | `BITBUCKET_BRANCH`             | `BITBUCKET_REPO_FULL_NAME`                                  |
 | **Bitbucket Workspaces**          | `BITBUCKET_COMMIT`                   | `BITBUCKET_BRANCH`             | `${BITBUCKET_REPO_OWNER}/${BITBUCKET_REPO_SLUG}`            |
@@ -33,11 +33,18 @@ Some providers need additional configuration for pull requests.
 
 When a workflow runs on a pull request, the default `GITHUB_SHA` and `GITHUB_REF_NAME` variables refer to the temporary **merge commit**, not the head of the source branch.
 
-Use the pull request's `head` context for the source commit and branch.
+Use the pull request's `head` context for the source commit, branch, and repository. For forked pull requests, `GITHUB_REPOSITORY` identifies the base repository, so use `github.event.pull_request.head.repo.full_name` for `CHROMATIC_SLUG`.
 
 **GitLab merge requests**
 
-If your merged results pipeline runs on an ephemeral merge commit, set `CHROMATIC_SHA` to `CI_MERGE_REQUEST_SOURCE_BRANCH_SHA`, `CHROMATIC_BRANCH` to `CI_MERGE_REQUEST_SOURCE_BRANCH_NAME`, and `CHROMATIC_SLUG` to your `org/repo` slug. Use these values only for merged results pipelines, because `CI_MERGE_REQUEST_SOURCE_BRANCH_SHA` is empty in ordinary merge request pipelines.
+For merge request pipelines, set `CHROMATIC_BRANCH` to `CI_MERGE_REQUEST_SOURCE_BRANCH_NAME` and `CHROMATIC_SLUG` to `CI_MERGE_REQUEST_SOURCE_PROJECT_PATH`. Choose `CHROMATIC_SHA` based on the pipeline type:
+
+- For ordinary merge request pipelines, use `CI_COMMIT_SHA`.
+- For merged results pipelines, use `CI_MERGE_REQUEST_SOURCE_BRANCH_SHA` to identify the source branch's head commit. This variable is empty in ordinary merge request pipelines. See [GitLab's predefined variables](https://docs.gitlab.com/ci/variables/predefined_variables/#predefined-variables-for-merge-request-pipelines).
+
+[Merged results pipelines](https://docs.gitlab.com/ci/pipelines/merged_results_pipelines/) check out a temporary merge commit and can fall back to ordinary merge request pipelines when the branches conflict. Select the SHA based on the actual pipeline type, not just whether merged results pipelines are enabled.
+
+Overriding Chromatic's Git variables does not change the checked-out code. To test the source branch itself, check out the source commit before building Storybook and running Chromatic.
 
 **Netlify Deploy Previews**
 
