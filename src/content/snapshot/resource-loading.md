@@ -48,6 +48,20 @@ Hovering over the **Huh?** link reveals a tooltip containing the specific URLs t
 5. Ensure the URL uses `https://`. Using `http://` may result in a mixed‑content block.
 6. Verify your server sends valid `Access-Control-Allow-Origin` headers.
 
+For an asset served by a CDN, inspect its headers and status directly:
+
+```bash
+curl -I 'https://cdn.example.com/image.png'
+```
+
+If it returns a 403, try the same URL with a new query parameter:
+
+```bash
+curl -I 'https://cdn.example.com/image.png?chromatic-cache-check=1'
+```
+
+Different responses suggest the CDN may have cached the error for the original URL. Check its cache settings and access rules. A 403 on both URLs does not distinguish a cached error from a current access rule. If the server does not support `HEAD` requests, repeat the comparison with a normal `GET` request.
+
 If these suggestions don't help, please reach out to [us](mailto:support@chromatic.com) and share a link to the comparison page.
 
 ---

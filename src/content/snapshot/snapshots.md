@@ -122,6 +122,8 @@ With Storybook, it displays the story. With Vitest, Playwright, and Cypress, it 
 
 The visual snapshot might differ from the `Canvas` for various reasons, such as JavaScript execution being blocked during capture, which can prevent certain elements from being captured. Or the use of the `isChromatic()` function to alter rendering on Chromatic.
 
+For a Storybook test, open the affected story in the published Storybook and use Storybook's open-in-new-tab button to view the story on its own. Chromatic captures this story view, which can behave differently from the Canvas view inside Storybook. Check it before debugging a difference between Canvas and the snapshot.
+
 ### Device pixel ratio
 
 Starting with Capture 9, Chromatic captures visual snapshots at a [device pixel ratio](https://developer.mozilla.org/en-US/docs/Glossary/Device_pixel) (DPR) of 2.0. Snapshots are sharper, and your UI layout remains unchanged because the viewport is still measured in CSS pixels.
