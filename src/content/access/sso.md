@@ -59,11 +59,20 @@ Chromatic identifies SAML profiles by the SAML `NameID` (or `idp_id` attribute) 
 
 Your IdP must also send `email` and `firstName` or `lastName` attributes in the SAML assertion. Chromatic requires them to create a profile, but doesn't use them to match existing profiles.
 
+If you use Microsoft Entra ID, check the claim names for `user.givenname` and `user.surname` in your application's **Attributes & Claims** settings. Entra ID uses names ending in `/givenname` and `/surname` by default. Rename them to end in `/firstname` and `/lastname`, respectively, so Chromatic receives the expected name attributes.
+
+If your account uses SCIM, Chromatic creates each profile with the SCIM `userName` as both its `NameID` and its email address. Set `userName` to each person's email address and send the same value as the SAML `NameID`. If the two values differ, the person's first SSO sign-in creates a second profile instead of opening the one SCIM provisioned and gives them default permissions instead of the ones granted.
+
+If you use Okta, check the Chromatic application's settings:
+
+- Sign On → Credentials Details: set Application username format to **Email**. A custom expression that resolves to `user.id` sends the Okta user ID instead.
+- Provisioning → To App → Attribute Mappings: map `userName` and `email` to `user.email`.
+
 #### What happens when the `NameID` (or `idp_id`) changes?
 
 Chromatic treats an unrecognized `NameID` as a new person and creates a new profile. The previous profile's history and permissions don't carry over, even when the email and name attributes are unchanged.
 
-Use a persistent, unchanging `NameID` or `idp_id` attribute.
+Use a persistent, unchanging `NameID` or `idp_id` attribute. If your account uses SCIM, the `NameID` must match the SCIM `userName`, so keep both set to the email address.
 
 #### What happens when the corporate domain changes (e.g., from @oldcompany.com to @newcompany.com)?
 
@@ -90,7 +99,7 @@ Chromatic supports two provisioning methods. **Just-in-Time (JIT)** provisioning
 
 **System for Cross-domain Identity Management (SCIM)** pushes profiles and groups from your IdP before their first sign-in. It can assign roles and remove access when your IdP disables someone. Directory groups become [Teams](/docs/access/teams) that you can assign to projects.
 
-Use JIT when profiles can be created at first sign-in. Use SCIM when your IdP needs to provision and remove access before or without a sign-in.
+Use JIT when profiles can be created at first sign-in. Use SCIM when profile provisioning, directory group changes, or access removal must take effect before the next sign-in.
 
 ## Assign roles through SCIM
 
@@ -98,7 +107,7 @@ In the current access model, Chromatic maps directory groups to account roles. C
 
 For project access, set a default project role and assign SCIM-synced [Teams](/docs/access/teams) to projects. The default project role is the minimum role for every account collaborator. A Team can grant a higher role on each assigned project.
 
-Some accounts configured before Teams use a `role` or `roles` attribute with `owner`, `developer`, `reviewer`, or `viewer`. This legacy setup assigns one project role across every project. Without a supported value, it assigns Developer. Follow the [Teams migration guidance](/docs/access/teams#migrate-from-legacy-project-role-mapping) to move to the current model.
+Some accounts configured before Teams use legacy SCIM role mapping. If your account uses this setup, send each person's project role as a `role` or `roles` attribute on their SCIM user record. Set its value to `owner`, `developer`, `reviewer`, or `viewer`. Chromatic assigns that project role across every project. Without a supported value, it assigns Developer. Follow the [Teams migration guidance](/docs/access/teams#migrate-from-legacy-project-role-mapping) when you are ready to move to Teams.
 
 See [Collaborators and roles](/docs/access/collaborators#roles) for account and project role definitions.
 
