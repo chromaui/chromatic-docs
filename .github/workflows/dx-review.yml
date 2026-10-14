@@ -1,0 +1,56 @@
+name: 'DX review'
+
+# Runs the dx-review skill when a teammate's PR is assigned to the docs lead.
+on:
+  pull_request:
+    types: [assigned]
+
+concurrency:
+  group: dx-review-${{ github.event.pull_request.number }}
+  cancel-in-progress: false
+
+jobs:
+  dx-review:
+    name: Review docs PR
+    # Only for PRs assigned to the docs lead, not authored by them, and not from forks.
+    if: >-
+      github.event.assignee.login == 'winkerVSbecks' &&
+      github.event.pull_request.user.login != 'winkerVSbecks' &&
+      github.event.pull_request.head.repo.full_name == github.repository
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    permissions:
+      contents: write
+      pull-requests: write
+      id-token: write
+    steps:
+      - name: Checkout
+        uses: actions/checkout@9c091bb21b7c1c1d1991bb908d89e4e9dddfe3e0 # v7.0.0
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-node@48b55a011bda9f5d6aeb4c2d9c7362e8dae4041e # v6.4.0
+        with:
+          node-version: 24.15.0
+      - uses: pnpm/action-setup@0ebf47130e4866e96fce0953f49152a61190b271 # v6.0.9
+        name: Install pnpm
+        with:
+          cache: true
+          run_install: false
+      - name: Install dependencies
+        run: pnpm install
+      - name: Run dx-review
+        uses: anthropics/claude-code-action@1d6de8cb0c237e7c15e9e1bdf973826ebae490cc # v1.0.248
+        with:
+          anthropic_api_key: ${{ secrets.ANTHROPIC_API_KEY }}
+          claude_args: >-
+            --model claude-opus-5-5
+            --allowedTools "Bash,Read,Edit,Write,Glob,Grep,Skill"
+          prompt: |
+            Use the dx-review skill to review PR #${{ github.event.pull_request.number }} in ${{ github.repository }}.
+            You are reviewing on behalf of the docs lead, @winkerVSbecks, who was just assigned this PR.
+
+            This runs unattended in GitHub Actions, so adapt the skill's workflow:
+            - Skip the git worktree step. You're already in a clean checkout with dependencies installed. Run `gh pr checkout ${{ github.event.pull_request.number }}` here instead.
+            - Use $RUNNER_TEMP as the scratchpad.
+            - Push the copy edits and post the review as the skill describes. Don't merge the PR.
+            - There's no user to report back to, so skip step 6 and don't post any summary comment beyond the review itself.
