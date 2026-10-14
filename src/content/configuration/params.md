@@ -37,7 +37,7 @@ window.__STORYBOOK_PREVIEW__.currentRender.story.parameters.chromatic;
 
 Run the command after the story loads. From the Storybook manager page, select the `storybook-preview-iframe` frame in DevTools first.
 
-To list stories with snapshots disabled, run this in the `iframe.html` console:
+To list stories with visual snapshots disabled, run this in the `iframe.html` console:
 
 ```js
 Object.entries(await window.__STORYBOOK_PREVIEW__.extract())
