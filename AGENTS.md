@@ -1,6 +1,11 @@
 # AGENTS.md
 
-This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
+This file provides guidance to coding agents working in this repository.
+
+## Skills
+
+Repository skills live in `.agents/skills`. Edit existing skills and add new skills there.
+The `.claude/skills` symlink points to `../.agents/skills` for Claude Code compatibility.
 
 ## Commands
 

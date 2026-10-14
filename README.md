@@ -184,3 +184,9 @@ The Chromatic configuration options and schema are maintained in the `chromatic-
 Options are not included in the schema file by default. You have to add `"Config File"` to the `"supports"` array. eg: `"supports": ["CLI", "GitHub Action", "Config File"],`
 
 To deprecate an option, set `deprecated` to `config.json` or `all`.
+
+## Agent skills
+
+Repository skills are maintained in [`.agents/skills`](.agents/skills). Edit and add skills there;
+`.claude/skills` is a relative symlink to the same directory for Claude Code compatibility.
+See [AGENTS.md](AGENTS.md) for agent guidance.

@@ -42,7 +42,7 @@ Only `src/content/**` prose matters.
 ### 2. Run the deterministic checker
 
 ```bash
-node .claude/skills/snapshot-terminology-check/scripts/check-terminology.mjs <file...>
+node .agents/skills/snapshot-terminology-check/scripts/check-terminology.mjs <file...>
 # --changed : also check all .md/.mdx changed vs git HEAD under src/content
 # --json    : machine-readable findings
 ```
