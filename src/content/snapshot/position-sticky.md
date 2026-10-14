@@ -23,39 +23,7 @@ bottom: 0;
 
 ## Troubleshooting
 
-### Capture content scrolled inside an element
-
-To capture content scrolled inside an element, give that element a fixed height and `overflow: auto`, then scroll it in your story's `play` function. Chromatic waits for the play function to finish, but resets the page's scroll position before capture.
-
-This example wraps the story in a scrollable decorator:
-
-```jsx title="Scrolled.stories.jsx"
-import React from 'react';
-import { within } from 'storybook/test';
-
-export default { title: 'Scrolled content' };
-
-export const Scrolled = {
-  decorators: [
-    (Story) => (
-      <div style={{ height: '568px', overflow: 'auto' }}>
-        <Story />
-      </div>
-    ),
-  ],
-  render: () => (
-    <div style={{ height: '1200px', paddingTop: '800px', boxSizing: 'border-box' }}>
-      <p>Somewhere, USA</p>
-    </div>
-  ),
-  play: async ({ canvasElement }) => {
-    const target = within(canvasElement).getByText('Somewhere, USA');
-    target.scrollIntoView({ behavior: 'instant', block: 'center' });
-  },
-};
-```
-
-Use your component in place of the example content. With Storybook 8, import `within` from `@storybook/test` instead.
+To capture content scrolled inside an element, see [Capture content scrolled inside an element](/docs/interactions#capture-content-scrolled-inside-an-element).
 
 <details>
 
