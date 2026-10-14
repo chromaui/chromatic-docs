@@ -37,11 +37,11 @@ Use the pull request's `head` context for the source commit and branch.
 
 **GitLab merge requests**
 
-If your merged results pipeline runs on an ephemeral merge commit, set `CHROMATIC_SHA` to `CI_MERGE_REQUEST_SOURCE_BRANCH_SHA` and `CHROMATIC_BRANCH` to `CI_MERGE_REQUEST_SOURCE_BRANCH_NAME`. Set `CHROMATIC_SLUG` to your `org/repo` slug. `CI_MERGE_REQUEST_SOURCE_BRANCH_SHA` is empty in ordinary merge request pipelines, so use these values only for merged results pipelines.
+If your merged results pipeline runs on an ephemeral merge commit, set `CHROMATIC_SHA` to `CI_MERGE_REQUEST_SOURCE_BRANCH_SHA`, `CHROMATIC_BRANCH` to `CI_MERGE_REQUEST_SOURCE_BRANCH_NAME`, and `CHROMATIC_SLUG` to your `org/repo` slug. Use these values only for merged results pipelines, because `CI_MERGE_REQUEST_SOURCE_BRANCH_SHA` is empty in ordinary merge request pipelines.
 
 **Netlify Deploy Previews**
 
-Netlify also provides `HEAD`, the source branch name received from the Git provider. Check whether `BRANCH` matches the pull request's head branch before using it for `CHROMATIC_BRANCH` in a Deploy Preview.
+Before using `BRANCH` for `CHROMATIC_BRANCH` in a Deploy Preview, check that it matches the pull request's head branch. Netlify also provides `HEAD`, the source branch name received from the Git provider.
 
 **Bitbucket Pipelines**
 

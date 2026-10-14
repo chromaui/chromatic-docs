@@ -9,11 +9,11 @@ section: ci
 
 A **detached HEAD state** means Git has checked out a commit instead of a branch. Chromatic may need explicit branch information to find the correct baseline.
 
-### Most CI providers
+## Most CI providers
 
 Ephemeral merge commits or missing branch references can cause this in CI. Provide the Git context with [environment variables](/docs/faq/environment-variables). You must [set all three Git variables](/docs/cli#chromatic-git-options).
 
-### GitHub
+## GitHub
 
 On GitHub Actions, this issue happens when:
 
@@ -26,7 +26,7 @@ Run `git status` to check whether `HEAD` is detached. This can happen after `git
 
 If you made a commit while detached and want to keep it on a branch, run `git switch -c <new-branch-name>`. Push the branch with `git push origin <new-branch-name>` if you need the commit on the remote. For a remote branch that already exists, use `git switch --track origin/feature-branch` instead.
 
-If your CI workflow requires an attached branch, you can check it before running Chromatic:
+If your CI workflow requires an attached branch, check for one before running Chromatic:
 
 ```yaml
 - name: Check for an attached branch
