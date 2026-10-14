@@ -220,7 +220,7 @@ If you need a snapshot of a specific step, we recommend breaking your story into
 
 <details>
 
-<summary>Why is the interaction test icon missing from my build?</summary>
+<summary>Why doesn't the build indicate that interaction tests ran?</summary>
 
 The icon on the build page appears when the captured changes include a story with an interaction test. Other stories in your Storybook can have interaction tests without making the icon appear on that build.
 
