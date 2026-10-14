@@ -1,6 +1,7 @@
 ---
 sidebar: { hide: true }
 title: How do I link a repository to my project?
+description: Connect a Git repository to a Chromatic project and resolve access errors.
 section: 'usage'
 ---
 
@@ -23,6 +24,16 @@ You need:
 | Bitbucket    | `write` or `admin`                    |
 
 If the organization controls third-party applications, an administrator must approve Chromatic. See [why an organization can be missing](/docs/faq/org-not-appearing) for the GitHub approval flow.
+
+If selecting a repository stops responding, check your browser console. These errors indicate missing Git provider access:
+
+```plain
+ApolloError: Cannot create this app: No repository write permission
+ApolloError: Cannot create this app: No organization member
+ApolloError: Cannot link this app: No organization member
+```
+
+For `No repository write permission`, ask your Git provider administrator for write access to the repository. For `No organization member`, ask for membership in the organization, group, or workspace that owns it. Then try again.
 
 ## Link the repository
 
