@@ -5,9 +5,11 @@ description: Reset a branch's baselines when Chromatic picks them from the wrong
 
 # Reset baselines
 
-> **Reset baselines is in private beta.** The feature isn’t generally available yet, and the option may not appear on your builds. To have it enabled for your account, [contact support](mailto:support@chromatic.com?Subject=Reset%20baselines%20access).
-
 Chromatic picks baselines for a build by looking at its [ancestor builds](/docs/branching-and-baselines#find-the-ancestor-builds) in your Git history. Complex CI setups and Git workflows can occasionally point it at the wrong ancestor. When that happens, your build shows changes you didn't make, and rebasing won't fix it. Reset the baselines to give your build a clean start.
+
+<div class="aside">
+**Reset baselines is in private beta.** The feature isn’t generally available yet, and the option may not appear on your builds. To have it enabled for your account, [contact support](mailto:support@chromatic.com?Subject=Reset%20baselines%20access).
+</div>
 
 ## How a reset picks baselines
 
