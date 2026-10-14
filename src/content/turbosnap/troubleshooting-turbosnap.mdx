@@ -31,7 +31,7 @@ Could not retrieve dependent story files.
 Did not find any CSF globs in preview-stats.json
 ```
 
-Chromatic can't find a Component Story Format (CSF) story glob connected to a Storybook entry in `preview-stats.json`, so the build fails before TurboSnap traces changed files. Check the `stories` setting in your Storybook `main.js|ts` file, then rebuild Storybook with a new stats file.
+Chromatic can't find a Component Story Format (CSF) story glob connected to a Storybook entry in `preview-stats.json`, so the build fails before TurboSnap traces changed files. Check the [`stories` setting](https://storybook.js.org/docs/configure#configure-story-loading) in your Storybook `main.js|ts` file, then rebuild Storybook with a new stats file.
 
 If your build uses a custom Storybook config directory (`--config-dir` or `-c`), set `storybookConfigDir` to that directory. If Chromatic builds Storybook, make sure `buildScriptName` selects the script that uses the custom directory. See [TurboSnap config paths](/docs/turbosnap/config-paths).
 
@@ -39,17 +39,17 @@ If the error persists, [trim the stats file](/docs/turbosnap/dependency-tracing)
 
 ## Why are changed files missing from TurboSnap's affected stories?
 
-Compare the CLI's `Found ... changed files` list with the affected story files reported later in the output. A changed file outside your Storybook dependency graph needs an [`externals` pattern](/docs/turbosnap/setup#specify-external-files-to-trigger-a-full-re-test-when-they-change) if it can affect rendering.
-
-If TurboSnap traces a changed story file but Chromatic doesn't capture its stories, compare the file's module ID in the [trimmed stats file](/docs/turbosnap/dependency-tracing) with its `importPath` in your built Storybook's `index.json` (`stories.json` in older Storybook versions). A path mismatch can prevent Chromatic from matching the affected file to its stories, even when dependency tracing finds it.
-
-Check whether a custom webpack `context` or an incorrect `storybookBaseDir` causes the paths to resolve differently, then rebuild Storybook after correcting the configuration. If the paths still don't match, run a full build without `--only-changed` and [contact support](mailto:support@chromatic.com) with the mismatched paths and debug output.
-
 Run Chromatic with `--debug` and `--trace-changed=expanded` to inspect the files it found:
 
 ```bash
 npx chromatic --only-changed --debug --trace-changed=expanded
 ```
+
+Compare the CLI's `Found ... changed files` list with the affected story files reported later in the output. A changed file outside your Storybook dependency graph needs an [`externals` pattern](/docs/turbosnap/setup#specify-external-files-to-trigger-a-full-re-test-when-they-change) if it can affect rendering.
+
+If TurboSnap traces a changed story file but Chromatic doesn't capture its stories, compare the file's module ID in the [trimmed stats file](/docs/turbosnap/dependency-tracing) with its `importPath` in your built Storybook's `index.json` (`stories.json` in older Storybook versions). A path mismatch can prevent Chromatic from matching the affected file to its stories, even when dependency tracing finds it.
+
+Check whether a custom webpack `context` or an incorrect `storybookBaseDir` causes the paths to resolve differently, then rebuild Storybook after correcting the configuration. If the paths still don't match, run a full build without `--only-changed` and [contact support](mailto:support@chromatic.com) with the mismatched paths and debug output.
 
 ## Why are changes not being detected correctly?
 
