@@ -94,9 +94,9 @@ The reason for this behavior is how Chromatic handles it when it chooses not to 
 
 In the case of merge commits, Chromatic does not know ahead of time which side of the merge the snapshot might be copied from, because that involves running the [complete baseline selection](/docs/branching-and-baselines#calculate-a-snapshot-baseline-from-the-ancestor-builds) process. As a result, it needs to be conservative and allow for changes on either branch.
 
-## Why does TurboSnap report files I didn't change on this branch?
+## Why does TurboSnap report "Missing commit detected"?
 
-TurboSnap compares your commit with its [ancestor builds](/docs/branching-and-baselines#find-the-ancestor-builds). A merge can include changes from either ancestor. If the CLI reports a missing commit, TurboSnap uses an earlier build with an available commit, which can expand the changed-file list:
+The CLI reports this message when an [ancestor build's](/docs/branching-and-baselines#find-the-ancestor-builds) commit is missing from your Git history. TurboSnap uses an earlier build with an available commit, which can expand the changed-file list:
 
 ```text
 ℹ Missing commit detected

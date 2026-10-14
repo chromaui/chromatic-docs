@@ -33,7 +33,9 @@ It will build and test stories that may have been affected by the Git changes si
 - For GitHub Actions: run on `push` rather than `pull_request` ([learn more](#github-pull_request-triggers))
 - UI Tests should be enabled
 
-Only CI builds count toward this prerequisite. If Chromatic doesn't recognize your builds as CI builds, add the `--ci` flag to your Chromatic command, then confirm the next build is marked as a CI build.
+Completed CI builds include errored, canceled, and skipped builds recorded in Chromatic. Builds still being published, prepared, or tested don't count.
+
+Only CI builds count toward this prerequisite. To check CI detection, run Chromatic with `--diagnostics-file` and confirm that `options.fromCI` is `true` in `chromatic-diagnostics.json`. If it's `false`, add `--ci` to your Chromatic command and check the diagnostics file from the next run.
 
 <div class="callout">
   ℹ️ Most of this guide is for TurboSnap with Storybook. To set up TurboSnap with Vitest, follow the
