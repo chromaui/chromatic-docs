@@ -12,7 +12,7 @@ Chromatic can't find a build at the merge base for those pull requests. A patch 
 First, check that CI fetches enough Git history for Chromatic to identify the merge base. For GitHub Actions, set `fetch-depth: 0` on the checkout step:
 
 ```yaml
-- uses: actions/checkout@v4
+- uses: actions/checkout@v7
   with:
     fetch-depth: 0
 ```

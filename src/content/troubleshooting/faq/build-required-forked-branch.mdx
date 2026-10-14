@@ -9,7 +9,7 @@ section: uiTestsAndReview
 
 Chromatic can't find a build for the pull request's head branch on the fork. UI Review needs that build to compare the branch with its base.
 
-Run Chromatic on the fork's head branch, then check the build's commit SHA, branch name, and repository against the pull request. If the build exists but Chromatic still can't find it, correct the Git context in CI. Set all three variables: `CHROMATIC_SHA` to the source branch's head SHA, `CHROMATIC_BRANCH` to its branch name, and `CHROMATIC_SLUG` to the fork/source repository's `owner/repo` slug. See the [provider variable table](/docs/faq/environment-variables) and [Git options](/docs/cli#chromatic-git-options).
+Run Chromatic on the fork's head branch, then check the build's commit SHA, branch name, and repository against the pull request. If the build exists but Chromatic still can't find it, correct the Git context in CI. Set all three variables: `CHROMATIC_SHA` to the source branch's head SHA, `CHROMATIC_BRANCH` to its branch name, and `CHROMATIC_SLUG` to the source (fork) repository's `owner/repo` slug. See the [provider variable table](/docs/faq/environment-variables) and [Git options](/docs/cli#chromatic-git-options).
 
 For GitHub Actions pull requests, use the pull request's head SHA and branch rather than the temporary merge commit. Set `CHROMATIC_SLUG` to `github.event.pull_request.head.repo.full_name`. Use the target Chromatic project's token for the build. Forked pull requests need a way to access that token. See [Forked repositories](/docs/github-actions#forked-repositories).
 
