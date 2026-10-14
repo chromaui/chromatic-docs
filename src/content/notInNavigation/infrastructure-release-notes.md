@@ -9,7 +9,7 @@ description: Chromatic's browser infrastructure release notes
 
 Welcome to `Chromatic Capture Cloud version 9` released August 2026.
 
-**Status**: Upgrade window open ([opt in for upgrade](/docs/infrastructure-upgrades#opt-in-to-upgrade))
+**Status**: General Availability
 
 Key highlights on this release:
 
