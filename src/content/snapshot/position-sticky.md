@@ -23,6 +23,8 @@ bottom: 0;
 
 ## Troubleshooting
 
+### Capture content scrolled inside an element
+
 To capture content scrolled inside an element, give that element a fixed height and `overflow: auto`, then scroll it in your story's `play` function. Chromatic waits for the play function to finish, but resets the page's scroll position before capture.
 
 This example wraps the story in a scrollable decorator:
