@@ -48,7 +48,7 @@ Overriding Chromatic's Git variables does not change the checked-out code. To te
 
 **Netlify Deploy Previews**
 
-Before using `BRANCH` for `CHROMATIC_BRANCH` in a Deploy Preview, check that it matches the pull request's head branch. Netlify also provides `HEAD`, the source branch name received from the Git provider.
+For Deploy Previews, set `CHROMATIC_BRANCH` to `HEAD`, the source branch name received from the Git provider. Use `BRANCH` for production and branch deploys. `BRANCH` identifies the reference Netlify checks out, which can differ from the source branch name in a Deploy Preview. See [Netlify's Git metadata variables](https://docs.netlify.com/build/configure-builds/environment-variables/#git-metadata). Set all three Chromatic Git variables when overriding the Git context.
 
 **Bitbucket Pipelines**
 

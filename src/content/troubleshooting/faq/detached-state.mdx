@@ -7,34 +7,20 @@ section: ci
 
 # How do I fix a detached HEAD state?
 
-A **detached HEAD state** means Git has checked out a commit instead of a branch. Chromatic may need explicit branch information to find the correct baseline.
+A **detached HEAD state** means Git has checked out a commit instead of a branch. Chromatic can still run, but if no branch name is available from CI or an override, it reports the branch as `HEAD`. The build won't be associated with your intended branch. Chromatic can still find baselines through Git ancestry, but it won't use the latest build on your intended branch to account for rebases.
 
-## Most CI providers
+## Provide Git context in CI
 
 Ephemeral merge commits or missing branch references can cause this in CI. Provide the Git context with [environment variables](/docs/faq/environment-variables). You must [set all three Git variables](/docs/cli#chromatic-git-options).
 
 ## GitHub
 
-On GitHub Actions, this issue happens when:
+On a `pull_request` event, `actions/checkout` checks out a temporary merge commit by default. The [Chromatic GitHub Action](/docs/github-actions) supplies the pull request's source commit, branch, and repository automatically. If you run the CLI directly, provide those values using the [Git environment variables](/docs/faq/environment-variables).
 
-- You are running on a `pull_request` event trigger
-- You are missing the `ref` tag on the checkout step in CI when running on `pull_request`
+Overriding Git variables changes the build's Git metadata, not the checked-out code. To test only the source branch's code, set the checkout step's `ref` to `github.event.pull_request.head.sha`. Checking out a SHA still leaves Git detached, so Chromatic needs the source branch context. See [GitHub's pull request checkout behavior](https://docs.github.com/en/actions/reference/workflows-and-actions/events-that-trigger-workflows#pull_request).
 
 ## Local builds
 
-Run `git status` to check whether `HEAD` is detached. This can happen after `git checkout <commit-hash>`, `git checkout origin/feature-branch`, or `gh pr checkout <number> --detach`. A regular `gh pr checkout <number>` creates or uses a local branch.
+If you run Chromatic locally while detached, it reports the branch as `HEAD` unless you provide a branch override. Run `git status` to check, then use `git switch <branch-name>` to return to your intended branch before running Chromatic.
 
-If you made a commit while detached and want to keep it on a branch, run `git switch -c <new-branch-name>`. Push the branch with `git push origin <new-branch-name>` if you need the commit on the remote.
-
-If you haven't made commits while detached and want to work on an existing remote branch, use `git switch --track origin/feature-branch` to create a local tracking branch. If you already have a local branch, use `git switch feature-branch`.
-
-## Check for an attached branch in CI
-
-If your CI workflow requires an attached branch, check for one before running Chromatic:
-
-```yaml
-- name: Check for an attached branch
-  run: git symbolic-ref -q HEAD >/dev/null
-```
-
-Some CI workflows intentionally check out a detached commit. In those workflows, provide the [Git environment variables](/docs/faq/environment-variables) instead of failing the build.
+If you made commits while detached, preserve them on a new branch with `git switch -c <new-branch-name>` before switching away.
