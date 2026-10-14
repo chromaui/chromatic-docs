@@ -1,0 +1,68 @@
+{
+  "skill_name": "dx-review",
+  "evals": [
+    {
+      "id": 1,
+      "name": "trace-utility-copy-edits",
+      "prompt": "dx-review #745. Dry run: don't post or push. Review it as of commit 98504993e0 (the author's last commit before reviewer edits).",
+      "expected_output": "Ground truth: the docs lead pushed two 'copy edits' commits (8cead9bd6a, 849e27096b): sentence-case titles ('Diagnose preview rebuilds', 'TurboSnap dependency tracing'), bold numbered items turned into '### 1. Imperative' headings, gerund headings to imperatives, 'you'll need to' cut, em dashes removed, 'ex.' \u2192 'such as', heading levels fixed, decorative bold removed. Verdict: approve with thanks.",
+      "files": [],
+      "assertions": [
+        "Converts title-case titles/H1s to sentence case (e.g. 'Diagnosing Preview Rebuilds' / 'TurboSnap Dependency Tracing')",
+        "Turns bold numbered list items into real '### N. Imperative' step headings",
+        "Removes em dashes from prose sentences in changed lines",
+        "Replaces 'ex.' with 'e.g.' or 'such as'",
+        "Raises overlap/placement with existing TurboSnap docs as a question rather than moving content across pages",
+        "Verdict is APPROVE",
+        "Review body reads like a short colleague note: under ~60 words, no markdown headings or bullet summary",
+        "Copy edits are delivered as a patch (copy-edits.patch is non-empty) rather than only as comments asking the author to reword"
+      ]
+    },
+    {
+      "id": 2,
+      "name": "mock-debugging-accuracy",
+      "prompt": "can you take a pass at chromatic-docs PR 661? just draft it, don't post anything. Review the state at commit 6be12047e9.",
+      "expected_output": "Ground truth: the docs lead challenged the claim that the Storybook Test addon / Test Runner / a 'Test Hook API' affect how Chromatic waits for mocked data ('Chromatic doesn't use either of those tools'; no API to wait for mocked data), pointed to the assertion approach instead. Copy edits: FAQ summary as a full question ('Why are stories with mocked data\u2026'), 'expression' \u2192 'assertion', interaction test step before delays. Verdict should not approve the inaccurate claim as-is.",
+      "files": [],
+      "assertions": [
+        "Questions the claim that the Storybook Test addon / Test Runner / a test hook affects how Chromatic waits for mocked data",
+        "Does not silently rewrite that technical claim in the patch (asks instead)",
+        "Verdict is REQUEST_CHANGES or COMMENT, not a plain APPROVE",
+        "FAQ <summary>/heading phrased as a full natural question",
+        "Review body reads like a short colleague note: under ~60 words, no markdown headings or bullet summary",
+        "Copy edits are delivered as a patch (copy-edits.patch is non-empty) rather than only as comments asking the author to reword"
+      ]
+    },
+    {
+      "id": 3,
+      "name": "snapshot-instability-questions",
+      "prompt": "Review deandre's PR #923 (snapshot instability causes) as of commit fa9f953ac6 \u2014 dry run only, I'll post it myself.",
+      "expected_output": "Ground truth: the docs lead left question comments, no commits: 'If it is, then what should the user do?' (missing next step), 'can we show an example?', 'Could you explain here what a \"fractional element\" means. Maybe even put that in the title', and noted an example is inside an accordion above so repeat or link it. Verdict: comment/request changes with questions, plus any pure copy edits.",
+      "files": [],
+      "assertions": [
+        "Asks what the reader should do next where a cause is described without a fix",
+        "Asks for a definition of 'fractional element' (or suggests putting it in the heading)",
+        "Asks for an example, or to repeat/link an example that is hidden in an accordion",
+        "Verdict is COMMENT or REQUEST_CHANGES (questions block)",
+        "Inline comments are short (most under ~40 words) and conversational",
+        "Review body reads like a short colleague note: under ~60 words, no markdown headings or bullet summary",
+        "Copy edits are delivered as a patch (copy-edits.patch is non-empty) rather than only as comments asking the author to reword"
+      ]
+    },
+    {
+      "id": 4,
+      "name": "faq-chromatic-entity",
+      "prompt": "dx-review https://github.com/chromaui/chromatic-docs/pull/676 \u2014 dry run against commit b8f831be6a please",
+      "expected_output": "Ground truth: the docs lead asked 'what is a \"Chromatic entity\"?' and pushed copy edits (578507d90f): cut the 'There's no automation (yet!)\u2026Here's how' lead-in to 'To migrate your Chromatic projects to the new Git provider:', Oxford comma ('steps 1, 3, and 4'), 'Chromatic entity' \u2192 organization account wording, 'Profile' \u2192 'Profile page'. Comment: 'made some copy edits, does this work for you?'",
+      "files": [],
+      "assertions": [
+        "Questions or replaces the undefined term 'Chromatic entity'",
+        "Cuts the 'There's no automation (yet!)\u2026 Here's how' lead-in down to a direct instruction",
+        "Adds the Oxford comma in 'steps 1, 3, and 4'",
+        "Review body mentions the pushed copy edits and invites the author to check them (e.g. 'LMK if they look okay')",
+        "Review body reads like a short colleague note: under ~60 words, no markdown headings or bullet summary",
+        "Copy edits are delivered as a patch (copy-edits.patch is non-empty) rather than only as comments asking the author to reword"
+      ]
+    }
+  ]
+}
