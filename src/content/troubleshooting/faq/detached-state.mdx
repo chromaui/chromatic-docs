@@ -1,23 +1,26 @@
 ---
 sidebar: { hide: true }
-title: Fixing a 'detached HEAD' state in CI
+title: How do I fix a detached HEAD state?
+description: Provide Git context when your build checks out a detached commit.
 section: ci
 ---
 
-# Fixing a 'detached HEAD' state in CI
+# How do I fix a detached HEAD state?
 
-A **detached HEAD state** occurs when your CI provider checks out a specific commit instead of a branch, losing the Git context.
-This prevents Chromatic from finding the correct baseline to compare against.
+A **detached HEAD state** means Git has checked out a commit instead of a branch. Chromatic can still run, but if no branch name is available from CI or an override, it reports the branch as `HEAD`. The build won't be associated with your intended branch. Chromatic can still find baselines through Git ancestry, but it won't use the latest build on your intended branch to account for rebases.
 
-### Most CI providers
+## Provide Git context in CI
 
-This can be caused by ephemeral merge commits (GitLab, Bitbucket) or a missing branch reference (Jenkins and others).
-Manually provide the Git context by [setting environment variables](/docs/faq/environment-variables) to resolve the issue.
-Note that [you must set all required Git variables](/docs/cli#chromatic-git-options) for the fix to work correctly.
+Ephemeral merge commits or missing branch references can cause this in CI. Provide the Git context with [environment variables](/docs/faq/environment-variables). You must [set all three Git variables](/docs/cli#chromatic-git-options).
 
-### GitHub
+## GitHub
 
-On GitHub Actions, this issue happens when:
+On a `pull_request` event, `actions/checkout` checks out a temporary merge commit by default. The [Chromatic GitHub Action](/docs/github-actions) supplies the pull request's source commit, branch, and repository automatically. If you run the CLI directly, provide those values using the [Git environment variables](/docs/faq/environment-variables).
 
-- You are running on a `pull_request` event trigger
-- You are missing the `ref` tag on the checkout step in CI when running on `pull_request`
+Overriding Git variables changes the build's Git metadata, not the checked-out code. To test only the source branch's code, set the checkout step's `ref` to `github.event.pull_request.head.sha`. Checking out a SHA still leaves Git detached, so Chromatic needs the source branch context. See [GitHub's pull request checkout behavior](https://docs.github.com/en/actions/reference/workflows-and-actions/events-that-trigger-workflows#pull_request).
+
+## Local builds
+
+If you run Chromatic locally while detached, it reports the branch as `HEAD` unless you provide a branch override. Run `git status` to check, then use `git switch <branch-name>` to return to your intended branch before running Chromatic.
+
+If you made commits while detached, preserve them on a new branch with `git switch -c <new-branch-name>` before switching away.

@@ -1,18 +1,18 @@
 ---
 sidebar: { hide: true }
 title: How to set Chromatic environment variables in popular CI providers?
+description: Find the Git environment variables for common CI providers.
 section: ci
 ---
 
 # How to set Chromatic environment variables in popular CI providers?
 
-Environment variables define settings for your CI workflow which Chromatic relies on to get git context, such as the current commit SHA and branch name.
-Below are examples on how to set them for some popular CI providers:
+Chromatic uses CI environment variables to identify the current commit, branch, and repository. This table shows the values available from common providers:
 
 | **CI Provider**                   | `CHROMATIC_SHA`                      | `CHROMATIC_BRANCH`             | `CHROMATIC_SLUG`                                            |
 | --------------------------------- | ------------------------------------ | ------------------------------ | ----------------------------------------------------------- |
 | **GitHub Actions** (Push)         | `GITHUB_SHA`                         | `GITHUB_REF_NAME`              | `GITHUB_REPOSITORY`                                         |
-| **GitHub Actions** (Pull Request) | `github.event.pull_request.head.sha` | `github.head_ref`              | `GITHUB_REPOSITORY`                                         |
+| **GitHub Actions** (Pull Request) | `github.event.pull_request.head.sha` | `github.head_ref`              | `github.event.pull_request.head.repo.full_name`             |
 | **GitLab**                        | `CI_COMMIT_SHA`                      | `CI_COMMIT_REF_NAME`           | `CI_PROJECT_PATH`                                           |
 | **Bitbucket Pipelines**           | `BITBUCKET_COMMIT`                   | `BITBUCKET_BRANCH`             | `BITBUCKET_REPO_FULL_NAME`                                  |
 | **Bitbucket Workspaces**          | `BITBUCKET_COMMIT`                   | `BITBUCKET_BRANCH`             | `${BITBUCKET_REPO_OWNER}/${BITBUCKET_REPO_SLUG}`            |
@@ -23,20 +23,32 @@ Below are examples on how to set them for some popular CI providers:
 | **Jenkins**                       | `GIT_COMMIT`                         | `GIT_BRANCH`                   | `{org}/{repo}`                                              |
 | **Azure Pipelines**               | `BUILD_SOURCEVERSION`                | `BUILD_SOURCEBRANCHNAME`       | `{org}/{repo}`                                              |
 | **Buildkite**                     | `BUILDKITE_COMMIT`                   | `BUILDKITE_BRANCH`             | `${BUILDKITE_ORGANIZATION_SLUG}/${BUILDKITE_PIPELINE_SLUG}` |
+| **Netlify**                       | `COMMIT_REF`                         | `BRANCH`                       | `{org}/{repo}`                                              |
 
 ## Considerations
 
-Some CI providers have unique behaviors that require special configuration.
+Some providers need additional configuration for pull requests.
 
 **GitHub Actions pull requests**
 
 When a workflow runs on a pull request, the default `GITHUB_SHA` and `GITHUB_REF_NAME` variables refer to the temporary **merge commit**, not the head of the source branch.
 
-To get the correct commit and branch, you must access the `head` context from the pull request event.
+Use the pull request's `head` context for the source commit, branch, and repository. For forked pull requests, `GITHUB_REPOSITORY` identifies the base repository, so use `github.event.pull_request.head.repo.full_name` for `CHROMATIC_SLUG`.
 
 **GitLab merge requests**
 
-If your merge request pipeline runs on an ephemeral merge commit, you should override the default variables to ensure Chromatic tracks the correct source branch.
+For merge request pipelines, set `CHROMATIC_BRANCH` to `CI_MERGE_REQUEST_SOURCE_BRANCH_NAME` and `CHROMATIC_SLUG` to `CI_MERGE_REQUEST_SOURCE_PROJECT_PATH`. Choose `CHROMATIC_SHA` based on the pipeline type:
+
+- For ordinary merge request pipelines, use `CI_COMMIT_SHA`.
+- For merged results pipelines, use `CI_MERGE_REQUEST_SOURCE_BRANCH_SHA` to identify the source branch's head commit. This variable is empty in ordinary merge request pipelines. See [GitLab's predefined variables](https://docs.gitlab.com/ci/variables/predefined_variables/#predefined-variables-for-merge-request-pipelines).
+
+[Merged results pipelines](https://docs.gitlab.com/ci/pipelines/merged_results_pipelines/) check out a temporary merge commit and can fall back to ordinary merge request pipelines when the branches conflict. Select the SHA based on the actual pipeline type, not just whether merged results pipelines are enabled.
+
+Overriding Chromatic's Git variables does not change the checked-out code. To test the source branch itself, check out the source commit before building Storybook and running Chromatic.
+
+**Netlify Deploy Previews**
+
+For Deploy Previews, set `CHROMATIC_BRANCH` to `HEAD`, the source branch name received from the Git provider. Use `BRANCH` for production and branch deploys. `BRANCH` identifies the reference Netlify checks out, which can differ from the source branch name in a Deploy Preview. See [Netlify's Git metadata variables](https://docs.netlify.com/build/configure-builds/environment-variables/#git-metadata). Set all three Chromatic Git variables when overriding the Git context.
 
 **Bitbucket Pipelines**
 
@@ -52,4 +64,4 @@ However, Git-specific variables like `GIT_COMMIT` and `GIT_BRANCH` are typically
 
 GitHub's merge queue feature does **not** require any specific environment variable setup to work with Chromatic. See [Run Chromatic in a merge queue](/docs/github-actions#run-chromatic-in-a-merge-queue) for the workflow and branch ruleset configuration.
 
-If your provider is not listed here, refer to their documentation to find the equivalent environment variables for commit SHA, branch name, and repository slug. If you need further assistance, please reach out to the Chromatic support at **support@chromatic.com** or via in-app chat.
+If your provider isn't listed, check its documentation for the commit SHA, branch name, and repository slug. If you have additional questions, use our **in-app chat** to contact us or email us at [support@chromatic.com](mailto:support@chromatic.com).

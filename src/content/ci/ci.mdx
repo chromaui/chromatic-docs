@@ -127,7 +127,9 @@ The way to fix this is to set the Chromatic [environment variables](/docs/config
 
 Another possibility is that your environment variables `CHROMATIC_SHA`, `CHROMATIC_BRANCH`, `CHROMATIC_SLUG` are not configured correctly.
 
-The most likely reason is that you are pulling the incorrect value from your CI provider to set the variables or you are working on a forked repository and have not configured the variables to match the base repository.
+Use the source branch's commit SHA and branch name, and the source repository's `owner/repo` slug. For a pull request from a fork, set `CHROMATIC_SLUG` to the fork's slug, not the base repository's slug. See the [provider variable table](/docs/faq/environment-variables) for the values to use in your CI environment.
+
+If your check shows "Expected - Waiting for status to be reported", see [Why is my status check stuck on "Expected - Waiting for status to be reported"?](/docs/faq/status-check-stuck-expected) for additional causes, including disabled checks.
 
 <div class="aside">
 
