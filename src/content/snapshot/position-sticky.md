@@ -23,6 +23,8 @@ bottom: 0;
 
 ## Troubleshooting
 
+To capture content scrolled inside an element, see [Capture content scrolled inside an element](/docs/interactions#capture-content-scrolled-inside-an-element).
+
 <details>
 
 <summary>I set an element to use sticky positioning, but it's not working. What could be the issue?</summary>

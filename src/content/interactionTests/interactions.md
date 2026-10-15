@@ -60,6 +60,40 @@ Read Storybook's interaction testing [docs](https://storybook.js.org/docs/writin
 
 Chromatic waits for interactions to pass before capturing a snapshot.
 
+### Capture content scrolled inside an element
+
+To capture content scrolled inside an element, give that element a fixed height and `overflow: auto`, then scroll it in your story's `play` function. Chromatic waits for the play function to finish, but resets the page's scroll position before capture.
+
+This example wraps the story in a scrollable decorator:
+
+```jsx title="Scrolled.stories.jsx"
+import React from 'react';
+import { within } from 'storybook/test';
+
+export default { title: 'Scrolled content' };
+
+export const Scrolled = {
+  decorators: [
+    (Story) => (
+      <div style={{ height: '568px', overflow: 'auto' }}>
+        <Story />
+      </div>
+    ),
+  ],
+  render: () => (
+    <div style={{ height: '1200px', paddingTop: '800px', boxSizing: 'border-box' }}>
+      <p>Somewhere, USA</p>
+    </div>
+  ),
+  play: async ({ canvasElement }) => {
+    const target = within(canvasElement).getByText('Somewhere, USA');
+    target.scrollIntoView({ behavior: 'instant', block: 'center' });
+  },
+};
+```
+
+Use your component in place of the example content. With Storybook 8, import `within` from `@storybook/test` instead.
+
 ### Confirm interaction tests are working
 
 Interaction tests run behind the scenes without you having to configure anything. To verify that they are working in Chromatic, publish your Storybook either via [CLI](/docs/cli) or [CI](/docs/ci). You can confirm that they’re running with the “Interaction” label in the Build page’s Tests section.
