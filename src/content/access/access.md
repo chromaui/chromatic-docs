@@ -30,7 +30,7 @@ Chromatic creates a personal account when it creates your profile. You can also 
 
 Chromatic supports the cloud versions of GitHub, GitLab, and Bitbucket on [self-serve plans](https://www.chromatic.com/pricing). Connecting a Git provider lets Chromatic identify the organizations and repositories available to you.
 
-On-premise GitHub Enterprise Server and self-managed GitLab connections require an Enterprise plan. See [how to link a repository](/docs/faq/link-a-repository) for provider permissions and setup requirements.
+GitHub Enterprise Server, GitHub Enterprise Cloud with data residency, and self-managed GitLab connections require an Enterprise plan. See [how to link a repository](/docs/faq/link-a-repository) for provider permissions and setup requirements.
 
 <span id="troubleshooting"></span>
 
