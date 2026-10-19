@@ -224,17 +224,17 @@ Contact [priority-support@chromatic.com](mailto:priority-support@chromatic.com).
 <details>
 <summary>Can an account with SSO connect to Git providers?</summary>
 
-Yes. Chromatic can configure an account with SSO to connect to GitHub, GitLab, Bitbucket, GitHub Enterprise Server, or a self-managed GitLab instance.
+Yes. Chromatic can configure an account with SSO to connect to GitHub, GitLab, Bitbucket, GitHub Enterprise Server, GitHub Enterprise Cloud with data residency, or a self-managed GitLab instance.
 
 Existing linked projects cannot move directly into the account. Unlink each repository first, then link it again from the account with SSO.
 
 </details>
 
 <details>
-<summary>How do I link my project to GitHub Enterprise Server or GitLab self-managed?</summary>
+<summary>How do I link my project to GitHub Enterprise Server, GitHub Enterprise Cloud with data residency, or self-managed GitLab?</summary>
 
-GitHub Enterprise Server and self-managed GitLab connections require an Enterprise plan and setup from Chromatic Support.
+GitHub Enterprise Server, GitHub Enterprise Cloud with data residency (a `.ghe.com` address), and self-managed GitLab link through the on-premise Git provider. Chromatic organization accounts that use these providers typically use SSO to manage access and collaboration, which requires an Enterprise plan. Contact Chromatic Support to enable the connection.
 
-[Review the prerequisites and linking steps »](/docs/faq/link-a-repository#link-an-on-premise-provider)
+[Review the prerequisites and linking steps »](/docs/faq/link-a-repository#link-github-enterprise-server-data-residency-or-self-managed-gitlab)
 
 </details>

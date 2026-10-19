@@ -117,22 +117,26 @@ Do not disconnect the original Git provider before you move the projects. You ma
 
 For a paid account, contact Chromatic Support through in-app chat or [email](mailto:support@chromatic.com) to move the subscription. One Chromatic account cannot connect to several Git organizations or providers at the same time.
 
-## Link an on-premise provider
+## Link GitHub Enterprise Server, data residency, or self-managed GitLab
 
-GitHub Enterprise Server and self-managed GitLab connections require an Enterprise plan. Contact Chromatic Support to enable the connection before following these steps.
+GitHub Enterprise Server, GitHub Enterprise Cloud with data residency (a `.ghe.com` address), and self-managed GitLab link through the on-premise Git provider. Chromatic organization accounts that use these providers typically use SSO to manage access and collaboration, which requires an Enterprise plan. Contact Chromatic Support to enable the connection before following these steps.
 
 Prepare:
 
-- A public HTTPS URL that reaches your Git provider API, such as `https://github.example.com`.
+- A public HTTPS URL that reaches your Git provider API, such as `https://github.example.com` or `https://example.ghe.com`.
 - The repository name, such as `example/design-system`.
 - A provider access token with the required OAuth scopes listed above.
 
-If the provider is on a private network, configure a public HTTPS proxy and allow [Chromatic's outbound IP addresses](/docs/faq/allowlist-ips-for-git-providers) to reach it. Enter the proxy's base URL. Chromatic adds `/api/v3/` for GitHub Enterprise Server or `/api/v4/` for self-managed GitLab.
+Use a [service user for the token](/docs/faq/link-a-repository#use-a-service-user-for-repository-tokens).
+
+If the provider is on a private network, configure a public HTTPS proxy and allow [Chromatic's outbound IP addresses](/docs/faq/allowlist-ips-for-git-providers) to reach it. Enter the proxy's base URL. Chromatic adds `/api/v3/` for GitHub Enterprise Server and GitHub Enterprise Cloud with data residency, or `/api/v4/` for self-managed GitLab.
 
 Then:
 
 1. Open the project's **Manage page » Configure tab**.
 2. Find **Sync project with a Git repository** under **Connected Applications**.
 3. Select **Add on-prem Git Provider** and enter the connection details.
+
+For GitHub Enterprise Server and GitHub Enterprise Cloud with data residency, Chromatic does not start a UI Review when a pull request opens, because the GitHub App is available on github.com only. Chromatic creates the review when a build runs on the pull request branch. Status checks post through the access token.
 
 If your provider restricts Git access by IP address, [add Chromatic's outbound addresses to its allow list](/docs/faq/allowlist-ips-for-git-providers#my-organization-restricts-ip-addresses-for-git-access-should-i-add-chromatic-to-the-allowlist).
