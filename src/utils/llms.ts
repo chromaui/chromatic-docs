@@ -17,6 +17,7 @@ export type DocEntry =
   | CollectionEntry<'snapshot'>
   | CollectionEntry<'turbosnap'>
   | CollectionEntry<'collaborate'>
+  | CollectionEntry<'apiAndAgents'>
   | CollectionEntry<'ci'>
   | CollectionEntry<'account'>
   | CollectionEntry<'guides'>
