@@ -9,23 +9,23 @@ import { TabItem, Tabs } from '../../components/Tabs';
 # Chromatic MCP
 
 <div class="aside">
-  New to Chromatic with coding agents? Start with [Chromatic for agents](/docs/agents). Looking for
-  publishing your Storybook's MCP server? See [Publish your Storybook MCP](/docs/storybook-mcp).
+  New to Chromatic with coding agents? Start with [Chromatic for agents](/docs/agents). Want to
+  publish your Storybook's MCP server? See [Publish your Storybook MCP](/docs/storybook-mcp).
 </div>
 
-The Chromatic MCP gives your coding agent one login to Chromatic. Your agent can then read your builds, test results, accessibility violations and published Storybooks, act on them in your code, and review or quarantine a test when you ask.
+The Chromatic MCP gives your coding agent one login to Chromatic. Your agent can then read your builds, test results, accessibility violations, and published Storybooks. It can act on them in your code, and review or quarantine a test when you ask.
 
-It works in Claude Code, Claude Desktop, claude.ai, Codex and the ChatGPT app. Most people install the Chromatic plugin, which connects the server, handles the login and adds every skill in one step.
+It works in Claude Code, Claude Desktop, claude.ai, Codex, and the ChatGPT app. Most people install the Chromatic plugin, which connects the server, handles the login, and adds every skill in one step.
 
 ## Overview
 
 The Chromatic MCP has three parts:
 
-| Part       | What it is                                                                                                                                                                                                                                        |
-| ---------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| **Server** | Lives at `https://mcp.chromatic.com/mcp`. It runs the Chromatic public API as you, so it sees every project your account can, and nothing more.                                                                                                   |
-| **Tools**  | Seven calls your agent can make. Six only read, such as "get the latest build", "search the API" and "ask the API a question". One, `chromatic_mutate`, changes things: it runs only when you ask, and your client asks you to approve each call. |
-| **Skills** | Workflows that chain the tools with your code, such as fixing accessibility violations or reviewing visual changes. Each skill is also a slash command.                                                                                           |
+| Part       | What it is                                                                                                                                                                                                                                         |
+| ---------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| **Server** | Lives at `https://mcp.chromatic.com/mcp`. It runs the Chromatic public API as you, so it sees every project your account can, and nothing more.                                                                                                    |
+| **Tools**  | Seven calls your agent can make. Six only read, such as "get the latest build", "search the API", and "ask the API a question". One, `chromatic_mutate`, changes things: it runs only when you ask, and your client asks you to approve each call. |
+| **Skills** | Workflows that chain the tools with your code, such as fixing accessibility violations or reviewing visual changes. Each skill is also a slash command.                                                                                            |
 
 You log in once per agent, in your browser, with your Chromatic account. There is no API key to create and no token to paste. Chromatic applies the same permissions your account has, so your agent can't do anything you couldn't.
 
@@ -35,21 +35,21 @@ The server tells your agent which tools it has and what each one does, so the li
 
 ### Tools
 
-| Tool                                   | What it does                                                                                                                                         |
-| -------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `chromatic_get_latest_build`           | Reports the latest build for a project, optionally for a branch: number, status, result, commit, counts and a link                                   |
-| `chromatic_list_accessibility_changes` | Lists every story in a build whose accessibility violations changed, with net counts per rule                                                        |
-| `chromatic_get_accessibility_diff`     | Shows one story's violations per rule: regressions, resolved elements and accepted elements                                                          |
-| `chromatic_search_schema`              | Searches the Chromatic API schema for the types and fields that match a few keywords                                                                 |
-| `chromatic_query`                      | Runs one named, read-only GraphQL query against the Chromatic API and returns just the fields asked for                                              |
-| `chromatic_server_time`                | Returns the server's clock, which proves the connection works                                                                                        |
-| `chromatic_mutate`                     | Runs one named GraphQL mutation: review a test (accept, deny, ignore or set back to pending), quarantine or unquarantine a test, or create a project |
+| Tool                                   | What it does                                                                                                                                          |
+| -------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `chromatic_get_latest_build`           | Reports the latest build for a project, optionally for a branch: number, status, result, commit, counts, and a link                                   |
+| `chromatic_list_accessibility_changes` | Lists every story in a build whose accessibility violations changed, with net counts per rule                                                         |
+| `chromatic_get_accessibility_diff`     | Shows one story's violations per rule: regressions, resolved elements, and accepted elements                                                          |
+| `chromatic_search_schema`              | Searches the Chromatic API schema for the types and fields that match a few keywords                                                                  |
+| `chromatic_query`                      | Runs one named, read-only GraphQL query against the Chromatic API and returns just the fields asked for                                               |
+| `chromatic_server_time`                | Returns the server's clock, which proves the connection works                                                                                         |
+| `chromatic_mutate`                     | Runs one named GraphQL mutation: review a test (accept, deny, ignore, or set back to pending), quarantine or unquarantine a test, or create a project |
 
 `chromatic_mutate` changes things for everyone on the project, so your agent runs it only when you ask. Before each call, the agent says in one sentence which tests or project it will change and to what. The server refuses to create OAuth clients or CLI tokens, and no tool reads a project token or a Figma token.
 
 ## Install with the plugin
 
-The Chromatic plugin is the recommended way to set up the Chromatic MCP. One install gives you the server connection, the login and every [skill](#skills). In Claude Code it also adds [hooks](#hooks-in-claude-code) that check your build after you push.
+The Chromatic plugin is the recommended way to set up the Chromatic MCP. One install gives you the server connection, the login, and every [skill](#skills). In Claude Code it also adds [hooks](#hooks-in-claude-code) that check your build after you push.
 
 Before you start, you need:
 
@@ -183,15 +183,15 @@ Adding the server by hand gives your agent the tools but **none of the skills**.
   <TabItem label="Claude Desktop and claude.ai">
     This adds the server as a connector, which gives you the tools.
 
-    1. Open **Customize → Connectors**, click **+**, and choose **Add custom connector**.
+    1. Open **Customize » Connectors**, click **+**, and choose **Add custom connector**.
     2. Enter `https://mcp.chromatic.com/mcp`. Leave the OAuth client ID and secret empty.
     3. Click **Connect** and approve the request on chromatic.com.
 
     **On a Team or Enterprise plan**, an owner adds the connector once, then each person connects:
 
-    1. An owner opens **Organization settings → Connectors → Add → Custom → Web** and enters `https://mcp.chromatic.com/mcp`. Members cannot add custom connectors themselves.
-    2. Each member opens **Customize → Connectors**, finds Chromatic marked "Custom", and clicks **Connect**. Everyone logs in to Chromatic as themselves, so nobody sees a project their own account cannot.
-    3. Owners can set each tool to **Always allow**, **Needs approval** or **Blocked** for the whole organization. **Always allow** is a reasonable default for the tools that only read. Keep `chromatic_mutate` on **Needs approval**.
+    1. An owner opens **Organization settings » Connectors » Add » Custom » Web** and enters `https://mcp.chromatic.com/mcp`. Members cannot add custom connectors themselves.
+    2. Each member opens **Customize » Connectors**, finds Chromatic marked "Custom", and clicks **Connect**. Everyone logs in to Chromatic as themselves, so nobody sees a project their own account cannot.
+    3. Owners can set each tool to **Always allow**, **Needs approval**, or **Blocked** for the whole organization. **Always allow** is a reasonable default for the tools that only read. Keep `chromatic_mutate` on **Needs approval**.
 
     Connectors run from Anthropic's cloud. `mcp.chromatic.com` and `www.chromatic.com` are both public, so there is nothing to allowlist.
 
@@ -201,7 +201,7 @@ Adding the server by hand gives your agent the tools but **none of the skills**.
 
     1. Run the two commands in the **Codex** tab.
     2. Quit and reopen the app, then pick **Codex** in the sidebar.
-    3. **Settings → MCP servers** lists chromatic. If you skipped the login, use **Authenticate** there.
+    3. **Settings » MCP servers** lists chromatic. If you skipped the login, use **Authenticate** there.
 
   </TabItem>
 </Tabs>
@@ -227,7 +227,7 @@ Every tool needs your Chromatic project ID. It lives in `chromatic.config.json` 
 }
 ```
 
-- **With the plugin,** ask your agent to connect your Chromatic project (the `connect-project` skill). Since plugin v0.4.0 it finds the project from your git remote, so most repositories need no link. If it finds none, it asks you to paste a link to the project, then writes the file and tells you to commit it.
+- **With the plugin,** ask your agent to connect your Chromatic project (the `connect-project` skill). Since plugin v0.4.0 it finds the project from your Git remote, so most repositories need no link. If it finds none, it asks you to paste a link to the project, then writes the file and tells you to commit it.
 - **Without the plugin,** copy the `appId` from any Chromatic project URL into that file.
 - **In Claude Desktop or claude.ai,** paste a link to the project into the chat.
 
@@ -274,34 +274,34 @@ A few of the skills the plugin ships:
 - **`fix-broken-stories`** finds the stories a build could not capture, fixes the cause, and checks the fix on the next build.
 - **`triage-flaky-stories`** finds quarantined and unstable stories, fixes what makes them flaky, and quarantines or brings one back when you ask. See [unstable tests](/docs/unstable-tests) and [quarantine tests](/docs/quarantine-tests).
 - **`run-build`** runs a Chromatic build for just the stories you are changing. It needs `CHROMATIC_PROJECT_TOKEN` in your shell and asks before each build.
-- **`connect-project`** finds your Chromatic project ID from your git remote, or asks you for a project link, and saves it to `chromatic.config.json`.
+- **`connect-project`** finds your Chromatic project ID from your Git remote, or asks you for a project link, and saves it to `chromatic.config.json`.
 
 For the full list of skills and what each one does, see the [chromaui/chromatic-plugins README](https://github.com/chromaui/chromatic-plugins#-what-you-get). For examples of what to ask, see [Chromatic for agents](/docs/agents#what-your-agent-can-do).
 
-In Claude Code, `/mcp` shows the server, its tools and your login, and `/plugin` manages the plugin. Tools are never slash commands; ask for them in plain words.
+In Claude Code, `/mcp` shows the server, its tools, and your login, and `/plugin` manages the plugin. Tools are never slash commands; ask for them in plain words.
 
 ## Prompts to try
 
 Plain words work. You never need to name a tool or a skill.
 
-**Check where things stand**
+### Check where things stand
 
 - "Did the last build on main pass?"
-- "The Chromatic check on my PR has been yellow for ages. Is it still running?" Your agent tells a build that is still running from one that is finished and waiting for a person to review. See [Check status by scenario](/docs/mandatory-pr-checks#check-status-by-scenario)
+- "The Chromatic check on my PR has been yellow for ages. Is it still running?" Your agent tells a build that is still running from one that is finished and waiting for a person to review. See [Check status by scenario](/docs/mandatory-pr-checks#check-status-by-scenario).
 
-**After you push**
+### After you push
 
 In Claude Code the agent checks Chromatic on its own after it pushes or opens a pull request. In Codex, or to check later, ask:
 
 - "I pushed. What does Chromatic say about this branch?"
 - "The Chromatic build is broken. Find out why and fix it."
 
-**Fix and review**
+### Fix and review
 
 - "Show me the color-contrast violations on the Button story and fix them."
 - "What did reviewers say about my UI in Chromatic? Make the changes."
 
-**Act on it**
+### Act on it
 
 Your agent only makes a change you ask for, and your client asks you to approve it first unless you have set the tool to always allow.
 
@@ -314,7 +314,7 @@ Your agent only makes a change you ask for, and your client asks you to approve 
   Your answer to it is the request.
 </div>
 
-Your agent can also answer questions the skills don't cover, such as "Which tests failed on build 1204?" It searches the API, writes its own query and answers from the data.
+Your agent can also answer questions the skills don't cover, such as "Which tests failed on build 1204?" It searches the API, writes its own query, and answers from the data.
 
 ### What it won't do
 
@@ -330,8 +330,8 @@ Chromatic hosts two kinds of MCP server, and you can run both:
 |                    | Chromatic MCP                                                 | Storybook MCP                                                        |
 | ------------------ | ------------------------------------------------------------- | -------------------------------------------------------------------- |
 | **Address**        | `https://mcp.chromatic.com/mcp`, one server for every project | Your published Storybook's URL plus `/mcp`, one server per Storybook |
-| **What it serves** | Your builds, tests, accessibility results and Chromatic data  | That Storybook's own components and docs                             |
-| **Use it to**      | Review, fix and ship UI changes tested by Chromatic           | Generate code that uses your components correctly                    |
+| **What it serves** | Your builds, tests, accessibility results, and Chromatic data | That Storybook's own components and docs                             |
+| **Use it to**      | Review, fix, and ship UI changes tested by Chromatic          | Generate code that uses your components correctly                    |
 
 The plugin does not connect the Storybook MCP, because its address includes your project. To set it up, see [Publish your Storybook MCP](/docs/storybook-mcp).
 
@@ -343,7 +343,7 @@ The plugin does not connect the Storybook MCP, because its address includes your
 
 **Chromatic is listed twice.** You have it as a connector or a server you added by hand, and as a plugin. This is harmless. To keep only the plugin's, run `claude mcp remove chromatic` or `codex mcp remove chromatic`, or remove the connector.
 
-**The agent says a call was refused for scope, or it cannot accept, deny, quarantine or see your account.** Your login does not carry the permissions the tool needs. Log in again with `/mcp` or `codex mcp login chromatic`. In Claude Code, choose **Clear authentication** in `/mcp` first; in Codex, run `codex mcp logout chromatic` first. Until then, the skills give you a link to do it in Chromatic.
+**The agent says a call was refused for scope, or it cannot accept, deny, quarantine, or see your account.** Your login does not carry the permissions the tool needs. Log in again with `/mcp` or `codex mcp login chromatic`. In Claude Code, choose **Clear authentication** in `/mcp` first; in Codex, run `codex mcp logout chromatic` first. Until then, the skills give you a link to do it in Chromatic.
 
 **The agent cannot find your project.** It needs the project ID, which is the `appId` in a Chromatic project URL and not your project token. Run the `connect-project` skill and paste a link to the project. See [Project ID](#project-id).
 
@@ -359,4 +359,4 @@ The plugin does not connect the Storybook MCP, because its address includes your
 
 ### Get help
 
-For help with the Chromatic MCP, the plugin, a build or your account, [contact Chromatic support](/docs/support). Include your agent, what you asked and what it said.
+For help with the Chromatic MCP, the plugin, a build, or your account, [contact Chromatic support](/docs/support). Include your agent, what you asked, and what it said.

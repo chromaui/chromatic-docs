@@ -35,7 +35,7 @@ https://www.chromatic.com/api
 
 It supports introspection, so you can query the whole schema.
 
-The explorer shows the full schema. Your token can only reach the fields its scopes allow; the [scopes reference](#scopes-reference) lists what each scope unlocks.
+Introspection returns every field, but your token can only reach the fields its scopes allow. The [scopes reference](#scopes-reference) lists what each scope unlocks.
 
 ## Getting started
 

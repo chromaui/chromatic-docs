@@ -24,7 +24,7 @@ Creating user clients from Chromatic is coming soon. Until then, [contact suppor
 
 ## Prerequisites
 
-You are an **admin** of the account you want to create the client for. The OAuth clients section is only visible to account admins.
+You are an **admin** of the account you want to create the client for. Only account admins can see the **OAuth clients** section.
 
 ## Find your OAuth clients
 
@@ -37,7 +37,7 @@ The table lists every OAuth client on the account, with a search field to find o
 - **Type**: **User** or **Service**.
 - **Created**: the admin who created it and when.
 
-![The OAuth clients section of account settings, with the Create button and a table of three clients showing Name, Client ID, Type and Created.](../../images/oauth-clients-settings-table.png)
+![The OAuth clients section of account settings, with the Create button and a table of three clients showing Name, Client ID, Type, and Created.](../../images/oauth-clients-settings-table.png)
 
 If the account has no OAuth clients yet, the section shows only the **Create** button.
 
@@ -50,7 +50,7 @@ You can't change a client's name or scopes after you create it. To change them, 
 3. On the **Configure OAuth client** screen, enter a **Name** for the client.
 4. Under **Scopes**, select what the client can access. See [Scopes](#scopes) for what each one unlocks. Grant only what your automation needs.
 
-   ![The Configure OAuth client screen with the name CI automation entered and the project:read, build:read and build:write scopes selected.](../../images/oauth-clients-create-service-form.png)
+   ![The Configure OAuth client screen with the name CI automation entered and the project:read, build:read, and build:write scopes selected.](../../images/oauth-clients-create-service-form.png)
 
 5. Click **Create OAuth client**.
 
@@ -153,7 +153,15 @@ A successful response looks like this:
       "clientId": "4f3c9a1e7b2d48f0a6c5e9d3b7182a4c",
       "clientSecret": "9f8e7d6c5b4a392817065f4e3d2c1b0a8f7e6d5c4b3a29180716f5e4d3c2b1a0",
       "name": "CI Automation",
-      "scopes": ["account:read", "account:write", "build:read", "build:write", "project:read", "project:write", "storybook:read"]
+      "scopes": [
+        "account:read",
+        "account:write",
+        "build:read",
+        "build:write",
+        "project:read",
+        "project:write",
+        "storybook:read"
+      ]
     }
   }
 }

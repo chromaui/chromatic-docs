@@ -12,16 +12,16 @@ Your coding agent can read every Chromatic build and fix what it finds. Ask it w
 
 Chromatic for agents is made of four pieces:
 
-- **The [Chromatic API](/docs/api)** gives you your builds, tests, accessibility results and published Storybooks as GraphQL.
+- **The [Chromatic API](/docs/api)** gives you your builds, tests, accessibility results, and published Storybooks as GraphQL.
 - **The [Chromatic MCP](/docs/mcp)** server lets your agent call that API as you, after one login in your browser.
 - **Skills** teach your agent workflows that chain those calls with your code, such as fixing accessibility violations or reviewing visual changes.
-- **The Chromatic plugin** for Claude Code and Codex bundles the server connection, the login and every skill. Its source is in [chromaui/chromatic-plugins](https://github.com/chromaui/chromatic-plugins).
+- **The Chromatic plugin** for Claude Code and Codex bundles the server connection, the login, and every skill. Its source is in [chromaui/chromatic-plugins](https://github.com/chromaui/chromatic-plugins).
 
 ![Your coding agent runs a local loop with Storybook on your machine and a CI loop with Chromatic on every build, fixing what each one catches](../../images/mcp-local-loop-ci-loop.png)
 
 ## Install the plugin
 
-The plugin is the recommended way to start. One install gives you the server connection, the login and every skill. In Claude Code it also adds hooks that check your build after you push.
+The plugin is the recommended way to start. One install gives you the server connection, the login, and every skill. In Claude Code it also adds hooks that check your build after you push.
 
 <Tabs>
   <TabItem label="Claude Code">
@@ -87,7 +87,7 @@ Skills on their own make sense when:
 
 ## Connect your project
 
-Your agent needs to know which Chromatic project your repository belongs to. It reads the `projectId` from `chromatic.config.json` at the root of your repository. Ask your agent to connect your Chromatic project, and the `connect-project` skill finds the project from your git remote and writes the file for you. The project ID is not your project token, and your agent never asks for the token. See [Project ID](/docs/mcp#project-id).
+Your agent needs to know which Chromatic project your repository belongs to. It reads the `projectId` from `chromatic.config.json` at the root of your repository. Ask your agent to connect your Chromatic project, and the `connect-project` skill finds the project from your Git remote and writes the file for you. The project ID is not your project token, and your agent never asks for the token. See [Project ID](/docs/mcp#project-id).
 
 ## What your agent can do
 
@@ -96,17 +96,17 @@ Ask in plain words. You never need to name a tool or a skill.
 - **"What's the latest Chromatic build on this branch?"** Your agent reports the build's status, how many tests changed or broke, what to do next, and a link to the build.
 - **"Fix the accessibility violations Chromatic found on this branch."** It lists the stories whose violations got worse, fixes them in your component source, and checks the fix on the next build.
 - **"Which visual changes on this build look unintended?"** It compares each changed snapshot with your code change, and sorts the changes into the ones your code explains and the ones worth a closer look.
-- **"Is this branch ready to merge as far as Chromatic is concerned?"** It checks the latest build against your current commit and lists what is left: broken tests, changes waiting for review, open comments and new accessibility violations.
+- **"Is this branch ready to merge as far as Chromatic is concerned?"** It checks the latest build against your current commit and lists what is left: broken tests, changes waiting for review, open comments, and new accessibility violations.
 
 ![Three skills at work: a build's visual changes summarized by cause, unstable tests fixed and unquarantined, and accessibility violations fixed and confirmed by a new build](../../images/mcp-skills-results.png)
 
 Each of these is a skill. The plugin ships 13; see the full list and what each one does in the [chromaui/chromatic-plugins README](https://github.com/chromaui/chromatic-plugins#-what-you-get).
 
-Your agent asks before it accepts, denies or quarantines anything. Those actions change Chromatic for everyone on the project, so it names the tests and the build and waits for your answer.
+Your agent asks before it accepts, denies, or quarantines anything. Those actions change Chromatic for everyone on the project, so it names the tests and the build and waits for your answer.
 
 ## Go deeper
 
-- [Chromatic MCP](/docs/mcp): the server and its tools, adding it by hand, supported clients, prompts to try and troubleshooting.
+- [Chromatic MCP](/docs/mcp): the server and its tools, adding it by hand, supported clients, prompts to try, and troubleshooting.
 - [Publish your Storybook MCP](/docs/storybook-mcp): give agents your own components and docs from a published Storybook.
 - [API](/docs/api): query Chromatic from your own scripts and tools.
 - [OAuth clients](/docs/oauth-clients): create and manage the clients that call the API.
