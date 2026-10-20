@@ -26,6 +26,7 @@ const sections: Record<string, string> = {
   guides: 'Guides',
   collaborate: 'Collaborate',
   access: 'Collaborate',
+  apiAndAgents: 'API and Agents',
   playwright: 'Playwright',
   cypress: 'Cypress',
   vitest: 'Vitest',
