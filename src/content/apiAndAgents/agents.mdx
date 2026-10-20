@@ -10,12 +10,12 @@ import { TabItem, Tabs } from '../../components/Tabs';
 
 Your coding agent can read every Chromatic build and fix what it finds. Ask it whether your branch is ready to merge, and it checks the build, fixes broken stories and accessibility violations in your code, and walks you through the visual changes that need a person to look at them.
 
-Chromatic for agents is made of four pieces:
+Chromatic for agents is made of:
 
 - **The [Chromatic API](/docs/api)** gives you your builds, tests, accessibility results, and published Storybooks as GraphQL.
 - **The [Chromatic MCP](/docs/mcp)** server lets your agent call that API as you, after one login in your browser.
 - **Skills** teach your agent workflows that chain those calls with your code, such as fixing accessibility violations or reviewing visual changes.
-- **The Chromatic plugin** for Claude Code and Codex bundles the server connection, the login, and every skill. Its source is in [chromaui/chromatic-plugins](https://github.com/chromaui/chromatic-plugins).
+- **The Chromatic plugin** for Claude Code and Codex bundles the server connection, the login, and every skill.
 
 ![Your coding agent runs a local loop with Storybook on your machine and a CI loop with Chromatic on every build, fixing what each one catches](../../images/mcp-local-loop-ci-loop.png)
 
@@ -25,8 +25,6 @@ The plugin is the recommended way to start. One install gives you the server con
 
 <Tabs>
   <TabItem label="Claude Code">
-    From a terminal:
-
     ```shell
     claude plugin marketplace add chromaui/chromatic-plugins
     claude plugin install chromatic@chromatic
@@ -36,8 +34,6 @@ The plugin is the recommended way to start. One install gives you the server con
 
   </TabItem>
   <TabItem label="Codex and the ChatGPT app">
-    From a terminal:
-
     ```shell
     codex plugin marketplace add chromaui/chromatic-plugins
     codex plugin add chromatic@chromatic
@@ -55,22 +51,28 @@ To check it worked, ask your agent: "What time is it on the Chromatic server?" I
 
 To update or remove the plugin, add the server by hand, or connect Claude Desktop and claude.ai, see [Install with the plugin](/docs/mcp#install-with-the-plugin) on the Chromatic MCP page.
 
-## Install the skills only
+## Use another agent
 
-If you only want the workflows, install the skills with the [skills CLI](https://skills.sh). It puts them where each of your agents looks for skills:
+If your agent is not Claude Code or Codex, connect the server and add the skills yourself.
 
-```shell
-# Choose skills from a list
-npx skills add chromaui/chromatic-plugins
+1. **Add the MCP server.** In your agent's MCP settings, add a remote server with the URL `https://mcp.chromatic.com/mcp` (Streamable HTTP). Leave any OAuth client ID and secret empty. The server registers your agent itself when it logs in, and your browser opens chromatic.com for you to approve the request. Any agent that supports remote MCP servers over Streamable HTTP with an OAuth login can connect. For Claude Desktop, claude.ai, and the ChatGPT app, see [Add the MCP server by hand](/docs/mcp#add-the-mcp-server-by-hand). For the clients Chromatic has tested, see [Supported clients](/docs/mcp#supported-clients). Cursor cannot log in yet.
 
-# Add one skill
-npx skills add chromaui/chromatic-plugins --skill fix-accessibility-violations
+2. **Install the skills.** Use the [skills CLI](https://skills.sh), which puts the skills where each of your agents looks for them:
 
-# Update the skills you installed
-npx skills update
-```
+   ```shell
+   # Choose skills from a list
+   npx skills add chromaui/chromatic-plugins
 
-Add `--global` to install the skills for every project rather than the current one.
+   # Add one skill
+   npx skills add chromaui/chromatic-plugins --skill fix-accessibility-violations
+
+   # Update the skills you installed
+   npx skills update
+   ```
+
+   Add `--global` to install the skills for every project rather than the current one. If your agent has no skills support, skip this step. It can still use the tools.
+
+To check it worked, ask your agent: "What time is it on the Chromatic server?" If it answers with a time, you are connected and logged in.
 
 <div class="aside">
   **A skill is instructions, not a connection.** Without the server connected, a skill has nothing
@@ -83,7 +85,6 @@ Skills on their own make sense when:
 - Your agent reads skills but has no plugins.
 - The server is already connected another way, such as a claude.ai connector.
 - You want the skills committed to your repository so the whole team gets them.
-- You only want a few of them, or want to adapt one.
 
 ## Connect your project
 
@@ -98,9 +99,9 @@ Ask in plain words. You never need to name a tool or a skill.
 - **"Which visual changes on this build look unintended?"** It compares each changed snapshot with your code change, and sorts the changes into the ones your code explains and the ones worth a closer look.
 - **"Is this branch ready to merge as far as Chromatic is concerned?"** It checks the latest build against your current commit and lists what is left: broken tests, changes waiting for review, open comments, and new accessibility violations.
 
-![Three skills at work: a build's visual changes summarized by cause, unstable tests fixed and unquarantined, and accessibility violations fixed and confirmed by a new build](../../images/mcp-skills-results.png)
+![Skills at work: a build's visual changes summarized by cause, unstable tests fixed and unquarantined, and accessibility violations fixed and confirmed by a new build](../../images/mcp-skills-results.png)
 
-Each of these is a skill. The plugin ships 13; see the full list and what each one does in the [chromaui/chromatic-plugins README](https://github.com/chromaui/chromatic-plugins#-what-you-get).
+Each of these is a skill. The plugin ships more; see the full list and what each one does in the [chromaui/chromatic-plugins README](https://github.com/chromaui/chromatic-plugins#-what-you-get).
 
 Your agent asks before it accepts, denies, or quarantines anything. Those actions change Chromatic for everyone on the project, so it names the tests and the build and waits for your answer.
 

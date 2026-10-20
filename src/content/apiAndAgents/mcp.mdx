@@ -21,11 +21,11 @@ It works in Claude Code, Claude Desktop, claude.ai, Codex, and the ChatGPT app. 
 
 The Chromatic MCP has three parts:
 
-| Part       | What it is                                                                                                                                                                                                                                         |
-| ---------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| **Server** | Lives at `https://mcp.chromatic.com/mcp`. It runs the Chromatic public API as you, so it sees every project your account can, and nothing more.                                                                                                    |
-| **Tools**  | Seven calls your agent can make. Six only read, such as "get the latest build", "search the API", and "ask the API a question". One, `chromatic_mutate`, changes things: it runs only when you ask, and your client asks you to approve each call. |
-| **Skills** | Workflows that chain the tools with your code, such as fixing accessibility violations or reviewing visual changes. Each skill is also a slash command.                                                                                            |
+| Part       | What it is                                                                                                                                                                                                                                                   |
+| ---------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| **Server** | Lives at `https://mcp.chromatic.com/mcp`. It runs the Chromatic public API as you, so it sees every project your account can, and nothing more.                                                                                                              |
+| **Tools**  | Calls your agent can make. All of them only read, such as "get the latest build", "search the API", and "ask the API a question", except `chromatic_mutate`, which changes things: it runs only when you ask, and your client asks you to approve each call. |
+| **Skills** | Workflows that chain the tools with your code, such as fixing accessibility violations or reviewing visual changes. Each skill is also a slash command.                                                                                                      |
 
 You log in once per agent, in your browser, with your Chromatic account. There is no API key to create and no token to paste. Chromatic applies the same permissions your account has, so your agent can't do anything you couldn't.
 
@@ -61,8 +61,6 @@ Before you start, you need:
 
 <Tabs>
   <TabItem label="Claude Code">
-    From a terminal:
-
     ```shell
     claude plugin marketplace add chromaui/chromatic-plugins
     claude plugin install chromatic@chromatic
@@ -74,8 +72,6 @@ Before you start, you need:
 
   </TabItem>
   <TabItem label="Codex and the ChatGPT app">
-    From a terminal:
-
     ```shell
     codex plugin marketplace add chromaui/chromatic-plugins
     codex plugin add chromatic@chromatic
@@ -97,11 +93,11 @@ Then ask "What's the latest Chromatic build on this branch?" to see a skill at w
 
 ### Hooks in Claude Code
 
-In Claude Code, the plugin adds three hooks so your agent thinks of Chromatic without being asked. They run only in a repository that has a `chromatic.config.json`:
+In Claude Code, the plugin adds hooks so your agent thinks of Chromatic without being asked. They run only in a repository that has a `chromatic.config.json`:
 
 - **When a session starts,** the agent is told the repository is tested by Chromatic and what to do after a push.
 - **After `git push` or `gh pr create`,** the agent is told a build is starting and to check it before it ends its turn.
-- **In the background,** a third hook waits up to about 13 minutes for Chromatic's **UI Tests** status on the commit, and wakes the agent when the build finishes. It reads the status from GitHub with the `gh` CLI, so it needs `gh` logged in and a GitHub remote. Without them it stays silent, and the agent tells you the build is running.
+- **In the background,** a hook waits up to about 13 minutes for Chromatic's **UI Tests** status on the commit, and wakes the agent when the build finishes. It reads the status from GitHub with the `gh` CLI, so it needs `gh` logged in and a GitHub remote. Without them it stays silent, and the agent tells you the build is running.
 
 The hooks only add a note for the agent. They start no build, call no Chromatic tool and change nothing in Chromatic. Claude Code asks you to trust them the first time.
 
@@ -156,12 +152,10 @@ To check your version in Claude Code, run `claude plugin list` and look for `chr
 
 ## Add the MCP server by hand
 
-Adding the server by hand gives your agent the tools but **none of the skills**. Use it when your agent has no plugins, or when you want the server in Claude Desktop or claude.ai.
+Adding the server by hand gives your agent the tools but **none of the skills**. Use it when your agent has no plugins, when you want the server in Claude Desktop or claude.ai, or when you use another agent.
 
 <Tabs>
   <TabItem label="Claude Code">
-    From a terminal:
-
     ```shell
     claude mcp add --transport http --scope user chromatic https://mcp.chromatic.com/mcp
     ```
@@ -170,8 +164,6 @@ Adding the server by hand gives your agent the tools but **none of the skills**.
 
   </TabItem>
   <TabItem label="Codex">
-    From a terminal:
-
     ```shell
     codex mcp add chromatic --url https://mcp.chromatic.com/mcp
     codex mcp login chromatic
@@ -202,6 +194,10 @@ Adding the server by hand gives your agent the tools but **none of the skills**.
     1. Run the two commands in the **Codex** tab.
     2. Quit and reopen the app, then pick **Codex** in the sidebar.
     3. **Settings » MCP servers** lists chromatic. If you skipped the login, use **Authenticate** there.
+
+  </TabItem>
+  <TabItem label="Other agents">
+    In your agent's MCP settings, add a remote server with the URL `https://mcp.chromatic.com/mcp` (Streamable HTTP). Leave any OAuth client ID and secret empty: the server registers your agent itself when it logs in, and your browser opens chromatic.com for you to approve the request. Any agent that supports remote MCP servers over Streamable HTTP with an OAuth login can connect; see [Supported clients](#supported-clients) for what Chromatic has tested.
 
   </TabItem>
 </Tabs>
