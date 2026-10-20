@@ -308,7 +308,7 @@ curl -s -X POST https://www.chromatic.com/api \
       "lastBuild": {
         "id": "Build:6891293bbf7b127209b4c6e8",
         "number": 42,
-        "status": "COMPLETED",
+        "status": "PASSED",
         "branch": "main"
       }
     }
@@ -346,7 +346,7 @@ curl -s -X POST https://www.chromatic.com/api \
     "build": {
       "id": "Build:6891293bbf7b127209b4c6e8",
       "number": 42,
-      "status": "COMPLETED",
+      "status": "PASSED",
       "branch": "main",
       "commit": "a1b2c3d4e5f6",
       "result": "SUCCESS",

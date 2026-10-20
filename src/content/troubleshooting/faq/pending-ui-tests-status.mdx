@@ -11,6 +11,6 @@ When a build finds changes that need review, Chromatic reports the UI Tests chec
 
 If the build has finished, a pending UI Tests check means changes are waiting for someone to accept or deny them. Open the build in Chromatic and [review the changes](/docs/quickstart#4-review-changes). Once every change is accepted, the check passes. See [Check status by scenario](/docs/mandatory-pr-checks#check-status-by-scenario) for every state the check can be in.
 
-The UI Tests check is the merge gate, not your CI job. If the CI job runs Chromatic with [`exitZeroOnChanges`](/docs/configure#exitzeroonchanges), it passes while changes still wait for review, so require the UI Tests check in your Git provider rather than relying on the CI job.
+The UI Tests check is the merge gate, not your CI job. If the CI job runs Chromatic with [`exitZeroOnChanges`](/docs/configure#exitzeroonchanges), which is on by default in the GitHub Action, it passes while changes still wait for review, so require the UI Tests check in your Git provider rather than relying on the CI job.
 
 If you work with a coding agent, connect the [Chromatic MCP](/docs/mcp) and ask your agent whether the build is finished or waiting for review.
