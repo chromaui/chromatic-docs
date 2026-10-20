@@ -82,7 +82,7 @@ const rawNavGroups = [
     ],
   },
   {
-    title: 'API and Agents',
+    title: 'API & Agents',
     items: apiAndAgents,
   },
   {
