@@ -37,6 +37,8 @@ The table lists every OAuth client on the account, with a search field to find o
 - **Type**: **User** or **Service**.
 - **Created**: the admin who created it and when.
 
+![The OAuth clients section of account settings, with the Create button and a table of three clients showing Name, Client ID, Type and Created.](../../images/oauth-clients-settings-table.png)
+
 If the account has no OAuth clients yet, the section shows only the **Create** button.
 
 You can't change a client's name or scopes after you create it. To change them, create a new client with the settings you want, move your integration over to it, and then delete the old one.
@@ -47,9 +49,14 @@ You can't change a client's name or scopes after you create it. To change them, 
 2. On the **Create OAuth client** screen, choose **Service**.
 3. On the **Configure OAuth client** screen, enter a **Name** for the client.
 4. Under **Scopes**, select what the client can access. See [Scopes](#scopes) for what each one unlocks. Grant only what your automation needs.
+
+   ![The Configure OAuth client screen with the name CI automation entered and the project:read, build:read and build:write scopes selected.](../../images/oauth-clients-create-service-form.png)
+
 5. Click **Create OAuth client**.
 
 The **OAuth client is ready** screen shows the **Client ID** and **Client token** (the client secret). Use the copy buttons to store both in your CI provider's secret manager or another secure store.
+
+![The OAuth client is ready screen showing the Client ID and Client token fields, each with a copy button.](../../images/oauth-clients-created-credentials.png)
 
 <div class="aside">
 
@@ -62,6 +69,9 @@ The **OAuth client is ready** screen shows the **Client ID** and **Client token*
 Rotate a secret when it may have leaked, when someone who had it leaves your team, or when you've lost it.
 
 1. In the **OAuth clients** table, find the client and click the **Rotate secret** icon on its row.
+
+   ![A row in the OAuth clients table with the Rotate secret icon highlighted next to the Remove OAuth client (trash) icon.](../../images/oauth-clients-row-actions.png)
+
 2. Your browser asks you to confirm. Click **OK**.
 
 The **Client secret rotated** screen shows the client ID and the new client secret. Copy the new secret now; like the original, it's shown only once.
