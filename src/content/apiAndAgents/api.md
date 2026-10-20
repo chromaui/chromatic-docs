@@ -372,7 +372,7 @@ curl -s -X POST https://www.chromatic.com/api \
 
 ##### Test-level data
 
-Each test in a build has one visual comparison and one accessibility comparison per tested browser. Select `visualComparisons` for the visual result and diff image, and `accessibilityComparisons` for the accessibility rules whose violations changed. `tests` is a paginated connection, so pass `first` and read `pageInfo` to fetch the next page (see [Limits](#limits)).
+Each test in a build has one visual comparison per tested browser and one accessibility comparison, because [accessibility tests](/docs/accessibility) run only in Chrome. A test captured in Chrome and Firefox has two `visualComparisons` entries and one `accessibilityComparisons` entry. Select `visualComparisons` for the visual result and diff image, and `accessibilityComparisons` for the accessibility rules whose violations changed. `tests` is a paginated connection, so pass `first` and read `pageInfo` to fetch the next page (see [Limits](#limits)).
 
 ```graphql
 query ($id: ID!) {

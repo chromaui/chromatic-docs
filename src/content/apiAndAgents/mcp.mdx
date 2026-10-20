@@ -45,7 +45,7 @@ The server tells your agent which tools it has and what each one does, so the li
 | `chromatic_server_time`                | Returns the server's clock, which proves the connection works                                                                                         |
 | `chromatic_mutate`                     | Runs one named GraphQL mutation: review a test (accept, deny, ignore, or set back to pending), quarantine or unquarantine a test, or create a project |
 
-`chromatic_mutate` changes things for everyone on the project, so your agent runs it only when you ask. Before each call, the agent says in one sentence which tests or project it will change and to what. The server refuses to create OAuth clients or CLI tokens, and no tool reads a project token or a Figma token.
+`chromatic_mutate` changes things for everyone on the project, so your agent runs it only when you ask. Before each call, the agent says in one sentence which tests or project it will change and to what. The server refuses to create OAuth clients or CLI tokens, and no tool reads a project token or a Figma token, except the token of a project the agent just created (see [What it won't do](#what-it-wont-do)).
 
 ## Install with the plugin
 
@@ -228,12 +228,13 @@ Every tool needs your Chromatic project ID. It lives in `chromatic.config.json` 
 ```
 
 - **With the plugin,** ask your agent to connect your Chromatic project (the `connect-project` skill). Since plugin v0.4.0 it finds the project from your Git remote, so most repositories need no link. If it finds none, it asks you to paste a link to the project, then writes the file and tells you to commit it.
-- **Without the plugin,** copy the `appId` from any Chromatic project URL into that file.
+- **Without the plugin,** copy the `appId` from any Chromatic project URL into that file. Prefix the hex ID with `Project:`, for example `"projectId": "Project:64262bbd2f7d4ac4d7c5a7f3"`.
 - **In Claude Desktop or claude.ai,** paste a link to the project into the chat.
 
 <div class="aside">
   A project token is not a project ID. Your agent never asks for your project token and the server
-  refuses to read one.
+  refuses to read one, except the token of a project the agent just created, which comes back once
+  so you can set up CI. See [What it won't do](#what-it-wont-do).
 </div>
 
 ## Supported clients
