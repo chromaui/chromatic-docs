@@ -9,8 +9,8 @@ import { TabItem, Tabs } from '../../components/Tabs';
 # Chromatic MCP
 
 <div class="aside">
-  Looking for publishing your Storybook's MCP server? See [Publish your Storybook
-  MCP](/docs/storybook-mcp).
+  New to Chromatic with coding agents? Start with [Chromatic for agents](/docs/agents). Looking for
+  publishing your Storybook's MCP server? See [Publish your Storybook MCP](/docs/storybook-mcp).
 </div>
 
 The Chromatic MCP gives your coding agent one login to Chromatic. Your agent can then read your builds, test results, accessibility violations and published Storybooks, act on them in your code, and review or quarantine a test when you ask.
@@ -267,25 +267,16 @@ That list is every tool that only reads. Leave `chromatic_mutate` out of it. The
 
 Skills are workflows your agent picks up when your request fits, or that you ask for by name. You never need to name one, except `run-build`, which runs only when you invoke it.
 
-![Three skills at work: a build's visual changes summarized by cause, unstable tests fixed and unquarantined, and accessibility violations fixed and confirmed by a new build](../../images/mcp-skills-results.png)
-
 To run a skill by name in Claude Code, type `/chromatic:` and the skill name, such as `/chromatic:get-latest-build`. In Codex, type `$` and the name, such as `$get-latest-build`. If you copied the skills into your skills folder, Claude Code drops the prefix: `/get-latest-build`.
 
-| Skill                          | What it does                                                                                                                                                                                                               |
-| ------------------------------ | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `get-latest-build`             | Reports the state of your branch on Chromatic: status, counts, what to do next, and a link                                                                                                                                 |
-| `check-merge-readiness`        | Says whether your branch is ready to merge from Chromatic's side, and what is left if not                                                                                                                                  |
-| `fix-broken-stories`           | Finds the stories a build could not capture, fixes the cause, and checks the fix on the next build                                                                                                                         |
-| `review-visual-changes`        | Shows a build's visual changes as before, after and diff pictures, sorted into the ones your code explains and the ones worth a closer look, and accepts or denies them when you ask. See [UI Tests review](/docs/review). |
-| `address-review-feedback`      | Turns reviewer comments on a build into changes and draft replies                                                                                                                                                          |
-| `fix-accessibility-violations` | Finds the accessibility violations a build reported, fixes them in your component source, and checks the fix on the next build. See [accessibility testing](/docs/accessibility).                                          |
-| `triage-flaky-stories`         | Finds quarantined and unstable stories, fixes what makes them flaky, and quarantines or brings one back when you ask. See [unstable tests](/docs/unstable-tests) and [quarantine tests](/docs/quarantine-tests).           |
-| `reduce-snapshot-usage`        | Breaks down your project's total snapshots by component, story, mode and browser, and proposes story changes that use fewer                                                                                                |
-| `find-existing-component`      | Checks your repository and published Storybook for a component before your agent builds a new one                                                                                                                          |
-| `run-build`                    | Runs a Chromatic build for just the stories you are changing. Needs `CHROMATIC_PROJECT_TOKEN` in your shell and asks before each build                                                                                     |
-| `query-chromatic`              | Answers any other question about your Chromatic data                                                                                                                                                                       |
-| `check-project-setup`          | Checks that this repository is connected to the right Chromatic project and set up to test it, and links to the **Manage** screen for anything set there                                                                   |
-| `connect-project`              | Finds your Chromatic project ID from your git remote, or asks you for a project link, and saves it to `chromatic.config.json`                                                                                              |
+A few of the skills the plugin ships:
+
+- **`fix-broken-stories`** finds the stories a build could not capture, fixes the cause, and checks the fix on the next build.
+- **`triage-flaky-stories`** finds quarantined and unstable stories, fixes what makes them flaky, and quarantines or brings one back when you ask. See [unstable tests](/docs/unstable-tests) and [quarantine tests](/docs/quarantine-tests).
+- **`run-build`** runs a Chromatic build for just the stories you are changing. It needs `CHROMATIC_PROJECT_TOKEN` in your shell and asks before each build.
+- **`connect-project`** finds your Chromatic project ID from your git remote, or asks you for a project link, and saves it to `chromatic.config.json`.
+
+For the full list of skills and what each one does, see the [chromaui/chromatic-plugins README](https://github.com/chromaui/chromatic-plugins#-what-you-get). For examples of what to ask, see [Chromatic for agents](/docs/agents#what-your-agent-can-do).
 
 In Claude Code, `/mcp` shows the server, its tools and your login, and `/plugin` manages the plugin. Tools are never slash commands; ask for them in plain words.
 
@@ -295,9 +286,7 @@ Plain words work. You never need to name a tool or a skill.
 
 **Check where things stand**
 
-- "What's the latest Chromatic build on this branch?"
 - "Did the last build on main pass?"
-- "Which Chromatic project belongs to this repository?"
 - "The Chromatic check on my PR has been yellow for ages. Is it still running?" Your agent tells a build that is still running from one that is finished and waiting for a person to review. See [Check status by scenario](/docs/mandatory-pr-checks#check-status-by-scenario)
 
 **After you push**
@@ -305,20 +294,11 @@ Plain words work. You never need to name a tool or a skill.
 In Claude Code the agent checks Chromatic on its own after it pushes or opens a pull request. In Codex, or to check later, ask:
 
 - "I pushed. What does Chromatic say about this branch?"
-- "Is this branch ready to merge as far as Chromatic is concerned?"
 - "The Chromatic build is broken. Find out why and fix it."
 
-**Accessibility**
+**Fix and review**
 
-- "Fix the accessibility violations Chromatic found on this branch."
-- "Which stories got worse for accessibility in the latest build?"
 - "Show me the color-contrast violations on the Button story and fix them."
-- "I pushed the fix. Did the violations go away?"
-
-**Review visual changes**
-
-- "Which visual changes on this build look unintended?"
-- "Review the Chromatic changes on this branch against my code change."
 - "What did reviewers say about my UI in Chromatic? Make the changes."
 
 **Act on it**
@@ -326,9 +306,7 @@ In Claude Code the agent checks Chromatic on its own after it pushes or opens a 
 Your agent only makes a change you ask for, and your client asks you to approve it first unless you have set the tool to always allow.
 
 - "Accept the Button changes on build 42."
-- "Deny the change to the Header story. It's a regression."
 - "Quarantine the flaky DatePicker story."
-- "The Tooltip story is fixed. Take it out of quarantine."
 
 <div class="aside">
   **Name what you want changed.** "Accept the Button changes on build 42" does exactly that. A vague
@@ -336,22 +314,7 @@ Your agent only makes a change you ask for, and your client asks you to approve 
   Your answer to it is the request.
 </div>
 
-**Flaky stories, snapshot usage and setup**
-
-- "Which stories are flaky, and why?"
-- "Which quarantined stories look ready to come back?"
-- "Why are we using so many snapshots?"
-- "Do we already have a date picker?"
-- "Is this repo set up correctly in Chromatic?"
-- "Run Chromatic on just the Button stories."
-
-**Ask anything**
-
-Your agent searches the API, writes its own query and answers from the data.
-
-- "Which tests failed on build 1204?"
-- "How many tests are on build 38, and how many changed?"
-- "Which part of the Chromatic API tells me which tests failed on a build?"
+Your agent can also answer questions the skills don't cover, such as "Which tests failed on build 1204?" It searches the API, writes its own query and answers from the data.
 
 ### What it won't do
 
@@ -369,8 +332,6 @@ Chromatic hosts two kinds of MCP server, and you can run both:
 | **Address**        | `https://mcp.chromatic.com/mcp`, one server for every project | Your published Storybook's URL plus `/mcp`, one server per Storybook |
 | **What it serves** | Your builds, tests, accessibility results and Chromatic data  | That Storybook's own components and docs                             |
 | **Use it to**      | Review, fix and ship UI changes tested by Chromatic           | Generate code that uses your components correctly                    |
-
-![Your coding agent runs a local loop with Storybook on your machine and a CI loop with Chromatic on every build, fixing what each one catches](../../images/mcp-local-loop-ci-loop.png)
 
 The plugin does not connect the Storybook MCP, because its address includes your project. To set it up, see [Publish your Storybook MCP](/docs/storybook-mcp).
 
