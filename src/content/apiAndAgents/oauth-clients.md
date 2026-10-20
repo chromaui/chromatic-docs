@@ -132,7 +132,7 @@ And these variables, replacing `<account_id>` with the ID you found above:
 
 The `scopes` list above requests everything a service client can do. Remove the scopes your automation doesn't need. A client can only ever request the scopes it was created with, so granting the minimum keeps the credentials less valuable if they leak.
 
-`name` is optional. It's the display name for the client and the machine user behind it, and it defaults to a name based on your account name. Names may only contain letters, numbers, spaces, periods, dashes, and underscores.
+`name` is optional. It's the display name for the client and the machine user behind it, and it defaults to your account name. Names may only contain letters, numbers, spaces, periods, dashes, and underscores.
 
 A successful response looks like this:
 
@@ -143,7 +143,7 @@ A successful response looks like this:
       "clientId": "4f3c9a1e7b2d48f0a6c5e9d3b7182a4c",
       "clientSecret": "9f8e7d6c5b4a392817065f4e3d2c1b0a8f7e6d5c4b3a29180716f5e4d3c2b1a0",
       "name": "CI Automation",
-      "scopes": ["account:read", "build:read", "project:read"]
+      "scopes": ["account:read", "account:write", "build:read", "build:write", "project:read", "project:write", "storybook:read"]
     }
   }
 }
