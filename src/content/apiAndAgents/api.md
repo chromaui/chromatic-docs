@@ -54,6 +54,8 @@ Chromatic supports two OAuth 2.0 flows to issue access tokens. All API requests 
 | [Authorization code with PKCE](#authorization-code-with-pkce) | An agent or tool acts on behalf of a signed-in user, such as local development or an IDE agent | Client ID                   |
 | [Client credentials (M2M)](#client-credentials-m2m)           | Headless automation runs with no user present, such as a CI pipeline, bot, or service          | Client ID and client secret |
 
+![An agent or IDE tool uses authorization code with PKCE and a CI pipeline or bot uses client credentials; both get a scoped access token that expires after 60 minutes and send it as a bearer token to the GraphQL API](../../images/api-auth-flows.png)
+
 #### Authorization code with PKCE
 
 Use your client ID with the Chromatic OAuth client to run the authorization code flow. This opens a browser window for you to approve access, then exchanges the resulting code for a token pair.
