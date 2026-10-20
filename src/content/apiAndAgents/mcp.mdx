@@ -29,6 +29,8 @@ The Chromatic MCP has three parts:
 
 You log in once per agent, in your browser, with your Chromatic account. There is no API key to create and no token to paste. Chromatic applies the same permissions your account has, so your agent can't do anything you couldn't.
 
+![Your coding agent logs in once on chromatic.com, then sends each tool call with its token to the Chromatic MCP at mcp.chromatic.com/mcp, which runs GraphQL against the Chromatic API as you](../../images/mcp-how-it-works.png)
+
 The server tells your agent which tools it has and what each one does, so the list is always current. To see it, ask your agent "What Chromatic tools do you have?"
 
 ### Tools
@@ -265,6 +267,8 @@ That list is every tool that only reads. Leave `chromatic_mutate` out of it. The
 
 Skills are workflows your agent picks up when your request fits, or that you ask for by name. You never need to name one, except `run-build`, which runs only when you invoke it.
 
+![Three skills at work: a build's visual changes summarized by cause, unstable tests fixed and unquarantined, and accessibility violations fixed and confirmed by a new build](../../images/mcp-skills-results.png)
+
 To run a skill by name in Claude Code, type `/chromatic:` and the skill name, such as `/chromatic:get-latest-build`. In Codex, type `$` and the name, such as `$get-latest-build`. If you copied the skills into your skills folder, Claude Code drops the prefix: `/get-latest-build`.
 
 | Skill                          | What it does                                                                                                                                                                                                               |
@@ -365,6 +369,8 @@ Chromatic hosts two kinds of MCP server, and you can run both:
 | **Address**        | `https://mcp.chromatic.com/mcp`, one server for every project | Your published Storybook's URL plus `/mcp`, one server per Storybook |
 | **What it serves** | Your builds, tests, accessibility results and Chromatic data  | That Storybook's own components and docs                             |
 | **Use it to**      | Review, fix and ship UI changes tested by Chromatic           | Generate code that uses your components correctly                    |
+
+![Your coding agent runs a local loop with Storybook on your machine and a CI loop with Chromatic on every build, fixing what each one catches](../../images/mcp-local-loop-ci-loop.png)
 
 The plugin does not connect the Storybook MCP, because its address includes your project. To set it up, see [Publish your Storybook MCP](/docs/storybook-mcp).
 
