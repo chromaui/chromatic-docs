@@ -31,7 +31,7 @@ Add `--global` to install the skills for every project rather than the current o
 
 Or copy the folders under `plugins/chromatic/skills/` in [chromaui/chromatic-plugins](https://github.com/chromaui/chromatic-plugins) into your agent's skills folder, such as `~/.claude/skills` for Claude Code.
 
-Install the skills without the plugin when your agent reads skills but has no plugins, when the server is already connected another way (such as a claude.ai connector), or when you want the skills committed to your repository so the whole team gets them. If you install the plugin after adding the server by hand, Chromatic can show up twice; see [Chromatic shows up twice in my MCP list](/docs/agents#chromatic-listed-twice).
+Install the skills without the plugin when your agent reads skills but has no plugins, when the server is already connected another way (such as a claude.ai connector), when you want the skills committed to your repository so the whole team gets them, or when you only want a few of them or want to adapt one. If you install the plugin after adding the server by hand, Chromatic can show up twice; see [Why does Chromatic show up twice in my MCP list?](/docs/agents#chromatic-listed-twice).
 
 <div class="aside">
   **A skill is instructions, not a connection.** Without the server connected, a skill has nothing
@@ -46,7 +46,7 @@ To run a skill by name:
 
 - **In Claude Code,** type `/chromatic:` and the skill name, such as `/chromatic:get-latest-build`.
 - **In Codex,** type `$` and the name, such as `$get-latest-build`.
-- **When you installed the skills with the skills CLI or copied them into your skills folder,** drop the prefix: `/get-latest-build`.
+- **In Claude Code, when you installed the skills with the skills CLI or copied them into your skills folder,** drop the prefix: `/get-latest-build`.
 
 In Claude Code, `/mcp` shows the server, its tools, and your login, and `/plugin` manages the plugin. Tools are never slash commands; ask for them in plain words.
 
@@ -60,7 +60,7 @@ In Claude Code, the plugin adds hooks so your agent thinks of Chromatic without 
 - **After `git push` or `gh pr create`,** the agent is told a build is starting and to check it before it ends its turn.
 - **In the background,** a hook waits up to about 13 minutes for Chromatic's **UI Tests** status on the commit, and wakes the agent when the build finishes. It reads the status from GitHub with the `gh` CLI, so it needs `gh` logged in and a GitHub remote. Without them it stays silent, and the agent tells you the build is running.
 
-The hooks only add a note for the agent. They start no build, call no Chromatic tool and change nothing in Chromatic. Claude Code asks you to trust them the first time.
+The hooks only add a note for the agent. They start no build, call no Chromatic tool, and change nothing in Chromatic. Claude Code asks you to trust them the first time.
 
 Codex gets no hooks from the plugin. When Codex (or any other agent) connects, the server sends it a short guide that tells it to check the build after a push, so you can still ask "I pushed. What does Chromatic say about this branch?"
 
