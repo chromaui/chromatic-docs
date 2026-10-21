@@ -4,13 +4,11 @@ description: Connect your coding agent to Chromatic so it can read your builds, 
 sidebar: { order: 1, label: 'Chromatic MCP' }
 ---
 
-import { TabItem, Tabs } from '../../components/Tabs';
-
 # Chromatic MCP
 
 <div class="aside">
-  New to Chromatic with coding agents? Start with [Chromatic for agents](/docs/agents). Want to
-  publish your Storybook's MCP server? See [Publish your Storybook MCP](/docs/storybook-mcp).
+  New here? Start with [Chromatic for agents](/docs/agents). Want to publish your Storybook's MCP
+  server? See [Publish your Storybook MCP](/docs/storybook-mcp).
 </div>
 
 The Chromatic MCP gives your coding agent one login to Chromatic. Your agent can then read your builds, test results, accessibility violations, and published Storybooks. It can act on them in your code, and review or quarantine a test when you ask.
@@ -19,199 +17,94 @@ It works in Claude Code, Claude Desktop, claude.ai, Codex, and the ChatGPT app. 
 
 ## Overview
 
-The Chromatic MCP has three parts:
-
-| Part       | What it is                                                                                                                                                                                                                                                   |
-| ---------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| **Server** | Lives at `https://mcp.chromatic.com/mcp`. It runs the Chromatic public API as you, so it sees every project your account can, and nothing more.                                                                                                              |
-| **Tools**  | Calls your agent can make. All of them only read, such as "get the latest build", "search the API", and "ask the API a question", except `chromatic_mutate`, which changes things: it runs only when you ask, and your client asks you to approve each call. |
-| **Skills** | Workflows that chain the tools with your code, such as fixing accessibility violations or reviewing visual changes. Each skill is also a slash command.                                                                                                      |
+The Chromatic MCP is a server at `https://mcp.chromatic.com/mcp`. It runs the Chromatic public API as you, so it sees every project your account can, and nothing more.
 
 You log in once per agent, in your browser, with your Chromatic account. There is no API key to create and no token to paste. Chromatic applies the same permissions your account has, so your agent can't do anything you couldn't.
 
 ![Your coding agent logs in once on chromatic.com, then sends each tool call with its token to the Chromatic MCP at mcp.chromatic.com/mcp, which runs GraphQL against the Chromatic API as you](../../images/mcp-how-it-works.png)
 
+The server gives your agent tools to call. Your agent can fetch the latest build for a project or branch with `chromatic_get_latest_build`, list the stories in a build whose accessibility violations changed and show one story's accessibility diff, search the Chromatic API schema and run a read-only GraphQL query, and check the connection with `chromatic_server_time`. Only when you ask, it can review a test (accept, deny, ignore, or set back to pending), quarantine or unquarantine a test, or create a project with `chromatic_mutate`, which your client asks you to approve. Every other tool only reads. [Skills](/docs/skills) chain these tools with your code.
+
 The server tells your agent which tools it has and what each one does, so the list is always current. To see it, ask your agent "What Chromatic tools do you have?"
 
-### Tools
-
-| Tool                                   | What it does                                                                                                                                          |
-| -------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `chromatic_get_latest_build`           | Reports the latest build for a project, optionally for a branch: number, status, result, commit, counts, and a link                                   |
-| `chromatic_list_accessibility_changes` | Lists every story in a build whose accessibility violations changed, with net counts per rule                                                         |
-| `chromatic_get_accessibility_diff`     | Shows one story's violations per rule: regressions, resolved elements, and accepted elements                                                          |
-| `chromatic_search_schema`              | Searches the Chromatic API schema for the types and fields that match a few keywords                                                                  |
-| `chromatic_query`                      | Runs one named, read-only GraphQL query against the Chromatic API and returns just the fields asked for                                               |
-| `chromatic_server_time`                | Returns the server's clock, which proves the connection works                                                                                         |
-| `chromatic_mutate`                     | Runs one named GraphQL mutation: review a test (accept, deny, ignore, or set back to pending), quarantine or unquarantine a test, or create a project |
-
-`chromatic_mutate` changes things for everyone on the project, so your agent runs it only when you ask. Before each call, the agent says in one sentence which tests or project it will change and to what. The server refuses to create OAuth clients or CLI tokens, and no tool reads a project token or a Figma token, except the token of a project the agent just created (see [What it won't do](#what-it-wont-do)).
+`chromatic_mutate` changes things for everyone on the project, so your agent runs it only when you ask. Before each call, the agent says in one sentence which tests or project it will change and to what. The server refuses to create OAuth clients or CLI tokens, and no tool reads a project token or a Figma token, except the token of a project the agent just created (see [What won't it do?](#what-it-wont-do)).
 
 ## Install with the plugin
 
-The Chromatic plugin is the recommended way to set up the Chromatic MCP. One install gives you the server connection, the login, and every [skill](#skills). In Claude Code it also adds [hooks](#hooks-in-claude-code) that check your build after you push.
-
-Before you start, you need:
-
-- A Chromatic account with a project that has builds.
-- Claude Code, or the Codex CLI version 0.148 or newer (check with `codex --version`).
-- For accessibility work, [accessibility tests](/docs/accessibility) turned on for your project. Builds from before you turn them on have no accessibility data.
-
-### 1. Install and log in
-
-<Tabs>
-  <TabItem label="Claude Code">
-    ```shell
-    claude plugin marketplace add chromaui/chromatic-plugins
-    claude plugin install chromatic@chromatic
-    ```
-
-    Then start a session, run `/mcp`, choose **chromatic**, and approve the request in your browser. In the Claude Code desktop app, send any first message, such as "hi", before you run `/mcp`.
-
-    `claude mcp list` should show `plugin:chromatic:chromatic`.
-
-  </TabItem>
-  <TabItem label="Codex and the ChatGPT app">
-    ```shell
-    codex plugin marketplace add chromaui/chromatic-plugins
-    codex plugin add chromatic@chromatic
-    codex mcp login chromatic
-    ```
-
-    Approve the request in your browser. `codex mcp list` should show OAuth in the Auth column.
-
-    In the ChatGPT app, quit and reopen it, then pick **Codex** in the sidebar. **Plugins** lists Chromatic under **Personal**. Sign in with a ChatGPT account, not an API key, or **Plugins** stays locked.
-
-  </TabItem>
-</Tabs>
-
-### 2. Check it worked
-
-Ask your agent: "What time is it on the Chromatic server?" If it answers with a time, you are connected and logged in.
-
-Then ask "What's the latest Chromatic build on this branch?" to see a skill at work.
-
-### Hooks in Claude Code
-
-In Claude Code, the plugin adds hooks so your agent thinks of Chromatic without being asked. They run only in a repository that has a `chromatic.config.json`:
-
-- **When a session starts,** the agent is told the repository is tested by Chromatic and what to do after a push.
-- **After `git push` or `gh pr create`,** the agent is told a build is starting and to check it before it ends its turn.
-- **In the background,** a hook waits up to about 13 minutes for Chromatic's **UI Tests** status on the commit, and wakes the agent when the build finishes. It reads the status from GitHub with the `gh` CLI, so it needs `gh` logged in and a GitHub remote. Without them it stays silent, and the agent tells you the build is running.
-
-The hooks only add a note for the agent. They start no build, call no Chromatic tool and change nothing in Chromatic. Claude Code asks you to trust them the first time.
-
-Codex gets no hooks from the plugin. When Codex (or any other agent) connects, the server sends it a short guide that tells it to check the build after a push, so you can still ask "I pushed. What does Chromatic say about this branch?"
-
-### Update the plugin
-
-Refresh the marketplace, update the plugin, then restart your session.
-
-<Tabs>
-  <TabItem label="Claude Code">
-
-    ```shell
-    claude plugin marketplace update chromatic
-    claude plugin update chromatic@chromatic
-    ```
-
-  </TabItem>
-  <TabItem label="Codex">
-
-    ```shell
-    codex plugin marketplace upgrade chromatic
-    codex plugin remove chromatic@chromatic
-    codex plugin add chromatic@chromatic
-    ```
-
-  </TabItem>
-</Tabs>
-
-To check your version in Claude Code, run `claude plugin list` and look for `chromatic@chromatic`.
-
-### Remove the plugin
-
-<Tabs>
-  <TabItem label="Claude Code">
-
-    ```shell
-    claude plugin uninstall chromatic@chromatic
-    claude plugin marketplace remove chromatic
-    ```
-
-  </TabItem>
-  <TabItem label="Codex">
-
-    ```shell
-    codex plugin remove chromatic@chromatic
-    codex plugin marketplace remove chromatic
-    ```
-
-  </TabItem>
-</Tabs>
+The Chromatic plugin for Claude Code and Codex is the recommended way to set up the Chromatic MCP. It connects the server, logs you in, and adds the [skills](/docs/skills). In Claude Code it also adds hooks that check your build after you push. To install it, see [Quickstart with the plugin](/docs/agents#quickstart-with-the-plugin).
 
 ## Add the MCP server by hand
 
 Adding the server by hand gives your agent the tools but **none of the skills**. Use it when your agent has no plugins, when you want the server in Claude Desktop or claude.ai, or when you use another agent.
 
-<Tabs>
-  <TabItem label="Claude Code">
-    ```shell
-    claude mcp add --transport http --scope user chromatic https://mcp.chromatic.com/mcp
-    ```
+<details id="claude-code">
 
-    Then start a session, run `/mcp`, choose **chromatic**, and approve the request in your browser. In the desktop app, send any first message before you run `/mcp`. `--scope user` makes the server available in every project.
+<summary>Claude Code</summary>
 
-  </TabItem>
-  <TabItem label="Codex">
-    ```shell
-    codex mcp add chromatic --url https://mcp.chromatic.com/mcp
-    codex mcp login chromatic
-    ```
+```shell
+claude mcp add --transport http --scope user chromatic https://mcp.chromatic.com/mcp
+```
 
-    Approve the request in your browser. `codex mcp list` should show OAuth next to chromatic. This needs Codex 0.148 or newer; check with `codex --version`.
+Then start a session, run `/mcp`, choose **chromatic**, and approve the request in your browser. In the desktop app, send any first message before you run `/mcp`. `--scope user` makes the server available in every project.
 
-  </TabItem>
-  <TabItem label="Claude Desktop and claude.ai">
-    This adds the server as a connector, which gives you the tools.
+</details>
 
-    1. Open **Customize » Connectors**, click **+**, and choose **Add custom connector**.
-    2. Enter `https://mcp.chromatic.com/mcp`. Leave the OAuth client ID and secret empty.
-    3. Click **Connect** and approve the request on chromatic.com.
+<details id="codex">
 
-    **On a Team or Enterprise plan**, an owner adds the connector once, then each person connects:
+<summary>Codex</summary>
 
-    1. An owner opens **Organization settings » Connectors » Add » Custom » Web** and enters `https://mcp.chromatic.com/mcp`. Members cannot add custom connectors themselves.
-    2. Each member opens **Customize » Connectors**, finds Chromatic marked "Custom", and clicks **Connect**. Everyone logs in to Chromatic as themselves, so nobody sees a project their own account cannot.
-    3. Owners can set each tool to **Always allow**, **Needs approval**, or **Blocked** for the whole organization. **Always allow** is a reasonable default for the tools that only read. Keep `chromatic_mutate` on **Needs approval**.
+```shell
+codex mcp add chromatic --url https://mcp.chromatic.com/mcp
+codex mcp login chromatic
+```
 
-    Connectors run from Anthropic's cloud. `mcp.chromatic.com` and `www.chromatic.com` are both public, so there is nothing to allowlist.
+Approve the request in your browser. `codex mcp list` should show OAuth next to chromatic. This needs Codex 0.148 or newer; check with `codex --version`.
 
-  </TabItem>
-  <TabItem label="ChatGPT app">
-    The ChatGPT app shares its setup with the Codex CLI.
+</details>
 
-    1. Run the two commands in the **Codex** tab.
-    2. Quit and reopen the app, then pick **Codex** in the sidebar.
-    3. **Settings » MCP servers** lists chromatic. If you skipped the login, use **Authenticate** there.
+<details id="claude-desktop">
 
-  </TabItem>
-  <TabItem label="Other agents">
-    In your agent's MCP settings, add a remote server with the URL `https://mcp.chromatic.com/mcp` (Streamable HTTP). Leave any OAuth client ID and secret empty: the server registers your agent itself when it logs in, and your browser opens chromatic.com for you to approve the request. Any agent that supports remote MCP servers over Streamable HTTP with an OAuth login can connect; see [Supported clients](#supported-clients) for what Chromatic has tested.
+<summary>Claude Desktop and claude.ai</summary>
 
-  </TabItem>
-</Tabs>
+This adds the server as a connector, which gives you the tools.
+
+1. Open **Customize » Connectors**, click **+**, and choose **Add custom connector**.
+2. Enter `https://mcp.chromatic.com/mcp`. Leave the OAuth client ID and secret empty.
+3. Click **Connect** and approve the request on chromatic.com.
+
+**On a Team or Enterprise plan**, an owner adds the connector once, then each person connects:
+
+1. An owner opens **Organization settings » Connectors » Add » Custom » Web** and enters `https://mcp.chromatic.com/mcp`. Members cannot add custom connectors themselves.
+2. Each member opens **Customize » Connectors**, finds Chromatic marked "Custom", and clicks **Connect**. Everyone logs in to Chromatic as themselves, so nobody sees a project their own account cannot.
+3. Owners can set each tool to **Always allow**, **Needs approval**, or **Blocked** for the whole organization. **Always allow** is a reasonable default for the tools that only read. Keep `chromatic_mutate` on **Needs approval**.
+
+Connectors run from Anthropic's cloud. `mcp.chromatic.com` and `www.chromatic.com` are both public, so there is nothing to allowlist.
+
+</details>
+
+<details id="chatgpt-app">
+
+<summary>ChatGPT app</summary>
+
+The ChatGPT app shares its setup with the Codex CLI.
+
+1. Run the two commands under [Codex](#codex).
+2. Quit and reopen the app, then pick **Codex** in the sidebar.
+3. **Settings » MCP servers** lists chromatic. If you skipped the login, use **Authenticate** there.
+
+</details>
+
+<details id="other-agents">
+
+<summary>Other agents</summary>
+
+In your agent's MCP settings, add a remote server with the URL `https://mcp.chromatic.com/mcp` (Streamable HTTP). Leave any OAuth client ID and secret empty: the server registers your agent itself when it logs in, and your browser opens chromatic.com for you to approve the request. Any agent that supports remote MCP servers over Streamable HTTP with an OAuth login can connect; see [Which clients are supported?](#which-clients-are-supported) for what Chromatic has tested.
+
+</details>
 
 Then ask "What time is it on the Chromatic server?" to check the connection.
 
-### Add the skills
-
-To get the skills after adding the server by hand, do one of these:
-
-- Install the plugin as well, as in [Install with the plugin](#install-with-the-plugin). If Chromatic then shows up twice, see [Troubleshooting](#troubleshooting).
-- Copy the folders under `plugins/chromatic/skills/` in [chromaui/chromatic-plugins](https://github.com/chromaui/chromatic-plugins) into your agent's skills folder, such as `~/.claude/skills` for Claude Code.
-
-A skill is instructions, not a connection. Without the server connected, a skill has nothing to call.
+To get the skills after adding the server by hand, see [Get the skills](/docs/skills#get-the-skills). A skill is instructions, not a connection. Without the server connected, a skill has nothing to call.
 
 ## Project ID
 
@@ -233,93 +126,6 @@ Every tool needs your Chromatic project ID. It lives in `chromatic.config.json` 
   so you can set up CI. See [What it won't do](#what-it-wont-do).
 </div>
 
-## Supported clients
-
-Chromatic builds and tests the Chromatic MCP with these clients:
-
-| Client                                 | Plugin and skills | Hooks |
-| -------------------------------------- | ----------------- | ----- |
-| Claude Code (terminal and desktop app) | Yes               | Yes   |
-| Codex CLI and the ChatGPT app          | Yes               | No    |
-| Claude Desktop and claude.ai           | No (tools only)   | No    |
-
-Any other client that speaks Streamable HTTP and logs in with a client metadata document (CIMD) can connect to `https://mcp.chromatic.com/mcp`. Leave any client ID and secret empty. Cursor cannot log in yet.
-
-### Cloud sessions
-
-Claude Code sessions that run in the cloud load no plugins, so the plugin's skills and hooks are not available there. An MCP server added directly to your Claude account, as a connector, follows you into those sessions.
-
-### Run without a person watching
-
-A run with no one to approve tool calls, such as `claude -p`, needs the tools allowed by name. With the plugin, tool names start with `mcp__plugin_chromatic_chromatic__`:
-
-```shell
-claude -p "Is this branch ready to merge from Chromatic's side?" \
-  --allowedTools "mcp__plugin_chromatic_chromatic__chromatic_get_latest_build,mcp__plugin_chromatic_chromatic__chromatic_query,mcp__plugin_chromatic_chromatic__chromatic_search_schema,mcp__plugin_chromatic_chromatic__chromatic_list_accessibility_changes,mcp__plugin_chromatic_chromatic__chromatic_get_accessibility_diff,mcp__plugin_chromatic_chromatic__chromatic_server_time"
-```
-
-That list is every tool that only reads. Leave `chromatic_mutate` out of it. The machine must have logged in once through `/mcp`.
-
-## Skills
-
-Skills are workflows your agent picks up when your request fits, or that you ask for by name. You never need to name one, except `run-build`, which runs only when you invoke it.
-
-To run a skill by name in Claude Code, type `/chromatic:` and the skill name, such as `/chromatic:get-latest-build`. In Codex, type `$` and the name, such as `$get-latest-build`. If you copied the skills into your skills folder, Claude Code drops the prefix: `/get-latest-build`.
-
-A few of the skills the plugin ships:
-
-- **`fix-broken-stories`** finds the stories a build could not capture, fixes the cause, and checks the fix on the next build.
-- **`triage-flaky-stories`** finds quarantined and unstable stories, fixes what makes them flaky, and quarantines or brings one back when you ask. See [unstable tests](/docs/unstable-tests) and [quarantine tests](/docs/quarantine-tests).
-- **`run-build`** runs a Chromatic build for just the stories you are changing. It needs `CHROMATIC_PROJECT_TOKEN` in your shell and asks before each build.
-- **`connect-project`** finds your Chromatic project ID from your Git remote, or asks you for a project link, and saves it to `chromatic.config.json`.
-
-For the full list of skills and what each one does, see the [chromaui/chromatic-plugins README](https://github.com/chromaui/chromatic-plugins#-what-you-get). For examples of what to ask, see [Chromatic for agents](/docs/agents#what-your-agent-can-do).
-
-In Claude Code, `/mcp` shows the server, its tools, and your login, and `/plugin` manages the plugin. Tools are never slash commands; ask for them in plain words.
-
-## Prompts to try
-
-Plain words work. You never need to name a tool or a skill.
-
-### Check where things stand
-
-- "Did the last build on main pass?"
-- "The Chromatic check on my PR has been yellow for ages. Is it still running?" Your agent tells a build that is still running from one that is finished and waiting for a person to review. See [Check status by scenario](/docs/mandatory-pr-checks#check-status-by-scenario).
-
-### After you push
-
-In Claude Code the agent checks Chromatic on its own after it pushes or opens a pull request. In Codex, or to check later, ask:
-
-- "I pushed. What does Chromatic say about this branch?"
-- "The Chromatic build is broken. Find out why and fix it."
-
-### Fix and review
-
-- "Show me the color-contrast violations on the Button story and fix them."
-- "What did reviewers say about my UI in Chromatic? Make the changes."
-
-### Act on it
-
-Your agent only makes a change you ask for, and your client asks you to approve it first unless you have set the tool to always allow.
-
-- "Accept the Button changes on build 42."
-- "Quarantine the flaky DatePicker story."
-
-<div class="aside">
-  **Name what you want changed.** "Accept the Button changes on build 42" does exactly that. A vague
-  go-ahead such as "looks good, ship it" gets one question back that names the tests and the build.
-  Your answer to it is the request.
-</div>
-
-Your agent can also answer questions the skills don't cover, such as "Which tests failed on build 1204?" It searches the API, writes its own query, and answers from the data.
-
-### What it won't do
-
-- **Reply to or resolve a reviewer comment.** It reads comments and drafts a reply for you to post.
-- **Start a build from the server.** Builds run from your CI, or from your machine with `run-build`.
-- **Change project settings,** such as turning on accessibility tests or changing browsers. It gives you the link to the **Manage** screen.
-- **Read your project token or Figma token.** Copy a token from the project's **Manage** screen yourself. The one exception is the token of a project the agent just created, which comes back with a note to save it as a CI secret.
-
 ## Chromatic MCP vs. Storybook MCP
 
 Chromatic hosts two kinds of MCP server, and you can run both:
@@ -332,28 +138,128 @@ Chromatic hosts two kinds of MCP server, and you can run both:
 
 The plugin does not connect the Storybook MCP, because its address includes your project. To set it up, see [Publish your Storybook MCP](/docs/storybook-mcp).
 
-## Troubleshooting
+## Frequently asked questions
 
-**The tools work but the skills are missing.** The server was added without the plugin, as a connector or with `mcp add`. [Install the plugin](#install-with-the-plugin) or [add the skills](#add-the-skills).
+<details id="which-clients-are-supported">
 
-**The skills are installed but the tools are missing.** Skills do not bring the server. [Add the MCP server](#add-the-mcp-server-by-hand).
+<summary>Which clients are supported?</summary>
 
-**Chromatic is listed twice.** You have it as a connector or a server you added by hand, and as a plugin. This is harmless. To keep only the plugin's, run `claude mcp remove chromatic` or `codex mcp remove chromatic`, or remove the connector.
+Chromatic builds and tests the Chromatic MCP with these clients:
 
-**The agent says a call was refused for scope, or it cannot accept, deny, quarantine, or see your account.** Your login does not carry the permissions the tool needs. Log in again with `/mcp` or `codex mcp login chromatic`. In Claude Code, choose **Clear authentication** in `/mcp` first; in Codex, run `codex mcp logout chromatic` first. Until then, the skills give you a link to do it in Chromatic.
+- **Claude Code (terminal and desktop app):** the plugin, skills, and hooks.
+- **Codex CLI and the ChatGPT app:** the plugin and skills, no hooks.
+- **Claude Desktop and claude.ai:** the tools only, with no plugin, skills, or hooks.
 
-**The agent cannot find your project.** It needs the project ID, which is the `appId` in a Chromatic project URL and not your project token. Run the `connect-project` skill and paste a link to the project. See [Project ID](#project-id).
+Any other client that speaks Streamable HTTP and logs in with a client metadata document (CIMD) can connect to `https://mcp.chromatic.com/mcp`. Leave any client ID and secret empty. Cursor cannot log in yet.
 
-**There are no accessibility results.** Turn on [accessibility tests](/docs/accessibility) for the project and run a new build. Builds from before you turn them on have no accessibility data, and your agent reports accessibility as "not measured".
+</details>
 
-**Calls fail after an update.** Restart the session so the agent reloads the tool list. In Claude Code you can also reconnect with `/mcp`.
+<details id="cloud-sessions">
 
-**Claude Code says a tool result was saved to a file.** Claude Code does that for any answer over 50,000 characters, and the agent reads the file. Nothing is wrong. The server refuses answers over 100,000 characters rather than cutting them short, and the agent then asks for fewer fields or pages through the list.
+<summary>Does it work in Claude Code cloud sessions?</summary>
 
-**The agent does not check the build after a push.** That only happens in Claude Code, in a repository with a `chromatic.config.json`. Run `connect-project` to add one. To be woken when the build finishes, the agent also needs the `gh` CLI logged in (check with `gh auth status`) and a GitHub remote.
+Claude Code sessions that run in the cloud load no plugins, so the plugin's skills and hooks are not available there. An MCP server added directly to your Claude account, as a connector, follows you into those sessions.
 
-**An update did not arrive.** Your agent keeps a copy of the plugin. Run the [update steps](#update-the-plugin) and restart the session, or remove the plugin and install it again.
+</details>
 
-### Get help
+<details id="run-without-a-person-watching">
+
+<summary>Can I run it without a person watching?</summary>
+
+A run with no one to approve tool calls, such as `claude -p`, needs the tools allowed by name. With the plugin, tool names start with `mcp__plugin_chromatic_chromatic__`:
+
+```shell
+claude -p "Is this branch ready to merge from Chromatic's side?" \
+  --allowedTools "mcp__plugin_chromatic_chromatic__chromatic_get_latest_build,mcp__plugin_chromatic_chromatic__chromatic_query,mcp__plugin_chromatic_chromatic__chromatic_search_schema,mcp__plugin_chromatic_chromatic__chromatic_list_accessibility_changes,mcp__plugin_chromatic_chromatic__chromatic_get_accessibility_diff,mcp__plugin_chromatic_chromatic__chromatic_server_time"
+```
+
+That list is every tool that only reads. Leave `chromatic_mutate` out of it. The machine must have logged in once through `/mcp`.
+
+</details>
+
+<details id="what-it-wont-do">
+
+<summary>What won't it do?</summary>
+
+- **Reply to or resolve a reviewer comment.** It reads comments and drafts a reply for you to post.
+- **Start a build from the server.** Builds run from your CI, or from your machine with `run-build`.
+- **Change project settings,** such as turning on accessibility tests or changing browsers. It gives you the link to the **Manage** screen.
+- **Read your project token or Figma token.** Copy a token from the project's **Manage** screen yourself. The one exception is the token of a project the agent just created, which comes back with a note to save it as a CI secret.
+
+</details>
+
+<details id="skills-missing">
+
+<summary>The tools work but the skills are missing</summary>
+
+The server was added without the plugin, as a connector or with `mcp add`. [Install the plugin](/docs/agents#quickstart-with-the-plugin) or [get the skills](/docs/skills#get-the-skills).
+
+</details>
+
+<details id="tools-missing">
+
+<summary>The skills are installed but the tools are missing</summary>
+
+Skills do not bring the server. [Add the MCP server](#add-the-mcp-server-by-hand).
+
+</details>
+
+<details id="refused-for-scope">
+
+<summary>
+  I get "refused for scope", or my agent cannot accept, deny, quarantine, or see my account
+</summary>
+
+Your login does not carry the permissions the tool needs. Log in again with `/mcp` or `codex mcp login chromatic`. In Claude Code, choose **Clear authentication** in `/mcp` first; in Codex, run `codex mcp logout chromatic` first. Until then, the skills give you a link to do it in Chromatic.
+
+</details>
+
+<details id="project-not-found">
+
+<summary>The agent cannot find my project</summary>
+
+It needs the project ID, which is the `appId` in a Chromatic project URL and not your project token. Run the `connect-project` skill and paste a link to the project. See [Project ID](#project-id).
+
+</details>
+
+<details id="no-accessibility-results">
+
+<summary>There are no accessibility results</summary>
+
+Turn on [accessibility tests](/docs/accessibility) for the project and run a new build. Builds from before you turn them on have no accessibility data, and your agent reports accessibility as "not measured".
+
+</details>
+
+<details id="calls-fail-after-update">
+
+<summary>Calls fail after an update</summary>
+
+Restart the session so the agent reloads the tool list. In Claude Code you can also reconnect with `/mcp`.
+
+</details>
+
+<details id="result-saved-to-file">
+
+<summary>Claude Code says a tool result was saved to a file</summary>
+
+Claude Code does that for any answer over 50,000 characters, and the agent reads the file. Nothing is wrong. The server refuses answers over 100,000 characters rather than cutting them short, and the agent then asks for fewer fields or pages through the list.
+
+</details>
+
+<details id="no-check-after-push">
+
+<summary>The agent does not check the build after a push</summary>
+
+That only happens in Claude Code, in a repository with a `chromatic.config.json`. Run `connect-project` to add one. To be woken when the build finishes, the agent also needs the `gh` CLI logged in (check with `gh auth status`) and a GitHub remote. See [What the plugin runs on its own](/docs/skills#what-the-plugin-runs-on-its-own).
+
+</details>
+
+<details id="update-did-not-arrive">
+
+<summary>An update did not arrive</summary>
+
+Your agent keeps a copy of the plugin. Run the [update steps](/docs/agents#update-the-plugin) and restart the session, or remove the plugin and install it again.
+
+</details>
 
 For help with the Chromatic MCP, the plugin, a build, or your account, [contact Chromatic support](/docs/support). Include your agent, what you asked, and what it said.
