@@ -1,12 +1,12 @@
 ---
-title: 'Chromatic API (Private Beta)'
-description: "Getting started with Chromatic's GraphQL API for agents (private beta): endpoint, OAuth 2.0 authentication for user-facing and machine-to-machine clients, queries, mutations, and scopes."
+title: 'API'
+description: "Getting started with Chromatic's GraphQL API for agents: endpoint, OAuth 2.0 authentication for user-facing and machine-to-machine clients, queries, mutations, limits, and scopes."
 sidebar:
-  hide: true
-isHidden: true
+  label: 'API'
+  order: 3
 ---
 
-# Chromatic API (Private Beta)
+# Chromatic API
 
 Chromatic's public API is built using GraphQL. If you are new to GraphQL, Apollo has [resources for beginners](https://blog.apollographql.com/the-basics-of-graphql-in-5-links-9e1dc4cac055). The official [GraphQL documentation](https://graphql.org/) is another good starting point.
 
@@ -17,8 +17,8 @@ Follow this doc to authenticate with OAuth 2.0 in order to access the Chromatic 
 
 If you have a client secret, authenticate with the client credentials grant. Otherwise, use the authorization code flow with PKCE.
 
-The client ID is: <REPLACE_WITH_CLIENT_ID_PROVIDED_BY_CHROMATIC>
-The client secret is: <REPLACE_WITH_CLIENT_SECRET_OR_DELETE_THIS_LINE>
+The client ID is: <REPLACE_WITH_CLIENT_ID_FROM_YOUR_OAUTH_CLIENT>
+The client secret is: <REPLACE_WITH_CLIENT_SECRET_FROM_YOUR_OAUTH_CLIENT_OR_DELETE_THIS_LINE>
 The account ID is: <REPLACE_WITH_ACCOUNT_ID_OR_DELETE_THIS_LINE>
 
 If you authenticated without a client secret, use the `viewer` query via `accounts { projects }`. If you have a client secret, use the `account` query with the account ID above
@@ -35,11 +35,11 @@ https://www.chromatic.com/api
 
 It supports introspection, so you can query the whole schema.
 
-Note that this is an early access feature, so some endpoints you can see aren't scoped for access.
+Introspection returns every field, but your token can only reach the fields its scopes allow. The [scopes reference](#scopes-reference) lists what each scope unlocks.
 
 ## Getting started
 
-With the client ID you received, go through the authorization flow (outlined below) to receive an `access_token`.
+To get a client ID, [create an OAuth client](/docs/oauth-clients): a user client for the authorization code flow with PKCE, or a service client for the client credentials (M2M) flow. With your client ID, go through the authorization flow (outlined below) to receive an `access_token`.
 
 Once you have it, our GraphQL API is explorable and queryable via [Apollo Studio](https://www.chromatic.com/api): a GraphQL client where you can browse the schema and run queries.
 
@@ -54,13 +54,9 @@ Chromatic supports two OAuth 2.0 flows to issue access tokens. All API requests 
 | [Authorization code with PKCE](#authorization-code-with-pkce) | An agent or tool acts on behalf of a signed-in user, such as local development or an IDE agent | Client ID                   |
 | [Client credentials (M2M)](#client-credentials-m2m)           | Headless automation runs with no user present, such as a CI pipeline, bot, or service          | Client ID and client secret |
 
+![An agent or IDE tool uses authorization code with PKCE and a CI pipeline or bot uses client credentials; both get a scoped access token that expires after 60 minutes and send it as a bearer token to the GraphQL API](../../images/api-auth-flows.png)
+
 #### Authorization code with PKCE
-
-<div class="aside">
-
-If you are in the private beta, reach out directly to your dedicated Chromatic point of contact to obtain a client ID.
-
-</div>
 
 Use your client ID with the Chromatic OAuth client to run the authorization code flow. This opens a browser window for you to approve access, then exchanges the resulting code for a token pair.
 
@@ -119,7 +115,7 @@ curl -s -X POST https://www.chromatic.com/token \
 
 #### Client credentials (M2M)
 
-Machine-to-machine (M2M) clients authenticate directly with a client ID and client secret. There's no browser redirect and no user approval step, which makes this the right flow for CI pipelines, bots, and other headless automation. To create one, follow [Create an M2M OAuth client](/docs/m2m-oauth-client).
+Machine-to-machine (M2M) clients authenticate directly with a client ID and client secret. There's no browser redirect and no user approval step, which makes this the right flow for CI pipelines, bots, and other headless automation. To create one, follow [Create a service client](/docs/oauth-clients#create-a-service-client).
 
 **Token endpoint**: `https://www.chromatic.com/token`
 
@@ -314,7 +310,7 @@ curl -s -X POST https://www.chromatic.com/api \
       "lastBuild": {
         "id": "Build:6891293bbf7b127209b4c6e8",
         "number": 42,
-        "status": "COMPLETED",
+        "status": "PASSED",
         "branch": "main"
       }
     }
@@ -352,7 +348,7 @@ curl -s -X POST https://www.chromatic.com/api \
     "build": {
       "id": "Build:6891293bbf7b127209b4c6e8",
       "number": 42,
-      "status": "COMPLETED",
+      "status": "PASSED",
       "branch": "main",
       "commit": "a1b2c3d4e5f6",
       "result": "SUCCESS",
@@ -373,6 +369,101 @@ curl -s -X POST https://www.chromatic.com/api \
   }
 }
 ```
+
+##### Test-level data
+
+Each test in a build has one visual comparison per tested browser and one accessibility comparison, because [accessibility tests](/docs/accessibility) run only in Chrome. A test captured in Chrome and Firefox has two `visualComparisons` entries and one `accessibilityComparisons` entry. Select `visualComparisons` for the visual result and diff image, and `accessibilityComparisons` for the accessibility rules whose violations changed. `tests` is a paginated connection, so pass `first` and read `pageInfo` to fetch the next page (see [Limits](#limits)).
+
+```graphql
+query ($id: ID!) {
+  build(id: $id) {
+    ... on CompletedBuild {
+      tests(first: 50) {
+        pageInfo {
+          hasNextPage
+          endCursor
+        }
+        nodes {
+          id
+          status
+          result
+          isUnstable
+          ignoreReason
+          visualComparisons {
+            result
+            platform {
+              name
+            }
+            viewport {
+              width
+            }
+            diff {
+              result
+              diffImage {
+                imageUrl
+              }
+            }
+          }
+          accessibilityComparisons {
+            result
+            diff {
+              result
+              rules {
+                rule
+                title
+                helpUrl
+                change
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
+```
+
+`change` is the net change in the number of elements that violate the rule. Positive numbers mean new violations.
+
+To find out why a story failed to capture, select `headCapture` on a visual comparison. `captureError.kind` names the cause (for example `FAILED_JS`, `RENDER_TIMEOUT`, or `STORY_MISSING`), and some kinds carry more detail, such as the original JavaScript error. `links` points to the files Chromatic recorded during the capture.
+
+```graphql
+query ($id: ID!) {
+  build(id: $id) {
+    ... on CompletedBuild {
+      tests(statuses: [BROKEN], first: 20) {
+        nodes {
+          id
+          visualComparisons {
+            headCapture {
+              result
+              captureError {
+                kind
+                ... on CaptureErrorFailedJS {
+                  error
+                }
+              }
+              links {
+                errorsJson
+                domSnapshot
+                trace
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
+```
+
+`errorsJson` links to the full error with its stack trace, `domSnapshot` to the captured DOM as HTML, and `trace` to a Playwright trace. Each is `null` when the capture didn't produce that file.
+
+<div class="aside">
+
+`Test.comparisons` is deprecated. Use `visualComparisons` and `accessibilityComparisons` instead. See the [deprecation policy](#deprecation--breaking-changes-policy).
+
+</div>
 
 ---
 
@@ -417,11 +508,11 @@ Accepts or denies a test snapshot, optionally applying the decision to all tests
 
 **Input fields:**
 
-| Field    | Type                   | Description                                                 |
-| -------- | ---------------------- | ----------------------------------------------------------- |
-| `testId` | ID!                    | The test to review                                          |
-| `status` | ReviewTestInputStatus! | `ACCEPTED`, `DENIED`, or `PENDING` (resets to unreviewed)   |
-| `batch`  | ReviewTestBatch        | Optionally apply to `SPEC` (story), `COMPONENT`, or `BUILD` |
+| Field    | Type                   | Description                                                          |
+| -------- | ---------------------- | -------------------------------------------------------------------- |
+| `testId` | ID!                    | The test to review                                                   |
+| `status` | ReviewTestInputStatus! | `ACCEPTED`, `DENIED`, `IGNORED`, or `PENDING` (resets to unreviewed) |
+| `batch`  | ReviewTestBatch        | Optionally apply to `SPEC` (story), `COMPONENT`, or `BUILD`          |
 
 ```bash
 curl -s -X POST https://www.chromatic.com/api \
@@ -463,6 +554,129 @@ If the review fails, errors come back in `userErrors` rather than the top-level 
     "reviewTest": {
       "updatedTests": null,
       "userErrors": [{ "message": "Build is superseded by a newer build on this branch" }]
+    }
+  }
+}
+```
+
+---
+
+#### testQuarantine
+
+Quarantines the story and mode of a test. Quarantining also ignores the test, so it no longer blocks the build. The story stays quarantined, and its tests stay ignored in later builds, until you remove it with [`testUnquarantine`](#testunquarantine). Requires the `build:write` scope, and quarantine must be enabled for the account. Learn more about [quarantining tests](/docs/quarantine-tests).
+
+**Input fields:**
+
+| Field    | Type | Description                                         |
+| -------- | ---- | --------------------------------------------------- |
+| `testId` | ID!  | The test whose story and mode should be quarantined |
+
+The response is a union: `TestQuarantineSuccess` or `TestQuarantineFailure`. Select both with inline fragments.
+
+```bash
+curl -s -X POST https://www.chromatic.com/api \
+  -H "Content-Type: application/json" \
+  -H "Authorization: Bearer <your_access_token>" \
+  -d '{
+    "query": "mutation($input: TestQuarantineInput!) { testQuarantine(input: $input) { ... on TestQuarantineSuccess { test { id status } quarantinedStory { id modeName } } ... on TestQuarantineFailure { errors { ... on TestNotFoundError { message } ... on TestUnsupportedStatusError { message } ... on QuarantineFeatureUnavailableError { message } ... on UnknownMutationError { message } } } } }",
+    "variables": {
+      "input": {
+        "testId": "<test_id>"
+      }
+    }
+  }'
+```
+
+```json
+{
+  "data": {
+    "testQuarantine": {
+      "test": {
+        "id": "Test:6891294cbf7b127209b4c6fe",
+        "status": "IGNORED"
+      },
+      "quarantinedStory": {
+        "id": "QuarantinedStory:6891295dbf7b127209b4c712",
+        "modeName": "Dark Mobile"
+      }
+    }
+  }
+}
+```
+
+If quarantining fails, the response is a `TestQuarantineFailure` with a non-empty `errors` list:
+
+- `TestNotFoundError`: the test doesn't exist or isn't accessible to the token.
+- `TestUnsupportedStatusError`: the test's status can't be quarantined, such as `BROKEN` or `FAILED`.
+- `QuarantineFeatureUnavailableError`: quarantine isn't enabled for the account.
+- `UnknownMutationError`: any other error. Read `message` for details.
+
+---
+
+#### testUnquarantine
+
+Removes the story and mode of a test from quarantine. If the test was ignored because of the quarantine, its status resets to `PENDING`. A test that was also ignored for another reason, such as being flagged as unstable, stays `IGNORED`. Requires the `build:write` scope.
+
+**Input fields:**
+
+| Field    | Type | Description                                                     |
+| -------- | ---- | --------------------------------------------------------------- |
+| `testId` | ID!  | The test whose story and mode should be removed from quarantine |
+
+```bash
+curl -s -X POST https://www.chromatic.com/api \
+  -H "Content-Type: application/json" \
+  -H "Authorization: Bearer <your_access_token>" \
+  -d '{
+    "query": "mutation($input: TestUnquarantineInput!) { testUnquarantine(input: $input) { ... on TestUnquarantineSuccess { test { id status } } ... on TestUnquarantineFailure { errors { ... on TestNotFoundError { message } ... on QuarantineFeatureUnavailableError { message } ... on UnknownMutationError { message } } } } }",
+    "variables": {
+      "input": {
+        "testId": "<test_id>"
+      }
+    }
+  }'
+```
+
+```json
+{
+  "data": {
+    "testUnquarantine": {
+      "test": {
+        "id": "Test:6891294cbf7b127209b4c6fe",
+        "status": "PENDING"
+      }
+    }
+  }
+}
+```
+
+A `TestUnquarantineFailure` returns the same errors as `testQuarantine`, except `TestUnsupportedStatusError`.
+
+---
+
+### Limits
+
+Chromatic caps how large a single response can be. A response over the cap is rejected with an error, not cut short, so you never receive a partial result that looks complete. Keep responses small:
+
+- Page through lists with `first` and `after`. Read `pageInfo.hasNextPage` and pass `pageInfo.endCursor` as `after` to get the next page.
+- Select only the fields you need. Image URLs are long, so ask for them on a few tests at a time.
+- Filter on the server where you can, for example `tests(statuses: [PENDING])`.
+
+```graphql
+query ($id: ID!, $after: ID) {
+  build(id: $id) {
+    ... on CompletedBuild {
+      tests(first: 50, after: $after) {
+        totalCount
+        pageInfo {
+          hasNextPage
+          endCursor
+        }
+        nodes {
+          id
+          status
+        }
+      }
     }
   }
 }
