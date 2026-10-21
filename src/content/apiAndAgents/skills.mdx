@@ -1,0 +1,79 @@
+---
+title: Skills
+description: Skills teach your coding agent Chromatic workflows, such as fixing accessibility violations or reviewing visual changes. Get them with the plugin or the skills CLI, and run one by name.
+sidebar: { order: 2, label: 'Skills' }
+---
+
+# Skills
+
+Skills are workflows that chain the [Chromatic MCP](/docs/mcp) tools with your code, such as fixing accessibility violations or reviewing visual changes. Each skill is also a slash command.
+
+Your agent picks a skill on its own when your request fits, so you never need to name one. The exception is `run-build`, which runs only when you invoke it.
+
+## Get the skills
+
+The [Chromatic plugin](/docs/agents#quickstart-with-the-plugin) for Claude Code and Codex includes every skill. If you installed the plugin, you already have them.
+
+Without the plugin, install the skills with the [skills CLI](https://skills.sh), which puts them where each of your agents looks for them:
+
+```shell
+# Choose skills from a list
+npx skills add chromaui/chromatic-plugins
+
+# Add one skill
+npx skills add chromaui/chromatic-plugins --skill fix-accessibility-violations
+
+# Update the skills you installed
+npx skills update
+```
+
+Add `--global` to install the skills for every project rather than the current one.
+
+Or copy the folders under `plugins/chromatic/skills/` in [chromaui/chromatic-plugins](https://github.com/chromaui/chromatic-plugins) into your agent's skills folder, such as `~/.claude/skills` for Claude Code.
+
+Install the skills without the plugin when your agent reads skills but has no plugins, when the server is already connected another way (such as a claude.ai connector), or when you want the skills committed to your repository so the whole team gets them. If you install the plugin after adding the server by hand, Chromatic can show up twice; see [Chromatic shows up twice in my MCP list](/docs/agents#chromatic-listed-twice).
+
+<div class="aside">
+  **A skill is instructions, not a connection.** Without the server connected, a skill has nothing
+  to call. When you install the skills only, [add the MCP server by
+  hand](/docs/mcp#add-the-mcp-server-by-hand) too. If your agent has no skills support, it can still
+  use the tools.
+</div>
+
+## Run a skill
+
+To run a skill by name:
+
+- **In Claude Code,** type `/chromatic:` and the skill name, such as `/chromatic:get-latest-build`.
+- **In Codex,** type `$` and the name, such as `$get-latest-build`.
+- **When you installed the skills with the skills CLI or copied them into your skills folder,** drop the prefix: `/get-latest-build`.
+
+In Claude Code, `/mcp` shows the server, its tools, and your login, and `/plugin` manages the plugin. Tools are never slash commands; ask for them in plain words.
+
+Your agent asks before it accepts, denies, or quarantines anything. It names the tests and the build and waits for your answer.
+
+## What the plugin runs on its own
+
+In Claude Code, the plugin adds hooks so your agent thinks of Chromatic without being asked. They run only in a repository that has a `chromatic.config.json`:
+
+- **When a session starts,** the agent is told the repository is tested by Chromatic and what to do after a push.
+- **After `git push` or `gh pr create`,** the agent is told a build is starting and to check it before it ends its turn.
+- **In the background,** a hook waits up to about 13 minutes for Chromatic's **UI Tests** status on the commit, and wakes the agent when the build finishes. It reads the status from GitHub with the `gh` CLI, so it needs `gh` logged in and a GitHub remote. Without them it stays silent, and the agent tells you the build is running.
+
+The hooks only add a note for the agent. They start no build, call no Chromatic tool and change nothing in Chromatic. Claude Code asks you to trust them the first time.
+
+Codex gets no hooks from the plugin. When Codex (or any other agent) connects, the server sends it a short guide that tells it to check the build after a push, so you can still ask "I pushed. What does Chromatic say about this branch?"
+
+## Examples
+
+A few of the skills the plugin ships:
+
+- **`get-latest-build`** reports the latest Chromatic build for your project, on the current branch unless you name another.
+- **`review-visual-changes`** compares each changed snapshot with the code change on your branch, and reports which changes look intended and which look like regressions.
+- **`fix-accessibility-violations`** finds the accessibility violations a build reports, fixes them in your component source, and checks the fix on the next build.
+- **`fix-broken-stories`** finds the stories a build could not capture, fixes the cause, and checks the fix on the next build.
+- **`triage-flaky-stories`** finds quarantined and unstable stories, fixes what makes them flaky, and quarantines or brings one back when you ask. See [unstable tests](/docs/unstable-tests) and [quarantine tests](/docs/quarantine-tests).
+- **`run-build`** runs a Chromatic build for just the stories you are changing. It needs `CHROMATIC_PROJECT_TOKEN` in your shell and asks before each build.
+- **`connect-project`** finds your Chromatic project ID from your Git remote, or asks you for a project link, and saves it to `chromatic.config.json`.
+
+For the full list of skills and what each one does, see the [chromaui/chromatic-plugins README](https://github.com/chromaui/chromatic-plugins#-what-you-get). For examples of what to ask, see [What your agent can do](/docs/agents#what-your-agent-can-do).
