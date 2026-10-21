@@ -48,7 +48,7 @@ Before you start, you need:
     codex mcp login chromatic
     ```
 
-    Approve the request in your browser. `codex mcp list` should show OAuth in the Auth column. This needs Codex 0.148 or newer; check with `codex --version`.
+    Approve the request in your browser. `codex mcp list` should show OAuth in the Auth column.
 
     In the ChatGPT app, quit and reopen it, then pick **Codex** in the sidebar. **Plugins** lists Chromatic under **Personal**. Sign in with a ChatGPT account, not an API key, or **Plugins** stays locked.
 
@@ -57,7 +57,7 @@ Before you start, you need:
 
 To check it worked, ask your agent: "What time is it on the Chromatic server?" If it answers with a time, you are connected and logged in.
 
-To add the server by hand or connect Claude Desktop and claude.ai, see [Add the MCP server by hand](/docs/mcp#add-the-mcp-server-by-hand). To update or remove the plugin, see [Frequently asked questions](#frequently-asked-questions).
+To add the server by hand or connect Claude Desktop and claude.ai, see [Add the MCP server by hand](/docs/mcp#add-the-mcp-server-by-hand). To update or remove the plugin, see [How do I update the plugin?](#update-the-plugin) and [How do I remove the plugin?](#remove-the-plugin).
 
 <details id="other-agents">
 
@@ -86,8 +86,7 @@ To check it worked, ask your agent: "What time is it on the Chromatic server?" I
 
 <div class="aside">
   **A skill is instructions, not a connection.** Without the server connected, a skill has nothing
-  to call. When you install the skills only, [add the MCP server by
-  hand](/docs/mcp#add-the-mcp-server-by-hand) too.
+  to call, so don't skip step 1.
 </div>
 
 </details>
@@ -107,7 +106,7 @@ Ask in plain words. You never need to name a tool or a skill.
 
 ![Skills at work: a build's visual changes summarized by cause, unstable tests fixed and unquarantined, and accessibility violations fixed and confirmed by a new build](../../images/mcp-skills-results.png)
 
-These are skills. See [Skills](/docs/skills) for how they work and how to run one by name.
+Each of these is a skill. See [Skills](/docs/skills) for how they work and how to run one by name.
 
 ## Go deeper
 
@@ -176,7 +175,7 @@ To check your version in Claude Code, run `claude plugin list` and look for `chr
 
 <details id="chromatic-listed-twice">
 
-<summary>Chromatic shows up twice in my MCP list</summary>
+<summary>Why does Chromatic show up twice in my MCP list?</summary>
 
 You have it as a connector or a server you added by hand, and as a plugin. This is harmless. To keep only the plugin's, run `claude mcp remove chromatic` or `codex mcp remove chromatic`, or remove the connector.
 

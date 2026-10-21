@@ -23,7 +23,7 @@ You log in once per agent, in your browser, with your Chromatic account. There i
 
 ![Your coding agent logs in once on chromatic.com, then sends each tool call with its token to the Chromatic MCP at mcp.chromatic.com/mcp, which runs GraphQL against the Chromatic API as you](../../images/mcp-how-it-works.png)
 
-The server gives your agent tools to call. Your agent can fetch the latest build for a project or branch with `chromatic_get_latest_build`, list the stories in a build whose accessibility violations changed and show one story's accessibility diff, search the Chromatic API schema and run a read-only GraphQL query, and check the connection with `chromatic_server_time`. Only when you ask, it can review a test (accept, deny, ignore, or set back to pending), quarantine or unquarantine a test, or create a project with `chromatic_mutate`, which your client asks you to approve. Every other tool only reads. [Skills](/docs/skills) chain these tools with your code.
+The server gives your agent tools to call. With them, your agent can fetch the latest build for a project or branch (`chromatic_get_latest_build`), list the stories in a build whose accessibility violations changed and show one story's accessibility diff, search the Chromatic API schema and run a read-only GraphQL query, and check the connection (`chromatic_server_time`). Every one of those tools only reads. One tool, `chromatic_mutate`, changes things: only when you ask, it reviews a test (accept, deny, ignore, or set back to pending), quarantines or unquarantines a test, or creates a project, and your client asks you to approve each call. [Skills](/docs/skills) chain these tools with your code.
 
 The server tells your agent which tools it has and what each one does, so the list is always current. To see it, ask your agent "What Chromatic tools do you have?"
 
@@ -123,7 +123,7 @@ Every tool needs your Chromatic project ID. It lives in `chromatic.config.json` 
 <div class="aside">
   A project token is not a project ID. Your agent never asks for your project token and the server
   refuses to read one, except the token of a project the agent just created, which comes back once
-  so you can set up CI. See [What it won't do](#what-it-wont-do).
+  so you can set up CI. See [What won't it do?](#what-it-wont-do).
 </div>
 
 ## Chromatic MCP vs. Storybook MCP
@@ -190,7 +190,7 @@ That list is every tool that only reads. Leave `chromatic_mutate` out of it. The
 
 <details id="skills-missing">
 
-<summary>The tools work but the skills are missing</summary>
+<summary>Why are the skills missing when the tools work?</summary>
 
 The server was added without the plugin, as a connector or with `mcp add`. [Install the plugin](/docs/agents#quickstart-with-the-plugin) or [get the skills](/docs/skills#get-the-skills).
 
@@ -198,7 +198,7 @@ The server was added without the plugin, as a connector or with `mcp add`. [Inst
 
 <details id="tools-missing">
 
-<summary>The skills are installed but the tools are missing</summary>
+<summary>Why are the tools missing when the skills are installed?</summary>
 
 Skills do not bring the server. [Add the MCP server](#add-the-mcp-server-by-hand).
 
@@ -207,7 +207,7 @@ Skills do not bring the server. [Add the MCP server](#add-the-mcp-server-by-hand
 <details id="refused-for-scope">
 
 <summary>
-  I get "refused for scope", or my agent cannot accept, deny, quarantine, or see my account
+  Why does my agent get "refused for scope", or fail to accept, deny, quarantine, or see my account?
 </summary>
 
 Your login does not carry the permissions the tool needs. Log in again with `/mcp` or `codex mcp login chromatic`. In Claude Code, choose **Clear authentication** in `/mcp` first; in Codex, run `codex mcp logout chromatic` first. Until then, the skills give you a link to do it in Chromatic.
@@ -216,7 +216,7 @@ Your login does not carry the permissions the tool needs. Log in again with `/mc
 
 <details id="project-not-found">
 
-<summary>The agent cannot find my project</summary>
+<summary>Why can't my agent find my project?</summary>
 
 It needs the project ID, which is the `appId` in a Chromatic project URL and not your project token. Run the `connect-project` skill and paste a link to the project. See [Project ID](#project-id).
 
@@ -224,7 +224,7 @@ It needs the project ID, which is the `appId` in a Chromatic project URL and not
 
 <details id="no-accessibility-results">
 
-<summary>There are no accessibility results</summary>
+<summary>Why are there no accessibility results?</summary>
 
 Turn on [accessibility tests](/docs/accessibility) for the project and run a new build. Builds from before you turn them on have no accessibility data, and your agent reports accessibility as "not measured".
 
@@ -232,7 +232,7 @@ Turn on [accessibility tests](/docs/accessibility) for the project and run a new
 
 <details id="calls-fail-after-update">
 
-<summary>Calls fail after an update</summary>
+<summary>Why do calls fail after an update?</summary>
 
 Restart the session so the agent reloads the tool list. In Claude Code you can also reconnect with `/mcp`.
 
@@ -240,7 +240,7 @@ Restart the session so the agent reloads the tool list. In Claude Code you can a
 
 <details id="result-saved-to-file">
 
-<summary>Claude Code says a tool result was saved to a file</summary>
+<summary>Why does Claude Code say a tool result was saved to a file?</summary>
 
 Claude Code does that for any answer over 50,000 characters, and the agent reads the file. Nothing is wrong. The server refuses answers over 100,000 characters rather than cutting them short, and the agent then asks for fewer fields or pages through the list.
 
@@ -248,15 +248,15 @@ Claude Code does that for any answer over 50,000 characters, and the agent reads
 
 <details id="no-check-after-push">
 
-<summary>The agent does not check the build after a push</summary>
+<summary>Why doesn't my agent check the build after a push?</summary>
 
-That only happens in Claude Code, in a repository with a `chromatic.config.json`. Run `connect-project` to add one. To be woken when the build finishes, the agent also needs the `gh` CLI logged in (check with `gh auth status`) and a GitHub remote. See [What the plugin runs on its own](/docs/skills#what-the-plugin-runs-on-its-own).
+Your agent checks on its own only in Claude Code, in a repository with a `chromatic.config.json`. Run `connect-project` to add one. To be woken when the build finishes, the agent also needs the `gh` CLI logged in (check with `gh auth status`) and a GitHub remote. See [What the plugin runs on its own](/docs/skills#what-the-plugin-runs-on-its-own).
 
 </details>
 
 <details id="update-did-not-arrive">
 
-<summary>An update did not arrive</summary>
+<summary>Why didn't a plugin update arrive?</summary>
 
 Your agent keeps a copy of the plugin. Run the [update steps](/docs/agents#update-the-plugin) and restart the session, or remove the plugin and install it again.
 
