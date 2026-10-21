@@ -12,10 +12,10 @@ Your coding agent can read every Chromatic build and fix what it finds. Ask it w
 
 Chromatic for agents is made of:
 
-- **The [Chromatic API](/docs/api)** gives you your builds, tests, accessibility results, and published Storybooks as GraphQL.
-- **The [Chromatic MCP](/docs/mcp)** server lets your agent call that API as you, after one login in your browser.
+- **[Chromatic API](/docs/api)** gives you your builds, tests, accessibility results, and published Storybooks as GraphQL.
+- **[Chromatic MCP server](/docs/mcp)** lets your agent call that API as you, after one login in your browser.
 - **[Skills](/docs/skills)** teach your agent workflows that chain those calls with your code, such as fixing accessibility violations or reviewing visual changes.
-- **The Chromatic plugin** for Claude Code and Codex bundles the server connection, the login, and every skill.
+- **[Plugins](#quickstart-with-the-plugin)** for Claude Code and Codex bundle the server connection, the login, and every skill.
 
 ![Your coding agent runs a local loop with Storybook on your machine and a CI loop with Chromatic on every build, fixing what each one catches](../../images/mcp-local-loop-ci-loop.png)
 
