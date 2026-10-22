@@ -42,6 +42,8 @@ When running Storybook's dev server, you can now access the MCP server at: http:
 
 ### 2. Run a build to publish the MCP server
 
+Before asking an agent to run repeated builds, review [usage warnings for agents and developers](/docs/billing/usage-awareness). The CLI reports account usage and TurboSnap guidance during builds.
+
 Run a Chromatic build as usual, either via CI or locally, to automatically deploy your MCP server alongside your Storybook. If you don't have a Chromatic project yet, then follow our [quickstart guide](/docs/quickstart) to set up your first project and publish the Storybook.
 
 Once the build is complete, you will see a confirmation message with links to your published Storybook. The MCP server is published at the same URL as your Storybook on the `/mcp` route. For example:

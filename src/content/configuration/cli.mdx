@@ -43,6 +43,12 @@ npx chromatic --project-token <your-project-token> --cypress
 
 For Vitest, Playwright, and Cypress, we recommend installing the chromatic package as a dependency. This ensures that the CLI is in sync with the `@chromatic-com/vitest`, `@chromatic-com/playwright`, or `@chromatic-com/cypress` package.
 
+## Usage warnings
+
+The CLI checks account usage before building or uploading Storybook, then refreshes it after preparation and completion. Warnings include billing-period progress and recommended actions. TurboSnap guidance explains when configuration needs attention.
+
+Agents can read the same data from diagnostics, the Node API result, or GitHub Action outputs. See [usage warnings for agents and developers](/docs/billing/usage-awareness#cli-and-ci). Warnings alone do not change the build's exit code.
+
 ## Installing
 
 <Tabs>

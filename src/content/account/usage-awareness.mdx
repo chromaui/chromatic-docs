@@ -1,0 +1,121 @@
+---
+title: Usage warnings for agents and developers
+description: Check snapshot usage, billing-period progress, and TurboSnap advice before running more Chromatic builds.
+slug: billing/usage-awareness
+sidebar: { hide: true }
+---
+
+# Usage warnings for agents and developers
+
+Check account usage before starting more Chromatic builds. A large build can consume the remaining allowance before an email alert reaches your team.
+
+Chromatic provides the same account usage summary through its CLI, API, and Chromatic MCP tools. The summary includes billed snapshots, the included allowance, time remaining in the billing period, and recommended actions. Usage can include other projects on the same billing account.
+
+## Understand a warning
+
+Warnings appear as usage reaches 50%, 70%, 90%, and 100% of the included allowance. Consumption-pace warnings can appear below those thresholds. For example, using 70% early in the billing period needs more attention than using 70% on the final day.
+
+Each warning includes an action, such as reviewing project usage or checking TurboSnap configuration. Check whether your account permits overages: passing the included allowance can incur additional charges or limit testing, depending on the account's policy.
+
+Warnings provide information. They do not, by themselves, stop a build, increase a budget, or authorize overages. Existing quota and payment restrictions still apply.
+
+### Respond before the next build
+
+1. Check the warning's billing-period end and remaining allowance.
+2. Open the [usage report](/docs/billing/usage-reports) to identify projects driving consumption.
+3. Review [TurboSnap setup](/docs/turbosnap/setup) and the build's specific optimization advice.
+4. Resolve unnecessary repeated builds or broad dependencies before running more builds.
+5. Ask an account administrator about billing changes when needed.
+
+Preserve test coverage while optimizing. Do not exclude dependencies or stories simply to make the usage warning disappear. [Copied snapshots still incur billed usage](/docs/billing#with-turbosnap-enabled).
+
+## Webapp
+
+Account, project, and build screens show a usage banner when a warning applies. The banner includes billed snapshots, the allowance, days remaining, and the billing-period end. It also explains whether further usage can incur overages or testing can be limited.
+
+Authorized members can see usage warnings even when they cannot edit billing settings. The billing action appears only when the account grants access.
+
+Dismissing a banner hides that warning for you in the current browser. A higher threshold, a new pace warning, or a new billing period can show another banner.
+
+## CLI and CI
+
+The CLI checks usage when it announces a build, before building or uploading Storybook. It refreshes the summary after preparation and at completion. Runs using `--exit-once-uploaded` receive the first two checks without waiting for completion.
+
+When TurboSnap is available but disabled, the CLI points to its setup instructions. Later responses include the reason TurboSnap could not apply and a recommended action. Eligibility and configuration both matter; enabling a flag does not make TurboSnap available to every project.
+
+Usage warnings alone do not change the CLI exit code. The existing [quota and payment exit codes](/docs/cli#exit-codes) still apply.
+
+### Read structured results
+
+For an agent running the CLI, save diagnostics with the existing command:
+
+```bash
+yarn chromatic --diagnostics-file=chromatic-diagnostics.json
+```
+
+Read `announcedBuild.usageStatus` for the early summary. After verification, read `build.usageStatus` and `build.optimization` for the latest returned data.
+
+The Node API's `run()` result exposes `usageStatus` and `optimization`. The GitHub Action exposes outputs with the same names. Available data is serialized as JSON. On an unsupported server, an output can be the literal string `undefined`; check for that before parsing it.
+
+Diagnostics contain account usage. Share them only with people who should have access to that information.
+
+## Chromatic MCP
+
+Chromatic MCP provides a `chromatic_get_usage` tool that accepts a project ID. Agents can use it to check account usage before the first build.
+
+The `chromatic_get_latest_build`, `chromatic_list_accessibility_changes`, and `chromatic_get_accessibility_diff` tools also include usage guidance in their results. `chromatic_query` adds usage fields when querying accounts, projects, and builds, and optimization fields when querying builds.
+
+Agents should show the warning and recommended action to the user before starting further builds. A quota or budget refusal is not permission to retry, change billing settings, or raise a limit.
+
+These tools belong to Chromatic MCP. The [Storybook MCP published alongside your Storybook](/docs/mcp) provides component documentation and has a separate tool set.
+
+## Chromatic API
+
+The [Chromatic API](/docs/api) exposes `usageStatus` on accounts, projects, and builds. Builds also expose `optimization`.
+
+For example, use an authenticated API request with this query and your project ID:
+
+```graphql
+query ProjectUsage($projectId: ID!) {
+  project(id: $projectId) {
+    usageStatus {
+      dataStatus
+      recordedAt
+      periodStart
+      periodEnd
+      billableSnapshots
+      includedSnapshots
+      remainingSnapshots
+      usagePercentage
+      elapsedPercentage
+      daysRemaining
+      threshold
+      isOverageAllowed
+      projectedSnapshots
+      warnings {
+        code
+        severity
+        message
+        action
+      }
+      links {
+        billing
+        documentation
+      }
+    }
+  }
+}
+```
+
+`optimization` contains `turboSnapStatus`, `reason`, `recommendation`, and `documentationUrl`. The status distinguishes `UNAVAILABLE`, `NOT_ENABLED`, `APPLIED`, `BAILED`, and `UNKNOWN`.
+
+### Handle missing or changing data
+
+Usage visibility depends on the credential's account permissions. Access to a project does not necessarily grant access to its account usage.
+
+- `usageStatus: null` means the summary is unavailable to the caller.
+- `dataStatus: UNAVAILABLE` means reliable usage could not be calculated.
+- Missing fields can mean the server does not support this information yet.
+- Nullable counts and estimates mean unknown, not zero.
+
+Check `recordedAt` and the billing period before reusing a summary. Projected usage is an estimate. Concurrent builds can consume allowance after the summary was calculated, so a warning is not a reservation of remaining snapshots.

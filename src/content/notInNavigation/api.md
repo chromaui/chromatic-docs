@@ -487,6 +487,12 @@ Scopes follow a `subject:action` pattern. Requesting a scope grants access to th
 
 ---
 
+## Account usage and build optimization
+
+Request `usageStatus` on accounts, projects, or builds to check the included snapshot allowance and billing-period progress. Request `optimization` on builds for TurboSnap status and recommended actions.
+
+See the [usage query and field guide](/docs/billing/usage-awareness#chromatic-api). Handle unavailable data explicitly; missing or null usage does not mean zero usage or authorization to spend more.
+
 ## Deprecation & Breaking Changes Policy
 
 We'll announce upcoming breaking changes at least 3 months in advance of any changes to the GraphQL schema, to give integrators time to make the necessary adjustments. Changes take effect on the first day of each quarter (January 1st, April 1st, July 1st, or October 1st). For example, if we announce a change on January 15th, it will be made on July 1st.
