@@ -491,6 +491,8 @@ Scopes follow a `subject:action` pattern. Requesting a scope grants access to th
 
 We'll announce upcoming breaking changes at least 3 months in advance of any changes to the GraphQL schema, to give integrators time to make the necessary adjustments. Changes take effect on the first day of each quarter (January 1st, April 1st, July 1st, or October 1st). For example, if we announce a change on January 15th, it will be made on July 1st.
 
+A complete history of API changes is available in the [Public API changelog](https://studio.apollographql.com/public/Chromatic-Public-API/variant/production/changelog).
+
 ### Changes for January 1, 2027
 
 - `Test.comparisons` will be removed. Please use `Test.visualComparisons` and `Test.accessibilityComparisons` instead.
