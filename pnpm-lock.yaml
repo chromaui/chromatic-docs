@@ -24,8 +24,8 @@ importers:
         specifier: ^3.7.1
         version: 3.7.1
       '@chromatic-com/tetra':
-        specifier: 3.3.0
-        version: 3.3.0(@emotion/react@11.14.0(@types/react@18.2.21)(react@18.2.0)(supports-color@7.2.0))(@emotion/styled@11.14.0(@emotion/react@11.14.0(@types/react@18.2.21)(react@18.2.0)(supports-color@7.2.0))(@types/react@18.2.21)(react@18.2.0)(supports-color@7.2.0))(@types/react-dom@18.2.7)(@types/react@18.2.21)(framer-motion@11.0.5(react-dom@18.2.0(react@18.2.0))(react@18.2.0))(react-dom@18.2.0(react@18.2.0))(react@18.2.0)
+        specifier: 3.5.0
+        version: 3.5.0(@emotion/react@11.14.0(@types/react@18.2.21)(react@18.2.0)(supports-color@7.2.0))(@emotion/styled@11.14.0(@emotion/react@11.14.0(@types/react@18.2.21)(react@18.2.0)(supports-color@7.2.0))(@types/react@18.2.21)(react@18.2.0)(supports-color@7.2.0))(@types/react-dom@18.2.7)(@types/react@18.2.21)(framer-motion@11.0.5(react-dom@18.2.0(react@18.2.0))(react@18.2.0))(react-dom@18.2.0(react@18.2.0))(react@18.2.0)
       '@docsearch/css':
         specifier: ^3.5.2
         version: 3.5.2
@@ -384,8 +384,8 @@ packages:
     peerDependencies:
       storybook: ^0.0.0-0 || ^10.1.0 || ^10.1.0-0 || ^10.2.0-0 || ^10.3.0-0
 
-  '@chromatic-com/tetra@3.3.0':
-    resolution: {integrity: sha512-5YX1O3xyhf6RvGmDfbsy4i5Z/6g1+oFpAojw2Vn5ofPKf5MkFu+7gh+wj+aEXamxrnIC1ojUWMC+TtWELD2EtA==}
+  '@chromatic-com/tetra@3.5.0':
+    resolution: {integrity: sha512-H90wuYBeq+lrqujs8wfLYKDCbZCCVAH5KgWTM3bixuzvu9Grfl3tUMvYa9ok7RPvOvy6MrVOZpskP1Z4xhhMOA==}
     engines: {node: '>=14.0.0'}
     peerDependencies:
       '@emotion/react': ^11.13.3
@@ -5453,7 +5453,7 @@ snapshots:
       - '@chromatic-com/cypress'
       - '@chromatic-com/playwright'
 
-  '@chromatic-com/tetra@3.3.0(@emotion/react@11.14.0(@types/react@18.2.21)(react@18.2.0)(supports-color@7.2.0))(@emotion/styled@11.14.0(@emotion/react@11.14.0(@types/react@18.2.21)(react@18.2.0)(supports-color@7.2.0))(@types/react@18.2.21)(react@18.2.0)(supports-color@7.2.0))(@types/react-dom@18.2.7)(@types/react@18.2.21)(framer-motion@11.0.5(react-dom@18.2.0(react@18.2.0))(react@18.2.0))(react-dom@18.2.0(react@18.2.0))(react@18.2.0)':
+  '@chromatic-com/tetra@3.5.0(@emotion/react@11.14.0(@types/react@18.2.21)(react@18.2.0)(supports-color@7.2.0))(@emotion/styled@11.14.0(@emotion/react@11.14.0(@types/react@18.2.21)(react@18.2.0)(supports-color@7.2.0))(@types/react@18.2.21)(react@18.2.0)(supports-color@7.2.0))(@types/react-dom@18.2.7)(@types/react@18.2.21)(framer-motion@11.0.5(react-dom@18.2.0(react@18.2.0))(react@18.2.0))(react-dom@18.2.0(react@18.2.0))(react@18.2.0)':
     dependencies:
       '@emotion/react': 11.14.0(@types/react@18.2.21)(react@18.2.0)(supports-color@7.2.0)
       '@emotion/styled': 11.14.0(@emotion/react@11.14.0(@types/react@18.2.21)(react@18.2.0)(supports-color@7.2.0))(@types/react@18.2.21)(react@18.2.0)(supports-color@7.2.0)
@@ -7427,7 +7427,7 @@ snapshots:
       sirv: 3.0.2
       tinyrainbow: 3.0.3
       vitest: 4.0.16(@types/node@24.12.0)(@vitest/browser-playwright@4.0.16)(happy-dom@20.14.5)
-      ws: 8.19.0
+      ws: 8.22.0
     transitivePeerDependencies:
       - bufferutil
       - msw

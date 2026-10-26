@@ -6,6 +6,8 @@ import {
   MondayIcon,
   NetlifyIcon,
   PlaywrightIcon,
+  ReactNativeIcon,
+  VitestIcon,
 } from '@chromatic-com/tetra';
 
 import type { HeaderProps } from '@chromatic-com/tetra';
@@ -48,6 +50,18 @@ export const links: HeaderProps['links'] = {
     icon: 'storybook',
     iconColor: 'pink500',
     href: '/storybook',
+  },
+  vitest: {
+    title: 'Vitest',
+    customIcon: <VitestIcon />,
+    iconColor: 'green500',
+    href: '/vitest',
+  },
+  reactNative: {
+    title: 'React Native',
+    customIcon: <ReactNativeIcon />,
+    iconColor: 'cyan500',
+    href: '/react-native',
   },
   playwright: {
     title: 'Playwright',
@@ -197,5 +211,23 @@ export const links: HeaderProps['links'] = {
     icon: 'accessibility',
     iconColor: 'green500',
     href: '/accessibility-budget-calculator',
+  },
+  ai: {
+    title: 'AI & Agents',
+    icon: 'wand',
+    iconColor: 'purple500',
+    href: '/ai',
+  },
+  frontendWorkflowForAI: {
+    title: 'Frontend workflow for AI',
+    icon: 'wand',
+    iconColor: 'pink500',
+    href: '/frontend-workflow-for-ai',
+  },
+  liveSessions: {
+    title: 'Live sessions',
+    icon: 'video',
+    iconColor: 'orange500',
+    href: '/live-sessions',
   },
 };
