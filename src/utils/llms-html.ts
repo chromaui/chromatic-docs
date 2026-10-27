@@ -97,7 +97,9 @@ export function articleFromHtml(html: string, url: string): LlmsArticle | undefi
   const articles = selectAll('[data-llms-article]', tree);
   if (articles.length === 0) {
     if (selectAll('meta[http-equiv="refresh"]', tree).length) return undefined;
-    throw new Error(`Missing LLM article boundary: ${url}`);
+    throw new Error(
+      `Missing LLM article boundary: ${url}. Render documentation through BaseLayout, or explicitly exclude non-article HTML in exportLlms.`
+    );
   }
   if (articles.length !== 1) throw new Error(`Multiple LLM articles: ${url}`);
   const article = articles[0];
@@ -130,6 +132,7 @@ export function articleFromHtml(html: string, url: string): LlmsArticle | undefi
   }
 
   const root: Root = { type: 'root', children: article.children };
+  // This baseline excludes UI-only content intentionally removed by clean().
   const expectedText = htmlValues(root);
   const processor = rehype()
     .use(rehypeRemark)
