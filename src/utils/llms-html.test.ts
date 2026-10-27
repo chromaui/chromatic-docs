@@ -34,16 +34,15 @@ describe('rendered article conversion', () => {
 
   test('keeps every tab panel, its label, and closed disclosure contents', () => {
     const body = articleFromHtml(
-      page(`<div class="not-content"><a role="tab" id="npm">npm</a><a role="tab" id="pnpm">pnpm</a></div>
+      page(`<div class="not-content"><a role="tab" id="npm"> npm </a><a role="tab" id="pnpm"> pnpm </a></div>
         <section role="tabpanel" aria-labelledby="npm"><p>npm install chromatic</p></section>
         <section role="tabpanel" aria-labelledby="pnpm" hidden><p>pnpm add chromatic</p></section>
-        <details><summary>Help</summary><p>Imported troubleshooting instructions.</p></details>`),
+        <details><summary>Help with <code>git</code></summary><p>Imported troubleshooting instructions.</p></details>`),
       url
     )!.body;
     expect(body).toContain('npm:\n\nnpm install chromatic');
     expect(body).toContain('pnpm:\n\npnpm add chromatic');
-    expect(body).toContain('Help');
-    expect(body).toContain('Imported troubleshooting instructions.');
+    expect(body).toContain('**Help with `git`**\n\nImported troubleshooting instructions.');
   });
 
   test('retains an article heading that differs from its metadata title', () => {

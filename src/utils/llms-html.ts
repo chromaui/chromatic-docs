@@ -36,6 +36,17 @@ function clean(parent: Root | Element, url: string, tabs: Map<string, string>): 
 
     // All tab variants belong in the export, including initially hidden panels.
     delete props.hidden;
+    if (node.tagName === 'summary') {
+      node.tagName = 'p';
+      node.children = [
+        {
+          type: 'element',
+          tagName: 'strong',
+          properties: {},
+          children: node.children,
+        },
+      ];
+    }
     if (isPanel) {
       const label = tabs.get(String(props.ariaLabelledBy ?? ''));
       if (label) {
