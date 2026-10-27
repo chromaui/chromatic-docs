@@ -49,6 +49,22 @@ All commands are run from the root of the project, from a terminal:
 | `pnpm diagrams`        | Render all `diagrams/*.mmd` files to SVG         |
 | `pnpm diagrams:watch`  | Watch `diagrams/` and re-render on save          |
 
+## LLM documentation exports
+
+Every `pnpm build` regenerates `dist/llms.txt`, `dist/llms-full.txt`, and
+`dist/llms/<article-id>.txt` from the rendered articles. This includes FAQs, CMS
+pages, imported snippets, generated references, all tab panels, and disclosures.
+Removed articles are removed from the exports on the next build.
+
+Pages in `notInNavigation` and pages marked `isHidden` retain individual text
+exports but are excluded from the index and full corpus. The exporter checks
+article identities, nonempty content, and coverage consistency before the build
+succeeds.
+
+Use `pnpm build` followed by `pnpm preview` to inspect the exports under `/docs/`
+and test Copy Markdown. Exports are not served during `pnpm dev`, where Copy
+Markdown is hidden.
+
 ## ✍️ Editing Content
 
 Try to follow the conventions present.

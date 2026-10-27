@@ -86,6 +86,7 @@ const { Content, headings } = await render(article);
   file={article.filePath}
   headings={headings}
   searchMetaType={article.data.isHidden ? 'hidden' : 'default'}
+  llmsCollection={article.collection}
 >
   <Content />
 </BaseLayout>

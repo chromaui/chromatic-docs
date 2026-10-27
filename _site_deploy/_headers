@@ -4,3 +4,12 @@
   X-Content-Type-Options: nosniff
   X-Frame-Options: SAMEORIGIN
   X-Xss-Protection:	1; mode=block
+
+/docs/llms.txt
+  Content-Type: text/plain; charset=utf-8
+
+/docs/llms-full.txt
+  Content-Type: text/plain; charset=utf-8
+
+/docs/llms/*
+  Content-Type: text/plain; charset=utf-8

@@ -53,13 +53,13 @@ interface Props {
   body: {
     html: string;
   };
-  cms_slug: string;
+  slug: string;
 }
 
-const { title, body, cms_slug } = Astro.props;
+const { title, body, slug } = Astro.props;
 ---
 
-<BaseLayout title={title} description="" headings={[]} id={cms_slug}>
+<BaseLayout title={title} description="" headings={[]} id={slug}>
   <h1>{title}</h1>
   <div set:html={body.html} />
 </BaseLayout>

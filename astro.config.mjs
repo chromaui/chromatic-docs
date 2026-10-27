@@ -14,6 +14,7 @@ import { markDiagramImages } from './src/mark-diagram-images';
 import rehypeCopyButton from './src/plugins/rehype-copy-button';
 import rehypeZoomableImages from './src/plugins/rehype-zoomable-images';
 import { schemaIntegration } from './chromatic-config/schema-integration';
+import { llmsIntegration } from './src/integrations/llms';
 
 // https://astro.build/config
 export default defineConfig({
@@ -69,5 +70,5 @@ export default defineConfig({
       summarySlug,
     ],
   },
-  integrations: [react(), mdx(), sitemap(), schemaIntegration],
+  integrations: [react(), mdx(), sitemap(), schemaIntegration, llmsIntegration()],
 });

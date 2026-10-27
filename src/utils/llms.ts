@@ -1,203 +1,94 @@
-/**
- * llms.txt generation utilities
- *
- * Based on https://kumak.dev/adding-llms-txt-to-astro
- */
-import type { CollectionEntry } from 'astro:content';
-
-export type DocEntry =
-  | CollectionEntry<'overview'>
-  | CollectionEntry<'visualTests'>
-  | CollectionEntry<'accessibilityTests'>
-  | CollectionEntry<'interactionTests'>
-  | CollectionEntry<'playwright'>
-  | CollectionEntry<'cypress'>
-  | CollectionEntry<'configuration'>
-  | CollectionEntry<'modes'>
-  | CollectionEntry<'snapshot'>
-  | CollectionEntry<'turbosnap'>
-  | CollectionEntry<'collaborate'>
-  | CollectionEntry<'ci'>
-  | CollectionEntry<'account'>
-  | CollectionEntry<'guides'>
-  | CollectionEntry<'troubleshooting'>
-  | CollectionEntry<'notInNavigation'>;
-
-interface LlmsItem {
+/** Shared serialization for the build's rendered article inventory. */
+export interface LlmsArticle {
+  id: string;
   title: string;
   description: string;
-  link: string;
+  collection: string;
+  discoverable: boolean;
+  url: string;
+  body: string;
 }
 
-interface LlmsSection {
-  title: string;
-  items: LlmsItem[];
-}
+const description =
+  'Chromatic helps teams test and review UIs with Storybook, Vitest, Playwright, and Cypress.';
 
-interface LlmsTxtConfig {
-  name: string;
-  description: string;
-  sections: LlmsSection[];
-}
+// Keep the existing index organization; new collections get their own section.
+const sections: Record<string, string> = {
+  overview: 'Overview',
+  visualTests: 'Visual Tests',
+  modes: 'Visual Tests',
+  turbosnap: 'Visual Tests',
+  accessibilityTests: 'Accessibility Tests',
+  interactionTests: 'Interaction Tests',
+  ci: 'CI',
+  configuration: 'Configuration',
+  snapshot: 'Snapshot',
+  guides: 'Guides',
+  collaborate: 'Collaborate',
+  access: 'Collaborate',
+  playwright: 'Playwright',
+  cypress: 'Cypress',
+  vitest: 'Vitest',
+  account: 'Account',
+  troubleshooting: 'Troubleshooting',
+  cms: 'Additional documentation',
+};
 
-interface LlmsFullTxtConfig {
-  name: string;
-  description: string;
-  site: string;
-  docs: { title: string; description: string; link: string; body: string }[];
-}
-
-const MDX_COMPONENT_TAG = /<\/?[A-Z][\w]*(\s+[^>]*?)?>/g;
-
-function stripTopLevelImportsOutsideCodeFences(content: string): string {
-  const lines = content.split('\n');
-  const importPattern = /^import\s+.+from\s+['"].+['"];?\s*$/;
-
-  let inFence = false;
-  let seenNonImportOutsideFence = false;
-  const resultLines: string[] = [];
-
-  for (const line of lines) {
-    const fenceMatch = line.trimStart().startsWith('```');
-    if (fenceMatch) {
-      inFence = !inFence;
-      resultLines.push(line);
-      continue;
-    }
-
-    if (inFence) {
-      resultLines.push(line);
-      continue;
-    }
-
-    if (!seenNonImportOutsideFence) {
-      if (line.trim() === '') {
-        resultLines.push(line);
-        continue;
-      }
-
-      if (importPattern.test(line)) {
-        // Skip top-of-file MDX import line.
-        continue;
-      }
-
-      seenNonImportOutsideFence = true;
-      resultLines.push(line);
-      continue;
-    }
-
-    resultLines.push(line);
-  }
-
-  return resultLines.join('\n');
-}
-
-function stripMdx(content: string): string {
-  const withoutImports = stripTopLevelImportsOutsideCodeFences(content);
-  const lines = withoutImports.split('\n');
-
-  let inFence = false;
-  const processedLines = lines.map((line) => {
-    const isFence = line.trimStart().startsWith('```');
-    if (isFence) {
-      inFence = !inFence;
-      return line;
-    }
-
-    if (inFence) {
-      return line;
-    }
-
-    return line.replace(MDX_COMPONENT_TAG, '');
-  });
-
-  return processedLines.join('\n').trim();
-}
-
-function doc(...sections: (string | string[])[]): Response {
-  const content = sections
-    .flat()
-    .join('\n')
-    .replace(/\n{3,}/g, '\n\n')
-    .trim();
-
-  return new Response(content + '\n', {
-    headers: { 'Content-Type': 'text/plain; charset=utf-8' },
-  });
-}
-
-function entryUrl(entry: DocEntry, site: string): string {
-  return entry.data.isHome ? site : `${site}/${entry.id}`;
-}
-
-export function llmsTxt(config: LlmsTxtConfig): Response {
-  const head = [`# ${config.name}`, '', `> ${config.description}`];
-
-  const sections = config.sections
-    .filter((s) => s.items.length > 0)
-    .map((section) => [
-      '',
-      `## ${section.title}`,
-      ...section.items.map((item) => `- [${item.title}](${item.link}): ${item.description}`),
-    ]);
-
-  return doc(head, ...sections);
-}
-
-export function llmsFullTxt(config: LlmsFullTxtConfig): Response {
-  const head = [
-    `# ${config.name}`,
-    '',
-    `> ${config.description}`,
-    '',
-    `Site: ${config.site}`,
-    '',
-    '---',
-  ];
-
-  const docs = config.docs.flatMap((item) => [
-    '',
-    `## ${item.title}`,
-    '',
-    `URL: ${item.link}`,
-    '',
-    `> ${item.description}`,
-    '',
-    stripMdx(item.body),
-    '',
-    '---',
-  ]);
-
-  return doc(head, docs);
-}
-
-export function llmsDoc(entry: DocEntry, site: string): Response {
-  const { title, description } = entry.data;
-
-  return doc(
-    `# ${title}`,
-    '',
-    `> ${description || title}`,
-    '',
-    `URL: ${entryUrl(entry, site)}`,
-    '',
-    stripMdx(entry.body ?? '')
+export function sortArticles(articles: LlmsArticle[]): LlmsArticle[] {
+  const order = Object.keys(sections);
+  const rank = (collection: string) => {
+    const index = order.indexOf(collection);
+    return index < 0 ? order.length : index;
+  };
+  return [...articles].sort(
+    (a, b) =>
+      rank(a.collection) - rank(b.collection) ||
+      a.collection.localeCompare(b.collection, 'en') ||
+      a.id.localeCompare(b.id, 'en')
   );
 }
 
-export function docToLlmsItem(entry: DocEntry, llmsLinkBase: string): LlmsItem {
-  return {
-    title: entry.data.title,
-    description: entry.data.description || entry.data.title,
-    link: `${llmsLinkBase}/${entry.id}.txt`,
-  };
+const line = (value: string) => value.replace(/\s+/g, ' ').trim();
+const label = (value: string) => line(value).replace(/[\\[\]]/g, '\\$&');
+
+export function articleMarkdown(article: LlmsArticle): string {
+  return `# ${line(article.title)}\n\n> ${line(article.description)}\n\nURL: ${article.url}\n\n${article.body}\n`;
 }
 
-export function docToFullItem(entry: DocEntry, siteLink: string) {
-  return {
-    title: entry.data.title,
-    description: entry.data.description || entry.data.title,
-    link: entryUrl(entry, siteLink),
-    body: entry.body ?? '',
-  };
+export function indexMarkdown(articles: LlmsArticle[], site: string): string {
+  const groups = Map.groupBy(
+    sortArticles(articles).filter((article) => article.discoverable),
+    (article) => sections[article.collection] ?? article.collection
+  );
+  return [
+    '# Chromatic docs',
+    `> ${description}`,
+    `Read individual articles below, or download the [full documentation](${site}/llms-full.txt).`,
+    ...[...groups].map(([section, items]) =>
+      [
+        `## ${section}`,
+        ...items.map(
+          (article) =>
+            `- [${label(article.title)}](${site}/llms/${article.id}.txt): ${line(article.description)}`
+        ),
+      ].join('\n')
+    ),
+    '',
+  ].join('\n\n');
+}
+
+export function fullMarkdown(articles: LlmsArticle[], site: string): string {
+  return [
+    '# Chromatic docs',
+    `> ${description}`,
+    `Site: ${site}`,
+    '---',
+    ...sortArticles(articles)
+      .filter((article) => article.discoverable)
+      .map(
+        (article) =>
+          `## ${line(article.title)}\n\nURL: ${article.url}\n\n> ${line(article.description)}\n\n${article.body}\n\n---`
+      ),
+    '',
+  ].join('\n\n');
 }
