@@ -106,7 +106,7 @@ export function articleFromHtml(html: string, url: string): LlmsArticle | undefi
     throw new Error(`Invalid LLM article id: ${id}`);
   }
   const tabs = new Map(
-    selectAll('[role="tab"]', article).map((tab) => [String(tab.properties.id), text(tab)])
+    selectAll('[role="tab"]', article).map((tab) => [String(tab.properties.id), text(tab).trim()])
   );
   clean(article, url, tabs);
 
