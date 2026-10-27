@@ -28,6 +28,7 @@ const { Content, headings } = await render(faq);
   id={faq.id}
   file={faq.filePath}
   headings={headings}
+  llmsHidden={faq.data.isHidden}
 >
   <Content />
 </FAQLayout>

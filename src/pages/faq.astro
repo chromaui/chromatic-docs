@@ -42,6 +42,7 @@ const { Content, headings } = await render(FAQ);
   id={FAQ.id}
   headings={headings}
   isIndex
+  llmsHidden={FAQ.data.isHidden}
 >
   <Content groupedFAQs={groupedFAQs} headings={headings} />
 </FAQLayout>

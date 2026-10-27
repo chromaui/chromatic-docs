@@ -10,6 +10,7 @@ interface Props {
   file?: string;
   headings: MarkdownHeading[];
   isIndex?: boolean;
+  llmsHidden?: boolean;
 }
 
 const { id, title, description, headings, file, isIndex } = Astro.props;
@@ -23,8 +24,11 @@ const { id, title, description, headings, file, isIndex } = Astro.props;
   id={id}
   searchMetaType={isIndex ? undefined : 'faq'}
   hideCopyMarkdown
+  llmsCollection="troubleshooting"
+  llmsTitle={title}
+  llmsHidden={Astro.props.llmsHidden}
 >
-  <p>
+  <p data-llms-exclude>
     <a class="link primary with-icon" href="/docs/faq">
       <Icon name="arrowleftalt" /> Back to all FAQs
     </a>

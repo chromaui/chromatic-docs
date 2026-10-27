@@ -27,6 +27,9 @@ type Props = {
   headings: MarkdownHeading[];
   searchMetaType?: 'faq' | 'default' | 'hidden';
   hideCopyMarkdown?: boolean;
+  llmsCollection?: string;
+  llmsTitle?: string;
+  llmsHidden?: boolean;
 };
 
 const { title, description, id, searchMetaType } = Astro.props;
@@ -35,7 +38,8 @@ const { pathname } = Astro.url;
 const editUrl = Astro.props.file?.replace(projectRoot, '').replace('src/', '');
 const rawMarkdownUrl = editUrl ? `${import.meta.env.BASE_URL}/llms/${id}.txt` : '';
 const hasHeadings = Astro.props.headings.length > 0;
-const showCopyMarkdown = !Astro.props.hideCopyMarkdown;
+const showCopyMarkdown = import.meta.env.PROD && !Astro.props.hideCopyMarkdown;
+const llmsCollection = Astro.props.llmsCollection ?? 'cms';
 ---
 
 <html lang="en">
@@ -107,7 +111,18 @@ const showCopyMarkdown = !Astro.props.hideCopyMarkdown;
               </div>
             )
           }
-          <slot />
+          <div
+            data-llms-article={id}
+            data-llms-title={Astro.props.llmsTitle ?? title}
+            data-llms-description={description || Astro.props.llmsTitle || title}
+            data-llms-collection={llmsCollection}
+            data-llms-discoverable={llmsCollection !== 'notInNavigation' &&
+              !Astro.props.llmsHidden &&
+              searchMetaType !== 'hidden'}
+            style="display: contents"
+          >
+            <slot />
+          </div>
           <EditAndFeedback title={title} editUrl={editUrl} />
         </ContentContainer>
         {

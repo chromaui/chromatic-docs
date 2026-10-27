@@ -12,6 +12,8 @@ const { Content, headings } = await render(introduction);
   id={introduction.id}
   file={introduction.filePath}
   headings={headings}
+  llmsCollection={introduction.collection}
+  llmsHidden={introduction.data.isHidden}
 >
   <Content />
 </BaseLayout>
