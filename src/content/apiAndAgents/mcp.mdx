@@ -16,14 +16,6 @@ You log in once per agent, in your browser, with your Chromatic account. You don
 
 ![Your coding agent logs in once on chromatic.com, then sends each tool call with its token to the Chromatic MCP at mcp.chromatic.com/mcp, which runs GraphQL against the Chromatic API as you](../../images/mcp-how-it-works.png)
 
-## Tools
-
-The server gives your agent tools that read your Chromatic data, such as getting the latest build on a branch (`chromatic_get_latest_build`), showing a story's accessibility violations, and querying the Chromatic API. [Skills](/docs/skills) chain these tools with your code.
-
-One tool changes things: `chromatic_mutate` accepts or denies a test, quarantines one, or creates a project. It runs only when you ask, your agent says what it will change first, and your client asks you to approve each call.
-
-The server tells your agent which tools it has, so ask "What Chromatic tools do you have?" for the current list. For the limits, see [What won't it do?](#what-it-wont-do).
-
 ## Install with the plugin
 
 The Chromatic plugin for Claude Code and Codex is the recommended way to set up the Chromatic MCP. It connects the server, logs you in, and adds the [skills](/docs/skills). In Claude Code it also adds hooks that check your build after you push. To install it, see [Quickstart with the plugin](/docs/agents#quickstart-with-the-plugin).
@@ -111,15 +103,25 @@ Every tool needs your Chromatic project ID. It lives in `chromatic.config.json` 
 }
 ```
 
-- **With the plugin,** ask your agent to connect your Chromatic project (the `connect-project` skill). Since plugin v0.4.0 it finds the project from your Git remote, so most repositories need no link. If it finds none, it asks you to paste a link to the project, then writes the file and tells you to commit it.
-- **Without the plugin,** copy the `appId` from any Chromatic project URL into that file. Prefix the hex ID with `Project:`, for example `"projectId": "Project:64262bbd2f7d4ac4d7c5a7f3"`.
-- **In Claude Desktop or claude.ai,** paste a link to the project into the chat.
+**With the plugin,** ask your agent to connect your Chromatic project (the `connect-project` skill). Since plugin v0.4.0 it finds the project from your Git remote, so most repositories need no link. If it finds none, it asks you to paste a link to the project, then writes the file and tells you to commit it.
+
+**Without the plugin,** copy the `appId` from any Chromatic project URL into that file. Prefix the hex ID with `Project:`, for example `"projectId": "Project:64262bbd2f7d4ac4d7c5a7f3"`.
+
+**In Claude Desktop or claude.ai,** paste a link to the project into the chat.
 
 <div class="aside">
   A project token is not a project ID. Your agent never asks for your project token and the server
   refuses to read one, except the token of a project the agent just created, which comes back once
   so you can set up CI. See [What won't it do?](#what-it-wont-do).
 </div>
+
+## Tools
+
+The server gives your agent tools that read your Chromatic data, such as getting the latest build on a branch (`chromatic_get_latest_build`), showing a story's accessibility violations, and querying the Chromatic API. [Skills](/docs/skills) chain these tools with your code.
+
+While most tools are read-only, `chromatic_mutate` can take actions: accepts or denies a test, quarantines tests, or creates a project. It runs only when you ask, your agent says what it will change first, and your client asks you to approve each call.
+
+The server tells your agent which tools it has, so ask "What Chromatic tools do you have?" for the current list. For the limits, see [What won't it do?](#what-it-wont-do).
 
 ## Chromatic MCP vs. Storybook MCP
 
@@ -176,7 +178,7 @@ That list is every tool that only reads. Leave `chromatic_mutate` out of it. The
 
 <details id="what-it-wont-do">
 
-<summary>What won't it do?</summary>
+<summary>What can't the MCP server do?</summary>
 
 - **Reply to or resolve a reviewer comment.** It reads comments and drafts a reply for you to post.
 - **Start a build from the server.** Builds run from your CI, or from your machine with `run-build`.
@@ -189,7 +191,7 @@ That list is every tool that only reads. Leave `chromatic_mutate` out of it. The
 
 <summary>Why are the skills missing when the tools work?</summary>
 
-The server was added without the plugin, as a connector or with `mcp add`. [Install the plugin](/docs/agents#quickstart-with-the-plugin) or [get the skills](/docs/skills#get-the-skills).
+The server was likely added without the plugin, as a connector or with `mcp add`. [Install the plugin](/docs/agents#quickstart-with-the-plugin) or [get the skills](/docs/skills#get-the-skills).
 
 </details>
 
@@ -197,7 +199,7 @@ The server was added without the plugin, as a connector or with `mcp add`. [Inst
 
 <summary>Why are the tools missing when the skills are installed?</summary>
 
-Skills do not bring the server. [Add the MCP server](#add-the-mcp-server-by-hand).
+Skills do not install the MCP server, make sure that you've added it separately, either with the plugin or by following the [Add the MCP server by hand](#add-the-mcp-server-by-hand) instructions.
 
 </details>
 
