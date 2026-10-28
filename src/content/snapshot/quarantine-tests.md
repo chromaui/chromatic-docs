@@ -9,7 +9,7 @@ slug: 'quarantine-tests'
 
 Chromatic [automatically filters](/docs/flake-filter) out most flaky diffs. The ones that slip through need human judgement to tell them apart from real changes. Instead of [ignoring those diffs](/docs/ignore-tests) repeatedly, you can quarantine them.
 
-Quarantine permanently ignores a flaky test's diffs on all builds. Chromatic tracks quarantined tests in a dashboard, so you can come back and fix them later.
+Quarantine permanently ignores a flaky test's diffs and [capture errors](#quarantine-tests-with-capture-errors) on all builds. Chromatic tracks quarantined tests in a dashboard, so you can come back and fix them later.
 
 ## How quarantine works
 
@@ -17,7 +17,7 @@ When you spot a flaky test, you can quarantine it from either the build page or 
 
 ![The three-dot menu on a test page showing the Ignore test on this build and Quarantine test options.](../../images/quarantine-test-menu.png)
 
-Once a test is quarantined, Chromatic still captures it but ignores its diffs across all builds, branches, and users.
+Once a test is quarantined, Chromatic still captures it but ignores its diffs and capture errors across all builds, branches, and users.
 
 ![A test page with the Quarantined badge and an undo button next to Accept.](../../images/quarantine-test-quarantined.png)
 
@@ -35,6 +35,17 @@ Chromatic continues to run quarantined tests across all branches to track how th
 
 ![The Quarantined tab in the Library, listing quarantined tests with who quarantined them, when, their issue rate, and a Remove quarantine action.](../../images/quarantine-dashboard.png)
 
+## Quarantine tests with capture errors
+
+Some flaky tests fail intermittently with a capture error instead of a visual diff, for example when a story times out waiting on a third-party request. You can quarantine a test with a [capture error](/docs/faq/build-fails-component-errors) the same way you quarantine one with a diff. This lets you keep working and fix the error at your own pace.
+
+- **A quarantine covers both diffs and capture errors:** if you quarantine a test that's currently passing and it hits a capture error on a later build, the quarantine still applies.
+- **A build with capture errors can pass:** when every errored test is quarantined or [ignored](/docs/ignore-tests), the build can pass.
+- **Errored tests can't become baselines:** you can ignore or quarantine a test with a capture error, but you can't accept or deny it.
+- **Removing the quarantine restores the error:** if you undo a quarantine on a test with a capture error, the test returns to its errored status and the build fails again.
+
+Quarantine covers capture errors such as [interaction test](/docs/interactions) failures (including failed assertions in play functions), JavaScript errors, navigation and screenshot timeouts, and images that exceed the size limit. System errors, such as infrastructure issues during an incident, and build timeouts can't be quarantined or ignored.
+
 ## Fix flakes to restore coverage
 
 Quarantining helps you unblock a PR. But because quarantined tests are ignored, they won't stop any regressions until you remove them from quarantine.
@@ -49,6 +60,20 @@ Find out why the test renders unstably using the [unstable tests debugging guide
 <summary>Do quarantined tests count toward my billed snapshot usage?</summary>
 
 Yes. Chromatic still captures quarantined tests even though it ignores their diffs, and each captured snapshot incurs a billed snapshot. If you never want a test captured, [disable snapshots](/docs/disable-snapshots) for it instead.
+
+</details>
+
+<details>
+<summary>Does flake filter automatically ignore capture errors?</summary>
+
+No. When a test hits a capture error, Chromatic doesn't go on to check it for unstable rendering, so [flake filter](/docs/flake-filter) can't auto-ignore it. Quarantine the test to ignore its capture errors on every build.
+
+</details>
+
+<details>
+<summary>Can I quarantine tests with the API?</summary>
+
+Yes. The [GraphQL API](/docs/api) `testQuarantine` and `testUnquarantine` mutations quarantine tests with diffs or capture errors, the same as the web app.
 
 </details>
 

@@ -7,7 +7,9 @@ section: 'uiTestsAndReview'
 
 # Why is my build failing with component errors?
 
-Chromatic labels a build **Component error** when it can't render or capture a test. You can't accept its changes or pass the build until the error is resolved. Check the error kind on the affected test to find the next step.
+Chromatic labels a build **Component error** when it can't render or capture a test. You can't accept or deny a test with a capture error. Check the error kind on the affected test to find the next step.
+
+If you need to unblock the build before you fix the error, [ignore the test](/docs/ignore-tests) on that build or [quarantine it](/docs/quarantine-tests#quarantine-tests-with-capture-errors) on every build. Once all errored tests are ignored or quarantined, the build can pass.
 
 ## Capture errors
 
