@@ -91,13 +91,20 @@ If you'd rather script client creation, run the `createOAuthClient` mutation. It
 
 ### Find your account ID
 
-Sign in to Chromatic and go to [https://www.chromatic.com/apps](https://www.chromatic.com/apps). Select the account you want from the account picker, then read the `accountId` query parameter out of the URL:
+While signed in, open the GraphQL explorer at [https://www.chromatic.com/api](https://www.chromatic.com/api). It runs queries as you. Run this query:
 
-```bash
-https://www.chromatic.com/apps?accountId=689126b1bf7b127209b4c5b1
+```graphql
+query {
+  viewer {
+    accounts {
+      id
+      name
+    }
+  }
+}
 ```
 
-Here the account ID is `689126b1bf7b127209b4c5b1`.
+Copy the `id` of the account you want, for example `Account:689126b1bf7b127209b4c5b1`. The [`account` query](/docs/api#account) accepts both this prefixed form and the bare ID (`689126b1bf7b127209b4c5b1`).
 
 ### Open the GraphQL explorer
 

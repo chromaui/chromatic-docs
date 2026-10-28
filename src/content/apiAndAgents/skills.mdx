@@ -51,7 +51,7 @@ Your agent asks before it accepts, denies, or quarantines anything. It names the
 
 ## What the plugin runs on its own
 
-In Claude Code, the plugin adds hooks so your agent thinks of Chromatic without being asked. They run only in a repository that has a `chromatic.config.json`:
+In Claude Code, the plugin adds hooks so your agent thinks of Chromatic without being asked. They run only in a repository that has a [`chromatic.config.json`](/docs/cli#chromatic-config-file):
 
 - **When a session starts,** the agent is told the repository is tested by Chromatic and what to do after a push.
 - **After `git push` or `gh pr create`,** the agent is told a build is starting and to check it before it ends its turn.

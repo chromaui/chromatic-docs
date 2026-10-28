@@ -72,7 +72,7 @@ Before you start, you need:
 
     The server registers your agent itself when it logs in, and your browser opens chromatic.com for you to approve the request. Any agent that supports remote MCP servers over Streamable HTTP with an OAuth login can connect.
 
-    If you run into issues, check the [Add the MCP server by hand](http://localhost:4321/docs/mcp#add-the-mcp-server-by-hand) section.
+    If you run into issues, check the [Add the MCP server by hand](/docs/mcp#add-the-mcp-server-by-hand) section.
 
   </TabItem>
 </Tabs>
@@ -83,7 +83,7 @@ Ask your agent: “What time is it on the Chromatic server?” If it answers wit
 
 ### Connect your project
 
-Your agent needs to know which Chromatic project your repository belongs to. It reads the `projectId` from `chromatic.config.json` at the root of your repository. Ask your agent to connect your Chromatic project, and the `connect-project` skill finds the project from your Git remote and writes the file for you.
+Your agent needs to know which Chromatic project your repository belongs to. It reads the `projectId` from [`chromatic.config.json`](/docs/cli#chromatic-config-file) at the root of your repository. Ask your agent to connect your Chromatic project, and the `connect-project` skill finds the project from your Git remote and writes the file for you.
 
 The project ID is not your project token, and your agent never asks for the token. See [Project ID](/docs/mcp#project-id) for more info.
 
@@ -168,6 +168,6 @@ To check your version in Claude Code, run `claude plugin list` and look for `chr
 
 <summary>Why does Chromatic show up twice in my MCP list?</summary>
 
-You have it as a connector or a server you added by hand, and as a plugin. This is harmless. To keep only the plugin's, run `claude mcp remove chromatic` or `codex mcp remove chromatic`, or remove the connector.
+You have it as a connector or a server you added by hand, and as a plugin. This is harmless. To keep only the plugin's server, run `claude mcp remove chromatic` or `codex mcp remove chromatic`, or remove the connector.
 
 </details>

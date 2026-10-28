@@ -21,7 +21,7 @@ The client ID is: <REPLACE_WITH_CLIENT_ID_FROM_YOUR_OAUTH_CLIENT>
 The client secret is: <REPLACE_WITH_CLIENT_SECRET_FROM_YOUR_OAUTH_CLIENT_OR_DELETE_THIS_LINE>
 The account ID is: <REPLACE_WITH_ACCOUNT_ID_OR_DELETE_THIS_LINE>
 
-If you authenticated without a client secret, use the `viewer` query via `accounts { projects }`. If you have a client secret, use the `account` query with the account ID above
+If you authenticated without a client secret, use the `viewer` query via `accounts { projects }`. If you have a client secret, use the `account` query with the account ID above.
 
 </details>
 
@@ -248,7 +248,7 @@ Returns an account by ID, either a personal account or an organization account. 
 | -------- | ---- | ------------------ |
 | `id`     | ID!  | Account identifier |
 
-Both the bare ID (as found in the `chromatic.com/apps` URL) and the prefixed `Account:` form (as returned in API responses) are accepted.
+Both the bare ID and the prefixed `Account:` form (as returned in API responses) are accepted.
 
 ```bash
 curl -s -X POST https://www.chromatic.com/api \
@@ -656,7 +656,7 @@ A `TestUnquarantineFailure` returns the same errors as `testQuarantine`, except 
 
 ### Limits
 
-Chromatic caps how large a single response can be. A response over the cap is rejected with an error, not cut short, so you never receive a partial result that looks complete. Keep responses small:
+Chromatic caps the size of a single response. A response that exceeds the cap is rejected with an error, not cut short, so you never receive a partial result that appears complete. Keep responses small:
 
 - Page through lists with `first` and `after`. Read `pageInfo.hasNextPage` and pass `pageInfo.endCursor` as `after` to get the next page.
 - Select only the fields you need. Image URLs are long, so ask for them on a few tests at a time.

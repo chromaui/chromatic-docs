@@ -6,9 +6,9 @@ sidebar: { order: 1, label: 'Chromatic MCP' }
 
 # Chromatic MCP
 
-The Chromatic MCP server (https://mcp.chromatic.com/mcp) connects your coding agent to Chromatic. Your agent can read your builds, test results, accessibility violations, and published Storybooks. It can act on them in your code, and it reviews or quarantines tests when you ask.
+The Chromatic MCP server (https://mcp.chromatic.com/mcp) connects your coding agent to Chromatic. Your agent can read your builds, test results, accessibility violations, and published Storybooks. It can act on them in your code, and review or quarantine tests when you ask.
 
-You log in once per agent, in your browser, with your Chromatic account. You don’t need an API key or token. The server uses the Chromatic API as you, so your agent sees the projects you can see and can only do what you can do.
+You log in once per agent, in your browser, with your Chromatic account. You don’t need an API key or token. The server uses the Chromatic API as you, so your agent sees the same projects you do and can only do what you can.
 
 <div class="aside">
   Want to publish your Storybook's MCP server? See [Publish your Storybook
@@ -63,7 +63,7 @@ This adds the server as a connector, which gives you the tools.
 **On a Team or Enterprise plan**, an owner adds the connector once, then each person connects:
 
 1. An owner opens **Organization settings » Connectors » Add » Custom » Web** and enters `https://mcp.chromatic.com/mcp`. Members cannot add custom connectors themselves.
-2. Each member opens **Customize » Connectors**, finds Chromatic marked "Custom", and clicks **Connect**. Everyone logs in to Chromatic as themselves, so nobody sees a project their own account cannot.
+2. Each member opens **Customize » Connectors**, finds Chromatic marked "Custom", and clicks **Connect**. Everyone logs in to Chromatic as themselves, so nobody sees a project that their own account cannot.
 3. Owners can set each tool to **Always allow**, **Needs approval**, or **Blocked** for the whole organization. **Always allow** is a reasonable default for the tools that only read. Keep `chromatic_mutate` on **Needs approval**.
 
 Connectors run from Anthropic's cloud. `mcp.chromatic.com` and `www.chromatic.com` are both public, so there is nothing to allowlist.
@@ -96,7 +96,7 @@ To get the skills after adding the server by hand, see [Get the skills](/docs/sk
 
 ## Project ID
 
-Every tool needs your Chromatic project ID. It lives in `chromatic.config.json` at the root of your repository, as `projectId`:
+Every tool needs your Chromatic project ID. It lives in [`chromatic.config.json`](/docs/cli#chromatic-config-file) at the root of your repository, as `projectId`:
 
 ```json title="chromatic.config.json"
 {
@@ -104,11 +104,11 @@ Every tool needs your Chromatic project ID. It lives in `chromatic.config.json` 
 }
 ```
 
-**With the plugin,** ask your agent to connect your Chromatic project (the `connect-project` skill). Since plugin v0.4.0 it finds the project from your Git remote, so most repositories need no link. If it finds none, it asks you to paste a link to the project, then writes the file and tells you to commit it.
+**With the plugin,** ask your agent to connect your Chromatic project (the `connect-project` skill). Since plugin v0.4.0, it finds the project from your Git remote, so most repositories no longer need a link. If it finds none, it asks you to paste a link to the project, then writes the file and tells you to commit it.
 
 **Without the plugin,** copy the `appId` from any Chromatic project URL into that file. Prefix the hex ID with `Project:`, for example `"projectId": "Project:64262bbd2f7d4ac4d7c5a7f3"`.
 
-**In Claude Desktop or claude.ai,** paste a link to the project into the chat.
+**In Claude Desktop or claude.ai,** paste the project link into the chat.
 
 <div class="aside">
   A project token is not a project ID. Your agent never asks for your project token and the server
@@ -184,7 +184,7 @@ That list is every tool that only reads. Leave `chromatic_mutate` out of it. The
 - **Reply to or resolve a reviewer comment.** It reads comments and drafts a reply for you to post.
 - **Start a build from the server.** Builds run from your CI, or from your machine with `run-build`.
 - **Change project settings,** such as turning on accessibility tests or changing browsers. It gives you the link to the **Manage** screen.
-- **Read your project token or Figma token.** Copy a token from the project's **Manage** screen yourself. The one exception is the token of a project the agent just created, which comes back with a note to save it as a CI secret.
+- **Read your project token or Figma token.** Copy a token from the project's **Manage** screen yourself. The only exception is the token of a project the agent just created, which comes back with a note to save it as a CI secret.
 
 </details>
 
@@ -258,7 +258,7 @@ Your agent checks on its own only in Claude Code, in a repository with a `chroma
 
 <summary>Why didn't a plugin update arrive?</summary>
 
-Your agent keeps a copy of the plugin. Run the [update steps](/docs/agents#update-the-plugin) and restart the session, or remove the plugin and install it again.
+Your agent keeps a copy of the plugin. Run the [update steps](/docs/agents#update-the-plugin) and restart the session, or remove and reinstall the plugin.
 
 </details>
 
