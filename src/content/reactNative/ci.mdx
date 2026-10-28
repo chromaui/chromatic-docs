@@ -2,7 +2,7 @@
 title: 'CI'
 description: 'Run Chromatic for React Native in your CI pipeline with GitHub Actions or EAS Build'
 slug: react-native/ci
-sidebar: { order: 3 }
+sidebar: { order: 2 }
 ---
 
 # Configure CI for React Native
@@ -278,4 +278,4 @@ This workflow needs two secrets in your GitHub repository:
 - `EXPO_TOKEN` — an [Expo access token](https://docs.expo.dev/accounts/programmatic-access/) so the EAS CLI can download your builds.
 - `CHROMATIC_PROJECT_TOKEN` — your Chromatic project token.
 
-Because the artifacts already contain both platforms, Chromatic skips the build step and snapshots directly from `storybook.app` and `storybook.apk`, just like the [`--storybook-build-dir` flow](/docs/react-native/configure#reusing-an-existing-build).
+Because the artifacts already contain both platforms, Chromatic skips the build step and snapshots directly from `storybook.app` and `storybook.apk`, just like the [`--storybook-build-dir` flow](/docs/react-native#reusing-an-existing-build).
