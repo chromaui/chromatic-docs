@@ -11,7 +11,8 @@ The Chromatic MCP server (https://mcp.chromatic.com/mcp) connects your coding ag
 You log in once per agent, in your browser, with your Chromatic account. You don’t need an API key or token. The server uses the Chromatic API as you, so your agent sees the projects you can see and can only do what you can do.
 
 <div class="aside">
-  Want to publish your Storybook's MCP server? See [Publish your Storybook MCP](/docs/storybook-mcp).
+  Want to publish your Storybook's MCP server? See [Publish your Storybook
+  MCP](/docs/storybook-mcp).
 </div>
 
 ![Your coding agent logs in once on chromatic.com, then sends each tool call with its token to the Chromatic MCP at mcp.chromatic.com/mcp, which runs GraphQL against the Chromatic API as you](../../images/mcp-how-it-works.png)
@@ -205,7 +206,9 @@ Skills do not install the MCP server, make sure that you've added it separately,
 
 <details id="refused-for-scope">
 
-<summary>Why does my agent get "refused for scope", or fail to execute any actions, or see my account?</summary>
+<summary>
+  Why does my agent get "refused for scope", or fail to execute any actions, or see my account?
+</summary>
 
 Your login does not carry the permissions the tool needs. Log in again with `/mcp` or `codex mcp login chromatic`. In Claude Code, choose **Clear authentication** in `/mcp` first; in Codex, run `codex mcp logout chromatic` first. Until then, the skills give you a link to do it in Chromatic.
 
