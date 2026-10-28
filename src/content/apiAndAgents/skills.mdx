@@ -31,13 +31,9 @@ Add `--global` to install the skills for every project rather than the current o
 
 Or copy the folders under `plugins/chromatic/skills/` in [chromaui/chromatic-plugins](https://github.com/chromaui/chromatic-plugins) into your agent's skills folder, such as `~/.claude/skills` for Claude Code.
 
-Install the skills without the plugin when your agent reads skills but has no plugins, when the server is already connected another way (such as a claude.ai connector), when you want the skills committed to your repository so the whole team gets them, or when you only want a few of them or want to adapt one. If you install the plugin after adding the server by hand, Chromatic can show up twice; see [Why does Chromatic show up twice in my MCP list?](/docs/agents#chromatic-listed-twice).
-
 <div class="aside">
-  **A skill is instructions, not a connection.** Without the server connected, a skill has nothing
-  to call. When you install the skills only, [add the MCP server by
-  hand](/docs/mcp#add-the-mcp-server-by-hand) too. If your agent has no skills support, it can still
-  use the tools.
+  **A skill is instructions, not a connection.** Without a connected server, a skill has nothing to call. If you’ve only installed the skills (without the plugin), make sure to [add the MCP server by
+  hand](/docs/mcp#add-the-mcp-server-by-hand).
 </div>
 
 ## Run a skill

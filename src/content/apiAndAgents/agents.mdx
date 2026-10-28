@@ -8,14 +8,14 @@ import { TabItem, Tabs } from '../../components/Tabs';
 
 # Chromatic for agents
 
-Your coding agent can read every Chromatic build and fix what it finds. Ask it whether your branch is ready to merge, and it checks the build, fixes broken stories and accessibility violations in your code, and walks you through the visual changes that need a person to look at them.
+Chromatic AI capabilities let your coding agent read every Chromatic build and act on what it finds. It fixes broken stories and accessibility violations in your code, points out the visual changes that need a person to review, and tells you whether your branch is ready to merge.
 
-Chromatic for agents is made of:
+It comprises of:
 
-- **[Chromatic API](/docs/api)** gives you your builds, tests, accessibility results, and published Storybooks as GraphQL.
 - **[Chromatic MCP server](/docs/mcp)** lets your agent call that API as you, after one login in your browser.
 - **[Skills](/docs/skills)** teach your agent workflows that chain those calls with your code, such as fixing accessibility violations or reviewing visual changes.
 - **[Plugins](#quickstart-with-the-plugin)** for Claude Code and Codex bundle the server connection, the login, and every skill.
+- **[Chromatic API](/docs/api)** gives you access to builds, tests, accessibility results, and published Storybooks via an authenticated GraphQL API.
 
 ![Your coding agent runs a local loop with Storybook on your machine and a CI loop with Chromatic on every build, fixing what each one catches](../../images/mcp-local-loop-ci-loop.png)
 
@@ -27,7 +27,6 @@ Before you start, you need:
 
 - A Chromatic account with a project that has builds.
 - Claude Code, or the Codex CLI version 0.148 or newer (check with `codex --version`).
-- For accessibility work, [accessibility tests](/docs/accessibility) turned on for your project. Builds from before you turn them on have no accessibility data.
 
 <Tabs>
   <TabItem label="Claude Code">
@@ -53,68 +52,60 @@ Before you start, you need:
     In the ChatGPT app, quit and reopen it, then pick **Codex** in the sidebar. **Plugins** lists Chromatic under **Personal**. Sign in with a ChatGPT account, not an API key, or **Plugins** stays locked.
 
   </TabItem>
+  <TabItem label="Other tools">
+    ```shell
+    # Choose skills from a list
+    npx skills add chromaui/chromatic-plugins
+
+    # Add one skill
+    npx skills add chromaui/chromatic-plugins --skill fix-accessibility-violations
+
+    # Update the skills you installed
+    npx skills update
+    ```
+
+    <div class="aside" style="margin-bottom: 1em;">
+      Add `--global` to install the skills for every project rather than the current one. If your agent has no skills support, skip this step. It can still use the tools.
+    </div>
+
+    **Install the MCP server:** In your agent's MCP settings, add a remote server with the URL `https://mcp.chromatic.com/mcp` (Streamable HTTP). Leave any OAuth client ID and secret empty.
+
+    The server registers your agent itself when it logs in, and your browser opens chromatic.com for you to approve the request. Any agent that supports remote MCP servers over Streamable HTTP with an OAuth login can connect.
+
+    If you run into issues, check the [Add the MCP server by hand](http://localhost:4321/docs/mcp#add-the-mcp-server-by-hand) section.
+
+  </TabItem>
 </Tabs>
 
-To check it worked, ask your agent: "What time is it on the Chromatic server?" If it answers with a time, you are connected and logged in.
+### Verify the connection
 
-<details id="other-agents">
+Ask your agent: “What time is it on the Chromatic server?” If it answers with a time, you are connected and logged in.
 
-<summary>Not using Claude Code or Codex?</summary>
+### Connect your project
 
-Connect the server and add the skills yourself.
+Your agent needs to know which Chromatic project your repository belongs to. It reads the `projectId` from `chromatic.config.json` at the root of your repository. Ask your agent to connect your Chromatic project, and the `connect-project` skill finds the project from your Git remote and writes the file for you.
 
-1. **Add the MCP server.** In your agent's MCP settings, add a remote server with the URL `https://mcp.chromatic.com/mcp` (Streamable HTTP). Leave any OAuth client ID and secret empty. The server registers your agent itself when it logs in, and your browser opens chromatic.com for you to approve the request. Any agent that supports remote MCP servers over Streamable HTTP with an OAuth login can connect. For Claude Desktop, claude.ai, and the ChatGPT app, see [Add the MCP server by hand](/docs/mcp#add-the-mcp-server-by-hand). For the clients Chromatic has tested, see [Which clients are supported?](/docs/mcp#which-clients-are-supported). Cursor cannot log in yet.
+The project ID is not your project token, and your agent never asks for the token. See [Project ID](/docs/mcp#project-id) for more info.
 
-2. **Install the skills.** Use the [skills CLI](https://skills.sh), which puts the skills where each of your agents looks for them:
+### Try out a workflow
 
-   ```shell
-   # Choose skills from a list
-   npx skills add chromaui/chromatic-plugins
+Here are a few sample prompts you can ask your agent:
 
-   # Add one skill
-   npx skills add chromaui/chromatic-plugins --skill fix-accessibility-violations
+**"What's the latest Chromatic build on this branch?"**<br />
+Your agent reports the build's status, how many tests changed or broke, what to do next, and a link to the build.
 
-   # Update the skills you installed
-   npx skills update
-   ```
+**"Fix the accessibility violations Chromatic found on this branch."**<br />
+It lists the stories whose violations got worse, fixes them in your component source, and checks the fix on the next build.
 
-   Add `--global` to install the skills for every project rather than the current one. If your agent has no skills support, skip this step. It can still use the tools.
+**"Which visual changes on this build look unintended?"**<br />
+It compares each changed snapshot with your code change, and sorts the changes into the ones your code explains and the ones worth a closer look.
 
-To check it worked, ask your agent: "What time is it on the Chromatic server?" If it answers with a time, you are connected and logged in.
-
-<div class="aside">
-  **A skill is instructions, not a connection.** Without the server connected, a skill has nothing
-  to call, so don't skip step 1.
-</div>
-
-</details>
-
-## Connect your project
-
-Your agent needs to know which Chromatic project your repository belongs to. It reads the `projectId` from `chromatic.config.json` at the root of your repository. Ask your agent to connect your Chromatic project, and the `connect-project` skill finds the project from your Git remote and writes the file for you. The project ID is not your project token, and your agent never asks for the token. See [Project ID](/docs/mcp#project-id).
-
-## What your agent can do
-
-Ask in plain words. You never need to name a tool or a skill.
-
-- **"What's the latest Chromatic build on this branch?"** Your agent reports the build's status, how many tests changed or broke, what to do next, and a link to the build.
-- **"Fix the accessibility violations Chromatic found on this branch."** It lists the stories whose violations got worse, fixes them in your component source, and checks the fix on the next build.
-- **"Which visual changes on this build look unintended?"** It compares each changed snapshot with your code change, and sorts the changes into the ones your code explains and the ones worth a closer look.
-- **"Is this branch ready to merge as far as Chromatic is concerned?"** It checks the latest build against your current commit and lists what is left: broken tests, changes waiting for review, open comments, and new accessibility violations.
+**"Is this branch ready to merge as far as Chromatic is concerned?"**<br />
+It checks the latest build against your current commit and lists what is left: broken tests, changes waiting for review, open comments, and new accessibility violations.
 
 ![Skills at work: a build's visual changes summarized by cause, unstable tests fixed and unquarantined, and accessibility violations fixed and confirmed by a new build](../../images/mcp-skills-results.png)
 
-Each of these is a skill. See [Skills](/docs/skills) for how they work and how to run one by name.
-
-## Go deeper
-
-Once your agent is connected, go further:
-
-- [**Connect another agent by hand:**](/docs/mcp#add-the-mcp-server-by-hand) Add the Chromatic MCP server to Claude Desktop, claude.ai, the ChatGPT app, or any agent that supports remote MCP servers.
-- [**Run skills without the plugin:**](/docs/skills#get-the-skills) Install the skills with the skills CLI and run any of them by name.
-- [**Share your components with agents:**](/docs/storybook-mcp) Publish your Storybook's MCP server so agents build UI with the components and docs you already have.
-- [**Build your own workflows:**](/docs/api) Query builds, tests, and accessibility results from your own scripts, bots, and dashboards with the Chromatic API.
-- [**Automate with a service client:**](/docs/oauth-clients) Create an OAuth client so CI pipelines and bots can call the API without a signed-in user.
+---
 
 ## Frequently asked questions
 

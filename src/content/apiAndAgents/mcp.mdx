@@ -6,20 +6,13 @@ sidebar: { order: 1, label: 'Chromatic MCP' }
 
 # Chromatic MCP
 
+The Chromatic MCP server (https://mcp.chromatic.com/mcp) connects your coding agent to Chromatic. Your agent can read your builds, test results, accessibility violations, and published Storybooks. It can act on them in your code, and it reviews or quarantines tests when you ask.
+
+You log in once per agent, in your browser, with your Chromatic account. You don’t need an API key or token. The server uses the Chromatic API as you, so your agent sees the projects you can see and can only do what you can do.
+
 <div class="aside">
-  New here? Start with [Chromatic for agents](/docs/agents). Want to publish your Storybook's MCP
-  server? See [Publish your Storybook MCP](/docs/storybook-mcp).
+  Want to publish your Storybook's MCP server? See [Publish your Storybook MCP](/docs/storybook-mcp).
 </div>
-
-The Chromatic MCP gives your coding agent one login to Chromatic. Your agent can then read your builds, test results, accessibility violations, and published Storybooks. It can act on them in your code, and review or quarantine a test when you ask.
-
-It works in Claude Code, Claude Desktop, claude.ai, Codex, and the ChatGPT app. Most people install the Chromatic plugin, which connects the server, handles the login, and adds every skill in one step.
-
-## Overview
-
-The Chromatic MCP is a server at `https://mcp.chromatic.com/mcp`. It runs the Chromatic public API as you, so it sees every project your account can, and nothing more.
-
-You log in once per agent, in your browser, with your Chromatic account. There is no API key to create and no token to paste. Chromatic applies the same permissions your account has, so your agent can't do anything you couldn't.
 
 ![Your coding agent logs in once on chromatic.com, then sends each tool call with its token to the Chromatic MCP at mcp.chromatic.com/mcp, which runs GraphQL against the Chromatic API as you](../../images/mcp-how-it-works.png)
 
@@ -138,6 +131,8 @@ Chromatic hosts two kinds of MCP server, and you can run both:
 
 The plugin does not connect the Storybook MCP, because its address includes your project. To set it up, see [Publish your Storybook MCP](/docs/storybook-mcp).
 
+---
+
 ## Frequently asked questions
 
 <details id="which-clients-are-supported">
@@ -206,9 +201,7 @@ Skills do not bring the server. [Add the MCP server](#add-the-mcp-server-by-hand
 
 <details id="refused-for-scope">
 
-<summary>
-  Why does my agent get "refused for scope", or fail to accept, deny, quarantine, or see my account?
-</summary>
+<summary>Why does my agent get "refused for scope", or fail to execute any actions, or see my account?</summary>
 
 Your login does not carry the permissions the tool needs. Log in again with `/mcp` or `codex mcp login chromatic`. In Claude Code, choose **Clear authentication** in `/mcp` first; in Codex, run `codex mcp logout chromatic` first. Until then, the skills give you a link to do it in Chromatic.
 
