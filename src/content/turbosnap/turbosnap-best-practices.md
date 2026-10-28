@@ -153,8 +153,8 @@ const meta = {
 
 For this to work:
 
-- **Nothing your preview file imports can import the decorator.** That includes barrel files. If your preview file imports `./decorators/index.ts` for one decorator, every decorator that file re-exports stays in the chain, even ones your preview file doesn't use.
-- **Keep the decorator file outside your Storybook config directory.** TurboSnap treats a change to any file in `.storybook/` as a configuration change and runs a full rebuild, even when only stories import that file.
+- Your preview file can't import the decorator, directly or through another file. That includes barrel files. If your preview file imports `./decorators/index.ts` for one decorator, every decorator that file re-exports stays in the chain, even ones your preview file doesn't use.
+- Keep the decorator file outside your Storybook config directory. TurboSnap treats a change to any file in `.storybook/` as a configuration change and runs a full rebuild, even when only stories import that file.
 
 When an import's path is built from a variable, such as ``import(`./themes/${name}.ts`)``, your bundler can't tell which file you mean, so it includes every file that matches the pattern. In your preview file, a change to any of those files triggers a full rebuild. In a story file, it retests that story file. Use a fixed path when you only need one file.
 
