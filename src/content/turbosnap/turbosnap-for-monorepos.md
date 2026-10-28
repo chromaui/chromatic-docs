@@ -54,13 +54,11 @@ If you have shared utility functions that frequently change, you may see more re
 
 Instead, isolate those utilities into a clearly scoped package and avoid re-exporting them through your UI library or core package. Import the utilities in your app code, not in your shared design system, unless they're directly UI-related.
 
-## Avoid dynamic imports in preview files
+## Don't lazy-load shared code from preview files
 
-Dynamic imports can disrupt TurboSnap's static analysis of your dependency graph. Since paths are resolved at runtime, it's best to avoid them in story files unless absolutely necessary. That's because it prevents TurboSnap from accurately tracing changes, and using dynamic imports in your preview file can trigger unexpected rebuilds.
+TurboSnap traces a dynamic `import()` the same way it traces a static `import`, so lazy-loading a shared package from your preview file, with `import()` or `React.lazy`, doesn't take it out of the preview file's dependency graph. Changes to that package still trigger a full rebuild.
 
-To ensure full traceability, always use direct imports in your preview and shared utility files.
-
-**Why does this happen?** Dynamic imports break the chain that TurboSnap relies on to identify affected stories. This can lead to either under-testing or over-testing. Direct imports ensure that the dependency graph can follow the file, identifying which components are affected. As a result, TurboSnap only retests stories that directly or indirectly depend on the modified file.
+To keep a shared package from triggering full rebuilds, remove it from the preview file's import chain. If only some stories need it, import it in those stories or in a component-level decorator instead. Watch for package entry points: if your preview file imports a package's `index.ts` for one export, every module that file re-exports is in the chain. See [dynamic imports are still dependencies](/docs/turbosnap/best-practices#dynamic-imports-are-still-dependencies) for an example.
 
 ## Avoid excessive wrapper indirection
 
@@ -97,7 +95,7 @@ Monorepos often include multiple `package.json` files, and some of them may trig
 
 ## Conclusion
 
-Smart dependency management in a monorepo can drastically improve TurboSnap performance and confidence, making it easier and faster to test changes before pushing them to production. By being intentional about how you structure `dependencies`, avoiding dynamic imports in shared config, and clearly tracing changes, you’ll strike the perfect balance between speed and reliability in your visual testing pipeline.
+Smart dependency management in a monorepo can drastically improve TurboSnap performance and confidence, making it easier and faster to test changes before pushing them to production. By being intentional about how you structure `dependencies`, keeping shared code out of your preview file, and clearly tracing changes, you’ll strike the perfect balance between speed and reliability in your visual testing pipeline.
 
 Ready to optimize your builds? Start by auditing your most frequently rebuilt packages!
 
