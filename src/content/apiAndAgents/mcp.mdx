@@ -16,11 +16,13 @@ You log in once per agent, in your browser, with your Chromatic account. You don
 
 ![Your coding agent logs in once on chromatic.com, then sends each tool call with its token to the Chromatic MCP at mcp.chromatic.com/mcp, which runs GraphQL against the Chromatic API as you](../../images/mcp-how-it-works.png)
 
-The server gives your agent tools to call. With them, your agent can fetch the latest build for a project or branch (`chromatic_get_latest_build`), list the stories in a build whose accessibility violations changed and show one story's accessibility diff, search the Chromatic API schema and run a read-only GraphQL query, and check the connection (`chromatic_server_time`). Every one of those tools only reads. One tool, `chromatic_mutate`, changes things: only when you ask, it reviews a test (accept, deny, ignore, or set back to pending), quarantines or unquarantines a test, or creates a project, and your client asks you to approve each call. [Skills](/docs/skills) chain these tools with your code.
+## Tools
 
-The server tells your agent which tools it has and what each one does, so the list is always current. To see it, ask your agent "What Chromatic tools do you have?"
+The server gives your agent tools that read your Chromatic data, such as getting the latest build on a branch (`chromatic_get_latest_build`), showing a story's accessibility violations, and querying the Chromatic API. [Skills](/docs/skills) chain these tools with your code.
 
-`chromatic_mutate` changes things for everyone on the project, so your agent runs it only when you ask. Before each call, the agent says in one sentence which tests or project it will change and to what. The server refuses to create OAuth clients or CLI tokens, and no tool reads a project token or a Figma token, except the token of a project the agent just created (see [What won't it do?](#what-it-wont-do)).
+One tool changes things: `chromatic_mutate` accepts or denies a test, quarantines one, or creates a project. It runs only when you ask, your agent says what it will change first, and your client asks you to approve each call.
+
+The server tells your agent which tools it has, so ask "What Chromatic tools do you have?" for the current list. For the limits, see [What won't it do?](#what-it-wont-do).
 
 ## Install with the plugin
 
