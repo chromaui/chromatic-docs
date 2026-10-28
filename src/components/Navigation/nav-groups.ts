@@ -9,6 +9,7 @@ const {
   playwright,
   cypress,
   vitest,
+  reactNative,
   configuration,
   modes,
   snapshot,
@@ -83,6 +84,10 @@ const rawNavGroups = [
   {
     title: 'Vitest',
     items: vitest,
+  },
+  {
+    title: 'React Native',
+    items: reactNative,
   },
   {
     title: 'Playwright',

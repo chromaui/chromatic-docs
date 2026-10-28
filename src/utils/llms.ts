@@ -29,6 +29,7 @@ const sections: Record<string, string> = {
   playwright: 'Playwright',
   cypress: 'Cypress',
   vitest: 'Vitest',
+  reactNative: 'React Native',
   account: 'Account',
   troubleshooting: 'Troubleshooting',
   cms: 'Additional documentation',
