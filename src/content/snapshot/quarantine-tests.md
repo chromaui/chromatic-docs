@@ -37,20 +37,20 @@ Chromatic continues to run quarantined tests across all branches to track how th
 
 ## Quarantine tests with capture errors
 
-Some flaky tests fail intermittently with a capture error instead of a visual diff, for example when a story times out waiting on a third-party request. You can quarantine a test with a [capture error](/docs/faq/build-fails-component-errors) the same way you quarantine one with a diff. This lets you keep working and fix the error at your own pace.
+Some flaky tests fail intermittently with a capture error instead of a visual diff, for example when a story times out waiting on a third-party request. You can quarantine a test with a [capture error](/docs/faq/build-fails-component-errors) the same way you quarantine one with a diff, then fix the error later.
 
 - **A quarantine covers both diffs and capture errors:** if you quarantine a test that's currently passing and it hits a capture error on a later build, the quarantine still applies.
 - **A build with capture errors can pass:** when every errored test is quarantined or [ignored](/docs/ignore-tests), the build can pass.
 - **Errored tests can't become baselines:** you can ignore or quarantine a test with a capture error, but you can't accept or deny it.
 - **Removing the quarantine restores the error:** if you undo a quarantine on a test with a capture error, the test returns to its errored status and the build fails again.
 
-Quarantine covers capture errors such as [interaction test](/docs/interactions) failures (including failed assertions in play functions), JavaScript errors, navigation and screenshot timeouts, and images that exceed the size limit. System errors, such as infrastructure issues during an incident, and build timeouts can't be quarantined or ignored.
+Quarantine covers capture errors such as [interaction test](/docs/interactions) failures (including failed assertions in play functions), JavaScript errors, navigation and screenshot timeouts, and images that exceed the size limit. You can't quarantine or ignore system errors (such as infrastructure issues during an incident) or build timeouts.
 
 ## Fix flakes to restore coverage
 
 Quarantining helps you unblock a PR. But because quarantined tests are ignored, they won't stop any regressions until you remove them from quarantine.
 
-Find out why the test renders unstably using the [unstable tests debugging guide](/docs/unstable-tests#improve-test-stability). Once you've fixed it, select **Remove quarantine** on the dashboard to return the test to your regular test suite.
+Find out why the test renders unstably using the [unstable tests debugging guide](/docs/unstable-tests#improve-test-stability). For a test with a capture error, check the [error kind](/docs/faq/build-fails-component-errors) to find the next step. Once you've fixed it, select **Remove quarantine** on the dashboard to return the test to your regular test suite.
 
 ![Use the Remove quarantine button next to a quarantined test on the dashboard](../../images/un-quarantine.png)
 

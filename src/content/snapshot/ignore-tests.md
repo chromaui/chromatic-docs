@@ -23,7 +23,7 @@ If you change your mind, you can un-ignore the test to return it to the unreview
 
 ![An ignored test showing the Ignored badge and the undo button.](../../images/ignore-test-ignored.png)
 
-You can also ignore a test with a [capture error](/docs/faq/build-fails-component-errors), such as an interaction test failure or a timeout. If every errored test on the build is ignored or [quarantined](/docs/quarantine-tests#quarantine-tests-with-capture-errors), the build can pass. You can't accept or deny a test with a capture error, and system errors and build timeouts can't be ignored.
+You can also ignore a test with a [capture error](/docs/faq/build-fails-component-errors), such as an interaction test failure or a timeout. If every errored test on the build is ignored or [quarantined](/docs/quarantine-tests#quarantine-tests-with-capture-errors), the build can pass. You can't accept or deny a test with a capture error, and you can't ignore system errors or build timeouts.
 
 **Ignoring is scoped to a single build:** an ignored test is captured and compared as usual on future builds. Ignoring a test also doesn't affect your [baselines](/docs/branching-and-baselines) unless you take action to accept or deny it.
 
