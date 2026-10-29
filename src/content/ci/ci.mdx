@@ -5,6 +5,7 @@ sidebar: { order: 1 }
 ---
 
 import IntegrationSnippets from '../../components/IntegrationSnippets.astro';
+import { AICallout } from '../../components/AICallout';
 
 # Automate visual tests with CI
 
@@ -92,6 +93,12 @@ Require checks in [GitHub](https://docs.github.com/en/repositories/configuring-b
 [Learn how to enable mandatory Chromatic PR checks »](/docs/mandatory-pr-checks)
 
 ![PR badges](../../images/prbadges-e2e.png)
+
+<AICallout>
+
+With the Chromatic plugin, your agent waits for the "UI Tests" check after it pushes and picks up the result on its own. [How the plugin works](/docs/skills#what-the-plugin-runs-on-its-own)
+
+</AICallout>
 
 ---
 
