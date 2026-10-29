@@ -1,6 +1,6 @@
 ---
 title: 'API'
-description: "Getting started with Chromatic's GraphQL API for agents: endpoint, OAuth 2.0 authentication for user-facing and machine-to-machine clients, queries, mutations, limits, and scopes."
+description: "Getting started with Chromatic's GraphQL API for agents: endpoint, OAuth 2.0 authentication for user-facing and machine-to-machine clients, queries, mutations, limits, rate limits, and scopes."
 sidebar:
   label: 'API'
   order: 3
@@ -200,6 +200,7 @@ Common error causes:
 - **Expired token:** access tokens last 60 minutes; refresh and retry
 - **Insufficient scope:** the token doesn't include the scope required for that field
 - **Not found:** the requested ID doesn't exist or isn't accessible to the authenticated user
+- **Rate limited:** HTTP `429` with code `RATE_LIMITED`; wait for the time in `Retry-After`, then retry (see [Rate limits](#rate-limits))
 
 ---
 
@@ -681,6 +682,120 @@ query ($id: ID!, $after: ID) {
   }
 }
 ```
+
+---
+
+### Rate limits
+
+Chromatic may change these limits as it monitors usage, so read the [rate limit headers](#rate-limit-headers) on each response instead of hard-coding the numbers below.
+
+#### Primary and secondary limits
+
+Every request to `/api` is checked against a primary limit on query complexity and one or more secondary limits that guard against other kinds of heavy use. Each limit is tracked per authenticated user. If a request exceeds any of them, Chromatic rejects it.
+
+| Limit            | Kind      | Resource name           | Allowance    | Window | What counts                                                 |
+| ---------------- | --------- | ----------------------- | ------------ | ------ | ----------------------------------------------------------- |
+| Query complexity | Primary   | `graphql`               | 5,000 points | 60 s   | The complexity score of each query, computed before it runs |
+| Request count    | Secondary | `graphql-request-count` | 120 requests | 60 s   | 1 per request, regardless of the query                      |
+
+Chromatic may change or add secondary limits over time. Each one has its own resource name, so if your client reads `x-ratelimit-resource`, it handles new limits without changes.
+
+Pure introspection queries (only `__schema`, `__type` and `__typename`) cost 0 complexity points and are never blocked by the primary limit. They still count as a request toward the request count limit.
+
+#### Rate limit headers
+
+Every response from `/api` includes `x-ratelimit-*` headers that describe one limit. Normally that's the primary limit. If you exceed a secondary limit, the headers describe that limit instead. Use `x-ratelimit-resource` to tell which one you're looking at.
+
+| Header                  | Meaning                                                                                                                              |
+| ----------------------- | ------------------------------------------------------------------------------------------------------------------------------------ |
+| `x-ratelimit-resource`  | Which limit the other headers describe: `graphql` for the primary limit, or a secondary limit's name such as `graphql-request-count` |
+| `x-ratelimit-limit`     | Your allowance for that limit in the current window                                                                                  |
+| `x-ratelimit-remaining` | How much of that allowance is left                                                                                                   |
+| `x-ratelimit-used`      | How much of that allowance you've used, including this request                                                                       |
+| `x-ratelimit-reset`     | When the window resets, as Unix epoch seconds (UTC)                                                                                  |
+
+#### Query complexity
+
+Complexity is an estimate of how many entities a query will fetch. Chromatic computes it from the shape of the query and its arguments before the query runs. Every query that isn't pure introspection costs at least 1 point.
+
+| Query element                                                                                          | Cost                                                      |
+| ------------------------------------------------------------------------------------------------------ | --------------------------------------------------------- |
+| A field that returns an entity (any type that implements `Node`, such as `Project`, `Build` or `Test`) | 1, plus the cost of its selections                        |
+| A scalar, enum or embedded value object                                                                | 0                                                         |
+| A paginated field (with a `first`, `last` or `limit` argument)                                         | 2, plus the cost of each item multiplied by the page size |
+| A mutation field                                                                                       | 10, plus the cost of the returned selections              |
+| Introspection fields (`__schema`, `__type`, `__typename`)                                              | 0                                                         |
+
+Costs multiply down the tree. If you leave out the page argument on a paginated field, Chromatic charges it as if it returned 100 items, the default page size. Asking for a smaller page is a simple way to lower the cost of a query.
+
+For example, this query fetches up to 20 quarantined stories for each of 50 projects:
+
+```graphql
+query ($id: ID!) {
+  account(id: $id) {
+    projects(limit: 50) {
+      quarantinedStories(first: 20) {
+        nodes {
+          id
+        }
+      }
+    }
+  }
+}
+```
+
+It costs 1 for the account and 2 for the `projects` list. Then each of the 50 projects costs 1, plus 2 for its `quarantinedStories` connection, plus 20 stories at 1 each. That's 1 + 2 + 50 × (1 + 2 + 20) = 1,153 points. Without page arguments, the same query is charged for 100 projects with 100 stories each, which exceeds the 5,000-point budget on its own.
+
+A few fields do more work and declare a higher fixed cost. The `x-ratelimit-used` header is the authoritative cost of any query.
+
+#### Exceeding a limit
+
+When a request exceeds any limit, Chromatic rejects it with HTTP `429 Too Many Requests` before any resolver runs, so a rejected request has no side effects. The response includes:
+
+1. A `Retry-After` header with the whole number of seconds until the window resets. It's never `0`.
+2. The `x-ratelimit-*` headers for the limit that rejected the request, with `x-ratelimit-remaining: 0`.
+3. A GraphQL error with code `RATE_LIMITED` and a `rateLimit` extension that carries the same values as the headers.
+
+Here's a request rejected by the request count limit:
+
+```txt
+HTTP/1.1 429 Too Many Requests
+Retry-After: 23
+x-ratelimit-resource: graphql-request-count
+x-ratelimit-limit: 120
+x-ratelimit-remaining: 0
+x-ratelimit-used: 120
+x-ratelimit-reset: 1761562823
+
+{
+  "errors": [
+    {
+      "message": "Rate limit exceeded, try again in 22418ms",
+      "extensions": {
+        "code": "RATE_LIMITED",
+        "rateLimit": {
+          "resource": "graphql-request-count",
+          "limit": 120,
+          "remaining": 0,
+          "used": 120,
+          "resetAt": 1761562823,
+          "retryAfterSeconds": 23
+        }
+      }
+    }
+  ]
+}
+```
+
+A rejected request still uses up your other limits. In the example above, the query's complexity points count against the primary limit even though the request count limit rejected it.
+
+#### Best practices
+
+- Read the headers on every response instead of hard-coding the limits. Your allowance can differ from the defaults, and the resource the headers describe can change between responses.
+- On a `429`, wait the number of seconds in `Retry-After` before you retry. If you retry sooner, the request is rejected again and still counts toward the request count limit.
+- Watch `x-ratelimit-remaining` and slow down before it reaches 0. If you stay under every limit, you never get a `429`.
+- Pass explicit page sizes. A paginated field without a `first` argument is charged for 100 items, whether or not that many exist.
+- Fetch what you need in fewer, well-shaped queries. The request count limit charges per HTTP request, so one query that combines related reads is cheaper than many small ones, as long as its complexity stays within budget.
 
 ---
 
