@@ -180,7 +180,7 @@ A successful response looks like this:
 
 #### Errors
 
-The GraphQL API always returns HTTP `200`, even when something goes wrong. Check for an `errors` array in the response body:
+A request that fails parsing or validation returns HTTP `400` with a `GRAPHQL_VALIDATION_FAILED` error. An error during execution returns HTTP `200`. Check the `errors` array in every response, whatever the status code:
 
 ```json
 {

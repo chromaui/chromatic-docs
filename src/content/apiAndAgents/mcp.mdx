@@ -86,7 +86,7 @@ The ChatGPT app shares its setup with the Codex CLI.
 
 <summary>Other agents</summary>
 
-In your agent's MCP settings, add a remote server with the URL `https://mcp.chromatic.com/mcp` (Streamable HTTP). Leave any OAuth client ID and secret empty: the server registers your agent itself when it logs in, and your browser opens chromatic.com for you to approve the request. Any agent that supports remote MCP servers over Streamable HTTP with an OAuth login can connect; see [Which clients are supported?](#which-clients-are-supported) for what Chromatic has tested.
+In your agent's MCP settings, add a remote server with the URL `https://mcp.chromatic.com/mcp` (Streamable HTTP). Leave any OAuth client ID and secret empty: your agent identifies itself with a client metadata document (CIMD) when it logs in, and your browser opens chromatic.com for you to approve the request. Any agent that supports remote MCP servers over Streamable HTTP and logs in with CIMD can connect; see [Which clients are supported?](#which-clients-are-supported) for what Chromatic has tested.
 
 </details>
 
@@ -150,7 +150,7 @@ Chromatic builds and tests the Chromatic MCP with these clients:
 - **Codex CLI and the ChatGPT app:** the plugin and skills, no hooks.
 - **Claude Desktop and claude.ai:** the tools only, with no plugin, skills, or hooks.
 
-Any other client that speaks Streamable HTTP and logs in with a client metadata document (CIMD) can connect to `https://mcp.chromatic.com/mcp`. Leave any client ID and secret empty. Cursor cannot log in yet.
+Any other client that speaks Streamable HTTP and logs in with a client metadata document (CIMD) can connect to `https://mcp.chromatic.com/mcp`. Leave any client ID and secret empty. Cursor can't log in yet; it's adding CIMD support.
 
 </details>
 

@@ -70,7 +70,7 @@ Before you start, you need:
 
     **Install the MCP server:** In your agent's MCP settings, add a remote server with the URL `https://mcp.chromatic.com/mcp` (Streamable HTTP). Leave any OAuth client ID and secret empty.
 
-    The server registers your agent itself when it logs in, and your browser opens chromatic.com for you to approve the request. Any agent that supports remote MCP servers over Streamable HTTP with an OAuth login can connect.
+    Your agent identifies itself with a client metadata document (CIMD) when it logs in, and your browser opens chromatic.com for you to approve the request. Any agent that supports remote MCP servers over Streamable HTTP and logs in with CIMD can connect.
 
     If you run into issues, check the [Add the MCP server by hand](/docs/mcp#add-the-mcp-server-by-hand) section.
 
