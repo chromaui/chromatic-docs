@@ -10,7 +10,7 @@ export interface LlmsArticle {
 }
 
 const description =
-  'Chromatic helps teams test and review UIs with Storybook, Vitest, Playwright, and Cypress.';
+  'Chromatic helps teams test and review UIs with Storybook, React Native, Vitest, Playwright, and Cypress.';
 
 // Keep the existing index organization; new collections get their own section.
 const sections: Record<string, string> = {
