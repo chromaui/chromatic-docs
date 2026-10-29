@@ -4,6 +4,8 @@ description: Learn how to get approval and feedback on visual changes from desig
 sidebar: { order: 1, label: 'UI Review' }
 ---
 
+import { AICallout } from '../../components/AICallout';
+
 # UI Review powered by snapshots
 
 As Chromatic's second core workflow, UI Review streamlines the process of getting approval and feedback on visual changes from designers, product managers, and other key stakeholders. While [UI Tests](/docs#test-how-uis-look--function) safeguard you from unintentional bugs, UI Review is where you discuss intentional changes with your team, ensuring everyone aligns with their expectations before you ship.
@@ -82,6 +84,12 @@ The Review screen includes a Changeset tab showing a side-by-side view of all vi
 💡 **Tip:** To hint at what UI changed, toggle the highlighted diff (in neon green) on and off.
 
 </div>
+
+<AICallout>
+
+Ask your agent which visual changes look unintended. It compares each changed snapshot with your code and points out the changes worth a closer look, so you review those first. [Learn about skills](/docs/skills)
+
+</AICallout>
 
 ### Discussions
 
