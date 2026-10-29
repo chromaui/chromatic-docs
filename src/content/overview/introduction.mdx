@@ -7,19 +7,12 @@ slug: introduction
 ---
 
 import { YouTubeCallout } from '../../components/YouTubeCallout';
-import { AICallout } from '../../components/AICallout';
 
 # Why Chromatic?
 
 Chromatic is a testing platform that scans every possible UI state across browsers to catch bugs in appearance, functionality, and accessibility. It enables you to assign reviewers and resolve discussions to streamline team sign-off.
 
 Chromatic is made by the [team](https://www.chromatic.com/company/about) behind Storybook and integrates with Storybook, React Native, Vitest, Playwright, and Cypress.
-
-<AICallout>
-  Your coding agent can work with Chromatic too. Connect Claude Code, Codex or another agent to read
-  your builds, fix broken stories and accessibility violations, and check whether a branch is ready
-  to merge. [Get started with Chromatic for agents](/docs/agents)
-</AICallout>
 
 <YouTubeCallout
   client:load
@@ -52,8 +45,6 @@ Chromatic’s UI Tests lets you gain full confidence in your UIs on every commit
 📲 **Responsive viewport testing**: Chromatic allows testing at all viewport sizes. You can adjust both width and height, and configure viewports globally or for individual tests.
 
 ⚡ **Test only what's changed**: Chromatic’s [TurboSnap](https://www.chromatic.com/features/turbosnap) feature speeds up test runs and reduces usage costs by up to 80%. It works by analyzing your project’s Git history and bundler dependency graph to identify component files and dependencies with changes, then it snapshots only the tests related to those changes.
-
-🤖 **Higher codegen quality**: [Storybook MCP](/docs/storybook-mcp) improves AI agent output by providing it with better context about your components. Chromatic simplifies the process hosting your Storybook MCP server with proper authentication and access control.
 
 ## Powered by your existing tests
 
@@ -99,6 +90,21 @@ Chromatic visual tests iOS and Android apps built with React Native. Your [Story
 Run your E2E tests as usual. While those tests run, Chromatic collects a complete archive of your UI (DOM, styles, and assets). It then renders that archived UI in cloud browsers, captures visual snapshots, and identifies visual regressions through pixel diffing.
 
 ![E2E workflow: Run e2e tests, snapshot pages and then detect visual bugs with Chromatic](../../images/workflow-e2e-test.png)
+
+## Works with your coding agent
+
+Chromatic gives your coding agent the same view of your UI that your team gets. Your agent reads every build, fixes what Chromatic catches, and tells you when a branch is ready to merge, from the editor or terminal you already use.
+
+![Your coding agent runs a local loop with Storybook on your machine and a CI loop with Chromatic on every build, fixing what each one catches](../../images/mcp-local-loop-ci-loop.png)
+
+- **Fix what the build catches:** your agent finds broken stories and accessibility violations, fixes them in your code, and checks the fix on the next build.
+- **Review visual changes faster:** it compares each changed snapshot with your code and points out the changes worth a closer look.
+- **Know when to merge:** it checks the latest build against your commit and lists what's left before you can merge.
+- **Generate better UI code:** [Storybook MCP](/docs/storybook-mcp) gives your agent project-specific context about your components. Chromatic hosts it for your whole team.
+
+It works with Claude Code, Codex and other agents through the [Chromatic MCP server](/docs/mcp) and [skills](/docs/skills).
+
+[**Get started with Chromatic for agents »**](/docs/agents)
 
 ## Get started
 
