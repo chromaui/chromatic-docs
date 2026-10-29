@@ -5,6 +5,8 @@ sidebar: { order: 17 }
 slug: 'quarantine-tests'
 ---
 
+import { AICallout } from '../../components/AICallout';
+
 # Quarantine tests
 
 Chromatic [automatically filters](/docs/flake-filter) out most flaky diffs. The ones that slip through need human judgement to tell them apart from real changes. Instead of [ignoring those diffs](/docs/ignore-tests) repeatedly, you can quarantine them.
@@ -42,6 +44,12 @@ Quarantining helps you unblock a PR. But because quarantined tests are ignored, 
 Find out why the test renders unstably using the [unstable tests debugging guide](/docs/unstable-tests#improve-test-stability). Once you've fixed it, select **Remove quarantine** on the dashboard to return the test to your regular test suite.
 
 ![Use the Remove quarantine button next to a quarantined test on the dashboard](../../images/un-quarantine.png)
+
+<AICallout>
+
+Ask your agent to fix a quarantined test. The `triage-flaky-stories` skill fixes what makes it flaky, and quarantines a test or brings it back when you ask. [Learn about skills](/docs/skills)
+
+</AICallout>
 
 ## Frequently asked questions
 
