@@ -115,7 +115,7 @@ The utility can run in three modes:
 
 Running `init` mode not only prints configuration options in the CLI but also **automatically adds the correct config options** to your Chromatic config file. We've enhanced the utility to take it beyond directory config help and introduced static asset detection, allowing you to easily add static assets to your `externals` config to ensure you don't miss changes. Don't have an existing Chromatic config file? No worries—the utility will create one for you!
 
-To help further optimize your builds, the utility has an `analyze` mode that scans both story and components files to detect and surface dynamic imports. Dynamic imports are a hidden culprit for confusing TurboSnap behavior that can result in missed regressions or unnecessary rebuilds. `analyze` mode helps you track them down early.
+To help further optimize your builds, the utility has an `analyze` mode that scans both story and components files to detect and surface dynamic imports. TurboSnap traces dynamic imports like static ones, but an import whose path is built from a variable pulls every matching file into your dependency graph, and a lazy-loaded import in your preview file still triggers full rebuilds. `analyze` mode helps you find them early.
 
 And last is the `preview` mode, which displays an analysis of your Storybook preview file. Use the analysis to help keep your preview file clean and efficient, as a messy preview file can turn small changes into **full rebuilds**. The analysis provides:
 

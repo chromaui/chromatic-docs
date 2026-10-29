@@ -117,14 +117,46 @@ These values match what you'd want TurboSnap and Chromatic to see, but _only if 
 
 </div>
 
-## Avoid excessive dynamic imports
+## Dynamic imports are still dependencies
 
-Dynamic imports, such as `import()` or `require()` with variables or conditions, within your stories, decorators, preview files, or any files they import, can disrupt the chain TurboSnap uses to identify affected stories. This can lead to missed visual changes or unexpected rebuilds. To maintain full traceability, consider minimizing dynamic imports. If dynamic behavior is necessary, incorporate the logic into story-level decorators or within the component itself, and avoid using dynamic imports in the preview file.
+TurboSnap traces a dynamic `import()` the same way it traces a static `import`. Storybook's build stats record both, so the imported module stays in your dependency graph. That's also how your stories reach the graph: Storybook loads every story file through a dynamic import.
 
-When it's possible, convert dynamic imports to static imports:
+This means:
 
-- ❌ `const ThemeProvider = require('../themes/default/ThemeProvider');`
-- ✅ `import { ThemeProvider } from '../themes/default/ThemeProvider';`
+- Converting a dynamic import to a static one doesn't change which stories TurboSnap retests.
+- Lazy-loading a module from your preview file, with `import()` or `React.lazy`, doesn't remove it from the preview file's dependency graph. Changes to that module still trigger a full rebuild.
+
+To stop a file from triggering full rebuilds, remove it from the preview file's import chain. See [preview rebuilds](/docs/turbosnap/preview-rebuilds) to find which imports are responsible.
+
+For example, if only some stories need a layout decorator, take it out of your preview file:
+
+```ts title=".storybook/preview.ts"
+// ❌ A change to AppLayout, or anything it imports, triggers a full rebuild
+import { withAppLayout } from '../src/decorators/withAppLayout';
+
+const preview = {
+  decorators: [withAppLayout],
+};
+```
+
+And add it to the stories that use it, at the component or story level:
+
+```ts title="src/screens/Checkout.stories.ts"
+// ✅ A change to AppLayout retests only the stories that use it
+import { withAppLayout } from '../decorators/withAppLayout';
+
+const meta = {
+  component: Checkout,
+  decorators: [withAppLayout],
+};
+```
+
+For this to work:
+
+- Your preview file can't import the decorator, directly or through another file. That includes barrel files. If your preview file imports `./decorators/index.ts` for one decorator, every decorator that file re-exports stays in the chain, even ones your preview file doesn't use.
+- Keep the decorator file outside your Storybook config directory. TurboSnap treats a change to any file in `.storybook/` as a configuration change and runs a full rebuild, even when only stories import that file.
+
+When an import's path is built from a variable, such as ``import(`./themes/${name}.ts`)``, your bundler can't tell which file you mean, so it includes every file that matches the pattern. In your preview file, a change to any of those files triggers a full rebuild. In a story file, it retests that story file. Use a fixed path when you only need one file.
 
 ## Mind your package control files
 
@@ -197,7 +229,7 @@ With TurboSnap configured appropriately, you should expect around 80-90% of your
 
 | Optimization level   | Example                                                                                                | Expected full rebuilds (%) |
 | -------------------- | ------------------------------------------------------------------------------------------------------ | -------------------------- |
-| No optimization      | Default config, shared preview file, barrel files, dynamic imports                                     | **~60-100%**               |
+| No optimization      | Default config, shared preview file, barrel files                                                      | **~60-100%**               |
 | Partial optimization | `baseDir` set but noisy preview file                                                                   | **~30-60%**                |
 | Well-optimized       | Scoped preview file, proper externals & modular stories                                                | **5-25%**                  |
 | Gold standard        | Monorepo with isolated apps, per-package Storybook projects, clean preview files & optimized externals | **1-5%**                   |
