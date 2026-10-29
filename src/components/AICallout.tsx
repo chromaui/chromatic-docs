@@ -43,11 +43,11 @@ const Body = styled.div`
   min-width: 0;
   padding: ${spacing[4]};
 
-  & > :first-of-type {
+  & > :first-child {
     margin-top: 0;
   }
 
-  & > :last-of-type {
+  & > :last-child {
     margin-bottom: 0;
   }
 
