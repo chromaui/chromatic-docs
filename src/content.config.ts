@@ -65,6 +65,14 @@ const vitest = defineCollection({
   schema,
 });
 
+const reactNative = defineCollection({
+  loader: glob({
+    pattern: '**/[^_]*.{md,mdx}',
+    base: './src/content/reactNative',
+  }),
+  schema,
+});
+
 const configuration = defineCollection({
   loader: glob({
     pattern: '**/[^_]*.{md,mdx}',
@@ -155,6 +163,7 @@ export const collections = {
   playwright,
   cypress,
   vitest,
+  reactNative,
   configuration,
   modes,
   snapshot,

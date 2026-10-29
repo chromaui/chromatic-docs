@@ -27,6 +27,7 @@ These dimensions stack to create a snapshot. For example, you can have a "captur
 A **test** represents a piece of UI rendered in a specific state that Chromatic can capture as a snapshot. Chromatic supports the following types of tests:
 
 - Storybook Stories
+- Storybook for React Native stories
 - Vitest browser mode tests
 - Playwright & Cypress End-to-End (E2E) tests
 
