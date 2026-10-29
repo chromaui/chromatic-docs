@@ -93,16 +93,9 @@ Run your E2E tests as usual. While those tests run, Chromatic collects a complet
 
 ## Works with your coding agent
 
-Chromatic gives your coding agent the same view of your UI that your team gets. Your agent reads every build, fixes what Chromatic catches, and tells you when a branch is ready to merge, from the editor or terminal you already use.
+Chromatic gives your coding agent the same view of your UI that your team gets. Your agent reads every build, fixes what Chromatic catches, and tells you when a branch is ready to merge, from the editor or terminal you already use. Running agents in the cloud or a software factory? They can call the [Chromatic API](/docs/api) with a [service client](/docs/oauth-clients#create-a-service-client), with no one signed in.
 
 ![Your coding agent runs a local loop with Storybook on your machine and a CI loop with Chromatic on every build, fixing what each one catches](../../images/mcp-local-loop-ci-loop.png)
-
-- **Fix what the build catches:** your agent finds broken stories and accessibility violations, fixes them in your code, and checks the fix on the next build.
-- **Review visual changes faster:** it compares each changed snapshot with your code and points out the changes worth a closer look.
-- **Know when to merge:** it checks the latest build against your commit and lists what's left before you can merge.
-- **Generate better UI code:** [Storybook MCP](/docs/storybook-mcp) gives your agent project-specific context about your components. Chromatic hosts it for your whole team.
-
-It works with Claude Code, Codex and other agents through the [Chromatic MCP server](/docs/mcp) and [skills](/docs/skills).
 
 [**Get started with Chromatic for agents »**](/docs/agents)
 
