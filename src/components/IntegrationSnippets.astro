@@ -4,6 +4,7 @@ import { TabItem, Tabs } from './Tabs';
 interface Props {
   cypress: string;
   playwright: string;
+  reactNative: string;
   storybook: string;
   vitest: string;
 }
@@ -21,6 +22,13 @@ interface Props {
     Astro.slots.has('vitest') && (
       <TabItem label="Vitest">
         <slot name="vitest" />
+      </TabItem>
+    )
+  }
+  {
+    Astro.slots.has('reactNative') && (
+      <TabItem label="React Native">
+        <slot name="reactNative" />
       </TabItem>
     )
   }

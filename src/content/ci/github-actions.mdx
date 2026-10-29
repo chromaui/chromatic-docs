@@ -84,6 +84,135 @@ In your `.github/workflows` directory, create a new file called `chromatic.yml` 
               CHROMATIC_ARCHIVE_LOCATION: .vitest/chromatic
     ```
   </Fragment>
+  <Fragment slot="reactNative">
+    ```yml title=".github/workflows/chromatic.yml"
+    name: Build
+
+    on:
+      pull_request:
+        types: [opened, edited, synchronize]
+      push:
+        branches:
+          - main
+
+    jobs:
+      build-ios:
+        runs-on: macos-latest
+        steps:
+          - name: Checkout
+            uses: actions/checkout@v7
+            with:
+              fetch-depth: 0
+          - name: Select Xcode
+            run: sudo xcode-select -s /Applications/Xcode_26.3.app
+          - name: Setup Node.js
+            uses: actions/setup-node@v7
+            with:
+              node-version: 24.20.0
+              cache: npm
+          - name: Install dependencies
+            run: npm ci
+          - name: Cache CocoaPods spec repo
+            uses: actions/cache@v6
+            with:
+              path: ~/.cocoapods
+              key: cocoapods-specs-${{ hashFiles('package.json', 'app.json') }}
+              restore-keys: |
+                cocoapods-specs-
+          - name: Cache Pods directory
+            uses: actions/cache@v6
+            with:
+              path: ios/Pods
+              key: ios-pods-${{ hashFiles('package.json', 'app.json') }}
+              restore-keys: |
+                ios-pods-
+          - name: Build iOS
+            run: npx --yes chromatic react-native-build --platform=ios --output-dir=build
+          - name: Upload iOS build
+            uses: actions/upload-artifact@v7
+            with:
+              name: ios-build
+              path: build/
+              retention-days: 1
+
+      build-android:
+        runs-on: ubuntu-latest
+        steps:
+          - name: Checkout
+            uses: actions/checkout@v7
+            with:
+              fetch-depth: 0
+          - name: Setup Node.js
+            uses: actions/setup-node@v7
+            with:
+              node-version: 24.20.0
+              cache: npm
+          - name: Cache Gradle wrapper
+            uses: actions/cache@v6
+            with:
+              path: ~/.gradle/wrapper
+              key: gradle-wrapper-${{ hashFiles('package.json', 'app.json') }}
+          - name: Cache Gradle dependencies
+            uses: actions/cache@v6
+            with:
+              path: ~/.gradle/caches
+              key: gradle-caches-${{ hashFiles('package.json', 'app.json') }}
+              restore-keys: |
+                gradle-caches-
+          - name: Cache Android directory
+            uses: actions/cache@v6
+            with:
+              path: android/
+              key: android-dir-${{ hashFiles('package.json', 'app.json') }}
+              restore-keys: |
+                android-dir-
+          - name: Install dependencies
+            run: npm ci
+          - name: Build Android
+            run: npx --yes chromatic react-native-build --platform=android --output-dir=build
+          - name: Upload Android build
+            uses: actions/upload-artifact@v7
+            with:
+              name: android-build
+              path: build/
+              retention-days: 1
+
+      chromatic:
+        needs: [build-ios, build-android]
+        runs-on: ubuntu-latest
+        steps:
+          - name: Checkout
+            uses: actions/checkout@v7
+            with:
+              fetch-depth: 0
+          - name: Setup Node.js
+            uses: actions/setup-node@v7
+            with:
+              node-version: 24.20.0
+              cache: npm
+          - name: Install dependencies
+            run: npm ci
+          - name: Download iOS build
+            uses: actions/download-artifact@v8
+            with:
+              name: ios-build
+              path: build/ios
+          - name: Download Android build
+            uses: actions/download-artifact@v8
+            with:
+              name: android-build
+              path: build/android
+          - name: Move Storybook static files
+            run: |
+              mkdir -p storybook-static
+              mv build/ios/storybook.app storybook-static/
+              mv build/android/storybook.apk storybook-static/
+          - name: Publish to Chromatic
+            run: npx --yes chromatic -d storybook-static --exit-zero-on-changes --exit-zero-on-errors
+            env:
+              CHROMATIC_PROJECT_TOKEN: ${{ secrets.CHROMATIC_PROJECT_TOKEN }}
+    ```
+  </Fragment>
   <Fragment slot="playwright">
     ```yaml title=".github/workflows/chromatic.yml"
     name: "Chromatic"
