@@ -19,6 +19,13 @@ const Wrapper = styled.div`
   border-radius: 4px;
   margin-bottom: 1.5em;
   overflow: hidden;
+
+  // .aside and .callout boxes have no bottom margin, so space the callout off
+  // them. Only these, so the gap below headings and paragraphs stays the same.
+  .aside + &,
+  .callout + & {
+    margin-top: 1.5em;
+  }
 `;
 
 const IconColumn = styled.div`
