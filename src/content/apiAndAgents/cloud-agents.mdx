@@ -14,8 +14,6 @@ You want to hand tasks to a coding agent and get back pull requests you can trus
 
 ## Set up
 
-This guide walks you through how to set up Chromatic for cloud agents.
-
 ### 1. Connect your agent to Chromatic
 
 There are two ways to connect:
@@ -53,7 +51,7 @@ Cloud sessions don't load plugins, so a cloud agent gets the Chromatic tools but
 
 The skills call the Chromatic MCP tools, so this step applies when your agent connects through the MCP. An agent with a service client calls the API directly.
 
-To give every cloud agent the skills, install them in your repository with the skills CLI, which is the way we recommend, and commit them:
+To give every cloud agent the skills, we recommend installing them in your repository with the skills CLI and committing them:
 
 ```shell
 npx skills add chromaui/chromatic-plugins
@@ -62,8 +60,6 @@ npx skills add chromaui/chromatic-plugins
 Leave out `--global` so the skills go in the project, not your home folder. Any agent that runs in the repository picks them up.
 
 ### 3. Tell your agent to respond to Chromatic
-
-Once these instructions are in place, the agent checks the build after every push on its own and keeps fixing until only judgment calls are left. You don't have to prompt it.
 
 Without the plugin's hooks, nothing tells a cloud agent to check the build after it pushes. Put that in the agent's instructions, in `AGENTS.md`, `CLAUDE.md`, or your platform's equivalent:
 
@@ -75,6 +71,8 @@ After you push, check the latest Chromatic build for this branch.
 - List the remaining visual changes in the pull request for a person to review. Don't accept them.
 - Mark the pull request ready only once the Chromatic build has finished. A passing CI job doesn't mean the UI passed.
 ```
+
+Once these instructions are in place, the agent checks the build after every push on its own and keeps fixing until only judgment calls are left. You don't have to prompt it.
 
 See [Mandatory PR checks](/docs/mandatory-pr-checks#check-status-by-scenario) for what each build status means.
 
@@ -94,4 +92,4 @@ claude -p "Implement ABC-123 and open a pull request" \
   --allowedTools "mcp__plugin_chromatic_chromatic__chromatic_get_latest_build,mcp__plugin_chromatic_chromatic__chromatic_query,mcp__plugin_chromatic_chromatic__chromatic_search_schema,mcp__plugin_chromatic_chromatic__chromatic_list_accessibility_changes,mcp__plugin_chromatic_chromatic__chromatic_get_accessibility_diff,mcp__plugin_chromatic_chromatic__chromatic_server_time"
 ```
 
-That list is every tool that only reads. The machine must have logged in once through `/mcp`.
+That list is every tool that only reads. Log in once on that machine through `/mcp` before the first run.

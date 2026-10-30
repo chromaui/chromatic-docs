@@ -700,7 +700,7 @@ Every request to `/api` is checked against a primary limit on query complexity a
 
 Chromatic may change or add secondary limits over time. Each one has its own resource name, so if your client reads `x-ratelimit-resource`, it handles new limits without changes.
 
-Pure introspection queries (only `__schema`, `__type` and `__typename`) cost 0 complexity points and are never blocked by the primary limit. They still count as a request toward the request count limit.
+Pure introspection queries (only `__schema`, `__type`, and `__typename`) cost 0 complexity points and are never blocked by the primary limit. They still count as a request toward the request count limit.
 
 #### Rate limit headers
 
@@ -718,13 +718,13 @@ Every response from `/api` includes `x-ratelimit-*` headers that describe one li
 
 Complexity is an estimate of how many entities a query will fetch. Chromatic computes it from the shape of the query and its arguments before the query runs. Every query that isn't pure introspection costs at least 1 point.
 
-| Query element                                                                                          | Cost                                                      |
-| ------------------------------------------------------------------------------------------------------ | --------------------------------------------------------- |
-| A field that returns an entity (any type that implements `Node`, such as `Project`, `Build` or `Test`) | 1, plus the cost of its selections                        |
-| A scalar, enum or embedded value object                                                                | 0                                                         |
-| A paginated field (with a `first`, `last` or `limit` argument)                                         | 2, plus the cost of each item multiplied by the page size |
-| A mutation field                                                                                       | 10, plus the cost of the returned selections              |
-| Introspection fields (`__schema`, `__type`, `__typename`)                                              | 0                                                         |
+| Query element                                                                                           | Cost                                                      |
+| ------------------------------------------------------------------------------------------------------- | --------------------------------------------------------- |
+| A field that returns an entity (any type that implements `Node`, such as `Project`, `Build`, or `Test`) | 1, plus the cost of its selections                        |
+| A scalar, enum, or embedded value object                                                                | 0                                                         |
+| A paginated field (with a `first`, `last`, or `limit` argument)                                         | 2, plus the cost of each item multiplied by the page size |
+| A mutation field                                                                                        | 10, plus the cost of the returned selections              |
+| Introspection fields (`__schema`, `__type`, `__typename`)                                               | 0                                                         |
 
 Costs multiply down the tree. If you leave out the page argument on a paginated field, Chromatic charges it as if it returned 100 items, the default page size. Asking for a smaller page is a simple way to lower the cost of a query.
 
@@ -794,7 +794,7 @@ A rejected request still uses up your other limits. In the example above, the qu
 - Read the headers on every response instead of hard-coding the limits. Your allowance can differ from the defaults, and the resource the headers describe can change between responses.
 - On a `429`, wait the number of seconds in `Retry-After` before you retry. If you retry sooner, the request is rejected again and still counts toward the request count limit.
 - Watch `x-ratelimit-remaining` and slow down before it reaches 0. If you stay under every limit, you never get a `429`.
-- Pass explicit page sizes. A paginated field without a `first` argument is charged for 100 items, whether or not that many exist.
+- Pass explicit page sizes. A paginated field without a page argument such as `first` is charged for 100 items, whether or not that many exist.
 - Fetch what you need in fewer, well-shaped queries. The request count limit charges per HTTP request, so one query that combines related reads is cheaper than many small ones, as long as its complexity stays within budget.
 
 ---
