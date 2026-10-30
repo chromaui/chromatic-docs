@@ -15,21 +15,20 @@ type Story = StoryObj<typeof BetaBadge>;
 
 export const Default: Story = {};
 
-// Matches the docs H1 (src/styles/formatting.ts) to check size and alignment.
+// Matches a docs H1 with a badge (src/styles/formatting.ts) to check size and
+// alignment. The narrow width makes the title wrap.
 export const InTitle: Story = {
   render: () => (
     <h1
       style={{
-        display: 'flex',
-        alignItems: 'baseline',
-        gap: '0.5rem',
-        flexWrap: 'wrap',
+        display: 'block',
+        maxWidth: 320,
         fontSize: 32,
         lineHeight: '36px',
         fontWeight: 700,
       }}
     >
-      Chromatic for agents
+      Run Chromatic with cloud agents
       <BetaBadge />
     </h1>
   ),
