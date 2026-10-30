@@ -22,9 +22,18 @@ const Pill = styled.span`
 `;
 
 /**
- * A small "Beta" pill for page titles: `# Page title <BetaBadge />`.
+ * A small "Beta" pill for page titles. Write it with no space before it:
+ * `# Page title<BetaBadge />`. A space in the Markdown would end up in the
+ * heading slug (`page-title-`), so the badge renders its own leading space.
+ * Flex layout ignores that space, and screen readers and copied text get
+ * "Page title Beta".
  *
  * `data-llms-exclude` keeps it out of llms.txt and Copy markdown, so the
- * exported title still matches the frontmatter title. Screen readers read it.
+ * exported title still matches the frontmatter title.
  */
-export const BetaBadge = () => <Pill data-llms-exclude="">Beta</Pill>;
+export const BetaBadge = () => (
+  <>
+    {' '}
+    <Pill data-llms-exclude="">Beta</Pill>
+  </>
+);

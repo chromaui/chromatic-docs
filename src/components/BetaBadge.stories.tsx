@@ -29,7 +29,8 @@ export const InTitle: Story = {
         fontWeight: 700,
       }}
     >
-      Chromatic for agents <BetaBadge />
+      Chromatic for agents
+      <BetaBadge />
     </h1>
   ),
 };
