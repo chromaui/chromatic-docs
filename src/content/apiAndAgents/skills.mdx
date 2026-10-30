@@ -8,15 +8,15 @@ import { BetaBadge } from '../../components/BetaBadge';
 
 # Skills<BetaBadge />
 
-Skills are workflows that chain the [Chromatic MCP](/docs/mcp) tools with your code, such as fixing accessibility violations or reviewing visual changes. Each skill is also a slash command.
+Skills are workflows that chain [Chromatic MCP](/docs/mcp) tools with your code. For example, to fix accessibility violations or review visual changes.
 
-Your agent picks a skill on its own when your request fits, so you never need to name one. The exception is `run-build`, which runs only when you invoke it.
+Your agent selects a skill automatically when your request fits. Skills are also available as slash commands. The agent never triggers `run-build` on its own; it runs only when you invoke it.
 
 ## Get the skills
 
 The [Chromatic plugin](/docs/agents#quickstart-with-the-plugin) for Claude Code and Codex includes every skill. If you installed the plugin, you already have them.
 
-Without the plugin, install the skills with the [skills CLI](https://skills.sh), which puts them where each of your agents looks for them:
+Without the plugin, install the skills with the [skills CLI](https://skills.sh):
 
 ```shell
 # Choose skills from a list

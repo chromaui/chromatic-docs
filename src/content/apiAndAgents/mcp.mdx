@@ -10,7 +10,7 @@ import { BetaBadge } from '../../components/BetaBadge';
 
 The Chromatic MCP server (https://mcp.chromatic.com/mcp) connects your coding agent to Chromatic. Your agent can read your builds, test results, accessibility violations, and get project level information.
 
-You log in once per agent, in your browser, using your Chromatic account. The server then uses the Chromatic API on your behalf, so the agent inherits your account’s access and permissions.
+You log in once per agent, in your browser, using your Chromatic account. The server uses the Chromatic API on your behalf and the agent inherits your account's access and permissions.
 
 <div class="aside">
   Want to publish your Storybook's MCP server? See [Publish your Storybook
@@ -21,7 +21,7 @@ You log in once per agent, in your browser, using your Chromatic account. The se
 
 ## Install with the plugin
 
-The Chromatic plugin for Claude Code and Codex is the recommended way to set up the Chromatic MCP. It connects the server, logs you in, and adds the [skills](/docs/skills). In Claude Code it also adds hooks that check your build after you push. To install it, see [Quickstart with the plugin](/docs/agents#quickstart-with-the-plugin).
+The Chromatic plugin for Claude Code and Codex is the recommended way to set up the Chromatic MCP. It handles the configuration and installs the [skills](/docs/skills) too. In Claude Code it also adds hooks that check your build after you push. To install it, see [Quickstart with the plugin](/docs/agents#quickstart-with-the-plugin).
 
 ## Add the MCP server by hand
 
@@ -122,13 +122,13 @@ Every tool needs your Chromatic project ID. It lives in [`chromatic.config.json`
 
 The server gives your agent tools that read your Chromatic data, such as getting the latest build on a branch (`chromatic_get_latest_build`), showing a story's accessibility violations, and querying the Chromatic API. [Skills](/docs/skills) chain these tools with your code.
 
+![Most Chromatic MCP tools only read your data. chromatic_mutate says what it will change and waits for you to allow it](../../images/mcp-tools.png)
+
 While most tools are read-only, `chromatic_mutate` can take actions: accept or deny a test, quarantine tests, or create a project. It runs only when you ask, your agent says what it will change first, and your client asks you to approve each call.
 
 The server tells your agent which tools it has, so ask "What Chromatic tools do you have?" for the current list. For the limits, see [What can't the MCP server do?](#what-it-wont-do).
 
 ## Security and access
-
-### What the login grants
 
 When you log in, your agent gets a token that acts as you. The token expires after 60 minutes and your agent refreshes it on its own. The login requests these [scopes](/docs/api#scopes-reference):
 
@@ -145,34 +145,30 @@ When you log in, your agent gets a token that acts as you. The token expires aft
 
 Your role in Chromatic still applies. Your agent sees only the projects you can see and can't do anything you couldn't do yourself.
 
-### What your agent changes
-
-Most tools only read. `chromatic_mutate` is the one tool that changes anything in Chromatic, and your agent says what it will change and asks before it runs. To keep an agent read-only, block or don't pre-approve `chromatic_mutate`. See [What can't the MCP server do?](#what-it-wont-do) for what's out of reach entirely, such as project tokens and project settings.
-
-Accepts, denies, and quarantines made through the MCP show up in Chromatic as made by you, the same as if you'd clicked them.
-
 ### Revoke access
 
-- **Log out one agent:** clear its login. In Claude Code, run `/mcp`, choose **chromatic**, then **Clear authentication**. In Codex, run `codex mcp logout chromatic`.
+- **Log out an agent by clearing its login:** In Claude Code, run `/mcp`, choose **chromatic**, then **Clear authentication**. In Codex, run `codex mcp logout chromatic`.
 - **Remove a person:** when someone is removed from your Chromatic account, or can no longer log in to Chromatic, their agents lose access too.
 
 There's no setting to turn off MCP access for a whole account. Access follows each person's role, so manage it through [collaborators](/docs/access/collaborators) and [SSO](/docs/access/sso).
 
 On Claude Team and Enterprise plans, owners can also control the Chromatic connector for the whole organization, including blocking individual tools. See [Claude Desktop and claude.ai](#claude-desktop).
 
-### Automation without a person
+### Automation without a browser login
 
-For agents that run with no one logged in, use a [service client](/docs/oauth-clients) instead. A service client belongs to your account, has only the scopes you grant it, and can be revoked by deleting it. See [Run Chromatic with cloud agents](/docs/cloud-agents).
+For agents that run without browser-based authentication, use a [service client](/docs/oauth-clients) instead. A service client belongs to your account, has only the scopes you grant it, and can be revoked by deleting it.
+
+![Your automation uses a service client's credentials to get an access token, then calls the Chromatic API with only the scopes you granted](../../images/mcp-service-client.png)
+
+For cloud-based agents or software factories, see [Run Chromatic with cloud agents](/docs/cloud-agents).
 
 ## Chromatic MCP vs. Storybook MCP
 
-Chromatic hosts two kinds of MCP server, and you can run both:
+![Your coding agent uses the Storybook MCP to write code with your components, and the Chromatic MCP to read builds, tests and accessibility results](../../images/mcp-chromatic-vs-storybook.png)
 
-|                    | Chromatic MCP                                                 | Storybook MCP                                                        |
-| ------------------ | ------------------------------------------------------------- | -------------------------------------------------------------------- |
-| **Address**        | `https://mcp.chromatic.com/mcp`, one server for every project | Your published Storybook's URL plus `/mcp`, one server per Storybook |
-| **What it serves** | Your builds, tests, accessibility results, and Chromatic data | That Storybook's own components and docs                             |
-| **Use it to**      | Review, fix, and ship UI changes tested by Chromatic          | Generate code that uses your components correctly                    |
+**Chromatic MCP** lives at `https://mcp.chromatic.com/mcp`, one server for every project. It serves your builds, tests, accessibility results, and Chromatic data. Use it to review, fix, and ship UI changes tested by Chromatic.
+
+**Storybook MCP** lives at your published Storybook's URL plus `/mcp`, one server per Storybook. It serves that Storybook's own components and docs. Use it to generate code that uses your components correctly.
 
 The plugin does not connect the Storybook MCP, because its address includes your project. To set it up, see [Publish your Storybook MCP](/docs/storybook-mcp).
 
