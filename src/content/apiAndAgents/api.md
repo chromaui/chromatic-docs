@@ -3,7 +3,7 @@ title: 'API'
 description: "Getting started with Chromatic's GraphQL API for agents: endpoint, OAuth 2.0 authentication for user-facing and machine-to-machine clients, queries, mutations, limits, rate limits, and scopes."
 sidebar:
   label: 'API'
-  order: 4
+  order: 5
 ---
 
 # Chromatic API
