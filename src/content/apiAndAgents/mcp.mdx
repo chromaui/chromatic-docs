@@ -126,6 +126,46 @@ While most tools are read-only, `chromatic_mutate` can take actions: accept or d
 
 The server tells your agent which tools it has, so ask "What Chromatic tools do you have?" for the current list. For the limits, see [What can't the MCP server do?](#what-it-wont-do).
 
+## Security and access
+
+### What the login grants
+
+When you log in, your agent gets a token that acts as you. The token expires after 60 minutes and your agent refreshes it on its own. The login requests these [scopes](/docs/api#scopes-reference):
+
+| Scope            | Lets your agent                                              |
+| ---------------- | ------------------------------------------------------------ |
+| `user:read`      | Read your profile                                            |
+| `account:read`   | Read your accounts and their projects                        |
+| `account:write`  | Read billing and plan details                                |
+| `project:read`   | Read project details, branches, and the latest build         |
+| `project:write`  | Create a project                                             |
+| `build:read`     | Read builds, tests, and accessibility results                |
+| `build:write`    | Accept or deny changes, and quarantine or unquarantine tests |
+| `storybook:read` | Read published Storybook URLs                                |
+
+Your role in Chromatic still applies. Your agent sees only the projects you can see and can't do anything you couldn't do yourself.
+
+{/* TODO: confirm the token refresh line for MCP logins (API page documents 60-minute tokens with refresh for PKCE). */}
+
+### What your agent changes
+
+Most tools only read. `chromatic_mutate` is the one tool that changes anything in Chromatic, and your agent says what it will change and asks before it runs. To keep an agent read-only, block or don't pre-approve `chromatic_mutate`. See [What can't the MCP server do?](#what-it-wont-do) for what's out of reach entirely, such as project tokens and project settings.
+
+Accepts, denies, and quarantines made through the MCP show up in Chromatic as made by you, the same as if you'd clicked them.
+
+### Revoke access
+
+- **Log out one agent:** clear its login. In Claude Code, run `/mcp`, choose **chromatic**, then **Clear authentication**. In Codex, run `codex mcp logout chromatic`.
+- **Remove a person:** when someone is removed from your Chromatic account, or can no longer log in to Chromatic, their agents lose access too.
+
+There's no setting to turn off MCP access for a whole account. Access follows each person's role, so manage it through [collaborators](/docs/access/collaborators) and [SSO](/docs/access/sso).
+
+On Claude Team and Enterprise plans, owners can also control the Chromatic connector for the whole organization, including blocking individual tools. See [Claude Desktop and claude.ai](#claude-desktop).
+
+### Automation without a person
+
+For agents that run with no one logged in, use a [service client](/docs/oauth-clients) instead. A service client belongs to your account, has only the scopes you grant it, and can be revoked by deleting it. See [Run Chromatic with cloud agents](/docs/cloud-agents).
+
 ## Chromatic MCP vs. Storybook MCP
 
 Chromatic hosts two kinds of MCP server, and you can run both:
