@@ -1,6 +1,6 @@
 ---
 title: Run Chromatic with cloud agents
-description: Hand tasks to a cloud coding agent and let it check Chromatic on every pull request it opens. Connect it, give it the skills, tell it to respond to Chromatic, and review only what needs human judgment.
+description: Hand tasks to a cloud coding agent and let it check Chromatic on every pull request it opens. Connect it, give it the skills, tell it to respond to Chromatic, and review only what needs human judgement.
 sidebar: { order: 3, label: 'Cloud agents' }
 ---
 
@@ -10,7 +10,7 @@ import { BetaBadge } from '../../components/BetaBadge';
 
 You want to hand tasks to a coding agent and get back pull requests you can trust. A cloud agent picks up a ticket, writes the code, opens a pull request, and reads the Chromatic build to find out if the UI is right. It fixes what it can and leaves visual changes for a person to review.
 
-![Cloud agent loop: an agent opens a pull request, Chromatic tests every build, the agent fixes what Chromatic finds, and a person reviews only the changes that need judgment](../../images/workflow-cloud-agents.png)
+![Cloud agent loop: an agent opens a pull request, Chromatic tests every build, the agent fixes what Chromatic finds, and a person reviews only the changes that need judgement](../../images/workflow-cloud-agents.png)
 
 ## Set up
 
@@ -70,17 +70,10 @@ After you push, check the latest Chromatic build for this branch.
 - Mark the pull request ready only once the Chromatic build has finished. A passing CI job doesn't mean the UI passed.
 ```
 
-Once these instructions are in place, the agent checks the build after every push on its own and keeps fixing until only judgment calls are left. You don't have to prompt it.
+Once these instructions are in place, the agent checks the build after every push on its own and keeps fixing until only judgement calls are left. You don't have to prompt it.
 
 See [Mandatory PR checks](/docs/mandatory-pr-checks#check-status-by-scenario) for what each build status means.
 
-## You only need to review what needs human judgment
+### 4. You only need to review what needs human judgement
 
-The agent handles broken stories and accessibility violations. You decide on the visual changes, because only a person can tell an intended change from a regression.
-
-Keep accepting, denying, and quarantining with a person:
-
-- **With the MCP,** pre-approve only the tools that read, and leave `chromatic_mutate` out.
-- **With a service client,** don't grant `build:write`.
-
-An agent that runs with no one to approve tool calls needs those read-only tools pre-approved: every Chromatic tool except `chromatic_mutate`.
+The agent works through what Chromatic finds without waiting on you. It fixes broken stories and accessibility violations, and compares each visual change with the code on its branch, sorting the changes its code explains from the ones that look unintended. It only brings you in when a call needs a person, such as whether a visual change is intended or a regression. You review those changes, not every snapshot.

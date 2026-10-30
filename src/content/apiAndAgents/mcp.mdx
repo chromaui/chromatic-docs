@@ -158,19 +158,17 @@ On Claude Team and Enterprise plans, owners can also control the Chromatic conne
 
 For agents that run without browser-based authentication, use a [service client](/docs/oauth-clients) instead. A service client belongs to your account, has only the scopes you grant it, and can be revoked by deleting it.
 
-![Your automation uses a service client's credentials to get an access token, then calls the Chromatic API with only the scopes you granted](../../images/mcp-service-client.png)
-
 For cloud-based agents or software factories, see [Run Chromatic with cloud agents](/docs/cloud-agents).
 
-## Chromatic MCP vs. Storybook MCP
-
 ![Your coding agent uses the Storybook MCP to write code with your components, and the Chromatic MCP to read builds, tests and accessibility results](../../images/mcp-chromatic-vs-storybook.png)
+
+## Chromatic MCP vs. Storybook MCP
 
 **Chromatic MCP** lives at `https://mcp.chromatic.com/mcp`, one server for every project. It serves your builds, tests, accessibility results, and Chromatic data. Use it to review, fix, and ship UI changes tested by Chromatic.
 
 **Storybook MCP** lives at your published Storybook's URL plus `/mcp`, one server per Storybook. It serves that Storybook's own components and docs. Use it to generate code that uses your components correctly.
 
-The plugin does not connect the Storybook MCP, because its address includes your project. To set it up, see [Publish your Storybook MCP](/docs/storybook-mcp).
+The Chromatic plugin does not connect the Storybook MCP, because its address includes your project. To set it up, see [Publish your Storybook MCP](/docs/storybook-mcp).
 
 ---
 
@@ -194,7 +192,7 @@ Any other client that speaks Streamable HTTP and logs in with a client metadata 
 
 <summary>Can I run it without a person watching?</summary>
 
-Yes. Pre-approve every Chromatic tool except `chromatic_mutate`, so the agent can read builds but can't change anything. See [You only need to review what needs human judgment](/docs/cloud-agents#you-only-need-to-review-what-needs-human-judgment).
+Yes. Pre-approve every Chromatic tool except `chromatic_mutate`, so the agent can read builds but can't change anything. See [You only need to review what needs human judgement](/docs/cloud-agents#4-you-only-need-to-review-what-needs-human-judgement).
 
 </details>
 
