@@ -73,6 +73,8 @@ Leave out `--global` so the skills go in the project, not your home folder. Any 
 
 ## 3. Tell your agent to respond to Chromatic
 
+Once these instructions are in place, the agent checks the build after every push on its own and keeps fixing until only judgment calls are left. You don't have to prompt it.
+
 Without the plugin's hooks, nothing tells a cloud agent to check the build after it pushes. Put that in the agent's instructions, in `AGENTS.md`, `CLAUDE.md`, or your platform's equivalent:
 
 ```markdown
@@ -95,10 +97,10 @@ Keep accepting, denying, and quarantining with a person:
 - **With the MCP,** pre-approve only the tools that read, and leave `chromatic_mutate` out.
 - **With a service client,** don't grant `build:write`.
 
-A run with no one to approve tool calls, such as `claude -p`, needs the tools allowed by name. With the plugin, tool names start with `mcp__plugin_chromatic_chromatic__`:
+An unattended run, such as `claude -p`, follows the instructions from [step 3](#3-tell-your-agent-to-respond-to-chromatic) and checks Chromatic itself, but needs the read-only tools allowed by name. With the plugin, tool names start with `mcp__plugin_chromatic_chromatic__`:
 
 ```shell
-claude -p "Is this branch ready to merge from Chromatic's side?" \
+claude -p "Implement ABC-123 and open a pull request" \
   --allowedTools "mcp__plugin_chromatic_chromatic__chromatic_get_latest_build,mcp__plugin_chromatic_chromatic__chromatic_query,mcp__plugin_chromatic_chromatic__chromatic_search_schema,mcp__plugin_chromatic_chromatic__chromatic_list_accessibility_changes,mcp__plugin_chromatic_chromatic__chromatic_get_accessibility_diff,mcp__plugin_chromatic_chromatic__chromatic_server_time"
 ```
 
