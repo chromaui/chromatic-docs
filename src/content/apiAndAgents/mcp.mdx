@@ -206,7 +206,7 @@ Claude Code sessions that run in the cloud load no plugins, so the plugin's skil
 
 <summary>Can I run it without a person watching?</summary>
 
-Yes. A run with no one to approve tool calls, such as `claude -p`, needs the read-only tools allowed by name. See [You only need to review what needs human judgment](/docs/cloud-agents#you-only-need-to-review-what-needs-human-judgment) for the list and the command.
+Yes. Pre-approve every Chromatic tool except `chromatic_mutate`, so the agent can read builds but can't change anything. See [You only need to review what needs human judgment](/docs/cloud-agents#you-only-need-to-review-what-needs-human-judgment).
 
 </details>
 
