@@ -160,7 +160,7 @@ Any other client that speaks Streamable HTTP and logs in with a client metadata 
 
 <summary>Does it work in Claude Code cloud sessions?</summary>
 
-Claude Code sessions that run in the cloud load no plugins, so the plugin's skills and hooks are not available there. An MCP server added directly to your Claude account, as a connector, follows you into those sessions.
+Claude Code sessions that run in the cloud load no plugins, so the plugin's skills and hooks are not available there. An MCP server added directly to your Claude account, as a connector, follows you into those sessions. See [Run Chromatic with cloud agents](/docs/cloud-agents).
 
 </details>
 
@@ -168,14 +168,7 @@ Claude Code sessions that run in the cloud load no plugins, so the plugin's skil
 
 <summary>Can I run it without a person watching?</summary>
 
-A run with no one to approve tool calls, such as `claude -p`, needs the tools allowed by name. With the plugin, tool names start with `mcp__plugin_chromatic_chromatic__`:
-
-```shell
-claude -p "Is this branch ready to merge from Chromatic's side?" \
-  --allowedTools "mcp__plugin_chromatic_chromatic__chromatic_get_latest_build,mcp__plugin_chromatic_chromatic__chromatic_query,mcp__plugin_chromatic_chromatic__chromatic_search_schema,mcp__plugin_chromatic_chromatic__chromatic_list_accessibility_changes,mcp__plugin_chromatic_chromatic__chromatic_get_accessibility_diff,mcp__plugin_chromatic_chromatic__chromatic_server_time"
-```
-
-That list is every tool that only reads. Leave `chromatic_mutate` out of it. The machine must have logged in once through `/mcp`.
+Yes. A run with no one to approve tool calls, such as `claude -p`, needs the read-only tools allowed by name. See [Keep people in charge of accepting changes](/docs/cloud-agents#keep-people-in-charge-of-accepting-changes) for the list and the command.
 
 </details>
 
