@@ -47,8 +47,6 @@ Tokens expire after 60 minutes and there's no refresh token, so the agent reques
 
 ### 2. Give cloud agents the skills
 
-Cloud sessions don't load plugins, so a cloud agent gets the Chromatic tools but not the [skills](/docs/skills) or the hooks that check the build after a push.
-
 The skills call the Chromatic MCP tools, so this step applies when your agent connects through the MCP. An agent with a service client calls the API directly.
 
 To give every cloud agent the skills, we recommend installing them in your repository with the skills CLI and committing them:
@@ -61,7 +59,7 @@ Leave out `--global` so the skills go in the project, not your home folder. Any 
 
 ### 3. Tell your agent to respond to Chromatic
 
-Without the plugin's hooks, nothing tells a cloud agent to check the build after it pushes. Put that in the agent's instructions, in `AGENTS.md`, `CLAUDE.md`, or your platform's equivalent:
+Tell your agent to check the build after every push in its instructions, in `AGENTS.md`, `CLAUDE.md`, or your platform's equivalent:
 
 ```markdown
 After you push, check the latest Chromatic build for this branch.
