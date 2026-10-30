@@ -83,6 +83,8 @@ The plugin is the recommended way to start. One install gives you the server con
 
 Ask your agent: “What time is it on the Chromatic server?” If it answers with a time, you are connected and logged in.
 
+![Claude Code answering “What time is it on the Chromatic server?” with the server time after calling Chromatic](../../images/agents-verify-connection.png)
+
 ### Connect your project
 
 Your agent needs to know which Chromatic project your repository belongs to. It reads the `projectId` from [`chromatic.config.json`](/docs/cli#chromatic-config-file) at the root of your repository. Ask your agent to connect your Chromatic project, and the `connect-project` skill finds the project from your Git remote and writes the file for you.
