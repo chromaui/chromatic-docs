@@ -8,9 +8,9 @@ import { BetaBadge } from '../../components/BetaBadge';
 
 # Chromatic MCP<BetaBadge />
 
-The Chromatic MCP server (https://mcp.chromatic.com/mcp) connects your coding agent to Chromatic. Your agent can read your builds, test results, accessibility violations, and get project level information.
+The Chromatic MCP server (https://mcp.chromatic.com/mcp) connects your coding agent to Chromatic. Your agent can read your builds, test results, accessibility violations, and project-level information.
 
-You log in once per agent, in your browser, using your Chromatic account. The server uses the Chromatic API on your behalf and the agent inherits your account's access and permissions.
+You log in once per agent, in your browser, using your Chromatic account. The server uses the Chromatic API on your behalf, and the agent inherits your account's access and permissions.
 
 <div class="aside">
   Want to publish your Storybook's MCP server? See [Publish your Storybook
@@ -21,7 +21,7 @@ You log in once per agent, in your browser, using your Chromatic account. The se
 
 ## Install with the plugin
 
-The Chromatic plugin for Claude Code and Codex is the recommended way to set up the Chromatic MCP. It handles the configuration and installs the [skills](/docs/skills) too. In Claude Code it also adds hooks that check your build after you push. To install it, see [Quickstart with the plugin](/docs/agents#1-install-the-chromatic-plugin-for-your-agent).
+The Chromatic plugin for Claude Code and Codex is the recommended way to set up the Chromatic MCP. It handles the configuration and installs the [skills](/docs/skills) too. In Claude Code it also adds hooks that check your build after you push. To install it, see [Install the Chromatic plugin for your agent](/docs/agents#1-install-the-chromatic-plugin-for-your-agent).
 
 ## Add the MCP server by hand
 
@@ -160,9 +160,9 @@ For agents that run without browser-based authentication, use a [service client]
 
 For cloud-based agents or software factories, see [Run Chromatic with cloud agents](/docs/cloud-agents).
 
-![Your coding agent uses the Storybook MCP to write code with your components, and the Chromatic MCP to read builds, tests and accessibility results](../../images/mcp-chromatic-vs-storybook.png)
-
 ## Chromatic MCP vs. Storybook MCP
+
+![Your coding agent uses the Storybook MCP to write code with your components, and the Chromatic MCP to read builds, tests, and accessibility results](../../images/mcp-chromatic-vs-storybook.png)
 
 **Chromatic MCP** lives at `https://mcp.chromatic.com/mcp`, one server for every project. It serves your builds, tests, accessibility results, and Chromatic data. Use it to review, fix, and ship UI changes tested by Chromatic.
 
