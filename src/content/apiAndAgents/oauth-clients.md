@@ -2,7 +2,7 @@
 title: 'OAuth clients'
 description: 'Create and manage OAuth clients for the Chromatic API: service clients for headless automation, rotating secrets, deleting clients, and the createOAuthClient mutation.'
 sidebar:
-  order: 4
+  order: 5
 ---
 
 # OAuth clients
