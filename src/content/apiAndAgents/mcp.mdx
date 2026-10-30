@@ -145,8 +145,6 @@ When you log in, your agent gets a token that acts as you. The token expires aft
 
 Your role in Chromatic still applies. Your agent sees only the projects you can see and can't do anything you couldn't do yourself.
 
-{/* TODO: confirm the token refresh line for MCP logins (API page documents 60-minute tokens with refresh for PKCE). */}
-
 ### What your agent changes
 
 Most tools only read. `chromatic_mutate` is the one tool that changes anything in Chromatic, and your agent says what it will change and asks before it runs. To keep an agent read-only, block or don't pre-approve `chromatic_mutate`. See [What can't the MCP server do?](#what-it-wont-do) for what's out of reach entirely, such as project tokens and project settings.
