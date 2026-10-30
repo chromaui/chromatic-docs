@@ -24,11 +24,6 @@ It's made up of:
 
 The plugin is the recommended way to start. One install gives you the server connection, the login, and every [skill](/docs/skills). In Claude Code it also adds hooks that check your build after you push.
 
-Before you start, you need:
-
-- A Chromatic account with a project that has builds.
-- Claude Code, or the Codex CLI version 0.148 or newer (check with `codex --version`).
-
 <Tabs>
   <TabItem label="Claude Code">
     ```shell
@@ -42,6 +37,12 @@ Before you start, you need:
 
   </TabItem>
   <TabItem label="Codex">
+    <div class="aside" style="margin-bottom: 1em;">
+
+    Requires the Codex CLI version 0.148 or newer. Check with `codex --version`.
+
+    </div>
+
     ```shell
     codex plugin marketplace add chromaui/chromatic-plugins
     codex plugin add chromatic@chromatic
