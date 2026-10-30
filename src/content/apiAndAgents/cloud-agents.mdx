@@ -12,13 +12,15 @@ You want to hand tasks to a coding agent and get back pull requests you can trus
 
 ![Cloud agent loop: an agent opens a pull request, Chromatic tests every build, the agent fixes what Chromatic finds, and a person reviews only the changes that need judgment](../../images/workflow-cloud-agents.png)
 
-Set up this workflow in three steps:
+## Set up
+
+This guide walks you through how to set up Chromatic for cloud agents in three steps:
 
 1. [Connect your agent to Chromatic](#1-connect-your-agent-to-chromatic)
 2. [Give cloud agents the skills](#2-give-cloud-agents-the-skills)
 3. [Tell your agent to respond to Chromatic](#3-tell-your-agent-to-respond-to-chromatic)
 
-## 1. Connect your agent to Chromatic
+### 1. Connect your agent to Chromatic
 
 There are two ways to connect:
 
@@ -27,21 +29,19 @@ There are two ways to connect:
 | [Chromatic MCP](#connect-the-chromatic-mcp)      | Your agent platform supports remote MCP servers and someone can log in once  | The person who logged in             |
 | [Service client](#connect-with-a-service-client) | No one can log in through a browser, or you want access owned by the account | Your Chromatic account, not a person |
 
-### Connect the Chromatic MCP
+#### Connect the Chromatic MCP
 
 Add `https://mcp.chromatic.com/mcp` to your cloud agent's MCP settings, then log in once in your browser when you set it up. After that, every session the agent runs can use the Chromatic tools without asking again.
 
 In Claude Code, adding the server to your Claude account as a connector makes it available in cloud sessions. See [Claude Desktop and claude.ai](/docs/mcp#claude-desktop) for the steps. For other platforms, see [Add the MCP server by hand](/docs/mcp#add-the-mcp-server-by-hand).
 
-#### The agent acts as the person who logged in
-
-It has that person's access. It sees the projects that person can see, and anything it changes in Chromatic counts as that person's action. If that person leaves your Chromatic account, the agent loses access with them.
+**The agent acts as the person who logged in.** It has that person's access. It sees the projects that person can see, and anything it changes in Chromatic counts as that person's action. If that person leaves your Chromatic account, the agent loses access with them.
 
 For a shared factory that should keep working regardless of who set it up, use a [service client](#connect-with-a-service-client) instead.
 
 For what the login grants and how to revoke it, see [Security and access](/docs/mcp#security-and-access).
 
-### Connect with a service client
+#### Connect with a service client
 
 A service client lets an agent call the [Chromatic API](/docs/api) with no one logged in. It belongs to your Chromatic account, so it keeps working when people come and go. The Chromatic MCP doesn't accept service client tokens, so a service client works with the API only.
 
@@ -51,7 +51,7 @@ A service client lets an agent call the [Chromatic API](/docs/api) with no one l
 
 Tokens expire after 60 minutes and there's no refresh token, so the agent requests a new one when the current one expires.
 
-## 2. Give cloud agents the skills
+### 2. Give cloud agents the skills
 
 Cloud sessions don't load plugins, so a cloud agent gets the Chromatic tools but not the [skills](/docs/skills) or the hooks that check the build after a push.
 
@@ -65,7 +65,7 @@ npx skills add chromaui/chromatic-plugins
 
 Leave out `--global` so the skills go in the project, not your home folder. Any agent that runs in the repository picks them up.
 
-## 3. Tell your agent to respond to Chromatic
+### 3. Tell your agent to respond to Chromatic
 
 Once these instructions are in place, the agent checks the build after every push on its own and keeps fixing until only judgment calls are left. You don't have to prompt it.
 
