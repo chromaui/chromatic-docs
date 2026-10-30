@@ -59,6 +59,16 @@ If you have a question not covered in our documentation, contact us via our in-a
   ))}
 </ul>
 
+## Capture
+
+<ul class="faq-section-toc">
+  {props.groupedFAQs.capture.map((faq) => (
+    <li>
+      <a href={`/docs/${faq.id}`}>{faq.title}</a>
+    </li>
+  ))}
+</ul>
+
 ## Continuous Integration
 
 <ul class="faq-section-toc">
