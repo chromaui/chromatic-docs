@@ -18,12 +18,12 @@ You want to hand tasks to a coding agent and get back pull requests you can trus
 
 There are two ways to connect:
 
-| Connection                                       | Use when                                                                     | Acts as                              |
-| ------------------------------------------------ | ---------------------------------------------------------------------------- | ------------------------------------ |
-| [Chromatic MCP](#connect-the-chromatic-mcp)      | Your agent platform supports remote MCP servers and someone can log in once  | The person who logged in             |
-| [Service client](#connect-with-a-service-client) | No one can log in through a browser, or you want access owned by the account | Your Chromatic account, not a person |
+| Connection                                        | Use when                                                                     | Acts as                              |
+| ------------------------------------------------- | ---------------------------------------------------------------------------- | ------------------------------------ |
+| [Chromatic MCP](#connect-using-the-chromatic-mcp) | Your agent platform supports remote MCP servers and someone can log in once  | The person who logged in             |
+| [Service client](#connect-using-a-service-client) | No one can log in through a browser, or you want access owned by the account | Your Chromatic account, not a person |
 
-#### Connect the Chromatic MCP
+#### Connect using the Chromatic MCP
 
 Add `https://mcp.chromatic.com/mcp` to your cloud agent's MCP settings, then log in once in your browser when you set it up. After that, every session the agent runs can use the Chromatic tools without asking again.
 
@@ -31,11 +31,11 @@ In Claude Code, adding the server to your Claude account as a connector makes it
 
 **The agent acts as the person who logged in.** It has that person's access. It sees the projects that person can see, and anything it changes in Chromatic counts as that person's action. If that person leaves your Chromatic account, the agent loses access with them.
 
-For a shared factory that should keep working regardless of who set it up, use a [service client](#connect-with-a-service-client) instead.
+For a shared factory that should keep working regardless of who set it up, use a [service client](#connect-using-a-service-client) instead.
 
 For what the login grants and how to revoke it, see [Security and access](/docs/mcp#security-and-access).
 
-#### Connect with a service client
+#### Connect using a service client
 
 A service client lets an agent call the [Chromatic API](/docs/api) with no one logged in. It belongs to your Chromatic account, so it keeps working when people come and go. The Chromatic MCP doesn't accept service client tokens, so a service client works with the API only.
 
@@ -59,7 +59,7 @@ Leave out `--global` so the skills go in the project, not your home folder. Any 
 
 ### 3. Tell your agent to respond to Chromatic
 
-Tell your agent to check the build after every push. Put this in its instructions, in `AGENTS.md`, `CLAUDE.md`, or your platform's equivalent:
+Tell your agent to check the build after every push. Put this in its instructions, in `AGENTS.md`, or your platform's equivalent:
 
 ```markdown
 After you push, check the latest Chromatic build for this branch.
@@ -76,6 +76,8 @@ See [Mandatory PR checks](/docs/mandatory-pr-checks#check-status-by-scenario) fo
 
 ### 4. You only need to review what needs human judgement
 
-The agent works through what Chromatic finds without waiting on you. It fixes broken stories and accessibility violations, and compares each visual change with the code on its branch, sorting the changes its code explains from the ones that look unintended. It only brings you in when a call needs a person, such as whether a visual change is intended or a regression. You review those changes, not every snapshot.
+The agent works through Chromatic's findings on its own. It fixes broken stories and accessibility violations, then uses the skills from step 2 to check whether each visual change matches the code on its branch.
+
+You only step in when a change needs your call: is it an intended update or a regression? You review those few changes, not every snapshot.
 
 ![A Chromatic build where the agent marks 9 of 12 changed stories as expected changes and leaves 3 waiting for a person to review](../../images/cloud-agents-review-judgement.png)
