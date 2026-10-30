@@ -302,12 +302,6 @@ You're building robust components by uncovering bugs during development. Take yo
 
 ### Working with agents
 
-<AICallout>
-
-Connect your coding agent to Chromatic so it can tell you the status of each build after you push. [Chromatic for agents](/docs/agents)
-
-</AICallout>
-
 There are a few aspects of Chromatic for Vitest that you may need to teach an agent to handle. Here is a sample block of instructions you can provide to your agent:
 
 ```text
@@ -317,6 +311,12 @@ When writing Vitest Browser Mode tests, consider component states that are impor
 
 You can run visual tests locally (after running Vitest tests) using the `chromatic --vitest -t=<TOKEN>` command with your project token.
 ```
+
+<AICallout>
+
+Connect your coding agent to Chromatic so it can tell you the status of each build after you push. [Chromatic for agents](/docs/agents)
+
+</AICallout>
 
 ### Advanced configuration options
 
