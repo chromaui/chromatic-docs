@@ -1,6 +1,6 @@
 ---
 title: Run Chromatic with cloud agents
-description: Let cloud coding agents check Chromatic on every pull request they open. Connect the Chromatic MCP once, or call the API with a service client, and keep people in charge of accepting changes.
+description: Hand tasks to a cloud coding agent and let it check Chromatic on every pull request it opens. Connect it, give it the skills, tell it to respond to Chromatic, and review only what needs human judgment.
 sidebar: { order: 1, label: 'Cloud agents' }
 ---
 
@@ -8,9 +8,17 @@ import { BetaBadge } from '../../components/BetaBadge';
 
 # Run Chromatic with cloud agents<BetaBadge />
 
-Cloud agents check Chromatic the same way your local agent does. An agent picks up a ticket, writes the code, opens a pull request, and reads the Chromatic build to find out if the UI is right. It fixes what it can and leaves visual changes for a person to review.
+You want to hand tasks to a coding agent and get back pull requests you can trust. A cloud agent picks up a ticket, writes the code, opens a pull request, and reads the Chromatic build to find out if the UI is right. It fixes what it can and leaves visual changes for a person to review.
 
 ![Cloud agent loop: an agent opens a pull request, Chromatic tests every build, the agent fixes what Chromatic finds, and a person reviews only the changes that need judgment](../../images/workflow-cloud-agents.png)
+
+Set up this workflow in three steps:
+
+1. [Connect your agent to Chromatic](#1-connect-your-agent-to-chromatic)
+2. [Give cloud agents the skills](#2-give-cloud-agents-the-skills)
+3. [Tell your agent to respond to Chromatic](#3-tell-your-agent-to-respond-to-chromatic)
+
+## 1. Connect your agent to Chromatic
 
 There are two ways to connect:
 
@@ -19,7 +27,7 @@ There are two ways to connect:
 | [Chromatic MCP](#connect-the-chromatic-mcp)      | Your agent platform supports remote MCP servers and someone can log in once  | The person who logged in             |
 | [Service client](#connect-with-a-service-client) | No one can log in through a browser, or you want access owned by the account | Your Chromatic account, not a person |
 
-## Connect the Chromatic MCP
+### Connect the Chromatic MCP
 
 Add `https://mcp.chromatic.com/mcp` to your cloud agent's MCP settings, then log in once in your browser when you set it up. After that, every session the agent runs can use the Chromatic tools without asking again.
 
@@ -27,7 +35,7 @@ Add `https://mcp.chromatic.com/mcp` to your cloud agent's MCP settings, then log
 
 In Claude Code, adding the server to your Claude account as a connector makes it available in cloud sessions. See [Claude Desktop and claude.ai](/docs/mcp#claude-desktop) for the steps. For other platforms, see [Add the MCP server by hand](/docs/mcp#add-the-mcp-server-by-hand).
 
-### Whose access the agent has
+#### Whose access the agent has
 
 The agent acts as the person who logged in. It sees the projects that person can see, and anything it changes in Chromatic counts as that person's action. If that person leaves your Chromatic account, the agent loses access with them.
 
@@ -35,28 +43,7 @@ For a shared factory that should keep working regardless of who set it up, use a
 
 For what the login grants and how to revoke it, see [Security and access](/docs/mcp#security-and-access).
 
-### Give cloud agents the skills
-
-Cloud sessions don't load plugins, so a cloud agent gets the Chromatic tools but not the [skills](/docs/skills) or the hooks that check the build after a push.
-
-To give every cloud agent the skills, install them in your repository and commit them:
-
-```shell
-npx skills add chromaui/chromatic-plugins
-```
-
-Leave out `--global` so the skills go in the project, not your home folder. Any agent that runs in the repository picks them up.
-
-{/* TODO: confirm with eng that committing project-level skills is a pattern we recommend, and which folder the skills CLI writes to. */}
-
-Without hooks, tell the agent to check Chromatic in its instructions, for example in `AGENTS.md` or `CLAUDE.md`:
-
-```markdown
-After you push, check the latest Chromatic build for this branch. Fix broken stories and new
-accessibility violations. Report visual changes for a person to review; don't accept them.
-```
-
-## Connect with a service client
+### Connect with a service client
 
 A service client lets an agent call the [Chromatic API](/docs/api) with no one logged in. It belongs to your Chromatic account, so it keeps working when people come and go.
 
@@ -68,15 +55,42 @@ Tokens expire after 60 minutes and there's no refresh token, so the agent reques
 
 {/* TODO: confirm whether the Chromatic MCP accepts a service client token. If it does, add that path here and drop step 3. */}
 
-## Read the UI Tests check, not the CI job
+## 2. Give cloud agents the skills
 
-The **UI Tests** check on the pull request tells you whether the UI passed. The CI job doesn't. With [`exitZeroOnChanges`](/docs/configure#exitzeroonchanges), which the GitHub Action turns on by default, the CI job passes while visual changes still wait for review.
+Cloud sessions don't load plugins, so a cloud agent gets the Chromatic tools but not the [skills](/docs/skills) or the hooks that check the build after a push.
 
-Tell your agent to read the Chromatic build or the UI Tests check before it reports a pull request as ready. See [Mandatory PR checks](/docs/mandatory-pr-checks#check-status-by-scenario) for what each status means.
+The skills call the Chromatic MCP tools, so this step applies when your agent connects through the MCP. An agent with a service client calls the API directly.
 
-## Keep people in charge of accepting changes
+To give every cloud agent the skills, install them in your repository and commit them:
 
-Let cloud agents fix code and report changes. Leave accepting, denying, and quarantining to a person.
+```shell
+npx skills add chromaui/chromatic-plugins
+```
+
+Leave out `--global` so the skills go in the project, not your home folder. Any agent that runs in the repository picks them up.
+
+{/* TODO: confirm with eng that committing project-level skills is a pattern we recommend, and which folder the skills CLI writes to. */}
+
+## 3. Tell your agent to respond to Chromatic
+
+Without the plugin's hooks, nothing tells a cloud agent to check the build after it pushes. Put that in the agent's instructions, in `AGENTS.md`, `CLAUDE.md`, or your platform's equivalent:
+
+```markdown
+After you push, check the latest Chromatic build for this branch.
+
+- Fix broken stories and new accessibility violations, push, and check the next build.
+- Repeat until the build has no broken stories or new violations.
+- List the remaining visual changes in the pull request for a person to review. Don't accept them.
+- Mark the pull request ready only once the Chromatic build has finished. A passing CI job doesn't mean the UI passed.
+```
+
+See [Mandatory PR checks](/docs/mandatory-pr-checks#check-status-by-scenario) for what each build status means.
+
+## You only need to review what needs human judgment
+
+The agent handles broken stories and accessibility violations. You decide on the visual changes, because only a person can tell an intended change from a regression.
+
+Keep accepting, denying, and quarantining with a person:
 
 - **With the MCP,** pre-approve only the tools that read, and leave `chromatic_mutate` out.
 - **With a service client,** don't grant `build:write`.
