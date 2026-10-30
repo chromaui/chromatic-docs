@@ -13,10 +13,10 @@ Chromatic for agents lets your coding agent read every Chromatic build and act o
 
 It's made up of:
 
-- **[Chromatic MCP server](/docs/mcp)** lets your agent call the Chromatic API as you, after one login in your browser.
-- **[Skills](/docs/skills)** teach your agent workflows that chain those calls with your code, such as fixing accessibility violations or reviewing visual changes.
-- **[Plugins](#quickstart-with-the-plugin)** for Claude Code and Codex bundle the server connection, the login, and every skill.
-- **[Chromatic API](/docs/api)** gives you access to builds, tests, accessibility results, and published Storybooks via an authenticated GraphQL API.
+- **[Chromatic MCP server](/docs/mcp)** lets your agent interact with Chromatic as you
+- **[Skills](/docs/skills)** teach your agent workflows such as: fixing accessibility violations or reviewing visual changes.
+- **[Plugins](#quickstart-with-the-plugin)** for Claude Code and Codex bundle the MCP and skills into a single package.
+- **[Chromatic API](/docs/api)** enables you to build custom agent workflows and pull data into internal dashboards.
 
 ![How Chromatic for agents fits together: the Chromatic plugin bundles skills and the Chromatic MCP for your coding agent, the MCP calls the Chromatic API, and scripts and cloud agents can call the API directly](../../images/agents-mcp-skills-plugins-api.png)
 
@@ -41,7 +41,7 @@ Before you start, you need:
     `claude mcp list` should show `plugin:chromatic:chromatic`.
 
   </TabItem>
-  <TabItem label="Codex and the ChatGPT app">
+  <TabItem label="Codex">
     ```shell
     codex plugin marketplace add chromaui/chromatic-plugins
     codex plugin add chromatic@chromatic
@@ -53,7 +53,7 @@ Before you start, you need:
     In the ChatGPT app, quit and reopen it, then pick **Codex** in the sidebar. **Plugins** lists Chromatic under **Personal**. Sign in with a ChatGPT account, not an API key, or **Plugins** stays locked.
 
   </TabItem>
-  <TabItem label="Other tools">
+  <TabItem label="Other tools (manual install)">
     ```shell
     # Choose skills from a list
     npx skills add chromaui/chromatic-plugins
