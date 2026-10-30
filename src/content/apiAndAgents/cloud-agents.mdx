@@ -10,7 +10,7 @@ import { BetaBadge } from '../../components/BetaBadge';
 
 Cloud agents check Chromatic the same way your local agent does. An agent picks up a ticket, writes the code, opens a pull request, and reads the Chromatic build to find out if the UI is right. It fixes what it can and leaves visual changes for a person to review.
 
-![Cloud agent workflow: an agent opens a pull request, Chromatic tests every build, and a person reviews the visual changes](../../images/workflow-cloud-agents.png)
+![Cloud agent loop: an agent opens a pull request, Chromatic tests every build, the agent fixes what Chromatic finds, and a person reviews only the changes that need judgment](../../images/workflow-cloud-agents.png)
 
 There are two ways to connect:
 
