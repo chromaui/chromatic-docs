@@ -35,9 +35,9 @@ Add `https://mcp.chromatic.com/mcp` to your cloud agent's MCP settings, then log
 
 In Claude Code, adding the server to your Claude account as a connector makes it available in cloud sessions. See [Claude Desktop and claude.ai](/docs/mcp#claude-desktop) for the steps. For other platforms, see [Add the MCP server by hand](/docs/mcp#add-the-mcp-server-by-hand).
 
-#### Whose access the agent has
+#### The agent acts as the person who logged in
 
-The agent acts as the person who logged in. It sees the projects that person can see, and anything it changes in Chromatic counts as that person's action. If that person leaves your Chromatic account, the agent loses access with them.
+It has that person's access. It sees the projects that person can see, and anything it changes in Chromatic counts as that person's action. If that person leaves your Chromatic account, the agent loses access with them.
 
 For a shared factory that should keep working regardless of who set it up, use a [service client](#connect-with-a-service-client) instead.
 
