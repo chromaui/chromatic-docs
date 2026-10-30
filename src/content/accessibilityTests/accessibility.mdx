@@ -5,7 +5,6 @@ sidebar: { order: 1 }
 ---
 
 import { YouTubeCallout } from '../../components/YouTubeCallout';
-import { AICallout } from '../../components/AICallout';
 
 # Accessibility testing with Chromatic
 
@@ -77,12 +76,6 @@ If you accept this snapshot, these 10 new violations will be added to the baseli
 In subsequent builds, Chromatic takes a new snapshot of accessibility violations for each story and compares them against the baselines. If there are new or altered violations, Chromatic flags them for your review.
 
 ![Chromatic webapp displaying a test page with accessibility results](../../images/a11y/accessibility-tests-test.png)
-
-<AICallout>
-
-Ask your agent to fix the accessibility violations Chromatic found. The `fix-accessibility-violations` skill fixes them in your component source and checks the fix on the next build. [Learn about skills](/docs/skills)
-
-</AICallout>
 
 ## Why run accessibility tests in both Storybook and Chromatic?
 
