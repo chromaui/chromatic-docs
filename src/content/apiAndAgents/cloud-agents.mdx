@@ -1,6 +1,6 @@
 ---
 title: Run Chromatic with cloud agents
-description: Hand tasks to a cloud coding agent and let it check Chromatic on every pull request it opens. Connect it, give it the skills, tell it to respond to Chromatic, and review only what needs human judgement.
+description: Give the cloud agents in your software factory a way to check the UI they build, on every pull request they open.
 sidebar: { order: 3, label: 'Cloud agents' }
 ---
 
@@ -8,58 +8,63 @@ import { BetaBadge } from '../../components/BetaBadge';
 
 # Run Chromatic with cloud agents<BetaBadge />
 
-You want to hand tasks to a coding agent and get back pull requests you can trust. A cloud agent picks up a ticket, writes the code, opens a pull request, and reads the Chromatic build to find out if the UI is right. It fixes what it can and leaves visual changes for a person to review.
+Hand tasks to a coding agent and get back pull requests you can trust. In a software factory, a cloud agent picks up a ticket, writes the code, opens a pull request, and reads the Chromatic build to find out if the UI is right. It fixes what it can and leaves visual changes for a person to review.
 
 ![Cloud agent loop: an agent opens a pull request, Chromatic tests every build, the agent fixes what Chromatic finds, and a person reviews only the changes that need judgement](../../images/workflow-cloud-agents.png)
+
+## Why software factories need Chromatic
+
+A software factory only saves time if the work it ships doesn't need redoing. For UI, that depends on whether the agent can see what it built. Without a rendered result, the agent can't tell if its UI is right, and a person finds out instead.
+
+- **Agents that can't see the UI leave twice the rewrites.** In our State of AI in Frontend Delivery 2026 survey of 496 frontend engineers, 40% said their agents can't check rendered UI or screenshots. Among them, 19% said a typical change needs a rewrite or restart, against 10% when agents can see the UI.
+- **People, not pipelines, catch agent mistakes.** 56% said agents usually or always fix their own failing checks, yet automated checks catch problems first for only 23%. For 60%, a person catches them first.
+- **Review is the pressure point.** 73% review more changes than before.
+
+{/* TODO: link the published State of AI in Frontend Delivery 2026 survey */}
+
+Chromatic gives the agent the missing view. It renders and tests every story on each build, then tells the agent what broke in terms it can act on: broken stories, new accessibility violations, and visual changes. The agent fixes the first two on its own and checks each visual change against its code. People only review the changes that need their call.
 
 ## Set up
 
 ### 1. Connect your agent to Chromatic
 
-There are two ways to connect:
+Connect through the [Chromatic MCP](#connect-using-the-chromatic-mcp) or a [service client](#connect-using-a-service-client).
 
-| Connection                                        | Use when                                                                     | Acts as                              |
-| ------------------------------------------------- | ---------------------------------------------------------------------------- | ------------------------------------ |
-| [Chromatic MCP](#connect-using-the-chromatic-mcp) | Your agent platform supports remote MCP servers and someone can log in once  | The person who logged in             |
-| [Service client](#connect-using-a-service-client) | No one can log in through a browser, or you want access owned by the account | Your Chromatic account, not a person |
+{/* EDITOR: For a factory, the service client is the better fit (shared, survives people leaving). But step 2 says the skills only work over MCP, and step 4 depends on the skills. Before we recommend one path for factories, confirm: does the service client path still get the step 4 behavior? If not, say so here so factory teams know the trade-off. */}
 
 #### Connect using the Chromatic MCP
 
-Add `https://mcp.chromatic.com/mcp` to your cloud agent's MCP settings, then log in once in your browser when you set it up. After that, every session the agent runs can use the Chromatic tools without asking again.
+Add `https://mcp.chromatic.com/mcp` to your cloud agent's MCP settings ([Claude Desktop and claude.ai](/docs/mcp#claude-desktop), or [add the MCP server by hand](/docs/mcp#add-the-mcp-server-by-hand)). After that, every session the agent runs can use the Chromatic tools without asking again.
 
-In Claude Code, adding the server to your Claude account as a connector makes it available in cloud sessions. See [Claude Desktop and claude.ai](/docs/mcp#claude-desktop) for the steps. For other platforms, see [Add the MCP server by hand](/docs/mcp#add-the-mcp-server-by-hand).
-
-**The agent acts as the person who logged in.** It has that person's access. It sees the projects that person can see, and anything it changes in Chromatic counts as that person's action. If that person leaves your Chromatic account, the agent loses access with them.
-
-For a shared factory that should keep working regardless of who set it up, use a [service client](#connect-using-a-service-client) instead.
-
-For what the login grants and how to revoke it, see [Security and access](/docs/mcp#security-and-access).
+**The agent acts as the person who logged in.** It has that person's access. It sees the projects that person can see, and anything it changes in Chromatic counts as that person's action. If that person leaves your Chromatic account, the agent loses access with them. For a shared factory that should keep working regardless of who set it up, use a [service client](#connect-using-a-service-client) instead. See [Security and access](/docs/mcp#security-and-access).
 
 #### Connect using a service client
 
-A service client lets an agent call the [Chromatic API](/docs/api) with no one logged in. It belongs to your Chromatic account, so it keeps working when people come and go. The Chromatic MCP doesn't accept service client tokens, so a service client works with the API only.
+A service client lets an agent call the [Chromatic API](/docs/api) with no one logged in. It belongs to your Chromatic account, so it keeps working when people come and go.
 
-1. [Create a service client](/docs/oauth-clients#create-a-service-client) with only the scopes the agent needs. For checking builds, that's `project:read` and `build:read`.
+1. [Create a service client](/docs/oauth-clients#create-a-service-client) with only the scopes the agent needs. To check builds, that's `project:read` and `build:read`.
 2. Store the client ID and secret in your agent platform's secret manager. Never commit them.
 3. Have the agent exchange them for an access token with the [client credentials flow](/docs/api#client-credentials-m2m), then query [`project`](/docs/api#project) and [`build`](/docs/api#build).
 
 Tokens expire after 60 minutes and there's no refresh token, so the agent requests a new one when the current one expires.
 
+The Chromatic MCP doesn't accept service client tokens, so a service client works with the API only.
+
 ### 2. Give cloud agents the skills
 
-The skills call the Chromatic MCP tools, so this step applies when your agent connects through the MCP. An agent with a service client calls the API directly.
+The skills call the Chromatic MCP tools, so this step applies when your agent connects through the MCP.
 
-To give every cloud agent the skills, we recommend installing them in your repository with the skills CLI and committing them:
+To give every cloud agent the skills, we recommend installing them in your repository with the skills CLI:
 
 ```shell
 npx skills add chromaui/chromatic-plugins
 ```
 
-Leave out `--global` so the skills go in the project, not your home folder. Any agent that runs in the repository picks them up.
+Leave out `--global` so the skills go in the project, not your home folder. Commit them. Any agent that runs in the repository picks them up.
 
 ### 3. Tell your agent to respond to Chromatic
 
-Tell your agent to check the build after every push. Put this in its instructions, in `AGENTS.md`, or your platform's equivalent:
+Add these instructions to `AGENTS.md`, or your agent platform's equivalent:
 
 ```markdown
 After you push, check the latest Chromatic build for this branch.
@@ -68,9 +73,10 @@ After you push, check the latest Chromatic build for this branch.
 - Repeat until the build has no broken stories or new violations.
 - List the remaining visual changes in the pull request for a person to review. Don't accept them.
 - Mark the pull request ready only once the Chromatic build has finished. A passing CI job doesn't mean the UI passed.
+- To test a UI change, add or update a story. Don't write a separate page-level test for the same thing.
 ```
 
-Once these instructions are in place, the agent checks the build after every push on its own and keeps fixing until only judgement calls are left. You don't have to prompt it.
+{/* EDITOR: The last bullet is new. It comes from internal dogfooding, where an agent wrote a redundant page-level test because it didn't treat a story as a test. Drop it if the skills already cover this. */}
 
 See [Mandatory PR checks](/docs/mandatory-pr-checks#check-status-by-scenario) for what each build status means.
 
@@ -81,3 +87,10 @@ The agent works through Chromatic's findings on its own. It fixes broken stories
 You only step in when a change needs your call: is it an intended update or a regression? You review those few changes, not every snapshot.
 
 ![Claude Code reporting that 9 of 12 visual changes match the code change and 3 need a person to decide whether they're intended or regressions](../../images/cloud-agents-review-judgement.png)
+
+## Next steps
+
+- [Chromatic for agents](/docs/agents): the overview of agent access to Chromatic
+- [Chromatic MCP](/docs/mcp): tools, setup, and security
+- [Skills](/docs/skills): what each skill does
+- [OAuth clients](/docs/oauth-clients): create and manage service clients
