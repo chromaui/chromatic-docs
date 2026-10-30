@@ -77,3 +77,5 @@ See [Mandatory PR checks](/docs/mandatory-pr-checks#check-status-by-scenario) fo
 ### 4. You only need to review what needs human judgement
 
 The agent works through what Chromatic finds without waiting on you. It fixes broken stories and accessibility violations, and compares each visual change with the code on its branch, sorting the changes its code explains from the ones that look unintended. It only brings you in when a call needs a person, such as whether a visual change is intended or a regression. You review those changes, not every snapshot.
+
+![A Chromatic build where the agent marks 9 of 12 changed stories as expected changes and leaves 3 waiting for a person to review](../../images/cloud-agents-review-judgement.png)
