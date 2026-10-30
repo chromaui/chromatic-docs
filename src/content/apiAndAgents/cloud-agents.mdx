@@ -31,8 +31,6 @@ There are two ways to connect:
 
 Add `https://mcp.chromatic.com/mcp` to your cloud agent's MCP settings, then log in once in your browser when you set it up. After that, every session the agent runs can use the Chromatic tools without asking again.
 
-{/* TODO: confirm how long a cloud login lasts and what happens when it expires (re-login prompt? silent failure?). */}
-
 In Claude Code, adding the server to your Claude account as a connector makes it available in cloud sessions. See [Claude Desktop and claude.ai](/docs/mcp#claude-desktop) for the steps. For other platforms, see [Add the MCP server by hand](/docs/mcp#add-the-mcp-server-by-hand).
 
 #### The agent acts as the person who logged in
@@ -45,7 +43,7 @@ For what the login grants and how to revoke it, see [Security and access](/docs/
 
 ### Connect with a service client
 
-A service client lets an agent call the [Chromatic API](/docs/api) with no one logged in. It belongs to your Chromatic account, so it keeps working when people come and go.
+A service client lets an agent call the [Chromatic API](/docs/api) with no one logged in. It belongs to your Chromatic account, so it keeps working when people come and go. The Chromatic MCP doesn't accept service client tokens, so a service client works with the API only.
 
 1. [Create a service client](/docs/oauth-clients#create-a-service-client) with only the scopes the agent needs. For checking builds, that's `project:read` and `build:read`.
 2. Store the client ID and secret in your agent platform's secret manager. Never commit them.
@@ -53,23 +51,19 @@ A service client lets an agent call the [Chromatic API](/docs/api) with no one l
 
 Tokens expire after 60 minutes and there's no refresh token, so the agent requests a new one when the current one expires.
 
-{/* TODO: confirm whether the Chromatic MCP accepts a service client token. If it does, add that path here and drop step 3. */}
-
 ## 2. Give cloud agents the skills
 
 Cloud sessions don't load plugins, so a cloud agent gets the Chromatic tools but not the [skills](/docs/skills) or the hooks that check the build after a push.
 
 The skills call the Chromatic MCP tools, so this step applies when your agent connects through the MCP. An agent with a service client calls the API directly.
 
-To give every cloud agent the skills, install them in your repository and commit them:
+To give every cloud agent the skills, install them in your repository with the skills CLI, which is the way we recommend, and commit them:
 
 ```shell
 npx skills add chromaui/chromatic-plugins
 ```
 
 Leave out `--global` so the skills go in the project, not your home folder. Any agent that runs in the repository picks them up.
-
-{/* TODO: confirm with eng that committing project-level skills is a pattern we recommend, and which folder the skills CLI writes to. */}
 
 ## 3. Tell your agent to respond to Chromatic
 
