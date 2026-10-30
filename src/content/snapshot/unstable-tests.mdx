@@ -5,6 +5,8 @@ sidebar: { order: 11, label: 'Unstable tests' }
 slug: 'unstable-tests'
 ---
 
+import { AICallout } from '../../components/AICallout';
+
 # Unstable tests debugging
 
 Use this guide when a test is unstable or when a snapshot is consistently wrong, incomplete, or otherwise unexpected. These are different problems, but they often share causes such as animations, resources that load late, dynamic data, or layout behavior.
@@ -40,6 +42,12 @@ Your components and stories must render stably to prevent false positives. The f
 - **UI takes time to render**: UI can take extra time to settle into its final state. Add a [delay](/docs/delay) before taking a snapshot. This can make instability less obvious in snapshots, but it won't eliminate the underlying rendering issue.
 
 - **Intentional randomness**: Some stories are intentionally dynamic. You may want to [exclude the story from UI Tests](/docs/disable-snapshots#with-storybook). If those dynamic elements are still useful during local development, use [`isChromatic()`](/docs/ischromatic) to apply these stability techniques only in Chromatic.
+
+<AICallout>
+
+Ask your agent to fix flaky stories. The `triage-flaky-stories` skill finds quarantined and unstable stories, fixes what makes them flaky, and brings them back when you ask. [Learn about skills](/docs/skills)
+
+</AICallout>
 
 ## Start with the trace
 
@@ -382,8 +390,7 @@ Yes. Chromatic's [Modes](/docs/modes) simplify visual testing for stories with d
 </details>
 
 <details>
-
-  <summary>Why are stories with mocked data not being snapshotted correctly?</summary>
+<summary>Why are stories with mocked data not being snapshotted correctly?</summary>
 
 Chromatic snapshots sometimes show the initial or intermediate loading state of the UI, instead of the final state with the mocked data. This can lead to visual tests failing, even though the Storybook renders correctly locally. To debug this issue, follow these steps:
 

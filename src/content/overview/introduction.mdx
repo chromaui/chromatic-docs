@@ -46,8 +46,6 @@ Chromatic’s UI Tests lets you gain full confidence in your UIs on every commit
 
 ⚡ **Test only what's changed**: Chromatic’s [TurboSnap](https://www.chromatic.com/features/turbosnap) feature speeds up test runs and reduces usage costs by up to 80%. It works by analyzing your project’s Git history and bundler dependency graph to identify component files and dependencies with changes, then it snapshots only the tests related to those changes.
 
-🤖 **Higher codegen quality**: [Storybook MCP](/docs/storybook-mcp) improves AI agent output by providing it with better context about your components. Chromatic simplifies the process hosting your Storybook MCP server with proper authentication and access control.
-
 ## Powered by your existing tests
 
 Chromatic's UI Tests build on the Storybook, React Native, Vitest, Playwright, and Cypress tests you’ve already written. This dramatically reduces maintenance burden and setup.
@@ -92,6 +90,14 @@ Chromatic visual tests iOS and Android apps built with React Native. Your [Story
 Run your E2E tests as usual. While those tests run, Chromatic collects a complete archive of your UI (DOM, styles, and assets). It then renders that archived UI in cloud browsers, captures visual snapshots, and identifies visual regressions through pixel diffing.
 
 ![E2E workflow: Run e2e tests, snapshot pages and then detect visual bugs with Chromatic](../../images/workflow-e2e-test.png)
+
+## Works with your coding agent
+
+Chromatic gives your coding agent the same view of your UI that your team gets. Your agent reads every build, fixes what Chromatic catches, and tells you when a branch is ready to merge, from the editor or terminal you already use. Running agents in the cloud or a software factory? They can call the [Chromatic API](/docs/api) with a [service client](/docs/oauth-clients#create-a-service-client), with no one signed in.
+
+![Agent workflow: your coding agent pushes code, Chromatic tests every build, and your agent fixes what it caught](../../images/workflow-agents.png)
+
+[**Get started with Chromatic for agents »**](/docs/agents)
 
 ## Get started
 

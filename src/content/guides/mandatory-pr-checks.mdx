@@ -4,6 +4,8 @@ description: Learn how to block pull requests that contain unapproved visual cha
 sidebar: { order: 8 }
 ---
 
+import { AICallout } from '../../components/AICallout';
+
 # Mandatory PR checks
 
 When you link your Chromatic project to a GitHub, Bitbucket, GitLab, or [Azure DevOps](#azure-devops) repository, Chromatic provides status checks directly on your pull requests. Depending on what features you have enabled, you'll see checks for: UI Tests, UI Review & Publish.
@@ -11,6 +13,12 @@ When you link your Chromatic project to a GitHub, Bitbucket, GitLab, or [Azure D
 If Chromatic detects visual changes or if UI Review is required, the status checks will show as "pending." This indicates that a human needs to review the changes before proceeding.
 
 You can add an additional layer of protection by requiring these checks to be mandatory. In other words, you will not be able to merge the pull request until all changes have been approved. This guarantees that no visual changes are merged without approval.
+
+<AICallout>
+
+Ask your agent: "Is this branch ready to merge?" It checks the latest build against your current commit and lists what's left: broken tests, changes waiting for review, open comments, and new accessibility violations. [Chromatic for agents](/docs/agents#try-out-a-workflow)
+
+</AICallout>
 
 ## Enable mandatory PR checks
 

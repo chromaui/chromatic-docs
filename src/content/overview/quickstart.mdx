@@ -8,6 +8,7 @@ import TroubleshootingSetup from '../../shared-snippets/setup/troubleshooting.md
 import DemoChromaticUnlinked from '../../shared-snippets/demo-chromatic-unlinked.mdx';
 import InstallSnippets from '../../components/InstallSnippets.astro';
 import KeyboardShortcuts from '../../components/KeyboardShortcuts.astro';
+import { AICallout } from '../../components/AICallout';
 
 # Chromatic for Storybook
 
@@ -152,6 +153,12 @@ The build will be marked “unreviewed” and the changes will be listed in the 
 
 ❌ **Deny change**: This marks the change as “denied”, indicating a regression and immediately failing the build. You can deny multiple changes per build. Denying a change will force a re-capture on the next build, even if [TurboSnap](/docs/turbosnap) would otherwise skip it.
 
+<AICallout>
+
+Your coding agent can help with this review. The `review-visual-changes` skill sorts the changes your code explains from the ones worth a closer look, so you know where to start. [Learn about skills](/docs/skills)
+
+</AICallout>
+
 ![Clicking on a story takes you to the snapshot page where you can compare the new snapshot to the baseline](../../images/snapshot-unreviewed.png)
 
 ### 5. Discussions
@@ -183,6 +190,11 @@ After you merge your code, Chromatic will also apply accepted baselines to stori
 Chromatic adds a ‘UI Tests’ badge to the list of status checks for your pull/merge requests. The badge shows errors or changes that need to be reviewed. Require the check in [GitHub](https://help.github.com/en/github/administering-a-repository/enabling-required-status-checks), [GitLab](https://docs.gitlab.com/ee/api/commits.html#post-the-build-status-to-a-commit), or [Bitbucket](https://confluence.atlassian.com/bitbucket/suggest-or-require-checks-before-a-merge-856691474.html) to prevent accidental UI bugs from being merged.
 
 [**Integrate Chromatic into your CI pipeline**](/docs/ci) to get notified about any visual changes introduced by a pull request. Chromatic will run tests when you push code and report changes via the “UI Tests” badge for your pull request.
+
+<AICallout>
+  Using a coding agent? Install the Chromatic plugin so your agent checks each build after you push
+  and fixes what it finds. [Set up the plugin](/docs/agents#quickstart-with-the-plugin)
+</AICallout>
 
 ---
 

@@ -5,6 +5,7 @@ sidebar: { order: 2 }
 ---
 
 import { TabItem, Tabs } from '../../components/Tabs';
+import { AICallout } from '../../components/AICallout';
 
 # Chromatic CLI
 
@@ -13,6 +14,12 @@ The [Chromatic CLI](https://www.npmjs.com/package/chromatic) manages the visual 
 <video autoPlay muted playsInline loop width="560px" style="margin-bottom: 1em">
   <source src="/docs/assets/chromatic-cli-optimized.mp4" type="video/mp4" />
 </video>
+
+<AICallout>
+
+Ask your agent to run a build. The `run-build` skill runs a Chromatic build for just the stories you're changing and asks before each build. It needs `CHROMATIC_PROJECT_TOKEN` in your shell. [Learn about skills](/docs/skills)
+
+</AICallout>
 
 ## Usage with Storybook
 
