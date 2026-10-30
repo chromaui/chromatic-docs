@@ -153,6 +153,12 @@ The build will be marked “unreviewed” and the changes will be listed in the 
 
 ❌ **Deny change**: This marks the change as “denied”, indicating a regression and immediately failing the build. You can deny multiple changes per build. Denying a change will force a re-capture on the next build, even if [TurboSnap](/docs/turbosnap) would otherwise skip it.
 
+<AICallout>
+
+Ask your agent which visual changes look unintended. The `review-visual-changes` skill compares each changed snapshot with the code on your branch and points out the changes worth a closer look. [Learn about skills](/docs/skills)
+
+</AICallout>
+
 ![Clicking on a story takes you to the snapshot page where you can compare the new snapshot to the baseline](../../images/snapshot-unreviewed.png)
 
 ### 5. Discussions
