@@ -140,3 +140,5 @@ When a captured snapshot hits this limit, Chromatic automatically recaptures it 
 Subsequent builds compare DPR 1.0 against DPR 1.0 for that snapshot and report diffs as expected.
 
 This fallback applies only to that individual snapshot. Other browsers, viewports, and tests in the same build continue to capture at DPR 2.0.
+
+**Setting the DPR 1.0 programmatically is not possible. All snapshots are captured at DPR 2.0 unless the conditions above are met.**
