@@ -657,7 +657,9 @@ A `TestUnquarantineFailure` returns the same errors as `testQuarantine`, except 
 
 ### Limits
 
-Chromatic caps the size of a single response. A response that exceeds the cap is rejected with an error, not cut short, so you never receive a partial result that appears complete. Keep responses small:
+A query can use at most one field alias.
+
+Every query counts against your [rate limits](#rate-limits), so keep queries cheap:
 
 - Page through lists with `first` and `after`. Read `pageInfo.hasNextPage` and pass `pageInfo.endCursor` as `after` to get the next page.
 - Select only the fields you need. Image URLs are long, so ask for them on a few tests at a time.
@@ -728,15 +730,20 @@ Complexity is an estimate of how many entities a query will fetch. Chromatic com
 
 Costs multiply down the tree. If you leave out the page argument on a paginated field, Chromatic charges it as if it returned 100 items, the default page size. Asking for a smaller page is a simple way to lower the cost of a query.
 
-For example, this query fetches up to 20 quarantined stories for each of 50 projects:
+For example, this query fetches up to 50 tests from a project's last build, with the baseline of each test:
 
 ```graphql
 query ($id: ID!) {
-  account(id: $id) {
-    projects(limit: 50) {
-      quarantinedStories(first: 20) {
-        nodes {
-          id
+  project(id: $id) {
+    lastBuild {
+      ... on CompletedBuild {
+        tests(first: 50) {
+          nodes {
+            id
+            baseline {
+              id
+            }
+          }
         }
       }
     }
@@ -744,7 +751,7 @@ query ($id: ID!) {
 }
 ```
 
-It costs 1 for the account and 2 for the `projects` list. Then each of the 50 projects costs 1, plus 2 for its `quarantinedStories` connection, plus 20 stories at 1 each. That's 1 + 2 + 50 × (1 + 2 + 20) = 1,153 points. Without page arguments, the same query is charged for 100 projects with 100 stories each, which exceeds the 5,000-point budget on its own.
+It costs 1 for the project, 1 for the build, and 2 for the `tests` connection. Then each of the 50 tests costs 1, plus 1 for its baseline. That's 1 + 1 + 2 + 50 × (1 + 1) = 104 points. Without `first`, the same query is charged for 100 tests: 1 + 1 + 2 + 100 × (1 + 1) = 204 points.
 
 A few fields do more work and declare a higher fixed cost. The `x-ratelimit-used` header is the authoritative cost of any query.
 
@@ -803,16 +810,16 @@ A rejected request still uses up your other limits. In the example above, the qu
 
 Scopes follow a `subject:action` pattern. Requesting a scope grants access to the endpoints listed below, nothing more.
 
-| Scope            | What it unlocks                                                                                                                   |
-| ---------------- | --------------------------------------------------------------------------------------------------------------------------------- |
-| `user:read`      | `viewer` query: name, username, avatar, project count                                                                             |
-| `account:read`   | `account` query: account name, avatar, projects list                                                                              |
-| `account:write`  | `account.subscription` field: billing and plan details                                                                            |
-| `project:read`   | `project` query: project metadata, branch names, last build                                                                       |
-| `project:write`  | `projectCreate` mutation: create a project on the account                                                                         |
-| `build:read`     | `build` query: build status, result, commit, test counts                                                                          |
-| `build:write`    | `reviewTest`, `testQuarantine`, and `testUnquarantine` mutations: accept or deny test snapshots, quarantine or unquarantine tests |
-| `storybook:read` | `storybook` query: published Storybook URL and build link                                                                         |
+| Scope            | What it unlocks                                                                                                  |
+| ---------------- | ---------------------------------------------------------------------------------------------------------------- |
+| `user:read`      | `viewer` query: name, username, avatar, project count                                                            |
+| `account:read`   | `account` query: account name, avatar, projects list                                                             |
+| `account:write`  | `account.subscription` field: billing and plan details                                                           |
+| `project:read`   | `project` query: project metadata, branch names, last build                                                      |
+| `project:write`  | Write operations on projects. Today that's creating a project (`projectCreate`).                                 |
+| `build:read`     | `build` query and anything associated with a build, including test results and accessibility results             |
+| `build:write`    | Write operations on builds. Today that's reviewing tests (`reviewTest`) and quarantining or unquarantining them. |
+| `storybook:read` | `storybook` query: published Storybook URL and build link                                                        |
 
 ---
 

@@ -179,15 +179,15 @@ The new client also appears in the **OAuth clients** table on the **Settings** p
 
 Scopes follow a `subject:action` pattern. A client can only request the scopes it was created with. The [scopes reference](/docs/api#scopes-reference) on the API page lists the same scopes.
 
-| Scope            | What it unlocks                                                                                                                   |
-| ---------------- | --------------------------------------------------------------------------------------------------------------------------------- |
-| `account:read`   | `account` query: account name, avatar, projects list                                                                              |
-| `account:write`  | `account.subscription` field: billing and plan details                                                                            |
-| `project:read`   | `project` query: project metadata, branch names, last build                                                                       |
-| `project:write`  | `projectCreate` mutation: create a project on the account                                                                         |
-| `build:read`     | `build` query: build status, result, commit, test counts                                                                          |
-| `build:write`    | `reviewTest`, `testQuarantine`, and `testUnquarantine` mutations: accept or deny test snapshots, quarantine or unquarantine tests |
-| `storybook:read` | `storybook` query: published Storybook URL and build link                                                                         |
+| Scope            | What it unlocks                                                                                                  |
+| ---------------- | ---------------------------------------------------------------------------------------------------------------- |
+| `account:read`   | `account` query: account name, avatar, projects list                                                             |
+| `account:write`  | `account.subscription` field: billing and plan details                                                           |
+| `project:read`   | `project` query: project metadata, branch names, last build                                                      |
+| `project:write`  | Write operations on projects. Today that's creating a project (`projectCreate`).                                 |
+| `build:read`     | `build` query and anything associated with a build, including test results and accessibility results             |
+| `build:write`    | Write operations on builds. Today that's reviewing tests (`reviewTest`) and quarantining or unquarantining them. |
+| `storybook:read` | `storybook` query: published Storybook URL and build link                                                        |
 
 Service clients act on behalf of an account, not a user, so the `user:read` scope isn't available to them and the `viewer` query can't be used. Use the [`account`](/docs/api#account) query as your entry point instead.
 
