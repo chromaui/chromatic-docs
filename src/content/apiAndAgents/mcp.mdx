@@ -17,7 +17,7 @@ You log in once per agent, in your browser, using your Chromatic account. The se
   MCP](/docs/storybook-mcp).
 </div>
 
-![Your coding agent logs in once on chromatic.com, then sends each tool call with its token to the Chromatic MCP at mcp.chromatic.com/mcp, which runs GraphQL against the Chromatic API as you](../../images/mcp-how-it-works.png)
+![Your coding agent logs in once on chromatic.com, then sends each tool call with its token to the Chromatic MCP server at mcp.chromatic.com/mcp, which runs GraphQL against the Chromatic API as you](../../images/mcp-how-it-works.png)
 
 ## Tools
 
@@ -31,7 +31,7 @@ The server tells your agent which tools it has, so ask "What Chromatic tools do 
 
 ## Install with the plugin
 
-The Chromatic plugin for Claude Code and Codex is the recommended way to set up the Chromatic MCP. It handles the configuration and installs the [skills](/docs/skills) too. In Claude Code it also adds hooks that check your build after you push. To install it, see [Install the Chromatic plugin for your agent](/docs/agents#1-install-the-chromatic-plugin-for-your-agent).
+The Chromatic plugin for Claude Code and Codex is the recommended way to set up the server. It handles the configuration and installs the [skills](/docs/skills) too. In Claude Code it also adds hooks that check your build after you push. To install it, see [Install the Chromatic plugin for your agent](/docs/agents#1-install-the-chromatic-plugin-for-your-agent).
 
 ## Add the MCP server by hand
 
@@ -165,7 +165,7 @@ The Chromatic plugin does not connect the Storybook MCP, because its address inc
 
 <summary>Which clients are supported?</summary>
 
-Chromatic builds and tests the Chromatic MCP with these clients:
+Chromatic builds and tests the server with these clients:
 
 - **Claude Code (terminal and desktop app):** the plugin, skills, and hooks.
 - **Codex CLI and the ChatGPT app:** the plugin and skills, no hooks.
@@ -179,7 +179,7 @@ Any other client that speaks Streamable HTTP and logs in with a client metadata 
 
 <summary>Can I run it without a person watching?</summary>
 
-Yes. Pre-approve every Chromatic tool except `chromatic_mutate`, so the agent can read builds but can't change anything. See [Tools](#tools) for which tools only read.
+Yes. Pre-approve every Chromatic tool except `chromatic_mutate`, so the agent can read builds but can't change anything. See [Tools](#tools) for which tools only read. For agents that run unattended, see [Run Chromatic with cloud agents](/docs/cloud-agents).
 
 </details>
 
@@ -206,15 +206,13 @@ The server was likely added without the plugin, as a connector or with `mcp add`
 
 <summary>Why are the tools missing when the skills are installed?</summary>
 
-Skills do not install the MCP server, make sure that you've added it separately, either with the plugin or by following the [Add the MCP server by hand](#add-the-mcp-server-by-hand) instructions.
+Skills don't install the MCP server. Add it separately, either with the plugin or by following [Add the MCP server by hand](#add-the-mcp-server-by-hand).
 
 </details>
 
 <details id="refused-for-scope">
 
-<summary>
-  Why does my agent get "refused for scope", or fail to execute any actions, or see my account?
-</summary>
+<summary>Why does my agent get "refused for scope"?</summary>
 
 Your login does not carry the permissions the tool needs. Log in again with `/mcp` or `codex mcp login chromatic`. In Claude Code, choose **Clear authentication** in `/mcp` first; in Codex, run `codex mcp logout chromatic` first. Until then, the skills give you a link to do it in Chromatic.
 
@@ -268,4 +266,4 @@ Your agent keeps a copy of the plugin. Run the [update steps](/docs/agents#updat
 
 </details>
 
-For help with the Chromatic MCP, the plugin, a build, or your account, [contact Chromatic support](/docs/support). Include your agent, what you asked, and what it said.
+For help with the Chromatic MCP server, the plugin, a build, or your account, [contact Chromatic support](/docs/support). Include your agent, what you asked, and what it said.

@@ -15,14 +15,14 @@ It's made up of:
 
 - **[Chromatic MCP server](/docs/mcp)** lets your agent interact with Chromatic as you.
 - **[Skills](/docs/skills)** teach your agent workflows such as fixing accessibility violations or reviewing visual changes.
-- **[Plugins](#1-install-the-chromatic-plugin-for-your-agent)** for Claude Code and Codex bundle the MCP server and skills into a single package.
+- **[Plugins](#1-install-the-chromatic-plugin-for-your-agent)** for Claude Code and Codex bundle the server and skills into a single package.
 - **[Chromatic API](/docs/api)** enables you to build custom agent workflows and pull data into internal dashboards.
 
 ![Your coding agent, such as Claude Code or Codex, uses the Chromatic plugin's skills and MCP server, which call the Chromatic API to read builds, tests, and accessibility results](../../images/agents-mcp-skills-plugins-api.png)
 
 ## Get started
 
-The plugin is the recommended way to start since it bundles the MCP server and skills into a single package. In Claude Code it also adds hooks that check your build after you push.
+The plugin is the recommended way to start since it bundles the server and skills into a single package. In Claude Code it also adds hooks that check your build after you push.
 
 ### 1. Install the Chromatic plugin for your agent
 
@@ -83,16 +83,16 @@ The plugin is the recommended way to start since it bundles the MCP server and s
 
 ### 2. Verify the connection
 
-Ask your agent: “What time is it on the Chromatic server?” If it answers with a time, you are connected and logged in.
+Ask your agent: "What time is it on the Chromatic server?" If it answers with a time, you are connected and logged in.
 
-![Claude Code answering “What time is it on the Chromatic server?” with the server time after calling Chromatic](../../images/agents-verify-connection.png)
+![Claude Code answering "What time is it on the Chromatic server?" with the server time after calling Chromatic](../../images/agents-verify-connection.png)
 
 ### 3. Connect your project
 
 Your agent needs to know which Chromatic project your repository belongs to. It reads the `projectId` from [`chromatic.config.json`](/docs/cli#chromatic-config-file) at the root of your repository. Ask your agent to connect your Chromatic project, and the `connect-project` skill finds the project from your Git remote and writes the file for you.
 
-<div class="callout">
-  ℹ️ The project ID is not your project token, and your agent never asks for the token. See
+<div class="aside">
+  The project ID is not your project token, and your agent never asks for the token. See
   [**Chromatic MCP » Project ID**](/docs/mcp#project-id) for more info.
 </div>
 

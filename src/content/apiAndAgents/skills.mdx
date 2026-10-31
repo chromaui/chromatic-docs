@@ -8,7 +8,7 @@ import { BetaBadge } from '../../components/BetaBadge';
 
 # Skills<BetaBadge />
 
-Skills are workflows that chain [Chromatic MCP](/docs/mcp) tools with your code, such as fixing accessibility violations or reviewing visual changes.
+Skills are workflows that chain [Chromatic MCP server](/docs/mcp) tools with your code, such as fixing accessibility violations or reviewing visual changes.
 
 Your agent selects a skill automatically when your request fits. Skills are also available as slash commands. The agent never triggers `run-build` on its own; it runs only when you invoke it.
 
@@ -35,7 +35,7 @@ Or copy the folders under `plugins/chromatic/skills/` in [chromaui/chromatic-plu
 
 <div class="aside">
   **A skill is instructions, not a connection.** Without a connected server, a skill has nothing to
-  call. If you’ve only installed the skills (without the plugin), make sure to [add the MCP server
+  call. If you've only installed the skills (without the plugin), make sure to [add the MCP server
   by hand](/docs/mcp#add-the-mcp-server-by-hand).
 </div>
 

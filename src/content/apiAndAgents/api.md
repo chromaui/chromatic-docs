@@ -1,6 +1,6 @@
 ---
 title: 'API'
-description: "Getting started with Chromatic's GraphQL API for agents: endpoint, OAuth 2.0 authentication for user-facing and machine-to-machine clients, queries, mutations, limits, rate limits, and scopes."
+description: "Getting started with Chromatic's GraphQL API for agents: endpoint, OAuth 2.0 authentication for user clients and service clients, queries, mutations, limits, rate limits, and scopes."
 sidebar:
   label: 'API'
   order: 5
@@ -115,7 +115,7 @@ curl -s -X POST https://www.chromatic.com/token \
 
 ### Client credentials (M2M)
 
-Machine-to-machine (M2M) clients authenticate directly with a client ID and client secret. There's no browser redirect and no user approval step, which makes this the right flow for CI pipelines, bots, and other headless automation. To create one, follow [Create a service client](/docs/oauth-clients#create-a-service-client).
+Service clients authenticate directly with a client ID and client secret. There's no browser redirect and no user approval step, which makes this the right flow for CI pipelines, bots, and other headless automation. To create one, follow [Create a service client](/docs/oauth-clients#create-a-service-client).
 
 **Token endpoint**: `https://www.chromatic.com/token`
 
@@ -139,13 +139,13 @@ The response contains an `access_token` that you pass in the `Authorization` hea
 
 <div class="aside">
 
-💡 Access tokens expire after **60 minutes**. M2M clients don't receive a refresh token; they request a new access token with the same grant when the current one expires.
+💡 Access tokens expire after **60 minutes**. Service clients don't receive a refresh token; they request a new access token with the same grant when the current one expires.
 
 </div>
 
 Treat the client secret like a password. Store it in your CI provider's secret manager and never commit it. Chromatic shows it once, when you create the client, and can't retrieve it afterward.
 
-M2M tokens act on behalf of an account, not a user, so the `viewer` query and the `user:read` scope aren't available. Use the [`account`](#account) query as your entry point instead.
+Service client tokens act on behalf of an account, not a user, so the `viewer` query and the `user:read` scope aren't available. Use the [`account`](#account) query as your entry point instead.
 
 ---
 
@@ -153,7 +153,7 @@ M2M tokens act on behalf of an account, not a user, so the `viewer` query and th
 
 All requests are `POST` to `https://www.chromatic.com/api` with a JSON body containing your `query` and optionally `variables`.
 
-This example queries `viewer`, which requires the `user:read` scope and is available only via the [authorization code with PKCE](#authorization-code-with-pkce) flow. With an M2M token, query [`account`](#account) instead.
+This example queries `viewer`, which requires the `user:read` scope and is available only via the [authorization code with PKCE](#authorization-code-with-pkce) flow. With a service client token, query [`account`](#account) instead.
 
 ```bash
 curl -s -X POST https://www.chromatic.com/api \
