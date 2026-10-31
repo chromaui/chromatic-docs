@@ -36,8 +36,6 @@ There are two ways to connect:
 | [Chromatic MCP](#connect-using-the-chromatic-mcp) | Your agent platform supports remote MCP servers and someone can log in once               | The person who logged in                          |
 | [Service client](#connect-using-a-service-client) | No one can log in through a browser, or you want access owned by the organization account | Your Chromatic organization account, not a person |
 
-For a software factory, a service client is the more durable choice because it doesn't depend on one person's login. The [skills](#2-give-cloud-agents-the-skills) need the Chromatic MCP, though, so an agent that connects with a service client reads builds through the API but doesn't get the skills' checks in [step 4](#4-you-only-need-to-review-what-needs-human-judgement).
-
 #### Connect using the Chromatic MCP
 
 Add `https://mcp.chromatic.com/mcp` to your cloud agent's MCP settings ([Claude Desktop and claude.ai](/docs/mcp#claude-desktop), or [add the MCP server by hand](/docs/mcp#add-the-mcp-server-by-hand)). After that, every session the agent runs can use the Chromatic tools without asking again.
