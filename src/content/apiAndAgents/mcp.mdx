@@ -8,7 +8,7 @@ import { BetaBadge } from '../../components/BetaBadge';
 
 # Chromatic MCP<BetaBadge />
 
-The Chromatic MCP server (https://mcp.chromatic.com/mcp) connects your coding agent to Chromatic. Your agent can read your builds, test results, accessibility violations, and project-level information.
+The Chromatic MCP server (https://mcp.chromatic.com/mcp) connects your coding agent to Chromatic. Your agent can read your builds and test results, and project-level information such as quarantined tests and accessibility violations.
 
 You log in once per agent, in your browser, using your Chromatic account. The server uses the Chromatic API on your behalf, and the agent inherits your account's access and permissions.
 
@@ -116,9 +116,9 @@ Every tool needs your Chromatic project ID. It lives in [`chromatic.config.json`
 }
 ```
 
-**With the plugin,** ask your agent to connect your Chromatic project (the `connect-project` skill). Since plugin v0.4.0, it finds the project from your Git remote, so most repositories no longer need a link. If it finds none, it asks you to paste a link to the project, then writes the file and tells you to commit it.
+**With the plugin,** ask your agent to connect your Chromatic project, and the `connect-project` skill finds the project from your Git remote and writes the file. See [Connect your project](/docs/agents#3-connect-your-project).
 
-**Without the plugin,** copy the `appId` from any Chromatic project URL into that file. Prefix the hex ID with `Project:`, for example `"projectId": "Project:64262bbd2f7d4ac4d7c5a7f3"`.
+**Without the plugin,** copy the `appId` from any Chromatic project URL into that file. Prefix the hex ID with `Project:`, as in the example above.
 
 **In Claude Desktop or claude.ai,** paste the project link into the chat.
 
@@ -147,9 +147,7 @@ On Claude Team and Enterprise plans, owners can also control the Chromatic conne
 
 ### Automation without a browser login
 
-For agents that run without browser-based authentication, use a [service client](/docs/oauth-clients) instead. A service client belongs to your account, has only the scopes you grant it, and can be revoked by deleting it.
-
-For cloud-based agents or software factories, see [Run Chromatic with cloud agents](/docs/cloud-agents).
+If no one can log in through a browser, use a [service client](/docs/oauth-clients) to call the [Chromatic API](/docs/api) directly. For cloud agents and software factories, see [Run Chromatic with cloud agents](/docs/cloud-agents).
 
 ## Chromatic MCP vs. Storybook MCP
 
@@ -175,7 +173,7 @@ Chromatic builds and tests the server with these clients:
 - **Codex CLI and the ChatGPT app:** the plugin and skills, no hooks.
 - **Claude Desktop and claude.ai:** the tools only, with no plugin, skills, or hooks.
 
-Any other client that speaks Streamable HTTP and logs in with a client metadata document (CIMD) can connect to `https://mcp.chromatic.com/mcp`. Leave any client ID and secret empty. Cursor can't log in yet; it's adding CIMD support.
+Any other agent that logs in with CIMD can connect; see [Other agents](#other-agents). Cursor can't log in yet; it's adding CIMD support.
 
 </details>
 
