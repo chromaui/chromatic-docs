@@ -19,6 +19,16 @@ You log in once per agent, in your browser, using your Chromatic account. The se
 
 ![Your coding agent logs in once on chromatic.com, then sends each tool call with its token to the Chromatic MCP at mcp.chromatic.com/mcp, which runs GraphQL against the Chromatic API as you](../../images/mcp-how-it-works.png)
 
+## Tools
+
+The server gives your agent tools that read your Chromatic data, such as getting the latest build on a branch (`chromatic_get_latest_build`), showing a story's accessibility violations, and querying the Chromatic API. [Skills](/docs/skills) chain these tools with your code.
+
+![Most Chromatic MCP tools only read your data. chromatic_mutate says what it will change and waits for you to allow it](../../images/mcp-tools.png)
+
+While most tools are read-only, `chromatic_mutate` can take actions: accept or deny a test, quarantine tests, or create a project. It runs only when you ask, your agent says what it will change first, and your client asks you to approve each call.
+
+The server tells your agent which tools it has, so ask "What Chromatic tools do you have?" for the current list. For the limits, see [What can't the MCP server do?](#what-it-wont-do).
+
 ## Install with the plugin
 
 The Chromatic plugin for Claude Code and Codex is the recommended way to set up the Chromatic MCP. It handles the configuration and installs the [skills](/docs/skills) too. In Claude Code it also adds hooks that check your build after you push. To install it, see [Install the Chromatic plugin for your agent](/docs/agents#1-install-the-chromatic-plugin-for-your-agent).
@@ -117,16 +127,6 @@ Every tool needs your Chromatic project ID. It lives in [`chromatic.config.json`
   refuses to read one, except the token of a project the agent just created, which comes back once
   so you can set up CI. See [What can't the MCP server do?](#what-it-wont-do).
 </div>
-
-## Tools
-
-The server gives your agent tools that read your Chromatic data, such as getting the latest build on a branch (`chromatic_get_latest_build`), showing a story's accessibility violations, and querying the Chromatic API. [Skills](/docs/skills) chain these tools with your code.
-
-![Most Chromatic MCP tools only read your data. chromatic_mutate says what it will change and waits for you to allow it](../../images/mcp-tools.png)
-
-While most tools are read-only, `chromatic_mutate` can take actions: accept or deny a test, quarantine tests, or create a project. It runs only when you ask, your agent says what it will change first, and your client asks you to approve each call.
-
-The server tells your agent which tools it has, so ask "What Chromatic tools do you have?" for the current list. For the limits, see [What can't the MCP server do?](#what-it-wont-do).
 
 ## Security and access
 
