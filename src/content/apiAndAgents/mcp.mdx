@@ -130,20 +130,7 @@ Every tool needs your Chromatic project ID. It lives in [`chromatic.config.json`
 
 ## Security and access
 
-When you log in, your agent gets a token that acts as you. The token expires after 60 minutes and your agent refreshes it on its own. The login requests these [scopes](/docs/api#scopes-reference):
-
-| Scope            | Lets your agent                                              |
-| ---------------- | ------------------------------------------------------------ |
-| `user:read`      | Read your profile                                            |
-| `account:read`   | Read your accounts and their projects                        |
-| `account:write`  | Read billing and plan details                                |
-| `project:read`   | Read project details, branches, and the latest build         |
-| `project:write`  | Create a project                                             |
-| `build:read`     | Read builds, tests, and accessibility results                |
-| `build:write`    | Accept or deny changes, and quarantine or unquarantine tests |
-| `storybook:read` | Read published Storybook URLs                                |
-
-Your role in Chromatic still applies. Your agent sees only the projects you can see and can't do anything you couldn't do yourself.
+When you log in, your agent gets a token that acts as you. The token expires after 60 minutes and your agent refreshes it on its own. The login requests all of the API's [scopes](/docs/api#scopes-reference), and your role in Chromatic still limits what it can do. Your agent sees only the projects you can see and can't do anything you couldn't do yourself.
 
 ### Revoke access
 
