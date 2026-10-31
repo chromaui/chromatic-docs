@@ -11,7 +11,7 @@ import { TabItem, Tabs } from '../../components/Tabs';
 
 Chromatic for agents lets your coding agent read every Chromatic build and act on what it finds. It fixes broken stories and accessibility violations in your code, points out the visual changes that need a person to review, and tells you whether your branch is ready to merge.
 
-It's made up of:
+It has four parts:
 
 - **[Chromatic MCP server](/docs/mcp)** lets your agent interact with Chromatic as you.
 - **[Skills](/docs/skills)** teach your agent workflows such as fixing accessibility violations or reviewing visual changes.
@@ -22,7 +22,7 @@ It's made up of:
 
 ## Get started
 
-The plugin is the recommended way to start since it bundles the server and skills into a single package. In Claude Code it also adds hooks that check your build after you push.
+The plugin is the recommended way to start because it bundles the server and skills into a single package. In Claude Code it also adds hooks that check your build after you push.
 
 ### 1. Install the Chromatic plugin for your agent
 
@@ -56,7 +56,7 @@ The plugin is the recommended way to start since it bundles the server and skill
     In the ChatGPT app, quit and reopen it, then pick **Codex** in the sidebar. **Plugins** lists Chromatic under **Personal**. Sign in with a ChatGPT account, not an API key, or **Plugins** stays locked.
 
   </TabItem>
-  <TabItem label="Other tools (manual install)">
+  <TabItem label="Other agents">
     ```shell
     # Choose skills from a list
     npx skills add chromaui/chromatic-plugins
@@ -109,8 +109,8 @@ It lists the stories whose violations got worse, fixes them in your component so
 **"Which visual changes on this build look unintended?"**<br />
 It compares each changed snapshot with your code change, and sorts the changes into the ones your code explains and the ones worth a closer look.
 
-**"Is this branch ready to merge as far as Chromatic is concerned?"**<br />
-It checks the latest build against your current commit and lists what is left: broken tests, changes waiting for review, open comments, and new accessibility violations.
+**"Find our unstable tests and fix them."**<br />
+It finds quarantined and unstable stories, fixes what makes them render differently between runs, and checks the next build.
 
 ![Skills at work: a build's visual changes summarized by cause, unstable tests fixed and unquarantined, and accessibility violations fixed and confirmed by a new build](../../images/mcp-skills-results.png)
 
