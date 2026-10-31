@@ -23,7 +23,7 @@ A software factory only saves time if its work doesn't need redoing. For UI, tha
 
 _Source: State of AI in Frontend Delivery 2026, a survey of 496 frontend engineers._
 
-Chromatic lets the agent see the rendered UI and runs tests on it, then tells the agent what to act on: render failures, accessibility violations, and visual changes. The agent fixes the first two and checks each visual change against its code. Developers only review diffs that need human judgement.
+Chromatic lets the agent see the rendered UI and runs tests on it, then tells the agent what to act on: broken stories, accessibility violations, and visual changes. The agent fixes the first two and checks each visual change against its code. Developers only review visual changes that need human judgement.
 
 ## Set up
 
@@ -38,7 +38,7 @@ There are two ways to connect:
 
 #### Connect using the Chromatic MCP
 
-Add `https://mcp.chromatic.com/mcp` to your cloud agent's MCP settings ([Claude Desktop and claude.ai](/docs/mcp#claude-desktop), or [add the MCP server by hand](/docs/mcp#add-the-mcp-server-by-hand)), then log in once in your browser. After that, every session the agent runs can use the Chromatic tools without asking again.
+Add `https://mcp.chromatic.com/mcp` to your cloud agent's MCP settings ([Claude Desktop and claude.ai](/docs/mcp#claude-desktop), or [add the MCP server by hand](/docs/mcp#add-the-mcp-server-by-hand)) and authenticate. After that, every session the agent runs can use the Chromatic tools without asking again.
 
 **The agent acts as the person who logged in.** It has that person's access. It sees the projects that person can see, and anything it changes in Chromatic counts as that person's action. If that person leaves your Chromatic account, the agent loses access with them.
 
