@@ -38,7 +38,7 @@ There are two ways to connect:
 
 #### Connect using the Chromatic MCP
 
-Add `https://mcp.chromatic.com/mcp` to your cloud agent's MCP settings ([Claude Desktop and claude.ai](/docs/mcp#claude-desktop), or [add the MCP server by hand](/docs/mcp#add-the-mcp-server-by-hand)). After that, every session the agent runs can use the Chromatic tools without asking again.
+Add `https://mcp.chromatic.com/mcp` to your cloud agent's MCP settings ([Claude Desktop and claude.ai](/docs/mcp#claude-desktop), or [add the MCP server by hand](/docs/mcp#add-the-mcp-server-by-hand)), then log in once in your browser. After that, every session the agent runs can use the Chromatic tools without asking again.
 
 **The agent acts as the person who logged in.** It has that person's access. It sees the projects that person can see, and anything it changes in Chromatic counts as that person's action. If that person leaves your Chromatic account, the agent loses access with them.
 
@@ -66,7 +66,7 @@ Leave out `--global` so the skills go in the project, not your home folder. Comm
 
 ### 3. Tell your agent to respond to Chromatic
 
-Add these instructions to `AGENTS.md`, or your agent platform's equivalent:
+Add these instructions to `AGENTS.md` or your agent platform's equivalent:
 
 ```markdown
 After you push, check the latest Chromatic build for this branch.
