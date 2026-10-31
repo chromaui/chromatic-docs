@@ -63,16 +63,22 @@ The hooks only add a note for the agent. They start no build, call no Chromatic 
 
 Codex gets no hooks from the plugin. When Codex (or any other agent) connects, the server sends it a short guide that tells it to check the build after a push, so you can still ask "I pushed. What does Chromatic say about this branch?"
 
-## Examples
+## All skills
 
-A few of the skills the plugin ships:
+The plugin ships these skills:
 
 - **`get-latest-build`** reports the latest Chromatic build for your project, on the current branch unless you name another.
+- **`check-merge-readiness`** says whether your branch is ready to merge from Chromatic's side, by checking whether the latest build is current and finished, then looking for broken or denied tests, changes waiting for review, open comments and new accessibility violations. It reports what's left and changes nothing.
 - **`review-visual-changes`** compares each changed snapshot with the code change on your branch, and reports which changes look intended and which look like regressions.
-- **`fix-accessibility-violations`** finds the accessibility violations a build reports, fixes them in your component source, and checks the fix on the next build.
+- **`address-review-feedback`** reads the open reviewer comment threads on a build, makes the changes the reviewers asked for, and drafts a reply for each thread. It can't post replies or resolve threads, so you do that in Chromatic.
 - **`fix-broken-stories`** finds the stories a build could not capture, fixes the cause, and checks the fix on the next build.
+- **`fix-accessibility-violations`** finds the accessibility violations a build reports, fixes them in your component source, and checks the fix on the next build.
 - **`triage-flaky-stories`** finds quarantined and unstable stories, fixes what makes them flaky, and quarantines or brings one back when you ask. See [unstable tests](/docs/unstable-tests) and [quarantine tests](/docs/quarantine-tests).
+- **`find-existing-component`** checks your repository and the Storybook Chromatic published for your project for a component that already does what you need, and reports the closest matches with links to their stories.
 - **`run-build`** runs a Chromatic build for just the stories you are changing. It needs `CHROMATIC_PROJECT_TOKEN` in your shell and asks before each build.
+- **`reduce-snapshot-usage`** shows where a build's snapshots go, by component, story, mode and browser, and proposes story parameter changes that cut snapshot usage, with the coverage each one gives up. It shows you each edit and makes none until you agree.
 - **`connect-project`** finds your Chromatic project ID from your Git remote, or asks you for a project link, and saves it to `chromatic.config.json`.
+- **`check-project-setup`** checks that your repository is connected to the right Chromatic project by comparing the project's framework, linked repository, enabled features and recent builds with your config, CI and Git remote. It reports what doesn't line up and changes nothing.
+- **`query-chromatic`** answers questions about your Chromatic data, such as a build by its number or which tests are pending, by running a read-only GraphQL query. It never reads your project token.
 
-For the full list of skills and what each one does, see the [chromaui/chromatic-plugins README](https://github.com/chromaui/chromatic-plugins#-what-you-get). For examples of what to ask, see [Try out a workflow](/docs/agents#4-try-out-a-workflow).
+For details on each skill, see the [chromaui/chromatic-plugins README](https://github.com/chromaui/chromatic-plugins#-what-you-get). For examples of what to ask, see [Try out a workflow](/docs/agents#4-try-out-a-workflow).

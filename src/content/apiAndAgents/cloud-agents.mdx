@@ -31,10 +31,10 @@ Chromatic lets the agent see the rendered UI and runs tests on it, then tells th
 
 There are two ways to connect:
 
-| Connection                                        | Use when                                                                     | Acts as                              |
-| ------------------------------------------------- | ---------------------------------------------------------------------------- | ------------------------------------ |
-| [Chromatic MCP](#connect-using-the-chromatic-mcp) | Your agent platform supports remote MCP servers and someone can log in once  | The person who logged in             |
-| [Service client](#connect-using-a-service-client) | No one can log in through a browser, or you want access owned by the account | Your Chromatic account, not a person |
+| Connection                                        | Use when                                                                                  | Acts as                                           |
+| ------------------------------------------------- | ----------------------------------------------------------------------------------------- | ------------------------------------------------- |
+| [Chromatic MCP](#connect-using-the-chromatic-mcp) | Your agent platform supports remote MCP servers and someone can log in once               | The person who logged in                          |
+| [Service client](#connect-using-a-service-client) | No one can log in through a browser, or you want access owned by the organization account | Your Chromatic organization account, not a person |
 
 {/* EDITOR: For a factory, the service client is the better fit (shared, survives people leaving). But step 2 says the skills only work over MCP, and step 4 depends on the skills. Before we recommend one path for factories, confirm: does the service client path still get the step 4 behavior? If not, say so here so factory teams know the trade-off. */}
 
@@ -44,19 +44,15 @@ Add `https://mcp.chromatic.com/mcp` to your cloud agent's MCP settings ([Claude 
 
 **The agent acts as the person who logged in.** It has that person's access. It sees the projects that person can see, and anything it changes in Chromatic counts as that person's action. If that person leaves your Chromatic account, the agent loses access with them.
 
-For a shared factory that should keep working regardless of who set it up, use a [service client](#connect-using-a-service-client) instead. See [Security and access](/docs/mcp#security-and-access).
-
 #### Connect using a service client
 
-A service client lets an agent call the [Chromatic API](/docs/api) with no one logged in. It belongs to your Chromatic account, so it keeps working when people come and go.
+A service client lets an agent call the [Chromatic API](/docs/api) with no one logged in. It belongs to your Chromatic organization account, so it keeps working when people come and go.
 
 1. [Create a service client](/docs/oauth-clients#create-a-service-client) with only the scopes the agent needs. To check builds, that's `project:read` and `build:read`.
 2. Store the client ID and secret in your agent platform's secret manager. Never commit them.
 3. Have the agent exchange them for an access token with the [client credentials flow](/docs/api#client-credentials-m2m), then query [`project`](/docs/api#project) and [`build`](/docs/api#build).
 
 Tokens expire after 60 minutes and there's no refresh token, so the agent requests a new one when the current one expires.
-
-The Chromatic MCP doesn't accept service client tokens, so a service client works with the API only.
 
 ### 2. Give cloud agents the skills
 
@@ -84,8 +80,6 @@ After you push, check the latest Chromatic build for this branch.
 - To test a UI change, add or update a story. Don't write a separate page-level test for the same thing.
 ```
 
-{/* EDITOR: The last bullet is new. It comes from internal dogfooding, where an agent wrote a redundant page-level test because it didn't treat a story as a test. Drop it if the skills already cover this. */}
-
 See [Mandatory PR checks](/docs/mandatory-pr-checks#check-status-by-scenario) for what each build status means.
 
 ### 4. You only need to review what needs human judgement
@@ -98,6 +92,6 @@ You only step in when a change needs your call: is it an intended update or a re
 
 ## Next steps
 
-- [Chromatic MCP](/docs/mcp): tools, setup, and security
-- [Skills](/docs/skills): what each skill does
-- [OAuth clients](/docs/oauth-clients): create and manage service clients
+- [**Chromatic MCP:**](/docs/mcp) tools, setup, and security
+- [**Skills:**](/docs/skills) what each skill does
+- [**OAuth clients:**](/docs/oauth-clients) create and manage service clients
