@@ -39,6 +39,8 @@ Or copy the folders under `plugins/chromatic/skills/` in [chromaui/chromatic-plu
   by hand](/docs/mcp#add-the-mcp-server-by-hand).
 </div>
 
+In Claude Code, `/mcp` shows the server, its tools, and your login, and `/plugin` manages the plugin. Tools are never slash commands; ask for them in plain words.
+
 ## Run a skill
 
 To run a skill by name:
@@ -46,10 +48,6 @@ To run a skill by name:
 - **In Claude Code,** type `/chromatic:` and the skill name, such as `/chromatic:get-latest-build`.
 - **In Codex,** type `$` and the name, such as `$get-latest-build`.
 - **In Claude Code, when you installed the skills with the skills CLI or copied them into your skills folder,** drop the prefix: `/get-latest-build`.
-
-In Claude Code, `/mcp` shows the server, its tools, and your login, and `/plugin` manages the plugin. Tools are never slash commands; ask for them in plain words.
-
-Your agent asks before it accepts, denies, or quarantines anything. It names the tests and the build and waits for your answer.
 
 ## What the plugin runs on its own
 
