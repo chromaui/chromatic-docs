@@ -7,7 +7,7 @@ sidebar:
 
 # OAuth clients
 
-An OAuth client is how an app, or automated workflow authenticates with the [Chromatic API](/docs/api). Each client has a client ID, a set of scopes that limit what it can do, and a type that decides which OAuth 2.0 flow it uses.
+An OAuth client is how an app or automated workflow authenticates with the [Chromatic API](/docs/api). Each client has a client ID, a set of scopes that limit what it can do, and a type that decides which OAuth 2.0 flow it uses.
 
 | Type               | Use when                                                                                       | Flow                                                                   | Credentials                 |
 | ------------------ | ---------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------- | --------------------------- |
