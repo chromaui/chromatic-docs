@@ -45,7 +45,7 @@ Once you have it, our GraphQL API is explorable and queryable via [Apollo Studio
 
 Add the `Authorization` header with the value `Bearer <access_token>` to authenticate your requests.
 
-### Authentication
+## Authentication
 
 Chromatic supports two OAuth 2.0 flows to issue access tokens. All API requests must include a valid access token in the `Authorization` header.
 
@@ -56,7 +56,7 @@ Chromatic supports two OAuth 2.0 flows to issue access tokens. All API requests 
 
 ![An agent or IDE tool uses authorization code with PKCE and a CI pipeline or bot uses client credentials; both get a scoped access token that expires after 60 minutes and send it as a bearer token to the GraphQL API](../../images/api-auth-flows.png)
 
-#### Authorization code with PKCE
+### Authorization code with PKCE
 
 Use your client ID with the Chromatic OAuth client to run the authorization code flow. This opens a browser window for you to approve access, then exchanges the resulting code for a token pair.
 
@@ -98,7 +98,7 @@ Authorization: Bearer <your_access_token>
 
 ---
 
-#### Refreshing your token
+### Refreshing your token
 
 This applies only to the authorization code flow; the client credentials grant doesn't issue refresh tokens. Access tokens are short-lived. Use your `refresh_token` to obtain a new token pair without re-authorizing. Refresh tokens **rotate on every use**. Always save the new `refresh_token` from the response.
 
@@ -113,7 +113,7 @@ curl -s -X POST https://www.chromatic.com/token \
 
 ---
 
-#### Client credentials (M2M)
+### Client credentials (M2M)
 
 Machine-to-machine (M2M) clients authenticate directly with a client ID and client secret. There's no browser redirect and no user approval step, which makes this the right flow for CI pipelines, bots, and other headless automation. To create one, follow [Create a service client](/docs/oauth-clients#create-a-service-client).
 
@@ -149,7 +149,7 @@ M2M tokens act on behalf of an account, not a user, so the `viewer` query and th
 
 ---
 
-### Making requests
+## Making requests
 
 All requests are `POST` to `https://www.chromatic.com/api` with a JSON body containing your `query` and optionally `variables`.
 
@@ -178,7 +178,7 @@ A successful response looks like this:
 }
 ```
 
-#### Errors
+### Errors
 
 A request that fails parsing or validation returns HTTP `400` with a `GRAPHQL_VALIDATION_FAILED` error. An error during execution returns HTTP `200`. Check the `errors` array in every response, whatever the status code:
 
@@ -200,13 +200,13 @@ Common error causes:
 - **Expired token:** access tokens last 60 minutes; refresh and retry
 - **Insufficient scope:** the token doesn't include the scope required for that field
 - **Not found:** the requested ID doesn't exist or isn't accessible to the authenticated user
-- **Rate limited:** HTTP `429` with code `RATE_LIMITED`; wait for the time in `Retry-After`, then retry (see [Rate limits](#rate-limits))
+- **Rate limited:** HTTP `429` with code `RATE_LIMITED`; wait for the time in `Retry-After`, then retry (see [Rate limits](#limits-and-rate-limits))
 
 ---
 
-### Queries
+## Queries
 
-#### viewer
+### viewer
 
 Returns the authenticated user's profile. Requires the `user:read` scope, which is available via the [authorization code with PKCE](#authorization-code-with-pkce) flow only.
 
@@ -239,7 +239,7 @@ curl -s -X POST https://www.chromatic.com/api \
 
 ---
 
-#### account
+### account
 
 Returns an account by ID, either a personal account or an organization account. Requires the `account:read` scope.
 
@@ -280,7 +280,7 @@ curl -s -X POST https://www.chromatic.com/api \
 
 ---
 
-#### project
+### project
 
 Returns a project by ID. Requires the `project:read` scope.
 
@@ -321,7 +321,7 @@ curl -s -X POST https://www.chromatic.com/api \
 
 ---
 
-#### build
+### build
 
 Returns a build by ID. Requires the `build:read` scope.
 
@@ -371,9 +371,9 @@ curl -s -X POST https://www.chromatic.com/api \
 }
 ```
 
-##### Test-level data
+#### Test-level data
 
-Each test in a build has one visual comparison per tested browser and one accessibility comparison, because [accessibility tests](/docs/accessibility) run only in Chrome. A test captured in Chrome and Firefox has two `visualComparisons` entries and one `accessibilityComparisons` entry. Select `visualComparisons` for the visual result and diff image, and `accessibilityComparisons` for the accessibility rules whose violations changed. `tests` is a paginated connection, so pass `first` and read `pageInfo` to fetch the next page (see [Limits](#limits)).
+Each test in a build has one visual comparison per tested browser and one accessibility comparison, because [accessibility tests](/docs/accessibility) run only in Chrome. A test captured in Chrome and Firefox has two `visualComparisons` entries and one `accessibilityComparisons` entry. Select `visualComparisons` for the visual result and diff image, and `accessibilityComparisons` for the accessibility rules whose violations changed. `tests` is a paginated connection, so pass `first` and read `pageInfo` to fetch the next page (see [Aliases and pagination](#aliases-and-pagination)).
 
 ```graphql
 query ($id: ID!) {
@@ -468,7 +468,7 @@ query ($id: ID!) {
 
 ---
 
-#### storybook
+### storybook
 
 Returns a published Storybook by URL. Supports Chromatic-hosted URLs and custom domains. Requires the `storybook:read` scope.
 
@@ -501,9 +501,9 @@ curl -s -X POST https://www.chromatic.com/api \
 
 ---
 
-### Mutations
+## Mutations
 
-#### reviewTest
+### reviewTest
 
 Accepts or denies a test snapshot, optionally applying the decision to all tests in the same story, component, or build. Requires the `build:write` scope.
 
@@ -562,7 +562,7 @@ If the review fails, errors come back in `userErrors` rather than the top-level 
 
 ---
 
-#### testQuarantine
+### testQuarantine
 
 Quarantines the story and mode of a test. Quarantining also ignores the test, so it no longer blocks the build. The story stays quarantined, and its tests stay ignored in later builds, until you remove it with [`testUnquarantine`](#testunquarantine). Requires the `build:write` scope, and quarantine must be enabled for the account. Learn more about [quarantining tests](/docs/quarantine-tests).
 
@@ -614,7 +614,7 @@ If quarantining fails, the response is a `TestQuarantineFailure` with a non-empt
 
 ---
 
-#### testUnquarantine
+### testUnquarantine
 
 Removes the story and mode of a test from quarantine. If the test was ignored because of the quarantine, its status resets to `PENDING`. A test that was also ignored for another reason, such as being flagged as unstable, stays `IGNORED`. Requires the `build:write` scope.
 
@@ -655,11 +655,15 @@ A `TestUnquarantineFailure` returns the same errors as `testQuarantine`, except 
 
 ---
 
-### Limits
+## Limits and rate limits
+
+Chromatic may change these limits as it monitors usage, so read the [rate limit headers](#rate-limit-headers) on each response instead of hard-coding the numbers below.
+
+### Aliases and pagination
 
 A query can use at most one field alias.
 
-Every query counts against your [rate limits](#rate-limits), so keep queries cheap:
+Every query counts against your [rate limits](#primary-and-secondary-limits), so keep queries cheap:
 
 - Page through lists with `first` and `after`. Read `pageInfo.hasNextPage` and pass `pageInfo.endCursor` as `after` to get the next page.
 - Select only the fields you need. Image URLs are long, so ask for them on a few tests at a time.
@@ -685,13 +689,7 @@ query ($id: ID!, $after: ID) {
 }
 ```
 
----
-
-### Rate limits
-
-Chromatic may change these limits as it monitors usage, so read the [rate limit headers](#rate-limit-headers) on each response instead of hard-coding the numbers below.
-
-#### Primary and secondary limits
+### Primary and secondary limits
 
 Every request to `/api` is checked against a primary limit on query complexity and one or more secondary limits that guard against other kinds of heavy use. Each limit is tracked per authenticated user. If a request exceeds any of them, Chromatic rejects it.
 
@@ -704,7 +702,7 @@ Chromatic may change or add secondary limits over time. Each one has its own res
 
 Pure introspection queries (only `__schema`, `__type`, and `__typename`) cost 0 complexity points and are never blocked by the primary limit. They still count as a request toward the request count limit.
 
-#### Rate limit headers
+### Rate limit headers
 
 Every response from `/api` includes `x-ratelimit-*` headers that describe one limit. Normally that's the primary limit. If you exceed a secondary limit, the headers describe that limit instead. Use `x-ratelimit-resource` to tell which one you're looking at.
 
@@ -716,7 +714,7 @@ Every response from `/api` includes `x-ratelimit-*` headers that describe one li
 | `x-ratelimit-used`      | How much of that allowance you've used, including this request                                                                       |
 | `x-ratelimit-reset`     | When the window resets, as Unix epoch seconds (UTC)                                                                                  |
 
-#### Query complexity
+### Query complexity
 
 Complexity is an estimate of how many entities a query will fetch. Chromatic computes it from the shape of the query and its arguments before the query runs. Every query that isn't pure introspection costs at least 1 point.
 
@@ -755,7 +753,7 @@ It costs 1 for the project, 1 for the build, and 2 for the `tests` connection. T
 
 A few fields do more work and declare a higher fixed cost. The `x-ratelimit-used` header is the authoritative cost of any query.
 
-#### Exceeding a limit
+### Exceeding a limit
 
 When a request exceeds any limit, Chromatic rejects it with HTTP `429 Too Many Requests` before any resolver runs, so a rejected request has no side effects. The response includes:
 
@@ -796,7 +794,7 @@ x-ratelimit-reset: 1761562823
 
 A rejected request still uses up your other limits. In the example above, the query's complexity points count against the primary limit even though the request count limit rejected it.
 
-#### Best practices
+### Best practices
 
 - Read the headers on every response instead of hard-coding the limits. Your allowance can differ from the defaults, and the resource the headers describe can change between responses.
 - On a `429`, wait the number of seconds in `Retry-After` before you retry. If you retry sooner, the request is rejected again and still counts toward the request count limit.
@@ -806,7 +804,7 @@ A rejected request still uses up your other limits. In the example above, the qu
 
 ---
 
-### Scopes reference
+## Scopes reference
 
 Scopes follow a `subject:action` pattern. Requesting a scope grants access to the endpoints listed below, nothing more.
 
