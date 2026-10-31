@@ -36,7 +36,7 @@ There are two ways to connect:
 | [Chromatic MCP](#connect-using-the-chromatic-mcp) | Your agent platform supports remote MCP servers and someone can log in once               | The person who logged in                          |
 | [Service client](#connect-using-a-service-client) | No one can log in through a browser, or you want access owned by the organization account | Your Chromatic organization account, not a person |
 
-{/* EDITOR: For a factory, the service client is the better fit (shared, survives people leaving). But step 2 says the skills only work over MCP, and step 4 depends on the skills. Before we recommend one path for factories, confirm: does the service client path still get the step 4 behavior? If not, say so here so factory teams know the trade-off. */}
+For a software factory, a service client is the more durable choice because it doesn't depend on one person's login. The [skills](#2-give-cloud-agents-the-skills) need the Chromatic MCP, though, so an agent that connects with a service client reads builds through the API but doesn't get the skills' checks in [step 4](#4-you-only-need-to-review-what-needs-human-judgement).
 
 #### Connect using the Chromatic MCP
 
