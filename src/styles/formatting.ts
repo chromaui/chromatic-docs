@@ -107,6 +107,12 @@ export const formatting = css`
     display: none;
   }
 
+  /* A title with a Beta badge flows as text, so the badge follows the last
+     word instead of wrapping onto its own row. */
+  h1:has([data-beta-badge]) {
+    display: block;
+  }
+
   p {
     margin: 1.5em 0;
     position: relative;

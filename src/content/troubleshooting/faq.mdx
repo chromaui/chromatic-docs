@@ -69,6 +69,16 @@ If you have a question not covered in our documentation, contact us via our in-a
   ))}
 </ul>
 
+## Agents
+
+<ul class="faq-section-toc">
+  {props.groupedFAQs.agents.map((faq) => (
+    <li>
+      <a href={`/docs/${faq.id}`}>{faq.title}</a>
+    </li>
+  ))}
+</ul>
+
 ## TurboSnap
 
 <ul class="faq-section-toc">

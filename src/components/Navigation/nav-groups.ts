@@ -15,6 +15,7 @@ const {
   snapshot,
   turbosnap,
   collaborate,
+  apiAndAgents,
   access,
   ci,
   account,
@@ -80,6 +81,10 @@ const rawNavGroups = [
       },
       ...collaborate,
     ],
+  },
+  {
+    title: 'MCP, Agents & API',
+    items: apiAndAgents,
   },
   {
     title: 'Vitest',

@@ -1,0 +1,10 @@
+---
+sidebar: { hide: true }
+title: Can Chromatic run in a software factory?
+section: agents
+sectionOrder: 2
+---
+
+# Can Chromatic run in a software factory?
+
+Yes. Chromatic runs in your CI on every push, whether a person or an agent wrote the code. Cloud agents can read build results through the [Chromatic MCP](/docs/mcp), or through the [Chromatic API](/docs/api) with a [service client](/docs/oauth-clients#create-a-service-client) when no one is signed in. API requests count toward the [rate limits](/docs/api#limits-and-rate-limits). See [Run Chromatic with cloud agents](/docs/cloud-agents) to set it up.
