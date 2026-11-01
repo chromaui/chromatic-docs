@@ -58,7 +58,7 @@ Instead, isolate those utilities into a clearly scoped package and avoid re-expo
 
 TurboSnap traces a dynamic `import()` the same way it traces a static `import`, so lazy-loading a shared package from your preview file, with `import()` or `React.lazy`, doesn't take it out of the preview file's dependency graph. Changes to that package still trigger a full rebuild.
 
-To keep a shared package from triggering full rebuilds, remove it from the preview file's import chain. If only some stories need it, import it in those stories or in a component-level decorator instead. Watch for package entry points: if your preview file imports a package's `index.ts` for one export, every module that file re-exports is in the chain. See [dynamic imports are still dependencies](/docs/turbosnap/best-practices#dynamic-imports-are-still-dependencies) for an example.
+To keep a shared package from triggering full rebuilds, remove it from the preview file's import chain. If only some stories need it, import it in those stories or in a component-level decorator instead. Watch for package entry points: if your preview file imports a package's `index.ts` for one export, every module that file re-exports is in the chain. For an example, see [Dynamic imports are still dependencies](/docs/turbosnap/best-practices#dynamic-imports-are-still-dependencies).
 
 ## Avoid excessive wrapper indirection
 

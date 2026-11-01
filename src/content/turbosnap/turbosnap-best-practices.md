@@ -126,7 +126,7 @@ This means:
 - Converting a dynamic import to a static one doesn't change which stories TurboSnap retests.
 - Lazy-loading a module from your preview file, with `import()` or `React.lazy`, doesn't remove it from the preview file's dependency graph. Changes to that module still trigger a full rebuild.
 
-To stop a file from triggering full rebuilds, remove it from the preview file's import chain. See [preview rebuilds](/docs/turbosnap/preview-rebuilds) to find which imports are responsible.
+To stop a file from triggering full rebuilds, remove it from the preview file's import chain. To find which imports are responsible, see [Diagnose preview rebuilds](/docs/turbosnap/preview-rebuilds).
 
 For example, if only some stories need a layout decorator, take it out of your preview file:
 
@@ -156,7 +156,7 @@ For this to work:
 - Your preview file can't import the decorator, directly or through another file. That includes barrel files. If your preview file imports `./decorators/index.ts` for one decorator, every decorator that file re-exports stays in the chain, even ones your preview file doesn't use.
 - Keep the decorator file outside your Storybook config directory. TurboSnap treats a change to any file in `.storybook/` as a configuration change and runs a full rebuild, even when only stories import that file.
 
-When an import's path is built from a variable, such as ``import(`./themes/${name}.ts`)``, your bundler can't tell which file you mean, so it includes every file that matches the pattern. In your preview file, a change to any of those files triggers a full rebuild. In a story file, it retests that story file. Use a fixed path when you only need one file.
+When an import's path is built from a variable, such as ``import(`./themes/${name}.ts`)``, your bundler can't tell which file you mean, so it includes every file that matches the pattern. In your preview file, a change to any of those files triggers a full rebuild. In a story file, a change to any of them retests that story file. Use a fixed path when you only need one file.
 
 ## Mind your package control files
 
