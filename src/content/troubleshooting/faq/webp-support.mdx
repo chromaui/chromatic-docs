@@ -4,17 +4,17 @@ title: Why are WebP images flaky in Safari snapshots?
 section: 'capture'
 ---
 
-# Why are my WebP images flaky in Safari snapshots?
+# Why are WebP images flaky in Safari snapshots?
 
-WebP images that have see-through parts — like glows, soft edges, or cut-out shapes — can be flaky in Safari.
+WebP images with semi-transparent areas, such as glows, soft edges, or cut-out shapes, can be flaky in Safari.
 
-This is a WebKit bug, not specific to Safari. It can be reproduced with pure Playwright and WebKit.
+This is a WebKit bug, not specific to Safari. You can reproduce it with Playwright and WebKit alone.
 
-Linux WebKit's WebP decoder runs again from scratch each time more of the file arrives. Each pass blends its semi-transparent pixels over the previous pass's output instead of replacing it, so rows decoded before the download finished end up too opaque.
-Where the band of over-opacity ends depends on download timing, so the snapshot can differ slightly each run. The damage happens during download, and waiting longer afterwards doesn't undo it — which is why preloading and delays don't help.
+Linux WebKit's WebP decoder runs again from scratch each time more of the file arrives. Each pass blends its semi-transparent pixels over the previous pass's output instead of replacing it, so rows decoded before the download finished end up too opaque. Where the band of over-opacity ends depends on download timing, so the snapshot can differ slightly each run.
 
-### Workarounds
+The damage happens during download, and waiting longer afterwards doesn't undo it. That's why preloading and delays don't help.
 
-1. **Use opaque images where possible.** The bug only affects partly see-through pixels; fully opaque WebPs are more stable. Flatten transparent art onto its background, or serve PNG versions of transparent assets, which use a different decoder.
+## Workarounds
 
-2. **Hide images until they finish loading, in Chromatic only.** Keep each `<img>` at `visibility: hidden` until it fully loads, gated by an `isChromatic()` expression, so the browser never draws a half-downloaded image.
+1. **Use opaque images where possible.** The bug only affects semi-transparent pixels, so fully opaque WebP images are more stable. Flatten transparent art onto its background, or serve PNG versions of transparent assets, which use a different decoder.
+2. **Hide images until they finish loading, in Chromatic only.** Keep each `<img>` at `visibility: hidden` until it fully loads, gated by [`isChromatic()`](/docs/ischromatic), so the browser never draws a partially downloaded image.
