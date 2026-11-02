@@ -238,7 +238,9 @@ We recommend [preloading fonts](/docs/font-loading) to ensure they're available 
 
 <summary>What happens when an interaction test fails?</summary>
 
-When interaction tests fail, the story will be badged with “Failed test.” You will not be able to “pass” a build that has failed tests. Fix interaction tests in Storybook and run the build again.
+When interaction tests fail, the story will be badged with “Failed test.” You can't accept or deny a failed test. Fix interaction tests in Storybook and run the build again.
+
+If you need to unblock the build before you fix the test, [ignore](/docs/ignore-tests) the failed test on that build or [quarantine](/docs/quarantine-tests#quarantine-tests-with-capture-errors) it on every build.
 
 </details>
 

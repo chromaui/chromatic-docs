@@ -23,16 +23,18 @@ If you change your mind, you can un-ignore the test to return it to the unreview
 
 ![An ignored test showing the Ignored badge and the undo button.](../../images/ignore-test-ignored.png)
 
+You can also ignore a test with a [capture error](/docs/faq/build-fails-component-errors), such as an interaction test failure or a timeout. If every errored test on the build is ignored or [quarantined](/docs/quarantine-tests#quarantine-tests-with-capture-errors), the build can pass. You can't accept or deny a test with a capture error, and you can't ignore system errors or build timeouts.
+
 **Ignoring is scoped to a single build:** an ignored test is captured and compared as usual on future builds. Ignoring a test also doesn't affect your [baselines](/docs/branching-and-baselines) unless you take action to accept or deny it.
 
 ## What's the difference between ignored, auto-ignored, and disabled tests
 
-|                      | What it does                                                                                       | Scope & Persistence                                      |
-| -------------------- | -------------------------------------------------------------------------------------------------- | -------------------------------------------------------- |
-| **Manually ignored** | You ignore a specific test on a specific build so the build can pass without accepting the change. | That build only and does not carry over to other builds. |
-| **Auto-ignored**     | [Flake filter](/docs/flake-filter) ignores a test it detected as unstable.                         | Specific build. Re-evaluated on every build.             |
-| **Quarantined**      | You [quarantine](/docs/quarantine-tests) a test so its diffs are ignored on every build.           | All builds on all branches, until you un-quarantine it.  |
-| **Disabled**         | The test is not captured at all.                                                                   | For every build where the parameter is set.              |
+|                      | What it does                                                                                                | Scope & Persistence                                      |
+| -------------------- | ----------------------------------------------------------------------------------------------------------- | -------------------------------------------------------- |
+| **Manually ignored** | You ignore a specific test on a specific build so the build can pass without accepting the change.          | That build only and does not carry over to other builds. |
+| **Auto-ignored**     | [Flake filter](/docs/flake-filter) ignores a test it detected as unstable.                                  | Specific build. Re-evaluated on every build.             |
+| **Quarantined**      | You [quarantine](/docs/quarantine-tests) a test so its diffs and capture errors are ignored on every build. | All builds on all branches, until you un-quarantine it.  |
+| **Disabled**         | The test is not captured at all.                                                                            | For every build where the parameter is set.              |
 
 Ignored and auto-ignored tests do not update the baseline and do not block the build from passing. **Ignoring also does not change what Chromatic captures**. An ignored test is captured and compared on later builds like any other test, and [TurboSnap](/docs/turbosnap) skips unchanged stories whether they were ignored or not.
 
