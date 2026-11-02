@@ -158,6 +158,8 @@ For this to work:
 
 When an import's path is built from a variable, such as ``import(`./themes/${name}.ts`)``, your bundler can't tell which file you mean, so it includes every file that matches the pattern. In your preview file, a change to any of those files triggers a full rebuild. In a story file, a change to any of them retests that story file. Use a fixed path when you only need one file.
 
+`require()` works the same way in webpack projects. TurboSnap traces it like `import`, whether the path is fixed or built from a variable. If the path has no fixed part at all, such as `require(name)`, webpack can't include any files and the call fails when the story loads. Vite doesn't support `require()` in your own source files. It leaves the call in the built code, where it fails in the browser, so use `import` or `import()` instead.
+
 ## Mind your package control files
 
 TurboSnap relies on lockfiles to obtain actual version numbers, rather than semver ranges, to determine an exact set of changed dependencies for more accurate tracing. If your lockfile is missing or out of sync with `package.json`, TurboSnap can't compute the changes, resulting in a full rebuild.
