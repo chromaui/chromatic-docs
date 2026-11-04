@@ -5,6 +5,7 @@ sidebar: { order: 1 }
 ---
 
 import IntegrationSnippets from '../../components/IntegrationSnippets.astro';
+import { AICallout } from '../../components/AICallout';
 
 # Automate visual tests with CI
 
@@ -84,6 +85,12 @@ Here's how we recommend configuring Chromatic for popular CI services:
 ## Pull request checks
 
 When a build runs it will automatically add a PR status check to the current pull request indicating the state of the build. By default, you'll see UI Tests and Storybook Publish. If you enabled UI Review you'll also see a check for it.
+
+<AICallout>
+
+With the Chromatic plugin, your agent waits for the "UI Tests" check after it pushes and picks up the result on its own. [How the plugin works](/docs/skills#what-the-plugin-runs-on-its-own)
+
+</AICallout>
 
 GitHub, Bitbucket, or GitLab projects that are [linked to a repository](/docs/access) get this feature out of the box. Azure DevOps projects can [link a repository with a personal access token](/docs/azure-pipelines#pull-request-status-checks) (Enterprise plan only). If you use other version control services to host your code, you can write a custom CI script to add a check for Chromatic (via your CI provider).
 
