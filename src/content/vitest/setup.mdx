@@ -9,6 +9,7 @@ import DemoChromaticUnlinked from '../../shared-snippets/demo-chromatic-unlinked
 import TroubleshootingSetup from '../../shared-snippets/setup/troubleshooting.mdx';
 import RunE2E from '../../shared-snippets/setup/run-e2e.mdx';
 import InstallSnippets from '../../components/InstallSnippets.astro';
+import { AICallout } from '../../components/AICallout';
 
 # Chromatic for Vitest
 
@@ -310,6 +311,12 @@ When writing Vitest Browser Mode tests, consider component states that are impor
 
 You can run visual tests locally (after running Vitest tests) using the `chromatic --vitest -t=<TOKEN>` command with your project token.
 ```
+
+<AICallout>
+
+Connect your coding agent to Chromatic so it can tell you the status of each build after you push. [Chromatic for agents](/docs/agents)
+
+</AICallout>
 
 ### Advanced configuration options
 
