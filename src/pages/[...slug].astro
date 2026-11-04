@@ -19,6 +19,7 @@ export async function getStaticPaths() {
   const snapshot = await getCollection('snapshot');
   const turbosnap = await getCollection('turbosnap');
   const collaborate = await getCollection('collaborate');
+  const apiAndAgents = await getCollection('apiAndAgents');
   const access = await getCollection('access');
   const ci = await getCollection('ci');
   const account = await getCollection('account');
@@ -41,6 +42,7 @@ export async function getStaticPaths() {
     ...snapshot,
     ...turbosnap,
     ...collaborate,
+    ...apiAndAgents,
     ...access,
     ...ci,
     ...account,
@@ -70,6 +72,7 @@ interface Props {
     | CollectionEntry<'snapshot'>
     | CollectionEntry<'turbosnap'>
     | CollectionEntry<'collaborate'>
+    | CollectionEntry<'apiAndAgents'>
     | CollectionEntry<'access'>
     | CollectionEntry<'ci'>
     | CollectionEntry<'account'>
