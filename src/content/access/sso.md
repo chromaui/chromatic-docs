@@ -61,7 +61,7 @@ Your IdP must send `email` and `firstName` or `lastName` attributes in the SAML 
 
 If you use Microsoft Entra ID, check the claim names for `user.givenname` and `user.surname` in your application's **Attributes & Claims** settings. Entra ID uses names ending in `/givenname` and `/surname` by default. Rename them to end in `/firstname` and `/lastname`, respectively, so Chromatic receives the expected name attributes.
 
-If your account uses SCIM, Chromatic creates each profile with the SCIM `userName` as its email address. Set `userName` to each person's email address, and make sure it matches the email your SAML connection sends. If the two values differ, the person's first SSO sign-in creates a second profile instead of opening the one SCIM provisioned and gives them default permissions instead of the ones granted.
+If your account uses SCIM, Chromatic creates each profile with the SCIM `userName` as its email address. Set `userName` to each person's email address, and make sure it matches the email address your SAML connection sends. If the two values differ, the person's first SSO sign-in creates a second profile instead of opening the one SCIM provisioned and gives them default permissions instead of the ones granted.
 
 If you use Microsoft Entra ID, use the same user attribute for the SAML email claim and the SCIM `userName`, such as `user.mail` or `user.userprincipalname`. If `user.mail` is empty for some people, use `user.userprincipalname` for both.
 
@@ -72,7 +72,7 @@ If you use Okta, map both values to the Okta user's email in the Chromatic appli
 
 #### What happens when a person's email address changes?
 
-Chromatic treats a new email address as a new person and creates a new profile. The previous profile's history and permissions don't carry over. Chromatic can't change the email address it matches a profile by.
+Chromatic treats a new email address as a new person and creates a new profile. The previous profile's history and permissions don't carry over. Chromatic can't change the email address of an existing profile.
 
 If your account uses SCIM, the same applies to a changed `userName`. SCIM creates a new profile instead of updating the existing one.
 
@@ -80,7 +80,7 @@ If your account uses SCIM, the same applies to a changed `userName`. SCIM create
 
 Changing domains changes every person's email address, so each person's next sign-in creates a new profile without the original history and permissions. Changing the `NameID` doesn't prevent this.
 
-Contact Chromatic Support before the change about the new email domain and subdomain. After the change, Chromatic Support can remove the old profiles and move any Git provider connections to the new ones.
+Before the change, contact Chromatic Support about the new email domain and subdomain. After the change, Chromatic Support can remove the old profiles and move any Git provider connections to the new ones.
 
 <details>
 <summary>How can I invite external collaborators to an account with SSO?</summary>
@@ -174,7 +174,7 @@ Chromatic switches your account to the new IdP in place. Your account, subdomain
 
 3. **Switch the account**: Once the setup is complete, Chromatic connects your subdomain to the new IdP.
 
-4. **Test sign-in**: Start a new sign-in at `https://{YOUR-SUBDOMAIN}.chromatic.com/start` and confirm that it works. Chromatic then removes the old IdP connection.
+4. **Test sign-in**: Sign in at `https://{YOUR-SUBDOMAIN}.chromatic.com/start` and confirm that it works. Chromatic then removes the old IdP connection.
 
 Send the same email addresses from the new IdP to keep each person's profile history and permissions. A changed email address creates a duplicate profile.
 
@@ -201,7 +201,7 @@ No. Sessions belong to the Chromatic profile, not the `NameID`, and Chromatic do
 
 Nothing changes in Chromatic. SCIM matches profiles by `userName` and SSO matches them by email address, so a `NameID` change doesn't affect either.
 
-A changed `userName` or email address does. SCIM and SSO create a new profile instead of updating the existing one. See [what happens when a person's email address changes](#what-happens-when-a-persons-email-address-changes).
+A changed `userName` or email address does affect matching. SCIM and SSO create a new profile instead of updating the existing one. See [what happens when a person's email address changes](#what-happens-when-a-persons-email-address-changes).
 
 </details>
 
