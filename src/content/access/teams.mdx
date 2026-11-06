@@ -23,7 +23,7 @@ Teams require an [Enterprise plan](/pricing), [Single Sign-On (SSO), and directo
 
 Configure [SSO and directory sync](/docs/access/sso) for your account.
 
-For Teams setup, set the SCIM `userName` to each person's email address. Use the same value for their SAML `NameID` so SSO and SCIM update the same profile.
+For Teams setup, set the SCIM `userName` to each person's email address. Make sure it matches the email your SAML connection sends, so SSO and SCIM update the same profile.
 
 ### 2. Create account role groups
 
@@ -133,6 +133,6 @@ The default project role may not be configured for the account. Ask Chromatic Su
 <details>
 <summary>Why did SCIM create a separate profile?</summary>
 
-The SCIM `userName` may not match the email address and SAML `NameID` for the person's SSO profile. Correct the identity mapping in your IdP and sync the profile again. Ask Chromatic Support to clean up the separate profile.
+The SCIM `userName` may not match the email address your SAML connection sends for that person. Chromatic [matches profiles by email address](/docs/access/sso#how-chromatic-matches-saml-profiles), so the two values must be the same. Correct the identity mapping in your IdP and sync the profile again. Ask Chromatic Support to clean up the separate profile.
 
 </details>
