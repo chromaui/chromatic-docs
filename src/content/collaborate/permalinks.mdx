@@ -30,6 +30,7 @@ Build your own permalinks to get more flexibility. For example, link to the `mai
 | ----------- | --------------------------------------------- | --------------------------------------------------------- |
 | To a branch | `https://<branch>--<appid>.chromatic.com`     | `https://main--example-chromatic-app-id.chromatic.com`    |
 | To a commit | `https://<commithash>--<appid>.chromatic.com` | `https://a22675e--example-chromatic-app-id.chromatic.com` |
+| To a tag    | `https://<tag>--<appid>.chromatic.com`        | `https://v1.2.3--example-chromatic-app-id.chromatic.com`  |
 
 <div class="aside">
   Tip: Check the build screen on your project's dashboard to get the commit hash for a specific
@@ -60,6 +61,14 @@ Subdomains have character and length limitations. Only letters and dash characte
 | feature---dashboard/fix-bug                | `https://feature-dashboard-fix-bug--<appid>.chromatic.com`             |
 | thisisareallysuperduperextralongbranchname | `https://thisisareallysuperduperextralongbranc--<appid>.chromatic.com` |
 
+#### Tags
+
+A tag permalink points to the latest published Storybook built at a git tag. Chromatic records a tag only on builds made at the commit the tag points to. A build from an earlier or later commit on a branch isn't associated with the tag, even if it's the same Storybook.
+
+Tag names follow the same subdomain rules as branch names: unsupported characters are replaced with dashes, and names longer than 37 characters are truncated. A tag named `v1.2.3` is served as `v1-2-3`. Both forms resolve: `https://v1.2.3--<appid>.chromatic.com` and `https://v1-2-3--<appid>.chromatic.com` open the same Storybook.
+
+If a branch and a tag share a name, the permalink resolves to the branch.
+
 ### Custom domain for your Storybook
 
 A custom domain gives you a memorable URL to share with stakeholders and teammates. It points to your project’s latest published Storybook on a given branch. Most customers choose to setup a Storybook subdomain on their company or project domain name.
@@ -85,6 +94,13 @@ A custom domain gives you a memorable URL to share with stakeholders and teammat
 <summary>Why does my Storybook permalink show an older build?</summary>
 
 A branch permalink opens the latest published Storybook on that branch. Check the branch name on the build you expect and compare it with the branch in your permalink. Builds from forks use a [separate branch name](/docs/permalinks#branches-that-are-within-forked-repositories). If your CI sends a different branch name, [set the branch name explicitly](/docs/faq/override-branch-name).
+
+</details>
+
+<details>
+<summary>Why does my tag permalink show an older build or fail to resolve?</summary>
+
+A tag permalink opens the latest published Storybook built at that tag. Chromatic records a tag only on builds made at the commit the tag points to, so a build from any other commit won't have one. Check that the build you expect lists the tag. If a branch and a tag share a name, the permalink opens the latest build on the branch instead.
 
 </details>
 
