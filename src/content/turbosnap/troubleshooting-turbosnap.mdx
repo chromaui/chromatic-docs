@@ -152,7 +152,7 @@ This message should be shown only when using TurboSnap with older Storybook vers
 
 ### `changedStorybookFiles`
 
-TurboSnap bailed due to a change in Storybook config (`.storybook` dir files, such as `main.js|ts` and `preview.js|ts`).
+TurboSnap bailed due to a change to your Storybook's `main.js|ts`, `preview.js|ts`, `preview-head.html`, or `preview-body.html` file in your Storybook config directory (`.storybook` by default), or to a file that `preview.js|ts` imports.
 
 You may have made changes to one of the files in your Storybook configuration, or to a dependency imported by your configuration. It's important to keep in mind the second part, since it's common practice to import decorators into the `preview.js` config.
 
@@ -161,7 +161,8 @@ Additionally, if you're utilizing barrel/index files (whether directly importing
 <details>
 <summary>Can changes to non-config files inside the `.storybook` directory trigger `changedStorybookFiles` bailouts?</summary>
 
-TurboSnap considers any file inside the `.storybook` directory to be a Storybook config file, even if it's not one of the main config files (`main.js|ts`, `preview.js|ts`, `manager.js|ts`). This means that changes to non-config files (like utility scripts or custom modules) within the `.storybook` directory can trigger a `changedStorybookFiles` bailout.
+Only if your `preview.js|ts` imports them. TurboSnap treats four files directly in your Storybook config directory as config: `main.js|ts`, `preview.js|ts`, `preview-head.html`, and `preview-body.html`. It traces every other file in the directory, such as `manager.js|ts`, styles, mocks, and decorators, like the rest of your code.
+
 Consider this structure:
 
 ```title='Your project structure'
@@ -182,16 +183,9 @@ packages/design-system/
                └── global-decorators.tsx
 ```
 
-`desktop-styles.css` only affects Desktop stories. `mobile-styles.css` only affects Mobile stories. Neither is imported by preview.tsx. But they live under `.storybook/`, so TurboSnap treats them as config by default. A change to `desktop-styles.css` triggers a full rebuild with reason `changedStorybookFiles`, not a targeted rebuild of Desktop stories.
+`desktop-styles.css` only affects Desktop stories, and `preview.tsx` doesn't import it. A change to `desktop-styles.css` retests only the Desktop stories that import it. If `preview.tsx` imports `global-decorators.tsx`, a change to `global-decorators.tsx` triggers a full rebuild with reason `changedStorybookFiles`.
 
-The result is the same as the triggers above — a full rebuild — but the cause looks different. The file isn't config, and tracing it to preview.tsx won't work, because it isn't in preview's dependency graph. The bail reason still reads `changedStorybookFiles`.
-
-This structure obscures the real root cause of the bailout. To resolve it, you can either move the non-config files out of `.storybook/` or add them to `untraced` in your TurboSnap config if they don't impact rendering. This will prevent TurboSnap from treating them as config files and avoid unnecessary full rebuilds.
-
-**Only text files are exempt**
-
-Text files (`.txt`, `.md`, etc.) are not treated as config files by TurboSnap, even if they are located within the `.storybook/` directory.
-For example, a change to `.storybook/README.md` will not trigger a `changedStorybookFiles` bailout.
+Older versions of the Chromatic CLI treat every file in the Storybook config directory as config, except text files such as `.md` and `.txt`. On those versions, a change to `desktop-styles.css` also triggers a full rebuild. Upgrade the CLI, or move non-config files out of `.storybook/`.
 
 </details>
 
