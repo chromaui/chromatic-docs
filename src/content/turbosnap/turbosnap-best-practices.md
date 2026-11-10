@@ -68,9 +68,9 @@ Run `npx @chromatic-com/turbosnap-helper` from the root of your repo to have the
 
 ## Run with caution when using the `pull_request` event
 
-TurboSnap can encounter issues with the `pull_request` event trigger. This is because the workflow runs against an ephemeral merge commit, which can cause issues with tracking baselines and locating earlier builds.
+TurboSnap may not work reliably with the `pull_request` event trigger. This is because the workflow runs against an ephemeral merge commit, which can cause issues with tracking baselines and locating earlier builds.
 
-If you want to trigger Chromatic with TurboSnap on `pull_request` events, we've had success with a strategy outlined below.
+To use TurboSnap with `pull_request` events, follow the approach below.
 
 Create a separate workflow for Chromatic using the following strategy for the checkout step:
 
