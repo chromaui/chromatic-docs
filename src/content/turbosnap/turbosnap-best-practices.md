@@ -68,9 +68,9 @@ Run `npx @chromatic-com/turbosnap-helper` from the root of your repo to have the
 
 ## Run with caution when using the `pull_request` event
 
-TurboSnap is not compatible with the `pull_request` event trigger. This is because the workflow runs against an ephemeral merge commit, which can result in issues tracking baselines and locating earlier builds.
+TurboSnap may not work reliably with the `pull_request` event trigger. This is because the workflow runs against an ephemeral merge commit, which can cause issues with tracking baselines and locating earlier builds.
 
-We recommend running Chromatic on `push` events. However, if you wish to trigger Chromatic with TurboSnap on `pull_request` events, we've had success with an alternative strategy outlined below.
+To use TurboSnap with `pull_request` events, follow the approach below.
 
 Create a separate workflow for Chromatic using the following strategy for the checkout step:
 
@@ -85,7 +85,7 @@ Create a separate workflow for Chromatic using the following strategy for the ch
 
 In your workflow, how much of your git history is downloaded when you check out a repo is determined by `fetch-depth`. By default, it's set to `1`, which fetches only the latest commit. It's best to set this to `0` (or a very high number) to ensure Chromatic has access to your full git history. This is crucial for TurboSnap, as it relies on comparing the current commit to the base branch or previous commits. Without the full history, Chromatic may not be able to determine what's changed and could miscalculate what to test.
 
-Setting `ref` is one of the most critical parts to using the `pull_request` event, as the `ref` parameter defines what gets checked out into the workspace, which in turn impacts how Chromatic analyzes your build. By setting `ref` to `${{ github.event.pull_request.head.ref }}` ensures that GitHub checks out the correct branch and that Chromatic automatically detects accurate git information.
+Setting `ref` is one of the most critical parts of using the `pull_request` event, as the `ref` parameter defines what gets checked out into the workspace, which in turn impacts how Chromatic analyzes your build. By setting `ref` to `${{ github.event.pull_request.head.ref }}` ensures that GitHub checks out the correct branch and that Chromatic automatically detects accurate git information.
 
 There are edge cases where it may be beneficial to include the git environment variables (`CHROMATIC_BRANCH`, `CHROMATIC_SHA`, `CHROMATIC_SLUG`) in your Chromatic step, for example:
 
