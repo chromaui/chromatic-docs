@@ -55,30 +55,32 @@ Each account collaborator must sign in through SAML to regain access. If the acc
 
 ## How Chromatic matches SAML profiles
 
-Chromatic identifies SAML profiles by the SAML `NameID` (or `idp_id` attribute) alone. The match is case-insensitive. Use a persistent, immutable profile identifier from your IdP.
+Chromatic matches SAML profiles by the email address in the SAML assertion. The match is case-insensitive. Chromatic doesn't use the SAML `NameID` or the `idp_id` attribute to match profiles.
 
-Your IdP must also send `email` and `firstName` or `lastName` attributes in the SAML assertion. Chromatic requires them to create a profile, but doesn't use them to match existing profiles.
+Your IdP must send `email` and `firstName` or `lastName` attributes in the SAML assertion. Chromatic requires them to create a profile, and uses the email address to find that profile at every later sign-in.
 
 If you use Microsoft Entra ID, check the claim names for `user.givenname` and `user.surname` in your application's **Attributes & Claims** settings. Entra ID uses names ending in `/givenname` and `/surname` by default. Rename them to end in `/firstname` and `/lastname`, respectively, so Chromatic receives the expected name attributes.
 
-If your account uses SCIM, Chromatic creates each profile with the SCIM `userName` as both its `NameID` and its email address. Set `userName` to each person's email address and send the same value as the SAML `NameID`. If the two values differ, the person's first SSO sign-in creates a second profile instead of opening the one SCIM provisioned and gives them default permissions instead of the ones granted.
+If your account uses SCIM, Chromatic creates each profile with the SCIM `userName` as its email address. Set `userName` to each person's email address, and make sure it matches the email address your SAML connection sends. If the two values differ, the person's first SSO sign-in creates a second profile instead of opening the one SCIM provisioned and gives them default permissions instead of the ones granted.
 
-If you use Okta, check the Chromatic application's settings:
+If you use Microsoft Entra ID, use the same user attribute for the SAML email claim and the SCIM `userName`, such as `user.mail` or `user.userprincipalname`. If `user.mail` is empty for some people, use `user.userprincipalname` for both.
 
-- Sign On → Credentials Details: set Application username format to **Email**. A custom expression that resolves to `user.id` sends the Okta user ID instead.
+If you use Okta, map both values to the Okta user's email in the Chromatic application's settings:
+
+- Sign On → Credentials Details: set Application username format to **Email**. Okta uses this username for provisioning, so a custom expression that resolves to `user.id` sends the Okta user ID as the SCIM `userName` instead.
 - Provisioning → To App → Attribute Mappings: map `userName` and `email` to `user.email`.
 
-#### What happens when the `NameID` (or `idp_id`) changes?
+#### What happens when a person's email address changes?
 
-Chromatic treats an unrecognized `NameID` as a new person and creates a new profile. The previous profile's history and permissions don't carry over, even when the email and name attributes are unchanged.
+Chromatic treats a new email address as a new person and creates a new profile. Chromatic can't change the email address of an existing profile and it can't move history or permissions from one profile to another. Roles granted through SCIM groups apply to the new profile once it's in those groups.
 
-Use a persistent, unchanging `NameID` or `idp_id` attribute. If your account uses SCIM, the `NameID` must match the SCIM `userName`, so keep both set to the email address.
+If your account uses SCIM, the same applies to a changed `userName`. SCIM creates a new profile instead of updating the existing one.
 
 #### What happens when the corporate domain changes (e.g., from @oldcompany.com to @newcompany.com)?
 
-If your SAML `NameID` is an email address, changing domains changes every `NameID`. Chromatic then creates duplicate profiles without the original history and permissions. Configure your IdP to send a persistent, immutable `NameID` before the change, and contact Chromatic Support about the new email and subdomain.
+Changing domains changes every person's email address, so each person's next sign-in creates a new profile. History and permissions stay with the old profiles, and Chromatic can't move them to the new ones. Changing the `NameID` doesn't prevent this.
 
-Before changing the domain, change one test profile's email and verify that it still opens the existing profile.
+Before the change, contact Chromatic Support to add the new email domain to your account's SSO allow list, so people can sign in with their new addresses. After the change, Chromatic Support can remove the old profiles and move any Git provider connections to the new ones.
 
 <details>
 <summary>How can I invite external collaborators to an account with SSO?</summary>
@@ -157,30 +159,26 @@ When Chromatic enables SSO on your account, it creates a SAML entity for your te
 
 No. Chromatic supports only one identity provider per Enterprise account. You cannot connect Okta and PingOne to the same Chromatic account at the same time.
 
-To move from one IdP to another, contact Chromatic Support to coordinate the switch. Schedule a maintenance window for disconnecting the old IdP and configuring the new one. Account collaborators must sign in again after the change.
+To move from one IdP to another, contact Chromatic Support to coordinate the switch. Chromatic switches your account to the new IdP in place, as described in the next question.
 
 </details>
 
 <details>
 <summary>How do I migrate from one IdP to another (e.g., from Okta to PingOne)?</summary>
 
-Because Chromatic allows one active IdP per account, the migration requires a new account and a data transfer:
+Chromatic switches your account to the new IdP in place. Your account, subdomain, projects, and billing stay the same.
 
-1. **Request migration**: Contact Chromatic support to initiate the process. Provide details about your current IdP and the new one you wish to use.
+1. **Request the switch**: Contact Chromatic Support with your current IdP, the new one, and whether the current IdP connection still works.
 
-2. **New account created**: Chromatic creates a new organization account and generates an SSO configuration link for the new IdP.
+2. **Configure the new IdP**: Chromatic sends your identity administrator a setup link for the new IdP. If your account uses SCIM, set up directory sync for the new IdP too.
 
-3. **Configure the new IdP**: Your identity administrator completes the setup with the configuration link. Chromatic verifies the new connection.
+3. **Switch the account**: Once the setup is complete, Chromatic connects your subdomain to the new IdP.
 
-4. **Billing and projects migration**: Chromatic transfers your billing details and all projects from the old account to the new account.
+4. **Test sign-in**: Sign in at `https://{YOUR-SUBDOMAIN}.chromatic.com/start` and confirm that it works. Chromatic then removes the old IdP connection.
 
-5. **Delete the old account**: Once the merge is confirmed and account collaborators can authenticate through the new IdP, Chromatic permanently deletes the old account.
+The switch doesn't sign anyone out. People who are already signed in stay signed in until their session expires, and their next sign-in goes through the new IdP.
 
-> **Migration effects:**
->
-> - Account collaborators need to sign in again after the migration.
-> - Schedule the migration during low-usage hours to minimize disruption.
-> - Keep the same persistent `NameID` in the new IdP to preserve profile history and permissions. A changed identifier creates a duplicate profile.
+Send the same email addresses from the new IdP to keep each person's profile history and permissions. A changed email address creates a duplicate profile.
 
 Contact [priority-support@chromatic.com](mailto:priority-support@chromatic.com) to start a migration.
 
@@ -189,21 +187,23 @@ Contact [priority-support@chromatic.com](mailto:priority-support@chromatic.com) 
 <details>
 <summary>Does Chromatic support non-email NameID formats?</summary>
 
-Yes. Chromatic follows SAML 2.0 standards and accepts persistent, transient, username, and custom `NameID` formats.
+Yes. Chromatic accepts persistent, transient, username, and custom `NameID` formats. The format doesn't affect profile matching, because Chromatic [matches profiles by email address](#how-chromatic-matches-saml-profiles).
 
 </details>
 
 <details>
 <summary>Will changing the NameID invalidate active user sessions?</summary>
 
-Yes, most likely. Account collaborators need to sign in again after the `NameID` format or value changes.
+No. Sessions belong to the Chromatic profile, not the `NameID`, and Chromatic doesn't use the `NameID` to match profiles.
 
 </details>
 
 <details>
 <summary>What happens if a user’s NameID changes, but I have SCIM enabled?</summary>
 
-SCIM updates the profile identifier when the IdP pushes the change. If the `NameID` changes before SCIM synchronizes it, the profile may be unable to sign in. Coordinate the changes with Chromatic Support.
+Nothing changes in Chromatic. SCIM matches profiles by `userName` and SSO matches them by email address, so a `NameID` change doesn't affect either.
+
+A changed `userName` or email address does affect matching. SCIM and SSO create a new profile instead of updating the existing one. See [what happens when a person's email address changes](#what-happens-when-a-persons-email-address-changes).
 
 </details>
 
