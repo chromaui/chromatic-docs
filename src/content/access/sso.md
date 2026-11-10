@@ -72,15 +72,15 @@ If you use Okta, map both values to the Okta user's email in the Chromatic appli
 
 #### What happens when a person's email address changes?
 
-Chromatic treats a new email address as a new person and creates a new profile. The previous profile's history and permissions don't carry over. Chromatic can't change the email address of an existing profile.
+Chromatic treats a new email address as a new person and creates a new profile. Chromatic can't change the email address of an existing profile and it can't move history or permissions from one profile to another. Roles granted through SCIM groups apply to the new profile once it's in those groups.
 
 If your account uses SCIM, the same applies to a changed `userName`. SCIM creates a new profile instead of updating the existing one.
 
 #### What happens when the corporate domain changes (e.g., from @oldcompany.com to @newcompany.com)?
 
-Changing domains changes every person's email address, so each person's next sign-in creates a new profile without the original history and permissions. Changing the `NameID` doesn't prevent this.
+Changing domains changes every person's email address, so each person's next sign-in creates a new profile. History and permissions stay with the old profiles, and Chromatic can't move them to the new ones. Changing the `NameID` doesn't prevent this.
 
-Before the change, contact Chromatic Support about the new email domain and subdomain. After the change, Chromatic Support can remove the old profiles and move any Git provider connections to the new ones.
+Before the change, contact Chromatic Support to add the new email domain to your account's SSO allow list, so people can sign in with their new addresses. After the change, Chromatic Support can remove the old profiles and move any Git provider connections to the new ones.
 
 <details>
 <summary>How can I invite external collaborators to an account with SSO?</summary>
@@ -175,6 +175,8 @@ Chromatic switches your account to the new IdP in place. Your account, subdomain
 3. **Switch the account**: Once the setup is complete, Chromatic connects your subdomain to the new IdP.
 
 4. **Test sign-in**: Sign in at `https://{YOUR-SUBDOMAIN}.chromatic.com/start` and confirm that it works. Chromatic then removes the old IdP connection.
+
+The switch doesn't sign anyone out. People who are already signed in stay signed in until their session expires, and their next sign-in goes through the new IdP.
 
 Send the same email addresses from the new IdP to keep each person's profile history and permissions. A changed email address creates a duplicate profile.
 
