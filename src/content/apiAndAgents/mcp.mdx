@@ -175,9 +175,10 @@ Chromatic builds and tests the server with these clients:
 
 - **Claude Code (terminal and desktop app):** the plugin, skills, and hooks.
 - **Codex CLI and the ChatGPT app:** the plugin and skills, no hooks.
+- **Cursor:** the plugin and skills, no hooks. On a Teams or Enterprise plan, an admin imports the plugin once from `https://github.com/chromaui/chromatic-plugins` in the team marketplace settings. Each person then installs **chromatic** from **Customize** and signs in to Chromatic in the browser the first time the agent calls a tool.
 - **Claude Desktop and claude.ai:** the tools only, with no plugin, skills, or hooks.
 
-Any other agent that logs in with CIMD can connect; see [Other agents](#other-agents). Cursor can't log in yet; it's adding CIMD support.
+Any other agent that logs in with CIMD can connect; see [Other agents](#other-agents).
 
 </details>
 
