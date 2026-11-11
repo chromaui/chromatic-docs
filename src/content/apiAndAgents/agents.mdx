@@ -56,6 +56,20 @@ The plugin is the recommended starting point: it configures the MCP server, inst
     In the ChatGPT app, quit and reopen it, then pick **Codex** in the sidebar. **Plugins** lists Chromatic under **Personal**. Sign in with a ChatGPT account, not an API key, or **Plugins** stays locked.
 
   </TabItem>
+  <TabItem label="Cursor">
+    On a Teams or Enterprise plan:
+
+    1. An admin adds the plugin once. Open the team marketplace settings, choose **Import from Repo**, and paste `https://github.com/chromaui/chromatic-plugins`.
+    2. Each person then installs **chromatic** from **Customize**.
+    3. The first time your agent calls a tool, sign in to Chromatic in your browser.
+
+    Cursor doesn't run the plugin's hooks, so your agent checks the build when you ask.
+
+    <div class="aside">
+      On an individual Cursor plan, use the **Other agents** tab to add the server and install the skills.
+    </div>
+
+  </TabItem>
   <TabItem label="Other agents">
     ```shell
     # Choose skills from a list
