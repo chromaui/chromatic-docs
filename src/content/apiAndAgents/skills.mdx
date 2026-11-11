@@ -51,13 +51,9 @@ To run a skill by name:
 
 ## What the plugin runs on its own
 
-In Claude Code, the plugin adds hooks so your agent thinks of Chromatic without being asked. They run only in a repository that has a [`chromatic.config.json`](/docs/cli#chromatic-config-file):
+In Claude Code, the plugin adds two hooks so your agent checks Chromatic without being asked. After `git push` or `gh pr create`, a short model call reads the command and its result. If a commit was pushed or a pull request was opened, the agent is told to check the Chromatic build for that commit before it ends its turn. The note applies only in a repository with a [`chromatic.config.json`](/docs/cli#chromatic-config-file).
 
-- **When a session starts,** the agent is told the repository is tested by Chromatic and what to do after a push.
-- **After `git push` or `gh pr create`,** the agent is told a build is starting and to check it before it ends its turn.
-- **In the background,** a hook waits up to about 13 minutes for Chromatic's **UI Tests** status on the commit, and wakes the agent when the build finishes. It reads the status from GitHub with the `gh` CLI, so it needs `gh` logged in and a GitHub remote. Without them it stays silent, and the agent tells you the build is running.
-
-The hooks only add a note for the agent. They start no build, call no Chromatic tool, and change nothing in Chromatic. Claude Code asks you to trust them the first time.
+The hooks only add a note for the agent. They start no build, call no Chromatic tool, change nothing in Chromatic, and send nothing to Chromatic.
 
 Codex gets no hooks from the plugin. When Codex (or any other agent) connects, the server sends it a short guide that tells it to check the build after a push, so you can still ask "I pushed. What does Chromatic say about this branch?"
 
