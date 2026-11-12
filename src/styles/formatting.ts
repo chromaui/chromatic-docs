@@ -125,6 +125,13 @@ export const formatting = css`
     }
   }
 
+  /* In a tab panel, the paragraph after an aside is often the panel's first
+     paragraph, so the first-of-type rule above zeroes its top margin. Keep the
+     gap an aside gets outside tabs. */
+  [role='tabpanel'] > .aside + p {
+    margin-top: 1.5em;
+  }
+
   p a,
   li a {
     color: #026fb3;
