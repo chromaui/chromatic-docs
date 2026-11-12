@@ -6,6 +6,7 @@ sidebar: { order: 2 }
 ---
 
 import InstallSnippets from '../../components/InstallSnippets.astro';
+import { AICallout } from '../../components/AICallout';
 
 # Set up and run accessibility tests
 
@@ -70,6 +71,12 @@ Plan ahead when you enable accessibility tests. If you have a large number of op
 ## 4. Debug accessibility issues
 
 With each build, Chromatic identifies any changes in accessibility violations related to a story. However, it's up to you to verify if those changes are intentional or if they represent regressions that need to be fixed. Click on a test to view the details.
+
+<AICallout>
+
+Ask your agent to fix the accessibility violations Chromatic found. The `fix-accessibility-violations` skill fixes them in your component source and checks the fix on the next build. [Learn about skills](/docs/skills)
+
+</AICallout>
 
 ![When reviewing a specific test, Chromatic enables you to inspect violations and offers suggested fixes. You can also launch the published Storybook to debug live in your browser with devtools.](../../images/a11y/accessibility-tests-test.png)
 

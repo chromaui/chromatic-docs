@@ -7,6 +7,7 @@ sidebar: { label: 'Setup', order: 1 }
 
 import DemoChromaticUnlinked from '../../shared-snippets/demo-chromatic-unlinked.mdx';
 import InstallSnippets from '../../components/InstallSnippets.astro';
+import { AICallout } from '../../components/AICallout';
 
 # Chromatic for React Native
 
@@ -158,6 +159,12 @@ The build will be marked "unreviewed" and the changes will be listed in the "Tes
 [**Integrate Chromatic into your CI pipeline**](/docs/react-native/ci) to get notified about any visual changes introduced by a pull request. Chromatic runs tests any time you push code and reports changes via the “UI Tests” badge for your pull request.
 
 ![PR badge for UI Tests](../../images/prbadge-test.png)
+
+<AICallout>
+
+Connect your coding agent to Chromatic so it can tell you the status of each build after you push. [Chromatic for agents](/docs/agents)
+
+</AICallout>
 
 ## Advanced configuration options
 
