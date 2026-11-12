@@ -45,7 +45,7 @@ Only the dependency graph decides this, not the nature of the change. If a file 
 Certain code changes have the potential to impact all stories. To avoid false positives, we re-capture everything in the following situations:
 
 - Changes to dependency versions in `package.json`, if no valid lockfile is available
-- Changes to your Storybook's configuration
+- Changes to your Storybook's `main.js|ts`, `preview.js|ts`, `preview-head.html`, or `preview-body.html` file, directly in your [Storybook config directory](/docs/turbosnap/config-paths) (`.storybook` by default). TurboSnap always checks these files, even if an `--untraced` glob matches them.
 - Changes in files that are imported by your [`preview.js`](https://storybook.js.org/docs/configure#configure-story-rendering) (as this could affect any story)
 - Changes in your static folder (if specified using `--static-dir` / `-s`)
 - Changes to files specified by the `--externals` option (see below)
@@ -53,6 +53,8 @@ Certain code changes have the potential to impact all stories. To avoid false po
 - [Infrastructure upgrades](/docs/infrastructure-upgrades)
 - [UI Test in a new browser](/docs/browsers)
 - [Enabling Accessibility Tests](/docs/accessibility/usage/#after-enabling-accessibility-tests-existing-branches-capture-all-stories-once) for the first time, once per existing branch
+
+Other files in your Storybook config directory, such as `manager.js|ts`, `vitest.setup.ts`, mocks, and decorators, are traced like the rest of your code. A change to one recaptures only the stories that import it, unless your `preview.js|ts` imports it too.
 
 <details>
 <summary>How can I reduce the frequency of full rebuilds?</summary>
