@@ -10,6 +10,8 @@ import IntegrationSnippets from '../../components/IntegrationSnippets.astro';
 
 Chromatic automation can be included as part of any CI provider with relative ease. We're here for you. Contact us through our in-app chat for further assistance.
 
+If your Chromatic project isn't connected to a repository through a Git provider, it's an [unlinked project](/docs/access#unlinked-projects). Chromatic runs UI Tests, but it doesn't post automated pull request status checks. Use a custom CI integration to keep your pipeline running while a separate required check tracks visual changes that need review. See [Diagnostics and custom CI checks](/docs/cli#diagnostics-and-custom-ci-checks).
+
 ## Setup
 
 To integrate Chromatic with your existing CI provider, you'll need to add the following to your workflow:

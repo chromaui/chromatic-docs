@@ -40,6 +40,8 @@ Only the dependency graph decides this, not the nature of the change. If a file 
 
 </div>
 
+A bypassed build can still have changes awaiting review on its ancestor. If you use a custom CI check for an unlinked project, keep it pending until those changes are accepted. See [Diagnostics and custom CI checks](/docs/cli#diagnostics-and-custom-ci-checks) for the fields and statuses to use.
+
 ### Full rebuilds
 
 Certain code changes have the potential to impact all stories. To avoid false positives, we re-capture everything in the following situations:
