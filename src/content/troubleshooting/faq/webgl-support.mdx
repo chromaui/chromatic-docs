@@ -1,0 +1,17 @@
+---
+sidebar: { hide: true }
+title: Does Chromatic support WebGL?
+section: 'capture'
+---
+
+# Does Chromatic support WebGL?
+
+No, Chromatic doesn't fully support WebGL rendering. If your component renders content to a WebGL canvas (for example, with PixiJS, Three.js, Babylon.js, or another GPU-backed renderer), you may see unstable or flaky visual snapshots that can't be fully stabilized through Chromatic configuration.
+
+WebGL rendering is controlled entirely by the client-side library and the GPU. Font rasterization, layout, and compositing all happen asynchronously in the browser. As a result:
+
+- Chromatic can't force a deterministic frame for capture.
+- Chromatic can't inspect the internal contents of a WebGL canvas.
+- Chromatic captures the final output of the browser's compositor. The WebGL canvas layer is composited into that image, with no inspectable DOM nodes involved.
+
+Because of these constraints, Chromatic can't guarantee identical output between two captures of the same page.
