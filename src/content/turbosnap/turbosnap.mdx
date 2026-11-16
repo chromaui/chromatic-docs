@@ -14,7 +14,7 @@ TurboSnap is an advanced Chromatic feature that speeds up [UI Tests](/docs#test-
 
 TurboSnap looks at **code changes**, not **visual changes**. It decides which stories to capture _before_ any snapshot is taken, so it can't know whether a story will end up looking different. Every story it captures incurs a full billed snapshot, whether or not that snapshot shows a visual change.
 
-For example, if a change to a shared `Button` component leads TurboSnap to capture 40 stories and only 2 of them show visual changes, the build incurs billed snapshots for all 40.
+For example, say your project has 100 stories and a change to a shared `Button` component leads TurboSnap to capture 40 of them. Only 2 of those 40 end up looking different, but all 40 button stories are billed as full snapshots. The other 60 stories can't be affected by the code change, so TurboSnap copies over their baselines at 0.2 billed snapshot each. The build costs the equivalent of 52 snapshots (40 + 60 × 0.2) instead of 100.
 
 </ImportantCallout>
 
