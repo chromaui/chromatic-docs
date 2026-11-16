@@ -56,13 +56,15 @@ billed snapshots = visual snapshots + accessibility snapshots
 
 ### With TurboSnap enabled
 
-Chromatic copies over snapshots from existing baselines. We refer to these as "turbosnaps", which cost 0.2 billed snapshots each. For the remaining stories, Chromatic captures new snapshots as usual. Therefore, the total billed snapshots are calculated as follows:
+Chromatic captures new snapshots only for tests whose dependencies have code changes since the last build. For the remaining tests, it copies over snapshots from existing baselines. We refer to these as "turbosnaps", which cost 0.2 billed snapshots each.
+
+TurboSnap decides what to capture based on code changes, not visual changes. A captured snapshot incurs a full billed snapshot even if it shows no visual change. Therefore, the total billed snapshots are calculated as follows:
 
 ```
-Visual snapshots = Tests with changes x Builds x Browsers x Modes
-Accessibility snapshots = Tests with changes x Builds x Modes
+Visual snapshots = Tests with code changes x Builds x Browsers x Modes
+Accessibility snapshots = Tests with code changes x Builds x Modes
 
-turbosnaps = (Tests - Tests with changes) x Builds x Browsers x Modes
+turbosnaps = (Tests - Tests with code changes) x Builds x Browsers x Modes
 billed snapshots from turbosnaps = turbosnaps * 0.2
 
 billed snapshots = visual snapshots + accessibility snapshots + billed snapshots from turbosnaps
