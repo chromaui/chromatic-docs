@@ -29,9 +29,9 @@ Not at this time. We currently only support monthly payments for our self-serve 
 The monthly bill is calculated based on the number of billed [snapshots](/docs/snapshots). There are three types of snapshots:
 
 - **Captured (1 billed snapshot):** Chromatic performs the full suite of work, including taking screenshots or capturing accessibility data, and running diffs.
-- **Turbosnap**
+- **Produced by TurboSnap:**
   - **Copied (0.2 billed snapshots):** Chromatic identifies tests that have no code changes associated with them or their dependencies and copies over the existing snapshots from previous baselines for them.
-  - **Bypassed (0 billed snapshots):** the build has no changes in any test's dependencies at all, so Chromatic bypasses all snapshots.
+  - **Bypassed (0 billed snapshots):** the build has no code changes in any test's dependencies at all, so Chromatic bypasses all snapshots.
 
 Copied and bypassed snapshots are both produced by [TurboSnap](/docs/turbosnap), and together they're referred to as **turbosnaps**. See [copied and bypassed snapshots](/docs/turbosnap#bypassed-builds) for how Chromatic decides between them.
 
@@ -56,13 +56,15 @@ billed snapshots = visual snapshots + accessibility snapshots
 
 ### With TurboSnap enabled
 
-Chromatic copies over snapshots from existing baselines. We refer to these as "turbosnaps", which cost 0.2 billed snapshots each. For the remaining stories, Chromatic captures new snapshots as usual. Therefore, the total billed snapshots are calculated as follows:
+Chromatic captures new snapshots only for tests whose dependencies have code changes since the last build. For the remaining tests, it copies over snapshots from existing baselines. We refer to these as "turbosnaps", which cost 0.2 billed snapshots each.
+
+TurboSnap decides what to capture based on code changes, not visual changes. A captured snapshot incurs a full billed snapshot even if it shows no visual change. Therefore, the total billed snapshots are calculated as follows:
 
 ```
-Visual snapshots = Tests with changes x Builds x Browsers x Modes
-Accessibility snapshots = Tests with changes x Builds x Modes
+Visual snapshots = Tests with code changes x Builds x Browsers x Modes
+Accessibility snapshots = Tests with code changes x Builds x Modes
 
-turbosnaps = (Tests - Tests with changes) x Builds x Browsers x Modes
+turbosnaps = (Tests - Tests with code changes) x Builds x Browsers x Modes
 billed snapshots from turbosnaps = turbosnaps * 0.2
 
 billed snapshots = visual snapshots + accessibility snapshots + billed snapshots from turbosnaps

@@ -190,7 +190,7 @@ No, Chromatic does not report these checks. There are instances where axe-core i
 <details>
 <summary>Does TurboSnap support accessibility tests?</summary>
 
-Yes. TurboSnap analyzes your project’s Git history and [dependency graph](https://webpack.js.org/concepts/dependency-graph/) to identify which components and their dependencies have changed. It then only snapshots and runs visual and accessibility tests for stories associated with those changes. For the rest, it copies over the snapshots from baselines that didn’t change.
+Yes. TurboSnap analyzes your project’s Git history and [dependency graph](https://webpack.js.org/concepts/dependency-graph/) to find which files changed and which stories depend on them. Chromatic runs visual and accessibility tests only for those stories. For every other story, it reuses the snapshot from the story's baseline. As with visual tests, each accessibility test that TurboSnap captures incurs a billed snapshot, whether or not it finds new violations.
 
 </details>
 
