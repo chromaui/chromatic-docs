@@ -62,6 +62,18 @@ Certain code changes have the potential to impact all stories. To avoid false po
 
 Other files in your Storybook config directory, such as `manager.js|ts`, `vitest.setup.ts`, mocks, and decorators, are traced like the rest of your code. A change to one recaptures only the stories that import it, unless Storybook loads it for every story, as it does anything your `preview.js|ts` imports.
 
+<div class="aside">
+
+If you keep build config or files that only `main.js|ts` uses in your Storybook config directory, such as `tsconfig.json`, `.babelrc`, a local preset, a `webpackFinal` or `viteFinal` helper, or a `vite.config.*` that `main.js|ts` points at, pass them to [`--externals`](/docs/turbosnap/setup#specify-external-files-to-trigger-a-full-re-test-when-they-change) so a change to one re-tests every story. Your stories don't import these files, so TurboSnap can't trace them. For example, Storybook's Angular setup creates `.storybook/tsconfig.json`, which Storybook's Angular builders read by default:
+
+```shell
+chromatic --only-changed --externals ".storybook/tsconfig.json"
+```
+
+`--externals` requires `--only-changed`, and its globs are relative to your repository root. See [TurboSnap config paths](/docs/turbosnap/config-paths).
+
+</div>
+
 <details>
 <summary>How can I reduce the frequency of full rebuilds?</summary>
 
