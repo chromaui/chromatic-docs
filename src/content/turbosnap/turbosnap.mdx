@@ -60,7 +60,7 @@ Certain code changes have the potential to impact all stories. To avoid false po
 - [UI Test in a new browser](/docs/browsers)
 - [Enabling Accessibility Tests](/docs/accessibility/usage/#after-enabling-accessibility-tests-existing-branches-capture-all-stories-once) for the first time, once per existing branch
 
-Other files in your Storybook config directory, such as `manager.js|ts`, `vitest.setup.ts`, mocks, and decorators, are traced like the rest of your code. A change to one recaptures only the stories that import it, unless Storybook loads it for every story, as it does anything your `preview.js|ts` imports.
+Other files in your Storybook config directory, such as `manager.js|ts`, `vitest.setup.ts`, mocks, and decorators, are traced like the rest of your code. A change to one recaptures only the stories that import it, unless Storybook loads it for every story, as it does anything your `preview.js|ts` imports. Chromatic CLI versions before 18.15.0 run a full rebuild when any file in the config directory changes.
 
 <div class="aside">
 

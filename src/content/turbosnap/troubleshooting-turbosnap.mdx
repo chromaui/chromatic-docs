@@ -185,7 +185,7 @@ packages/design-system/
 
 `desktop-styles.css` only affects Desktop stories, and `preview.tsx` doesn't import it. A change to `desktop-styles.css` retests only the Desktop stories that import it. If `preview.tsx` imports `global-decorators.tsx`, a change to `global-decorators.tsx` triggers a full rebuild with reason `changedStorybookFiles`.
 
-Older versions of the Chromatic CLI treat every file in the Storybook config directory as config, except text files such as `.md` and `.txt`. On those versions, a change to `desktop-styles.css` also triggers a full rebuild. Upgrade the CLI, or move non-config files out of `.storybook/`.
+Chromatic CLI versions before 18.15.0 treat every file in the Storybook config directory as config, except text files such as `.md` and `.txt`. On those versions, a change to `desktop-styles.css` also triggers a full rebuild. Upgrade the CLI, or move non-config files out of `.storybook/`.
 
 </details>
 
