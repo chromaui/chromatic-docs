@@ -218,7 +218,9 @@ No. Cypress is a "black box" tool that tests your fully built app UI in a browse
 <details>
 <summary id="storybook-step">Why is there a `Build your Storybook` step when running Cypress visual tests?</summary>
 
-Chromatic creates and runs a Storybook [archive](/docs/faq/what-is-archive) based on your Cypress project, so the build Storybook step is required. Chromatic doesn't run Cypress directly.
+Chromatic renders your Cypress [archives](/docs/faq/what-is-archive) in Storybook to capture snapshots, so the build Storybook step is required. Chromatic doesn't run Cypress directly.
+
+The step doesn't run Storybook in your project. It copies a prebuilt Storybook that ships with the package and adds your test archives to it, so you don't need to install Storybook.
 
 </details>
 

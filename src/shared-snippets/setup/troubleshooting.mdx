@@ -36,7 +36,9 @@ TypeError [ERR_INVALID_ARG_TYPE]: The "paths[1]" argument must be of type string
 code: 'ERR_INVALID_ARG_TYPE'
 ```
 
-This issue likely due to a dependency conflict with Storybook versions in your project. You'll have the following in your `package.json`:
+Older versions of `@chromatic-com/playwright` and `@chromatic-com/cypress` bundled their own copy of Storybook, and this error means it conflicted with the Storybook version in your project. Newer versions don't depend on Storybook, so upgrade to `^1.1.0` version of the package to fix it.
+
+If you can't upgrade yet, check your `package.json` for a Storybook override:
 
 ```json
 "overrides": {
