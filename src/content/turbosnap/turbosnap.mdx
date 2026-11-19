@@ -51,7 +51,7 @@ Only the dependency graph decides this, not the nature of the change. If a file 
 Certain code changes have the potential to impact all stories. To avoid false positives, we re-capture everything in the following situations:
 
 - Changes to dependency versions in `package.json`, if no valid lockfile is available
-- Changes to your Storybook's `main.js|ts`, `preview.js|ts`, `preview-head.html`, or `preview-body.html` file, directly in your [Storybook config directory](/docs/turbosnap/config-paths) (`.storybook` by default). `--untraced` applies to these files like any other. If a glob such as `.storybook/**` matches them, the CLI warns that changes to them, and to files only your `preview.js|ts` imports, may not retest the stories they affect.
+- Changes to your Storybook's `main.js|ts`, `preview.js|ts`, `preview-head.html`, or `preview-body.html` file, directly in your [Storybook config directory](/docs/turbosnap/config-paths) (`.storybook` by default)
 - Changes in files that are imported by your [`preview.js`](https://storybook.js.org/docs/configure#configure-story-rendering) (as this could affect any story)
 - Changes in your static folder (if specified using `--static-dir` / `-s`)
 - Changes to files specified by the `--externals` option (see below)
@@ -60,11 +60,13 @@ Certain code changes have the potential to impact all stories. To avoid false po
 - [UI Test in a new browser](/docs/browsers)
 - [Enabling Accessibility Tests](/docs/accessibility/usage/#after-enabling-accessibility-tests-existing-branches-capture-all-stories-once) for the first time, once per existing branch
 
-Other files in your Storybook config directory, such as `manager.js|ts`, `vitest.setup.ts`, mocks, and decorators, are traced like the rest of your code. A change to one recaptures only the stories that import it, unless Storybook loads it for every story, as it does anything your `preview.js|ts` imports. Chromatic CLI versions before 18.15.0 run a full rebuild when any file in the config directory changes.
+TurboSnap traces every other file in your Storybook config directory, such as `manager.js|ts`, `vitest.setup.ts`, mocks, and decorators, like the rest of your code. A change to one recaptures only the stories that import it, unless Storybook loads it for every story (for example, a file your `preview.js|ts` imports). Chromatic CLI versions before 18.15.0 run a full rebuild when any file in the config directory changes.
+
+`--untraced` applies to the four config files like any other file. If an `--untraced` glob such as `.storybook/**` matches them, the CLI warns that changes to them, and to files only your `preview.js|ts` imports, may not retest the stories they affect.
 
 <div class="aside">
 
-If you keep build config or files that only `main.js|ts` uses in your Storybook config directory, such as `tsconfig.json`, `.babelrc`, a local preset, a `webpackFinal` or `viteFinal` helper, or a `vite.config.*` that `main.js|ts` points at, pass them to [`--externals`](/docs/turbosnap/setup#specify-external-files-to-trigger-a-full-re-test-when-they-change) so a change to one re-tests every story. Your stories don't import these files, so TurboSnap can't trace them. For example, Storybook's Angular setup creates `.storybook/tsconfig.json`, which Storybook's Angular builders read by default:
+Your stories don't import build config or files that only `main.js|ts` uses, so TurboSnap can't trace them. If you keep any in your Storybook config directory (such as `tsconfig.json`, `.babelrc`, a local preset, a `webpackFinal` or `viteFinal` helper, or a `vite.config.*` that `main.js|ts` points at), pass them to [`--externals`](/docs/turbosnap/setup#specify-external-files-to-trigger-a-full-re-test-when-they-change) so a change to one retests every story. For example, Storybook's Angular setup creates `.storybook/tsconfig.json`, which Storybook's Angular builders read by default:
 
 ```shell
 chromatic --only-changed --externals ".storybook/tsconfig.json"

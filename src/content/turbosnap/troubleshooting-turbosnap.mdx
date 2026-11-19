@@ -152,7 +152,7 @@ This message should be shown only when using TurboSnap with older Storybook vers
 
 ### `changedStorybookFiles`
 
-TurboSnap bailed due to a change to your Storybook's `main.js|ts`, `preview.js|ts`, `preview-head.html`, or `preview-body.html` file in your Storybook config directory (`.storybook` by default), or to another file Storybook loads for every story, such as one `preview.js|ts` imports or a local addon's preview file.
+TurboSnap bailed due to a change to your Storybook's `main.js|ts`, `preview.js|ts`, `preview-head.html`, or `preview-body.html` file in your Storybook config directory (`.storybook` by default), or to another file that Storybook loads for every story, such as a file your `preview.js|ts` imports or a local addon's preview file.
 
 You may have made changes to one of the files in your Storybook configuration, or to a dependency imported by your configuration. It's important to keep in mind the second part, since it's common practice to import decorators into the `preview.js` config.
 
@@ -161,7 +161,7 @@ Additionally, if you're utilizing barrel/index files (whether directly importing
 <details>
 <summary>Can changes to non-config files inside the `.storybook` directory trigger `changedStorybookFiles` bailouts?</summary>
 
-Only if Storybook loads them for every story, as it does a local addon's preview file and anything it or your `preview.js|ts` imports. TurboSnap treats four files directly in your Storybook config directory as config: `main.js|ts`, `preview.js|ts`, `preview-head.html`, and `preview-body.html`. It traces every other file in the directory, such as `manager.js|ts`, styles, mocks, and decorators, like the rest of your code.
+Yes, but only if Storybook loads them for every story. That includes anything your `preview.js|ts` imports, and a local addon's preview file and its imports. TurboSnap treats four files directly in your Storybook config directory as config: `main.js|ts`, `preview.js|ts`, `preview-head.html`, and `preview-body.html`. It traces every other file in the directory, such as `manager.js|ts`, styles, mocks, and decorators, like the rest of your code.
 
 Consider this structure:
 
@@ -185,7 +185,7 @@ packages/design-system/
 
 `desktop-styles.css` only affects Desktop stories, and `preview.tsx` doesn't import it. A change to `desktop-styles.css` retests only the Desktop stories that import it. If `preview.tsx` imports `global-decorators.tsx`, a change to `global-decorators.tsx` triggers a full rebuild with reason `changedStorybookFiles`.
 
-Chromatic CLI versions before 18.15.0 treat every file in the Storybook config directory as config, except text files such as `.md` and `.txt`. On those versions, a change to `desktop-styles.css` also triggers a full rebuild. Upgrade the CLI, or move non-config files out of `.storybook/`.
+Chromatic CLI versions before 18.15.0 treat every file in the Storybook config directory as config, except text files such as `.md` and `.txt`. On those versions, a change to `desktop-styles.css` also triggers a full rebuild. Upgrade to Chromatic CLI 18.15.0 or later, or move non-config files out of `.storybook/`.
 
 </details>
 
