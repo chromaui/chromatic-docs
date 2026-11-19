@@ -62,7 +62,7 @@ Certain code changes have the potential to impact all stories. To avoid false po
 
 TurboSnap traces every other file in your Storybook config directory, such as `manager.js|ts`, `vitest.setup.ts`, mocks, and decorators, like the rest of your code. A change to one recaptures only the stories that import it, unless Storybook loads it for every story (for example, a file your `preview.js|ts` imports). Chromatic CLI versions before 18.15.0 run a full rebuild when any file in the config directory changes.
 
-`--untraced` applies to the four config files like any other file. If an `--untraced` glob such as `.storybook/**` matches them, the CLI warns that changes to them, and to files only your `preview.js|ts` imports, may not retest the stories they affect. To fix it, narrow the glob so it skips these files, such as `.storybook/decorators/**`. If you keep the broader glob, you can ignore the warning, but TurboSnap may miss changes to these files.
+`--untraced` applies to the four config files like any other file. If an `--untraced` glob such as `.storybook/**` matches them, the CLI warns that changes to them, and to files only your `preview.js|ts` imports, may not retest the stories they affect. To avoid the warning, narrow the glob so it skips these files, for example `.storybook/decorators/**`. If you keep the broader glob, you can ignore the warning, but TurboSnap may miss changes to these files.
 
 <div class="aside">
 
