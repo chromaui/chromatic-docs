@@ -22,7 +22,13 @@ The comment is created the first time a build posts results for a PR. From then 
 
 ## Enable
 
-PR comments require [UI Review to be enabled](/docs/manual-ui-review/#enable-ui-review), the [GitHub app to be installed, and your project linked](/docs/access#linked-projects). Once that’s done, enable PR comments from your project’s Manage screen under _Notifications_.
+PR comments require:
+
+- [UI Review enabled](/docs/manual-ui-review#enable-ui-review) for the project.
+- The project [linked to a GitHub repository](/docs/access#linked-projects).
+- The Chromatic GitHub App (`chromatic-com`) installed with access to that repository.
+
+Then enable PR comments from your project’s Manage screen under **Notifications**.
 
 ![The Notifications section of the Chromatic project Manage screen, with the Pull request comments option highlighted and showing an Enable button](../../images/pr-comments-manage-screen.png)
 
@@ -35,3 +41,21 @@ PR comments require [UI Review to be enabled](/docs/manual-ui-review/#enable-ui-
 ## Monorepo support
 
 For monorepos linked to multiple Chromatic projects, each project posts its own comment. Consolidation into a single comment is coming soon.
+
+## Frequently asked questions
+
+<details>
+<summary>Why is the Enable button for PR comments disabled?</summary>
+
+The **Enable** button is disabled and shows the message "Install the GitHub app to enable GitHub comments." when the Chromatic GitHub App (`chromatic-com`) does not have access to the repository linked to the project.
+
+The Chromatic GitHub App is separate from the Chromatic OAuth App. Approving the OAuth App for your GitHub organization does not install the GitHub App. [Learn what each GitHub app controls »](/docs/faq/org-not-appearing#oauth-app-and-github-app)
+
+Ask a GitHub organization owner to open **Settings » GitHub Apps » Chromatic** in the organization:
+
+- If `chromatic-com` is installed on selected repositories, add the project’s repository under **Repository access**.
+- If `chromatic-com` is not installed, [install it or request installation](/docs/faq/org-not-appearing#request-github-app-approval).
+
+Reload the Manage screen after the owner grants access.
+
+</details>
