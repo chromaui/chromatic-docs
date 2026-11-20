@@ -201,7 +201,7 @@ export const CombinedStories: Story = {
 
 ## Debug test failures
 
-Chromatic notifies you when an interaction errors or an assertion fails. We designate these as critical failures that need immediate attention. You won’t be able to pass the build until the test is fixed.
+Chromatic notifies you when an interaction errors or an assertion fails. We designate these as critical failures that need immediate attention. The build won’t pass until you fix the test or [ignore or quarantine it](/docs/quarantine-tests#quarantine-tests-with-capture-errors).
 
 <AICallout>
 
@@ -246,7 +246,9 @@ We recommend [preloading fonts](/docs/font-loading) to ensure they're available 
 
 <summary>What happens when an interaction test fails?</summary>
 
-When interaction tests fail, the story will be badged with “Failed test.” You will not be able to “pass” a build that has failed tests. Fix interaction tests in Storybook and run the build again.
+When interaction tests fail, the story will be badged with “Failed test.” You can't accept or deny a failed test. Fix interaction tests in Storybook and run the build again.
+
+If you need to unblock the build before you fix the test, [ignore](/docs/ignore-tests) the failed test on that build or [quarantine](/docs/quarantine-tests#quarantine-tests-with-capture-errors) it on every build.
 
 </details>
 
