@@ -97,7 +97,13 @@ Some options can be configured through environment variables.
 
 ## Working in Monorepos
 
-Often, when using a monorepo, developers tend to keep their e2e tests in a subdirectory instead of in the root of the project. At the same time, the Chromatic configuration lives at the project’s root. In these cases, set the `CHROMATIC_ARCHIVE_LOCATION` environment variable to the directory where your test archives are stored so that Chromatic can find them. For example:
+Often, when using a monorepo, developers tend to keep their e2e tests in a subdirectory instead of in the root of the project. At the same time, the Chromatic configuration lives at the project’s root. In these cases, set the `CHROMATIC_ARCHIVE_LOCATION` environment variable to the directory where your test archives are stored so that Chromatic can find them. For example, set it on the `chromatic` command that runs in CI:
+
+```bash
+CHROMATIC_ARCHIVE_LOCATION=path/to/test-results npx chromatic --playwright --project-token=<TOKEN>
+```
+
+If you use the `archive-storybook` script to [debug archives locally](/docs/faq/debug-archive), set it there too:
 
 ```json title="package.json"
 "scripts": {
