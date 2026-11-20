@@ -11,4 +11,6 @@ If you use [Playwright](/docs/playwright) and [Cypress](/docs/cypress), you can 
 
 If you use [Vitest](/docs/vitest), you can find supported versions [here](/docs/vitest#requirements).
 
+If you use [React Native](/docs/react-native), you can find supported versions [here](/docs/react-native#prerequisites).
+
 If you use Storybook, refer to the [Storybook Ecosystem tracking doc](https://github.com/storybookjs/storybook/issues/23279).

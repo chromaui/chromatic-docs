@@ -9,11 +9,13 @@ const {
   playwright,
   cypress,
   vitest,
+  reactNative,
   configuration,
   modes,
   snapshot,
   turbosnap,
   collaborate,
+  apiAndAgents,
   access,
   ci,
   account,
@@ -81,8 +83,16 @@ const rawNavGroups = [
     ],
   },
   {
+    title: 'MCP, Agents & API',
+    items: apiAndAgents,
+  },
+  {
     title: 'Vitest',
     items: vitest,
+  },
+  {
+    title: 'React Native',
+    items: reactNative,
   },
   {
     title: 'Playwright',

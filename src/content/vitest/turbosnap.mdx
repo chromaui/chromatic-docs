@@ -50,6 +50,6 @@ jobs:
 
 To accommodate files outside of the module graph (such as a global stylesheet), you can set the `externals` option alongside `onlyChanged` to force a full build (no TurboSnapped snapshots) when those files change. See [this TurboSnap recipe](/docs/turbosnap/setup#specify-external-files-to-trigger-a-full-re-test-when-they-change) for more information.
 
-You may also have files that you wish to exclude from TurboSnap, which you can do by setting the `untraced` option. A change to any of these files will _not_ be considered a change in the module graph, and will not trigger a re-run of snapshots that depend on them. See [this TurboSnap recipe](/docs/turbosnap/setup#avoid-re-testing-dependent-stories-when-certain-files-changed) for more information.
+You may also have files that you wish to exclude from TurboSnap, which you can do by setting the `untraced` option. A change to any of these files will _not_ be considered a change in the module graph, and will not trigger a re-run of snapshots that depend on them. See [this TurboSnap recipe](/docs/turbosnap/setup#avoid-re-testing-dependent-stories-when-certain-files-have-changed) for more information.
 
 Finally, there is [specific guidance for using TurboSnap in a monorepo](/docs/turbosnap/setup#using-turbosnap-in-a-monorepo) that you may find useful.

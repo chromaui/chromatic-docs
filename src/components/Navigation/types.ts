@@ -8,11 +8,13 @@ export type CollectionEntryItem =
   | Omit<CollectionEntry<'playwright'>, 'render' | 'body'>
   | Omit<CollectionEntry<'cypress'>, 'render' | 'body'>
   | Omit<CollectionEntry<'vitest'>, 'render' | 'body'>
+  | Omit<CollectionEntry<'reactNative'>, 'render' | 'body'>
   | Omit<CollectionEntry<'configuration'>, 'render' | 'body'>
   | Omit<CollectionEntry<'modes'>, 'render' | 'body'>
   | Omit<CollectionEntry<'snapshot'>, 'render' | 'body'>
   | Omit<CollectionEntry<'turbosnap'>, 'render' | 'body'>
   | Omit<CollectionEntry<'collaborate'>, 'render' | 'body'>
+  | Omit<CollectionEntry<'apiAndAgents'>, 'render' | 'body'>
   | Omit<CollectionEntry<'access'>, 'render' | 'body'>
   | Omit<CollectionEntry<'ci'>, 'render' | 'body'>
   | Omit<CollectionEntry<'account'>, 'render' | 'body'>

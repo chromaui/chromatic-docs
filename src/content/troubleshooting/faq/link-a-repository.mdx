@@ -104,6 +104,8 @@ Use a dedicated service user when your organization permits one. Grant it write 
 
 The repository connection then remains available when a project collaborator leaves or loses access. Your team can also manage the token without tying it to one person's account.
 
+If the Chromatic profile associated with your Git service user uses a Google Group, Microsoft 365 group, or distribution list as its email address, configure that group to accept external mail. Otherwise, use an address that accepts external mail so the profile can receive verification and password-reset emails. If messages were already rejected, [contact Support](mailto:support@chromatic.com) to check whether a previous bounce is blocking delivery. The same requirement applies to group addresses used for [usage alerts](/docs/billing#alert-email).
+
 ## Move projects to another Git provider
 
 To move linked projects from one Git provider to another:

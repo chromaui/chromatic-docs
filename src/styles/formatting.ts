@@ -107,6 +107,12 @@ export const formatting = css`
     display: none;
   }
 
+  /* A title with a Beta badge flows as text, so the badge follows the last
+     word instead of wrapping onto its own row. */
+  h1:has([data-beta-badge]) {
+    display: block;
+  }
+
   p {
     margin: 1.5em 0;
     position: relative;
@@ -117,6 +123,13 @@ export const formatting = css`
     &:only-of-type {
       margin: 0;
     }
+  }
+
+  /* In a tab panel, the paragraph after an aside is often the panel's first
+     paragraph, so the first-of-type rule above zeroes its top margin. Keep the
+     gap an aside gets outside tabs. */
+  [role='tabpanel'] > .aside + p {
+    margin-top: 1.5em;
   }
 
   p a,

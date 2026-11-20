@@ -5,6 +5,7 @@ sidebar: { order: 3 }
 ---
 
 import ConfigurationOptions from '../../components/ConfigurationOptions/ConfigurationOptions.astro';
+import { AICallout } from '../../components/AICallout';
 
 # Configuration reference
 
@@ -18,6 +19,12 @@ Note that the config file only supports a subset of these options. Some options 
   and how to use them, refer to our [guide on globs](/docs/globs). To verify your glob pattern, use
   the [picomatch-playground](https://tools.chromatic.support/globs/).
 </div>
+
+<AICallout>
+
+Ask your agent to run a build. The `run-build` skill runs a Chromatic build for just the stories you're changing and asks before each build. It needs `CHROMATIC_PROJECT_TOKEN` in your shell. [Learn about skills](/docs/skills)
+
+</AICallout>
 
 ## Options
 

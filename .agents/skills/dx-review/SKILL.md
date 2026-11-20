@@ -7,7 +7,7 @@ description: Review a teammate's Chromatic docs pull request the way the docs le
 
 Review someone else's docs PR in `chromaui/chromatic-docs` and finish the job: fix the copy yourself, ask about what you can't fix, and post the review. This reproduces how the docs lead has reviewed ~300 docs PRs. Most get approved with a short thanks. About a quarter get a commit of copy edits pushed straight to the author's branch, and some get pointed questions when the content is unclear or wrong.
 
-The scope is **docs prose**: Markdown and MDX under `src/content/`, plus frontmatter, images, and code samples inside those pages. If the PR only changes components, config, or tooling, say it's outside this skill's scope and stop.
+The scope is **docs prose**: Markdown and MDX under `src/content/`, plus frontmatter, images, and code samples inside those pages. If the PR only changes components, config, or tooling, say it's outside this skill's scope and stop. For a structural pass over a whole set of pages (contradictions, information architecture, duplication across pages), use `editorial-review` instead.
 
 ## The two kinds of feedback
 
