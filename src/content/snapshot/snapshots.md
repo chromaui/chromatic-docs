@@ -131,6 +131,8 @@ Starting with Capture 9, Chromatic captures visual snapshots at a [device pixel 
 
 Chromatic compares a visual snapshot to its baseline at the appropriate pixel level, so a DPR 2.0 snapshot compared to a DPR 1.0 baseline is always flagged as changed, even when the UI is identical. When the DPRs don't match, Chromatic displays a notice above the comparison so you know the difference is expected. This happens on the build that upgrades your project to Capture 9, and it can also happen in the rare fallback case described below.
 
+You can't configure the DPR. Chromatic captures every snapshot at DPR 2.0, except in the fallback case described below.
+
 #### Fallback to DPR 1.0
 
 Doubling the pixel density also doubles the pixel dimensions of the captured image. Firefox and Safari have a [maximum image height and width](/docs/modes/viewports#are-there-any-constraints-on-the-viewport-size-that-i-can-choose), so a very tall or wide test that fits within that limit at DPR 1.0 can exceed it at DPR 2.0.
