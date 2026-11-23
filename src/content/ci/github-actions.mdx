@@ -760,8 +760,9 @@ To make the merge queue wait on Chromatic, enable the merge queue and add the Ch
 
 When a pull request enters the queue, Chromatic runs a build on the merge queue branch and compares it against the baselines you have already accepted:
 
-- **Changes accepted on the pull request:** If you have reviewed and accepted the UI changes on the pull request's builds, the merge queue build finds no new changes and passes. GitHub then merges the pull request once all required checks complete. This also applies when several pull requests are queued at once and each merge group includes changes from the pull requests ahead of it.
+- **Changes accepted on the pull request:** If you have reviewed and accepted the UI changes on the pull request's builds, the merge queue build finds no new changes and passes, unless another pull request changed the same story (see below). GitHub then merges the pull request once all required checks complete. This also applies when several pull requests are queued at once and each merge group includes changes from the pull requests ahead of it.
 - **Unaccepted changes:** If the pull request's UI changes have not been accepted, the merge queue build reports them as changes. With `exitZeroOnChanges: false`, the Chromatic check fails, and GitHub removes the pull request from the queue so it cannot be merged. Review and accept the changes on the pull request, then add it to the queue again.
+- **Another pull request changed the same story:** If a pull request that merged ahead of yours has its own accepted change to the same story and mode, the merge queue build captures the story with both changes. That can differ from the baseline you accepted on your pull request. Chromatic compares it against the baseline [accepted on the most recent commit](/docs/branching-and-baselines#what-if-there-are-multiple-ancestor-builds) and reports the difference. Update your branch from the base branch, accept the change on the pull request's build, then add it to the queue again.
 
 ### UI Test and UI Review
 
