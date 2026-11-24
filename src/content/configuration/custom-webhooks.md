@@ -11,6 +11,8 @@ You can integrate Chromatic into other services and script custom behavior to su
 1. Go to your [Chromatic project](https://www.chromatic.com/start) and click the manage tab in the sidebar. Scroll down to "Integrations".
 2. Click the "Add webhook" button in the custom webhook section, then paste your webhook into the input.
 
+Each project supports one custom webhook. To send updates to more than one service, point the webhook at a [proxy](#how-to-integrate-custom-webhooks) that forwards them.
+
 <div class="aside">
 
 If you're currently using v1 webhooks, read the [upgrade guide](/docs/upgrading-webhooks).
@@ -127,6 +129,12 @@ Most customers set up a simple proxy app to customize the webhook message. Below
 | ------------ | ---------------------------------------------------------- |
 | GitHub       | [Source](https://github.com/chromaui/github-webhook-proxy) |
 | GitLab       | [Source](https://github.com/chromaui/gitlab-webhook-proxy) |
+
+<div class="aside">
+
+A Slack incoming webhook URL doesn't work as a custom webhook, because Slack expects its own message format. To post build updates to Slack, use the [Slack integration](/docs/slack), or have your proxy convert the body into a Slack message.
+
+</div>
 
 ### Versioned webhooks
 
