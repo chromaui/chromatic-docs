@@ -354,7 +354,9 @@ Yes. TurboSnap is supported. See the [dedicated guide](/docs/vitest/turbosnap) f
 <details>
 <summary id="storybook-step">Why is there a `Build your Storybook` step when running Vitest visual tests?</summary>
 
-Chromatic creates and runs a Storybook [archive](/docs/faq/what-is-archive) based on your Vitest project, so the build Storybook step is required. Chromatic doesn't run Vitest directly.
+Chromatic renders your Vitest [archives](/docs/faq/what-is-archive) in Storybook to capture snapshots, so the build Storybook step is required. Chromatic doesn't run Vitest directly.
+
+Starting in version 1.1.0, the step doesn't run Storybook in your project. It copies a prebuilt Storybook that ships with `@chromatic-com/vitest` and adds your test archives to it, so you don't need to install Storybook.
 
 </details>
 
