@@ -51,7 +51,7 @@ To avoid that, make it a habit to regularly merge or rebase from the `main` bran
 <details>
 <summary>What happens to baselines on merge?</summary>
 
-When you merge two branches together, Chromatic can sometimes have two (or more) potential snapshots to use as the baseline (one from each branch). In such situations, Chromatic will choose the _most recent approved change_ as the baseline. To have Chromatic prefer the incoming baselines instead, see [preferring merged baselines](#preferring-merged-baselines).
+When you merge two branches together, Chromatic can sometimes have two (or more) potential snapshots to use as the baseline (one from each branch). In such situations, Chromatic uses the baseline that was [accepted on the most recent commit](#what-if-there-are-multiple-ancestor-builds). To have Chromatic prefer the incoming baselines instead, see [preferring merged baselines](#preferring-merged-baselines).
 
 </details>
 
@@ -222,7 +222,9 @@ Baselines are calculated above the level of browsers. Clicking “accept” on a
 <details>
 <summary>What if there are multiple ancestor builds?</summary>
 
-In the case that there are multiple ancestor builds, the algorithm to calculate the baseline is more or less the same. We can (potentially) end up with more than one baseline snapshot to use. To break ties, we assume that the most recently accepted snapshot is the one you want to compare to.
+With multiple ancestor builds, Chromatic calculates the baseline the same way, but it can find more than one candidate baseline for the same story and mode. To break the tie, Chromatic uses the baseline that was accepted on the build with the most recent commit.
+
+The commit date (the Git committer date) decides the tie, not the time you accepted the change. For example, if you accept a change at 4pm on a build of a 9am commit, a change accepted on a build of a noon commit still wins.
 
 </details>
 
@@ -284,7 +286,7 @@ If a baseline looks wrong, check [how Chromatic finds ancestor builds](#find-the
 
 ## Preferring merged baselines
 
-When a build has [multiple ancestor builds](#what-if-there-are-multiple-ancestor-builds) (for example, on a merge commit), Chromatic has to choose which baseline to use for each story. By default, it picks the most recently accepted baseline.
+When a build has [multiple ancestor builds](#what-if-there-are-multiple-ancestor-builds) (for example, on a merge commit), Chromatic has to choose which baseline to use for each story. By default, it picks the baseline that was accepted on the most recent commit.
 
 That default works for most teams. But consider a busy repository where many people are working on the same UI. When you merge someone else’s changes into your branch (e.g., when you `git pull`) and they’ve touched the same stories as you, Chromatic can pick your baselines instead of the incoming ones. This results in you having to re-accept the changes the other person made, which you might not have the context on.
 
@@ -295,6 +297,7 @@ The `preferMergedBaselines` feature flag changes this behavior. When enabled, Ch
 - `preferMergedBaselines` is an account-level feature flag. It applies to all projects under the account. There is no way to enable it for a single project while leaving others on the default behavior.
 - It can’t be enabled via a CLI flag and must be turned on by the Chromatic team on your behalf. To request it, [email support](mailto:support@chromatic.com) or message them via in-app chat.
 - It only takes effect when there is a merge commit with multiple parents. If you use `git rebase` rather than `git merge`, Chromatic cannot see the other branch as an ancestor, so the flag has no effect.
+- An “incoming” baseline is one that reaches the build through an ancestor build on a different branch from the branch the build runs on. Chromatic compares branch names. If every candidate baseline comes from a different branch, Chromatic prefers none of them and uses the default tie-break. This is the case for [merge queue](/docs/github-actions#run-chromatic-in-a-merge-queue) builds, which run on a temporary `gh-readonly-queue/...` branch.
 
 ### Workflows where it helps
 
