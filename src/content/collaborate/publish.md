@@ -26,6 +26,8 @@ When you're linking to a library or component on Chromatic, it can be useful to 
   If your branch name contains special characters like slashes or dots, URL-encode them in the query parameter. For example, <code>feature/my-branch</code> becomes <code>?branch=feature%2Fmy-branch</code>.
 </div>
 
+The `branch` parameter doesn't accept tags. To link to the latest Storybook built at a git tag, use the [tag permalink](/docs/permalinks#build-your-own-permalink) instead: `https://<tag>--<appid>.chromatic.com`.
+
 ## Embedding
 
 If you're documenting components outside of Storybook, you may be able to [embed interactive stories](/docs/embed). This works on many platforms that support the oEmbed specification.
