@@ -80,13 +80,13 @@ Chromatic CLI can be configured through options in `./chromatic.config.json` fil
   the [configuration reference](/docs/configure) page.
 </div>
 
-Flags must be passed as `--kebab-case` whereas options are `camelCase`. Flags take precedence over configuration options. When passing a flag without value, it is treated as `true`. Where an array is accepted, specify the flag multiple times (once for each value).
+Flags must be passed as `--kebab-case` whereas options are `camelCase`. Flags take precedence over configuration options. When passing a flag without value, it is treated as `true`, except for [`--ignore-last-build-on-branch`](/docs/configure#ignorelastbuildonbranch), which needs a branch name or glob. Where an array is accepted, specify the flag multiple times (once for each value).
 
 ### Flags
 
 - Flags take precedence over options specified in the config file and GitHub Action.
 
-- Passing a flag without a value is treated as `true`. e.g.:
+- Passing a flag without a value is treated as `true` (except `--ignore-last-build-on-branch`, which is ignored without a value). e.g.:
   ```sh
   npx chromatic --dry-run -t <your-project-token>
   ```
