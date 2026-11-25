@@ -62,11 +62,15 @@ If you rebase a branch, then you create a new commit that isn’t a git descende
 
 Conceptually, that might mean that Chromatic should throw away any approvals that were made for builds on the branch, however this is probably not what you want.
 
-For this reason, we _always_ include accepted baselines from the latest build on the current branch, regardless of git history. You can bypass this with the `--ignore-last-build-on-branch=<branch-name>` flag of `chromatic`. For example:
+For this reason, we _always_ include accepted baselines from the latest build on the current branch, regardless of git history. You can bypass this with the `--ignore-last-build-on-branch` flag of `chromatic`. It takes a branch name or glob pattern, so scope it to the branch you rebased. For example:
 
 ```shell
 chromatic --ignore-last-build-on-branch=example-branch
 ```
+
+With the flag, Chromatic only uses builds that are still in the branch's history, like the `main` build you rebased onto. Changes you accepted on the branch before the rebase show up for review again. Use it when that's what you want, for example to [revert changes you accepted by mistake](#what-if-i-accidentally-accept-unwanted-changes-can-i-delete-a-build).
+
+If changes you already accepted keep coming back for review after a rebase, don't add the flag. Without it, Chromatic already keeps those approvals, and the flag discards them.
 
 <div class="aside">
 
@@ -88,7 +92,7 @@ Git operations that rewrite the history can cause a mismatch between your reposi
 | `commit D` + `push` | `A` → `D`       | `A` → `B` → `C`→ `D` |
 
 The baseline history will keep the commits `B` and `C` which are now orphaned and may cause incorrect comparisons.
-You can bypass this commit by setting the `--ignore-last-build-on-branch` flag.
+To leave them out, run the build for commit `D` with the `--ignore-last-build-on-branch` flag set to that branch. Changes you accepted on `B` and `C` will need to be reviewed again.
 
 </details>
 

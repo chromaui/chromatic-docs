@@ -801,7 +801,7 @@ Read about the [available options](/docs/configure#options).
 
 Including the `autoAcceptChanges` option ensures all incoming changes will be accepted as baselines. Additionally, you'll maintain a clean `main` branch.
 
-If you want to test the changes introduced by the rebased branch, you can adjust your workflow and include a new step with the `ignoreLastBuildOnBranch` option. For example:
+If you rebased a branch to undo changes you accepted on it, you can adjust your workflow and include a new step with the `ignoreLastBuildOnBranch` option. For example:
 
 ```yml title=".github/workflows/chromatic.yml"
 jobs:
@@ -822,7 +822,7 @@ Read about the [available options](/docs/configure#options).
 
 </div>
 
-Including the `ignoreLastBuildOnBranch` option ensures that the latest build for the specified branch is not used as the baseline.
+Including the `ignoreLastBuildOnBranch` option ensures that the latest build for the specified branch is not used as the baseline after a rebase. Changes accepted on that branch before the rebase need to be reviewed again. Without the option, Chromatic keeps those approvals, so only add it when you want to discard them (see [rebasing a branch](/docs/branching-and-baselines#what-happens-to-baselines-when-a-branch-is-rebased)).
 
 #### Run Chromatic on external forks of open source projects
 
