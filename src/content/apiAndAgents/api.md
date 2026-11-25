@@ -827,6 +827,14 @@ We'll announce upcoming breaking changes at least 3 months in advance of any cha
 
 A complete history of API changes is available in the [Public API changelog](https://studio.apollographql.com/public/Chromatic-Public-API/variant/production/changelog).
 
+### Experimental fields
+
+Some new fields are released as experimental while their design is still in flux. They are an exception to this deprecation policy. An experimental field can change or be removed at any time, without the above notice.
+
+You can recognize an experimental field by its description, which starts with `Experimental:` in the schema and in introspection results.
+
+Once a field's design is settled, the `Experimental:` prefix is removed and the field is covered by this policy like any other.
+
 ### Changes for January 1, 2027
 
 - `Test.comparisons` will be removed. Please use `Test.visualComparisons` and `Test.accessibilityComparisons` instead.
