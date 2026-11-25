@@ -143,7 +143,7 @@
     "name": "Ignore last build on branch",
     "option": "ignoreLastBuildOnBranch",
     "flag": "--ignore-last-build-on-branch",
-    "description": "Do not use the last build on this branch as a baseline if it is no longer in history (i.e., the branch was rebased).",
+    "description": "Do not use the last build on this branch as a baseline when a rebase or other history rewrite removed its commit. Changes accepted on the branch before the rewrite come back for review. Has no effect while that build's commit is still in the branch's history. Requires a branch name or glob; without a value, the flag is ignored. `\"**\"` matches every branch, including names with a `/`.",
     "type": "glob",
     "example": "`\"my-branch\"`",
     "supports": ["CLI", "GitHub Action", "Config File"]
