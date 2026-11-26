@@ -159,6 +159,107 @@ To set up CI, store your project token as the `CHROMATIC_PROJECT_TOKEN` environm
 
 For local builds with the [Visual Tests addon](/docs/visual-tests-addon/), your personal OAuth token (which you used to authenticate the addon) is used instead of the project token.
 
+## Diagnostics and custom CI checks
+
+If your Chromatic project isn't connected to a repository through a Git provider, it's an [unlinked project](/docs/access#unlinked-projects). Chromatic still runs UI Tests, but it doesn't post automated pull request status checks. Use a custom CI integration to report the build result and review link.
+
+This lets your pipeline continue while a separate required check tracks visual changes that need review. Read the CLI diagnostics to set that check, then update it when the changes are accepted or denied.
+
+### Save diagnostics
+
+Run Chromatic with `--diagnostics-file` to save `chromatic-diagnostics.json`:
+
+```shell
+yarn chromatic --diagnostics-file
+```
+
+Save the file as a CI artifact, including when the command fails. Make sure your integration reads the artifact from the current run and commit.
+
+If your integration reports review status separately, use [`--exit-zero-on-changes`](/docs/configure#exitzeroonchanges) to let the CLI step succeed when it finds visual changes. Your required check must still block merging until those changes are reviewed. This flag doesn't accept changes.
+
+### Read the diagnostics fields
+
+The diagnostics file contains the CLI's runtime context. Fields vary by CLI version, options, and how far the run progressed. Unset properties are omitted when the CLI writes JSON, which is why `skip` can be absent.
+
+The [configuration schema](https://www.chromatic.com/config-file.schema.json) applies to `chromatic.config.json`, not diagnostics. The fields below cover this CI workflow; they aren't an exhaustive, versioned diagnostics schema. Ignore unfamiliar fields and handle missing values explicitly.
+
+| Field                                          | How to use it                                                                                                                                                                                    |
+| ---------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| `skip`                                         | An optional boolean set when the CLI stops the remaining build tasks. During a TurboSnap bypass, there's nothing new to capture. This flag doesn't mean earlier changes were accepted.           |
+| `options.skip`                                 | The configured skip option, which can be a boolean or branch pattern. It's separate from the runtime `skip` flag. An explicitly skipped run doesn't confirm a passing result.                    |
+| `build`                                        | Build data collected during the run. Use it after a normal completed test run. During a bypass, it can retain data from an earlier baseline lookup, combined with counts from the skipped build. |
+| `build.status`, `build.webUrl`                 | The status and review link for a normal completed build. These fields can be missing or refer to earlier data when a run stops early. A URL alone doesn't indicate whether changes need review.  |
+| `ancestorBuild`                                | The ancestor returned by a TurboSnap bypass response, when available. Use it instead of `build` for a bypassed run. It's normally absent on a regular run.                                       |
+| `ancestorBuild.status`, `ancestorBuild.webUrl` | The ancestor's status and review link when the bypass response was received.                                                                                                                     |
+| `ancestorBuild.snapshotCount`                  | The ancestor's snapshot count. It doesn't count changes awaiting review.                                                                                                                         |
+| `build.changeCount`                            | The change count for this build data. It doesn't tell you whether changes were accepted. Zero on a skipped build doesn't clear pending ancestor changes.                                         |
+| `exitCode`, `exitCodeKey`                      | The CLI's exit code and label. Handle execution failures separately. Exit code 0 can accompany a bypass or unreviewed changes when `exitZeroOnChanges` is enabled.                               |
+| `skipSnapshots`, `isPublishOnly`               | Indicate that a run can finish without waiting for UI Tests. Wait for the test result before marking your check successful.                                                                      |
+
+The CLI removes some internal fields and redacts known secrets before writing diagnostics. Project metadata, repository paths, and build URLs can still be present. Remove those details before sharing an excerpt publicly.
+
+### Handle TurboSnap bypasses
+
+A [TurboSnap bypass](/docs/turbosnap#bypassed-builds) means Chromatic doesn't need to capture new visual snapshots. Changes from an earlier build can still need review.
+
+Use `ancestorBuild.status` and `ancestorBuild.webUrl` for a bypassed run, even when `build` is also present. The two objects are populated at different stages and can disagree, including if someone reviews changes between requests.
+
+<div class="aside">
+
+The `ancestorBuild` field requires a CLI version containing [the ancestor diagnostics fix](https://github.com/chromaui/chromatic-cli/pull/1672). CLI 18.14.3 doesn't include it. Check the [release notes](https://github.com/chromaui/chromatic-cli/releases) for your installed version. If a bypassed run has no ancestor result, keep your check pending until you can confirm the result.
+
+</div>
+
+For example, a commit changes a Button's appearance and its build needs review. A later commit changes an unrelated server file, so TurboSnap bypasses capture. A CLI version containing the fix can produce this excerpt. The URL is a placeholder.
+
+```json title="chromatic-diagnostics.json"
+{
+  "skip": true,
+  "exitCode": 0,
+  "exitCodeKey": "OK",
+  "ancestorBuild": {
+    "status": "PENDING",
+    "webUrl": "https://example.com/ancestor-build",
+    "snapshotCount": 100
+  }
+}
+```
+
+Keep your check pending and link to `ancestorBuild.webUrl`. The earlier changes still need review, even though `skip` is true and the CLI exited successfully.
+
+### Set your check's status
+
+Handle CLI execution failures before reading the review result. Then choose the build to evaluate:
+
+- For a normal completed test run, use `build`.
+- For a TurboSnap bypass, use `ancestorBuild`.
+- If a skipped or bypassed run has no ancestor result, keep the check pending. Don't fall back to `build.status` to mark it successful.
+
+For a dry run, publication-only run, early exit, or missing artifact, get a completed result before marking the check successful.
+
+| Selected status                        | What your integration should do                                                                  |
+| -------------------------------------- | ------------------------------------------------------------------------------------------------ |
+| `PASSED`                               | Mark the check successful. Tests passed without changes requiring approval.                      |
+| `ACCEPTED`                             | Mark the check successful. Changes were accepted, either by a reviewer or configured automation. |
+| `PENDING`                              | Keep the check pending and link to the selected build for review.                                |
+| `DENIED`                               | Mark the check failed. Changes were rejected.                                                    |
+| `BROKEN`, `FAILED`, `CANCELLED`        | Report the failure and keep merging blocked.                                                     |
+| `PUBLISHED`, `PREPARED`, `IN_PROGRESS` | Keep the check pending until tests finish.                                                       |
+| `SKIPPED`                              | Check the ancestor's result. This status alone doesn't mean tests passed.                        |
+| Missing or unrecognized                | Keep merging blocked until you can confirm the result.                                           |
+
+Only `PASSED` and `ACCEPTED` make this UI Tests check successful. Apply any separate UI Review requirements independently.
+
+### Update your check after review
+
+Diagnostics records the result when the CLI runs. The file doesn't change when someone later accepts or denies visual changes.
+
+Use [build-status webhooks](/docs/custom-webhooks#build-updates) to update your check after review. Store which build each check uses, including the ancestor for a bypassed commit. Match updates to the project, build, and commit so an older result can't clear a newer check.
+
+For webhooks, use `build.status` to decide whether changes need review. A `build.result` of `SUCCESS` can accompany `PENDING` or `DENIED`. See the [webhook status reference](/docs/custom-webhooks#build-result-and-status-codes).
+
+If your CLI omits `ancestorBuild`, use the ancestor link in the CLI output to review the build. Keep your custom check pending until you can confirm its result.
+
 ## Exit codes
 
 | Exit code | Key                          | Description                                            |
